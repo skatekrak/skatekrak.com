@@ -1183,8 +1183,14 @@ body > .navbar-collapse .navbar-search .btn-primary:hover {
     padding-left: 20px;
   }
 }
-.projects-2 .project-1 {
-  background-image: url('../../startup/common-files/img/Hawaii_001.jpg');
+.projects-2 .project-krakapp{
+  background-image: url('../../startup/common-files/img/projects/krakapp.jpg');
+}
+.projects-2 .project-krakbox{
+  background-image: url('../../startup/common-files/img/projects/box.jpg');
+}
+.projects-2 .project-tracker{
+  background-image: url('../../startup/common-files/img/projects/tracker.jpg');
 }
 .projects-2 .project-1 .container h1 {
   font-size: 50px;
