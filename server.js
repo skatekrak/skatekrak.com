@@ -5,7 +5,7 @@ var request = require('request');
 app.set('view engine', 'ejs');
 app.use('/startup', express.static(__dirname + '/startup'));
 app.use('/static', express.static(__dirname + '/static'));
-app.use('/video', express.static(__dirname + '/vidoe'));
+app.use('/video', express.static(__dirname + '/video'));
 
 app.get('/', function(req, res){
 	res.render('index');
