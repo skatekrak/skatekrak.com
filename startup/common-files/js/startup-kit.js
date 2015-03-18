@@ -645,11 +645,11 @@ startupKit.attachBgVideo = function() {
         var videobackground = new $.backgroundVideo(videBgDiv, {
             "holder": "#bgVideo",
             "align" : "centerXY",
-            "path" : "video/",
+            "path" : "/video/",
             "width": 854,
             "height": 480,
             "filename" : "preview",
-            "types" : ["mp4", "ogg", "webm"]
+            "types" : ["mp4", "webm"]
         });
     }
 }
