@@ -1,0 +1,60 @@
+body{
+	background: url('/static/images/background.png') no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+header{
+	width: 53%;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 50px;
+	background-color: black;
+	opacity: 0.8;
+}
+
+header p{
+	font-size: 20px;
+}
+
+header input{
+	height: 30px;
+}
+
+header input[type="email"]{
+	width: 200px;
+}
+
+header input[type="submit"]{
+	margin-left: 10px;
+}
+
+span.vote-text{
+	font-size: 20px;
+	margin-right: 20px;
+}
+
+div#credit{
+	position: fixed;
+	bottom: 5px;
+	right: 10px;
+	font-family: Times;
+	font-size: 12px;
+}
+
+div#credit a{
+	color: white;
+	text-decoration: underline;
+}
+
+div#widget{
+	width: 60%;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+a:visited{
+	color: white;
+}
