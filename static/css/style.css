@@ -1332,7 +1332,7 @@ body > .navbar-collapse .navbar-search .btn-primary:hover {
   left: 19px;
   bottom: 19px;
   color: #fff;
-  font-size: 13px;
+  font-size: 11px;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 500;
   text-transform: uppercase;
@@ -1358,7 +1358,7 @@ body > .navbar-collapse .navbar-search .btn-primary:hover {
   height: 20px;
   overflow: hidden;
   text-align: center;
-  color: #1abc9c;
+  color: #FF3D38;
 }
 .crew-2 .members .social-btns > *:first-child {
   margin-left: 0;
@@ -1379,7 +1379,7 @@ body > .navbar-collapse .navbar-search .btn-primary:hover {
   top: -100%;
 }
 .crew-2 .members .member:hover .photo-wrapper {
-  background-color: #1abc9c;
+  background-color: #000000;
 }
 .crew-2 .members .member:hover .photo {
   opacity: 40;
