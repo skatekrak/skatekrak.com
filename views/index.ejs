@@ -20,7 +20,19 @@
         <title>Krak Skateboarding, Inc</title>
     </head>
 
-    <body ng-app="skatekrak">
+    <body>
+        <div id="boxes">
+    <div id="dialog" class="window_modal">
+      <div class="topModal">
+        <a href="#" class="close_modal">X</a>
+      </div>
+      <p>KRAK will turn cities around the world into a real life video game. Simply turn your hardware on, hit the streets, and earn points for the tricks you land and the spots you do them at.</p>
+      <form action="http://indytrackers.us7.list-manage.com/subscribe/post?u=1a7343504d5c1aecbe3587b57&id=c728cbf724" method="post">
+        <input type="email" placeholder="email"/><input type="submit" value="Send"/>
+      </form>
+    </div>
+    <div id="mask"></div>
+  </div>
         <div class="page-wrapper">
             <header class="header-23">
     <div class="mask">&nbsp;</div>
@@ -114,7 +126,7 @@
         <div><!--v-center-->
             <a href="http://mag.skatekrak.com" target="_blank">
             <div class="container">
-                <h1 style="color: black">Krak Mag'</h1>
+                <h1 style="color: black">KrakMag'</h1>
                 <p style="color: black">Our online magazine</p>
             </div>
             </a>
@@ -125,7 +137,7 @@
 
     <div class="project-1 project-tracker v-center">
         <div><!--v-center-->
-            <a href="#">
+            <a href="#dialog" name="modal">
             <div class="container">
                 <h1>Krak'N</h1>
                 <p>Skateboard tracker</p>
@@ -428,7 +440,79 @@
             <script src="/startup/common-files/js/jquery.backgroundvideo.min.js"></script>
             <script src="/startup/common-files/js/froogaloop.min.js"></script>
             <script src="/startup/common-files/js/startup-kit.js"></script>
+            <script type="text/javascript">
+                $(document).ready(function() {  
+                  //select all the a tag with name equal to modal
+                  $('a[name=modal]').click(function(e) {
+                    console.log("Click on Krak'N");
+                    //Cancel the link behavior
+                    e.preventDefault();
+                    
+                    //Get the A tag
+                    var id = $(this).attr('href');
+                  
+                    //Get the screen height and width
+                    var maskHeight = $(document).height();
+                    var maskWidth = $(window).width();
+                  
+                    //Set heigth and width to mask to fill up the whole screen
+                    $('#mask').css({'width':maskWidth,'height':maskHeight});
+                    
+                    //transition effect   
+                    $('#mask').fadeIn(1000);  
+                    $('#mask').fadeTo("slow",0.8);  
+                  
+                    //Get the window height and width
+                    var winH = $(window).height();
+                    var winW = $(window).width();
+                              
+                    //Set the popup window to center
+                    $(id).css('top',  winH/2-$(id).height()/2);
+                    $(id).css('left', winW/2-$(id).width()/2);
+                  
+                    //transition effect
+                    $(id).fadeIn(2000); 
+                  
+                  });
+                  
+                  //if close button is clicked
+                  $('.window_modal .close_modal').click(function (e) {
+                    //Cancel the link behavior
+                    e.preventDefault();
+                    
+                    $('#mask').hide();
+                    $('.window_modal').hide();
+                  });   
+                  
+                  //if mask is clicked
+                  $('#mask').click(function () {
+                    $(this).hide();
+                    $('.window_modal').hide();
+                  });     
 
+                  $(window).resize(function () {
+                   
+                    var box = $('#boxes .window_modal');
+                 
+                        //Get the screen height and width
+                        var maskHeight = $(document).height();
+                        var maskWidth = $(window).width();
+                      
+                        //Set height and width to mask to fill up the whole screen
+                        $('#mask').css({'width':maskWidth,'height':maskHeight});
+                               
+                        //Get the window height and width
+                        var winH = $(window).height();
+                        var winW = $(window).width();
+
+                        //Set the popup window to center
+                        box.css('top',  winH/2 - box.height()/2);
+                        box.css('left', winW/2 - box.width()/2);
+                   
+                  });
+                  
+                });
+            </script>
         </div>
     </body>
 </html>
