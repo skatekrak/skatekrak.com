@@ -1,4 +1,5 @@
-require('pmx').init();
+var pmx = require('pmx');
+pmx.init();
 
 var express = require('express');
 var app = express();
@@ -50,3 +51,5 @@ app.get('*', function(req, res){
 
 app.listen(80);
 console.log('80 is the magic port');
+
+app.use(pmx.expressErrorHandler());
