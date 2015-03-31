@@ -31,7 +31,7 @@ app.get('/shot/:id', function(req, res){
 	request(options,	
 		function(error, response, body){
 			var json = JSON.parse(body).result;
-			if (result.type === "KrakedIn"){
+			if (result.media.type === "KrakedIn"){
 				res.redirect('/');
 			}
 			else{
