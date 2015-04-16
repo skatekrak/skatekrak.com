@@ -51,6 +51,10 @@ app.get('/bestspotbarcelona', function(req, res){
 	res.render('bestspotbarcelona');
 });
 
+app.get('/privacy-policy', function(req, res){
+	res.render('privacy-policy');
+});
+
 app.get('*', function(req, res){
 	res.redirect('/');
 });
