@@ -31,14 +31,9 @@ app.get('/shot/:id', function(req, res){
 	request(options,	
 		function(error, response, body){
 			var json = JSON.parse(body).result;
-			if (json.media.type === "KrakedIn"){
-				res.redirect('/');
-			}
-			else{
-				res.render('shot', {
-					media: json
-				});
-			}
+			res.render('shot', {
+				media: json
+			});
 		}
 	);
 });
