@@ -17,7 +17,7 @@
         <link rel="stylesheet" href="/startup/common-files/css/animations.css">
         <link rel="stylesheet" href="/static/css/style.css">
         <link rel="icon" type="image/ico" href="/static/images/favicon.ico" />
-        
+
         <meta property="og:description" content="KRAK will turn cities around the world into a real life video game. Simply turn your hardware on, hit the streets, and earn points for the tricks you land and the spots you do them at."/>
         <meta property="og:type" content="website"/>
         <meta property="og:url" content="http://skatekrak.com"/>
@@ -81,7 +81,7 @@
     </div>
 </section>
 <section class="projects-2">
-    
+
     <div class="project-1 project-krakbox v-center">
         <div><!--v-center-->
             <a href="http://box.skatekrak.com" target="_blank">
@@ -382,15 +382,15 @@
             <div class="member-wrapper">
                 <div class="member">
                     <div class="photo-wrapper">
-                        <div class="photo"><img src="startup/common-files/img/crew/profile1.jpg" alt=""></div>
-                        <div class="name">You</div>
-                        <div class="position"></div>
+                        <div class="photo"><img src="startup/common-files/img/crew/seiji.png" alt=""></div>
+                        <div class="name">Seiji Fouquet</div>
+                        <div class="position">Engineering</div>
                     </div>
                     <div class="info">
-                        ?
+                        Goofy
 
                         <div class="social-btns">
-                            <a href="mailto:hey@skatekrak">
+                            <a href="mailto:sf@skatekrak">
                                 <div class="fa fa-envelope-o"></div>
                                 <div class="fa fa-envelope-o"></div>
                             </a>
@@ -452,66 +452,66 @@
             <script src="/startup/common-files/js/froogaloop.min.js"></script>
             <script src="/startup/common-files/js/startup-kit.js"></script>
             <script type="text/javascript">
-                $(document).ready(function() {  
+                $(document).ready(function() {
                   //select all the a tag with name equal to modal
                   $('a[name=modal]').click(function(e) {
                     console.log("Click on Krak'N");
                     //Cancel the link behavior
                     e.preventDefault();
-                    
+
                     //Get the A tag
                     var id = $(this).attr('href');
-                  
+
                     //Get the screen height and width
                     var maskHeight = $(document).height();
                     var maskWidth = $(window).width();
-                  
+
                     //Set heigth and width to mask to fill up the whole screen
                     $('#mask').css({'width':maskWidth,'height':maskHeight});
-                    
-                    //transition effect   
-                    $('#mask').fadeIn(1000);  
-                    $('#mask').fadeTo("slow",0.8);  
-                  
+
+                    //transition effect
+                    $('#mask').fadeIn(1000);
+                    $('#mask').fadeTo("slow",0.8);
+
                     //Get the window height and width
                     var winH = $(window).height();
                     var winW = $(window).width();
-                              
+
                     //Set the popup window to center
                     $(id).css('top',  winH/2-$(id).height()/2);
                     $(id).css('left', winW/2-$(id).width()/2);
-                  
+
                     //transition effect
-                    $(id).fadeIn(2000); 
-                  
+                    $(id).fadeIn(2000);
+
                   });
-                  
+
                   //if close button is clicked
                   $('.window_modal .close_modal').click(function (e) {
                     //Cancel the link behavior
                     e.preventDefault();
-                    
+
                     $('#mask').hide();
                     $('.window_modal').hide();
-                  });   
-                  
+                  });
+
                   //if mask is clicked
                   $('#mask').click(function () {
                     $(this).hide();
                     $('.window_modal').hide();
-                  });     
+                  });
 
                   $(window).resize(function () {
-                   
+
                     var box = $('#boxes .window_modal');
-                 
+
                         //Get the screen height and width
                         var maskHeight = $(document).height();
                         var maskWidth = $(window).width();
-                      
+
                         //Set height and width to mask to fill up the whole screen
                         $('#mask').css({'width':maskWidth,'height':maskHeight});
-                               
+
                         //Get the window height and width
                         var winH = $(window).height();
                         var winW = $(window).width();
@@ -519,9 +519,9 @@
                         //Set the popup window to center
                         box.css('top',  winH/2 - box.height()/2);
                         box.css('left', winW/2 - box.width()/2);
-                   
+
                   });
-                  
+
                 });
             </script>
             <script>
