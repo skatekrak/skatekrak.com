@@ -10,11 +10,11 @@ app.use('/startup', express.static(__dirname + '/startup'));
 app.use('/static', express.static(__dirname + '/static'));
 app.use('/video', express.static(__dirname + '/video'));
 
-app.get('/', function(req, res){
+app.get('/homepage', function(req, res){
 	res.render('index');
 });
 
-app.get('/shot/:id', function(req, res){
+app.get('/:id', function(req, res){
 	console.log('Media requested ' + req.params.id);
 	var options = {
 		uri: "https://api.parse.com/1/functions/getMediaForWebsite",
@@ -28,7 +28,7 @@ app.get('/shot/:id', function(req, res){
 		}
 	};
 
-	request(options,	
+	request(options,
 		function(error, response, body){
 			var json = JSON.parse(body).result;
 			res.render('shot', {
