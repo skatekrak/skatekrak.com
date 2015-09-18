@@ -1,11 +1,11 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html>
 <head>
 	<title><%
-	if (!media.caption){
+	if (!response.media.caption){
 		"Krak the world"
 	} else{
-		media.caption
+		response.media.caption
 	}
 	%></title>
 
@@ -44,21 +44,21 @@
 	<div class="container">
 		<div class="row">
 			<section class="col-md-8 text-center">
-				<% if (media.type === 'photo'){ %>
-				<img src="<%= media.file.url %>" width="100%" alt="<%= media.caption %>" class="img-responsive img-rounded"/>
-				<% } else if (media.type === 'Video'){ %>
-				<video id="media" class="video-js vjs-default-skin vjs-big-play-centered" controls preload="auto" width="640" height="640" poster="<%= media.file.url %>" data-setup='{"media_option":true}'>
-					<source src="<%= media.videoFile.url %>" type="video/mp4"/>
+				<% if (response.media.type === 'photo'){ %>
+				<img src="<%= response.media.photoURL %>" width="100%" alt="<%= response.media.caption %>" class="img-responsive img-rounded"/>
+				<% } else if (response.media.type === 'Video'){ %>
+				<video id="media" class="video-js vjs-default-skin vjs-big-play-centered" controls preload="auto" width="640" height="640" poster="<%= response.media.photoURL %>" data-setup='{"media_option":true}'>
+					<source src="<%= response.media.videoURL %>" type="video/mp4"/>
 						<p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
 					</video>
 				<% } %>
 				</section>
 				<section class="col-md-4">
 				<blockquote>
-					<h4><strong><%= media.addedBy.name %></strong></h4>
-					<h5><%= media.caption %></h5>
-					<% if (media.spot){ %>
-						<footer>at <%= media.spot.name %></footer>
+					<h4><strong><%= response.addedBy.username %></strong></h4>
+					<h5><%= response.caption %></h5>
+					<% if (response.spot){ %>
+						<footer>at <%= response.spot.name %></footer>
 					<% } %>
 				</blockquote>
 			</section>

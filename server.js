@@ -17,22 +17,14 @@ app.get('/homepage', function(req, res){
 app.get('/:id', function(req, res){
 	console.log('Media requested ' + req.params.id);
 	var options = {
-		uri: "https://api.parse.com/1/functions/getMediaForWebsite",
-		method: "POST",
-		form:{
-			"id": req.params.id
-		},
-		headers:{
-			"X-Parse-REST-API-Key":"q1wsETyv8qZPSoOBMO6TSkYlrsLl78bDcaA0dX7F",
-			"X-Parse-Application-Id":"eAylqtIkKyTeSeCP830jkrGVs1LZEUiH4nTSGLJT",
-		}
+		uri: "https://krakmobileservice.azure-mobile.net/api/MediaShare/" + req.params.id,
+		method: "GET"
 	};
-
 	request(options,
 		function(error, response, body){
-			var json = JSON.parse(body).result;
+			var json = JSON.parse(body);
 			res.render('shot', {
-				media: json
+				response: json
 			});
 		}
 	);
@@ -54,7 +46,7 @@ app.get('*', function(req, res){
 	res.redirect('/');
 });
 
-app.listen(80);
+app.listen(8080);
 console.log('80 is the magic port');
 
 app.use(pmx.expressErrorHandler());
