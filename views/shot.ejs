@@ -39,21 +39,21 @@
 	<div class="container">
 		<div class="row">
 			<section class="col-md-8 text-center">
-				<% if (response.media.type === 'photo'){ %>
-				<img src="<%= response.media.photoURL %>" width="100%" alt="<%= response.media.caption %>" class="img-responsive img-rounded"/>
-				<% } else if (response.media.type === 'Video'){ %>
-				<video id="media" class="video-js vjs-default-skin vjs-big-play-centered" controls preload="auto" width="640" height="640" poster="<%= response.media.photoURL %>" data-setup='{"media_option":true}'>
-					<source src="<%= response.media.videoURL %>" type="video/mp4"/>
+				<% if (result.media.type === 'photo'){ %>
+				<img src="<%= result.media.photoURL %>" width="100%" alt="<%= result.media.caption %>" class="img-responsive img-rounded"/>
+				<% } else if (result.media.type === 'Video'){ %>
+				<video id="media" class="video-js vjs-default-skin vjs-big-play-centered" controls preload="auto" width="640" height="640" poster="<%= result.media.photoURL %>" data-setup='{"media_option":true}'>
+					<source src="<%= result.media.videoURL %>" type="video/mp4"/>
 						<p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
 					</video>
 				<% } %>
 				</section>
 				<section class="col-md-4">
 				<blockquote>
-					<h4><strong><%= response.addedBy.username %></strong></h4>
-					<h5><%= response.caption %></h5>
-					<% if (response.spot){ %>
-						<footer>at <%= response.spot.name %></footer>
+					<h4><strong><%= result.addedBy.username %></strong></h4>
+					<h5><%= result.caption %></h5>
+					<% if (result.spot){ %>
+						<footer>at <%= result.spot.name %></footer>
 					<% } %>
 				</blockquote>
 			</section>

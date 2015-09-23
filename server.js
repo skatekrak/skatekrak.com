@@ -24,7 +24,7 @@ app.get('/:id', function(req, res){
 		function(error, response, body){
 			var json = JSON.parse(body);
 			res.render('shot', {
-				response: json
+				result: json
 			});
 		}
 	);
