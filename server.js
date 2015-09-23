@@ -46,7 +46,7 @@ app.get('*', function(req, res){
 	res.redirect('/');
 });
 
-app.listen(8080);
+app.listen(80);
 console.log('80 is the magic port');
 
 app.use(pmx.expressErrorHandler());
