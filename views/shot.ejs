@@ -4,7 +4,7 @@
 	<title>Krak the World !</title>
 
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <meta name="Krak•" content="app-id=916474561">
+    <meta name="apple-itunes-app" content="app-id=916474561">
 	<link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="/static/css/bootstrap-theme.min.css">
 	<link rel="icon" type="image/ico" href="/static/images/favicon.ico" />
@@ -39,21 +39,21 @@
 	<div class="container">
 		<div class="row">
 			<section class="col-md-8 text-center">
-				<% if (lel.media.type === 'photo'){ %>
-				<img src="<%= lel.media.photoURL %>" width="100%" alt="<%= lel.media.caption %>" class="img-responsive img-rounded"/>
-				<% } else if (lel.media.type === 'Video'){ %>
-				<video id="media" class="video-js vjs-default-skin vjs-big-play-centered" controls preload="auto" width="640" height="640" poster="<%= lel.media.photoURL %>" data-setup='{"media_option":true}'>
-					<source src="<%= lel.media.videoURL %>" type="video/mp4"/>
+				<% if (result.media.type === 'photo'){ %>
+				<img src="<%= result.media.photoURL %>" width="100%" alt="<%= result.media.caption %>" class="img-responsive img-rounded"/>
+				<% } else if (result.media.type === 'Video'){ %>
+				<video id="media" class="video-js vjs-default-skin vjs-big-play-centered" controls preload="auto" width="640" height="640" poster="<%= result.media.photoURL %>" data-setup='{"media_option":true}'>
+					<source src="<%= result.media.videoURL %>" type="video/mp4"/>
 						<p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
 					</video>
 				<% } %>
 				</section>
 				<section class="col-md-4">
 				<blockquote>
-					<h4><strong><%= lel.addedBy.username %></strong></h4>
-					<h5><%= lel.caption %></h5>
-					<% if (lel.spot){ %>
-						<footer>at <%= lel.spot.name %></footer>
+					<h4><strong><%= result.addedBy.username %></strong></h4>
+					<h5><%= result.caption %></h5>
+					<% if (result.spot){ %>
+						<footer>at <%= result.spot.name %></footer>
 					<% } %>
 				</blockquote>
 			</section>
