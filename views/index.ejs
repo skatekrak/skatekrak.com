@@ -1,543 +1,903 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-        <link rel="shortcut icon" href="/startup/flat-ui/images/favicon.ico">
-        <link rel="stylesheet" href="/startup/flat-ui/bootstrap/css/bootstrap.css">
-        <link rel="stylesheet" href="/startup/fontawesome/css/font-awesome.min.css">
-        <!-- Using only with Flat-UI (free)-->
-        <link rel="stylesheet" href="/startup/common-files/css/icon-font.css">
-        <!-- end -->
-        <link rel="stylesheet" href="/startup/common-files/css/animations.css">
-        <link rel="stylesheet" href="/static/css/style.css">
-        <link rel="icon" type="image/ico" href="/static/images/favicon.ico" />
+<!--[if IE 9]>  <html class="ie9" lang="en">    <![endif]-->
+<!--[if IE 8]>  <html class="ie8" lang="en">    <![endif]-->
+  <head>
+    <meta charset="UTF-8">
+	 <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <meta property="og:description" content="KRAK will turn cities around the world into a real life video game. Simply turn your hardware on, hit the streets, and earn points for the tricks you land and the spots you do them at."/>
-        <meta property="og:type" content="website"/>
-        <meta property="og:url" content="http://skatekrak.com"/>
-        <meta property="og:title" content="KRAK will turn cities around the world into a real life video game. Simply turn your hardware on, hit the streets, and earn points for the tricks you land and the spots you do them at."/>
-        <meta property="og:image" content="http://skatekrak.com/static/images/website_screenshot.png"/>
+    <title>Krak Skateboarding Inc | Home Page </title>
 
-        <title>Krak Skateboarding, Inc</title>
-    </head>
+    <meta name="description" content="Electronic Responsive HTML Template is the professional responsive multi-purpose website template, based on the latest Bootstrap 3. It covers all possible web site development cases">
+    <meta name="keywords" content="html5, template, css3, creative, portfolio, website, blog, personal, corporative, design, e-commerce, shop, store, design, modern, responsive, bootstrap, slider, masonry ">
 
-    <body>
-        <div id="boxes">
-    <div id="dialog" class="window_modal">
-      <div class="topModal">
-        <a href="#" class="close_modal">X</a>
+    <!-- CSS -->
+    <link href="assets/vendor/bootstrap/css/bootstrap.min.css"                     rel="stylesheet" type="text/css" media="screen" />
+    <link href="assets/vendor/fontawesome/css/font-awesome.css"                    rel="stylesheet" type="text/css" media="screen" />
+    <link href="assets/vendor/novecento/css/novecento-font.css"                    rel="stylesheet" type="text/css" media="screen" />
+    <link href="assets/vendor/fancybox/css/jquery.fancybox.css?v=2.1.5"            rel="stylesheet" type="text/css" media="screen" />
+    <link href="assets/vendor/fancybox/css/jquery.fancybox-buttons.css?v=1.0.5"    rel="stylesheet" type="text/css" media="screen" />
+    <link href="assets/vendor/flexslider/css/flexslider.css"                       rel="stylesheet" type="text/css" media="screen" />
+    <link href="assets/vendor/rs-plugin/css/settings.css"                          rel="stylesheet" type="text/css" media="screen" />
+    <link href="assets/vendor/rs-plugin/css/extralayers.css"                       rel="stylesheet" type="text/css" media="screen" />
+	 <link href="assets/vendor/feather/css/feather.css"                             rel="stylesheet" type="text/css" media="screen" />
+    <link href="assets/custom/css/style.css"                                       rel="stylesheet" type="text/css" media="screen" />
+
+    <!-- JS -->
+    <script src="assets/vendor/jquery/js/jquery-1.10.1.min.js"                     type="text/javascript"></script>
+    <script src="assets/vendor/bootstrap/js/bootstrap.min.js"                      type="text/javascript"></script>
+    <script src="assets/vendor/sticky/js/jquery.sticky.js"                         type="text/javascript"></script>
+    <script src="assets/vendor/mousewheel/js/jquery.mousewheel-3.0.6.pack.js"      type="text/javascript"></script>
+    <script src="assets/vendor/fancybox/js/jquery.fancybox.pack.js?v=2.1.5"        type="text/javascript"></script>
+    <script src="assets/vendor/fancybox/js/jquery.fancybox-buttons.js?v=1.0.5"     type="text/javascript"></script>
+    <script src="assets/vendor/fancybox/js/jquery.fancybox-media.js?v=1.0.6"       type="text/javascript"></script>
+    <script src="assets/vendor/superfish/js/hoverIntent.js"                        type="text/javascript"></script>
+    <script src="assets/vendor/superfish/js/superfish.js"                          type="text/javascript"></script>
+    <script src="assets/vendor/superfish/js/supersubs.js"                          type="text/javascript"></script>
+    <script src="assets/vendor/flickr/js/jflickrfeed.min.js"                       type="text/javascript"></script>
+    <script src="assets/vendor/flexslider/js/jquery.flexslider-min.js"             type="text/javascript"></script>
+    <script src="assets/vendor/flickity/js/flickity.pkgd.min.js"                   type="text/javascript"></script>
+    <script src="assets/vendor/rs-plugin/js/jquery.themepunch.tools.min.js"        type="text/javascript"></script>
+    <script src="assets/vendor/rs-plugin/js/jquery.themepunch.revolution.min.js"   type="text/javascript"></script>
+    <script src="assets/vendor/stellar/js/jquery.stellar.min.js"                   type="text/javascript"></script>
+    <script src="assets/vendor/isotope/js/jquery.isotope.min.js"                   type="text/javascript"></script>
+    <script src="assets/vendor/imagesloaded/js/imagesloaded.pkgd.min.js"           type="text/javascript"></script>
+	 <script src="assets/vendor/modernizr/js/modernizr.js"                          type="text/javascript"></script>
+    <script src="https://maps.google.com/maps/api/js?sensor=false"                 type="text/javascript"></script>
+    <script src="assets/custom/js/script.js"                                       type="text/javascript"></script>
+
+
+    <!-- Fonts -->
+	 <link href='http://fonts.googleapis.com/css?family=Oxygen:400,700' rel='stylesheet' type='text/css'>
+    <!--<link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,900,400italic' rel='stylesheet' type='text/css'>-->
+
+
+  </head>
+  <body>
+    <!-- Loader -->
+    <div id="loader-wrapper">
+         <div id="loader"></div>
+         <div class="loader-section section-left"></div>
+         <div class="loader-section section-right"></div>
+     </div>
+    <!-- /Loader -->
+
+      <!-- sub-top -->
+     <div id="sub-top-light">
+      <div class="container">
+        <div class="top-contacts">
+          <div><a href="#"><i class="fa fa-instagram"></i>@electronic</a></div>
+          <div><a href="#"><i class="fa fa-envelope"></i>info@electronic.com</a></div>
+          <div><a href="#"><i class="fa fa-phone"></i>1 234 567 89 10</a></div>
+        </div>
       </div>
-      <p>Krak'N will turn cities around the world into a real life video game. Simply turn your hardware on, hit the streets, and earn points for the tricks you land and the spots you do them at.</p>
-      <form action="//skatekrak.us7.list-manage.com/subscribe/post?u=1a7343504d5c1aecbe3587b57&amp;id=c728cbf724" method="post">
-        <input type="email" placeholder="email" name="EMAIL"/><input type="submit" value="Send"/>
-      </form>
+     </div>
+      <!-- /sub-top -->
+
+    <!-- main-top -->
+
+    <!-- Revolution Slider -->
+
+    <article class="slider-revolution">
+
+       <div class="tp-banner-container">
+
+          <div class="tp-banner head-overlay" >
+            <ul>
+               <!-- SLIDE  -->
+               <li data-transition="boxfade" data-slotamount="1" data-masterspeed="1000" data-thumb="assets/custom/images/rs-images/fullslide9-320x200.jpg"  data-saveperformance="off"  data-title="Slide">
+                  <!-- MAIN IMAGE -->
+                  <img src="assets/custom/images/rs-images/04new.jpg"  alt="fullslide9"  data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat">
+                  <!-- LAYERS -->
+
+                  <!-- LAYER NR. 0 -->
+                  <div class="tp-caption lfb ltt tp-resizeme rs-parallaxlevel-1"
+                       data-x="center"
+                       data-y="280"
+                       data-speed="600"
+                       data-start="750"
+                       data-easing="Power4.easeOut"
+                       data-splitin="none"
+                       data-splitout="none"
+                       data-elementdelay="0.01"
+                       data-endelementdelay="0.1"
+                       data-endspeed="500"
+                       data-endeasing="Power4.easeIn"
+                       style="z-index: 2; max-width: auto; max-height: auto; white-space: nowrap;"><img src="assets/custom/images/hipster-logo.png" alt="x">
+                  </div>
+
+                  <!-- LAYER NR. 1 -->
+                  <div class="tp-caption cap-title font-accident-one-bold lfb ltt tp-resizeme rs-parallaxlevel-1"
+                       data-x="center"
+                       data-y="350"
+                       data-speed="600"
+                       data-start="800"
+                       data-easing="Power4.easeOut"
+                       data-splitin="none"
+                       data-splitout="none"
+                       data-elementdelay="0.01"
+                       data-endelementdelay="0.1"
+                       data-endspeed="500"
+                       data-endeasing="Power4.easeIn"
+                       style="z-index: 2; max-width: auto; max-height: auto; white-space: nowrap;">Awesome Design
+                  </div>
+
+                  <!-- LAYER NR. 2 -->
+                  <div class="tp-caption cap-subtitle font-accident-one-normal lfb ltt tp-resizeme rs-parallaxlevel-1"
+                       data-x="center"
+                       data-y="470"
+                       data-speed="600"
+                       data-start="900"
+                       data-easing="Power4.easeOut"
+                       data-splitin="none"
+                       data-splitout="none"
+                       data-elementdelay="0.01"
+                       data-endelementdelay="0.1"
+                       data-endspeed="500"
+                       data-endeasing="Power4.easeIn"
+                       style="z-index: 3; max-width: auto; max-height: auto; white-space: nowrap;">is clean, well-balanced and flexible
+                  </div>
+
+                  <!-- LAYER NR. 3 -->
+                  <div class="tp-caption lfb ltt tp-resizeme rs-parallaxlevel-1"
+                       data-x="center"
+                       data-y="520"
+                       data-speed="600"
+                       data-start="950"
+                       data-easing="Power4.easeOut"
+                       data-splitin="none"
+                       data-splitout="none"
+                       data-elementdelay="0.01"
+                       data-endelementdelay="0.1"
+                       data-endspeed="500"
+                       data-endeasing="Power4.easeIn"
+                       style="z-index: 3; max-width: auto; max-height: auto; white-space: nowrap;"><a href="https://wrapbootstrap.com/theme/electronic-multi-purpose-template-WB081421P" target="_blank" class="btn btn-lg btn-wh">Download Website Template</a>
+                  </div>
+
+               </li>
+               <!-- SLIDE  -->
+               <li data-transition="boxfade" data-slotamount="1" data-masterspeed="1000" data-thumb="assets/custom/images/rs-images/fullslide10-320x200.jpg"  data-saveperformance="off"  data-title="Slide">
+                  <!-- MAIN IMAGE -->
+                  <img src="assets/custom/images/rs-images/07new.jpg"  alt="fullslide10"  data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat">
+                  <!-- LAYERS -->
+
+                  <!-- LAYER NR. 0 -->
+                  <div class="tp-caption lfb ltt tp-resizeme rs-parallaxlevel-1"
+                       data-x="center"
+                       data-y="280"
+                       data-speed="600"
+                       data-start="750"
+                       data-easing="Power4.easeOut"
+                       data-splitin="none"
+                       data-splitout="none"
+                       data-elementdelay="0.01"
+                       data-endelementdelay="0.1"
+                       data-endspeed="500"
+                       data-endeasing="Power4.easeIn"
+                       style="z-index: 2; max-width: auto; max-height: auto; white-space: nowrap;"><img src="assets/custom/images/hipster-logo.png" alt="x">
+                  </div>
+
+                  <!-- LAYER NR. 1 -->
+                  <div class="tp-caption cap-title font-accident-one-bold lfb ltt tp-resizeme rs-parallaxlevel-1"
+                       data-x="center"
+                       data-y="350"
+                       data-speed="600"
+                       data-start="800"
+                       data-easing="Power4.easeOut"
+                       data-splitin="none"
+                       data-splitout="none"
+                       data-elementdelay="0.01"
+                       data-endelementdelay="0.1"
+                       data-endspeed="500"
+                       data-endeasing="Power4.easeIn"
+                       style="z-index: 2; max-width: auto; max-height: auto; white-space: nowrap;">Fully Responsive
+                  </div>
+
+                  <!-- LAYER NR. 2 -->
+                  <div class="tp-caption cap-subtitle font-accident-one-normal lfb ltt tp-resizeme rs-parallaxlevel-1"
+                       data-x="center"
+                       data-y="470"
+                       data-speed="600"
+                       data-start="900"
+                       data-easing="Power4.easeOut"
+                       data-splitin="none"
+                       data-splitout="none"
+                       data-elementdelay="0.01"
+                       data-endelementdelay="0.1"
+                       data-endspeed="500"
+                       data-endeasing="Power4.easeIn"
+                       style="z-index: 3; max-width: auto; max-height: auto; white-space: nowrap;">looks and works well on any device
+                  </div>
+
+                  <!-- LAYER NR. 3 -->
+                  <div class="tp-caption lfb ltt tp-resizeme rs-parallaxlevel-1"
+                       data-x="center"
+                       data-y="520"
+                       data-speed="600"
+                       data-start="950"
+                       data-easing="Power4.easeOut"
+                       data-splitin="none"
+                       data-splitout="none"
+                       data-elementdelay="0.01"
+                       data-endelementdelay="0.1"
+                       data-endspeed="500"
+                       data-endeasing="Power4.easeIn"
+                       style="z-index: 3; max-width: auto; max-height: auto; white-space: nowrap;"><a href="https://wrapbootstrap.com/theme/electronic-multi-purpose-template-WB081421P" target="_blank" class="btn btn-lg btn-wh">Download HTML/CSS Template</a>
+                  </div>
+               </li>
+               <!-- SLIDE  -->
+               <li data-transition="boxfade" data-slotamount="1" data-masterspeed="1000" data-thumb="assets/custom/images/rs-images/fullslide1-320x200.jpg"  data-saveperformance="off"  data-title="Slide">
+                <!-- MAIN IMAGE -->
+                <img src="assets/custom/images/rs-images/02new.jpg"  alt="fullslide1"  data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat">
+                <!-- LAYERS -->
+
+                <!-- LAYER NR. 0 -->
+                <div class="tp-caption lfb ltt tp-resizeme rs-parallaxlevel-1"
+                     data-x="center"
+                     data-y="280"
+                     data-speed="600"
+                     data-start="750"
+                     data-easing="Power4.easeOut"
+                     data-splitin="none"
+                     data-splitout="none"
+                     data-elementdelay="0.01"
+                     data-endelementdelay="0.1"
+                     data-endspeed="500"
+                     data-endeasing="Power4.easeIn"
+                     style="z-index: 2; max-width: auto; max-height: auto; white-space: nowrap;"><img src="assets/custom/images/hipster-logo.png" alt="x">
+                </div>
+
+                <!-- LAYER NR. 1 -->
+                <div class="tp-caption cap-title font-accident-one-bold lfb ltt tp-resizeme rs-parallaxlevel-1"
+                     data-x="center"
+                     data-y="350"
+                     data-speed="600"
+                     data-start="800"
+                     data-easing="Power4.easeOut"
+                     data-splitin="none"
+                     data-splitout="none"
+                     data-elementdelay="0.01"
+                     data-endelementdelay="0.1"
+                     data-endspeed="500"
+                     data-endeasing="Power4.easeIn"
+                     style="z-index: 2; max-width: auto; max-height: auto; white-space: nowrap;">Enjoy Electronic
+                </div>
+
+                <!-- LAYER NR. 2 -->
+                <div class="tp-caption cap-subtitle font-accident-one-normal lfb ltt tp-resizeme rs-parallaxlevel-1"
+                     data-x="center"
+                     data-y="470"
+                     data-speed="600"
+                     data-start="900"
+                     data-easing="Power4.easeOut"
+                     data-splitin="none"
+                     data-splitout="none"
+                     data-elementdelay="0.01"
+                     data-endelementdelay="0.1"
+                     data-endspeed="500"
+                     data-endeasing="Power4.easeIn"
+                     style="z-index: 3; max-width: auto; max-height: auto; white-space: nowrap;">the Responsive HTML Template
+                </div>
+
+                <!-- LAYER NR. 3 -->
+                <div class="tp-caption lfb ltt tp-resizeme rs-parallaxlevel-1"
+                     data-x="center"
+                     data-y="520"
+                     data-speed="600"
+                     data-start="950"
+                     data-easing="Power4.easeOut"
+                     data-splitin="none"
+                     data-splitout="none"
+                     data-elementdelay="0.01"
+                     data-endelementdelay="0.1"
+                     data-endspeed="500"
+                     data-endeasing="Power4.easeIn"
+                     style="z-index: 3; max-width: auto; max-height: auto; white-space: nowrap;"><a href="https://wrapbootstrap.com/theme/electronic-multi-purpose-template-WB081421P" target="_blank" class="btn btn-lg btn-wh">Download HTML Template</a>
+                </div>
+
+
+              </li>
+               <!-- SLIDE  -->
+               <li data-transition="boxfade" data-slotamount="1" data-masterspeed="1000" data-thumb="assets/custom/images/rs-images/fullslide8-320x200.jpg"  data-saveperformance="off"  data-title="Slide">
+                <!-- MAIN IMAGE -->
+                <img src="assets/custom/images/rs-images/13new.jpg"  alt="fullslide8"  data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat">
+                  <!-- LAYERS -->
+
+                  <!-- LAYER NR. 0 -->
+                  <div class="tp-caption lfb ltt tp-resizeme rs-parallaxlevel-1"
+                       data-x="center"
+                       data-y="280"
+                       data-speed="600"
+                       data-start="750"
+                       data-easing="Power4.easeOut"
+                       data-splitin="none"
+                       data-splitout="none"
+                       data-elementdelay="0.01"
+                       data-endelementdelay="0.1"
+                       data-endspeed="500"
+                       data-endeasing="Power4.easeIn"
+                       style="z-index: 2; max-width: auto; max-height: auto; white-space: nowrap;"><img src="assets/custom/images/hipster-logo.png" alt="x">
+                  </div>
+
+                  <!-- LAYER NR. 1 -->
+                  <div class="tp-caption cap-title font-accident-one-bold lfb ltt tp-resizeme rs-parallaxlevel-1"
+                       data-x="center"
+                       data-y="350"
+                       data-speed="600"
+                       data-start="800"
+                       data-easing="Power4.easeOut"
+                       data-splitin="none"
+                       data-splitout="none"
+                       data-elementdelay="0.01"
+                       data-endelementdelay="0.1"
+                       data-endspeed="500"
+                       data-endeasing="Power4.easeIn"
+                       style="z-index: 2; max-width: auto; max-height: auto; white-space: nowrap;">Based on Bootstrap
+                  </div>
+
+                  <!-- LAYER NR. 2 -->
+                  <div class="tp-caption cap-subtitle font-accident-one-normal lfb ltt tp-resizeme rs-parallaxlevel-1"
+                       data-x="center"
+                       data-y="470"
+                       data-speed="600"
+                       data-start="900"
+                       data-easing="Power4.easeOut"
+                       data-splitin="none"
+                       data-splitout="none"
+                       data-elementdelay="0.01"
+                       data-endelementdelay="0.1"
+                       data-endspeed="500"
+                       data-endeasing="Power4.easeIn"
+                       style="z-index: 3; max-width: auto; max-height: auto; white-space: nowrap;">to cover all the web development cases
+                  </div>
+
+                  <!-- LAYER NR. 3 -->
+                  <div class="tp-caption lfb ltt tp-resizeme rs-parallaxlevel-1"
+                       data-x="center"
+                       data-y="520"
+                       data-speed="600"
+                       data-start="950"
+                       data-easing="Power4.easeOut"
+                       data-splitin="none"
+                       data-splitout="none"
+                       data-elementdelay="0.01"
+                       data-endelementdelay="0.1"
+                       data-endspeed="500"
+                       data-endeasing="Power4.easeIn"
+                       style="z-index: 3; max-width: auto; max-height: auto; white-space: nowrap;"><a href="https://wrapbootstrap.com/theme/electronic-multi-purpose-template-WB081421P" target="_blank" class="btn btn-lg btn-wh">Download Creative Template</a>
+                  </div>
+              </li>
+               <!-- SLIDE  -->
+               <li data-transition="boxfade" data-slotamount="1" data-masterspeed="1000" data-thumb="assets/custom/images/rs-images/fullslide11-320x200.jpg"  data-saveperformance="off"  data-title="Slide">
+                <!-- MAIN IMAGE -->
+                <img src="assets/custom/images/rs-images/10new.jpg"  alt="fullslide11"  data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat">
+                  <!-- LAYERS -->
+
+                  <!-- LAYER NR. 0 -->
+                  <div class="tp-caption lfb ltt tp-resizeme rs-parallaxlevel-1"
+                       data-x="center"
+                       data-y="280"
+                       data-speed="600"
+                       data-start="750"
+                       data-easing="Power4.easeOut"
+                       data-splitin="none"
+                       data-splitout="none"
+                       data-elementdelay="0.01"
+                       data-endelementdelay="0.1"
+                       data-endspeed="500"
+                       data-endeasing="Power4.easeIn"
+                       style="z-index: 2; max-width: auto; max-height: auto; white-space: nowrap;"><img src="assets/custom/images/hipster-logo.png" alt="x">
+                  </div>
+
+                  <!-- LAYER NR. 1 -->
+                  <div class="tp-caption cap-title font-accident-one-bold lfb ltt tp-resizeme rs-parallaxlevel-1"
+                       data-x="center"
+                       data-y="350"
+                       data-speed="600"
+                       data-start="800"
+                       data-easing="Power4.easeOut"
+                       data-splitin="none"
+                       data-splitout="none"
+                       data-elementdelay="0.01"
+                       data-endelementdelay="0.1"
+                       data-endspeed="500"
+                       data-endeasing="Power4.easeIn"
+                       style="z-index: 2; max-width: auto; max-height: auto; white-space: nowrap;">Download now
+                  </div>
+
+                  <!-- LAYER NR. 2 -->
+                  <div class="tp-caption cap-subtitle font-accident-one-normal lfb ltt tp-resizeme rs-parallaxlevel-1"
+                       data-x="center"
+                       data-y="470"
+                       data-speed="600"
+                       data-start="900"
+                       data-easing="Power4.easeOut"
+                       data-splitin="none"
+                       data-splitout="none"
+                       data-elementdelay="0.01"
+                       data-endelementdelay="0.1"
+                       data-endspeed="500"
+                       data-endeasing="Power4.easeIn"
+                       style="z-index: 3; max-width: auto; max-height: auto; white-space: nowrap;">and get the lifetime updates
+                  </div>
+
+                  <!-- LAYER NR. 3 -->
+                  <div class="tp-caption lfb ltt tp-resizeme rs-parallaxlevel-1"
+                       data-x="center"
+                       data-y="520"
+                       data-speed="600"
+                       data-start="950"
+                       data-easing="Power4.easeOut"
+                       data-splitin="none"
+                       data-splitout="none"
+                       data-elementdelay="0.01"
+                       data-endelementdelay="0.1"
+                       data-endspeed="500"
+                       data-endeasing="Power4.easeIn"
+                       style="z-index: 3; max-width: auto; max-height: auto; white-space: nowrap;"><a href="https://wrapbootstrap.com/theme/electronic-multi-purpose-template-WB081421P" target="_blank" class="btn btn-lg btn-wh">Download HTML Template</a>
+                  </div>
+              </li>
+            </ul>
+            <div class="tp-bannertimer"></div>
+          </div>
+
+          <!-- Header and Menu Ovellay Mode -->
+			 <header id="header-wrapper-mp" class="head-overlay sticky-menu-dark">
+
+				 <div class="sticky-header header-light sticky-overlay nobg" role="navigation">
+					 <div class="container mp-nav">
+
+						 <div id="site-title"><h1 class="font-accident-one-bold"><a href="/">Krak</a></h1></div>
+
+						 <div id="mobnav-btn"><i class="fa fa-bars"></i></div>
+
+                   <nav id="main-menu" class="site-navigation primary-navigation" role="navigation">
+
+                      <ul class="sf-menu clearfix" id="example">
+                         <li><a href="/">Home</a></li>
+
+                         <li><a href="#">Krak App</a>
+                            <div class="mobnav-subarrow"></div>
+                            <ul class="submenu">
+                                <li><a href="portfolio-item.html">iOS</a></li>
+                                <li><a href="portfolio-item.html">Android</a></li>
+                            </ul>
+                         </li>
+                         <li><a href="https://mag.skatekrak.com">Mag</a></li>
+                         <li><a href="http://box.skatekrak.com">KrakBox</a>
+                        <li class="current"><a href="/about">About</a></li>
+                         <li><a href="/contacts">Contacts</a></li>
+                         <!--<li><a href="#"><i class="fa fa-search"></i></a>-->
+                            <!--<div class="mobnav-subarrow"></div>-->
+                            <!--<ul class="submenu search-panel">-->
+                               <!--<li class="">-->
+                                  <!--<form class="form-inline" role="form">-->
+                                     <!--<div class="form-group">-->
+                                        <!--<input type="text" class="form-control" id="exampleInputEmail2" placeholder="Search">-->
+                                        <!--<button type="submit" class="btn btn-default">Ok</button>-->
+                                     <!--</div>-->
+                                  <!--</form>-->
+                               <!--</li>-->
+                            <!--</ul>-->
+                         <!--</li>-->
+                      </ul>
+
+                   </nav>
+
+					 </div>
+                <!-- <div class="container overlay-border">
+                   <div class="row">
+                      <div class="col-md-3">
+                         <h4><span class="icon-unlock"></span>Enter</h4>
+                         <p>
+                            <a href="#login">Login</a>&nbsp;&nbsp; | &nbsp;&nbsp; <a href="#register">Register</a>
+                         </p>
+                      </div>
+                      <div class="col-md-3">
+                         <h4><span class="icon-speech-bubble"></span>Follow</h4>
+                         <p>
+                            Located at the center of the county, it borders the following townships: The entire township lies
+                         </p>
+                      </div>
+                      <div class="col-md-3">
+                         <h4><span class="icon-box"></span>Download the App</h4>
+                         <p>
+                            is a popular style or practice, especially in clothing, footwear, accessories
+                         </p>
+                      </div>
+                      <div class="col-md-3">
+                         <h4><span class="icon-mail"></span>Subscribe</h4>
+                         <p>
+                            <input type="text" name="your-name" value="" size="60" aria-required="true" aria-invalid="false">
+                         </p>
+
+                      </div>
+                   </div>
+                </div> -->
+
+				 </div>
+
+			 </header>
+          <!-- /Header and Menu Ovellay Mode -->
+
+        </div>
+
+	 </article>
+
+    <!-- /Revolution Slider -->
+
+	 <div id="content">
+		 <!-- Counts Block -->
+       <div class="counts e-block-ins e-bg-dark e-bg-dark-texture" data-stellar-background-ratio="0.5">
+          <div class="container">
+             <div class="count-container row">
+                <div class="col-md-4 count">
+                   <div class="count-icon"><i class="fa fa-map-marker"></i></div>
+                   <span class=".integers digit font-accident-one-light">12654</span>
+                   <div class="count-text">Spots added</div>
+                </div>
+                <div class="col-md-4 count">
+                   <div class="count-icon"><i class="fa fa-users"></i></div>
+                   <span class=".integers digit font-accident-one-light">65</span>
+                   <div class="count-text">Users</div>
+                </div>
+                <div class="col-md-4 count">
+                   <div class="count-icon"><i class="fa fa-archive"></i></div>
+                   <span class=".integers digit font-accident-one-light">9356</span>
+                   <div class="count-text">Box sent</div>
+                </div>
+             </div>
+          </div>
+       </div>
+		 <!-- /Counts Block -->
+
+		 <!-- Download Block -->
+		 <div class="e-block-ins e-block-centered" data-stellar-background-ratio="0.5">
+			 <div class="container">
+				 <div class="row width-80 e-centered">
+					 <div class="col-md-8 text-center"><h4 class="font-accident-one-medium">Have some Questions about our Services? </h4></div>
+					 <div class="col-md-4 text-center">
+						 <a href="/contact" class=" btn btn-lg btn-wh">Contact us</a>
+					 </div>
+				 </div>
+			 </div>
+		 </div>
+		 <!-- /Download Block -->
+
+		 <!-- Logos Block -->
+		 <div class="logos e-block e-block-centered e-block-dark e-bg-dark-texture" data-stellar-background-ratio="0.5">
+
+
+			 <!-- Decorative arrow -->
+			 <div class="down-arrow-white">&nbsp;</div>
+			 <!-- /Decorative arrow -->
+
+			 <div class="dividewhite2"></div>
+			 <h2 class="font-accident-one-bold uppercase whit">Featured Brands</h2>
+
+			 <!--<div class="logos-filter">-->
+			 <!--<ul>-->
+			 <!--<li><a href="#cat5" data-filter=".tech">Technology</a></li>-->
+			 <!--<li><a href="#cat6" data-filter=".agr">Agriculture</a></li>-->
+			 <!--<li><a href="#cat7" data-filter=".art">Artistic</a></li>-->
+			 <!--<li><a href="#cat8" data-filter=".pol">Polytics</a></li>-->
+			 <!--<li><a href="#cat9" data-filter=".wea">Wear</a></li>-->
+			 <!--</ul>-->
+			 <!--</div>-->
+
+			 <div class="dividewhite6"></div>
+
+
+			 <div class="container">
+
+				 <div class="row">
+					 <div id="9" class="col-md-3 infoblock logos-item">
+						 <div class="item-wrap">
+							 <a href="#"><div class="logos-pic-01"></div></a>
+						 </div>
+					 </div>
+					 <div id="10" class="col-md-3 infoblock logos-item">
+						 <div class="item-wrap">
+							 <a href="#"><div class="logos-pic-02"></div></a>
+						 </div>
+					 </div>
+					 <div id="11" class="col-md-3 infoblock logos-item">
+						 <div class="item-wrap">
+							 <a href="#"><div class="logos-pic-03"></div></a>
+						 </div>
+					 </div>
+					 <div id="12" class="col-md-3 infoblock logos-item">
+						 <div class="item-wrap">
+							 <a href="#"><div class="logos-pic-04"></div></a>
+						 </div>
+					 </div>
+				 </div>
+                 <div class="row">
+					 <div id="9" class="col-md-3 infoblock logos-item">
+						 <div class="item-wrap">
+							 <a href="#"><div class="logos-pic-01"></div></a>
+						 </div>
+					 </div>
+					 <div id="10" class="col-md-3 infoblock logos-item">
+						 <div class="item-wrap">
+							 <a href="#"><div class="logos-pic-02"></div></a>
+						 </div>
+					 </div>
+					 <div id="11" class="col-md-3 infoblock logos-item">
+						 <div class="item-wrap">
+							 <a href="#"><div class="logos-pic-03"></div></a>
+						 </div>
+					 </div>
+					 <div id="12" class="col-md-3 infoblock logos-item">
+						 <div class="item-wrap">
+							 <a href="#"><div class="logos-pic-04"></div></a>
+						 </div>
+					 </div>
+				 </div>
+
+				 <div class="dividewhite2"></div>
+
+				 <div class="row">
+					 <!-- <a role="button" href="#!" class="btn btn-lg btn-wh-str btn-logos">See the Full Portfolio</a> -->
+					 <a role="button" href="#!" class="btn btn-lg btn-wh btn-logos">Get your krakbox</a>
+				 </div>
+
+				 <div class="dividewhite4"></div>
+
+			 </div>
+
+		 </div>
+		 <!-- /Logos Block -->
+
+		 <!--  Portfolio Block  -->
+		 <div class="portfolio-hp e-block e-block-centered e-bg-skin">
+
+			 <h2 class="font-accident-one-bold uppercase white">Portfolio</h2>
+			 <div class="dividewhite2"></div>
+			 <p class="">
+				 Customize your website as you want using different colors and 100% free fonts. Build it from pieces and blocks as simple as Lego. <br>
+				 Electronic Website Template is fully responsive, looks and works perfect on any device.
+			 </p>
+			 <div class="dividewhite2"></div>
+
+			 <div id="isotope-filters" class="port-filter block-centered">
+				 <ul>
+					 <li><a href="#cat1" data-filter="*">All</a></li>
+					 <li><a href="#cat2" data-filter=".web">Web Design</a></li>
+					 <li><a href="#cat3" data-filter=".marketing">Online Marketing</a></li>
+					 <li><a href="#cat4" data-filter=".seo">SEO</a></li>
+				 </ul>
+			 </div>
+
+			 <div class="dividewhite4"></div>
+
+			 <div class="container isotope-container">
+
+				 <div id="posts" class="row">
+
+					 <div id="1" class="item web seo col-md-4 nopadding">
+						 <div class="item-wrap nopadding">
+							 <figure class="effect-goliath">
+								 <img src="assets/custom/images/magazine/01.jpg" alt="img11"/>
+								 <figcaption>
+									 <h3>Music <span>Sounds</span></h3>
+									 <p>Mitrastigma was a monotypic genus of flowering plants in the </p>
+									 <a href="portfolio-item.html">View more</a>
+								 </figcaption>
+							 </figure>
+						 </div>
+					 </div>
+
+					 <div id="2" class="item web seo col-md-4 nopadding">
+						 <div class="item-wrap nopadding">
+							 <figure class="effect-goliath">
+								 <img src="assets/custom/images/magazine/02.jpg" alt="img03"/>
+								 <figcaption>
+									 <h3>Fire <span>Burns</span></h3>
+									 <p>Red Rosa may refer to: Inga bella is a species of legume</p>
+									 <a href="portfolio-item.html">View more</a>
+								 </figcaption>
+							 </figure>
+						 </div>
+					 </div>
+					 <div id="3" class="item marketing col-md-4 nopadding">
+						 <div class="item-wrap nopadding">
+							 <figure class="effect-goliath">
+								 <img src="assets/custom/images/magazine/03.jpg" alt="img11"/>
+								 <figcaption>
+									 <h3>Ice <span>Cold</span></h3>
+									 <p>Ciani's career begun when he won second prize at the Liszt-Bartók</p>
+									 <a href="portfolio-item.html">View more</a>
+								 </figcaption>
+							 </figure>
+						 </div>
+					 </div>
+
+					 <div id="4" class="item marketing col-md-4 nopadding">
+						 <div class="item-wrap nopadding">
+							 <figure class="effect-goliath">
+								 <img src="assets/custom/images/magazine/04.jpg" alt="img03"/>
+								 <figcaption>
+									 <h3>Everybody <span>Lies</span></h3>
+									 <p>His repertoire was broad and diverse for a pianist of his age</p>
+									 <a href="portfolio-item.html">View more</a>
+								 </figcaption>
+							 </figure>
+						 </div>
+					 </div>
+
+					 <div id="5" class="item web seo col-md-4 nopadding">
+						 <div class="item-wrap nopadding">
+							 <figure class="effect-goliath">
+								 <img src="assets/custom/images/magazine/05.jpg" alt="img11"/>
+								 <figcaption>
+									 <h3>More <span>Words</span></h3>
+									 <p>He collaborated with such conductors as Claudio Abbado</p>
+									 <a href="portfolio-item.html">View more</a>
+								 </figcaption>
+							 </figure>
+						 </div>
+					 </div>
+
+					 <div id="6" class="item marketing col-md-4 nopadding">
+						 <div class="item-wrap nopadding">
+							 <figure class="effect-goliath">
+								 <img src="assets/custom/images/magazine/06.jpg" alt="img03"/>
+								 <figcaption>
+									 <h3>Birds <span>Flying</span></h3>
+									 <p>Ciani was killed in a road accident in Rome at the age of 32</p>
+									 <a href="portfolio-item.html">View more</a>
+								 </figcaption>
+							 </figure>
+						 </div>
+					 </div>
+
+				 </div>
+
+				 <div class="dividewhite6"></div>
+				 <a role="button" href="portfolio-3-col-caption.html" class="btn btn-lg btn-gr">Want to See More?</a>
+
+			 </div>
+
+			 <div class="dividewhite8"></div>
+
+		 </div>
+		 <!-- /Portfolio Block  -->
+
+	 </div>
+
+    <!-- Google Map -->
+    <a class="gm-toggle-link">
+      <div class="gm-toggle">
+          <i class="fa fa-map-marker"></i>
+      </div>
+    </a>
+    <div id="gm-panel">
+        <div id="google-map" class="bigmap"></div>
     </div>
-    <div id="mask"></div>
-  </div>
-        <div class="page-wrapper">
-            <header class="header-23">
-    <div class="mask">&nbsp;</div>
-    <div class="popup-video">
-        <iframe id="pPlayer" width="480" height="360" src="https://www.youtube-nocookie.com/embed/xF4ahIXD0Nc?rel=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
-    </div>
-    <div class="container">
+    <!-- /Google Map -->
+
+    <!-- footer -->
+    <div id="footer">
+        <div class="container">
         <div class="row">
-            <div class="navbar col-sm-12" role="navigation">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle"></button>
+          <div class="col-sm-3">
+            <div class="infoblock">
+              <!-- About Widget -->
+              <h2 class="font-accident-one-bold">HTML Template</h2>
+              <p>Electronic HTML Template is the fastest way to build your own attractive website.</p>
+
+              <p>Contrast, classic and colorful variations are available in the downloadable archive.</p>
+
+              <p>Just upload the creative template to your hosting and get the working website right now.</p>
+              <!-- / About Widget -->
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="infoblock">
+              <!-- Contacts Widget -->
+              <h2 class="font-accident-one-bold">Contacts</h2>
+              <div class="contact">
+                <div class="footer-addr">
+                  <div class="footer-icon"><i class="fa fa-home"></i></div>
+                  <div class="addr-text">12345, Direct Drive - 110, Daytona Beach, Florida, USA </div>
                 </div>
-                <div class="navbar-collapse collapse">
-                    <ul class="nav pull-right">
-                        <li><a href="https://www.instagram.com/skate_krak" target="_blank"><div class="fa fa-instagram"></div></a></li>
-                        <li><a href="https://www.youtube.com/channel/UC1o-dFTrXKLa6Ov8GiysF7g" target="_blank"><div class="fa fa-youtube"></div></a></li>
-                        <li><a href="https://www.facebook.com/skatekrak" target="_blank"><div class="fa fa-facebook"></div></a></li>
-                        <li><a href="http://skatekrak.tumblr.com/" target="_blank"><div class="fa fa-tumblr"></div></a></li>
-                        <li><a href="https://www.twitter.com/skatekrak" target="_blank"><div class="fa fa-twitter"></div></a></li>
-                    </ul>
+                <div class="dividewhite1"></div>
+                <div class="footer-addr">
+                  <div class="footer-icon"><i class="fa fa-phone"></i></div>
+                  <div class="addr-text">1 234 567 67 45</div>
+                </div>
+                <div class="dividewhite1"></div>
+                <div     class="footer-addr">
+                  <div class="footer-icon"><i class="fa fa-envelope"></i></div>
+                  <div class="addr-text"><a href="mailto:info@electronicteam.com">info@electronicteam.com</a></div>
+                </div>
+              </div>
+              <!-- / Contacts Widget -->
+            </div>
+          </div>
+
+          <div class="col-sm-3">
+            <div class="infoblock">
+              <!-- Flickr feed Widget -->
+              <h2 class="font-accident-one-bold">flickr feed</h2>
+              <ul id="basicuse" class="thumbs"></ul>
+              <!-- / Flickr feed Widget -->
+            </div>
+          </div>
+
+          <div class="col-sm-3">
+            <div class="infoblock">
+              <!-- Follow us Widget -->
+              <h2 class="font-accident-one-bold">Follow us</h2>
+              <div class="follow">
+                <div class="follow-element">
+                  <div class="follow-icon"><i class="fa fa-twitter"></i></div>
+                  <div class="follow-descr">
+                    <div class="follow-social"><a href="#">twitter</a></div>
+                    <div class="follow-numb">324</div>
+                  </div>
+                </div>
+                <div class="dividewhite1"></div>
+                <div class="follow-element">
+                  <div class="follow-icon"><i class="fa fa-facebook"></i></div>
+                  <div class="follow-descr">
+                    <div class="follow-social"><a href="#">facebook</a></div>
+                    <div class="follow-numb">653</div>
+                  </div>
+                </div>
+                <div class="dividewhite1"></div>
+                <div class="follow-element">
+                  <div class="follow-icon"><i class="fa fa-linkedin"></i></div>
+                  <div class="follow-descr">
+                    <div class="follow-social"><a href="#">linkedin</a></div>
+                    <div class="follow-numb">234</div>
+                  </div>
+                </div>
+              </div>
+              <!-- / Follow us Widget -->
+            </div>
+          </div>
+        </div>
+      </div>
+        <div class="container">
+        <div class="row partners">
+            <div class="col-xs-1"><img src="assets/custom/images/partners_01.png" class="img-responsive" alt="x"></div>
+            <div class="col-xs-1"><img src="assets/custom/images/partners_02.png" class="img-responsive" alt="x"></div>
+            <div class="col-xs-1"><img src="assets/custom/images/partners_03.png" class="img-responsive" alt="x"></div>
+            <div class="col-xs-1"><img src="assets/custom/images/partners_04.png" class="img-responsive" alt="x"></div>
+            <div class="col-xs-1"><img src="assets/custom/images/partners_05.png" class="img-responsive" alt="x"></div>
+            <div class="col-xs-1"><img src="assets/custom/images/partners_06.png" class="img-responsive" alt="x"></div>
+            <div class="col-xs-1"><img src="assets/custom/images/partners_07.png" class="img-responsive" alt="x"></div>
+            <div class="col-xs-1"><img src="assets/custom/images/partners_08.png" class="img-responsive" alt="x"></div>
+            <div class="col-xs-1"><img src="assets/custom/images/partners_09.png" class="img-responsive" alt="x"></div>
+            <div class="col-xs-1"><img src="assets/custom/images/partners_10.png" class="img-responsive" alt="x"></div>
+            <div class="col-xs-1"><img src="assets/custom/images/partners_11.png" class="img-responsive" alt="x"></div>
+            <div class="col-xs-1"><img src="assets/custom/images/partners_12.png" class="img-responsive" alt="x"></div>
+        </div>
+      </div>
+
+    </div>
+    <div id="copyrights-wrapper">
+        <div class="container">
+            <div class="copyright">
+                <div class="copy-attrs"> © 2014 <a href="http://neuethemes.net" target="_blank">Neuethemes</a>. All rights reserved</div>
+                <div class="copy-link">
+                    <a href="http://neuethemes.net" target="_blank">Legal Notice</a>
+                </div>
+                <div class="copy-link">
+                    <a href="http://neuethemes.net" target="_blank">Terms & Conditions</a>
                 </div>
             </div>
         </div>
     </div>
-</header>
+    <!-- /footer -->
 
-<section class="header-23-sub bg-midnight-blue">
-    <div id="bgVideo" class="background">&nbsp;</div>
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="hero-unit">
-                    <strong>Krak Studios</strong>
-                    <a class="btn-play"  id="play" href="#">Play</a>
-                    <span>Experiments for skateboarders</span>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<section class="projects-2">
+    <!-- Back to Top -->
+    <div id="back-top"><a href="#top"></a></div>
+    <!-- /Back to Top -->
 
-    <div class="project-1 project-krakbox v-center">
-        <div><!--v-center-->
-            <a href="http://box.skatekrak.com" target="_blank">
-            <div class="container">
-                <h1>KrakBox</h1>
-                <p>Skateboarding monthly subscription box</p>
-            </div>
-            </a>
-            <!--/.container-->
-        </div>
-        <!--/v-center-->
-    </div>
 
-    <div class="project-1 project-krakapp v-center">
-        <div><!--v-center-->
-            <!-- <div class="container"> -->
-                <table class="container">
-                    <tr>
-                        <td rowspan="2">
-                            <h1>KrakApp</h1>
-                            <p>Social network for skateboarders</p>
-                        </td>
-                        <td>
-                            <a href="https://itunes.apple.com/us/app/krak/id916474561" target="_blank"><img src="/static/images/appstore.png"></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <a href="https://play.google.com/store/apps/details?id=project.com.krak" target="_blank"><img src="/static/images/playstore.png"></a>
-                        </td>
-                    </tr>
-                </table>
-            <!-- </div> -->
-            <!--/.container-->
-        </div>
-        <!--/v-center-->
-    </div>
-
-    <div class="project-1 project-krakmap v-center">
-        <div><!--v-center-->
-            <a href="http://map.skatekrak.com" target="_blank">
-            <div class="container">
-                <h1 style="color: black">KrakMap</h1>
-                <p style="color: black">The skate map updated every day right in your browser</p>
-            </div>
-            </a>
-            <!--/.container-->
-        </div>
-        <!--/v-center-->
-    </div>
-
-    <div class="project-1 project-krakmag v-center">
-        <div><!--v-center-->
-            <a href="http://mag.skatekrak.com" target="_blank">
-            <div class="container">
-                <h1 style="color: black">KrakMag'</h1>
-                <p style="color: black">Our online magazine</p>
-            </div>
-            </a>
-            <!--/.container-->
-        </div>
-        <!--/v-center-->
-    </div>
-
-    <div class="project-1 project-tracker v-center">
-        <div><!--v-center-->
-            <a href="#dialog" name="modal">
-            <div class="container">
-                <h1>Krak'N</h1>
-                <p>Skateboard tracker</p>
-            </div>
-            </a>
-            <!--/.container-->
-        </div>
-        <!--/v-center-->
-    </div>
-</section>
-<section class="crew-2">
-    <div class="container">
-        <h3>Staff</h3>
-
-        <div class="members">
-            <div class="member-wrapper">
-                <div class="member">
-                    <div class="photo-wrapper">
-                        <div class="photo"><img src="startup/common-files/img/crew/mathilde.jpg" alt=""></div>
-                        <div class="name">Mathilde Baillet</div>
-                        <div class="position">Operations</div>
-                    </div>
-                    <div class="info">
-                        Goofy
-                        <div class="social-btns">
-                            <a href="mailto:mb@skatekrak.com">
-                                <div class="fa fa-envelope-o"></div>
-                                <div class="fa fa-envelope-o"></div>
-                            </a>
-                            <a href="https://www.twitter.com/m4th1ld" target="_blank">
-                                <div class="fa fa-twitter"></div>
-                                <div class="fa fa-twitter"></div>
-                            </a>
-                            <a href="https://www.instagram.com/mathrtw" target="_blank">
-                                <i class="fa fa-instagram"></i>
-                                <i class="fa fa-instagram"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="member-wrapper">
-                <div class="member">
-                    <div class="photo-wrapper">
-                        <div class="photo"><img src="startup/common-files/img/crew/maxime.jpg" alt=""></div>
-                        <div class="name">Maxime Cattet</div>
-                        <div class="position">Founding Team</div>
-                    </div>
-                    <div class="info">
-                        Regular
-
-                        <div class="social-btns">
-                            <a href="mailto:m@skatekrak.com">
-                                <div class="fa fa-envelope-o"></div>
-                                <div class="fa fa-envelope-o"></div>
-                            </a>
-                            <a href="https://twitter.com/maximetrap" target="_blank">
-                                <div class="fa fa-twitter"></div>
-                                <div class="fa fa-twitter"></div>
-                            </a>
-                            <a href="https://github.com/johnoppenheimer" target="_blank">
-                                <i class="fa fa-github"></i>
-                                <i class="fa fa-github"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="member-wrapper">
-                <div class="member">
-                    <div class="photo-wrapper">
-                        <div class="photo"><img src="startup/common-files/img/crew/romain.jpg" alt=""></div>
-                        <div class="name">Romain Coste</div>
-                        <div class="position">Box</div>
-                    </div>
-                    <div class="info">
-                        Regular
-
-                        <div class="social-btns">
-                            <a href="mailto:r@skatekrak.com">
-                                <div class="fa fa-envelope-o"></div>
-                                <div class="fa fa-envelope-o"></div>
-                            </a>
-                            <a href="https://twitter.com/mmmelk" target="_blank">
-                                <div class="fa fa-twitter"></div>
-                                <div class="fa fa-twitter"></div>
-                            </a>
-                            <a href="https://instagram.com/mmmelk" target="_blank">
-                                <div class="fa fa-instagram"></div>
-                                <div class="fa fa-instagram"></div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="members">
-            <div class="member-wrapper">
-                <div class="member">
-                    <div class="photo-wrapper">
-                        <div class="photo"><img src="startup/common-files/img/crew/kevin.jpg" alt=""></div>
-                        <div class="name">Kevin Strazsburger</div>
-                        <div class="position">Founder</div>
-                    </div>
-                    <div class="info">
-                        Regular
-
-                        <div class="social-btns">
-                            <a href="mailto:k@skatekrak.com">
-                                <div class="fa fa-envelope-o"></div>
-                                <div class="fa fa-envelope-o"></div>
-                            </a>
-                            <a href="https://instagram.com/k7vin" target="_blank">
-                                <div class="fa fa-instagram"></div>
-                                <div class="fa fa-instagram"></div>
-                            </a>
-                            <a href="https://twitter.com/k7vin" target="_blank">
-                                <div class="fa fa-twitter"></div>
-                                <div class="fa fa-twitter"></div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="member-wrapper">
-                <div class="member">
-                    <div class="photo-wrapper">
-                        <div class="photo"><img src="startup/common-files/img/crew/hokiat.jpg" alt=""></div>
-                        <div class="name">Hokiat Lim</div>
-                        <div class="position">Media</div>
-                    </div>
-                    <div class="info">
-                        Goofy
-
-                        <div class="social-btns">
-                            <a href="mailto:h@skatekrak.com">
-                                <div class="fa fa-envelope-o"></div>
-                                <div class="fa fa-envelope-o"></div>
-                            </a>
-                            <a href="https://instagram.com/yozillasays" target="_blank">
-                                <div class="fa fa-instagram"></div>
-                                <div class="fa fa-instagram"></div>
-                            </a>
-                            <a href="https://twitter.com/yozillasays" target="_blank">
-                                <div class="fa fa-twitter"></div>
-                                <div class="fa fa-twitter"></div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="member-wrapper">
-                <div class="member">
-                    <div class="photo-wrapper">
-                        <div class="photo"><img src="startup/common-files/img/crew/romainpaget.jpg" alt=""></div>
-                        <div class="name">Romain Paget</div>
-                        <div class="position">Design</div>
-                    </div>
-                    <div class="info">
-                        Regular
-
-                        <div class="social-btns">
-                            <a href="mailto:rp@skatekrak.com">
-                                <div class="fa fa-envelope-o"></div>
-                                <div class="fa fa-envelope-o"></div>
-                            </a>
-                            <a href="https://www.instagram.com/pagetromain" target="_blank">
-                                <div class="fa fa-instagram"></div>
-                                <div class="fa fa-instagram"></div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="members">
-            <div class="member-wrapper">
-                <div class="member">
-                    <div class="photo-wrapper">
-                        <div class="photo" style="background-position: top"><img src="startup/common-files/img/crew/simon.jpg" alt=""></div>
-                        <div class="name">Simon Grassart</div>
-                        <div class="position">Content</div>
-                    </div>
-                    <div class="info">
-                        Regular
-
-                        <div class="social-btns">
-                            <a href="mailto:s@skatekrak.com">
-                                <div class="fa fa-envelope-o"></div>
-                                <div class="fa fa-envelope-o"></div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="member-wrapper">
-                <div class="member">
-                    <div class="photo-wrapper">
-                        <div class="photo" style="background-position: top"><img src="startup/common-files/img/crew/felix.jpg" alt=""></div>
-                        <div class="name">Felix Baillet</div>
-                        <div class="position">Community</div>
-                    </div>
-                    <div class="info">
-                        Regular
-
-                        <div class="social-btns">
-                            <a href="mailto:f@skatekrak.com">
-                                <div class="fa fa-envelope-o"></div>
-                                <div class="fa fa-envelope-o"></div>
-                            </a>
-                            <a href="http://instagram.com/felix_baillet" target="_blank">
-                                <div class="fa fa-instagram"></div>
-                                <div class="fa fa-instagram"></div>
-                            </a>
-                            <a href="https://twitter.com/FelixBayet" target="_blank">
-                                <div class="fa fa-twitter"></div>
-                                <div class="fa fa-twitter"></div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="member-wrapper">
-                <div class="member">
-                    <div class="photo-wrapper">
-                        <div class="photo" style="background-position: top"><img src="startup/common-files/img/crew/seiji.png" alt=""></div>
-                        <div class="name">Seiji Fouquet</div>
-                        <div class="position">Engineering</div>
-                    </div>
-                    <div class="info">
-                        Goofy
-
-                        <div class="social-btns">
-                            <a href="mailto:sf@skatekrak">
-                                <div class="fa fa-envelope-o"></div>
-                                <div class="fa fa-envelope-o"></div>
-                            </a>
-                            <a href="https://github.com/SushiFu" target="_blank">
-                                <i class="fa fa-github"></i>
-                                <i class="fa fa-github"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </div>
-    <!--/.container-->
-</section>
-
-<footer class="footer-2 bg-midnight-blue">
-    <div class="container">
-        <div class="social-btns pull-right">
-            <a href="mailto:hey@skatekrak.com">
-                <div class="fa fa-envelope-o"></div>
-                <div class="fa fa-envelope-o"></div>
-            </a>
-            <a href="https://www.instagram.com/skate_krak" target="_blank">
-                <div class="fa fa-instagram"></div>
-                <div class="fa fa-instagram"></div>
-            </a>
-            <a href="https://www.youtube.com/channel/UC1o-dFTrXKLa6Ov8GiysF7g" target="_blank">
-                <div class="fa fa-youtube"></div>
-                <div class="fa fa-youtube"></div>
-            </a>
-            <a href="https://www.facebook.com/skatekrak" target="_blank">
-                <div class="fa fa-facebook"></div>
-                <div class="fa fa-facebook"></div>
-            </a>
-            <a href="http://skatekrak.tumblr.com/" target="_blank">
-                <div class="fa fa-tumblr"></div>
-                <div class="fa fa-tumblr"></div>
-            </a>
-            <a href="https://www.twitter.com/skatekrak"  target="_blank">
-                <div class="fa fa-twitter"></div>
-                <div class="fa fa-twitter"></div>
-            </a>
-        </div>
-        <div class="additional-links">
-            Be sure to take a look at our <a href="#">Privacy Policy</a> - Made w/ bones b/w L.A and Berlin
-        </div>
-    </div>
-</footer>            <!-- Placed at the end of the document so the pages load faster -->
-            <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
-            <script src="/startup/common-files/js/jquery.bxslider.min.js"></script>
-            <script src="/startup/common-files/js/jquery.scrollTo-1.4.3.1-min.js"></script>
-            <script src="/startup/common-files/js/jquery.sharrre.min.js"></script>
-            <script src="/startup/flat-ui/js/bootstrap.min.js"></script>
-            <script src="/startup/common-files/js/masonry.pkgd.min.js"></script>
-            <script src="/startup/common-files/js/modernizr.custom.js"></script>
-            <script src="/startup/common-files/js/page-transitions.js"></script>
-            <script src="/startup/common-files/js/easing.min.js"></script>
-            <script src="/startup/common-files/js/jquery.svg.js"></script>
-            <script src="/startup/common-files/js/jquery.svganim.js"></script>
-            <script src="/startup/common-files/js/jquery.backgroundvideo.min.js"></script>
-            <script src="/startup/common-files/js/froogaloop.min.js"></script>
-            <script src="/startup/common-files/js/startup-kit.js"></script>
-            <script type="text/javascript">
-                $(document).ready(function() {
-                  //select all the a tag with name equal to modal
-                  $('a[name=modal]').click(function(e) {
-                    console.log("Click on Krak'N");
-                    //Cancel the link behavior
-                    e.preventDefault();
-
-                    //Get the A tag
-                    var id = $(this).attr('href');
-
-                    //Get the screen height and width
-                    var maskHeight = $(document).height();
-                    var maskWidth = $(window).width();
-
-                    //Set heigth and width to mask to fill up the whole screen
-                    $('#mask').css({'width':maskWidth,'height':maskHeight});
-
-                    //transition effect
-                    $('#mask').fadeIn(1000);
-                    $('#mask').fadeTo("slow",0.8);
-
-                    //Get the window height and width
-                    var winH = $(window).height();
-                    var winW = $(window).width();
-
-                    //Set the popup window to center
-                    $(id).css('top',  winH/2-$(id).height()/2);
-                    $(id).css('left', winW/2-$(id).width()/2);
-
-                    //transition effect
-                    $(id).fadeIn(2000);
-
-                  });
-
-                  //if close button is clicked
-                  $('.window_modal .close_modal').click(function (e) {
-                    //Cancel the link behavior
-                    e.preventDefault();
-
-                    $('#mask').hide();
-                    $('.window_modal').hide();
-                  });
-
-                  //if mask is clicked
-                  $('#mask').click(function () {
-                    $(this).hide();
-                    $('.window_modal').hide();
-                  });
-
-                  $(window).resize(function () {
-
-                    var box = $('#boxes .window_modal');
-
-                        //Get the screen height and width
-                        var maskHeight = $(document).height();
-                        var maskWidth = $(window).width();
-
-                        //Set height and width to mask to fill up the whole screen
-                        $('#mask').css({'width':maskWidth,'height':maskHeight});
-
-                        //Get the window height and width
-                        var winH = $(window).height();
-                        var winW = $(window).width();
-
-                        //Set the popup window to center
-                        box.css('top',  winH/2 - box.height()/2);
-                        box.css('left', winW/2 - box.width()/2);
-
-                  });
-
-                });
-            </script>
-            <script>
-            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-              (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-              m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-            ga('create', 'UA-54975174-1', 'auto');
-            ga('send', 'pageview');
-
-            </script>
-        </div>
-    </body>
+  </body>
 </html>
