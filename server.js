@@ -14,26 +14,6 @@ app.get('/', function(req, res){
 	res.render('index');
 });
 
-app.get('/app', function(req, res){
-
-});
-
-app.get('/map', function(req, res){
-
-});
-
-app.get('/box', function(req, res){
-
-})
-
-app.get('/about', function(req, res){
-
-});
-
-app.get('/contact', function(req, res){
-
-});
-
 app.get('/privacy-policy', function(req, res){
 	res.render('privacy-policy');
 });
