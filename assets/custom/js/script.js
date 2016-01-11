@@ -314,14 +314,20 @@ jQuery(document).ready(function () {
 
     /* Flickr feed */
 
-    jQuery('#basicuse').jflickrfeed({
-        limit: 10,
-        qstrings: {
-            id: '32532032@N06'
-        },
-        itemTemplate: '<li>' +
-        '<a href="{{image_b}}"><img src="{{image_s}}" class="img-rounded" alt="{{title}}" /></a>' +
-        '</li>'
+    // jQuery('#basicuse').jflickrfeed({
+    //     limit: 10,
+    //     qstrings: {
+    //         id: '32532032@N06'
+    //     },
+    //     itemTemplate: '<li>' +
+    //     '<a href="{{image_b}}"><img src="{{image_s}}" class="img-rounded" alt="{{title}}" /></a>' +
+    //     '</li>'
+    // });
+    jQuery('#basicuse').instagramLite({
+        clientID: "6b60adc1bb2749c1a2f9cfd104b1c264",
+        username: "skate_krak",
+        limit: 12,
+        urls: true
     });
 
 
@@ -415,11 +421,3 @@ jQuery(document).ready(function () {
     }
 
 });
-
-
-
-
-
-
-
-
