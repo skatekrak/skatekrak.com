@@ -3474,3 +3474,12 @@ input[type="email"]{
     border-bottom-left-radius: 2px;
     border-bottom-right-radius: 2px;
 }
+
+.krak-desc{
+    font-weight: bold;
+    font-size: 24px;
+}
+
+.krak-desc a{
+    color: #FF3D38;
+}
