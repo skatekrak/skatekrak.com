@@ -1242,7 +1242,7 @@ ul.sf-menu > li, .sf-menu > li > a {
   text-transform: uppercase;
   color: #333; }
   #header-wrapper #site-title h1 a {
-    color: #333;
+    color: #FF3D38;
     text-decoration: none; }
 #header-wrapper #page-title {
   height: 500px;
@@ -1610,7 +1610,7 @@ ul.sf-menu > li, .sf-menu > li > a {
   color: #333 !important; }
   #header-wrapper.sticky-menu-light .is-sticky #site-title h1 a,
   #header-wrapper-mp.sticky-menu-light .is-sticky #site-title h1 a {
-    color: #333 !important; }
+    color: #FF3D38 !important; }
 #header-wrapper.sticky-menu-light .is-sticky .sticky-header,
 #header-wrapper-mp.sticky-menu-light .is-sticky .sticky-header {
   background: #fff;
@@ -3449,3 +3449,28 @@ a.gm-toggle-link {
     height: 80px; } }
 
 /*# sourceMappingURL=style.css.map */
+
+.krak-logo {
+    margin-top: -7px;
+    margin-right: 5px;
+    height: 30px;
+}
+
+.form-control{
+    border-radius: 0px;
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px;
+}
+input[type="email"]{
+    border: none;
+}
+
+.btn{
+    border-radius: 0px;
+}
+
+.btn-danger{
+    background-color: #FF3D39;
+    border-bottom-left-radius: 2px;
+    border-bottom-right-radius: 2px;
+}
