@@ -4,10 +4,9 @@
   "main": "server.js",
   "description": "HUB of Krak Skateboarding World",
   "dependencies": {
+    "ect": "^0.5.9",
     "ejs": "^2.3.1",
     "express": "^4.12.2",
-    "pm2": "^0.12.10",
-    "pmx": "^0.3.7",
     "request": "^2.53.0"
   }
 }
