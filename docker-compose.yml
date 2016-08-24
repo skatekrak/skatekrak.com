@@ -1,3 +1,4 @@
 skatekrak:
     restart: always
+    image: web-krak
     container_name: skatekrak
