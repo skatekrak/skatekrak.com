@@ -153,7 +153,7 @@
     top: 0;
     left: 0;
     background-color: #e8e8e8;
-    background: url("../images/cover_by_mikendo_stanfield.jpg") no-repeat center center;
+    background: url("../images/section-bg01.jpg") no-repeat center center;
     background-size: cover;
     will-change: transform;
     z-index: -1; }
@@ -313,7 +313,7 @@
   font-style: normal; }
 
 .font-accident-one-light {
-  font-family: Novecentosanswide-Light, sans-serif;
+  font-family: Novecentosanswide-Bold, sans-serif;
   font-weight: normal;
   font-style: normal; }
 
@@ -1242,7 +1242,7 @@ ul.sf-menu > li, .sf-menu > li > a {
   text-transform: uppercase;
   color: #333; }
   #header-wrapper #site-title h1 a {
-    color: #FF3D38;
+    color: #333;
     text-decoration: none; }
 #header-wrapper #page-title {
   height: 500px;
@@ -1610,7 +1610,7 @@ ul.sf-menu > li, .sf-menu > li > a {
   color: #333 !important; }
   #header-wrapper.sticky-menu-light .is-sticky #site-title h1 a,
   #header-wrapper-mp.sticky-menu-light .is-sticky #site-title h1 a {
-    color: #FF3D38 !important; }
+    color: #333 !important; }
 #header-wrapper.sticky-menu-light .is-sticky .sticky-header,
 #header-wrapper-mp.sticky-menu-light .is-sticky .sticky-header {
   background: #fff;
@@ -1862,7 +1862,7 @@ ul.sf-menu > li, .sf-menu > li > a {
         text-transform: uppercase; }
 
 .digit {
-  font-size: 72px;
+  font-size: 28px;
   line-height: 46px;
   margin: 0;
   padding: 0; }
@@ -2152,22 +2152,22 @@ ul.sf-menu > li, .sf-menu > li > a {
     width: 120px;
     height: 133px;
     margin: 0 auto 30px auto;
-    background: url("../images/hp-portf-01.png") center no-repeat; }
+    background: url("../../img/brands/skatekrak_magenta.png") center no-repeat; }
   .logos .logos-item .logos-pic-02 {
     width: 120px;
     height: 133px;
     margin: 0 auto 30px auto;
-    background: url("../images/hp-portf-02.png") center no-repeat; }
+    background: url("../../img/brands/skatekrak_cliche.png") center no-repeat; }
   .logos .logos-item .logos-pic-03 {
     width: 120px;
     height: 133px;
     margin: 0 auto 30px auto;
-    background: url("../images/hp-portf-03.png") center no-repeat; }
+    background: url("../../img/brands/skatekrak_toymachine.png") center no-repeat; }
   .logos .logos-item .logos-pic-04 {
     width: 120px;
     height: 133px;
     margin: 0 auto 30px auto;
-    background: url("../images/hp-portf-04.png") center no-repeat; }
+    background: url("../../img/brands/skatekrak_enjoi.png") center no-repeat; }
 .logos .btn-logos {
   min-width: 180px; }
 
@@ -3449,37 +3449,3 @@ a.gm-toggle-link {
     height: 80px; } }
 
 /*# sourceMappingURL=style.css.map */
-
-.krak-logo {
-    margin-top: -7px;
-    margin-right: 5px;
-    height: 30px;
-}
-
-.form-control{
-    border-radius: 0px;
-    border-top-left-radius: 2px;
-    border-top-right-radius: 2px;
-}
-input[type="email"]{
-    border: none;
-}
-
-.btn{
-    border-radius: 0px;
-}
-
-.btn-danger{
-    background-color: #FF3D39;
-    border-bottom-left-radius: 2px;
-    border-bottom-right-radius: 2px;
-}
-
-.krak-desc{
-    font-weight: bold;
-    font-size: 24px;
-}
-
-.krak-desc a{
-    color: #FF3D38;
-}

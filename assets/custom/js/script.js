@@ -323,12 +323,6 @@ jQuery(document).ready(function () {
     //     '<a href="{{image_b}}"><img src="{{image_s}}" class="img-rounded" alt="{{title}}" /></a>' +
     //     '</li>'
     // });
-    jQuery('#basicuse').instagramLite({
-        clientID: "6b60adc1bb2749c1a2f9cfd104b1c264",
-        username: "skate_krak",
-        limit: 12,
-        urls: true
-    });
 
 
     /* Google Analytics */
@@ -345,7 +339,7 @@ jQuery(document).ready(function () {
         m.parentNode.insertBefore(a, m)
     })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
 
-    ga('create', 'UA-40696437-6', 'auto');
+    ga('create', 'UA-54975174-1', 'auto');
     ga('send', 'pageview');
 
     var gmapIsReady = false;
@@ -391,7 +385,7 @@ jQuery(document).ready(function () {
 
         // Create a map object, and include the MapTypeId to add
         // to the map type control.
-        var $latlng = new google.maps.LatLng(52.5075419, 13.4261419),
+        var $latlng = new google.maps.LatLng(52.54035, 13.42044),
             $mapOptions = {
                 zoom: 13,
                 center: $latlng,

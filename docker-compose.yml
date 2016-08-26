@@ -1,0 +1,9 @@
+skatekrak:
+    restart: always
+    image: web-krak
+    container_name: skatekrak
+    environment: 
+     - VIRTUAL_HOST=skatekrak.com
+     - VIRTUAL_PORT=8080
+     - LETSENCRYPT_HOST=skatekrak.com
+     - LETSENCRYPT_EMAIL=sushifu@gmx.fr
