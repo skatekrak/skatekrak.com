@@ -18,7 +18,7 @@ build:
         - docker info
         - docker build -t $HUB_URL
         - docker push $HUB_URL$TAG
-    ony;:
+    only:
         - master
 
 deploy:
