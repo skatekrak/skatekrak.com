@@ -16,7 +16,7 @@ build:
     image: docker:latest
     script:
         - docker info
-        - docker build -t $HUB_URL
+        - docker build -t $HUB_URL .
         - docker push $HUB_URL$TAG
     only:
         - master
