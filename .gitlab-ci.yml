@@ -33,7 +33,7 @@ deploy:
         - cp docker-compose.yml $FOLDER_DEPLOY
         - cd /docker
         - dcs $NAME
-        - drm $NAME
+        - dcr $NAME
         - docker rmi $HUB_URL$TAG
         - docker pull $HUB_URL$TAG
         - dcgen
