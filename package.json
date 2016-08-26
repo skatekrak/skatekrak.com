@@ -8,7 +8,7 @@
     "url": "https://git.skatekrak.com/web/skatekrak.com"
   },
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "node server.js"
   },
   "dependencies": {
     "express": "^4.12.2"
