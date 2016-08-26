@@ -313,7 +313,7 @@
   font-style: normal; }
 
 .font-accident-one-light {
-  font-family: Novecentosanswide-Light, sans-serif;
+  font-family: Novecentosanswide-Bold, sans-serif;
   font-weight: normal;
   font-style: normal; }
 
@@ -1862,7 +1862,7 @@ ul.sf-menu > li, .sf-menu > li > a {
         text-transform: uppercase; }
 
 .digit {
-  font-size: 72px;
+  font-size: 28px;
   line-height: 46px;
   margin: 0;
   padding: 0; }
