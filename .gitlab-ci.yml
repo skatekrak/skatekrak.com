@@ -32,11 +32,11 @@ deploy:
         - mkdir -p $FOLDER_DEPLOY
         - cp docker-compose.yml $FOLDER_DEPLOY
         - cd /docker
-        - dcs $NAME
-        - dcr $NAME
+        - docker-compose stop $NAME
+        - docker-compose rm -f $NAME
         - docker rmi $HUB_URL$TAG
         - docker pull $HUB_URL$TAG
-        - dcgen
-        - dcu $NAME
+        - docker run -t --rm -v /var/local/lib/docker:/docker sushifu/compose-merger
+        - docker-compose up -d $NAME
     only:
         - tags
