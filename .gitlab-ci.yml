@@ -1,0 +1,21 @@
+stages:
+    - build
+
+before_script:
+    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN hub.skatekrak.com
+
+variables:
+    HUB_URL: "hub.skatekrak.com/web/skatekrak.com"
+    TAG: ":latest"
+
+build:
+    stage: build
+    tags:
+        - docker
+    image: docker:latest
+    script:
+        - docker info
+        - docker build -t $HUB_URL
+        - docker push $HUB_URL$TAG
+    ony;:
+        - master
