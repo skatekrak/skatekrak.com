@@ -1,0 +1,42 @@
+stages:
+    - build
+    - deploy
+
+before_script:
+    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN hub.skatekrak.com
+
+variables:
+    HUB_URL: "hub.skatekrak.com/web/skatekrak.com"
+    TAG: ":latest"
+
+build:
+    stage: build
+    tags:
+        - docker
+    image: docker:latest
+    script:
+        - docker info
+        - docker build -t $HUB_URL
+        - docker push $HUB_URL$TAG
+    ony;:
+        - master
+
+deploy:
+    stage: deploy
+    tags:
+        - deploy
+    variables:
+        FOLDER_DEPLOY: "/docker/skatekrak"
+        NAME: "skatekrak"
+    script:
+        - mkdir -p $FOLDER_DEPLOY
+        - cp docker-compose.yml $FOLDER_DEPLOY
+        - cd /docker
+        - dcs $NAME
+        - drm $NAME
+        - docker rmi $HUB_URL$TAG
+        - docker pull $HUB_URL$TAG
+        - dcgen
+        - dcu $NAME
+    only:
+        - tags
