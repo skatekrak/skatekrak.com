@@ -16,9 +16,9 @@ build:
     image: docker:latest
     script:
         - docker info
-        - docker build -t $HUB_URL
+        - docker build -t $HUB_URL .
         - docker push $HUB_URL$TAG
-    ony;:
+    only:
         - master
 
 deploy:
@@ -33,7 +33,7 @@ deploy:
         - cp docker-compose.yml $FOLDER_DEPLOY
         - cd /docker
         - dcs $NAME
-        - drm $NAME
+        - dcr $NAME
         - docker rmi $HUB_URL$TAG
         - docker pull $HUB_URL$TAG
         - dcgen
