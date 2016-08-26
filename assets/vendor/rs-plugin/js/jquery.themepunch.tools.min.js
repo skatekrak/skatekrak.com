@@ -10,10 +10,10 @@
 * @fileOverview TouchSwipe - jQuery Plugin
 * @version 1.6.6
 *
-* @author Matt Bryson http://www.github.com/mattbryson
+* @author Matt Bryson https://www.github.com/mattbryson
 * @see https://github.com/mattbryson/TouchSwipe-Jquery-Plugin
-* @see http://labs.skinkers.com/touchSwipe/
-* @see http://plugins.jquery.com/project/touchSwipe
+* @see https://labs.skinkers.com/touchSwipe/
+* @see https://plugins.jquery.com/project/touchSwipe
 *
 * Copyright (c) 2010 Matt Bryson
 * Dual licensed under the MIT or GPL Version 2 licenses.
@@ -48,10 +48,10 @@ if (window.tplogs==true)
 /*!
  * VERSION: 1.13.2
  * DATE: 2014-08-23
- * UPDATES AND DOCS AT: http://www.greensock.com
+ * UPDATES AND DOCS AT: https://www.greensock.com
  *
  * @license Copyright (c) 2008-2014, GreenSock. All rights reserved.
- * This work is subject to the terms at http://www.greensock.com/terms_of_use.html or for
+ * This work is subject to the terms at https://www.greensock.com/terms_of_use.html or for
  * Club GreenSock members, the software agreement that was issued with your membership.
  * 
  * @author: Jack Doyle, jack@greensock.com
@@ -61,10 +61,10 @@ if (window.tplogs==true)
 /*!
  * VERSION: 1.13.2
  * DATE: 2014-08-23
- * UPDATES AND DOCS AT: http://www.greensock.com
+ * UPDATES AND DOCS AT: https://www.greensock.com
  *
  * @license Copyright (c) 2008-2014, GreenSock. All rights reserved.
- * This work is subject to the terms at http://www.greensock.com/terms_of_use.html or for
+ * This work is subject to the terms at https://www.greensock.com/terms_of_use.html or for
  * Club GreenSock members, the software agreement that was issued with your membership.
  * 
  * @author: Jack Doyle, jack@greensock.com
@@ -75,10 +75,10 @@ var _gsScope="undefined"!=typeof module&&module.exports&&"undefined"!=typeof glo
 /*!
  * VERSION: beta 1.9.4
  * DATE: 2014-07-17
- * UPDATES AND DOCS AT: http://www.greensock.com
+ * UPDATES AND DOCS AT: https://www.greensock.com
  *
  * @license Copyright (c) 2008-2014, GreenSock. All rights reserved.
- * This work is subject to the terms at http://www.greensock.com/terms_of_use.html or for
+ * This work is subject to the terms at https://www.greensock.com/terms_of_use.html or for
  * Club GreenSock members, the software agreement that was issued with your membership.
  * 
  * @author: Jack Doyle, jack@greensock.com
@@ -89,10 +89,10 @@ var _gsScope="undefined"!=typeof module&&module.exports&&"undefined"!=typeof glo
 /*!
  * VERSION: 1.13.2
  * DATE: 2014-08-23
- * UPDATES AND DOCS AT: http://www.greensock.com
+ * UPDATES AND DOCS AT: https://www.greensock.com
  *
  * @license Copyright (c) 2008-2014, GreenSock. All rights reserved.
- * This work is subject to the terms at http://www.greensock.com/terms_of_use.html or for
+ * This work is subject to the terms at https://www.greensock.com/terms_of_use.html or for
  * Club GreenSock members, the software agreement that was issued with your membership.
  * 
  * @author: Jack Doyle, jack@greensock.com
@@ -104,11 +104,11 @@ var _gsScope="undefined"!=typeof module&&module.exports&&"undefined"!=typeof glo
 /*!
  * VERSION: beta 0.2.4
  * DATE: 2014-07-17
- * UPDATES AND DOCS AT: http://www.greensock.com
+ * UPDATES AND DOCS AT: https://www.greensock.com
  *
  * @license Copyright (c) 2008-2014, GreenSock. All rights reserved.
  * SplitText is a Club GreenSock membership benefit; You must have a valid membership to use
- * this code without violating the terms of use. Visit http://www.greensock.com/club/ to sign up or get more details.
+ * this code without violating the terms of use. Visit https://www.greensock.com/club/ to sign up or get more details.
  * This work is subject to the software agreement that was issued with your membership.
  * 
  * @author: Jack Doyle, jack@greensock.com

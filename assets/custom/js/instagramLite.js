@@ -3,7 +3,7 @@
 Name: Instagram Lite
 Dependencies: jQuery
 Author: Michael Lynch
-Author URL: http://michaelynch.com
+Author URL: https://michaelynch.com
 Date Created: January 14, 2014
 Licensed under the MIT license
 
@@ -60,10 +60,10 @@ Licensed under the MIT license
 	    		var word;
 		    	
 		    	if(words[i][0] == '@') {
-			    	var a = '<a href="http://twitter.com/'+words[i].replace('@', '').toLowerCase()+'" target="_blank">'+words[i]+'</a>';
+			    	var a = '<a href="https://twitter.com/'+words[i].replace('@', '').toLowerCase()+'" target="_blank">'+words[i]+'</a>';
 			    	word = a;
 			    } else if(words[i][0] == '#') {
-			    	var a = '<a href="http://twitter.com/hashtag/'+words[i].replace('#', '').toLowerCase()+'" target="_blank">'+words[i]+'</a>';
+			    	var a = '<a href="https://twitter.com/hashtag/'+words[i].replace('#', '').toLowerCase()+'" target="_blank">'+words[i]+'</a>';
 			    	word = a;
 		    	} else {
 			    	word = words[i]
