@@ -1,5 +1,6 @@
 stages:
     - build
+    - deploy
 
 before_script:
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN hub.skatekrak.com
@@ -15,7 +16,27 @@ build:
     image: docker:latest
     script:
         - docker info
-        - docker build -t $HUB_URL
+        - docker build -t $HUB_URL .
         - docker push $HUB_URL$TAG
-    ony;:
+    only:
         - master
+
+deploy:
+    stage: deploy
+    tags:
+        - deploy
+    variables:
+        FOLDER_DEPLOY: "/docker/skatekrak"
+        NAME: "skatekrak"
+    script:
+        - mkdir -p $FOLDER_DEPLOY
+        - cp docker-compose.yml $FOLDER_DEPLOY
+        - cd /docker
+        - docker-compose stop $NAME
+        - docker-compose rm -f $NAME
+        - docker rmi $HUB_URL$TAG
+        - docker pull $HUB_URL$TAG
+        - docker run -t --rm -v /var/local/lib/docker:/docker sushifu/compose-merger
+        - docker-compose up -d $NAME
+    only:
+        - tags

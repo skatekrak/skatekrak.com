@@ -1,8 +1,8 @@
 skatekrak:
     restart: always
-    image: web-krak
+    image: hub.skatekrak.com/web/skatekrak.com:latest
     container_name: skatekrak
-    environment: 
+    environment:
      - VIRTUAL_HOST=skatekrak.com
      - VIRTUAL_PORT=8080
      - LETSENCRYPT_HOST=skatekrak.com

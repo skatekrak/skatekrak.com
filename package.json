@@ -1,6 +1,6 @@
 {
   "name": "skatekrak.com",
-  "version": "1.0.0",
+  "version": "2.0.4",
   "main": "server.js",
   "description": "HUB of Krak Skateboarding World",
   "repository": {
@@ -8,7 +8,7 @@
     "url": "https://git.skatekrak.com/web/skatekrak.com"
   },
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "node server.js"
   },
   "dependencies": {
     "express": "^4.12.2"
