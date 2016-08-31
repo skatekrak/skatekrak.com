@@ -8,7 +8,7 @@ app.get('/', function(req, res){
 });
 
 app.get('/privacy-policy', function(req, res){
-	res.render('privacy-policy');
+	res.sendFile(__dirname + '/views/privacy-policy.html')
 });
 
 app.get('*', function(req, res){
