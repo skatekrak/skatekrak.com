@@ -32,11 +32,11 @@ deploy:
         - mkdir -p $FOLDER_DEPLOY
         - cp docker-compose.yml $FOLDER_DEPLOY
         - cd /docker
+        - docker run -t --rm -v /var/local/lib/docker:/docker sushifu/compose-merger
         - docker-compose stop $NAME
         - docker-compose rm -f $NAME
-        - docker rmi $HUB_URL$TAG
         - docker pull $HUB_URL$TAG
-        - docker run -t --rm -v /var/local/lib/docker:/docker sushifu/compose-merger
         - docker-compose up -d $NAME
+        - docker images -q | xargs docker rmi || true
     only:
-        - tags
+        - master
