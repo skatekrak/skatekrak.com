@@ -1,42 +1,39 @@
 stages:
     - build
+    - release
     - deploy
+
+variables:
+    HUB_URL: "hub.skatekrak.com/web/skatekrak.com"
 
 before_script:
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN hub.skatekrak.com
 
-variables:
-    HUB_URL: "hub.skatekrak.com/web/skatekrak.com"
-    TAG: ":latest"
-
 build:
     stage: build
-    tags:
-        - docker
-    image: docker:latest
     script:
-        - docker info
-        - docker build -t $HUB_URL .
-        - docker push $HUB_URL$TAG
+        - docker build -t $HUB_URL:testing .
+        - docker push $HUB_URL:testing
     only:
-        - master
+        - tags
+
+release:
+    stage: release
+    script:
+        - docker pull $HUB_URL:testing
+        - docker tag $HUB_URL:testing $HUB_URL:latest
+        - docker push $HUB_URL:latest
+    only:
+        - tags
+    when: on_success
 
 deploy:
     stage: deploy
     tags:
         - deploy
-    variables:
-        FOLDER_DEPLOY: "/docker/skatekrak"
-        NAME: "skatekrak"
     script:
-        - mkdir -p $FOLDER_DEPLOY
-        - cp docker-compose.yml $FOLDER_DEPLOY
-        - cd /docker
-        - docker run -t --rm -v /var/local/lib/docker:/docker sushifu/compose-merger
-        - docker-compose stop $NAME
-        - docker-compose rm -f $NAME
-        - docker pull $HUB_URL$TAG
-        - docker-compose up -d $NAME
-        - docker images -q | xargs docker rmi || true
+        - docker-compose pull
+        - docker-compose up -d --force-recreate
     only:
-        - master
+        - tags
+    when: on_success

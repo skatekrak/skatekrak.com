@@ -1,9 +1,16 @@
-skatekrak:
-    restart: always
-    image: hub.skatekrak.com/web/skatekrak.com:latest
-    container_name: skatekrak
-    environment:
-     - VIRTUAL_HOST=skatekrak.com
-     - VIRTUAL_PORT=8080
-     - LETSENCRYPT_HOST=skatekrak.com
-     - LETSENCRYPT_EMAIL=sushifu@gmx.fr
+version: "3"
+services: 
+    skatekrak:
+        restart: always
+        image: hub.skatekrak.com/web/skatekrak.com:latest
+        environment:
+        - VIRTUAL_HOST=skatekrak.com
+        - VIRTUAL_PORT=8080
+        - LETSENCRYPT_HOST=skatekrak.com
+        - LETSENCRYPT_EMAIL=sushifu@gmx.fr
+        networks:
+        - web
+
+networks:
+    web:
+        external: true
