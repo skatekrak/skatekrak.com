@@ -15,7 +15,7 @@ build:
         - docker build -t $HUB_URL:testing .
         - docker push $HUB_URL:testing
     only:
-        - tags
+        - master
 
 release:
     stage: release
@@ -24,7 +24,7 @@ release:
         - docker tag $HUB_URL:testing $HUB_URL:latest
         - docker push $HUB_URL:latest
     only:
-        - tags
+        - master
     when: on_success
 
 deploy:
@@ -38,5 +38,5 @@ deploy:
         name: production
         url: https://skatekrak.com
     only:
-        - tags
+        - master
     when: on_success
