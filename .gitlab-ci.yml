@@ -34,6 +34,9 @@ deploy:
     script:
         - docker-compose pull
         - docker-compose up -d --force-recreate
+    environment:
+        name: production
+        url: https://skatekrak.com
     only:
         - tags
     when: on_success
