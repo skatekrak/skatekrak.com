@@ -1,6 +1,8 @@
 var express = require('express');
+const compress = require("compression");
 var app = express();
 
+app.use(compress());
 app.use('/assets', express.static(__dirname + '/assets'));
 
 app.get('/', function(req, res){
