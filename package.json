@@ -9,7 +9,8 @@
   },
   "scripts": {
     "start": "node server.js",
-    "build": "gulp"
+    "build": "gulp",
+    "build:html": "gulp html"
   },
   "dependencies": {
     "express": "^4.12.2"

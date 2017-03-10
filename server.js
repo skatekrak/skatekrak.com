@@ -4,7 +4,7 @@ var app = express();
 app.use('/assets', express.static(__dirname + '/assets'));
 
 app.get('/', function(req, res){
-	res.sendFile(__dirname + '/views/index.html')
+	res.sendFile(__dirname + '/build/html/index.html')
 });
 
 app.get('/privacy-policy', function(req, res){
