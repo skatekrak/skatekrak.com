@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
+        crossorigin="anonymous">
+    <style>
+        body {
+            padding-top: 5rem;
+        }
+        .starter-template {
+            padding: 3rem 1.5rem;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+
+        <div class="starter-template">
+            <h1>Reset password</h1>
+            <div class="alert alert-success hidden" role="alert" id="success">
+                <strong>Well done!</strong> You successfully read this important alert message.
+            </div>
+            <div class="alert alert-danger hidden" role="alert" id="error">
+                <strong>Oh snap!</strong> Change a few things up and try submitting again.
+            </div>
+            <form>
+                <div class="form-group row" id="form-group-password">
+                    <label for="example-text-input" class="col-3 col-form-label">New password</label>
+                    <div class="col-5">
+                        <input class="form-control" type="password" id="password" placeholder="unicorn-love-skate">
+                    </div>
+                </div>
+                <div class="form-group row" id="form-group-password-confirmation">
+                    <label for="example-text-input" class="col-3 col-form-label">Password confirmation</label>
+                    <div class="col-5">
+                        <input class="form-control" type="password" id="password-confirmation" placeholder="unicorn-love-skate">
+                    </div>
+                </div>
+                <input type="hidden" id="reset-token" value="#resetToken#"/>
+                <button type="button" id="submit" class="btn btn-primary">Reset</button>
+            </form>
+        </div>
+
+    </div>
+    <!-- /.container -->
+
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
+        crossorigin="anonymous"></script>
+    <script type="text/javascript">
+        $("#submit").click(function() {
+            console.log("Form click");
+            if (!$("#password").val()) {
+                $("#form-group-password").addClass("has-danger");
+                $("#password").addClass("form-control-danger");
+            }
+
+            if (!$("#password-confirmation").val()) {
+                $("#form-group-password-confirmation").addClass("has-danger");
+                $("#password-confirmation").addClass("form-control-danger");
+            }
+
+            if ($("#password").val() === $("#password-confirmation").val()) {
+                    $.ajax({
+                        url: "http://localhost:3636/auth/reset",
+                        type: "POST",
+                        headers: {
+                            "Content-Type": "application/json; charset=utf-8",
+                        },
+                        contentType: "application/json",
+                        data: JSON.stringify({
+                            "resetToken": $("#reset-token").val(),
+                            "password": $("#password").val()
+                        })
+                    })
+                        .done(function (data, textStatus, jqXHR) {
+                            $("#success").removeClass("hidden");
+                            $("#success").html("Yeay! Your password has been reset, you can now log in!");
+                        })
+                        .fail(function (jqXHR, textStatus, errorThrown) {
+                            console.log(errorThrown);
+                            $("#error").removeClass("hidden")
+                            $("#error").html("Someting went wrong during the reset, try later :/");
+                        });
+                }
+                else {
+                    console.log("wrong password");
+                    $("#error").removeClass("hidden")
+                    $("#error").html("The two password are not the same");
+                }
+        });
+
+        $("#password").keydown(function() {
+            $("#form-group-password").removeClass("has-danger");
+            $("#password").removeClass("form-control-danger");
+            $("#error").addClass("hidden");
+        });
+
+        $("#password-confirmation").keydown(function() {
+            $("#form-group-password-confirmation").removeClass("has-danger");
+            $("#password-confirmation").removeClass("form-control-danger");
+            
+        });
+    </script>
+</body>
+
+</html>
