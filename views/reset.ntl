@@ -71,7 +71,7 @@
 
             if ($("#password").val() === $("#password-confirmation").val()) {
                     $.ajax({
-                        url: "http://localhost:3636/auth/reset",
+                        url: "https://api.carrelage.skatekrak.com/auth/reset",
                         type: "POST",
                         headers: {
                             "Content-Type": "application/json; charset=utf-8",
