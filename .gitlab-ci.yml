@@ -2,41 +2,43 @@ stages:
     - build
     - release
     - deploy
-
 variables:
-    HUB_URL: "hub.skatekrak.com/web/skatekrak.com"
-
+    HUB_URL: hub.skatekrak.com/web/skatekrak.com
+    HUB_PROD: gcr.io/krakbackend/homepage
+    TEST_TAG: testing
 before_script:
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN hub.skatekrak.com
-
 build:
     stage: build
     script:
-        - docker build -t $HUB_URL:testing .
-        - docker push $HUB_URL:testing
+        - 'docker build --pull -t $HUB_URL:$TEST_TAG .'
+        - 'docker push $HUB_URL:$TEST_TAG'
     only:
-        - master
-
-release:
+        - tags
+release_prod:
     stage: release
+    tags:
+        - kube
     script:
-        - docker pull $HUB_URL:testing
-        - docker tag $HUB_URL:testing $HUB_URL:latest
-        - docker push $HUB_URL:latest
+        - 'docker pull $HUB_URL:$TEST_TAG'
+        - 'docker tag $HUB_URL:$TEST_TAG $HUB_PROD:$CI_COMMIT_TAG'
+        - 'gcloud docker -- push $HUB_PROD:$CI_COMMIT_TAG'
     only:
-        - master
+        - tags
     when: on_success
-
-deploy:
+deploy_prod:
     stage: deploy
     tags:
-        - deploy
-    script:
-        - docker-compose pull
-        - docker-compose up -d --force-recreate
+        - kube
     environment:
         name: production
-        url: https://skatekrak.com
+        url: 'https://skatekrak.com'
+    script:
+        - >-
+            kubectl set image deployment/homepage
+            homepage=$HUB_PROD:$CI_COMMIT_TAG
+        - kubectl rollout status deployment/homepage
+        - kubectl describe deployment homepage
     only:
-        - master
+        - tags
     when: on_success
