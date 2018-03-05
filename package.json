@@ -1,6 +1,6 @@
 {
     "name": "skatekrak.com",
-    "version": "2.1.0",
+    "version": "2.1.1",
     "main": "server.js",
     "description": "HUB of Krak Skateboarding World",
     "repository": {
