@@ -5,7 +5,7 @@ stages:
     - deploy
 variables:
     HUB_URL: hub.skatekrak.com/web/skatekrak.com
-    HUB_PROD: gcr.io/krakbackend/skatekrak
+    HUB_PROD: gcr.io/krakbackend/homepage
     TEST_TAG: testing
     BARDE_URL: 'https://barde.skatekrak.com'
 before_script:
