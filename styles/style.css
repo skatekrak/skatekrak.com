@@ -1,0 +1,13 @@
+a {
+    color: #FF3D38;
+}
+
+a:hover {
+    color: #FF3D38;
+}
+
+@media (max-width: 576px) {
+    .column {
+        margin-top: 20px;
+    }
+}

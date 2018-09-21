@@ -1,12 +1,6 @@
-FROM node:latest
+FROM nginx:stable
 
-RUN mkdir -p /app
-WORKDIR /app
+COPY ./config/nginx.conf /etc/nginx/nginx.conf
+COPY ./config/default.conf /etc/nginx/conf.d/default.conf
 
-COPY . /app
-
-RUN npm install && npm run build:html
-
-EXPOSE 8080
-
-CMD ["npm", "start"]
+COPY out /usr/share/nginx/html
