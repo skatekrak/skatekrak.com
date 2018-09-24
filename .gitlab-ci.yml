@@ -1,5 +1,4 @@
 stages:
-    - compile
     - build
     - release
     - deploy
@@ -10,28 +9,12 @@ variables:
     BARDE_URL: 'https://barde.skatekrak.com'
 before_script:
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN hub.skatekrak.com
-compile_production:
-    image: 'node:8'
-    stage: compile
-    before_script:
-        - 'echo -e "registry=https://npm.skatekrak.com/" > .npmrc'
-        - 'echo -e "//npm.skatekrak.com/:always-auth=true" >> .npmrc'
-        - >-
-            echo -e "//npm.skatekrak.com/:_authToken=${NPM_AUTH_TOKEN}" >>
-            .npmrc
-    script:
-        - npm install
-        - npm run build
-    only:
-        - tags
-    artifacts:
-        name: '${CI_PIPELINE_ID}'
-        paths:
-            - out
 build:
     stage: build
     script:
-        - 'docker build --pull -t $HUB_URL:$TEST_TAG .'
+        - >-
+            docker build --pull --build-arg NPM_AUTH_TOKEN=$NPM_AUTH_TOKEN -t
+            $HUB_URL:$TEST_TAG .
         - 'docker push $HUB_URL:$TEST_TAG'
     only:
         - tags

@@ -92,7 +92,8 @@ export default class extends React.PureComponent {
                     color: "white",
                     backgroundImage: "url('/static/lucas_background_with_overlay.jpg')",
                     backgroundRepeat: "no-repeat",
-                    backgroundPosition: "center"
+                    backgroundPosition: "center",
+                    minHeight: "80vh"
                 }}>
                     <div className="container">
                         <div className="row">
