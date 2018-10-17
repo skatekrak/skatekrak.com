@@ -1,0 +1,20 @@
+{
+    "name": "skatekrak.com",
+    "version": "1.0.0",
+    "main": "index.js",
+    "repository": "ssh://git@git.skatekrak.com:22222/web/skatekrak.com.git",
+    "author": "Arthur <a@skatekrak.com>",
+    "license": "MIT",
+    "devDependencies": {
+        "auto-reload-brunch": "^2.7.1",
+        "autoprefixer-stylus": "^0.14.0",
+        "brunch": "^2.10.17",
+        "clean-css-brunch": "^2.10.0",
+        "stylus-brunch": "^2.10.1"
+    },
+    "scripts": {
+        "lint": "eslint --fix .",
+        "build:prod": "brunch build --production",
+        "start": "brunch watch --server"
+    }
+}
