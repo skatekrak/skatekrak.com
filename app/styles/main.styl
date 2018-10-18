@@ -1,0 +1,316 @@
+@import "app/styles/stylus-mq.styl"
+@import "app/styles/styleguide"
+
+body
+	position: relative
+	font-family: $ff-roboto-regular
+	font-size: 16px
+	color: $text-lighter
+	background-color: $grey-lighter
+
+#page-container
+	display: flex
+	flex-direction: column
+	min-height: 100vh
+
+	+mq($from: "medium")
+		flex-direction: row
+		max-height: 100vh
+		overflow: hidden
+
+#header
+	padding: 1.5rem 2rem 2rem
+
+	+mq($from: "small")
+		padding: 4.5rem 8rem 2rem
+
+	+mq($from: "medium")
+		display: flex
+		flex-direction: column
+		width: 300px
+		padding: 4rem 2rem 1rem
+		background-color: $grey-darker
+
+	&-top
+		display: flex
+		justify-content: space-between
+		align-items: center
+
+		&-logo
+			width: 5rem
+
+			+mq($from: "medium")
+				width: 8rem
+				margin: auto
+				fill: white
+
+		&-burger
+			display: flex
+			flex-direction: column
+			align-items: flex-end
+			width: 2rem
+
+			+mq($from: "medium")
+				display: none
+
+			&-bar
+				&-top
+					width: 100%
+					margin-bottom: .5rem
+
+				&-bottom
+					width: 60%
+
+	&-nav
+		&-container
+			display: none
+			flex-grow: 1
+			flex-direction: column
+
+			+mq($from: "medium")
+				display: flex
+
+		&-main
+			margin: auto
+
+			&-container
+				display: flex
+				flex-direction: column
+				align-items: center
+
+		&-text
+			max-width: 210px
+			margin: 0 auto
+			font-size: $fs-small
+			text-align: center
+			line-height: 1.5
+
+			&-mail
+				text-decoration: underline
+				transition: .2s
+
+				&:hover
+					color: $primary
+
+		&-subnav
+			margin: auto auto 0
+
+			+mq($from: "medium")
+				margin: 4rem auto 0
+
+			&-container
+				display: flex
+				justify-content: center
+
+		&-credits
+			margin-top: 2rem
+			font-size: $fs-smallest
+			text-align: center
+
+			+mq($from: "medium")
+				margin-top: 1rem
+
+#main
+	&-container
+		flex-grow: 1
+		display: flex
+		flex-direction: column
+
+	&-top
+		&-container
+			flex-grow: 1
+			display: flex
+			flex-direction: column
+			padding: 0 2rem
+
+			+mq($from: "small")
+				padding: 0 8rem
+
+			+mq($from: "medium")
+				padding: 4rem 6rem 0
+
+		&-newsletter
+			display: flex
+			flex-direction: column
+			margin-top: .5rem
+
+			+mq($from: "medium")
+				flex-direction: row
+				align-items: center
+				justify-content: flex-end
+				margin-top: 0
+
+			&-title
+				font-family: $ff-roboto-black-italic
+				font-size: $fs-large
+				color: $primary
+
+			&-input
+				margin: 1rem 0
+				padding: 1rem
+				font-family: $ff-roboto-regular
+				border: 0
+
+				+mq($from: "medium")
+					width: 250px
+					margin: 0 0 0 1rem
+					padding: .75rem
+
+				&:placeholder
+					color: $text-light
+
+			&-button
+				display: flex
+				align-self: flex-end
+				padding: .5rem 1.5rem
+				font-family: $ff-roboto-condensed-bold
+				font-size: $fs-small
+				letter-spacing: 0.025rem
+				color: $text-lighter
+				background-color: $grey-darker
+
+				+mq($from: "medium")
+					padding: .75rem 1.5rem
+
+				&:hover
+					background-color: $black
+
+					& #main-top-newsletter-button-icon
+						fill: $primary
+
+				&-icon
+					height: 1.2rem
+					width: 1.2rem
+					margin-left: .75rem
+					fill: $white
+					transition: .2s
+
+		&-image
+			flex-grow: 1
+			width: 100%
+			max-width: 500px
+			margin: 1rem auto 3rem
+			background-image: url(../images/pindejo-lucas-beaufort.jpg)
+			background-position: 50% 40%
+			background-size: 140%
+			background-repeat: no-repeat
+
+			+mq($from: "medium")
+				max-width: 600px
+
+
+#quote
+	position: absolute
+	font-family: $ff-roboto-black-italic
+	font-size: $fs-large
+	text-align:left
+	white-space: nowrap
+	color: $primary
+	transform: translateX(-100%)
+	animation: linear marqueelike 10s infinite
+
+	&:after
+		content:attr(data-text)
+		position:absolute
+		white-space:nowrap
+
+	&-container
+		position: absolute
+		bottom: 0
+		display:flex
+		align-items: center
+		height: 3rem
+		table-layout: fixed
+		width 100%
+		overflow: hidden
+		background-color: $white
+
+@keyframes marqueelike {
+	0%, 100% {transform: translateX(0%)}
+	99.99999% {transform: translateX(-100%)}
+}
+
+
+.header
+	&-open
+		position: absolute
+		top: 0
+		bottom: 0
+		left: 0
+		right: 0
+		display: flex
+		flex-direction: column
+		background-color: $grey-darker
+		z-index: 1
+
+		& #krak-hand
+			fill: $white
+
+		& .header-top-burger-bar
+			background-color: $white
+
+	&-nav
+		&-main-item
+			position: relative
+			margin-bottom: 2rem
+
+			&:last-child
+				margin-bottom: 0
+
+			&-link
+				font-family: $ff-roboto-condensed-bold
+				font-size: $fs-large
+
+			&:after
+				content: ''
+				position: absolute
+				height: 4px
+				width: 120%
+				margin: auto
+				background-color: #ff0318
+				transform: translateY(-0.6rem) translateX(-0.4rem) rotate(-6deg)
+				opacity: 0
+				transition: .2s
+
+			&:hover
+				&:after
+					opacity: 1
+
+		&-subnav
+			&-item
+				height: 2rem
+				width: 2rem
+				margin-right: 1.5rem
+				
+				&:first-child
+					margin-right: 1.25rem
+
+				&:last-child
+					margin-right: 0
+
+					& svg
+						height: 1.5rem
+						width: 1.5rem
+
+				&:hover
+					& svg
+						fill: $primary
+
+				&-link
+					display: flex
+					width: 100%
+					height: 100%
+
+					& svg
+						height: 1.75rem
+						width: 1.75rem
+						margin: auto
+						fill: $white
+						transition: .2s
+
+	&-top
+		&-burger-bar
+			height: 3px
+			background-color: $grey-darker
+			border-radius: 3px
+			transition: .2s
