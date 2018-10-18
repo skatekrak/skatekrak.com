@@ -8,14 +8,124 @@ body
 	color: $text-lighter
 	background-color: $grey-lighter
 
-#header
-	font-family: $ff-roboto-condensed-bold
-	color: $primary
+#page-container
+	display: flex
+	flex-direction: column
+	min-height: 100vh
 
-#main-container
-	font-family: $ff-roboto-black-italic
-	color: $primary
+#header
+	padding: 1.5rem 2rem 2rem
+
+	&-top
+		display: flex
+		justify-content: space-between
+		align-items: center
+
+		&-logo
+			width: 5rem
+
+		&-burger
+			display: flex
+			flex-direction: column
+			align-items: flex-end
+			width: 2rem
+
+			&-bar
+				&-top
+					width: 100%
+					margin-bottom: .5rem
+
+				&-bottom
+					width: 60%
+
+	&-nav
+		&-container
+			display: none
+
+#main
+	&-container
+		flex-grow: 1
+		display: flex
+		flex-direction: column
+
+	&-top
+		&-container
+			flex-grow: 1
+			display: flex
+			flex-direction: column
+			padding: 0 2rem
+
+		&-newsletter
+			display: flex
+			flex-direction: column
+			margin-top: .5rem
+
+			&-title
+				font-family: $ff-roboto-black-italic
+				font-size: $fs-large
+				color: $primary
+
+			&-input
+				margin: 1rem 0
+				padding: 1rem
+				font-family: $ff-roboto-regular
+				border: 0
+
+				&:placeholder
+					color: $
+
+			&-button
+				align-self: flex-end
+				padding: .5rem 1.5rem
+				font-family: $ff-roboto-condensed-bold
+				font-size: $fs-small
+				letter-spacing: 0.025rem
+				color: $text-lighter
+				background-color: $grey-darker
+
+		&-image
+			flex-grow: 1
+			margin: 1rem 0 3rem
+			background-image: url(../images/pindejo-lucas-beaufort.jpg)
+			background-position: 50% 40%
+			background-size: 140%
+			background-repeat: no-repeat
+
 
 #quote
-	font-family: $ff-roboto-regular
+	position: absolute
+	font-family: $ff-roboto-black-italic
+	font-size: $fs-large
+	text-align:left
+	white-space: nowrap
 	color: $primary
+	transform: translateX(-100%)
+	animation: linear marqueelike 15s infinite
+
+	&:after
+		content:attr(data-text)
+		position:absolute
+		white-space:nowrap
+
+	&-container
+		position: absolute
+		bottom: 0
+		display:flex
+		align-items: center
+		height: 3rem
+		table-layout: fixed
+		width 100%
+		overflow: hidden
+		background-color: $white
+
+@keyframes marqueelike {
+		0%, 100% {transform: translateX(0%)}
+		99.99999% {transform: translateX(calc(-100%))}
+	}
+
+.header
+	&-top
+		&-burger-bar
+			height: 3px
+			background-color: $grey-darker
+			border-radius: 3px
