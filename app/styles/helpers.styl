@@ -1,0 +1,19 @@
+@import "app/styles/stylus-mq.styl"
+@import "app/styles/styleguide"
+
+.black
+	background-color: $black
+
+.hide
+	display: none
+
+.show-header
+	display: flex !important
+
+.burger-open
+	& #header-top-burger-bar-top
+		transform: rotate(-45deg) translateY(.5rem)
+
+	& #header-top-burger-bar-bottom
+		width: 100%
+		transform: rotate(45deg) translateY(-.5rem)
