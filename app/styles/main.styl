@@ -16,6 +16,9 @@ body
 #header
 	padding: 1.5rem 2rem 2rem
 
+	+mq($from: "small")
+		padding: 4.5rem 8rem 4rem
+
 	&-top
 		display: flex
 		justify-content: space-between
@@ -86,6 +89,9 @@ body
 			display: flex
 			flex-direction: column
 			padding: 0 2rem
+
+			+mq($from: "small")
+				padding: 0 8rem
 
 		&-newsletter
 			display: flex
