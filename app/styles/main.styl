@@ -261,20 +261,22 @@ body
 				font-family: $ff-roboto-condensed-bold
 				font-size: $fs-large
 
-			&:after
-				content: ''
-				position: absolute
-				height: 4px
-				width: 120%
-				margin: auto
-				background-color: #ff0318
-				transform: translateY(-0.6rem) translateX(-0.4rem) rotate(-6deg)
-				opacity: 0
-				transition: .2s
-
-			&:hover
 				&:after
-					opacity: 1
+					content: ''
+					position: absolute
+					top: 10px
+					left: 0
+					height: 4px
+					width: 100%
+					margin: auto
+					background-color: #ff0318
+					transform: rotate(-6deg)
+					opacity: 0
+					transition: .2s
+
+				&:hover
+					&:after
+						opacity: 1
 
 		&-subnav
 			&-item
