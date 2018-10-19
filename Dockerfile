@@ -1,12 +1,18 @@
-FROM node:latest
+FROM node:8 as build
 
-RUN mkdir -p /app
+ARG NPM_AUTH_TOKEN 
 WORKDIR /app
-
 COPY . /app
 
-RUN npm install
+RUN echo "registry=https://npm.skatekrak.com/" > .npmrc && \
+    echo "//npm.skatekrak.com/:always-auth=true" >> .npmrc && \
+    echo "//npm.skatekrak.com/:_authToken=${NPM_AUTH_TOKEN}" >> .npmrc && \
+    yarn install && \
+    yarn build:prod
 
-EXPOSE 8080
+FROM nginx:stable
 
-CMD ["npm", "start"]
+COPY ./config/nginx.conf /etc/nginx/nginx.conf
+COPY ./config/default.conf /etc/nginx/conf.d/default.conf
+
+COPY --from=build /app/public /usr/share/nginx/html
