@@ -16,5 +16,8 @@
         "lint": "eslint --fix .",
         "build:prod": "brunch build --production",
         "start": "brunch watch --server"
+    },
+    "dependencies": {
+        "jquery": "^3.3.1"
     }
 }
