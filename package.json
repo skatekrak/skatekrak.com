@@ -1,6 +1,6 @@
 {
     "name": "skatekrak.com",
-    "version": "3.0.0",
+    "version": "3.0.1",
     "main": "index.js",
     "repository": "ssh://git@git.skatekrak.com:22222/web/skatekrak.com.git",
     "author": "Arthur <a@skatekrak.com>",
@@ -16,5 +16,8 @@
         "lint": "eslint --fix .",
         "build:prod": "brunch build --production",
         "start": "brunch watch --server"
+    },
+    "dependencies": {
+        "jquery": "^3.3.1"
     }
 }
