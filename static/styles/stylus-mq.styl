@@ -1,0 +1,165 @@
+//
+// Base font size to calculate media queries from.
+//
+$mq-base-font-size ?= 16px;
+
+//
+// Allows you to create a separate stylesheet for older browsers that
+// don't support media queries.
+//
+$mq-responsive ?= true;
+
+//
+// Default named breakpoints.
+//
+$mq-breakpoints ?= {
+	tiny: 480px,
+	small: 768px,
+	medium: 1024px,
+	large: 1440px,
+	infinite: 1920px
+};
+
+//
+// Static breakpoint to use when $mq-responsive is set to false.
+//
+$mq-static-breakpoint ?= 'desktop';
+
+//
+// List of breakpoints to show in the top right corner of the browser.
+//
+$mq-show-breakpoints ?= ();
+
+//
+// Convert pixels to ems
+//
+mq-px2em($value) {
+	if (unit($value) == 'em') {
+		return $value;
+	}
+
+	return unit($value / $mq-base-font-size, 'em');
+}
+
+//
+// Get named breakpoint width
+//
+mq-get-breakpoint-width($name) {
+	unless ($name in $mq-breakpoints) {
+		warn('Breakpoint ' + $name + ' does not exist');
+	}
+
+	return $mq-breakpoints[$name];
+}
+
+mq($from = false, $until = false, $and = false, $media-type = 'all') {
+	$min-width = 0;
+	$max-width = 0;
+	$media-query = s($media-type);
+
+	// From: this breakpoint (inclusive)
+	if ($from) {
+		if (type($from) == 'unit') {
+			$min-width = mq-px2em($from);
+		} else {
+			$min-width = mq-px2em(mq-get-breakpoint-width($from));
+		}
+	}
+
+	// Until: that breakpoint (exclusive)
+	if ($until) {
+		if (type($until) == 'unit') {
+			$max-width = mq-px2em($until);
+		} else {
+			$max-width = mq-px2em(mq-get-breakpoint-width($until)) - 0.01em;
+		}
+	}
+
+	// Responsive support is disabled, rasterize the output outside @media blocks
+	// The browser will rely on the cascade itself.
+	if (!$mq-responsive) {
+		$static-breakpoint-width = mq-get-breakpoint-width($mq-static-breakpoint);
+
+		if ($static-breakpoint-width) {
+			$target-width = mq-px2em($static-breakpoint-width);
+
+			if (!$and && ($min-width <= $target-width) && (!$until) || ($max-width >= $target-width)) {
+				{block}
+			}
+		}
+	}
+
+	// Responsive support is enabled, output rules inside @media queries
+	else {
+		if ($min-width != 0) {
+			$media-query = s('%s and (min-width: %s)', $media-query, $min-width);
+		}
+
+		if ($max-width != 0) {
+			$media-query = s('%s and (max-width: %s)', $media-query, $max-width);
+		}
+
+		if ($and) {
+			$media-query = s('%s and %s', $media-query, unquote($and));
+		}
+
+		@media $media-query {
+			{block}
+		}
+	}
+}
+
+//
+// Add a breakpoint
+//
+mq-add-breakpoint($name, $width) {
+	$new-breakpoint = {};
+	$new-breakpoint[$name] = $width;
+
+	return merge($mq-breakpoints, $new-breakpoint);
+}
+
+//
+// Output breakpoints as json
+//
+mq-breakpoints-to-json() {
+	$json = ();
+
+	for $key in $mq-breakpoints {
+		push($json, s('"%s": ', unquote($key)));
+	}
+
+	for $value, $index in values($mq-breakpoints) {
+		$json[$index] = $json[$index] + s('"%s"', mq-px2em($value));
+	}
+
+	return '{ ' + join(', ', $json) + ' }';
+}
+
+//
+// Show the active breakpoint in the top right corner of the viewport
+//
+if ($mq-show-breakpoints) {
+	body:before {
+		background-color: #fcf8e3;
+		border-bottom: 1px solid #fbeed5;
+		border-left: 1px solid #fbeed5;
+		color: #c09853;
+		font-family: 'Helvetica Neue', sans-serif;
+		font-size: 12px;
+		padding: 3px 6px;
+		position: absolute;
+		left: 0;
+		top: 0;
+		z-index: 100;
+
+		// Loop through the breakpoints that should be shown
+		for $show-breakpoint in $mq-show-breakpoints {
+			$width = mq-get-breakpoint-width($show-breakpoint);
+
+			+mq($until: $show-breakpoint) {
+				content: s('"%s ≤ %s (%s)"', unquote($show-breakpoint), $width, mq-px2em($width));
+			}
+		}
+	}
+}

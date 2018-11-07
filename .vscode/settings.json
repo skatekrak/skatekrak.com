@@ -1,0 +1,37 @@
+// Place your settings in this file to overwrite default and user settings.
+{
+    "prettier.eslintIntegration": true,
+    "editor.formatOnType": true,
+    "editor.formatOnSave": true,
+    "editor.tabSize": 2,
+    "editor.insertSpaces": true,
+    "editor.wordWrap": "off",
+    "editor.detectIndentation": false,
+    "editor.renderIndentGuides": true,
+    "editor.rulers": [120],
+    "[stylus]": {
+        "editor.tabSize": 2,
+        "editor.insertSpaces": false,
+        "editor.detectIndentation": false
+    },
+    "typescript.validate.enable": true,
+    "javascript.validate.enable": false,
+    "flow.enabled": true,
+    "flow.useNPMPackagedFlow": true,
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/.DS_Store": true,
+        ".nyc_output/": true,
+        "coverage/": true,
+        "data/": true,
+        "dist/": true,
+        "node_modules/": true,
+        "paws/": true,
+        "public/": true,
+        ".next": false
+    },
+    "eslint.enable": false,
+    "tslint.enable": true
+}

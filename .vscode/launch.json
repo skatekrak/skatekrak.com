@@ -1,0 +1,38 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "chrome",
+            "request": "launch",
+            "preLaunchTask": "start",
+            "name": "Chrome Debug Local",
+            "url": "http://localhost:3333/",
+            "userDataDir": "${env:HOME}/Library/Application Support/Google/ChromeVSCode",
+            "sourceMapPathOverrides": {
+                "*": "${workspaceFolder}/*"
+            }
+        },
+        {
+            "type": "chrome",
+            "request": "launch",
+            "preLaunchTask": "start:win",
+            "name": "Chrome Debug Local windows",
+            "url": "http://localhost:3333/",
+            "userDataDir": "C:\\Users\\arthu\\AppData\\Local\\Google\\Chrome\\User Dev",
+            "sourceMapPathOverrides": {
+                "*": "${workspaceFolder}/*"
+            }
+        }
+        // {
+        //   "type": "chrome",
+        //   "request": "launch",
+        //   "preLaunchTask": "mainframer:start",
+        //   "name": "Chrome Debug Mainframer",
+        //   "userDataDir": false,
+        //   "url": "http://localhost:3333/en-us/",
+        //   "sourceMapPathOverrides": {
+        //     "*": "${workspaceFolder}/*"
+        //   }
+        // }
+    ]
+}
