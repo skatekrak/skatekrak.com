@@ -10,3 +10,4 @@ tmp/
 
 # Brunch output folder.
 public/
+/.next
