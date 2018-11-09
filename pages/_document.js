@@ -5,15 +5,6 @@ export default class MyDocument extends Document {
         return (
             <html>
                 <Head>
-                    <title>Krak Skateboarding</title>
-                    <meta charSet="utf-8" />
-                    <meta name="viewport" content="with-device-with, initial-scale=1" />
-                    <meta name="description" content="" />
-                    <meta property="og:title" content="Krak - Dig deeper into skateboarding" />
-                    <meta property="og:type" content="website" />
-                    <meta property="og:description" content="" />
-                    <meta property="og:url" content="https://skatekrak.com" />
-
                     <link rel="apple-touch-icon" sizes="180x180" href="/static/images/apple-touch-icon.png" />
                     <link rel="icon" type="image/png" sizes="32x32" href="/static/images/favicon_32.png" />
                     <link rel="icon" type="image/png" sizes="16x16" href="/static/images/favicon_16.png" />
