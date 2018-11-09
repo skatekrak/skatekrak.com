@@ -3,7 +3,7 @@
     "prettier.eslintIntegration": true,
     "editor.formatOnType": true,
     "editor.formatOnSave": true,
-    "editor.tabSize": 2,
+    "editor.tabSize": 4,
     "editor.insertSpaces": true,
     "editor.wordWrap": "off",
     "editor.detectIndentation": false,
@@ -33,5 +33,6 @@
         ".next": false
     },
     "eslint.enable": false,
-    "tslint.enable": true
+    "tslint.enable": true,
+    "prettier.tabWidth": 4
 }

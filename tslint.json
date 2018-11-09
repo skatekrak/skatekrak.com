@@ -32,7 +32,8 @@
         ],
         "interface-name": false,
         "interface-over-type-literal": false,
-        "jsx-no-multiline-js": false
+        "jsx-no-multiline-js": false,
+        "jsx-boolean-value": false
     },
     "rulesDirectory": []
 }
