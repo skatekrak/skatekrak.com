@@ -1,23 +1,23 @@
-import * as React from 'react';
 import Link from 'next/link';
+import * as React from 'react';
 
 import NavItem from 'components/Header/NavItem';
 
 /* tslint:disable:max-line-length */
 export default class extends React.Component<{}> {
-    componentDidMount() {
+    public componentDidMount() {
         const header = document.getElementById('header');
         const burgerMenu = document.getElementById('header-top-burger');
         const menuContainer = document.getElementById('header-nav-container');
 
-        burgerMenu.addEventListener('click', function() {
+        burgerMenu.addEventListener('click', () => {
             menuContainer.classList.toggle('show-header');
             burgerMenu.classList.toggle('burger-open');
             header.classList.toggle('header-open');
         });
     }
 
-    render() {
+    public render() {
         return (
             <header id="header">
                 <div id="header-top">
