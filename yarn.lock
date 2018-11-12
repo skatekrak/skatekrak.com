@@ -723,6 +723,11 @@
     lodash "^4.17.10"
     to-fast-properties "^2.0.0"
 
+"@types/classnames@^2.2.6":
+  version "2.2.6"
+  resolved "https://npm.skatekrak.com/@types%2fclassnames/-/classnames-2.2.6.tgz#dbe8a666156d556ed018e15a4c65f08937c3f628"
+  integrity sha512-XHcYvVdbtAxVstjKxuULYqYaWIzHR15yr1pZj4fnGChuBVJlIAp9StJna0ZJNSgxPh4Nac2FL4JM3M11Tm6fqQ==
+
 "@types/next-server@*":
   version "7.0.1"
   resolved "https://npm.skatekrak.com/@types%2fnext-server/-/next-server-7.0.1.tgz#079ffbb644716fe99158d9cf969597047ae9ec06"
