@@ -3,8 +3,8 @@ import * as React from 'react';
 
 import Header from '../Header';
 
-import '../../static/styles/reset.css';
-
+import 'static/styles/reset.css';
+import 'static/styles/flexbox-grid.css';
 import 'static/styles/fonts.styl';
 import 'static/styles/helpers.styl';
 import 'static/styles/main.styl';

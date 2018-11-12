@@ -1,0 +1,43 @@
+@import "./stylus-mq"
+@import "./styleguide"
+
+/* FORM STYLES */
+.form
+	/* Section */
+	&-section
+		&-title
+			font-family: $ff-roboto-bold
+			font-size: $fs-medium
+			color: $secondary
+
+		&-description
+			margin-top: 2rem
+
+	/* Element */
+	&-element
+		margin-bottom: 1rem
+
+		&:last-child
+			margin-bottom: 0
+
+		&-label
+			margin-bottom: .5rem
+			font-family: $ff-roboto-bold
+			font-size: $fs-small
+			color: $grey-700
+
+		&-field
+			& input
+				width: 100%
+				padding: .75rem 1rem
+				background-color: $white
+				border: 0
+
+				&:focus
+					border: 1px solid $secondary
+
+			& select
+				width: 100%
+				padding: .75rem 1rem
+				background-color: $white
+				border: 0

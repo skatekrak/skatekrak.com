@@ -1,0 +1,66 @@
+@import "./stylus-mq"
+@import "./styleguide"
+
+/* Checkout page styles */
+#checkout
+	&-header
+		text-align: center
+		border-bottom: 1px solid $grey-300
+
+		&-title
+			margin-bottom: 1rem
+			font-family: $ff-roboto-black-italic
+			font-size: $fs-largest
+
+		&-subtitle
+			font-family: $ff-roboto-bold
+			font-size: $fs-small
+			color: $grey-500
+
+		&-price
+			margin-bottom: .5rem
+			font-family: $ff-roboto-black-italic
+			font-size: $fs-larger
+			color: $primary
+
+			&-container
+				margin: 3rem 0 2rem
+
+	&-contact
+		margin-top: 2rem
+
+		&-title
+			margin-bottom: .5rem
+			font-family: $ff-roboto-bold
+			font-size: $fs-large
+			color: $secondary
+
+		&-mail
+			display: block
+			font-family: $ff-roboto-bold
+			color: $secondary
+
+.checkout
+	&-form
+		margin-top: 4rem
+
+		&-fields-container
+			margin: 2rem 0 4rem
+
+		&-submit-button
+			width: 100%
+			padding: .75rem 2rem
+			font-family: $ff-roboto-bold
+			font-size: $fs-larger
+			color: $disableText
+			background-color: $disableBackground
+			border-radius: .5rem
+
+			&--enable
+				color: $white
+				background-color: $primary
+
+		&-img
+			display: block
+			max-width: 150px
+			margin: 4rem auto 0
