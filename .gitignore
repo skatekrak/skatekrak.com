@@ -11,3 +11,4 @@ tmp/
 # Brunch output folder.
 public/
 /.next
+/yarn-error.log
