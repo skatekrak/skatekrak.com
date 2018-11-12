@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import Layout from '../components/Layout/Layout';
+import Layout from 'components/Layout/Layout';
 
 /* tslint:disable:max-line-length */
 const Index: React.SFC<{}> = () => (
