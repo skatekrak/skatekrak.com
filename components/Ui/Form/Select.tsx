@@ -13,7 +13,10 @@ import * as React from 'react';
 type Props = {
     value?: string;
     name: string;
-    options: any[];
+    options: {
+        value: string;
+        title: string;
+    }[];
     required?: boolean;
     disabled?: boolean;
 };
@@ -61,8 +64,8 @@ export default class Select extends React.Component<Props, State> {
                     Choose
                 </option>
                 {options.map((option) => (
-                    <option key={option.code} value={option.code}>
-                        {option.name}
+                    <option key={option.value} value={option.value}>
+                        {option.title}
                     </option>
                 ))}
             </select>

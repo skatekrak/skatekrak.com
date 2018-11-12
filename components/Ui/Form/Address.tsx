@@ -4,23 +4,12 @@ import FormElement from 'components/Ui/Form/Element';
 import Input from 'components/Ui/Form/Input';
 import Select from 'components/Ui/Form/Select';
 
-const options = [
-    {
-        code: 'pt',
-        name: 'Portugal',
-    },
-    {
-        code: 'fr',
-        name: 'France',
-    },
-    {
-        code: 'es',
-        name: 'Spain',
-    },
-];
-
 type Props = {
     address?: object;
+    countries: {
+        value: string;
+        title: string;
+    }[];
 };
 
 type State = {
@@ -53,7 +42,7 @@ export default class Element extends React.Component<Props, State> {
                     <Input type="text" name="user-zip" required />
                 </FormElement>
                 <FormElement label="Country *">
-                    <Select name="country" options={options} required />
+                    <Select name="country" options={this.props.countries} required />
                 </FormElement>
             </React.Fragment>
         );

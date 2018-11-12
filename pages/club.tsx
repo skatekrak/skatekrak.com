@@ -4,21 +4,36 @@ import * as React from 'react';
 import Layout from 'components/Layout/Layout';
 import 'static/styles/checkout.styl';
 
-import Address from 'components/UI/Form/Address';
-import FormElement from 'components/UI/Form/Element';
-import Input from 'components/UI/Form/Input';
+import Address from 'components/Ui/Form/Address';
+import FormElement from 'components/Ui/Form/Element';
+import Input from 'components/Ui/Form/Input';
+
+const countriesOptions = [
+    {
+        value: 'pt',
+        title: 'Portugal',
+    },
+    {
+        value: 'fr',
+        title: 'France',
+    },
+    {
+        value: 'es',
+        title: 'Spain',
+    },
+];
 
 type State = {
-    valideForm: boolean;
+    validForm: boolean;
 };
 
 export default class Club extends React.Component<{}, State> {
     public state = {
-        valideForm: false,
+        validForm: false,
     };
 
     public render() {
-        const { valideForm } = this.state;
+        const { validForm } = this.state;
 
         return (
             <Layout>
@@ -44,15 +59,15 @@ export default class Club extends React.Component<{}, State> {
                                         <FormElement label="E-mail address *">
                                             <Input type="email" name="user-email" required />
                                         </FormElement>
-                                        <Address />
+                                        <Address countries={countriesOptions} />
                                     </div>
                                 </div>
                                 <div className="form-section col-xs-12 col-md-offset-1 col-md-5">
                                     <button
                                         className={classNames('checkout-form-submit-button', {
-                                            'checkout-form-submit-button--enable': valideForm,
+                                            'checkout-form-submit-button--enable': validForm,
                                         })}
-                                        disabled={!valideForm}
+                                        disabled={!validForm}
                                     >
                                         Payment
                                     </button>
