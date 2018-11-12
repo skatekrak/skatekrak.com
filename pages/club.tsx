@@ -1,11 +1,25 @@
 import * as React from 'react';
+import classNames from 'classnames';
 
-import Layout from 'components/UI/Layout';
+import Layout from 'components/Layout/Layout';
+import 'static/styles/checkout.styl';
 
-import FormElement from '../components/Ui/Form/Element';
+import Address from 'components/Ui/Form/Address';
+import FormElement from 'components/Ui/Form/Element';
+import Input from 'components/Ui/Form/Input';
 
-export default class Club extends React.Component<{}> {
+type State = {
+    valideForm: boolean;
+};
+
+export default class Club extends React.Component<{}, State> {
+    state = {
+        valideForm: false,
+    };
+
     public render() {
+        const { valideForm } = this.state;
+
         return (
             <Layout>
                 <div id="checkout" className="container">
@@ -20,22 +34,32 @@ export default class Club extends React.Component<{}> {
                     <main id="checkout-main">
                         <form id="checkout-form-shipping" className="checkout-form">
                             <div className="row">
-                                <div className="checkout-form-section col-xs-12 col-md-6">
-                                    <p className="checkout-form-title">Shipping information</p>
-                                    <p className="checkout-form-description">
+                                <div className="form-section col-xs-12 col-md-6">
+                                    <p className="form-section-title">Shipping information</p>
+                                    <p className="form-section-description">
                                         Give us your shipping information so we can send you the best skateboard right
                                         on your doorstep!
                                     </p>
                                     <div className="checkout-form-fields-container">
-                                        <FormElement />
+                                        <FormElement label="E-mail address *">
+                                            <Input type="email" name="user-email" required />
+                                        </FormElement>
+                                        <Address />
                                     </div>
                                 </div>
-                                <div className="checkout-form-section col-xs-12 col-md-offset-1 col-md-5">
-                                    <button className="checkout-form-submit-button">Payment</button>
+                                <div className="form-section col-xs-12 col-md-offset-1 col-md-5">
+                                    <button
+                                        className={classNames('checkout-form-submit-button', {
+                                            'checkout-form-submit-button--enable': valideForm,
+                                        })}
+                                        disabled={!valideForm}
+                                    >
+                                        Payment
+                                    </button>
                                     <div id="checkout-contact">
                                         <h4 id="checkout-contact-title">Questions?</h4>
                                         <p>
-                                            Contact our support at{' '}
+                                            Contact our support team at{' '}
                                             <a id="checkout-contact-mail" href="mailto:club@skatekrak.com">
                                                 club@skatekrak.com
                                             </a>
