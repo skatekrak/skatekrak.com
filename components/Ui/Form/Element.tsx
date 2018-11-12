@@ -7,15 +7,7 @@ type Props = {
     children: React.ReactElement<React.ReactChildren>;
 };
 
-type State = {
-    errorMessage?: string;
-};
-
-export default class Element extends React.Component<Props, State> {
-    public state: State = {
-        errorMessage: null,
-    };
-
+export default class Element extends React.Component<Props> {
     public render() {
         const { label, children } = this.props;
         const elementId = `id-${children.props.name}`;

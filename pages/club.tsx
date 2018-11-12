@@ -1,12 +1,12 @@
 import classNames from 'classnames';
 import * as React from 'react';
+import { Field, InjectedFormProps, reduxForm } from 'redux-form';
 
 import Layout from 'components/Layout/Layout';
 import 'static/styles/checkout.styl';
 
 import Address from 'components/Ui/Form/Address';
-import FormElement from 'components/Ui/Form/Element';
-import Input from 'components/Ui/Form/Input';
+import RenderInput from 'components/Ui/Form/Input';
 
 const countriesOptions = [
     {
@@ -24,17 +24,23 @@ const countriesOptions = [
 ];
 
 type State = {
-    validForm: boolean;
+    form: {
+        email: string;
+        address: {
+            firstName: string;
+            lastName: string;
+            line1: string;
+            line2?: string;
+            city: string;
+            zipcode: string;
+            country: string;
+        };
+    };
 };
 
-export default class Club extends React.Component<{}, State> {
-    public state = {
-        validForm: false,
-    };
-
+class Club extends React.Component<InjectedFormProps, State> {
     public render() {
-        const { validForm } = this.state;
-
+        const { handleSubmit, pristine, submitting } = this.props;
         return (
             <Layout>
                 <div id="checkout" className="container">
@@ -47,7 +53,7 @@ export default class Club extends React.Component<{}, State> {
                         </div>
                     </header>
                     <main id="checkout-main">
-                        <form id="checkout-form-shipping" className="checkout-form">
+                        <form id="checkout-form-shipping" className="checkout-form" onSubmit={handleSubmit}>
                             <div className="row">
                                 <div className="form-section col-xs-12 col-md-6">
                                     <p className="form-section-title">Shipping information</p>
@@ -56,18 +62,22 @@ export default class Club extends React.Component<{}, State> {
                                         on your doorstep!
                                     </p>
                                     <div className="checkout-form-fields-container">
-                                        <FormElement label="E-mail address *">
-                                            <Input type="email" name="user-email" required />
-                                        </FormElement>
+                                        <Field
+                                            name="email"
+                                            component={RenderInput}
+                                            type="email"
+                                            placeholder="jean@skatekrak.com"
+                                            label="Email address"
+                                        />
                                         <Address countries={countriesOptions} />
                                     </div>
                                 </div>
                                 <div className="form-section col-xs-12 col-md-offset-1 col-md-5">
                                     <button
                                         className={classNames('checkout-form-submit-button', {
-                                            'checkout-form-submit-button--enable': validForm,
+                                            'checkout-form-submit-button--enable': false,
                                         })}
-                                        disabled={!validForm}
+                                        disabled={pristine || submitting}
                                     >
                                         Payment
                                     </button>
@@ -94,3 +104,8 @@ export default class Club extends React.Component<{}, State> {
         );
     }
 }
+
+export default reduxForm({
+    form: 'shipping',
+    destroyOnUnmount: false,
+})(Club);

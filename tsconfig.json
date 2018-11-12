@@ -18,7 +18,8 @@
         "paths": {
             "*": ["*"],
             "components/*": ["components/*"],
-            "static/*": ["static/*"]
+            "static/*": ["static/*"],
+            "store/*": ["store/*"]
         }
     },
     "include": ["pages/**/*.tsx", "components/**/*.tsx"],
