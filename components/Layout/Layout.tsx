@@ -13,6 +13,7 @@ import 'static/styles/stylus-mq.styl';
 
 type Props = {
     head?: Head;
+    children: React.ReactElement<React.ReactChildren>;
 };
 
 const Layout: React.SFC<Props> = ({ children, head }) => (
