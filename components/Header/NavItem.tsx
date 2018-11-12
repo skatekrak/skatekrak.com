@@ -1,5 +1,6 @@
 import * as React from 'react';
-import Link from '../Link';
+
+import Link from 'components/Link';
 
 type Props = {
     title: string;

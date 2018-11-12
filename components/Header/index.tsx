@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-import NavItem from './NavItem';
+import NavItem from 'components/Header/NavItem';
 
 /* tslint:disable:max-line-length */
 export default () => (
