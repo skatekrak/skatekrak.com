@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+import validator from 'email-validator';
 import * as React from 'react';
 import { Field, InjectedFormProps, reduxForm } from 'redux-form';
 
@@ -36,6 +37,34 @@ type State = {
             country: string;
         };
     };
+};
+
+const validate = (values) => {
+    const errors: any = {};
+
+    if (!values.email) {
+        errors.email = 'Required';
+    } else if (!validator.validate(values.email)) {
+        errors.email = 'Email not valid';
+    }
+
+    if (!values.firstName) {
+        errors.firstName = 'Required';
+    }
+
+    if (!values.lastName) {
+        errors.lastName = 'Required';
+    }
+
+    if (!values.line1) {
+        errors.line1 = 'Required';
+    }
+
+    if (!values.city) {
+        errors.city = 'Required';
+    }
+
+    return errors;
 };
 
 class Club extends React.Component<InjectedFormProps, State> {
@@ -77,7 +106,7 @@ class Club extends React.Component<InjectedFormProps, State> {
                                         className={classNames('checkout-form-submit-button', {
                                             'checkout-form-submit-button--enable': false,
                                         })}
-                                        disabled={pristine || submitting}
+                                        disabled={!pristine || submitting}
                                     >
                                         Payment
                                     </button>
@@ -92,7 +121,7 @@ class Club extends React.Component<InjectedFormProps, State> {
                                     </div>
                                     <img
                                         className="checkout-form-img"
-                                        src="../static/images/step_1_2x.png"
+                                        src="static/images/step_1_2x.png"
                                         alt="Kraken illustration step 1"
                                     />
                                 </div>
@@ -108,4 +137,5 @@ class Club extends React.Component<InjectedFormProps, State> {
 export default reduxForm({
     form: 'shipping',
     destroyOnUnmount: false,
+    validate,
 })(Club);
