@@ -5,6 +5,7 @@ import Header from '../Header';
 
 import '../../static/styles/reset.css';
 import '../../static/styles/stylus-mq.styl';
+import '../../static/styles/flexbox-grid.css';
 import '../../static/styles/styleguide.styl';
 import '../../static/styles/fonts.styl';
 import '../../static/styles/helpers.styl';
