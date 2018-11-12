@@ -20,15 +20,15 @@ const options = [
 ];
 
 type Props = {
-    address?: Object;
+    address?: object;
 };
 
 type State = {
-    address: Object;
+    address: object;
 };
 
 export default class Element extends React.Component<Props, State> {
-    state = {
+    public state: State = {
         address: {},
     };
     public render() {

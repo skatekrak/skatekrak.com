@@ -25,7 +25,7 @@ type State = {
 };
 
 export default class Input extends React.Component<Props, State> {
-    state = {
+    public state: State = {
         type: this.props.type,
         value: '',
     };
@@ -47,7 +47,7 @@ export default class Input extends React.Component<Props, State> {
     /*
      * Render
      */
-    render() {
+    public render() {
         const { type, value } = this.state;
         const { name, placeholder, required, disabled } = this.props;
         const id = `id-${name}`;

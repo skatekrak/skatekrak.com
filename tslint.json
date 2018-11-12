@@ -33,7 +33,8 @@
         "interface-name": false,
         "interface-over-type-literal": false,
         "jsx-no-multiline-js": false,
-        "jsx-boolean-value": false
+        "jsx-boolean-value": false,
+        "semicolon": [true, "always", "ignore-bound-class-methods"]
     },
     "rulesDirectory": []
 }

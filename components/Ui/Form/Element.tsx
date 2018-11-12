@@ -12,9 +12,10 @@ type State = {
 };
 
 export default class Element extends React.Component<Props, State> {
-    state = {
+    public state: State = {
         errorMessage: null,
     };
+
     public render() {
         const { label, children } = this.props;
         const elementId = `id-${children.props.name}`;

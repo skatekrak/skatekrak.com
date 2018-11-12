@@ -4,16 +4,16 @@ import * as React from 'react';
 import Layout from 'components/Layout/Layout';
 import 'static/styles/checkout.styl';
 
-import Address from 'components/Ui/Form/Address';
-import FormElement from 'components/Ui/Form/Element';
-import Input from 'components/Ui/Form/Input';
+import Address from 'components/UI/Form/Address';
+import FormElement from 'components/UI/Form/Element';
+import Input from 'components/UI/Form/Input';
 
 type State = {
     valideForm: boolean;
 };
 
 export default class Club extends React.Component<{}, State> {
-    state = {
+    public state = {
         valideForm: false,
     };
 

@@ -23,7 +23,7 @@ type State = {
 };
 
 export default class Select extends React.Component<Props, State> {
-    state = {
+    public state: State = {
         value: '',
     };
 
@@ -44,7 +44,7 @@ export default class Select extends React.Component<Props, State> {
     /*
      * Render
      */
-    render() {
+    public render() {
         const { value } = this.state;
         const { name, options, required, disabled } = this.props;
         const id = `id-${name}`;
