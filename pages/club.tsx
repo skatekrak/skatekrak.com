@@ -69,7 +69,7 @@ const validate = (values) => {
 
 class Club extends React.Component<InjectedFormProps, State> {
     public render() {
-        const { handleSubmit, pristine, submitting } = this.props;
+        const { handleSubmit, valid, submitting } = this.props;
         return (
             <Layout>
                 <div id="checkout" className="container">
@@ -82,7 +82,11 @@ class Club extends React.Component<InjectedFormProps, State> {
                         </div>
                     </header>
                     <main id="checkout-main">
-                        <form id="checkout-form-shipping" className="checkout-form" onSubmit={handleSubmit}>
+                        <form
+                            id="checkout-form-shipping"
+                            className="checkout-form"
+                            onSubmit={handleSubmit(this.doSomethingAfterFormIsValid)}
+                        >
                             <div className="row">
                                 <div className="form-section col-xs-12 col-md-6">
                                     <p className="form-section-title">Shipping information</p>
@@ -104,9 +108,9 @@ class Club extends React.Component<InjectedFormProps, State> {
                                 <div className="form-section col-xs-12 col-md-offset-1 col-md-5">
                                     <button
                                         className={classNames('checkout-form-submit-button', {
-                                            'checkout-form-submit-button--enable': false,
+                                            'checkout-form-submit-button--enable': valid || submitting,
                                         })}
-                                        disabled={!pristine || submitting}
+                                        disabled={!valid && !submitting}
                                     >
                                         Payment
                                     </button>
@@ -132,6 +136,10 @@ class Club extends React.Component<InjectedFormProps, State> {
             </Layout>
         );
     }
+
+    private doSomethingAfterFormIsValid = (values) => {
+        window.alert(JSON.stringify(values, null, 2));
+    };
 }
 
 export default reduxForm({
