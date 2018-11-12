@@ -3,6 +3,7 @@ import * as React from 'react';
 
 import Header from '../Header';
 
+/* tslint:disable:ordered-imports */
 import 'static/styles/reset.css';
 import 'static/styles/flexbox-grid.css';
 import 'static/styles/fonts.styl';

@@ -1,15 +1,14 @@
 import * as React from 'react';
 
-import FormElement from 'components/Ui/Form/Element';
 import RenderInput from 'components/Ui/Form/Input';
-import Select from 'components/Ui/Form/Select';
+import RenderSelect from 'components/Ui/Form/Select';
 import { Field } from 'redux-form';
 
 type Props = {
     address?: object;
     countries: {
         value: string;
-        title: string;
+        label: string;
     }[];
 };
 
@@ -30,9 +29,7 @@ export default class Element extends React.Component<Props, State> {
                 <Field label="Apt/unit etc (optional)" name="line2" component={RenderInput} type="text" />
                 <Field label="City" name="city" component={RenderInput} type="text" required />
                 <Field label="Postal code" name="postalcode" component={RenderInput} type="text" required />
-                <FormElement label="Country">
-                    <Select name="country" options={this.props.countries} required />
-                </FormElement>
+                <Field label="Country" name="country" component={RenderSelect} options={this.props.countries} />
             </React.Fragment>
         );
     }

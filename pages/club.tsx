@@ -12,15 +12,15 @@ import RenderInput from 'components/Ui/Form/Input';
 const countriesOptions = [
     {
         value: 'pt',
-        title: 'Portugal',
+        label: 'Portugal',
     },
     {
         value: 'fr',
-        title: 'France',
+        label: 'France',
     },
     {
         value: 'es',
-        title: 'Spain',
+        label: 'Spain',
     },
 ];
 
@@ -62,6 +62,10 @@ const validate = (values) => {
 
     if (!values.city) {
         errors.city = 'Required';
+    }
+
+    if (!values.country) {
+        errors.country = 'Required';
     }
 
     return errors;
