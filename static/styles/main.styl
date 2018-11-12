@@ -5,8 +5,9 @@ body
 	position: relative
 	font-family: $ff-roboto-regular
 	font-size: 16px
+	line-height: 1.25
 	color: $text-lighter
-	background-color: $grey-lighter
+	background-color: $grey-100
 
 #page-container
 	display: flex
@@ -29,7 +30,7 @@ body
 		flex-direction: column
 		width: 300px
 		padding: 4rem 2rem 1rem
-		background-color: $grey-darker
+		background-color: $grey-900
 
 	&-top
 		display: flex
@@ -116,6 +117,7 @@ body
 		flex-grow: 1
 		display: flex
 		flex-direction: column
+		color: $text-dark
 
 	&-top
 		&-container
@@ -168,7 +170,7 @@ body
 				font-size: $fs-small
 				letter-spacing: 0.025rem
 				color: $text-lighter
-				background-color: $grey-darker
+				background-color: $grey-900
 
 				+mq($from: "medium")
 					padding: .75rem 1.5rem
@@ -241,7 +243,7 @@ body
 		right: 0
 		display: flex
 		flex-direction: column
-		background-color: $grey-darker
+		background-color: $grey-900
 		z-index: 1
 
 		& #krak-logo-hand
@@ -318,6 +320,6 @@ body
 	&-top
 		&-burger-bar
 			height: 3px
-			background-color: $grey-darker
+			background-color: $grey-900
 			border-radius: 3px
 			transition: .2s
