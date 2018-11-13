@@ -40,6 +40,37 @@
 			font-family: $ff-roboto-bold
 			color: $secondary
 
+#step3
+	margin: auto
+	padding: 2rem 0
+	text-align: center
+
+	&-image
+		display: block
+		width: 100%
+		max-width: 200px
+		margin: auto
+
+		+mq($from: "medium")
+			max-width: 330px
+
+	&-title
+		margin: 1rem 0 2rem
+		font-family: $ff-roboto-black-italic
+		font-size: $fs-larger
+
+		+mq($from: "medium")
+			margin: 2rem 0 3rem
+			font-size: $fs-largest
+
+		&-1
+			margin-bottom: .5rem
+			color: $primary
+
+	&-support
+		+mq($from: "medium")
+			font-size: $fs-large
+
 .checkout
 	&-form
 		margin-top: 4rem
