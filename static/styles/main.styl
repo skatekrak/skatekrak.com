@@ -17,9 +17,9 @@ body
 	+mq($from: "medium")
 		flex-direction: row
 		max-height: 100vh
-		// overflow: hidden
 
 #header
+	max-height: 100vh
 	padding: 1.5rem 2rem 2rem
 
 	+mq($from: "small")
@@ -28,6 +28,7 @@ body
 	+mq($from: "medium")
 		display: flex
 		flex-direction: column
+		min-height: 100vh
 		width: 300px
 		padding: 4rem 2rem 1rem
 		background-color: $grey-900
@@ -117,90 +118,86 @@ body
 		flex-grow: 1
 		display: flex
 		flex-direction: column
-		padding: 4rem 0
 		color: $text-dark
+		overflow: auto
 
-	&-top
-		&-container
-			flex-grow: 1
+#home
+	&-container
+		flex-grow: 1
+		display: flex
+		flex-direction: column
+
+		+mq($from: "medium")
+			padding-top: 4rem
+
+	&-newsletter
+		display: flex
+		flex-direction: column
+		margin-top: .5rem
+
+		+mq($from: "medium")
+			flex-direction: row
+			align-items: center
+			justify-content: flex-end
+			margin-top: 0
+
+		&-title
+			font-family: $ff-roboto-black-italic
+			font-size: $fs-large
+			color: $primary
+
+		&-input
+			margin: 1rem 0
+			padding: 1rem
+			font-family: $ff-roboto-regular
+			border: 0
+
+			+mq($from: "medium")
+				width: 250px
+				margin: 0 0 0 1rem
+				padding: .75rem
+
+			&:placeholder
+				color: $text-light
+
+		&-button
 			display: flex
-			flex-direction: column
-			padding: 0 2rem
-
-			+mq($from: "small")
-				padding: 0 8rem
-
-			+mq($from: "medium")
-				padding: 4rem 6rem 0
-
-		&-newsletter
-			display: flex
-			flex-direction: column
-			margin-top: .5rem
+			align-self: flex-end
+			padding: .5rem 1.5rem
+			font-family: $ff-roboto-condensed-bold
+			font-size: $fs-small
+			letter-spacing: 0.025rem
+			color: $text-lighter
+			background-color: $grey-900
 
 			+mq($from: "medium")
-				flex-direction: row
-				align-items: center
-				justify-content: flex-end
-				margin-top: 0
+				padding: .75rem 1.5rem
 
-			&-title
-				font-family: $ff-roboto-black-italic
-				font-size: $fs-large
-				color: $primary
+			&:hover
+				background-color: $black
 
-			&-input
-				margin: 1rem 0
-				padding: 1rem
-				font-family: $ff-roboto-regular
-				border: 0
+				& #main-top-newsletter-button-icon
+					fill: $primary
 
-				+mq($from: "medium")
-					width: 250px
-					margin: 0 0 0 1rem
-					padding: .75rem
+			&-icon
+				height: 1.2rem
+				width: 1.2rem
+				margin-left: .75rem
+				fill: $white
+				transition: .2s
 
-				&:placeholder
-					color: $text-light
+	&-image
+		flex-grow: 1
+		width: 100%
+		max-width: 500px
+		margin: 1rem auto 3rem
+		background-image: url(/static/images/pindejo-lucas-beaufort.jpg)
+		background-position: 50% 40%
+		background-size: 140%
+		background-repeat: no-repeat
 
-			&-button
-				display: flex
-				align-self: flex-end
-				padding: .5rem 1.5rem
-				font-family: $ff-roboto-condensed-bold
-				font-size: $fs-small
-				letter-spacing: 0.025rem
-				color: $text-lighter
-				background-color: $grey-900
-
-				+mq($from: "medium")
-					padding: .75rem 1.5rem
-
-				&:hover
-					background-color: $black
-
-					& #main-top-newsletter-button-icon
-						fill: $primary
-
-				&-icon
-					height: 1.2rem
-					width: 1.2rem
-					margin-left: .75rem
-					fill: $white
-					transition: .2s
-
-		&-image
-			flex-grow: 1
-			width: 100%
-			max-width: 500px
-			margin: 1rem auto 3rem
-			background-image: url(/static/images/pindejo-lucas-beaufort.jpg)
-			background-position: 50% 40%
-			background-size: 140%
-			background-repeat: no-repeat
-
-			+mq($from: "medium")
-				max-width: 600px
+		+mq($from: "medium")
+			max-width: 600px
 
 
 #quote
@@ -221,6 +218,8 @@ body
 	&-container
 		position: absolute
 		bottom: 0
+		left: 0
+		right: 0
 		display:flex
 		align-items: center
 		height: 3rem
