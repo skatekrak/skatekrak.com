@@ -1,100 +1,53 @@
+import Head from 'next/head';
 import * as React from 'react';
+import { Elements, StripeProvider } from 'react-stripe-elements';
 
 import Layout from 'components/Layout/Layout';
 import 'static/styles/checkout.styl';
 
-import PaymentForm from 'components/pages/club/PaymentForm';
-import ShippingForm from 'components/pages/club/ShippingForm';
-
-const countriesOptions = [
-    {
-        value: 'pt',
-        label: 'Portugal',
-    },
-    {
-        value: 'fr',
-        label: 'France',
-    },
-    {
-        value: 'es',
-        label: 'Spain',
-    },
-    {
-        value: 'us',
-        label: 'United States',
-    },
-    {
-        value: 'at',
-        label: 'Austria',
-    },
-    {
-        value: 'be',
-        label: 'Belgium',
-    },
-    {
-        value: 'ch',
-        label: 'Switzerland',
-    },
-    {
-        value: 'de',
-        label: 'Germany',
-    },
-    {
-        value: 'gb',
-        label: 'United Kingdom',
-    },
-    {
-        value: 'ie',
-        label: 'Ireland',
-    },
-    {
-        value: 'it',
-        label: 'Italy',
-    },
-    {
-        value: 'lu',
-        label: 'Luxembourg',
-    },
-    {
-        value: 'nl',
-        label: 'Netherlands',
-    },
-];
+import Checkout from 'components/pages/club/Checkout';
 
 type State = {
-    step: 'shipping' | 'payment' | 'done';
+    stripe?: any;
 };
 
-class Club extends React.Component<{}, State> {
+class Club extends React.Component<{}> {
     public state: State = {
-        step: 'payment',
+        stripe: null,
     };
 
+    public componentDidMount() {
+        this.setState({
+            stripe: (window as any).Stripe(process.env.STRIPE_KEY),
+        });
+    }
+
     public render() {
-        const { step } = this.state;
         return (
             <Layout>
-                <div id="checkout" className="container">
-                    <header id="checkout-header">
-                        <h1 id="checkout-header-title">Join the club</h1>
-                        <h2 id="checkout-header-subtitle">Krak Skateboarding Club - 12 month membership</h2>
-                        <div id="checkout-header-price-container">
-                            <p id="checkout-header-price">$348 today</p>
-                            <p id="checkout-header-price-details">to be covered until December 2019</p>
+                <React.Fragment>
+                    <Head>
+                        <script src="https://js.stripe.com/v3" />
+                    </Head>
+                    <StripeProvider stripe={this.state.stripe}>
+                        <div id="checkout" className="container">
+                            <header id="checkout-header">
+                                <h1 id="checkout-header-title">Join the club</h1>
+                                <h2 id="checkout-header-subtitle">Krak Skateboarding Club - 12 month membership</h2>
+                                <div id="checkout-header-price-container">
+                                    <p id="checkout-header-price">$348 today</p>
+                                    <p id="checkout-header-price-details">to be covered until December 2019</p>
+                                </div>
+                            </header>
+                            <Elements>
+                                <Checkout />
+                            </Elements>
                         </div>
-                    </header>
-                    <main id="checkout-main">
-                        {step === 'shipping' && <ShippingForm onSubmit={this.nextPage} countries={countriesOptions} />}
-                        {step === 'payment' && <PaymentForm onSubmit={this.nextPage} />}
-                    </main>
-                </div>
+                    </StripeProvider>
+                </React.Fragment>
             </Layout>
         );
     }
-
-    private nextPage = () => {
-        this.setState({ step: 'payment' });
-    };
 }
 
 export default Club;

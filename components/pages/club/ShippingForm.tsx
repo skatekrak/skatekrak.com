@@ -1,26 +1,22 @@
 import axios from 'axios';
 import classNames from 'classnames';
+import validator from 'email-validator';
 import React from 'react';
 import { Field, InjectedFormProps, reduxForm, SubmissionError } from 'redux-form';
 
-import validate from 'components/pages/club/validate';
 import Address from 'components/Ui/Form/Address';
 import RenderInput from 'components/Ui/Form/Input';
 
 // TODO: Find how to properly put props here (with InjectedFormProps)
 interface Props {
     onSubmit: () => void;
-    countries: {
-        value: string;
-        label: string;
-    }[];
 }
 
 type InjectedProps = InjectedFormProps<{}, Props>;
 
 class ShippingForm extends React.Component<Props & InjectedProps> {
     public render() {
-        const { countries, handleSubmit } = this.props;
+        const { handleSubmit } = this.props;
         return (
             <form id="checkout-form-shipping" className="checkout-form" onSubmit={handleSubmit(this.afterFormIsValid)}>
                 <div className="row">
@@ -32,7 +28,7 @@ class ShippingForm extends React.Component<Props & InjectedProps> {
                         </p>
                         <div className="checkout-form-fields-container">
                             <Field name="email" component={RenderInput} type="email" label="Email address" />
-                            <Address countries={countries} />
+                            <Address />
                         </div>
                     </div>
                     <div className="form-section col-xs-12 col-md-offset-1 col-md-5">
@@ -82,8 +78,44 @@ class ShippingForm extends React.Component<Props & InjectedProps> {
     };
 }
 
+const validate = (values) => {
+    const errors: any = {};
+
+    if (!values.email) {
+        errors.email = 'Required';
+    } else if (!validator.validate(values.email)) {
+        errors.email = 'Email not valid';
+    }
+
+    if (!values.firstName) {
+        errors.firstName = 'Required';
+    }
+
+    if (!values.lastName) {
+        errors.lastName = 'Required';
+    }
+
+    if (!values.line1) {
+        errors.line1 = 'Required';
+    }
+
+    if (!values.city) {
+        errors.city = 'Required';
+    }
+
+    if (!values.postalcode) {
+        errors.postalcode = 'Required';
+    }
+
+    if (!values.country) {
+        errors.country = 'Required';
+    }
+
+    return errors;
+};
+
 export default reduxForm({
-    form: 'clubSignup',
+    form: 'shipping',
     destroyOnUnmount: false,
     forceUnregisterOnUnmount: true,
     validate,
