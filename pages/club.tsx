@@ -22,6 +22,46 @@ const countriesOptions = [
         value: 'es',
         label: 'Spain',
     },
+    {
+        value: 'us',
+        label: 'United States',
+    },
+    {
+        value: 'at',
+        label: 'Austria',
+    },
+    {
+        value: 'be',
+        label: 'Belgium',
+    },
+    {
+        value: 'ch',
+        label: 'Switzerland',
+    },
+    {
+        value: 'de',
+        label: 'Germany',
+    },
+    {
+        value: 'gb',
+        label: 'United Kingdom',
+    },
+    {
+        value: 'ie',
+        label: 'Ireland',
+    },
+    {
+        value: 'it',
+        label: 'Italy',
+    },
+    {
+        value: 'lu',
+        label: 'Luxembourg',
+    },
+    {
+        value: 'nl',
+        label: 'Netherlands',
+    },
 ];
 
 type State = {
