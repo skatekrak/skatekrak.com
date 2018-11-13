@@ -50,15 +50,23 @@ class Checkout extends React.Component<Props & ReactStripeElements.InjectedStrip
 
     private handlePayment = () => {
         const { email, shippingAddress } = this.props;
+        let { billingAddress } = this.props;
         shippingAddress.country = shippingAddress.country.value;
+
+        if (!billingAddress) {
+            billingAddress = shippingAddress;
+        } else {
+            billingAddress.country = billingAddress.country.value;
+        }
+
         return this.props.stripe
             .createToken({
-                name: 'Maxime Cattet',
-                address_line1: shippingAddress.line1,
-                address_line2: shippingAddress.line2,
-                address_city: shippingAddress.city,
-                address_zip: shippingAddress.postalcode,
-                address_country: shippingAddress.country,
+                name: `${billingAddress.firstName} ${billingAddress.lastName}`,
+                address_line1: billingAddress.line1,
+                address_line2: billingAddress.line2,
+                address_city: billingAddress.city,
+                address_zip: billingAddress.postalcode,
+                address_country: billingAddress.country,
             })
             .then((payload) => {
                 if (payload.error) {
@@ -68,6 +76,7 @@ class Checkout extends React.Component<Props & ReactStripeElements.InjectedStrip
                         .post(`${process.env.BACKEND_URL}/payments/pay`, {
                             email,
                             shippingAddress,
+                            billingAddress,
                             token: payload.token.id,
                         })
                         .then(() => {
