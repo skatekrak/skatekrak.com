@@ -104,6 +104,10 @@ const validate = (values) => {
         errors.city = 'Required';
     }
 
+    if (!values.postalcode) {
+        errors.postalcode = 'Required';
+    }
+
     if (!values.country) {
         errors.country = 'Required';
     }
