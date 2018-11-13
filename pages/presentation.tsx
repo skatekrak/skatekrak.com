@@ -4,6 +4,7 @@ import Link from 'next/link';
 import 'static/styles/club.styl';
 
 import Layout from 'components/Layout/Layout';
+import SkateistanLogo from 'components/Ui/Icons/Logos/Skateistan';
 
 const Club: React.SFC<{}> = () => (
     <Layout>
@@ -48,11 +49,12 @@ const Club: React.SFC<{}> = () => (
                 </div>
             </div>
             <div id="club-skateistan">
-                <img
+                {/* <img
                     src="static/images/citizens-of-skateistan.svg"
                     alt="Citizens of skateistan logo"
                     id="club-skateistan-logo"
-                />
+                /> */}
+                <SkateistanLogo />
                 <p id="club-skateistan-text">
                     We wanna do good - that’s why 10% of your subscription goes directly to{' '}
                     <a
@@ -63,7 +65,7 @@ const Club: React.SFC<{}> = () => (
                     >
                         Skateistan
                     </a>
-                    . Become a citizen too.
+                    .<span id="club-skateistan-citizens">Become a citizen too.</span>
                 </p>
             </div>
         </div>
