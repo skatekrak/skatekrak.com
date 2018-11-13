@@ -1,0 +1,91 @@
+@import "./stylus-mq"
+@import "./styleguide"
+
+/* Club presentation page styles */
+#club
+	padding: 3rem 0
+
+	&-header
+		position: relative
+		text-align: center
+
+		&-title
+			position: relative
+			margin-bottom: 1rem
+			font-family: $ff-roboto-condensed-bold
+			font-size: $fs-largest
+			z-index: 2
+
+		&-subtitle
+			position: relative
+			font-size: $fs-small
+			font-style: italic
+			color: $grey-500
+			z-index: 2
+
+		&-bg-circle
+			position: absolute
+			display: none
+			top: calc(50% - 4rem)
+			left: calc(50% - 4rem)
+			width: 8rem
+			height: 8rem
+			background-color: $primary
+			border-radius: 8rem
+			border-radius: 100%
+			z-index: 1
+
+	&-cta
+		padding: 1rem 2rem
+		font-family: $ff-roboto-bold
+		color: $white
+		background-color: $primary
+		border-radius: .5rem
+		box-shadow: $box-shadow-1
+
+		&-container
+			display: flex
+			justify-content: center
+			margin: 4rem 0
+
+	&-bg-image
+		position: absolute
+		top: 0
+		left: -2rem
+		right: -2rem
+		bottom: 0
+		z-index: 1
+		background-image: url("/static/images/club-presentation-bg.jpg")
+		background-position: 20% 50%
+
+	&-benefits
+		position: relative
+		padding: 3rem 0
+		color: $white
+
+		&-container
+			position: relative
+			z-index: 3
+
+		&-title
+			margin-bottom: 3rem
+			font-family: $ff-roboto-condensed-bold
+			letter-spacing: 0.010rem
+			text-transform: uppercase
+
+	&-skateistan
+		margin: 3rem 0 0
+		text-align: center
+
+		&-logo
+			display: block
+			max-width: 6rem
+			margin: 0 auto 1.5rem
+
+		&-link
+			font-family: $ff-roboto-black-italic
+
+.club
+	&-benefit
+		margin-bottom: 1.5rem
+		font-family: $ff-roboto-condensed-regular
