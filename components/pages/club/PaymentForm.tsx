@@ -1,8 +1,7 @@
 import classNames from 'classnames';
 import React from 'react';
 import { CardElement } from 'react-stripe-elements';
-import { Dispatch } from 'redux';
-import { FormErrors, InjectedFormProps, reduxForm } from 'redux-form';
+import { InjectedFormProps, reduxForm } from 'redux-form';
 
 import Address from 'components/Ui/Form/Address';
 import FormElement from 'components/Ui/Form/Element';
