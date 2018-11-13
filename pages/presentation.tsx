@@ -49,11 +49,6 @@ const Club: React.SFC<{}> = () => (
                 </div>
             </div>
             <div id="club-skateistan">
-                {/* <img
-                    src="static/images/citizens-of-skateistan.svg"
-                    alt="Citizens of skateistan logo"
-                    id="club-skateistan-logo"
-                /> */}
                 <SkateistanLogo />
                 <p id="club-skateistan-text">
                     We wanna do good - that’s why 10% of your subscription goes directly to{' '}
