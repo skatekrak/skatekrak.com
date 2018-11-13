@@ -132,7 +132,6 @@ class Club extends React.Component<InjectedFormProps> {
                                             name="email"
                                             component={RenderInput}
                                             type="email"
-                                            placeholder="jean@skatekrak.com"
                                             label="Email address"
                                         />
                                         <Address countries={countriesOptions} />
