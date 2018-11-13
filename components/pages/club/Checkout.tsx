@@ -1,10 +1,19 @@
+import axios from 'axios';
+import Router from 'next/router';
 import React from 'react';
 import { connect } from 'react-redux';
 import { injectStripe, ReactStripeElements } from 'react-stripe-elements';
-import { formValueSelector, SubmissionError } from 'redux-form';
+import { formValueSelector, reset } from 'redux-form';
 
 import PaymentForm from 'components/pages/club/PaymentForm';
 import ShippingForm from 'components/pages/club/ShippingForm';
+
+type Props = {
+    email?: string;
+    shippingAddress?: any;
+    billingAddress?: any;
+    dispatch: (...arg: any) => void;
+};
 
 type State = {
     step: 'shipping' | 'payment' | 'done';
@@ -12,7 +21,7 @@ type State = {
     stripeError?: string;
 };
 
-class Checkout extends React.Component<ReactStripeElements.InjectedStripeProps, State> {
+class Checkout extends React.Component<Props & ReactStripeElements.InjectedStripeProps, State> {
     public state: State = {
         step: 'shipping',
         stripe: null,
@@ -40,13 +49,32 @@ class Checkout extends React.Component<ReactStripeElements.InjectedStripeProps, 
     };
 
     private handlePayment = () => {
+        const { email, shippingAddress } = this.props;
+        shippingAddress.country = shippingAddress.country.value;
         return this.props.stripe
             .createToken({
                 name: 'Maxime Cattet',
+                address_line1: shippingAddress.line1,
+                address_line2: shippingAddress.line2,
+                address_city: shippingAddress.city,
+                address_zip: shippingAddress.postalcode,
+                address_country: shippingAddress.country,
             })
             .then((payload) => {
                 if (payload.error) {
                     this.setState({ stripeError: payload.error.message });
+                } else {
+                    return axios
+                        .post(`${process.env.BACKEND_URL}/payments/pay`, {
+                            email,
+                            shippingAddress,
+                            token: payload.token.id,
+                        })
+                        .then(() => {
+                            this.props.dispatch(reset('shipping'));
+                            this.props.dispatch(reset('payment'));
+                            Router.push('/');
+                        });
                 }
             });
     };
