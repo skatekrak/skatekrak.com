@@ -16,8 +16,6 @@
     },
     "typescript.validate.enable": true,
     "javascript.validate.enable": false,
-    "flow.enabled": true,
-    "flow.useNPMPackagedFlow": true,
     "files.exclude": {
         "**/.git": true,
         "**/.svn": true,
