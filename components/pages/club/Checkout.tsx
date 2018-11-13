@@ -17,22 +17,14 @@ type Props = {
 
 type State = {
     step: 'shipping' | 'payment' | 'done';
-    stripe?: any;
     stripeError?: string;
 };
 
 class Checkout extends React.Component<Props & ReactStripeElements.InjectedStripeProps, State> {
     public state: State = {
         step: 'shipping',
-        stripe: null,
         stripeError: null,
     };
-
-    public componentDidMount() {
-        this.setState({
-            stripe: (window as any).Stripe(process.env.STRIPE_KEY),
-        });
-    }
 
     public render() {
         const { step, stripeError } = this.state;
@@ -51,6 +43,11 @@ class Checkout extends React.Component<Props & ReactStripeElements.InjectedStrip
     private handlePayment = () => {
         const { email, shippingAddress } = this.props;
         let { billingAddress } = this.props;
+
+        if (billingAddress && !billingAddress.firstName) {
+            billingAddress = null;
+        }
+
         shippingAddress.country = shippingAddress.country.value;
 
         if (!billingAddress) {
@@ -82,7 +79,7 @@ class Checkout extends React.Component<Props & ReactStripeElements.InjectedStrip
                         .then(() => {
                             this.props.dispatch(reset('shipping'));
                             this.props.dispatch(reset('payment'));
-                            Router.push('/');
+                            Router.push('/club/congrats');
                         });
                 }
             });

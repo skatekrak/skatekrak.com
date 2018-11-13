@@ -6,7 +6,7 @@ const ActiveLink = ({ router, children, ...props }) => {
     const child = Children.only(children);
 
     let className = child.props.className || '';
-    if (router.pathname === props.href && props.activeClassName) {
+    if (router.pathname.startsWith(props.href) && props.activeClassName) {
         className = `${className} ${className}-${props.activeClassName}`.trim();
     }
 

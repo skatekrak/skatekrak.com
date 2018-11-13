@@ -37,6 +37,7 @@ export default class MyDocument extends Document {
                             />
                         </p>
                     </noscript>
+                    <script src="https://js.stripe.com/v3" />
                 </Head>
                 <body>
                     <Main />

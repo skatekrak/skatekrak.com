@@ -1,5 +1,5 @@
-import * as React from 'react';
 import Link from 'next/link';
+import * as React from 'react';
 
 import 'static/styles/club.styl';
 
@@ -15,7 +15,7 @@ const Club: React.SFC<{}> = () => (
                 <span id="club-header-bg-circle" />
             </div>
             <div id="club-cta-container">
-                <Link href="/club/subscribe">
+                <Link href="/club/subscribe" prefetch>
                     <a id="club-cta">Join the club - $29/month</a>
                 </Link>
             </div>

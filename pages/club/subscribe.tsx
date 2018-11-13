@@ -1,4 +1,3 @@
-import Head from 'next/head';
 import * as React from 'react';
 import { Elements, StripeProvider } from 'react-stripe-elements';
 
@@ -26,9 +25,6 @@ class Club extends React.Component<{}> {
         return (
             <Layout>
                 <React.Fragment>
-                    <Head>
-                        <script src="https://js.stripe.com/v3" />
-                    </Head>
                     <StripeProvider stripe={this.state.stripe}>
                         <div id="checkout" className="container">
                             <header id="checkout-header">
