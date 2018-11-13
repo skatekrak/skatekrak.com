@@ -6,6 +6,7 @@
     "author": "Arthur <a@skatekrak.com>",
     "license": "MIT",
     "devDependencies": {
+        "@types/axios": "^0.14.0",
         "@types/classnames": "^2.2.6",
         "@types/next": "^7.0.3",
         "@types/react": "^16.4.18",
@@ -30,6 +31,7 @@
         "@zeit/next-css": "^1.0.1",
         "@zeit/next-stylus": "^1.0.1",
         "@zeit/next-typescript": "^1.1.1",
+        "axios": "^0.18.0",
         "classnames": "^2.2.6",
         "email-validator": "^2.0.4",
         "next": "^7.0.2",
