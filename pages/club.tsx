@@ -64,21 +64,6 @@ const countriesOptions = [
     },
 ];
 
-type State = {
-    form: {
-        email: string;
-        address: {
-            firstName: string;
-            lastName: string;
-            line1: string;
-            line2?: string;
-            city: string;
-            zipcode: string;
-            country: string;
-        };
-    };
-};
-
 const validate = (values) => {
     const errors: any = {};
 
@@ -115,7 +100,7 @@ const validate = (values) => {
     return errors;
 };
 
-class Club extends React.Component<InjectedFormProps, State> {
+class Club extends React.Component<InjectedFormProps> {
     public render() {
         const { handleSubmit, valid, submitting } = this.props;
         return (
