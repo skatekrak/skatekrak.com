@@ -5,14 +5,14 @@ import Layout from 'components/Layout/Layout';
 /* tslint:disable:max-line-length */
 const Index: React.SFC<{}> = () => (
     <Layout>
-        <div>
-            <div id="main-top-container">
-                <form id="main-top-newsletter">
-                    <h2 id="main-top-newsletter-title">Get hooked up :</h2>
-                    <input type="mail" id="main-top-newsletter-input" placeholder="love@skatekrak.com" />
-                    <button id="main-top-newsletter-button">
+        <React.Fragment>
+            <div id="home-container">
+                <form id="home-newsletter">
+                    <h2 id="home-newsletter-title">Get hooked up :</h2>
+                    <input type="mail" id="home-newsletter-input" placeholder="love@skatekrak.com" />
+                    <button id="home-newsletter-button">
                         Subscribe
-                        <svg id="main-top-newsletter-button-icon" viewBox="0 0 48 48">
+                        <svg id="home-newsletter-button-icon" viewBox="0 0 48 48">
                             <title>Like</title>
                             <g className="icon-like">
                                 <path
@@ -70,7 +70,7 @@ const Index: React.SFC<{}> = () => (
                         </svg>
                     </button>
                 </form>
-                <div id="main-top-image" />
+                <div id="home-image" />
             </div>
             <div id="quote-container">
                 <p
@@ -82,7 +82,7 @@ const Index: React.SFC<{}> = () => (
                     the world around you. Ian Mackaye&nbsp;-&nbsp;
                 </p>
             </div>
-        </div>
+        </React.Fragment>
     </Layout>
 );
 

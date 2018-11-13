@@ -9,11 +9,13 @@ export default class extends React.Component<{}> {
         const header = document.getElementById('header');
         const burgerMenu = document.getElementById('header-top-burger');
         const menuContainer = document.getElementById('header-nav-container');
+        const mainContainer = document.getElementById('main-container');
 
         burgerMenu.addEventListener('click', () => {
             menuContainer.classList.toggle('show-header');
             burgerMenu.classList.toggle('burger-open');
             header.classList.toggle('header-open');
+            mainContainer.classList.toggle('hide');
         });
     }
 

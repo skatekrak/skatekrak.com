@@ -1,0 +1,155 @@
+@import "./stylus-mq"
+@import "./styleguide"
+
+/* Club presentation page styles */
+#club
+	padding: 3rem 0
+
+	+mq($from: "medium")
+		display: flex
+		flex-direction: column
+		height: 100vh
+		overflow: hidden
+		padding: 5rem 0 2rem
+
+
+	&-header
+		position: relative
+		text-align: center
+
+		+mq($from: "medium")
+			margin-bottom: 2rem
+			text-align: left
+
+		&-title
+			position: relative
+			margin-bottom: 1rem
+			font-family: $ff-roboto-condensed-bold
+			font-size: $fs-largest
+			z-index: 2
+
+			+mq($from: "medium")
+				margin-bottom: .5rem
+				color: $white
+
+		&-subtitle
+			position: relative
+			font-size: $fs-small
+			font-style: italic
+			color: $grey-500
+			z-index: 2
+
+			+mq($from: "medium")
+				color: $white
+
+		&-bg-circle
+			position: absolute
+			display: none
+			top: calc(50% - 4rem)
+			left: calc(50% - 4rem)
+			width: 8rem
+			height: 8rem
+			background-color: $primary
+			border-radius: 8rem
+			border-radius: 100%
+			z-index: 1
+
+	&-cta
+		padding: 1rem 2rem
+		font-family: $ff-roboto-bold
+		color: $white
+		background-color: $primary
+		border-radius: .5rem
+		box-shadow: $box-shadow-1
+		transition: .3s
+
+		&:hover
+			background-color: $primaryDark
+
+		&-container
+			position: relative
+			display: flex
+			justify-content: center
+			margin: 4rem 0
+			z-index: 3
+
+			+mq($from: "medium")
+				justify-content: left
+				margin: 0 0 auto
+
+	&-bg-image
+		position: absolute
+		top: 0
+		left: -2rem
+		right: -2rem
+		bottom: 0
+		z-index: 1
+		background-image: url("/static/images/club-presentation-bg.jpg")
+		background-position: 20% 50%
+
+		+mq($from: "medium")
+				left: 0
+				right: 0
+
+	&-benefits
+		position: relative
+		padding: 3rem 0
+		color: $white
+
+		+mq($from: "medium")
+			position: inherit
+			padding: 0 0 2rem
+
+		&-container
+			position: relative
+			z-index: 3
+
+		&-title
+			margin-bottom: 3rem
+			font-family: $ff-roboto-condensed-bold
+			letter-spacing: 0.10rem
+			text-transform: uppercase
+
+			+mq($from: "medium")
+				margin-bottom: 2rem
+
+	&-skateistan
+		position: relative
+		margin: 3rem 0 0
+		text-align: center
+		z-index: 3
+
+		+mq($from: "medium")
+			display: flex
+			align-items: center
+			margin: 0
+			font-size: $fs-smaller
+			text-align: left
+			color: $white
+
+		& #citizens-skateistan
+			display: block
+			width: 6rem
+			margin: 0 auto 1.5rem
+
+			+mq($from: "medium")
+				width: 3rem
+				margin: 0 1rem 0 0
+				fill: $white
+
+		&-link
+			font-family: $ff-roboto-black-italic
+
+		&-citizens
+			display: block
+
+.club
+	&-benefit
+		margin-bottom: 1.5rem
+		font-family: $ff-roboto-condensed-regular
+
+		+mq($from: "medium")
+			font-size: $fs-small
+
+		+mq($from: "large")
+			font-size: $fs-regular
