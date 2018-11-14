@@ -1,0 +1,56 @@
+/* Code based on https://www.w3schools.com/howto/howto_css_custom_checkbox.asp */
+
+@import "./stylus-mq"
+@import "./styleguide"
+
+/* Customize the label (the container) */
+.checkbox-container
+	display: block
+	position: relative
+	padding-left: 2rem
+	cursor: pointer
+	-webkit-user-select: none
+	-moz-user-select: none
+	-ms-user-select: none
+	user-select: none
+
+/* Hide the browser's default checkbox */
+.checkbox-container input
+	position: absolute
+	width: 0 !important
+	opacity: 0
+	cursor: pointer
+	height: 0
+	width: 0
+
+/* Create a custom checkbox */
+.checkmark
+	position: absolute
+	top: calc(50% - 0.625rem)
+	left: 0
+	display: flex
+	align-items: center
+	justify-content: center
+	height: 1.25rem
+	width: 1.25rem
+	border: 2px solid $grey-400
+
+/* On mouse-over, add a grey background color */
+.checkbox-container:hover input ~ .checkmark
+	border: 2px solid $grey-600
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after
+	content: ""
+	position: absolute
+	display: none
+
+/* Show the checkmark when checked */
+.checkbox-container input:checked ~ .checkmark:after
+	display: block
+
+/* Style the checkmark/indicator */
+.checkbox-container .checkmark:after
+	width: calc(100% - 5px)
+	height: calc(100% - 5px)
+	background-color: $primary

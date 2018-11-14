@@ -29,65 +29,72 @@ class PaymentForm extends React.Component<Props & InjectedFormProps, State> {
     public render() {
         const { handleSubmit, submitting, valid, stripeError } = this.props;
         return (
-            <>
-                <form id="checkout-form-payment" className="checkout-form" onSubmit={handleSubmit}>
-                    <div className="row">
-                        <div className="form-section col-xs-12 col-md-6">
-                            <p className="form-section-title">Payment information</p>
-                            <div className="checkout-form-fields-container">
+            <form id="checkout-form-payment" className="checkout-form" onSubmit={handleSubmit}>
+                <div className="row">
+                    <div className="form-section col-xs-12 col-md-6">
+                        <p className="form-section-title">Payment information</p>
+                        <div className="checkout-form-fields-container">
+                            <div className="form-element">
                                 <FormElement label="Card details" invalid={stripeError === undefined}>
                                     <>
                                         <CardElement />
                                         {stripeError && <ErrorMessage message={stripeError} />}
                                     </>
                                 </FormElement>
-                                <input
-                                    type="checkbox"
-                                    id="show-billing"
-                                    name="show-billing"
-                                    checked={!this.state.showBilling}
-                                    onChange={this.toggleBillingInfo}
-                                />
-                                <label htmlFor="show-billing">Use shipping address as billing address</label>
                             </div>
-                            {this.state.showBilling && (
-                                <>
-                                    <p className="form-section-title">Billings infos</p>
-                                    <div className="checkout-form-fields-container">
-                                        <Address />
-                                    </div>
-                                </>
-                            )}
-                        </div>
-                        <div className="form-section col-xs-12 col-md-offset-1 col-md-5">
-                            <button
-                                className={classNames('checkout-form-submit-button', {
-                                    'checkout-form-submit-button--enable': !(!valid || submitting),
-                                })}
-                                disabled={!valid || submitting}
-                            >
-                                Pay {this.props.payment.currency === 'usd' && '$'}
-                                {this.props.payment.price / 100}
-                                {this.props.payment.currency === 'eur' && '€'}
-                            </button>
-                            <div id="checkout-contact">
-                                <h4 id="checkout-contact-title">Questions?</h4>
-                                <p>
-                                    Contact our support team at{' '}
-                                    <a id="checkout-contact-mail" href="mailto:club@skatekrak.com">
-                                        club@skatekrak.com
-                                    </a>
-                                </p>
+                            <div className="form-element">
+                                <div className="form-element-field">
+                                    <label htmlFor="show-billing" className="checkbox-container">
+                                        Use shipping address as billing address
+                                        <input
+                                            type="checkbox"
+                                            id="show-billing"
+                                            name="show-billing"
+                                            checked={!this.state.showBilling}
+                                            onChange={this.toggleBillingInfo}
+                                        />
+                                        <span className="checkmark" />
+                                    </label>
+                                </div>
                             </div>
-                            <img
-                                className="checkout-form-img"
-                                src="/static/images/step_1_2x.png"
-                                alt="Kraken illustration step 1"
-                            />
                         </div>
+                        {this.state.showBilling && (
+                            <>
+                                <p className="form-section-title">Billings infos</p>
+                                <div className="checkout-form-fields-container">
+                                    <Address />
+                                </div>
+                            </>
+                        )}
                     </div>
-                </form>
-            </>
+                    <div className="form-section col-xs-12 col-md-offset-1 col-md-5">
+                        <button
+                            className={classNames('checkout-form-submit-button', {
+                                'checkout-form-submit-button--enable': !(!valid || submitting),
+                            })}
+                            disabled={!valid || submitting}
+                        >
+                            Pay {this.props.payment.currency === 'usd' && '$'}
+                            {this.props.payment.price / 100}
+                            {this.props.payment.currency === 'eur' && '€'}
+                        </button>
+                        <div id="checkout-contact">
+                            <h4 id="checkout-contact-title">Questions?</h4>
+                            <p>
+                                Contact our support team at{' '}
+                                <a id="checkout-contact-mail" href="mailto:club@skatekrak.com">
+                                    club@skatekrak.com
+                                </a>
+                            </p>
+                        </div>
+                        <img
+                            className="checkout-form-img"
+                            src="/static/images/step_1_2x.png"
+                            alt="Kraken illustration step 1"
+                        />
+                    </div>
+                </div>
+            </form>
         );
     }
 
