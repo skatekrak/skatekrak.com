@@ -3,6 +3,7 @@ import * as React from 'react';
 import { connect, DispatchProp } from 'react-redux';
 
 import 'static/styles/club.styl';
+import 'static/styles/checkbox.styl';
 
 import Layout from 'components/Layout/Layout';
 import SkateistanLogo from 'components/Ui/Icons/Logos/Skateistan';

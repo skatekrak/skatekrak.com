@@ -35,20 +35,29 @@ class PaymentForm extends React.Component<Props & InjectedFormProps, State> {
                         <div className="form-section col-xs-12 col-md-6">
                             <p className="form-section-title">Payment information</p>
                             <div className="checkout-form-fields-container">
-                                <FormElement label="Card details" invalid={stripeError === undefined}>
-                                    <>
-                                        <CardElement />
-                                        {stripeError && <ErrorMessage message={stripeError} />}
-                                    </>
-                                </FormElement>
-                                <input
-                                    type="checkbox"
-                                    id="show-billing"
-                                    name="show-billing"
-                                    checked={!this.state.showBilling}
-                                    onChange={this.toggleBillingInfo}
-                                />
-                                <label htmlFor="show-billing">Use shipping address as billing address</label>
+                                <div className="form-element">
+                                    <FormElement label="Card details" invalid={stripeError === undefined}>
+                                        <>
+                                            <CardElement />
+                                            {stripeError && <ErrorMessage message={stripeError} />}
+                                        </>
+                                    </FormElement>
+                                </div>
+                                <div className="form-element">
+                                    <div className="form-element-field">
+                                        <label htmlFor="show-billing" className="checkbox-container">
+                                            Use shipping address as billing address
+                                            <input
+                                                type="checkbox"
+                                                id="show-billing"
+                                                name="show-billing"
+                                                checked={!this.state.showBilling}
+                                                onChange={this.toggleBillingInfo}
+                                            />
+                                            <span className="checkmark" />
+                                        </label>
+                                    </div>
+                                </div>
                             </div>
                             {this.state.showBilling && (
                                 <>
