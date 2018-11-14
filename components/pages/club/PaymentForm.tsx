@@ -64,7 +64,7 @@ class PaymentForm extends React.Component<Props & InjectedFormProps, State> {
                             </button>
                             <img
                                 className="checkout-form-img"
-                                src="static/images/step_1_2x.png"
+                                src="/static/images/step_1_2x.png"
                                 alt="Kraken illustration step 1"
                             />
                         </div>

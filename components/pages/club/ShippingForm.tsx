@@ -51,7 +51,7 @@ class ShippingForm extends React.Component<Props & InjectedProps> {
                         </div>
                         <img
                             className="checkout-form-img"
-                            src="static/images/step_1_2x.png"
+                            src="/static/images/step_1_2x.png"
                             alt="Kraken illustration step 1"
                         />
                     </div>
