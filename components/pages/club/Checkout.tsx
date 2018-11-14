@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import Router from 'next/router';
 import React from 'react';
 import { connect } from 'react-redux';
@@ -80,6 +80,9 @@ class Checkout extends React.Component<Props & ReactStripeElements.InjectedStrip
                             this.props.dispatch(reset('shipping'));
                             this.props.dispatch(reset('payment'));
                             Router.push('/club/congrats');
+                        })
+                        .catch((err: AxiosError) => {
+                            this.setState({ stripeError: err.response.data.message });
                         });
                 }
             });
