@@ -70,6 +70,15 @@ class PaymentForm extends React.Component<Props & InjectedFormProps, State> {
                                 {this.props.payment.price / 100}
                                 {this.props.payment.currency === 'eur' && '€'}
                             </button>
+                            <div id="checkout-contact">
+                                <h4 id="checkout-contact-title">Questions?</h4>
+                                <p>
+                                    Contact our support team at{' '}
+                                    <a id="checkout-contact-mail" href="mailto:club@skatekrak.com">
+                                        club@skatekrak.com
+                                    </a>
+                                </p>
+                            </div>
                             <img
                                 className="checkout-form-img"
                                 src="/static/images/step_1_2x.png"
