@@ -67,7 +67,7 @@ class ShippingForm extends React.Component<Props & InjectedProps> {
     private afterFormIsValid = (values) => {
         const { email } = values;
         return axios
-            .get(`http://${process.env.BACKEND_URL}/customers/find`, {
+            .get(`${process.env.BACKEND_URL}/customers/find`, {
                 params: {
                     email,
                 },
