@@ -7,12 +7,17 @@ import { formValueSelector, reset } from 'redux-form';
 
 import PaymentForm from 'components/pages/club/PaymentForm';
 import ShippingForm from 'components/pages/club/ShippingForm';
+import analytics from 'lib/matomo';
 
 type Props = {
     email?: string;
     shippingAddress?: any;
     billingAddress?: any;
     dispatch: (...arg: any) => void;
+    payment: {
+        price: number;
+        currency: number;
+    };
 };
 
 type State = {
@@ -41,6 +46,11 @@ class Checkout extends React.Component<Props & ReactStripeElements.InjectedStrip
     };
 
     private handlePayment = () => {
+        analytics.trackEvent('Click', 'pay', {
+            name: 'price',
+            value: this.props.payment.price,
+        });
+
         const { email, shippingAddress } = this.props;
         let { billingAddress } = this.props;
 
@@ -78,6 +88,7 @@ class Checkout extends React.Component<Props & ReactStripeElements.InjectedStrip
                             token: payload.token.id,
                         })
                         .then(() => {
+                            analytics.trackOrder(payload.token.id, this.props.payment.price / 100);
                             this.props.dispatch(reset('shipping'));
                             this.props.dispatch(reset('payment'));
                             Router.push('/club/congrats');
@@ -115,4 +126,5 @@ export default connect((state: any) => ({
         state: paymentSelector(state, 'state'),
         country: paymentSelector(state, 'country'),
     },
+    payment: state.payment,
 }))(injectStripe(Checkout));
