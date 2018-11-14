@@ -1,15 +1,19 @@
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import classNames from 'classnames';
 import validator from 'email-validator';
 import React from 'react';
+import { connect } from 'react-redux';
 import { Field, InjectedFormProps, reduxForm, SubmissionError } from 'redux-form';
 
 import Address from 'components/Ui/Form/Address';
 import RenderInput from 'components/Ui/Form/Input';
 
+import { savePricingCurrency } from 'store/reducers/payment';
+
 // TODO: Find how to properly put props here (with InjectedFormProps)
 interface Props {
     onSubmit: () => void;
+    dispatch: (fct: any) => void;
 }
 
 type InjectedProps = InjectedFormProps<{}, Props>;
@@ -68,12 +72,26 @@ class ShippingForm extends React.Component<Props & InjectedProps> {
                     email,
                 },
             })
-            .then(() => this.props.onSubmit())
-            .catch(() => {
-                throw new SubmissionError({
-                    email: 'Email is alreay taken',
-                    _error: 'Failed',
-                });
+            .then((res) => {
+                const { price, currency } = res.data;
+                if (price && currency) {
+                    this.props.dispatch(savePricingCurrency(price, currency));
+                } else {
+                    this.props.dispatch(savePricingCurrency(34800, values.country.value === 'us' ? 'usd' : 'eur'));
+                }
+                this.props.onSubmit();
+            })
+            .catch((error: AxiosError) => {
+                if (error.response.status === 409) {
+                    throw new SubmissionError({
+                        email: 'Email is alreay taken',
+                        _error: 'Failed',
+                    });
+                } else {
+                    throw new SubmissionError({
+                        _error: 'Something went wrong',
+                    });
+                }
             });
     };
 }
@@ -114,9 +132,11 @@ const validate = (values) => {
     return errors;
 };
 
-export default reduxForm({
-    form: 'shipping',
-    destroyOnUnmount: false,
-    forceUnregisterOnUnmount: true,
-    validate,
-})(ShippingForm);
+export default connect()(
+    reduxForm({
+        form: 'shipping',
+        destroyOnUnmount: false,
+        forceUnregisterOnUnmount: true,
+        validate,
+    })(ShippingForm),
+);

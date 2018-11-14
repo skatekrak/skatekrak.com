@@ -1,5 +1,6 @@
 import classNames from 'classnames';
 import React from 'react';
+import { connect } from 'react-redux';
 import { CardElement } from 'react-stripe-elements';
 import { InjectedFormProps, reduxForm } from 'redux-form';
 
@@ -8,6 +9,10 @@ import FormElement from 'components/Ui/Form/Element';
 
 type Props = {
     onSubmit: () => void;
+    payment: {
+        price: number;
+        currency: string;
+    };
     stripeError?: string;
 };
 
@@ -60,7 +65,9 @@ class PaymentForm extends React.Component<Props & InjectedFormProps, State> {
                                 })}
                                 disabled={!valid || submitting}
                             >
-                                Pay $348
+                                Pay {this.props.payment.currency === 'usd' && '$'}
+                                {this.props.payment.price / 100}
+                                {this.props.payment.currency === 'eur' && '€'}
                             </button>
                             <img
                                 className="checkout-form-img"
@@ -109,9 +116,13 @@ const validate = (values) => {
     return errors;
 };
 
-export default reduxForm({
-    form: 'payment',
-    destroyOnUnmount: false,
-    forceUnregisterOnUnmount: true,
-    validate,
-})(PaymentForm);
+export default connect((state: any) => ({
+    payment: state.payment,
+}))(
+    reduxForm({
+        form: 'payment',
+        destroyOnUnmount: false,
+        forceUnregisterOnUnmount: true,
+        validate,
+    })(PaymentForm),
+);

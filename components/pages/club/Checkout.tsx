@@ -89,7 +89,7 @@ class Checkout extends React.Component<Props & ReactStripeElements.InjectedStrip
 const shippingSelector = formValueSelector('shipping');
 const paymentSelector = formValueSelector('payment');
 
-export default connect((state) => ({
+export default connect((state: any) => ({
     email: shippingSelector(state, 'email'),
     shippingAddress: {
         firstName: shippingSelector(state, 'firstName'),
