@@ -63,6 +63,7 @@ class Checkout extends React.Component<Props & ReactStripeElements.InjectedStrip
                 address_line2: billingAddress.line2,
                 address_city: billingAddress.city,
                 address_zip: billingAddress.postalcode,
+                address_state: billingAddress.state,
                 address_country: billingAddress.country,
             })
             .then((payload) => {
@@ -101,6 +102,7 @@ export default connect((state: any) => ({
         line2: shippingSelector(state, 'line2'),
         city: shippingSelector(state, 'city'),
         postalCode: shippingSelector(state, 'postalcode'),
+        state: shippingSelector(state, 'state'),
         country: shippingSelector(state, 'country'),
     },
     billingAddress: {
@@ -110,6 +112,7 @@ export default connect((state: any) => ({
         line2: paymentSelector(state, 'line2'),
         city: paymentSelector(state, 'city'),
         postalCode: paymentSelector(state, 'postalcode'),
+        state: paymentSelector(state, 'state'),
         country: paymentSelector(state, 'country'),
     },
 }))(injectStripe(Checkout));

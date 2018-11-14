@@ -71,6 +71,7 @@ const Address: React.SFC<Props> = ({ prefix }: Props) => (
         <Field label="Apt/unit etc (optional)" name={getName('line2', prefix)} component={RenderInput} type="text" />
         <Field label="City" name={getName('city', prefix)} component={RenderInput} type="text" />
         <Field label="Postal code" name={getName('postalcode', prefix)} component={RenderInput} type="text" />
+        <Field label="State" name={getName('state', prefix)} component={RenderInput} type="text" />
         <Field label="Country" name={getName('country', prefix)} component={RenderSelect} options={countriesOptions} />
     </React.Fragment>
 );
