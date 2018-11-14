@@ -1,0 +1,5 @@
+version: '3'
+services:
+    skatekrak-lint:
+        image: '$HUB_URL:$TEST_TAG'
+        command: /bin/bash -c "yarn install && yarn lint"
