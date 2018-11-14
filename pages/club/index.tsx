@@ -49,7 +49,14 @@ class Club extends React.Component<IClubProps & DispatchProp> {
                         </Link>
                     </div>
                     <div id="club-benefits">
-                        <div id="club-bg-image" />
+                        <div id="club-bg-image-container">
+                            <span
+                                id="club-bg-image"
+                                role="img"
+                                aria-label="[Sebo Walker, nollie inward heel. Photo: Amrit Jain]"
+                            />
+                            <span id="club-bg-image-credits">Sebo Walker, nollie inward heel. Photo: Amrit Jain</span>
+                        </div>
                         <div id="club-benefits-container">
                             <h3 id="club-benefits-title">Including</h3>
                             <div className="row">
