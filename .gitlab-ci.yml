@@ -1,7 +1,6 @@
 stages:
-    - compile
-    - lint
     - build
+    - lint
     - release
     - deploy
 variables:
@@ -25,7 +24,7 @@ lint:
     stage: lint
     script:
         - 'docker pull $HUB_URL:$TEST_TAG'
-        - docker-compose -f docker-compose.ci.yml run -rm skatekrak-lint
+        - docker-compose -f docker-compose.ci.yml run --rm skatekrak-lint
     only:
         - develop
         - tags
