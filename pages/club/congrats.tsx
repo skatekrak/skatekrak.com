@@ -3,8 +3,7 @@ import * as React from 'react';
 import Layout from 'components/Layout/Layout';
 import 'static/styles/checkout.styl';
 
-/* tslint:disable:max-line-length */
-const Step3: React.SFC<{}> = () => (
+export default () => (
     <Layout>
         <div id="step3">
             <img id="step3-image" src="/static/images/step_3_2x.png" alt="Kraken illustration step 3" />
@@ -16,5 +15,3 @@ const Step3: React.SFC<{}> = () => (
         </div>
     </Layout>
 );
-
-export default Step3;
