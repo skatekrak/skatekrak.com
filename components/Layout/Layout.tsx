@@ -1,7 +1,8 @@
+import { NextSFC } from 'next';
 import Head from 'next/head';
 import * as React from 'react';
 
-import Header from '../Header';
+import Header from 'components/Header';
 
 /* tslint:disable:ordered-imports */
 import 'static/styles/reset.css';
@@ -12,12 +13,11 @@ import 'static/styles/main.styl';
 import 'static/styles/styleguide.styl';
 import 'static/styles/stylus-mq.styl';
 
-type Props = {
+interface ILayoutProps {
     head?: Head;
-    children: React.ReactElement<React.ReactChildren>;
-};
+}
 
-const Layout: React.SFC<Props> = ({ children, head }) => (
+const Layout: NextSFC<ILayoutProps> = ({ children, head }) => (
     <div>
         {head ? (
             {
