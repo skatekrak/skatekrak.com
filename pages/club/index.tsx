@@ -89,7 +89,7 @@ class Club extends React.Component<IClubProps & DispatchProp> {
                     <div id="club-skateistan">
                         <SkateistanLogo />
                         <p id="club-skateistan-text">
-                            We wanna do good - that’s why 10% of your subscription goes directly to{' '}
+                            We wanna do good - that’s why 10% of your annual membership goes directly to{' '}
                             <a
                                 href="https://www.skateistan.org/"
                                 id="club-skateistan-link"
