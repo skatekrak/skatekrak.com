@@ -6,6 +6,7 @@ import { InjectedFormProps, reduxForm } from 'redux-form';
 
 import Address from 'components/Ui/Form/Address';
 import FormElement from 'components/Ui/Form/Element';
+import ErrorMessage from 'components/Ui/Form/ErrorMessage';
 
 type Props = {
     onSubmit: () => void;
@@ -28,17 +29,17 @@ class PaymentForm extends React.Component<Props & InjectedFormProps, State> {
     public render() {
         const { handleSubmit, submitting, valid, stripeError } = this.props;
         return (
-            <React.Fragment>
+            <>
                 <form id="checkout-form-payment" className="checkout-form" onSubmit={handleSubmit}>
                     <div className="row">
                         <div className="form-section col-xs-12 col-md-6">
                             <p className="form-section-title">Payment information</p>
                             <div className="checkout-form-fields-container">
-                                <FormElement label="Card details">
-                                    <React.Fragment>
+                                <FormElement label="Card details" invalid={stripeError === undefined}>
+                                    <>
                                         <CardElement />
-                                        {stripeError && <span>{stripeError}</span>}
-                                    </React.Fragment>
+                                        {stripeError && <ErrorMessage message={stripeError} />}
+                                    </>
                                 </FormElement>
                                 <input
                                     type="checkbox"
@@ -50,12 +51,12 @@ class PaymentForm extends React.Component<Props & InjectedFormProps, State> {
                                 <label htmlFor="show-billing">Use shipping address as billing address</label>
                             </div>
                             {this.state.showBilling && (
-                                <React.Fragment>
+                                <>
                                     <p className="form-section-title">Billings infos</p>
                                     <div className="checkout-form-fields-container">
                                         <Address />
                                     </div>
-                                </React.Fragment>
+                                </>
                             )}
                         </div>
                         <div className="form-section col-xs-12 col-md-offset-1 col-md-5">
@@ -77,7 +78,7 @@ class PaymentForm extends React.Component<Props & InjectedFormProps, State> {
                         </div>
                     </div>
                 </form>
-            </React.Fragment>
+            </>
         );
     }
 
