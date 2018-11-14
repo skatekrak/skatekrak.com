@@ -128,6 +128,10 @@ const validate = (values) => {
         errors.postalcode = 'Required';
     }
 
+    if (!values.state) {
+        errors.state = 'Required';
+    }
+
     if (!values.country) {
         errors.country = 'Required';
     }
