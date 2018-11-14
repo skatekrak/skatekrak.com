@@ -1,3 +1,13 @@
+.page-padding {
+    padding: 3rem 0 2rem;
+}
+
+@media only screen and (min-width: 48em) {
+    .page-padding {
+        padding: 5rem 0 2rem;
+    }
+}
+
 .container {
     padding-right: 2rem;
     padding-left: 2rem;
@@ -17,6 +27,11 @@
         margin-left: auto;
         margin-right: auto;
     }
+}
+
+.small-container {
+    max-width: 62rem;
+    margin: auto;
 }
 
 .container-fluid {
