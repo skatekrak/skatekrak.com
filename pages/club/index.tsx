@@ -25,15 +25,15 @@ const Club: React.SFC<{}> = () => (
                     <h3 id="club-benefits-title">Including</h3>
                     <div className="row">
                         <ul className="col-xs-12 col-md-4">
-                            <li className="club-benefit">4 decks / year (one every quarter)</li>
+                            <li className="club-benefit">4 decks (one every quarter)</li>
                             <li className="club-benefit">One pair of shoes</li>
                             <li className="club-benefit">The 2019 welcome package</li>
-                            <li className="club-benefit">9 Krakbox (one every month)</li>
+                            <li className="club-benefit">9 Krakbox</li>
                             <li className="club-benefit">One watch</li>
                         </ul>
                         <ul className="col-xs-12 col-md-4">
                             <li className="club-benefit">The 2019 calendar</li>
-                            <li className="club-benefit">The bi-annual magazine (2 / year)</li>
+                            <li className="club-benefit">The bi-annual magazine</li>
                             <li className="club-benefit">Access to exclusive content online</li>
                             <li className="club-benefit">Private chat room</li>
                             <li className="club-benefit">Invites to members only workshops & events</li>
