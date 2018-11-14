@@ -27,6 +27,9 @@
 			color: $grey-700
 
 		&-field
+			&--error
+				border: 1px solid $error
+
 			& input
 				width: 100%
 				padding: .75rem 1rem
@@ -41,3 +44,9 @@
 				padding: .75rem 1rem
 				background-color: $white
 				border: 0
+
+		&-error
+			display: block
+			margin-top: .5rem
+			font-size: $fs-small
+			color: $error
