@@ -4,6 +4,8 @@ import { connect, DispatchProp } from 'react-redux';
 
 import 'static/styles/club.styl';
 
+import 'static/styles/checkout.styl';
+
 import Layout from 'components/Layout/Layout';
 import SkateistanLogo from 'components/Ui/Icons/Logos/Skateistan';
 import { savePricingCurrency } from 'store/reducers/payment';

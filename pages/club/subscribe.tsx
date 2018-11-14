@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { Elements, StripeProvider } from 'react-stripe-elements';
 
 import Layout from 'components/Layout/Layout';
-import 'static/styles/checkout.styl';
 
 import Checkout from 'components/pages/club/Checkout';
 
