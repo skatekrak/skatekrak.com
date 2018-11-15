@@ -28,7 +28,7 @@ type State = {
 
 class Checkout extends React.Component<Props & ReactStripeElements.InjectedStripeProps, State> {
     public state: State = {
-        step: 'shipping',
+        step: 'payment',
         stripeError: null,
     };
 
@@ -36,6 +36,11 @@ class Checkout extends React.Component<Props & ReactStripeElements.InjectedStrip
         const { step, stripeError } = this.state;
         return (
             <main id="checkout-main">
+                {step === 'payment' && (
+                    <button id="checkout-main-back-to-shipping" onClick={this.previousPage}>
+                        Back to shipping information
+                    </button>
+                )}
                 {step === 'shipping' && <ShippingForm onSubmit={this.nextPage} />}
                 {step === 'payment' && <PaymentForm stripeError={stripeError} onSubmit={this.handlePayment} />}
             </main>
@@ -44,6 +49,10 @@ class Checkout extends React.Component<Props & ReactStripeElements.InjectedStrip
 
     private nextPage = () => {
         this.setState({ step: 'payment' });
+    };
+
+    private previousPage = () => {
+        this.setState({ step: 'shipping' });
     };
 
     private handlePayment = () => {
