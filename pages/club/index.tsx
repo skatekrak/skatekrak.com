@@ -36,7 +36,7 @@ class Club extends React.Component<IClubProps & DispatchProp> {
         const { payment } = this.props;
         return (
             <Layout>
-                <div id="club" className="page-padding">
+                <div id="club" className="container-fluid page-padding">
                     <div id="club-header">
                         <h1 id="club-header-title">Krak Skateboarding Club.</h1>
                         <h2 id="club-header-subtitle">12 month membership</h2>

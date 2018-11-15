@@ -33,7 +33,7 @@ class Club extends React.Component<Props, State> {
             <Layout>
                 <React.Fragment>
                     <StripeProvider stripe={this.state.stripe}>
-                        <div id="checkout" className="small-container page-padding">
+                        <div id="checkout" className="container page-padding">
                             <header id="checkout-header">
                                 <h1 id="checkout-header-title">Join the club</h1>
                                 <h2 id="checkout-header-subtitle">Krak Skateboarding Club - 12 month membership</h2>

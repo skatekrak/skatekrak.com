@@ -6,7 +6,7 @@ import Layout from 'components/Layout/Layout';
 const Index: React.SFC<{}> = () => (
     <Layout>
         <React.Fragment>
-            <div id="home-container">
+            <div id="home-container" className="container-fluid">
                 <form id="home-newsletter">
                     <h2 id="home-newsletter-title">Get hooked up :</h2>
                     <input type="mail" id="home-newsletter-input" placeholder="love@skatekrak.com" />
