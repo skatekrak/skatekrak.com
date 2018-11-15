@@ -13,10 +13,10 @@ import { createRenderer } from 'components/Ui/Form/render';
  * Code
  */
 const customStyles = {
-    control: (styles) => ({ ...styles, borderRadius: '0', border: '0' }),
+    control: (styles) => ({ ...styles, borderRadius: '0', border: '0', maxHeight: '3rem' }),
     valueContainer: (styles) => ({ ...styles, padding: '.75rem 1rem' }),
     singleValue: (styles) => ({ ...styles, margin: '0', padding: '0' }),
-    input: (styles) => ({ ...styles, padding: '0', margin: '0' }),
+    input: (styles) => ({ ...styles, padding: '0', margin: '0', maxHeight: '3rem' }),
     menu: (styles) => ({ ...styles, borderRadius: '0' }),
 };
 
