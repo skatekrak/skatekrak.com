@@ -1,18 +1,12 @@
 export default function getPageTitle(path: string): string {
-    let name = '';
     switch (path) {
         case '/club':
-            name = 'Club';
-            break;
+            return 'Club';
         case '/club/subscribe':
-            name = 'Subscribe';
-            break;
+            return 'Subscribe';
         case '/club/congrats':
-            name = 'Congrats';
-            break;
+            return 'Congrats';
         default:
-            name = 'Homepage';
-            break;
+            return 'Homepage';
     }
-    return name;
 }
