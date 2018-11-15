@@ -8,7 +8,8 @@
                 "alias": {
                     "components": "./components",
                     "static": "./static",
-                    "store": "./store"
+                    "store": "./store",
+                    "helpers": "./helpers"
                 }
             }
         ]

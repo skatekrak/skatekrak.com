@@ -19,7 +19,8 @@
             "*": ["*"],
             "components/*": ["components/*"],
             "static/*": ["static/*"],
-            "store/*": ["store/*"]
+            "store/*": ["store/*"],
+            "helpers/*": ["helpers/*"]
         }
     },
     "include": ["pages/**/*.tsx", "components/**/*.tsx"],

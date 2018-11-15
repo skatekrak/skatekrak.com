@@ -12,3 +12,4 @@ tmp/
 public/
 /.next
 /yarn-error.log
+/out

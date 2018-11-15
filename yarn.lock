@@ -777,6 +777,11 @@
   resolved "https://npm.skatekrak.com/@emotion%2futils/-/utils-0.8.2.tgz#576ff7fb1230185b619a75d258cbc98f0867a8dc"
   integrity sha512-rLu3wcBWH4P5q1CGoSSH/i9hrXs7SlbRLkoq9IGuoPYNGQvDJ3pt/wmOM+XgYjIDRMVIdkUWt0RsfzF50JfnCw==
 
+"@krak/analytics@^1.0.7":
+  version "1.0.7"
+  resolved "https://npm.skatekrak.com/@krak%2fanalytics/-/analytics-1.0.7.tgz#4a9fc2ee32e78d8dfbf7d836245c24cf688a28d2"
+  integrity sha512-loGFMoXFNu0/ykDlqZmZqgDzPUGIGEJgVAj4gcjOjBu2IsemXUkyCBDEIkLXS1ZPv9onZiC2sqQf58xpOFvDJw==
+
 "@types/axios@^0.14.0":
   version "0.14.0"
   resolved "https://npm.skatekrak.com/@types%2faxios/-/axios-0.14.0.tgz#ec2300fbe7d7dddd7eb9d3abf87999964cafce46"
