@@ -7,7 +7,7 @@ type State = {
 
 const initialState: State = {
     price: 34800,
-    currency: 'usd',
+    currency: 'eur',
 };
 
 export default (state = initialState, action: any = {}) => {

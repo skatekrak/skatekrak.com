@@ -37,9 +37,7 @@ const Layout: NextSFC<ILayoutProps> = ({ children, head }) => (
         )}
         <div id="page-container">
             <Header />
-            <main id="main-container" className="container">
-                {children}
-            </main>
+            <main id="main-container">{children}</main>
         </div>
     </div>
 );
