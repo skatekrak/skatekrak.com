@@ -60,7 +60,7 @@ class PaymentForm extends React.Component<Props & InjectedFormProps, State> {
                         </div>
                         {this.state.showBilling && (
                             <>
-                                <p className="form-section-title">Billings infos</p>
+                                <p className="form-section-title">Billings information</p>
                                 <div className="checkout-form-fields-container">
                                     <Address />
                                 </div>
