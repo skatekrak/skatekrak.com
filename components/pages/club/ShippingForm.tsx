@@ -102,7 +102,7 @@ const validate = (values) => {
     if (!values.email) {
         errors.email = 'Required';
     } else if (!validator.validate(values.email)) {
-        errors.email = 'Email not valid';
+        errors.email = 'This e-mail address is not valid';
     }
 
     if (!values.firstName) {
