@@ -1,33 +1,16 @@
 import Router from 'next/router';
 import React from 'react';
 
-import analytics from 'lib/matomo';
+import analytics from '@krak/analytics';
+import getPageTitle from 'helpers/pageTitle';
 
 import 'static/styles/checkout.styl';
 import 'static/styles/club.styl';
 
 import 'static/styles/checkbox.styl';
 
-Router.events.on('routeChangeComplete', (url) => {
-    let name = '';
-    switch (url) {
-        case '/club':
-            name = 'Club';
-            break;
-        case '/club/subscribe':
-            name = 'Subscribe';
-            break;
-        case '/club/congrats':
-            name = 'Congrats';
-            break;
-        case '/':
-            name = 'Homepage';
-            break;
-        default:
-            break;
-    }
-    console.log(url, name);
-    analytics.trackPageView(name);
+Router.events.on('routeChangeComplete', (path) => {
+    analytics.trackPageView(getPageTitle(path));
 });
 
 export default ({ children }) => <>{children}</>;

@@ -20,7 +20,7 @@
             "components/*": ["components/*"],
             "static/*": ["static/*"],
             "store/*": ["store/*"],
-            "lib/*": ["lib/*"]
+            "helpers/*": ["helpers/*"]
         }
     },
     "include": ["pages/**/*.tsx", "components/**/*.tsx"],

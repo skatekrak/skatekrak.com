@@ -3,6 +3,9 @@ import React from 'react';
 import withReduxStore from '../hocs/withRedux';
 import { Provider } from 'react-redux';
 
+import analytics from '@krak/analytics';
+import getPageTitle from 'helpers/pageTitle';
+
 class MyApp extends App {
     static async getInitialProps({ Component, router, ctx }) {
         let pageProps = {};
@@ -12,6 +15,15 @@ class MyApp extends App {
         }
 
         return { pageProps };
+    }
+
+    componentDidMount() {
+        analytics.init('2', {
+            cookieDomain: '*.skatekrak.com',
+            domains: ['*.skatekrak.com', '*.krakbox.com'],
+            crossDomainLinking: true,
+        });
+        analytics.trackPageView(getPageTitle(document.location.pathname));
     }
 
     render() {
