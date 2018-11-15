@@ -12,6 +12,8 @@ const ActiveLink = ({ router, children, href, ...props }) => {
 
     delete props.activeClassName;
 
+    console.log(href);
+
     return (
         <Link href={`${href}${encodeQueryData(router.query)}`} {...props}>
             {React.cloneElement(child, { className })}
@@ -25,7 +27,7 @@ function encodeQueryData(data) {
     let str = '';
     if (ret.length > 0) {
         const join = ret.join('&');
-        str = `/?${join}`;
+        str = `?${join}`;
     }
     return str;
 }

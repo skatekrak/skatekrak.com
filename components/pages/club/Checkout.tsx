@@ -28,7 +28,7 @@ type State = {
 
 class Checkout extends React.Component<Props & ReactStripeElements.InjectedStripeProps, State> {
     public state: State = {
-        step: 'payment',
+        step: 'shipping',
         stripeError: null,
     };
 
