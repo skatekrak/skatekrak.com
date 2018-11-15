@@ -30,9 +30,14 @@ body
 		display: flex
 		flex-direction: column
 		min-height: 100vh
-		width: 300px
+		min-width: 250px
+		max-width: 250px
 		padding: 4rem 2rem 1rem
 		background-color: $grey-900
+
+	+mq($from: "large")
+		min-width: 300px
+		max-width: 300px
 
 	&-top
 		display: flex
