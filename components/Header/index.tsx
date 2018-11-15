@@ -1,7 +1,7 @@
-import Link from 'next/link';
 import * as React from 'react';
 
 import NavItem from 'components/Header/NavItem';
+import Link from 'components/Link';
 
 /* tslint:disable:max-line-length */
 export default class extends React.Component<{}> {
