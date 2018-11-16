@@ -49,10 +49,12 @@ class Index extends React.PureComponent<{}, State> {
                         <div id="quote-container">
                             <p
                                 id="quote"
-                                data-text="Skateboarding is not a hobby. And it's not a sport. Skateboarding is way of learning how to redefine the world around you. Ian Mackaye&nbsp;-&nbsp;"
+                                data-text={
+                                    '"Skateboarding is not a hobby. And it\'s not a sport. Skateboarding is way of learning how to redefine the world around you." Ian Mackaye - '
+                                }
                             >
-                                Skateboarding is not a hobby. And it's not a sport. Skateboarding is way of learning how
-                                to redefine the world around you. Ian Mackaye&nbsp;-&nbsp;
+                                &quot;Skateboarding is not a hobby. And it's not a sport. Skateboarding is way of
+                                learning how to redefine the world around you.&quot; Ian Mackaye&nbsp;-&nbsp;
                             </p>
                         </div>
                     </React.Fragment>
