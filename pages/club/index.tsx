@@ -46,7 +46,7 @@ const Club: React.SFC<IClubProps> = ({ payment }) => (
                                 <li className="club-benefit">4 decks (one every quarter)</li>
                                 <li className="club-benefit">One pair of shoes</li>
                                 <li className="club-benefit">The 2019 welcome package</li>
-                                <li className="club-benefit">9 Krakbox</li>
+                                <li className="club-benefit">9 KrakBox</li>
                                 <li className="club-benefit">One watch</li>
                             </ul>
                             <ul className="col-xs-12 col-md-4">
@@ -69,7 +69,7 @@ const Club: React.SFC<IClubProps> = ({ payment }) => (
                 <div id="club-skateistan">
                     <SkateistanLogo />
                     <p id="club-skateistan-text">
-                        We wanna do good - that’s why 10% of your annual membership goes directly to{' '}
+                        We wanna do good - that’s why 10% of your annual membership goes to{' '}
                         <a
                             href="https://www.skateistan.org/"
                             id="club-skateistan-link"
