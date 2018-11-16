@@ -28,16 +28,16 @@ class Index extends React.PureComponent<{}, State> {
                 <Layout>
                     <React.Fragment>
                         <div id="home-container" className="container-fluid">
-                            <form id="home-newsletter" onSubmit={this.handleSubmit}>
-                                <h2 id="home-newsletter-title">Get hooked up :</h2>
+                            <form id="home-news" onSubmit={this.handleSubmit}>
+                                <h2 id="home-news-title">Get hooked up :</h2>
                                 <input
                                     type="mail"
-                                    id="home-newsletter-input"
+                                    id="home-news-input"
                                     placeholder="love@skatekrak.com"
                                     value={email}
                                     onChange={this.emailOnChange}
                                 />
-                                <button id="home-newsletter-button">
+                                <button id="home-news-button">
                                     Subscribe
                                     <LikeIcon />
                                 </button>
