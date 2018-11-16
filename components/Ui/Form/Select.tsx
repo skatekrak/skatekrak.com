@@ -14,7 +14,7 @@ import { createRenderer } from 'components/Ui/Form/render';
  */
 const customStyles = {
     control: (styles) => ({ ...styles, borderRadius: '0', border: '0', maxHeight: '3rem' }),
-    valueContainer: (styles) => ({ ...styles, padding: '.75rem 1rem' }),
+    valueContainer: (styles) => ({ ...styles, padding: '.75rem 1rem', maxHeight: '3rem' }),
     singleValue: (styles) => ({ ...styles, margin: '0', padding: '0' }),
     input: (styles) => ({ ...styles, padding: '0', margin: '0', maxHeight: '3rem' }),
     menu: (styles) => ({ ...styles, borderRadius: '0' }),
