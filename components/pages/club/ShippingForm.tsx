@@ -42,7 +42,7 @@ class ShippingForm extends React.Component<Props & InjectedProps> {
                             })}
                             disabled={!this.props.valid || this.props.submitting}
                         >
-                            Payment
+                            Next: Payment
                         </button>
                         <div id="checkout-contact">
                             <h4 id="checkout-contact-title">Questions?</h4>
