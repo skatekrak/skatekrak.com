@@ -103,20 +103,20 @@ body
 		&-subnav
 			margin: auto auto 0
 
-			+mq($from: "medium")
-				margin: 4rem auto 0
+			+mq($from: "small")
+				margin: 2rem auto 0
+
+			+mq($from: "large")
+				margin: 3rem auto 0
 
 			&-container
 				display: flex
 				justify-content: center
 
 		&-credits
-			margin-top: 2rem
+			margin-top: 1rem
 			font-size: $fs-smallest
 			text-align: center
-
-			+mq($from: "medium")
-				margin-top: 1rem
 
 #main
 	&-container
@@ -263,7 +263,10 @@ body
 	&-nav
 		&-main-item
 			position: relative
-			margin-bottom: 2rem
+			margin-bottom: 1.5rem
+
+			+mq($from: "small")
+				margin-bottom: 2rem
 
 			&:last-child
 				margin-bottom: 0
