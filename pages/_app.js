@@ -3,6 +3,7 @@ import App, { Container } from 'next/app';
 import React from 'react';
 import withReduxStore from '../hocs/withRedux';
 import { Provider } from 'react-redux';
+import Intercom from 'react-intercom';
 
 import getPageTitle from 'helpers/pageTitle';
 import { savePricingCurrency } from 'store/reducers/payment';
@@ -39,7 +40,10 @@ class MyApp extends App {
         return (
             <Container>
                 <Provider store={reduxStore}>
-                    <Component {...pageProps} />
+                    <>
+                        <Component {...pageProps} />
+                        <Intercom appID="u2h2grby" />
+                    </>
                 </Provider>
             </Container>
         );
