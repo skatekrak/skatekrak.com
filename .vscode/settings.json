@@ -1,6 +1,5 @@
 // Place your settings in this file to overwrite default and user settings.
 {
-    "prettier.eslintIntegration": true,
     "editor.formatOnType": true,
     "editor.formatOnSave": true,
     "editor.tabSize": 4,
@@ -20,15 +19,7 @@
         "**/.git": true,
         "**/.svn": true,
         "**/.hg": true,
-        "**/.DS_Store": true,
-        ".nyc_output/": true,
-        "coverage/": true,
-        "data/": true,
-        "dist/": true,
-        "node_modules/": true,
-        "paws/": true,
-        "public/": true,
-        ".next": false
+        "**/.DS_Store": true
     },
     "eslint.enable": false,
     "tslint.enable": true,
