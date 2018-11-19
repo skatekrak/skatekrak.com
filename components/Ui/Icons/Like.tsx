@@ -1,6 +1,6 @@
 /* tslint:disable:max-line-length */
 export default () => (
-    <svg id="home-newsletter-button-icon" viewBox="0 0 48 48">
+    <svg viewBox="0 0 48 48">
         <title>Like</title>
         <g className="icon-like">
             <path
