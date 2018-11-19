@@ -27,7 +27,7 @@ class ShippingForm extends React.Component<Props & InjectedProps> {
                     <div className="form-section col-xs-12 col-md-6">
                         <p className="form-section-title">Shipping information</p>
                         <p className="form-section-description">
-                            Give us your shipping information so we can send you the best skateboard right on your
+                            Give us your shipping information so we can send you the best of skateboarding right on your
                             doorstep!
                         </p>
                         <div className="checkout-form-fields-container">
