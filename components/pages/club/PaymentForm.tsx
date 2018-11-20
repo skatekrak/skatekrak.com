@@ -1,12 +1,14 @@
+import axios, { AxiosError } from 'axios';
 import classNames from 'classnames';
 import React from 'react';
 import { connect } from 'react-redux';
 import { CardElement } from 'react-stripe-elements';
-import { InjectedFormProps, reduxForm } from 'redux-form';
+import { Field, InjectedFormProps, reduxForm } from 'redux-form';
 
 import Address from 'components/Ui/Form/Address';
 import FormElement from 'components/Ui/Form/Element';
 import ErrorMessage from 'components/Ui/Form/ErrorMessage';
+import RenderInput from 'components/Ui/Form/Input';
 
 type Props = {
     onSubmit: () => void;
@@ -41,6 +43,9 @@ class PaymentForm extends React.Component<Props & InjectedFormProps, State> {
                                         {stripeError && <ErrorMessage message={stripeError} />}
                                     </>
                                 </FormElement>
+                            </div>
+                            <div className="form-element">
+                                <Field name="code" component={RenderInput} type="text" label="Specials" showValid />
                             </div>
                             <div className="form-element">
                                 <div className="form-element-field">
@@ -137,6 +142,21 @@ const validate = (values) => {
     return errors;
 };
 
+const asyncValidate = (values) => {
+    if (values.code) {
+        return axios
+            .get(`${process.env.BACKEND_URL}/specials/check`, {
+                params: {
+                    code: values.code,
+                },
+            })
+            .catch((error: AxiosError) => {
+                throw { code: error.response.data.message };
+            });
+    }
+    return Promise.resolve();
+};
+
 export default connect((state: any) => ({
     payment: state.payment,
 }))(
@@ -145,5 +165,7 @@ export default connect((state: any) => ({
         destroyOnUnmount: false,
         forceUnregisterOnUnmount: true,
         validate,
+        asyncValidate,
+        asyncBlurFields: ['code'],
     })(PaymentForm),
 );
