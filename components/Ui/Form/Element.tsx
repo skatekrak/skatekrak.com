@@ -7,11 +7,12 @@ type Props = {
     label: string;
     children: React.ReactElement<React.ReactChildren>;
     invalid: boolean;
+    valid?: boolean;
 };
 
 export default class Element extends React.Component<Props> {
     public render() {
-        const { label, children, invalid } = this.props;
+        const { label, children, invalid, valid } = this.props;
         const elementId = `id-${children.props.name}`;
 
         return (
@@ -22,6 +23,7 @@ export default class Element extends React.Component<Props> {
                 <div
                     className={classNames('form-element-field', {
                         'form-element-field--error': invalid,
+                        'form-element-field--success': valid,
                     })}
                 >
                     {children}

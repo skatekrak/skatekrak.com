@@ -12,6 +12,7 @@ import ShippingForm from 'components/pages/club/ShippingForm';
 
 type Props = {
     email?: string;
+    code?: string;
     shippingAddress?: any;
     billingAddress?: any;
     dispatch: (...arg: any) => void;
@@ -61,7 +62,7 @@ class Checkout extends React.Component<Props & ReactStripeElements.InjectedStrip
             value: this.props.payment.price,
         });
 
-        const { email, shippingAddress } = this.props;
+        const { email, code, shippingAddress } = this.props;
         let { billingAddress } = this.props;
 
         if (billingAddress && !billingAddress.firstName) {
@@ -96,6 +97,7 @@ class Checkout extends React.Component<Props & ReactStripeElements.InjectedStrip
                             shippingAddress,
                             billingAddress,
                             token: payload.token.id,
+                            code,
                         })
                         .then(() => {
                             analytics.trackOrder(payload.token.id, this.props.payment.price / 100);
@@ -116,6 +118,7 @@ const paymentSelector = formValueSelector('payment');
 
 export default connect((state: any) => ({
     email: shippingSelector(state, 'email'),
+    code: paymentSelector(state, 'code'),
     shippingAddress: {
         firstName: shippingSelector(state, 'firstName'),
         lastName: shippingSelector(state, 'lastName'),
