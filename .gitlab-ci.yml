@@ -15,8 +15,6 @@ services:
 
 before_script:
   - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN hub.skatekrak.com
-  - echo $DOCKER_HOST
-  - echo $DOCKER_DRIVER
 
 build:
   stage: build
