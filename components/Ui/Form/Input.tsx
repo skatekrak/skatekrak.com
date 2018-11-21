@@ -12,6 +12,13 @@ import { createRenderer } from 'components/Ui/Form/render';
 /*
  * Code
  */
-const RenderInput = createRenderer((input, rest) => <input {...input} placeholder={rest.placeholder} />);
+const RenderInput = createRenderer((input, rest) => (
+    <input
+        {...input}
+        autoCapitalize={rest.autoCapitalize}
+        autoCorrect={rest.autoCorrect}
+        placeholder={rest.placeholder}
+    />
+));
 
 export default RenderInput;

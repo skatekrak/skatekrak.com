@@ -31,7 +31,14 @@ class ShippingForm extends React.Component<Props & InjectedProps> {
                             doorstep!
                         </p>
                         <div className="checkout-form-fields-container">
-                            <Field name="email" component={RenderInput} type="email" label="Email address" />
+                            <Field
+                                name="email"
+                                component={RenderInput}
+                                type="email"
+                                label="Email address"
+                                autoCapitalize="none"
+                                autoCorrect="off"
+                            />
                             <Address />
                         </div>
                     </div>
