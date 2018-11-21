@@ -41,8 +41,6 @@ class Index extends React.PureComponent<{}, State> {
                                     Subscribe
                                     <LikeIcon />
                                 </button>
-                                {subscribeError && <ErrorMessage message={subscribeError} />}
-                                {subscribed && <span>We sent you an email to confirm</span>}
                             </form>
                             <div id="home-image" />
                         </div>
@@ -63,19 +61,22 @@ class Index extends React.PureComponent<{}, State> {
         );
     }
 
-    private emailOnChange = (email) => {
-        this.setState({ email });
+    private emailOnChange = (event) => {
+        this.setState({ email: event.target.value });
     };
 
     private handleSubmit = (event) => {
         event.preventDefault();
         const { email } = this.state;
         if (!validator.validate(email)) {
-            this.setState({ subscribeError: 'This email is not valid' });
+            alert('This email is not valid');
         } else {
             axios
                 .post(`https://barde.skatekrak.com/emails`, { email })
-                .then(() => this.setState({ subscribed: true, email: '' }))
+                .then(() => {
+                    this.setState({ email: '' });
+                    alert('We sent you an email to confirm your subscription!');
+                })
                 .catch((err: AxiosError) => this.setState({ subscribeError: err.response.data.message }));
         }
     };
