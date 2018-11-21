@@ -93,7 +93,7 @@ class Checkout extends React.Component<Props & ReactStripeElements.InjectedStrip
                 } else {
                     return axios
                         .post(`${process.env.BACKEND_URL}/payments/pay`, {
-                            email,
+                            email: email.toLowerCase(),
                             shippingAddress,
                             billingAddress,
                             token: payload.token.id,
@@ -117,7 +117,7 @@ const shippingSelector = formValueSelector('shipping');
 const paymentSelector = formValueSelector('payment');
 
 export default connect((state: any) => ({
-    email: shippingSelector(state, 'email').toLowerCase(),
+    email: shippingSelector(state, 'email'),
     code: paymentSelector(state, 'code'),
     shippingAddress: {
         firstName: shippingSelector(state, 'firstName'),
