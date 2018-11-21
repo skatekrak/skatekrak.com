@@ -3,23 +3,25 @@ stages:
   - lint
   - release
   - deploy
+
 variables:
   HUB_URL: hub.skatekrak.com/web/skatekrak.com
   HUB_PROD: gcr.io/krakbackend/homepage
   TEST_TAG: testing
   TAG: latest
+
+services:
+  - docker:dind
+
 before_script:
   - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN hub.skatekrak.com
 
 build:
   stage: build
   script:
-    - >-
-      docker build --pull
-      --build-arg NPM_AUTH_TOKEN=$NPM_AUTH_TOKEN
-      --build-arg BACKEND_URL=$BACKEND_URL
-      --build-arg STRIPE_KEY=$STRIPE_KEY 
-      -t $HUB_URL:$TEST_TAG .
+    - docker build --pull --build-arg NPM_AUTH_TOKEN=$NPM_AUTH_TOKEN --build-arg
+      BACKEND_URL=$BACKEND_URL --build-arg STRIPE_KEY=$STRIPE_KEY  -t
+      $HUB_URL:$TEST_TAG .
     - "docker push $HUB_URL:$TEST_TAG"
   only:
     - tags
@@ -55,9 +57,7 @@ deploy_production:
     name: production
     url: "https://skatekrak.com"
   script:
-    - >-
-      kubectl set image deployment/homepage
-      homepage=$HUB_PROD:$CI_COMMIT_TAG
+    - kubectl set image deployment/homepage homepage=$HUB_PROD:$CI_COMMIT_TAG
     - kubectl rollout status deployment/homepage
     - kubectl describe deployment homepage
   only:
