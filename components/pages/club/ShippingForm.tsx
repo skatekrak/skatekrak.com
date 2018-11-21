@@ -76,7 +76,7 @@ class ShippingForm extends React.Component<Props & InjectedProps> {
         return axios
             .get(`${process.env.BACKEND_URL}/customers/find`, {
                 params: {
-                    email,
+                    email: email.toLowerCase(),
                 },
             })
             .then((res) => {

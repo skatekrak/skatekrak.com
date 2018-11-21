@@ -117,7 +117,7 @@ const shippingSelector = formValueSelector('shipping');
 const paymentSelector = formValueSelector('payment');
 
 export default connect((state: any) => ({
-    email: shippingSelector(state, 'email'),
+    email: shippingSelector(state, 'email').toLowerCase(),
     code: paymentSelector(state, 'code'),
     shippingAddress: {
         firstName: shippingSelector(state, 'firstName'),
