@@ -1,7 +1,7 @@
 import Router from 'next/router';
 import React from 'react';
 
-import analytics from '@krak/analytics';
+import analytics from '@thepunkclub/analytics';
 import getPageTitle from 'helpers/pageTitle';
 
 import 'static/styles/checkout.styl';

@@ -30,7 +30,7 @@
         "static": "next build && next export && serve -p 8080 ./out"
     },
     "dependencies": {
-        "@krak/analytics": "^1.0.7",
+        "@thepunkclub/analytics": "^1.0.8",
         "@zeit/next-css": "^1.0.1",
         "@zeit/next-stylus": "^1.0.1",
         "@zeit/next-typescript": "^1.1.1",
