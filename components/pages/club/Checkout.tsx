@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { injectStripe, ReactStripeElements } from 'react-stripe-elements';
 import { formValueSelector, reset } from 'redux-form';
 
-import analytics from '@krak/analytics';
+import analytics from '@thepunkclub/analytics';
 
 import PaymentForm from 'components/pages/club/PaymentForm';
 import ShippingForm from 'components/pages/club/ShippingForm';

@@ -1,4 +1,4 @@
-import analytics from '@krak/analytics';
+import analytics from '@thepunkclub/analytics';
 import App, { Container } from 'next/app';
 import React from 'react';
 import withReduxStore from '../hocs/withRedux';
