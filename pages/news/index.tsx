@@ -17,8 +17,10 @@ class News extends React.PureComponent<{}, State> {
                 <Layout>
                     <React.Fragment>
                         <div id="news-container" className="container-fluid">
-                            <Menu />
-                            <Articles />
+                            <div className="row">
+                                <Menu />
+                                <Articles />
+                            </div>
                         </div>
                     </React.Fragment>
                 </Layout>
