@@ -9,6 +9,18 @@ body
 	color: $text-lighter
 	background-color: $grey-100
 
+#main
+	&-container
+		position: relative
+		flex-grow: 1
+		padding-top: 2rem
+		padding-bottom: 2rem
+		color: $text-dark
+		overflow: auto
+
+		+mq($from: "medium")
+			padding-top: 4rem
+
 #page-container
 	display: flex
 	flex-direction: column
@@ -117,13 +129,6 @@ body
 			margin-top: 1rem
 			font-size: $fs-smallest
 			text-align: center
-
-#main
-	&-container
-		position: relative
-		flex-grow: 1
-		color: $text-dark
-		overflow: auto
 
 #home
 	&-container
