@@ -6,6 +6,7 @@ import getPageTitle from 'helpers/pageTitle';
 
 import 'static/styles/checkout.styl';
 import 'static/styles/club.styl';
+import 'static/styles/news.styl';
 
 import 'static/styles/checkbox.styl';
 
