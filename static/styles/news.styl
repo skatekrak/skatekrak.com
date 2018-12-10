@@ -28,7 +28,7 @@
 				+mq($from: "small")
 					padding-top: 56.25%
 
-				+mq($from: "small")
+				+mq($from: "medium")
 					padding-top: 75%
 
 		&-title
@@ -65,6 +65,17 @@
 /* Menu */
 #news-menu
 	&-container
+		z-index: 2
+
+		+mq($from: "medium")
+			position: fixed
+			right: 4rem
+			min-width: 230px
+			width: 230px
+
+		+mq($from: "large")
+			min-width: 250px
+			width: 250px
 
 	&-sources
 		&-nav
@@ -83,7 +94,13 @@
 				font-size: $fs-small
 				color: $grey-400
 
+		&-container
+			position: relative
+
 		&-open
+			position: absolute
+			background-color: $grey-100
+
 			&-request
 				font-size: $fs-smaller
 				color: $grey-600
@@ -98,6 +115,11 @@
 				margin: 2rem 0
 
 .news-menu-sources-open
+	display: none
+
+	&--open
+		display: block
+
 	&-control
 		font-size: $fs-regular
 		color: $grey-600
