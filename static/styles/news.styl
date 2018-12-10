@@ -68,14 +68,7 @@
 		z-index: 2
 
 		+mq($from: "medium")
-			position: fixed
-			right: 4rem
-			min-width: 230px
-			width: 230px
-
-		+mq($from: "large")
-			min-width: 250px
-			width: 250px
+			padding-left: 3rem
 
 	&-sources
 		&-nav
@@ -93,6 +86,9 @@
 			&-toggle-button
 				font-size: $fs-small
 				color: $grey-400
+
+				+mq($from: "medium")
+					display: none
 
 		&-container
 			position: relative
@@ -116,6 +112,9 @@
 
 .news-menu-sources-open
 	display: none
+
+	+mq($from: "medium")
+			display: block
 
 	&--open
 		display: block

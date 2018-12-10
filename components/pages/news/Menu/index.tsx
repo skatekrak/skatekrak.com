@@ -8,7 +8,7 @@ type Props = {
 };
 
 const Menu: React.SFC<Props> = ({ sourcesMenuIsOpen, handleOpenSourcesMenu }) => (
-    <div id="news-menu-container" className="col-xs-12 last-md col-md-4 col-lg-offset-1 col-lg-2">
+    <div id="news-menu-container" className="col-xs-12 last-md col-md-4 col-lg-3">
         <Sources sourcesMenuIsOpen={sourcesMenuIsOpen} handleOpenSourcesMenu={handleOpenSourcesMenu} />
     </div>
 );
