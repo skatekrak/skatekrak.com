@@ -11,7 +11,6 @@ const SourceOption: React.SFC<Props> = ({ active }) => (
             'news-menu-sources-open-option--active': active,
         })}
     >
-        {console.log(active)}
         <input type="checkbox" className="news-menu-sources-open-option-input" />
         <label htmlFor="" className="news-menu-sources-open-option-label">
             <img src="" alt="" className="news-menu-sources-open-option-logo" />
