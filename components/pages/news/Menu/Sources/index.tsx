@@ -20,7 +20,7 @@ class Sources extends React.PureComponent<Props, State> {
                 <div id="news-menu-sources-nav">
                     <span id="news-menu-sources-nav-title">Sources(38)</span>
                     <button id="news-menu-sources-nav-toggle-button" onClick={handleOpenSourcesMenu}>
-                        View all
+                        {!sourcesMenuIsOpen ? 'View all' : 'Close'}
                     </button>
                 </div>
                 <div id="news-menu-sources-container">
