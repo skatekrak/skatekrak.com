@@ -31,7 +31,7 @@ class Sources extends React.PureComponent<Props, State> {
                         })}
                     >
                         <p id="news-menu-sources-open-request">
-                            You'd be down to add your blog /mag source here - email{' '}
+                            You'd be down to add your blog/mag source here - email{' '}
                             <a href="mailto:news@skatekrak.com" id="news-menu-sources-open-request-mail">
                                 news@skatekrak.com
                             </a>
