@@ -135,16 +135,83 @@
 		&:last-child
 			margin-bottom: 0
 
-		&-label
-			display: flex
-			align-items: center
-			margin-left: 1rem
+		/* Checkbox snippet : https://codepen.io/Vestride/pen/dABHx */
+		& input[type="checkbox"]
+			position: absolute
+			margin: 0 
+			opacity: 0
+
+			& + label
+				position: relative
+				display: flex
+				align-items: center
+
+			& + label:before
+				content: ''
+				display: inline-block
+				margin-right: 1rem
+				width: 1.25rem
+				height: 1.25rem
+				vertical-align: text-top
+
+			// Box hover
+			&:hover + label:after
+				content: ''
+				position: absolute
+				left: 5px
+				top: 15px
+				width: 3px
+				height: 3px
+				box-shadow: 
+					-2px 0px 0 $primary,
+					2px 0px 0 $primary,
+					4px 0px 0 $primary,
+					4px -2px 0 $primary,
+					4px -4px 0 $primary,
+					4px -6px 0 $primary,
+					4px -8px 0 $primary,
+					4px -10px 0 $primary !important
+				background-color: $primary !important
+				transform: rotate(45deg)
+
+			// Box checked
+			// &:checked + label:before
+				// background: $grey-600
+				
+			// Disabled state label.
+			&:disabled + label
+				color: $grey-200
+				cursor: auto
+
+			// Disabled box.
+			&:disabled + label:before
+				box-shadow: none
+				background: $grey-200
+
+			// Checkmark. Could be replaced with an image
+			&:checked + label:after
+				content: ''
+				position: absolute
+				left: 5px
+				top: 15px
+				width: 3px
+				height: 3px
+				box-shadow: 
+					-2px 0px 0 $grey-600,
+					2px 0px 0 $grey-600,
+					4px 0px 0 $grey-600,
+					4px -2px 0 $grey-600,
+					4px -4px 0 $grey-600,
+					4px -6px 0 $grey-600,
+					4px -8px 0 $grey-600,
+					4px -10px 0 $grey-600
+				background-color: $grey-600
+				transform: rotate(45deg)
 
 		&-logo
 			width: 2rem
 			height 2rem
 			margin-right: .5rem
-			background-color: red
 			border-radius: 100%
 
 		&--active
