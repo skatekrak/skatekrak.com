@@ -163,7 +163,7 @@
 				height: 1.25rem
 				vertical-align: text-top
 
-			// Box hover
+			// Box hover when activate: checkmark "-"
 			&:hover + label:after
 				content: ''
 				position: absolute
@@ -171,17 +171,14 @@
 				top: 15px
 				width: 3px
 				height: 3px
+				background-color: $grey-500 !important
 				box-shadow: 
-					-2px 0px 0 $primary,
-					2px 0px 0 $primary,
-					4px 0px 0 $primary,
-					4px -2px 0 $primary,
-					4px -4px 0 $primary,
-					4px -6px 0 $primary,
-					4px -8px 0 $primary,
-					4px -10px 0 $primary !important
-				background-color: $primary !important
-				transform: rotate(45deg)
+						-2px 0px 0 $grey-500,
+						2px 0px 0 $grey-500,
+						4px 0px 0 $grey-500,
+						6px 0px 0 $grey-500,
+						8px 0px 0 $grey-500 !important
+				transform: rotate(0deg) !important
 
 			// Box checked
 			// &:checked + label:before
@@ -197,7 +194,7 @@
 				box-shadow: none
 				background: $grey-200
 
-			// Checkmark. Could be replaced with an image
+			// Checkmark when active
 			&:checked + label:after
 				content: ''
 				position: absolute
@@ -217,13 +214,42 @@
 				background-color: $grey-600
 				transform: rotate(45deg)
 
+		// Box hover when desactivate : checkmark "+"
+		&:not(.news-menu-sources-open-option--active) input:hover
+			& + label:after
+				background-color: $grey-500 !important
+				box-shadow: 
+					-2px 0px 0 $grey-500,
+					2px 0px 0 $grey-500,
+					4px 0px 0 $grey-500,
+					6px 0px 0 $grey-500,
+					8px 0px 0 $grey-500,
+					10px 0px 0 $grey-500,
+					4px 6px 0 $grey-500,
+					4px 4px 0 $grey-500,
+					4px 2px 0 $grey-500,
+					4px -2px 0 $grey-500,
+					4px -4px 0 $grey-500,
+					4px -6px 0 $grey-500!important
+
+			& + label
+				&:hover .news-menu-sources-open-option-logo
+					opacity: .5
+
+		&:hover .news-menu-sources-open-option-name
+			color: $grey-500 !important
+
 		&-logo
 			width: 2rem
 			height 2rem
 			margin-right: .5rem
 			border-radius: 100%
+			opacity: .25
 
 		&--active
 			& .news-menu-sources-open-option-name
 				font-family: $ff-roboto-bold
 				color: $grey-600
+
+			& .news-menu-sources-open-option-logo
+				opacity: 1
