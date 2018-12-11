@@ -10,6 +10,33 @@ type Props = {
     handleOpenSourcesMenu: () => void;
 };
 
+const fakeSourceOptions = [
+    {
+        isActive: true,
+        name: 'Confusion',
+        id: 'confusion',
+        img: '/static/images/mags-logo/confusion.svg',
+    },
+    {
+        isActive: false,
+        name: 'Grey',
+        id: 'grey',
+        img: '/static/images/mags-logo/grey.svg',
+    },
+    {
+        isActive: false,
+        name: 'VHS mag',
+        id: 'vhs',
+        img: '/static/images/mags-logo/vhs-mag.png',
+    },
+    {
+        isActive: true,
+        name: 'Street piracy',
+        id: 'street-piracy',
+        img: '/static/images/mags-logo/street-piracy.svg',
+    },
+];
+
 class Sources extends React.PureComponent<Props, State> {
     public state: State = {};
 
@@ -42,9 +69,14 @@ class Sources extends React.PureComponent<Props, State> {
                         </div>
                         <form id="news-menu-sources-open-options">
                             <ul id="news-menu-sources-open-options-container">
-                                <SourceOption active />
-                                <SourceOption active={false} />
-                                <SourceOption active={false} />
+                                {fakeSourceOptions.map((option) => (
+                                    <SourceOption
+                                        isActive={option.isActive}
+                                        name={option.name}
+                                        id={option.id}
+                                        img={option.img}
+                                    />
+                                ))}
                             </ul>
                         </form>
                     </div>

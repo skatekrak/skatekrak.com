@@ -1,20 +1,25 @@
 import classNames from 'classnames';
 import * as React from 'react';
 
+import Checkbox from 'components/Ui/Form/Checkbox';
+
 type Props = {
-    active: boolean;
+    isActive: boolean;
+    name: string;
+    id: string;
+    img: string;
 };
 
-const SourceOption: React.SFC<Props> = ({ active }) => (
+const SourceOption: React.SFC<Props> = ({ isActive, name, id, img }) => (
     <li
         className={classNames('news-menu-sources-open-option', {
-            'news-menu-sources-open-option--active': active,
+            'news-menu-sources-open-option--active': isActive,
         })}
     >
-        <input type="checkbox" className="news-menu-sources-open-option-input" />
-        <label htmlFor="" className="news-menu-sources-open-option-label">
-            <img src="" alt="" className="news-menu-sources-open-option-logo" />
-            <span className="news-menu-sources-open-option-name">Thrasher Magazine</span>
+        <Checkbox checked={isActive} id={id} />
+        <label htmlFor={`input-${id}`} className="news-menu-sources-open-option-label">
+            <img src={img} alt="" className="news-menu-sources-open-option-logo" />
+            <span className="news-menu-sources-open-option-name">{name}</span>
         </label>
     </li>
 );
