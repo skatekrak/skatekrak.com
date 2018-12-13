@@ -50,37 +50,35 @@ class Sources extends React.PureComponent<Props, State> {
                         {!sourcesMenuIsOpen ? 'Filter' : 'Close'}
                     </button>
                 </div>
-                <div id="news-menu-sources-container">
-                    <div
-                        id="news-menu-sources-open"
-                        className={classNames('news-menu-sources-open', {
-                            'news-menu-sources-open--open': sourcesMenuIsOpen,
-                        })}
-                    >
-                        <p id="news-menu-sources-open-request">
-                            You'd be down to add your blog/mag source here - email{' '}
-                            <a href="mailto:news@skatekrak.com" id="news-menu-sources-open-request-mail">
-                                news@skatekrak.com
-                            </a>
-                        </p>
-                        <div id="news-menu-sources-open-controls">
-                            <button className="news-menu-sources-open-control">Select all</button>
-                            <button className="news-menu-sources-open-control">Deselect all</button>
-                        </div>
-                        <form id="news-menu-sources-open-options">
-                            <ul id="news-menu-sources-open-options-container">
-                                {fakeSourceOptions.map((option) => (
-                                    <SourceOption
-                                        key={option.id}
-                                        isActive={option.isActive}
-                                        name={option.name}
-                                        id={option.id}
-                                        img={option.img}
-                                    />
-                                ))}
-                            </ul>
-                        </form>
+                <div
+                    id="news-menu-sources-open"
+                    className={classNames('news-menu-sources-open', {
+                        'news-menu-sources-open--open': sourcesMenuIsOpen,
+                    })}
+                >
+                    <p id="news-menu-sources-open-request">
+                        You'd be down to add your blog/mag source here - email{' '}
+                        <a href="mailto:news@skatekrak.com" id="news-menu-sources-open-request-mail">
+                            news@skatekrak.com
+                        </a>
+                    </p>
+                    <div id="news-menu-sources-open-controls">
+                        <button className="news-menu-sources-open-control">Select all</button>
+                        <button className="news-menu-sources-open-control">Deselect all</button>
                     </div>
+                    <form id="news-menu-sources-open-options">
+                        <ul id="news-menu-sources-open-options-container">
+                            {fakeSourceOptions.map((option) => (
+                                <SourceOption
+                                    key={option.id}
+                                    isActive={option.isActive}
+                                    name={option.name}
+                                    id={option.id}
+                                    img={option.img}
+                                />
+                            ))}
+                        </ul>
+                    </form>
                 </div>
             </div>
         );
