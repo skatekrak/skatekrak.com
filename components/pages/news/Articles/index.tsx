@@ -20,6 +20,17 @@ const Articles: React.SFC<Props> = ({ sourcesMenuIsOpen }) => (
             <Article />
             <Article />
             <Article />
+            <Article />
+            <Article />
+            <Article />
+            <Article />
+            <Article />
+            <Article />
+            <Article />
+            <Article />
+            <Article />
+            <Article />
+            <Article />
         </div>
     </div>
 );
