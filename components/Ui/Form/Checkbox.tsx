@@ -16,7 +16,7 @@ type Props = {
 };
 
 const Checkbox = ({ checked, id }: Props) => (
-    <input className="checkbox" type="checkbox" id={`input-${id}`} name={`input-${id}`} checked={checked} />
+    <input className="checkbox" type="checkbox" id={`input-${id}`} name={`input-${id}`} defaultChecked={checked} />
 );
 
 export default Checkbox;
