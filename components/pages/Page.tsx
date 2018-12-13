@@ -9,6 +9,7 @@ import 'static/styles/club.styl';
 import 'static/styles/news.styl';
 
 import 'static/styles/checkbox.styl';
+import 'static/styles/icons.styl';
 
 Router.events.on('routeChangeComplete', (path) => {
     analytics.trackPageView(getPageTitle(path));
