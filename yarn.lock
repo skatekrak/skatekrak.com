@@ -794,6 +794,11 @@
   resolved "https://npm.skatekrak.com/@types%2fclassnames/-/classnames-2.2.6.tgz#dbe8a666156d556ed018e15a4c65f08937c3f628"
   integrity sha512-XHcYvVdbtAxVstjKxuULYqYaWIzHR15yr1pZj4fnGChuBVJlIAp9StJna0ZJNSgxPh4Nac2FL4JM3M11Tm6fqQ==
 
+"@types/jump.js@^1.0.2":
+  version "1.0.2"
+  resolved "https://npm.thepunk.tech/@types%2fjump.js/-/jump.js-1.0.2.tgz#9eb1cf571e406bb3514a062008b6889ab9984160"
+  integrity sha1-nrHPVx5Aa7NRSgYgCLaImrmYQWA=
+
 "@types/next-server@*":
   version "7.0.1"
   resolved "https://npm.skatekrak.com/@types%2fnext-server/-/next-server-7.0.1.tgz#079ffbb644716fe99158d9cf969597047ae9ec06"
@@ -3253,6 +3258,11 @@ jsonify@~0.0.0:
   version "0.0.0"
   resolved "https://npm.skatekrak.com/jsonify/-/jsonify-0.0.0.tgz#2c74b6ee41d93ca51b7b5aaee8f503631d252a73"
   integrity sha1-LHS27kHZPKUbe1qu6PUDYx0lKnM=
+
+jump.js@^1.0.2:
+  version "1.0.2"
+  resolved "https://npm.thepunk.tech/jump.js/-/jump.js-1.0.2.tgz#e0641b47f40a38f2139c25fda0500bf28e43015a"
+  integrity sha1-4GQbR/QKOPITnCX9oFAL8o5DAVo=
 
 junk@^1.0.1:
   version "1.0.3"
