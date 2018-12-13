@@ -71,6 +71,7 @@ class Sources extends React.PureComponent<Props, State> {
                             <ul id="news-menu-sources-open-options-container">
                                 {fakeSourceOptions.map((option) => (
                                     <SourceOption
+                                        key={option.id}
                                         isActive={option.isActive}
                                         name={option.name}
                                         id={option.id}
