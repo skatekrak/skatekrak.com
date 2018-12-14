@@ -7,6 +7,54 @@ type Props = {
     sourcesMenuIsOpen: boolean;
 };
 
+const fakeArticles = [
+    {
+        title: 'SIGHTINGS: December 2018',
+        img: '/static/images/mags-logo/confusion.svg',
+        desc: "We 're finishing the year strong with a nice batch of online exclusive SIGHTINGS from skaters and",
+        url: '',
+        source: {
+            id: 'tws',
+            name: 'TWS',
+            url: '',
+        },
+    },
+    {
+        title: 'No Hotels "Spot! Pull Over" Video',
+        img: '/static/images/mags-logo/grey.svg',
+        desc: 'With faith and resilience the crew crossed the continent width and lengthwise, California to New York.',
+        url: '',
+        source: {
+            id: 'zef',
+            name: 'Thrasher Magazine',
+            url: '',
+        },
+    },
+    {
+        title: 'Loveletters Season 9: Grosso’s Not Going Off | Jeff Grosso’s Loveletters to Skateboarding',
+        img: '/static/images/mags-logo/vhs-mag.png',
+        desc:
+            'Gaston Francisco organized a super trip through the cities of the Mayan civilization of Central America.',
+        url: '',
+        source: {
+            id: 'zef',
+            name: 'Grey',
+            url: '',
+        },
+    },
+    {
+        title: 'Snack Skateboards in Japan',
+        img: '/static/images/mags-logo/street-piracy.svg',
+        desc: 'Roger Krebs, Adrian Williams, CJ Carter, Josh Riviere, Kojiro Hara and Yudai Fujigasaki come through.',
+        url: '',
+        source: {
+            id: 'zef',
+            name: 'Street Piracy',
+            url: '',
+        },
+    },
+];
+
 const Articles: React.SFC<Props> = ({ sourcesMenuIsOpen }) => (
     <div id="news-articles-container" className="col-xs-12 col-md-8 col-lg-9">
         <div
@@ -14,23 +62,16 @@ const Articles: React.SFC<Props> = ({ sourcesMenuIsOpen }) => (
                 hide: sourcesMenuIsOpen,
             })}
         >
-            <Article />
-            <Article />
-            <Article />
-            <Article />
-            <Article />
-            <Article />
-            <Article />
-            <Article />
-            <Article />
-            <Article />
-            <Article />
-            <Article />
-            <Article />
-            <Article />
-            <Article />
-            <Article />
-            <Article />
+            {fakeArticles.map((article) => (
+                <Article
+                    key={article.title}
+                    title={article.title}
+                    img={article.img}
+                    desc={article.desc}
+                    url={article.url}
+                    source={article.source}
+                />
+            ))}
         </div>
     </div>
 );
