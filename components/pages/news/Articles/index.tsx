@@ -11,7 +11,7 @@ const fakeArticles = [
     {
         title: 'SIGHTINGS: December 2018',
         img: '/static/images/mags-logo/confusion.svg',
-        desc: "We 're finishing the year strong with a nice batch of online exclusive SIGHTINGS from skaters and",
+        desc: 'We re finishing the year strong with a nice batch of online exclusive SIGHTINGS from skaters and',
         url: '',
         source: {
             id: 'tws',
@@ -21,7 +21,7 @@ const fakeArticles = [
     },
     {
         title: 'No Hotels "Spot! Pull Over" Video',
-        img: '/static/images/mags-logo/grey.svg',
+        img: '/static/images/club-presentation-bg.jpg',
         desc: 'With faith and resilience the crew crossed the continent width and lengthwise, California to New York.',
         url: '',
         source: {
