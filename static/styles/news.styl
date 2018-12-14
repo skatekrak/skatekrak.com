@@ -73,50 +73,64 @@
 
 
 
-/* Menu */
-#news-menu
-	&-container
-		z-index: 2
-
-		+mq($from: "medium")
-			padding-left: 3rem
-
-	&-sources
-		&-nav
-			display: flex
-			justify-content: space-between
-			align-items: baseline
-			padding-bottom: 1rem
-			margin-bottom: 2rem
-			border-bottom: 1px solid $grey-200
+#news
+	&-articles
+		&-no-content
+			margin: 4rem auto 0
+			font-size: $fs-small
+			color: $grey-600
+			text-align: center
 
 			&-title
-				font-size: $fs-medium
-				color: $grey-600
-
-			&-toggle-button
-				font-size: $fs-small
+				margin-bottom: .5rem
+				font-family: "georgia", serif
+				font-weight: 700
+				font-size: $fs-larger
 				color: $grey-400
 
-				+mq($from: "medium")
-					display: none
+	&-menu
+		&-container
+			z-index: 2
 
-		&-open
-			background-color: $grey-100
-			margin-bottom: 2rem
+			+mq($from: "medium")
+				padding-left: 3rem
 
-			&-request
-				font-size: $fs-smaller
-				color: $grey-600
-
-				&-mail
-					color: $secondary
-
-			&-controls
+		&-sources
+			&-nav
 				display: flex
-				flex-direction: column
-				align-items: flex-start
-				margin: 2rem 0
+				justify-content: space-between
+				align-items: baseline
+				padding-bottom: 1rem
+				margin-bottom: 2rem
+				border-bottom: 1px solid $grey-200
+
+				&-title
+					font-size: $fs-medium
+					color: $grey-600
+
+				&-toggle-button
+					font-size: $fs-small
+					color: $grey-400
+
+					+mq($from: "medium")
+						display: none
+
+			&-open
+				background-color: $grey-100
+				margin-bottom: 2rem
+
+				&-request
+					font-size: $fs-smaller
+					color: $grey-600
+
+					&-mail
+						color: $secondary
+
+				&-controls
+					display: flex
+					flex-direction: column
+					align-items: flex-start
+					margin: 2rem 0
 
 .news-menu-sources-open
 	display: none

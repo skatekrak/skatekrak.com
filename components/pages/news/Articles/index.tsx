@@ -62,6 +62,12 @@ const Articles: React.SFC<Props> = ({ sourcesMenuIsOpen }) => (
                 hide: sourcesMenuIsOpen,
             })}
         >
+            {fakeArticles.length === 0 && (
+                <div id="news-articles-no-content">
+                    <p id="news-articles-no-content-title">No news to display</p>
+                    <p id="news-articles-no-content-text">Select some mags to be back in the loop</p>
+                </div>
+            )}
             {fakeArticles.map((article) => (
                 <Article
                     key={article.title}
