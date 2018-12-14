@@ -1,3 +1,4 @@
+/* tslint:disable:max-line-length */
 /*
  * Npm import
  */
@@ -7,7 +8,6 @@ import React from 'react';
 /*
  * Local import
  */
-import Like from 'components/Ui/Icons/Like';
 
 /*
  * Code
