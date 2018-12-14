@@ -11,6 +11,10 @@
 		&:last-child
 			margin-bottom: 0
 
+		&-link
+			&:hover .news-article-cover-img
+				transform: scale(1.03)
+
 		&-cover-img
 			position: absolute
 			top: 0
@@ -20,12 +24,15 @@
 			background-color: $grey-200
 			background-position: center
 			background-size: cover
-			border-radius: 0.25rem
+			background-repeat: no-repeat
+			transition: .3s
 
 			&-container
 				position: relative
 				padding-top: 45%
 				margin-bottom: 1rem
+				border-radius: 0.25rem
+				overflow: hidden
 
 				+mq($from: "small")
 					padding-top: 56.25%
