@@ -61,7 +61,7 @@ class ScrollTop extends React.PureComponent<Props, {}> {
     };
 
     private handleTopClick = () => {
-        console.log('clicked');
+        // console.log('clicked');
         jump(300);
     };
 }

@@ -6,11 +6,10 @@
     "author": "Arthur <a@skatekrak.com>",
     "license": "MIT",
     "scripts": {
-        "lint": "tslint --fix .",
+        "lint": "tslint --project .",
         "dev": "next",
         "build": "next build",
-        "start": "next start",
-        "static": "next build && next export && serve -p 8080 ./out"
+        "start": "next start"
     },
     "dependencies": {
         "@thepunkclub/analytics": "^1.0.8",
@@ -52,7 +51,7 @@
         "@types/redux-form": "^7.4.12",
         "babel-plugin-module-resolver": "^3.1.1",
         "tslint": "^5.11.0",
-        "tslint-config-prettier": "^1.15.0",
+        "tslint-config-prettier": "^1.17.0",
         "tslint-react": "^3.6.0",
         "typescript": "^3.1.6"
     }

@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "target": "esnext",
+        "target": "es2017",
         "module": "esnext",
         "jsx": "preserve",
         "lib": ["dom", "es2017"],
@@ -16,13 +16,9 @@
         "sourceMap": true,
         "baseUrl": ".",
         "paths": {
-            "*": ["*"],
-            "components/*": ["components/*"],
-            "static/*": ["static/*"],
-            "store/*": ["store/*"],
-            "helpers/*": ["helpers/*"]
+            "*": ["*"]
         }
     },
-    "include": ["pages/**/*.tsx", "components/**/*.tsx"],
-    "exclude": ["node_modules"]
+    "include": ["**/*.tsx", "**/*.ts", "**/*.js"],
+    "exclude": [".next", "node_modules"]
 }

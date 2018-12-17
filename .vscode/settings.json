@@ -1,17 +1,17 @@
 // Place your settings in this file to overwrite default and user settings.
 {
-    "[stylus]": {
-        "editor.tabSize": 2,
-        "editor.insertSpaces": false,
-        "editor.detectIndentation": false
-    },
-    "files.exclude": {
-        ".next": true,
-        ".nyc_output/": true,
-        "coverage/": true,
-        "data/": true,
-        "node_modules/": true,
-        "public/": true,
-        "paws/": true
-    }
+  "[stylus]": {
+    "editor.tabSize": 2,
+    "editor.insertSpaces": false,
+    "editor.detectIndentation": false
+  },
+  "files.exclude": {
+    ".next": false,
+    ".nyc_output/": false,
+    "coverage/": false,
+    "data/": false,
+    "node_modules/": false,
+    "public/": false,
+    "paws/": false
+  }
 }
