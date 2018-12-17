@@ -3,11 +3,11 @@ import * as React from 'react';
 
 import Checkbox from 'components/Ui/Form/Checkbox';
 import { SpinnerCircle } from 'components/Ui/Icons/Spinners';
-import { ISource } from 'types/Source';
+import { Source } from 'types/Source';
 
 type Props = {
     isActive: boolean;
-    source: ISource;
+    source: Source;
 };
 
 type State = {

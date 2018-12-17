@@ -2,7 +2,7 @@ export enum SourceType {
     RSS = 'rss',
 }
 
-export interface ISource {
+export interface Source {
     id: string;
     createdAt: Date;
     updatedAt: Date;

@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import * as React from 'react';
 
 import SourceOption from 'components/pages/news/Menu/Sources/SourceOption';
-import { ISource } from 'types/Source';
+import { Source } from 'types/Source';
 
 type Props = {
     sourcesMenuIsOpen: boolean;
@@ -11,7 +11,7 @@ type Props = {
 };
 
 type State = {
-    sources: ISource[];
+    sources: Source[];
 };
 
 class Sources extends React.PureComponent<Props, State> {
@@ -22,7 +22,7 @@ class Sources extends React.PureComponent<Props, State> {
     public async componentDidMount() {
         try {
             const res = await axios.get(`${process.env.RSS_BACKEND_URL}/sources/`);
-            const sources: ISource[] = res.data;
+            const sources: Source[] = res.data;
             this.setState({ sources });
         } catch (err) {
             //

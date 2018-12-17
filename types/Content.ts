@@ -1,15 +1,14 @@
-import { ISource } from './Source';
+import { Source } from './Source';
 
 export interface Content {
     id: string;
     createdAt: Date;
-    updatedAt: Date;
-    source: ISource;
-    guid: string;
+    updatedAt?: Date;
+    source: Source;
     title: string;
     webUrl: string;
-    summary?: string;
-    description?: string;
+    guid?: string;
+    content?: string;
     imageUrl?: string;
     author?: string;
     categories?: string[];
