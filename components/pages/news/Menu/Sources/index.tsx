@@ -1,51 +1,42 @@
+import axios from 'axios';
 import classNames from 'classnames';
 import * as React from 'react';
 
 import SourceOption from 'components/pages/news/Menu/Sources/SourceOption';
-
-type State = {};
+import { ISource } from 'types/Source';
 
 type Props = {
     sourcesMenuIsOpen: boolean;
     handleOpenSourcesMenu: () => void;
 };
 
-const fakeSourceOptions = [
-    {
-        isActive: true,
-        name: 'Confusion',
-        id: 'confusion',
-        img: '/static/images/mags-logo/confusion.svg',
-    },
-    {
-        isActive: false,
-        name: 'Grey',
-        id: 'grey',
-        img: '/static/images/mags-logo/grey.svg',
-    },
-    {
-        isActive: false,
-        name: 'VHS mag',
-        id: 'vhs',
-        img: '/static/images/mags-logo/vhs-mag.png',
-    },
-    {
-        isActive: true,
-        name: 'Street piracy',
-        id: 'street-piracy',
-        img: '/static/images/mags-logo/street-piracy.svg',
-    },
-];
+type State = {
+    sources: ISource[];
+};
 
 class Sources extends React.PureComponent<Props, State> {
-    public state: State = {};
+    public state: State = {
+        sources: [],
+    };
+
+    public async componentDidMount() {
+        try {
+            const res = await axios.get(`${process.env.RSS_BACKEND_URL}/sources/`);
+            const sources: ISource[] = res.data;
+            this.setState({ sources });
+        } catch (err) {
+            //
+        }
+    }
 
     public render() {
         const { sourcesMenuIsOpen, handleOpenSourcesMenu } = this.props;
+        const { sources } = this.state;
+
         return (
             <div id="news-menu-sources">
                 <div id="news-menu-sources-nav">
-                    <span id="news-menu-sources-nav-title">From {fakeSourceOptions.length} magazines</span>
+                    <span id="news-menu-sources-nav-title">From {sources.length} magazines</span>
                     <button id="news-menu-sources-nav-toggle-button" onClick={handleOpenSourcesMenu}>
                         {!sourcesMenuIsOpen ? 'Filter' : 'Close'}
                     </button>
@@ -68,14 +59,8 @@ class Sources extends React.PureComponent<Props, State> {
                     </div>
                     <form id="news-menu-sources-open-options">
                         <ul id="news-menu-sources-open-options-container">
-                            {fakeSourceOptions.map((option) => (
-                                <SourceOption
-                                    key={option.id}
-                                    isActive={option.isActive}
-                                    name={option.name}
-                                    id={option.id}
-                                    img={option.img}
-                                />
+                            {sources.map((source) => (
+                                <SourceOption key={source.id} isActive={true} source={source} />
                             ))}
                         </ul>
                     </form>

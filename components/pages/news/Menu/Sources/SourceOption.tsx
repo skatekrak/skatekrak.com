@@ -3,12 +3,11 @@ import * as React from 'react';
 
 import Checkbox from 'components/Ui/Form/Checkbox';
 import { SpinnerCircle } from 'components/Ui/Icons/Spinners';
+import { ISource } from 'types/Source';
 
 type Props = {
     isActive: boolean;
-    name: string;
-    id: string;
-    img: string;
+    source: ISource;
 };
 
 type State = {
@@ -24,21 +23,22 @@ class SourceOption extends React.PureComponent<Props, State> {
 
     public render() {
         const { isActive, isLoading } = this.state;
-        const { id, name, img } = this.props;
+        const { source } = this.props;
+
         return (
             <li
                 className={classNames('news-menu-sources-open-option', {
                     'news-menu-sources-open-option--active': isActive,
                 })}
             >
-                {isLoading ? <SpinnerCircle /> : <Checkbox checked={isActive} id={id} />}
+                {isLoading ? <SpinnerCircle /> : <Checkbox checked={isActive} id={source.id} />}
                 <label
-                    htmlFor={`input-${id}`}
+                    htmlFor={`input-${source.id}`}
                     className="news-menu-sources-open-option-label"
                     onClick={this.handleSourceOptionClick}
                 >
-                    <img src={img} alt="" className="news-menu-sources-open-option-logo" />
-                    <span className="news-menu-sources-open-option-name">{name}</span>
+                    <img src={source.logoUrl} alt="" className="news-menu-sources-open-option-logo" />
+                    <span className="news-menu-sources-open-option-name">{source.label}</span>
                 </label>
             </li>
         );
