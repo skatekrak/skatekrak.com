@@ -21,7 +21,7 @@
         "date-fns": "^1.30.1",
         "dotenv": "^6.1.0",
         "email-validator": "^2.0.4",
-        "jump.js": "^1.0.2",
+        "jump.js": "https://github.com/MilllerTime/jump.js.git#b95f9279a4c0f4ca942fd648a6b97094b53bcbab",
         "next": "^7.0.2",
         "next-compose-plugins": "^2.1.1",
         "prop-types": "^15.6.2",

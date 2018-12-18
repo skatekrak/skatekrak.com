@@ -3506,10 +3506,9 @@ jsonify@~0.0.0:
   resolved "https://npm.thepunk.tech/jsonify/-/jsonify-0.0.0.tgz#2c74b6ee41d93ca51b7b5aaee8f503631d252a73"
   integrity sha1-LHS27kHZPKUbe1qu6PUDYx0lKnM=
 
-jump.js@^1.0.2:
+"jump.js@https://github.com/MilllerTime/jump.js.git#b95f9279a4c0f4ca942fd648a6b97094b53bcbab":
   version "1.0.2"
-  resolved "https://npm.thepunk.tech/jump.js/-/jump.js-1.0.2.tgz#e0641b47f40a38f2139c25fda0500bf28e43015a"
-  integrity sha1-4GQbR/QKOPITnCX9oFAL8o5DAVo=
+  resolved "https://github.com/MilllerTime/jump.js.git#b95f9279a4c0f4ca942fd648a6b97094b53bcbab"
 
 junk@^1.0.1:
   version "1.0.3"

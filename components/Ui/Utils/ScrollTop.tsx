@@ -61,8 +61,11 @@ class ScrollTop extends React.PureComponent<Props, {}> {
     };
 
     private handleTopClick = () => {
-        // console.log('clicked');
-        jump(300);
+        jump(-2000, { container: this.getScrollParent() });
+    };
+
+    private getScrollParent = () => {
+        return document.getElementById('main-container');
     };
 }
 
