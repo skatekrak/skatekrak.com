@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Elements, StripeProvider } from 'react-stripe-elements';
 
 import Layout from 'components/Layout/Layout';
-import Page from 'components/pages/Page';
+import TrackedPage from 'components/pages/Page';
 
 import Checkout from 'components/pages/club/Checkout';
 
@@ -31,7 +31,7 @@ class Club extends React.Component<Props, State> {
 
     public render() {
         return (
-            <Page>
+            <TrackedPage name="Subscribe">
                 <Layout>
                     <React.Fragment>
                         <StripeProvider stripe={this.state.stripe}>
@@ -55,7 +55,7 @@ class Club extends React.Component<Props, State> {
                         </StripeProvider>
                     </React.Fragment>
                 </Layout>
-            </Page>
+            </TrackedPage>
         );
     }
 }

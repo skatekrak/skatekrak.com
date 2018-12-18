@@ -1,0 +1,9 @@
+/.vscode
+/.git
+/.gitignore
+/.next
+/node_modules
+/out
+/public
+/yarn-error.log
+/tmp

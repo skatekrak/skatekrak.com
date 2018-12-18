@@ -43,6 +43,7 @@ export default class extends React.Component<{}> {
                     <nav id="header-nav-main">
                         <ul id="header-nav-main-container">
                             <NavItem title="Club" url="/club" />
+                            <NavItem title="News" url="/news" />
                             <NavItem title="Mag" url="https://mag.skatekrak.com/" blank />
                             <NavItem title="Youtube" url="https://www.youtube.com/krakskate" blank />
                             <NavItem

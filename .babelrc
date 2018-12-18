@@ -7,9 +7,10 @@
                 "root": ".",
                 "alias": {
                     "components": "./components",
-                    "static": "./static",
+                    "hocs": "./hocs",
+                    "pages": "./pages",
                     "store": "./store",
-                    "helpers": "./helpers"
+                    "static": "./static"
                 }
             }
         ]
