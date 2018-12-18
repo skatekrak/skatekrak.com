@@ -17,7 +17,18 @@ before_script:
   - echo $CI_BUILD_TOKEN | docker login -u gitlab-ci-token --password-stdin
     $CI_REGISTRY
 
-build:
+build_staging:
+  stage: build
+  script:
+    - source .env
+    - docker pull $CI_REGISTRY_IMAGE:$TEST_TAG || true
+    - docker-compose -f docker-compose.ci.yml build skatekrak-build
+    - docker push $CI_REGISTRY_IMAGE:$TEST_TAG
+  only:
+    - tags
+    - develop
+
+build_production:
   stage: build
   script:
     - docker pull $CI_REGISTRY_IMAGE:$TEST_TAG || true
