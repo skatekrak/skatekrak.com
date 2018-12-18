@@ -2,9 +2,19 @@ import * as React from 'react';
 
 import NavItem from 'components/Header/NavItem';
 import Link from 'components/Link';
+import IconCross from 'components/Ui/Icons/Cross.tsx';
 
 /* tslint:disable:max-line-length */
-export default class extends React.Component<{}> {
+
+type State = {
+    navItemAppIsOpen: boolean;
+};
+
+export default class extends React.Component<State> {
+    public state: State = {
+        navItemAppIsOpen: false,
+    };
+
     public componentDidMount() {
         const header = document.getElementById('header');
         const burgerMenu = document.getElementById('header-top-burger');
@@ -20,6 +30,7 @@ export default class extends React.Component<{}> {
     }
 
     public render() {
+        const { navItemAppIsOpen } = this.state;
         return (
             <header id="header">
                 <div id="header-top">
@@ -46,21 +57,49 @@ export default class extends React.Component<{}> {
                             <NavItem title="News" url="/news" />
                             <NavItem title="Mag" url="https://mag.skatekrak.com/" blank />
                             <NavItem title="Youtube" url="https://www.youtube.com/krakskate" blank />
-                            <NavItem
-                                title="Play store"
-                                url="https://play.google.com/store/apps/details?id=com.krak"
-                                blank
-                            />
-                            <NavItem title="App store" url="https://itunes.apple.com/us/app/krak/id916474561" blank />
+                            <div className="header-nav-main-item-app-container">
+                                {!navItemAppIsOpen ? (
+                                    <li className="header-nav-main-item">
+                                        <button onClick={this.handleClickAppItem} className="header-nav-main-item-link">
+                                            App
+                                        </button>
+                                    </li>
+                                ) : (
+                                    <>
+                                        <div className="header-nav-main-item-app-container-open">
+                                            <NavItem
+                                                title="Play store"
+                                                url="https://play.google.com/store/apps/details?id=com.krak"
+                                                blank
+                                            />
+                                            <span className="header-nav-main-item-app-separator" />
+                                            <NavItem
+                                                title="App store"
+                                                url="https://itunes.apple.com/us/app/krak/id916474561"
+                                                blank
+                                            />
+                                        </div>
+                                        <button
+                                            onClick={this.handleClickAppItem}
+                                            className="header-nav-main-item-app-container-open-closer"
+                                        >
+                                            <IconCross />
+                                        </button>
+                                        <p className="header-nav-main-item-app-text">
+                                            We are currently building the web app prototype, if you wanna help us
+                                            improve the whole thing, send an email to&nbsp;
+                                            <a
+                                                href="mailto:app@skatekrak.com"
+                                                className="header-nav-main-item-app-text-mail"
+                                            >
+                                                app@skatekrak.com
+                                            </a>
+                                        </p>
+                                    </>
+                                )}
+                            </div>
                         </ul>
                     </nav>
-                    <p id="header-nav-text">
-                        We are currently building the web app prototype, if you wanna help us improve the whole thing,
-                        send an email to&nbsp;
-                        <a href="mailto:app@skatekrak.com" id="header-nav-text-mail">
-                            app@skatekrak.com
-                        </a>
-                    </p>
                     <nav id="header-nav-subnav">
                         <ul id="header-nav-subnav-container">
                             <li className="header-nav-subnav-item">
@@ -116,4 +155,9 @@ export default class extends React.Component<{}> {
             </header>
         );
     }
+
+    private handleClickAppItem = () => {
+        const { navItemAppIsOpen } = this.state;
+        this.setState({ navItemAppIsOpen: !navItemAppIsOpen });
+    };
 }
