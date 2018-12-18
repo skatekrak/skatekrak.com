@@ -1,65 +1,94 @@
 stages:
-    - build
-    - lint
-    - release
-    - deploy
-
-variables:
-    HUB_URL: hub.thepunk.tech/web/skatekrak.com
-    HUB_PROD: gcr.io/krakbackend/homepage
-    TEST_TAG: testing
-    TAG: latest
+  - build
+  - lint
+  - release
+  - deploy
 
 services:
-    - docker:dind
+  - docker:dind
+
+variables:
+  HUB_PROD: gcr.io/krakbackend/homepage
+  TEST_TAG: testing
+  STAGING_TAG: staging
+  STABLE_TAG: latest
 
 before_script:
-    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN hub.thepunk.tech
+  - echo $CI_BUILD_TOKEN | docker login -u gitlab-ci-token --password-stdin
+    $CI_REGISTRY
 
 build:
-    stage: build
-    script:
-        - docker build --pull --build-arg NPM_AUTH_TOKEN=$NPM_AUTH_TOKEN --build-arg
-          BACKEND_URL=$BACKEND_URL --build-arg STRIPE_KEY=$STRIPE_KEY  -t
-          $HUB_URL:$TEST_TAG .
-        - 'docker push $HUB_URL:$TEST_TAG'
-    only:
-        - tags
-        - develop
+  stage: build
+  script:
+    - docker pull $CI_REGISTRY_IMAGE:$TEST_TAG || true
+    - docker-compose -f docker-compose.ci.yml build skatekrak-build
+    - docker push $CI_REGISTRY_IMAGE:$TEST_TAG
+  only:
+    - tags
+    - develop
 
 lint:
-    stage: lint
-    script:
-        - 'docker pull $HUB_URL:$TEST_TAG'
-        - docker-compose -f docker-compose.ci.yml run --rm skatekrak-lint
-    only:
-        - develop
-        - tags
-    when: on_success
+  stage: lint
+  script:
+    - docker pull $CI_REGISTRY_IMAGE:$TEST_TAG
+    - docker-compose -f docker-compose.ci.yml run --rm skatekrak-lint
+  only:
+    - tags
+    - develop
+  when: on_success
+
+release_staging:
+  stage: release
+  script:
+    - docker pull $CI_REGISTRY_IMAGE:$TEST_TAG
+    - docker tag $CI_REGISTRY_IMAGE:$TEST_TAG $CI_REGISTRY_IMAGE:$STAGING_TAG
+    - docker push $CI_REGISTRY_IMAGE:$STAGING_TAG
+  only:
+    - develop
+  when: on_success
+
+deploy_staging:
+  stage: deploy
+  tags:
+    - deploy
+  environment:
+    name: staging
+    url: "https://home.staging.skatekrak.com"
+  script:
+    - docker-compose -f docker-compose.prod.yml pull skatekrak-staging
+    - docker-compose -f docker-compose.prod.yml up -d --force-recreate
+      skatekrak-staging
+  only:
+    - develop
+  when: on_success
 
 release_production:
-    stage: release
-    tags:
-        - kube
-    script:
-        - 'docker pull $HUB_URL:$TEST_TAG'
-        - 'docker tag $HUB_URL:$TEST_TAG $HUB_PROD:$CI_COMMIT_TAG'
-        - 'gcloud docker -- push $HUB_PROD:$CI_COMMIT_TAG'
-    only:
-        - tags
-    when: on_success
+  stage: release
+  tags:
+    - kube
+  script:
+    - docker pull $CI_REGISTRY_IMAGE:$TEST_TAG
+    - docker tag $CI_REGISTRY_IMAGE:$TEST_TAG $CI_REGISTRY_IMAGE:$CI_COMMIT_TAG
+    - docker tag $CI_REGISTRY_IMAGE:$TEST_TAG $CI_REGISTRY_IMAGE:$STABLE_TAG
+    - docker tag $CI_REGISTRY_IMAGE:$TEST_TAG $HUB_PROD:$CI_COMMIT_TAG
+    - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_TAG
+    - docker push $CI_REGISTRY_IMAGE:$STABLE_TAG
+    - gcloud docker -- push $HUB_PROD:$CI_COMMIT_TAG
+  only:
+    - tags
+  when: on_success
 
 deploy_production:
-    stage: deploy
-    tags:
-        - kube
-    environment:
-        name: production
-        url: 'https://skatekrak.com'
-    script:
-        - kubectl set image deployment/homepage homepage=$HUB_PROD:$CI_COMMIT_TAG
-        - kubectl rollout status deployment/homepage
-        - kubectl describe deployment homepage
-    only:
-        - tags
-    when: manual
+  stage: deploy
+  tags:
+    - kube
+  environment:
+    name: production
+    url: "https://skatekrak.com"
+  script:
+    - kubectl set image deployment/homepage homepage=$HUB_PROD:$CI_COMMIT_TAG
+    - kubectl rollout status deployment/homepage
+    - kubectl describe deployment homepage
+  only:
+    - tags
+  when: manual

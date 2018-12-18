@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import Layout from 'components/Layout/Layout';
 import Link from 'components/Link';
-import Page from 'components/pages/Page';
+import TrackedPage from 'components/pages/TrackedPage';
 import SkateistanLogo from 'components/Ui/Icons/Logos/Skateistan';
 
 interface IClubProps {
@@ -14,7 +14,7 @@ interface IClubProps {
 }
 
 const Club: React.SFC<IClubProps> = ({ payment }) => (
-    <Page>
+    <TrackedPage name="Club">
         <Layout>
             <div id="club" className="container-fluid page-padding">
                 <div id="club-header">
@@ -83,7 +83,7 @@ const Club: React.SFC<IClubProps> = ({ payment }) => (
                 </div>
             </div>
         </Layout>
-    </Page>
+    </TrackedPage>
 );
 
 export default connect((state: any) => ({

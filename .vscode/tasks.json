@@ -5,22 +5,24 @@
             "label": "build",
             "type": "npm",
             "script": "build",
-            "group": "build",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
             "presentation": {
                 "reveal": "silent"
             },
-            "problemMatcher": "$eslint-stylish"
+            "problemMatcher": "$tsc"
         },
         {
             "label": "start",
             "type": "npm",
-            "script": "start",
+            "script": "dev",
             "isBackground": true,
             "presentation": {
                 "panel": "dedicated"
             },
             "promptOnClose": true,
-            "group": "build",
             "problemMatcher": [
                 {
                     "owner": "custom",
@@ -39,45 +41,6 @@
                     }
                 }
             ]
-        },
-        {
-            "label": "start:win",
-            "type": "npm",
-            "script": "start:win",
-            "isBackground": true,
-            "presentation": {
-                "panel": "dedicated"
-            },
-            "promptOnClose": true,
-            "group": "build",
-            "problemMatcher": [
-                {
-                    "owner": "custom",
-                    "pattern": [
-                        {
-                            "regexp": "^([^\\\\s].*)\\\\((\\\\d+,\\\\d+)\\\\):\\\\s*(.*)$",
-                            "file": 1,
-                            "location": 2,
-                            "message": 3
-                        }
-                    ],
-                    "background": {
-                        "activeOnStart": true,
-                        "beginsPattern": "info: application started on http://localhost:3333/",
-                        "endsPattern": "info: compiled"
-                    }
-                }
-            ]
-        },
-        {
-            "label": "flow",
-            "type": "npm",
-            "script": "flow",
-            "group": "test",
-            "presentation": {
-                "reveal": "silent"
-            },
-            "problemMatcher": "$eslint-stylish"
         },
         {
             "label": "lint",
@@ -87,73 +50,7 @@
             "presentation": {
                 "reveal": "never"
             },
-            "problemMatcher": "$eslint-stylish"
+            "problemMatcher": "$tslint5"
         }
-        // {
-        //   "label": "mainframer:sync",
-        //   "type": "shell",
-        //   "command": "mainframer echo Syncing",
-        //   "group": "build",
-        //   "presentation": {
-        //     "reveal": "silent"
-        //   },
-        //   "problemMatcher": "$eslint-stylish"
-        // },
-        // {
-        //   "label": "mainframer:start",
-        //   "type": "shell",
-        //   "command": "mainframer yarn start:docker",
-        //   "isBackground": true,
-        //   "presentation": {
-        //     "panel": "dedicated"
-        //   },
-        //   "promptOnClose": true,
-        //   "group": "build",
-        //   "problemMatcher": [
-        //     {
-        //       "owner": "custom",
-        //       "pattern": [
-        //         {
-        //           "regexp": "^([^\\\\s].*)\\\\((\\\\d+,\\\\d+)\\\\):\\\\s*(.*)$",
-        //           "file": 1,
-        //           "location": 2,
-        //           "message": 3
-        //         }
-        //       ],
-        //       "background": {
-        //         "activeOnStart": true,
-        //         "beginsPattern": "info: application started on http://localhost:3333/",
-        //         "endsPattern": "info: compiled"
-        //       }
-        //     }
-        //   ]
-        // },
-        // {
-        //   "label": "mainframer:stop",
-        //   "type": "shell",
-        //   "command": "mainframer docker-compose down",
-        //   "group": "build",
-        //   "problemMatcher": []
-        // },
-        // {
-        //   "label": "mainframer:flow",
-        //   "type": "shell",
-        //   "command": "mainframer yarn flow",
-        //   "group": "test",
-        //   "presentation": {
-        //     "reveal": "silent"
-        //   },
-        //   "problemMatcher": "$eslint-stylish"
-        // },
-        // {
-        //   "label": "mainframer:lint",
-        //   "type": "shell",
-        //   "command": "mainframer yarn lint",
-        //   "group": "test",
-        //   "presentation": {
-        //     "reveal": "never"
-        //   },
-        //   "problemMatcher": "$eslint-stylish"
-        // }
     ]
 }

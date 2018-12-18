@@ -1,0 +1,27 @@
+@import "./stylus-mq"
+@import "./styleguide"
+
+/*
+	UI STYLES
+	Every UI component which need to generic
+*/
+
+#scroll-top
+	display: none
+	position: fixed
+	bottom: 7rem
+	right: 3rem
+	width: 2.5rem
+	height: 2.5rem
+	padding: .5rem
+	border-radius: .15rem
+	transition: .3s
+
+	&:hover
+		background-color: $grey-900
+
+		& #scroll-top-icon
+			fill: $grey-100
+
+	&-icon
+		fill: $grey-900

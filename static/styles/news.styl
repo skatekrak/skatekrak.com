@@ -1,0 +1,287 @@
+@import "./stylus-mq"
+@import "./styleguide"
+
+/* NEWS STYLES */
+
+/* Articles */
+
+.news-article
+		margin-bottom: 2rem
+
+		&:last-child
+			margin-bottom: 0
+
+		&-link
+			&:hover .news-article-cover-img
+				transform: scale(1.03)
+
+		&-cover-img
+			position: absolute
+			top: 0
+			right: 0
+			bottom: 0
+			left: 0
+			background-color: $grey-200
+			background-position: center
+			background-size: cover
+			background-repeat: no-repeat
+			transition: .3s
+
+			&-container
+				position: relative
+				padding-top: 45%
+				margin-bottom: 1rem
+				border-radius: 0.25rem
+				overflow: hidden
+
+				+mq($from: "small")
+					padding-top: 56.25%
+
+				+mq($from: "medium")
+					padding-top: 75%
+
+		&-title
+			font-family: $ff-roboto-black
+			color: $grey-800
+
+		&-details
+			display: flex
+			margin: .5rem 0 1rem
+			font-size: $fs-smaller
+			color: $grey-400
+
+			&-source
+				display: flex
+
+				&-link
+					display: flex
+
+					&:hover .news-article-details-source-name
+						color: $grey-600
+
+				&-name
+					transition: .2s
+
+				&-logo
+					width: 1rem
+					height 1rem
+					margin-left: .2rem
+					margin-right: .2rem
+					background-color: green
+					border-radius: 100%
+
+			&-date
+				color: $grey-600
+
+		&-desc
+			font-size: $fs-small
+			line-height: 1.4
+			color: $grey-600
+
+
+
+#news
+	&-articles
+		&-no-content
+			margin: 4rem auto 0
+			font-size: $fs-small
+			color: $grey-600
+			text-align: center
+
+			&-title
+				margin-bottom: .5rem
+				font-family: "georgia", serif
+				font-weight: 700
+				font-size: $fs-larger
+				color: $grey-400
+
+	&-menu
+		&-container
+			z-index: 2
+
+			+mq($from: "medium")
+				padding-left: 3rem
+
+		&-sources
+			&-nav
+				display: flex
+				justify-content: space-between
+				align-items: baseline
+				padding-bottom: 1rem
+				margin-bottom: 2rem
+				border-bottom: 1px solid $grey-200
+
+				&-title
+					font-size: $fs-medium
+					color: $grey-600
+
+				&-toggle-button
+					font-size: $fs-small
+					color: $grey-400
+
+					+mq($from: "medium")
+						display: none
+
+			&-open
+				background-color: $grey-100
+				margin-bottom: 2rem
+
+				&-request
+					font-size: $fs-smaller
+					color: $grey-600
+
+					&-mail
+						color: $secondary
+
+				&-controls
+					display: flex
+					flex-direction: column
+					align-items: flex-start
+					margin: 2rem 0
+
+.news-menu-sources-open
+	display: none
+
+	+mq($from: "medium")
+			display: block
+
+	&--open
+		display: block
+
+	&-control
+		font-size: $fs-regular
+		color: $grey-600
+		&:first-child
+			margin-bottom: 1rem
+
+	&-option
+		display: flex
+		align-items: center
+		margin-bottom: .5rem
+		font-size: $fs-small
+		color: $grey-300
+		
+		&:last-child
+			margin-bottom: 0
+
+		/* Checkbox snippet : https://codepen.io/Vestride/pen/dABHx */
+		& input[type="checkbox"]
+			position: absolute
+			margin: 0 
+			opacity: 0
+
+			& + label
+				position: relative
+				display: flex
+				align-items: center
+
+			& + label:before
+				content: ''
+				display: inline-block
+				margin-right: 1rem
+				width: 1.25rem
+				height: 1.25rem
+				vertical-align: text-top
+
+			// Box hover when activate: checkmark "-"
+			&:hover + label:after
+				content: ''
+				position: absolute
+				left: 5px
+				top: 15px
+				width: 3px
+				height: 3px
+				background-color: $grey-500 !important
+				box-shadow: 
+						-2px 0px 0 $grey-500,
+						2px 0px 0 $grey-500,
+						4px 0px 0 $grey-500,
+						6px 0px 0 $grey-500,
+						8px 0px 0 $grey-500 !important
+				transform: rotate(0deg) !important
+
+			// Box checked
+			// &:checked + label:before
+				// background: $grey-600
+				
+			// Disabled state label.
+			&:disabled + label
+				color: $grey-200
+				cursor: auto
+
+			// Disabled box.
+			&:disabled + label:before
+				box-shadow: none
+				background: $grey-200
+
+			// Checkmark when active
+			&:checked + label:after
+				content: ''
+				position: absolute
+				left: 5px
+				top: 15px
+				width: 3px
+				height: 3px
+				box-shadow: 
+					-2px 0px 0 $grey-600,
+					2px 0px 0 $grey-600,
+					4px 0px 0 $grey-600,
+					4px -2px 0 $grey-600,
+					4px -4px 0 $grey-600,
+					4px -6px 0 $grey-600,
+					4px -8px 0 $grey-600,
+					4px -10px 0 $grey-600
+				background-color: $grey-600
+				transform: rotate(45deg)
+
+		// Box hover when desactivate : checkmark "+"
+		&:not(.news-menu-sources-open-option--active) input:hover
+			& + label:after
+				background-color: $grey-500 !important
+				box-shadow: 
+					-2px 0px 0 $grey-500,
+					2px 0px 0 $grey-500,
+					4px 0px 0 $grey-500,
+					6px 0px 0 $grey-500,
+					8px 0px 0 $grey-500,
+					10px 0px 0 $grey-500,
+					4px 6px 0 $grey-500,
+					4px 4px 0 $grey-500,
+					4px 2px 0 $grey-500,
+					4px -2px 0 $grey-500,
+					4px -4px 0 $grey-500,
+					4px -6px 0 $grey-500!important
+
+			& + label
+				&:hover .news-menu-sources-open-option-logo
+					opacity: .5
+
+		&:hover .news-menu-sources-open-option-name
+			color: $grey-500 !important
+
+		&-label
+			display: flex
+			align-items: center
+
+		& .spinner-circle
+			width: 20px
+			height: 20px
+			margin-right: 1rem
+
+			& .path
+				stroke: $grey-600
+
+		&-logo
+			width: 2rem
+			height 2rem
+			margin-right: .5rem
+			border-radius: 100%
+			opacity: .25
+
+		&--active
+			& .news-menu-sources-open-option-name
+				font-family: $ff-roboto-bold
+				color: $grey-600
+
+			& .news-menu-sources-open-option-logo
+				opacity: 1

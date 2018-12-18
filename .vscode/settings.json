@@ -1,27 +1,17 @@
 // Place your settings in this file to overwrite default and user settings.
 {
-    "editor.formatOnType": true,
-    "editor.formatOnSave": true,
-    "editor.tabSize": 4,
-    "editor.insertSpaces": true,
-    "editor.wordWrap": "off",
-    "editor.detectIndentation": false,
-    "editor.renderIndentGuides": true,
-    "editor.rulers": [120],
-    "[stylus]": {
-        "editor.tabSize": 2,
-        "editor.insertSpaces": false,
-        "editor.detectIndentation": false
-    },
-    "typescript.validate.enable": true,
-    "javascript.validate.enable": false,
-    "files.exclude": {
-        "**/.git": true,
-        "**/.svn": true,
-        "**/.hg": true,
-        "**/.DS_Store": true
-    },
-    "eslint.enable": false,
-    "tslint.enable": true,
-    "prettier.tabWidth": 4
+  "[stylus]": {
+    "editor.tabSize": 2,
+    "editor.insertSpaces": false,
+    "editor.detectIndentation": false
+  },
+  "files.exclude": {
+    ".next": true,
+    ".nyc_output/": true,
+    "coverage/": true,
+    "data/": true,
+    "node_modules/": true,
+    "public/": true,
+    "paws/": true
+  }
 }
