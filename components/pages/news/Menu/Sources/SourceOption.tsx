@@ -20,8 +20,6 @@ type State = {
 
 class SourceOption extends React.PureComponent<Props, State> {
     public static getDerivedStateFromProps(nextProps: Readonly<Props>): State {
-        console.log('SourceOption refresh');
-        console.log(nextProps.state);
         return {
             isActive: nextProps.state === FilterState.SELECTED || nextProps.state !== FilterState.UNSELECTED,
             isLoading:
