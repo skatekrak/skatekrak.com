@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import * as React from 'react';
 
 import SourceOption from 'components/pages/news/Menu/Sources/SourceOption';
-import { Source } from 'types/Source';
+import { Source } from 'rss-feed';
 
 type Props = {
     sourcesMenuIsOpen: boolean;

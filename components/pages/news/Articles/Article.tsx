@@ -1,7 +1,7 @@
 import { distanceInWordsToNow } from 'date-fns';
 import * as React from 'react';
 import Truncate from 'react-truncate';
-import { Content } from 'types/Content';
+import { Content } from 'rss-feed';
 
 type Props = {
     content: Content;

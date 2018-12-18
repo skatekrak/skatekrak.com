@@ -4,7 +4,7 @@ import * as React from 'react';
 import InfiniteScroll from 'react-infinite-scroller';
 
 import Article from 'components/pages/news/Articles/Article';
-import { Content } from 'types/Content';
+import { Content } from 'rss-feed';
 
 type Props = {
     sourcesMenuIsOpen: boolean;

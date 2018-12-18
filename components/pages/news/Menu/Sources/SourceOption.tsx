@@ -3,7 +3,7 @@ import * as React from 'react';
 
 import Checkbox from 'components/Ui/Form/Checkbox';
 import { SpinnerCircle } from 'components/Ui/Icons/Spinners';
-import { Source } from 'types/Source';
+import { Source } from 'rss-feed';
 
 type Props = {
     isActive: boolean;
