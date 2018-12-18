@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import Layout from 'components/Layout/Layout';
-import Page from 'components/pages/Page';
+import TrackedPage from 'components/pages/Page';
 
 import Articles from 'components/pages/news/Articles';
 import Menu from 'components/pages/news/Menu';
@@ -18,7 +18,7 @@ class News extends React.PureComponent<{}, State> {
     public render() {
         const { sourcesMenuIsOpen } = this.state;
         return (
-            <Page>
+            <TrackedPage name="News">
                 <Layout>
                     <React.Fragment>
                         <div id="news-container" className="container-fluid">
@@ -32,7 +32,7 @@ class News extends React.PureComponent<{}, State> {
                         </div>
                     </React.Fragment>
                 </Layout>
-            </Page>
+            </TrackedPage>
         );
     }
 

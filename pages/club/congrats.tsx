@@ -1,10 +1,10 @@
 import * as React from 'react';
 
 import Layout from 'components/Layout/Layout';
-import Page from 'components/pages/Page';
+import TrackedPage from 'components/pages/Page';
 
 export default () => (
-    <Page>
+    <TrackedPage name="Congrats">
         <Layout>
             <div id="step3">
                 <img id="step3-image" src="/static/images/step_3_2x.png" alt="Kraken illustration step 3" />
@@ -15,5 +15,5 @@ export default () => (
                 <p id="step3-support">Welcome to the family, we'll come back to you very soon, k.</p>
             </div>
         </Layout>
-    </Page>
+    </TrackedPage>
 );

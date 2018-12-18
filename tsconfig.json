@@ -5,7 +5,7 @@
         "jsx": "preserve",
         "lib": ["dom", "es2017"],
         "moduleResolution": "node",
-        "allowJs": true,
+        "allowJs": false,
         "noEmit": true,
         "allowSyntheticDefaultImports": true,
         "skipLibCheck": true,
@@ -19,6 +19,6 @@
             "*": ["*"]
         }
     },
-    "include": ["**/*.tsx", "**/*.ts", "**/*.js"],
+    "include": ["**/*.tsx", "**/*.ts"],
     "exclude": [".next", "node_modules"]
 }

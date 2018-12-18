@@ -7,7 +7,6 @@
                 "root": ".",
                 "alias": {
                     "components": "./components",
-                    "helpers": "./helpers",
                     "hocs": "./hocs",
                     "pages": "./pages",
                     "store": "./store",
