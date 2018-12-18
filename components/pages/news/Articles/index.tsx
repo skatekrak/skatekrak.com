@@ -2,12 +2,17 @@ import axios from 'axios';
 import classNames from 'classnames';
 import * as React from 'react';
 import InfiniteScroll from 'react-infinite-scroller';
+import { connect } from 'react-redux';
 
 import Article from 'components/pages/news/Articles/Article';
-import { Content } from 'rss-feed';
+import sleep from 'lib/sleep';
+import { Content, Source } from 'rss-feed';
+import { feedEndRefresh, FilterState, State as NewsState } from 'store/reducers/news';
 
 type Props = {
     sourcesMenuIsOpen: boolean;
+    news: NewsState;
+    dispatch: (fct: any) => void;
 };
 
 type State = {
@@ -23,6 +28,13 @@ class Articles extends React.Component<Props, State> {
         hasMore: true,
     };
 
+    public async componentDidUpdate() {
+        if (this.props.news.feedNeedRefresh && !this.state.isLoading) {
+            this.setState({ contents: [], hasMore: false });
+            await this.loadMore(1);
+        }
+    }
+
     public render() {
         const { sourcesMenuIsOpen } = this.props;
         const { contents, isLoading, hasMore } = this.state;
@@ -30,8 +42,9 @@ class Articles extends React.Component<Props, State> {
         return (
             <div id="news-articles-container" className="col-xs-12 col-md-8 col-lg-9">
                 <InfiniteScroll
-                    pageStart={0}
-                    initialLoad={true}
+                    key={'infinite-need-refresh-' + this.props.news.feedNeedRefresh}
+                    pageStart={1}
+                    initialLoad={false}
                     loadMore={this.loadMore}
                     hasMore={!isLoading && hasMore}
                     getScrollParent={this.getScrollParent}
@@ -60,28 +73,44 @@ class Articles extends React.Component<Props, State> {
     };
 
     private loadMore = async (page: number) => {
+        console.log(`Page: ${page}`);
         try {
             this.setState({ isLoading: true });
-            const res = await axios.get(`${process.env.RSS_BACKEND_URL}/feeds/`, { params: { page } });
-            const data: Content[] = res.data;
-            const contents = this.state.contents;
-            await this.sleep(2000);
-            this.setState({
-                contents: contents.concat(data),
-                hasMore: data.length >= 20,
-            });
+
+            const filters = this.getFilters(this.props.news.sources);
+            let req: Promise<any>;
+            if (filters.length === 0) {
+                req = Promise.resolve();
+            } else {
+                req = axios.get(`${process.env.RSS_BACKEND_URL}/feeds/`, { params: { page, filters } });
+            }
+            // Force minumum wait time of 150ms
+            const [res] = await Promise.all([req, sleep(150)]);
+            if (res.data) {
+                const data: Content[] = res.data;
+                const contents = this.state.contents;
+                this.setState({
+                    contents: contents.concat(data),
+                    hasMore: data.length >= 20,
+                });
+            }
         } catch (err) {
             //
         } finally {
+            this.props.dispatch(feedEndRefresh());
             this.setState({ isLoading: false });
         }
     };
 
-    private async sleep(ms: number) {
-        return new Promise((resolve) => {
-            setTimeout(() => resolve(), ms);
-        });
+    private getFilters(sources: Map<Source, FilterState>): string[] {
+        const arr: string[] = [];
+        for (const entry of sources.entries()) {
+            if (entry[1] === FilterState.LOADING_TO_SELECTED || entry[1] === FilterState.SELECTED) {
+                arr.push(entry[0].id);
+            }
+        }
+        return arr;
     }
 }
 
-export default Articles;
+export default connect((state: any) => ({ news: state.news }))(Articles);

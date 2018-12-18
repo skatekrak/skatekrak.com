@@ -8,6 +8,7 @@
                 "alias": {
                     "components": "./components",
                     "hocs": "./hocs",
+                    "lib": "./lib",
                     "pages": "./pages",
                     "store": "./store",
                     "static": "./static"
