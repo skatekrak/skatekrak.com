@@ -5,6 +5,7 @@ import InfiniteScroll from 'react-infinite-scroller';
 import { connect } from 'react-redux';
 
 import Article from 'components/pages/news/Articles/Article';
+import sleep from 'lib/sleep';
 import { Content, Source } from 'rss-feed';
 import { feedEndRefresh, FilterState, State as NewsState } from 'store/reducers/news';
 
@@ -29,7 +30,7 @@ class Articles extends React.Component<Props, State> {
 
     public async componentDidUpdate() {
         if (this.props.news.feedNeedRefresh && !this.state.isLoading) {
-            this.setState({ contents: [], hasMore: true });
+            this.setState({ contents: [], hasMore: false });
             await this.loadMore(1);
         }
     }
@@ -74,19 +75,25 @@ class Articles extends React.Component<Props, State> {
     private loadMore = async (page: number) => {
         console.log(`Page: ${page}`);
         try {
-            const filters = this.getFilters(this.props.news.sources);
-            console.log(`Filters: ${filters.length}`);
-            if (filters.length === 0) {
-                return;
-            }
             this.setState({ isLoading: true });
-            const res = await axios.get(`${process.env.RSS_BACKEND_URL}/feeds/`, { params: { page, filters } });
-            const data: Content[] = res.data;
-            const contents = this.state.contents;
-            this.setState({
-                contents: contents.concat(data),
-                hasMore: data.length >= 20,
-            });
+
+            const filters = this.getFilters(this.props.news.sources);
+            let req: Promise<any>;
+            if (filters.length === 0) {
+                req = Promise.resolve();
+            } else {
+                req = axios.get(`${process.env.RSS_BACKEND_URL}/feeds/`, { params: { page, filters } });
+            }
+            // Force minumum wait time of 150ms
+            const [res] = await Promise.all([req, sleep(150)]);
+            if (res.data) {
+                const data: Content[] = res.data;
+                const contents = this.state.contents;
+                this.setState({
+                    contents: contents.concat(data),
+                    hasMore: data.length >= 20,
+                });
+            }
         } catch (err) {
             //
         } finally {

@@ -1,13 +1,16 @@
 import classNames from 'classnames';
 import * as React from 'react';
+import { connect } from 'react-redux';
 
 import Checkbox from 'components/Ui/Form/Checkbox';
 import { SpinnerCircle } from 'components/Ui/Icons/Spinners';
 import { Source } from 'rss-feed';
+import { FilterState, toggleFilter } from 'store/reducers/news';
 
 type Props = {
-    isActive: boolean;
     source: Source;
+    state: FilterState;
+    dispatch: (fct: any) => void;
 };
 
 type State = {
@@ -16,6 +19,17 @@ type State = {
 };
 
 class SourceOption extends React.PureComponent<Props, State> {
+    public static getDerivedStateFromProps(nextProps: Readonly<Props>): State {
+        console.log('SourceOption refresh');
+        console.log(nextProps.state);
+        return {
+            isActive: nextProps.state === FilterState.SELECTED || nextProps.state !== FilterState.UNSELECTED,
+            isLoading:
+                nextProps.state === FilterState.LOADING_TO_SELECTED ||
+                nextProps.state === FilterState.LOADING_TO_UNSELECTED,
+        };
+    }
+
     public state: State = {
         isActive: true,
         isLoading: false,
@@ -45,14 +59,8 @@ class SourceOption extends React.PureComponent<Props, State> {
     }
 
     private handleSourceOptionClick = () => {
-        const { isActive } = this.state;
-
-        this.setState({ isLoading: true });
-        setTimeout(() => {
-            this.setState({ isActive: !isActive });
-            this.setState({ isLoading: false });
-        }, 500);
+        this.props.dispatch(toggleFilter(this.props.source));
     };
 }
 
-export default SourceOption;
+export default connect()(SourceOption);

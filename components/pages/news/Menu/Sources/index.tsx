@@ -6,10 +6,10 @@ import { connect } from 'react-redux';
 import SourceOption from 'components/pages/news/Menu/Sources/SourceOption';
 import { Source } from 'rss-feed';
 import {
+    FilterState,
     selectAllFilters,
     setAllSources,
     State as NewsState,
-    toggleFilter,
     unselectAllFilters,
 } from 'store/reducers/news';
 
@@ -42,9 +42,11 @@ class Sources extends React.PureComponent<Props, State> {
 
         let length = 0;
         const items = [];
-        for (const item of sources) {
-            length += 1;
-            items.push(<SourceOption key={item[0].id} isActive={true} source={item[0]} />);
+        for (const item of sources.entries()) {
+            if (item[1] === FilterState.SELECTED) {
+                length += 1;
+            }
+            items.push(<SourceOption key={item[0].id} source={item[0]} state={item[1]} />);
         }
 
         return (
