@@ -3,7 +3,7 @@ import validator from 'email-validator';
 import React from 'react';
 
 import Layout from 'components/Layout/Layout';
-import TrackedPage from 'components/pages/Page';
+import TrackedPage from 'components/pages/TrackedPage';
 import ErrorMessage from 'components/Ui/Form/ErrorMessage';
 import LikeIcon from 'components/Ui/Icons/Like';
 

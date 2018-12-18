@@ -15,9 +15,14 @@ type Props = {
 
 type State = {};
 
-class TrackedPage extends React.PureComponent<Props, State> {
+class TrackedPage extends React.Component<Props, State> {
     public componentDidMount() {
         const { name } = this.props;
+        analytics.init('2', {
+            cookieDomain: '*.skatekrak.com',
+            crossDomainLinking: true,
+            domains: ['*.skatekrak.com', '*.krakbox.com'],
+        });
         analytics.trackPageView(name);
     }
 
