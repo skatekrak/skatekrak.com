@@ -73,7 +73,7 @@ class Articles extends React.Component<Props, State> {
     };
 
     private loadMore = async (page: number) => {
-        console.log(`Page: ${page}`);
+        // console.log(`Page: ${page}`);
         try {
             this.setState({ isLoading: true });
 
