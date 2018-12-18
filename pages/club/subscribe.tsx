@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Elements, StripeProvider } from 'react-stripe-elements';
 
 import Layout from 'components/Layout/Layout';
-import TrackedPage from 'components/pages/Page';
+import TrackedPage from 'components/pages/TrackedPage';
 
 import Checkout from 'components/pages/club/Checkout';
 

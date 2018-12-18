@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import Layout from 'components/Layout/Layout';
 import Link from 'components/Link';
-import TrackedPage from 'components/pages/Page';
+import TrackedPage from 'components/pages/TrackedPage';
 import SkateistanLogo from 'components/Ui/Icons/Logos/Skateistan';
 
 interface IClubProps {

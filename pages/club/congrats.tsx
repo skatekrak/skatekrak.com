@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import Layout from 'components/Layout/Layout';
-import TrackedPage from 'components/pages/Page';
+import TrackedPage from 'components/pages/TrackedPage';
 
 export default () => (
     <TrackedPage name="Congrats">

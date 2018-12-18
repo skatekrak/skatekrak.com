@@ -1,4 +1,3 @@
-import analytics from '@thepunkclub/analytics';
 import App, { Container } from 'next/app';
 import React from 'react';
 import withReduxStore from '../hocs/withRedux';
@@ -19,12 +18,6 @@ class MyApp extends App {
     }
 
     componentDidMount() {
-        analytics.init('2', {
-            cookieDomain: '*.skatekrak.com',
-            crossDomainLinking: true,
-            domains: ['*.skatekrak.com', '*.krakbox.com'],
-        });
-
         if (window['__NEXT_REDUX_STORE__'] && this.props.router) {
             const { query } = this.props.router;
             if (query.cc && query.cc === 'us') {
