@@ -6,12 +6,12 @@
     "editor.detectIndentation": false
   },
   "files.exclude": {
-    ".next": false,
-    ".nyc_output/": false,
-    "coverage/": false,
-    "data/": false,
-    "node_modules/": false,
-    "public/": false,
-    "paws/": false
+    ".next": true,
+    ".nyc_output/": true,
+    "coverage/": true,
+    "data/": true,
+    "node_modules/": true,
+    "public/": true,
+    "paws/": true
   }
 }
