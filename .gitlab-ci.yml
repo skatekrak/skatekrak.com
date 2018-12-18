@@ -25,7 +25,6 @@ build_staging:
     - docker-compose -f docker-compose.ci.yml build skatekrak-build
     - docker push $CI_REGISTRY_IMAGE:$TEST_TAG
   only:
-    - tags
     - develop
 
 build_production:
@@ -36,7 +35,6 @@ build_production:
     - docker push $CI_REGISTRY_IMAGE:$TEST_TAG
   only:
     - tags
-    - develop
 
 lint:
   stage: lint

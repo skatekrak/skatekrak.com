@@ -1,4 +1,4 @@
-version: "3"
+version: "3.4"
 services:
   skatekrak-build:
     image: ${CI_REGISTRY_IMAGE}:${TEST_TAG}
