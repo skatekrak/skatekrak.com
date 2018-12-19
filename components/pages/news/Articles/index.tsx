@@ -5,6 +5,8 @@ import InfiniteScroll from 'react-infinite-scroller';
 import { connect } from 'react-redux';
 
 import Article from 'components/pages/news/Articles/Article';
+import Loading from 'components/pages/news/Articles/Loading';
+import NoMore from 'components/pages/news/Articles/NoMore';
 import sleep from 'lib/sleep';
 import { Content, Source } from 'rss-feed';
 import { feedEndRefresh, FilterState, State as NewsState } from 'store/reducers/news';
@@ -60,8 +62,8 @@ class Articles extends React.Component<Props, State> {
                         {contents.map((content) => (
                             <Article key={content.id} content={content} />
                         ))}
-                        {isLoading && <div key="loader">Loading ...</div>}
-                        {contents.length > 0 && !hasMore && <div key="no-more">No More ...</div>}
+                        {isLoading && <Loading />}
+                        {contents.length > 0 && !hasMore && <NoMore />}
                     </div>
                 </InfiniteScroll>
             </div>
