@@ -62,7 +62,7 @@ class ScrollTop extends React.PureComponent<Props, {}> {
 
     private handleTopClick = () => {
         jump('#news-menu-sources-nav', {
-            offset: -100,
+            offset: -300,
             container: this.getScrollParent(),
         });
     };
