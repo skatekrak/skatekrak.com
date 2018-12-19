@@ -33,7 +33,7 @@ class Article extends React.PureComponent<Props, State> {
                             target="_blank"
                             rel="noreferrer"
                         >
-                            <img src="" alt="" className="news-article-details-source-logo" />
+                            &nbsp;
                             <span className="news-article-details-source-name">{content.source.label}</span>
                         </a>
                     </div>
