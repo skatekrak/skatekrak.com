@@ -25,3 +25,18 @@
 
 	&-icon
 		fill: $grey-900
+
+
+
+.icon
+	&-loading
+		&-krak
+			width: 4rem
+
+			&-text
+				transform-origin: center
+				animation: rotateLoadingKrakText 2s infinite
+
+@keyframes rotateLoadingKrakText
+	0%	{ transform: rotate(0deg) }
+	100%	{ transform: rotate(360deg) }
