@@ -21,6 +21,7 @@ type State = {
     contents: Content[];
     isLoading: boolean;
     hasMore: boolean;
+    useWindow: boolean;
 };
 
 class Articles extends React.Component<Props, State> {
@@ -28,7 +29,16 @@ class Articles extends React.Component<Props, State> {
         contents: [],
         isLoading: false,
         hasMore: true,
+        useWindow: true,
     };
+
+    public componentDidMount() {
+        if (window.innerWidth < 1024) {
+            this.setState({ useWindow: true });
+        } else {
+            this.setState({ useWindow: false });
+        }
+    }
 
     public async componentDidUpdate() {
         if (this.props.news.feedNeedRefresh && !this.state.isLoading) {
@@ -39,7 +49,7 @@ class Articles extends React.Component<Props, State> {
 
     public render() {
         const { sourcesMenuIsOpen } = this.props;
-        const { contents, isLoading, hasMore } = this.state;
+        const { contents, isLoading, hasMore, useWindow } = this.state;
 
         return (
             <div id="news-articles-container" className="col-xs-12 col-md-8 col-lg-9">
@@ -50,7 +60,7 @@ class Articles extends React.Component<Props, State> {
                     loadMore={this.loadMore}
                     hasMore={!isLoading && hasMore}
                     getScrollParent={this.getScrollParent}
-                    useWindow={false}
+                    useWindow={useWindow}
                 >
                     <div className={classNames('row', { hide: sourcesMenuIsOpen })}>
                         {contents.length === 0 && !isLoading && (
