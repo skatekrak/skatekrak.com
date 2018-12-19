@@ -4,6 +4,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 
 import SourceOption from 'components/pages/news/Menu/Sources/SourceOption';
+import { SpinnerCircle } from 'components/Ui/Icons/Spinners';
 import { Source } from 'rss-feed';
 import {
     FilterState,
@@ -78,7 +79,14 @@ class Sources extends React.PureComponent<Props, State> {
                         </button>
                     </div>
                     <form id="news-menu-sources-open-options">
-                        <ul id="news-menu-sources-open-options-container">{items}</ul>
+                        <ul id="news-menu-sources-open-options-container">
+                            {items.length === 0 && (
+                                <div id="news-menu-sources-open-loader">
+                                    <SpinnerCircle /> Loading magazines
+                                </div>
+                            )}
+                            {items}
+                        </ul>
                     </form>
                 </div>
             </div>
