@@ -49,7 +49,7 @@ class SourceOption extends React.PureComponent<Props, State> {
                     className="news-menu-sources-open-option-label"
                     onClick={this.handleSourceOptionClick}
                 >
-                    <img src={source.logoUrl} alt="" className="news-menu-sources-open-option-logo" />
+                    <img src={this.getLogoUrl(source)} alt="" className="news-menu-sources-open-option-logo" />
                     <span className="news-menu-sources-open-option-name">{source.label}</span>
                 </label>
             </li>
@@ -59,6 +59,15 @@ class SourceOption extends React.PureComponent<Props, State> {
     private handleSourceOptionClick = () => {
         this.props.dispatch(toggleFilter(this.props.source));
     };
+
+    private getLogoUrl(source: Source): string {
+        if (source.iconUrl) {
+            return source.iconUrl;
+        } else if (source.visualUrl) {
+            return source.visualUrl;
+        }
+        return null;
+    }
 }
 
 export default connect()(SourceOption);

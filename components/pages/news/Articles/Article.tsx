@@ -18,7 +18,7 @@ class Article extends React.PureComponent<Props, State> {
                 <a href={content.webUrl} className="news-article-link" target="_blank" rel="noreferrer">
                     <div className="news-article-cover-img-container">
                         <div
-                            style={{ backgroundImage: `url(${content.imageUrl})` }}
+                            style={{ backgroundImage: `url(${this.getImageUrl(content)})` }}
                             className="news-article-cover-img"
                         />
                     </div>
@@ -28,7 +28,7 @@ class Article extends React.PureComponent<Props, State> {
                     <div className="news-article-details-source">
                         by
                         <a
-                            href={content.source.webUrl}
+                            href={content.source.website}
                             className="news-article-details-source-link"
                             target="_blank"
                             rel="noreferrer"
@@ -41,11 +41,31 @@ class Article extends React.PureComponent<Props, State> {
                 </div>
                 <p className="news-article-desc">
                     <Truncate lines={4} ellipsis="...">
-                        {content.content}
+                        {this.getContent(content)}
                     </Truncate>
                 </p>
             </div>
         );
+    }
+
+    private getImageUrl(content: Content): string {
+        if (content.media && content.media.url) {
+            return content.media.url;
+        } else if (content.source.coverUrl) {
+            return content.source.coverUrl;
+        } else if (content.source.visualUrl) {
+            return content.source.visualUrl;
+        }
+        return null;
+    }
+
+    private getContent(content: Content): string {
+        if (content.summary) {
+            return content.summary;
+        } else if (content.content) {
+            return content.content;
+        }
+        return null;
     }
 }
 
