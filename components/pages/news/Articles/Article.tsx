@@ -51,14 +51,8 @@ class Article extends React.PureComponent<Props, State> {
     private getImageUrl(content: Content): string {
         if (content.media && content.media.url) {
             return content.media.url;
-        } else if (content.source.coverUrl) {
-            return content.source.coverUrl;
-        } else if (content.source.visualUrl) {
-            return content.source.visualUrl;
-        } else if (content.source.iconUrl) {
-            return content.source.iconUrl;
         }
-        return null;
+        return content.source.coverUrl;
     }
 
     private getContent(content: Content): string {
