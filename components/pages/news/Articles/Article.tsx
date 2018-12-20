@@ -55,6 +55,8 @@ class Article extends React.PureComponent<Props, State> {
             return content.source.coverUrl;
         } else if (content.source.visualUrl) {
             return content.source.visualUrl;
+        } else if (content.source.iconUrl) {
+            return content.source.iconUrl;
         }
         return null;
     }
