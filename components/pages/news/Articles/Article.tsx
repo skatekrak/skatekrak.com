@@ -3,6 +3,8 @@ import * as React from 'react';
 import Truncate from 'react-truncate';
 import { Content } from 'rss-feed';
 
+import BackgroundLoader from 'components/Ui/Utils/BackgroundLoader';
+
 type Props = {
     content: Content;
 };
@@ -17,9 +19,10 @@ class Article extends React.PureComponent<Props, State> {
             <div className="news-article col-xs-12 col-sm-6 col-lg-3">
                 <a href={content.webUrl} className="news-article-link" target="_blank" rel="noreferrer">
                     <div className="news-article-cover-img-container">
-                        <div
-                            style={{ backgroundImage: `url("${this.getImageUrl(content)}")` }}
+                        <BackgroundLoader
                             className="news-article-cover-img"
+                            src={this.getImageUrl(content)}
+                            placeholder={content.source.coverUrl}
                         />
                     </div>
                     <h2 className="news-article-title">{content.title}</h2>
