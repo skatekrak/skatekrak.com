@@ -1,7 +1,6 @@
 import * as React from 'react';
 
 import Layout from 'components/Layout/Layout';
-import TrackedPage from 'components/pages/TrackedPage';
 
 import Articles from 'components/pages/news/Articles';
 import Menu from 'components/pages/news/Menu';
@@ -18,21 +17,19 @@ class News extends React.PureComponent<{}, State> {
     public render() {
         const { sourcesMenuIsOpen } = this.state;
         return (
-            <TrackedPage name="News">
-                <Layout>
-                    <React.Fragment>
-                        <div id="news-container" className="container-fluid">
-                            <div className="row">
-                                <Menu
-                                    sourcesMenuIsOpen={sourcesMenuIsOpen}
-                                    handleOpenSourcesMenu={this.handleOpenSourcesMenu}
-                                />
-                                <Articles sourcesMenuIsOpen={sourcesMenuIsOpen} />
-                            </div>
+            <Layout>
+                <React.Fragment>
+                    <div id="news-container" className="container-fluid">
+                        <div className="row">
+                            <Menu
+                                sourcesMenuIsOpen={sourcesMenuIsOpen}
+                                handleOpenSourcesMenu={this.handleOpenSourcesMenu}
+                            />
+                            <Articles sourcesMenuIsOpen={sourcesMenuIsOpen} />
                         </div>
-                    </React.Fragment>
-                </Layout>
-            </TrackedPage>
+                    </div>
+                </React.Fragment>
+            </Layout>
         );
     }
 

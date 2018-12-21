@@ -11,23 +11,40 @@ import 'static/styles/ui.styl';
 
 type Props = {
     name: string;
+    initial: boolean;
 };
 
 type State = {};
 
 class TrackedPage extends React.Component<Props, State> {
+    public static defaultProps = {
+        initial: true,
+    };
+
     public componentDidMount() {
-        const { name } = this.props;
         analytics.init('2', {
             cookieDomain: '*.skatekrak.com',
             crossDomainLinking: true,
             domains: ['*.skatekrak.com', '*.krakbox.com'],
         });
-        analytics.trackPageView(name);
+        if (this.props.initial) {
+            // console.log(`Tracked Initial Page ${this.props.name}`);
+            analytics.trackPageView(this.props.name);
+        }
+    }
+
+    public componentDidUpdate(prevPros: Readonly<Props>) {
+        if (prevPros.name !== this.props.name) {
+            // console.log(`Tracked Update Page ${this.props.name}`);
+            analytics.trackPageView(this.props.name);
+        }
     }
 
     public render() {
-        return this.props.children;
+        if (this.props.children) {
+            return this.props.children;
+        }
+        return null;
     }
 }
 

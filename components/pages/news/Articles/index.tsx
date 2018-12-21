@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import Article from 'components/pages/news/Articles/Article';
 import Loading from 'components/pages/news/Articles/Loading';
 import NoMore from 'components/pages/news/Articles/NoMore';
+import TrackedPage from 'components/pages/TrackedPage';
 import sleep from 'lib/sleep';
 import { Content, Source } from 'rss-feed';
 import { feedEndRefresh, FilterState, State as NewsState } from 'store/reducers/news';
@@ -74,6 +75,8 @@ class Articles extends React.Component<Props, State> {
                         ))}
                         {isLoading && <Loading />}
                         {contents.length > 0 && !hasMore && <NoMore />}
+
+                        <TrackedPage name={`News/${Math.ceil(contents.length / 20)}`} initial={false} />
                     </div>
                 </InfiniteScroll>
             </div>
@@ -85,7 +88,6 @@ class Articles extends React.Component<Props, State> {
     };
 
     private loadMore = async (page: number) => {
-        // console.log(`Page: ${page}`);
         try {
             this.setState({ isLoading: true });
 
