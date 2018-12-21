@@ -8,6 +8,7 @@ import React from 'react';
 /*
  * Local import
  */
+import getScrollContainer from 'lib/getScrollContainer';
 
 /*
  * Code
@@ -18,13 +19,13 @@ type Props = {
 
 class ScrollTop extends React.PureComponent<Props, {}> {
     public componentDidMount() {
-        const mainContainer = document.getElementById('main-container');
-        mainContainer.addEventListener('scroll', this.handleScroll);
+        const scrollContainer = getScrollContainer();
+        scrollContainer.addEventListener('scroll', this.handleScroll);
     }
 
     public componentWillUnmount() {
-        const mainContainer = document.getElementById('main-container');
-        mainContainer.removeEventListener('scroll', this.handleScroll);
+        const scrollContainer = getScrollContainer();
+        scrollContainer.removeEventListener('scroll', this.handleScroll);
     }
 
     public render() {
@@ -45,7 +46,7 @@ class ScrollTop extends React.PureComponent<Props, {}> {
     }
 
     private handleScroll = () => {
-        const mainContainer = document.getElementById('main-container');
+        const scrollContainer = getScrollContainer();
 
         const { elementId } = this.props;
         const element = document.getElementById(elementId);
@@ -53,7 +54,7 @@ class ScrollTop extends React.PureComponent<Props, {}> {
 
         const scrollTopButton = document.getElementById('scroll-top');
 
-        if (mainContainer.scrollTop > elementBottomPos) {
+        if (scrollContainer.scrollTop > elementBottomPos) {
             scrollTopButton.classList.add('show');
         } else {
             scrollTopButton.classList.remove('show');
@@ -61,14 +62,10 @@ class ScrollTop extends React.PureComponent<Props, {}> {
     };
 
     private handleTopClick = () => {
-        jump('#news-menu-sources-nav', {
+        jump(`#${this.props.elementId}`, {
             offset: -300,
-            container: this.getScrollParent(),
+            container: getScrollContainer(),
         });
-    };
-
-    private getScrollParent = () => {
-        return document.getElementById('main-container');
     };
 }
 
