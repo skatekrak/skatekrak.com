@@ -18,7 +18,7 @@ class Article extends React.PureComponent<Props, State> {
                 <a href={content.webUrl} className="news-article-link" target="_blank" rel="noreferrer">
                     <div className="news-article-cover-img-container">
                         <div
-                            style={{ backgroundImage: `url(${this.getImageUrl(content)})` }}
+                            style={{ backgroundImage: `url("${this.getImageUrl(content)}")` }}
                             className="news-article-cover-img"
                         />
                     </div>
