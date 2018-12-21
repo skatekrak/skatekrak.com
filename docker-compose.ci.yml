@@ -1,5 +1,17 @@
-version: '3'
+version: "3.4"
 services:
-    skatekrak-lint:
-        image: '$HUB_URL:$TEST_TAG'
-        command: /bin/bash -c "yarn install && yarn lint"
+  skatekrak-build:
+    image: ${CI_REGISTRY_IMAGE}:${TEST_TAG}
+    build:
+      context: .
+      args:
+        NPM_AUTH_TOKEN: ${NPM_AUTH_TOKEN}
+        STRIPE_KEY: ${STRIPE_KEY}
+        BACKEND_URL: ${BACKEND_URL}
+        RSS_BACKEND_URL: ${RSS_BACKEND_URL}
+      cache_from:
+        - ${CI_REGISTRY_IMAGE}:${TEST_TAG}
+
+  skatekrak-lint:
+    image: ${CI_REGISTRY_IMAGE}:${TEST_TAG}
+    command: /bin/bash -c "yarn install && yarn lint"

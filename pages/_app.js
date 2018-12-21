@@ -1,11 +1,9 @@
-import analytics from '@thepunkclub/analytics';
 import App, { Container } from 'next/app';
 import React from 'react';
 import withReduxStore from '../hocs/withRedux';
 import { Provider } from 'react-redux';
 import Intercom from 'react-intercom';
 
-import getPageTitle from 'helpers/pageTitle';
 import { savePricingCurrency } from 'store/reducers/payment';
 
 class MyApp extends App {
@@ -20,13 +18,6 @@ class MyApp extends App {
     }
 
     componentDidMount() {
-        analytics.init('2', {
-            cookieDomain: '*.skatekrak.com',
-            domains: ['*.skatekrak.com', '*.krakbox.com'],
-            crossDomainLinking: true,
-        });
-        analytics.trackPageView(getPageTitle(document.location.pathname));
-
         if (window['__NEXT_REDUX_STORE__'] && this.props.router) {
             const { query } = this.props.router;
             if (query.cc && query.cc === 'us') {

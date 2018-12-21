@@ -3,7 +3,7 @@ import validator from 'email-validator';
 import React from 'react';
 
 import Layout from 'components/Layout/Layout';
-import Page from 'components/pages/Page';
+import TrackedPage from 'components/pages/TrackedPage';
 import ErrorMessage from 'components/Ui/Form/ErrorMessage';
 import LikeIcon from 'components/Ui/Icons/Like';
 
@@ -24,7 +24,7 @@ class Index extends React.PureComponent<{}, State> {
     public render() {
         const { email, subscribed, subscribeError } = this.state;
         return (
-            <Page>
+            <TrackedPage name="Homepage">
                 <Layout>
                     <React.Fragment>
                         <div id="home-container" className="container-fluid">
@@ -57,7 +57,7 @@ class Index extends React.PureComponent<{}, State> {
                         </div>
                     </React.Fragment>
                 </Layout>
-            </Page>
+            </TrackedPage>
         );
     }
 

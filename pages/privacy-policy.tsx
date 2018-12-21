@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Layout from 'components/Layout/Layout';
-import Page from 'components/pages/Page';
+import TrackedPage from 'components/pages/TrackedPage';
 
 const P = ({ children }: { children: string | (string | JSX.Element)[] }) => (
     <p style={{ marginTop: '10px', marginBottom: '10px' }}>{children}</p>
@@ -15,7 +15,7 @@ const titleStyle = {
 };
 
 export default () => (
-    <Page>
+    <TrackedPage name="PrivacyPolicy">
         <Layout>
             <div className="container-fluid" style={{ paddingTop: '4em', paddingBottom: '4em' }}>
                 <P>Effective date: July 01, 2014</P>
@@ -180,5 +180,5 @@ export default () => (
                 </P>
             </div>
         </Layout>
-    </Page>
+    </TrackedPage>
 );

@@ -1,15 +1,10 @@
 version: "3"
 services:
-  skatekrak-staging:
-    image: "$HUB_URL:$TAG"
-    restart: always
-    networks:
-      - web
   oauth2:
     restart: always
     image: "a5huynh/oauth2_proxy:latest"
-    command: >-
-      --cookie-secure=true --upstream="http://skatekrak-staging:80"
+    command:
+      --cookie-secure=true --upstream="http://skatekrak-staging:3000"
       --http-address="0.0.0.0:4180"
       --redirect-url="https://home.staging.skatekrak.com/oauth2/callback"
       --email-domain="skatekrak.com" --custom-templates-dir="/templates"
@@ -29,6 +24,15 @@ services:
       - OAUTH2_PROXY_CLIENT_SECRET=ccLfreERpYpCC4-dEkzOkqen
     networks:
       - web
+
+  skatekrak-staging:
+    image: "$CI_REGISTRY_IMAGE:$STAGING_TAG"
+    restart: always
+    depends_on:
+      - oauth2
+    networks:
+      - web
+
 networks:
   web:
     external: true
