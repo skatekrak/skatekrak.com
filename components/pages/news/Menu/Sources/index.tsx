@@ -13,6 +13,7 @@ import {
     State as NewsState,
     unselectAllFilters,
 } from 'store/reducers/news';
+import analytics from '@thepunkclub/analytics';
 
 type Props = {
     sourcesMenuIsOpen: boolean;
@@ -94,10 +95,16 @@ class Sources extends React.PureComponent<Props, State> {
     }
 
     private onSelectAllClick = () => {
+        if (this.props.news.sources.size > 0) {
+            analytics.trackEvent('Click', 'Filter_Select_All', { value: 1 });
+        }
         this.props.dispatch(selectAllFilters());
     };
 
     private onDeselectAllClick = () => {
+        if (this.props.news.sources.size > 0) {
+            analytics.trackEvent('Click', 'Filter_Unselect_All', { value: 1 });
+        }
         this.props.dispatch(unselectAllFilters());
     };
 }

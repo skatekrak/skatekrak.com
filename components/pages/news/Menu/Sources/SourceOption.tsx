@@ -1,3 +1,4 @@
+import analytics from '@thepunkclub/analytics';
 import classNames from 'classnames';
 import * as React from 'react';
 import { connect } from 'react-redux';
@@ -57,6 +58,11 @@ class SourceOption extends React.PureComponent<Props, State> {
     }
 
     private handleSourceOptionClick = () => {
+        if (this.props.state === FilterState.SELECTED) {
+            analytics.trackEvent('Click', 'Filter_Unselect', { name: this.props.source.label, value: 1 });
+        } else if (this.props.state === FilterState.UNSELECTED) {
+            analytics.trackEvent('Click', 'Filter_Select', { name: this.props.source.label, value: 1 });
+        }
         this.props.dispatch(toggleFilter(this.props.source));
     };
 }
