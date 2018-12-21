@@ -8,6 +8,7 @@ import Article from 'components/pages/news/Articles/Article';
 import Loading from 'components/pages/news/Articles/Loading';
 import NoMore from 'components/pages/news/Articles/NoMore';
 import TrackedPage from 'components/pages/TrackedPage';
+import getScrollContainer from 'lib/getScrollContainer';
 import sleep from 'lib/sleep';
 import { Content, Source } from 'rss-feed';
 import { feedEndRefresh, FilterState, State as NewsState } from 'store/reducers/news';
@@ -22,7 +23,6 @@ type State = {
     contents: Content[];
     isLoading: boolean;
     hasMore: boolean;
-    useWindow: boolean;
 };
 
 class Articles extends React.Component<Props, State> {
@@ -30,16 +30,7 @@ class Articles extends React.Component<Props, State> {
         contents: [],
         isLoading: false,
         hasMore: true,
-        useWindow: true,
     };
-
-    public componentDidMount() {
-        if (window.innerWidth < 1024) {
-            this.setState({ useWindow: true });
-        } else {
-            this.setState({ useWindow: false });
-        }
-    }
 
     public async componentDidUpdate() {
         if (this.props.news.feedNeedRefresh && !this.state.isLoading) {
@@ -50,7 +41,7 @@ class Articles extends React.Component<Props, State> {
 
     public render() {
         const { sourcesMenuIsOpen } = this.props;
-        const { contents, isLoading, hasMore, useWindow } = this.state;
+        const { contents, isLoading, hasMore } = this.state;
 
         return (
             <div id="news-articles-container" className="col-xs-12 col-md-8 col-lg-9">
@@ -60,8 +51,8 @@ class Articles extends React.Component<Props, State> {
                     initialLoad={false}
                     loadMore={this.loadMore}
                     hasMore={!isLoading && hasMore}
-                    getScrollParent={this.getScrollParent}
-                    useWindow={useWindow}
+                    getScrollParent={getScrollContainer}
+                    useWindow={false}
                 >
                     <div className={classNames('row', { hide: sourcesMenuIsOpen })}>
                         {contents.length === 0 && !isLoading && (
@@ -82,10 +73,6 @@ class Articles extends React.Component<Props, State> {
             </div>
         );
     }
-
-    private getScrollParent = () => {
-        return document.getElementById('main-container');
-    };
 
     private loadMore = async (page: number) => {
         try {
