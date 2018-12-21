@@ -1,3 +1,4 @@
+import analytics from '@thepunkclub/analytics';
 import axios from 'axios';
 import classNames from 'classnames';
 import * as React from 'react';
@@ -13,7 +14,6 @@ import {
     State as NewsState,
     unselectAllFilters,
 } from 'store/reducers/news';
-import analytics from '@thepunkclub/analytics';
 
 type Props = {
     sourcesMenuIsOpen: boolean;
