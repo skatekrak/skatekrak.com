@@ -1,5 +1,5 @@
 import { distanceInWordsToNow } from 'date-fns';
-import * as React from 'react';
+import React from 'react';
 import Truncate from 'react-truncate';
 import { Content } from 'rss-feed';
 

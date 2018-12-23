@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 
 import NavItem from 'components/Header/NavItem';
 import Link from 'components/Link';

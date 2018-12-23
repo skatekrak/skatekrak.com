@@ -1,31 +1,47 @@
 import axios, { AxiosError } from 'axios';
 import validator from 'email-validator';
+import Head from 'next/head';
 import React from 'react';
 
 import Layout from 'components/Layout/Layout';
 import TrackedPage from 'components/pages/TrackedPage';
-import ErrorMessage from 'components/Ui/Form/ErrorMessage';
 import LikeIcon from 'components/Ui/Icons/Like';
 
 type State = {
-    subscribed: boolean;
     subscribeError?: string;
     email: string;
 };
+
+const NewsHead = () => (
+    <Head>
+        <title>Krak</title>
+        <meta
+            name="description"
+            content="Skateboarding is not a hobby. And it’s not a sport. Skateboarding is a way of learning how to redefine the world around you. Ian Mackaye."
+        />
+        <meta property="og:title" content="Krak" />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://skatekrak.com" />
+        <meta property="og:image" content="/static/og-home.jpg" />
+        <meta
+            property="og:description"
+            content="Skateboarding is not a hobby. And it’s not a sport. Skateboarding is a way of learning how to redefine the world around you. Ian Mackaye"
+        />
+    </Head>
+);
 
 /* tslint:disable:max-line-length */
 class Index extends React.PureComponent<{}, State> {
     public state: State = {
         email: '',
-        subscribed: false,
         subscribeError: null,
     };
 
     public render() {
-        const { email, subscribed, subscribeError } = this.state;
+        const { email } = this.state;
         return (
             <TrackedPage name="Homepage">
-                <Layout>
+                <Layout head={NewsHead}>
                     <React.Fragment>
                         <div id="home-container" className="container-fluid">
                             <form id="home-news" onSubmit={this.handleSubmit}>
@@ -61,7 +77,7 @@ class Index extends React.PureComponent<{}, State> {
         );
     }
 
-    private emailOnChange = (event) => {
+    private emailOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         this.setState({ email: event.target.value });
     };
 

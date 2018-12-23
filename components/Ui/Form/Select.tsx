@@ -1,7 +1,7 @@
 /*
  * Npm import
  */
-import * as React from 'react';
+import React from 'react';
 import ReactSelect from 'react-select';
 
 /*
