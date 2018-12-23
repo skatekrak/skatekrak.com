@@ -20,7 +20,7 @@ const NewsHead = () => (
         <meta property="og:title" content="Krak | News" />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://skatekrak.com/news" />
-        <meta property="og:image" content="/static/og-news.jpg" />
+        <meta property="og:image" content="/static/images/og-news.jpg" />
         <meta
             property="og:description"
             content="Don't miss anything in the skateboarding world - Krak is bringing you the 'news' from 40 sources hand-curated with passion, love & noise"
@@ -36,7 +36,7 @@ class News extends React.PureComponent<{}, State> {
     public render() {
         const { sourcesMenuIsOpen } = this.state;
         return (
-            <Layout head={NewsHead}>
+            <Layout head={<NewsHead />}>
                 <React.Fragment>
                     <div id="news-container" className="container-fluid">
                         <div className="row">

@@ -24,7 +24,7 @@ const ClubHead = () => (
         <meta property="og:title" content="Krak Skateboarding Club" />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://skatekrak.com/club" />
-        <meta property="og:image" content="/static/og-club.jpg" />
+        <meta property="og:image" content="/static/images/og-club.jpg" />
         <meta
             property="og:description"
             content="Krak Skateboarding Club. You're not alone. Let's enjoy skateboarding even more"
@@ -34,7 +34,7 @@ const ClubHead = () => (
 
 const Club: React.SFC<IClubProps> = ({ payment }) => (
     <TrackedPage name="Club">
-        <Layout head={ClubHead}>
+        <Layout head={<ClubHead />}>
             <div id="club" className="container-fluid page-padding">
                 <div id="club-header">
                     <h1 id="club-header-title">Krak Skateboarding Club.</h1>
