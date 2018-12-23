@@ -1,4 +1,5 @@
 import { Source } from 'rss-feed';
+import LocalStorage from 'lib/LocalStorage';
 
 const SET_ALL_SOURCES = 'SET_ALL_SOURCES';
 
@@ -33,7 +34,11 @@ export default (state = initialState, action: any = {}) => {
             const sources: Source[] = action.sources;
             const map: Map<Source, FilterState> = new Map();
             for (const source of sources) {
-                map.set(source, FilterState.LOADING_TO_SELECTED);
+                if (LocalStorage.isSourceSelected(source)) {
+                    map.set(source, FilterState.LOADING_TO_SELECTED);
+                } else {
+                    map.set(source, FilterState.UNSELECTED);
+                }
             }
             return {
                 ...state,
@@ -46,8 +51,10 @@ export default (state = initialState, action: any = {}) => {
             for (const entry of state.sources.entries()) {
                 if (entry[1] === FilterState.LOADING_TO_SELECTED) {
                     map.set(entry[0], FilterState.SELECTED);
+                    LocalStorage.saveSourceState(entry[0], true);
                 } else if (entry[1] === FilterState.LOADING_TO_UNSELECTED) {
                     map.set(entry[0], FilterState.UNSELECTED);
+                    LocalStorage.saveSourceState(entry[0], false);
                 } else {
                     map.set(entry[0], entry[1]);
                 }
