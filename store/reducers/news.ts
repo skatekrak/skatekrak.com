@@ -1,5 +1,5 @@
-import { Source } from 'rss-feed';
 import LocalStorage from 'lib/LocalStorage';
+import { Source } from 'rss-feed';
 
 const SET_ALL_SOURCES = 'SET_ALL_SOURCES';
 
