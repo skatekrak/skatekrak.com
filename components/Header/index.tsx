@@ -10,7 +10,7 @@ type State = {
     navItemAppIsOpen: boolean;
 };
 
-export default class extends React.Component<State> {
+export default class extends React.Component<{}, State> {
     public state: State = {
         navItemAppIsOpen: false,
     };
