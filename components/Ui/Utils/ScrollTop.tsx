@@ -8,7 +8,7 @@ import React from 'react';
 /*
  * Local import
  */
-import getScrollContainer from 'lib/getScrollContainer';
+import ScrollHelper from 'lib/ScrollHelper';
 
 /*
  * Code
@@ -19,12 +19,12 @@ type Props = {
 
 class ScrollTop extends React.PureComponent<Props, {}> {
     public componentDidMount() {
-        const scrollContainer = getScrollContainer();
+        const scrollContainer = ScrollHelper.getScrollContainer();
         scrollContainer.addEventListener('scroll', this.handleScroll);
     }
 
     public componentWillUnmount() {
-        const scrollContainer = getScrollContainer();
+        const scrollContainer = ScrollHelper.getScrollContainer();
         scrollContainer.removeEventListener('scroll', this.handleScroll);
     }
 
@@ -46,7 +46,7 @@ class ScrollTop extends React.PureComponent<Props, {}> {
     }
 
     private handleScroll = () => {
-        const scrollContainer = getScrollContainer();
+        const scrollContainer = ScrollHelper.getScrollContainer();
 
         const { elementId } = this.props;
         const element = document.getElementById(elementId);
@@ -64,7 +64,7 @@ class ScrollTop extends React.PureComponent<Props, {}> {
     private handleTopClick = () => {
         jump(`#${this.props.elementId}`, {
             offset: -300,
-            container: getScrollContainer(),
+            container: ScrollHelper.getScrollContainer(),
         });
     };
 }

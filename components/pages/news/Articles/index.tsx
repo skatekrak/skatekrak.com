@@ -8,8 +8,8 @@ import Article from 'components/pages/news/Articles/Article';
 import Loading from 'components/pages/news/Articles/Loading';
 import NoMore from 'components/pages/news/Articles/NoMore';
 import TrackedPage from 'components/pages/TrackedPage';
-import getScrollContainer from 'lib/getScrollContainer';
-import sleep from 'lib/sleep';
+import ScrollHelper from 'lib/ScrollHelper';
+import Thread from 'lib/Thread';
 import { Content, Source } from 'rss-feed';
 import { feedEndRefresh, FilterState, State as NewsState } from 'store/reducers/news';
 
@@ -46,12 +46,12 @@ class Articles extends React.Component<Props, State> {
         return (
             <div id="news-articles-container" className="col-xs-12 col-md-8 col-lg-9">
                 <InfiniteScroll
-                    key={'infinite-need-refresh-' + this.props.news.feedNeedRefresh}
+                    key={`infinite-need-refresh-${this.props.news.feedNeedRefresh}`}
                     pageStart={1}
                     initialLoad={false}
                     loadMore={this.loadMore}
                     hasMore={!isLoading && hasMore}
-                    getScrollParent={getScrollContainer}
+                    getScrollParent={ScrollHelper.getScrollContainer}
                     useWindow={false}
                 >
                     <div className={classNames('row', { hide: sourcesMenuIsOpen })}>
@@ -86,7 +86,7 @@ class Articles extends React.Component<Props, State> {
                 req = axios.get(`${process.env.RSS_BACKEND_URL}/feeds/`, { params: { page, filters } });
             }
             // Force minumum wait time of 150ms
-            const [res] = await Promise.all([req, sleep(150)]);
+            const [res] = await Promise.all([req, Thread.sleep(150)]);
             if (res.data) {
                 const data: Content[] = res.data;
                 const contents = this.state.contents;
