@@ -12,7 +12,7 @@ type State = {
     email: string;
 };
 
-const NewsHead = () => (
+const HomeHead = () => (
     <Head>
         <title>Krak</title>
         <meta
@@ -22,7 +22,7 @@ const NewsHead = () => (
         <meta property="og:title" content="Krak" />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://skatekrak.com" />
-        <meta property="og:image" content="/static/og-home.jpg" />
+        <meta property="og:image" content="/static/images/og-home.jpg" />
         <meta
             property="og:description"
             content="Skateboarding is not a hobby. And it’s not a sport. Skateboarding is a way of learning how to redefine the world around you. Ian Mackaye"
@@ -41,7 +41,7 @@ class Index extends React.PureComponent<{}, State> {
         const { email } = this.state;
         return (
             <TrackedPage name="Homepage">
-                <Layout head={NewsHead}>
+                <Layout head={<HomeHead />}>
                     <React.Fragment>
                         <div id="home-container" className="container-fluid">
                             <form id="home-news" onSubmit={this.handleSubmit}>
