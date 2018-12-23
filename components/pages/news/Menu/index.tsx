@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 
 import Sources from 'components/pages/news/Menu/Sources';
 import ScrollTop from 'components/Ui/Utils/ScrollTop';

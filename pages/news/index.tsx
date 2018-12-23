@@ -1,4 +1,5 @@
-import * as React from 'react';
+import Head from 'next/head';
+import React from 'react';
 
 import Layout from 'components/Layout/Layout';
 
@@ -9,6 +10,24 @@ type State = {
     sourcesMenuIsOpen: boolean;
 };
 
+const NewsHead = () => (
+    <Head>
+        <title>Krak | News</title>
+        <meta
+            name="description"
+            content="Don't miss anything in the skateboarding world - Krak is bringing you the 'news' from 40 sources hand-curated with passion, love & noise."
+        />
+        <meta property="og:title" content="Krak | News" />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://skatekrak.com/news" />
+        <meta property="og:image" content="/static/og-news.jpg" />
+        <meta
+            property="og:description"
+            content="Don't miss anything in the skateboarding world - Krak is bringing you the 'news' from 40 sources hand-curated with passion, love & noise"
+        />
+    </Head>
+);
+
 class News extends React.PureComponent<{}, State> {
     public state: State = {
         sourcesMenuIsOpen: false,
@@ -17,7 +36,7 @@ class News extends React.PureComponent<{}, State> {
     public render() {
         const { sourcesMenuIsOpen } = this.state;
         return (
-            <Layout>
+            <Layout head={NewsHead}>
                 <React.Fragment>
                     <div id="news-container" className="container-fluid">
                         <div className="row">

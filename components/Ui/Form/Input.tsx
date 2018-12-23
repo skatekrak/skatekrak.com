@@ -1,7 +1,7 @@
 /*
  * Npm import
  */
-import * as React from 'react';
+import React from 'react';
 
 import { createRenderer } from 'components/Ui/Form/render';
 

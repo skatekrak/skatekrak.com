@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 
 import RenderInput from 'components/Ui/Form/Input';
 import RenderSelect from 'components/Ui/Form/Select';

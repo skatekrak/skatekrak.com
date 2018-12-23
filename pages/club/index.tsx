@@ -1,4 +1,5 @@
-import * as React from 'react';
+import Head from 'next/head';
+import React from 'react';
 import { connect } from 'react-redux';
 
 import Layout from 'components/Layout/Layout';
@@ -13,9 +14,27 @@ interface IClubProps {
     };
 }
 
+const ClubHead = () => (
+    <Head>
+        <title>Krak | Club</title>
+        <meta
+            name="description"
+            content="Krak Skateboarding Club. You're not alone. Let's enjoy skateboarding even more."
+        />
+        <meta property="og:title" content="Krak Skateboarding Club" />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://skatekrak.com/club" />
+        <meta property="og:image" content="/static/og-club.jpg" />
+        <meta
+            property="og:description"
+            content="Krak Skateboarding Club. You're not alone. Let's enjoy skateboarding even more"
+        />
+    </Head>
+);
+
 const Club: React.SFC<IClubProps> = ({ payment }) => (
     <TrackedPage name="Club">
-        <Layout>
+        <Layout head={ClubHead}>
             <div id="club" className="container-fluid page-padding">
                 <div id="club-header">
                     <h1 id="club-header-title">Krak Skateboarding Club.</h1>

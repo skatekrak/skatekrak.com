@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import Head from 'next/head';
-import * as React from 'react';
+import React from 'react';
 
 import Header from 'components/Header';
 
@@ -14,7 +14,7 @@ import 'static/styles/styleguide.styl';
 import 'static/styles/stylus-mq.styl';
 
 interface ILayoutProps {
-    head?: Head;
+    head?: React.ReactNode;
 }
 
 type State = {
@@ -41,9 +41,7 @@ class Layout extends React.Component<ILayoutProps, State> {
         return (
             <div>
                 {head ? (
-                    {
-                        head,
-                    }
+                    head
                 ) : (
                     <Head>
                         <title>Krak Skateboarding</title>
