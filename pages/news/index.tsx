@@ -20,7 +20,7 @@ const NewsHead = () => (
         <meta property="og:title" content="Krak | News" />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://skatekrak.com/news" />
-        <meta property="og:image" content="/static/images/og-news.jpg" />
+        <meta property="og:image" content="https://skatekrak.com/static/images/og-news.jpg" />
         <meta
             property="og:description"
             content="Don't miss anything in the skateboarding world - Krak is bringing you the 'news' from 40 sources hand-curated with passion, love & noise"
