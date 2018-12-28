@@ -45,8 +45,6 @@ class Layout extends React.Component<ILayoutProps, State> {
                 ) : (
                     <Head>
                         <title>Krak Skateboarding</title>
-                        <meta charSet="utf-8" />
-                        <meta name="viewport" content="with-device-with, initial-scale=1" />
                         <meta name="description" content="" />
                         <meta property="og:title" content="Krak - Dig deeper into skateboarding" />
                         <meta property="og:type" content="website" />
