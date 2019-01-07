@@ -150,7 +150,7 @@ export default class extends React.Component<{}, State> {
                             </li>
                         </ul>
                     </nav>
-                    <p id="header-nav-credits">© 2018 skatekrak</p>
+                    <p id="header-nav-credits">© {new Date().getUTCFullYear()} skatekrak</p>
                 </div>
             </header>
         );
