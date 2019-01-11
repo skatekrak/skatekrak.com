@@ -55,7 +55,7 @@ export default class extends React.Component<{}, State> {
                         <ul id="header-nav-main-container">
                             <NavItem title="Club" url="/club" />
                             <NavItem title="News" url="/news" />
-                            <NavItem title="Mag" url="https://mag.skatekrak.com/" blank />
+                            {/* <NavItem title="Mag" url="https://mag.skatekrak.com/" blank /> */}
                             <NavItem title="Youtube" url="https://www.youtube.com/krakskate" blank />
                             <div className="header-nav-main-item-app-container">
                                 {!navItemAppIsOpen ? (
