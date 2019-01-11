@@ -33,7 +33,7 @@ class MyApp extends App {
                 <Provider store={reduxStore}>
                     <>
                         <Component {...pageProps} />
-                        <Intercom appID="u2h2grby" />
+                        {this.props.router.route.startsWith('/club') && <Intercom appID={process.env.INTERCOM_ID} />}
                     </>
                 </Provider>
             </Container>
