@@ -1,4 +1,4 @@
-FROM node:10
+FROM node:lts
 
 ARG NPM_AUTH_TOKEN
 ARG BACKEND_URL
