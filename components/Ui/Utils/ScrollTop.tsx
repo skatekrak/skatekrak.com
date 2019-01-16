@@ -4,23 +4,33 @@
  */
 import jump from 'jump.js';
 import React from 'react';
+import { connect } from 'react-redux';
 
 /*
  * Local import
  */
 import ScrollHelper from 'lib/ScrollHelper';
+import { State as SettingState } from 'store/reducers/setting';
 
 /*
  * Code
  */
 type Props = {
     elementId: string;
+    setting: SettingState;
 };
 
 class ScrollTop extends React.PureComponent<Props, {}> {
     public componentDidMount() {
         const scrollContainer = ScrollHelper.getScrollContainer();
         scrollContainer.addEventListener('scroll', this.handleScroll);
+    }
+
+    public componentDidUpdate(prevProps) {
+        if (prevProps.setting.isMobile !== this.props.setting.isMobile) {
+            const scrollContainer = ScrollHelper.getScrollContainer();
+            scrollContainer.addEventListener('scroll', this.handleScroll);
+        }
     }
 
     public componentWillUnmount() {
@@ -69,4 +79,4 @@ class ScrollTop extends React.PureComponent<Props, {}> {
     };
 }
 
-export default ScrollTop;
+export default connect((state: any) => ({ setting: state.setting }))(ScrollTop);

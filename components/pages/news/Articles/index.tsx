@@ -12,10 +12,12 @@ import ScrollHelper from 'lib/ScrollHelper';
 import Thread from 'lib/Thread';
 import { Content, Source } from 'rss-feed';
 import { feedEndRefresh, FilterState, State as NewsState } from 'store/reducers/news';
+import { State as SettingState } from 'store/reducers/setting';
 
 type Props = {
     sourcesMenuIsOpen: boolean;
     news: NewsState;
+    setting: SettingState;
     dispatch: (fct: any) => void;
 };
 
@@ -51,7 +53,7 @@ class Articles extends React.Component<Props, State> {
                     initialLoad={false}
                     loadMore={this.loadMore}
                     hasMore={!isLoading && hasMore}
-                    getScrollParent={ScrollHelper.getScrollContainer}
+                    getScrollParent={this.getScrollContainer}
                     useWindow={false}
                 >
                     <div className={classNames('row', { hide: sourcesMenuIsOpen })}>
@@ -103,6 +105,10 @@ class Articles extends React.Component<Props, State> {
         }
     };
 
+    private getScrollContainer = () => {
+        return ScrollHelper.getScrollContainer();
+    };
+
     private getFilters(sources: Map<Source, FilterState>): string[] {
         const arr: string[] = [];
         for (const entry of sources.entries()) {
@@ -114,4 +120,4 @@ class Articles extends React.Component<Props, State> {
     }
 }
 
-export default connect((state: any) => ({ news: state.news }))(Articles);
+export default connect((state: any) => ({ news: state.news, setting: state.setting }))(Articles);
