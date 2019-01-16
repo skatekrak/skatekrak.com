@@ -2,6 +2,7 @@ import Head from 'next/head';
 import React from 'react';
 
 import Layout from 'components/Layout/Layout';
+import BannerTop from 'components/Ui/Banners/BannerTop';
 
 import Articles from 'components/pages/news/Articles';
 import Menu from 'components/pages/news/Menu';
@@ -38,6 +39,7 @@ class News extends React.PureComponent<{}, State> {
         return (
             <Layout head={<NewsHead />}>
                 <React.Fragment>
+                    <BannerTop />
                     <div id="news-container" className="container-fluid">
                         <div className="row">
                             <Menu

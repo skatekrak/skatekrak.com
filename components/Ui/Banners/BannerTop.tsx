@@ -1,0 +1,67 @@
+/*
+ * Npm import
+ */
+import React from 'react';
+import { connect } from 'react-redux';
+
+/*
+ * Local import
+ */
+import Link from 'components/Link';
+import ScrollHelper from 'lib/ScrollHelper';
+import { State as SettingState } from 'store/reducers/setting';
+
+/*
+ * Code
+ */
+type Props = {
+    setting: SettingState;
+};
+
+class BannerTop extends React.Component<Props, {}> {
+    public componentDidMount() {
+        const scrollContainer = ScrollHelper.getScrollContainer();
+        scrollContainer.addEventListener('scroll', this.handleScroll);
+    }
+
+    public componentDidUpdate(prevProps) {
+        if (prevProps.setting.isMobile !== this.props.setting.isMobile) {
+            const scrollContainer = ScrollHelper.getScrollContainer();
+            scrollContainer.addEventListener('scroll', this.handleScroll);
+        }
+    }
+
+    public componentWillUnmount() {
+        const scrollContainer = ScrollHelper.getScrollContainer();
+        scrollContainer.removeEventListener('scroll', this.handleScroll);
+    }
+
+    public render() {
+        return (
+            <Link href="/club">
+                <a id="banner-top">Join the club</a>
+            </Link>
+        );
+    }
+
+    private handleScroll = () => {
+        const scrollContainer = ScrollHelper.getScrollContainer();
+        let showFrom = 0;
+
+        /* Define when to show the banner based on device size */
+        if (scrollContainer.id === 'page-container') {
+            showFrom = 900;
+        } else {
+            showFrom = 600;
+        }
+
+        const banner = document.getElementById('banner-top');
+        if (scrollContainer.scrollTop > showFrom) {
+            banner.classList.add('banner-top-show');
+        } else {
+            banner.classList.remove('banner-top-show');
+        }
+    };
+}
+
+export default connect((state: any) => ({ setting: state.setting }))(BannerTop);
