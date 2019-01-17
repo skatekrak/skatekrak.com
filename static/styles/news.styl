@@ -4,11 +4,68 @@
 /* NEWS STYLES */
 
 /* Articles */
-.news-article-ad
-	min-height: 16rem
+.news-article-club
+	display: flex
+	flex-direction: column
+	justify-content: space-between
+	min-height: 12rem
 	height: 100%
-	background-color: $grey-900
+	padding: 1.5rem
+	background-color: $grey-800
+	background: url('/static/images/club-presentation-bg.jpg')
+	background-size: cover
+	background-position: center
 	border-radius: 0.25rem
+
+	&-illustration
+		max-width: 55%
+		margin: 0 auto .5rem
+
+		+mq($from: "tiny")
+			max-width: 35%
+
+		+mq($from: "small")
+			max-width: 65%
+
+		+mq($from: "medium")
+			max-width: 70%
+			margin: auto
+
+		+mq($from: "large")
+			max-width: 80%
+			margin: auto
+
+	&-cta
+		padding: .5rem 1rem
+		font-family: $ff-roboto-bold
+		text-align: center
+		color: $white
+		border-radius: 0.25rem
+		background-color: $primary
+		box-shadow: 0px 4px 8px 0px rgba(0,0,0,0.25)
+		transition: .3s
+
+		&:hover
+			background-color: $primaryDark
+
+		&-container
+			display: flex
+			flex-direction: column
+
+			+mq($from: "tiny")
+				margin: 0 auto
+
+			+mq($from: "small")
+				margin: 0
+
+		&-text
+			margin-bottom: .75rem
+			font-family: $ff-roboto-bold
+			text-align: center
+			color: $grey-100
+
+			+mq($from: "medium")
+				margin-bottom: 1rem
 
 .news-article
 		margin-bottom: 2rem
