@@ -11,12 +11,12 @@ type Props = {
 
 type State = {};
 
-class Article extends React.PureComponent<Props, State> {
+class Card extends React.PureComponent<Props, State> {
     public render() {
         const { content } = this.props;
 
         return (
-            <div className="news-article col-xs-12 col-sm-6 col-lg-3">
+            <>
                 <a href={content.webUrl} className="news-article-link" target="_blank" rel="noreferrer">
                     <div className="news-article-cover-img-container">
                         <BackgroundLoader
@@ -47,7 +47,7 @@ class Article extends React.PureComponent<Props, State> {
                         {this.getContent(content)}
                     </Truncate>
                 </p>
-            </div>
+            </>
         );
     }
 
@@ -68,4 +68,4 @@ class Article extends React.PureComponent<Props, State> {
     }
 }
 
-export default Article;
+export default Card;
