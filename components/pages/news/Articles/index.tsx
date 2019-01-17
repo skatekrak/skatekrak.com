@@ -63,8 +63,8 @@ class Articles extends React.Component<Props, State> {
                                 <p id="news-articles-no-content-text">Select some mags to be back in the loop</p>
                             </div>
                         )}
-                        {contents.map((content) => (
-                            <Article key={content.id} content={content} />
+                        {contents.map((content, i) => (
+                            <Article key={content.id} content={content} isAnAd={i % (((7 + 2) * 3) / 4) === 0} />
                         ))}
                         {isLoading && <Loading />}
                         {contents.length > 0 && !hasMore && <NoMore />}
