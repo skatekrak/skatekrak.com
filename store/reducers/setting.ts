@@ -3,7 +3,7 @@ export const SET_DEVICE_SIZE = 'SET_DEVICE_SIZE';
 export enum FeedLayout {
     OneColumn = 768,
     TwoColumns = 1440,
-    FourColumns = Infinity,
+    FourColumns = 1000000,
 }
 
 export type State = {
