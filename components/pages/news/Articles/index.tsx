@@ -12,12 +12,12 @@ import ScrollHelper from 'lib/ScrollHelper';
 import Thread from 'lib/Thread';
 import { Content, Source } from 'rss-feed';
 import { feedEndRefresh, FilterState, State as NewsState } from 'store/reducers/news';
-import { State as SettingState } from 'store/reducers/setting';
+import { FeedLayout } from 'store/reducers/setting';
 
 type Props = {
     sourcesMenuIsOpen: boolean;
     news: NewsState;
-    setting: SettingState;
+    feedLayout: FeedLayout;
     dispatch: (fct: any) => void;
 };
 
@@ -63,9 +63,9 @@ class Articles extends React.Component<Props, State> {
                                 <p id="news-articles-no-content-text">Select some mags to be back in the loop</p>
                             </div>
                         )}
-                        {contents.map((content, i) => (
-                            <Article key={content.id} content={content} isAnAd={i % (((7 + 2) * 3) / 4) === 0} />
-                        ))}
+
+                        {this.genArticlesList(contents)}
+
                         {isLoading && <Loading />}
                         {contents.length > 0 && !hasMore && <NoMore />}
 
@@ -118,6 +118,35 @@ class Articles extends React.Component<Props, State> {
         }
         return arr;
     }
+
+    private genArticlesList(contents: Content[]): JSX.Element[] {
+        const articles = contents.map((content) => <Article key={content.id} content={content} />);
+        let range = 0;
+        switch (this.props.feedLayout) {
+            case FeedLayout.OneColumn:
+                range = 40;
+                break;
+            case FeedLayout.TwoColumns:
+                range = 70;
+                break;
+            case FeedLayout.FourColumns:
+                range = 100;
+                break;
+        }
+        for (let i = 0; i < articles.length; i += range) {
+            let bound = i + range;
+            bound = Math.min(bound, articles.length);
+            const insert = this.getRandomInt(i, bound);
+            articles.splice(insert, 0, <Article key={`ksc-card-${insert}`} isClubPromotion />);
+        }
+        return articles;
+    }
+
+    private getRandomInt(min: number, max: number): number {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min)) + min;
+    }
 }
 
-export default connect((state: any) => ({ news: state.news, setting: state.setting }))(Articles);
+export default connect((state: any) => ({ news: state.news, feedLayout: state.setting.feedLayout }))(Articles);

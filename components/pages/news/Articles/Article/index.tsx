@@ -5,12 +5,24 @@ import Ad from 'components/pages/news/Articles/Article/Ad';
 import Card from 'components/pages/news/Articles/Article/Card';
 
 type Props = {
-    content: Content;
-    isAnAd: boolean;
+    content?: Content;
+    isClubPromotion?: boolean;
 };
 
-const Article: React.SFC<Props> = ({ content, isAnAd }: Props) => (
-    <div className="news-article col-xs-12 col-sm-6 col-lg-3">{!isAnAd ? <Card content={content} /> : <Ad />}</div>
-);
+class Article extends React.PureComponent<Props, {}> {
+    public static defaultProps = {
+        isClubPromotion: false,
+    };
+
+    public render() {
+        const { content, isClubPromotion } = this.props;
+
+        return (
+            <div className="news-article col-xs-12 col-sm-6 col-lg-3">
+                {!isClubPromotion ? <Card content={content} /> : <Ad />}
+            </div>
+        );
+    }
+}
 
 export default Article;

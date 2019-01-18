@@ -17,7 +17,7 @@ import 'static/styles/stylus-mq.styl';
 
 type Props = {
     head?: React.ReactNode;
-    setting: SettingState;
+    isMobile: boolean;
     dispatch: (fct: any) => void;
 };
 
@@ -32,8 +32,7 @@ class Layout extends React.Component<Props, {}> {
     }
 
     public render() {
-        const { head, children } = this.props;
-        const { isMobile } = this.props.setting;
+        const { head, children, isMobile } = this.props;
         return (
             <div>
                 {head ? (
@@ -64,4 +63,4 @@ class Layout extends React.Component<Props, {}> {
 }
 
 // export default Layout;
-export default connect((state: any) => ({ setting: state.setting }))(Layout);
+export default connect((state: { setting: SettingState }) => ({ isMobile: state.setting.isMobile }))(Layout);
