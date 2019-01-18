@@ -1,8 +1,10 @@
 import classNames from 'classnames';
 import Head from 'next/head';
 import React from 'react';
+import { connect } from 'react-redux';
 
 import Header from 'components/Header';
+import { setDeviceSize, State as SettingState } from 'store/reducers/setting';
 
 /* tslint:disable:ordered-imports */
 import 'static/styles/reset.css';
@@ -13,31 +15,24 @@ import 'static/styles/main.styl';
 import 'static/styles/styleguide.styl';
 import 'static/styles/stylus-mq.styl';
 
-interface ILayoutProps {
+type Props = {
     head?: React.ReactNode;
-}
-
-type State = {
-    isMobile: boolean | null;
+    isMobile: boolean;
+    dispatch: (fct: any) => void;
 };
 
-class Layout extends React.Component<ILayoutProps, State> {
-    public state: State = {
-        isMobile: null,
-    };
-
+class Layout extends React.Component<Props, {}> {
     public componentDidMount() {
-        window.addEventListener('resize', this.getWindowsDimensions);
-        this.getWindowsDimensions();
+        window.addEventListener('resize', this.setWindowsDimensions);
+        this.setWindowsDimensions();
     }
 
     public componentWillUnmount() {
-        window.removeEventListener('resize', this.getWindowsDimensions);
+        window.removeEventListener('resize', this.setWindowsDimensions);
     }
 
     public render() {
-        const { head, children } = this.props;
-        const { isMobile } = this.state;
+        const { head, children, isMobile } = this.props;
         return (
             <div>
                 {head ? (
@@ -62,15 +57,10 @@ class Layout extends React.Component<ILayoutProps, State> {
         );
     }
 
-    private getWindowsDimensions = () => {
-        const viewportWidth = window.innerWidth;
-
-        if (viewportWidth < 1024) {
-            this.setState({ isMobile: true });
-        } else {
-            this.setState({ isMobile: false });
-        }
+    private setWindowsDimensions = () => {
+        this.props.dispatch(setDeviceSize(window.innerWidth));
     };
 }
 
-export default Layout;
+// export default Layout;
+export default connect((state: { setting: SettingState }) => ({ isMobile: state.setting.isMobile }))(Layout);
