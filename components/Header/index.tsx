@@ -101,6 +101,7 @@ export default class extends React.Component<{}, State> {
                         </ul>
                     </nav>
                     <nav id="header-nav-subnav">
+                        <NavItem title="Kraken access" url="/club/login" />
                         <ul id="header-nav-subnav-container">
                             <li className="header-nav-subnav-item">
                                 <a
