@@ -23,6 +23,7 @@ type Props = {
 
 type State = {
     contents: Content[];
+    promoCardIndexes: number[];
     isLoading: boolean;
     hasMore: boolean;
 };
@@ -30,6 +31,7 @@ type State = {
 class Articles extends React.Component<Props, State> {
     public state: State = {
         contents: [],
+        promoCardIndexes: [],
         isLoading: false,
         hasMore: true,
     };
@@ -38,6 +40,9 @@ class Articles extends React.Component<Props, State> {
         if (this.props.news.feedNeedRefresh && !this.state.isLoading) {
             this.setState({ contents: [], hasMore: false });
             await this.loadMore(1);
+        }
+        if (this.props.feedLayout && this.state.promoCardIndexes.length === 0) {
+            this.genClubPromotionIndexes();
         }
     }
 
@@ -119,25 +124,34 @@ class Articles extends React.Component<Props, State> {
         return arr;
     }
 
+    private genClubPromotionIndexes(): void {
+        const indexes: number[] = [];
+        for (let i = 0; i < 20; i++) {
+            let range = 0;
+            switch (this.props.feedLayout) {
+                case FeedLayout.OneColumn:
+                    range = 40;
+                    break;
+                case FeedLayout.TwoColumns:
+                    range = 70;
+                    break;
+                case FeedLayout.FourColumns:
+                    range = 100;
+                    break;
+            }
+            const minBound = i * range + range * (1 / 3);
+            const maxBound = (i + 1) * range - range * (1 / 3);
+            indexes.push(this.getRandomInt(minBound, maxBound));
+        }
+        this.setState({ promoCardIndexes: indexes });
+    }
+
     private genArticlesList(contents: Content[]): JSX.Element[] {
         const articles = contents.map((content) => <Article key={content.id} content={content} />);
-        let range = 0;
-        switch (this.props.feedLayout) {
-            case FeedLayout.OneColumn:
-                range = 40;
-                break;
-            case FeedLayout.TwoColumns:
-                range = 70;
-                break;
-            case FeedLayout.FourColumns:
-                range = 100;
-                break;
-        }
-        for (let i = 0; i < articles.length; i += range) {
-            let bound = i + range;
-            bound = Math.min(bound, articles.length);
-            const insert = this.getRandomInt(i, bound);
-            articles.splice(insert, 0, <Article key={`ksc-card-${insert}`} isClubPromotion />);
+        for (const index of this.state.promoCardIndexes) {
+            if (index < articles.length) {
+                articles.splice(index, 0, <Article key={`ksc-card-${index}`} isClubPromotion />);
+            }
         }
         return articles;
     }
