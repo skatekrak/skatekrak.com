@@ -45,7 +45,13 @@ class PaymentForm extends React.Component<Props & InjectedFormProps, State> {
                                 </FormElement>
                             </div>
                             <div className="form-element">
-                                <Field name="code" component={RenderInput} type="text" label="Specials" showValid />
+                                <Field
+                                    name="code"
+                                    component={RenderInput}
+                                    type="text"
+                                    label="Specials (optional)"
+                                    showValid
+                                />
                             </div>
                             <div className="form-element">
                                 <div className="form-element-field">
