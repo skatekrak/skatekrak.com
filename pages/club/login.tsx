@@ -36,7 +36,6 @@ class Login extends React.PureComponent<Props & InjectedProps, State> {
     public render() {
         return (
             <Layout head={<LoginHead />}>
-                {console.log(this.props.setting.isMobile)}
                 <div className="auth-container container-fluid">
                     {this.props.setting.isMobile ? (
                         <span className="auth-back">Back</span>
