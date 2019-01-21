@@ -21,7 +21,11 @@ class MyApp extends App {
         if (window['__NEXT_REDUX_STORE__'] && this.props.router) {
             const { query } = this.props.router;
             if (query.cc && query.cc === 'us') {
-                window['__NEXT_REDUX_STORE__'].dispatch(savePricingCurrency(34800, 'usd'));
+                if (query.cc === 'us') {
+                    window['__NEXT_REDUX_STORE__'].dispatch(savePricingCurrency(34800, 'usd'));
+                } else if (query.cc === 'gb') {
+                    window['__NEXT_REDUX_STORE__'].dispatch(savePricingCurrency(34800, 'gbp'));
+                }
             }
         }
     }
