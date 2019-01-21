@@ -86,6 +86,7 @@ class PaymentForm extends React.Component<Props & InjectedFormProps, State> {
                             disabled={!valid || submitting}
                         >
                             Pay {this.props.payment.currency === 'usd' && '$'}
+                            {this.props.payment.currency === 'gbp' && '£'}
                             {this.props.payment.price / 100}
                             {this.props.payment.currency === 'eur' && '€'}
                         </button>
