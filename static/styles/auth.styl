@@ -1,0 +1,119 @@
+@import "./stylus-mq"
+@import "./styleguide"
+
+/*
+	AUTHENTICATION STYLES
+*/
+.auth
+	&-container
+		position: fixed
+		top: 0
+		right: 0
+		bottom: 0
+		left: 0
+		display: flex
+		color: $grey-100
+		z-index: 999999
+
+		&:before
+			content: ''
+			position: fixed
+			top: 0
+			right: 0
+			bottom: 0
+			left: 0
+			background-color: $grey-900
+			opacity: .85
+
+	&-close
+		position: absolute
+		top: 2rem
+		right: 2rem
+
+	&-back
+		position: absolute
+		top: 2rem
+		left: 2rem
+
+	&-form
+		&-container
+			position: relative
+			width: 100%
+			margin: auto
+			text-align: center
+
+		&-title
+			display: flex
+			font-family: 'Permanent Marker', cursive
+			font-size: $fs-large
+
+			&:before
+				content: ''
+				border-bottom: 1px solid $grey-100
+				width: 1.5rem
+				margin: auto 1rem auto auto
+
+			&:after
+				content: ''
+				border-bottom: 1px solid $grey-100
+				width: 1.5rem
+				margin: auto auto auto 1rem
+
+		&-desc
+			margin: 3rem 0
+
+		& input
+			border-radius: 4px
+
+		& .checkbox-container
+			padding-left: 1.75rem
+			font-family: 'Permanent Marker', cursive
+			font-size: $fs-small
+			text-align: left
+			color: $grey-200
+
+			& .checkmark
+				top: calc(50% - 0.5rem)
+				height: 1rem
+				width: 1rem
+				border: 2px solid $grey-200
+
+		&-submit
+			display: flex
+			align-items: center
+			justify-content: center
+			width: 100%
+			margin-top: 2rem
+			padding: 1rem 2rem
+			font-family: $ff-roboto-bold
+			font-size: $fs-regular
+			color: $white
+			background-color: $primary
+			border-radius: 4px
+			transition: .3s
+
+			&:hover
+				background-color: $primaryDark
+
+	&-link
+		&-container
+			display: flex
+			margin-top: 1.5rem
+			font-size: $fs-small
+			color: $grey-200
+			text-decoration: underline
+
+			& a
+				width: 50%
+
+				&:hover
+					color: $white
+
+				&:first-child
+					padding-right: 1rem
+					text-align: right
+					border-right: 1px solid $grey-200
+
+				&:last-child
+					padding-left: 1rem
+					text-align: left
