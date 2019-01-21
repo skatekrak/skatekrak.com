@@ -20,7 +20,7 @@ class MyApp extends App {
     componentDidMount() {
         if (window['__NEXT_REDUX_STORE__'] && this.props.router) {
             const { query } = this.props.router;
-            if (query.cc && query.cc === 'us') {
+            if (query.cc) {
                 if (query.cc === 'us') {
                     window['__NEXT_REDUX_STORE__'].dispatch(savePricingCurrency(34800, 'usd'));
                 } else if (query.cc === 'gb') {
