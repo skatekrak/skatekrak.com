@@ -42,6 +42,7 @@ class Club extends React.Component<Props, State> {
                                     <div id="checkout-header-price-container">
                                         <p id="checkout-header-price">
                                             {this.props.payment.currency === 'usd' && '$'}
+                                            {this.props.payment.currency === 'gbp' && '£'}
                                             {this.props.payment.price / 100}
                                             {this.props.payment.currency === 'eur' && '€'} today
                                         </p>
