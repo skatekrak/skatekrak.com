@@ -44,7 +44,8 @@ const Club: React.SFC<IClubProps> = ({ payment }) => (
                 <div id="club-cta-container">
                     <Link href="/club/subscribe" prefetch>
                         <a id="club-cta">
-                            Join the club - {payment.currency === 'usd' && '$'}29
+                            Join the club - {payment.currency === 'usd' && '$'}
+                            {payment.currency === 'gbp' && '£'}29
                             {payment.currency === 'eur' && '€'}/month
                         </a>
                     </Link>
