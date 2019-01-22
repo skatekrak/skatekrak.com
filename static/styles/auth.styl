@@ -15,6 +15,9 @@
 		color: $grey-100
 		z-index: 999999
 
+		+mq($from: "medium")
+				position: absolute
+
 		&:before
 			content: ''
 			position: fixed
@@ -25,15 +28,37 @@
 			background-color: $grey-900
 			opacity: .85
 
+			+mq($from: "medium")
+				position: absolute
+
 	&-close
 		position: absolute
 		top: 2rem
 		right: 2rem
 
+		& svg
+			width: 1.5rem
+			fill: $grey-100
+
 	&-back
 		position: absolute
 		top: 2rem
 		left: 2rem
+		display: flex
+		align-items: center
+		font-family: $ff-roboto-bold
+		text-decoration: underline
+
+		+mq($from: "small")
+				top: 5rem
+				left: 8rem
+
+		& svg
+			width: 1.75rem
+			margin-top: 2px
+			margin-right: 1rem
+			fill: $grey-100
+			transform: rotate(180deg)
 
 	&-form
 		&-container
@@ -41,6 +66,12 @@
 			width: 100%
 			margin: auto
 			text-align: center
+
+			+mq($from: "small")
+				max-width: 350px
+
+			+mq($from: "medium")
+				max-width: 300px
 
 		&-title
 			display: flex
@@ -64,6 +95,9 @@
 
 		& input
 			border-radius: 4px
+
+		& .form-element-error
+			text-align: left
 
 		& .checkbox-container
 			padding-left: 1.75rem

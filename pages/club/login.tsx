@@ -8,7 +8,10 @@ import Layout from 'components/Layout/Layout';
 import RenderInput from 'components/Ui/Form/Input';
 import { State as SettingState } from 'store/reducers/setting';
 
-// TODO: Find how to properly put props here (with InjectedFormProps)
+import IconArrow from 'components/Ui/Icons/Arrow';
+import IconCross from 'components/Ui/Icons/Cross';
+
+// TODO: Find how to properly put props here (with InjectedFormProps)(also in ShipmentForm)
 interface Props {
     setting: SettingState;
     onSubmit: () => void;
@@ -38,9 +41,14 @@ class Login extends React.PureComponent<Props & InjectedProps, State> {
             <Layout head={<LoginHead />}>
                 <div className="auth-container container-fluid">
                     {this.props.setting.isMobile ? (
-                        <span className="auth-back">Back</span>
+                        <span className="auth-back">
+                            <IconArrow />
+                            Back
+                        </span>
                     ) : (
-                        <span className="auth-close">Close</span>
+                        <span className="auth-close">
+                            <IconCross />
+                        </span>
                     )}
                     <div className="auth-form-container">
                         <h1 className="auth-form-title">Enter the club</h1>
