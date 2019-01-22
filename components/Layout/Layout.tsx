@@ -14,7 +14,6 @@ import 'static/styles/helpers.styl';
 import 'static/styles/main.styl';
 import 'static/styles/styleguide.styl';
 import 'static/styles/stylus-mq.styl';
-import 'static/styles/auth.styl';
 
 type Props = {
     head?: React.ReactNode;
