@@ -56,8 +56,12 @@ class PaymentForm extends React.Component<Props & InjectedFormProps, State> {
                             <div className="form-element">
                                 <div className="form-element-field">
                                     <label htmlFor="acceptRenew" className="checkbox-container">
-                                        I understand & accept that my card will be automatically billed again the April
-                                        5th
+                                        I understand & accept that my membership will be automatically renewed again on{' '}
+                                        {this.props.payment.price === 8700 ? (
+                                            <span>April 5th 2019</span>
+                                        ) : (
+                                            <span>January 5th 2020</span>
+                                        )}
                                         <Field name="acceptRenew" id="acceptRenew" component="input" type="checkbox" />
                                         <span className="checkmark" />
                                     </label>
