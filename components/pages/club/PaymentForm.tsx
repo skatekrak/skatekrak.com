@@ -128,8 +128,6 @@ class PaymentForm extends React.Component<Props & InjectedFormProps, State> {
 const validate = (values) => {
     const errors: any = {};
 
-    console.log(values);
-
     if (!values.firstName) {
         errors.firstName = 'Required';
     }
