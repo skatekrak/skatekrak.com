@@ -31,15 +31,6 @@
 			background-color: $grey-900
 			opacity: .85
 
-	&-close
-		position: absolute
-		top: 2rem
-		right: 2rem
-
-		& svg
-			width: 1.5rem
-			fill: $grey-100
-
 	&-back
 		position: absolute
 		top: 2rem
@@ -52,6 +43,10 @@
 		+mq($from: "small")
 				top: 5rem
 				left: 8rem
+
+		+mq($from: "medium")
+				top: 4.5rem
+				left: 4rem
 
 		& svg
 			width: 1.75rem
