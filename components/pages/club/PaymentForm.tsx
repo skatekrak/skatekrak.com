@@ -56,7 +56,7 @@ class PaymentForm extends React.Component<Props & InjectedFormProps, State> {
                             <div className="form-element">
                                 <div className="form-element-field">
                                     <label htmlFor="acceptRenew" className="checkbox-container">
-                                        I understand & accept that my membership will be automatically renewed again on{' '}
+                                        I understand & accept that my membership will be automatically renewed on{' '}
                                         {this.props.payment.price === 8700 ? (
                                             <span>April 5th 2019</span>
                                         ) : (
