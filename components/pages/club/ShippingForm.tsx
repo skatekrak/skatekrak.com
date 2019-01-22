@@ -10,7 +10,7 @@ import RenderInput from 'components/Ui/Form/Input';
 
 import { savePricingCurrency } from 'store/reducers/payment';
 
-// TODO: Find how to properly put props here (with InjectedFormProps)
+// TODO: Find how to properly put props here (with InjectedFormProps)(also in login)
 interface Props {
     onSubmit: () => void;
     dispatch: (fct: any) => void;
