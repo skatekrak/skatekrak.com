@@ -30,10 +30,6 @@ const countriesOptions = [
         label: 'Belgium',
     },
     {
-        value: 'ch',
-        label: 'Switzerland',
-    },
-    {
         value: 'de',
         label: 'Germany',
     },
