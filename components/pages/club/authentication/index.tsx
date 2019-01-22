@@ -1,5 +1,6 @@
 import Router, { withRouter } from 'next/router';
 import React from 'react';
+import { connect } from 'react-redux';
 
 import Link from 'components/Link';
 import ForgotPassword from 'components/pages/club/authentication/forgotPassword';
@@ -8,14 +9,35 @@ import ResetPassword from 'components/pages/club/authentication/resetPassword';
 
 import IconArrow from 'components/Ui/Icons/Arrow';
 
+import ScrollHelper from 'lib/ScrollHelper';
+import { State as SettingState } from 'store/reducers/setting';
+
 type Props = {
     view: string;
     router: any;
+    setting: SettingState;
 };
 
 type State = {};
 
 class ClubAuth extends React.PureComponent<Props, State> {
+    public componentDidMount() {
+        const scrollContainer = ScrollHelper.getScrollContainer();
+        scrollContainer.classList.add('blur-bg');
+        Router.events.on('routeChangeStart', this.handleChangeRoute);
+    }
+
+    public componentDidUpdate(prevProps) {
+        if (prevProps.setting.isMobile !== this.props.setting.isMobile) {
+            const scrollContainer = ScrollHelper.getScrollContainer();
+            scrollContainer.classList.add('blur-bg');
+        }
+    }
+
+    public componentWillUnmount() {
+        Router.events.off('routeChangeStart', this.handleChangeRoute);
+    }
+
     public render() {
         return (
             <>
@@ -40,6 +62,13 @@ class ClubAuth extends React.PureComponent<Props, State> {
             </>
         );
     }
+
+    private handleChangeRoute = (url) => {
+        if (url === '/club') {
+            const scrollContainer = ScrollHelper.getScrollContainer();
+            scrollContainer.classList.remove('blur-bg');
+        }
+    };
 }
 
-export default withRouter(ClubAuth);
+export default withRouter(connect((state: any) => ({ setting: state.setting }))(ClubAuth));
