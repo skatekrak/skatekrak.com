@@ -38,7 +38,13 @@
 		display: flex
 		align-items: center
 		font-family: $ff-roboto-bold
-		text-decoration: underline
+		font-size: $fs-regular
+		line-height: 1.25
+		color: $grey-100
+
+		&:hover
+			text-decoration: underline
+
 
 		+mq($from: "small")
 				top: 5rem
@@ -50,8 +56,7 @@
 
 		& svg
 			width: 1.75rem
-			margin-top: 2px
-			margin-right: 1rem
+			margin-right: .75rem
 			fill: $grey-100
 			transform: rotate(180deg)
 
