@@ -1,5 +1,7 @@
 import React from 'react';
 
+import Link from 'components/Link';
+
 const ArticleAd: React.SFC = () => (
     <div className="news-article-club">
         <img
@@ -9,9 +11,9 @@ const ArticleAd: React.SFC = () => (
         />
         <div className="news-article-club-cta-container">
             <p className="news-article-club-cta-text">29$/month</p>
-            <a className="news-article-club-cta" href="/club">
-                Discover
-            </a>
+            <Link href="/club">
+                <a className="news-article-club-cta">Discover</a>
+            </Link>
         </div>
     </div>
 );
