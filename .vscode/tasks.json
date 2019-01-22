@@ -15,40 +15,12 @@
             "problemMatcher": "$tsc"
         },
         {
-            "label": "start",
-            "type": "npm",
-            "script": "dev",
-            "isBackground": true,
-            "presentation": {
-                "panel": "dedicated"
-            },
-            "promptOnClose": true,
-            "problemMatcher": [
-                {
-                    "owner": "custom",
-                    "pattern": [
-                        {
-                            "regexp": "^([^\\\\s].*)\\\\((\\\\d+,\\\\d+)\\\\):\\\\s*(.*)$",
-                            "file": 1,
-                            "location": 2,
-                            "message": 3
-                        }
-                    ],
-                    "background": {
-                        "activeOnStart": true,
-                        "beginsPattern": "info: application started on http://localhost:3333/",
-                        "endsPattern": "info: compiled"
-                    }
-                }
-            ]
-        },
-        {
             "label": "lint",
             "type": "npm",
             "script": "lint",
             "group": "test",
             "presentation": {
-                "reveal": "never"
+                "reveal": "silent"
             },
             "problemMatcher": "$tslint5"
         }

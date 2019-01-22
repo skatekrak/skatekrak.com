@@ -2,12 +2,13 @@
     "name": "skatekrak.com",
     "version": "4.0.12",
     "main": "index.js",
-    "repository": "ssh://git@git.skatekrak.com:22222/web/skatekrak.com.git",
+    "repository": "ssh://git@git.thepunk.tech/web/skatekrak.com.git",
     "author": "Arthur <a@skatekrak.com>",
     "license": "MIT",
     "scripts": {
         "lint": "tslint --project .",
-        "dev": "next",
+        "dev": "next --inspect=0.0.0.0:9229",
+        "dev:docker": "docker-compose up skatekrak",
         "build": "next build",
         "start": "next start"
     },
