@@ -1,7 +1,9 @@
 import Head from 'next/head';
+import { withRouter } from 'next/router';
 import React from 'react';
 
 import Layout from 'components/Layout/Layout';
+import ClubAuth from 'components/pages/club/authentication';
 import ClubPresentation from 'components/pages/club/presentation';
 import TrackedPage from 'components/pages/TrackedPage';
 
@@ -20,15 +22,17 @@ const ClubHead = () => (
             property="og:description"
             content="Krak Skateboarding Club. You're not alone. Let's enjoy skateboarding even more"
         />
+        <link href="https://fonts.googleapis.com/css?family=Permanent+Marker" rel="stylesheet" />
     </Head>
 );
 
-const Club: React.SFC<{}> = () => (
+const Club = ({ router }: any) => (
     <TrackedPage name="Club">
         <Layout head={<ClubHead />}>
             <ClubPresentation />
         </Layout>
+        {router.query.modal && <ClubAuth view={router.query.modal} />}
     </TrackedPage>
 );
 
-export default Club;
+export default withRouter(Club);
