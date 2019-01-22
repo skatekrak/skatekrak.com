@@ -11,7 +11,7 @@ interface IClubProps {
     };
 }
 
-const Club: React.SFC<IClubProps> = ({ payment }) => (
+const ClubPresentation: React.SFC<IClubProps> = ({ payment }) => (
     <div id="club" className="container-fluid page-padding">
         <div id="club-header">
             <h1 id="club-header-title">Krak Skateboarding Club.</h1>
@@ -78,4 +78,4 @@ const Club: React.SFC<IClubProps> = ({ payment }) => (
 
 export default connect((state: any) => ({
     payment: state.payment,
-}))(Club);
+}))(ClubPresentation);
