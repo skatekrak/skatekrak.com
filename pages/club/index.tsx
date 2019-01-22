@@ -89,7 +89,7 @@ const Club: React.SFC<IClubProps> = ({ payment }) => (
                 <div id="club-skateistan">
                     <SkateistanLogo />
                     <p id="club-skateistan-text">
-                        We wanna do good - that’s why 10% of your annual membership goes to{' '}
+                        We wanna do good - that’s why 10% of your membership goes to{' '}
                         <a
                             href="https://www.skateistan.org/"
                             id="club-skateistan-link"
