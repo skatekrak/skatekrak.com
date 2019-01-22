@@ -5,6 +5,7 @@ import { State as SettingState } from 'store/reducers/setting';
 
 import ForgotPassword from 'components/pages/club/authentication/forgotPassword';
 import Login from 'components/pages/club/authentication/login';
+import ResetPassword from 'components/pages/club/authentication/resetPassword';
 
 import IconArrow from 'components/Ui/Icons/Arrow';
 import IconCross from 'components/Ui/Icons/Cross';
@@ -33,6 +34,7 @@ class ClubAuth extends React.PureComponent<Props, State> {
                     )}
                     {this.props.view === 'login' && <Login />}
                     {this.props.view === 'forgot' && <ForgotPassword />}
+                    {this.props.view === 'reset' && <ResetPassword />}
                 </div>
             </>
         );
