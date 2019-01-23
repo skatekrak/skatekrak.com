@@ -55,6 +55,20 @@ class PaymentForm extends React.Component<Props & InjectedFormProps, State> {
                             </div>
                             <div className="form-element">
                                 <div className="form-element-field">
+                                    <label htmlFor="acceptRenew" className="checkbox-container">
+                                        I understand & accept that my membership will be automatically renewed on{' '}
+                                        {this.props.payment.price === 8700 ? (
+                                            <span>April 5th 2019</span>
+                                        ) : (
+                                            <span>January 5th 2020</span>
+                                        )}
+                                        <Field name="acceptRenew" id="acceptRenew" component="input" type="checkbox" />
+                                        <span className="checkmark" />
+                                    </label>
+                                </div>
+                            </div>
+                            <div className="form-element">
+                                <div className="form-element-field">
                                     <label htmlFor="show-billing" className="checkbox-container">
                                         Use shipping address as billing address
                                         <input
@@ -144,6 +158,10 @@ const validate = (values) => {
 
     if (!values.country) {
         errors.country = 'Required';
+    }
+
+    if (!values.acceptRenew) {
+        errors.acceptRenew = 'Required';
     }
 
     return errors;
