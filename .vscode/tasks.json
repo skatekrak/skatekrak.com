@@ -10,7 +10,7 @@
                 "isDefault": true
             },
             "presentation": {
-                "reveal": "silent"
+                "reveal": "never"
             },
             "problemMatcher": "$tsc"
         },
@@ -20,7 +20,7 @@
             "script": "lint",
             "group": "test",
             "presentation": {
-                "reveal": "silent"
+                "reveal": "never"
             },
             "problemMatcher": "$tslint5"
         }
