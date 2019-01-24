@@ -856,9 +856,9 @@
   integrity sha512-rLu3wcBWH4P5q1CGoSSH/i9hrXs7SlbRLkoq9IGuoPYNGQvDJ3pt/wmOM+XgYjIDRMVIdkUWt0RsfzF50JfnCw==
 
 "@thepunkclub/analytics@^1.0.8":
-  version "1.0.9"
-  resolved "https://npm.thepunk.tech/@thepunkclub%2fanalytics/-/analytics-1.0.9.tgz#5246e07024a39e380ecfc19effc604dd827c653b"
-  integrity sha512-mF0b+feUJkMz/C/4uWUaVxoENqP+iW2BPX4HUVpB0bxO6dSuCGA8hwGRDsiVpAeuKkJeTagB98s33hW0Z2o/Tg==
+  version "1.0.11"
+  resolved "https://npm.thepunk.tech/@thepunkclub%2fanalytics/-/analytics-1.0.11.tgz#ac4649fdd418163d211d512419fc3b2e2183f1b9"
+  integrity sha512-ZsshDiij7RohDC+xJ2apffkNqx5vYMhVhlsU7VjGCVlw0yHQE5LA+it4r3fRiUs6QFjx+HRzPMQTrgkyZ9Lqeg==
 
 "@types/axios@^0.14.0":
   version "0.14.0"
