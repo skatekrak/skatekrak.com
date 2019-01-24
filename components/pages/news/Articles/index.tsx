@@ -20,6 +20,7 @@ type Props = {
     news: NewsState;
     feedLayout: FeedLayout;
     dispatch: (fct: any) => void;
+    payment: any;
 };
 
 type State = {
@@ -150,10 +151,16 @@ class Articles extends React.Component<Props, State> {
     }
 
     private genArticlesList(contents: Content[]): JSX.Element[] {
-        const articles = contents.map((content) => <Article key={content.id} content={content} />);
+        const articles = contents.map((content) => (
+            <Article key={content.id} content={content} currency={this.props.payment.currency} />
+        ));
         for (const index of this.state.promoCardIndexes) {
             if (index < articles.length) {
-                articles.splice(index, 0, <Article key={`ksc-card-${index}`} isClubPromotion />);
+                articles.splice(
+                    index,
+                    0,
+                    <Article key={`ksc-card-${index}`} isClubPromotion currency={this.props.payment.currency} />,
+                );
             }
         }
         return articles;
@@ -166,4 +173,8 @@ class Articles extends React.Component<Props, State> {
     }
 }
 
-export default connect((state: any) => ({ news: state.news, feedLayout: state.setting.feedLayout }))(Articles);
+export default connect((state: any) => ({
+    news: state.news,
+    feedLayout: state.setting.feedLayout,
+    payment: state.payment,
+}))(Articles);
