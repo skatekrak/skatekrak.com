@@ -855,10 +855,10 @@
   resolved "https://npm.thepunk.tech/@emotion%2futils/-/utils-0.8.2.tgz#576ff7fb1230185b619a75d258cbc98f0867a8dc"
   integrity sha512-rLu3wcBWH4P5q1CGoSSH/i9hrXs7SlbRLkoq9IGuoPYNGQvDJ3pt/wmOM+XgYjIDRMVIdkUWt0RsfzF50JfnCw==
 
-"@thepunkclub/analytics@^1.0.8":
-  version "1.0.11"
-  resolved "https://npm.thepunk.tech/@thepunkclub%2fanalytics/-/analytics-1.0.11.tgz#ac4649fdd418163d211d512419fc3b2e2183f1b9"
-  integrity sha512-ZsshDiij7RohDC+xJ2apffkNqx5vYMhVhlsU7VjGCVlw0yHQE5LA+it4r3fRiUs6QFjx+HRzPMQTrgkyZ9Lqeg==
+"@thepunkclub/analytics@^2.0.0":
+  version "2.0.0"
+  resolved "https://npm.thepunk.tech/@thepunkclub%2fanalytics/-/analytics-2.0.0.tgz#316c574111eebe7a56537de72673e005e926e837"
+  integrity sha512-beTxl6pJDbJ9yFeK4/Sk/cL7ZC71wHr/plCvyvSAvY0U2GDdze35LtjTbPY1z0IzFCB0pIhbw8l4mwbQKEk0ig==
 
 "@types/axios@^0.14.0":
   version "0.14.0"

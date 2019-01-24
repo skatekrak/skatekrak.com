@@ -1,4 +1,4 @@
-import analytics from '@thepunkclub/analytics';
+import Analytics from '@thepunkclub/analytics';
 import axios from 'axios';
 import classNames from 'classnames';
 import React from 'react';
@@ -96,14 +96,14 @@ class Sources extends React.PureComponent<Props, State> {
 
     private onSelectAllClick = () => {
         if (this.props.news.sources.size > 0) {
-            analytics.trackEvent('Click', 'Filter_Select_All', { value: 1 });
+            Analytics.default().trackEvent('Click', 'Filter_Select_All', { value: 1 });
         }
         this.props.dispatch(selectAllFilters());
     };
 
     private onDeselectAllClick = () => {
         if (this.props.news.sources.size > 0) {
-            analytics.trackEvent('Click', 'Filter_Unselect_All', { value: 1 });
+            Analytics.default().trackEvent('Click', 'Filter_Unselect_All', { value: 1 });
         }
         this.props.dispatch(unselectAllFilters());
     };

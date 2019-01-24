@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { injectStripe, ReactStripeElements } from 'react-stripe-elements';
 import { formValueSelector, reset } from 'redux-form';
 
-import analytics from '@thepunkclub/analytics';
+import Analytics from '@thepunkclub/analytics';
 
 import PaymentForm from 'components/pages/club/PaymentForm';
 import ShippingForm from 'components/pages/club/ShippingForm';
@@ -57,7 +57,7 @@ class Checkout extends React.Component<Props & ReactStripeElements.InjectedStrip
     };
 
     private handlePayment = () => {
-        analytics.trackEvent('Click', 'pay', {
+        Analytics.default().trackEvent('Click', 'pay', {
             name: 'price',
             value: this.props.payment.price,
         });
@@ -100,7 +100,7 @@ class Checkout extends React.Component<Props & ReactStripeElements.InjectedStrip
                             code,
                         })
                         .then(() => {
-                            analytics.trackOrder(payload.token.id, this.props.payment.price / 100);
+                            Analytics.default().trackOrder(payload.token.id, this.props.payment.price / 100);
                             this.props.dispatch(reset('shipping'));
                             this.props.dispatch(reset('payment'));
                             Router.push('/club/congrats');
