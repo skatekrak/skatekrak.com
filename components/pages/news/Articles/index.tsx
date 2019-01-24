@@ -1,3 +1,4 @@
+import analytics from '@thepunkclub/analytics';
 import axios from 'axios';
 import classNames from 'classnames';
 import React from 'react';
@@ -36,13 +37,16 @@ class Articles extends React.Component<Props, State> {
         hasMore: true,
     };
 
-    public async componentDidUpdate() {
+    public async componentDidUpdate(_prevProps: Readonly<Props>, prevState: Readonly<State>) {
         if (this.props.news.feedNeedRefresh && !this.state.isLoading) {
             this.setState({ contents: [], hasMore: false });
             await this.loadMore(1);
         }
         if (this.props.feedLayout && this.state.promoCardIndexes.length === 0) {
             this.genClubPromotionIndexes();
+        }
+        if (this.state.contents.length > 0 && this.state.contents.length > prevState.contents.length) {
+            analytics.trackLinks();
         }
     }
 
@@ -52,6 +56,7 @@ class Articles extends React.Component<Props, State> {
 
         return (
             <div id="news-articles-container" className="col-xs-12 col-md-8 col-lg-9">
+                <TrackedPage name={`News/${Math.ceil(contents.length / 20)}`} initial={false} />
                 <InfiniteScroll
                     key={`infinite-need-refresh-${this.props.news.feedNeedRefresh}`}
                     pageStart={1}
@@ -73,8 +78,6 @@ class Articles extends React.Component<Props, State> {
 
                         {isLoading && <Loading />}
                         {contents.length > 0 && !hasMore && <NoMore />}
-
-                        <TrackedPage name={`News/${Math.ceil(contents.length / 20)}`} initial={false} />
                     </div>
                 </InfiniteScroll>
             </div>

@@ -30,6 +30,7 @@ class TrackedPage extends React.Component<Props, State> {
         if (this.props.initial) {
             // console.log(`Tracked Initial Page ${this.props.name}`);
             analytics.trackPageView(this.props.name);
+            analytics.trackLinks();
         }
     }
 
