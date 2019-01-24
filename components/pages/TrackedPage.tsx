@@ -26,6 +26,7 @@ class TrackedPage extends React.Component<Props, State> {
             cookieDomain: '*.skatekrak.com',
             crossDomainLinking: true,
             domains: ['*.skatekrak.com', '*.krakbox.com'],
+            async: false,
         });
         if (this.props.initial) {
             // console.log(`Tracked Initial Page ${this.props.name}`);
