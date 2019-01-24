@@ -15,4 +15,4 @@ services:
 
   skatekrak-lint:
     image: ${CI_REGISTRY_IMAGE}:${TEST_TAG}
-    command: /bin/bash -c "yarn install && yarn lint"
+    command: /bin/bash -c "yarn install && yarn build:ts && yarn lint:ts"

@@ -4,7 +4,7 @@
         {
             "label": "build",
             "type": "npm",
-            "script": "build",
+            "script": "build:ts",
             "group": {
                 "kind": "build",
                 "isDefault": true
@@ -17,7 +17,7 @@
         {
             "label": "lint",
             "type": "npm",
-            "script": "lint",
+            "script": "lint:ts",
             "group": "test",
             "presentation": {
                 "reveal": "never"

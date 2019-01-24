@@ -10,20 +10,25 @@ import FormElement from 'components/Ui/Form/Element';
 import ErrorMessage from 'components/Ui/Form/ErrorMessage';
 import RenderInput from 'components/Ui/Form/Input';
 
-type Props = {
+type OwnProps = {
+    stripeError?: string;
     onSubmit: () => void;
+};
+
+type InjectedProps = {
     payment: {
         price: number;
         currency: string;
     };
-    stripeError?: string;
 };
 
 type State = {
     showBilling: boolean;
 };
 
-class PaymentForm extends React.Component<Props & InjectedFormProps, State> {
+type Props = OwnProps & InjectedProps & InjectedFormProps<any, OwnProps & InjectedProps>;
+
+class PaymentForm extends React.Component<Props, State> {
     public state: State = {
         showBilling: false,
     };
@@ -185,7 +190,7 @@ const asyncValidate = (values) => {
 export default connect((state: any) => ({
     payment: state.payment,
 }))(
-    reduxForm({
+    reduxForm<any, OwnProps>({
         form: 'payment',
         destroyOnUnmount: false,
         forceUnregisterOnUnmount: true,

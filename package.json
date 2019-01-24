@@ -6,7 +6,8 @@
     "author": "Arthur <a@skatekrak.com>",
     "license": "MIT",
     "scripts": {
-        "lint": "tslint --project .",
+        "lint:ts": "tslint --project .",
+        "build:ts": "tsc --project .",
         "dev": "next --inspect=0.0.0.0:9229",
         "dev:docker": "docker-compose up skatekrak",
         "build": "next build",
