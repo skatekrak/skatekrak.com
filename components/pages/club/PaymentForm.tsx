@@ -10,20 +10,25 @@ import FormElement from 'components/Ui/Form/Element';
 import ErrorMessage from 'components/Ui/Form/ErrorMessage';
 import RenderInput from 'components/Ui/Form/Input';
 
-type Props = {
+type OwnProps = {
+    stripeError?: string;
     onSubmit: () => void;
+};
+
+type InjectedProps = {
     payment: {
         price: number;
         currency: string;
     };
-    stripeError?: string;
 };
 
 type State = {
     showBilling: boolean;
 };
 
-class PaymentForm extends React.Component<Props & InjectedFormProps, State> {
+type Props = OwnProps & InjectedProps & InjectedFormProps<any, OwnProps & InjectedProps>;
+
+class PaymentForm extends React.Component<Props, State> {
     public state: State = {
         showBilling: false,
     };
@@ -45,7 +50,27 @@ class PaymentForm extends React.Component<Props & InjectedFormProps, State> {
                                 </FormElement>
                             </div>
                             <div className="form-element">
-                                <Field name="code" component={RenderInput} type="text" label="Specials" showValid />
+                                <Field
+                                    name="code"
+                                    component={RenderInput}
+                                    type="text"
+                                    label="Specials (optional)"
+                                    showValid
+                                />
+                            </div>
+                            <div className="form-element">
+                                <div className="form-element-field">
+                                    <label htmlFor="acceptRenew" className="checkbox-container">
+                                        I understand & accept that my membership will be automatically renewed on{' '}
+                                        {this.props.payment.price === 8700 ? (
+                                            <span>April 5th 2019</span>
+                                        ) : (
+                                            <span>January 5th 2020</span>
+                                        )}
+                                        <Field name="acceptRenew" id="acceptRenew" component="input" type="checkbox" />
+                                        <span className="checkmark" />
+                                    </label>
+                                </div>
                             </div>
                             <div className="form-element">
                                 <div className="form-element-field">
@@ -80,6 +105,7 @@ class PaymentForm extends React.Component<Props & InjectedFormProps, State> {
                             disabled={!valid || submitting}
                         >
                             Pay {this.props.payment.currency === 'usd' && '$'}
+                            {this.props.payment.currency === 'gbp' && '£'}
                             {this.props.payment.price / 100}
                             {this.props.payment.currency === 'eur' && '€'}
                         </button>
@@ -139,6 +165,10 @@ const validate = (values) => {
         errors.country = 'Required';
     }
 
+    if (!values.acceptRenew) {
+        errors.acceptRenew = 'Required';
+    }
+
     return errors;
 };
 
@@ -160,7 +190,7 @@ const asyncValidate = (values) => {
 export default connect((state: any) => ({
     payment: state.payment,
 }))(
-    reduxForm({
+    reduxForm<any, OwnProps>({
         form: 'payment',
         destroyOnUnmount: false,
         forceUnregisterOnUnmount: true,

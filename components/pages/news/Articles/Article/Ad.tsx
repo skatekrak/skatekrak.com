@@ -1,6 +1,12 @@
 import React from 'react';
 
-const ArticleAd: React.SFC = () => (
+import Link from 'components/Link';
+
+type Props = {
+    currency: 'usd' | 'eur' | 'gbp';
+};
+
+const ArticleAd = ({ currency }: Props) => (
     <div className="news-article-club">
         <img
             className="news-article-club-illustration"
@@ -8,10 +14,14 @@ const ArticleAd: React.SFC = () => (
             alt="Krak club illustration"
         />
         <div className="news-article-club-cta-container">
-            <p className="news-article-club-cta-text">29$/month</p>
-            <a className="news-article-club-cta" href="/club">
-                Discover
-            </a>
+            <p className="news-article-club-cta-text">
+                {currency === 'usd' && '$'}
+                {currency === 'gbp' && '£'}29
+                {currency === 'eur' && '€'}/month
+            </p>
+            <Link href="/club">
+                <a className="news-article-club-cta">Discover</a>
+            </Link>
         </div>
     </div>
 );

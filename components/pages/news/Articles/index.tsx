@@ -1,3 +1,4 @@
+import Analytics from '@thepunkclub/analytics';
 import axios from 'axios';
 import classNames from 'classnames';
 import React from 'react';
@@ -19,10 +20,12 @@ type Props = {
     news: NewsState;
     feedLayout: FeedLayout;
     dispatch: (fct: any) => void;
+    payment: any;
 };
 
 type State = {
     contents: Content[];
+    promoCardIndexes: number[];
     isLoading: boolean;
     hasMore: boolean;
 };
@@ -30,14 +33,21 @@ type State = {
 class Articles extends React.Component<Props, State> {
     public state: State = {
         contents: [],
+        promoCardIndexes: [],
         isLoading: false,
         hasMore: true,
     };
 
-    public async componentDidUpdate() {
+    public async componentDidUpdate(_prevProps: Readonly<Props>, prevState: Readonly<State>) {
         if (this.props.news.feedNeedRefresh && !this.state.isLoading) {
             this.setState({ contents: [], hasMore: false });
             await this.loadMore(1);
+        }
+        if (this.props.feedLayout && this.state.promoCardIndexes.length === 0) {
+            this.genClubPromotionIndexes();
+        }
+        if (this.state.contents.length > 0 && this.state.contents.length > prevState.contents.length) {
+            Analytics.default().trackLinks();
         }
     }
 
@@ -47,6 +57,7 @@ class Articles extends React.Component<Props, State> {
 
         return (
             <div id="news-articles-container" className="col-xs-12 col-md-8 col-lg-9">
+                <TrackedPage name={`News/${Math.ceil(contents.length / 20)}`} initial={false} />
                 <InfiniteScroll
                     key={`infinite-need-refresh-${this.props.news.feedNeedRefresh}`}
                     pageStart={1}
@@ -68,8 +79,6 @@ class Articles extends React.Component<Props, State> {
 
                         {isLoading && <Loading />}
                         {contents.length > 0 && !hasMore && <NoMore />}
-
-                        <TrackedPage name={`News/${Math.ceil(contents.length / 20)}`} initial={false} />
                     </div>
                 </InfiniteScroll>
             </div>
@@ -119,25 +128,40 @@ class Articles extends React.Component<Props, State> {
         return arr;
     }
 
-    private genArticlesList(contents: Content[]): JSX.Element[] {
-        const articles = contents.map((content) => <Article key={content.id} content={content} />);
-        let range = 0;
-        switch (this.props.feedLayout) {
-            case FeedLayout.OneColumn:
-                range = 40;
-                break;
-            case FeedLayout.TwoColumns:
-                range = 70;
-                break;
-            case FeedLayout.FourColumns:
-                range = 100;
-                break;
+    private genClubPromotionIndexes(): void {
+        const indexes: number[] = [];
+        for (let i = 0; i < 20; i++) {
+            let range = 0;
+            switch (this.props.feedLayout) {
+                case FeedLayout.OneColumn:
+                    range = 40;
+                    break;
+                case FeedLayout.TwoColumns:
+                    range = 70;
+                    break;
+                case FeedLayout.FourColumns:
+                    range = 100;
+                    break;
+            }
+            const minBound = i * range + range * (1 / 3);
+            const maxBound = (i + 1) * range - range * (1 / 3);
+            indexes.push(this.getRandomInt(minBound, maxBound));
         }
-        for (let i = 0; i < articles.length; i += range) {
-            let bound = i + range;
-            bound = Math.min(bound, articles.length);
-            const insert = this.getRandomInt(i, bound);
-            articles.splice(insert, 0, <Article key={`ksc-card-${insert}`} isClubPromotion />);
+        this.setState({ promoCardIndexes: indexes });
+    }
+
+    private genArticlesList(contents: Content[]): JSX.Element[] {
+        const articles = contents.map((content) => (
+            <Article key={content.id} content={content} currency={this.props.payment.currency} />
+        ));
+        for (const index of this.state.promoCardIndexes) {
+            if (index < articles.length) {
+                articles.splice(
+                    index,
+                    0,
+                    <Article key={`ksc-card-${index}`} isClubPromotion currency={this.props.payment.currency} />,
+                );
+            }
         }
         return articles;
     }
@@ -149,4 +173,8 @@ class Articles extends React.Component<Props, State> {
     }
 }
 
-export default connect((state: any) => ({ news: state.news, feedLayout: state.setting.feedLayout }))(Articles);
+export default connect((state: any) => ({
+    news: state.news,
+    feedLayout: state.setting.feedLayout,
+    payment: state.payment,
+}))(Articles);

@@ -2,37 +2,37 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Chrome Client",
             "type": "chrome",
             "request": "launch",
-            "preLaunchTask": "start",
-            "name": "Chrome Debug Local",
-            "url": "http://localhost:3333/",
-            "userDataDir": "${env:HOME}/Library/Application Support/Google/ChromeVSCode",
-            "sourceMapPathOverrides": {
-                "*": "${workspaceFolder}/*"
-            }
+            "runtimeArgs": ["--auto-open-devtools-for-tabs"],
+            "userDataDir": "${env:HOME}/Library/Application Support/Google/ChromeDebug",
+            "url": "https://skatekrak.local.test",
+            "webRoot": "${workspaceFolder}",
+            "disableNetworkCache": true
         },
         {
-            "type": "chrome",
+            "name": "Docker Server",
+            "type": "node",
             "request": "launch",
-            "preLaunchTask": "start:win",
-            "name": "Chrome Debug Local windows",
-            "url": "http://localhost:3333/",
-            "userDataDir": "C:\\Users\\arthu\\AppData\\Local\\Google\\Chrome\\User Dev",
-            "sourceMapPathOverrides": {
-                "*": "${workspaceFolder}/*"
-            }
+            "runtimeExecutable": "yarn",
+            "runtimeArgs": ["dev:docker"],
+            "restart": true,
+            "timeout": 60000,
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen",
+            "protocol": "inspector",
+            "address": "localhost",
+            "port": 9229,
+            "sourceMaps": true,
+            "localRoot": "${workspaceFolder}",
+            "remoteRoot": "/app"
         }
-        // {
-        //   "type": "chrome",
-        //   "request": "launch",
-        //   "preLaunchTask": "mainframer:start",
-        //   "name": "Chrome Debug Mainframer",
-        //   "userDataDir": false,
-        //   "url": "http://localhost:3333/en-us/",
-        //   "sourceMapPathOverrides": {
-        //     "*": "${workspaceFolder}/*"
-        //   }
-        // }
+    ],
+    "compounds": [
+        {
+            "name": "Docker + Chrome",
+            "configurations": ["Docker Server", "Chrome Client"]
+        }
     ]
 }

@@ -35,17 +35,20 @@ class Club extends React.Component<Props, State> {
                 <Layout>
                     <React.Fragment>
                         <StripeProvider stripe={this.state.stripe}>
-                            <div id="checkout" className="container page-padding">
+                            <div id="checkout" className="container inner-page-container">
                                 <header id="checkout-header">
                                     <h1 id="checkout-header-title">Join the club</h1>
-                                    <h2 id="checkout-header-subtitle">Krak Skateboarding Club - 12 month membership</h2>
+                                    <h2 id="checkout-header-subtitle">
+                                        Krak Skateboarding Club - 12 month membership - billed quarterly
+                                    </h2>
                                     <div id="checkout-header-price-container">
                                         <p id="checkout-header-price">
                                             {this.props.payment.currency === 'usd' && '$'}
+                                            {this.props.payment.currency === 'gbp' && '£'}
                                             {this.props.payment.price / 100}
                                             {this.props.payment.currency === 'eur' && '€'} today
                                         </p>
-                                        <p id="checkout-header-price-details">to be covered until December 2019</p>
+                                        <p id="checkout-header-price-details">to be covered until April 5th 2019</p>
                                     </div>
                                 </header>
                                 <Elements>

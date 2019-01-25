@@ -12,7 +12,7 @@ interface IClubProps {
 }
 
 const ClubPresentation: React.SFC<IClubProps> = ({ payment }) => (
-    <div id="club" className="inner-page-container container-fluid page-padding">
+    <div id="club" className="inner-page-container container-fluid">
         <div id="club-header">
             <h1 id="club-header-title">Krak Skateboarding Club.</h1>
             <h2 id="club-header-subtitle">12 month membership</h2>
