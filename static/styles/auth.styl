@@ -51,7 +51,8 @@
 		font-family: $ff-roboto-bold
 		font-size: $fs-regular
 		line-height: 1.25
-		color: $grey-100
+		color: $grey-800
+		z-index: 4
 
 		&:hover
 			text-decoration: underline
@@ -64,12 +65,16 @@
 		+mq($from: "medium")
 				top: 4.5rem
 				left: 4rem
+				color: $grey-100
 
 		& svg
 			width: 1.75rem
 			margin-right: .75rem
-			fill: $grey-100
+			fill: $grey-800
 			transform: rotate(180deg)
+
+			+mq($from: "medium")
+				fill: $grey-100
 
 	&-form
 		&-container

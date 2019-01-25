@@ -16,7 +16,6 @@ const LoginHead = () => (
         <meta property="og:title" content="Krak | Login" />
         <meta property="og:url" content="https://skatekrak.com/club/login" />
         <meta property="og:description" content="Krak skateboarding club | Login to your account." />
-        <link href="https://fonts.googleapis.com/css?family=Permanent+Marker" rel="stylesheet" />
     </Head>
 );
 
@@ -69,7 +68,7 @@ class Login extends React.PureComponent<Props & InjectedProps, State> {
                                 <Link href="/club">
                                     <a>Join the club</a>
                                 </Link>
-                                <Link href="/club?modal=forgot" as="/club/forgot">
+                                <Link href="/club/forgot">
                                     <a>Password?</a>
                                 </Link>
                             </div>
