@@ -13,6 +13,14 @@
 .show-header
 	display: flex !important
 
+.inner-page-container
+	width: 100%
+	padding-top: $page-padding-top
+	padding-bottom: $page-padding-bottom
+
+	+mq($from: "medium")
+		padding-top: $page-padding-top-medium
+
 .burger-open
 	& #header-top-burger-bar-top
 		transform: rotate(-45deg) translateY(.5rem)

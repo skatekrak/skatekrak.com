@@ -40,7 +40,7 @@ class News extends React.PureComponent<{}, State> {
             <Layout head={<NewsHead />}>
                 <React.Fragment>
                     <BannerTop />
-                    <div id="news-container" className="container-fluid">
+                    <div id="news-container" className="inner-page-container container-fluid">
                         <div className="row">
                             <Menu
                                 sourcesMenuIsOpen={sourcesMenuIsOpen}
