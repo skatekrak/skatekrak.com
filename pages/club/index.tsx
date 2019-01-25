@@ -48,7 +48,12 @@ class Club extends React.Component<Props, State> {
         quarterly.setActivate(() => this.setState({ pricing: this.getPricingText('87', '/quarter') }));
         const abTest = new ABTest('ctakscjoin');
         abTest.setPercentage(100);
-        abTest.addIncludedTarget({ attribute: 'path', inverted: '0', type: 'equals_simple', value: '/club' });
+        abTest.addIncludedTarget({
+            attribute: 'url',
+            inverted: '0',
+            type: 'equals_simple',
+            value: 'https://skatekrak.com/club',
+        });
         abTest.addVariation(original);
         abTest.addVariation(quarterly);
         Analytics.default().trackABTest(abTest);
