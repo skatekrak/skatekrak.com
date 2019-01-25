@@ -1,4 +1,4 @@
-import analytics from '@thepunkclub/analytics';
+import Analytics from '@thepunkclub/analytics';
 import axios from 'axios';
 import classNames from 'classnames';
 import React from 'react';
@@ -47,7 +47,7 @@ class Articles extends React.Component<Props, State> {
             this.genClubPromotionIndexes();
         }
         if (this.state.contents.length > 0 && this.state.contents.length > prevState.contents.length) {
-            analytics.trackLinks();
+            Analytics.default().trackLinks();
         }
     }
 

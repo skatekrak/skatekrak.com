@@ -1,4 +1,4 @@
-import analytics from '@thepunkclub/analytics';
+import Analytics from '@thepunkclub/analytics';
 import React from 'react';
 
 import 'static/styles/checkout.styl';
@@ -22,22 +22,23 @@ class TrackedPage extends React.Component<Props, State> {
     };
 
     public componentDidMount() {
-        analytics.init('2', {
+        Analytics.default().init('2', {
             cookieDomain: '*.skatekrak.com',
             crossDomainLinking: true,
             domains: ['*.skatekrak.com', '*.krakbox.com'],
+            async: false,
         });
         if (this.props.initial) {
             // console.log(`Tracked Initial Page ${this.props.name}`);
-            analytics.trackPageView(this.props.name);
-            analytics.trackLinks();
+            Analytics.default().trackPageView(this.props.name);
+            Analytics.default().trackLinks();
         }
     }
 
     public componentDidUpdate(prevPros: Readonly<Props>) {
         if (prevPros.name !== this.props.name) {
             // console.log(`Tracked Update Page ${this.props.name}`);
-            analytics.trackPageView(this.props.name);
+            Analytics.default().trackPageView(this.props.name);
         }
     }
 
