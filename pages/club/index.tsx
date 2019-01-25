@@ -39,12 +39,11 @@ const ClubHead = () => (
 
 class Club extends React.Component<Props, State> {
     public state: State = {
-        pricing: '',
+        pricing: this.getPricingText('29', '/month'),
     };
 
     public componentDidMount() {
         const original = new Variation('original');
-        original.setActivate(() => this.setState({ pricing: this.getPricingText('29', '/month') }));
         const quarterly = new Variation('quarterly');
         quarterly.setActivate(() => this.setState({ pricing: this.getPricingText('87', '/quarter') }));
         const abTest = new ABTest('ctakscjoin');
