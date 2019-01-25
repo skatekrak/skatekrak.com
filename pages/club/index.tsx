@@ -22,7 +22,6 @@ const ClubHead = () => (
             property="og:description"
             content="Krak Skateboarding Club. You're not alone. Let's enjoy skateboarding even more"
         />
-        <link href="https://fonts.googleapis.com/css?family=Permanent+Marker" rel="stylesheet" />
     </Head>
 );
 
@@ -31,7 +30,7 @@ const Club = ({ router }: any) => (
         <Layout head={<ClubHead />}>
             <ClubPresentation />
         </Layout>
-        {router.query.modal && <ClubAuth view={router.query.modal} />}
+        {/* {router.query.modal && <ClubAuth view={router.query.modal} />} */}
     </TrackedPage>
 );
 

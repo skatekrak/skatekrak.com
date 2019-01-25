@@ -6,30 +6,41 @@
 */
 .auth
 	&-container
-		position: absolute
-		top: 0
-		right: 0
-		left: 0
-		min-height: 100vh
+		position: relative
 		display: flex
-		color: $grey-100
-		z-index: 999999
+		height: 100vh
+		width: 100%
+		color: $grey-800
+		overflow: hidden
 
 		+mq($from: "medium")
-			left: $header-width-medium
+			color: $grey-100
 
-		+mq($from: "large")
-			left: $header-width-large
-
-		&:before
+		&:after, &:before
 			content: ''
+			display: none
 			position: absolute
 			top: 0
 			right: 0
 			left: 0
-			height: 100%
+			bottom: 0
+			transform: scale(1.02)
+
+			+mq($from: "medium")
+				display: block
+
+		&:after
+			background: url('/static/images/club-presentation-bg.jpg')
+			background-size: cover
+			background-position: center
+			filter: blur(6px)
+			z-index:2
+
+		&:before
+			display: none
 			background-color: $grey-900
 			opacity: .5
+			z-index:3
 
 	&-back
 		position: absolute
@@ -66,6 +77,7 @@
 			width: 100%
 			margin: auto
 			text-align: center
+			z-index: 4
 
 			+mq($from: "small")
 				max-width: 350px
@@ -80,15 +92,21 @@
 
 			&:before
 				content: ''
-				border-bottom: 1px solid $grey-100
+				border-bottom: 1px solid $grey-800
 				width: 1.5rem
 				margin: auto 1rem auto auto
 
+				+mq($from: "medium")
+					border-color: $grey-100
+
 			&:after
 				content: ''
-				border-bottom: 1px solid $grey-100
+				border-bottom: 1px solid $grey-800
 				width: 1.5rem
 				margin: auto auto auto 1rem
+
+				+mq($from: "medium")
+					border-color: $grey-100
 
 		&-desc
 			margin: 3rem 0
@@ -104,13 +122,19 @@
 			font-family: 'Permanent Marker', cursive
 			font-size: $fs-small
 			text-align: left
-			color: $grey-200
+			color: $grey-400
+
+			+mq($from: "medium")
+				color: $grey-200
 
 			& .checkmark
 				top: calc(50% - 0.5rem)
 				height: 1rem
 				width: 1rem
-				border: 2px solid $grey-200
+				border: 2px solid $grey-400
+
+				+mq($from: "medium")
+					border-color: $grey-200
 
 		&-submit
 			display: flex
@@ -134,14 +158,20 @@
 			display: flex
 			margin-top: 1.5rem
 			font-size: $fs-small
-			color: $grey-200
+			color: $grey-400
 			text-decoration: underline
+
+			+mq($from: "medium")
+				color: $grey-200
 
 			& a
 				width: 50%
 
 				&:hover
-					color: $white
+					color: $grey-800
+
+					+mq($from: "medium")
+						color: $white
 
 				&:first-child
 					padding-right: 1rem
