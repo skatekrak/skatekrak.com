@@ -13,18 +13,6 @@ body
 	max-height: 100vh
 	overflow: auto
 
-#main
-	&-container
-		position: relative
-		flex-grow: 1
-		padding-top: 2rem
-		padding-bottom: 2rem
-		color: $text-dark
-
-		+mq($from: "medium")
-			padding-top: 4rem
-			overflow: auto
-
 #page-container
 	display: flex
 	flex-direction: column
@@ -33,6 +21,21 @@ body
 	+mq($from: "medium")
 		flex-direction: row
 		max-height: 100vh
+
+#main
+	&-container
+		position: relative
+		flex-grow: 1
+		display: flex
+		flex-direction: column
+		padding-top: 2rem
+		padding-bottom: 2rem
+		color: $text-dark
+
+		+mq($from: "medium")
+			height: 100vh
+			padding-top: 4rem
+			overflow: auto
 
 #header
 	max-height: 100vh
