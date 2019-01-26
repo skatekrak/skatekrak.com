@@ -1,9 +1,18 @@
+import Head from 'next/head';
 import React from 'react';
 import { connect } from 'react-redux';
 import { Field, InjectedFormProps, reduxForm, SubmissionError } from 'redux-form';
 
 import Layout from 'components/Layout/Layout';
 import RenderInput from 'components/Ui/Form/Input';
+
+const ResetHead = () => (
+    <Head>
+        <title>Krak | Reset</title>
+        <meta property="og:title" content="Krak | Reset" />
+        <meta property="og:url" content="https://skatekrak.com/club/reset" />
+    </Head>
+);
 
 // TODO: Find how to properly put props here (with InjectedFormProps)(also in ShipmentForm)
 interface Props {
@@ -18,7 +27,7 @@ type State = {};
 class ResetPassword extends React.PureComponent<Props & InjectedProps, State> {
     public render() {
         return (
-            <Layout>
+            <Layout head={<ResetHead />}>
                 <div className="auth-container container-fluid">
                     <div className="auth-form-container">
                         <h1 className="auth-form-title">Reset password</h1>

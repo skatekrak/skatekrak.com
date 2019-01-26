@@ -1,4 +1,5 @@
 import validator from 'email-validator';
+import Head from 'next/head';
 import React from 'react';
 import { connect } from 'react-redux';
 import { Field, InjectedFormProps, reduxForm, SubmissionError } from 'redux-form';
@@ -8,6 +9,14 @@ import Link from 'components/Link';
 import RenderInput from 'components/Ui/Form/Input';
 
 import IconArrow from 'components/Ui/Icons/Arrow';
+
+const ForgotHead = () => (
+    <Head>
+        <title>Krak | Forgot</title>
+        <meta property="og:title" content="Krak | Forgot" />
+        <meta property="og:url" content="https://skatekrak.com/club/forgot" />
+    </Head>
+);
 
 // TODO: Find how to properly put props here (with InjectedFormProps)(also in ShipmentForm)
 interface Props {
@@ -22,7 +31,7 @@ type State = {};
 class ForgotPassword extends React.PureComponent<Props & InjectedProps, State> {
     public render() {
         return (
-            <Layout>
+            <Layout head={<ForgotHead />}>
                 <div className="auth-container container-fluid">
                     <Link href="/club/login">
                         <a className="auth-back">
