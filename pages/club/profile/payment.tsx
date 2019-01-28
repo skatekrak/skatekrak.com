@@ -15,16 +15,16 @@ const profile = {
 
 type Props = {};
 
-class ProfileMain extends React.Component<Props, {}> {
+class ProfilePayment extends React.Component<Props, {}> {
     public render() {
         return (
             <Layout>
-                <LayoutProfile profile={profile} view="profile">
-                    <div id="profile-content">yala</div>
+                <LayoutProfile profile={profile} view="payment">
+                    <div id="profile-content">Payment</div>
                 </LayoutProfile>
             </Layout>
         );
     }
 }
 
-export default ProfileMain;
+export default ProfilePayment;
