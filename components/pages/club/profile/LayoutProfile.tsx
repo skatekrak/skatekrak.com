@@ -2,24 +2,20 @@ import React from 'react';
 
 import ProfileNav from 'components/pages/club/profile/nav';
 
-const profile = {
-    firstName: 'Guillaume',
-    lastName: 'Lefebvre',
-    location: {
-        city: 'Biarritz',
-        countryCode: 'fr',
-    },
-    memberId: '75',
-};
+import 'static/styles/profile.styl';
 
 type Props = {
+    profile: object;
     children: any;
+    view: string;
 };
 
-const LayoutProfile: React.SFC<Props> = ({ children }) => (
+const LayoutProfile: React.SFC<Props> = ({ profile, children, view }) => (
     <div id="profile-container" className="container-fluid inner-page-container">
         <div className="row">
-            <ProfileNav profile={profile} />
+            <div className="col-xs-12 col-md-3">
+                <ProfileNav profile={profile} view={view} />
+            </div>
             <div id="profile-content-container" className="col-xs-12 col-md-9">
                 {children}
             </div>
