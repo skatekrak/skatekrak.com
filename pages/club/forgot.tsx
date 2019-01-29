@@ -32,7 +32,7 @@ type State = {};
 class ForgotPassword extends React.PureComponent<Props & InjectedProps, State> {
     public render() {
         return (
-            <TrackedPage name="ForgotPassword">
+            <TrackedPage name="Club/ForgotPassword">
                 <Layout head={<ForgotHead />}>
                     <div className="auth-container container-fluid">
                         <Link href="/club/login">

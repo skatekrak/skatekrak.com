@@ -32,7 +32,7 @@ type State = {};
 class Login extends React.PureComponent<Props & InjectedProps, State> {
     public render() {
         return (
-            <TrackedPage name="Login">
+            <TrackedPage name="Club/Login">
                 <Layout head={<LoginHead />}>
                     <div className="auth-container container-fluid">
                         <div className="auth-form-container">

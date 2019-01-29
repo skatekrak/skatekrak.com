@@ -28,7 +28,7 @@ type State = {};
 class ResetPassword extends React.PureComponent<Props & InjectedProps, State> {
     public render() {
         return (
-            <TrackedPage name="ResetPassword">
+            <TrackedPage name="Club/ResetPassword">
                 <Layout head={<ResetHead />}>
                     <div className="auth-container container-fluid">
                         <div className="auth-form-container">

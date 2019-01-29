@@ -31,7 +31,7 @@ class Club extends React.Component<Props, State> {
 
     public render() {
         return (
-            <TrackedPage name="Subscribe">
+            <TrackedPage name="Club/Subscribe">
                 <Layout>
                     <React.Fragment>
                         <StripeProvider stripe={this.state.stripe}>

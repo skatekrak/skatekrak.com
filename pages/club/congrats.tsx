@@ -4,7 +4,7 @@ import Layout from 'components/Layout/Layout';
 import TrackedPage from 'components/pages/TrackedPage';
 
 export default () => (
-    <TrackedPage name="Congrats">
+    <TrackedPage name="Club/Congrats">
         <Layout>
             <div id="step3">
                 <img id="step3-image" src="/static/images/step_3_2x.png" alt="Kraken illustration step 3" />
