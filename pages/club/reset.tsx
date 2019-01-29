@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Field, InjectedFormProps, reduxForm, SubmissionError } from 'redux-form';
 
 import Layout from 'components/Layout/Layout';
+import TrackedPage from 'components/pages/TrackedPage';
 import RenderInput from 'components/Ui/Form/Input';
 
 const ResetHead = () => (
@@ -27,30 +28,32 @@ type State = {};
 class ResetPassword extends React.PureComponent<Props & InjectedProps, State> {
     public render() {
         return (
-            <Layout head={<ResetHead />}>
-                <div className="auth-container container-fluid">
-                    <div className="auth-form-container">
-                        <h1 className="auth-form-title">Reset password</h1>
-                        <p className="auth-form-desc">Enter a new password</p>
-                        <form className="auth-form">
-                            <Field
-                                withoutLabel
-                                name={'password'}
-                                placeholder="New password"
-                                component={RenderInput}
-                                type="password"
-                            />
-                            <button
-                                className="auth-form-submit button-primary"
-                                type="submit"
-                                onClick={this.handleSubmit}
-                            >
-                                Save password
-                            </button>
-                        </form>
+            <TrackedPage name="ResetPassword">
+                <Layout head={<ResetHead />}>
+                    <div className="auth-container container-fluid">
+                        <div className="auth-form-container">
+                            <h1 className="auth-form-title">Reset password</h1>
+                            <p className="auth-form-desc">Enter a new password</p>
+                            <form className="auth-form">
+                                <Field
+                                    withoutLabel
+                                    name={'password'}
+                                    placeholder="New password"
+                                    component={RenderInput}
+                                    type="password"
+                                />
+                                <button
+                                    className="auth-form-submit button-primary"
+                                    type="submit"
+                                    onClick={this.handleSubmit}
+                                >
+                                    Save password
+                                </button>
+                            </form>
+                        </div>
                     </div>
-                </div>
-            </Layout>
+                </Layout>
+            </TrackedPage>
         );
     }
 
