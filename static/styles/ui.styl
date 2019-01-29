@@ -6,6 +6,36 @@
 	Every UI component which need to generic
 */
 
+.edit-button
+	display: flex
+	align-items: center
+	color: $white
+	background-color: $grey-800
+
+	&:hover
+		background-color: $grey-900
+
+	+mq($from: "tiny")
+		display: inline
+
+	&-icon
+		display: block
+		width: 1rem
+		height: 1rem
+		margin-right: .5rem
+
+		& svg
+			fill: $white
+
+		+mq($from: "tiny")
+			display: none
+		
+		&-text
+			display: none
+
+			+mq($from: "tiny")
+				display: inline
+
 #scroll-top
 	display: none
 	position: fixed
