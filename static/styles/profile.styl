@@ -66,7 +66,7 @@
 			border: 1px solid $grey-800
 
 			+mq($from: "medium")
-				max-width: 80%
+				max-width: 175px
 				margin: auto 0
 				border: 0
 
@@ -140,6 +140,9 @@
 		padding: 2rem 0
 		border-bottom: 1px solid $grey-200
 
+		&:last-child
+			border-bottom: 0
+
 		+mq($from: "medium")
 			padding: 4rem 0
 
@@ -148,6 +151,7 @@
 
 		&-header
 			display: flex
+			flex-wrap: wrap
 			align-items: center
 			margin-bottom: 3rem
 			justify-content: space-between
