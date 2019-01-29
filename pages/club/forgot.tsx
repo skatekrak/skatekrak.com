@@ -52,7 +52,11 @@ class ForgotPassword extends React.PureComponent<Props & InjectedProps, State> {
                                 component={RenderInput}
                                 type="text"
                             />
-                            <button className="auth-form-submit" type="submit" onClick={this.handleSubmit}>
+                            <button
+                                className="auth-form-submit button-primary"
+                                type="submit"
+                                onClick={this.handleSubmit}
+                            >
                                 Recover password
                             </button>
                         </form>

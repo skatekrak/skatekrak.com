@@ -72,7 +72,9 @@ class Club extends React.Component<Props, State> {
                         </div>
                         <div id="club-cta-container">
                             <Link href="/club/subscribe" prefetch>
-                                <a id="club-cta">Join the club - {pricing}</a>
+                                <a id="club-cta" className="button-primary">
+                                    Join the club - {pricing}
+                                </a>
                             </Link>
                         </div>
                         <div id="club-benefits">

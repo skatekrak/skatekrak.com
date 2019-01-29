@@ -40,7 +40,11 @@ class ResetPassword extends React.PureComponent<Props & InjectedProps, State> {
                                 component={RenderInput}
                                 type="password"
                             />
-                            <button className="auth-form-submit" type="submit" onClick={this.handleSubmit}>
+                            <button
+                                className="auth-form-submit button-primary"
+                                type="submit"
+                                onClick={this.handleSubmit}
+                            >
                                 Save password
                             </button>
                         </form>

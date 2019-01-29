@@ -60,7 +60,11 @@ class Login extends React.PureComponent<Props & InjectedProps, State> {
                                         <span className="checkmark" />
                                     </label>
                                 </div>
-                                <button className="auth-form-submit" type="submit" onClick={this.handleSubmit}>
+                                <button
+                                    className="auth-form-submit button-primary"
+                                    type="submit"
+                                    onClick={this.handleSubmit}
+                                >
                                     Log in
                                 </button>
                             </form>

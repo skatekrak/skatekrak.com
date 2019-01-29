@@ -99,7 +99,7 @@ class PaymentForm extends React.Component<Props, State> {
                     </div>
                     <div className="form-section col-xs-12 col-md-offset-1 col-md-5">
                         <button
-                            className={classNames('checkout-form-submit-button', {
+                            className={classNames('checkout-form-submit-button button-primary', {
                                 'checkout-form-submit-button--enable': !(!valid || submitting),
                             })}
                             disabled={!valid || submitting}
