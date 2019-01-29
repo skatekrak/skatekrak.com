@@ -2,6 +2,9 @@ import React from 'react';
 
 import Layout from 'components/Layout/Layout';
 import LayoutProfile from 'components/pages/club/profile/LayoutProfile';
+import ProfileItem from 'components/pages/club/profile/Ui/item';
+import ProfileSection from 'components/pages/club/profile/Ui/section';
+import TrackedPage from 'components/pages/TrackedPage';
 
 const profile = {
     firstName: 'Guillaume',
@@ -93,11 +96,41 @@ type Props = {};
 class ProfilePreference extends React.Component<Props, {}> {
     public render() {
         return (
-            <Layout>
-                <LayoutProfile profile={profile} view="preference">
-                    <div id="profile-content">preference</div>
-                </LayoutProfile>
-            </Layout>
+            <TrackedPage name="Club/Profile/Preference">
+                <Layout>
+                    <LayoutProfile profile={profile} view="preference">
+                        <ProfileSection title="Wearable" edit editTitle="wearable" onEditClick={null}>
+                            <div className="profile-section-line">
+                                <ProfileItem title="T-shirt size" content={profile.preference.wearable.tshirtSize} />
+                                <ProfileItem title="Shoe size" content={profile.preference.wearable.shoeSize} />
+                            </div>
+                            <div className="profile-section-line">
+                                <ProfileItem
+                                    title="Boxershort size"
+                                    content={profile.preference.wearable.boxershortSize}
+                                />
+                            </div>
+                        </ProfileSection>
+                        <ProfileSection title="Skateboarding" edit editTitle="skateboarding" onEditClick={null}>
+                            <div className="profile-section-line">
+                                <ProfileItem
+                                    title="Broken deck"
+                                    content={profile.preference.skateboarding.brokenDeck}
+                                />
+                                <ProfileItem title="Deck size" content={profile.preference.skateboarding.deckSize} />
+                            </div>
+                            <div className="profile-section-line">
+                                <ProfileItem title="Truck size" content={profile.preference.skateboarding.truckSize} />
+                                <ProfileItem
+                                    title="Truck height"
+                                    content={profile.preference.skateboarding.truckHeight}
+                                />
+                            </div>
+                            <ProfileItem title="Wheel size" content={profile.preference.skateboarding.wheelSize} />
+                        </ProfileSection>
+                    </LayoutProfile>
+                </Layout>
+            </TrackedPage>
         );
     }
 }
