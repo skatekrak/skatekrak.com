@@ -126,7 +126,9 @@ class ProfilePreference extends React.Component<Props, {}> {
                                     content={profile.preference.skateboarding.truckHeight}
                                 />
                             </div>
-                            <ProfileItem title="Wheel size" content={profile.preference.skateboarding.wheelSize} />
+                            <div className="profile-section-line">
+                                <ProfileItem title="Wheel size" content={profile.preference.skateboarding.wheelSize} />
+                            </div>
                         </ProfileSection>
                     </LayoutProfile>
                 </Layout>
