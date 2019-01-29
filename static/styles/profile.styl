@@ -56,8 +56,8 @@
 
 
 .profile
-	//Main nav
 	&-nav
+		//Main nav
 		&-main
 			display: flex
 			flex-direction: column
@@ -135,3 +135,58 @@
 					&:hover
 						color: $grey-800
 
+	// Section
+	&-section
+		padding: 2rem 0
+		border-bottom: 1px solid $grey-200
+
+		+mq($from: "medium")
+			padding: 4rem 0
+
+			&:first-child
+				padding-top: 0
+
+		&-header
+			display: flex
+			align-items: center
+			margin-bottom: 3rem
+			justify-content: space-between
+
+			&-title
+				font-family: $ff-roboto-black
+				font-size: 2rem
+
+			& .edit-button
+				padding: .5rem .5rem
+
+				+mq($from: "tiny")
+					padding: .5rem 1rem
+
+		&-line
+			display: flex
+			flex-direction: column
+
+			+mq($from: "medium")
+				flex-direction: row
+				margin-bottom: 2rem
+
+			&:last-child
+				margin-bottom: 0
+
+				& .profile-content-section-line-item:last-child
+					margin-bottom: 0
+
+		&-item
+			margin-right: 4rem
+			margin-bottom: 2rem
+
+			+mq($from: "medium")
+				margin-bottom: 0
+
+			&:last-child
+				margin-right: 0
+
+			&-title
+				margin-bottom: .5rem
+				font-family: $ff-roboto-bold
+				color: $grey-400

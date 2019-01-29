@@ -16,9 +16,7 @@ const LayoutProfile: React.SFC<Props> = ({ profile, children, view }) => (
             <div className="col-xs-12 col-md-3">
                 <ProfileNav profile={profile} view={view} />
             </div>
-            <div id="profile-content-container" className="col-xs-12 col-md-9">
-                {children}
-            </div>
+            <div className="col-xs-12 col-md-9">{children}</div>
         </div>
     </div>
 );
