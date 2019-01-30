@@ -4,100 +4,128 @@ stages:
   - release
   - deploy
 
-services:
-  - docker:dind
-
 variables:
-  HUB_PROD: gcr.io/krakbackend/homepage
-  TEST_TAG: testing
+  BUILD_STAGING: build-staging
+  BUILD_PROD: build-prod
   STAGING_TAG: staging
   STABLE_TAG: latest
 
-before_script:
-  - echo $CI_BUILD_TOKEN | docker login -u gitlab-ci-token --password-stdin
-    $CI_REGISTRY
+.build:
+  stage: build
+  services:
+    - docker:dind
+  script:
+    - echo $CI_JOB_TOKEN | docker login -u gitlab-ci-token --password-stdin $CI_REGISTRY
+    - docker pull $CI_REGISTRY_IMAGE:$BUILD_TAG || true
+    - docker-compose -f docker-compose.ci.yml build skatekrak-build
+    - docker push $CI_REGISTRY_IMAGE:$BUILD_TAG
 
 build_staging:
-  stage: build
-  script:
+  extends: .build
+  variables:
+    BUILD_TAG: $BUILD_STAGING
+  before_script:
     - source .env
-    - docker pull $CI_REGISTRY_IMAGE:$TEST_TAG || true
-    - docker-compose -f docker-compose.ci.yml build skatekrak-build
-    - docker push $CI_REGISTRY_IMAGE:$TEST_TAG
   only:
     - develop
 
-build_production:
-  stage: build
-  script:
-    - docker pull $CI_REGISTRY_IMAGE:$TEST_TAG || true
-    - docker-compose -f docker-compose.ci.yml build skatekrak-build
-    - docker push $CI_REGISTRY_IMAGE:$TEST_TAG
+build_prod:
+  extends: .build
+  variables:
+    BUILD_TAG: $BUILD_PROD
   only:
     - tags
 
-lint:
+.lint:
   stage: lint
+  services:
+    - docker:dind
   script:
-    - docker pull $CI_REGISTRY_IMAGE:$TEST_TAG
+    - echo $CI_JOB_TOKEN | docker login -u gitlab-ci-token --password-stdin $CI_REGISTRY
+    - docker pull $CI_REGISTRY_IMAGE:$BUILD_TAG
     - docker-compose -f docker-compose.ci.yml run --rm skatekrak-lint
+  when: on_success
+
+lint_staging:
+  extends: .lint
+  variables:
+    BUILD_TAG: $BUILD_STAGING
+  only:
+    - develop
+
+lint_prod:
+  extends: .lint
+  variables:
+    BUILD_TAG: $BUILD_PROD
   only:
     - tags
-    - develop
+
+.release:
+  stage: release
+  services:
+    - docker:dind
+  before_script:
+    - echo $CI_JOB_TOKEN | docker login -u gitlab-ci-token --password-stdin $CI_REGISTRY
+    - docker pull $CI_REGISTRY_IMAGE:$BUILD_TAG
   when: on_success
 
 release_staging:
-  stage: release
+  extends: .release
+  variables:
+    BUILD_TAG: $BUILD_STAGING
   script:
-    - docker pull $CI_REGISTRY_IMAGE:$TEST_TAG
-    - docker tag $CI_REGISTRY_IMAGE:$TEST_TAG $CI_REGISTRY_IMAGE:$STAGING_TAG
-    - docker push $CI_REGISTRY_IMAGE:$STAGING_TAG
+    - docker tag $CI_REGISTRY_IMAGE:$BUILD_TAG $CI_REGISTRY_IMAGE:$STAGING_TAG
+    - docker push $CI_REGISTRY_IMAGE:$BUILD_TAG
   only:
     - develop
-  when: on_success
+
+release_prod:
+  extends: .release
+  variables:
+    BUILD_TAG: $BUILD_PROD
+  script:
+    - docker tag $CI_REGISTRY_IMAGE:$BUILD_TAG $CI_REGISTRY_IMAGE:$CI_COMMIT_TAG
+    - docker tag $CI_REGISTRY_IMAGE:$BUILD_TAG $CI_REGISTRY_IMAGE:$STABLE_TAG
+    - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_TAG
+    - docker push $CI_REGISTRY_IMAGE:$STABLE_TAG
+  only:
+    - tags
+
+.deploy:
+  stage: deploy
+  script:
+    - |
+      if kubectl set image deployment/skatekrak skatekrak=$CI_REGISTRY_IMAGE:$DEPLOY_TAG | grep -q updated; then
+          echo "=> Deployment has set a new image, no need to force update"
+      else
+          echo "=> Patching Deployment to force update"
+          kubectl patch deployment/skatekrak -p "{\"spec\":{\"template\":{\"metadata\":{\"annotations\":{\"ci-last-updated\":\"$(date +'%s')\"}}}}}"
+      fi
+    - kubectl rollout status deployment/skatekrak
+    - kubectl describe deployment skatekrak
 
 deploy_staging:
-  stage: deploy
+  extends: .deploy
   tags:
-    - deploy
+    - do-k8s-staging
+  variables:
+    DEPLOY_TAG: $STAGING_TAG
   environment:
     name: staging
     url: "https://home.staging.skatekrak.com"
-  script:
-    - docker-compose -f docker-compose.prod.yml pull skatekrak-staging
-    - docker-compose -f docker-compose.prod.yml up -d --force-recreate
-      skatekrak-staging
   only:
     - develop
   when: on_success
 
-release_production:
-  stage: release
+deploy_prod:
+  extends: .deploy
   tags:
-    - kube
-  script:
-    - docker pull $CI_REGISTRY_IMAGE:$TEST_TAG
-    - docker tag $CI_REGISTRY_IMAGE:$TEST_TAG $CI_REGISTRY_IMAGE:$CI_COMMIT_TAG
-    - docker tag $CI_REGISTRY_IMAGE:$TEST_TAG $CI_REGISTRY_IMAGE:$STABLE_TAG
-    - docker tag $CI_REGISTRY_IMAGE:$TEST_TAG $HUB_PROD:$CI_COMMIT_TAG
-    - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_TAG
-    - docker push $CI_REGISTRY_IMAGE:$STABLE_TAG
-    - gcloud docker -- push $HUB_PROD:$CI_COMMIT_TAG
-  only:
-    - tags
-  when: on_success
-
-deploy_production:
-  stage: deploy
-  tags:
-    - kube
+    - do-k8s-prod
+  variables:
+    DEPLOY_TAG: $CI_COMMIT_TAG
   environment:
     name: production
     url: "https://skatekrak.com"
-  script:
-    - kubectl set image deployment/homepage homepage=$HUB_PROD:$CI_COMMIT_TAG
-    - kubectl rollout status deployment/homepage
-    - kubectl describe deployment homepage
   only:
     - tags
   when: manual
