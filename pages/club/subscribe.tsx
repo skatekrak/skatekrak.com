@@ -31,11 +31,11 @@ class Club extends React.Component<Props, State> {
 
     public render() {
         return (
-            <TrackedPage name="Subscribe">
+            <TrackedPage name="Club/Subscribe">
                 <Layout>
                     <React.Fragment>
                         <StripeProvider stripe={this.state.stripe}>
-                            <div id="checkout" className="container page-padding">
+                            <div id="checkout" className="container inner-page-container">
                                 <header id="checkout-header">
                                     <h1 id="checkout-header-title">Join the club</h1>
                                     <h2 id="checkout-header-subtitle">

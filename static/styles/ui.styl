@@ -6,6 +6,72 @@
 	Every UI component which need to generic
 */
 
+.icon-full
+	display: flex
+	width: 1.5rem
+	height: 1.5rem
+	padding: .2rem
+	fill: $grey-100
+	background-color: $grey-800
+	border-radius: .25rem
+
+	& svg
+		width: 100%
+		margin: auto
+
+.button
+	&-with-label
+		display: flex
+		align-items: center
+		font-family: $ff-roboto-regular
+		font-size: $fs-small
+
+		&:hover
+			text-decoration: underline
+
+		& .icon-full
+			margin-right: .5rem
+
+		&-text
+			display: none
+
+			+mq($from: "tiny")
+				display: inline
+
+			&-action
+				text-transform: capitalize
+
+
+.edit-button
+	display: flex
+	align-items: center
+	color: $white
+	background-color: $grey-800
+
+	&:hover
+		background-color: $grey-900
+
+	+mq($from: "tiny")
+		display: inline
+
+	&-icon
+		display: block
+		width: 1rem
+		height: 1rem
+		margin-right: .5rem
+
+		& svg
+			fill: $white
+
+		+mq($from: "tiny")
+			display: none
+		
+		&-text
+			display: none
+
+			+mq($from: "tiny")
+				display: inline
+
 #scroll-top
 	display: none
 	position: fixed

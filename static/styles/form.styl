@@ -28,10 +28,12 @@
 
 		&-field
 			&--error
-				border: 1px solid $error
+				& input
+					border: 1px solid $error
 			
 			&--success
-				border: 1px solid #21E581
+				& input
+					border: 1px solid #21E581
 
 			& input
 				height: 3rem
@@ -40,7 +42,6 @@
 				font-family: $ff-roboto-regular
 				font-size: $fs-regular
 				background-color: $white
-				border: 0
 
 				&:focus
 					border: 1px solid $secondary

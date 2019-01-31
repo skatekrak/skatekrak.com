@@ -1,6 +1,7 @@
 import Analytics from '@thepunkclub/analytics';
 import React from 'react';
 
+import 'static/styles/auth.styl';
 import 'static/styles/checkout.styl';
 import 'static/styles/club.styl';
 import 'static/styles/news.styl';

@@ -10,7 +10,7 @@ import RenderInput from 'components/Ui/Form/Input';
 
 import { savePricingCurrency } from 'store/reducers/payment';
 
-// TODO: Find how to properly put props here (with InjectedFormProps)
+// TODO: Find how to properly put props here (with InjectedFormProps)(also in login)
 interface Props {
     onSubmit: () => void;
     dispatch: (fct: any) => void;
@@ -44,7 +44,7 @@ class ShippingForm extends React.Component<Props & InjectedProps> {
                     </div>
                     <div className="form-section col-xs-12 col-md-offset-1 col-md-5">
                         <button
-                            className={classNames('checkout-form-submit-button', {
+                            className={classNames('checkout-form-submit-button button-primary', {
                                 'checkout-form-submit-button--enable': !(!this.props.valid || this.props.submitting),
                             })}
                             disabled={!this.props.valid || this.props.submitting}

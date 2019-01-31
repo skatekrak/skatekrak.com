@@ -6,7 +6,7 @@
 	+mq($from: "medium")
 		display: flex
 		flex-direction: column
-		height: calc(100vh - 6rem)
+		height: 100vh
 		overflow: hidden
 
 
@@ -52,13 +52,9 @@
 			z-index: 1
 
 	&-cta
-		padding: 1rem 2rem
-		font-family: $ff-roboto-bold
 		color: $white
 		background-color: $primary
-		border-radius: .25rem
 		box-shadow: $box-shadow-1
-		transition: .3s
 
 		&:hover
 			background-color: $primaryDark
@@ -80,6 +76,9 @@
 		background-image: url("/static/images/club-presentation-bg.jpg")
 		background-position: 20% 50%
 		background-size: cover
+
+		+mq($from: "medium")
+			background-position: center
 
 		&-container
 			position: absolute

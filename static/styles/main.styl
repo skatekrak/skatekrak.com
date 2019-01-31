@@ -9,21 +9,13 @@ body
 	color: $text-lighter
 	background-color: $grey-100
 
+button
+	font-family: $ff-roboto-regular
+	color: $grey-800
+
 .scroll-container
 	max-height: 100vh
 	overflow: auto
-
-#main
-	&-container
-		position: relative
-		flex-grow: 1
-		padding-top: 2rem
-		padding-bottom: 2rem
-		color: $text-dark
-
-		+mq($from: "medium")
-			padding-top: 4rem
-			overflow: auto
 
 #page-container
 	display: flex
@@ -33,6 +25,18 @@ body
 	+mq($from: "medium")
 		flex-direction: row
 		max-height: 100vh
+
+#main
+	&-container
+		position: relative
+		flex-grow: 1
+		display: flex
+		flex-direction: column
+		color: $text-dark
+
+		+mq($from: "medium")
+			height: 100vh
+			overflow: auto
 
 #header
 	max-height: 100vh
@@ -46,14 +50,14 @@ body
 		display: flex
 		flex-direction: column
 		min-height: 100vh
-		min-width: 250px
-		max-width: 250px
+		min-width: $header-width-medium
+		max-width: $header-width-medium
 		padding: 4rem 2rem 1rem
 		background-color: $grey-900
 
 	+mq($from: "large")
-		min-width: 300px
-		max-width: 300px
+		min-width: $header-width-large
+		max-width: $header-width-large
 
 	&-top
 		display: flex
@@ -103,11 +107,17 @@ body
 				align-items: center
 
 		&-subnav
+			display: flex
+			flex-direction: column
+			align-items: center
 			margin: 0 auto
 
 			&-container
 				display: flex
 				justify-content: center
+
+			& li
+				list-style: none
 
 		&-credits
 			margin-top: 1rem
