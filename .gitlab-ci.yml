@@ -5,6 +5,10 @@ stages:
   - deploy
 
 variables:
+  DOCKER_BUILD_NAME: skatekrak-build
+  DOCKER_LINT_NAME: skatekrak-lint
+  K8S_DEPLOYMENT_NAME: skatekrak
+  K8S_CONTAINER_NAME: skatekrak
   BUILD_STAGING: build-staging
   BUILD_PROD: build-prod
   STAGING_TAG: staging
@@ -17,7 +21,7 @@ variables:
   script:
     - echo $CI_JOB_TOKEN | docker login -u gitlab-ci-token --password-stdin $CI_REGISTRY
     - docker pull $CI_REGISTRY_IMAGE:$BUILD_TAG || true
-    - docker-compose -f docker-compose.ci.yml build skatekrak-build
+    - docker-compose -f docker-compose.ci.yml build $DOCKER_BUILD_NAME
     - docker push $CI_REGISTRY_IMAGE:$BUILD_TAG
 
 build_staging:
@@ -43,7 +47,7 @@ build_prod:
   script:
     - echo $CI_JOB_TOKEN | docker login -u gitlab-ci-token --password-stdin $CI_REGISTRY
     - docker pull $CI_REGISTRY_IMAGE:$BUILD_TAG
-    - docker-compose -f docker-compose.ci.yml run --rm skatekrak-lint
+    - docker-compose -f docker-compose.ci.yml run --rm $DOCKER_LINT_NAME
   when: on_success
 
 lint_staging:
@@ -95,14 +99,14 @@ release_prod:
   stage: deploy
   script:
     - |
-      if kubectl set image deployment/skatekrak skatekrak=$CI_REGISTRY_IMAGE:$DEPLOY_TAG | grep -q updated; then
+      if kubectl set image deployment/$K8S_DEPLOYMENT_NAME $K8S_CONTAINER_NAME=$CI_REGISTRY_IMAGE:$DEPLOY_TAG | grep -q updated; then
           echo "=> Deployment has set a new image, no need to force update"
       else
           echo "=> Patching Deployment to force update"
-          kubectl patch deployment/skatekrak -p "{\"spec\":{\"template\":{\"metadata\":{\"annotations\":{\"ci-last-updated\":\"$(date +'%s')\"}}}}}"
+          kubectl patch deployment/$K8S_DEPLOYMENT_NAME -p "{\"spec\":{\"template\":{\"metadata\":{\"annotations\":{\"ci-last-updated\":\"$(date +'%s')\"}}}}}"
       fi
-    - kubectl rollout status deployment/skatekrak
-    - kubectl describe deployment skatekrak
+    - kubectl rollout status deployment/$K8S_DEPLOYMENT_NAME
+    - kubectl describe deployment $K8S_DEPLOYMENT_NAME
 
 deploy_staging:
   extends: .deploy
@@ -112,7 +116,7 @@ deploy_staging:
     DEPLOY_TAG: $STAGING_TAG
   environment:
     name: staging
-    url: "https://home.staging.skatekrak.com"
+    url: "https://staging.skatekrak.com"
   only:
     - develop
   when: on_success
