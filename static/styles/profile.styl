@@ -218,21 +218,11 @@
 			+mq($from: "medium")
 				padding-bottom: 0
 
-			&-icon
-				position: relative
-				display: flex
-				align-items: center
-				justify-content: center
-				width: 1.5rem
-				height: 1.5rem
+			& .icon-full
 				padding: .25rem
 				margin-right: 1rem
-				background-color: $grey-800
-				border-radius: .25rem
 
 				& svg
-					width: 100%
-					fill: $grey-100
 					transform: rotate(45deg)
 
 		&-nav
@@ -262,23 +252,62 @@
 					display: flex
 					align-items: center
 
-					& svg
-						width: 1.5rem
+					& .icon-full
 						margin-right: .5rem
-						padding: .2rem
-						fill: $grey-100
-						background-color: $grey-800
-						border-radius: .25rem
 
 					&--active
-						& svg
-							fill: #ffd400
+						& .icon-full
 							border-radius: 100%
+
+							& svg
+								fill: #ffd400
 
 		&-preview
 			&-line
 				margin-bottom: 1rem
-				color: $grey-600
 
 				&:last-child
 					margin-bottom: 0
+
+	&-payment
+		&-history
+			&-line
+				display: flex
+				flex-direction: column
+				margin: 2rem 0
+				padding-bottom: 2rem
+				border-bottom: 1px solid $grey-200
+
+				&:first-child
+					margin-top: 0
+
+				&:last-child
+					margin-bottom: 0
+					padding-bottom: 0
+					border-bottom: 0
+
+				+mq($from: "small")
+					flex-direction: row
+					justify-content: space-between
+
+				&-desc
+					margin-bottom: 1rem
+
+					+mq($from: "small")
+						margin-bottom: 0
+
+				&-details
+					display: flex
+					align-items: center
+
+					&-date
+						margin-right: 2rem
+						font-size: $fs-small
+						color: $grey-600
+
+					&-price
+						margin-right: 2rem
+						font-family: $ff-roboto-bold
+
+					// &-download
+

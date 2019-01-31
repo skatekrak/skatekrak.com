@@ -2,6 +2,12 @@ import React from 'react';
 
 import Layout from 'components/Layout/Layout';
 import LayoutProfile from 'components/pages/club/profile/LayoutProfile';
+import AddressPreview from 'components/pages/club/profile/Ui/addressPreview';
+import ProfileItem from 'components/pages/club/profile/Ui/item';
+import PaymentLine from 'components/pages/club/profile/Ui/PaymentLine';
+import ProfileSection from 'components/pages/club/profile/Ui/section';
+import ProfileSectionHeader from 'components/pages/club/profile/Ui/sectionHeader';
+import TrackedPage from 'components/pages/TrackedPage';
 
 const profile = {
     firstName: 'Guillaume',
@@ -28,7 +34,7 @@ const profile = {
     },
     shipping: {
         address1: {
-            acutal: true,
+            actual: true,
             firstName: 'Guillaume',
             lastName: 'Lefebvre',
             street: '24 allée daguilera',
@@ -40,7 +46,7 @@ const profile = {
             countryCode: 'fr',
         },
         address2: {
-            acutal: false,
+            actual: false,
             firstName: 'Arnaud',
             lastName: 'Molinos',
             street: '27 bis avenue de larochefoucauld',
@@ -73,12 +79,14 @@ const profile = {
         },
         history: [
             {
+                id: '1',
                 desc: 'Quarter membership to Krak skate club x1',
                 date: '5 march 2019',
                 price: '87€',
                 invoiceLink: '',
             },
             {
+                id: '2',
                 desc: 'Quarter membership to Krak skate club x1',
                 date: '5 june 2019',
                 price: '87€',
@@ -93,11 +101,38 @@ type Props = {};
 class ProfilePayment extends React.Component<Props, {}> {
     public render() {
         return (
-            <Layout>
-                <LayoutProfile profile={profile} view="payment">
-                    <div id="profile-content">Payment</div>
-                </LayoutProfile>
-            </Layout>
+            <TrackedPage name="Club/Profile/Shipment">
+                <Layout>
+                    <LayoutProfile profile={profile} view="payment">
+                        <ProfileSection>
+                            <ProfileSectionHeader title="Membership" edit editTitle="credit card" onEditClick={null} />
+                            <div className="profile-section-line">
+                                <ProfileItem title="Next renewal" content={profile.payment.membership.next} />
+                            </div>
+                            <div className="profile-section-line">
+                                <ProfileItem title="Credit card" content={profile.payment.membership.creditCard} />
+                            </div>
+                        </ProfileSection>
+                        <ProfileSection>
+                            <ProfileSectionHeader
+                                title="Billing address"
+                                edit
+                                editTitle="billing address"
+                                onEditClick={null}
+                            />
+                            <div className="profile-section-line">
+                                <AddressPreview address={profile.payment.billingAddress} />
+                            </div>
+                        </ProfileSection>
+                        <ProfileSection>
+                            <ProfileSectionHeader title="History" />
+                            {profile.payment.history.map((payment) => (
+                                <PaymentLine key={payment.id} payment={payment} />
+                            ))}
+                        </ProfileSection>
+                    </LayoutProfile>
+                </Layout>
+            </TrackedPage>
         );
     }
 }
