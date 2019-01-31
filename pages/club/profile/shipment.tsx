@@ -2,6 +2,12 @@ import React from 'react';
 
 import Layout from 'components/Layout/Layout';
 import LayoutProfile from 'components/pages/club/profile/LayoutProfile';
+import AddressNav from 'components/pages/club/profile/Ui/AddressNav';
+import AddressPreview from 'components/pages/club/profile/Ui/addressPreview';
+import ProfileSection from 'components/pages/club/profile/Ui/section';
+import ProfileSectionHeader from 'components/pages/club/profile/Ui/sectionHeader';
+import TrackedPage from 'components/pages/TrackedPage';
+import IconCross from 'components/Ui/Icons/Cross';
 
 const profile = {
     firstName: 'Guillaume',
@@ -28,7 +34,7 @@ const profile = {
     },
     shipping: {
         address1: {
-            acutal: true,
+            actual: true,
             firstName: 'Guillaume',
             lastName: 'Lefebvre',
             street: '24 allée daguilera',
@@ -40,7 +46,7 @@ const profile = {
             countryCode: 'fr',
         },
         address2: {
-            acutal: false,
+            actual: false,
             firstName: 'Arnaud',
             lastName: 'Molinos',
             street: '27 bis avenue de larochefoucauld',
@@ -93,11 +99,38 @@ type Props = {};
 class ProfileShipment extends React.Component<Props, {}> {
     public render() {
         return (
-            <Layout>
-                <LayoutProfile profile={profile} view="shipment">
-                    <div id="profile-content">shipment</div>
-                </LayoutProfile>
-            </Layout>
+            <TrackedPage name="Club/Profile/Shipment">
+                <Layout>
+                    <LayoutProfile profile={profile} view="shipment">
+                        <ProfileSection>
+                            <div className="profile-section-line">
+                                <button className="profile-address-add">
+                                    <span className="profile-address-add-icon">
+                                        <IconCross />
+                                    </span>
+                                    Add new address
+                                </button>
+                            </div>
+                        </ProfileSection>
+                        <ProfileSection>
+                            <ProfileSectionHeader edit editTitle="Address 1" onEditClick={null}>
+                                <AddressNav address={profile.shipping.address1} onDeleteClick={null} />
+                            </ProfileSectionHeader>
+                            <div className="profile-section-line">
+                                <AddressPreview address={profile.shipping.address1} />
+                            </div>
+                        </ProfileSection>
+                        <ProfileSection>
+                            <ProfileSectionHeader edit editTitle="Address 2" onEditClick={null}>
+                                <AddressNav address={profile.shipping.address2} onDeleteClick={null} />
+                            </ProfileSectionHeader>
+                            <div className="profile-section-line">
+                                <AddressPreview address={profile.shipping.address2} />
+                            </div>
+                        </ProfileSection>
+                    </LayoutProfile>
+                </Layout>
+            </TrackedPage>
         );
     }
 }
