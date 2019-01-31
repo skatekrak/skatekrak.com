@@ -9,13 +9,14 @@ variables:
   DOCKER_LINT_NAME: skatekrak-lint
   K8S_DEPLOYMENT_NAME: skatekrak
   K8S_CONTAINER_NAME: skatekrak
-  BUILD_STAGING: build-staging
-  BUILD_PROD: build-prod
+  BUILD_STAGING_TAG: build-staging
+  BUILD_PROD_TAG: build-prod
   STAGING_TAG: staging
   STABLE_TAG: latest
 
 .build:
   stage: build
+  retry: 1
   services:
     - docker:dind
   script:
@@ -27,7 +28,7 @@ variables:
 build_staging:
   extends: .build
   variables:
-    BUILD_TAG: $BUILD_STAGING
+    BUILD_TAG: $BUILD_STAGING_TAG
   before_script:
     - source .env
   only:
@@ -36,12 +37,13 @@ build_staging:
 build_prod:
   extends: .build
   variables:
-    BUILD_TAG: $BUILD_PROD
+    BUILD_TAG: $BUILD_PROD_TAG
   only:
     - tags
 
 .lint:
   stage: lint
+  retry: 1
   services:
     - docker:dind
   script:
@@ -53,19 +55,20 @@ build_prod:
 lint_staging:
   extends: .lint
   variables:
-    BUILD_TAG: $BUILD_STAGING
+    BUILD_TAG: $BUILD_STAGING_TAG
   only:
     - develop
 
 lint_prod:
   extends: .lint
   variables:
-    BUILD_TAG: $BUILD_PROD
+    BUILD_TAG: $BUILD_PROD_TAG
   only:
     - tags
 
 .release:
   stage: release
+  retry: 1
   services:
     - docker:dind
   before_script:
@@ -76,7 +79,7 @@ lint_prod:
 release_staging:
   extends: .release
   variables:
-    BUILD_TAG: $BUILD_STAGING
+    BUILD_TAG: $BUILD_STAGING_TAG
   script:
     - docker tag $CI_REGISTRY_IMAGE:$BUILD_TAG $CI_REGISTRY_IMAGE:$STAGING_TAG
     - docker push $CI_REGISTRY_IMAGE:$STAGING_TAG
@@ -86,7 +89,7 @@ release_staging:
 release_prod:
   extends: .release
   variables:
-    BUILD_TAG: $BUILD_PROD
+    BUILD_TAG: $BUILD_PROD_TAG
   script:
     - docker tag $CI_REGISTRY_IMAGE:$BUILD_TAG $CI_REGISTRY_IMAGE:$CI_COMMIT_TAG
     - docker tag $CI_REGISTRY_IMAGE:$BUILD_TAG $CI_REGISTRY_IMAGE:$STABLE_TAG
