@@ -4,6 +4,7 @@ import Layout from 'components/Layout/Layout';
 import LayoutProfile from 'components/pages/club/profile/LayoutProfile';
 import ProfileItem from 'components/pages/club/profile/Ui/item';
 import ProfileSection from 'components/pages/club/profile/Ui/section';
+import ProfileSectionHeader from 'components/pages/club/profile/Ui/sectionHeader';
 import TrackedPage from 'components/pages/TrackedPage';
 
 const profile = {
@@ -99,7 +100,8 @@ class ProfilePreference extends React.Component<Props, {}> {
             <TrackedPage name="Club/Profile/Preference">
                 <Layout>
                     <LayoutProfile profile={profile} view="preference">
-                        <ProfileSection title="Wearable" edit editTitle="wearable" onEditClick={null}>
+                        <ProfileSection>
+                            <ProfileSectionHeader title="Wearable" edit editTitle="wearable" onEditClick={null} />
                             <div className="profile-section-line">
                                 <ProfileItem title="T-shirt size" content={profile.preference.wearable.tshirtSize} />
                                 <ProfileItem title="Shoe size" content={profile.preference.wearable.shoeSize} />
@@ -111,7 +113,13 @@ class ProfilePreference extends React.Component<Props, {}> {
                                 />
                             </div>
                         </ProfileSection>
-                        <ProfileSection title="Skateboarding" edit editTitle="skateboarding" onEditClick={null}>
+                        <ProfileSection>
+                            <ProfileSectionHeader
+                                title="Skateboarding"
+                                edit
+                                editTitle="skateboarding"
+                                onEditClick={null}
+                            />
                             <div className="profile-section-line">
                                 <ProfileItem
                                     title="Broken deck"

@@ -4,6 +4,7 @@ import Layout from 'components/Layout/Layout';
 import LayoutProfile from 'components/pages/club/profile/LayoutProfile';
 import ProfileItem from 'components/pages/club/profile/Ui/item';
 import ProfileSection from 'components/pages/club/profile/Ui/section';
+import ProfileSectionHeader from 'components/pages/club/profile/Ui/sectionHeader';
 import TrackedPage from 'components/pages/TrackedPage';
 
 const profile = {
@@ -99,7 +100,8 @@ class ProfileMain extends React.Component<Props, {}> {
             <TrackedPage name="Club/Profile">
                 <Layout>
                     <LayoutProfile profile={profile} view="profile">
-                        <ProfileSection title="Membership">
+                        <ProfileSection>
+                            <ProfileSectionHeader title="Membership" />
                             <div className="profile-section-line">
                                 <ProfileItem title="Member ID" content={`#${profile.payment.membership.memberId}`} />
                                 <ProfileItem title="Quarter" content="1" />
@@ -109,7 +111,8 @@ class ProfileMain extends React.Component<Props, {}> {
                                 <ProfileItem title="Next renewal" content={profile.payment.membership.next} />
                             </div>
                         </ProfileSection>
-                        <ProfileSection title="Personal info" edit editTitle="info" onEditClick={null}>
+                        <ProfileSection>
+                            <ProfileSectionHeader title="Personal info" edit editTitle="info" onEditClick={null} />
                             <div className="profile-section-line">
                                 <ProfileItem title="First Name" content={profile.firstName} />
                                 <ProfileItem title="Last name" content={profile.lastName} />
@@ -122,7 +125,8 @@ class ProfileMain extends React.Component<Props, {}> {
                                 <ProfileItem title="Phone number" content={profile.phoneNumber} />
                             </div>
                         </ProfileSection>
-                        <ProfileSection title="Social" edit editTitle="social" onEditClick={null}>
+                        <ProfileSection>
+                            <ProfileSectionHeader title="Social" edit editTitle="social" onEditClick={null} />
                             <div className="profile-section-line">
                                 <ProfileItem title="Instagram" content={profile.social.instagram} />
                             </div>
