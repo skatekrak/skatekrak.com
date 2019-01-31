@@ -75,7 +75,7 @@ release_staging:
     BUILD_TAG: $BUILD_STAGING
   script:
     - docker tag $CI_REGISTRY_IMAGE:$BUILD_TAG $CI_REGISTRY_IMAGE:$STAGING_TAG
-    - docker push $CI_REGISTRY_IMAGE:$BUILD_TAG
+    - docker push $CI_REGISTRY_IMAGE:$STAGING_TAG
   only:
     - develop
 
