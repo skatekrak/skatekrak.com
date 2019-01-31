@@ -6,6 +6,34 @@
 	Every UI component which need to generic
 */
 
+.button
+	&-with-label
+		display: flex
+		align-items: center
+		font-family: $ff-roboto-regular
+		font-size: $fs-regular
+
+		&:hover
+			text-decoration: underline
+
+		& svg
+			width: 1.5rem
+			margin-right: .5rem
+			padding: .2rem
+			fill: $grey-100
+			background-color: $grey-800
+			border-radius: .25rem
+
+		&-text
+			display: none
+
+			+mq($from: "tiny")
+				display: inline
+
+			&-action
+				text-transform: capitalize
+
+
 .edit-button
 	display: flex
 	align-items: center
