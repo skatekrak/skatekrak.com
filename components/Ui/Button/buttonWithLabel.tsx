@@ -6,6 +6,7 @@ import * as React from 'react';
 /*
  * Local import
  */
+import IconFull from 'components/Ui/Icons/iconFull';
 
 /*
  * Code
@@ -19,7 +20,7 @@ type Props = {
 
 const ButtonWithLabel: React.SFC<Props> = ({ actionLabel, onClick, content, icon }) => (
     <button className="button-with-label" onClick={onClick}>
-        {icon}
+        <IconFull icon={icon} />
         <span className="button-with-label-text">
             <span className="button-with-label-text-action">{actionLabel}&nbsp;</span>
             {content}

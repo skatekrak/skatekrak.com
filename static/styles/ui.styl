@@ -6,6 +6,19 @@
 	Every UI component which need to generic
 */
 
+.icon-full
+	display: flex
+	width: 1.5rem
+	height: 1.5rem
+	padding: .2rem
+	fill: $grey-100
+	background-color: $grey-800
+	border-radius: .25rem
+
+	& svg
+		width: 100%
+		margin: auto
+
 .button
 	&-with-label
 		display: flex
@@ -16,13 +29,8 @@
 		&:hover
 			text-decoration: underline
 
-		& svg
-			width: 1.5rem
+		& .icon-full
 			margin-right: .5rem
-			padding: .2rem
-			fill: $grey-100
-			background-color: $grey-800
-			border-radius: .25rem
 
 		&-text
 			display: none

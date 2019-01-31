@@ -8,6 +8,7 @@ import ProfileSection from 'components/pages/club/profile/Ui/section';
 import ProfileSectionHeader from 'components/pages/club/profile/Ui/sectionHeader';
 import TrackedPage from 'components/pages/TrackedPage';
 import IconCross from 'components/Ui/Icons/Cross';
+import IconFull from 'components/Ui/Icons/iconFull';
 
 const profile = {
     firstName: 'Guillaume',
@@ -79,12 +80,14 @@ const profile = {
         },
         history: [
             {
+                id: '1',
                 desc: 'Quarter membership to Krak skate club x1',
                 date: '5 march 2019',
                 price: '87€',
                 invoiceLink: '',
             },
             {
+                id: '2',
                 desc: 'Quarter membership to Krak skate club x1',
                 date: '5 june 2019',
                 price: '87€',
@@ -105,9 +108,7 @@ class ProfileShipment extends React.Component<Props, {}> {
                         <ProfileSection>
                             <div className="profile-section-line">
                                 <button className="profile-address-add">
-                                    <span className="profile-address-add-icon">
-                                        <IconCross />
-                                    </span>
+                                    <IconFull icon={<IconCross />} />
                                     Add new address
                                 </button>
                             </div>

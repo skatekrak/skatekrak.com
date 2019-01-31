@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import React from 'react';
 
 import ButtonWithLabel from 'components/Ui/Button/buttonWithLabel';
+import IconFull from 'components/Ui/Icons/iconFull';
 import IconStarFull from 'components/Ui/Icons/StarFull';
 import IconTrash from 'components/Ui/Icons/Trash';
 
@@ -19,7 +20,7 @@ const AddressNav: React.SFC<Props> = ({ address, onDeleteClick }) => (
                         'profile-address-nav-item-status--active': address.actual,
                     })}
                 >
-                    <IconStarFull />
+                    <IconFull icon={<IconStarFull />} />
                     Actual shipping address
                 </span>
             ) : (
@@ -28,7 +29,7 @@ const AddressNav: React.SFC<Props> = ({ address, onDeleteClick }) => (
                         'profile-address-nav-item-status--active': address.actual,
                     })}
                 >
-                    <IconStarFull />
+                    <IconFull icon={<IconStarFull />} />
                     Set as shipping address
                 </button>
             )}
