@@ -3,6 +3,8 @@ import React from 'react';
 import NavItem from 'components/Header/NavItem';
 import Link from 'components/Link';
 import IconCross from 'components/Ui/Icons/Cross.tsx';
+import IconKrakenHead from 'components/Ui/Icons/Kraken/KrakenHead';
+import IconPower from 'components/Ui/Icons/Power';
 
 /* tslint:disable:max-line-length */
 
@@ -101,7 +103,18 @@ export default class extends React.Component<{}, State> {
                         </ul>
                     </nav>
                     <nav id="header-nav-subnav">
-                        <NavItem title="Kraken access" url="/club/login" />
+                        <div id="header-nav-subnav-kraken">
+                            <Link href="/club/login">
+                                <a id="header-nav-subnav-kraken-login" className="header-nav-main-item-link">
+                                    <IconKrakenHead />
+                                    Kraken Access
+                                </a>
+                            </Link>
+                            <button id="header-nav-subnav-kraken-logout" className="header-nav-main-item-link">
+                                <IconPower />
+                                Log out
+                            </button>
+                        </div>
                         <ul id="header-nav-subnav-container">
                             <li className="header-nav-subnav-item">
                                 <a
