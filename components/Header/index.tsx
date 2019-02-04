@@ -110,7 +110,7 @@ export default class extends React.Component<{}, State> {
                                     Kraken Access
                                 </a>
                             </Link>
-                            <button id="header-nav-subnav-kraken-logout" className="header-nav-main-item-link">
+                            <button id="header-nav-subnav-kraken-logout">
                                 <IconPower />
                                 Log out
                             </button>
