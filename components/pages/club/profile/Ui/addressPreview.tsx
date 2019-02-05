@@ -1,7 +1,7 @@
 import React from 'react';
 
 type Props = {
-    address: object;
+    address: any;
 };
 
 const AddressPreview: React.SFC<Props> = ({ address }) => (

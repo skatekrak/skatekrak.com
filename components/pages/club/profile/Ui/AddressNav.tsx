@@ -7,7 +7,7 @@ import IconStarFull from 'components/Ui/Icons/StarFull';
 import IconTrash from 'components/Ui/Icons/Trash';
 
 type Props = {
-    address: object;
+    address: any;
     onDeleteClick: (fct: any) => void;
 };
 

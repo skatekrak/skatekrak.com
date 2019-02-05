@@ -5,7 +5,7 @@ import Link from 'components/Link';
 import ArrowHead from 'components/Ui/Icons/ArrowHead';
 
 type Props = {
-    profile: object;
+    profile: any;
     view: string;
 };
 
