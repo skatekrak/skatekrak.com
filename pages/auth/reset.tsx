@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import { withRouter, WithRouterProps } from 'next/router';
 import React from 'react';
 import { Form } from 'react-final-form';
 
@@ -10,14 +11,18 @@ const ResetHead = () => (
     <Head>
         <title>Krak | Reset</title>
         <meta property="og:title" content="Krak | Reset" />
-        <meta property="og:url" content="https://skatekrak.com/club/reset" />
+        <meta property="og:url" content="https://skatekrak.com/auth/reset" />
     </Head>
 );
 
-class ResetPassword extends React.PureComponent<{}> {
+type QueryProps = {
+    token: string;
+};
+
+class ResetPassword extends React.Component<WithRouterProps<QueryProps>> {
     public render() {
         return (
-            <TrackedPage name="Club/ResetPassword">
+            <TrackedPage name="Auth/ResetPassword">
                 <Layout head={<ResetHead />}>
                     <div className="auth-container container-fluid">
                         <div className="auth-form-container">
@@ -26,12 +31,7 @@ class ResetPassword extends React.PureComponent<{}> {
                             <Form onSubmit={this.handleSubmit} validate={validate}>
                                 {({ handleSubmit, submitting }) => (
                                     <form className="auth-form" onSubmit={handleSubmit}>
-                                        <Field
-                                            withoutLabel
-                                            name="password"
-                                            placeholder="New password"
-                                            type="password"
-                                        />
+                                        <Field name="password" placeholder="New password" type="password" />
                                         <button
                                             className="auth-form-submit button-primary"
                                             type="submit"
@@ -50,8 +50,9 @@ class ResetPassword extends React.PureComponent<{}> {
         );
     }
 
-    private handleSubmit = (evt: any) => {
-        evt.preventDefault();
+    private handleSubmit = (values: any) => {
+        // TODO: POST to reset password
+        // this.props.router.query.token
     };
 }
 
@@ -65,4 +66,4 @@ const validate = (values: any) => {
     return errors;
 };
 
-export default ResetPassword;
+export default withRouter(ResetPassword);

@@ -13,49 +13,47 @@ const LoginHead = () => (
         <title>Krak | Login</title>
         <meta name="description" content="Krak skateboarding club | Login to your account." />
         <meta property="og:title" content="Krak | Login" />
-        <meta property="og:url" content="https://skatekrak.com/club/login" />
+        <meta property="og:url" content="https://skatekrak.com/auth/login" />
         <meta property="og:description" content="Krak skateboarding club | Login to your account." />
     </Head>
 );
 
-type Props = {
-    onSubmit: () => void;
-    dispatch: (fct: any) => void;
-};
-
-type State = {};
-
-class Login extends React.PureComponent<Props, State> {
+class Login extends React.PureComponent<{}> {
     public render() {
         return (
-            <TrackedPage name="Club/Login">
+            <TrackedPage name="Auth/Login">
                 <Layout head={<LoginHead />}>
                     <div className="auth-container container-fluid">
                         <div className="auth-form-container">
                             <h1 className="auth-form-title">Enter the club</h1>
                             <p className="auth-form-desc">Welcome back Kraken!</p>
-                            <Form onSubmit={this.handleSubmit} validate={this.validate}>
-                                {({ handleSubmit }) => (
+                            <Form
+                                onSubmit={this.handleSubmit}
+                                validate={this.validate}
+                                initialValues={{ rememberMe: true }}
+                            >
+                                {({ handleSubmit, submitting, valid }) => (
                                     <form onSubmit={handleSubmit} className="auth-form">
-                                        <Field withoutLabel name="email" placeholder="Email" />
-                                        <Field withoutLabel name="password" placeholder="Password" type="password" />
+                                        <Field name="email" placeholder="Email" />
+                                        <Field name="password" placeholder="Password" type="password" />
                                         <div className="form-element">
-                                            <label htmlFor="remember-me" className="checkbox-container">
+                                            <label htmlFor="rememberMe" className="checkbox-container">
                                                 Keep me in
-                                                <ReactField name="rememberMe">
-                                                    {({ input }) => (
-                                                        <input
-                                                            {...input}
-                                                            type="checkbox"
-                                                            className="remember-me"
-                                                            defaultChecked={true}
-                                                        />
-                                                    )}
-                                                </ReactField>
+                                                <ReactField
+                                                    id="rememberMe"
+                                                    name="rememberMe"
+                                                    type="checkbox"
+                                                    className="remember-me"
+                                                    component="input"
+                                                />
                                                 <span className="checkmark" />
                                             </label>
                                         </div>
-                                        <button className="auth-form-submit button-primary" type="submit">
+                                        <button
+                                            className="auth-form-submit button-primary"
+                                            type="submit"
+                                            disabled={submitting || !valid}
+                                        >
                                             Log in
                                         </button>
                                     </form>
@@ -65,7 +63,7 @@ class Login extends React.PureComponent<Props, State> {
                                 <Link href="/club">
                                     <a>Join the club</a>
                                 </Link>
-                                <Link href="/club/forgot">
+                                <Link href="/auth/forgot">
                                     <a>Password?</a>
                                 </Link>
                             </div>
@@ -76,8 +74,8 @@ class Login extends React.PureComponent<Props, State> {
         );
     }
 
-    private handleSubmit = (evt: any) => {
-        evt.preventDefault();
+    private handleSubmit = (values: any) => {
+        // POST query to login
     };
 
     private validate = (values: any) => {

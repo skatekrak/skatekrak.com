@@ -14,23 +14,17 @@ const ForgotHead = () => (
     <Head>
         <title>Krak | Forgot</title>
         <meta property="og:title" content="Krak | Forgot" />
-        <meta property="og:url" content="https://skatekrak.com/club/forgot" />
+        <meta property="og:url" content="https://skatekrak.com/auth/forgot" />
     </Head>
 );
 
-// TODO: Find how to properly put props here (with InjectedFormProps)(also in ShipmentForm)
-interface Props {
-    onSubmit: () => void;
-    dispatch: (fct: any) => void;
-}
-
-class ForgotPassword extends React.PureComponent<Props> {
+class ForgotPassword extends React.PureComponent<{}> {
     public render() {
         return (
-            <TrackedPage name="Club/ForgotPassword">
+            <TrackedPage name="auth/ForgotPassword">
                 <Layout head={<ForgotHead />}>
                     <div className="auth-container container-fluid">
-                        <Link href="/club/login">
+                        <Link href="/auth/login">
                             <a className="auth-back">
                                 <IconArrow />
                                 Back to login
@@ -42,14 +36,14 @@ class ForgotPassword extends React.PureComponent<Props> {
                                 Enter your email address below and we'll send you a link to reset your password.
                             </p>
                             <Form onSubmit={this.handleSubmit} validate={validate}>
-                                {({ handleSubmit, submitting }) => (
+                                {({ handleSubmit, submitting, valid }) => (
                                     <form className="auth-form" onSubmit={handleSubmit}>
-                                        <Field withoutLabel name={'email'} placeholder="Email" type="text" />
+                                        <Field name="email" placeholder="Email" type="text" />
                                         <button
                                             className="auth-form-submit button-primary"
                                             type="submit"
                                             onClick={this.handleSubmit}
-                                            disabled={submitting}
+                                            disabled={submitting || !valid}
                                         >
                                             Recover password
                                         </button>
@@ -63,8 +57,8 @@ class ForgotPassword extends React.PureComponent<Props> {
         );
     }
 
-    private handleSubmit = (evt: any) => {
-        evt.preventDefault();
+    private handleSubmit = (values: any) => {
+        // TODO: POST to send reset password
     };
 }
 

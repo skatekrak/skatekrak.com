@@ -104,7 +104,7 @@ export default class extends React.Component<{}, State> {
                     </nav>
                     <nav id="header-nav-subnav">
                         <div id="header-nav-subnav-kraken">
-                            <Link href="/club/login">
+                            <Link href="/auth/login">
                                 <a id="header-nav-subnav-kraken-login" className="header-nav-main-item-link">
                                     <IconKrakenHead />
                                     Kraken Access

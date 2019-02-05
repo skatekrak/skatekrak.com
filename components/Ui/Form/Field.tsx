@@ -9,9 +9,9 @@ const FieldContainer = (props: any) => (
         {({ input, meta }) => {
             const showError = (meta.error || meta.submitError) && meta.touched;
             return (
-                <>
+                <div className="form-element">
                     <div className="form-element-label">
-                        {!props.withoutLabel && <label htmlFor={props.name}>{props.label}</label>}
+                        {!props.label && <label htmlFor={props.name}>{props.label}</label>}
                     </div>
                     <div
                         className={classnames('form-element-field', {
@@ -22,7 +22,7 @@ const FieldContainer = (props: any) => (
                         <input {...input} {...props} />
                         {showError && <ErrorMessage message={meta.error || meta.submitError} />}
                     </div>
-                </>
+                </div>
             );
         }}
     </Field>
