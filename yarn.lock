@@ -733,6 +733,13 @@
   dependencies:
     regenerator-runtime "^0.12.0"
 
+"@babel/runtime@^7.1.5":
+  version "7.3.1"
+  resolved "https://npm.thepunk.tech/@babel%2fruntime/-/runtime-7.3.1.tgz#574b03e8e8a9898eaf4a872a92ea20b7846f6f2a"
+  integrity sha512-7jGW8ppV0ant637pIqAcFfQDDH1orEPGJb8aXfUozuCU3QqX7rX4DA8iwrbPrR1hcH0FTTHz47yQnk+bl5xHQA==
+  dependencies:
+    regenerator-runtime "^0.12.0"
+
 "@babel/template@7.0.0":
   version "7.0.0"
   resolved "https://npm.thepunk.tech/@babel%2ftemplate/-/template-7.0.0.tgz#c2bc9870405959c89a9c814376a2ecb247838c80"
@@ -982,14 +989,6 @@
   dependencies:
     "@types/prop-types" "*"
     csstype "^2.2.0"
-
-"@types/redux-form@^7.4.12":
-  version "7.4.12"
-  resolved "https://npm.thepunk.tech/@types%2fredux-form/-/redux-form-7.4.12.tgz#2afb0615e3b7417d460ab14a4802ede4a98f9c79"
-  integrity sha512-qHRkJcgdc5MntQHrkYCg5o6oySh+OdVKA90yELTdi9XlNvSGRxd6K230aTckVrwdUjdxtwZ31UqFgLoU5SiWYQ==
-  dependencies:
-    "@types/react" "*"
-    redux "^3.6.0 || ^4.0.0"
 
 "@types/redux@^3.6.0":
   version "3.6.0"
@@ -2574,11 +2573,6 @@ es-to-primitive@^1.1.1:
     is-date-object "^1.0.1"
     is-symbol "^1.0.2"
 
-es6-error@^4.1.1:
-  version "4.1.1"
-  resolved "https://npm.thepunk.tech/es6-error/-/es6-error-4.1.1.tgz#9e3af407459deed47e9a91f9b885a84eb05c561d"
-  integrity sha512-Um/+FxMr9CISWh0bi5Zv0iOD+4cFh5qLeks1qhAopKVAJw3drgKbKySikp7wGhDL0HPeaja0P5ULZrxLkniUVg==
-
 escape-html@~1.0.3:
   version "1.0.3"
   resolved "https://npm.thepunk.tech/escape-html/-/escape-html-1.0.3.tgz#0258eae4d3d0c0974de1c169188ef0051d1d1988"
@@ -2743,6 +2737,13 @@ fill-range@^4.0.0:
     is-number "^3.0.0"
     repeat-string "^1.6.1"
     to-regex-range "^2.1.0"
+
+final-form@^4.11.0:
+  version "4.11.0"
+  resolved "https://npm.thepunk.tech/final-form/-/final-form-4.11.0.tgz#81750bda11b82c3ddf7b27092f29ebe427f8a560"
+  integrity sha512-uO0VhAEbWvV8LHBpBHoIpbYqonYBXyd8gpTYFEAPCHEy5tcNqdVX4EnWQoxKl//+U9Vk0kTUsnPOWiBP2PiOUg==
+  dependencies:
+    "@babel/runtime" "^7.1.5"
 
 find-babel-config@^1.1.0:
   version "1.1.0"
@@ -3059,7 +3060,7 @@ hmac-drbg@^1.0.0:
     minimalistic-assert "^1.0.0"
     minimalistic-crypto-utils "^1.0.1"
 
-hoist-non-react-statics@2.5.5, hoist-non-react-statics@^2.5.4:
+hoist-non-react-statics@2.5.5:
   version "2.5.5"
   resolved "https://npm.thepunk.tech/hoist-non-react-statics/-/hoist-non-react-statics-2.5.5.tgz#c5903cf409c0dfd908f388e619d86b9c1174cb47"
   integrity sha512-rqcy4pJo55FTTLWt+bU8ukscqHeE/e9KWvsOW2b/a3afxQZhwkQdT1rPPCJ0rYXdj4vNcasY8zHTH+jF/qStxw==
@@ -3387,11 +3388,6 @@ is-plain-object@^2.0.1, is-plain-object@^2.0.3, is-plain-object@^2.0.4:
   dependencies:
     isobject "^3.0.1"
 
-is-promise@^2.1.0:
-  version "2.1.0"
-  resolved "https://npm.thepunk.tech/is-promise/-/is-promise-2.1.0.tgz#79a2a9ece7f096e80f36d2b2f3bc16c1ff4bf3fa"
-  integrity sha1-eaKp7OfwlugPNtKy87wWwf9L8/o=
-
 is-regex@^1.0.4:
   version "1.0.4"
   resolved "https://npm.thepunk.tech/is-regex/-/is-regex-1.0.4.tgz#5517489b547091b0930e095654ced25ee97e9491"
@@ -3586,11 +3582,6 @@ locate-path@^3.0.0:
   dependencies:
     p-locate "^3.0.0"
     path-exists "^3.0.0"
-
-lodash-es@^4.17.10:
-  version "4.17.11"
-  resolved "https://npm.thepunk.tech/lodash-es/-/lodash-es-4.17.11.tgz#145ab4a7ac5c5e52a3531fb4f310255a152b4be0"
-  integrity sha512-DHb1ub+rMjjrxqlB3H56/6MXtm1lSksDp2rA2cNWjG8mlDUYFhUj3Di2Zn5IwSU87xLv8tNIQ7sSwE/YOX/D/Q==
 
 lodash.camelcase@^4.3.0:
   version "4.3.0"
@@ -4628,6 +4619,13 @@ react-error-overlay@4.0.0:
   resolved "https://npm.thepunk.tech/react-error-overlay/-/react-error-overlay-4.0.0.tgz#d198408a85b4070937a98667f500c832f86bd5d4"
   integrity sha512-FlsPxavEyMuR6TjVbSSywovXSEyOg6ZDj5+Z8nbsRl9EkOzAhEIcS+GLoQDC5fz/t9suhUXWmUrOBrgeUvrMxw==
 
+react-final-form@^4.0.2:
+  version "4.0.2"
+  resolved "https://npm.thepunk.tech/react-final-form/-/react-final-form-4.0.2.tgz#fa829d7fb60dcc168804bf2edda58f3d62c4607b"
+  integrity sha512-EdFWrT8nMWu5sHViuZ/VmlaYT+mLu/q5TMDWZZj5gnssUAWfgcila0QpptFNDg6+qNtepGgFh5ZPASlivoEXUA==
+  dependencies:
+    "@babel/runtime" "^7.1.2"
+
 react-infinite-scroller@^1.2.2:
   version "1.2.2"
   resolved "https://npm.thepunk.tech/react-infinite-scroller/-/react-infinite-scroller-1.2.2.tgz#1d13b8167476dfe64c401983293dabc6a8a8ecf3"
@@ -4769,26 +4767,12 @@ redux-devtools-extension@^2.13.5:
   resolved "https://npm.thepunk.tech/redux-devtools-extension/-/redux-devtools-extension-2.13.5.tgz#3ff34f7227acfeef3964194f5f7fc2765e5c5a39"
   integrity sha512-QQ9BRy77oURHMdGys9rfQcCQDzXZ1T4oW+eUyE5Cg7DNVau69HJzc4YNDMOmpi0Dzpi1zOQgQ2rUpgJta4Lfqg==
 
-redux-form@^7.4.2:
-  version "7.4.2"
-  resolved "https://npm.thepunk.tech/redux-form/-/redux-form-7.4.2.tgz#d6061088fb682eb9fc5fb9749bd8b102f03154b0"
-  integrity sha512-QxC36s4Lelx5Cr8dbpxqvl23dwYOydeAX8c6YPmgkz/Dhj053C16S2qoyZN6LO6HJ2oUF00rKsAyE94GwOUhFA==
-  dependencies:
-    es6-error "^4.1.1"
-    hoist-non-react-statics "^2.5.4"
-    invariant "^2.2.4"
-    is-promise "^2.1.0"
-    lodash "^4.17.10"
-    lodash-es "^4.17.10"
-    prop-types "^15.6.1"
-    react-lifecycles-compat "^3.0.4"
-
 redux-thunk@^2.3.0:
   version "2.3.0"
   resolved "https://npm.thepunk.tech/redux-thunk/-/redux-thunk-2.3.0.tgz#51c2c19a185ed5187aaa9a2d08b666d0d6467622"
   integrity sha512-km6dclyFnmcvxhAcrQV2AkZmPQjzPDjgVlQtR0EQjxZPyJ0BnMf3in1ryuR8A2qU0HldVRfxYXbFSKlI3N7Slw==
 
-redux@*, "redux@^3.6.0 || ^4.0.0", redux@^4.0.0, redux@^4.0.1:
+redux@*, redux@^4.0.0, redux@^4.0.1:
   version "4.0.1"
   resolved "https://npm.thepunk.tech/redux/-/redux-4.0.1.tgz#436cae6cc40fbe4727689d7c8fae44808f1bfef5"
   integrity sha512-R7bAtSkk7nY6O/OYMVR9RiBI+XghjF9rlbl5806HJbQph0LJVHZrU5oaO4q70eUKiqMRqm4y07KLTlMZ2BlVmg==

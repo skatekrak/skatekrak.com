@@ -1,11 +1,10 @@
 import Head from 'next/head';
 import React from 'react';
-import { connect } from 'react-redux';
-import { Field, InjectedFormProps, reduxForm, SubmissionError } from 'redux-form';
+import { Form } from 'react-final-form';
 
 import Layout from 'components/Layout/Layout';
 import TrackedPage from 'components/pages/TrackedPage';
-import RenderInput from 'components/Ui/Form/Input';
+import Field from 'components/Ui/Form/Field';
 
 const ResetHead = () => (
     <Head>
@@ -15,17 +14,7 @@ const ResetHead = () => (
     </Head>
 );
 
-// TODO: Find how to properly put props here (with InjectedFormProps)(also in ShipmentForm)
-interface Props {
-    onSubmit: () => void;
-    dispatch: (fct: any) => void;
-}
-
-type InjectedProps = InjectedFormProps<{}, Props>;
-
-type State = {};
-
-class ResetPassword extends React.PureComponent<Props & InjectedProps, State> {
+class ResetPassword extends React.PureComponent<{}> {
     public render() {
         return (
             <TrackedPage name="Club/ResetPassword">
@@ -34,22 +23,26 @@ class ResetPassword extends React.PureComponent<Props & InjectedProps, State> {
                         <div className="auth-form-container">
                             <h1 className="auth-form-title">Reset password</h1>
                             <p className="auth-form-desc">Enter a new password</p>
-                            <form className="auth-form">
-                                <Field
-                                    withoutLabel
-                                    name={'password'}
-                                    placeholder="New password"
-                                    component={RenderInput}
-                                    type="password"
-                                />
-                                <button
-                                    className="auth-form-submit button-primary"
-                                    type="submit"
-                                    onClick={this.handleSubmit}
-                                >
-                                    Save password
-                                </button>
-                            </form>
+                            <Form onSubmit={this.handleSubmit} validate={validate}>
+                                {({ handleSubmit, submitting }) => (
+                                    <form className="auth-form" onSubmit={handleSubmit}>
+                                        <Field
+                                            withoutLabel
+                                            name="password"
+                                            placeholder="New password"
+                                            type="password"
+                                        />
+                                        <button
+                                            className="auth-form-submit button-primary"
+                                            type="submit"
+                                            onClick={this.handleSubmit}
+                                            disabled={submitting}
+                                        >
+                                            Save password
+                                        </button>
+                                    </form>
+                                )}
+                            </Form>
                         </div>
                     </div>
                 </Layout>
@@ -72,11 +65,4 @@ const validate = (values: any) => {
     return errors;
 };
 
-export default connect()(
-    reduxForm({
-        form: 'reset',
-        destroyOnUnmount: false,
-        forceUnregisterOnUnmount: true,
-        validate,
-    })(ResetPassword),
-);
+export default ResetPassword;

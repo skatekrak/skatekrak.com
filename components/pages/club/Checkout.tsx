@@ -1,9 +1,7 @@
 import axios, { AxiosError } from 'axios';
 import Router from 'next/router';
 import React from 'react';
-import { connect } from 'react-redux';
 import { injectStripe, ReactStripeElements } from 'react-stripe-elements';
-import { formValueSelector, reset } from 'redux-form';
 
 import Analytics from '@thepunkclub/analytics';
 
@@ -101,8 +99,6 @@ class Checkout extends React.Component<Props & ReactStripeElements.InjectedStrip
                         })
                         .then(() => {
                             Analytics.default().trackOrder(payload.token.id, this.props.payment.price / 100);
-                            this.props.dispatch(reset('shipping'));
-                            this.props.dispatch(reset('payment'));
                             Router.push('/club/congrats');
                         })
                         .catch((err: AxiosError) => {
@@ -113,31 +109,4 @@ class Checkout extends React.Component<Props & ReactStripeElements.InjectedStrip
     };
 }
 
-const shippingSelector = formValueSelector('shipping');
-const paymentSelector = formValueSelector('payment');
-
-export default connect((state: any) => ({
-    email: shippingSelector(state, 'email'),
-    code: paymentSelector(state, 'code'),
-    shippingAddress: {
-        firstName: shippingSelector(state, 'firstName'),
-        lastName: shippingSelector(state, 'lastName'),
-        line1: shippingSelector(state, 'line1'),
-        line2: shippingSelector(state, 'line2'),
-        city: shippingSelector(state, 'city'),
-        postalCode: shippingSelector(state, 'postalcode'),
-        state: shippingSelector(state, 'state'),
-        country: shippingSelector(state, 'country'),
-    },
-    billingAddress: {
-        firstName: paymentSelector(state, 'firstName'),
-        lastName: paymentSelector(state, 'lastName'),
-        line1: paymentSelector(state, 'line1'),
-        line2: paymentSelector(state, 'line2'),
-        city: paymentSelector(state, 'city'),
-        postalCode: paymentSelector(state, 'postalcode'),
-        state: paymentSelector(state, 'state'),
-        country: paymentSelector(state, 'country'),
-    },
-    payment: state.payment,
-}))(injectStripe(Checkout));
+export default injectStripe(Checkout);

@@ -2,12 +2,11 @@ import Link from 'components/Link';
 import validator from 'email-validator';
 import Head from 'next/head';
 import React from 'react';
-import { connect } from 'react-redux';
-import { Field, InjectedFormProps, reduxForm, SubmissionError } from 'redux-form';
+import { Field as ReactField, Form } from 'react-final-form';
 
 import Layout from 'components/Layout/Layout';
 import TrackedPage from 'components/pages/TrackedPage';
-import RenderInput from 'components/Ui/Form/Input';
+import Field from 'components/Ui/Form/Field';
 
 const LoginHead = () => (
     <Head>
@@ -19,17 +18,14 @@ const LoginHead = () => (
     </Head>
 );
 
-// TODO: Find how to properly put props here (with InjectedFormProps)(also in ShipmentForm)
-interface Props {
+type Props = {
     onSubmit: () => void;
     dispatch: (fct: any) => void;
-}
-
-type InjectedProps = InjectedFormProps<{}, Props>;
+};
 
 type State = {};
 
-class Login extends React.PureComponent<Props & InjectedProps, State> {
+class Login extends React.PureComponent<Props, State> {
     public render() {
         return (
             <TrackedPage name="Club/Login">
@@ -38,36 +34,33 @@ class Login extends React.PureComponent<Props & InjectedProps, State> {
                         <div className="auth-form-container">
                             <h1 className="auth-form-title">Enter the club</h1>
                             <p className="auth-form-desc">Welcome back Kraken!</p>
-                            <form className="auth-form">
-                                <Field
-                                    withoutLabel
-                                    name={'email'}
-                                    placeholder="Email"
-                                    component={RenderInput}
-                                    type="text"
-                                />
-                                <Field
-                                    withoutLabel
-                                    name={'password'}
-                                    placeholder="Password"
-                                    component={RenderInput}
-                                    type="password"
-                                />
-                                <div className="form-element">
-                                    <label htmlFor="remember-me" className="checkbox-container">
-                                        Keep me in
-                                        <input type="checkbox" className="remember-me" name="remember-me" checked />
-                                        <span className="checkmark" />
-                                    </label>
-                                </div>
-                                <button
-                                    className="auth-form-submit button-primary"
-                                    type="submit"
-                                    onClick={this.handleSubmit}
-                                >
-                                    Log in
-                                </button>
-                            </form>
+                            <Form onSubmit={this.handleSubmit} validate={this.validate}>
+                                {({ handleSubmit }) => (
+                                    <form onSubmit={handleSubmit} className="auth-form">
+                                        <Field withoutLabel name="email" placeholder="Email" />
+                                        <Field withoutLabel name="password" placeholder="Password" type="password" />
+                                        <div className="form-element">
+                                            <label htmlFor="remember-me" className="checkbox-container">
+                                                Keep me in
+                                                <ReactField name="rememberMe">
+                                                    {({ input }) => (
+                                                        <input
+                                                            {...input}
+                                                            type="checkbox"
+                                                            className="remember-me"
+                                                            defaultChecked={true}
+                                                        />
+                                                    )}
+                                                </ReactField>
+                                                <span className="checkmark" />
+                                            </label>
+                                        </div>
+                                        <button className="auth-form-submit button-primary" type="submit">
+                                            Log in
+                                        </button>
+                                    </form>
+                                )}
+                            </Form>
                             <div className="auth-link-container">
                                 <Link href="/club">
                                     <a>Join the club</a>
@@ -86,29 +79,22 @@ class Login extends React.PureComponent<Props & InjectedProps, State> {
     private handleSubmit = (evt: any) => {
         evt.preventDefault();
     };
+
+    private validate = (values: any) => {
+        const errors: any = {};
+
+        if (!values.email) {
+            errors.email = 'Required';
+        } else if (!validator.validate(values.email)) {
+            errors.email = 'This e-mail address is not valid';
+        }
+
+        if (!values.password) {
+            errors.password = 'Required';
+        }
+
+        return errors;
+    };
 }
 
-const validate = (values: any) => {
-    const errors: any = {};
-
-    if (!values.email) {
-        errors.email = 'Required';
-    } else if (!validator.validate(values.email)) {
-        errors.email = 'This e-mail address is not valid';
-    }
-
-    if (!values.password) {
-        errors.password = 'Required';
-    }
-
-    return errors;
-};
-
-export default connect()(
-    reduxForm({
-        form: 'login',
-        destroyOnUnmount: false,
-        forceUnregisterOnUnmount: true,
-        validate,
-    })(Login),
-);
+export default Login;

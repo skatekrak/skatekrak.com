@@ -1,8 +1,5 @@
 import React from 'react';
-
-import RenderInput from 'components/Ui/Form/Input';
-import RenderSelect from 'components/Ui/Form/Select';
-import { Field } from 'redux-form';
+import { Field } from 'react-final-form';
 
 const countriesOptions = [
     {
@@ -61,14 +58,14 @@ type Props = {
 
 const Address: React.SFC<Props> = ({ prefix }: Props) => (
     <React.Fragment>
-        <Field label="First name" name={getName('firstName', prefix)} component={RenderInput} type="text" />
-        <Field label="Last name" name={getName('lastName', prefix)} component={RenderInput} type="text" />
-        <Field label="Address" name={getName('line1', prefix)} component={RenderInput} type="text" />
-        <Field label="Apt/unit etc (optional)" name={getName('line2', prefix)} component={RenderInput} type="text" />
-        <Field label="City" name={getName('city', prefix)} component={RenderInput} type="text" />
-        <Field label="Postal code" name={getName('postalcode', prefix)} component={RenderInput} type="text" />
-        <Field label="State" name={getName('state', prefix)} component={RenderInput} type="text" />
-        <Field label="Country" name={getName('country', prefix)} component={RenderSelect} options={countriesOptions} />
+        <Field label="First name" name={getName('firstName', prefix)} type="text" />
+        <Field label="Last name" name={getName('lastName', prefix)} type="text" />
+        <Field label="Address" name={getName('line1', prefix)} type="text" />
+        <Field label="Apt/unit etc (optional)" name={getName('line2', prefix)} type="text" />
+        <Field label="City" name={getName('city', prefix)} type="text" />
+        <Field label="Postal code" name={getName('postalcode', prefix)} type="text" />
+        <Field label="State" name={getName('state', prefix)} type="text" />
+        <Field label="Country" name={getName('country', prefix)} options={countriesOptions} />
     </React.Fragment>
 );
 

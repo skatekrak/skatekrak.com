@@ -1,13 +1,12 @@
 import validator from 'email-validator';
 import Head from 'next/head';
 import React from 'react';
-import { connect } from 'react-redux';
-import { Field, InjectedFormProps, reduxForm, SubmissionError } from 'redux-form';
+import { Form } from 'react-final-form';
 
 import Layout from 'components/Layout/Layout';
 import Link from 'components/Link';
 import TrackedPage from 'components/pages/TrackedPage';
-import RenderInput from 'components/Ui/Form/Input';
+import Field from 'components/Ui/Form/Field';
 
 import IconArrow from 'components/Ui/Icons/Arrow';
 
@@ -25,11 +24,7 @@ interface Props {
     dispatch: (fct: any) => void;
 }
 
-type InjectedProps = InjectedFormProps<{}, Props>;
-
-type State = {};
-
-class ForgotPassword extends React.PureComponent<Props & InjectedProps, State> {
+class ForgotPassword extends React.PureComponent<Props> {
     public render() {
         return (
             <TrackedPage name="Club/ForgotPassword">
@@ -46,22 +41,21 @@ class ForgotPassword extends React.PureComponent<Props & InjectedProps, State> {
                             <p className="auth-form-desc">
                                 Enter your email address below and we'll send you a link to reset your password.
                             </p>
-                            <form className="auth-form">
-                                <Field
-                                    withoutLabel
-                                    name={'email'}
-                                    placeholder="Email"
-                                    component={RenderInput}
-                                    type="text"
-                                />
-                                <button
-                                    className="auth-form-submit button-primary"
-                                    type="submit"
-                                    onClick={this.handleSubmit}
-                                >
-                                    Recover password
-                                </button>
-                            </form>
+                            <Form onSubmit={this.handleSubmit} validate={validate}>
+                                {({ handleSubmit, submitting }) => (
+                                    <form className="auth-form" onSubmit={handleSubmit}>
+                                        <Field withoutLabel name={'email'} placeholder="Email" type="text" />
+                                        <button
+                                            className="auth-form-submit button-primary"
+                                            type="submit"
+                                            onClick={this.handleSubmit}
+                                            disabled={submitting}
+                                        >
+                                            Recover password
+                                        </button>
+                                    </form>
+                                )}
+                            </Form>
                         </div>
                     </div>
                 </Layout>
@@ -86,11 +80,4 @@ const validate = (values: any) => {
     return errors;
 };
 
-export default connect()(
-    reduxForm({
-        form: 'forgot',
-        destroyOnUnmount: false,
-        forceUnregisterOnUnmount: true,
-        validate,
-    })(ForgotPassword),
-);
+export default ForgotPassword;
