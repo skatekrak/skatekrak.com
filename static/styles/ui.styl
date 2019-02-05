@@ -5,20 +5,9 @@
 	UI STYLES
 	Every UI component which need to generic
 */
-
-.icon-full
-	display: flex
-	width: 1.5rem
-	height: 1.5rem
-	padding: .2rem
-	fill: $grey-100
-	background-color: $grey-800
-	border-radius: .25rem
-
-	& svg
-		width: 100%
-		margin: auto
-
+/*
+ * Button with label
+ */
 .button
 	&-with-label
 		display: flex
@@ -41,7 +30,9 @@
 			&-action
 				text-transform: capitalize
 
-
+/*
+ * Edit button
+ */
 .edit-button
 	display: flex
 	align-items: center
@@ -72,6 +63,9 @@
 			+mq($from: "tiny")
 				display: inline
 
+/*
+ * Scroll top
+ */
 #scroll-top
 	display: none
 	position: fixed

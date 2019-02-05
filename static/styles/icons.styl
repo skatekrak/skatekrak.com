@@ -1,6 +1,23 @@
 @import "./stylus-mq"
 @import "./styleguide"
 
+/*
+ * Icon full
+ */
+.icon-full
+	display: flex
+	width: 1.5rem
+	height: 1.5rem
+	padding: .2rem
+	fill: $grey-100
+	background-color: $grey-800
+	border-radius: .25rem
+
+	& svg
+		width: 100%
+		margin: auto
+
+
 /* SPINNER */
 .spinner-circle
 	animation: rotate 2s linear infinite
@@ -27,6 +44,7 @@
 	100%
 			stroke-dasharray: 90, 150
 			stroke-dashoffset: -124
+
 
 /* ICON KRAKEN */
 .icon-kraken
