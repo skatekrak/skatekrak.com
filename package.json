@@ -40,7 +40,8 @@
         "redux": "^4.0.1",
         "redux-devtools-extension": "^2.13.5",
         "redux-thunk": "^2.3.0",
-        "stylus": "^0.54.5"
+        "stylus": "^0.54.5",
+        "typesafe-actions": "^3.0.0"
     },
     "devDependencies": {
         "@babel/core": "^7.2.2",

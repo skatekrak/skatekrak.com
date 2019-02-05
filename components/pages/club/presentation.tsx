@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
+import Types from 'Types';
+
 import Link from 'components/Link';
 import SkateistanLogo from 'components/Ui/Icons/Logos/Skateistan';
 
@@ -76,6 +78,6 @@ const ClubPresentation: React.SFC<IClubProps> = ({ payment }) => (
     </div>
 );
 
-export default connect((state: any) => ({
+export default connect((state: Types.RootState) => ({
     payment: state.payment,
 }))(ClubPresentation);

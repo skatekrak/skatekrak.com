@@ -1,17 +1,17 @@
 import React from 'react';
 
-import store from '../store';
+import { initializeStore } from '../store';
 
 const isServer = typeof window === 'undefined';
 const __NEXT_REDUX_STORE__ = '__NEXT_REDUX_STORE__';
 
-function getOrCreateStore() {
+function getOrCreateStore(initialState) {
     if (isServer) {
-        return store;
+        return initializeStore(initialState);
     }
 
     if (!window[__NEXT_REDUX_STORE__]) {
-        window[__NEXT_REDUX_STORE__] = store;
+        window[__NEXT_REDUX_STORE__] = initializeStore(initialState);
     }
     return window[__NEXT_REDUX_STORE__];
 }

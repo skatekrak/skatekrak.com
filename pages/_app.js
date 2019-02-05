@@ -4,7 +4,7 @@ import withReduxStore from '../hocs/withRedux';
 import { Provider } from 'react-redux';
 import Intercom from 'react-intercom';
 
-import { savePricingCurrency } from 'store/reducers/payment';
+import { savePricingCurrency } from 'store/payment/actions';
 
 class MyApp extends App {
     static async getInitialProps({ Component, router, ctx }) {

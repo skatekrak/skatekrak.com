@@ -1,15 +1,19 @@
-import LocalStorage from 'lib/LocalStorage';
 import { Source } from 'rss-feed';
+import { ActionType } from 'typesafe-actions';
 
-const SET_ALL_SOURCES = 'SET_ALL_SOURCES';
+import LocalStorage from 'lib/LocalStorage';
 
-const FEED_REFRESH_END = 'FEED_REFRESH_END';
+import {
+    FEED_REFRESH_END,
+    SELECT_ALL_FILTERS,
+    SET_ALL_SOURCES,
+    TOGGLE_FILTER,
+    UNSELECT_ALL_FILTERS,
+} from '../constants';
 
-const SELECT_ALL_FILTERS = 'SELECT_ALL_FILTERS';
+import * as news from './actions';
 
-const UNSELECT_ALL_FILTERS = 'UNSELECT_ALL_FILTERS';
-
-const TOGGLE_FILTER = 'TOGGLE_FILTER';
+export type NewsAction = ActionType<typeof news>;
 
 export enum FilterState {
     SELECTED = 'SELECTED',
@@ -28,10 +32,10 @@ const initialState: State = {
     sources: new Map(),
 };
 
-export default (state = initialState, action: any = {}) => {
+export default (state: State = initialState, action: NewsAction): State => {
     switch (action.type) {
         case SET_ALL_SOURCES: {
-            const sources: Source[] = action.sources;
+            const sources: Source[] = action.payload;
             const map: Map<Source, FilterState> = new Map();
             for (const source of sources) {
                 if (LocalStorage.isSourceSelected(source)) {
@@ -88,7 +92,7 @@ export default (state = initialState, action: any = {}) => {
             };
         }
         case TOGGLE_FILTER: {
-            const source: Source = action.source;
+            const source: Source = action.payload;
             const filterState = state.sources.get(source);
 
             const map = new Map(state.sources.entries());
@@ -108,13 +112,3 @@ export default (state = initialState, action: any = {}) => {
             return state;
     }
 };
-
-export const setAllSources = (sources: Source[]) => ({ type: SET_ALL_SOURCES, sources });
-
-export const feedEndRefresh = () => ({ type: FEED_REFRESH_END });
-
-export const selectAllFilters = () => ({ type: SELECT_ALL_FILTERS });
-
-export const unselectAllFilters = () => ({ type: UNSELECT_ALL_FILTERS });
-
-export const toggleFilter = (source: Source) => ({ type: TOGGLE_FILTER, source });
