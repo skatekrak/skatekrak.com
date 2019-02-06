@@ -1,5 +1,6 @@
 import validator from 'email-validator';
 import Head from 'next/head';
+import Router from 'next/router';
 import React from 'react';
 import { Form } from 'react-final-form';
 
@@ -7,8 +8,9 @@ import Layout from 'components/Layout/Layout';
 import Link from 'components/Link';
 import TrackedPage from 'components/pages/TrackedPage';
 import Field from 'components/Ui/Form/Field';
-
 import IconArrow from 'components/Ui/Icons/Arrow';
+
+import defaultPage, { AuthProps } from 'hocs/defaultPage';
 
 const ForgotHead = () => (
     <Head>
@@ -18,7 +20,13 @@ const ForgotHead = () => (
     </Head>
 );
 
-class ForgotPassword extends React.PureComponent<{}> {
+class ForgotPassword extends React.Component<AuthProps> {
+    public componentDidMount() {
+        if (this.props.isAuthenticated) {
+            Router.push('/club/profile');
+        }
+    }
+
     public render() {
         return (
             <TrackedPage name="auth/ForgotPassword">
@@ -74,4 +82,4 @@ const validate = (values: any) => {
     return errors;
 };
 
-export default ForgotPassword;
+export default defaultPage(ForgotPassword);
