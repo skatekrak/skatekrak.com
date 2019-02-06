@@ -1,12 +1,20 @@
-import Link from 'components/Link';
 import validator from 'email-validator';
 import Head from 'next/head';
+import Router from 'next/router';
 import React from 'react';
 import { Field as ReactField, Form } from 'react-final-form';
+import { connect } from 'react-redux';
+
+import Types from 'Types';
 
 import Layout from 'components/Layout/Layout';
+import Link from 'components/Link';
 import TrackedPage from 'components/pages/TrackedPage';
 import Field from 'components/Ui/Form/Field';
+
+import defaultPage, { AuthProps } from 'hocs/defaultPage';
+
+import { hideMessage, showAuthLoader, userSignin } from 'store/auth/actions';
 
 const LoginHead = () => (
     <Head>
@@ -18,7 +26,23 @@ const LoginHead = () => (
     </Head>
 );
 
-class Login extends React.PureComponent<{}> {
+type Props = {
+    authUser: any;
+    showMessage: boolean;
+    loader: boolean;
+
+    hideMessage: () => void;
+    showAuthLoader: () => void;
+    userSignin: (email: string, password: string, rememberMe: boolean) => void;
+};
+
+class Login extends React.Component<Props & AuthProps> {
+    public componentDidMount() {
+        if (this.props.isAuthenticated) {
+            Router.push('/club');
+        }
+    }
+
     public render() {
         return (
             <TrackedPage name="Auth/Login">
@@ -75,7 +99,7 @@ class Login extends React.PureComponent<{}> {
     }
 
     private handleSubmit = (values: any) => {
-        // POST query to login
+        this.props.userSignin(values.email, values.password, values.rememberMe);
     };
 
     private validate = (values: any) => {
@@ -95,4 +119,16 @@ class Login extends React.PureComponent<{}> {
     };
 }
 
-export default Login;
+const mapStateToProps = ({ auth }: Types.RootState) => {
+    const { loader, showMessage, authUser } = auth;
+    return { loader, showMessage, authUser };
+};
+
+export default connect(
+    mapStateToProps,
+    {
+        hideMessage,
+        showAuthLoader,
+        userSignin,
+    },
+)(defaultPage(Login));
