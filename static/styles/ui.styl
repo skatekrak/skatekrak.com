@@ -6,6 +6,34 @@
 	Every UI component which need to generic
 */
 /*
+ * Modal base styles
+ */
+.modal
+	&-overlay
+		padding: 1rem
+
+	&-close-button
+		top: 1rem
+		right: 1rem
+
+		& svg
+			fill: $grey-900
+
+	&-container
+		width: 100%
+		max-width: none
+		padding: 2rem 1rem
+		color: $grey-900
+		background: $grey-100
+		border-radius: .25rem
+
+		+mq($from: "small")
+			width: auto
+			padding: 3rem 2rem 2rem
+			max-height 80vh
+
+
+/*
  * Button with label
  */
 .button
