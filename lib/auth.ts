@@ -9,12 +9,21 @@ export const setUser = (user: any) => {
     Cookies.set('user', JSON.stringify(user));
 };
 
+export const removeUser = () => {
+    if (!(process as any).browser) {
+        return;
+    }
+
+    Cookies.remove('user');
+};
+
 export const getUserFromServerCookie = (req: any) => {
     if (!req.headers.cookie || '') {
         return undefined;
     }
     const cookie = Cookie.parse(req.headers.cookie);
-    return (cookie as any).user;
+    const stringUser = cookie.user ? JSON.parse(cookie.user) : undefined;
+    return stringUser;
 };
 
 export const getUserFromLocalCookie = () => {

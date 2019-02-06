@@ -10,8 +10,6 @@ import TrackedPage from 'components/pages/TrackedPage';
 import Field from 'components/Ui/Form/Field';
 import IconArrow from 'components/Ui/Icons/Arrow';
 
-import defaultPage, { AuthProps } from 'hocs/defaultPage';
-
 const ForgotHead = () => (
     <Head>
         <title>Krak | Forgot</title>
@@ -20,13 +18,7 @@ const ForgotHead = () => (
     </Head>
 );
 
-class ForgotPassword extends React.Component<AuthProps> {
-    public componentDidMount() {
-        if (this.props.isAuthenticated) {
-            Router.push('/club/profile');
-        }
-    }
-
+class ForgotPassword extends React.Component {
     public render() {
         return (
             <TrackedPage name="auth/ForgotPassword">
@@ -82,4 +74,4 @@ const validate = (values: any) => {
     return errors;
 };
 
-export default defaultPage(ForgotPassword);
+export default ForgotPassword;

@@ -1,7 +1,7 @@
 import { all, call, fork, put, takeEvery, takeLatest } from 'redux-saga/effects';
 import { ActionType } from 'typesafe-actions';
 
-import { setUser } from 'lib/auth';
+import { removeUser, setUser } from 'lib/auth';
 import { cairote } from 'lib/cairote';
 import { showMessage, userSignin, userSigninSuccess, userSignoutSuccess } from 'store/auth/actions';
 import { SIGNIN_USER, SIGNOUT_USER } from 'store/constants';
@@ -37,7 +37,7 @@ function* signinUserWithEmailPassword(action: ActionType<typeof userSignin>) {
 function* signout() {
     try {
         yield call(signoutRequest);
-        localStorage.removeItem('user');
+        removeUser();
         yield put(userSignoutSuccess());
     } catch (error) {
         yield put(showMessage(error.response.data.message));

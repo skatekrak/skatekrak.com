@@ -4,6 +4,7 @@ import Router from 'next/router';
 import React from 'react';
 import { Field as ReactField, Form } from 'react-final-form';
 import { connect } from 'react-redux';
+import { compose } from 'recompose';
 
 import Types from 'Types';
 
@@ -12,7 +13,7 @@ import Link from 'components/Link';
 import TrackedPage from 'components/pages/TrackedPage';
 import Field from 'components/Ui/Form/Field';
 
-import defaultPage, { AuthProps } from 'hocs/defaultPage';
+import withoutAuth from 'hocs/withoutAuth';
 
 import { hideMessage, showAuthLoader, userSignin } from 'store/auth/actions';
 
@@ -36,9 +37,9 @@ type Props = {
     userSignin: (email: string, password: string, rememberMe: boolean) => void;
 };
 
-class Login extends React.Component<Props & AuthProps> {
-    public componentDidMount() {
-        if (this.props.isAuthenticated) {
+class Login extends React.Component<Props> {
+    public componentDidUpdate(prevProps: Props) {
+        if (!prevProps.authUser && this.props.authUser.id) {
             Router.push('/club');
         }
     }
@@ -124,11 +125,14 @@ const mapStateToProps = ({ auth }: Types.RootState) => {
     return { loader, showMessage, authUser };
 };
 
-export default connect(
-    mapStateToProps,
-    {
-        hideMessage,
-        showAuthLoader,
-        userSignin,
-    },
-)(defaultPage(Login));
+export default compose(
+    withoutAuth,
+    connect(
+        mapStateToProps,
+        {
+            hideMessage,
+            showAuthLoader,
+            userSignin,
+        },
+    ),
+)(Login);
