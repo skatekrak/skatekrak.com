@@ -1,14 +1,18 @@
 import validator from 'email-validator';
+import { FORM_ERROR } from 'final-form';
 import Head from 'next/head';
-import Router from 'next/router';
 import React from 'react';
 import { Form } from 'react-final-form';
 
 import Layout from 'components/Layout/Layout';
 import Link from 'components/Link';
 import TrackedPage from 'components/pages/TrackedPage';
+import ErrorMessage from 'components/Ui/Form/ErrorMessage';
 import Field from 'components/Ui/Form/Field';
 import IconArrow from 'components/Ui/Icons/Arrow';
+
+import withoutAuth from 'hocs/withoutAuth';
+import { cairote } from 'lib/cairote';
 
 const ForgotHead = () => (
     <Head>
@@ -36,18 +40,21 @@ class ForgotPassword extends React.Component {
                                 Enter your email address below and we'll send you a link to reset your password.
                             </p>
                             <Form onSubmit={this.handleSubmit} validate={validate}>
-                                {({ handleSubmit, submitting, valid }) => (
-                                    <form className="auth-form" onSubmit={handleSubmit}>
-                                        <Field name="email" placeholder="Email" type="text" />
-                                        <button
-                                            className="auth-form-submit button-primary"
-                                            type="submit"
-                                            onClick={this.handleSubmit}
-                                            disabled={submitting || !valid}
-                                        >
-                                            Recover password
-                                        </button>
-                                    </form>
+                                {({ handleSubmit, submitting, valid, submitError }) => (
+                                    <>
+                                        {submitError && <ErrorMessage message={submitError} />}
+                                        <form className="auth-form" onSubmit={handleSubmit}>
+                                            <Field name="email" placeholder="Email" type="text" />
+                                            <button
+                                                className="auth-form-submit button-primary"
+                                                type="submit"
+                                                onClick={this.handleSubmit}
+                                                disabled={submitting || !valid}
+                                            >
+                                                Recover password
+                                            </button>
+                                        </form>
+                                    </>
                                 )}
                             </Form>
                         </div>
@@ -57,8 +64,15 @@ class ForgotPassword extends React.Component {
         );
     }
 
-    private handleSubmit = (values: any) => {
-        // TODO: POST to send reset password
+    private handleSubmit = async (values: any) => {
+        try {
+            await cairote.post('/forgot', {
+                email: values.email,
+            });
+            alert('Email sent!');
+        } catch (error) {
+            return { [FORM_ERROR]: 'Something went wrong, try later or contact us' };
+        }
     };
 }
 
@@ -74,4 +88,4 @@ const validate = (values: any) => {
     return errors;
 };
 
-export default ForgotPassword;
+export default withoutAuth(ForgotPassword);
