@@ -3,8 +3,10 @@ import Head from 'next/head';
 import React from 'react';
 import { connect } from 'react-redux';
 
+import Types from 'Types';
+
 import Header from 'components/Header';
-import { setDeviceSize, State as SettingState } from 'store/reducers/setting';
+import { setDeviceSize } from 'store/settings/actions';
 
 /* tslint:disable:ordered-imports */
 import 'static/styles/reset.css';
@@ -14,6 +16,16 @@ import 'static/styles/helpers.styl';
 import 'static/styles/main.styl';
 import 'static/styles/styleguide.styl';
 import 'static/styles/stylus-mq.styl';
+import 'static/styles/form.styl';
+
+import 'static/styles/auth.styl';
+import 'static/styles/checkout.styl';
+import 'static/styles/club.styl';
+import 'static/styles/news.styl';
+
+import 'static/styles/checkbox.styl';
+import 'static/styles/icons.styl';
+import 'static/styles/ui.styl';
 
 type Props = {
     head?: React.ReactNode;
@@ -63,4 +75,8 @@ class Layout extends React.Component<Props, {}> {
 }
 
 // export default Layout;
-export default connect((state: { setting: SettingState }) => ({ isMobile: state.setting.isMobile }))(Layout);
+const mapStateToProps = ({ settings }: Types.RootState) => {
+    const { isMobile } = settings;
+    return { isMobile };
+};
+export default connect(mapStateToProps)(Layout);

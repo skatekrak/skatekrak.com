@@ -4,28 +4,31 @@ import withReduxStore from '../hocs/withRedux';
 import { Provider } from 'react-redux';
 import Intercom from 'react-intercom';
 
-import { savePricingCurrency } from 'store/reducers/payment';
+import { userSigninSuccess } from 'store/auth/actions';
+
+import { getUserFromLocalCookie, getUserFromServerCookie } from 'lib/auth';
 
 class MyApp extends App {
     static async getInitialProps({ Component, router, ctx }) {
+        const authUser = process.browser ? getUserFromLocalCookie() : getUserFromServerCookie(ctx.req);
+
         let pageProps = {};
 
         if (Component.getInitialProps) {
             pageProps = await Component.getInitialProps(ctx);
         }
 
-        return { pageProps };
+        return {
+            ...pageProps,
+            authUser,
+            isAuthenticated: !!authUser,
+        };
     }
 
     componentDidMount() {
-        if (window['__NEXT_REDUX_STORE__'] && this.props.router) {
-            const { query } = this.props.router;
-            if (query.cc) {
-                if (query.cc === 'us') {
-                    window['__NEXT_REDUX_STORE__'].dispatch(savePricingCurrency(8700, 'usd'));
-                } else if (query.cc === 'gb') {
-                    window['__NEXT_REDUX_STORE__'].dispatch(savePricingCurrency(8700, 'gbp'));
-                }
+        if (window['__NEXT_REDUX_STORE__']) {
+            if (this.props.isAuthenticated) {
+                window['__NEXT_REDUX_STORE__'].dispatch(userSigninSuccess(this.props.authUser));
             }
         }
     }

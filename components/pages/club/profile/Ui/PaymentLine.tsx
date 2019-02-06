@@ -5,7 +5,7 @@ import IconDownload from 'components/Ui/Icons/Download';
 import IconFull from 'components/Ui/Icons/iconFull';
 
 type Props = {
-    payment: object;
+    payment: any;
 };
 
 const PaymentLine: React.SFC<Props> = ({ payment }) => (

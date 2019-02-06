@@ -5,7 +5,7 @@ import ProfileNav from 'components/pages/club/profile/nav';
 import 'static/styles/profile.styl';
 
 type Props = {
-    profile: object;
+    profile: any;
     children: any;
     view: string;
 };
