@@ -21,6 +21,7 @@ const ModalWithStyle: React.SFC<Props> = ({ open, onClose, children, ...props })
         classNames={classNames}
         closeIconSvgPath={<IconCross />}
         closeIconSize={24}
+        animationDuration={300}
         {...props}
     >
         {children}
