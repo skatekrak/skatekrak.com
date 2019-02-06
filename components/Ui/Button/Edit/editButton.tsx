@@ -14,10 +14,11 @@ import IconEdit from 'components/Ui/Icons/Edit';
 type Props = {
     onClick: (fct: any) => void;
     content: string;
+    name: string;
 };
 
-const EditButton: React.SFC<Props> = ({ onClick, content }) => (
-    <button className="edit-button button-primary" onClick={onClick}>
+const EditButton: React.SFC<Props> = ({ name, onClick, content }) => (
+    <button data-name={name} className="edit-button button-primary" onClick={onClick}>
         <span className="edit-button-icon">
             <IconEdit />
         </span>
