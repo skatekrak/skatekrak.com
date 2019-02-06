@@ -309,3 +309,25 @@
 						margin-right: 2rem
 						font-family: $ff-roboto-bold
 
+	// Modal
+	&-modal
+		+mq($from: "small")
+			min-width: 500px
+
+		&-title
+			margin-bottom: 2rem
+			font-family: $ff-roboto-bold
+			font-size: $fs-large
+
+		&-form
+			&-submit
+				width: 100%
+				margin-top: 2rem
+				font-size: $fs-medium
+				color: $white
+				background-color: $grey-900
+				transition: .2s
+
+				&:hover
+					background-color: $black
+

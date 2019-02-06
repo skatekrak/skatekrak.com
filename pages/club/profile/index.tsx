@@ -2,10 +2,13 @@ import React from 'react';
 
 import Layout from 'components/Layout/Layout';
 import LayoutProfile from 'components/pages/club/profile/LayoutProfile';
+import ProfileEditModal from 'components/pages/club/profile/Ui/editModal';
 import ProfileItem from 'components/pages/club/profile/Ui/item';
 import ProfileSection from 'components/pages/club/profile/Ui/section';
 import ProfileSectionHeader from 'components/pages/club/profile/Ui/sectionHeader';
 import TrackedPage from 'components/pages/TrackedPage';
+
+import 'static/styles/form.styl';
 
 const profile = {
     firstName: 'Guillaume',
@@ -94,10 +97,36 @@ const profile = {
 
 type Props = {};
 
-class ProfileMain extends React.Component<Props, {}> {
+type State = {
+    modalOpenName: string;
+    isEditPersonalOpen: boolean;
+    isEditSocialOpen: boolean;
+};
+
+class ProfileMain extends React.Component<Props, State> {
+    public state: State = {
+        modalOpenName: '',
+        isEditPersonalOpen: false,
+        isEditSocialOpen: false,
+    };
     public render() {
         return (
             <TrackedPage name="Club/Profile">
+                <ProfileEditModal
+                    modalTitle="Edit personal infos"
+                    open={this.state.isEditPersonalOpen}
+                    onClose={this.onCloseModal}
+                >
+                    <form className="profile-modal-form">
+                        <div className="form-element">
+                            <div className="form-element-label">First name</div>
+                            <div className="form-element-field">
+                                <input type="text" placeholder="Guillaume" />
+                            </div>
+                        </div>
+                        <button className="button-primary profile-modal-form-submit">Save</button>
+                    </form>
+                </ProfileEditModal>
                 <Layout>
                     <LayoutProfile profile={profile} view="profile">
                         <ProfileSection>
@@ -112,7 +141,13 @@ class ProfileMain extends React.Component<Props, {}> {
                             </div>
                         </ProfileSection>
                         <ProfileSection>
-                            <ProfileSectionHeader title="Personal info" edit editTitle="info" onEditClick={null} />
+                            <ProfileSectionHeader
+                                title="Personal info"
+                                edit
+                                editName="Personal"
+                                editTitle="info"
+                                onEditClick={this.onOpenModal}
+                            />
                             <div className="profile-section-line">
                                 <ProfileItem title="First Name" content={profile.firstName} />
                                 <ProfileItem title="Last name" content={profile.lastName} />
@@ -136,6 +171,23 @@ class ProfileMain extends React.Component<Props, {}> {
             </TrackedPage>
         );
     }
+
+    private onOpenModal = (evt: any) => {
+        const stateKey = `isEdit${evt.currentTarget.dataset.name}Open`;
+        const newState = {
+            modalOpenName: evt.currentTarget.dataset.name,
+            [stateKey]: true,
+        };
+        this.setState(newState);
+    };
+
+    private onCloseModal = () => {
+        const stateKey = `isEdit${this.state.modalOpenName}Open`;
+        const newState = {
+            [stateKey]: false,
+        };
+        this.setState(newState);
+    };
 }
 
 export default ProfileMain;
