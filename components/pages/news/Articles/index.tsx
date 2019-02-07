@@ -12,8 +12,9 @@ import TrackedPage from 'components/pages/TrackedPage';
 import ScrollHelper from 'lib/ScrollHelper';
 import Thread from 'lib/Thread';
 import { Content, Source } from 'rss-feed';
-import { feedEndRefresh, FilterState, State as NewsState } from 'store/reducers/news';
-import { FeedLayout } from 'store/reducers/setting';
+import { feedEndRefresh } from 'store/news/actions';
+import { FilterState, State as NewsState } from 'store/news/reducers';
+import { FeedLayout } from 'store/settings/reducers';
 
 type Props = {
     sourcesMenuIsOpen: boolean;
