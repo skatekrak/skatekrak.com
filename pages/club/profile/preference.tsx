@@ -1,148 +1,48 @@
 import React from 'react';
+import { Query } from 'react-apollo';
 
 import Layout from 'components/Layout/Layout';
 import LayoutProfile from 'components/pages/club/profile/LayoutProfile';
-import ProfileItem from 'components/pages/club/profile/Ui/item';
-import ProfileSection from 'components/pages/club/profile/Ui/section';
-import ProfileSectionHeader from 'components/pages/club/profile/Ui/sectionHeader';
+import Loading from 'components/pages/news/Articles/Loading';
 import TrackedPage from 'components/pages/TrackedPage';
+import ErrorMessage from 'components/Ui/Form/ErrorMessage';
 
-const profile = {
-    firstName: 'Guillaume',
-    lastName: 'Lefebvre',
-    birthday: '25 march 1992',
-    email: 'guillaume.lefebvre@gmail.com',
-    phoneNumber: '0659061248',
-    social: {
-        instagram: '@guillaumeDgomme',
-    },
-    preference: {
-        wearable: {
-            tshirtSize: 'Medium (M)',
-            shoeSize: '43',
-            boxershortSize: 'Large (L)',
-        },
-        skateboarding: {
-            brokenDeck: '5',
-            deckSize: '8.125"',
-            truckSize: '149mm',
-            truckHeight: 'High',
-            wheelSize: '55mm',
-        },
-    },
-    shipping: {
-        address1: {
-            acutal: true,
-            firstName: 'Guillaume',
-            lastName: 'Lefebvre',
-            street: '24 allée daguilera',
-            apt: 'apt 2',
-            city: 'Anglet',
-            cityCode: '64600',
-            state: 'Pyrénées-atlantique',
-            country: 'France',
-            countryCode: 'fr',
-        },
-        address2: {
-            acutal: false,
-            firstName: 'Arnaud',
-            lastName: 'Molinos',
-            street: '27 bis avenue de larochefoucauld',
-            apt: 'apt 3',
-            city: 'Biarritz',
-            cityCode: '64200',
-            state: 'Pyrénées-atlantique',
-            country: 'France',
-            countryCode: 'fr',
-        },
-    },
-    payment: {
-        membership: {
-            memberId: '75',
-            start: '23 january 2019',
-            next: '5 march 2019',
-            renew: true,
-            creditCard: '**** **** **** 6462',
-        },
-        billingAddress: {
-            firstName: 'Guillaume',
-            lastName: 'Lefebvre',
-            street: '24 allée daguilera',
-            apt: 'apt 2',
-            city: 'Anglet',
-            cityCode: '64600',
-            state: 'Pyrénées-atlantique',
-            country: 'France',
-            countryCode: 'fr',
-        },
-        history: [
-            {
-                desc: 'Quarter membership to Krak skate club x1',
-                date: '5 march 2019',
-                price: '87€',
-                invoiceLink: '',
-            },
-            {
-                desc: 'Quarter membership to Krak skate club x1',
-                date: '5 june 2019',
-                price: '87€',
-                invoiceLink: '',
-            },
-        ],
-    },
-};
+import ProfilePreferencesSection from 'components/pages/club/profile/Ui/ProfilePreferencesSection';
 
-type Props = {};
+import withAuth from 'hocs/withAuth';
 
-class ProfilePreference extends React.Component<Props, {}> {
+import { GET_ME } from 'pages/club/profile';
+
+class ProfilePreference extends React.Component {
     public render() {
         return (
             <TrackedPage name="Club/Profile/Preference">
                 <Layout>
-                    <LayoutProfile profile={profile} view="preference">
-                        <ProfileSection>
-                            <ProfileSectionHeader title="Wearable" edit editTitle="wearable" onEditClick={null} />
-                            <div className="profile-section-line">
-                                <ProfileItem title="T-shirt size" content={profile.preference.wearable.tshirtSize} />
-                                <ProfileItem title="Shoe size" content={profile.preference.wearable.shoeSize} />
-                            </div>
-                            <div className="profile-section-line">
-                                <ProfileItem
-                                    title="Boxershort size"
-                                    content={profile.preference.wearable.boxershortSize}
-                                />
-                            </div>
-                        </ProfileSection>
-                        <ProfileSection>
-                            <ProfileSectionHeader
-                                title="Skateboarding"
-                                edit
-                                editTitle="skateboarding"
-                                onEditClick={null}
-                            />
-                            <div className="profile-section-line">
-                                <ProfileItem
-                                    title="Broken deck"
-                                    content={profile.preference.skateboarding.brokenDeck}
-                                />
-                                <ProfileItem title="Deck size" content={profile.preference.skateboarding.deckSize} />
-                            </div>
-                            <div className="profile-section-line">
-                                <ProfileItem title="Truck size" content={profile.preference.skateboarding.truckSize} />
-                                <ProfileItem
-                                    title="Truck height"
-                                    content={profile.preference.skateboarding.truckHeight}
-                                />
-                            </div>
-                            <div className="profile-section-line">
-                                <ProfileItem title="Wheel size" content={profile.preference.skateboarding.wheelSize} />
-                            </div>
-                        </ProfileSection>
-                    </LayoutProfile>
+                    <Query query={GET_ME}>
+                        {({ loading, error, data }) => {
+                            if (loading) {
+                                return <Loading />;
+                            }
+
+                            if (error) {
+                                return <pre>{JSON.stringify(error, undefined, 2)}</pre>;
+                            }
+
+                            if (data && data.me) {
+                                return (
+                                    <LayoutProfile profile={data.me} view="preference">
+                                        <ProfilePreferencesSection member={data.me} />
+                                    </LayoutProfile>
+                                );
+                            } else {
+                                return <ErrorMessage message="Oh, weird" />;
+                            }
+                        }}
+                    </Query>
                 </Layout>
             </TrackedPage>
         );
     }
 }
 
-export default ProfilePreference;
+export default withAuth(ProfilePreference);

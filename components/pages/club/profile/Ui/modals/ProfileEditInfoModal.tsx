@@ -24,7 +24,7 @@ class ProfileEditInfoModal extends React.Component<Props & ChildProps> {
         return (
             <ProfileEditModal modalTitle="Edit personal infos" open={this.props.open} onClose={this.props.onClose}>
                 <Form onSubmit={this.handleSubmit} validate={validateForm} initialValues={this.props.profile}>
-                    {({ handleSubmit, submitting, valid, submitError }) => (
+                    {({ handleSubmit, submitting, submitError }) => (
                         <form className="profile-modal-form" onSubmit={handleSubmit}>
                             <ErrorMessage message={submitError} />
                             <Field name="firstName" label="First name" />
