@@ -5,6 +5,8 @@ import React from 'react';
 import InfiniteScroll from 'react-infinite-scroller';
 import { connect } from 'react-redux';
 
+import Types from 'Types';
+
 import Article from 'components/pages/news/Articles/Article';
 import Loading from 'components/pages/news/Articles/Loading';
 import NoMore from 'components/pages/news/Articles/NoMore';
@@ -174,8 +176,8 @@ class Articles extends React.Component<Props, State> {
     }
 }
 
-export default connect((state: any) => ({
-    news: state.news,
-    feedLayout: state.setting.feedLayout,
-    payment: state.payment,
+export default connect(({ news, settings, payment }: Types.RootState) => ({
+    news,
+    feedLayout: settings.feedLayout,
+    payment,
 }))(Articles);

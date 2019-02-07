@@ -7,13 +7,8 @@ import { connect } from 'react-redux';
 import SourceOption from 'components/pages/news/Menu/Sources/SourceOption';
 import { SpinnerCircle } from 'components/Ui/Icons/Spinners';
 import { Source } from 'rss-feed';
-import {
-    FilterState,
-    selectAllFilters,
-    setAllSources,
-    State as NewsState,
-    unselectAllFilters,
-} from 'store/reducers/news';
+import { selectAllFilters, setAllSources, unselectAllFilters } from 'store/news/actions';
+import { FilterState, State as NewsState } from 'store/news/reducers';
 
 type Props = {
     sourcesMenuIsOpen: boolean;
