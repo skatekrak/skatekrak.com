@@ -113,7 +113,7 @@ class Header extends React.Component<Props, State> {
                     </nav>
                     <nav id="header-nav-subnav">
                         <div id="header-nav-subnav-kraken">
-                            <Link href="/auth/login">
+                            <Link href={this.props.authUser ? '/club/profile' : '/auth/login'}>
                                 <a id="header-nav-subnav-kraken-login" className="header-nav-main-item-link">
                                     <IconKrakenHead />
                                     Kraken Access

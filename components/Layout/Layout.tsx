@@ -27,6 +27,9 @@ import 'static/styles/checkbox.styl';
 import 'static/styles/icons.styl';
 import 'static/styles/ui.styl';
 
+import 'react-datepicker/dist/react-datepicker.css';
+import 'static/styles/react-datepicker.css';
+
 type Props = {
     head?: React.ReactNode;
     isMobile: boolean;

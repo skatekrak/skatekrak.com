@@ -1,16 +1,22 @@
-import classnames from 'classnames';
 import React from 'react';
+import DatePicker from 'react-datepicker';
 import { Field } from 'react-final-form';
 
 import ErrorMessage from 'components/Ui/Form/ErrorMessage';
 
-const FieldContainer = (props: any) => (
+const DatePickerForm = (props: any) => (
     <Field name={props.name}>
         {({ input, meta }) => {
+            let date = input.value || undefined;
+            if (typeof input.value === 'string' && input.value !== '') {
+                date = new Date(input.value);
+            }
+
             let showError = (meta.error || meta.submitError) && meta.touched;
             if (meta.dirtySinceLastSubmit) {
                 showError = false;
             }
+
             return (
                 <div className="form-element">
                     {props.label && (
@@ -18,13 +24,16 @@ const FieldContainer = (props: any) => (
                             <label htmlFor={props.name}>{props.label}</label>
                         </div>
                     )}
-                    <div
-                        className={classnames('form-element-field', {
-                            'form-element-field--error': showError,
-                            'form-element-field--success': props.showValid,
-                        })}
-                    >
-                        <input {...input} {...props} />
+                    <div className="form-element-field">
+                        <DatePicker
+                            selected={date}
+                            onChange={input.onChange}
+                            dateFormat="d MMMM yyyy"
+                            showMonthDropdown={true}
+                            showYearDropdown={true}
+                            dropdownMode="select"
+                            className="form-control"
+                        />
                         {showError && <ErrorMessage message={meta.error || meta.submitError} />}
                     </div>
                 </div>
@@ -33,4 +42,4 @@ const FieldContainer = (props: any) => (
     </Field>
 );
 
-export default FieldContainer;
+export default DatePickerForm;

@@ -5,6 +5,8 @@ import React from 'react';
 import InfiniteScroll from 'react-infinite-scroller';
 import { connect } from 'react-redux';
 
+import Types from 'Types';
+
 import Article from 'components/pages/news/Articles/Article';
 import Loading from 'components/pages/news/Articles/Loading';
 import NoMore from 'components/pages/news/Articles/NoMore';
@@ -12,8 +14,9 @@ import TrackedPage from 'components/pages/TrackedPage';
 import ScrollHelper from 'lib/ScrollHelper';
 import Thread from 'lib/Thread';
 import { Content, Source } from 'rss-feed';
-import { feedEndRefresh, FilterState, State as NewsState } from 'store/reducers/news';
-import { FeedLayout } from 'store/reducers/setting';
+import { feedEndRefresh } from 'store/news/actions';
+import { FilterState, State as NewsState } from 'store/news/reducers';
+import { FeedLayout } from 'store/settings/reducers';
 
 type Props = {
     sourcesMenuIsOpen: boolean;
@@ -173,8 +176,8 @@ class Articles extends React.Component<Props, State> {
     }
 }
 
-export default connect((state: any) => ({
-    news: state.news,
-    feedLayout: state.setting.feedLayout,
-    payment: state.payment,
+export default connect(({ news, settings, payment }: Types.RootState) => ({
+    news,
+    feedLayout: settings.feedLayout,
+    payment,
 }))(Articles);
