@@ -10,7 +10,7 @@ const FieldContainer = (props: any) => (
             const showError = (meta.error || meta.submitError) && meta.touched;
             return (
                 <div className="form-element">
-                    {!props.label && (
+                    {props.label && (
                         <div className="form-element-label">
                             <label htmlFor={props.name}>{props.label}</label>
                         </div>

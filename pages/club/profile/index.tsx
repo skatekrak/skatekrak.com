@@ -17,7 +17,7 @@ import withAuth from 'hocs/withAuth';
 
 import 'static/styles/form.styl';
 
-const GET_ME = gql`
+export const GET_ME = gql`
     query {
         me {
             id
@@ -88,6 +88,7 @@ class ProfileMain extends React.Component<{}, State> {
                                         <ProfileEditInfoModal
                                             open={this.state.modalOpenName === 'personalInfo'}
                                             onClose={this.onCloseModal}
+                                            profile={data.me}
                                         />
                                         <ProfileSection>
                                             <ProfileSectionHeader title="Membership" />
@@ -119,11 +120,16 @@ class ProfileMain extends React.Component<{}, State> {
                                                 <ProfileItem title="Last name" content={data.me.lastName} />
                                             </div>
                                             <div className="profile-section-line">
-                                                <ProfileItem title="Birthday" content={data.me.birthday} />
+                                                <ProfileItem
+                                                    title="Birthday"
+                                                    content={
+                                                        data.me.birthday ? format(data.me.birthday, 'D MMMM YYYY') : ''
+                                                    }
+                                                />
                                             </div>
                                             <div className="profile-section-line">
                                                 <ProfileItem title="Email" content={data.me.email} />
-                                                <ProfileItem title="Phone number" content={data.me.phoneNumber} />
+                                                <ProfileItem title="Phone number" content={data.me.phone} />
                                             </div>
                                         </ProfileSection>
                                     </LayoutProfile>
