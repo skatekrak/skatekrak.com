@@ -26,14 +26,14 @@ class ProfileNav extends React.Component<Props, State> {
                     <h1 id="profile-nav-header-title">
                         {profile.firstName} {profile.lastName}
                     </h1>
-                    <span id="profile-nav-header-location">
+                    {/* <span id="profile-nav-header-location">
                         {profile.shipping.address1.city}
                         {', '}
                         <span className="text-cap">{profile.shipping.address1.countryCode}</span>
-                    </span>
+                    </span> */}
                     <div id="profile-nav-header-memberid-container">
                         <p id="profile-nav-header-memberid-title">Member ID</p>
-                        <p id="profile-nav-header-memberid">#{profile.payment.membership.memberId}</p>
+                        <p id="profile-nav-header-memberid">#{profile.id}</p>
                     </div>
                 </header>
                 <ul
