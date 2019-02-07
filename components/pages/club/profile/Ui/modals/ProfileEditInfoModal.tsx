@@ -32,10 +32,7 @@ class ProfileEditInfoModal extends React.Component<Props & ChildProps> {
                             <Field name="email" label="Email" />
                             <Field name="phone" label="Phone number" />
                             <DatePicker name="birthday" label="Birthday" />
-                            <button
-                                className="button-primary profile-modal-form-submit"
-                                disabled={submitting || !valid}
-                            >
+                            <button className="button-primary profile-modal-form-submit" disabled={submitting}>
                                 Save
                             </button>
                         </form>

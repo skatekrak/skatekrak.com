@@ -7,7 +7,10 @@ import ErrorMessage from 'components/Ui/Form/ErrorMessage';
 const FieldContainer = (props: any) => (
     <Field name={props.name}>
         {({ input, meta }) => {
-            const showError = (meta.error || meta.submitError) && meta.touched;
+            let showError = (meta.error || meta.submitError) && meta.touched;
+            if (meta.dirtySinceLastSubmit) {
+                showError = false;
+            }
             return (
                 <div className="form-element">
                     {props.label && (
