@@ -1,8 +1,10 @@
 import App, { Container } from 'next/app';
 import React from 'react';
+import { ApolloProvider } from 'react-apollo';
 import { Provider } from 'react-redux';
 import Intercom from 'react-intercom';
 
+import withApolloClient from 'hocs/withApollo';
 import withReduxStore from 'hocs/withRedux';
 import { userSigninSuccess } from 'store/auth/actions';
 import { getUserFromLocalCookie, getUserFromServerCookie } from 'lib/auth';
@@ -33,18 +35,22 @@ class MyApp extends App {
     }
 
     render() {
-        const { Component, pageProps, reduxStore } = this.props;
+        const { Component, pageProps, reduxStore, apolloClient } = this.props;
         return (
             <Container>
                 <Provider store={reduxStore}>
-                    <>
-                        <Component {...pageProps} />
-                        {this.props.router.route.startsWith('/club') && <Intercom appID={process.env.INTERCOM_ID} />}
-                    </>
+                    <ApolloProvider client={apolloClient}>
+                        <>
+                            <Component {...pageProps} />
+                            {this.props.router.route.startsWith('/club') && (
+                                <Intercom appID={process.env.INTERCOM_ID} />
+                            )}
+                        </>
+                    </ApolloProvider>
                 </Provider>
             </Container>
         );
     }
 }
 
-export default withReduxStore(MyApp);
+export default withReduxStore(withApolloClient(MyApp));
