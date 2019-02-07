@@ -1,11 +1,10 @@
 import App, { Container } from 'next/app';
 import React from 'react';
-import withReduxStore from '../hocs/withRedux';
 import { Provider } from 'react-redux';
 import Intercom from 'react-intercom';
 
+import withReduxStore from 'hocs/withRedux';
 import { userSigninSuccess } from 'store/auth/actions';
-
 import { getUserFromLocalCookie, getUserFromServerCookie } from 'lib/auth';
 
 class MyApp extends App {
