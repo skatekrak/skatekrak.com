@@ -8,6 +8,8 @@ import ProfileSection from 'components/pages/club/profile/Ui/section';
 import ProfileSectionHeader from 'components/pages/club/profile/Ui/sectionHeader';
 import TrackedPage from 'components/pages/TrackedPage';
 
+import withAuth from 'hocs/withAuth';
+
 import 'static/styles/form.styl';
 
 const profile = {
@@ -190,4 +192,4 @@ class ProfileMain extends React.Component<Props, State> {
     };
 }
 
-export default ProfileMain;
+export default withAuth(ProfileMain);
