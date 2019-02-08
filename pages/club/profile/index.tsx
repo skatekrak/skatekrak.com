@@ -48,6 +48,7 @@ export const GET_ME = gql`
                 preferenceSetting {
                     id
                     name
+                    type
                 }
                 options {
                     id
