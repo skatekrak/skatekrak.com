@@ -3,6 +3,16 @@ import Modal from 'react-responsive-modal';
 
 import IconCross from 'components/Ui/Icons/Cross';
 
+/*
+    Everytime you want to use a modal,
+    use this one as a wrapper instead of the original.
+
+    Goal: Reset styles
+
+    Use :
+        - Set the max-width of the popup with the children element
+*/
+
 const classNames = {
     overlay: 'modal-overlay',
     modal: 'modal-container',
