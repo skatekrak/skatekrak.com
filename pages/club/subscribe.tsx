@@ -38,9 +38,7 @@ class Club extends React.Component<Props, State> {
                             <div id="checkout" className="container page-padding">
                                 <header id="checkout-header">
                                     <h1 id="checkout-header-title">Join the club</h1>
-                                    <h2 id="checkout-header-subtitle">
-                                        Krak Skateboarding Club - 12 month membership - billed quarterly
-                                    </h2>
+                                    <h2 id="checkout-header-subtitle">Krak Skateboarding Club - billed quarterly</h2>
                                     <div id="checkout-header-price-container">
                                         <p id="checkout-header-price">
                                             {this.props.payment.currency === 'usd' && '$'}

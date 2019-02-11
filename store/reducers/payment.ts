@@ -6,7 +6,7 @@ type State = {
 };
 
 const initialState: State = {
-    price: 8700,
+    price: 9900,
     currency: 'eur',
 };
 

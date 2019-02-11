@@ -84,7 +84,7 @@ class ShippingForm extends React.Component<Props & InjectedProps> {
                 if (price && currency) {
                     this.props.dispatch(savePricingCurrency(price, currency));
                 } else {
-                    this.props.dispatch(savePricingCurrency(8700, values.country.value === 'us' ? 'usd' : 'eur'));
+                    this.props.dispatch(savePricingCurrency(9900, values.country.value === 'us' ? 'usd' : 'eur'));
                 }
                 this.props.onSubmit();
             })
