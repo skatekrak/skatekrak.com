@@ -1,3 +1,4 @@
+import axios from 'axios';
 import App, { Container } from 'next/app';
 import React from 'react';
 import withReduxStore from '../hocs/withRedux';
@@ -14,20 +15,25 @@ class MyApp extends App {
             pageProps = await Component.getInitialProps(ctx);
         }
 
-        return { pageProps };
+        return { ...pageProps, countryCode };
     }
 
     componentDidMount() {
-        if (window['__NEXT_REDUX_STORE__'] && this.props.router) {
-            const { query } = this.props.router;
-            if (query.cc) {
-                if (query.cc === 'us') {
-                    window['__NEXT_REDUX_STORE__'].dispatch(savePricingCurrency(8700, 'usd'));
-                } else if (query.cc === 'gb') {
-                    window['__NEXT_REDUX_STORE__'].dispatch(savePricingCurrency(8700, 'gbp'));
+        axios('https://api.ipdata.co/?api-key=4a4e1261ab0b0b8288f5ffef913072c177a0262cf1945fb399a0b712').then(
+            (result) => {
+                let countryCode = undefined;
+                if (result.data && result.data.country_code) {
+                    countryCode = result.data.country_code.toLowerCase();
                 }
-            }
-        }
+                if (window['__NEXT_REDUX_STORE__'] && countryCode) {
+                    if (countryCode === 'us') {
+                        window['__NEXT_REDUX_STORE__'].dispatch(savePricingCurrency(9900, 'usd'));
+                    } else if (countryCode === 'gb') {
+                        window['__NEXT_REDUX_STORE__'].dispatch(savePricingCurrency(9900, 'gbp'));
+                    }
+                }
+            },
+        );
     }
 
     render() {
