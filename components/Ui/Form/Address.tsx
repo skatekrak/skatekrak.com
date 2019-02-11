@@ -11,16 +11,8 @@ const countriesOptions = [
         label: 'France',
     },
     {
-        value: 'es',
-        label: 'Spain',
-    },
-    {
         value: 'us',
         label: 'United States',
-    },
-    {
-        value: 'at',
-        label: 'Austria',
     },
     {
         value: 'be',
@@ -33,18 +25,6 @@ const countriesOptions = [
     {
         value: 'gb',
         label: 'United Kingdom',
-    },
-    {
-        value: 'ie',
-        label: 'Ireland',
-    },
-    {
-        value: 'it',
-        label: 'Italy',
-    },
-    {
-        value: 'lu',
-        label: 'Luxembourg',
     },
     {
         value: 'nl',
