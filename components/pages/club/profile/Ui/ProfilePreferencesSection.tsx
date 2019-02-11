@@ -55,6 +55,7 @@ class ProfilePreferencesSection extends React.Component<Props, State> {
                                         <ProfileEditPreferencesModal
                                             open={this.state.modalOpen}
                                             onClose={this.closeModal}
+                                            memberId={member.id}
                                             preferences={member.preferences}
                                             preferencesSetting={data.getPreferencesSetting}
                                         />

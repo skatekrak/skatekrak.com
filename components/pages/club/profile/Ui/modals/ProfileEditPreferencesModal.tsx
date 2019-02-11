@@ -1,8 +1,8 @@
-import { FORM_ERROR } from 'final-form';
+import { FORM_ERROR, FormApi } from 'final-form';
 import gql from 'graphql-tag';
 import React from 'react';
 import { ChildProps, graphql } from 'react-apollo';
-import { Field as ReactField, Form } from 'react-final-form';
+import { Form } from 'react-final-form';
 
 import ProfileEditModal from 'components/pages/club/profile/Ui/editModal';
 
@@ -10,7 +10,10 @@ import ErrorMessage from 'components/Ui/Form/ErrorMessage';
 import Field from 'components/Ui/Form/Field';
 import Select from 'components/Ui/Form/Select';
 
+import { GET_ME } from 'pages/club/profile';
+
 type Props = {
+    memberId: string;
     preferences: any[];
     preferencesSetting: any[];
     open: boolean;
@@ -41,8 +44,8 @@ class ProfileEditPreferencesModal extends React.Component<Props & ChildProps> {
 
         return (
             <ProfileEditModal modalTitle="Edit preferences" open={this.props.open} onClose={this.props.onClose}>
-                <Form onSubmit={this.handleSubmit} validate={validateForm} initialValues={formattedInitialValues}>
-                    {({ handleSubmit, submitting, submitError, values }) => (
+                <Form onSubmit={this.handleSubmit} initialValues={formattedInitialValues}>
+                    {({ handleSubmit, submitting, submitError }) => (
                         <form className="profile-modal-form" onSubmit={handleSubmit}>
                             {submitError && <ErrorMessage message={submitError} />}
                             {this.props.preferencesSetting.map((preferenceSetting) => {
@@ -57,6 +60,7 @@ class ProfileEditPreferencesModal extends React.Component<Props & ChildProps> {
                                 } else if (preferenceSetting.type === 'ENUM') {
                                     return (
                                         <Select
+                                            key={preferenceSetting.id}
                                             name={preferenceSetting.id}
                                             label={preferenceSetting.name}
                                             options={preferenceSetting.options.map((option) => ({
@@ -68,6 +72,7 @@ class ProfileEditPreferencesModal extends React.Component<Props & ChildProps> {
                                 } else if (preferenceSetting.type === 'MULTIPLE') {
                                     return (
                                         <Select
+                                            key={preferenceSetting.id}
                                             name={preferenceSetting.id}
                                             label={preferenceSetting.name}
                                             options={preferenceSetting.options.map((option) => ({
@@ -79,7 +84,11 @@ class ProfileEditPreferencesModal extends React.Component<Props & ChildProps> {
                                     );
                                 }
                             })}
-                            <button className="button-primary profile-modal-form-submit" disabled={submitting}>
+                            <button
+                                className="button-primary profile-modal-form-submit"
+                                disabled={submitting}
+                                type="submit"
+                            >
                                 Save
                             </button>
                         </form>
@@ -89,14 +98,117 @@ class ProfileEditPreferencesModal extends React.Component<Props & ChildProps> {
         );
     }
 
-    private handleSubmit = async (values: any) => {
-        //
+    private handleSubmit = async (values: any, formApi: FormApi) => {
+        const { mutate } = this.props;
+        if (mutate) {
+            console.log('values', Object.keys(values));
+            // We get the modified values
+            const dirtyValues = {};
+            for (const key of Object.keys(values)) {
+                if (formApi.getFieldState(key).dirty) {
+                    dirtyValues[key] = values[key];
+                }
+            }
+
+            console.log('dirtyValues', Object.keys(dirtyValues));
+
+            const formattedPreferences: {
+                id?: string;
+                settingId: string;
+                options?: string[];
+                content?: string;
+            }[] = [];
+
+            // For each value that needs to be updated, we add a formatted preference to be sent
+            for (const key of Object.keys(dirtyValues)) {
+                if (dirtyValues[key] instanceof Array) {
+                    // This case is for MULTIPLE
+                    formattedPreferences.push({
+                        settingId: key,
+                        options: dirtyValues[key].map((value) => value.value),
+                    });
+                } else if (typeof dirtyValues[key] === 'string') {
+                    // OPEN
+                    formattedPreferences.push({
+                        settingId: key,
+                        content: dirtyValues[key],
+                    });
+                } else if (dirtyValues[key].value) {
+                    // ENUM
+                    formattedPreferences.push({
+                        settingId: key,
+                        options: [dirtyValues[key].value],
+                    });
+                } else {
+                    formattedPreferences.push({
+                        settingId: key,
+                        options: [],
+                    });
+                }
+            }
+
+            console.log('formattedPref', formattedPreferences);
+
+            // try {
+            //     await mutate({
+            //         variables: {
+            //             memberId: this.props.memberId,
+            //             preferences: formattedPreferences,
+            //         },
+            //         update: (cache, result) => {
+            //             const query = cache.readQuery<any>({
+            //                 query: GET_ME,
+            //             });
+            //             const data = result.data as any;
+            //             if (query && data) {
+            //                 /* To update the cache we check if we have a new preference for
+            //                 existing preference, then replace or add them
+            //                 */
+            //                 for (const preference of data.addOrUpdatePreferences) {
+            //                     const existingIndex = query.me.preferences.findIndex(
+            //                         (pref) => pref.id === preference.id,
+            //                     );
+            //                     if (existingIndex >= 0) {
+            //                         query.me.preferences[existingIndex] = preference;
+            //                     } else {
+            //                         query.me.preferences.push(preference);
+            //                     }
+            //                 }
+
+            //                 cache.writeQuery({
+            //                     query: GET_ME,
+            //                     data: {
+            //                         me: query.me,
+            //                     },
+            //                 });
+            //             }
+            //         },
+            //     });
+
+            //     this.props.onClose();
+            // } catch (error) {
+            //     console.log(error);
+            // }
+        }
     };
 }
 
-const validateForm = (values: any) => {
-    const errors: any = {};
-    return errors;
-};
+const ADD_UPDATE_PREFERENCES = gql`
+    mutation addOrUpdatePreferences($memberId: ID!, $preferences: [AddOrUpdatePreferenceInput!]!) {
+        addOrUpdatePreferences(memberId: $memberId, preferences: $preferences) {
+            id
+            preferenceSetting {
+                id
+                name
+                type
+            }
+            options {
+                id
+                title
+            }
+            content
+        }
+    }
+`;
 
-export default ProfileEditPreferencesModal;
+export default graphql<Props>(ADD_UPDATE_PREFERENCES)(ProfileEditPreferencesModal);
