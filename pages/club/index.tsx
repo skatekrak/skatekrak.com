@@ -87,28 +87,13 @@ class Club extends React.Component<Props, State> {
                                 </span>
                             </div>
                             <div id="club-benefits-container">
-                                <h3 id="club-benefits-title">Including</h3>
+                                <h3 id="club-benefits-title">Including every quarter</h3>
                                 <div className="row">
                                     <ul className="col-xs-12 col-md-4">
-                                        <li className="club-benefit">4 decks (one every quarter)</li>
-                                        <li className="club-benefit">One pair of shoes</li>
-                                        <li className="club-benefit">The 2019 welcome package</li>
-                                        <li className="club-benefit">8 KrakBox</li>
-                                        <li className="club-benefit">One watch</li>
-                                    </ul>
-                                    <ul className="col-xs-12 col-md-4">
-                                        <li className="club-benefit">The 2019 calendar</li>
-                                        <li className="club-benefit">The bi-annual magazine</li>
-                                        <li className="club-benefit">Access to exclusive content online</li>
-                                        <li className="club-benefit">Private chat room</li>
-                                        <li className="club-benefit">Invites to members only workshops & events</li>
-                                    </ul>
-                                    <ul className="col-xs-12 col-md-4">
-                                        <li className="club-benefit">Special treat in skateparks</li>
-                                        <li className="club-benefit">
-                                            Discounts in shops & special partners (like skatecamps & trips)
-                                        </li>
-                                        <li className="club-benefit">Curated deals & few surprises all year long</li>
+                                        <li className="club-benefit">1 exclusive deck</li>
+                                        <li className="club-benefit">1 exclusive t-shirt</li>
+                                        <li className="club-benefit">1 classic KrakBox</li>
+                                        <li className="club-benefit">many surprises</li>
                                     </ul>
                                 </div>
                             </div>
