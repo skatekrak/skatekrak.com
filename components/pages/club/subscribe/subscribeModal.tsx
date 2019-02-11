@@ -1,11 +1,11 @@
 import Head from 'next/head';
 import React from 'react';
 
-import Link from 'components/Link';
-import ModalTwoColumn from 'components/Ui/Modal/twoColumn';
+import CreateAccount from 'components/pages/club/subscribe/steps/createAccount';
+import Subscribe from 'components/pages/club/subscribe/steps/subscribe';
+import Modal from 'components/Ui/Modal';
 
 type Props = {
-    pricing: string;
     open: boolean;
     onClose: () => void;
 };
@@ -17,38 +17,34 @@ type State = {
 const SubscribeHead = () => (
     <Head>
         <title>Krak | Subscribe</title>
-        <meta
-            name="description"
-            content="Krak Skateboarding Club. You're not alone. Let's enjoy skateboarding even more."
-        />
-        <meta property="og:title" content="Krak Skateboarding Club | Subscribe" />
-        <meta property="og:url" content="https://skatekrak.com/club" />
-        <meta property="og:image" content="https://skatekrak.com/static/images/og-club.jpg" />
-        <meta
-            property="og:description"
-            content="Krak Skateboarding Club. You're not alone. Let's enjoy skateboarding even more"
-        />
     </Head>
 );
 
 class SubscribeModal extends React.Component<Props, State> {
     public state: State = {
-        step: 'Account',
+        step: 'account',
     };
 
     public render() {
-        const { pricing, open, onClose } = this.props;
+        const { open, onClose } = this.props;
         const { step } = this.state;
         return (
             <>
                 <SubscribeHead />
-                <ModalTwoColumn open={open} onClose={onClose}>
-                    Create your account
-                    {pricing}
-                </ModalTwoColumn>
+                <Modal open={open} onClose={onClose}>
+                    {step === 'account' && <CreateAccount quarterFull={true} onNextClick={this.onNextStep} />}
+                    {step === 'subscribe' && <Subscribe quarterFull={true} onNextClick={this.onNextStep} />}
+                </Modal>
             </>
         );
     }
+
+    private onNextStep = () => {
+        const { step } = this.state;
+        if (step === 'account') {
+            this.setState({ step: 'subscribe' });
+        }
+    };
 }
 
 export default SubscribeModal;

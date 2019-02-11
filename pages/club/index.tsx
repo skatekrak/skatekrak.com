@@ -4,7 +4,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import Layout from 'components/Layout/Layout';
-import Link from 'components/Link';
+import SubscribeModal from 'components/pages/club/subscribe/subscribeModal';
 import TrackedPage from 'components/pages/TrackedPage';
 import SkateistanLogo from 'components/Ui/Icons/Logos/Skateistan';
 
@@ -17,6 +17,7 @@ type Props = {
 
 type State = {
     pricing: string;
+    isSubscribeModalOpen: boolean;
 };
 
 const ClubHead = () => (
@@ -40,6 +41,7 @@ const ClubHead = () => (
 class Club extends React.Component<Props, State> {
     public state: State = {
         pricing: this.getPricingText('29', '/month'),
+        isSubscribeModalOpen: false,
     };
 
     public componentDidMount() {
@@ -60,7 +62,7 @@ class Club extends React.Component<Props, State> {
     }
 
     public render() {
-        const { pricing } = this.state;
+        const { pricing, isSubscribeModalOpen } = this.state;
         return (
             <TrackedPage name="Club">
                 <Layout head={<ClubHead />}>
@@ -71,11 +73,10 @@ class Club extends React.Component<Props, State> {
                             <span id="club-header-bg-circle" />
                         </div>
                         <div id="club-cta-container">
-                            <Link href="/club/subscribe" prefetch>
-                                <a id="club-cta" className="button-primary">
-                                    Join the club - {pricing}
-                                </a>
-                            </Link>
+                            <SubscribeModal open={isSubscribeModalOpen} onClose={this.onCloseSubscribeModal} />
+                            <button id="club-cta" className="button-primary" onClick={this.onOpenSubscribeModal}>
+                                Join the club - {pricing}
+                            </button>
                         </div>
                         <div id="club-benefits">
                             <div id="club-bg-image-container">
@@ -135,6 +136,16 @@ class Club extends React.Component<Props, State> {
             </TrackedPage>
         );
     }
+
+    private onOpenSubscribeModal = () => {
+        this.setState({
+            isSubscribeModalOpen: true,
+        });
+    };
+
+    private onCloseSubscribeModal = () => {
+        this.setState({ isSubscribeModalOpen: false });
+    };
 
     private getPricingText(price: string, frequency: string): string {
         const { payment } = this.props;
