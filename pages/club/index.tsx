@@ -1,4 +1,3 @@
-import Analytics, { ABTest, Variation } from '@thepunkclub/analytics';
 import Head from 'next/head';
 import React from 'react';
 import { connect } from 'react-redux';
@@ -14,11 +13,6 @@ type Props = {
         currency: string;
     };
 };
-
-type State = {
-    pricing: string;
-};
-
 const ClubHead = () => (
     <Head>
         <title>Krak | Club</title>
@@ -37,30 +31,8 @@ const ClubHead = () => (
     </Head>
 );
 
-class Club extends React.Component<Props, State> {
-    public state: State = {
-        pricing: this.getPricingText('33', '/month'),
-    };
-
-    public componentDidMount() {
-        const original = new Variation('original');
-        const quarterly = new Variation('quarterly');
-        quarterly.setActivate(() => this.setState({ pricing: this.getPricingText('99', '/quarter') }));
-        const abTest = new ABTest('ctakscjoin');
-        abTest.setPercentage(100);
-        abTest.addIncludedTarget({
-            attribute: 'url',
-            inverted: '0',
-            type: 'equals_simple',
-            value: 'https://skatekrak.com/club',
-        });
-        abTest.addVariation(original);
-        abTest.addVariation(quarterly);
-        Analytics.default().trackABTest(abTest);
-    }
-
+class Club extends React.Component<Props> {
     public render() {
-        const { pricing } = this.state;
         return (
             <TrackedPage name="Club">
                 <Layout head={<ClubHead />}>
@@ -72,7 +44,7 @@ class Club extends React.Component<Props, State> {
                         </div>
                         <div id="club-cta-container">
                             <Link href="/club/subscribe" prefetch>
-                                <a id="club-cta">Join the club - {pricing}</a>
+                                <a id="club-cta">Join the club - {this.getPricingText()}</a>
                             </Link>
                         </div>
                         <div id="club-benefits">
@@ -119,7 +91,7 @@ class Club extends React.Component<Props, State> {
         );
     }
 
-    private getPricingText(price: string, frequency: string): string {
+    private getPricingText(): string {
         const { payment } = this.props;
         let res = '';
         if (payment.currency === 'usd') {
@@ -128,11 +100,11 @@ class Club extends React.Component<Props, State> {
         if (payment.currency === 'gbp') {
             res += '£';
         }
-        res += price;
+        res += '99';
         if (payment.currency === 'eur') {
             res += '€';
         }
-        res += frequency;
+        res += '/quarter';
         return res;
     }
 }
