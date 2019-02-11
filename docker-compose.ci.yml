@@ -1,7 +1,7 @@
 version: "3.4"
 services:
   skatekrak-build:
-    image: ${CI_REGISTRY_IMAGE}:${TEST_TAG}
+    image: ${CI_REGISTRY_IMAGE}:${BUILD_TAG}
     build:
       context: .
       args:
@@ -11,8 +11,8 @@ services:
         RSS_BACKEND_URL: ${RSS_BACKEND_URL}
         INTERCOM_ID: ${INTERCOM_ID}
       cache_from:
-        - ${CI_REGISTRY_IMAGE}:${TEST_TAG}
+        - ${CI_REGISTRY_IMAGE}:${BUILD_TAG}
 
   skatekrak-lint:
-    image: ${CI_REGISTRY_IMAGE}:${TEST_TAG}
+    image: ${CI_REGISTRY_IMAGE}:${BUILD_TAG}
     command: /bin/bash -c "yarn install && yarn build:ts && yarn lint:ts"
