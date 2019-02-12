@@ -4,20 +4,26 @@ import { Field } from 'react-final-form';
 
 import ErrorMessage from 'components/Ui/Form/ErrorMessage';
 
-const FieldContainer = (props: any) => (
-    <Field name={props.name}>
-        {({ input, meta }) => {
-            let showError = (meta.error || meta.submitError) && meta.touched;
-            if (meta.dirtySinceLastSubmit) {
-                showError = false;
-            }
-            return (
-                <div className="form-element">
-                    {props.label && (
-                        <div className="form-element-label">
-                            <label htmlFor={props.name}>{props.label}</label>
-                        </div>
-                    )}
+type Props = {
+    name: string;
+    label?: string;
+    showValid?: boolean;
+};
+
+const FieldContainer = (props: Props) => (
+    <div className="form-element">
+        {props.label && (
+            <div className="form-element-label">
+                <label htmlFor={props.name}>{props.label}</label>
+            </div>
+        )}
+        <Field name={props.name}>
+            {({ input, meta }) => {
+                let showError = (meta.error || meta.submitError) && meta.touched;
+                if (meta.dirtySinceLastSubmit) {
+                    showError = false;
+                }
+                return (
                     <div
                         className={classnames('form-element-field', {
                             'form-element-field--error': showError,
@@ -27,10 +33,10 @@ const FieldContainer = (props: any) => (
                         <input {...input} {...props} />
                         {showError && <ErrorMessage message={meta.error || meta.submitError} />}
                     </div>
-                </div>
-            );
-        }}
-    </Field>
+                );
+            }}
+        </Field>
+    </div>
 );
 
 export default FieldContainer;
