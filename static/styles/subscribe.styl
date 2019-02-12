@@ -82,6 +82,37 @@
 			&-remaining
 				line-height: 1.4
 
+	
+	// Congrats first screen
+	&-congrats
+		&-first
+			&-container
+				display: flex
+				flex-direction: column
+				justify-content: center
+				align-items: center
+				text-align: center
+				font-family: $ff-roboto-black-italic
+
+				+mq($from: "medium")
+					min-height: 50vh
+
+
+			&-img
+				max-width: 70%
+				margin-bottom: 1rem
+
+			&-title
+				margin-bottom: 1rem
+				font-size: $fs-largest
+				color: $primary
+
+			&-text
+				margin-bottom: 3rem
+				font-size: $fs-larger
+
+				+mq($from: "small")
+					margin-bottom: 0
 
 
 .subscribe

@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import React from 'react';
 
+import Congrats from 'components/pages/club/subscribe/steps/congrats';
 import CreateAccount from 'components/pages/club/subscribe/steps/createAccount';
 import Subscribe from 'components/pages/club/subscribe/steps/subscribe';
 import Modal from 'components/Ui/Modal';
@@ -22,7 +23,7 @@ const SubscribeHead = () => (
 
 class SubscribeModal extends React.Component<Props, State> {
     public state: State = {
-        step: 'account',
+        step: 'congrats',
     };
 
     public render() {
@@ -34,6 +35,7 @@ class SubscribeModal extends React.Component<Props, State> {
                 <Modal open={open} onClose={onClose}>
                     {step === 'account' && <CreateAccount quarterFull={false} onNextClick={this.onNextStep} />}
                     {step === 'subscribe' && <Subscribe quarterFull={false} onNextClick={this.onNextStep} />}
+                    {step === 'congrats' && <Congrats onNextClick={this.onNextStep} />}
                 </Modal>
             </>
         );
@@ -43,6 +45,12 @@ class SubscribeModal extends React.Component<Props, State> {
         const { step } = this.state;
         if (step === 'account') {
             this.setState({ step: 'subscribe' });
+        }
+        if (step === 'subscribe') {
+            this.setState({ step: 'congrats' });
+        }
+        if (step === 'congrats') {
+            // Run onboarding
         }
     };
 }
