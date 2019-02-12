@@ -101,16 +101,14 @@ class ProfileEditPreferencesModal extends React.Component<Props & ChildProps> {
     private handleSubmit = async (values: any, formApi: FormApi) => {
         const { mutate } = this.props;
         if (mutate) {
-            console.log('values', Object.keys(values));
+            const fields = formApi.getRegisteredFields();
             // We get the modified values
             const dirtyValues = {};
-            for (const key of Object.keys(values)) {
+            for (const key of fields) {
                 if (formApi.getFieldState(key).dirty) {
                     dirtyValues[key] = values[key];
                 }
             }
-
-            console.log('dirtyValues', Object.keys(dirtyValues));
 
             const formattedPreferences: {
                 id?: string;
@@ -121,7 +119,13 @@ class ProfileEditPreferencesModal extends React.Component<Props & ChildProps> {
 
             // For each value that needs to be updated, we add a formatted preference to be sent
             for (const key of Object.keys(dirtyValues)) {
-                if (dirtyValues[key] instanceof Array) {
+                if (!dirtyValues[key]) {
+                    formattedPreferences.push({
+                        settingId: key,
+                        options: [],
+                        content: '',
+                    });
+                } else if (dirtyValues[key] instanceof Array) {
                     // This case is for MULTIPLE
                     formattedPreferences.push({
                         settingId: key,
@@ -139,56 +143,55 @@ class ProfileEditPreferencesModal extends React.Component<Props & ChildProps> {
                         settingId: key,
                         options: [dirtyValues[key].value],
                     });
-                } else {
-                    formattedPreferences.push({
-                        settingId: key,
-                        options: [],
-                    });
                 }
             }
 
-            console.log('formattedPref', formattedPreferences);
+            try {
+                await mutate({
+                    variables: {
+                        memberId: this.props.memberId,
+                        preferences: formattedPreferences,
+                    },
+                    update: (cache, result) => {
+                        const query = cache.readQuery<any>({
+                            query: GET_ME,
+                        });
+                        const data = result.data as any;
+                        if (query && data) {
+                            /* To update the cache we check if we have a new preference for
+                            existing preference, then replace or add them
+                            */
+                            for (const preference of data.addOrUpdatePreferences) {
+                                const existingIndex = query.me.preferences.findIndex(
+                                    (pref) => pref.id === preference.id,
+                                );
+                                if (existingIndex >= 0) {
+                                    query.me.preferences[existingIndex] = preference;
+                                } else {
+                                    query.me.preferences.push(preference);
+                                }
+                            }
 
-            // try {
-            //     await mutate({
-            //         variables: {
-            //             memberId: this.props.memberId,
-            //             preferences: formattedPreferences,
-            //         },
-            //         update: (cache, result) => {
-            //             const query = cache.readQuery<any>({
-            //                 query: GET_ME,
-            //             });
-            //             const data = result.data as any;
-            //             if (query && data) {
-            //                 /* To update the cache we check if we have a new preference for
-            //                 existing preference, then replace or add them
-            //                 */
-            //                 for (const preference of data.addOrUpdatePreferences) {
-            //                     const existingIndex = query.me.preferences.findIndex(
-            //                         (pref) => pref.id === preference.id,
-            //                     );
-            //                     if (existingIndex >= 0) {
-            //                         query.me.preferences[existingIndex] = preference;
-            //                     } else {
-            //                         query.me.preferences.push(preference);
-            //                     }
-            //                 }
+                            cache.writeQuery({
+                                query: GET_ME,
+                                data: {
+                                    me: query.me,
+                                },
+                            });
+                        }
+                    },
+                });
 
-            //                 cache.writeQuery({
-            //                     query: GET_ME,
-            //                     data: {
-            //                         me: query.me,
-            //                     },
-            //                 });
-            //             }
-            //         },
-            //     });
-
-            //     this.props.onClose();
-            // } catch (error) {
-            //     console.log(error);
-            // }
+                this.props.onClose();
+            } catch (error) {
+                if (error.graphQLErrors) {
+                    if (!(error.graphQLErrors instanceof Array)) {
+                        return { [FORM_ERROR]: error.graphQLErrors };
+                    }
+                    return error.graphQLErrors[0].state;
+                }
+                return { [FORM_ERROR]: 'We could not update your preferences' };
+            }
         }
     };
 }
