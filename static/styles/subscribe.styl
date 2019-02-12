@@ -73,28 +73,29 @@
 	&-subtitle
 		margin-bottom: 2rem
 		font-family: $ff-roboto-bold
-		font-size: $fs-medium
+		font-size: $fs-small
 		cursor: default
 
-		+mq($from: "medium")
-			text-align: center
+		+mq($from: "tiny")
+				font-size: $fs-regular
+
+		+mq($from: "large")
+			font-size: $fs-medium
 
 		& .emoji
 			margin-right: .5rem
 
+		&--alone
+			font-size: $fs-medium
+
+		&--border
+			padding-left: 1rem
+			margin-left: 1rem
+			border-left: 1px solid $grey-900
+
 		&--inactive
-			order: -1
-			padding-right: 1rem
-			margin-right: 1rem
-			border-right: 1px solid $grey-900
 			cursor: pointer
 			opacity: .25
-
-			& .emoji
-				margin: 0
-
-			& .subscribe-subtitle-text
-				display: none
 
 	&-content
 		font-size: $fs-medium

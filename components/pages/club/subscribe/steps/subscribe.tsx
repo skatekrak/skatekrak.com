@@ -70,10 +70,21 @@ class Subscribe extends React.Component<Props, State> {
                 </div>
                 <div id="subscribe-second-container" className="subscribe-item-container">
                     <div className="subscribe-subtitles-container">
+                        <button
+                            onClick={this.toggleAddressView}
+                            className={classNames('subscribe-subtitle', {
+                                'subscribe-subtitle--alone': !billingAddress,
+                                'subscribe-subtitle--inactive': addressView !== 'shipping',
+                            })}
+                        >
+                            <Emoji symbol="📦" label="package" />
+                            <span className="subscribe-subtitle-text">Shipping address</span>
+                        </button>
                         {billingAddress && (
                             <button
                                 onClick={this.toggleAddressView}
                                 className={classNames('subscribe-subtitle', {
+                                    'subscribe-subtitle--border': billingAddress,
                                     'subscribe-subtitle--inactive': addressView !== 'billing',
                                 })}
                             >
@@ -81,19 +92,8 @@ class Subscribe extends React.Component<Props, State> {
                                 <span className="subscribe-subtitle-text">Billing address</span>
                             </button>
                         )}
-                        <button
-                            onClick={this.toggleAddressView}
-                            className={classNames('subscribe-subtitle', {
-                                'subscribe-subtitle--inactive': addressView !== 'shipping',
-                            })}
-                        >
-                            <Emoji symbol="📦" label="package" />
-                            <span className="subscribe-subtitle-text">Shipping address</span>
-                        </button>
                     </div>
-                    <div className="subscribe-content">
-                        <Address />
-                    </div>
+                    <div className="subscribe-content">{addressView === 'shipping' ? <Address /> : <Address />}</div>
                     <button onClick={onNextClick} className="button-primary subscribe-form-submit">
                         Pay 87€
                     </button>
