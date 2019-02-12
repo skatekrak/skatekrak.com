@@ -18,7 +18,7 @@ type State = {
 
 class Subscribe extends React.Component<Props, State> {
     public state: State = {
-        billingAddress: true,
+        billingAddress: false,
         addressView: 'shipping',
     };
 
@@ -42,7 +42,7 @@ class Subscribe extends React.Component<Props, State> {
                         <div className="subscribe-payment-line">
                             <p className="subscribe-payment-line-title">Club membership:</p>
                             <div className="subscribe-payment-line-separator" />
-                            <span className="subscribe-payment-line-price">87€</span>
+                            <span className="subscribe-payment-line-price">99€</span>
                         </div>
                         <Field name="creditCard" placeholder="Credit card" />
                         <div className="form-element">
@@ -95,7 +95,7 @@ class Subscribe extends React.Component<Props, State> {
                     </div>
                     <div className="subscribe-content">{addressView === 'shipping' ? <Address /> : <Address />}</div>
                     <button onClick={onNextClick} className="button-primary subscribe-form-submit">
-                        Pay 87€
+                        Pay 99€
                     </button>
                 </div>
             </form>

@@ -38,9 +38,49 @@
 			grid-area: first
 
 	// Very first screen with background image
-	&-status
+	&-promote
+		display: flex
+		flex-direction: column
+		justify-content: space-between
 		height: 100%
-		background-color: $primary
+		padding: 3rem 1rem
+		text-align: center
+		color: $grey-100
+		background-image: url('/static/images/club-presentation-bg.jpg')
+		background-size: cover
+		background-position: 0% 50%
+
+		+mq($from: "small")
+			padding: 3rem
+
+		&-header
+			&-join
+				margin-bottom: 1rem
+				font-family: $ff-roboto-bold
+				color: $grey-200
+
+			&-title
+				margin-bottom: .5rem
+				font-family: $ff-roboto-black
+				font-size: $fs-larger
+				color: #99FFCE
+
+			&-subtitle
+				font-size: $fs-small
+
+		&-main
+			&-price
+				margin-bottom: .5rem
+				font-family: $ff-roboto-black
+				font-size: $fs-largest
+
+		&-footer
+			&-subscription
+				margin-bottom: 1rem
+				font-family: $ff-roboto-black
+
+			&-remaining
+				line-height: 1.4
 
 
 
