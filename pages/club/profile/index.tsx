@@ -55,6 +55,8 @@ export const GET_ME = gql`
                 }
                 content
             }
+            paymentHistory
+            paymentCard
         }
     }
 `;
