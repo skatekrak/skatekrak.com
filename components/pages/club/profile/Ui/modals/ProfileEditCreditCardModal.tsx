@@ -71,8 +71,6 @@ class ProfileEditCreditCardModal extends React.Component<Props & ChildProps> {
                     onClose();
                 },
             });
-        } else {
-            console.log("Stripe.js hasn't loaded yet.");
         }
     };
 }
