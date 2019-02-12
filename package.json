@@ -1,6 +1,6 @@
 {
     "name": "skatekrak.com",
-    "version": "4.0.25",
+    "version": "4.1.1",
     "main": "index.js",
     "repository": "ssh://git@git.thepunk.tech/web/skatekrak.com.git",
     "author": "Arthur <a@skatekrak.com>",
@@ -44,7 +44,7 @@
         "react-redux": "^5.1.1",
         "react-responsive-modal": "^3.6.0",
         "react-select": "^2.1.1",
-        "react-stripe-elements": "^2.0.1",
+        "react-stripe-elements": "^2.0.3",
         "react-tooltip": "^3.9.2",
         "react-truncate": "^2.4.0",
         "recompose": "^0.30.0",

@@ -48,6 +48,7 @@ export const GET_ME = gql`
                 preferenceSetting {
                     id
                     name
+                    type
                 }
                 options {
                     id
@@ -55,6 +56,8 @@ export const GET_ME = gql`
                 }
                 content
             }
+            paymentHistory
+            paymentCard
         }
     }
 `;
