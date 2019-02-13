@@ -137,7 +137,13 @@ class ProfileEditAddressModal extends React.Component<Props & WithApolloProps> {
                 },
             });
         } catch (error) {
-            console.log(error);
+            if (error.graphQLErrors) {
+                if (!(error.graphQLErrors instanceof Array)) {
+                    return { [FORM_ERROR]: error.graphQLErrors };
+                }
+                return error.graphQLErrors[0].state;
+            }
+            return { [FORM_ERROR]: `We could not ${this.props.address ? 'update' : 'add'} this` };
         }
     };
 
@@ -153,9 +159,6 @@ class ProfileEditAddressModal extends React.Component<Props & WithApolloProps> {
                 }));
 
                 callback(options);
-            })
-            .catch((error) => {
-                console.log(error);
             });
     };
 }
