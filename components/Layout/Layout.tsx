@@ -19,7 +19,6 @@ import 'static/styles/stylus-mq.styl';
 import 'static/styles/form.styl';
 
 import 'static/styles/auth.styl';
-import 'static/styles/checkout.styl';
 import 'static/styles/subscribe.styl';
 import 'static/styles/club.styl';
 import 'static/styles/news.styl';
