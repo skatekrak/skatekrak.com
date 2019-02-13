@@ -5,6 +5,7 @@ import Link from 'components/Link';
 import Address from 'components/Ui/Form/Address';
 import Field from 'components/Ui/Form/Field';
 import Emoji from 'components/Ui/Icons/Emoji';
+import IconValid from 'components/Ui/Icons/Valid';
 
 type Props = {
     quarterFull: boolean;
@@ -14,23 +15,25 @@ type Props = {
 type State = {
     billingAddress: boolean;
     addressView: string;
+    isSpecialCodeValid: boolean;
 };
 
 class Subscribe extends React.Component<Props, State> {
     public state: State = {
-        billingAddress: false,
+        billingAddress: true,
         addressView: 'shipping',
+        isSpecialCodeValid: false,
     };
 
     public render() {
         const { quarterFull, onNextClick } = this.props;
-        const { addressView, billingAddress } = this.state;
+        const { addressView, billingAddress, isSpecialCodeValid } = this.state;
         return (
             <form id="subscribe-container" className="subscribe-form" onSubmit={this.handleSubmit}>
                 <div id="subscribe-first-container" className="subscribe-item-container">
                     <h1 className="subscribe-title">{!quarterFull ? 'Become a Kraken' : 'Pre-pay'}</h1>
                     <div className="subscribe-content">
-                        <p className="subscribe-content-description">
+                        <p className="subscribe-content-description" data-size="fs-regular">
                             {quarterFull && (
                                 <p className="subscribe-content-description-paragraph">
                                     Pre-pay your membership now and be sure to become a Kraken from April 5th to July
@@ -38,8 +41,7 @@ class Subscribe extends React.Component<Props, State> {
                                 </p>
                             )}
                             {!quarterFull ? 'On April 5th 2019' : 'On July 5th 2019'}, your membership will be
-                            automatically renewed. Of course, we don’t wanna force anyone so if you’re not happy, you
-                            can cancel anytime from your profile.
+                            automatically renewed. Of course, you can cancel anytime.
                         </p>
                         <div className="subscribe-payment-line">
                             <p className="subscribe-payment-line-title">Club membership:</p>
@@ -47,6 +49,10 @@ class Subscribe extends React.Component<Props, State> {
                             <span className="subscribe-payment-line-price">99€</span>
                         </div>
                         <Field name="creditCard" placeholder="Credit card" />
+                        <div id="subscribe-special-code">
+                            <Field name="specialCode" placeholder="Special code - optional" />
+                            {isSpecialCodeValid && <IconValid />}
+                        </div>
                         <div className="form-element">
                             <label htmlFor="rememberMe" className="checkbox-container">
                                 I agree with the terms and conditions
