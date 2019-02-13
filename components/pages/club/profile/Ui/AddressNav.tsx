@@ -7,17 +7,19 @@ import IconStarFull from 'components/Ui/Icons/StarFull';
 import IconTrash from 'components/Ui/Icons/Trash';
 
 type Props = {
-    address: any;
-    onDeleteClick: (fct: any) => void;
+    isDefault: boolean;
+    name: string;
+    onDeleteClick: () => void;
+    setAsDefault: () => void;
 };
 
-const AddressNav: React.SFC<Props> = ({ address, onDeleteClick }) => (
+const AddressNav = ({ isDefault, name, onDeleteClick, setAsDefault }: Props) => (
     <div className="profile-address-nav">
         <span className="profile-address-nav-item">
-            {address.default ? (
+            {isDefault ? (
                 <span
                     className={classNames('profile-address-nav-item-status', {
-                        'profile-address-nav-item-status--active': address.default,
+                        'profile-address-nav-item-status--active': isDefault,
                     })}
                 >
                     <IconFull icon={<IconStarFull />} />
@@ -26,16 +28,17 @@ const AddressNav: React.SFC<Props> = ({ address, onDeleteClick }) => (
             ) : (
                 <button
                     className={classNames('profile-address-nav-item-status', {
-                        'profile-address-nav-item-status--active': address.default,
+                        'profile-address-nav-item-status--active': isDefault,
                     })}
+                    onClick={setAsDefault}
                 >
                     <IconFull icon={<IconStarFull />} />
                     Set as shipping address
                 </button>
             )}
         </span>
-        {!address.default && (
-            <ButtonWithLabel actionLabel="delete" content="address 1" icon={<IconTrash />} onClick={onDeleteClick} />
+        {!isDefault && (
+            <ButtonWithLabel actionLabel="delete" content={name} icon={<IconTrash />} onClick={onDeleteClick} />
         )}
     </div>
 );

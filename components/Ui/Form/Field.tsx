@@ -10,6 +10,7 @@ type Props = {
     name: string;
     label?: string;
     showValid?: boolean;
+    placeholder?: string;
 } & Partial<DefaultProps>;
 
 type DefaultProps = Readonly<typeof defaultProps>;
@@ -23,7 +24,7 @@ const getProps = createPropsGetter(defaultProps);
 const FieldContainer = (rawProps: Props) => {
     const props = getProps(rawProps);
     return (
-        <div className="form-element">
+        <div className="form-element" data-element-name={props.name}>
             {props.label && (
                 <div className="form-element-label">
                     <label htmlFor={props.name}>{props.label}</label>

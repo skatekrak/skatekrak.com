@@ -1,18 +1,19 @@
+import gql from 'graphql-tag';
 import React from 'react';
 import { Query } from 'react-apollo';
+import { compose } from 'recompose';
 
 import Layout from 'components/Layout/Layout';
 import LayoutProfile from 'components/pages/club/profile/LayoutProfile';
-import AddressNav from 'components/pages/club/profile/Ui/AddressNav';
-import AddressPreview from 'components/pages/club/profile/Ui/addressPreview';
+import AddressSection from 'components/pages/club/profile/Shipments/AddressSection';
 import ProfileEditAddressModal from 'components/pages/club/profile/Ui/modals/ProfileEditAddressModal';
 import ProfileSection from 'components/pages/club/profile/Ui/section';
-import ProfileSectionHeader from 'components/pages/club/profile/Ui/sectionHeader';
 import Loading from 'components/pages/news/Articles/Loading';
 import TrackedPage from 'components/pages/TrackedPage';
 import IconCross from 'components/Ui/Icons/Cross';
 import IconFull from 'components/Ui/Icons/iconFull';
 
+import withApollo, { WithApolloProps } from 'hocs/withApollo';
 import withAuth from 'hocs/withAuth';
 
 import { GET_ME } from 'pages/club/profile';
@@ -22,7 +23,7 @@ type State = {
     editingAddress?: any;
 };
 // tslint:disable:jsx-no-lambda
-class ProfileShipment extends React.Component<{}, State> {
+class ProfileShipment extends React.Component<WithApolloProps, State> {
     public state: State = {
         addressModalOpen: false,
     };
@@ -62,18 +63,13 @@ class ProfileShipment extends React.Component<{}, State> {
                                             </div>
                                         </ProfileSection>
                                         {data.me.addresses.map((address) => (
-                                            <ProfileSection key={address.id}>
-                                                <ProfileSectionHeader
-                                                    edit
-                                                    editTitle={address.title}
-                                                    onEditClick={() => this.openModal(address)}
-                                                >
-                                                    <AddressNav address={address} onDeleteClick={null} />
-                                                </ProfileSectionHeader>
-                                                <div className="profile-section-line">
-                                                    <AddressPreview address={address} />
-                                                </div>
-                                            </ProfileSection>
+                                            <AddressSection
+                                                key={address.id}
+                                                address={address}
+                                                onEdit={this.openModal}
+                                                onDelete={this.showDeleteConfirmation}
+                                                setAsDefault={this.setAsDefault}
+                                            />
                                         ))}
                                     </LayoutProfile>
                                 );
@@ -96,6 +92,57 @@ class ProfileShipment extends React.Component<{}, State> {
     private onClose = () => {
         this.setState({ addressModalOpen: false, editingAddress: undefined });
     };
+
+    private showDeleteConfirmation = (address: any) => {
+        //
+    };
+
+    private setAsDefault = async ({ id }: any) => {
+        await this.props.apolloClient.mutate({
+            mutation: SET_AS_DEFAULT,
+            variables: { id },
+            update: (cache, result) => {
+                const query = cache.readQuery<any>({
+                    query: GET_ME,
+                });
+                const data = result.data as any;
+
+                if (query && data) {
+                    query.me.addresses = query.me.addresses.map((address) => {
+                        if (address.id === data.setDefaultAddress.id) {
+                            return {
+                                ...address,
+                                default: true,
+                            };
+                        } else {
+                            return {
+                                ...address,
+                                default: false,
+                            };
+                        }
+                    });
+
+                    cache.writeQuery({
+                        query: GET_ME,
+                        data: {
+                            me: query.me,
+                        },
+                    });
+                }
+            },
+        });
+    };
 }
 
-export default ProfileShipment;
+const SET_AS_DEFAULT = gql`
+    mutation setDefaultAddress($id: ID!) {
+        setDefaultAddress(id: $id) {
+            id
+        }
+    }
+`;
+
+export default compose(
+    withAuth,
+    withApollo,
+)(ProfileShipment);
