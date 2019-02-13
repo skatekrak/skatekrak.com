@@ -52,7 +52,10 @@ class ProfileShipment extends React.Component<{}, State> {
                                         />
                                         <ProfileSection>
                                             <div className="profile-section-line">
-                                                <button className="profile-address-add">
+                                                <button
+                                                    className="profile-address-add"
+                                                    onClick={() => this.openModal()}
+                                                >
                                                     <IconFull icon={<IconCross />} />
                                                     Add new address
                                                 </button>
@@ -83,7 +86,7 @@ class ProfileShipment extends React.Component<{}, State> {
     }
     // tslint:enable:jsx-no-lambda
 
-    private openModal = (address?: any) => {
+    private openModal = (address: any = undefined) => {
         this.setState({
             addressModalOpen: true,
             editingAddress: address,
