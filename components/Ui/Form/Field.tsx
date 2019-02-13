@@ -12,7 +12,7 @@ type Props = {
 };
 
 const FieldContainer = (props: Props) => (
-    <div className="form-element">
+    <div className="form-element" data-element-name={props.name}>
         {props.label && (
             <div className="form-element-label">
                 <label htmlFor={props.name}>{props.label}</label>
