@@ -14,10 +14,10 @@ type Props = {
 const AddressNav: React.SFC<Props> = ({ address, onDeleteClick }) => (
     <div className="profile-address-nav">
         <span className="profile-address-nav-item">
-            {address.actual ? (
+            {address.default ? (
                 <span
                     className={classNames('profile-address-nav-item-status', {
-                        'profile-address-nav-item-status--active': address.actual,
+                        'profile-address-nav-item-status--active': address.default,
                     })}
                 >
                     <IconFull icon={<IconStarFull />} />
@@ -26,7 +26,7 @@ const AddressNav: React.SFC<Props> = ({ address, onDeleteClick }) => (
             ) : (
                 <button
                     className={classNames('profile-address-nav-item-status', {
-                        'profile-address-nav-item-status--active': address.actual,
+                        'profile-address-nav-item-status--active': address.default,
                     })}
                 >
                     <IconFull icon={<IconStarFull />} />
@@ -34,7 +34,9 @@ const AddressNav: React.SFC<Props> = ({ address, onDeleteClick }) => (
                 </button>
             )}
         </span>
-        <ButtonWithLabel actionLabel="delete" content="address 1" icon={<IconTrash />} onClick={onDeleteClick} />
+        {!address.default && (
+            <ButtonWithLabel actionLabel="delete" content="address 1" icon={<IconTrash />} onClick={onDeleteClick} />
+        )}
     </div>
 );
 

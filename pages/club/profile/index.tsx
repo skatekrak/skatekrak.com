@@ -29,6 +29,7 @@ export const GET_ME = gql`
             phone
             addresses {
                 id
+                title
                 firstName
                 lastName
                 line1
@@ -37,7 +38,6 @@ export const GET_ME = gql`
                 postalCode
                 state
                 country {
-                    id
                     isoCode
                     name
                 }
