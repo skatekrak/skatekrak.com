@@ -19,6 +19,7 @@ type DefaultProps = Readonly<typeof defaultProps>;
 const defaultProps = {
     isClearable: true,
     isMulti: false,
+    disabled: false,
 };
 
 const getProps = createPropsGetter(defaultProps);
@@ -54,6 +55,7 @@ const Select = (rawProps: Props) => {
                                     onBlur={input.onBlur}
                                     isClearable={props.isClearable}
                                     isMulti={props.isMulti}
+                                    isDisabled={props.disabled}
                                 />
                                 {showError && <ErrorMessage message={meta.error || meta.submitError} />}
                             </>
