@@ -10,13 +10,15 @@ const AddressPreview: React.SFC<Props> = ({ address }) => (
             {address.firstName} {address.lastName}
         </p>
         <p className="profile-address-preview-line">
-            {address.street}, {address.apt}
+            {address.line1}
+            {address.line2 && `, ${address.line2}`}
         </p>
         <p className="profile-address-preview-line">
-            {address.cityCode} {address.city}
+            {address.postalCode} {address.city}
         </p>
         <p className="profile-address-preview-line">
-            {address.state}, {address.country}
+            {address.state && `${address.state}, `}
+            {address.country.name}
         </p>
     </div>
 );
