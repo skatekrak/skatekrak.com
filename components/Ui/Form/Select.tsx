@@ -1,7 +1,7 @@
 import classnames from 'classnames';
 import React from 'react';
 import { Field } from 'react-final-form';
-import ReactSelect from 'react-select';
+import AsyncSelect from 'react-select/lib/Async';
 
 import ErrorMessage from 'components/Ui/Form/ErrorMessage';
 
@@ -11,7 +11,8 @@ type Props = {
     name: string;
     label?: string;
     showValid?: boolean;
-    options: { value: string; label: string }[];
+    loadOptions?: (inputValue: string, callback: (options: {}[]) => void) => void | Promise<any>;
+    options?: { value: string; label: string }[];
 } & Partial<DefaultProps>;
 
 type DefaultProps = Readonly<typeof defaultProps>;
@@ -48,9 +49,10 @@ const Select = (rawProps: Props) => {
                             })}
                         >
                             <>
-                                <ReactSelect
+                                <AsyncSelect
                                     value={input.value}
-                                    options={props.options}
+                                    defaultOptions={props.options === undefined ? true : props.options}
+                                    loadOptions={props.loadOptions}
                                     onChange={input.onChange}
                                     onBlur={input.onBlur}
                                     isClearable={props.isClearable}
