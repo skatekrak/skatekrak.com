@@ -169,13 +169,12 @@
 			opacity: .25
 
 	&-content
-		font-size: $fs-medium
-		line-height: 1.4
-
 		+mq($from: "medium")
 			margin: auto 0
 
 		&-description
+			font-size: $fs-medium
+			line-height: 1.5
 			color: $grey-600
 			margin-bottom: 2rem
 
@@ -204,11 +203,6 @@
 		&-link
 			font-family: $ff-roboto-bold
 			font-size: $fs-small
-
-			&:first-child
-				padding-right: .5rem
-				margin-right: .5rem
-				border-right: 1px solid $grey-900
 
 	&-form
 		& .stripe-element

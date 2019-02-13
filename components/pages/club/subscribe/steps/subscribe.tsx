@@ -33,11 +33,13 @@ class Subscribe extends React.Component<Props, State> {
                         <p className="subscribe-content-description">
                             {quarterFull && (
                                 <p className="subscribe-content-description-paragraph">
-                                    Pre-pay your membership and already get access to plenty of stuff
+                                    Pre-pay your membership now and be sure to become a Kraken from April 5th to July
+                                    4th 2019.
                                 </p>
                             )}
-                            Some text to explain the quarterly renewal 5 of every 3 month and automatic renew, some
-                            other to make it longer and more beautiful with the layout, yeah!...You can cancel anytime.
+                            {!quarterFull ? 'On April 5th 2019' : 'On July 5th 2019'}, your membership will be
+                            automatically renewed. Of course, we don’t wanna force anyone so if you’re not happy, you
+                            can cancel anytime from your profile.
                         </p>
                         <div className="subscribe-payment-line">
                             <p className="subscribe-payment-line-title">Club membership:</p>
@@ -47,7 +49,7 @@ class Subscribe extends React.Component<Props, State> {
                         <Field name="creditCard" placeholder="Credit card" />
                         <div className="form-element">
                             <label htmlFor="rememberMe" className="checkbox-container">
-                                I agree to the Privacy Policy and Terms of Use
+                                I agree with the terms and conditions
                                 <span className="checkmark" />
                             </label>
                         </div>
@@ -59,11 +61,8 @@ class Subscribe extends React.Component<Props, State> {
                         </div>
                     </div>
                     <div className="subscribe-legal">
-                        <Link href="/privacy-policy">
-                            <a className="subscribe-legal-link">Privacy Policy</a>
-                        </Link>
-                        <Link href="/terms-of-use">
-                            <a className="subscribe-legal-link">Terms Of Use</a>
+                        <Link href="/terms-and-conditions">
+                            <a className="subscribe-legal-link">Terms and conditions</a>
                         </Link>
                     </div>
                     <div id="subscribe-container-separator" />

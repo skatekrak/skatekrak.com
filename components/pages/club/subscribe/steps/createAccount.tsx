@@ -20,12 +20,21 @@ class CreateAccount extends React.Component<Props, State> {
                     <article id="subscribe-promote">
                         <header id="subscribe-promote-header">
                             <p id="subscribe-promote-header-join">Join the club</p>
-                            <h2 id="subscribe-promote-header-title">Krak Skateboarding Club</h2>
+                            <h2 id="subscribe-promote-header-title">Krak Skate Club</h2>
                             <h3 id="subscribe-promote-header-subtitle">- Quarterly membership -</h3>
                         </header>
                         <main id="subscribe-promote-main">
                             <p id="subscribe-promote-main-price">99€ today</p>
-                            <p id="subscribe-promote-main-cover">to be covered until march 2019</p>
+                            {!quarterFull ? (
+                                <>
+                                    <p id="subscribe-promote-main-cover">to be covered until April 4th 2019</p>
+                                </>
+                            ) : (
+                                <>
+                                    <p id="subscribe-promote-main-cover">to guarantee your slot for the next quarter</p>
+                                    <p id="subscribe-promote-main-cover">from April 5th to July 4th 2019</p>
+                                </>
+                            )}
                         </main>
                         <footer id="subscribe-promote-footer">
                             {!quarterFull ? (
@@ -50,16 +59,12 @@ class CreateAccount extends React.Component<Props, State> {
                 </div>
                 <div id="subscribe-second-container" className="subscribe-item-container">
                     <h1 className="subscribe-title">
-                        Create your
+                        Create your account.
                         <br />
-                        member account
+                        Become a Kraken.
                     </h1>
                     <div className="subscribe-content">
-                        <p className="subscribe-content-description">
-                            Join the squad
-                            <br />
-                            and take part of the adventure.
-                        </p>
+                        <p className="subscribe-content-description">Take part of the adventure.</p>
                         <div className="form-double-field-line">
                             <Field name="firstName" placeholder="First name" />
                             <Field name="lastName" placeholder="Last name" />
