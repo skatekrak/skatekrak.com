@@ -36,7 +36,7 @@ const Congrats: React.SFC<Props> = ({ onNextClick, quarterFull }) => (
                     We’re devoted to one mission: making the world a huge playground. That starts here and now. We’re
                     psyched to count on your support and be sure of one thing: we’ll have fun. We started skateboarding
                     more than 15 years ago and our passion only grew ever since. Never hesitate to contact us if you’d
-                    have any question. Peace, k.
+                    have any question. Peace <Emoji symbol="✌" label="peace" />
                 </p>
             </div>
             <button onClick={onNextClick} className="button-primary subscribe-form-submit">

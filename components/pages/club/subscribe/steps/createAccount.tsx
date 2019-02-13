@@ -37,34 +37,24 @@ class CreateAccount extends React.Component<Props, State> {
                             )}
                         </main>
                         <footer id="subscribe-promote-footer">
-                            {!quarterFull ? (
-                                <>
-                                    <p id="subscribe-promote-footer-subscription">Subscription close on February 28</p>
-                                    <p id="subscribe-promote-footer-remaining">
-                                        12 places remaining for the next quarter
-                                    </p>
-                                </>
-                            ) : (
-                                <>
-                                    <p id="subscribe-promote-footer-subscription">Subscribe for the next quarter</p>
-                                    <p id="subscribe-promote-footer-remaining">
-                                        The club is actually full for this quarter.
-                                        <br />
-                                        Pre-pay to be onboard on the next one!
-                                    </p>
-                                </>
-                            )}
+                            <p id="subscribe-promote-footer-limited">
+                                Limited quantities available.
+                                <br />
+                                First come first served.
+                            </p>
                         </footer>
                     </article>
                 </div>
                 <div id="subscribe-second-container" className="subscribe-item-container">
                     <h1 className="subscribe-title">
-                        Create your account.
+                        Create
                         <br />
-                        Become a Kraken.
+                        your account
                     </h1>
                     <div className="subscribe-content">
-                        <p className="subscribe-content-description">Take part of the adventure.</p>
+                        <p className="subscribe-content-description">
+                            {!quarterFull ? 'Become a Kraken.' : 'Be sure to become a Kraken on April 5th 2019.'}
+                        </p>
                         <div className="form-double-field-line">
                             <Field name="firstName" placeholder="First name" />
                             <Field name="lastName" placeholder="Last name" />

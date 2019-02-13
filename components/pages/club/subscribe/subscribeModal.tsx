@@ -23,7 +23,7 @@ const SubscribeHead = () => (
 
 class SubscribeModal extends React.Component<Props, State> {
     public state: State = {
-        step: 'account',
+        step: 'subscribe',
     };
 
     public render() {
