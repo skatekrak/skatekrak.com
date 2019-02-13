@@ -38,7 +38,6 @@ export const GET_ME = gql`
                 postalCode
                 state
                 country {
-                    id
                     isoCode
                     name
                 }
