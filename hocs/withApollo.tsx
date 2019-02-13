@@ -5,6 +5,10 @@ import { getDataFromTree } from 'react-apollo';
 
 import initApollo from 'lib/initApollo';
 
+export type WithApolloProps = {
+    apolloClient: ApolloClient<NormalizedCacheObject>;
+};
+
 export default (App) => {
     return class Apollo extends React.Component {
         public static displayName = 'withApollo(App)';
