@@ -8,6 +8,7 @@ type Props = {
     name: string;
     label?: string;
     showValid?: boolean;
+    placeholder?: string;
 };
 
 const FieldContainer = (props: Props) => (
