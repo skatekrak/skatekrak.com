@@ -53,13 +53,19 @@ class ProfileEditAddressModal extends React.Component<Props & WithApolloProps> {
                         <form className="profile-modal-form" onSubmit={handleSubmit}>
                             <ErrorMessage message={submitError} />
                             <Field name="title" label="Address title" />
-                            <Field name="firstName" label="First name" />
-                            <Field name="lastName" label="Last name" />
+                            <div className="form-double-field-line">
+                                <Field name="firstName" label="First name" />
+                                <Field name="lastName" label="Last name" />
+                            </div>
                             <Field name="line1" label="Street" />
-                            <Field name="line2" label="Apt, room... (optional)" />
-                            <Field name="city" label="City" />
-                            <Field name="postalCode" label="Postal code" />
-                            <Field name="state" label="State (optional)" />
+                            <div className="form-double-field-line">
+                                <Field name="line2" label="Apt, room... (optional)" />
+                                <Field name="city" label="City" />
+                            </div>
+                            <div className="form-double-field-line">
+                                <Field name="postalCode" label="Postal code" />
+                                <Field name="state" label="State (optional)" />
+                            </div>
                             <Select
                                 name="country"
                                 label="Country"
