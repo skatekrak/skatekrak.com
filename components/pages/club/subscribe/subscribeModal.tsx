@@ -1,14 +1,18 @@
 import Head from 'next/head';
 import React from 'react';
+import { connect } from 'react-redux';
 
 import Congrats from 'components/pages/club/subscribe/steps/congrats';
 import CreateAccount from 'components/pages/club/subscribe/steps/createAccount';
 import Subscribe from 'components/pages/club/subscribe/steps/subscribe';
 import Modal from 'components/Ui/Modal';
 
+import { resetJoin } from 'store/join/actions';
+
 type Props = {
     open: boolean;
     onClose: () => void;
+    resetJoin: () => void;
 };
 
 type State = {
@@ -27,12 +31,12 @@ class SubscribeModal extends React.Component<Props, State> {
     };
 
     public render() {
-        const { open, onClose } = this.props;
+        const { open } = this.props;
         const { step } = this.state;
         return (
             <>
                 <SubscribeHead />
-                <Modal open={open} onClose={onClose}>
+                <Modal open={open} onClose={this.onClose}>
                     {step === 'account' && <CreateAccount quarterFull={false} onNextClick={this.onNextStep} />}
                     {step === 'subscribe' && <Subscribe quarterFull={false} onNextClick={this.onNextStep} />}
                     {step === 'congrats' && <Congrats quarterFull={false} onNextClick={this.onNextStep} />}
@@ -40,6 +44,12 @@ class SubscribeModal extends React.Component<Props, State> {
             </>
         );
     }
+
+    private onClose = () => {
+        this.props.onClose();
+        this.setState({ step: 'account' });
+        this.props.resetJoin();
+    };
 
     private onNextStep = () => {
         const { step } = this.state;
@@ -55,4 +65,7 @@ class SubscribeModal extends React.Component<Props, State> {
     };
 }
 
-export default SubscribeModal;
+export default connect(
+    undefined,
+    { resetJoin },
+)(SubscribeModal);
