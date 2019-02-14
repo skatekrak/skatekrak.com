@@ -1,13 +1,13 @@
-import Analytics, { ABTest, Variation } from '@thepunkclub/analytics';
 import Head from 'next/head';
 import React from 'react';
 import { connect } from 'react-redux';
 
 import Layout from 'components/Layout/Layout';
-import OnboardingModal from 'components/pages/club/onboarding/onboardingModal';
 import SubscribeModal from 'components/pages/club/subscribe/subscribeModal';
 import TrackedPage from 'components/pages/TrackedPage';
 import SkateistanLogo from 'components/Ui/Icons/Logos/Skateistan';
+
+import Types from 'Types';
 
 type Props = {
     payment: {
@@ -17,9 +17,7 @@ type Props = {
 };
 
 type State = {
-    pricing: string;
     isSubscribeModalOpen: boolean;
-    isOnboardingModalOpen: boolean;
 };
 
 const ClubHead = () => (
@@ -42,34 +40,15 @@ const ClubHead = () => (
 
 class Club extends React.Component<Props, State> {
     public state: State = {
-        pricing: this.getPricingText('29', '/month'),
         isSubscribeModalOpen: false,
-        isOnboardingModalOpen: true,
     };
 
-    public componentDidMount() {
-        const original = new Variation('original');
-        const quarterly = new Variation('quarterly');
-        quarterly.setActivate(() => this.setState({ pricing: this.getPricingText('87', '/quarter') }));
-        const abTest = new ABTest('ctakscjoin');
-        abTest.setPercentage(100);
-        abTest.addIncludedTarget({
-            attribute: 'url',
-            inverted: '0',
-            type: 'equals_simple',
-            value: 'https://skatekrak.com/club',
-        });
-        abTest.addVariation(original);
-        abTest.addVariation(quarterly);
-        Analytics.default().trackABTest(abTest);
-    }
-
     public render() {
-        const { pricing, isSubscribeModalOpen, isOnboardingModalOpen } = this.state;
+        const { isSubscribeModalOpen } = this.state;
         return (
             <TrackedPage name="Club">
                 <Layout head={<ClubHead />}>
-                    <OnboardingModal open={isOnboardingModalOpen} onClose={this.onCloseOnboardingModal} />
+                    <SubscribeModal open={isSubscribeModalOpen} onClose={this.onCloseSubscribeModal} />
                     <div id="club" className="inner-page-container container-fluid">
                         <div id="club-header">
                             <h1 id="club-header-title">Krak Skateboarding Club.</h1>
@@ -77,9 +56,8 @@ class Club extends React.Component<Props, State> {
                             <span id="club-header-bg-circle" />
                         </div>
                         <div id="club-cta-container">
-                            <SubscribeModal open={isSubscribeModalOpen} onClose={this.onCloseSubscribeModal} />
                             <button id="club-cta" className="button-primary" onClick={this.onOpenSubscribeModal}>
-                                Join the club - {pricing}
+                                Join the club - {this.getPricingText('99')}
                             </button>
                         </div>
                         <div id="club-benefits">
@@ -141,10 +119,6 @@ class Club extends React.Component<Props, State> {
         );
     }
 
-    private onCloseOnboardingModal = () => {
-        this.setState({ isOnboardingModalOpen: false });
-    };
-
     private onOpenSubscribeModal = () => {
         this.setState({
             isSubscribeModalOpen: true,
@@ -155,7 +129,7 @@ class Club extends React.Component<Props, State> {
         this.setState({ isSubscribeModalOpen: false });
     };
 
-    private getPricingText(price: string, frequency: string): string {
+    private getPricingText(price: string): string {
         const { payment } = this.props;
         let res = '';
         if (payment.currency === 'usd') {
@@ -168,9 +142,8 @@ class Club extends React.Component<Props, State> {
         if (payment.currency === 'eur') {
             res += '€';
         }
-        res += frequency;
         return res;
     }
 }
 
-export default connect((state: any) => ({ payment: state.payment }))(Club);
+export default connect((state: Types.RootState) => ({ payment: state.payment }))(Club);
