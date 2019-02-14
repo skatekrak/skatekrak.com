@@ -1,7 +1,10 @@
 import gql from 'graphql-tag';
 import React from 'react';
 import { Query } from 'react-apollo';
+import { confirmAlert } from 'react-confirm-alert';
 import { compose } from 'recompose';
+
+import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 
 import Layout from 'components/Layout/Layout';
 import LayoutProfile from 'components/pages/club/profile/LayoutProfile';
@@ -20,12 +23,14 @@ import { GET_ME } from 'pages/club/profile';
 
 type State = {
     addressModalOpen: boolean;
+    deleteConfirmationOpen: boolean;
     editingAddress?: any;
 };
 // tslint:disable:jsx-no-lambda
 class ProfileShipment extends React.Component<WithApolloProps, State> {
     public state: State = {
         addressModalOpen: false,
+        deleteConfirmationOpen: false,
     };
 
     public render() {
@@ -94,7 +99,46 @@ class ProfileShipment extends React.Component<WithApolloProps, State> {
     };
 
     private showDeleteConfirmation = (address: any) => {
-        //
+        const options = {
+            title: 'Wait!',
+            message: 'Are you sure you want to delete this address?',
+            buttons: [
+                {
+                    label: 'Yes',
+                    onClick: () => this.deleteAddress(address),
+                },
+                {
+                    label: 'No',
+                },
+            ],
+            childrenElement: () => <div />,
+        };
+
+        confirmAlert(options);
+    };
+
+    private deleteAddress = async ({ id }: any) => {
+        await this.props.apolloClient.mutate({
+            mutation: DELETE_ADDRESS,
+            variables: { id },
+            update: (cache, result) => {
+                const query = cache.readQuery<any>({
+                    query: GET_ME,
+                });
+                const data = result.data as any;
+
+                if (query && data) {
+                    query.me.addresses = query.me.addresses.filter((address) => address.id !== data.deleteAddress.id);
+
+                    cache.writeQuery({
+                        query: GET_ME,
+                        data: {
+                            me: query.me,
+                        },
+                    });
+                }
+            },
+        });
     };
 
     private setAsDefault = async ({ id }: any) => {
@@ -137,6 +181,14 @@ class ProfileShipment extends React.Component<WithApolloProps, State> {
 const SET_AS_DEFAULT = gql`
     mutation setDefaultAddress($id: ID!) {
         setDefaultAddress(id: $id) {
+            id
+        }
+    }
+`;
+
+const DELETE_ADDRESS = gql`
+    mutation deleteAddress($id: ID!) {
+        deleteAddress(id: $id) {
             id
         }
     }
