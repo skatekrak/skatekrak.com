@@ -4,6 +4,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import Layout from 'components/Layout/Layout';
+import OnboardingModal from 'components/pages/club/onboarding/onboardingModal';
 import SubscribeModal from 'components/pages/club/subscribe/subscribeModal';
 import TrackedPage from 'components/pages/TrackedPage';
 import SkateistanLogo from 'components/Ui/Icons/Logos/Skateistan';
@@ -18,6 +19,7 @@ type Props = {
 type State = {
     pricing: string;
     isSubscribeModalOpen: boolean;
+    isOnboardingModalOpen: boolean;
 };
 
 const ClubHead = () => (
@@ -42,6 +44,7 @@ class Club extends React.Component<Props, State> {
     public state: State = {
         pricing: this.getPricingText('29', '/month'),
         isSubscribeModalOpen: false,
+        isOnboardingModalOpen: true,
     };
 
     public componentDidMount() {
@@ -62,10 +65,11 @@ class Club extends React.Component<Props, State> {
     }
 
     public render() {
-        const { pricing, isSubscribeModalOpen } = this.state;
+        const { pricing, isSubscribeModalOpen, isOnboardingModalOpen } = this.state;
         return (
             <TrackedPage name="Club">
                 <Layout head={<ClubHead />}>
+                    <OnboardingModal open={isOnboardingModalOpen} onClose={this.onCloseOnboardingModal} />
                     <div id="club" className="inner-page-container container-fluid">
                         <div id="club-header">
                             <h1 id="club-header-title">Krak Skateboarding Club.</h1>
@@ -136,6 +140,10 @@ class Club extends React.Component<Props, State> {
             </TrackedPage>
         );
     }
+
+    private onCloseOnboardingModal = () => {
+        this.setState({ isOnboardingModalOpen: false });
+    };
 
     private onOpenSubscribeModal = () => {
         this.setState({

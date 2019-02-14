@@ -21,6 +21,7 @@ import 'static/styles/modal.styl';
 
 import 'static/styles/auth.styl';
 import 'static/styles/subscribe.styl';
+import 'static/styles/onboarding.styl';
 import 'static/styles/club.styl';
 import 'static/styles/news.styl';
 
