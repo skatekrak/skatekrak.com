@@ -6,6 +6,7 @@ import { State as JoinState } from 'store/join/reducers';
 import { State as NewsState } from 'store/news/reducers';
 import { State as SettingsState } from 'store/settings/reducers';
 import { State as AuthState } from 'store/auth/reducers';
+import { State as FormState } from 'store/form/reducers';
 
 declare module 'Types' {
     export type RootState = {
@@ -14,5 +15,6 @@ declare module 'Types' {
         news: NewsState;
         settings: SettingsState;
         joi: JoinState;
+        form: FormState;
     };
 }
