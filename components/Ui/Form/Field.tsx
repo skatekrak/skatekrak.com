@@ -11,6 +11,7 @@ type Props = {
     label?: string;
     showValid?: boolean;
     placeholder?: string;
+    type?: string;
 } & Partial<DefaultProps>;
 
 type DefaultProps = Readonly<typeof defaultProps>;
