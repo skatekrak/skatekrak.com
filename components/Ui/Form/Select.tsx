@@ -1,6 +1,7 @@
 import classnames from 'classnames';
 import React from 'react';
 import { Field } from 'react-final-form';
+import ReactSelect from 'react-select';
 import AsyncSelect from 'react-select/lib/Async';
 
 import ErrorMessage from 'components/Ui/Form/ErrorMessage';
@@ -13,6 +14,8 @@ type Props = {
     showValid?: boolean;
     loadOptions?: (inputValue: string, callback: (options: {}[]) => void) => void | Promise<any>;
     options?: { value: string; label: string }[];
+    placeholder?: string;
+    menuMaxHeight?: number;
 } & Partial<DefaultProps>;
 
 type DefaultProps = Readonly<typeof defaultProps>;
@@ -21,6 +24,7 @@ const defaultProps = {
     isClearable: true,
     isMulti: false,
     disabled: false,
+    isSearchable: false,
 };
 
 const getProps = createPropsGetter(defaultProps);
@@ -49,16 +53,34 @@ const Select = (rawProps: Props) => {
                             })}
                         >
                             <>
-                                <AsyncSelect
-                                    value={input.value}
-                                    defaultOptions={props.options === undefined ? true : props.options}
-                                    loadOptions={props.loadOptions}
-                                    onChange={input.onChange}
-                                    onBlur={input.onBlur}
-                                    isClearable={props.isClearable}
-                                    isMulti={props.isMulti}
-                                    isDisabled={props.disabled}
-                                />
+                                {props.loadOptions ? (
+                                    <AsyncSelect
+                                        value={input.value}
+                                        defaultOptions={props.options === undefined ? true : props.options}
+                                        loadOptions={props.loadOptions}
+                                        onChange={input.onChange}
+                                        onBlur={input.onBlur}
+                                        isClearable={props.isClearable}
+                                        isMulti={props.isMulti}
+                                        isDisabled={props.disabled}
+                                        placeholder={props.placeholder}
+                                        maxMenuHeight={props.menuMaxHeight}
+                                    />
+                                ) : (
+                                    <ReactSelect
+                                        isSearchable={props.isSearchable}
+                                        value={input.value}
+                                        options={props.options}
+                                        onChange={input.onChange}
+                                        onBlur={input.onBlur}
+                                        isClearable={props.isClearable}
+                                        isMulti={props.isMulti}
+                                        isDisabled={props.disabled}
+                                        placeholder={props.placeholder}
+                                        maxMenuHeight={props.menuMaxHeight}
+                                    />
+                                )}
+
                                 {showError && <ErrorMessage message={meta.error || meta.submitError} />}
                             </>
                         </div>
