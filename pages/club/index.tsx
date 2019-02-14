@@ -19,7 +19,6 @@ type Props = {
 type State = {
     pricing: string;
     isSubscribeModalOpen: boolean;
-    isOnboardingModalOpen: boolean;
 };
 
 const ClubHead = () => (
@@ -44,7 +43,6 @@ class Club extends React.Component<Props, State> {
     public state: State = {
         pricing: this.getPricingText('29', '/month'),
         isSubscribeModalOpen: false,
-        isOnboardingModalOpen: true,
     };
 
     public componentDidMount() {
@@ -65,11 +63,11 @@ class Club extends React.Component<Props, State> {
     }
 
     public render() {
-        const { pricing, isSubscribeModalOpen, isOnboardingModalOpen } = this.state;
+        const { pricing, isSubscribeModalOpen } = this.state;
         return (
             <TrackedPage name="Club">
                 <Layout head={<ClubHead />}>
-                    <OnboardingModal open={isOnboardingModalOpen} onClose={this.onCloseOnboardingModal} />
+                    {/* <OnboardingModal /> */}
                     <div id="club" className="inner-page-container container-fluid">
                         <div id="club-header">
                             <h1 id="club-header-title">Krak Skateboarding Club.</h1>
@@ -140,10 +138,6 @@ class Club extends React.Component<Props, State> {
             </TrackedPage>
         );
     }
-
-    private onCloseOnboardingModal = () => {
-        this.setState({ isOnboardingModalOpen: false });
-    };
 
     private onOpenSubscribeModal = () => {
         this.setState({
