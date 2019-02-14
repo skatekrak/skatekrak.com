@@ -1,10 +1,20 @@
+import { AxiosError } from 'axios';
+import validator from 'email-validator';
+import { FORM_ERROR } from 'final-form';
 import React from 'react';
+import { Form } from 'react-final-form';
+import { connect } from 'react-redux';
 
 import Field from 'components/Ui/Form/Field';
+
+import { cairote } from 'lib/cairote';
+import { setAccount } from 'store/join/actions';
+import ErrorMessage from 'components/Ui/Form/ErrorMessage';
 
 type Props = {
     quarterFull: boolean;
     onNextClick: () => void;
+    setAccount: (account: { firstName: string; lastName: string; email: string; password: string }) => void;
 };
 
 type State = {};
@@ -13,66 +23,121 @@ class CreateAccount extends React.Component<Props, State> {
     public state: State = {};
 
     public render() {
-        const { quarterFull, onNextClick } = this.props;
+        const { quarterFull } = this.props;
         return (
-            <form className="subscribe modal-two-col-container modal-two-col-form" onSubmit={this.handleSubmit}>
-                <div className="modal-two-col-first-container">
-                    <article id="subscribe-promote">
-                        <header id="subscribe-promote-header">
-                            <p id="subscribe-promote-header-join">Join the club</p>
-                            <h2 id="subscribe-promote-header-title">Krak Skate Club</h2>
-                            <h3 id="subscribe-promote-header-subtitle">- Quarterly membership -</h3>
-                        </header>
-                        <main id="subscribe-promote-main">
-                            <p id="subscribe-promote-main-price">99€ today</p>
-                            {!quarterFull ? (
-                                <>
-                                    <p id="subscribe-promote-main-cover">to be covered until April 4th 2019</p>
-                                </>
-                            ) : (
-                                <>
-                                    <p id="subscribe-promote-main-cover">to guarantee your slot for the next quarter</p>
-                                    <p id="subscribe-promote-main-cover">from April 5th to July 4th 2019</p>
-                                </>
-                            )}
-                        </main>
-                        <footer id="subscribe-promote-footer">
-                            <p id="subscribe-promote-footer-limited">
-                                Limited quantities available.
-                                <br />
-                                First come first served.
-                            </p>
-                        </footer>
-                    </article>
-                </div>
-                <div className="modal-two-col-second-container modal-two-col-item-container">
-                    <h1 className="modal-two-col-title">
-                        Create
-                        <br />
-                        your account
-                    </h1>
-                    <div className="modal-two-col-content">
-                        <p className="modal-two-col-content-description">
-                            {!quarterFull ? 'Become a Kraken.' : 'Be sure to become a Kraken on April 5th 2019.'}
-                        </p>
-                        <div className="form-double-field-line">
-                            <Field name="firstName" placeholder="First name" />
-                            <Field name="lastName" placeholder="Last name" />
+            <Form onSubmit={this.handleSubmit} validate={validateForm}>
+                {({ handleSubmit, submitting, valid, submitError }) => (
+                    <form className="subscribe modal-two-col-container modal-two-col-form" onSubmit={handleSubmit}>
+                        <div className="modal-two-col-first-container">
+                            <article id="subscribe-promote">
+                                <header id="subscribe-promote-header">
+                                    <p id="subscribe-promote-header-join">Join the club</p>
+                                    <h2 id="subscribe-promote-header-title">Krak Skate Club</h2>
+                                    <h3 id="subscribe-promote-header-subtitle">- Quarterly membership -</h3>
+                                </header>
+                                <main id="subscribe-promote-main">
+                                    <p id="subscribe-promote-main-price">99€ today</p>
+                                    {!quarterFull ? (
+                                        <>
+                                            <p id="subscribe-promote-main-cover">to be covered until April 4th 2019</p>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <p id="subscribe-promote-main-cover">
+                                                to guarantee your slot for the next quarter
+                                            </p>
+                                            <p id="subscribe-promote-main-cover">from April 5th to July 4th 2019</p>
+                                        </>
+                                    )}
+                                </main>
+                                <footer id="subscribe-promote-footer">
+                                    <p id="subscribe-promote-footer-limited">
+                                        Limited quantities available.
+                                        <br />
+                                        First come first served.
+                                    </p>
+                                </footer>
+                            </article>
                         </div>
-                        <Field name="email" placeholder="Email" />
-                        <Field name="password" placeholder="Password" />
-                    </div>
-                    <button onClick={onNextClick} className="button-primary modal-two-col-form-submit">
-                        {!quarterFull ? 'Become a Kraken' : 'Pre-pay'}
-                    </button>
-                </div>
-            </form>
+                        <div className="modal-two-col-second-container modal-two-col-item-container">
+                            <h1 className="modal-two-col-title">
+                                Create
+                                <br />
+                                your account
+                            </h1>
+                            <div className="modal-two-col-content">
+                                <p className="modal-two-col-content-description">
+                                    {!quarterFull
+                                        ? 'Become a Kraken.'
+                                        : 'Be sure to become a Kraken on April 5th 2019.'}
+                                </p>
+                                <div className="form-double-field-line">
+                                    <Field name="firstName" placeholder="First name" />
+                                    <Field name="lastName" placeholder="Last name" />
+                                </div>
+                                <Field name="email" placeholder="Email" />
+                                <Field name="password" placeholder="Password" type="password" />
+                            </div>
+                            <ErrorMessage message={submitError} />
+                            <button
+                                type="submit"
+                                className="button-primary modal-two-col-form-submit"
+                                disabled={submitting}
+                            >
+                                {!quarterFull ? 'Become a Kraken' : 'Pre-pay'}
+                            </button>
+                        </div>
+                    </form>
+                )}
+            </Form>
         );
     }
 
-    private handleSubmit = (evt: any) => {
-        evt.preventDefault();
+    private handleSubmit = async (values: any) => {
+        try {
+            await cairote.get('/check-email', {
+                params: { email: values.email },
+            });
+            return { email: 'This email is already in use' };
+        } catch (error) {
+            const err = error as AxiosError;
+            if (err.response.status === 404) {
+                this.props.setAccount(values);
+                this.props.onNextClick();
+            } else {
+                return { [FORM_ERROR]: 'Oops, something went wront, try later or contact us' };
+            }
+        }
     };
 }
 
-export default CreateAccount;
+const validateForm = (values: any) => {
+    const errors: any = {};
+
+    if (!values.firstName) {
+        errors.firstName = 'Required';
+    }
+
+    if (!values.lastName) {
+        errors.lastName = 'Required';
+    }
+
+    if (!values.email) {
+        errors.email = 'Required';
+    } else if (!validator.validate(values.email)) {
+        errors.email = 'Not a valid email';
+    }
+
+    if (!values.password) {
+        errors.password = 'Required';
+    }
+
+    return errors;
+};
+
+export default connect(
+    undefined,
+    {
+        setAccount,
+    },
+)(CreateAccount);
