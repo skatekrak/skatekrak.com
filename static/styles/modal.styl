@@ -1,0 +1,134 @@
+@import "./stylus-mq"
+@import "./styleguide"
+
+/*
+ * Modal base styles
+ */
+.modal
+	&-overlay
+		padding: 1rem
+
+	&-close-button
+		top: 1rem
+		right: 1rem
+
+		& svg
+			fill: $grey-900
+
+	&-container
+		width: 100%
+		max-width: none
+		padding: 2rem 1rem
+		color: $grey-900
+		background: $grey-100
+		border-radius: .25rem
+
+		+mq($from: "small")
+			width: auto
+			padding: 3rem 2rem 2rem
+
+
+/*
+ * Modal base styles
+ */
+.modal-two-col
+	&-container
+		display: grid
+		grid-template-rows: 1fr 1fr
+		grid-template-areas: "first"\
+												 "second"
+		margin: -2rem -1rem
+		border-radius: .25rem
+		overflow: auto
+
+		+mq($from: "small")
+			min-width: 650px
+			margin: -3rem -2rem -2rem
+
+		+mq($from: "medium")
+			grid-template-columns: 1fr 1fr
+			grid-template-rows: none
+			grid-template-areas: "first second"
+			width: 900px
+
+		+mq($from: "large")
+			width: 1024px
+
+		&-separator
+			position: absolute
+			right: 0
+			top: 3rem
+			bottom: 3rem
+			border-right: 1px solid $grey-200
+
+	&-first
+		&-container
+			position: relative
+			grid-area: first
+
+	&-item-container
+		display: flex
+		flex-direction: column
+		padding: 1rem
+
+		&:first-child
+			padding-top: 3rem
+
+		+mq($from: "small")
+			padding: 3rem
+
+	&-title
+		font-family: $ff-roboto-black
+		font-size: $fs-larger2
+		margin-bottom: 2rem
+		
+		+mq($from: "large")
+			margin-bottom: 3rem
+
+	&-subtitles-container
+		display: flex
+
+		+mq($from: "medium")
+			justify-content: center
+
+	&-subtitle
+		margin-bottom: 2rem
+		font-family: $ff-roboto-bold
+		font-size: $fs-small
+
+		+mq($from: "tiny")
+				font-size: $fs-regular
+
+		+mq($from: "large")
+			font-size: $fs-medium
+
+	&-content
+		+mq($from: "medium")
+			margin: auto 0
+
+		&-description
+			font-size: $fs-medium
+			line-height: 1.5
+			color: $grey-600
+			margin-bottom: 2rem
+
+			&[data-size="fs-regular"]
+				font-size: $fs-regular
+
+			&-paragraph
+				margin-bottom: 1rem
+
+	&-form
+		& .checkbox-container
+			color: $grey-600
+
+		&-submit
+			margin: 2rem 0 0 auto
+			color: $white
+			background-color: $grey-900
+
+			&:hover
+				background-color: $black
+
+			+mq($from: "large")
+				margin: 3rem 0 0 auto

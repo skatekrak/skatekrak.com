@@ -17,6 +17,7 @@ import 'static/styles/main.styl';
 import 'static/styles/styleguide.styl';
 import 'static/styles/stylus-mq.styl';
 import 'static/styles/form.styl';
+import 'static/styles/modal.styl';
 
 import 'static/styles/auth.styl';
 import 'static/styles/subscribe.styl';

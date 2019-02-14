@@ -3,40 +3,6 @@
 
 /* Subscribe popup styles */
 #subscribe
-	&-container
-		display: grid
-		grid-template-rows: 1fr 1fr
-		grid-template-areas: "first"\
-												 "second"
-		margin: -2rem -1rem
-		border-radius: .25rem
-		overflow: auto
-
-		+mq($from: "small")
-			min-width: 650px
-			margin: -3rem -2rem -2rem
-
-		+mq($from: "medium")
-			grid-template-columns: 1fr 1fr
-			grid-template-rows: none
-			grid-template-areas: "first second"
-			width: 900px
-
-		+mq($from: "large")
-			width: 1024px
-
-		&-separator
-			position: absolute
-			right: 0
-			top: 3rem
-			bottom: 3rem
-			border-right: 1px solid $grey-200
-
-	&-first
-		&-container
-			position: relative
-			grid-area: first
-
 	// Very first screen with background image
 	&-promote
 		display: flex
@@ -124,43 +90,7 @@
 
 
 .subscribe
-	&-item-container
-		display: flex
-		flex-direction: column
-		padding: 1rem
-
-		&:first-child
-			padding-top: 3rem
-
-		+mq($from: "small")
-			padding: 3rem
-
-	&-title
-		font-family: $ff-roboto-black
-		font-size: $fs-larger2
-		margin-bottom: 2rem
-		
-		+mq($from: "large")
-			margin-bottom: 3rem
-
-	&-subtitles-container
-		display: flex
-
-		+mq($from: "medium")
-			justify-content: center
-
 	&-subtitle
-		margin-bottom: 2rem
-		font-family: $ff-roboto-bold
-		font-size: $fs-small
-		cursor: default
-
-		+mq($from: "tiny")
-				font-size: $fs-regular
-
-		+mq($from: "large")
-			font-size: $fs-medium
-
 		& .emoji
 			margin-right: .5rem
 
@@ -175,22 +105,6 @@
 		&--inactive
 			cursor: pointer
 			opacity: .25
-
-	&-content
-		+mq($from: "medium")
-			margin: auto 0
-
-		&-description
-			font-size: $fs-medium
-			line-height: 1.5
-			color: $grey-600
-			margin-bottom: 2rem
-
-			&[data-size="fs-regular"]
-				font-size: $fs-regular
-
-			&-paragraph
-				margin-bottom: 1rem
 
 	&-payment-line
 		display: flex
@@ -214,28 +128,13 @@
 			font-family: $ff-roboto-bold
 			font-size: $fs-small
 
-	&-form
-		& .stripe-element
-			margin-bottom: 1rem
+	& .stripe-element
+		margin-bottom: 1rem
 
-		& .form-element[data-element-name="specialCode"]
-			+mq($from: "tiny")
-				width: 50%
+	& .form-element[data-element-name="specialCode"]
+		+mq($from: "tiny")
+			width: 50%
 
-			& input
-				height: 2rem
-				font-size: $fs-small
-
-		& .checkbox-container
-			color: $grey-600
-
-		&-submit
-			margin: 2rem 0 0 auto
-			color: $white
-			background-color: $grey-900
-
-			&:hover
-				background-color: $black
-
-			+mq($from: "large")
-				margin: 3rem 0 0 auto
+		& input
+			height: 2rem
+			font-size: $fs-small

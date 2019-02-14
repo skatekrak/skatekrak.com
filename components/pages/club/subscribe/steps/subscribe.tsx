@@ -29,13 +29,13 @@ class Subscribe extends React.Component<Props, State> {
         const { quarterFull, onNextClick } = this.props;
         const { addressView, billingAddress, isSpecialCodeValid } = this.state;
         return (
-            <form id="subscribe-container" className="subscribe-form" onSubmit={this.handleSubmit}>
-                <div id="subscribe-first-container" className="subscribe-item-container">
-                    <h1 className="subscribe-title">{!quarterFull ? 'Become a Kraken' : 'Pre-pay'}</h1>
-                    <div className="subscribe-content">
-                        <p className="subscribe-content-description" data-size="fs-regular">
+            <form className="modal-two-col-container subscribe" onSubmit={this.handleSubmit}>
+                <div className="modal-two-col-first-container modal-two-col-item-container">
+                    <h1 className="modal-two-col-title">{!quarterFull ? 'Become a Kraken' : 'Pre-pay'}</h1>
+                    <div className="modal-two-col-content">
+                        <p className="modal-two-col-content-description" data-size="fs-regular">
                             {quarterFull && (
-                                <p className="subscribe-content-description-paragraph">
+                                <p className="modal-two-col-content-description-paragraph">
                                     Pre-pay your membership now and be sure to become a Kraken from April 5th to July
                                     4th 2019.
                                 </p>
@@ -71,35 +71,37 @@ class Subscribe extends React.Component<Props, State> {
                             <a className="subscribe-legal-link">Terms and conditions</a>
                         </Link>
                     </div>
-                    <div id="subscribe-container-separator" />
+                    <div className="modal-two-col-container-separator" />
                 </div>
-                <div id="subscribe-second-container" className="subscribe-item-container">
-                    <div className="subscribe-subtitles-container">
+                <div className="modal-two-col-second-container modal-two-col-item-container">
+                    <div className="modal-two-col-subtitles-container">
                         <button
                             onClick={this.toggleAddressView}
-                            className={classNames('subscribe-subtitle', {
+                            className={classNames('modal-two-col-subtitle', {
                                 'subscribe-subtitle--alone': !billingAddress,
                                 'subscribe-subtitle--inactive': addressView !== 'shipping',
                             })}
                         >
                             <Emoji symbol="📦" label="package" />
-                            <span className="subscribe-subtitle-text">Shipping address</span>
+                            <span className="modal-two-col-subtitle-text">Shipping address</span>
                         </button>
                         {billingAddress && (
                             <button
                                 onClick={this.toggleAddressView}
-                                className={classNames('subscribe-subtitle', {
+                                className={classNames('modal-two-col-subtitle', {
                                     'subscribe-subtitle--border': billingAddress,
                                     'subscribe-subtitle--inactive': addressView !== 'billing',
                                 })}
                             >
                                 <Emoji symbol="💳" label="package" />
-                                <span className="subscribe-subtitle-text">Billing address</span>
+                                <span className="modal-two-col-subtitle-text">Billing address</span>
                             </button>
                         )}
                     </div>
-                    <div className="subscribe-content">{addressView === 'shipping' ? <Address /> : <Address />}</div>
-                    <button onClick={onNextClick} className="button-primary subscribe-form-submit">
+                    <div className="modal-two-col-content">
+                        {addressView === 'shipping' ? <Address /> : <Address />}
+                    </div>
+                    <button onClick={onNextClick} className="button-primary modal-two-col-form-submit">
                         Pay 99€
                     </button>
                 </div>
