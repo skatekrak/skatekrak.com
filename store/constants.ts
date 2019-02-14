@@ -23,3 +23,6 @@ export const SET_ACCOUNT = 'set_account';
 export const SET_SHIPPING = 'set_shipping';
 export const SET_STRIPE_TOKEN = 'set_stripe_token';
 export const RESET_JOIN = 'reset_join';
+
+// Form
+export const UPDATE_FORM_STATE = 'update_form_state';
