@@ -147,7 +147,7 @@ class ProfileEditAddressModal extends React.Component<Props & WithApolloProps> {
         }
     };
 
-    private queryCountries = (inputValue: string, callback: (options: {}[]) => void) => {
+    private queryCountries = (_inputValue: string, callback: (options: {}[]) => void) => {
         this.props.apolloClient
             .query<any>({
                 query: GET_COUNTRIES,
