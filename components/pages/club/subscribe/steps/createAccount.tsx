@@ -15,8 +15,8 @@ class CreateAccount extends React.Component<Props, State> {
     public render() {
         const { quarterFull, onNextClick } = this.props;
         return (
-            <form id="subscribe-container" className="subscribe-form" onSubmit={this.handleSubmit}>
-                <div id="subscribe-first-container">
+            <form className="subscribe modal-two-col-container modal-two-col-form" onSubmit={this.handleSubmit}>
+                <div className="modal-two-col-first-container">
                     <article id="subscribe-promote">
                         <header id="subscribe-promote-header">
                             <p id="subscribe-promote-header-join">Join the club</p>
@@ -45,14 +45,14 @@ class CreateAccount extends React.Component<Props, State> {
                         </footer>
                     </article>
                 </div>
-                <div id="subscribe-second-container" className="subscribe-item-container">
-                    <h1 className="subscribe-title">
+                <div className="modal-two-col-second-container modal-two-col-item-container">
+                    <h1 className="modal-two-col-title">
                         Create
                         <br />
                         your account
                     </h1>
-                    <div className="subscribe-content">
-                        <p className="subscribe-content-description">
+                    <div className="modal-two-col-content">
+                        <p className="modal-two-col-content-description">
                             {!quarterFull ? 'Become a Kraken.' : 'Be sure to become a Kraken on April 5th 2019.'}
                         </p>
                         <div className="form-double-field-line">
@@ -62,7 +62,7 @@ class CreateAccount extends React.Component<Props, State> {
                         <Field name="email" placeholder="Email" />
                         <Field name="password" placeholder="Password" />
                     </div>
-                    <button onClick={onNextClick} className="button-primary subscribe-form-submit">
+                    <button onClick={onNextClick} className="button-primary modal-two-col-form-submit">
                         {!quarterFull ? 'Become a Kraken' : 'Pre-pay'}
                     </button>
                 </div>
