@@ -7,7 +7,7 @@ const failedAuthInterceptors = (error: AxiosError) => {
         userSignoutSuccess();
         // localStorage.removeItem('user');
     }
-    Promise.reject(error);
+    return Promise.reject(error);
 };
 
 const successAuthInterceptors = (response: AxiosResponse) => {
