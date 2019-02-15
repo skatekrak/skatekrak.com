@@ -4,7 +4,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import Layout from 'components/Layout/Layout';
-import OnboardingModal from 'components/pages/club/onboarding/onboardingModal';
 import SubscribeModal from 'components/pages/club/subscribe/subscribeModal';
 import TrackedPage from 'components/pages/TrackedPage';
 import SkateistanLogo from 'components/Ui/Icons/Logos/Skateistan';
@@ -67,7 +66,6 @@ class Club extends React.Component<Props, State> {
         return (
             <TrackedPage name="Club">
                 <Layout head={<ClubHead />}>
-                    {/* <OnboardingModal /> */}
                     <div id="club" className="inner-page-container container-fluid">
                         <div id="club-header">
                             <h1 id="club-header-title">Krak Skateboarding Club.</h1>
