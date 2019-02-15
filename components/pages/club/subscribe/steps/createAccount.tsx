@@ -5,6 +5,8 @@ import React from 'react';
 import { Form, FormSpy } from 'react-final-form';
 import { connect } from 'react-redux';
 
+import Types from 'Types';
+
 import ErrorMessage from 'components/Ui/Form/ErrorMessage';
 import Field from 'components/Ui/Form/Field';
 
@@ -15,6 +17,10 @@ type Props = {
     quarterFull: boolean;
     onNextClick: () => void;
     updateFormState: (form, state) => void;
+    payment: {
+        price: number;
+        currency: string;
+    };
 };
 
 type State = {};
@@ -23,7 +29,7 @@ class CreateAccount extends React.Component<Props, State> {
     public state: State = {};
 
     public render() {
-        const { quarterFull } = this.props;
+        const { quarterFull, payment } = this.props;
         return (
             <Form onSubmit={this.handleSubmit} validate={validateForm}>
                 {({ handleSubmit, submitting, submitError }) => (
@@ -37,7 +43,9 @@ class CreateAccount extends React.Component<Props, State> {
                                     <h3 id="subscribe-promote-header-subtitle">- Quarterly membership -</h3>
                                 </header>
                                 <main id="subscribe-promote-main">
-                                    <p id="subscribe-promote-main-price">99€ today</p>
+                                    <p id="subscribe-promote-main-price">
+                                        {this.getPricingText(String(payment.price / 100))} today
+                                    </p>
                                     {!quarterFull ? (
                                         <>
                                             <p id="subscribe-promote-main-cover">to be covered until April 4th 2019</p>
@@ -110,6 +118,22 @@ class CreateAccount extends React.Component<Props, State> {
         }
     };
 
+    private getPricingText(price: string): string {
+        const { payment } = this.props;
+        let res = '';
+        if (payment.currency === 'usd') {
+            res += '$';
+        }
+        if (payment.currency === 'gbp') {
+            res += '£';
+        }
+        res += price;
+        if (payment.currency === 'eur') {
+            res += '€';
+        }
+        return res;
+    }
+
     private onFormChange = (state) => {
         this.props.updateFormState('account', state.values);
     };
@@ -139,8 +163,12 @@ const validateForm = (values: any) => {
     return errors;
 };
 
+const mapStateToProps = ({ payment }: Types.RootState) => {
+    return { payment };
+};
+
 export default connect(
-    undefined,
+    mapStateToProps,
     {
         updateFormState,
     },
