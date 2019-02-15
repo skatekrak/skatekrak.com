@@ -19,7 +19,7 @@ const LayoutProfile: React.SFC<Props> = ({ profile, children, view }) => (
             </div>
             <div className="col-xs-12 col-md-9">{children}</div>
         </div>
-        {profile && !profile.onBoarding ? <OnboardingModal profile={profile} /> : <></>}
+        {profile && !profile.onboarding ? <OnboardingModal profile={profile} /> : <></>}
     </div>
 );
 
