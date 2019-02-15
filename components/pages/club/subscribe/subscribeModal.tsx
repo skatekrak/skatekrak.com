@@ -7,12 +7,12 @@ import CreateAccount from 'components/pages/club/subscribe/steps/createAccount';
 import Subscribe from 'components/pages/club/subscribe/steps/subscribe';
 import Modal from 'components/Ui/Modal';
 
-import { resetJoin } from 'store/join/actions';
+import { resetForm } from 'store/form/actions';
 
 type Props = {
     open: boolean;
     onClose: () => void;
-    resetJoin: () => void;
+    resetForm: () => void;
 };
 
 type State = {
@@ -27,7 +27,7 @@ const SubscribeHead = () => (
 
 class SubscribeModal extends React.Component<Props, State> {
     public state: State = {
-        step: 'account',
+        step: 'subscribe',
     };
 
     public render() {
@@ -48,7 +48,7 @@ class SubscribeModal extends React.Component<Props, State> {
     private onClose = () => {
         this.props.onClose();
         this.setState({ step: 'account' });
-        this.props.resetJoin();
+        this.props.resetForm();
     };
 
     private onNextStep = () => {
@@ -67,5 +67,5 @@ class SubscribeModal extends React.Component<Props, State> {
 
 export default connect(
     undefined,
-    { resetJoin },
+    { resetForm },
 )(SubscribeModal);

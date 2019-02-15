@@ -1,6 +1,6 @@
 import { ActionType } from 'typesafe-actions';
 
-import { UPDATE_FORM_STATE } from '../constants';
+import { RESET_FORM, UPDATE_FORM_STATE } from '../constants';
 
 import * as form from './actions';
 
@@ -17,6 +17,9 @@ export default (state: State = {}, action: FormAction): State => {
                 ...state,
                 [action.payload.form]: action.payload.state,
             };
+        }
+        case RESET_FORM: {
+            return {};
         }
         default:
             return state;

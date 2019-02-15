@@ -2,19 +2,19 @@ import { AxiosError } from 'axios';
 import validator from 'email-validator';
 import { FORM_ERROR } from 'final-form';
 import React from 'react';
-import { Form } from 'react-final-form';
+import { Form, FormSpy } from 'react-final-form';
 import { connect } from 'react-redux';
 
+import ErrorMessage from 'components/Ui/Form/ErrorMessage';
 import Field from 'components/Ui/Form/Field';
 
 import { cairote } from 'lib/cairote';
-import { setAccount } from 'store/join/actions';
-import ErrorMessage from 'components/Ui/Form/ErrorMessage';
+import { updateFormState } from 'store/form/actions';
 
 type Props = {
     quarterFull: boolean;
     onNextClick: () => void;
-    setAccount: (account: { firstName: string; lastName: string; email: string; password: string }) => void;
+    updateFormState: (form, state) => void;
 };
 
 type State = {};
@@ -26,8 +26,9 @@ class CreateAccount extends React.Component<Props, State> {
         const { quarterFull } = this.props;
         return (
             <Form onSubmit={this.handleSubmit} validate={validateForm}>
-                {({ handleSubmit, submitting, valid, submitError }) => (
+                {({ handleSubmit, submitting, submitError }) => (
                     <form className="subscribe modal-two-col-container modal-two-col-form" onSubmit={handleSubmit}>
+                        <FormSpy onChange={this.onFormChange} />
                         <div className="modal-two-col-first-container">
                             <article id="subscribe-promote">
                                 <header id="subscribe-promote-header">
@@ -102,12 +103,15 @@ class CreateAccount extends React.Component<Props, State> {
         } catch (error) {
             const err = error as AxiosError;
             if (err.response.status === 404) {
-                this.props.setAccount(values);
                 this.props.onNextClick();
             } else {
                 return { [FORM_ERROR]: 'Oops, something went wront, try later or contact us' };
             }
         }
+    };
+
+    private onFormChange = (state) => {
+        this.props.updateFormState('account', state.values);
     };
 }
 
@@ -138,6 +142,6 @@ const validateForm = (values: any) => {
 export default connect(
     undefined,
     {
-        setAccount,
+        updateFormState,
     },
 )(CreateAccount);
