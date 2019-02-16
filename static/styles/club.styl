@@ -3,25 +3,35 @@
 
 /* Club presentation page styles */
 #club
+	padding-top: 0
+
+	+mq($from: "small")
+		padding-top: 2rem
+
 	+mq($from: "medium")
 		display: flex
 		flex-direction: column
-		height: 100vh
-		overflow: hidden
-
+		padding-top: 4rem
 
 	&-header
 		position: relative
+		display: flex
+		flex-direction: column
+		justify-content: space-between
+		padding-bottom: 2rem
+		margin-bottom: 6rem
+		min-height: 60vh
 		text-align: center
+		color: $white
 
 		+mq($from: "medium")
-			margin-bottom: 2rem
-			text-align: left
+			min-height 70vh
+			padding-bottom: 4rem
 
 		&-title
 			position: relative
-			margin-bottom: 1rem
-			font-family: $ff-roboto-condensed-bold
+			margin-bottom: .5rem
+			font-family: $ff-roboto-black
 			font-size: $fs-largest
 			z-index: 2
 
@@ -31,28 +41,144 @@
 
 		&-subtitle
 			position: relative
-			font-size: $fs-small
-			font-style: italic
-			color: $grey-500
+			font-size: $fs-regular
+			color: $grey-100
 			z-index: 2
 
 			+mq($from: "medium")
 				color: $white
 
-		&-bg-circle
-			position: absolute
-			display: none
-			top: calc(50% - 4rem)
-			left: calc(50% - 4rem)
-			width: 8rem
-			height: 8rem
-			background-color: $primary
-			border-radius: 8rem
-			border-radius: 100%
-			z-index: 1
+		&-obsessed
+			font-family: 'Permanent Marker', cursive
+			font-size: $fs-largest
+			transform: rotate(-9deg)
+			z-index: 10
 
+			+mq($from: "small")
+				font-size: 3rem
+
+			+mq($from: "large")
+				font-size: 3.5rem
+
+		&-bg-image
+			display: block
+			height: 100%
+			background-image: url("/static/images/club-presentation-bg.jpg")
+			background-position: 20% 50%
+			background-size: cover
+			transform: scale(1.02)
+
+			+mq($from: "medium")
+				background-position: center
+
+			&-container
+				position: absolute
+				top: -10rem
+				left: -2rem
+				right: -2rem
+				bottom: 0
+				z-index: 1
+				overflow: hidden
+
+				+mq($from: "small")
+					top: -14rem
+					left: -8rem
+					right: -8rem
+
+				+mq($from: "medium")
+					top: -4rem
+					left: -4rem
+					right: -4rem
+
+			&-credits
+				position: absolute
+				left: calc(100% - 1rem)
+				bottom: 2rem
+				white-space: nowrap
+				font-size: $fs-smallest
+				color: $grey-400
+				z-index: 1
+				transform: rotate(-90deg)
+				transform-origin: top left
+
+	&-main
+		text-align: center
+
+		&-title
+			margin-bottom: 3rem
+			font-family: $ff-roboto-bold
+			font-size: $fs-larger
+			color: $grey-600
+
+			+mq($from: "medium")
+				font-size: $fs-large
+
+		&-benefits
+			position: relative
+
+			+mq($from: "large")
+				max-width: 900px
+				margin: auto
+
+		&-santa
+			margin: 8rem 0 10rem
+			font-size: $fs-larger
+			color: $grey-400
+
+			+mq($from: "medium")
+				font-size: $fs-large
+
+		&-youtube
+			+mq($from: "large")
+				max-width: 1200px
+				margin: auto
+
+			&-title
+				margin-bottom: 2rem
+				font-family: $ff-roboto-bold
+				font-size: $fs-larger2
+				color: $grey-800
+
+	&-footer
+		margin-top: 6rem
+		text-align: center
+
+		& .club-cta-container
+			color: $grey-600
+
+		&-skateistan
+			position: relative
+			margin: 6rem 0 0
+			text-align: center
+			color: $grey-600
+			z-index: 3
+
+			+mq($from: "medium")
+				display: inline-flex
+				align-items: center
+				margin: 6rem auto 2rem
+				font-size: $fs-small
+				text-align: left
+
+			& #citizens-skateistan
+				display: block
+				width: 4rem
+				margin: 0 auto 1.5rem
+				fill: $grey-600
+
+				+mq($from: "medium")
+					width: 3rem
+					margin: 0 1rem 0 0
+
+			&-link
+				font-family: $ff-roboto-black-italic
+
+			&-citizens
+				+mq($from: "medium")
+					display: block
+
+.club
 	&-cta
-		font-size: $fs-regular
 		color: $white
 		background-color: $primary
 		box-shadow: $box-shadow-1
@@ -60,111 +186,93 @@
 		&:hover
 			background-color: $primaryDark
 
-		&-container
-			position: relative
-			display: flex
-			justify-content: center
-			margin: 4rem 0
-			z-index: 3
-
-			+mq($from: "medium")
-				justify-content: left
-				margin: 0 0 auto
-
-	&-bg-image
-		display: block
-		height: 100%
-		background-image: url("/static/images/club-presentation-bg.jpg")
-		background-position: 20% 50%
-		background-size: cover
-		transform: scale(1.02)
-
-		+mq($from: "medium")
-			background-position: center
-
-		&-container
-			position: absolute
-			top: 0
-			left: -2rem
-			right: -2rem
-			bottom: 0
-			z-index: 1
-			overflow: hidden
-
-			+mq($from: "medium")
-				left: 0
-				right: 0
-
-		&-credits
-			position: absolute
-			left: calc(100% - 1rem)
-			bottom: 2rem
-			white-space: nowrap
-			font-size: $fs-smallest
-			color: $grey-400
-			z-index: 1
-			transform: rotate(-90deg)
-			transform-origin: top left
-
-	&-benefits
-		position: relative
-		padding: 3rem 0
-		color: $white
-
-		+mq($from: "medium")
-			position: inherit
-			padding: 0 0 2rem
+		+mq($from: "large")
+			font-size: $fs-medium
 
 		&-container
 			position: relative
 			z-index: 3
 
-		&-title
+		&-limited
+			margin-bottom: 1rem
+
+		&-shipping
+			margin-top: 1rem
+			font-size: $fs-medium
+
+			& .emoji
+				margin-right: .5rem
+	
+	&-main
+		&-benefit
 			margin-bottom: 3rem
-			font-family: $ff-roboto-condensed-bold
-			letter-spacing: 0.10rem
-			text-transform: uppercase
 
-			+mq($from: "medium")
+			&-icon
+				display: block
+				max-width: 35%
+				margin: auto
+
+				& svg
+					max-width 100%
+					fill: $grey-200
+
+			&-title
+				margin-bottom: 1rem
+				font-family: $ff-roboto-bold
+				font-size: $fs-larger2
+
+			&-text
+				font-size: $fs-medium
+				color: $grey-600
+
+				&-item
+					display: block
+					margin-bottom: .5rem
+
+					&:last-child
+						margin-bottom: 0
+
+		&-youtube
+			&-item
 				margin-bottom: 2rem
 
-	&-skateistan
-		position: relative
-		margin: 3rem 0 0
-		text-align: center
-		z-index: 3
+				&:last-child
+					margin-bottom: 0
 
-		+mq($from: "medium")
-			display: flex
-			align-items: center
-			margin: 0
-			font-size: $fs-smaller
-			text-align: left
-			color: $white
+				&-title
+					margin-top: 1rem
+					font-family: $ff-roboto-condensed-bold
+					font-size: $fs-large
+					text-transform: uppercase
+					color: $grey-800
+					z-index: 3
 
-		& #citizens-skateistan
-			display: block
-			width: 6rem
-			margin: 0 auto 1.5rem
+				&-player
+					position: absolute
+					top: 0
+					right: 0
+					bottom: 0
+					left: 0
+					background-color: $grey-300
+					border-radius: .25rem
+					cursor: pointer
 
-			+mq($from: "medium")
-				width: 3rem
-				margin: 0 1rem 0 0
-				fill: $white
+					&:hover
+						&:after
+							opacity: .25
 
-		&-link
-			font-family: $ff-roboto-black-italic
+					&:after
+						content: ''
+						position: absolute
+						top: 0
+						right: 0
+						bottom: 0
+						left: 0
+						background-color: $grey-900
+						border-radius: .25rem
+						opacity: 0
+						transition: .2s
 
-		&-citizens
-			display: block
-
-.club
-	&-benefit
-		margin-bottom: 1.5rem
-		font-family: $ff-roboto-condensed-regular
-
-		+mq($from: "medium")
-			font-size: $fs-small
-
-		+mq($from: "large")
-			font-size: $fs-regular
+					&-container
+						position: relative
+						padding-bottom: 56.25%
