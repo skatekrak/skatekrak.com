@@ -1,4 +1,3 @@
-import Head from 'next/head';
 import React from 'react';
 
 import Congrats from 'components/pages/club/subscribe/steps/congrats';
