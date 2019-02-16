@@ -195,6 +195,6 @@ const DELETE_ADDRESS = gql`
 `;
 
 export default compose(
-    withAuth,
     withApollo,
+    withAuth,
 )(ProfileShipment);
