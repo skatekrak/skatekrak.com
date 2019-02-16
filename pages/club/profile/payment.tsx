@@ -103,13 +103,11 @@ import TrackedPage from 'components/pages/TrackedPage';
 
 import { GET_ME } from 'pages/club/profile';
 
-type Props = {};
-
 type State = {
     modalOpenName?: 'creditCardInfo' | 'billingAddressInfo';
 };
 
-class ProfilePayment extends React.Component<Props, State> {
+class ProfilePayment extends React.Component<{}, State> {
     public state: State = {
         modalOpenName: undefined,
     };
@@ -172,10 +170,7 @@ class ProfilePayment extends React.Component<Props, State> {
                                                     onEditClick={this.onOpenModal}
                                                 />
                                                 <div className="profile-section-line">
-                                                    <AddressPreview
-                                                        name={data.me.paymentCard.name}
-                                                        address={data.me.paymentCard.billingAddress}
-                                                    />
+                                                    <AddressPreview address={data.me.paymentCard.billingAddress} />
                                                 </div>
                                             </ProfileSection>
                                             <ProfileSection>

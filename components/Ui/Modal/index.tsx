@@ -22,9 +22,10 @@ const classNames = {
 type Props = {
     open: boolean;
     onClose: () => void;
+    closable?: boolean;
 } & Partial<JSX.LibraryManagedAttributes<typeof Modal, Modal['props']>>;
 
-const ModalWithStyle: React.SFC<Props> = ({ open, onClose, children, ...props }) => (
+const ModalWithStyle: React.SFC<Props> = ({ open, onClose, children, closable, ...props }) => (
     <Modal
         open={open}
         onClose={onClose}
@@ -32,6 +33,9 @@ const ModalWithStyle: React.SFC<Props> = ({ open, onClose, children, ...props })
         closeIconSvgPath={<IconCross />}
         closeIconSize={24}
         animationDuration={300}
+        closeOnEsc={closable}
+        closeOnOverlayClick={closable}
+        showCloseIcon={closable}
         {...props}
     >
         {children}

@@ -19,12 +19,6 @@ type State = {
     step: string;
 };
 
-const SubscribeHead = () => (
-    <Head>
-        <title>Krak | Subscribe</title>
-    </Head>
-);
-
 class SubscribeModal extends React.Component<Props, State> {
     public state: State = {
         step: 'subscribe',
@@ -35,7 +29,6 @@ class SubscribeModal extends React.Component<Props, State> {
         const { step } = this.state;
         return (
             <>
-                <SubscribeHead />
                 <Modal open={open} onClose={this.onClose}>
                     {step === 'account' && <CreateAccount quarterFull={false} onNextClick={this.onNextStep} />}
                     {step === 'subscribe' && <Subscribe quarterFull={false} onNextClick={this.onNextStep} />}

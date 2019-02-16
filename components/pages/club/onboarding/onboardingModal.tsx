@@ -5,12 +5,12 @@ import Preference from 'components/pages/club/onboarding/steps/preferences';
 import Modal from 'components/Ui/Modal';
 
 type Props = {
-    open: boolean;
-    onClose: () => void;
+    profile: any;
 };
 
 type State = {
     step: string;
+    open: boolean;
 };
 
 const OnboardingHead = () => (
@@ -22,20 +22,25 @@ const OnboardingHead = () => (
 class OnboardingModal extends React.Component<Props, State> {
     public state: State = {
         step: 'preference',
+        open: true,
     };
 
     public render() {
-        const { open, onClose } = this.props;
-        const { step } = this.state;
+        const { profile } = this.props;
+        const { open, step } = this.state;
         return (
-            <>
+            <React.Fragment>
                 <OnboardingHead />
-                <Modal open={open} onClose={onClose}>
-                    {step === 'preference' && <Preference onNextClick={this.onNextStep} />}
+                <Modal open={open} onClose={this.onClose} closable={false}>
+                    {step === 'preference' && <Preference profile={profile} onNextClick={this.onNextStep} />}
                 </Modal>
-            </>
+            </React.Fragment>
         );
     }
+
+    private onClose = () => {
+        this.setState({ open: false });
+    };
 
     private onNextStep = () => {
         const { step } = this.state;

@@ -56,6 +56,7 @@ export const GET_ME = gql`
                 }
                 content
             }
+            onboarding
             paymentHistory
             paymentCard
         }
