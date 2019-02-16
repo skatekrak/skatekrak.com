@@ -104,7 +104,11 @@ class Club extends React.Component<Props, State> {
                                 <div className="row">
                                     <div className="club-main-benefit col-xs-12 col-sm-6 col-md-4">
                                         <span className="club-main-benefit-icon">
-                                            <StarFull />
+                                            <img
+                                                src="/static/images/club/club-ride.svg"
+                                                alt=""
+                                                className="club-benefit-icon"
+                                            />
                                         </span>
                                         <h3 className="club-main-benefit-title">Ride</h3>
                                         <p className="club-main-benefit-text">
@@ -116,7 +120,11 @@ class Club extends React.Component<Props, State> {
                                     </div>
                                     <div className="club-main-benefit col-xs-12 col-sm-6 col-md-4">
                                         <span className="club-main-benefit-icon">
-                                            <StarFull />
+                                            <img
+                                                src="/static/images/club/club-wear.svg"
+                                                alt=""
+                                                className="club-benefit-icon"
+                                            />
                                         </span>
                                         <h3 className="club-main-benefit-title">Wear</h3>
                                         <p className="club-main-benefit-text">
@@ -125,7 +133,11 @@ class Club extends React.Component<Props, State> {
                                     </div>
                                     <div className="club-main-benefit col-xs-12 col-sm-6 col-md-4">
                                         <span className="club-main-benefit-icon">
-                                            <StarFull />
+                                            <img
+                                                src="/static/images/club/club-connect.svg"
+                                                alt=""
+                                                className="club-benefit-icon"
+                                            />
                                         </span>
                                         <h3 className="club-main-benefit-title">Connect</h3>
                                         <p className="club-main-benefit-text">
@@ -138,7 +150,11 @@ class Club extends React.Component<Props, State> {
                                     </div>
                                     <div className="club-main-benefit col-xs-12 col-sm-6 col-md-4 col-md-offset-2">
                                         <span className="club-main-benefit-icon">
-                                            <StarFull />
+                                            <img
+                                                src="/static/images/club/club-digest.svg"
+                                                alt=""
+                                                className="club-benefit-icon"
+                                            />
                                         </span>
                                         <h3 className="club-main-benefit-title">Digest</h3>
                                         <p className="club-main-benefit-text">
@@ -149,7 +165,11 @@ class Club extends React.Component<Props, State> {
                                     </div>
                                     <div className="club-main-benefit col-xs-12 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-0">
                                         <span className="club-main-benefit-icon">
-                                            <StarFull />
+                                            <img
+                                                src="/static/images/club/club-wow.svg"
+                                                alt=""
+                                                className="club-benefit-icon"
+                                            />
                                         </span>
                                         <h3 className="club-main-benefit-title">Wow</h3>
                                         <p className="club-main-benefit-text">
