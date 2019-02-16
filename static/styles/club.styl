@@ -253,25 +253,30 @@
 					right: 0
 					bottom: 0
 					left: 0
-					background-color: $grey-300
+					background-color: $grey-900
 					border-radius: .25rem
 					cursor: pointer
 
-					&:hover
-						&:after
-							opacity: .25
-
-					&:after
-						content: ''
-						position: absolute
-						top: 0
-						right: 0
-						bottom: 0
-						left: 0
-						background-color: $grey-900
+					& .react-player__preview
+						background-size: 101% !important
 						border-radius: .25rem
-						opacity: 0
-						transition: .2s
+
+						&:hover
+							&:after
+								opacity: .2
+
+						&:after
+							content: ''
+							position: absolute
+							top: 0
+							right: 0
+							bottom: 0
+							left: 0
+							background-color: $grey-900
+							border-radius: .25rem
+							opacity: 0
+							transition: .2s
+							pointer-events: none
 
 					&-container
 						position: relative
