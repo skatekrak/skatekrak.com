@@ -40,7 +40,7 @@ type Props = {
 class Login extends React.Component<Props> {
     public componentDidUpdate(prevProps: Props) {
         if (!prevProps.authUser && this.props.authUser.id) {
-            Router.push('/club');
+            Router.push('/club/profile');
         }
     }
 
