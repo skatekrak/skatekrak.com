@@ -9,7 +9,6 @@ import SubscribeModal from 'components/pages/club/subscribe/subscribeModal';
 import TrackedPage from 'components/pages/TrackedPage';
 import Emoji from 'components/Ui/Icons/Emoji';
 import SkateistanLogo from 'components/Ui/Icons/Logos/Skateistan';
-import StarFull from 'components/Ui/Icons/StarFull';
 
 type Props = {
     payment: {
@@ -62,6 +61,12 @@ class Club extends React.Component<Props, State> {
         abTest.addVariation(original);
         abTest.addVariation(quarterly);
         Analytics.default().trackABTest(abTest);
+
+        document.getElementById('header-top').classList.add('header-white');
+    }
+
+    public componentWillUnmount() {
+        document.getElementById('header-top').classList.remove('header-white');
     }
 
     public render() {
