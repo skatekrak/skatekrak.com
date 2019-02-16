@@ -23,11 +23,7 @@ type Props = {
     };
 };
 
-type State = {};
-
-class CreateAccount extends React.Component<Props, State> {
-    public state: State = {};
-
+class CreateAccount extends React.Component<Props> {
     public render() {
         const { quarterFull, payment } = this.props;
         return (
