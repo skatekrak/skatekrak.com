@@ -4,7 +4,12 @@ import ReactPlayer from 'react-player';
 import { connect } from 'react-redux';
 import { Elements, StripeProvider } from 'react-stripe-elements';
 
+import Types from 'Types';
+
+import { User } from 'store/auth/reducers';
+
 import Layout from 'components/Layout/Layout';
+import Link from 'components/Link';
 import SubscribeModal from 'components/pages/club/subscribe/subscribeModal';
 import TrackedPage from 'components/pages/TrackedPage';
 import Emoji from 'components/Ui/Icons/Emoji';
@@ -15,6 +20,7 @@ type Props = {
         price: number;
         currency: string;
     };
+    authUser?: User;
 };
 
 type State = {
@@ -76,10 +82,19 @@ class Club extends React.Component<Props, State> {
                                     <p id="club-header-obsessed">Obsessed to ride</p>
                                     <div className="club-cta-container">
                                         <p className="club-cta-limited">- Limited quantities available -</p>
-                                        <button className="club-cta button-primary" onClick={this.onOpenSubscribeModal}>
-                                            Become a Kraken for{' '}
-                                            {this.getPricingText(String(this.props.payment.price / 100))} a quarter
-                                        </button>
+                                        {this.props.authUser ? (
+                                            <Link href="" className="club-cta button-primary">
+                                                <a>Go to my profile</a>
+                                            </Link>
+                                        ) : (
+                                            <button
+                                                className="club-cta button-primary"
+                                                onClick={this.onOpenSubscribeModal}
+                                            >
+                                                Become a Kraken for{' '}
+                                                {this.getPricingText(String(this.props.payment.price / 100))} a quarter
+                                            </button>
+                                        )}
                                         <p className="club-cta-shipping">
                                             <Emoji symbol="🚚" label="I dont know" />
                                             Free shipping
@@ -240,9 +255,19 @@ class Club extends React.Component<Props, State> {
                                 <footer id="club-footer">
                                     <div className="club-cta-container">
                                         <p className="club-cta-limited">- Limited quantities available -</p>
-                                        <button className="club-cta button-primary" onClick={this.onOpenSubscribeModal}>
-                                            Become a Kraken for 99€ a quarter
-                                        </button>
+                                        {this.props.authUser ? (
+                                            <Link href="" className="club-cta button-primary">
+                                                <a>Go to my profile</a>
+                                            </Link>
+                                        ) : (
+                                            <button
+                                                className="club-cta button-primary"
+                                                onClick={this.onOpenSubscribeModal}
+                                            >
+                                                Become a Kraken for{' '}
+                                                {this.getPricingText(String(this.props.payment.price / 100))} a quarter
+                                            </button>
+                                        )}
                                         <p className="club-cta-shipping">
                                             <Emoji symbol="🚚" label="I dont know" />
                                             Free shipping
@@ -299,4 +324,8 @@ class Club extends React.Component<Props, State> {
     }
 }
 
-export default connect((state: any) => ({ payment: state.payment }))(Club);
+const mapStateToProps = ({ payment, auth }: Types.RootState) => {
+    return { payment, authUser: auth.authUser };
+};
+
+export default connect(mapStateToProps)(Club);
