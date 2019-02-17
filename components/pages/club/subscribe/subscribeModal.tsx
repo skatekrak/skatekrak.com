@@ -20,7 +20,7 @@ type State = {
 
 class SubscribeModal extends React.Component<Props, State> {
     public state: State = {
-        step: 'subscribe',
+        step: 'account',
     };
 
     public render() {
