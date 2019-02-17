@@ -1,5 +1,4 @@
 import classnames from 'classnames';
-import { FieldState } from 'final-form';
 import React from 'react';
 import { Field } from 'react-final-form';
 
