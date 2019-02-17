@@ -7,6 +7,9 @@ import { Form } from 'react-final-form';
 import ProfileEditModal from 'components/pages/club/profile/Ui/editModal';
 import ErrorMessage from 'components/Ui/Form/ErrorMessage';
 import Field from 'components/Ui/Form/Field';
+import Select from 'components/Ui/Form/Select';
+
+import countries from 'lib/countries';
 
 import { GET_ME } from 'pages/club/profile';
 
@@ -19,19 +22,38 @@ type Props = {
 
 class ProfileEditBillingAddressModal extends React.Component<Props & ChildProps> {
     public render() {
+        const formattedInitialValues: { [key: string]: any } = {
+            ...this.props.address,
+            country: {
+                label: countries[this.props.address.country.toUpperCase()],
+                value: this.props.address.country,
+            },
+        };
+
         return (
             <ProfileEditModal modalTitle="Edit billing address" open={this.props.open} onClose={this.props.onClose}>
-                <Form onSubmit={this.handleSubmit} validate={validateForm} initialValues={this.props.address}>
+                <Form onSubmit={this.handleSubmit} validate={validateForm} initialValues={formattedInitialValues}>
                     {({ handleSubmit, submitting, submitError }) => (
                         <form className="profile-modal-form" onSubmit={handleSubmit}>
                             <ErrorMessage message={submitError} />
                             <Field name="name" label="Name" />
                             <Field name="line1" label="Street" />
-                            <Field name="line2" label="Apartment number, floor number, etc." />
-                            <Field name="zip" label="Postal code" />
-                            <Field name="city" label="City" />
-                            <Field name="state" label="State" />
-                            <Field name="country" label="Country" />
+                            <div className="form-double-field-line">
+                                <Field name="line2" label="Apartment number, floor number, etc." />
+                                <Field name="zip" label="Postal code" />
+                            </div>
+                            <div className="form-double-field-line">
+                                <Field name="city" label="City" />
+                                <Field name="state" label="State" />
+                            </div>
+                            <Select
+                                name="country"
+                                label="Country"
+                                placeholder="Country"
+                                options={formatCountries(countries)}
+                                menuMaxHeight={200}
+                                isSearchable
+                            />
                             <button className="button-primary profile-modal-form-submit" disabled={submitting}>
                                 Save
                             </button>
@@ -56,7 +78,7 @@ class ProfileEditBillingAddressModal extends React.Component<Props & ChildProps>
                             zip: values.zip,
                             city: values.city,
                             state: values.state,
-                            country: values.country,
+                            country: values.country.value,
                         },
                     },
                     update: (cache, result) => {
@@ -123,9 +145,22 @@ const validateForm = (values: any) => {
 
     if (!values.country) {
         errors.country = 'Required';
+    } else if (values.country.value === 'us' && !values.state) {
+        errors.state = 'Required';
     }
 
     return errors;
+};
+
+const formatCountries = (cntrs: typeof countries): { label: string; value: string }[] => {
+    const options: { label: string; value: string }[] = [];
+    for (const key of Object.keys(cntrs)) {
+        options.push({
+            label: cntrs[key],
+            value: key.toLowerCase(),
+        });
+    }
+    return options;
 };
 
 const UPDATE_BILLING_ADDRESS = gql`
