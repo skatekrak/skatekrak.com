@@ -17,9 +17,21 @@ class ProfileEditCreditCardModal extends React.Component<Props & ChildProps> {
     public render() {
         return (
             <ProfileEditModal modalTitle="Edit credit card" open={this.props.open} onClose={this.props.onClose}>
-                <CardNumberElement />
-                <CardExpiryElement />
-                <CardCVCElement />
+                <div className="form-element">
+                    <div className="form-element-field">
+                        <CardNumberElement />
+                    </div>
+                </div>
+                <div className="form-element">
+                    <div className="form-element-field">
+                        <CardExpiryElement />
+                    </div>
+                </div>
+                <div className="form-element">
+                    <div className="form-element-field">
+                        <CardCVCElement />
+                    </div>
+                </div>
                 <button className="button-primary profile-modal-form-submit" onClick={this.handleSubmit}>
                     Save
                 </button>
