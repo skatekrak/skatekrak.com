@@ -14,103 +14,24 @@ import ProfileSectionHeader from 'components/pages/club/profile/Ui/sectionHeader
 import Loading from 'components/pages/news/Articles/Loading';
 import TrackedPage from 'components/pages/TrackedPage';
 
-// const profile = {
-//   firstName: 'Guillaume',
-//   lastName: 'Lefebvre',
-//   birthday: '25 march 1992',
-//   email: 'guillaume.lefebvre@gmail.com',
-//   phoneNumber: '0659061248',
-//   social: {
-//     instagram: '@guillaumeDgomme',
-//   },
-//   preference: {
-//     wearable: {
-//       tshirtSize: 'Medium (M)',
-//       shoeSize: '43',
-//       boxershortSize: 'Large (L)',
-//     },
-//     skateboarding: {
-//       brokenDeck: '5',
-//       deckSize: '8.125"',
-//       truckSize: '149mm',
-//       truckHeight: 'High',
-//       wheelSize: '55mm',
-//     },
-//   },
-//   shipping: {
-//     address1: {
-//       actual: true,
-//       firstName: 'Guillaume',
-//       lastName: 'Lefebvre',
-//       street: '24 allée daguilera',
-//       apt: 'apt 2',
-//       city: 'Anglet',
-//       cityCode: '64600',
-//       state: 'Pyrénées-atlantique',
-//       country: 'France',
-//       countryCode: 'fr',
-//     },
-//     address2: {
-//       actual: false,
-//       firstName: 'Arnaud',
-//       lastName: 'Molinos',
-//       street: '27 bis avenue de larochefoucauld',
-//       apt: 'apt 3',
-//       city: 'Biarritz',
-//       cityCode: '64200',
-//       state: 'Pyrénées-atlantique',
-//       country: 'France',
-//       countryCode: 'fr',
-//     },
-//   },
-//   payment: {
-//     membership: {
-//       memberId: '75',
-//       start: '23 january 2019',
-//       next: '',
-//       renew: true,
-//       creditCard: '**** **** **** 6462',
-//     },
-//     billingAddress: {
-//       firstName: 'Guillaume',
-//       lastName: 'Lefebvre',
-//       street: '24 allée daguilera',
-//       apt: 'apt 2',
-//       city: 'Anglet',
-//       cityCode: '64600',
-//       state: 'Pyrénées-atlantique',
-//       country: 'France',
-//       countryCode: 'fr',
-//     },
-//     history: [
-//       {
-//         id: '1',
-//         desc: 'Quarter membership to Krak skate club x1',
-//         date: '5 march 2019',
-//         price: '87€',
-//         invoiceLink: '',
-//       },
-//       {
-//         id: '2',
-//         desc: 'Quarter membership to Krak skate club x1',
-//         date: '5 june 2019',
-//         price: '87€',
-//         invoiceLink: '',
-//       },
-//     ],
-//   },
-// };
-
 import { GET_ME } from 'pages/club/profile';
 
 type State = {
     modalOpenName?: 'creditCardInfo' | 'billingAddressInfo';
+    stripe?: any;
 };
 
 class ProfilePayment extends React.Component<{}, State> {
     public state: State = {
         modalOpenName: undefined,
+        stripe: null,
     };
+
+    public componentDidMount() {
+        this.setState({
+            stripe: (window as any).Stripe(process.env.STRIPE_KEY),
+        });
+    }
 
     public render() {
         return (
@@ -128,7 +49,7 @@ class ProfilePayment extends React.Component<{}, State> {
 
                             if (data && data.me) {
                                 return (
-                                    <StripeProvider apiKey="pk_test_a7PsGhkcvou7utv5OHO4kdqr">
+                                    <StripeProvider stripe={this.state.stripe}>
                                         <LayoutProfile profile={data.me} view="payment">
                                             <ProfileEditBillingAddressModal
                                                 open={this.state.modalOpenName === 'billingAddressInfo'}
@@ -175,7 +96,7 @@ class ProfilePayment extends React.Component<{}, State> {
                                             </ProfileSection>
                                             <ProfileSection>
                                                 <ProfileSectionHeader title="History" />
-                                                {data.me.paymentHistory.map(payment => (
+                                                {data.me.paymentHistory.map((payment) => (
                                                     <PaymentLine key={payment.id} payment={payment} />
                                                 ))}
                                             </ProfileSection>
