@@ -27,11 +27,15 @@ class ProfileEditInfoModal extends React.Component<Props & ChildProps> {
                     {({ handleSubmit, submitting, submitError }) => (
                         <form className="profile-modal-form" onSubmit={handleSubmit}>
                             <ErrorMessage message={submitError} />
-                            <Field name="firstName" label="First name" />
-                            <Field name="lastName" label="Last name" />
+                            <div className="form-double-field-line">
+                                <Field name="firstName" label="First name" />
+                                <Field name="lastName" label="Last name" />
+                            </div>
                             <Field name="email" label="Email" />
-                            <Field name="phone" label="Phone number" />
-                            <DatePicker name="birthday" label="Birthday" />
+                            <div className="form-double-field-line">
+                                <Field name="phone" label="Phone number" />
+                                <DatePicker name="birthday" label="Birthday" />
+                            </div>
                             <button className="button-primary profile-modal-form-submit" disabled={submitting}>
                                 Save
                             </button>
