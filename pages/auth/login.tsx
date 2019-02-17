@@ -1,6 +1,5 @@
 import validator from 'email-validator';
 import Head from 'next/head';
-import Router from 'next/router';
 import React from 'react';
 import { Field as ReactField, Form } from 'react-final-form';
 import { connect } from 'react-redux';
@@ -38,12 +37,6 @@ type Props = {
 };
 
 class Login extends React.Component<Props> {
-    public componentDidUpdate(prevProps: Props) {
-        if (!prevProps.authUser && this.props.authUser.id) {
-            Router.push('/club/profile');
-        }
-    }
-
     public render() {
         return (
             <TrackedPage name="Auth/Login">
