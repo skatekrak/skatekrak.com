@@ -50,7 +50,7 @@ class ResetPassword extends React.Component<WithRouterProps<QueryProps>> {
         );
     }
 
-    private handleSubmit = (values: any) => {
+    private handleSubmit = (_values: any) => {
         // TODO: POST to reset password
         // this.props.router.query.token
     };
