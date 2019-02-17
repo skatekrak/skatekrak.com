@@ -229,7 +229,8 @@ class Subscribe extends React.Component<Props & WithApolloProps & ReactStripeEle
             await apolloClient.mutate({
                 mutation: JOIN_CLUB,
                 variables: { data },
-                update: (cache, result) => {
+                update: () => {
+                    this.props.onNextClick();
                     this.props.userSignin(data.email, data.password, true);
                 },
             });
