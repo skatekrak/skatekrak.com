@@ -1,5 +1,6 @@
 import Cookie from 'cookie';
 import Cookies from 'js-cookie';
+import Router from 'next/router';
 
 export const setUser = (user: any) => {
     if (!(process as any).browser) {
@@ -7,6 +8,7 @@ export const setUser = (user: any) => {
     }
 
     Cookies.set('user', JSON.stringify(user));
+    Router.push('/club/profile');
 };
 
 export const removeUser = () => {
@@ -15,6 +17,7 @@ export const removeUser = () => {
     }
 
     Cookies.remove('user');
+    Router.push('/auth/login');
 };
 
 export const getUserFromServerCookie = (req: any) => {
