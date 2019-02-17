@@ -3,12 +3,14 @@ import gql from 'graphql-tag';
 import React from 'react';
 import { Field as ReactField, Form, FormSpy } from 'react-final-form';
 import { connect } from 'react-redux';
+import { CardElement, injectStripe, ReactStripeElements } from 'react-stripe-elements';
 
 import Types from 'Types';
 
 import withApollo, { WithApolloProps } from 'hocs/withApollo';
 
 import { checkPath } from 'lib/checkPath';
+import { userSignin } from 'store/auth/actions';
 import { updateFormState } from 'store/form/actions';
 import { savePricingCurrency } from 'store/payment/actions';
 
@@ -31,14 +33,16 @@ type Props = {
         price: number;
         currency: string;
     };
+    userSignin: (email: string, password: string, rememberMe: boolean) => void;
 };
 
 type State = {
     addressView: string;
     isSpecialCodeValid: boolean;
+    cardError?: string;
 };
 
-class Subscribe extends React.Component<Props & WithApolloProps, State> {
+class Subscribe extends React.Component<Props & WithApolloProps & ReactStripeElements.InjectedStripeProps, State> {
     public state: State = {
         addressView: 'shipping',
         isSpecialCodeValid: false,
@@ -52,7 +56,7 @@ class Subscribe extends React.Component<Props & WithApolloProps, State> {
                 onSubmit={this.handleSubmit}
                 initialValues={subscribeForm || { shipping: {}, billing: {}, shippingAsBilling: true }}
             >
-                {({ handleSubmit, submitting, valid, values, submitError }) => (
+                {({ handleSubmit, submitting, values, submitError }) => (
                     <form className="modal-two-col-container subscribe" onSubmit={handleSubmit}>
                         <FormSpy onChange={this.onFormChange} />
                         <div className="modal-two-col-first-container modal-two-col-item-container">
@@ -75,7 +79,12 @@ class Subscribe extends React.Component<Props & WithApolloProps, State> {
                                         {this.getPricingText(String(this.props.payment.price / 100))}
                                     </span>
                                 </div>
-                                <Field name="creditCard" placeholder="Credit card" />
+                                <div className="form-element" data-element-name="creditCard">
+                                    <div className="form-element-field">
+                                        <CardElement />
+                                        {this.state.cardError && <ErrorMessage message={this.state.cardError} />}
+                                    </div>
+                                </div>
                                 <div id="subscribe-special-code">
                                     <Field
                                         name="specialCode"
@@ -158,7 +167,7 @@ class Subscribe extends React.Component<Props & WithApolloProps, State> {
         );
     }
 
-    private handleSubmit = (values: any) => {
+    private handleSubmit = async (values: any) => {
         if (!values.shipping) {
             values.shipping = {};
         }
@@ -177,14 +186,62 @@ class Subscribe extends React.Component<Props & WithApolloProps, State> {
             return errors;
         }
 
-        const { apolloClient, accountForm } = this.props;
+        const { apolloClient, accountForm, stripe } = this.props;
 
-        const variable = {
+        const data: { [key: string]: any } = {
             email: accountForm.email,
             firstName: accountForm.firstName,
             lastName: accountForm.lastName,
             password: accountForm.password,
+            special: values.special,
+            shippingAddress: {
+                ...values.shipping,
+                country: values.shipping.country.value,
+            },
         };
+
+        // Create token with the billing address
+        try {
+            const address = values.shippingAsBilling ? values.shipping : values.billing;
+            const response = await stripe.createToken({
+                name: `${accountForm.firstName} ${accountForm.lastName}`,
+                address_line1: address.line1,
+                address_line2: address.line2,
+                address_city: address.city,
+                address_state: address.state,
+                address_zip: address.postalCode,
+                address_country: address.country.value,
+            });
+            const { token, error } = response;
+            if (error) {
+                this.setState({ cardError: error.message });
+                return;
+            }
+
+            // Once done we can save the token in the data
+            data.stripeToken = token.id;
+        } catch (error) {
+            this.setState({ cardError: error.message });
+            return;
+        }
+
+        try {
+            await apolloClient.mutate({
+                mutation: JOIN_CLUB,
+                variables: { data },
+                update: (cache, result) => {
+                    this.props.userSignin(data.email, data.password, true);
+                },
+            });
+        } catch (error) {
+            if (error.graphQLErrors) {
+                if (!(error.graphQLErrors instanceof Array)) {
+                    return { [FORM_ERROR]: error.graphQLErrors };
+                }
+                return error.graphQLErrors[0].state;
+            }
+            return { [FORM_ERROR]: 'We could not register your account or payment, try later' };
+        }
     };
 
     private onFormChange = (state) => {
@@ -243,7 +300,7 @@ class Subscribe extends React.Component<Props & WithApolloProps, State> {
                 const { checkSpecial } = response.data as any;
                 this.setState({ isSpecialCodeValid: checkSpecial });
             } catch (error) {
-                console.log(error);
+                //
             }
         } else {
             this.setState({ isSpecialCodeValid: false });
@@ -348,5 +405,6 @@ export default connect(
     {
         updateFormState,
         savePricingCurrency,
+        userSignin,
     },
-)(withApollo(Subscribe));
+)(withApollo(injectStripe(Subscribe)));
