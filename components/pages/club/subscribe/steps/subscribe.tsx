@@ -1,9 +1,12 @@
 import classNames from 'classnames';
+import gql from 'graphql-tag';
 import React from 'react';
 import { Field as ReactField, Form, FormSpy } from 'react-final-form';
 import { connect } from 'react-redux';
 
 import Types from 'Types';
+
+import withApollo, { WithApolloProps } from 'hocs/withApollo';
 
 import { checkPath } from 'lib/checkPath';
 import { updateFormState } from 'store/form/actions';
@@ -11,17 +14,18 @@ import { savePricingCurrency } from 'store/payment/actions';
 
 import Link from 'components/Link';
 import Address from 'components/Ui/Form/Address';
+import ErrorMessage from 'components/Ui/Form/ErrorMessage';
 import Field from 'components/Ui/Form/Field';
 import Emoji from 'components/Ui/Icons/Emoji';
 import IconValid from 'components/Ui/Icons/Valid';
 import { FORM_ERROR } from 'final-form';
-import ErrorMessage from 'components/Ui/Form/ErrorMessage';
 
 type Props = {
     quarterFull: boolean;
     onNextClick: () => void;
     updateFormState: (form, state) => void;
     subscribeForm?: { [key: string]: any };
+    accountForm?: { [key: string]: any };
     savePricingCurrency: (price: number, currency: string) => void;
     payment: {
         price: number;
@@ -34,7 +38,7 @@ type State = {
     isSpecialCodeValid: boolean;
 };
 
-class Subscribe extends React.Component<Props, State> {
+class Subscribe extends React.Component<Props & WithApolloProps, State> {
     public state: State = {
         addressView: 'shipping',
         isSpecialCodeValid: false,
@@ -73,7 +77,11 @@ class Subscribe extends React.Component<Props, State> {
                                 </div>
                                 <Field name="creditCard" placeholder="Credit card" />
                                 <div id="subscribe-special-code">
-                                    <Field name="specialCode" placeholder="Special code - optional" />
+                                    <Field
+                                        name="specialCode"
+                                        placeholder="Special code - optional"
+                                        validate={this.checkSpecial}
+                                    />
                                     {isSpecialCodeValid && <IconValid />}
                                 </div>
                                 <div className="form-element">
@@ -168,6 +176,15 @@ class Subscribe extends React.Component<Props, State> {
         if (Object.keys(errors).length > 0) {
             return errors;
         }
+
+        const { apolloClient, accountForm } = this.props;
+
+        const variable = {
+            email: accountForm.email,
+            firstName: accountForm.firstName,
+            lastName: accountForm.lastName,
+            password: accountForm.password,
+        };
     };
 
     private onFormChange = (state) => {
@@ -213,6 +230,25 @@ class Subscribe extends React.Component<Props, State> {
         }
         return res;
     }
+
+    private checkSpecial = async (value) => {
+        if (value) {
+            try {
+                const response = await this.props.apolloClient.query({
+                    query: CHECK_SPECIAL,
+                    variables: {
+                        code: value,
+                    },
+                });
+                const { checkSpecial } = response.data as any;
+                this.setState({ isSpecialCodeValid: checkSpecial });
+            } catch (error) {
+                console.log(error);
+            }
+        } else {
+            this.setState({ isSpecialCodeValid: false });
+        }
+    };
 }
 
 const validateForm = (values: any) => {
@@ -288,9 +324,23 @@ const validateForm = (values: any) => {
     return errors;
 };
 
+const CHECK_SPECIAL = gql`
+    query checkSpecial($code: String!) {
+        checkSpecial(code: $code)
+    }
+`;
+
+const JOIN_CLUB = gql`
+    mutation joinClub($data: JoinClubInput) {
+        joinClub(data: $data) {
+            id
+        }
+    }
+`;
+
 const mapStateToProps = ({ form, payment }: Types.RootState) => {
-    const { subscribe } = form;
-    return { subscribeForm: subscribe, payment };
+    const { subscribe, account } = form;
+    return { subscribeForm: subscribe, accountForm: account, payment };
 };
 
 export default connect(
@@ -299,4 +349,4 @@ export default connect(
         updateFormState,
         savePricingCurrency,
     },
-)(Subscribe);
+)(withApollo(Subscribe));

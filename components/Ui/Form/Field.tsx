@@ -1,4 +1,5 @@
 import classnames from 'classnames';
+import { FieldState } from 'final-form';
 import React from 'react';
 import { Field } from 'react-final-form';
 
@@ -12,6 +13,7 @@ type Props = {
     showValid?: boolean;
     placeholder?: string;
     type?: string;
+    validate?: (value: any, allValues: object) => any;
 } & Partial<DefaultProps>;
 
 type DefaultProps = Readonly<typeof defaultProps>;
@@ -31,7 +33,7 @@ const FieldContainer = (rawProps: Props) => {
                     <label htmlFor={props.name}>{props.label}</label>
                 </div>
             )}
-            <Field name={props.name}>
+            <Field name={props.name} validate={props.validate}>
                 {({ input, meta }) => {
                     let showError = (meta.error || meta.submitError) && meta.touched;
                     if (meta.dirtySinceLastSubmit) {
