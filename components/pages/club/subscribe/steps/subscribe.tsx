@@ -158,7 +158,7 @@ class Subscribe extends React.Component<Props & WithApolloProps & ReactStripeEle
                                 className="button-primary modal-two-col-form-submit"
                                 disabled={submitting}
                             >
-                                Pay 99€
+                                Pay {this.getPricingText(String(this.props.payment.price / 100))}
                             </button>
                         </div>
                     </form>
