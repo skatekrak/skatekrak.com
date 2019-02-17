@@ -1,5 +1,7 @@
 import React from 'react';
 
+import countries from 'lib/countries';
+
 type Props = {
     address: any;
 };
@@ -16,7 +18,7 @@ const BillingAddress = ({ address }: Props) => (
         </p>
         <p className="profile-address-preview-line">
             {address.state && `${address.state}, `}
-            {address.country}
+            {countries[address.country.toUpperCase()]}
         </p>
     </div>
 );
