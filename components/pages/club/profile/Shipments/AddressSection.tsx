@@ -1,9 +1,9 @@
 import React from 'react';
 
 import AddressNav from 'components/pages/club/profile/Ui/AddressNav';
-import AddressPreview from 'components/pages/club/profile/Ui/addressPreview';
 import ProfileSection from 'components/pages/club/profile/Ui/section';
 import ProfileSectionHeader from 'components/pages/club/profile/Ui/sectionHeader';
+import ShippingAddress from 'components/pages/club/profile/Ui/ShippingAddress';
 
 type Props = {
     address: any;
@@ -36,7 +36,7 @@ const AddressSection = ({ address, onEdit, onDelete, setAsDefault }: Props) => {
                 />
             </ProfileSectionHeader>
             <div className="profile-section-line">
-                <AddressPreview address={address} />
+                <ShippingAddress address={address} />
             </div>
         </ProfileSection>
     );

@@ -4,7 +4,7 @@ import { Elements, StripeProvider } from 'react-stripe-elements';
 
 import Layout from 'components/Layout/Layout';
 import LayoutProfile from 'components/pages/club/profile/LayoutProfile';
-import AddressPreview from 'components/pages/club/profile/Ui/addressPreview';
+import BillingAddress from 'components/pages/club/profile/Ui/BillingAddress';
 import ProfileItem from 'components/pages/club/profile/Ui/item';
 import ProfileEditBillingAddressModal from 'components/pages/club/profile/Ui/modals/ProfileEditBillingAddressModal';
 import ProfileEditCreditCardModal from 'components/pages/club/profile/Ui/modals/ProfileEditCreditCardModal';
@@ -91,7 +91,7 @@ class ProfilePayment extends React.Component<{}, State> {
                                                     onEditClick={this.onOpenModal}
                                                 />
                                                 <div className="profile-section-line">
-                                                    <AddressPreview address={data.me.paymentCard.billingAddress} />
+                                                    <BillingAddress address={data.me.paymentCard.billingAddress} />
                                                 </div>
                                             </ProfileSection>
                                             <ProfileSection>
