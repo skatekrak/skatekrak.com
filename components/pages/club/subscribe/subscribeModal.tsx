@@ -1,3 +1,4 @@
+import Router from 'next/router';
 import React from 'react';
 import { connect } from 'react-redux';
 
@@ -31,7 +32,7 @@ class SubscribeModal extends React.Component<Props, State> {
                 <Modal open={open} onClose={this.onClose}>
                     {step === 'account' && <CreateAccount quarterFull={false} onNextClick={this.onNextStep} />}
                     {step === 'subscribe' && <Subscribe quarterFull={false} onNextClick={this.onNextStep} />}
-                    {step === 'congrats' && <Congrats quarterFull={false} onNextClick={this.onNextStep} />}
+                    {step === 'congrats' && <Congrats quarterFull={false} />}
                 </Modal>
             </>
         );
@@ -50,9 +51,6 @@ class SubscribeModal extends React.Component<Props, State> {
         }
         if (step === 'subscribe') {
             this.setState({ step: 'congrats' });
-        }
-        if (step === 'congrats') {
-            // Run onboarding
         }
     };
 }

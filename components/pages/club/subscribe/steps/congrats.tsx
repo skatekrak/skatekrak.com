@@ -4,10 +4,9 @@ import Emoji from 'components/Ui/Icons/Emoji';
 
 type Props = {
     quarterFull: boolean;
-    onNextClick: () => void;
 };
 
-const Congrats: React.SFC<Props> = ({ onNextClick, quarterFull }) => (
+const Congrats = ({ quarterFull }: Props) => (
     <div className="subscribe modal-two-col-container modal-two-col-form">
         <div className="modal-two-col-first-container modal-two-col-item-container">
             <div id="subscribe-congrats-first-container">
@@ -39,9 +38,7 @@ const Congrats: React.SFC<Props> = ({ onNextClick, quarterFull }) => (
                     have any question. Peace <Emoji symbol="✌" label="peace" />
                 </p>
             </div>
-            <button onClick={onNextClick} className="button-primary modal-two-col-form-submit">
-                Join the Ride
-            </button>
+            <button className="button-primary modal-two-col-form-submit">Join the Ride</button>
         </div>
     </div>
 );
