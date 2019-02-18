@@ -16,15 +16,17 @@ type Props = {
     sourcesMenuIsOpen: boolean;
     handleOpenSourcesMenu: () => void;
     sources: Map<Source, FilterState>;
-    dispatch: (fct: any) => void;
+
+    setAllSources: (sources: Source[]) => void;
+    selectAllFilters: () => void;
+    unselectAllFilters: () => void;
 };
 
 class Sources extends React.PureComponent<Props> {
     public async componentDidMount() {
         try {
-            const res = await axios.get(`${process.env.RSS_BACKEND_URL}/sources`);
-            const sources: Source[] = res.data;
-            this.props.dispatch(setAllSources(sources));
+            const res = await axios.get<Source[]>(`${process.env.RSS_BACKEND_URL}/sources`);
+            this.props.setAllSources(res.data);
         } catch (err) {
             //
         }
@@ -91,14 +93,14 @@ class Sources extends React.PureComponent<Props> {
         if (this.props.sources.size > 0) {
             Analytics.default().trackEvent('Click', 'Filter_Select_All', { value: 1 });
         }
-        this.props.dispatch(selectAllFilters());
+        this.props.selectAllFilters();
     };
 
     private onDeselectAllClick = () => {
         if (this.props.sources.size > 0) {
             Analytics.default().trackEvent('Click', 'Filter_Unselect_All', { value: 1 });
         }
-        this.props.dispatch(unselectAllFilters());
+        this.props.unselectAllFilters();
     };
 }
 
@@ -106,4 +108,11 @@ const mapStateToProps = ({ news }: Types.RootState) => {
     return { sources: news.sources };
 };
 
-export default connect(mapStateToProps)(Sources);
+export default connect(
+    mapStateToProps,
+    {
+        setAllSources,
+        selectAllFilters,
+        unselectAllFilters,
+    },
+)(Sources);
