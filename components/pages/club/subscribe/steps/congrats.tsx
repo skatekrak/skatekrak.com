@@ -1,5 +1,6 @@
 import React from 'react';
 
+import Link from 'components/Link';
 import Emoji from 'components/Ui/Icons/Emoji';
 
 type Props = {
@@ -38,7 +39,9 @@ const Congrats = ({ quarterFull }: Props) => (
                     have any question. Peace <Emoji symbol="✌" label="peace" />
                 </p>
             </div>
-            <button className="button-primary modal-two-col-form-submit">Join the Ride</button>
+            <Link href="/club/profile">
+                <a className="button-primary modal-two-col-form-submit">Join the Ride</a>
+            </Link>
         </div>
     </div>
 );
