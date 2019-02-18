@@ -34,6 +34,12 @@ class MyApp extends App {
         }
     }
 
+    componentDidUpdate(prevProps) {
+        if (prevProps.isAuthenticated && !this.props.isAuthenticated) {
+            this.props.apolloClient.resetStore();
+        }
+    }
+
     render() {
         const { Component, pageProps, reduxStore, apolloClient, authUser } = this.props;
 
