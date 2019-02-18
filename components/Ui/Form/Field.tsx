@@ -11,7 +11,6 @@ type Props = {
     label?: string;
     showValid?: boolean;
     placeholder?: string;
-    type?: string;
     validate?: (value: any, allValues: object) => any;
 } & Partial<DefaultProps>;
 
@@ -19,6 +18,7 @@ type DefaultProps = Readonly<typeof defaultProps>;
 
 const defaultProps = {
     disabled: false,
+    type: 'text',
 };
 
 const getProps = createPropsGetter(defaultProps);
