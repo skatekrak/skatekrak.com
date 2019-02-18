@@ -1,5 +1,5 @@
 import validator from 'email-validator';
-import { FORM_ERROR } from 'final-form';
+import { FORM_ERROR, FormApi } from 'final-form';
 import gql from 'graphql-tag';
 import React from 'react';
 import { ChildProps, graphql } from 'react-apollo';
@@ -34,7 +34,7 @@ class ProfileEditInfoModal extends React.Component<Props & ChildProps> {
                             <Field name="email" label="Email" />
                             <div className="form-double-field-line">
                                 <Field name="phone" label="Phone number" />
-                                <DatePicker name="birthday" label="Birthday" />
+                                <DatePicker name="birthday" label="Birthday" isClearable />
                             </div>
                             <button className="button-primary profile-modal-form-submit" disabled={submitting}>
                                 Save
@@ -46,19 +46,28 @@ class ProfileEditInfoModal extends React.Component<Props & ChildProps> {
         );
     }
 
-    private handleSubmit = async (values: any) => {
+    private handleSubmit = async (values: any, formApi: FormApi) => {
         const { mutate } = this.props;
         if (mutate) {
+            const fields = formApi.getRegisteredFields();
+
+            const dirtyValues: any = {};
+            for (const key of fields) {
+                if (formApi.getFieldState(key).dirty) {
+                    dirtyValues[key] = values[key] || null;
+                }
+            }
+
             try {
                 await mutate({
                     variables: {
                         id: this.props.profile.id,
                         data: {
-                            email: this.props.profile.email !== values.email ? values.email : undefined,
-                            firstName: values.firstName,
-                            lastName: values.lastName,
-                            phone: values.phone,
-                            birthday: values.birthday || undefined,
+                            email: this.props.profile.email !== dirtyValues.email ? dirtyValues.email : undefined,
+                            firstName: dirtyValues.firstName,
+                            lastName: dirtyValues.lastName,
+                            phone: dirtyValues.phone,
+                            birthday: dirtyValues.birthday,
                         },
                     },
                     update: (cache, result) => {

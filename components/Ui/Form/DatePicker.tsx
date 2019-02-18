@@ -33,6 +33,7 @@ const DatePickerForm = (props: any) => (
                             showYearDropdown={true}
                             dropdownMode="select"
                             className="form-element-field-input form-control"
+                            isClearable={props.isClearable}
                         />
                         {showError && <ErrorMessage message={meta.error || meta.submitError} />}
                     </div>
