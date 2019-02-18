@@ -52,7 +52,7 @@ class Login extends React.Component<Props> {
                             >
                                 {({ handleSubmit, submitting, valid }) => (
                                     <form onSubmit={handleSubmit} className="auth-form">
-                                        <Field name="email" placeholder="Email" />
+                                        <Field name="email" placeholder="Email" type="email" />
                                         <Field name="password" placeholder="Password" type="password" />
                                         <div className="form-element">
                                             <label htmlFor="rememberMe" className="checkbox-container">
