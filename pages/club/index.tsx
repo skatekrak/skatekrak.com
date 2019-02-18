@@ -83,7 +83,7 @@ class Club extends React.Component<Props, State> {
                                     <div className="club-cta-container">
                                         <p className="club-cta-limited">- Limited quantities available -</p>
                                         {this.props.authUser ? (
-                                            <Link href="">
+                                            <Link href="/club/profile">
                                                 <a className="club-cta button-primary">Go to my profile</a>
                                             </Link>
                                         ) : (
@@ -256,7 +256,7 @@ class Club extends React.Component<Props, State> {
                                     <div className="club-cta-container">
                                         <p className="club-cta-limited">- Limited quantities available -</p>
                                         {this.props.authUser ? (
-                                            <Link href="">
+                                            <Link href="/club/profile">
                                                 <a className="club-cta button-primary">Go to my profile</a>
                                             </Link>
                                         ) : (
