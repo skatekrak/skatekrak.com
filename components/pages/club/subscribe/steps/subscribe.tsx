@@ -91,7 +91,7 @@ class Subscribe extends React.Component<Props & WithApolloProps & ReactStripeEle
                                 </div>
                                 <div id="subscribe-special-code">
                                     <Field
-                                        name="specialCode"
+                                        name="special"
                                         placeholder="Special code - optional"
                                         validate={this.checkSpecial}
                                     />
