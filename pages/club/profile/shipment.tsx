@@ -67,7 +67,7 @@ class ProfileShipment extends React.Component<WithApolloProps, State> {
                                                 </button>
                                             </div>
                                         </ProfileSection>
-                                        {data.me.addresses.map((address) => (
+                                        {data.me.addresses.map(address => (
                                             <AddressSection
                                                 key={address.id}
                                                 address={address}
@@ -128,7 +128,7 @@ class ProfileShipment extends React.Component<WithApolloProps, State> {
                 const data = result.data as any;
 
                 if (query && data) {
-                    query.me.addresses = query.me.addresses.filter((address) => address.id !== data.deleteAddress.id);
+                    query.me.addresses = query.me.addresses.filter(address => address.id !== data.deleteAddress.id);
 
                     cache.writeQuery({
                         query: GET_ME,
@@ -152,7 +152,7 @@ class ProfileShipment extends React.Component<WithApolloProps, State> {
                 const data = result.data as any;
 
                 if (query && data) {
-                    query.me.addresses = query.me.addresses.map((address) => {
+                    query.me.addresses = query.me.addresses.map(address => {
                         if (address.id === data.setDefaultAddress.id) {
                             return {
                                 ...address,

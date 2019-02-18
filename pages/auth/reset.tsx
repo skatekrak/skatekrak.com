@@ -1,11 +1,15 @@
+import { FORM_ERROR } from 'final-form';
 import Head from 'next/head';
-import { withRouter, WithRouterProps } from 'next/router';
+import Router, { withRouter, WithRouterProps } from 'next/router';
 import React from 'react';
 import { Form } from 'react-final-form';
 
 import Layout from 'components/Layout/Layout';
 import TrackedPage from 'components/pages/TrackedPage';
+import ErrorMessage from 'components/Ui/Form/ErrorMessage';
 import Field from 'components/Ui/Form/Field';
+
+import { cairote } from 'lib/cairote';
 
 const ResetHead = () => (
     <Head>
@@ -29,8 +33,9 @@ class ResetPassword extends React.Component<WithRouterProps<QueryProps>> {
                             <h1 className="auth-form-title">Reset password</h1>
                             <p className="auth-form-desc">Enter a new password</p>
                             <Form onSubmit={this.handleSubmit} validate={validate}>
-                                {({ handleSubmit, submitting }) => (
+                                {({ handleSubmit, submitting, submitError }) => (
                                     <form className="auth-form" onSubmit={handleSubmit}>
+                                        <ErrorMessage message={submitError} />
                                         <Field name="password" placeholder="New password" type="password" />
                                         <button
                                             className="auth-form-submit button-primary"
@@ -50,9 +55,20 @@ class ResetPassword extends React.Component<WithRouterProps<QueryProps>> {
         );
     }
 
-    private handleSubmit = (_values: any) => {
-        // TODO: POST to reset password
-        // this.props.router.query.token
+    private handleSubmit = async (_values: any) => {
+        const token = this.props.router.query.token;
+        const password = _values.password;
+        if (token && password) {
+            try {
+                await cairote.post('/reset', {
+                    password,
+                    resetToken: token,
+                });
+                Router.push('/auth/login');
+            } catch (error) {
+                return { [FORM_ERROR]: 'Could not reset the password' };
+            }
+        }
     };
 }
 
