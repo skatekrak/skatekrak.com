@@ -17,12 +17,17 @@ import { State as SettingState } from 'store/settings/reducers';
 /*
  * Code
  */
-type Props = {
+type OwnProps = {
     elementId: string;
+};
+
+type StateProps = {
     settings: SettingState;
 };
 
-class ScrollTop extends React.PureComponent<Props, {}> {
+type Props = OwnProps & StateProps;
+
+class ScrollTop extends React.PureComponent<Props> {
     public componentDidMount() {
         const scrollContainer = ScrollHelper.getScrollContainer();
         scrollContainer.addEventListener('scroll', this.handleScroll);
@@ -81,4 +86,8 @@ class ScrollTop extends React.PureComponent<Props, {}> {
     };
 }
 
-export default connect((state: Types.RootState) => ({ setting: state.settings }))(ScrollTop);
+const mapStateToProps = ({ settings }: Types.RootState): StateProps => {
+    return { settings };
+};
+
+export default connect<StateProps, {}, OwnProps>(mapStateToProps)(ScrollTop);
