@@ -25,7 +25,7 @@ class ProfileEditBillingAddressModal extends React.Component<Props & ChildProps>
         const formattedInitialValues: { [key: string]: any } = {
             ...this.props.address,
             country: {
-                label: countries[this.props.address.country.toUpperCase()],
+                label: this.props.address.country ? countries[this.props.address.country.toUpperCase()] : '',
                 value: this.props.address.country,
             },
         };
