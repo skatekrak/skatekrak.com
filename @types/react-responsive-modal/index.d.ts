@@ -1,7 +1,9 @@
-// TypeScript Version: 2.6
-
 declare module 'react-responsive-modal' {
-    export interface ReactResponseiveModalProps {
+    // TypeScript Version: 2.6
+
+    import * as React from 'react';
+
+    export interface Props {
         /**
          * Is the modal closable when user press esc key.
          */
@@ -94,4 +96,8 @@ declare module 'react-responsive-modal' {
          */
         closeIconId?: string;
     }
+
+    declare const ReactReponsiveModal: React.ComponentType<Props>;
+
+    export default ReactReponsiveModal;
 }

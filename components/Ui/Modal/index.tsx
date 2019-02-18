@@ -1,5 +1,5 @@
 import React from 'react';
-import Modal, { ReactResponseiveModalProps } from 'react-responsive-modal';
+import Modal, { Props as ReactResponseiveModalProps } from 'react-responsive-modal';
 
 import IconCross from 'components/Ui/Icons/Cross';
 
