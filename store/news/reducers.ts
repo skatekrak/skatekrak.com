@@ -29,7 +29,7 @@ export type State = {
 
 const initialState: State = {
     feedNeedRefresh: false,
-    sources: new Map(),
+    sources: new Map<Source, FilterState>(),
 };
 
 export default (state: State = initialState, action: NewsAction): State => {

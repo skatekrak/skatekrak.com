@@ -26,8 +26,8 @@ class BannerTop extends React.Component<Props, {}> {
         scrollContainer.addEventListener('scroll', this.handleScroll);
     }
 
-    public componentDidUpdate(prevProps) {
-        if (prevProps.setting.isMobile !== this.props.settings.isMobile) {
+    public componentDidUpdate(prevProps: Props) {
+        if (prevProps.settings.isMobile !== this.props.settings.isMobile) {
             const scrollContainer = ScrollHelper.getScrollContainer();
             scrollContainer.addEventListener('scroll', this.handleScroll);
         }

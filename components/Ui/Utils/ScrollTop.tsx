@@ -34,7 +34,7 @@ class ScrollTop extends React.PureComponent<Props> {
     }
 
     public componentDidUpdate(prevProps) {
-        if (prevProps.setting.isMobile !== this.props.settings.isMobile) {
+        if (prevProps.settings.isMobile !== this.props.settings.isMobile) {
             const scrollContainer = ScrollHelper.getScrollContainer();
             scrollContainer.addEventListener('scroll', this.handleScroll);
         }
