@@ -1,5 +1,5 @@
 import React from 'react';
-import Modal from 'react-responsive-modal';
+import Modal, { ReactResponseiveModalProps } from 'react-responsive-modal';
 
 import IconCross from 'components/Ui/Icons/Cross';
 
@@ -23,7 +23,7 @@ type Props = {
     open: boolean;
     onClose: () => void;
     closable?: boolean;
-} & Partial<JSX.LibraryManagedAttributes<typeof Modal, Modal['props']>>;
+} & Partial<ReactResponseiveModalProps>;
 
 const ModalWithStyle: React.SFC<Props> = ({ open, onClose, children, closable, ...props }) => (
     <Modal
