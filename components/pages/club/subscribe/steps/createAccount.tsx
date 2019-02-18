@@ -80,7 +80,7 @@ class CreateAccount extends React.Component<Props> {
                                     <Field name="firstName" placeholder="First name" />
                                     <Field name="lastName" placeholder="Last name" />
                                 </div>
-                                <Field name="email" placeholder="Email" />
+                                <Field name="email" placeholder="Email" type="email" />
                                 <Field name="password" placeholder="Password" type="password" />
                             </div>
                             <ErrorMessage message={submitError} />
