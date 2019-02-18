@@ -45,7 +45,7 @@ class OnboardingModal extends React.Component<Props, State> {
     private onNextStep = () => {
         const { step } = this.state;
         if (step === 'preference') {
-            this.setState({ step: 'preference' });
+            this.onClose();
         }
     };
 }

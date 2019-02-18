@@ -1,6 +1,7 @@
+import { FORM_ERROR } from 'final-form';
 import gql from 'graphql-tag';
 import React from 'react';
-import { ChildProps, Query } from 'react-apollo';
+import { ChildProps, graphql, Query } from 'react-apollo';
 import { Form } from 'react-final-form';
 
 import Loading from 'components/pages/news/Articles/Loading';
@@ -9,12 +10,12 @@ import Field from 'components/Ui/Form/Field';
 import Select from 'components/Ui/Form/Select';
 import Emoji from 'components/Ui/Icons/Emoji';
 
+import { GET_ME } from 'pages/club/profile';
+
 type Props = {
     onNextClick: () => void;
     profile: any;
 };
-
-type State = {};
 
 const PreferenceSettingField = ({ preferenceSetting }: { preferenceSetting: any }) => {
     if (preferenceSetting.type === 'OPEN') {
@@ -24,7 +25,7 @@ const PreferenceSettingField = ({ preferenceSetting }: { preferenceSetting: any 
             <Select
                 name={preferenceSetting.id}
                 label={preferenceSetting.name}
-                options={preferenceSetting.options.map(option => ({
+                options={preferenceSetting.options.map((option) => ({
                     value: option.id,
                     label: option.title,
                 }))}
@@ -35,7 +36,7 @@ const PreferenceSettingField = ({ preferenceSetting }: { preferenceSetting: any 
             <Select
                 name={preferenceSetting.id}
                 label={preferenceSetting.name}
-                options={preferenceSetting.options.map(option => ({
+                options={preferenceSetting.options.map((option) => ({
                     value: option.id,
                     label: option.title,
                 }))}
@@ -47,9 +48,7 @@ const PreferenceSettingField = ({ preferenceSetting }: { preferenceSetting: any 
     }
 };
 
-class Preference extends React.Component<Props & ChildProps, State> {
-    public state: State = {};
-
+class Preferences extends React.Component<Props & ChildProps> {
     public render() {
         const { profile, onNextClick } = this.props;
         return (
@@ -87,7 +86,7 @@ class Preference extends React.Component<Props & ChildProps, State> {
                                             </p>
                                             {submitError && <ErrorMessage message={submitError} />}
                                             {preferencesSettingFirstPart &&
-                                                preferencesSettingFirstPart.map(preferenceSetting => (
+                                                preferencesSettingFirstPart.map((preferenceSetting) => (
                                                     <PreferenceSettingField
                                                         key={preferenceSetting.id}
                                                         preferenceSetting={preferenceSetting}
@@ -98,7 +97,7 @@ class Preference extends React.Component<Props & ChildProps, State> {
                                     <div className="modal-two-col-second-container modal-two-col-item-container">
                                         <div className="modal-two-col-content">
                                             {preferencesSettingSecondPart &&
-                                                preferencesSettingSecondPart.map(preferenceSetting => (
+                                                preferencesSettingSecondPart.map((preferenceSetting) => (
                                                     <PreferenceSettingField
                                                         key={preferenceSetting.id}
                                                         preferenceSetting={preferenceSetting}
@@ -122,8 +121,92 @@ class Preference extends React.Component<Props & ChildProps, State> {
         );
     }
 
-    private handleSubmit = (evt: any) => {
-        evt.preventDefault();
+    private handleSubmit = async (values: any) => {
+        const { mutate } = this.props;
+        if (mutate) {
+            const formattedPreferences: {
+                settingId: string;
+                options?: string[];
+                content?: string;
+            }[] = [];
+
+            for (const key of Object.keys(values)) {
+                if (!values[key]) {
+                    formattedPreferences.push({
+                        settingId: key,
+                        options: [],
+                        content: '',
+                    });
+                } else if (values[key] instanceof Array) {
+                    // This case is for MULTIPLE
+                    formattedPreferences.push({
+                        settingId: key,
+                        options: values[key].map((value) => value.value),
+                    });
+                } else if (typeof values[key] === 'string') {
+                    // OPEN
+                    formattedPreferences.push({
+                        settingId: key,
+                        content: values[key],
+                    });
+                } else if (values[key].value) {
+                    // ENUM
+                    formattedPreferences.push({
+                        settingId: key,
+                        options: [values[key].value],
+                    });
+                }
+            }
+
+            try {
+                await mutate({
+                    variables: {
+                        memberId: this.props.profile.id,
+                        preferences: formattedPreferences,
+                    },
+                    update: (cache, result) => {
+                        const query = cache.readQuery<any>({
+                            query: GET_ME,
+                        });
+                        const data = result.data as any;
+
+                        if (query && data) {
+                            /* To update the cache we check if we have a new preference for
+                            existing preference, then replace or add them
+                            */
+                            query.me.onboarding = true;
+                            for (const preference of data.addOrUpdatePreferences) {
+                                const existingIndex = query.me.preferences.findIndex(
+                                    (pref) => pref.id === preference.id,
+                                );
+                                if (existingIndex >= 0) {
+                                    query.me.preferences[existingIndex] = preference;
+                                } else {
+                                    query.me.preferences.push(preference);
+                                }
+                            }
+
+                            cache.writeQuery({
+                                query: GET_ME,
+                                data: {
+                                    me: query.me,
+                                },
+                            });
+                        }
+                    },
+                });
+
+                this.props.onNextClick();
+            } catch (error) {
+                if (error.graphQLErrors) {
+                    if (!(error.graphQLErrors instanceof Array)) {
+                        return { [FORM_ERROR]: error.graphQLErrors };
+                    }
+                    return error.graphQLErrors[0].state;
+                }
+                return { [FORM_ERROR]: 'We could not update your preferences' };
+            }
+        }
     };
 }
 
@@ -141,4 +224,22 @@ const GET_PREFERENCES_SETTING = gql`
     }
 `;
 
-export default Preference;
+const ADD_UPDATE_PREFERENCES = gql`
+    mutation addOrUpdatePreferences($memberId: ID!, $preferences: [AddOrUpdatePreferenceInput!]!) {
+        addOrUpdatePreferences(memberId: $memberId, preferences: $preferences) {
+            id
+            preferenceSetting {
+                id
+                name
+                type
+            }
+            options {
+                id
+                title
+            }
+            content
+        }
+    }
+`;
+
+export default graphql<Props>(ADD_UPDATE_PREFERENCES)(Preferences);
