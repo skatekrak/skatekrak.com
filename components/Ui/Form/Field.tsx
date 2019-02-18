@@ -45,7 +45,7 @@ const FieldContainer = (rawProps: Props) => {
                                 'form-element-field--success': props.showValid,
                             })}
                         >
-                            <input {...input} {...props} />
+                            <input className="form-element-field-input" {...input} {...props} />
                             {showError && <ErrorMessage message={meta.error || meta.submitError} />}
                         </div>
                     );
