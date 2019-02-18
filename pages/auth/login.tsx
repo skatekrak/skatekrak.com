@@ -10,6 +10,7 @@ import Types from 'Types';
 import Layout from 'components/Layout/Layout';
 import Link from 'components/Link';
 import TrackedPage from 'components/pages/TrackedPage';
+import ButtonPrimary from 'components/Ui/Button/buttonPrimary';
 import Field from 'components/Ui/Form/Field';
 
 import withoutAuth from 'hocs/withoutAuth';
@@ -67,13 +68,14 @@ class Login extends React.Component<Props> {
                                                 <span className="checkmark" />
                                             </label>
                                         </div>
-                                        <button
-                                            className="auth-form-submit button-primary"
+                                        <ButtonPrimary
+                                            content="Log in"
+                                            loadingContent="Connect"
+                                            loading={true}
+                                            className="auth-form-submit"
                                             type="submit"
                                             disabled={submitting || !valid}
-                                        >
-                                            Log in
-                                        </button>
+                                        />
                                     </form>
                                 )}
                             </Form>
