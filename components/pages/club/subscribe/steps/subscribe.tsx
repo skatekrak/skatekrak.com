@@ -117,7 +117,7 @@ class Subscribe extends React.Component<Props & WithApolloProps & ReactStripeEle
                                     </label>
                                 </div>
                             </div>
-                            <div className="subscribe-legal">
+                            <div className="subscribe-legal" style={{ display: 'none' }}>
                                 <Link href="/terms-and-conditions">
                                     <a className="subscribe-legal-link">Terms and conditions</a>
                                 </Link>
