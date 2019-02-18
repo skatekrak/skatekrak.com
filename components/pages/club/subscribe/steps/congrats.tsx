@@ -1,13 +1,13 @@
 import React from 'react';
 
-import Link from 'components/Link';
 import Emoji from 'components/Ui/Icons/Emoji';
 
 type Props = {
     quarterFull: boolean;
+    onNextClick: () => void;
 };
 
-const Congrats = ({ quarterFull }: Props) => (
+const Congrats = ({ quarterFull, onNextClick }: Props) => (
     <div className="subscribe modal-two-col-container modal-two-col-form">
         <div className="modal-two-col-first-container modal-two-col-item-container">
             <div id="subscribe-congrats-first-container">
@@ -39,9 +39,9 @@ const Congrats = ({ quarterFull }: Props) => (
                     have any question. Peace <Emoji symbol="✌" label="peace" />
                 </p>
             </div>
-            <Link href="/club/profile">
-                <a className="button-primary modal-two-col-form-submit">Join the Ride</a>
-            </Link>
+            <button className="button-primary modal-two-col-form-submit" onClick={onNextClick}>
+                Join the ride
+            </button>
         </div>
     </div>
 );
