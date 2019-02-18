@@ -32,7 +32,7 @@ const DatePickerForm = (props: any) => (
                             showMonthDropdown={true}
                             showYearDropdown={true}
                             dropdownMode="select"
-                            className="form-control"
+                            className="form-element-field-input form-control"
                         />
                         {showError && <ErrorMessage message={meta.error || meta.submitError} />}
                     </div>
