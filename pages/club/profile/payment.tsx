@@ -51,12 +51,14 @@ class ProfilePayment extends React.Component<{}, State> {
                                 return (
                                     <StripeProvider stripe={this.state.stripe}>
                                         <LayoutProfile profile={data.me} view="payment">
-                                            <ProfileEditBillingAddressModal
-                                                open={this.state.modalOpenName === 'billingAddressInfo'}
-                                                onClose={this.onCloseModal}
-                                                memberId={data.me.id}
-                                                address={data.me.paymentCard.billingAddress}
-                                            />
+                                            {data.me.paymentCard && (
+                                                <ProfileEditBillingAddressModal
+                                                    open={this.state.modalOpenName === 'billingAddressInfo'}
+                                                    onClose={this.onCloseModal}
+                                                    memberId={data.me.id}
+                                                    address={data.me.paymentCard.billingAddress}
+                                                />
+                                            )}
                                             <Elements>
                                                 <ProfileEditCreditCardModal
                                                     open={this.state.modalOpenName === 'creditCardInfo'}
@@ -64,36 +66,45 @@ class ProfilePayment extends React.Component<{}, State> {
                                                     profile={data.me}
                                                 />
                                             </Elements>
-                                            <ProfileSection>
-                                                <ProfileSectionHeader
-                                                    title="Membership"
-                                                    edit
-                                                    editName="creditCardInfo"
-                                                    editTitle="credit card"
-                                                    onEditClick={this.onOpenModal}
-                                                />
-                                                <div className="profile-section-line">
-                                                    <ProfileItem title="Next renewal" content={'5 march 2019'} />
-                                                </div>
-                                                <div className="profile-section-line">
-                                                    <ProfileItem
-                                                        title="Credit card"
-                                                        content={'**** **** **** ' + data.me.paymentCard.last4}
-                                                    />
-                                                </div>
-                                            </ProfileSection>
-                                            <ProfileSection>
-                                                <ProfileSectionHeader
-                                                    title="Billing address"
-                                                    edit
-                                                    editName="billingAddressInfo"
-                                                    editTitle="billing address"
-                                                    onEditClick={this.onOpenModal}
-                                                />
-                                                <div className="profile-section-line">
-                                                    <BillingAddress address={data.me.paymentCard.billingAddress} />
-                                                </div>
-                                            </ProfileSection>
+                                            {data.me.paymentCard && (
+                                                <>
+                                                    <ProfileSection>
+                                                        <ProfileSectionHeader
+                                                            title="Membership"
+                                                            edit
+                                                            editName="creditCardInfo"
+                                                            editTitle="credit card"
+                                                            onEditClick={this.onOpenModal}
+                                                        />
+                                                        <div className="profile-section-line">
+                                                            <ProfileItem
+                                                                title="Next renewal"
+                                                                content={'5 march 2019'}
+                                                            />
+                                                        </div>
+                                                        <div className="profile-section-line">
+                                                            <ProfileItem
+                                                                title="Credit card"
+                                                                content={'**** **** **** ' + data.me.paymentCard.last4}
+                                                            />
+                                                        </div>
+                                                    </ProfileSection>
+                                                    <ProfileSection>
+                                                        <ProfileSectionHeader
+                                                            title="Billing address"
+                                                            edit
+                                                            editName="billingAddressInfo"
+                                                            editTitle="billing address"
+                                                            onEditClick={this.onOpenModal}
+                                                        />
+                                                        <div className="profile-section-line">
+                                                            <BillingAddress
+                                                                address={data.me.paymentCard.billingAddress}
+                                                            />
+                                                        </div>
+                                                    </ProfileSection>
+                                                </>
+                                            )}
                                             <ProfileSection>
                                                 <ProfileSectionHeader title="History" />
                                                 {data.me.paymentHistory.map((payment) => (
