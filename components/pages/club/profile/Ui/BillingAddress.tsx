@@ -18,7 +18,7 @@ const BillingAddress = ({ address }: Props) => (
         </p>
         <p className="profile-address-preview-line">
             {address.state && `${address.state}, `}
-            {countries[address.country.toUpperCase()]}
+            {address.country && countries[address.country.toUpperCase()]}
         </p>
     </div>
 );
