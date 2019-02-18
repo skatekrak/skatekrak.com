@@ -71,7 +71,7 @@ class Login extends React.Component<Props> {
                                         <ButtonPrimary
                                             content="Log in"
                                             loadingContent="Connect"
-                                            loading={true}
+                                            loading={submitting}
                                             className="auth-form-submit"
                                             type="submit"
                                             disabled={submitting || !valid}
