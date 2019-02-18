@@ -56,7 +56,7 @@ class Subscribe extends React.Component<Props & WithApolloProps & ReactStripeEle
                 onSubmit={this.handleSubmit}
                 initialValues={subscribeForm || { shipping: {}, billing: {}, shippingAsBilling: true }}
             >
-                {({ handleSubmit, submitting, values, submitError }) => (
+                {({ handleSubmit, submitting, values, submitError, submitErrors }) => (
                     <form className="modal-two-col-container subscribe" onSubmit={handleSubmit}>
                         <FormSpy onChange={this.onFormChange} />
                         <div className="modal-two-col-first-container modal-two-col-item-container">
@@ -95,8 +95,12 @@ class Subscribe extends React.Component<Props & WithApolloProps & ReactStripeEle
                                 </div>
                                 <div className="form-element">
                                     <label htmlFor="agreeTC" className="checkbox-container">
-                                        I agree with the terms and conditions
+                                        I understand & accept that my membership will be automatically renewed on April
+                                        5th 2019
                                         <ReactField id="agreeTC" name="agreeTC" type="checkbox" component="input" />
+                                        {submitErrors && submitErrors.agreeTC && (
+                                            <ErrorMessage message={submitErrors.agreeTC} />
+                                        )}
                                         <span className="checkmark" />
                                     </label>
                                 </div>
@@ -312,6 +316,10 @@ class Subscribe extends React.Component<Props & WithApolloProps & ReactStripeEle
 const validateForm = (values: any) => {
     const errors: { [key: string]: any } = {};
     const shippingErrors: { [key: string]: string } = {};
+
+    if (!values.agreeTC) {
+        errors.agreeTC = 'Required';
+    }
 
     if (values.shipping) {
         if (!values.shipping.firstName) {
