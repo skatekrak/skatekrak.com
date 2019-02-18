@@ -35,11 +35,13 @@ class Sources extends React.PureComponent<Props> {
 
         let length = 0;
         const items = [];
-        for (const [source, state] of sources.entries()) {
-            if (state === FilterState.SELECTED) {
-                length += 1;
+        if (sources instanceof Map) {
+            for (const [source, state] of sources.entries()) {
+                if (state === FilterState.SELECTED) {
+                    length += 1;
+                }
+                items.push(<SourceOption key={source.id} source={source} state={state} />);
             }
-            items.push(<SourceOption key={source.id} source={source} state={state} />);
         }
 
         return (
