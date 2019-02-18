@@ -25,6 +25,7 @@ export type User = {
     role: string;
     className: string;
     id: string;
+    intercomHmac: string;
 };
 // tslint:enable:interface-over-type-literal
 

@@ -35,7 +35,15 @@ class MyApp extends App {
     }
 
     render() {
-        const { Component, pageProps, reduxStore, apolloClient } = this.props;
+        const { Component, pageProps, reduxStore, apolloClient, authUser } = this.props;
+
+        const user = {};
+        if (authUser) {
+            user.email = authUser.email;
+            user.user_id = authUser.id;
+            user.user_hash = authUser.intercomHmac;
+        }
+
         return (
             <Container>
                 <Provider store={reduxStore}>
@@ -43,7 +51,7 @@ class MyApp extends App {
                         <>
                             <Component {...pageProps} />
                             {this.props.router.route.startsWith('/club') && (
-                                <Intercom appID={process.env.INTERCOM_ID} />
+                                <Intercom appID={process.env.INTERCOM_ID} {...user} />
                             )}
                         </>
                     </ApolloProvider>

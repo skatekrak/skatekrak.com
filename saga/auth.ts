@@ -14,7 +14,10 @@ const signinRequest = async (email: string, password: string, rememberMe: boolea
         mobile: false,
     });
 
-    return response.data.user;
+    const user = response.data.user;
+    user.intercomHmac = response.data.intercomHmac;
+
+    return user;
 };
 
 const signoutRequest = async () => {
