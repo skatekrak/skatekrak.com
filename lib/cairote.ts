@@ -19,9 +19,3 @@ export const cairote = axios.create({
     withCredentials: true,
 });
 cairote.interceptors.response.use(successAuthInterceptors, failedAuthInterceptors);
-
-export const sesterces = axios.create({
-    baseURL: process.env.SESTERCES_URL,
-    withCredentials: true,
-});
-sesterces.interceptors.response.use(successAuthInterceptors, failedAuthInterceptors);
