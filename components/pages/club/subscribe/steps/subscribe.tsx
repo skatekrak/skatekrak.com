@@ -131,6 +131,7 @@ class Subscribe extends React.Component<Props & WithApolloProps & ReactStripeEle
                         <div className="modal-two-col-second-container modal-two-col-item-container">
                             <div className="modal-two-col-subtitles-container">
                                 <button
+                                    type="button"
                                     onClick={values.shippingAsBilling ? null : this.toggleAddressView}
                                     className={classNames('modal-two-col-subtitle', {
                                         'subscribe-subtitle--alone': values.shippingAsBilling,
@@ -142,6 +143,7 @@ class Subscribe extends React.Component<Props & WithApolloProps & ReactStripeEle
                                 </button>
                                 {!values.shippingAsBilling && (
                                     <button
+                                        type="button"
                                         onClick={this.toggleAddressView}
                                         className={classNames('modal-two-col-subtitle', {
                                             'subscribe-subtitle--border': !values.shippingAsBilling,
@@ -187,7 +189,11 @@ class Subscribe extends React.Component<Props & WithApolloProps & ReactStripeEle
         }
 
         const errors = validateForm(values);
-        if (!values.shippingAsBilling && Object.keys(values.billing).length <= 0) {
+        if (
+            !values.shippingAsBilling &&
+            Object.keys(values.billing).length <= 0 &&
+            this.state.addressView === 'shipping'
+        ) {
             errors[FORM_ERROR] =
                 'Hey 👋 - one quick thing - give us your billing address or use your shipping address as billing address';
         }
