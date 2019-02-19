@@ -2,14 +2,14 @@ import { NextComponentClass } from 'next';
 import Router from 'next/router';
 import React, { Component } from 'react';
 
-import { getUserFromLocalCookie, getUserFromServerCookie } from 'lib/auth';
+import { getBearerFromLocalCookie, getBearerFromServerCookie } from 'lib/auth';
 
 const withAuth = (Page: NextComponentClass) =>
     class WithAuth extends Component {
         public static async getInitialProps({ req, res }) {
-            const authUser = (process as any).browser ? getUserFromLocalCookie() : getUserFromServerCookie(req);
+            const bearer = (process as any).browser ? getBearerFromLocalCookie() : getBearerFromServerCookie(req);
             const pageProps = Page.getInitialProps && Page.getInitialProps(req);
-            const isAuthenticated = !!authUser;
+            const isAuthenticated = !!bearer;
 
             if (!isAuthenticated) {
                 if (res) {

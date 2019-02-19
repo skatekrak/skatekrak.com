@@ -1,6 +1,7 @@
 import { action } from 'typesafe-actions';
 
 import {
+    GET_ME,
     HIDE_MESSAGE,
     ON_HIDE_LOADER,
     ON_SHOW_LOADER,
@@ -20,3 +21,4 @@ export const showMessage = (message: string) => action(SHOW_MESSAGE, message);
 export const showAuthLoader = () => action(ON_SHOW_LOADER);
 export const hideAuthLoader = () => action(ON_HIDE_LOADER);
 export const hideMessage = () => action(HIDE_MESSAGE);
+export const getMe = () => action(GET_ME);

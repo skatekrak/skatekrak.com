@@ -6,12 +6,19 @@ import Intercom from 'react-intercom';
 
 import withApolloClient from 'hocs/withApollo';
 import withReduxStore from 'hocs/withRedux';
-import { userSigninSuccess } from 'store/auth/actions';
-import { getUserFromLocalCookie, getUserFromServerCookie } from 'lib/auth';
+import { userSigninSuccess, getMe } from 'store/auth/actions';
+import {
+    removeUser,
+    getBearerFromLocalCookie,
+    getBearerFromServerCookie,
+    getUserFromLocalCookie,
+    getUserFromServerCookie,
+} from 'lib/auth';
 
 class MyApp extends App {
     static async getInitialProps({ Component, router, ctx }) {
         const authUser = process.browser ? getUserFromLocalCookie() : getUserFromServerCookie(ctx.req);
+        const bearer = process.browser ? getBearerFromLocalCookie() : getBearerFromServerCookie(ctx.req);
 
         let pageProps = {};
 
@@ -22,7 +29,7 @@ class MyApp extends App {
         return {
             ...pageProps,
             authUser,
-            isAuthenticated: !!authUser,
+            isAuthenticated: !!bearer,
         };
     }
 
@@ -32,11 +39,23 @@ class MyApp extends App {
                 window['__NEXT_REDUX_STORE__'].dispatch(userSigninSuccess(this.props.authUser));
             }
         }
+
+        if (this.props.authUser && !this.props.isAuthenticated) {
+            removeUser();
+        }
+
+        if (this.props.isAuthenticated && !this.props.authUser) {
+            window['__NEXT_REDUX_STORE__'].dispatch(getMe());
+        }
     }
 
     componentDidUpdate(prevProps) {
         if (prevProps.isAuthenticated && !this.props.isAuthenticated) {
             this.props.apolloClient.resetStore();
+        }
+
+        if (this.props.authUser && !this.props.isAuthenticated) {
+            removeUser();
         }
     }
 

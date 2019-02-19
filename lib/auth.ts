@@ -32,3 +32,15 @@ export const getUserFromServerCookie = (req: any) => {
 export const getUserFromLocalCookie = () => {
     return Cookies.getJSON('user');
 };
+
+export const getBearerFromServerCookie = (req: any) => {
+    if (!req.headers.cookie || '') {
+        return undefined;
+    }
+    const cookie = Cookie.parse(req.headers.cookie);
+    return cookie.bearer;
+};
+
+export const getBearerFromLocalCookie = () => {
+    return Cookies.getJSON('bearer');
+};
