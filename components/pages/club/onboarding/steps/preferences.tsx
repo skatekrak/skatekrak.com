@@ -1,4 +1,4 @@
-import { FORM_ERROR } from 'final-form';
+import { FORM_ERROR, FormApi } from 'final-form';
 import gql from 'graphql-tag';
 import React from 'react';
 import { ChildProps, graphql, Query } from 'react-apollo';
@@ -107,7 +107,15 @@ class Preferences extends React.Component<Props & ChildProps> {
                                         <button
                                             onClick={onNextClick}
                                             className="button-primary modal-two-col-form-submit"
+                                            type="submit"
+                                        >
+                                            Skip
+                                        </button>
+                                        <button
+                                            onClick={onNextClick}
+                                            className="button-primary modal-two-col-form-submit"
                                             disabled={submitting}
+                                            type="submit"
                                         >
                                             Finish
                                         </button>
@@ -121,9 +129,16 @@ class Preferences extends React.Component<Props & ChildProps> {
         );
     }
 
-    private handleSubmit = async (values: any) => {
+    private handleSubmit = async (_values: any, formApi: FormApi) => {
         const { mutate } = this.props;
         if (mutate) {
+            const fields = formApi.getRegisteredFields();
+            const values: any = {};
+
+            for (const field of fields) {
+                values[field] = formApi.getFieldState(field).value;
+            }
+
             const formattedPreferences: {
                 settingId: string;
                 options?: string[];
