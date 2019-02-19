@@ -1,3 +1,4 @@
+import format from 'date-fns/format';
 import validator from 'email-validator';
 import { FORM_ERROR, FormApi } from 'final-form';
 import gql from 'graphql-tag';
@@ -23,7 +24,14 @@ class ProfileEditInfoModal extends React.Component<Props & ChildProps> {
     public render() {
         return (
             <ProfileEditModal modalTitle="Edit personal infos" open={this.props.open} onClose={this.props.onClose}>
-                <Form onSubmit={this.handleSubmit} validate={validateForm} initialValues={this.props.profile}>
+                <Form
+                    onSubmit={this.handleSubmit}
+                    validate={validateForm}
+                    initialValues={{
+                        ...this.props.profile,
+                        birthday: this.props.profile.birthday ? new Date(this.props.profile.birthday) : new Date(),
+                    }}
+                >
                     {({ handleSubmit, submitting, submitError }) => (
                         <form className="profile-modal-form" onSubmit={handleSubmit}>
                             <ErrorMessage message={submitError} />
@@ -67,7 +75,7 @@ class ProfileEditInfoModal extends React.Component<Props & ChildProps> {
                             firstName: dirtyValues.firstName,
                             lastName: dirtyValues.lastName,
                             phone: dirtyValues.phone,
-                            birthday: dirtyValues.birthday,
+                            birthday: format(dirtyValues.birthday, 'YYYY-MM-DD'),
                         },
                     },
                     update: (cache, result) => {

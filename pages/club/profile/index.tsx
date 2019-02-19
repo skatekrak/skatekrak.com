@@ -124,12 +124,7 @@ class ProfileMain extends React.Component<{}, State> {
                                                 <ProfileItem title="Last name" content={data.me.lastName} />
                                             </div>
                                             <div className="profile-section-line">
-                                                <ProfileItem
-                                                    title="Birthday"
-                                                    content={
-                                                        data.me.birthday ? format(data.me.birthday, 'D MMMM YYYY') : ''
-                                                    }
-                                                />
+                                                <ProfileItem title="Birthday" content={data.me.birthday} />
                                             </div>
                                             <div className="profile-section-line">
                                                 <ProfileItem title="Email" content={data.me.email} />
