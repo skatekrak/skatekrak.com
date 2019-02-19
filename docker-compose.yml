@@ -12,7 +12,7 @@ services:
       - traefik.enable=true
       - traefik.docker.network=web
       - traefik.backend=skatekrak
-      - traefik.frontend.rule=Host:skatekrak.home.test
+      - traefik.frontend.rule=Host:skatekrak.dev.skatekrak.com
       - traefik.port=3000
     volumes:
       - ".:/app:delegated"
