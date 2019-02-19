@@ -26,10 +26,12 @@ class ProfileEditPreferencesModal extends React.Component<Props & ChildProps> {
         for (const preference of this.props.preferences) {
             switch (preference.preferenceSetting.type) {
                 case 'ENUM':
-                    formattedInitialValues[preference.preferenceSetting.id] = {
-                        value: preference.options[0].id,
-                        label: preference.options[0].title,
-                    };
+                    if (preference.options.length === 1) {
+                        formattedInitialValues[preference.preferenceSetting.id] = {
+                            value: preference.options[0].id,
+                            label: preference.options[0].title,
+                        };
+                    }
                     break;
                 case 'MULTIPLE':
                     formattedInitialValues[preference.preferenceSetting.id] = preference.options.map((option) => ({
