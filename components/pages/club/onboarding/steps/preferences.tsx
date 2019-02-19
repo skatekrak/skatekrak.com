@@ -25,7 +25,7 @@ const PreferenceSettingField = ({ preferenceSetting }: { preferenceSetting: any 
             <Select
                 name={preferenceSetting.id}
                 label={preferenceSetting.name}
-                options={preferenceSetting.options.map((option) => ({
+                options={preferenceSetting.options.map(option => ({
                     value: option.id,
                     label: option.title,
                 }))}
@@ -36,7 +36,7 @@ const PreferenceSettingField = ({ preferenceSetting }: { preferenceSetting: any 
             <Select
                 name={preferenceSetting.id}
                 label={preferenceSetting.name}
-                options={preferenceSetting.options.map((option) => ({
+                options={preferenceSetting.options.map(option => ({
                     value: option.id,
                     label: option.title,
                 }))}
@@ -86,7 +86,7 @@ class Preferences extends React.Component<Props & ChildProps> {
                                             </p>
                                             {submitError && <ErrorMessage message={submitError} />}
                                             {preferencesSettingFirstPart &&
-                                                preferencesSettingFirstPart.map((preferenceSetting) => (
+                                                preferencesSettingFirstPart.map(preferenceSetting => (
                                                     <PreferenceSettingField
                                                         key={preferenceSetting.id}
                                                         preferenceSetting={preferenceSetting}
@@ -97,20 +97,13 @@ class Preferences extends React.Component<Props & ChildProps> {
                                     <div className="modal-two-col-second-container modal-two-col-item-container">
                                         <div className="modal-two-col-content">
                                             {preferencesSettingSecondPart &&
-                                                preferencesSettingSecondPart.map((preferenceSetting) => (
+                                                preferencesSettingSecondPart.map(preferenceSetting => (
                                                     <PreferenceSettingField
                                                         key={preferenceSetting.id}
                                                         preferenceSetting={preferenceSetting}
                                                     />
                                                 ))}
                                         </div>
-                                        <button
-                                            onClick={onNextClick}
-                                            className="button-primary modal-two-col-form-submit"
-                                            type="submit"
-                                        >
-                                            Skip
-                                        </button>
                                         <button
                                             onClick={onNextClick}
                                             className="button-primary modal-two-col-form-submit"
@@ -156,7 +149,7 @@ class Preferences extends React.Component<Props & ChildProps> {
                     // This case is for MULTIPLE
                     formattedPreferences.push({
                         settingId: key,
-                        options: values[key].map((value) => value.value),
+                        options: values[key].map(value => value.value),
                     });
                 } else if (typeof values[key] === 'string') {
                     // OPEN
@@ -191,9 +184,7 @@ class Preferences extends React.Component<Props & ChildProps> {
                             */
                             query.me.onboarding = true;
                             for (const preference of data.addOrUpdatePreferences) {
-                                const existingIndex = query.me.preferences.findIndex(
-                                    (pref) => pref.id === preference.id,
-                                );
+                                const existingIndex = query.me.preferences.findIndex(pref => pref.id === preference.id);
                                 if (existingIndex >= 0) {
                                     query.me.preferences[existingIndex] = preference;
                                 } else {

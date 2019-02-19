@@ -29,7 +29,7 @@ class ProfileEditInfoModal extends React.Component<Props & ChildProps> {
                     validate={validateForm}
                     initialValues={{
                         ...this.props.profile,
-                        birthday: this.props.profile.birthday ? new Date(this.props.profile.birthday) : new Date(),
+                        birthday: this.props.profile.birthday ? new Date(this.props.profile.birthday) : undefined,
                     }}
                 >
                     {({ handleSubmit, submitting, submitError }) => (
