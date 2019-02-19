@@ -4,7 +4,7 @@ import { ActionType } from 'typesafe-actions';
 import { removeUser, setUser } from 'lib/auth';
 import { cairote } from 'lib/cairote';
 import { showMessage, userSignin, userSigninSuccess, userSignoutSuccess } from 'store/auth/actions';
-import { SIGNIN_USER, SIGNOUT_USER } from 'store/constants';
+import { GET_ME, SIGNIN_USER, SIGNOUT_USER } from 'store/constants';
 
 const signinRequest = async (email: string, password: string, rememberMe: boolean) => {
     const response = await cairote.post('/login', {
@@ -25,6 +25,12 @@ const signoutRequest = async () => {
     return;
 };
 
+const getMeRequest = async () => {
+    const response = await cairote.get('/me');
+
+    return response.data;
+};
+
 function* signinUserWithEmailPassword(action: ActionType<typeof userSignin>) {
     const { email, password, rememberMe } = action.payload;
 
@@ -39,9 +45,19 @@ function* signinUserWithEmailPassword(action: ActionType<typeof userSignin>) {
 
 function* signout() {
     try {
-        yield call(signoutRequest);
         removeUser();
+        yield call(signoutRequest);
         yield put(userSignoutSuccess());
+    } catch (error) {
+        yield put(showMessage(error.response.data.message));
+    }
+}
+
+function* getMe() {
+    try {
+        const user = yield call(getMeRequest);
+        setUser(user);
+        yield put(userSigninSuccess(user));
     } catch (error) {
         yield put(showMessage(error.response.data.message));
     }
@@ -55,6 +71,10 @@ export function* signoutUser() {
     yield takeEvery(SIGNOUT_USER, signout);
 }
 
+export function* getMyself() {
+    yield takeLatest(GET_ME, getMe);
+}
+
 export default function* rootSaga() {
-    yield all([fork(signinUser), fork(signoutUser)]);
+    yield all([fork(signinUser), fork(signoutUser), fork(getMyself)]);
 }

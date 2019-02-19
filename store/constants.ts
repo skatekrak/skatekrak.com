@@ -17,6 +17,7 @@ export const SHOW_MESSAGE = 'show_message';
 export const ON_SHOW_LOADER = 'on_show_loader';
 export const ON_HIDE_LOADER = 'on_hide_loader';
 export const HIDE_MESSAGE = 'hide_message';
+export const GET_ME = 'get_me';
 
 // Form
 export const UPDATE_FORM_STATE = 'update_form_state';

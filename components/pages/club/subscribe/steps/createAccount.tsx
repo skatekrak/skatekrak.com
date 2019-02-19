@@ -1,16 +1,17 @@
-import { AxiosError } from 'axios';
 import validator from 'email-validator';
 import { FORM_ERROR } from 'final-form';
+import gql from 'graphql-tag';
 import React from 'react';
 import { Form, FormSpy } from 'react-final-form';
 import { connect } from 'react-redux';
 
 import Types from 'Types';
 
+import withApollo, { WithApolloProps } from 'hocs/withApollo';
+
 import ErrorMessage from 'components/Ui/Form/ErrorMessage';
 import Field from 'components/Ui/Form/Field';
 
-import { cairote } from 'lib/cairote';
 import { updateFormState } from 'store/form/actions';
 
 type Props = {
@@ -23,7 +24,7 @@ type Props = {
     };
 };
 
-class CreateAccount extends React.Component<Props> {
+class CreateAccount extends React.Component<Props & WithApolloProps> {
     public render() {
         const { quarterFull, payment } = this.props;
         return (
@@ -100,17 +101,19 @@ class CreateAccount extends React.Component<Props> {
 
     private handleSubmit = async (values: any) => {
         try {
-            await cairote.get('/check-email', {
-                params: { email: values.email },
+            const results = await this.props.apolloClient.query({
+                query: CHECK_EMAIL,
+                variables: {
+                    email: values.email,
+                },
             });
-            return { email: 'This email is already in use' };
-        } catch (error) {
-            const err = error as AxiosError;
-            if (err.response.status === 404) {
-                this.props.onNextClick();
-            } else {
-                return { [FORM_ERROR]: 'Oops, something went wront, try later or contact us' };
+
+            if ((results.data as any).checkEmail) {
+                return { email: 'This email is already used' };
             }
+            this.props.onNextClick();
+        } catch (error) {
+            return { [FORM_ERROR]: 'Oops, something went wront, try later or contact us' };
         }
     };
 
@@ -159,6 +162,12 @@ const validateForm = (values: any) => {
     return errors;
 };
 
+const CHECK_EMAIL = gql`
+    query checkEmail($email: String!) {
+        checkEmail(email: $email)
+    }
+`;
+
 const mapStateToProps = ({ payment }: Types.RootState) => {
     return { payment };
 };
@@ -168,4 +177,4 @@ export default connect(
     {
         updateFormState,
     },
-)(CreateAccount);
+)(withApollo(CreateAccount));

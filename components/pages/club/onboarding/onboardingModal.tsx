@@ -2,6 +2,7 @@ import Head from 'next/head';
 import React from 'react';
 
 import Preference from 'components/pages/club/onboarding/steps/preferences';
+import Congrats from 'components/pages/club/subscribe/steps/congrats';
 import Modal from 'components/Ui/Modal';
 
 type Props = {
@@ -21,7 +22,7 @@ const OnboardingHead = () => (
 
 class OnboardingModal extends React.Component<Props, State> {
     public state: State = {
-        step: 'preference',
+        step: 'congrats',
         open: true,
     };
 
@@ -32,7 +33,8 @@ class OnboardingModal extends React.Component<Props, State> {
             <React.Fragment>
                 <OnboardingHead />
                 <Modal open={open} onClose={this.onClose} closable={false}>
-                    {step === 'preference' && <Preference profile={profile} onNextClick={this.onNextStep} />}
+                    {step === 'congrats' && <Congrats quarterFull={false} onNextClick={this.onNextStep} />}
+                    {step === 'preferences' && <Preference profile={profile} onNextClick={this.onNextStep} />}
                 </Modal>
             </React.Fragment>
         );
@@ -44,7 +46,9 @@ class OnboardingModal extends React.Component<Props, State> {
 
     private onNextStep = () => {
         const { step } = this.state;
-        if (step === 'preference') {
+        if (step === 'congrats') {
+            this.setState({ step: 'preferences' });
+        } else if (step === 'preferences') {
             this.onClose();
         }
     };

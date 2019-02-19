@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import Congrats from 'components/pages/club/subscribe/steps/congrats';
 import CreateAccount from 'components/pages/club/subscribe/steps/createAccount';
 import Subscribe from 'components/pages/club/subscribe/steps/subscribe';
 import Modal from 'components/Ui/Modal';
@@ -31,7 +30,6 @@ class SubscribeModal extends React.Component<Props, State> {
                 <Modal open={open} onClose={this.onClose}>
                     {step === 'account' && <CreateAccount quarterFull={false} onNextClick={this.onNextStep} />}
                     {step === 'subscribe' && <Subscribe quarterFull={false} onNextClick={this.onNextStep} />}
-                    {step === 'congrats' && <Congrats quarterFull={false} />}
                 </Modal>
             </>
         );

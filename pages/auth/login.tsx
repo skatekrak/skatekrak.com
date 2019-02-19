@@ -10,7 +10,8 @@ import Types from 'Types';
 import Layout from 'components/Layout/Layout';
 import Link from 'components/Link';
 import TrackedPage from 'components/pages/TrackedPage';
-import ButtonPrimary from 'components/Ui/Button/buttonPrimary';
+import ButtonPrimary from 'components/Ui/Button/ButtonPrimary';
+import ErrorMessage from 'components/Ui/Form/ErrorMessage';
 import Field from 'components/Ui/Form/Field';
 
 import withoutAuth from 'hocs/withoutAuth';
@@ -30,6 +31,7 @@ const LoginHead = () => (
 type Props = {
     authUser: any;
     showMessage: boolean;
+    alertMessage: string;
     loader: boolean;
 
     hideMessage: () => void;
@@ -45,7 +47,13 @@ class Login extends React.Component<Props> {
                     <div className="auth-container container-fluid">
                         <div className="auth-form-container">
                             <h1 className="auth-form-title">Enter the club</h1>
-                            <p className="auth-form-desc">Welcome back Kraken!</p>
+                            <p className="auth-form-desc">
+                                {this.props.showMessage ? (
+                                    <ErrorMessage message={this.props.alertMessage} />
+                                ) : (
+                                    'Welcome back Kraken!'
+                                )}
+                            </p>
                             <Form
                                 onSubmit={this.handleSubmit}
                                 validate={this.validate}
@@ -69,13 +77,14 @@ class Login extends React.Component<Props> {
                                             </label>
                                         </div>
                                         <ButtonPrimary
-                                            content="Log in"
                                             loadingContent="Connect"
                                             loading={submitting}
                                             className="auth-form-submit"
                                             type="submit"
                                             disabled={submitting || !valid}
-                                        />
+                                        >
+                                            Log in
+                                        </ButtonPrimary>
                                     </form>
                                 )}
                             </Form>
@@ -116,8 +125,8 @@ class Login extends React.Component<Props> {
 }
 
 const mapStateToProps = ({ auth }: Types.RootState) => {
-    const { loader, showMessage, authUser } = auth;
-    return { loader, showMessage, authUser };
+    const { loader, showMessage, authUser, alertMessage } = auth;
+    return { loader, showMessage, authUser, alertMessage };
 };
 
 export default compose(

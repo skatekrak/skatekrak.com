@@ -15,6 +15,7 @@ import { updateFormState } from 'store/form/actions';
 import { savePricingCurrency } from 'store/payment/actions';
 
 import Link from 'components/Link';
+import ButtonPrimary from 'components/Ui/Button/ButtonPrimary';
 import Address from 'components/Ui/Form/Address';
 import ErrorMessage from 'components/Ui/Form/ErrorMessage';
 import Field from 'components/Ui/Form/Field';
@@ -56,7 +57,7 @@ class Subscribe extends React.Component<Props & WithApolloProps & ReactStripeEle
                 onSubmit={this.handleSubmit}
                 initialValues={subscribeForm || { shipping: {}, billing: {}, shippingAsBilling: true }}
             >
-                {({ handleSubmit, submitting, values, submitError }) => (
+                {({ handleSubmit, submitting, values, submitError, submitErrors }) => (
                     <form className="modal-two-col-container subscribe" onSubmit={handleSubmit}>
                         <FormSpy onChange={this.onFormChange} />
                         <div className="modal-two-col-first-container modal-two-col-item-container">
@@ -83,11 +84,14 @@ class Subscribe extends React.Component<Props & WithApolloProps & ReactStripeEle
                                     <div className="form-element-field">
                                         <CardElement />
                                         {this.state.cardError && <ErrorMessage message={this.state.cardError} />}
+                                        {submitErrors && submitErrors.card && (
+                                            <ErrorMessage message={submitErrors.card} />
+                                        )}
                                     </div>
                                 </div>
                                 <div id="subscribe-special-code">
                                     <Field
-                                        name="specialCode"
+                                        name="special"
                                         placeholder="Special code - optional"
                                         validate={this.checkSpecial}
                                     />
@@ -95,8 +99,12 @@ class Subscribe extends React.Component<Props & WithApolloProps & ReactStripeEle
                                 </div>
                                 <div className="form-element">
                                     <label htmlFor="agreeTC" className="checkbox-container">
-                                        I agree with the terms and conditions
+                                        I understand & accept that my membership will be automatically renewed on April
+                                        5th 2019
                                         <ReactField id="agreeTC" name="agreeTC" type="checkbox" component="input" />
+                                        {submitErrors && submitErrors.agreeTC && (
+                                            <ErrorMessage message={submitErrors.agreeTC} />
+                                        )}
                                         <span className="checkmark" />
                                     </label>
                                 </div>
@@ -113,7 +121,7 @@ class Subscribe extends React.Component<Props & WithApolloProps & ReactStripeEle
                                     </label>
                                 </div>
                             </div>
-                            <div className="subscribe-legal">
+                            <div className="subscribe-legal" style={{ display: 'none' }}>
                                 <Link href="/terms-and-conditions">
                                     <a className="subscribe-legal-link">Terms and conditions</a>
                                 </Link>
@@ -123,6 +131,7 @@ class Subscribe extends React.Component<Props & WithApolloProps & ReactStripeEle
                         <div className="modal-two-col-second-container modal-two-col-item-container">
                             <div className="modal-two-col-subtitles-container">
                                 <button
+                                    type="button"
                                     onClick={values.shippingAsBilling ? null : this.toggleAddressView}
                                     className={classNames('modal-two-col-subtitle', {
                                         'subscribe-subtitle--alone': values.shippingAsBilling,
@@ -134,6 +143,7 @@ class Subscribe extends React.Component<Props & WithApolloProps & ReactStripeEle
                                 </button>
                                 {!values.shippingAsBilling && (
                                     <button
+                                        type="button"
                                         onClick={this.toggleAddressView}
                                         className={classNames('modal-two-col-subtitle', {
                                             'subscribe-subtitle--border': !values.shippingAsBilling,
@@ -153,13 +163,15 @@ class Subscribe extends React.Component<Props & WithApolloProps & ReactStripeEle
                                 )}
                             </div>
                             <ErrorMessage message={submitError} />
-                            <button
+                            <ButtonPrimary
                                 type="submit"
                                 className="button-primary modal-two-col-form-submit"
                                 disabled={submitting}
+                                loading={submitting}
+                                loadingContent="Paying"
                             >
                                 Pay {this.getPricingText(String(this.props.payment.price / 100))}
-                            </button>
+                            </ButtonPrimary>
                         </div>
                     </form>
                 )}
@@ -177,7 +189,11 @@ class Subscribe extends React.Component<Props & WithApolloProps & ReactStripeEle
         }
 
         const errors = validateForm(values);
-        if (!values.shippingAsBilling && Object.keys(values.billing).length <= 0) {
+        if (
+            !values.shippingAsBilling &&
+            Object.keys(values.billing).length <= 0 &&
+            this.state.addressView === 'shipping'
+        ) {
             errors[FORM_ERROR] =
                 'Hey 👋 - one quick thing - give us your billing address or use your shipping address as billing address';
         }
@@ -312,6 +328,10 @@ class Subscribe extends React.Component<Props & WithApolloProps & ReactStripeEle
 const validateForm = (values: any) => {
     const errors: { [key: string]: any } = {};
     const shippingErrors: { [key: string]: string } = {};
+
+    if (!values.agreeTC) {
+        errors.agreeTC = 'Required';
+    }
 
     if (values.shipping) {
         if (!values.shipping.firstName) {

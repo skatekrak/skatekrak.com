@@ -13,7 +13,6 @@ import { SpinnerCircle } from 'components/Ui/Icons/Spinners';
  */
 type Props = {
     onClick?: (fct: any) => void;
-    content: string;
     loadingContent?: string;
     loading?: boolean;
     className?: string;
@@ -21,14 +20,15 @@ type Props = {
     disabled?: boolean;
 };
 
-const buttonPrimary: React.SFC<Props> = ({ onClick, className, content, type, disabled, loading, loadingContent }) => (
+const ButtonPrimary: React.SFC<Props> = ({ onClick, className, children, type, disabled, loading, loadingContent }) => (
     <button className={`button-primary ${className}`} onClick={onClick} type={type} disabled={disabled}>
         {loading && <SpinnerCircle />}
-        {!loading ? content : loadingContent}
+        {loading && (loadingContent ? loadingContent : children)}
+        {!loading && children}
     </button>
 );
 
 /*
  * Export Default
  */
-export default buttonPrimary;
+export default ButtonPrimary;
