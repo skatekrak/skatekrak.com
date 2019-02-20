@@ -1,6 +1,6 @@
 {
     "name": "skatekrak.com",
-    "version": "4.1.1",
+    "version": "5.0.0",
     "main": "index.js",
     "repository": "ssh://git@git.thepunk.tech/web/skatekrak.com.git",
     "author": "Arthur <a@skatekrak.com>",
