@@ -1,0 +1,22 @@
+@import "./stylus-mq"
+@import "./styleguide"
+
+/* Onboarding popup styles */
+.onboarding
+	&-preference
+		& .modal-two-col
+			&-content
+				margin-top: 1rem
+
+	& .form-element[data-element-name="brokenDeck"]
+		& input
+			height: 2rem
+			width: 4rem
+
+		+mq($from: "large")
+			display: flex
+			align-items: center
+			margin-bottom: 2rem
+
+			& input
+				margin-left: 1rem

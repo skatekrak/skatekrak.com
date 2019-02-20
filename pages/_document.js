@@ -1,6 +1,11 @@
 import Document, { Head, Main, NextScript } from 'next/document';
 
 export default class MyDocument extends Document {
+    static async getInitialProps(ctx) {
+        const initialProps = await Document.getInitialProps(ctx);
+        return { ...initialProps };
+    }
+
     render() {
         return (
             <html>
@@ -11,6 +16,7 @@ export default class MyDocument extends Document {
                     <link rel="icon" type="image/png" sizes="32x32" href="/static/images/favicon_32.png" />
                     <link rel="icon" type="image/png" sizes="16x16" href="/static/images/favicon_16.png" />
                     <script src="https://js.stripe.com/v3" />
+                    <link href="https://fonts.googleapis.com/css?family=Permanent+Marker" rel="stylesheet" />
                 </Head>
                 <body>
                     <Main />

@@ -12,8 +12,10 @@ const ActiveLink = ({ router, children, href, ...props }) => {
 
     delete props.activeClassName;
 
+    delete router.query.modal;
+
     return (
-        <Link href={`${href}${encodeQueryData(router.query)}`} {...props}>
+        <Link href={href} {...props}>
             {React.cloneElement(child, { className })}
         </Link>
     );

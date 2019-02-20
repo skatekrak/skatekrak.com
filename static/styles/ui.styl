@@ -5,7 +5,79 @@
 	UI STYLES
 	Every UI component which need to generic
 */
+/*
+ * Tooltip base styles
+ */
+.tooltip
+	padding: .5rem !important
+	font-size: $fs-smaller
+	background-color: $grey-900 !important
+	border-radius: .25rem
 
+
+/*
+ * Button with label
+ */
+.button
+	&-with-label
+		display: flex
+		align-items: center
+		font-family: $ff-roboto-regular
+		font-size: $fs-small
+
+		&:hover
+			text-decoration: underline
+
+		& .icon-full
+			margin-right: .5rem
+
+		&-text
+			display: none
+
+			+mq($from: "tiny")
+				display: inline
+
+			&-action
+				text-transform: capitalize
+
+/*
+ * Edit button
+ */
+.edit-button
+	display: flex
+	align-items: center
+	color: $white
+	background-color: $grey-800
+
+	&:hover
+		background-color: $grey-900
+
+	+mq($from: "tiny")
+		display: inline
+
+	&-icon
+		display: block
+		width: 1rem
+		height: 1rem
+		margin-right: .5rem
+
+		& svg
+			max-width: 100%
+			max-height: 100%
+			fill: $white
+
+		+mq($from: "tiny")
+			display: none
+		
+		&-text
+			display: none
+
+			+mq($from: "tiny")
+				display: inline
+
+/*
+ * Scroll top
+ */
 #scroll-top
 	display: none
 	position: fixed
@@ -36,21 +108,6 @@
 			fill: $grey-900
 
 
-
-.icon
-	&-loading
-		&-krak
-			width: 4rem
-
-			&-text
-				transform-origin: center
-				animation: rotateLoadingKrakText 2s infinite
-
-@keyframes rotateLoadingKrakText
-	0%	{ transform: rotate(0deg) }
-	100%	{ transform: rotate(360deg) }
-
-
 /*
  * Banner
  */
@@ -69,7 +126,7 @@
 	text-transform: uppercase
 	background-color: rgb(255, 220, 115)
 	opacity: 0
-	z-index: 9999
+	z-index: 10
 	transition: .2s
 
 	&:hover

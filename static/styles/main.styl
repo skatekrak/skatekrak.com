@@ -9,21 +9,13 @@ body
 	color: $text-lighter
 	background-color: $grey-100
 
+button
+	font-family: $ff-roboto-regular
+	color: $grey-800
+
 .scroll-container
 	max-height: 100vh
 	overflow: auto
-
-#main
-	&-container
-		position: relative
-		flex-grow: 1
-		padding-top: 2rem
-		padding-bottom: 2rem
-		color: $text-dark
-
-		+mq($from: "medium")
-			padding-top: 4rem
-			overflow: auto
 
 #page-container
 	display: flex
@@ -34,10 +26,22 @@ body
 		flex-direction: row
 		max-height: 100vh
 
+#main
+	&-container
+		position: relative
+		flex-grow: 1
+		display: flex
+		flex-direction: column
+		color: $text-dark
+
+		+mq($from: "medium")
+			height: 100vh
+			overflow: auto
+
 #header
 	max-height: 100vh
 	padding: 1.5rem 2rem 2rem
-	z-index: 99999
+	z-index: 100
 
 	+mq($from: "small")
 		padding: 4.5rem 8rem 2rem
@@ -46,14 +50,14 @@ body
 		display: flex
 		flex-direction: column
 		min-height: 100vh
-		min-width: 250px
-		max-width: 250px
+		min-width: $header-width-medium
+		max-width: $header-width-medium
 		padding: 4rem 2rem 1rem
 		background-color: $grey-900
 
 	+mq($from: "large")
-		min-width: 300px
-		max-width: 300px
+		min-width: $header-width-large
+		max-width: $header-width-large
 
 	&-top
 		display: flex
@@ -103,16 +107,87 @@ body
 				align-items: center
 
 		&-subnav
+			display: flex
+			flex-direction: column
+			align-items: center
 			margin: 0 auto
 
 			&-container
 				display: flex
 				justify-content: center
 
+			& li
+				list-style: none
+
+			&-kraken
+				display: flex
+				align-items: center
+				margin-bottom: 2rem
+
+				+mq($from: "small")
+					flex-direction: column
+
+
+				&-login
+					position: relative
+					display: flex
+					flex-direction: column
+					align-items: center
+					font-size: $fs-medium
+
+					&:hover
+						& svg
+							transform: scale(1.15) rotate(6deg)
+
+					&:after
+						top: inherit
+						bottom: 8px
+
+					& svg
+						display: none
+						margin-bottom: .5rem
+						width: 4rem
+						transition: .3s
+
+						+mq($from: "small")
+							display: block
+
+				&-logout
+					position: relative
+					display: flex
+					align-items: center
+					margin-left: 1rem
+					padding-left: 1rem
+					font-family: $ff-roboto-regular
+					font-size: $fs-small
+					color: $grey-200
+					border-left: 1px solid $grey-600
+					transition: .2s
+
+					&:hover
+						color: $text-lighter
+
+						& svg
+							fill: $primary
+
+					+mq($from: "small")
+						margin-top: 1.5rem
+						margin-left: 0
+						padding-left: 0
+						border: 0
+
+					& svg
+						width: 1.25rem
+						margin-top: 1px
+						margin-right: .25rem
+						fill: $grey-200
+						transition: .2s
+
 		&-credits
 			margin-top: 1rem
 			font-size: $fs-smallest
 			text-align: center
+			color: $grey-400
 
 #home
 	&-container
@@ -249,10 +324,17 @@ body
 		& .header-top-burger-bar
 			background-color: $white
 
+	&-white
+		& #krak-logo-hand
+			fill: $white
+
+		& .header-top-burger-bar
+			background-color: $white
+
 	&-nav
 		&-main-item
 			position: relative
-			margin-bottom: 1.5rem
+			margin-bottom: 1.75rem
 
 			+mq($from: "small")
 				margin-bottom: 2rem
@@ -300,7 +382,7 @@ body
 				&-separator
 					height: 80%
 					margin: auto
-					border-right: 1px solid $text-lighter
+					border-right: 1px solid $grey-600
 
 				&-text
 					display: none
@@ -323,11 +405,13 @@ body
 						&:hover
 							color: $primary
 
-
 			&-link
 				font-family: $ff-roboto-condensed-bold
-				font-size: $fs-large
+				font-size: $fs-larger
 				color: $text-lighter
+
+				+mq($from: "medium")
+					font-size: $fs-large
 
 				&:after
 					content: ''
@@ -351,6 +435,9 @@ body
 						opacity: 1
 
 		&-subnav
+			&-link
+				color: $text-lighter
+
 			&-item
 				height: 2rem
 				width: 2rem

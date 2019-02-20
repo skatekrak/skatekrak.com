@@ -1,6 +1,30 @@
 @import "./stylus-mq"
 @import "./styleguide"
 
+/*
+ * Icon full
+ */
+.icon
+	&-full
+		display: flex
+		width: 1.5rem
+		height: 1.5rem
+		padding: .2rem
+		fill: $grey-100
+		background-color: $grey-800
+		border-radius: .25rem
+
+		& svg
+			width: 100%
+			margin: auto
+
+	&-valid
+		fill: $success
+
+	&-error
+		fill: $error
+
+
 /* SPINNER */
 .spinner-circle
 	animation: rotate 2s linear infinite
@@ -27,3 +51,42 @@
 	100%
 			stroke-dasharray: 90, 150
 			stroke-dashoffset: -124
+
+
+/* ICON LOADING NEWS */
+.icon
+	&-loading
+		&-krak
+			width: 4rem
+
+			&-text
+				transform-origin: center
+				animation: rotateLoadingKrakText 2s infinite
+
+@keyframes rotateLoadingKrakText
+	0%	{ transform: rotate(0deg) }
+	100%	{ transform: rotate(360deg) }
+
+
+/* ICON KRAKEN */
+.icon-kraken
+	&-bg
+		fill: $grey-700
+
+	&-primary
+		fill: $primary
+
+	&-blue
+		fill: #4678B1
+
+	&-grey-100
+		fill: $grey-100
+
+	&-grey-300
+		fill: $grey-300
+
+	&-grey-900
+		fill: $grey-900
+
+	&-white
+		fill: $white	

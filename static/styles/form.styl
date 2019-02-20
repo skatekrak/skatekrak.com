@@ -13,6 +13,18 @@
 		&-description
 			margin-top: 2rem
 
+	&-double-field-line
+		display: flex
+
+		& .form-element
+			width: calc(50% - .25rem)
+
+			&:first-child
+				margin-right: .5rem
+
+			&:last-child
+				margin-left: .5rem
+
 	/* Element */
 	&-element
 		margin-bottom: 1rem
@@ -24,23 +36,28 @@
 			margin-bottom: .5rem
 			font-family: $ff-roboto-bold
 			font-size: $fs-small
-			color: $grey-700
+			color: $grey-500
 
 		&-field
 			&--error
-				border: 1px solid $error
+				& input
+					border: 1px solid $error
 			
 			&--success
-				border: 1px solid #21E581
+				& input
+					border: 1px solid #21E581
 
-			& input
+			&-input
 				height: 3rem
 				width: 100%
 				padding: .75rem 1rem
 				font-family: $ff-roboto-regular
 				font-size: $fs-regular
 				background-color: $white
-				border: 0
+				border-radius: .25rem
+
+				&::placeholder
+					color: $grey-400
 
 				&:focus
 					border: 1px solid $secondary
@@ -57,6 +74,3 @@
 			margin-top: .5rem
 			font-size: $fs-small
 			color: $error
-
-
-

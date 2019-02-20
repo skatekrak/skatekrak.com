@@ -15,6 +15,33 @@
             "problemMatcher": "$tsc"
         },
         {
+            "label": "start",
+            "type": "npm",
+            "script": "dev",
+            "isBackground": true,
+            "presentation": {
+                "panel": "dedicated"
+            },
+            "problemMatcher": [
+                {
+                    "owner": "custom",
+                    "pattern": [
+                        {
+                            "regexp": "^([^\\\\s].*)\\\\((\\\\d+,\\\\d+)\\\\):\\\\s*(.*)$",
+                            "file": 1,
+                            "location": 2,
+                            "message": 3
+                        }
+                    ],
+                    "background": {
+                        "activeOnStart": true,
+                        "beginsPattern": "Debugger listening on",
+                        "endsPattern": "Compiled successfully in"
+                    }
+                }
+            ]
+        },
+        {
             "label": "lint",
             "type": "npm",
             "script": "lint:ts",

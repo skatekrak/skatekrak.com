@@ -8,6 +8,11 @@
         "data/": true,
         "node_modules/": true,
         "public/": true,
-        "paws/": true
-    }
+        "paws/": true,
+        "out": true
+    },
+    "prettier.singleQuote": true,
+    "prettier.printWidth": 120,
+    "prettier.tabWidth": 4,
+    "tslint.enable": true
 }

@@ -1,10 +1,18 @@
 import Head from 'next/head';
 import React from 'react';
+import ReactPlayer from 'react-player';
 import { connect } from 'react-redux';
+import { Elements, StripeProvider } from 'react-stripe-elements';
+
+import Types from 'Types';
+
+import { User } from 'store/auth/reducers';
 
 import Layout from 'components/Layout/Layout';
 import Link from 'components/Link';
+import SubscribeModal from 'components/pages/club/subscribe/subscribeModal';
 import TrackedPage from 'components/pages/TrackedPage';
+import Emoji from 'components/Ui/Icons/Emoji';
 import SkateistanLogo from 'components/Ui/Icons/Logos/Skateistan';
 
 type Props = {
@@ -12,7 +20,14 @@ type Props = {
         price: number;
         currency: string;
     };
+    authUser?: User;
 };
+
+type State = {
+    stripe?: any;
+    isSubscribeModalOpen: boolean;
+};
+
 const ClubHead = () => (
     <Head>
         <title>Krak | Club</title>
@@ -31,67 +46,269 @@ const ClubHead = () => (
     </Head>
 );
 
-class Club extends React.Component<Props> {
+class Club extends React.Component<Props, State> {
+    public state: State = {
+        stripe: null,
+        isSubscribeModalOpen: false,
+    };
+
+    public componentDidMount() {
+        document.getElementById('header-top').classList.add('header-white');
+        this.setState({
+            stripe: (window as any).Stripe(process.env.STRIPE_KEY),
+        });
+    }
+
+    public componentWillUnmount() {
+        document.getElementById('header-top').classList.remove('header-white');
+    }
+
     public render() {
+        const { isSubscribeModalOpen } = this.state;
         return (
             <TrackedPage name="Club">
                 <Layout head={<ClubHead />}>
-                    <div id="club" className="container-fluid page-padding">
-                        <div id="club-header">
-                            <h1 id="club-header-title">Krak Skateboarding Club.</h1>
-                            <h2 id="club-header-subtitle">12 month membership</h2>
-                            <span id="club-header-bg-circle" />
-                        </div>
-                        <div id="club-cta-container">
-                            <Link href="/club/subscribe" prefetch>
-                                <a id="club-cta">Join the club - {this.getPricingText()}</a>
-                            </Link>
-                        </div>
-                        <div id="club-benefits">
-                            <div id="club-bg-image-container">
-                                <span
-                                    id="club-bg-image"
-                                    role="img"
-                                    aria-label="[Sebo Walker, nollie inward heel. Photo: Amrit Jain]"
-                                />
-                                <span id="club-bg-image-credits">
-                                    Sebo Walker, nollie inward heel. Photo: Amrit Jain
-                                </span>
+                    <StripeProvider stripe={this.state.stripe}>
+                        <>
+                            <Elements>
+                                <SubscribeModal open={isSubscribeModalOpen} onClose={this.onCloseSubscribeModal} />
+                            </Elements>
+                            <div id="club" className="inner-page-container container-fluid">
+                                <header id="club-header">
+                                    <div id="club-header-headline">
+                                        <h1 id="club-header-title">Krak Skate Club</h1>
+                                        <h2 id="club-header-subtitle">Dig deeper into skateboarding</h2>
+                                    </div>
+                                    <p id="club-header-obsessed">Obsessed to ride</p>
+                                    <div className="club-cta-container">
+                                        <p className="club-cta-limited">- Limited quantities available -</p>
+                                        {this.props.authUser ? (
+                                            <Link href="/club/profile">
+                                                <a className="club-cta button-primary">Go to my profile</a>
+                                            </Link>
+                                        ) : (
+                                            <button
+                                                className="club-cta button-primary"
+                                                onClick={this.onOpenSubscribeModal}
+                                            >
+                                                Become a Kraken for{' '}
+                                                {this.getPricingText(String(this.props.payment.price / 100))} a quarter
+                                            </button>
+                                        )}
+                                        <p className="club-cta-shipping">
+                                            <Emoji symbol="🚚" label="I dont know" />
+                                            Free shipping
+                                        </p>
+                                    </div>
+                                    <div id="club-header-bg-image-container">
+                                        <span
+                                            id="club-header-bg-image"
+                                            role="img"
+                                            aria-label="[Sebo Walker, nollie inward heel. Photo: Amrit Jain]"
+                                        />
+                                        <span id="club-header-bg-image-credits">
+                                            Sebo Walker, nollie inward heel. Photo: Amrit Jain
+                                        </span>
+                                    </div>
+                                </header>
+                                <main id="club-main">
+                                    <h2 id="club-main-title">Every quarter you get something to:</h2>
+                                    <div id="club-main-benefits">
+                                        <div className="row">
+                                            <div className="club-main-benefit col-xs-12 col-sm-6 col-md-4">
+                                                <span className="club-main-benefit-icon">
+                                                    <img
+                                                        src="/static/images/club/club-ride.svg"
+                                                        alt=""
+                                                        className="club-benefit-icon"
+                                                    />
+                                                </span>
+                                                <h3 className="club-main-benefit-title">Ride</h3>
+                                                <p className="club-main-benefit-text">
+                                                    <span className="club-main-benefit-text-item">
+                                                        - an exclusive deck
+                                                    </span>
+                                                    <span className="club-main-benefit-text-item">
+                                                        - the one & only classic KrakBox
+                                                    </span>
+                                                </p>
+                                            </div>
+                                            <div className="club-main-benefit col-xs-12 col-sm-6 col-md-4">
+                                                <span className="club-main-benefit-icon">
+                                                    <img
+                                                        src="/static/images/club/club-wear.svg"
+                                                        alt=""
+                                                        className="club-benefit-icon"
+                                                    />
+                                                </span>
+                                                <h3 className="club-main-benefit-title">Wear</h3>
+                                                <p className="club-main-benefit-text">
+                                                    <span className="club-main-benefit-text-item">
+                                                        - an exclusive t-shirt
+                                                    </span>
+                                                </p>
+                                            </div>
+                                            <div className="club-main-benefit col-xs-12 col-sm-6 col-md-4">
+                                                <span className="club-main-benefit-icon">
+                                                    <img
+                                                        src="/static/images/club/club-connect.svg"
+                                                        alt=""
+                                                        className="club-benefit-icon"
+                                                    />
+                                                </span>
+                                                <h3 className="club-main-benefit-title">Connect</h3>
+                                                <p className="club-main-benefit-text">
+                                                    <span className="club-main-benefit-text-item">
+                                                        - access to a ‘krakens only’
+                                                        <br />
+                                                        social network
+                                                    </span>
+                                                </p>
+                                            </div>
+                                            <div className="club-main-benefit col-xs-12 col-sm-6 col-md-4 col-md-offset-2">
+                                                <span className="club-main-benefit-icon">
+                                                    <img
+                                                        src="/static/images/club/club-digest.svg"
+                                                        alt=""
+                                                        className="club-benefit-icon"
+                                                    />
+                                                </span>
+                                                <h3 className="club-main-benefit-title">Digest</h3>
+                                                <p className="club-main-benefit-text">
+                                                    <span className="club-main-benefit-text-item">
+                                                        - special interviews & workshops
+                                                    </span>
+                                                </p>
+                                            </div>
+                                            <div className="club-main-benefit col-xs-12 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-0">
+                                                <span className="club-main-benefit-icon">
+                                                    <img
+                                                        src="/static/images/club/club-wow.svg"
+                                                        alt=""
+                                                        className="club-benefit-icon"
+                                                    />
+                                                </span>
+                                                <h3 className="club-main-benefit-title">Wow</h3>
+                                                <p className="club-main-benefit-text">
+                                                    <span className="club-main-benefit-text-item">
+                                                        - few surprises up our sleeves
+                                                        <br />
+                                                        [& some are BIG - size matters]
+                                                    </span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <p id="club-main-santa">
+                                        It’s damn simple.
+                                        <br />
+                                        We put Santa Claus on a board all year long.
+                                    </p>
+                                    <div id="club-main-youtube">
+                                        <h2 id="club-main-youtube-title">What's a KrakBox?</h2>
+                                        <ul id="club-main-youtube-videos" className="row">
+                                            <li className="club-main-youtube-item col-xs-12 col-sm-6 col-md-4">
+                                                <div className="club-main-youtube-item-player-container">
+                                                    <div className="club-main-youtube-item-player">
+                                                        <ReactPlayer
+                                                            url="https://www.youtube.com/watch?v=cdghhu3Yj8A"
+                                                            controls
+                                                            height="100%"
+                                                            width="100%"
+                                                            light
+                                                        />
+                                                    </div>
+                                                </div>
+                                                <h3 className="club-main-youtube-item-title">Best of #4</h3>
+                                            </li>
+                                            <li className="club-main-youtube-item col-xs-12 col-sm-6 col-md-4">
+                                                <div className="club-main-youtube-item-player-container">
+                                                    <div className="club-main-youtube-item-player">
+                                                        <ReactPlayer
+                                                            url="https://www.youtube.com/watch?v=BvdDTThUzME"
+                                                            controls
+                                                            height="100%"
+                                                            width="100%"
+                                                            light
+                                                        />
+                                                    </div>
+                                                </div>
+                                                <h3 className="club-main-youtube-item-title">Best of #3</h3>
+                                            </li>
+                                            <li className="club-main-youtube-item col-xs-12 col-sm-6 col-md-4">
+                                                <div className="club-main-youtube-item-player-container">
+                                                    <div className="club-main-youtube-item-player">
+                                                        <ReactPlayer
+                                                            url="https://www.youtube.com/watch?v=D2yrZ-i-4WU"
+                                                            controls
+                                                            height="100%"
+                                                            width="100%"
+                                                            light
+                                                        />
+                                                    </div>
+                                                </div>
+                                                <h3 className="club-main-youtube-item-title">Best of #2</h3>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </main>
+                                <footer id="club-footer">
+                                    <div className="club-cta-container">
+                                        <p className="club-cta-limited">- Limited quantities available -</p>
+                                        {this.props.authUser ? (
+                                            <Link href="/club/profile">
+                                                <a className="club-cta button-primary">Go to my profile</a>
+                                            </Link>
+                                        ) : (
+                                            <button
+                                                className="club-cta button-primary"
+                                                onClick={this.onOpenSubscribeModal}
+                                            >
+                                                Become a Kraken for{' '}
+                                                {this.getPricingText(String(this.props.payment.price / 100))} a quarter
+                                            </button>
+                                        )}
+                                        <p className="club-cta-shipping">
+                                            <Emoji symbol="🚚" label="I dont know" />
+                                            Free shipping
+                                        </p>
+                                    </div>
+                                    <div id="club-footer-skateistan">
+                                        <SkateistanLogo />
+                                        <p id="club-footer-skateistan-text">
+                                            Let’s skate & do good at the same time. When you join us, $10 will go
+                                            straight to{' '}
+                                            <a
+                                                href="https://www.skateistan.org/"
+                                                id="club-footer-skateistan-link"
+                                                target="_blank"
+                                                rel="noreferrer noopener"
+                                            >
+                                                Skateistan
+                                            </a>
+                                            .<span id="club-footer-skateistan-citizens">Become a citizen too.</span>
+                                        </p>
+                                    </div>
+                                </footer>
                             </div>
-                            <div id="club-benefits-container">
-                                <h3 id="club-benefits-title">Including every quarter</h3>
-                                <div className="row">
-                                    <ul className="col-xs-12 col-md-4">
-                                        <li className="club-benefit">1 exclusive deck</li>
-                                        <li className="club-benefit">1 exclusive t-shirt</li>
-                                        <li className="club-benefit">1 classic KrakBox</li>
-                                        <li className="club-benefit">many surprises</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div id="club-skateistan">
-                            <SkateistanLogo />
-                            <p id="club-skateistan-text">
-                                We wanna do good - that’s why 10% of your membership goes to{' '}
-                                <a
-                                    href="https://www.skateistan.org/"
-                                    id="club-skateistan-link"
-                                    target="_blank"
-                                    rel="noreferrer noopener"
-                                >
-                                    Skateistan
-                                </a>
-                                .<span id="club-skateistan-citizens">Become a citizen too.</span>
-                            </p>
-                        </div>
-                    </div>
+                        </>
+                    </StripeProvider>
                 </Layout>
             </TrackedPage>
         );
     }
 
-    private getPricingText(): string {
+    private onOpenSubscribeModal = () => {
+        this.setState({
+            isSubscribeModalOpen: true,
+        });
+    };
+
+    private onCloseSubscribeModal = () => {
+        this.setState({ isSubscribeModalOpen: false });
+    };
+
+    private getPricingText(price: string): string {
         const { payment } = this.props;
         let res = '';
         if (payment.currency === 'usd') {
@@ -100,13 +317,16 @@ class Club extends React.Component<Props> {
         if (payment.currency === 'gbp') {
             res += '£';
         }
-        res += '99';
+        res += price;
         if (payment.currency === 'eur') {
             res += '€';
         }
-        res += '/quarter';
         return res;
     }
 }
 
-export default connect((state: any) => ({ payment: state.payment }))(Club);
+const mapStateToProps = ({ payment, auth }: Types.RootState) => {
+    return { payment, authUser: auth.authUser };
+};
+
+export default connect(mapStateToProps)(Club);

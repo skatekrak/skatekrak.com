@@ -4,18 +4,20 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
+import Types from 'Types';
+
 /*
  * Local import
  */
 import Link from 'components/Link';
 import ScrollHelper from 'lib/ScrollHelper';
-import { State as SettingState } from 'store/reducers/setting';
+import { State as SettingState } from 'store/settings/reducers';
 
 /*
  * Code
  */
 type Props = {
-    setting: SettingState;
+    settings: SettingState;
 };
 
 class BannerTop extends React.Component<Props, {}> {
@@ -24,8 +26,8 @@ class BannerTop extends React.Component<Props, {}> {
         scrollContainer.addEventListener('scroll', this.handleScroll);
     }
 
-    public componentDidUpdate(prevProps) {
-        if (prevProps.setting.isMobile !== this.props.setting.isMobile) {
+    public componentDidUpdate(prevProps: Props) {
+        if (prevProps.settings.isMobile !== this.props.settings.isMobile) {
             const scrollContainer = ScrollHelper.getScrollContainer();
             scrollContainer.addEventListener('scroll', this.handleScroll);
         }
@@ -64,4 +66,4 @@ class BannerTop extends React.Component<Props, {}> {
     };
 }
 
-export default connect((state: any) => ({ setting: state.setting }))(BannerTop);
+export default connect((state: Types.RootState) => ({ settings: state.settings }))(BannerTop);

@@ -5,11 +5,12 @@ services:
     build:
       context: .
       args:
-        NPM_AUTH_TOKEN: ${NPM_AUTH_TOKEN}
-        STRIPE_KEY: ${STRIPE_KEY}
-        BACKEND_URL: ${BACKEND_URL}
-        RSS_BACKEND_URL: ${RSS_BACKEND_URL}
-        INTERCOM_ID: ${INTERCOM_ID}
+        - NPM_AUTH_TOKEN
+        - STRIPE_KEY
+        - CAIROTE_URL
+        - SESTERCES_URL
+        - RSS_BACKEND_URL
+        - INTERCOM_ID
       cache_from:
         - ${CI_REGISTRY_IMAGE}:${BUILD_TAG}
 

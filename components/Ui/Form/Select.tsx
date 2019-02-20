@@ -1,38 +1,94 @@
-/*
- * Npm import
- */
+import classnames from 'classnames';
 import React from 'react';
+import { Field } from 'react-final-form';
 import ReactSelect from 'react-select';
+import AsyncSelect from 'react-select/lib/Async';
 
-/*
- * Local import
- */
-import { createRenderer } from 'components/Ui/Form/render';
+import ErrorMessage from 'components/Ui/Form/ErrorMessage';
 
-/*
- * Code
- */
-const customStyles = {
-    control: (styles) => ({ ...styles, borderRadius: '0', border: '0', maxHeight: '3rem' }),
-    valueContainer: (styles) => ({ ...styles, padding: '.75rem 1rem', maxHeight: '3rem' }),
-    singleValue: (styles) => ({ ...styles, margin: '0', padding: '0' }),
-    input: (styles) => ({ ...styles, padding: '0', margin: '0', maxHeight: '3rem' }),
-    menu: (styles) => ({ ...styles, borderRadius: '0' }),
+import createPropsGetter from 'lib/getProps';
+
+type Props = {
+    name: string;
+    label?: string;
+    showValid?: boolean;
+    loadOptions?: (inputValue: string, callback: (options: {}[]) => void) => void | Promise<any>;
+    options?: { value: string; label: string }[];
+    placeholder?: string;
+    menuMaxHeight?: number;
+} & Partial<DefaultProps>;
+
+type DefaultProps = Readonly<typeof defaultProps>;
+
+const defaultProps = {
+    isClearable: true,
+    isMulti: false,
+    disabled: false,
+    isSearchable: false,
 };
 
-/* tslint:disable:jsx-no-lambda */
-const RenderSelect = createRenderer((input, rest) => (
-    <ReactSelect
-        {...input}
-        defaultValue={rest.value}
-        isDisabled={rest.disabled}
-        isSearchable
-        name={rest.name}
-        options={rest.options}
-        onChange={(value) => input.onChange(value)}
-        onBlur={() => input.onBlur()}
-        styles={customStyles}
-    />
-));
+const getProps = createPropsGetter(defaultProps);
 
-export default RenderSelect;
+const Select = (rawProps: Props) => {
+    const props = getProps(rawProps);
+    return (
+        <div className="form-element">
+            {props.label && (
+                <div className="form-element-label">
+                    <label htmlFor={props.name}>{props.label}</label>
+                </div>
+            )}
+            <Field name={props.name}>
+                {({ input, meta }) => {
+                    let showError = (meta.error || meta.submitError) && meta.touched;
+                    if (meta.dirtySinceLastSubmit) {
+                        showError = false;
+                    }
+
+                    return (
+                        <div
+                            className={classnames('form-element-field', {
+                                'form-element-field--error': showError,
+                                'form-element-field--success': props.showValid,
+                            })}
+                        >
+                            <>
+                                {props.loadOptions ? (
+                                    <AsyncSelect
+                                        value={input.value}
+                                        defaultOptions={props.options === undefined ? true : props.options}
+                                        loadOptions={props.loadOptions}
+                                        onChange={input.onChange}
+                                        onBlur={input.onBlur}
+                                        isClearable={props.isClearable}
+                                        isMulti={props.isMulti}
+                                        isDisabled={props.disabled}
+                                        placeholder={props.placeholder}
+                                        maxMenuHeight={props.menuMaxHeight}
+                                    />
+                                ) : (
+                                    <ReactSelect
+                                        isSearchable={props.isSearchable}
+                                        value={input.value}
+                                        options={props.options}
+                                        onChange={input.onChange}
+                                        onBlur={input.onBlur}
+                                        isClearable={props.isClearable}
+                                        isMulti={props.isMulti}
+                                        isDisabled={props.disabled}
+                                        placeholder={props.placeholder}
+                                        maxMenuHeight={props.menuMaxHeight}
+                                    />
+                                )}
+
+                                {showError && <ErrorMessage message={meta.error || meta.submitError} />}
+                            </>
+                        </div>
+                    );
+                }}
+            </Field>
+        </div>
+    );
+};
+
+export default Select;

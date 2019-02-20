@@ -1,56 +1,86 @@
+import gql from 'graphql-tag';
 import React from 'react';
 
-import RenderInput from 'components/Ui/Form/Input';
-import RenderSelect from 'components/Ui/Form/Select';
-import { Field } from 'redux-form';
+import withApollo, { WithApolloProps } from 'hocs/withApollo';
 
-const countriesOptions = [
-    {
-        value: 'pt',
-        label: 'Portugal',
-    },
-    {
-        value: 'fr',
-        label: 'France',
-    },
-    {
-        value: 'us',
-        label: 'United States',
-    },
-    {
-        value: 'be',
-        label: 'Belgium',
-    },
-    {
-        value: 'de',
-        label: 'Germany',
-    },
-    {
-        value: 'gb',
-        label: 'United Kingdom',
-    },
-    {
-        value: 'nl',
-        label: 'Netherlands',
-    },
-];
+import Field from 'components/Ui/Form/Field';
+import Select from 'components/Ui/Form/Select';
+
+import countries from 'lib/countries';
+import createPropsGetter from 'lib/getProps';
+
+const GET_COUNTRIES = gql`
+    query {
+        countries {
+            isoCode
+            name
+        }
+    }
+`;
 
 type Props = {
-    prefix?: string;
+    namePrefix?: string;
+} & Partial<DefaultProps>;
+
+type DefaultProps = Readonly<typeof defaultProps>;
+
+const defaultProps = {
+    allCountries: true,
 };
 
-const Address: React.SFC<Props> = ({ prefix }: Props) => (
-    <React.Fragment>
-        <Field label="First name" name={getName('firstName', prefix)} component={RenderInput} type="text" />
-        <Field label="Last name" name={getName('lastName', prefix)} component={RenderInput} type="text" />
-        <Field label="Address" name={getName('line1', prefix)} component={RenderInput} type="text" />
-        <Field label="Apt/unit etc (optional)" name={getName('line2', prefix)} component={RenderInput} type="text" />
-        <Field label="City" name={getName('city', prefix)} component={RenderInput} type="text" />
-        <Field label="Postal code" name={getName('postalcode', prefix)} component={RenderInput} type="text" />
-        <Field label="State" name={getName('state', prefix)} component={RenderInput} type="text" />
-        <Field label="Country" name={getName('country', prefix)} component={RenderSelect} options={countriesOptions} />
-    </React.Fragment>
-);
+const getProps = createPropsGetter(defaultProps);
+
+class Address extends React.PureComponent<Props & WithApolloProps> {
+    public render() {
+        const { namePrefix, allCountries } = getProps(this.props);
+        return (
+            <>
+                <div className="form-double-field-line">
+                    <Field name={getName('firstName', namePrefix)} placeholder="First name" />
+                    <Field name={getName('lastName', namePrefix)} placeholder="Last name" />
+                </div>
+                <Field name={getName('line1', namePrefix)} placeholder="Street" />
+                <Field name={getName('line2', namePrefix)} placeholder="Apt/unit etc (optional)" />
+                <div className="form-double-field-line">
+                    <Field name={getName('city', namePrefix)} placeholder="City" />
+                    <Field name={getName('postalCode', namePrefix)} placeholder="Postal code" />
+                </div>
+                <Field name={getName('state', namePrefix)} placeholder="State" />
+                {allCountries ? (
+                    <Select
+                        name={getName('country', namePrefix)}
+                        placeholder="Country"
+                        options={formatCountries(countries)}
+                        menuMaxHeight={200}
+                        isSearchable
+                    />
+                ) : (
+                    <Select
+                        name={getName('country', namePrefix)}
+                        placeholder="Country"
+                        loadOptions={this.queryCountries}
+                        menuMaxHeight={200}
+                    />
+                )}
+            </>
+        );
+    }
+
+    private queryCountries = (_inputValue: string, callback: (options: {}[]) => void) => {
+        this.props.apolloClient
+            .query<any>({
+                query: GET_COUNTRIES,
+            })
+            .then((result) => {
+                const options = result.data.countries.map((country) => ({
+                    label: country.name,
+                    value: country.isoCode,
+                }));
+
+                callback(options);
+            });
+    };
+}
 
 const getName = (name: string, prefix?: string): string => {
     if (prefix) {
@@ -59,4 +89,15 @@ const getName = (name: string, prefix?: string): string => {
     return name;
 };
 
-export default Address;
+const formatCountries = (cntrs: typeof countries): { label: string; value: string }[] => {
+    const options: { label: string; value: string }[] = [];
+    for (const key of Object.keys(cntrs)) {
+        options.push({
+            label: cntrs[key],
+            value: key.toLowerCase(),
+        });
+    }
+    return options;
+};
+
+export default withApollo(Address);

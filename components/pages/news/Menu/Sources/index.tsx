@@ -4,51 +4,46 @@ import classNames from 'classnames';
 import React from 'react';
 import { connect } from 'react-redux';
 
+import Types from 'Types';
+
 import SourceOption from 'components/pages/news/Menu/Sources/SourceOption';
 import { SpinnerCircle } from 'components/Ui/Icons/Spinners';
 import { Source } from 'rss-feed';
-import {
-    FilterState,
-    selectAllFilters,
-    setAllSources,
-    State as NewsState,
-    unselectAllFilters,
-} from 'store/reducers/news';
+import { selectAllFilters, setAllSources, unselectAllFilters } from 'store/news/actions';
+import { FilterState } from 'store/news/reducers';
 
 type Props = {
     sourcesMenuIsOpen: boolean;
     handleOpenSourcesMenu: () => void;
-    news: NewsState;
-    dispatch: (fct: any) => void;
+    sources: Map<Source, FilterState>;
+
+    setAllSources: (sources: Source[]) => void;
+    selectAllFilters: () => void;
+    unselectAllFilters: () => void;
 };
 
-type State = {};
-
-class Sources extends React.PureComponent<Props, State> {
+class Sources extends React.PureComponent<Props> {
     public async componentDidMount() {
         try {
-            const res = await axios.get(`${process.env.RSS_BACKEND_URL}/sources/`);
-            const sources: Source[] = res.data;
-            this.props.dispatch(setAllSources(sources));
+            const res = await axios.get<Source[]>(`${process.env.RSS_BACKEND_URL}/sources`);
+            this.props.setAllSources(res.data);
         } catch (err) {
             //
         }
     }
 
     public render() {
-        const {
-            sourcesMenuIsOpen,
-            handleOpenSourcesMenu,
-            news: { sources },
-        } = this.props;
+        const { sourcesMenuIsOpen, handleOpenSourcesMenu, sources } = this.props;
 
         let length = 0;
         const items = [];
-        for (const item of sources.entries()) {
-            if (item[1] === FilterState.SELECTED) {
-                length += 1;
+        if (sources instanceof Map) {
+            for (const [source, state] of sources.entries()) {
+                if (state === FilterState.SELECTED) {
+                    length += 1;
+                }
+                items.push(<SourceOption key={source.id} source={source} state={state} />);
             }
-            items.push(<SourceOption key={item[0].id} source={item[0]} state={item[1]} />);
         }
 
         return (
@@ -95,18 +90,29 @@ class Sources extends React.PureComponent<Props, State> {
     }
 
     private onSelectAllClick = () => {
-        if (this.props.news.sources.size > 0) {
+        if (this.props.sources.size > 0) {
             Analytics.default().trackEvent('Click', 'Filter_Select_All', { value: 1 });
         }
-        this.props.dispatch(selectAllFilters());
+        this.props.selectAllFilters();
     };
 
     private onDeselectAllClick = () => {
-        if (this.props.news.sources.size > 0) {
+        if (this.props.sources.size > 0) {
             Analytics.default().trackEvent('Click', 'Filter_Unselect_All', { value: 1 });
         }
-        this.props.dispatch(unselectAllFilters());
+        this.props.unselectAllFilters();
     };
 }
 
-export default connect((state: any) => ({ news: state.news }))(Sources);
+const mapStateToProps = ({ news }: Types.RootState) => {
+    return { sources: news.sources };
+};
+
+export default connect(
+    mapStateToProps,
+    {
+        setAllSources,
+        selectAllFilters,
+        unselectAllFilters,
+    },
+)(Sources);

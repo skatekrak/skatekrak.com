@@ -6,7 +6,8 @@ import { connect } from 'react-redux';
 import Checkbox from 'components/Ui/Form/Checkbox';
 import { SpinnerCircle } from 'components/Ui/Icons/Spinners';
 import { Source } from 'rss-feed';
-import { FilterState, toggleFilter } from 'store/reducers/news';
+import { toggleFilter } from 'store/news/actions';
+import { FilterState } from 'store/news/reducers';
 
 type Props = {
     source: Source;

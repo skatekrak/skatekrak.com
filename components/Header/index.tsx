@@ -1,16 +1,27 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import NavItem from 'components/Header/NavItem';
 import Link from 'components/Link';
 import IconCross from 'components/Ui/Icons/Cross.tsx';
+import IconKrakenHead from 'components/Ui/Icons/Kraken/KrakenHead';
+import IconPower from 'components/Ui/Icons/Power';
 
+import Types from 'Types';
+
+import { userSignout } from 'store/auth/actions';
 /* tslint:disable:max-line-length */
+
+type Props = {
+    authUser: any;
+    userSignout: () => void;
+};
 
 type State = {
     navItemAppIsOpen: boolean;
 };
 
-export default class extends React.Component<{}, State> {
+class Header extends React.Component<Props, State> {
     public state: State = {
         navItemAppIsOpen: false,
     };
@@ -101,6 +112,20 @@ export default class extends React.Component<{}, State> {
                         </ul>
                     </nav>
                     <nav id="header-nav-subnav">
+                        <div id="header-nav-subnav-kraken">
+                            <Link href={this.props.authUser ? '/club/profile' : '/auth/login'}>
+                                <a id="header-nav-subnav-kraken-login" className="header-nav-main-item-link">
+                                    <IconKrakenHead />
+                                    Kraken Access
+                                </a>
+                            </Link>
+                            {this.props.authUser && (
+                                <button id="header-nav-subnav-kraken-logout" onClick={this.props.userSignout}>
+                                    <IconPower />
+                                    Log out
+                                </button>
+                            )}
+                        </div>
                         <ul id="header-nav-subnav-container">
                             <li className="header-nav-subnav-item">
                                 <a
@@ -161,3 +186,15 @@ export default class extends React.Component<{}, State> {
         this.setState({ navItemAppIsOpen: !navItemAppIsOpen });
     };
 }
+
+const mapStateToProps = ({ auth }: Types.RootState) => {
+    const { authUser } = auth;
+    return { authUser };
+};
+
+export default connect(
+    mapStateToProps,
+    {
+        userSignout,
+    },
+)(Header);

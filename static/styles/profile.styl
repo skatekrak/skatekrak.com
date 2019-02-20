@@ -1,0 +1,336 @@
+@import "./stylus-mq"
+@import "./styleguide"
+
+/* PROFILE STYLES */
+
+#profile
+	&-container
+		display: flex
+		flex-direction: column
+		height: 100%
+
+		& .row
+			flex-grow: 1
+
+	//Main nav
+	&-nav
+		&-container
+			display: flex
+			flex-direction: column
+			height: 100%
+
+		&-header
+			text-align: center
+
+			+mq($from: "medium")
+				text-align: left
+
+			&-title
+				margin-bottom: .5rem
+				font-family: $ff-roboto-bold
+				font-size: $fs-larger
+				color: $grey-800
+
+				+mq($from: "medium")
+					font-size: $fs-large
+
+			&-location
+				color: $grey-500
+
+				+mq($from: "medium")
+					font-size: $fs-small
+
+			&-memberid
+				&-container
+					margin-top: 2rem
+					font-family: $ff-roboto-bold
+					// font-size: $fs-small
+					color: $grey-500
+
+					+mq($from: "medium")
+						font-size: $fs-small
+
+				&-title
+					margin-bottom: .5rem
+					color: $grey-400
+
+
+.profile
+	&-nav
+		//Main nav
+		&-main
+			display: flex
+			flex-direction: column
+			margin-top: 2rem
+			border-radius: 0.25rem 
+			border: 1px solid $grey-800
+
+			+mq($from: "medium")
+				max-width: 175px
+				margin: auto 0
+				border: 0
+
+			&--open
+				.profile-nav-main-item
+					display: flex
+
+			&-item
+				order: 1
+				display: none
+				align-items: center
+				padding: 1rem
+				font-family: $ff-roboto-bold
+				font-size: $fs-large
+				color: $grey-400
+
+				+mq($from: "medium")
+					display: flex
+					padding: 1rem 0
+
+				&:hover
+					color: $grey-800
+
+				& svg
+					display: block
+					width: 1.5rem
+					height: 1.5rem
+					margin-left: auto
+
+					+mq($from: "medium")
+						display: none
+				
+				&--active
+					display: flex
+					order: 0
+					color: $grey-800
+
+					+mq($from: "medium")
+						order: 1
+
+					& svg
+						display: block
+						transform: rotate(90deg)
+
+						+mq($from: "medium")
+							transform: inherit
+
+		// Secondary nav
+		&-secondary
+			display: none
+			padding-bottom: 2rem
+
+			// +mq($from: "medium")
+			// 	display: block
+
+			&-item
+				display: none
+				padding: .5rem 0
+
+				&:last-child
+					display: block
+					padding: 2rem 0 0
+
+				& a, & button
+					font-family: $ff-roboto-bold
+					font-size: $fs-small
+					color: $grey-500
+
+					&:hover
+						color: $grey-800
+
+	// Section
+	&-section
+		padding: 2rem 0
+		border-bottom: 1px solid $grey-200
+
+		&:first-child
+			padding-top: 4rem
+
+		&:last-child
+			border-bottom: 0
+
+		+mq($from: "medium")
+			padding: 4rem 0
+
+			&:first-child
+				padding-top: 0
+
+		&-header
+			display: flex
+			flex-wrap: wrap
+			align-items: center
+			justify-content: space-between
+			margin-bottom: 3rem
+
+			&-main
+				width: 100%
+
+				+mq($from: "tiny")
+					width: inherit
+
+				&-title
+					font-family: $ff-roboto-black
+					font-size: 2rem
+
+			& .edit-button
+				margin-top: 2rem
+				padding: .5rem .5rem
+
+				+mq($from: "tiny")
+					margin-top: 0
+					margin-left: auto
+					padding: .5rem 1rem
+
+		&-line
+			display: flex
+			flex-direction: column
+
+			+mq($from: "medium")
+				flex-direction: row
+				margin-bottom: 2rem
+
+			&:last-child
+				margin-bottom: 0
+
+				& .profile-content-section-line-item:last-child
+					margin-bottom: 0
+
+		&-item
+			margin-right: 4rem
+			margin-bottom: 2rem
+
+			+mq($from: "medium")
+				margin-bottom: 0
+
+			&:last-child
+				margin-right: 0
+
+			&-title
+				margin-bottom: .5rem
+				font-family: $ff-roboto-bold
+				color: $grey-400
+
+	&-address
+		&-add
+			display: flex
+			align-items: center
+			padding-bottom: 2rem
+			font-size: $fs-medium
+			color: $grey-800
+
+			+mq($from: "medium")
+				padding-bottom: 0
+
+			& .icon-full
+				padding: .25rem
+				margin-right: 1rem
+
+				& svg
+					transform: rotate(45deg)
+
+		&-nav
+			display: flex
+			align-items: center
+			font-size: $fs-small
+
+			&-item
+				display: flex
+				align-items: center
+				padding-right: 1rem
+				margin-right: 1rem
+				border-right: 1px solid $grey-200
+
+				&:last-child
+					padding-right: 0
+					margin-right: 0
+					border: 0
+
+				& button
+					font-size: $fs-small
+
+					&:hover
+						text-decoration: underline
+
+				&-status
+					display: flex
+					align-items: center
+
+					& .icon-full
+						margin-right: .5rem
+
+					&--active
+						& .icon-full
+							border-radius: 100%
+
+							& svg
+								fill: #ffd400
+
+		&-preview
+			&-line
+				margin-bottom: 1rem
+
+				&:last-child
+					margin-bottom: 0
+
+	&-payment
+		&-history
+			&-line
+				display: flex
+				flex-direction: column
+				margin: 2rem 0
+				padding-bottom: 2rem
+				border-bottom: 1px solid $grey-200
+
+				&:first-child
+					margin-top: 0
+
+				&:last-child
+					margin-bottom: 0
+					padding-bottom: 0
+					border-bottom: 0
+
+				+mq($from: "small")
+					flex-direction: row
+					justify-content: space-between
+
+				&-desc
+					margin-bottom: 1rem
+
+					+mq($from: "small")
+						margin-bottom: 0
+
+				&-details
+					display: flex
+					align-items: center
+
+					&-date
+						margin-right: 2rem
+						font-size: $fs-small
+						color: $grey-600
+
+					&-price
+						margin-right: 2rem
+						font-family: $ff-roboto-bold
+
+	// Modal
+	&-modal
+		+mq($from: "small")
+			min-width: 500px
+
+		&-title
+			margin-bottom: 2rem
+			font-family: $ff-roboto-bold
+			font-size: $fs-large
+
+		&-form
+			&-submit
+				width: 100%
+				margin-top: 2rem
+				font-size: $fs-medium
+				color: $white
+				background-color: $grey-900
+				transition: .2s
+
+				&:hover
+					background-color: $black
+
