@@ -31,10 +31,10 @@ class ProfileNav extends React.Component<Props, State> {
                         {', '}
                         <span className="text-cap">{profile.shipping.address1.countryCode}</span>
                     </span> */}
-                    <div id="profile-nav-header-memberid-container">
+                    {/* <div id="profile-nav-header-memberid-container">
                         <p id="profile-nav-header-memberid-title">Member ID</p>
                         <p id="profile-nav-header-memberid">#{profile.id}</p>
-                    </div>
+                    </div> */}
                 </header>
                 <ul
                     className={classNames('profile-nav-main', {
