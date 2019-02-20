@@ -205,7 +205,7 @@ class Club extends React.Component<Props, State> {
                                         We put Santa Claus on a board all year long.
                                     </p>
                                     <div id="club-main-youtube">
-                                        <h2 id="club-main-youtube-title">Best Of KrakBox unboxing</h2>
+                                        <h2 id="club-main-youtube-title">What's a KrakBox?</h2>
                                         <ul id="club-main-youtube-videos" className="row">
                                             <li className="club-main-youtube-item col-xs-12 col-sm-6 col-md-4">
                                                 <div className="club-main-youtube-item-player-container">
@@ -276,7 +276,8 @@ class Club extends React.Component<Props, State> {
                                     <div id="club-footer-skateistan">
                                         <SkateistanLogo />
                                         <p id="club-footer-skateistan-text">
-                                            We wanna do good - that’s why 10% of your membership goes to{' '}
+                                            Let’s skate & do good at the same time. When you join us, $10 will go
+                                            straight to{' '}
                                             <a
                                                 href="https://www.skateistan.org/"
                                                 id="club-footer-skateistan-link"
