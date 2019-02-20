@@ -23,7 +23,7 @@ const AddressNav = ({ isDefault, name, onDeleteClick, setAsDefault }: Props) => 
                     })}
                 >
                     <IconFull icon={<IconStarFull />} />
-                    Actual shipping address
+                    Current shipping address
                 </span>
             ) : (
                 <button
@@ -33,7 +33,7 @@ const AddressNav = ({ isDefault, name, onDeleteClick, setAsDefault }: Props) => 
                     onClick={setAsDefault}
                 >
                     <IconFull icon={<IconStarFull />} />
-                    Set as shipping address
+                    Set as current shipping address
                 </button>
             )}
         </span>
