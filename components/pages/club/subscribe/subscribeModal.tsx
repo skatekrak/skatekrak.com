@@ -27,7 +27,7 @@ class SubscribeModal extends React.Component<Props, State> {
         const { step } = this.state;
         return (
             <>
-                <Modal open={open} onClose={this.onClose}>
+                <Modal open={open} onClose={this.onClose} closeOnEsc={false}>
                     {step === 'account' && <CreateAccount quarterFull={false} onNextClick={this.onNextStep} />}
                     {step === 'subscribe' && <Subscribe quarterFull={false} onNextClick={this.onNextStep} />}
                 </Modal>
