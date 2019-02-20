@@ -1,3 +1,4 @@
+import format from 'date-fns/format';
 import React from 'react';
 import { Query } from 'react-apollo';
 import { Elements, StripeProvider } from 'react-stripe-elements';
@@ -79,7 +80,11 @@ class ProfilePayment extends React.Component<{}, State> {
                                                         <div className="profile-section-line">
                                                             <ProfileItem
                                                                 title="Next renewal"
-                                                                content={'5 march 2019'}
+                                                                content={
+                                                                    data.me.renewAt
+                                                                        ? format(data.me.renewAt, 'D MMMM YYYY')
+                                                                        : 'Never'
+                                                                }
                                                             />
                                                         </div>
                                                         <div className="profile-section-line">
@@ -107,7 +112,7 @@ class ProfilePayment extends React.Component<{}, State> {
                                             )}
                                             <ProfileSection>
                                                 <ProfileSectionHeader title="History" />
-                                                {data.me.paymentHistory.map((payment) => (
+                                                {data.me.paymentHistory.map(payment => (
                                                     <PaymentLine key={payment.id} payment={payment} />
                                                 ))}
                                             </ProfileSection>
