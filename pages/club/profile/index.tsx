@@ -27,6 +27,7 @@ export const GET_ME = gql`
             createdAt
             birthday
             phone
+            renewAt
             addresses {
                 id
                 title
@@ -107,7 +108,11 @@ class ProfileMain extends React.Component<{}, State> {
                                                 />
                                                 <ProfileItem
                                                     title="Next renewal"
-                                                    content={format('2019/03/05', 'D MMMM YYYY')}
+                                                    content={
+                                                        data.me.renewAt
+                                                            ? format(data.me.renewAt, 'D MMMM YYYY')
+                                                            : 'Never'
+                                                    }
                                                 />
                                             </div>
                                         </ProfileSection>
