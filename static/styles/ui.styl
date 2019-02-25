@@ -14,6 +14,32 @@
 	background-color: $grey-900 !important
 	border-radius: .25rem
 
+/*
+ * Button primary
+ */
+.button-primary
+	display: inline-flex
+	align-items: center
+	padding: 1rem 2rem
+	font-family: $ff-roboto-bold
+	border-radius: .25rem
+	transition: .3s
+
+	&:disabled
+		color: $disableText
+		background-color: $disableBackground
+
+		&:hover
+			background-color: $disableBackground
+
+	& svg
+		height 1.5rem
+		width: 1.5rem
+		margin-right: 1rem
+
+		& .path
+				stroke: $disableText
+
 
 /*
  * Button with label
