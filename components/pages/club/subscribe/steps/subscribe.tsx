@@ -1,3 +1,4 @@
+import Analytics from '@thepunkclub/analytics';
 import classNames from 'classnames';
 import gql from 'graphql-tag';
 import React from 'react';
@@ -245,7 +246,9 @@ class Subscribe extends React.Component<Props & WithApolloProps & ReactStripeEle
             await apolloClient.mutate({
                 mutation: JOIN_CLUB,
                 variables: { data },
-                update: () => {
+                update: (_cache, result) => {
+                    const { joinClub } = result.data as any;
+                    Analytics.default().trackOrder(joinClub.id, this.props.payment.price / 100);
                     this.props.onNextClick();
                     this.props.userSignin(data.email, data.password, true);
                 },
@@ -261,7 +264,7 @@ class Subscribe extends React.Component<Props & WithApolloProps & ReactStripeEle
         }
     };
 
-    private onFormChange = (state) => {
+    private onFormChange = state => {
         if (checkPath(state, 'values.shipping.country.value')) {
             const countryCode = state.values.shipping.country.value;
             let currency = 'eur';
@@ -305,7 +308,7 @@ class Subscribe extends React.Component<Props & WithApolloProps & ReactStripeEle
         return res;
     }
 
-    private checkSpecial = async (value) => {
+    private checkSpecial = async value => {
         if (value) {
             try {
                 const response = await this.props.apolloClient.query({
