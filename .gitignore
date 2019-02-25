@@ -13,3 +13,5 @@ public/
 /.next
 /yarn-error.log
 /out
+
+\.npmrc

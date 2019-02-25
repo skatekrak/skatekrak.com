@@ -1,22 +1,23 @@
-version: "3"
+version: '3'
 services:
-  skatekrak:
-    image: node:lts
-    command: yarn run start:cmd:dev
-    working_dir: /app
-    networks:
-      - web
-    ports:
-      - 9229:9229
-    labels:
-      - traefik.enable=true
-      - traefik.docker.network=web
-      - traefik.backend=skatekrak
-      - traefik.frontend.rule=Host:dev.skatekrak.com
-      - traefik.port=3000
-    volumes:
-      - ".:/app:delegated"
+    skatekrak:
+        image: node:lts
+        command: bash -c "yarn install && yarn start:cmd:dev"
+        working_dir: /app
+        networks:
+            - web
+        ports:
+            - 9229:9229
+        labels:
+            - traefik.enable=true
+            - traefik.docker.network=web
+            - traefik.backend=skatekrak
+            - traefik.frontend.rule=Host:dev.skatekrak.com
+            - traefik.port=3000
+        volumes:
+            - ~/.npmrc:/app/.npmrc:ro
+            - '.:/app'
 
 networks:
-  web:
-    external: true
+    web:
+        external: true
