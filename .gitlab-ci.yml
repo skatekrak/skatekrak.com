@@ -33,7 +33,7 @@ build_feature:
     PREFIX_VAR: BUILD_STAGING_
     BUILD_STAGING_BUILD_TAG: $CI_COMMIT_REF_SLUG
   only:
-    - feature/*
+    - /^feature\/.*$/
   when: manual
 
 build_staging:
@@ -130,7 +130,7 @@ deploy_feature:
     name: staging
     url: "https://staging.skatekrak.com"
   only:
-    - feature/*
+    - /^feature\/.*$/
   when: on_success
 
 deploy_staging:
