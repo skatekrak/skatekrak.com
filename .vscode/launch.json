@@ -7,7 +7,7 @@
             "request": "launch",
             "runtimeArgs": ["--auto-open-devtools-for-tabs"],
             "userDataDir": "${env:HOME}/Library/Application Support/Google/ChromeDebug",
-            "url": "https://skatekrak.dev.skatekrak.com",
+            "url": "https://dev.skatekrak.com",
             "webRoot": "${workspaceFolder}",
             "disableNetworkCache": true
         },
@@ -21,7 +21,7 @@
             "internalConsoleOptions": "neverOpen",
             "protocol": "inspector",
             "address": "localhost",
-            "port": 9229,
+            "port": 9230,
             "sourceMaps": true,
             "localRoot": "${workspaceFolder}",
             "remoteRoot": "/app"
