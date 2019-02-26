@@ -12,7 +12,7 @@ import Loading from 'components/pages/news/Articles/Loading';
 import TrackedPage from 'components/pages/TrackedPage';
 import IconCross from 'components/Ui/Icons/Cross';
 import IconFull from 'components/Ui/Icons/iconFull';
-import ModalConfirmation from 'components/Ui/Modal/ModalConfirmation';
+import { showConfirmation } from 'components/Ui/Modal/ModalConfirmation';
 
 import withApollo, { WithApolloProps } from 'hocs/withApollo';
 import withAuth from 'hocs/withAuth';
@@ -21,18 +21,14 @@ import { GET_ME } from 'pages/club/profile';
 
 type State = {
     addressModalOpen: boolean;
-    deleteConfirmationOpen: boolean;
     editingAddress?: any;
     deleteModalOpen: boolean;
-    deleteModalAddress: object;
 };
 // tslint:disable:jsx-no-lambda
 class ProfileShipment extends React.Component<WithApolloProps, State> {
     public state: State = {
         addressModalOpen: false,
-        deleteConfirmationOpen: false,
         deleteModalOpen: false,
-        deleteModalAddress: {},
     };
 
     public render() {
@@ -69,7 +65,7 @@ class ProfileShipment extends React.Component<WithApolloProps, State> {
                                                 </button>
                                             </div>
                                         </ProfileSection>
-                                        {data.me.addresses.map((address) => (
+                                        {data.me.addresses.map(address => (
                                             <AddressSection
                                                 key={address.id}
                                                 address={address}
@@ -78,22 +74,6 @@ class ProfileShipment extends React.Component<WithApolloProps, State> {
                                                 setAsDefault={this.setAsDefault}
                                             />
                                         ))}
-                                        <ModalConfirmation
-                                            open={this.state.deleteModalOpen}
-                                            onClose={this.onCloseDeleteModal}
-                                            title="Wait!"
-                                            message="Are you sure you want to delete this address?"
-                                            buttons={[
-                                                {
-                                                    label: 'Cancel',
-                                                    onClick: () => this.onCloseDeleteModal(),
-                                                },
-                                                {
-                                                    label: 'Delete address',
-                                                    onClick: () => this.deleteAddress(this.state.deleteModalAddress),
-                                                },
-                                            ]}
-                                        />
                                     </LayoutProfile>
                                 );
                             }
@@ -117,9 +97,18 @@ class ProfileShipment extends React.Component<WithApolloProps, State> {
     };
 
     private onDeleteClick = (address: any) => {
-        this.setState({
-            deleteModalOpen: true,
-            deleteModalAddress: address,
+        showConfirmation({
+            title: 'Wait!',
+            message: 'Are you sure you want to delete this address?',
+            buttons: [
+                {
+                    label: 'Cancel',
+                },
+                {
+                    label: 'Delete address',
+                    onClick: () => this.deleteAddress(address),
+                },
+            ],
         });
     };
 
@@ -138,7 +127,7 @@ class ProfileShipment extends React.Component<WithApolloProps, State> {
                 const data = result.data as any;
 
                 if (query && data) {
-                    query.me.addresses = query.me.addresses.filter((address) => address.id !== data.deleteAddress.id);
+                    query.me.addresses = query.me.addresses.filter(address => address.id !== data.deleteAddress.id);
 
                     cache.writeQuery({
                         query: GET_ME,
@@ -163,7 +152,7 @@ class ProfileShipment extends React.Component<WithApolloProps, State> {
                 const data = result.data as any;
 
                 if (query && data) {
-                    query.me.addresses = query.me.addresses.map((address) => {
+                    query.me.addresses = query.me.addresses.map(address => {
                         if (address.id === data.setDefaultAddress.id) {
                             return {
                                 ...address,
