@@ -191,9 +191,9 @@ class Club extends React.Component<Props, State> {
                                                 <h3 className="club-main-benefit-title">Wow</h3>
                                                 <p className="club-main-benefit-text">
                                                     <span className="club-main-benefit-text-item">
-                                                        - few surprises up our sleeves
+                                                        - few surprises
                                                         <br />
-                                                        [& some are BIG - size matters]
+                                                        [some are BIG - if size matters]
                                                     </span>
                                                 </p>
                                             </div>
