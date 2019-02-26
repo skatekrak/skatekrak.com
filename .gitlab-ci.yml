@@ -35,6 +35,7 @@ build_feature:
   only:
     - /^feature\/.*$/
   when: manual
+  allow_failure: false
 
 build_staging:
   extends: .build
