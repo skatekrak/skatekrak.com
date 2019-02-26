@@ -59,15 +59,15 @@ class ProfilePreferencesSection extends React.Component<Props, State> {
                                             preferences={member.preferences}
                                             preferencesSetting={data.getPreferencesSetting}
                                         />
-                                        <div className="profile-section-line">
-                                            {data.getPreferencesSetting.map((setting) => (
+                                        {data.getPreferencesSetting.map((setting) => (
+                                            <div className="profile-section-line">
                                                 <ProfileItem
                                                     key={setting.id}
                                                     title={setting.name}
                                                     content={getPreferenceWithSetting(setting, member.preferences)}
                                                 />
-                                            ))}
-                                        </div>
+                                            </div>
+                                        ))}
                                     </>
                                 )}
                             </>
