@@ -216,6 +216,7 @@ class Club extends React.Component<Props, State> {
                                                             height="100%"
                                                             width="100%"
                                                             light
+                                                            playing
                                                         />
                                                     </div>
                                                 </div>
@@ -230,6 +231,7 @@ class Club extends React.Component<Props, State> {
                                                             height="100%"
                                                             width="100%"
                                                             light
+                                                            playing
                                                         />
                                                     </div>
                                                 </div>
@@ -244,6 +246,7 @@ class Club extends React.Component<Props, State> {
                                                             height="100%"
                                                             width="100%"
                                                             light
+                                                            playing
                                                         />
                                                     </div>
                                                 </div>
