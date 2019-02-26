@@ -3,8 +3,6 @@ import React from 'react';
 import { Query } from 'react-apollo';
 import { compose } from 'recompose';
 
-import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
-
 import Layout from 'components/Layout/Layout';
 import LayoutProfile from 'components/pages/club/profile/LayoutProfile';
 import AddressSection from 'components/pages/club/profile/Shipments/AddressSection';
