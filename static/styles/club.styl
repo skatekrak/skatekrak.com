@@ -129,6 +129,10 @@
 			+mq($from: "medium")
 				font-size: $fs-large
 
+			&-emoji
+				margin-bottom: .5rem
+				font-size: 1.75rem
+
 		&-youtube
 			+mq($from: "large")
 				max-width: 1200px
@@ -155,9 +159,9 @@
 			z-index: 3
 
 			+mq($from: "medium")
-				display: inline-flex
+				display: flex
 				align-items: center
-				margin: 6rem auto 2rem
+				margin: 10rem auto 2rem
 				font-size: $fs-small
 				text-align: left
 
@@ -188,7 +192,7 @@
 		&:hover
 			background-color: $primaryDark
 
-		+mq($from: "large")
+		+mq($from: "medium")
 			font-size: $fs-medium
 
 		&-container

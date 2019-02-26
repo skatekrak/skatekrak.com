@@ -27,9 +27,37 @@
 			width: auto
 			padding: 3rem 2rem 2rem
 
+/*
+ * Modal confirmation styles
+ */
+.modal-confirmation
+	text-align: center
+
+	&-title
+		margin-bottom: 1rem
+		font-family: $ff-roboto-bold
+		font-size: $fs-larger
+
+	&-buttons
+		display: flex
+		justify-content: center
+		margin-top: 2rem
+
+	&-button
+		margin-right: 1rem
+		color: $white
+		background-color: $grey-900
+
+		&:hover
+			color: $white
+			background-color: $black
+
+		&:last-child
+			margin-right: 0
+
 
 /*
- * Modal base styles
+ * Modal two column styles
  */
 .modal-two-col
 	&-container

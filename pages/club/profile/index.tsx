@@ -98,8 +98,8 @@ class ProfileMain extends React.Component<{}, State> {
                                         <ProfileSection>
                                             <ProfileSectionHeader title="Membership" />
                                             <div className="profile-section-line">
-                                                <ProfileItem title="Member ID" content={`#${data.me.id}`} />
-                                                <ProfileItem title="Quarter" content="1" />
+                                                {/* <ProfileItem title="Member ID" content={`#${data.me.id}`} /> */}
+                                                <ProfileItem title="Quarter" content="First quarter" />
                                             </div>
                                             <div className="profile-section-line">
                                                 <ProfileItem

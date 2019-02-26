@@ -191,19 +191,26 @@ class Club extends React.Component<Props, State> {
                                                 <h3 className="club-main-benefit-title">Wow</h3>
                                                 <p className="club-main-benefit-text">
                                                     <span className="club-main-benefit-text-item">
-                                                        - few surprises up our sleeves
+                                                        - few surprises
                                                         <br />
-                                                        [& some are BIG - size matters]
+                                                        [some are BIG - if size matters]
                                                     </span>
                                                 </p>
                                             </div>
                                         </div>
                                     </div>
-                                    <p id="club-main-santa">
-                                        It’s damn simple.
-                                        <br />
-                                        We put Santa Claus on a board all year long.
-                                    </p>
+                                    <div id="club-main-santa">
+                                        <div id="club-main-santa-emoji">
+                                            <Emoji symbol="🎄" label="Christmas tree" />
+                                            <Emoji symbol="🎅" label="Santa Claus" />
+                                            <Emoji symbol="🌴" label="Palm tree" />
+                                        </div>
+                                        <p id="club-main-santa-text">
+                                            It’s damn simple.
+                                            <br />
+                                            We put Santa Claus on a board all year long.
+                                        </p>
+                                    </div>
                                     <div id="club-main-youtube">
                                         <h2 id="club-main-youtube-title">What's a KrakBox?</h2>
                                         <ul id="club-main-youtube-videos" className="row">
@@ -216,6 +223,7 @@ class Club extends React.Component<Props, State> {
                                                             height="100%"
                                                             width="100%"
                                                             light
+                                                            playing
                                                         />
                                                     </div>
                                                 </div>
@@ -230,6 +238,7 @@ class Club extends React.Component<Props, State> {
                                                             height="100%"
                                                             width="100%"
                                                             light
+                                                            playing
                                                         />
                                                     </div>
                                                 </div>
@@ -244,6 +253,7 @@ class Club extends React.Component<Props, State> {
                                                             height="100%"
                                                             width="100%"
                                                             light
+                                                            playing
                                                         />
                                                     </div>
                                                 </div>
