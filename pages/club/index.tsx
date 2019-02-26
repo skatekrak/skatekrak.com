@@ -199,11 +199,18 @@ class Club extends React.Component<Props, State> {
                                             </div>
                                         </div>
                                     </div>
-                                    <p id="club-main-santa">
-                                        It’s damn simple.
-                                        <br />
-                                        We put Santa Claus on a board all year long.
-                                    </p>
+                                    <div id="club-main-santa">
+                                        <div id="club-main-santa-emoji">
+                                            <Emoji symbol="🎄" label="Christmas tree" />
+                                            <Emoji symbol="🎅" label="Santa Claus" />
+                                            <Emoji symbol="🌴" label="Palm tree" />
+                                        </div>
+                                        <p id="club-main-santa-text">
+                                            It’s damn simple.
+                                            <br />
+                                            We put Santa Claus on a board all year long.
+                                        </p>
+                                    </div>
                                     <div id="club-main-youtube">
                                         <h2 id="club-main-youtube-title">What's a KrakBox?</h2>
                                         <ul id="club-main-youtube-videos" className="row">
