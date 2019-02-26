@@ -1,7 +1,6 @@
 import gql from 'graphql-tag';
 import React from 'react';
 import { Query } from 'react-apollo';
-import { confirmAlert } from 'react-confirm-alert';
 import { compose } from 'recompose';
 
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
@@ -15,6 +14,7 @@ import Loading from 'components/pages/news/Articles/Loading';
 import TrackedPage from 'components/pages/TrackedPage';
 import IconCross from 'components/Ui/Icons/Cross';
 import IconFull from 'components/Ui/Icons/iconFull';
+import ModalConfirmation from 'components/Ui/Modal/ModalConfirmation';
 
 import withApollo, { WithApolloProps } from 'hocs/withApollo';
 import withAuth from 'hocs/withAuth';
@@ -25,12 +25,16 @@ type State = {
     addressModalOpen: boolean;
     deleteConfirmationOpen: boolean;
     editingAddress?: any;
+    deleteModalOpen: boolean;
+    deleteModalAddress: object;
 };
 // tslint:disable:jsx-no-lambda
 class ProfileShipment extends React.Component<WithApolloProps, State> {
     public state: State = {
         addressModalOpen: false,
         deleteConfirmationOpen: false,
+        deleteModalOpen: false,
+        deleteModalAddress: {},
     };
 
     public render() {
@@ -67,15 +71,31 @@ class ProfileShipment extends React.Component<WithApolloProps, State> {
                                                 </button>
                                             </div>
                                         </ProfileSection>
-                                        {data.me.addresses.map(address => (
+                                        {data.me.addresses.map((address) => (
                                             <AddressSection
                                                 key={address.id}
                                                 address={address}
                                                 onEdit={this.openModal}
-                                                onDelete={this.showDeleteConfirmation}
+                                                onDelete={this.onDeleteClick}
                                                 setAsDefault={this.setAsDefault}
                                             />
                                         ))}
+                                        <ModalConfirmation
+                                            open={this.state.deleteModalOpen}
+                                            onClose={this.onCloseDeleteModal}
+                                            title="Wait!"
+                                            message="Are you sure you want to delete this address?"
+                                            buttons={[
+                                                {
+                                                    label: 'Cancel',
+                                                    onClick: () => this.onCloseDeleteModal(),
+                                                },
+                                                {
+                                                    label: 'Delete address',
+                                                    onClick: () => this.deleteAddress(this.state.deleteModalAddress),
+                                                },
+                                            ]}
+                                        />
                                     </LayoutProfile>
                                 );
                             }
@@ -98,23 +118,15 @@ class ProfileShipment extends React.Component<WithApolloProps, State> {
         this.setState({ addressModalOpen: false, editingAddress: undefined });
     };
 
-    private showDeleteConfirmation = (address: any) => {
-        const options = {
-            title: 'Wait!',
-            message: 'Are you sure you want to delete this address?',
-            buttons: [
-                {
-                    label: 'Yes',
-                    onClick: () => this.deleteAddress(address),
-                },
-                {
-                    label: 'No',
-                },
-            ],
-            childrenElement: () => <div />,
-        };
+    private onDeleteClick = (address: any) => {
+        this.setState({
+            deleteModalOpen: true,
+            deleteModalAddress: address,
+        });
+    };
 
-        confirmAlert(options);
+    private onCloseDeleteModal = () => {
+        this.setState({ deleteModalOpen: false });
     };
 
     private deleteAddress = async ({ id }: any) => {
@@ -128,7 +140,7 @@ class ProfileShipment extends React.Component<WithApolloProps, State> {
                 const data = result.data as any;
 
                 if (query && data) {
-                    query.me.addresses = query.me.addresses.filter(address => address.id !== data.deleteAddress.id);
+                    query.me.addresses = query.me.addresses.filter((address) => address.id !== data.deleteAddress.id);
 
                     cache.writeQuery({
                         query: GET_ME,
@@ -139,6 +151,7 @@ class ProfileShipment extends React.Component<WithApolloProps, State> {
                 }
             },
         });
+        this.onCloseDeleteModal();
     };
 
     private setAsDefault = async ({ id }: any) => {
@@ -152,7 +165,7 @@ class ProfileShipment extends React.Component<WithApolloProps, State> {
                 const data = result.data as any;
 
                 if (query && data) {
-                    query.me.addresses = query.me.addresses.map(address => {
+                    query.me.addresses = query.me.addresses.map((address) => {
                         if (address.id === data.setDefaultAddress.id) {
                             return {
                                 ...address,
