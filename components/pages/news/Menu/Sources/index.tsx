@@ -6,10 +6,9 @@ import { connect } from 'react-redux';
 
 import Types from 'Types';
 
-import LanguageFilter from 'components/pages/news/Menu/Sources/LanguageFilter';
 import SourceOption from 'components/pages/news/Menu/Sources/SourceOption';
 import { SpinnerCircle } from 'components/Ui/Icons/Spinners';
-import { Language, Source } from 'rss-feed';
+import { Source } from 'rss-feed';
 import { selectAllFilters, setAllSources, unselectAllFilters } from 'store/news/actions';
 import { FilterState } from 'store/news/reducers';
 
@@ -17,7 +16,6 @@ type Props = {
     sourcesMenuIsOpen: boolean;
     handleOpenSourcesMenu: () => void;
     sources: Map<Source, FilterState>;
-    languages: Language[];
 
     setAllSources: (sources: Source[]) => void;
     selectAllFilters: () => void;
@@ -35,7 +33,7 @@ class Sources extends React.PureComponent<Props> {
     }
 
     public render() {
-        const { sourcesMenuIsOpen, handleOpenSourcesMenu, sources, languages } = this.props;
+        const { sourcesMenuIsOpen, handleOpenSourcesMenu, sources } = this.props;
 
         let length = 0;
         const items = [];
@@ -68,9 +66,6 @@ class Sources extends React.PureComponent<Props> {
                             news@skatekrak.com
                         </a>
                     </p>
-                    <div>
-                        {languages && languages.map((language, i) => <LanguageFilter key={i} language={language} />)}
-                    </div>
                     <div id="news-menu-sources-open-controls">
                         <button className="news-menu-sources-open-control" onClick={this.onSelectAllClick}>
                             Select all
@@ -110,7 +105,7 @@ class Sources extends React.PureComponent<Props> {
 }
 
 const mapStateToProps = ({ news }: Types.RootState) => {
-    return { sources: news.sources, languages: news.languages };
+    return { sources: news.sources };
 };
 
 export default connect(

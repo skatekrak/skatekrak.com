@@ -1,4 +1,4 @@
-version: "3"
+version: '3'
 services:
     skatekrak:
         image: node:lts
@@ -6,8 +6,8 @@ services:
         working_dir: /app
         networks:
             - web
-        # ports:
-        #     - 9229:9229
+        ports:
+            - 9229:9229
         labels:
             - traefik.enable=true
             - traefik.docker.network=web
@@ -16,7 +16,7 @@ services:
             - traefik.port=3000
         volumes:
             - ~/.npmrc:/app/.npmrc:ro
-            - ".:/app"
+            - '.:/app'
 
 networks:
     web:

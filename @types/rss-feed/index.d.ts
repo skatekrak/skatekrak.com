@@ -22,8 +22,6 @@ declare module 'rss-feed' {
 
         topics: string[];
         website: string;
-
-        lang: Language;
     }
 
     export interface Media {
@@ -50,11 +48,5 @@ declare module 'rss-feed' {
 
         author: string;
         keywords: string[];
-    }
-
-    export interface Language {
-        name: string;
-        isoCode: string;
-        image: string;
     }
 }
