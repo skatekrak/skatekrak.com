@@ -27,6 +27,16 @@ variables:
     - docker-compose -f docker-compose.ci.yml build $DOCKER_BUILD_NAME
     - docker push $CI_REGISTRY_IMAGE:$BUILD_TAG
 
+build_feature:
+  extends: .build
+  variables:
+    PREFIX_VAR: BUILD_STAGING_
+    BUILD_STAGING_BUILD_TAG: $CI_COMMIT_REF_SLUG
+  only:
+    - /^feature\/.*$/
+  when: manual
+  allow_failure: false
+
 build_staging:
   extends: .build
   variables:
@@ -110,6 +120,19 @@ release_prod:
       fi
     - kubectl rollout status deployment/$K8S_DEPLOYMENT_NAME
     - kubectl describe deployment $K8S_DEPLOYMENT_NAME
+
+deploy_feature:
+  extends: .deploy
+  tags:
+    - do-k8s-staging
+  variables:
+    DEPLOY_TAG: $CI_COMMIT_REF_SLUG
+  environment:
+    name: staging
+    url: "https://staging.skatekrak.com"
+  only:
+    - /^feature\/.*$/
+  when: on_success
 
 deploy_staging:
   extends: .deploy

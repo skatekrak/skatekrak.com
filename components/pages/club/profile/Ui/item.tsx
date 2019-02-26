@@ -8,7 +8,9 @@ type Props = {
 const ProfileItem: React.SFC<Props> = ({ title, content }) => (
     <div className="profile-section-item">
         <h4 className="profile-section-item-title">{title}</h4>
-        <p className="profile-section-item-content">{content}</p>
+        <p className="profile-section-item-content">
+            {content ? content : <span className="profile-section-item-content-empty">Not completed</span>}
+        </p>
     </div>
 );
 
