@@ -11,6 +11,8 @@ services:
         - SESTERCES_URL
         - RSS_BACKEND_URL
         - INTERCOM_ID
+        - CACHING_URL
+        - REDIRECT_URL
       cache_from:
         - ${CI_REGISTRY_IMAGE}:${BUILD_TAG}
 

@@ -17,12 +17,12 @@ class Card extends React.PureComponent<Props, State> {
 
         return (
             <>
-                <a href={content.webUrl} className="news-article-link" target="_blank" rel="noreferrer">
+                <a href={this.getArticleUrl(content)} className="news-article-link" target="_blank" rel="noreferrer">
                     <div className="news-article-cover-img-container">
                         <BackgroundLoader
                             className="news-article-cover-img"
-                            src={this.getImageUrl(content)}
-                            placeholder={content.source.coverUrl}
+                            src={this.getImage(content)}
+                            placeholder={this.getPlaceholder(content)}
                         />
                     </div>
                     <h2 className="news-article-title">{content.title}</h2>
@@ -31,7 +31,7 @@ class Card extends React.PureComponent<Props, State> {
                     <div className="news-article-details-source">
                         by
                         <a
-                            href={content.source.website}
+                            href={this.getWebsiteUrl(content)}
                             className="news-article-details-source-link"
                             target="_blank"
                             rel="noreferrer"
@@ -51,11 +51,23 @@ class Card extends React.PureComponent<Props, State> {
         );
     }
 
-    private getImageUrl(content: Content): string {
+    private getImage(content: Content): string {
         if (content.media && content.media.url) {
-            return content.media.url;
+            return `${process.env.CACHING_URL}/${encodeURIComponent(content.media.url)}`;
         }
-        return content.source.coverUrl;
+        return null;
+    }
+
+    private getPlaceholder(content: Content): string {
+        return `${process.env.CACHING_URL}/${encodeURIComponent(content.source.coverUrl)}`;
+    }
+
+    private getArticleUrl(content: Content): string {
+        return `${process.env.REDIRECT_URL}/${encodeURIComponent(content.webUrl)}`;
+    }
+
+    private getWebsiteUrl(content: Content): string {
+        return `${process.env.REDIRECT_URL}/${encodeURIComponent(content.source.website)}`;
     }
 
     private getContent(content: Content): string {

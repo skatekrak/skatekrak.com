@@ -20,13 +20,15 @@ class BackgroundLoader extends React.Component<Props, State> {
     private image: HTMLImageElement;
 
     public componentDidMount() {
-        // Making this a global so it can be later
-        // nullified when the component unmounts
-        this.image = document.createElement('img');
+        if (this.props.src) {
+            // Making this a global so it can be later
+            // nullified when the component unmounts
+            this.image = document.createElement('img');
 
-        this.image.src = this.props.src;
-        this.image.onload = this.handleLoad;
-        this.image.onerror = this.handleError;
+            this.image.src = this.props.src;
+            this.image.onload = this.handleLoad;
+            this.image.onerror = this.handleError;
+        }
     }
 
     public shouldComponentUpdate() {
@@ -34,9 +36,11 @@ class BackgroundLoader extends React.Component<Props, State> {
     }
 
     public componentWillUnmount() {
-        this.image.onerror = null;
-        this.image.onload = null;
-        this.image = null;
+        if (this.image) {
+            this.image.onerror = null;
+            this.image.onload = null;
+            this.image = null;
+        }
     }
 
     public render() {
