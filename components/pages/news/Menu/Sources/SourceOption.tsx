@@ -51,11 +51,15 @@ class SourceOption extends React.PureComponent<Props, State> {
                     className="news-menu-sources-open-option-label"
                     onClick={this.handleSourceOptionClick}
                 >
-                    <img src={source.iconUrl} alt="" className="news-menu-sources-open-option-logo" />
+                    <img src={this.getIcon(source)} alt="" className="news-menu-sources-open-option-logo" />
                     <span className="news-menu-sources-open-option-name">{source.label}</span>
                 </label>
             </li>
         );
+    }
+
+    private getIcon(source: Source): string {
+        return `${process.env.CACHING_URL}/${encodeURIComponent(source.iconUrl)}`;
     }
 
     private handleSourceOptionClick = () => {
