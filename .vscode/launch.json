@@ -26,11 +26,5 @@
             "localRoot": "${workspaceFolder}",
             "remoteRoot": "/app"
         }
-    ],
-    "compounds": [
-        {
-            "name": "Docker + Chrome",
-            "configurations": ["Docker Server", "Chrome Client"]
-        }
     ]
 }
