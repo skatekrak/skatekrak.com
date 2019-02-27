@@ -36,6 +36,8 @@ class MyApp extends App {
     }
 
     componentDidMount() {
+        // If not in dev, we query ipdata.co to get country based on IP
+        // and show currency accordingly
         if (process.env.NODE_ENV !== 'development') {
             axios('https://api.ipdata.co/?api-key=4a4e1261ab0b0b8288f5ffef913072c177a0262cf1945fb399a0b712').then(
                 result => {
@@ -54,6 +56,7 @@ class MyApp extends App {
             );
         }
 
+        // We setup as logged in if we have a cookie
         if (window['__NEXT_REDUX_STORE__']) {
             if (this.props.isAuthenticated) {
                 window['__NEXT_REDUX_STORE__'].dispatch(userSigninSuccess(this.props.authUser));
@@ -95,7 +98,8 @@ class MyApp extends App {
                     <ApolloProvider client={apolloClient}>
                         <>
                             <Component {...pageProps} />
-                            {this.props.router.route.startsWith('/club') && (
+                            {(this.props.router.route.startsWith('/club') ||
+                                this.props.router.route.startsWith('/auth')) && (
                                 <Intercom appID={process.env.INTERCOM_ID} {...user} />
                             )}
                         </>
