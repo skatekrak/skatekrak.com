@@ -71,7 +71,10 @@ class ProfileEditInfoModal extends React.Component<Props & ChildProps> {
                     variables: {
                         id: this.props.profile.id,
                         data: {
-                            email: this.props.profile.email !== dirtyValues.email ? dirtyValues.email : undefined,
+                            email:
+                                this.props.profile.email !== dirtyValues.email
+                                    ? dirtyValues.email.toLowerCase()
+                                    : undefined,
                             firstName: dirtyValues.firstName,
                             lastName: dirtyValues.lastName,
                             phone: dirtyValues.phone,

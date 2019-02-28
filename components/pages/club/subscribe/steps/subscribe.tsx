@@ -206,7 +206,7 @@ class Subscribe extends React.Component<Props & WithApolloProps & ReactStripeEle
         const { apolloClient, accountForm, stripe } = this.props;
 
         const data: { [key: string]: any } = {
-            email: accountForm.email,
+            email: accountForm.email.toLowerCase(),
             firstName: accountForm.firstName,
             lastName: accountForm.lastName,
             password: accountForm.password,

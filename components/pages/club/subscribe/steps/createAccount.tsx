@@ -104,7 +104,7 @@ class CreateAccount extends React.Component<Props & WithApolloProps> {
             const results = await this.props.apolloClient.query({
                 query: CHECK_EMAIL,
                 variables: {
-                    email: values.email,
+                    email: values.email.toLowerCase(),
                 },
             });
 
@@ -113,7 +113,7 @@ class CreateAccount extends React.Component<Props & WithApolloProps> {
             }
             this.props.onNextClick();
         } catch (error) {
-            return { [FORM_ERROR]: 'Oops, something went wront, try later or contact us' };
+            return { [FORM_ERROR]: 'Oops, something went wrong, try later or contact us' };
         }
     };
 
@@ -133,7 +133,7 @@ class CreateAccount extends React.Component<Props & WithApolloProps> {
         return res;
     }
 
-    private onFormChange = (state) => {
+    private onFormChange = state => {
         this.props.updateFormState('account', state.values);
     };
 }
