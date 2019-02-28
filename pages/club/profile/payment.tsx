@@ -95,11 +95,11 @@ class ProfilePayment extends React.Component<{}, State> {
                                                                     You're part of something special & this is truly an
                                                                     'adventure-in-progress' - that being said we plan to
                                                                     put here a 'cancel / pause my membership' option -
-                                                                    meanwhile, you know how it works: send us an email.{' '}
+                                                                    meanwhile, you know how it works: send us an email{' '}
                                                                     <Emoji symbol="😉" label="winking face" />
                                                                 </p>
                                                                 <p>
-                                                                    You rock.{' '}
+                                                                    You rock{' '}
                                                                     <Emoji symbol="🤘" label="sign of the horns" />
                                                                 </p>
                                                             </p>
