@@ -62,7 +62,11 @@ class ProfileEditInfoModal extends React.Component<Props & ChildProps> {
             const dirtyValues: any = {};
             for (const key of fields) {
                 if (formApi.getFieldState(key).dirty) {
-                    dirtyValues[key] = values[key] || null;
+                    if (typeof values[key] === 'string') {
+                        dirtyValues[key] = values[key] ? values[key].trim() : null;
+                    } else {
+                        dirtyValues[key] = values[key] || null;
+                    }
                 }
             }
 
