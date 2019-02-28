@@ -9,7 +9,7 @@
         "lint:ts": "tslint --project .",
         "build:ts": "tsc --project .",
         "dev": "docker-compose up skatekrak",
-        "start:cmd:dev": "next --inspect=0.0.0.0:9229",
+        "start:cmd:dev": "next --inspect=0.0.0.0:9230",
         "build": "next build",
         "start": "next start"
     },

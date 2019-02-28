@@ -205,6 +205,10 @@ class Subscribe extends React.Component<Props & WithApolloProps & ReactStripeEle
 
         const { apolloClient, accountForm, stripe } = this.props;
 
+        if (accountForm.email) {
+            accountForm.email = accountForm.email.toLowerCase();
+        }
+
         const data: { [key: string]: any } = {
             email: accountForm.email,
             firstName: accountForm.firstName,
@@ -264,7 +268,7 @@ class Subscribe extends React.Component<Props & WithApolloProps & ReactStripeEle
         }
     };
 
-    private onFormChange = state => {
+    private onFormChange = (state) => {
         if (checkPath(state, 'values.shipping.country.value')) {
             const countryCode = state.values.shipping.country.value;
             let currency = 'eur';
@@ -308,7 +312,7 @@ class Subscribe extends React.Component<Props & WithApolloProps & ReactStripeEle
         return res;
     }
 
-    private checkSpecial = async value => {
+    private checkSpecial = async (value) => {
         if (value) {
             try {
                 const response = await this.props.apolloClient.query({
