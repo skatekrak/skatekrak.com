@@ -96,11 +96,16 @@ class ProfileMain extends React.Component<{}, State> {
                                             onClose={this.onCloseModal}
                                             profile={data.me}
                                         />
-                                        <p className="profile-welcome-message">
-                                            Welcome to your profile . This is the place where we can know more about you
-                                            and provide you the best experience. Remember it’s all about fun{' '}
-                                            <Emoji symbol="🤪" label="hand shake" />
-                                        </p>
+                                        <div id="profile-main-welcome">
+                                            <h1 id="profile-main-welcome-title">
+                                                Hey <Emoji symbol="👋" label="hand shake" /> {data.me.firstName}
+                                            </h1>
+                                            <p id="profile-main-welcome-message">
+                                                Welcome to your profile. Here we’re able to know more about you. The one
+                                                & only reason: we wanna provide the best experience possible. Remember
+                                                it’s all about fun <Emoji symbol="🤪" label="zany face" />
+                                            </p>
+                                        </div>
                                         <ProfileSection>
                                             <ProfileSectionHeader title="Membership" />
                                             <div className="profile-section-line">

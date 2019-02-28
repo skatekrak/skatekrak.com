@@ -21,9 +21,10 @@
 			max-height: calc(100vh - 6rem)
 
 		&-header
-			text-align: center
+			margin-bottom: 2rem	
 
 			+mq($from: "medium")
+				display: none
 				text-align: left
 
 			&-title
@@ -33,7 +34,30 @@
 
 				+mq($from: "medium")
 					padding-left: 1rem
-					font-size: $fs-larger
+
+	&-main
+		// Welcome message
+		&-welcome
+			margin-top: 2rem
+			
+			+mq($from: "medium")
+				margin-top: 0
+
+			&-title
+				display: none
+				margin-bottom: 1rem
+				font-family: $ff-roboto-bold
+				font-size: $fs-larger
+				color: $grey-600
+
+				+mq($from: "medium")
+					display: block
+
+			&-message
+				font-size: $fs-medium
+
+				+mq($from: "large")
+					max-width: 530px
 
 
 .profile
@@ -42,13 +66,11 @@
 		&-main
 			display: flex
 			flex-direction: column
-			margin-top: 3rem
 			border-radius: 0.5rem 
 			border: 1px solid $grey-600
 
 			+mq($from: "medium")
 				max-width: 250px
-				margin-top: 2rem
 				padding: 0 1rem
 				background-color: #E0E0E0
 				border: 0
@@ -148,24 +170,10 @@
 					&:hover
 						color: $grey-800
 
-	// Welcome message
-	&-welcome-message
-		margin-top: 2rem
-		font-size: $fs-medium
-
-		+mq($from: "medium")
-			margin-top: 4rem
-
-		+mq($from: "large")
-			max-width: 75%
-
 	// Section
 	&-section
 		padding: 2rem 0
 		border-bottom: 1px solid $grey-200
-
-		&:first-child
-			padding-top: 4rem
 
 		&:last-child
 			border-bottom: 0
@@ -173,11 +181,14 @@
 		+mq($from: "medium")
 			padding: 4rem 0
 
+			&:first-child
+				padding-top: 0
+
 		&-header
 			display: flex
 			flex-wrap: wrap
 			align-items: center
-			margin-bottom: 3rem
+			margin-bottom: 2rem
 
 			&-main
 				width: 100%
@@ -201,10 +212,10 @@
 		&-line
 			display: flex
 			flex-direction: column
+			margin-bottom: 2rem
 
 			+mq($from: "medium")
 				flex-direction: row
-				margin-bottom: 2rem
 
 			&:last-child
 				margin-bottom: 0
@@ -212,12 +223,18 @@
 				& .profile-content-section-line-item:last-child
 					margin-bottom: 0
 
+		&-desc
+			max-width: 600px
+			color: $grey-600
+
+			& p
+				margin-bottom: 1rem
+
+				&:last-child
+					margin-bottom: 0
+
 		&-item
 			margin-right: 4rem
-			margin-bottom: 2rem
-
-			+mq($from: "medium")
-				margin-bottom: 0
 
 			&:last-child
 				margin-right: 0
@@ -234,12 +251,12 @@
 		&-add
 			display: flex
 			align-items: center
-			padding-bottom: 2rem
+			padding: 2rem 0
 			font-size: $fs-medium
 			color: $grey-800
 
 			+mq($from: "medium")
-				padding-bottom: 0
+				padding: 0
 
 			& .icon-full
 				padding: .25rem
