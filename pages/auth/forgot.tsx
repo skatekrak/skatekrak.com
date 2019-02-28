@@ -66,9 +66,10 @@ class ForgotPassword extends React.Component {
 
     private handleSubmit = async (values: any) => {
         try {
-            await cairote.post('/forgot', {
-                email: values.email.toLowerCase(),
-            });
+            if (values.email) {
+                values.email = values.email.toLowerCase();
+            }
+            await cairote.post('/forgot', { email: values.email });
             alert('Email sent!');
         } catch (error) {
             return { [FORM_ERROR]: 'Something went wrong, try later or contact us' };

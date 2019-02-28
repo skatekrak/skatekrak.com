@@ -101,10 +101,14 @@ class CreateAccount extends React.Component<Props & WithApolloProps> {
 
     private handleSubmit = async (values: any) => {
         try {
+            if (values.email) {
+                values.email = values.email.toLowerCase();
+            }
+
             const results = await this.props.apolloClient.query({
                 query: CHECK_EMAIL,
                 variables: {
-                    email: values.email.toLowerCase(),
+                    email: values.email,
                 },
             });
 
@@ -133,7 +137,7 @@ class CreateAccount extends React.Component<Props & WithApolloProps> {
         return res;
     }
 
-    private onFormChange = state => {
+    private onFormChange = (state) => {
         this.props.updateFormState('account', state.values);
     };
 }
