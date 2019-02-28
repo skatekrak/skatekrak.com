@@ -148,6 +148,17 @@
 					&:hover
 						color: $grey-800
 
+	// Welcome message
+	&-welcome-message
+		margin-top: 2rem
+		font-size: $fs-medium
+
+		+mq($from: "medium")
+			margin-top: 4rem
+
+		+mq($from: "large")
+			max-width: 75%
+
 	// Section
 	&-section
 		padding: 2rem 0
@@ -161,9 +172,6 @@
 
 		+mq($from: "medium")
 			padding: 4rem 0
-
-			&:first-child
-				padding-top: 0
 
 		&-header
 			display: flex
