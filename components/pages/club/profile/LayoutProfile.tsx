@@ -14,10 +14,10 @@ type Props = {
 const LayoutProfile: React.SFC<Props> = ({ profile, children, view }) => (
     <div id="profile-container" className="container-fluid inner-page-container">
         <div className="row">
-            <div className="col-xs-12 col-md-3">
+            <div className="col-xs-12 col-md-4 col-lg-3">
                 <ProfileNav profile={profile} view={view} />
             </div>
-            <div className="col-xs-12 col-md-9">{children}</div>
+            <div className="col-xs-12 col-md-8 col-lg-9">{children}</div>
         </div>
         {!profile.onboarding && <OnboardingModal profile={profile} />}
     </div>

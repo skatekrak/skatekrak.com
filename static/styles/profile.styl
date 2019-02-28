@@ -27,33 +27,13 @@
 				text-align: left
 
 			&-title
-				margin-bottom: .5rem
 				font-family: $ff-roboto-bold
 				font-size: $fs-larger
-				color: $grey-800
+				color: $grey-600
 
 				+mq($from: "medium")
-					font-size: $fs-large
-
-			&-location
-				color: $grey-500
-
-				+mq($from: "medium")
-					font-size: $fs-small
-
-			&-memberid
-				&-container
-					margin-top: 2rem
-					font-family: $ff-roboto-bold
-					// font-size: $fs-small
-					color: $grey-500
-
-					+mq($from: "medium")
-						font-size: $fs-small
-
-				&-title
-					margin-bottom: .5rem
-					color: $grey-400
+					padding-left: 1rem
+					font-size: $fs-larger
 
 
 .profile
@@ -62,58 +42,87 @@
 		&-main
 			display: flex
 			flex-direction: column
-			margin-top: 2rem
-			border-radius: 0.25rem 
-			border: 1px solid $grey-800
+			margin-top: 3rem
+			border-radius: 0.5rem 
+			border: 1px solid $grey-600
 
 			+mq($from: "medium")
-				max-width: 175px
-				margin: auto 0
+				max-width: 250px
+				margin-top: 2rem
+				padding: 0 1rem
+				background-color: #E0E0E0
 				border: 0
 
 			&--open
 				.profile-nav-main-item
 					display: flex
 
+					&--active
+						& svg
+							transform: rotate(90deg)
+
 			&-item
-				order: 1
 				display: none
-				align-items: center
-				padding: 1rem
-				font-family: $ff-roboto-bold
-				font-size: $fs-large
-				color: $grey-400
+				order: 1
+				border-bottom: 1px solid $grey-200
+
+				&:last-child
+					border-bottom: 0
 
 				+mq($from: "medium")
 					display: flex
-					padding: 1rem 0
 
-				&:hover
-					color: $grey-800
-
-				& svg
-					display: block
-					width: 1.5rem
-					height: 1.5rem
-					margin-left: auto
-
-					+mq($from: "medium")
-						display: none
-				
 				&--active
 					display: flex
 					order: 0
-					color: $grey-800
 
 					+mq($from: "medium")
 						order: 1
 
-					& svg
-						display: block
-						transform: rotate(90deg)
+					& .profile-nav-main-item-link
+						font-family: $ff-roboto-black
+						// font-size: $fs-larger
+						color: $grey-800
+
+						& svg
+							display: block
+							// width: 1.75rem
+							// height: 1.75rem
+							fill: $grey-800
+
+							+mq($from: "medium")
+								transform: inherit
+
+				&-link
+					display: flex
+					align-items: center
+					width: 100%
+					padding: 1rem
+					font-family: $ff-roboto-bold
+					font-size: $fs-large
+					color: $grey-400
+					transition: .3s
+
+					&:hover
+						color: $grey-800
 
 						+mq($from: "medium")
-							transform: inherit
+							& svg
+								fill: $grey-800
+								display: block
+
+					+mq($from: "medium")
+						padding: 1rem 0
+
+					& svg
+						display: block
+						width: 1.5rem
+						height: 1.5rem
+						margin-left: auto
+						fill: $grey-400
+
+						+mq($from: "medium")
+							display: none
 
 		// Secondary nav
 		&-secondary
