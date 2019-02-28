@@ -103,7 +103,8 @@ class ProfileMain extends React.Component<{}, State> {
                                             <p id="profile-main-welcome-message">
                                                 Welcome to your profile. Here we’re able to know more about you. The one
                                                 & only reason: we wanna provide the best experience possible. Remember
-                                                it’s all about fun <Emoji symbol="🤪" label="zany face" />
+                                                it’s all about fun{' '}
+                                                <Emoji symbol="😜" label="Winking face with tongue" />
                                             </p>
                                         </div>
                                         <ProfileSection>
