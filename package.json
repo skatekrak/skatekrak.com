@@ -1,6 +1,6 @@
 {
     "name": "skatekrak.com",
-    "version": "5.1.0",
+    "version": "5.2.2",
     "main": "index.js",
     "repository": "ssh://git@git.thepunk.tech/web/skatekrak.com.git",
     "author": "Arthur <a@skatekrak.com>",
@@ -9,7 +9,7 @@
         "lint:ts": "tslint --project .",
         "build:ts": "tsc --project .",
         "dev": "docker-compose up skatekrak",
-        "start:cmd:dev": "next --inspect=0.0.0.0:9229",
+        "start:cmd:dev": "next --inspect=0.0.0.0:9230",
         "build": "next build",
         "start": "next start"
     },

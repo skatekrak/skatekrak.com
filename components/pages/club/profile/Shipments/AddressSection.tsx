@@ -27,7 +27,7 @@ const AddressSection = ({ address, onEdit, onDelete, setAsDefault }: Props) => {
 
     return (
         <ProfileSection>
-            <ProfileSectionHeader edit editTitle={address.title} onEditClick={onEditClick}>
+            <ProfileSectionHeader edit editTitle={address.title ? address.title : 'Address'} onEditClick={onEditClick}>
                 <AddressNav
                     isDefault={address.default}
                     name={address.name}

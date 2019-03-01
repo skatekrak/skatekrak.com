@@ -101,6 +101,10 @@ class CreateAccount extends React.Component<Props & WithApolloProps> {
 
     private handleSubmit = async (values: any) => {
         try {
+            if (values.email) {
+                values.email = values.email.toLowerCase();
+            }
+
             const results = await this.props.apolloClient.query({
                 query: CHECK_EMAIL,
                 variables: {
@@ -113,7 +117,7 @@ class CreateAccount extends React.Component<Props & WithApolloProps> {
             }
             this.props.onNextClick();
         } catch (error) {
-            return { [FORM_ERROR]: 'Oops, something went wront, try later or contact us' };
+            return { [FORM_ERROR]: 'Oops, something went wrong, try later or contact us' };
         }
     };
 

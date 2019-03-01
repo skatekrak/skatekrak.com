@@ -36,7 +36,7 @@
                     "background": {
                         "activeOnStart": true,
                         "beginsPattern": "Debugger listening on",
-                        "endsPattern": "Compiled successfully in"
+                        "endsPattern": "Compiled successfully"
                     }
                 }
             ]
