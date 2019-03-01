@@ -14,6 +14,7 @@ import ProfileSection from 'components/pages/club/profile/Ui/section';
 import ProfileSectionHeader from 'components/pages/club/profile/Ui/sectionHeader';
 import Loading from 'components/pages/news/Articles/Loading';
 import TrackedPage from 'components/pages/TrackedPage';
+import Emoji from 'components/Ui/Icons/Emoji';
 
 import { GET_ME } from 'pages/club/profile';
 
@@ -78,6 +79,32 @@ class ProfilePayment extends React.Component<{}, State> {
                                                             onEditClick={this.onOpenModal}
                                                         />
                                                         <div className="profile-section-line">
+                                                            <p className="profile-section-desc">
+                                                                <p>
+                                                                    For any doubt & question here - never forget the
+                                                                    best way to reach us [and talk to Hugo; he's a very
+                                                                    nice dude]: send an email to{' '}
+                                                                    <a
+                                                                        className="text-primary"
+                                                                        href="mailto:club@skatekrak.com"
+                                                                    >
+                                                                        club@skatekrak.com
+                                                                    </a>
+                                                                </p>
+                                                                <p>
+                                                                    You're part of something special & this is truly an
+                                                                    'adventure-in-progress' - that being said we plan to
+                                                                    put here a 'cancel / pause my membership' option -
+                                                                    meanwhile, you know how it works: send us an email{' '}
+                                                                    <Emoji symbol="😉" label="winking face" />
+                                                                </p>
+                                                                <p>
+                                                                    You rock{' '}
+                                                                    <Emoji symbol="🤘" label="sign of the horns" />
+                                                                </p>
+                                                            </p>
+                                                        </div>
+                                                        <div className="profile-section-line">
                                                             <ProfileItem
                                                                 title="Next renewal"
                                                                 content={
@@ -112,7 +139,7 @@ class ProfilePayment extends React.Component<{}, State> {
                                             )}
                                             <ProfileSection>
                                                 <ProfileSectionHeader title="History" />
-                                                {data.me.paymentHistory.map(payment => (
+                                                {data.me.paymentHistory.map((payment) => (
                                                     <PaymentLine key={payment.id} payment={payment} />
                                                 ))}
                                             </ProfileSection>

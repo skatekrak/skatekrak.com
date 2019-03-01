@@ -21,39 +21,43 @@
 			max-height: calc(100vh - 6rem)
 
 		&-header
-			text-align: center
+			margin-bottom: 2rem	
 
 			+mq($from: "medium")
+				display: none
 				text-align: left
 
 			&-title
-				margin-bottom: .5rem
 				font-family: $ff-roboto-bold
 				font-size: $fs-larger
-				color: $grey-800
+				color: $grey-600
 
 				+mq($from: "medium")
-					font-size: $fs-large
+					padding-left: 1rem
 
-			&-location
-				color: $grey-500
+	&-main
+		// Welcome message
+		&-welcome
+			margin-top: 2rem
+			
+			+mq($from: "medium")
+				margin-top: 0
+
+			&-title
+				display: none
+				margin-bottom: 1rem
+				font-family: $ff-roboto-bold
+				font-size: $fs-larger
+				color: $grey-600
 
 				+mq($from: "medium")
-					font-size: $fs-small
+					display: block
 
-			&-memberid
-				&-container
-					margin-top: 2rem
-					font-family: $ff-roboto-bold
-					// font-size: $fs-small
-					color: $grey-500
+			&-message
+				font-size: $fs-medium
 
-					+mq($from: "medium")
-						font-size: $fs-small
-
-				&-title
-					margin-bottom: .5rem
-					color: $grey-400
+				+mq($from: "large")
+					max-width: 530px
 
 
 .profile
@@ -62,58 +66,86 @@
 		&-main
 			display: flex
 			flex-direction: column
-			margin-top: 2rem
-			border-radius: 0.25rem 
-			border: 1px solid $grey-800
+			border-radius: 0.5rem 
+			border: 1px solid $grey-600
 
 			+mq($from: "medium")
-				max-width: 175px
-				margin: auto 0
+				max-width: 250px
+				padding: 0 1rem
+				background-color: #E0E0E0
 				border: 0
 
 			&--open
 				.profile-nav-main-item
 					display: flex
 
+					&--active
+						border-bottom: 1px solid $grey-200 !important
+
+						& svg
+							transform: rotate(90deg)
+
 			&-item
-				order: 1
 				display: none
-				align-items: center
-				padding: 1rem
-				font-family: $ff-roboto-bold
-				font-size: $fs-large
-				color: $grey-400
+				order: 1
+				border-bottom: 1px solid $grey-200
+
+				&:last-child
+					border-bottom: 0
 
 				+mq($from: "medium")
 					display: flex
-					padding: 1rem 0
 
-				&:hover
-					color: $grey-800
-
-				& svg
-					display: block
-					width: 1.5rem
-					height: 1.5rem
-					margin-left: auto
-
-					+mq($from: "medium")
-						display: none
-				
 				&--active
 					display: flex
 					order: 0
-					color: $grey-800
+					border-bottom: 0
 
 					+mq($from: "medium")
 						order: 1
+						border-bottom: 1px solid $grey-200
+
+					& .profile-nav-main-item-link
+						font-family: $ff-roboto-black
+						color: $grey-800
+
+						& svg
+							display: block
+							fill: $grey-800
+
+							+mq($from: "medium")
+								transform: inherit
+
+				&-link
+					display: flex
+					align-items: center
+					width: 100%
+					padding: 1rem
+					font-family: $ff-roboto-bold
+					font-size: $fs-large
+					color: $grey-400
+					transition: .3s
+
+					&:hover
+						color: $grey-800
+
+						+mq($from: "medium")
+							& svg
+								fill: $grey-800
+								display: block
+
+					+mq($from: "medium")
+						padding: 1rem 0
 
 					& svg
 						display: block
-						transform: rotate(90deg)
+						width: 1.5rem
+						height: 1.5rem
+						margin-left: auto
+						fill: $grey-400
 
 						+mq($from: "medium")
-							transform: inherit
+							display: none
 
 		// Secondary nav
 		&-secondary
@@ -144,9 +176,6 @@
 		padding: 2rem 0
 		border-bottom: 1px solid $grey-200
 
-		&:first-child
-			padding-top: 4rem
-
 		&:last-child
 			border-bottom: 0
 
@@ -160,8 +189,7 @@
 			display: flex
 			flex-wrap: wrap
 			align-items: center
-			justify-content: space-between
-			margin-bottom: 3rem
+			margin-bottom: 2rem
 
 			&-main
 				width: 100%
@@ -174,34 +202,46 @@
 					font-size: 2rem
 
 			& .edit-button
-				margin-top: 2rem
+				margin-top: 1rem
 				padding: .5rem .5rem
 
 				+mq($from: "tiny")
 					margin-top: 0
-					margin-left: auto
+					margin-left: 2rem
 					padding: .5rem 1rem
+
+		&-desc
+			max-width: 600px
+			color: $grey-600
+
+			& p
+				margin-bottom: 1rem
+
+				&:last-child
+					margin-bottom: 0
 
 		&-line
 			display: flex
 			flex-direction: column
+			margin-bottom: 2rem
 
 			+mq($from: "medium")
 				flex-direction: row
-				margin-bottom: 2rem
 
 			&:last-child
 				margin-bottom: 0
 
-				& .profile-content-section-line-item:last-child
+			& .profile-section-item
+				margin-bottom: 2rem
+
+				&:last-child
+					margin-bottom: 0
+
+				+mq($from: "medium")
 					margin-bottom: 0
 
 		&-item
 			margin-right: 4rem
-			margin-bottom: 2rem
-
-			+mq($from: "medium")
-				margin-bottom: 0
 
 			&:last-child
 				margin-right: 0
@@ -218,12 +258,12 @@
 		&-add
 			display: flex
 			align-items: center
-			padding-bottom: 2rem
+			padding: 2rem 0
 			font-size: $fs-medium
 			color: $grey-800
 
 			+mq($from: "medium")
-				padding-bottom: 0
+				padding: 0
 
 			& .icon-full
 				padding: .25rem
