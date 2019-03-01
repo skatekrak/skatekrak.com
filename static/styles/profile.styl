@@ -210,6 +210,16 @@
 					margin-left: 2rem
 					padding: .5rem 1rem
 
+		&-desc
+			max-width: 600px
+			color: $grey-600
+
+			& p
+				margin-bottom: 1rem
+
+				&:last-child
+					margin-bottom: 0
+
 		&-line
 			display: flex
 			flex-direction: column
@@ -221,17 +231,13 @@
 			&:last-child
 				margin-bottom: 0
 
-				& .profile-content-section-line-item:last-child
-					margin-bottom: 0
-
-		&-desc
-			max-width: 600px
-			color: $grey-600
-
-			& p
-				margin-bottom: 1rem
+			& .profile-section-item
+				margin-bottom: 2rem
 
 				&:last-child
+					margin-bottom: 0
+
+				+mq($from: "medium")
 					margin-bottom: 0
 
 		&-item
