@@ -68,16 +68,19 @@ class Sources extends React.PureComponent<Props> {
                             news@skatekrak.com
                         </a>
                     </p>
-                    <div>
-                        {languages && languages.map((language, i) => <LanguageFilter key={i} language={language} />)}
-                    </div>
                     <div id="news-menu-sources-open-controls">
-                        <button className="news-menu-sources-open-control" onClick={this.onSelectAllClick}>
-                            Select all
-                        </button>
-                        <button className="news-menu-sources-open-control" onClick={this.onDeselectAllClick}>
-                            Deselect all
-                        </button>
+                        <div id="news-menu-sources-open-controls-select">
+                            <button className="news-menu-sources-open-control-select" onClick={this.onSelectAllClick}>
+                                Select all
+                            </button>
+                            <button className="news-menu-sources-open-control-select" onClick={this.onDeselectAllClick}>
+                                Deselect all
+                            </button>
+                        </div>
+                        <ul id="news-menu-sources-open-controls-languages">
+                            {languages &&
+                                languages.map((language, i) => <LanguageFilter key={i} language={language} />)}
+                        </ul>
                     </div>
                     <form id="news-menu-sources-open-options">
                         <ul id="news-menu-sources-open-options-container">
