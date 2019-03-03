@@ -17,7 +17,7 @@ class LanguageFilter extends React.PureComponent<Props, {}> {
             <li className="news-menu-sources-open-control-language-container">
                 <button className="news-menu-sources-open-control-language" onClick={this.handleLanguageFilterClick}>
                     <img
-                        src={language.image}
+                        src={this.getIcon(language)}
                         alt={language.isoCode}
                         className="news-menu-sources-open-control-language-flag"
                     />
@@ -25,6 +25,10 @@ class LanguageFilter extends React.PureComponent<Props, {}> {
                 </button>
             </li>
         );
+    }
+
+    private getIcon(language: Language): string {
+        return `${process.env.CACHING_URL}/${encodeURIComponent(language.image)}`;
     }
 
     private handleLanguageFilterClick = () => {
