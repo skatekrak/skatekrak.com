@@ -3,6 +3,7 @@ import React from 'react';
 
 import Link from 'components/Link';
 import ArrowHead from 'components/Ui/Icons/ArrowHead';
+import Emoji from 'components/Ui/Icons/Emoji';
 
 type Props = {
     profile: any;
@@ -24,77 +25,64 @@ class ProfileNav extends React.Component<Props, State> {
             <nav id="profile-nav-container">
                 <header id="profile-nav-header">
                     <h1 id="profile-nav-header-title">
-                        {profile.firstName} {profile.lastName}
+                        Hey <Emoji symbol="👋" label="hand shake" /> {profile.firstName}
                     </h1>
-                    {/* <span id="profile-nav-header-location">
-                        {profile.shipping.address1.city}
-                        {', '}
-                        <span className="text-cap">{profile.shipping.address1.countryCode}</span>
-                    </span> */}
-                    {/* <div id="profile-nav-header-memberid-container">
-                        <p id="profile-nav-header-memberid-title">Member ID</p>
-                        <p id="profile-nav-header-memberid">#{profile.id}</p>
-                    </div> */}
                 </header>
                 <ul
                     className={classNames('profile-nav-main', {
                         'profile-nav-main--open': isMainNavOpen,
                     })}
                 >
-                    <li>
-                        <Link href="/club/profile">
-                            <a
-                                className={classNames('profile-nav-main-item', {
-                                    'profile-nav-main-item--active': view === 'profile',
-                                })}
-                                onClick={this.handleMainNavOpen}
-                            >
+                    <li
+                        className={classNames('profile-nav-main-item', {
+                            'profile-nav-main-item--active': view === 'profile',
+                        })}
+                    >
+                        <Link prefetch href="/club/profile">
+                            <a className="profile-nav-main-item-link" onClick={this.handleMainNavOpen}>
                                 Profile
                                 <ArrowHead />
                             </a>
                         </Link>
                     </li>
-                    <li>
-                        <Link href="/club/profile/preference">
-                            <a
-                                className={classNames('profile-nav-main-item', {
-                                    'profile-nav-main-item--active': view === 'preference',
-                                })}
-                                onClick={this.handleMainNavOpen}
-                            >
+                    <li
+                        className={classNames('profile-nav-main-item', {
+                            'profile-nav-main-item--active': view === 'preference',
+                        })}
+                    >
+                        <Link prefetch href="/club/profile/preference">
+                            <a className="profile-nav-main-item-link" onClick={this.handleMainNavOpen}>
                                 Preference
                                 <ArrowHead />
                             </a>
                         </Link>
                     </li>
-                    <li>
-                        <Link href="/club/profile/shipment">
-                            <a
-                                className={classNames('profile-nav-main-item', {
-                                    'profile-nav-main-item--active': view === 'shipment',
-                                })}
-                                onClick={this.handleMainNavOpen}
-                            >
+                    <li
+                        className={classNames('profile-nav-main-item', {
+                            'profile-nav-main-item--active': view === 'shipment',
+                        })}
+                    >
+                        <Link prefetch href="/club/profile/shipment">
+                            <a className="profile-nav-main-item-link" onClick={this.handleMainNavOpen}>
                                 Shipment
                                 <ArrowHead />
                             </a>
                         </Link>
                     </li>
-                    <li>
-                        <Link href="/club/profile/payment">
-                            <a
-                                className={classNames('profile-nav-main-item', {
-                                    'profile-nav-main-item--active': view === 'payment',
-                                })}
-                                onClick={this.handleMainNavOpen}
-                            >
+                    <li
+                        className={classNames('profile-nav-main-item', {
+                            'profile-nav-main-item--active': view === 'payment',
+                        })}
+                    >
+                        <Link prefetch href="/club/profile/payment">
+                            <a className="profile-nav-main-item-link" onClick={this.handleMainNavOpen}>
                                 Payment
                                 <ArrowHead />
                             </a>
                         </Link>
                     </li>
                 </ul>
-                <ul className="profile-nav-secondary">
+                {/* <ul className="profile-nav-secondary">
                     <li className="profile-nav-secondary-item">
                         <button>Chat with us</button>
                     </li>
@@ -106,7 +94,7 @@ class ProfileNav extends React.Component<Props, State> {
                     <li className="profile-nav-secondary-item">
                         <button>Log out</button>
                     </li>
-                </ul>
+                </ul> */}
             </nav>
         );
     }
