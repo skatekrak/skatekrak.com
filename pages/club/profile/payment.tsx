@@ -79,7 +79,7 @@ class ProfilePayment extends React.Component<{}, State> {
                                                             onEditClick={this.onOpenModal}
                                                         />
                                                         <div className="profile-section-line">
-                                                            <p className="profile-section-desc">
+                                                            <div className="profile-section-desc">
                                                                 <p>
                                                                     For any doubt & question here - never forget the
                                                                     best way to reach us [and talk to Hugo; he's a very
@@ -102,7 +102,7 @@ class ProfilePayment extends React.Component<{}, State> {
                                                                     You rock{' '}
                                                                     <Emoji symbol="🤘" label="sign of the horns" />
                                                                 </p>
-                                                            </p>
+                                                            </div>
                                                         </div>
                                                         <div className="profile-section-line">
                                                             <ProfileItem
