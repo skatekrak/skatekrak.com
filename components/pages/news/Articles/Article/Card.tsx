@@ -1,5 +1,6 @@
 import { distanceInWordsToNow } from 'date-fns';
 import React from 'react';
+import { FacebookIcon, FacebookShareButton, TwitterIcon, TwitterShareButton } from 'react-share';
 import Truncate from 'react-truncate';
 import { Content } from 'rss-feed';
 
@@ -9,9 +10,13 @@ type Props = {
     content: Content;
 };
 
-type State = {};
+type State = { isCopied: boolean };
 
 class Card extends React.PureComponent<Props, State> {
+    public state: State = {
+        isCopied: false,
+    };
+
     public render() {
         const { content } = this.props;
 
@@ -47,9 +52,25 @@ class Card extends React.PureComponent<Props, State> {
                         {this.getContent(content)}
                     </Truncate>
                 </p>
+                <div>
+                    <FacebookShareButton url={this.getArticleUrl(content)}>
+                        <FacebookIcon size={32} round />
+                    </FacebookShareButton>
+                    <TwitterShareButton url={this.getArticleUrl(content)}>
+                        <TwitterIcon size={32} round />
+                    </TwitterShareButton>
+                    {this.state.isCopied ? 'Lien copié' : ''}
+                    <input type="text" defaultValue={this.getArticleUrl(content)} onClick={this.copyToClipboard} />
+                </div>
             </>
         );
     }
+
+    private copyToClipboard = (event: React.MouseEvent<HTMLInputElement>): void => {
+        event.currentTarget.setSelectionRange(0, event.currentTarget.value.length);
+        document.execCommand('copy');
+        this.setState({ isCopied: true });
+    };
 
     private getImage(content: Content): string {
         if (content.media && content.media.url) {
