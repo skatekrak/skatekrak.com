@@ -69,6 +69,10 @@ class Sources extends React.PureComponent<Props> {
                         </a>
                     </p>
                     <div id="news-menu-sources-open-controls">
+                        <ul id="news-menu-sources-open-controls-languages">
+                            {languages &&
+                                languages.map((language, i) => <LanguageFilter key={i} language={language} />)}
+                        </ul>
                         <div id="news-menu-sources-open-controls-select">
                             <button className="news-menu-sources-open-control-select" onClick={this.onSelectAllClick}>
                                 Select all
@@ -77,10 +81,6 @@ class Sources extends React.PureComponent<Props> {
                                 Deselect all
                             </button>
                         </div>
-                        <ul id="news-menu-sources-open-controls-languages">
-                            {languages &&
-                                languages.map((language, i) => <LanguageFilter key={i} language={language} />)}
-                        </ul>
                     </div>
                     <form id="news-menu-sources-open-options">
                         <ul id="news-menu-sources-open-options-container">
