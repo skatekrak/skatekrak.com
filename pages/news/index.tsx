@@ -3,6 +3,7 @@ import React from 'react';
 
 import Layout from 'components/Layout/Layout';
 import BannerTop from 'components/Ui/Banners/BannerTop';
+import LayoutFeed from 'components/Ui/Layout/LayoutFeed';
 
 import Articles from 'components/pages/news/Articles';
 import Menu from 'components/pages/news/Menu';
@@ -40,14 +41,16 @@ class News extends React.PureComponent<{}, State> {
             <Layout head={<NewsHead />}>
                 <React.Fragment>
                     <BannerTop />
-                    <div id="news-container" className="inner-page-container container-fluid">
-                        <div className="row">
-                            <Menu
-                                sourcesMenuIsOpen={sourcesMenuIsOpen}
-                                handleOpenSourcesMenu={this.handleOpenSourcesMenu}
-                            />
-                            <Articles sourcesMenuIsOpen={sourcesMenuIsOpen} />
-                        </div>
+                    <div id="news-container" className="inner-page-container">
+                        <LayoutFeed
+                            mainView={<Articles sourcesMenuIsOpen={sourcesMenuIsOpen} />}
+                            sideBar={
+                                <Menu
+                                    sourcesMenuIsOpen={sourcesMenuIsOpen}
+                                    handleOpenSourcesMenu={this.handleOpenSourcesMenu}
+                                />
+                            }
+                        />
                     </div>
                 </React.Fragment>
             </Layout>

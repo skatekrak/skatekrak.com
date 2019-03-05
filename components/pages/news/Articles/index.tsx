@@ -59,7 +59,7 @@ class Articles extends React.Component<Props, State> {
         const { contents, isLoading, hasMore } = this.state;
 
         return (
-            <div id="news-articles-container" className="col-xs-12 col-md-8 col-lg-9">
+            <div id="news-articles-container">
                 <TrackedPage name={`News/${Math.ceil(contents.length / 20)}`} initial={false} />
                 <InfiniteScroll
                     key={`infinite-need-refresh-${this.props.news.feedNeedRefresh}`}
