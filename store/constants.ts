@@ -8,6 +8,7 @@ export const SELECT_LANGUAGE = 'select_language';
 export const SELECT_ALL_FILTERS = 'select_all_filters';
 export const UNSELECT_ALL_FILTERS = 'unselect_all_filters';
 export const TOGGLE_FILTER = 'toggle_filter';
+export const SEARCH = 'search';
 
 // Authentication
 export const SIGNIN_USER = 'signin_user';

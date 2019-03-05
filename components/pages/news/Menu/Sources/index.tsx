@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import Types from 'Types';
 
 import LanguageFilter from 'components/pages/news/Menu/Sources/LanguageFilter';
+import SearchBar from 'components/pages/news/Menu/Sources/SearchBar';
 import SourceOption from 'components/pages/news/Menu/Sources/SourceOption';
 import { SpinnerCircle } from 'components/Ui/Icons/Spinners';
 import { Language, Source } from 'rss-feed';
@@ -81,6 +82,7 @@ class Sources extends React.PureComponent<Props> {
                             {languages &&
                                 languages.map((language, i) => <LanguageFilter key={i} language={language} />)}
                         </ul>
+                        <SearchBar nbFilters={length} />
                     </div>
                     <form id="news-menu-sources-open-options">
                         <ul id="news-menu-sources-open-options-container">
