@@ -2,8 +2,11 @@ import Head from 'next/head';
 import React from 'react';
 
 import Layout from 'components/Layout/Layout';
+import TrackedPage from 'components/pages/TrackedPage';
 // import BannerTop from 'components/Ui/Banners/BannerTop';
+import LayoutFeed from 'components/Ui/Layout/LayoutFeed';
 
+import Menu from 'components/pages/videos/Menu';
 import VideoFeed from 'components/pages/videos/VideoFeed';
 
 const VideoHead = () => (
@@ -22,12 +25,11 @@ class Videos extends React.PureComponent<{}, {}> {
     public render() {
         return (
             <Layout head={<VideoHead />}>
+                <TrackedPage name={`Video`} />
                 <React.Fragment>
                     {/* <BannerTop /> */}
-                    <div id="videos-container" className="inner-page-container container-fluid">
-                        <div className="row">
-                            <VideoFeed />
-                        </div>
+                    <div id="videos-container" className="inner-page-container">
+                        <LayoutFeed mainView={<VideoFeed />} sideBar={<Menu />} />
                     </div>
                 </React.Fragment>
             </Layout>
