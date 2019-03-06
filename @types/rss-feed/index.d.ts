@@ -1,7 +1,5 @@
 declare module 'rss-feed' {
-    export enum SourceType {
-        RSS = 'rss',
-    }
+    import { SourceType, Order } from 'lib/constants';
 
     export interface Source {
         id: string;
@@ -11,19 +9,18 @@ declare module 'rss-feed' {
         type: SourceType;
         order: number;
         label: string;
-
-        feedId: string;
         title: string;
         description: string;
-
         iconUrl: string;
         coverUrl: string;
-        visualUrl: string;
-
         topics: string[];
+        lang: Language;
+
+        feedId: string;
+        visualUrl: string;
         website: string;
 
-        lang: Language;
+        youtube: Youtube;
     }
 
     export interface Media {
@@ -52,9 +49,26 @@ declare module 'rss-feed' {
         keywords: string[];
     }
 
+    export interface Video {
+        createdAt: Date;
+        updatedAt: Date;
+        order: Order;
+        source: Source;
+        videoId: string;
+        title: string;
+        description: string;
+        thumbnail: string;
+    }
+
     export interface Language {
         name: string;
         isoCode: string;
         image: string;
+    }
+
+    export interface Youtube {
+        channelId: string;
+        publishedAt: Date;
+        country: string;
     }
 }

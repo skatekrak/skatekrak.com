@@ -1,9 +1,10 @@
 import React from 'react';
 
 import VideoPlayer from 'components/Ui/Player/VideoPlayer';
+import { Video } from 'rss-feed';
 
 type Props = {
-    video: object;
+    video: Video;
 };
 
 type State = {};
