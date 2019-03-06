@@ -208,19 +208,28 @@ const videos = [
 
 type Props = {};
 
-type State = {};
+type State = {
+    featuredVideo?: object;
+};
 
 class VideoFeed extends React.Component<Props, State> {
     public state: State = {};
 
+    public componentDidMount() {
+        this.getFeaturedVideo();
+    }
+
     public render() {
+        const { featuredVideo } = this.state;
         return (
             <div id="videos-feed-container">
-                <div id="videos-feed-header" className="row">
-                    <div className="col-xs-12">
-                        <FeaturedVideo video={this.getFeaturedVideo()} />
+                {featuredVideo && (
+                    <div id="videos-feed-header" className="row">
+                        <div className="col-xs-12">
+                            <FeaturedVideo video={featuredVideo} />
+                        </div>
                     </div>
-                </div>
+                )}
                 <div className="row">
                     {videos.map((video) => (
                         <div key={video.id} className="video-card-container col-xs-12 col-sm-6 col-lg-4">
@@ -235,7 +244,7 @@ class VideoFeed extends React.Component<Props, State> {
     private getFeaturedVideo = () => {
         for (const video of videos) {
             if (video.order === 1) {
-                return video;
+                this.setState({ featuredVideo: video });
             }
         }
     };
