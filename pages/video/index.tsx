@@ -4,7 +4,7 @@ import React from 'react';
 import Layout from 'components/Layout/Layout';
 import TrackedPage from 'components/pages/TrackedPage';
 // import BannerTop from 'components/Ui/Banners/BannerTop';
-import LayoutFeed from 'components/Ui/Layout/LayoutFeed';
+import LayoutFeed from 'components/Ui/Feed/LayoutFeed';
 
 import Menu from 'components/pages/videos/Menu';
 import VideoFeed from 'components/pages/videos/VideoFeed';

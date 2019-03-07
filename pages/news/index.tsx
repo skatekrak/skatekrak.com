@@ -3,7 +3,7 @@ import React from 'react';
 
 import Layout from 'components/Layout/Layout';
 import BannerTop from 'components/Ui/Banners/BannerTop';
-import LayoutFeed from 'components/Ui/Layout/LayoutFeed';
+import LayoutFeed from 'components/Ui/Feed/LayoutFeed';
 
 import Articles from 'components/pages/news/Articles';
 import Menu from 'components/pages/news/Menu';
