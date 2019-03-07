@@ -8,10 +8,10 @@ import LayoutProfile from 'components/pages/club/profile/LayoutProfile';
 import AddressSection from 'components/pages/club/profile/Shipments/AddressSection';
 import ProfileEditAddressModal from 'components/pages/club/profile/Ui/modals/ProfileEditAddressModal';
 import ProfileSection from 'components/pages/club/profile/Ui/section';
-import Loading from 'components/pages/news/Articles/Loading';
 import TrackedPage from 'components/pages/TrackedPage';
 import IconCross from 'components/Ui/Icons/Cross';
 import IconFull from 'components/Ui/Icons/iconFull';
+import { KrakLoading } from 'components/Ui/Icons/Spinners';
 import { showConfirmation } from 'components/Ui/Modal/ModalConfirmation';
 
 import withApollo, { WithApolloProps } from 'hocs/withApollo';
@@ -38,7 +38,7 @@ class ProfileShipment extends React.Component<WithApolloProps, State> {
                     <Query query={GET_ME}>
                         {({ loading, error, data }) => {
                             if (loading) {
-                                return <Loading />;
+                                return <KrakLoading />;
                             }
 
                             if (error) {
@@ -65,7 +65,7 @@ class ProfileShipment extends React.Component<WithApolloProps, State> {
                                                 </button>
                                             </div>
                                         </ProfileSection>
-                                        {data.me.addresses.map(address => (
+                                        {data.me.addresses.map((address) => (
                                             <AddressSection
                                                 key={address.id}
                                                 address={address}
@@ -127,7 +127,7 @@ class ProfileShipment extends React.Component<WithApolloProps, State> {
                 const data = result.data as any;
 
                 if (query && data) {
-                    query.me.addresses = query.me.addresses.filter(address => address.id !== data.deleteAddress.id);
+                    query.me.addresses = query.me.addresses.filter((address) => address.id !== data.deleteAddress.id);
 
                     cache.writeQuery({
                         query: GET_ME,
@@ -152,7 +152,7 @@ class ProfileShipment extends React.Component<WithApolloProps, State> {
                 const data = result.data as any;
 
                 if (query && data) {
-                    query.me.addresses = query.me.addresses.map(address => {
+                    query.me.addresses = query.me.addresses.map((address) => {
                         if (address.id === data.setDefaultAddress.id) {
                             return {
                                 ...address,

@@ -1,0 +1,69 @@
+@import "./stylus-mq"
+@import "./styleguide"
+
+/* VIDEOS STYLES */
+
+/* Videos Menu */
+#videos-menu
+	&-desc
+		margin-bottom: 2rem
+
+		+mq($from: "medium")
+			margin-bottom: 0
+
+		+mq($from: "large")
+			font-size: $fs-medium
+
+		&-title
+			margin-bottom: 1rem
+			font-family: $ff-roboto-black
+			font-size: $fs-larger2
+
+			+mq($from: "medium")
+				font-size: $fs-larger
+
+			+mq($from: 1550px)
+				margin-bottom: 2rem
+				font-size: $fs-larger2
+		
+		&-subtitle
+			display: block
+			margin-top: .5rem
+			font-size: $fs-large
+
+
+/* Videos feed */
+#videos-feed
+	&-header
+		margin-bottom: 4rem
+
+
+/* Video card */
+.video
+	&-card
+		font-family: $ff-roboto-black
+		text-align: center
+
+		&-container
+			margin-bottom: 2rem
+
+			+mq($from: "large")
+				margin-bottom: 3rem
+
+			&:last-child
+				margin-bottom: 0
+
+		&-title
+			margin-top: 1rem
+			font-size: $fs-medium
+
+	&-featured
+		position: relative
+
+		&-title
+			margin-top: 1rem
+			font-size: $fs-larger
+			text-align: left
+
+			+mq($from: "small")
+				font-size: $fs-larger2

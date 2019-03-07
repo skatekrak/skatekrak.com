@@ -174,12 +174,6 @@
 			text-align: center
 
 	&-menu
-		&-container
-			z-index: 2
-
-			+mq($from: "medium")
-				padding-left: 3rem
-
 		&-sources
 			&-nav
 				display: flex
@@ -232,7 +226,10 @@
 						display: flex
 						flex-direction: column
 						align-items: flex-start
-						margin-bottom: 2rem
+						margin: 1rem 0 2rem
+
+						+mq($from: "medium")
+							margin: 2rem 0
 
 					&-languages
 						display: flex
@@ -264,7 +261,8 @@
 				margin: 0 1.5rem 1rem 0
 			
 				&:last-child
-					margin: 0
+					+mq($from: "medium")
+						margin: 0
 
 			&-flag
 				margin-right: .5rem
