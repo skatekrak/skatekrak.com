@@ -9,8 +9,8 @@ import Types from 'Types';
 
 import Article from 'components/pages/news/Articles/Article';
 import TrackedPage from 'components/pages/TrackedPage';
-import Loading from 'components/Ui/Feed/Loading';
 import NoContent from 'components/Ui/Feed/NoContent';
+import { KrakLoading } from 'components/Ui/Icons/Spinners';
 import ScrollHelper from 'lib/ScrollHelper';
 import Thread from 'lib/Thread';
 import { Content, Source } from 'rss-feed';
@@ -77,7 +77,7 @@ class Articles extends React.Component<Props, State> {
 
                         {this.genArticlesList(contents)}
 
-                        {isLoading && <Loading />}
+                        {isLoading && <KrakLoading />}
                         {contents.length > 0 && !hasMore && (
                             <NoContent title="No more news" desc="Add more mags or start your own ;)" />
                         )}

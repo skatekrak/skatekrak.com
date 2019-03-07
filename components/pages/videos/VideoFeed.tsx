@@ -4,8 +4,8 @@ import InfiniteScroll from 'react-infinite-scroller';
 
 import FeaturedVideo from 'components/pages/videos/FeaturedVideo';
 import VideoCard from 'components/pages/videos/VideoCard';
-import Loading from 'components/Ui/Feed/Loading';
 import NoContent from 'components/Ui/Feed/NoContent';
+import { KrakLoading } from 'components/Ui/Icons/Spinners';
 import ScrollHelper from 'lib/ScrollHelper';
 import Thread from 'lib/Thread';
 import { Video } from 'rss-feed';
@@ -60,7 +60,7 @@ class VideoFeed extends React.Component<{}, State> {
                             </div>
                         ))}
 
-                        {isLoading && <Loading />}
+                        {isLoading && <KrakLoading />}
                         {videos.length > 0 && !hasMore && <NoContent title="No more video" desc="" />}
                     </div>
                 </InfiniteScroll>

@@ -4,11 +4,11 @@ import React from 'react';
 import { ChildProps, graphql, Query } from 'react-apollo';
 import { Form } from 'react-final-form';
 
-import Loading from 'components/pages/news/Articles/Loading';
 import ErrorMessage from 'components/Ui/Form/ErrorMessage';
 import Field from 'components/Ui/Form/Field';
 import Select from 'components/Ui/Form/Select';
 import Emoji from 'components/Ui/Icons/Emoji';
+import { KrakLoading } from 'components/Ui/Icons/Spinners';
 
 import { GET_ME } from 'pages/club/profile';
 
@@ -25,7 +25,7 @@ const PreferenceSettingField = ({ preferenceSetting }: { preferenceSetting: any 
             <Select
                 name={preferenceSetting.id}
                 label={preferenceSetting.name}
-                options={preferenceSetting.options.map(option => ({
+                options={preferenceSetting.options.map((option) => ({
                     value: option.id,
                     label: option.title,
                 }))}
@@ -36,7 +36,7 @@ const PreferenceSettingField = ({ preferenceSetting }: { preferenceSetting: any 
             <Select
                 name={preferenceSetting.id}
                 label={preferenceSetting.name}
-                options={preferenceSetting.options.map(option => ({
+                options={preferenceSetting.options.map((option) => ({
                     value: option.id,
                     label: option.title,
                 }))}
@@ -55,7 +55,7 @@ class Preferences extends React.Component<Props & ChildProps> {
             <Query query={GET_PREFERENCES_SETTING} variables={{ memberId: profile.id }}>
                 {({ data, loading, error }) => {
                     if (loading) {
-                        return <Loading />;
+                        return <KrakLoading />;
                     }
                     if (error) {
                         return <pre>{JSON.stringify(error, undefined, 2)}</pre>;
@@ -86,7 +86,7 @@ class Preferences extends React.Component<Props & ChildProps> {
                                             </p>
                                             {submitError && <ErrorMessage message={submitError} />}
                                             {preferencesSettingFirstPart &&
-                                                preferencesSettingFirstPart.map(preferenceSetting => (
+                                                preferencesSettingFirstPart.map((preferenceSetting) => (
                                                     <PreferenceSettingField
                                                         key={preferenceSetting.id}
                                                         preferenceSetting={preferenceSetting}
@@ -97,7 +97,7 @@ class Preferences extends React.Component<Props & ChildProps> {
                                     <div className="modal-two-col-second-container modal-two-col-item-container">
                                         <div className="modal-two-col-content">
                                             {preferencesSettingSecondPart &&
-                                                preferencesSettingSecondPart.map(preferenceSetting => (
+                                                preferencesSettingSecondPart.map((preferenceSetting) => (
                                                     <PreferenceSettingField
                                                         key={preferenceSetting.id}
                                                         preferenceSetting={preferenceSetting}
@@ -149,7 +149,7 @@ class Preferences extends React.Component<Props & ChildProps> {
                     // This case is for MULTIPLE
                     formattedPreferences.push({
                         settingId: key,
-                        options: values[key].map(value => value.value),
+                        options: values[key].map((value) => value.value),
                     });
                 } else if (typeof values[key] === 'string') {
                     // OPEN
@@ -184,7 +184,9 @@ class Preferences extends React.Component<Props & ChildProps> {
                             */
                             query.me.onboarding = true;
                             for (const preference of data.addOrUpdatePreferences) {
-                                const existingIndex = query.me.preferences.findIndex(pref => pref.id === preference.id);
+                                const existingIndex = query.me.preferences.findIndex(
+                                    (pref) => pref.id === preference.id,
+                                );
                                 if (existingIndex >= 0) {
                                     query.me.preferences[existingIndex] = preference;
                                 } else {
