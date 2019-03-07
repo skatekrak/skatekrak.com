@@ -104,6 +104,9 @@ class Login extends React.Component<Props> {
     }
 
     private handleSubmit = (values: any) => {
+        if (values.email) {
+            values.email = values.email.toLowerCase();
+        }
         this.props.userSignin(values.email, values.password, values.rememberMe);
     };
 

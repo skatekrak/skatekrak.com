@@ -7,7 +7,7 @@ services:
     networks:
       - web
     ports:
-      - 9230:9229
+      - 9230:9230
     labels:
       - traefik.enable=true
       - traefik.docker.network=web

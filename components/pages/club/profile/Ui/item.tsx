@@ -9,7 +9,7 @@ const ProfileItem: React.SFC<Props> = ({ title, content }) => (
     <div className="profile-section-item">
         <h4 className="profile-section-item-title">{title}</h4>
         <p className="profile-section-item-content">
-            {content ? content : <span className="profile-section-item-content-empty">Not completed</span>}
+            {content ? content : <span className="profile-section-item-content-empty">Not completes</span>}
         </p>
     </div>
 );

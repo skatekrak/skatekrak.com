@@ -10,6 +10,7 @@ import ProfileEditInfoModal from 'components/pages/club/profile/Ui/modals/Profil
 import ProfileSection from 'components/pages/club/profile/Ui/section';
 import ProfileSectionHeader from 'components/pages/club/profile/Ui/sectionHeader';
 import TrackedPage from 'components/pages/TrackedPage';
+import Emoji from 'components/Ui/Icons/Emoji';
 
 import Loading from 'components/pages/news/Articles/Loading';
 
@@ -95,6 +96,17 @@ class ProfileMain extends React.Component<{}, State> {
                                             onClose={this.onCloseModal}
                                             profile={data.me}
                                         />
+                                        <div id="profile-main-welcome">
+                                            <h1 id="profile-main-welcome-title">
+                                                Hey <Emoji symbol="👋" label="hand shake" /> {data.me.firstName}
+                                            </h1>
+                                            <p id="profile-main-welcome-message">
+                                                Welcome to your profile. Here we’re able to know more about you. The one
+                                                & only reason: we wanna provide the best experience possible. Remember
+                                                it’s all about fun{' '}
+                                                <Emoji symbol="😜" label="Winking face with tongue" />
+                                            </p>
+                                        </div>
                                         <ProfileSection>
                                             <ProfileSectionHeader title="Membership" />
                                             <div className="profile-section-line">

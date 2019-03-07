@@ -226,10 +226,21 @@
 						color: $secondary
 
 				&-controls
-					display: flex
-					flex-direction: column
-					align-items: flex-start
 					margin: 2rem 0
+
+					&-select
+						display: flex
+						flex-direction: column
+						align-items: flex-start
+						margin-bottom: 2rem
+
+					&-languages
+						display: flex
+						flex-wrap: wrap
+						
+						+mq($from: "medium")
+							flex-direction: column
+
 
 .news-menu-sources-open
 	display: none
@@ -241,10 +252,37 @@
 		display: block
 
 	&-control
-		font-size: $fs-regular
-		color: $grey-600
-		&:first-child
-			margin-bottom: 1rem
+		&-language
+			display: flex
+			align-items: center
+
+			&:hover
+				& .news-menu-sources-open-control-language-name
+					color: $grey-800
+
+			&-container
+				margin: 0 1.5rem 1rem 0
+			
+				&:last-child
+					margin: 0
+
+			&-flag
+				margin-right: .5rem
+				width: 1.2rem
+
+			&-name
+				font-size: $fs-regular
+				color: $grey-600
+
+		&-select
+			font-size: $fs-regular
+			color: $grey-600
+
+			&:hover
+				color: $grey-800
+
+			&:first-child
+				margin-bottom: 1rem
 
 	&-option
 		display: flex
