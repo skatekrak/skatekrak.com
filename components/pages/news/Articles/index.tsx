@@ -8,9 +8,9 @@ import { connect } from 'react-redux';
 import Types from 'Types';
 
 import Article from 'components/pages/news/Articles/Article';
-import Loading from 'components/pages/news/Articles/Loading';
-import NoMore from 'components/pages/news/Articles/NoMore';
 import TrackedPage from 'components/pages/TrackedPage';
+import Loading from 'components/Ui/Feed/Loading';
+import NoContent from 'components/Ui/Feed/NoContent';
 import ScrollHelper from 'lib/ScrollHelper';
 import Thread from 'lib/Thread';
 import { Content, Source } from 'rss-feed';
@@ -72,16 +72,15 @@ class Articles extends React.Component<Props, State> {
                 >
                     <div className={classNames('row', { hide: sourcesMenuIsOpen })}>
                         {contents.length === 0 && !isLoading && (
-                            <div id="news-articles-no-content">
-                                <p id="news-articles-no-content-title">No news to display</p>
-                                <p id="news-articles-no-content-text">Select some mags to be back in the loop</p>
-                            </div>
+                            <NoContent title="No news to display" desc="Select some mags to be back in the loop" />
                         )}
 
                         {this.genArticlesList(contents)}
 
                         {isLoading && <Loading />}
-                        {contents.length > 0 && !hasMore && <NoMore />}
+                        {contents.length > 0 && !hasMore && (
+                            <NoContent title="No more news" desc="Add more mags or start your own ;)" />
+                        )}
                     </div>
                 </InfiniteScroll>
             </div>

@@ -2,10 +2,10 @@ import axios from 'axios';
 import React from 'react';
 import InfiniteScroll from 'react-infinite-scroller';
 
-import Loading from 'components/pages/news/Articles/Loading';
-import NoMore from 'components/pages/news/Articles/NoMore';
 import FeaturedVideo from 'components/pages/videos/FeaturedVideo';
 import VideoCard from 'components/pages/videos/VideoCard';
+import Loading from 'components/Ui/Feed/Loading';
+import NoContent from 'components/Ui/Feed/NoContent';
 import ScrollHelper from 'lib/ScrollHelper';
 import Thread from 'lib/Thread';
 import { Video } from 'rss-feed';
@@ -61,7 +61,7 @@ class VideoFeed extends React.Component<{}, State> {
                         ))}
 
                         {isLoading && <Loading />}
-                        {videos.length > 0 && !hasMore && <NoMore />}
+                        {videos.length > 0 && !hasMore && <NoContent title="No more video" desc="" />}
                     </div>
                 </InfiniteScroll>
             </div>
