@@ -24,6 +24,7 @@ import 'static/styles/subscribe.styl';
 import 'static/styles/onboarding.styl';
 import 'static/styles/club.styl';
 import 'static/styles/news.styl';
+import 'static/styles/videos.styl';
 
 import 'static/styles/checkbox.styl';
 import 'static/styles/icons.styl';

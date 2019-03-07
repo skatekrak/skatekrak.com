@@ -12,9 +12,9 @@ import ProfileEditCreditCardModal from 'components/pages/club/profile/Ui/modals/
 import PaymentLine from 'components/pages/club/profile/Ui/PaymentLine';
 import ProfileSection from 'components/pages/club/profile/Ui/section';
 import ProfileSectionHeader from 'components/pages/club/profile/Ui/sectionHeader';
-import Loading from 'components/pages/news/Articles/Loading';
 import TrackedPage from 'components/pages/TrackedPage';
 import Emoji from 'components/Ui/Icons/Emoji';
+import { KrakLoading } from 'components/Ui/Icons/Spinners';
 
 import { GET_ME } from 'pages/club/profile';
 
@@ -42,7 +42,7 @@ class ProfilePayment extends React.Component<{}, State> {
                     <Query query={GET_ME}>
                         {({ loading, error, data }) => {
                             if (loading) {
-                                return <Loading />;
+                                return <KrakLoading />;
                             }
 
                             if (error) {
