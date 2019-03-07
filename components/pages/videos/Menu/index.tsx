@@ -1,7 +1,7 @@
 import React from 'react';
 
-import ScrollTop from 'components/Ui/Utils/ScrollTop';
 import Emoji from 'components/Ui/Icons/Emoji';
+import ScrollTop from 'components/Ui/Utils/ScrollTop';
 
 const Menu: React.SFC = () => (
     <div id="videos-menu-container">
