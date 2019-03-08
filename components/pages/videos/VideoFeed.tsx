@@ -1,3 +1,4 @@
+import Analytics from '@thepunkclub/analytics';
 import axios from 'axios';
 import React from 'react';
 import InfiniteScroll from 'react-infinite-scroller';
@@ -32,6 +33,12 @@ class VideoFeed extends React.Component<{}, State> {
         if (res.data) {
             const data: Video[] = res.data;
             this.getFeaturedVideo(data);
+        }
+    }
+
+    public componentDidUpdate(_prevProps: any, prevState: State) {
+        if (this.state.videos.length > 0 && this.state.videos.length > prevState.videos.length) {
+            Analytics.default().trackLinks();
         }
     }
 
