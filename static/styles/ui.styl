@@ -102,6 +102,30 @@
 			+mq($from: "tiny")
 				display: inline
 
+
+/*
+ * Youtube subscribe button
+ */
+.youtube-subscribe
+	display: flex
+	align-items: center
+	margin: 1rem 0 0
+	padding: 1rem 0
+	font-family: $ff-roboto-bold
+	font-size: $fs-smaller
+	color: $grey-900
+	border-top: 1px solid $grey-200
+
+	+mq($from: "medium")
+		margin-top: 2rem
+		font-size: $fs-small
+
+	& svg
+		width: 1.5rem
+		margin-right: .5rem
+		fill: $primary
+
+
 /*
  * Video player
  */
