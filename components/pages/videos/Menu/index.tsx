@@ -1,8 +1,8 @@
 import React from 'react';
 
+import YoutubeSubscribe from 'components/Ui/Button/YoutubeSubscribe';
 import Emoji from 'components/Ui/Icons/Emoji';
 import ScrollTop from 'components/Ui/Utils/ScrollTop';
-import YoutubeSubscribe from 'components/Ui/Button/YoutubeSubscribe';
 
 const Menu: React.SFC = () => (
     <div id="videos-menu-container">
