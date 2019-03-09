@@ -6,7 +6,7 @@ import ProfileItem from 'components/pages/club/profile/Ui/item';
 import ProfileEditPreferencesModal from 'components/pages/club/profile/Ui/modals/ProfileEditPreferencesModal';
 import ProfileSection from 'components/pages/club/profile/Ui/section';
 import ProfileSectionHeader from 'components/pages/club/profile/Ui/sectionHeader';
-import Loading from 'components/pages/news/Articles/Loading';
+import { KrakLoading } from 'components/Ui/Icons/Spinners';
 
 const GET_PREFERENCES_SETTING = gql`
     query getPreferencesSetting($memberId: ID!) {
@@ -48,7 +48,11 @@ class ProfilePreferencesSection extends React.Component<Props, State> {
                                     editTitle="Preferences"
                                     onEditClick={!loading && !error ? this.openModal : null}
                                 />
-                                {loading && <Loading />}
+                                {loading && (
+                                    <div className="profile-preferences-loader">
+                                        <KrakLoading />
+                                    </div>
+                                )}
                                 {error && <pre>{JSON.stringify(error, undefined, 2)}</pre>}
                                 {data && data.getPreferencesSetting && (
                                     <>

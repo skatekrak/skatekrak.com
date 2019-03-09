@@ -8,9 +8,9 @@ import { connect } from 'react-redux';
 import Types from 'Types';
 
 import Article from 'components/pages/news/Articles/Article';
-import Loading from 'components/pages/news/Articles/Loading';
-import NoMore from 'components/pages/news/Articles/NoMore';
 import TrackedPage from 'components/pages/TrackedPage';
+import NoContent from 'components/Ui/Feed/NoContent';
+import { KrakLoading } from 'components/Ui/Icons/Spinners';
 import ScrollHelper from 'lib/ScrollHelper';
 import Thread from 'lib/Thread';
 import { Content, Source } from 'rss-feed';
@@ -64,7 +64,7 @@ class Articles extends React.Component<Props, State> {
         const { contents, isLoading, hasMore } = this.state;
 
         return (
-            <div id="news-articles-container" className="col-xs-12 col-md-8 col-lg-9">
+            <div id="news-articles-container">
                 <TrackedPage name={`News/${Math.ceil(contents.length / 20)}`} initial={false} />
                 <InfiniteScroll
                     key={`infinite-need-refresh-${this.props.news.feedNeedRefresh}`}
@@ -77,16 +77,15 @@ class Articles extends React.Component<Props, State> {
                 >
                     <div className={classNames('row', { hide: sourcesMenuIsOpen })}>
                         {contents.length === 0 && !isLoading && (
-                            <div id="news-articles-no-content">
-                                <p id="news-articles-no-content-title">No news to display</p>
-                                <p id="news-articles-no-content-text">Select some mags to be back in the loop</p>
-                            </div>
+                            <NoContent title="No news to display" desc="Select some mags to be back in the loop" />
                         )}
 
                         {this.genArticlesList(contents)}
 
-                        {isLoading && <Loading />}
-                        {contents.length > 0 && !hasMore && <NoMore />}
+                        {isLoading && <KrakLoading />}
+                        {contents.length > 0 && !hasMore && (
+                            <NoContent title="No more news" desc="Add more mags or start your own ;)" />
+                        )}
                     </div>
                 </InfiniteScroll>
             </div>

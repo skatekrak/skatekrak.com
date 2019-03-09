@@ -102,6 +102,92 @@
 			+mq($from: "tiny")
 				display: inline
 
+
+/*
+ * Youtube subscribe button
+ */
+.youtube-subscribe
+	display: flex
+	align-items: center
+	margin: 1rem 0 0
+	padding: 1rem 0
+	font-family: $ff-roboto-bold
+	font-size: $fs-smaller
+	color: $grey-900
+	border-top: 1px solid $grey-200
+
+	+mq($from: "medium")
+		margin-top: 2rem
+		font-size: $fs-small
+
+	& svg
+		width: 1.5rem
+		margin-right: .5rem
+		fill: $primary
+
+
+/*
+ * Video player
+ */
+.video
+	&-player
+		position: absolute
+		top: 0
+		right: 0
+		bottom: 0
+		left: 0
+		background-color: $grey-900
+		border-radius: .25rem
+		cursor: pointer
+		overflow: hidden
+
+		& .react-player__preview
+			background-size: 102% !important
+			border-radius: .25rem
+			transition: .2s
+
+			&:hover
+				transform: scale(1.01)
+
+				&:after
+					opacity: .25
+
+				& .react-player__play-icon
+					background: url('/static/images/icons/player-hover.svg')
+
+			&:after
+				content: ''
+				position: absolute
+				top: 0
+				right: 0
+				bottom: 0
+				left: 0
+				background-color: $grey-900
+				border-radius: .25rem
+				opacity: 0
+				transition: .3s
+				pointer-events: none
+				z-index: 0
+
+		& .react-player__shadow
+			background: none !important
+			z-index: 1
+
+		& .react-player__play-icon
+			height: 4rem
+			width: 4rem
+			margin: 0 !important
+			border: 0 !important
+			background: url('/static/images/icons/player.svg')
+			background-position: center
+			background-repeat: no-repeat
+			background-size: cover
+
+		&-container
+			position: relative
+			padding-top: 56.25%
+
+
 /*
  * Scroll top
  */

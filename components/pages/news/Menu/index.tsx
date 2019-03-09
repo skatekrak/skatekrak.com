@@ -9,7 +9,7 @@ type Props = {
 };
 
 const Menu: React.SFC<Props> = ({ sourcesMenuIsOpen, handleOpenSourcesMenu }) => (
-    <div id="news-menu-container" className="col-xs-12 last-md col-md-4 col-lg-3">
+    <div id="news-menu-container">
         <Sources sourcesMenuIsOpen={sourcesMenuIsOpen} handleOpenSourcesMenu={handleOpenSourcesMenu} />
         <ScrollTop elementId="news-menu-sources" />
     </div>
