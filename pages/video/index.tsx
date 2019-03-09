@@ -2,7 +2,7 @@ import Head from 'next/head';
 import React from 'react';
 
 import Layout from 'components/Layout/Layout';
-// import BannerTop from 'components/Ui/Banners/BannerTop';
+import BannerTop from 'components/Ui/Banners/BannerTop';
 import LayoutFeed from 'components/Ui/Feed/LayoutFeed';
 
 import Menu from 'components/pages/videos/Menu';
@@ -25,7 +25,7 @@ class Videos extends React.PureComponent<{}, {}> {
         return (
             <Layout head={<VideoHead />}>
                 <React.Fragment>
-                    {/* <BannerTop /> */}
+                    <BannerTop />
                     <div id="videos-container" className="inner-page-container">
                         <LayoutFeed mainView={<VideoFeed />} sideBar={<Menu />} />
                     </div>

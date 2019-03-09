@@ -1,5 +1,6 @@
 import React from 'react';
 
+import YoutubeSubscribe from 'components/Ui/Button/YoutubeSubscribe';
 import Emoji from 'components/Ui/Icons/Emoji';
 import ScrollTop from 'components/Ui/Utils/ScrollTop';
 
@@ -16,6 +17,7 @@ const Menu: React.SFC = () => (
                 We love filming skateboarding. Period. We make things for skateboarders and with these products, our
                 community of riders is exploring the world out there.
             </p>
+            <YoutubeSubscribe />
         </div>
         <ScrollTop elementId="videos-menu-desc" />
     </div>
