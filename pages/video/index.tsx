@@ -2,7 +2,6 @@ import Head from 'next/head';
 import React from 'react';
 
 import Layout from 'components/Layout/Layout';
-import TrackedPage from 'components/pages/TrackedPage';
 // import BannerTop from 'components/Ui/Banners/BannerTop';
 import LayoutFeed from 'components/Ui/Feed/LayoutFeed';
 
@@ -25,7 +24,6 @@ class Videos extends React.PureComponent<{}, {}> {
     public render() {
         return (
             <Layout head={<VideoHead />}>
-                <TrackedPage name={`Video`} />
                 <React.Fragment>
                     {/* <BannerTop /> */}
                     <div id="videos-container" className="inner-page-container">
