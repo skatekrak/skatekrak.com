@@ -1,7 +1,9 @@
+import Analytics from '@thepunkclub/analytics';
 import axios from 'axios';
 import React from 'react';
 import InfiniteScroll from 'react-infinite-scroller';
 
+import TrackedPage from 'components/pages/TrackedPage';
 import FeaturedVideo from 'components/pages/videos/FeaturedVideo';
 import VideoCard from 'components/pages/videos/VideoCard';
 import NoContent from 'components/Ui/Feed/NoContent';
@@ -34,6 +36,12 @@ class VideoFeed extends React.Component<{}, State> {
         }
     }
 
+    public componentDidUpdate(_prevProps: any, prevState: State) {
+        if (this.state.videos.length > 0 && this.state.videos.length > prevState.videos.length) {
+            Analytics.default().trackLinks();
+        }
+    }
+
     public render() {
         const { isLoading, hasMore, featuredVideo, videos } = this.state;
         return (
@@ -45,6 +53,7 @@ class VideoFeed extends React.Component<{}, State> {
                         </div>
                     </div>
                 )}
+                <TrackedPage name={`Videos/${Math.ceil(videos.length / 20)}`} initial={false} />
                 <InfiniteScroll
                     pageStart={0}
                     initialLoad={true}
