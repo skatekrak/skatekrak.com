@@ -20,6 +20,11 @@ const sitemapXml = `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
         <changefreq>hourly</changefreq>
     </url>
     <url>
+        <loc>https://skatekrak.com/video</loc>
+        <lastmod>${lastMod}</lastmod>
+        <changefreq>daily</changefreq>
+    </url>
+    <url>
         <loc>https://skatekrak.com/auth/login</loc>
         <lastmod>${lastMod}</lastmod>
         <changefreq>daily</changefreq>
