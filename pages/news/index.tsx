@@ -6,11 +6,7 @@ import BannerTop from 'components/Ui/Banners/BannerTop';
 import LayoutFeed from 'components/Ui/Feed/LayoutFeed';
 
 import Articles from 'components/pages/news/Articles';
-import Menu from 'components/pages/news/Menu';
-
-type State = {
-    sourcesMenuIsOpen: boolean;
-};
+import Sidebar from 'components/pages/news/Sidebar';
 
 const NewsHead = () => (
     <Head>
@@ -30,37 +26,15 @@ const NewsHead = () => (
     </Head>
 );
 
-class News extends React.PureComponent<{}, State> {
-    public state: State = {
-        sourcesMenuIsOpen: false,
-    };
-
-    public render() {
-        const { sourcesMenuIsOpen } = this.state;
-        return (
-            <Layout head={<NewsHead />}>
-                <React.Fragment>
-                    <BannerTop />
-                    <div id="news-container" className="inner-page-container">
-                        <LayoutFeed
-                            mainView={<Articles sourcesMenuIsOpen={sourcesMenuIsOpen} />}
-                            sideBar={
-                                <Menu
-                                    sourcesMenuIsOpen={sourcesMenuIsOpen}
-                                    handleOpenSourcesMenu={this.handleOpenSourcesMenu}
-                                />
-                            }
-                        />
-                    </div>
-                </React.Fragment>
-            </Layout>
-        );
-    }
-
-    private handleOpenSourcesMenu = () => {
-        const { sourcesMenuIsOpen } = this.state;
-        this.setState({ sourcesMenuIsOpen: !sourcesMenuIsOpen });
-    };
-}
+const News: React.SFC = () => (
+    <Layout head={<NewsHead />}>
+        <React.Fragment>
+            <BannerTop />
+            <div id="news-container" className="inner-page-container">
+                <LayoutFeed mainView={<Articles />} sidebar={<Sidebar />} />
+            </div>
+        </React.Fragment>
+    </Layout>
+);
 
 export default News;

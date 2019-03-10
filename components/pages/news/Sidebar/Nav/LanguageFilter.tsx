@@ -14,14 +14,20 @@ class LanguageFilter extends React.PureComponent<Props, {}> {
         const { language } = this.props;
 
         return (
-            <li className="news-menu-sources-open-control-language-container">
-                <button className="news-menu-sources-open-control-language" onClick={this.handleLanguageFilterClick}>
+            <li className="feed-sidebar-nav-main-controls-languages-item-container">
+                <button
+                    className="feed-sidebar-nav-main-controls-languages-item"
+                    onClick={this.handleLanguageFilterClick}
+                >
                     <img
                         src={this.getIcon(language)}
                         alt={language.isoCode}
-                        className="news-menu-sources-open-control-language-flag"
+                        className="feed-sidebar-nav-main-controls-languages-item-flag"
                     />
-                    <span className="news-menu-sources-open-control-language-name">{language.name}</span>
+                    <span className="feed-sidebar-nav-main-controls-languages-item-name">
+                        {/* {language.name} */}
+                        EN
+                    </span>
                 </button>
             </li>
         );
