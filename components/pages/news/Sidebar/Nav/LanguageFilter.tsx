@@ -24,10 +24,7 @@ class LanguageFilter extends React.PureComponent<Props, {}> {
                         alt={language.isoCode}
                         className="feed-sidebar-nav-main-controls-languages-item-flag"
                     />
-                    <span className="feed-sidebar-nav-main-controls-languages-item-name">
-                        {/* {language.name} */}
-                        EN
-                    </span>
+                    <span className="feed-sidebar-nav-main-controls-languages-item-name">{language.isoCode}</span>
                 </button>
             </li>
         );
