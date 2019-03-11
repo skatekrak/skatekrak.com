@@ -23,19 +23,25 @@ type Props = {
 class BannerTop extends React.Component<Props, {}> {
     public componentDidMount() {
         const scrollContainer = ScrollHelper.getScrollContainer();
-        scrollContainer.addEventListener('scroll', this.handleScroll);
+        if (scrollContainer) {
+            scrollContainer.addEventListener('scroll', this.handleScroll);
+        }
     }
 
     public componentDidUpdate(prevProps: Props) {
         if (prevProps.settings.isMobile !== this.props.settings.isMobile) {
             const scrollContainer = ScrollHelper.getScrollContainer();
-            scrollContainer.addEventListener('scroll', this.handleScroll);
+            if (scrollContainer) {
+                scrollContainer.addEventListener('scroll', this.handleScroll);
+            }
         }
     }
 
     public componentWillUnmount() {
         const scrollContainer = ScrollHelper.getScrollContainer();
-        scrollContainer.removeEventListener('scroll', this.handleScroll);
+        if (scrollContainer) {
+            scrollContainer.removeEventListener('scroll', this.handleScroll);
+        }
     }
 
     public render() {
@@ -48,20 +54,22 @@ class BannerTop extends React.Component<Props, {}> {
 
     private handleScroll = () => {
         const scrollContainer = ScrollHelper.getScrollContainer();
-        let showFrom = 0;
+        if (scrollContainer) {
+            let showFrom = 0;
 
-        /* Define when to show the banner based on device size */
-        if (scrollContainer.id === 'page-container') {
-            showFrom = 900;
-        } else {
-            showFrom = 600;
-        }
+            /* Define when to show the banner based on device size */
+            if (scrollContainer.id === 'page-container') {
+                showFrom = 900;
+            } else {
+                showFrom = 600;
+            }
 
-        const banner = document.getElementById('banner-top');
-        if (scrollContainer.scrollTop > showFrom) {
-            banner.classList.add('banner-top-show');
-        } else {
-            banner.classList.remove('banner-top-show');
+            const banner = document.getElementById('banner-top');
+            if (scrollContainer.scrollTop > showFrom) {
+                banner.classList.add('banner-top-show');
+            } else {
+                banner.classList.remove('banner-top-show');
+            }
         }
     };
 }
