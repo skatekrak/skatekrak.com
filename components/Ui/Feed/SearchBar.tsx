@@ -23,9 +23,10 @@ class SearchBar extends React.PureComponent<Props, State> {
     public render() {
         return (
             <input
+                className="feed-searchbar"
                 type="text"
                 defaultValue={this.props.search}
-                placeholder={this.placeholder()}
+                placeholder="Search"
                 onChange={this.search}
             />
         );
@@ -47,10 +48,6 @@ class SearchBar extends React.PureComponent<Props, State> {
         this.setState({
             sendRequestTimeout,
         });
-    };
-
-    private placeholder = (): string => {
-        return `Search in ${this.props.nbFilters} source${this.props.nbFilters > 1 ? 's' : ''}`;
     };
 }
 
