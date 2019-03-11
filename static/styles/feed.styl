@@ -13,7 +13,6 @@
 			margin-bottom: 2rem
 
 			+mq($from: "medium")
-				padding-bottom: 2rem
 				margin-bottom: 2rem
 				border-bottom: 1px solid $grey-200
 
@@ -36,6 +35,10 @@
 				display: block
 				margin-top: .5rem
 				font-size: $fs-large
+
+			&-text
+				+mq($from: "medium")
+					padding-bottom: 2rem
 
 		&-nav
 			&-container
@@ -144,6 +147,7 @@
 							&-name
 								font-family: $ff-roboto-bold
 								font-size: $fs-regular
+								text-transform: uppercase
 								color: $grey-400
 								transition: .2s
 

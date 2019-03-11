@@ -5,7 +5,7 @@ import Layout from 'components/Layout/Layout';
 import BannerTop from 'components/Ui/Banners/BannerTop';
 import LayoutFeed from 'components/Ui/Feed/LayoutFeed';
 
-import Menu from 'components/pages/videos/Menu';
+import Sidebar from 'components/pages/videos/Sidebar';
 import VideoFeed from 'components/pages/videos/VideoFeed';
 
 const VideoHead = () => (
@@ -20,19 +20,15 @@ const VideoHead = () => (
     </Head>
 );
 
-class Videos extends React.PureComponent<{}, {}> {
-    public render() {
-        return (
-            <Layout head={<VideoHead />}>
-                <React.Fragment>
-                    <BannerTop />
-                    <div id="videos-container" className="inner-page-container">
-                        <LayoutFeed mainView={<VideoFeed />} sideBar={<Menu />} />
-                    </div>
-                </React.Fragment>
-            </Layout>
-        );
-    }
-}
+const Videos: React.SFC = () => (
+    <Layout head={<VideoHead />}>
+        <React.Fragment>
+            <BannerTop />
+            <div id="videos-container" className="inner-page-container">
+                <LayoutFeed mainView={<VideoFeed />} sidebar={<Sidebar />} />
+            </div>
+        </React.Fragment>
+    </Layout>
+);
 
 export default Videos;
