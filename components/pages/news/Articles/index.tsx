@@ -1,6 +1,5 @@
 import Analytics from '@thepunkclub/analytics';
 import axios from 'axios';
-import classNames from 'classnames';
 import React from 'react';
 import InfiniteScroll from 'react-infinite-scroller';
 import { connect } from 'react-redux';
@@ -19,7 +18,6 @@ import { FilterState, State as NewsState } from 'store/news/reducers';
 import { FeedLayout } from 'store/settings/reducers';
 
 type Props = {
-    sourcesMenuIsOpen: boolean;
     news: NewsState;
     feedLayout: FeedLayout;
     dispatch: (fct: any) => void;
@@ -60,7 +58,6 @@ class Articles extends React.Component<Props, State> {
     }
 
     public render() {
-        const { sourcesMenuIsOpen } = this.props;
         const { contents, isLoading, hasMore } = this.state;
 
         return (
@@ -75,7 +72,7 @@ class Articles extends React.Component<Props, State> {
                     getScrollParent={this.getScrollContainer}
                     useWindow={false}
                 >
-                    <div className={classNames('row', { hide: sourcesMenuIsOpen })}>
+                    <div className="row">
                         {contents.length === 0 && !isLoading && (
                             <NoContent title="No news to display" desc="Select some mags to be back in the loop" />
                         )}
@@ -164,7 +161,7 @@ class Articles extends React.Component<Props, State> {
     }
 
     private genArticlesList(contents: Content[]): JSX.Element[] {
-        const articles = contents.map(content => (
+        const articles = contents.map((content) => (
             <Article key={content.id} content={content} currency={this.props.payment.currency} />
         ));
         for (const index of this.state.promoCardIndexes) {
