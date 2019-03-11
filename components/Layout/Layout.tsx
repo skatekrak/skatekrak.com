@@ -65,7 +65,7 @@ class Layout extends React.Component<Props, {}> {
                         <meta property="og:url" content="https://skatekrak.com" />
                     </Head>
                 )}
-                <div id="page-container">
+                <div id="page-container" className={classNames({ 'scroll-container': isMobile })}>
                     <Header />
                     <main id="main-container" className={classNames({ 'scroll-container': !isMobile })}>
                         {children}
