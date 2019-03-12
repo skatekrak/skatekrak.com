@@ -30,19 +30,25 @@ type Props = OwnProps & StateProps;
 class ScrollTop extends React.PureComponent<Props> {
     public componentDidMount() {
         const scrollContainer = ScrollHelper.getScrollContainer();
-        scrollContainer.addEventListener('scroll', this.handleScroll);
+        if (scrollContainer) {
+            scrollContainer.addEventListener('scroll', this.handleScroll);
+        }
     }
 
     public componentDidUpdate(prevProps) {
         if (prevProps.settings.isMobile !== this.props.settings.isMobile) {
             const scrollContainer = ScrollHelper.getScrollContainer();
-            scrollContainer.addEventListener('scroll', this.handleScroll);
+            if (scrollContainer) {
+                scrollContainer.addEventListener('scroll', this.handleScroll);
+            }
         }
     }
 
     public componentWillUnmount() {
         const scrollContainer = ScrollHelper.getScrollContainer();
-        scrollContainer.removeEventListener('scroll', this.handleScroll);
+        if (scrollContainer) {
+            scrollContainer.removeEventListener('scroll', this.handleScroll);
+        }
     }
 
     public render() {
@@ -64,25 +70,29 @@ class ScrollTop extends React.PureComponent<Props> {
 
     private handleScroll = () => {
         const scrollContainer = ScrollHelper.getScrollContainer();
+        if (scrollContainer) {
+            const { elementId } = this.props;
+            const element = document.getElementById(elementId);
+            const elementBottomPos = element.offsetHeight + element.offsetTop;
 
-        const { elementId } = this.props;
-        const element = document.getElementById(elementId);
-        const elementBottomPos = element.offsetHeight + element.offsetTop;
+            const scrollTopButton = document.getElementById('scroll-top');
 
-        const scrollTopButton = document.getElementById('scroll-top');
-
-        if (scrollContainer.scrollTop > elementBottomPos) {
-            scrollTopButton.classList.add('show');
-        } else {
-            scrollTopButton.classList.remove('show');
+            if (scrollContainer.scrollTop > elementBottomPos) {
+                scrollTopButton.classList.add('show');
+            } else {
+                scrollTopButton.classList.remove('show');
+            }
         }
     };
 
     private handleTopClick = () => {
-        jump(`#${this.props.elementId}`, {
-            offset: -300,
-            container: ScrollHelper.getScrollContainer(),
-        });
+        const scrollContainer = ScrollHelper.getScrollContainer();
+        if (scrollContainer) {
+            jump(`#${this.props.elementId}`, {
+                offset: -300,
+                container: scrollContainer,
+            });
+        }
     };
 }
 

@@ -19,11 +19,11 @@ import { FilterState, State as NewsState } from 'store/news/reducers';
 import { FeedLayout } from 'store/settings/reducers';
 
 type Props = {
-    sourcesMenuIsOpen: boolean;
     news: NewsState;
     feedLayout: FeedLayout;
     dispatch: (fct: any) => void;
     payment: any;
+    SidebarNavIsOpen: boolean;
 };
 
 type State = {
@@ -41,7 +41,7 @@ class Articles extends React.Component<Props, State> {
         hasMore: true,
     };
 
-    public async componentDidUpdate(_prevProps: Readonly<Props>, prevState: Readonly<State>) {
+    public async componentDidUpdate(prevProps: Readonly<Props>, prevState: Readonly<State>) {
         if (this.props.news.feedNeedRefresh && !this.state.isLoading) {
             this.setState({ contents: [], hasMore: false });
             await this.loadMore(1);
@@ -52,10 +52,14 @@ class Articles extends React.Component<Props, State> {
         if (this.state.contents.length > 0 && this.state.contents.length > prevState.contents.length) {
             Analytics.default().trackLinks();
         }
+
+        if (this.props.news.search !== prevProps.news.search) {
+            this.setState({ contents: [], hasMore: false });
+            await this.loadMore(1);
+        }
     }
 
     public render() {
-        const { sourcesMenuIsOpen } = this.props;
         const { contents, isLoading, hasMore } = this.state;
 
         return (
@@ -70,7 +74,7 @@ class Articles extends React.Component<Props, State> {
                     getScrollParent={this.getScrollContainer}
                     useWindow={false}
                 >
-                    <div className={classNames('row', { hide: sourcesMenuIsOpen })}>
+                    <div className={classNames('row', { hide: this.props.SidebarNavIsOpen })}>
                         {contents.length === 0 && !isLoading && (
                             <NoContent title="No news to display" desc="Select some mags to be back in the loop" />
                         )}
@@ -96,7 +100,13 @@ class Articles extends React.Component<Props, State> {
             if (filters.length === 0) {
                 req = Promise.resolve();
             } else {
-                req = axios.get(`${process.env.RSS_BACKEND_URL}/feeds/`, { params: { page, filters } });
+                if (this.props.news.search) {
+                    req = axios.get(`${process.env.RSS_BACKEND_URL}/feeds/search`, {
+                        params: { page, filters, query: this.props.news.search },
+                    });
+                } else {
+                    req = axios.get(`${process.env.RSS_BACKEND_URL}/feeds/`, { params: { page, filters } });
+                }
             }
             // Force minumum wait time of 150ms
             const [res] = await Promise.all([req, Thread.sleep(150)]);

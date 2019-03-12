@@ -4,8 +4,8 @@ import React from 'react';
 import InfiniteScroll from 'react-infinite-scroller';
 
 import TrackedPage from 'components/pages/TrackedPage';
-import FeaturedVideo from 'components/pages/videos/FeaturedVideo';
-import VideoCard from 'components/pages/videos/VideoCard';
+import FeaturedVideo from 'components/pages/videos/VideoFeed/Video/FeaturedVideo';
+import VideoCard from 'components/pages/videos/VideoFeed/Video/VideoCard';
 import NoContent from 'components/Ui/Feed/NoContent';
 import { KrakLoading } from 'components/Ui/Icons/Spinners';
 import ScrollHelper from 'lib/ScrollHelper';

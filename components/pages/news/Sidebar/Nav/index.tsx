@@ -6,15 +6,16 @@ import { connect } from 'react-redux';
 
 import Types from 'Types';
 
-import LanguageFilter from 'components/pages/news/Menu/Sources/LanguageFilter';
-import SourceOption from 'components/pages/news/Menu/Sources/SourceOption';
+import LanguageFilter from 'components/pages/news/Sidebar/Nav/LanguageFilter';
+import SourceOption from 'components/pages/news/Sidebar/Nav/SourceOption';
+import SearchBar from 'components/Ui/Feed/SearchBar';
 import { SpinnerCircle } from 'components/Ui/Icons/Spinners';
 import { Language, Source } from 'rss-feed';
 import { selectAllFilters, setAllSources, unselectAllFilters } from 'store/news/actions';
 import { FilterState } from 'store/news/reducers';
 
 type Props = {
-    sourcesMenuIsOpen: boolean;
+    navIsOpen: boolean;
     handleOpenSourcesMenu: () => void;
     sources: Map<Source, FilterState>;
     languages: Language[];
@@ -35,7 +36,7 @@ class Sources extends React.PureComponent<Props> {
     }
 
     public render() {
-        const { sourcesMenuIsOpen, handleOpenSourcesMenu, sources, languages } = this.props;
+        const { navIsOpen, handleOpenSourcesMenu, sources, languages } = this.props;
 
         let length = 0;
         const items = [];
@@ -49,51 +50,59 @@ class Sources extends React.PureComponent<Props> {
         }
 
         return (
-            <div id="news-menu-sources">
-                <div id="news-menu-sources-nav">
-                    <span id="news-menu-sources-nav-title">From {length} sources</span>
-                    <button id="news-menu-sources-nav-toggle-button" onClick={handleOpenSourcesMenu}>
-                        {!sourcesMenuIsOpen ? 'Filters' : 'Close'}
-                    </button>
+            <>
+                <div className="feed-sidebar-nav-container">
+                    <div className="feed-sidebar-nav-header">
+                        <span className="feed-sidebar-nav-header-title">From {length} sources</span>
+                        <button className="feed-sidebar-nav-header-toggle-button" onClick={handleOpenSourcesMenu}>
+                            {!navIsOpen ? 'Filters' : 'Close'}
+                        </button>
+                    </div>
+                    <SearchBar nbFilters={length} />
                 </div>
                 <div
-                    id="news-menu-sources-open"
-                    className={classNames('news-menu-sources-open', {
-                        'news-menu-sources-open--open': sourcesMenuIsOpen,
+                    className={classNames('feed-sidebar-nav-main', {
+                        'feed-sidebar-nav-main--open': navIsOpen,
                     })}
                 >
-                    <p id="news-menu-sources-open-request">
-                        You'd be down to add your blog/mag source here - email{' '}
-                        <a href="mailto:news@skatekrak.com" id="news-menu-sources-open-request-mail">
-                            news@skatekrak.com
-                        </a>
-                    </p>
-                    <div id="news-menu-sources-open-controls">
-                        <ul id="news-menu-sources-open-controls-languages">
+                    <div className="feed-sidebar-nav-main-controls">
+                        <ul className="feed-sidebar-nav-main-controls-languages">
                             {languages &&
                                 languages.map((language, i) => <LanguageFilter key={i} language={language} />)}
                         </ul>
-                        <div id="news-menu-sources-open-controls-select">
-                            <button className="news-menu-sources-open-control-select" onClick={this.onSelectAllClick}>
+                        <div className="feed-sidebar-nav-main-controls-select">
+                            <button
+                                className="feed-sidebar-nav-main-controls-select-item"
+                                onClick={this.onSelectAllClick}
+                            >
                                 Select all
                             </button>
-                            <button className="news-menu-sources-open-control-select" onClick={this.onDeselectAllClick}>
+                            <button
+                                className="feed-sidebar-nav-main-controls-select-item"
+                                onClick={this.onDeselectAllClick}
+                            >
                                 Deselect all
                             </button>
                         </div>
                     </div>
-                    <form id="news-menu-sources-open-options">
-                        <ul id="news-menu-sources-open-options-container">
+                    <form className="feed-sidebar-nav-main-options">
+                        <ul className="feed-sidebar-nav-main-options-container">
                             {items.length === 0 && (
-                                <div id="news-menu-sources-open-loader">
+                                <div className="feed-sidebar-nav-main-loader">
                                     <SpinnerCircle /> Loading magazines
                                 </div>
                             )}
                             {items}
                         </ul>
                     </form>
+                    <p className="feed-sidebar-nav-main-request">
+                        You'd be down to add your blog/mag source here - email{' '}
+                        <a href="mailto:news@skatekrak.com" className="feed-sidebar-nav-main-request-mail">
+                            news@skatekrak.com
+                        </a>
+                    </p>
                 </div>
-            </div>
+            </>
         );
     }
 
