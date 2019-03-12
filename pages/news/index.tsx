@@ -26,15 +26,41 @@ const NewsHead = () => (
     </Head>
 );
 
-const News: React.SFC = () => (
-    <Layout head={<NewsHead />}>
-        <React.Fragment>
-            <BannerTop />
-            <div id="news-container" className="inner-page-container">
-                <LayoutFeed mainView={<Articles />} sidebar={<Sidebar />} />
-            </div>
-        </React.Fragment>
-    </Layout>
-);
+type State = {
+    SidebarNavIsOpen: boolean;
+};
+
+class News extends React.PureComponent<{}, State> {
+    public state: State = {
+        SidebarNavIsOpen: false,
+    };
+
+    public render() {
+        const { SidebarNavIsOpen } = this.state;
+        return (
+            <Layout head={<NewsHead />}>
+                <React.Fragment>
+                    <BannerTop />
+                    <div id="news-container" className="inner-page-container">
+                        <LayoutFeed
+                            mainView={<Articles SidebarNavIsOpen={SidebarNavIsOpen} />}
+                            sidebar={
+                                <Sidebar
+                                    handleOpenSidebarNav={this.handleOpenSidebarNav}
+                                    SidebarNavIsOpen={SidebarNavIsOpen}
+                                />
+                            }
+                        />
+                    </div>
+                </React.Fragment>
+            </Layout>
+        );
+    }
+
+    private handleOpenSidebarNav = () => {
+        const { SidebarNavIsOpen } = this.state;
+        this.setState({ SidebarNavIsOpen: !SidebarNavIsOpen });
+    };
+}
 
 export default News;
