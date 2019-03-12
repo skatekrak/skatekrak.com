@@ -65,12 +65,6 @@ class Sources extends React.PureComponent<Props> {
                         'feed-sidebar-nav-main--open': navIsOpen,
                     })}
                 >
-                    <p className="feed-sidebar-nav-main-request">
-                        You'd be down to add your blog/mag source here - email{' '}
-                        <a href="mailto:news@skatekrak.com" className="feed-sidebar-nav-main-request-mail">
-                            news@skatekrak.com
-                        </a>
-                    </p>
                     <div className="feed-sidebar-nav-main-controls">
                         <ul className="feed-sidebar-nav-main-controls-languages">
                             {languages &&
@@ -101,6 +95,12 @@ class Sources extends React.PureComponent<Props> {
                             {items}
                         </ul>
                     </form>
+                    <p className="feed-sidebar-nav-main-request">
+                        You'd be down to add your blog/mag source here - email{' '}
+                        <a href="mailto:news@skatekrak.com" className="feed-sidebar-nav-main-request-mail">
+                            news@skatekrak.com
+                        </a>
+                    </p>
                 </div>
             </>
         );
