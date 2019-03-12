@@ -26,10 +26,7 @@ class Sidebar extends React.PureComponent<{}, State> {
                             [at least] <Emoji symbol="🐙" label="Kraken" /> <Emoji symbol="📰" label="newspaper" />
                         </span>
                     </h1>
-                    <p className="feed-sidebar-header-text">
-                        Krak brings your daily dose of skateboarding news. We are all hooked at some point. To consume
-                        without moderation.
-                    </p>
+                    <p className="feed-sidebar-header-text">Our daily dose of skateboarding news.</p>
                 </div>
                 <Nav navIsOpen={navIsOpen} handleOpenSourcesMenu={this.handleOpenSourcesMenu} />
                 <ScrollTop elementId="feed-scrolltop-hook" />
