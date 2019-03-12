@@ -1,8 +1,10 @@
+import classNames from 'classnames';
 import React from 'react';
 import { connect } from 'react-redux';
 
 import Types from 'Types';
 
+import IconCross from 'components/Ui/Icons/Cross';
 import { search } from 'store/news/actions';
 
 type Props = {
@@ -13,27 +15,50 @@ type Props = {
 
 type State = {
     sendRequestTimeout?: NodeJS.Timeout;
+    hasValue: boolean;
 };
 
 class SearchBar extends React.PureComponent<Props, State> {
     public state: State = {
         sendRequestTimeout: undefined,
+        hasValue: false,
     };
 
     public render() {
         return (
-            <input
-                className="feed-searchbar"
-                type="text"
-                defaultValue={this.props.search}
-                placeholder="Search"
-                onChange={this.search}
-            />
+            <div className="feed-searchbar">
+                <input
+                    id="feed-searchbar-input"
+                    className={classNames('feed-searchbar-input', {
+                        'feed-searchbar-input--has-value': this.state.hasValue,
+                    })}
+                    type="text"
+                    defaultValue={this.props.search}
+                    placeholder="Search"
+                    onChange={this.search}
+                    autoComplete="off"
+                />
+                <button
+                    className={classNames('feed-searchbar-icon', {
+                        show: this.state.hasValue,
+                    })}
+                    onClick={this.cleanInput}
+                >
+                    <IconCross />
+                </button>
+            </div>
         );
     }
 
     private search = (event: React.ChangeEvent<HTMLInputElement>): void => {
-        this.delayedSearch(event.target.value);
+        const { value } = event.target;
+        this.delayedSearch(value);
+
+        if (value.length === 0) {
+            this.setState({ hasValue: false });
+        } else {
+            this.setState({ hasValue: true });
+        }
     };
 
     private delayedSearch = (value: string) => {
@@ -48,6 +73,12 @@ class SearchBar extends React.PureComponent<Props, State> {
         this.setState({
             sendRequestTimeout,
         });
+    };
+
+    private cleanInput = () => {
+        (document.getElementById('feed-searchbar-input') as HTMLInputElement).value = '';
+        this.setState({ hasValue: false });
+        this.delayedSearch('');
     };
 }
 
