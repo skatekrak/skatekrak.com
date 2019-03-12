@@ -1,5 +1,6 @@
 import Analytics from '@thepunkclub/analytics';
 import axios from 'axios';
+import classNames from 'classnames';
 import React from 'react';
 import InfiniteScroll from 'react-infinite-scroller';
 import { connect } from 'react-redux';
@@ -22,6 +23,7 @@ type Props = {
     feedLayout: FeedLayout;
     dispatch: (fct: any) => void;
     payment: any;
+    SidebarNavIsOpen: boolean;
 };
 
 type State = {
@@ -72,7 +74,7 @@ class Articles extends React.Component<Props, State> {
                     getScrollParent={this.getScrollContainer}
                     useWindow={false}
                 >
-                    <div className="row">
+                    <div className={classNames('row', { hide: this.props.SidebarNavIsOpen })}>
                         {contents.length === 0 && !isLoading && (
                             <NoContent title="No news to display" desc="Select some mags to be back in the loop" />
                         )}
