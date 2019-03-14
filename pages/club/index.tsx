@@ -1,6 +1,5 @@
 import Head from 'next/head';
 import React from 'react';
-import ReactPlayer from 'react-player';
 import { connect } from 'react-redux';
 import { Elements, StripeProvider } from 'react-stripe-elements';
 
@@ -14,6 +13,7 @@ import SubscribeModal from 'components/pages/club/subscribe/subscribeModal';
 import TrackedPage from 'components/pages/TrackedPage';
 import Emoji from 'components/Ui/Icons/Emoji';
 import SkateistanLogo from 'components/Ui/Icons/Logos/Skateistan';
+import VideoPlayer from 'components/Ui/Player/VideoPlayer';
 
 type Props = {
     payment: {
@@ -215,48 +215,30 @@ class Club extends React.Component<Props, State> {
                                         <h2 id="club-main-youtube-title">What's a KrakBox?</h2>
                                         <ul id="club-main-youtube-videos" className="row">
                                             <li className="club-main-youtube-item col-xs-12 col-sm-6 col-md-4">
-                                                <div className="club-main-youtube-item-player-container">
-                                                    <div className="club-main-youtube-item-player">
-                                                        <ReactPlayer
-                                                            url="https://www.youtube.com/watch?v=cdghhu3Yj8A"
-                                                            controls
-                                                            height="100%"
-                                                            width="100%"
-                                                            light
-                                                            playing
-                                                        />
-                                                    </div>
-                                                </div>
+                                                <VideoPlayer
+                                                    url="https://www.youtube.com/watch?v=cdghhu3Yj8A"
+                                                    controls
+                                                    light
+                                                    playing
+                                                />
                                                 <h3 className="club-main-youtube-item-title">Best of #4</h3>
                                             </li>
                                             <li className="club-main-youtube-item col-xs-12 col-sm-6 col-md-4">
-                                                <div className="club-main-youtube-item-player-container">
-                                                    <div className="club-main-youtube-item-player">
-                                                        <ReactPlayer
-                                                            url="https://www.youtube.com/watch?v=BvdDTThUzME"
-                                                            controls
-                                                            height="100%"
-                                                            width="100%"
-                                                            light
-                                                            playing
-                                                        />
-                                                    </div>
-                                                </div>
+                                                <VideoPlayer
+                                                    url="https://www.youtube.com/watch?v=BvdDTThUzME"
+                                                    controls
+                                                    light
+                                                    playing
+                                                />
                                                 <h3 className="club-main-youtube-item-title">Best of #3</h3>
                                             </li>
                                             <li className="club-main-youtube-item col-xs-12 col-sm-6 col-md-4">
-                                                <div className="club-main-youtube-item-player-container">
-                                                    <div className="club-main-youtube-item-player">
-                                                        <ReactPlayer
-                                                            url="https://www.youtube.com/watch?v=D2yrZ-i-4WU"
-                                                            controls
-                                                            height="100%"
-                                                            width="100%"
-                                                            light
-                                                            playing
-                                                        />
-                                                    </div>
-                                                </div>
+                                                <VideoPlayer
+                                                    url="https://www.youtube.com/watch?v=D2yrZ-i-4WU"
+                                                    controls
+                                                    light
+                                                    playing
+                                                />
                                                 <h3 className="club-main-youtube-item-title">Best of #2</h3>
                                             </li>
                                         </ul>

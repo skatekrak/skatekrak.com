@@ -3,9 +3,9 @@ import { Query } from 'react-apollo';
 
 import Layout from 'components/Layout/Layout';
 import LayoutProfile from 'components/pages/club/profile/LayoutProfile';
-import Loading from 'components/pages/news/Articles/Loading';
 import TrackedPage from 'components/pages/TrackedPage';
 import ErrorMessage from 'components/Ui/Form/ErrorMessage';
+import { KrakLoading } from 'components/Ui/Icons/Spinners';
 
 import ProfilePreferencesSection from 'components/pages/club/profile/Ui/ProfilePreferencesSection';
 
@@ -21,7 +21,7 @@ class ProfilePreference extends React.Component {
                     <Query query={GET_ME}>
                         {({ loading, error, data }) => {
                             if (loading) {
-                                return <Loading />;
+                                return <KrakLoading />;
                             }
 
                             if (error) {

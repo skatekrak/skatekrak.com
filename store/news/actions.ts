@@ -3,6 +3,7 @@ import { action } from 'typesafe-actions';
 
 import {
     FEED_REFRESH_END,
+    SEARCH,
     SELECT_ALL_FILTERS,
     SELECT_LANGUAGE,
     SET_ALL_SOURCES,
@@ -16,3 +17,4 @@ export const selectAllFilters = () => action(SELECT_ALL_FILTERS);
 export const unselectAllFilters = () => action(UNSELECT_ALL_FILTERS);
 export const toggleFilter = (source: Source) => action(TOGGLE_FILTER, source);
 export const selectLanguage = (language: Language) => action(SELECT_LANGUAGE, language);
+export const search = (query: string) => action(SEARCH, query);

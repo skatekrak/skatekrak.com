@@ -8,9 +8,9 @@ import { connect } from 'react-redux';
 import Types from 'Types';
 
 import Article from 'components/pages/news/Articles/Article';
-import Loading from 'components/pages/news/Articles/Loading';
-import NoMore from 'components/pages/news/Articles/NoMore';
 import TrackedPage from 'components/pages/TrackedPage';
+import NoContent from 'components/Ui/Feed/NoContent';
+import { KrakLoading } from 'components/Ui/Icons/Spinners';
 import ScrollHelper from 'lib/ScrollHelper';
 import Thread from 'lib/Thread';
 import { Content, Source } from 'rss-feed';
@@ -19,11 +19,11 @@ import { FilterState, State as NewsState } from 'store/news/reducers';
 import { FeedLayout } from 'store/settings/reducers';
 
 type Props = {
-    sourcesMenuIsOpen: boolean;
     news: NewsState;
     feedLayout: FeedLayout;
     dispatch: (fct: any) => void;
     payment: any;
+    SidebarNavIsOpen: boolean;
 };
 
 type State = {
@@ -41,7 +41,7 @@ class Articles extends React.Component<Props, State> {
         hasMore: true,
     };
 
-    public async componentDidUpdate(_prevProps: Readonly<Props>, prevState: Readonly<State>) {
+    public async componentDidUpdate(prevProps: Readonly<Props>, prevState: Readonly<State>) {
         if (this.props.news.feedNeedRefresh && !this.state.isLoading) {
             this.setState({ contents: [], hasMore: false });
             await this.loadMore(1);
@@ -52,14 +52,18 @@ class Articles extends React.Component<Props, State> {
         if (this.state.contents.length > 0 && this.state.contents.length > prevState.contents.length) {
             Analytics.default().trackLinks();
         }
+
+        if (this.props.news.search !== prevProps.news.search) {
+            this.setState({ contents: [], hasMore: false });
+            await this.loadMore(1);
+        }
     }
 
     public render() {
-        const { sourcesMenuIsOpen } = this.props;
         const { contents, isLoading, hasMore } = this.state;
 
         return (
-            <div id="news-articles-container" className="col-xs-12 col-md-8 col-lg-9">
+            <div id="news-articles-container">
                 <TrackedPage name={`News/${Math.ceil(contents.length / 20)}`} initial={false} />
                 <InfiniteScroll
                     key={`infinite-need-refresh-${this.props.news.feedNeedRefresh}`}
@@ -70,18 +74,17 @@ class Articles extends React.Component<Props, State> {
                     getScrollParent={this.getScrollContainer}
                     useWindow={false}
                 >
-                    <div className={classNames('row', { hide: sourcesMenuIsOpen })}>
+                    <div className={classNames('row', { hide: this.props.SidebarNavIsOpen })}>
                         {contents.length === 0 && !isLoading && (
-                            <div id="news-articles-no-content">
-                                <p id="news-articles-no-content-title">No news to display</p>
-                                <p id="news-articles-no-content-text">Select some mags to be back in the loop</p>
-                            </div>
+                            <NoContent title="No news to display" desc="Select some mags to be back in the loop" />
                         )}
 
                         {this.genArticlesList(contents)}
 
-                        {isLoading && <Loading />}
-                        {contents.length > 0 && !hasMore && <NoMore />}
+                        {isLoading && <KrakLoading />}
+                        {contents.length > 0 && !hasMore && (
+                            <NoContent title="No more news" desc="Add more mags or start your own ;)" />
+                        )}
                     </div>
                 </InfiniteScroll>
             </div>
@@ -97,7 +100,13 @@ class Articles extends React.Component<Props, State> {
             if (filters.length === 0) {
                 req = Promise.resolve();
             } else {
-                req = axios.get(`${process.env.RSS_BACKEND_URL}/feeds/`, { params: { page, filters } });
+                if (this.props.news.search) {
+                    req = axios.get(`${process.env.RSS_BACKEND_URL}/feeds/search`, {
+                        params: { page, filters, query: this.props.news.search },
+                    });
+                } else {
+                    req = axios.get(`${process.env.RSS_BACKEND_URL}/feeds/`, { params: { page, filters } });
+                }
             }
             // Force minumum wait time of 150ms
             const [res] = await Promise.all([req, Thread.sleep(150)]);

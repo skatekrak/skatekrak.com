@@ -3,7 +3,6 @@ import classNames from 'classnames';
 import React from 'react';
 import { connect } from 'react-redux';
 
-import Checkbox from 'components/Ui/Form/Checkbox';
 import { SpinnerCircle } from 'components/Ui/Icons/Spinners';
 import { Source } from 'rss-feed';
 import { toggleFilter } from 'store/news/actions';
@@ -41,18 +40,23 @@ class SourceOption extends React.PureComponent<Props, State> {
 
         return (
             <li
-                className={classNames('news-menu-sources-open-option', {
-                    'news-menu-sources-open-option--active': isActive,
+                className={classNames('feed-sidebar-nav-option', {
+                    'feed-sidebar-nav-option--active': isActive,
                 })}
             >
-                {isLoading ? <SpinnerCircle /> : <Checkbox checked={isActive} id={source.id} />}
                 <label
                     htmlFor={`input-${source.id}`}
-                    className="news-menu-sources-open-option-label"
+                    className="feed-sidebar-nav-option-label"
                     onClick={this.handleSourceOptionClick}
                 >
-                    <img src={this.getIcon(source)} alt="" className="news-menu-sources-open-option-logo" />
-                    <span className="news-menu-sources-open-option-name">{source.label}</span>
+                    <span className="feed-sidebar-nav-option-logo-container">
+                        {isLoading ? (
+                            <SpinnerCircle />
+                        ) : (
+                            <img src={this.getIcon(source)} alt="" className="feed-sidebar-nav-option-logo" />
+                        )}
+                    </span>
+                    <span className="feed-sidebar-nav-option-name">{source.label}</span>
                 </label>
             </li>
         );

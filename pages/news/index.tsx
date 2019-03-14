@@ -3,13 +3,10 @@ import React from 'react';
 
 import Layout from 'components/Layout/Layout';
 import BannerTop from 'components/Ui/Banners/BannerTop';
+import LayoutFeed from 'components/Ui/Feed/LayoutFeed';
 
 import Articles from 'components/pages/news/Articles';
-import Menu from 'components/pages/news/Menu';
-
-type State = {
-    sourcesMenuIsOpen: boolean;
-};
+import Sidebar from 'components/pages/news/Sidebar';
 
 const NewsHead = () => (
     <Head>
@@ -29,34 +26,40 @@ const NewsHead = () => (
     </Head>
 );
 
+type State = {
+    SidebarNavIsOpen: boolean;
+};
+
 class News extends React.PureComponent<{}, State> {
     public state: State = {
-        sourcesMenuIsOpen: false,
+        SidebarNavIsOpen: false,
     };
 
     public render() {
-        const { sourcesMenuIsOpen } = this.state;
+        const { SidebarNavIsOpen } = this.state;
         return (
             <Layout head={<NewsHead />}>
                 <React.Fragment>
                     <BannerTop />
-                    <div id="news-container" className="inner-page-container container-fluid">
-                        <div className="row">
-                            <Menu
-                                sourcesMenuIsOpen={sourcesMenuIsOpen}
-                                handleOpenSourcesMenu={this.handleOpenSourcesMenu}
-                            />
-                            <Articles sourcesMenuIsOpen={sourcesMenuIsOpen} />
-                        </div>
+                    <div id="news-container" className="inner-page-container">
+                        <LayoutFeed
+                            mainView={<Articles SidebarNavIsOpen={SidebarNavIsOpen} />}
+                            sidebar={
+                                <Sidebar
+                                    handleOpenSidebarNav={this.handleOpenSidebarNav}
+                                    SidebarNavIsOpen={SidebarNavIsOpen}
+                                />
+                            }
+                        />
                     </div>
                 </React.Fragment>
             </Layout>
         );
     }
 
-    private handleOpenSourcesMenu = () => {
-        const { sourcesMenuIsOpen } = this.state;
-        this.setState({ sourcesMenuIsOpen: !sourcesMenuIsOpen });
+    private handleOpenSidebarNav = () => {
+        const { SidebarNavIsOpen } = this.state;
+        this.setState({ SidebarNavIsOpen: !SidebarNavIsOpen });
     };
 }
 
