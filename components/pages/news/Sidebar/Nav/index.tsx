@@ -53,7 +53,9 @@ class Sources extends React.PureComponent<Props> {
             <>
                 <div className="feed-sidebar-nav-container">
                     <div className="feed-sidebar-nav-header">
-                        <span className="feed-sidebar-nav-header-title">From {length} sources</span>
+                        <span className="feed-sidebar-nav-header-title">
+                            From {length} source{`${length > 1 ? 's' : ''}`}
+                        </span>
                         <button className="feed-sidebar-nav-header-toggle-button" onClick={handleOpenSourcesMenu}>
                             {!navIsOpen ? 'Filters' : 'Close'}
                         </button>

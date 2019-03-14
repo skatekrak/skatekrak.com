@@ -27,27 +27,27 @@ const NewsHead = () => (
 );
 
 type State = {
-    SidebarNavIsOpen: boolean;
+    sidebarNavIsOpen: boolean;
 };
 
 class News extends React.PureComponent<{}, State> {
     public state: State = {
-        SidebarNavIsOpen: false,
+        sidebarNavIsOpen: false,
     };
 
     public render() {
-        const { SidebarNavIsOpen } = this.state;
+        const { sidebarNavIsOpen } = this.state;
         return (
             <Layout head={<NewsHead />}>
                 <React.Fragment>
                     <BannerTop />
                     <div id="news-container" className="inner-page-container">
                         <LayoutFeed
-                            mainView={<Articles SidebarNavIsOpen={SidebarNavIsOpen} />}
+                            mainView={<Articles sidebarNavIsOpen={sidebarNavIsOpen} />}
                             sidebar={
                                 <Sidebar
                                     handleOpenSidebarNav={this.handleOpenSidebarNav}
-                                    SidebarNavIsOpen={SidebarNavIsOpen}
+                                    sidebarNavIsOpen={sidebarNavIsOpen}
                                 />
                             }
                         />
@@ -58,8 +58,8 @@ class News extends React.PureComponent<{}, State> {
     }
 
     private handleOpenSidebarNav = () => {
-        const { SidebarNavIsOpen } = this.state;
-        this.setState({ SidebarNavIsOpen: !SidebarNavIsOpen });
+        const { sidebarNavIsOpen } = this.state;
+        this.setState({ sidebarNavIsOpen: !sidebarNavIsOpen });
     };
 }
 

@@ -5,10 +5,10 @@ import Emoji from 'components/Ui/Icons/Emoji';
 import ScrollTop from 'components/Ui/Utils/ScrollTop';
 
 type Props = {
-    SidebarNavIsOpen: boolean;
+    sidebarNavIsOpen: boolean;
     handleOpenSidebarNav: () => void;
 };
-const Sidebar: React.SFC<Props> = ({ SidebarNavIsOpen, handleOpenSidebarNav }: Props) => (
+const Sidebar: React.SFC<Props> = ({ sidebarNavIsOpen, handleOpenSidebarNav }: Props) => (
     <div id="feed-scrolltop-hook" className="feed-sidebar-container">
         <div className="feed-sidebar-header">
             <h1 className="feed-sidebar-header-title">
@@ -21,7 +21,7 @@ const Sidebar: React.SFC<Props> = ({ SidebarNavIsOpen, handleOpenSidebarNav }: P
             </h1>
             <p className="feed-sidebar-header-text">Our daily dose of skateboarding news.</p>
         </div>
-        <Nav navIsOpen={SidebarNavIsOpen} handleOpenSourcesMenu={handleOpenSidebarNav} />
+        <Nav navIsOpen={sidebarNavIsOpen} handleOpenSourcesMenu={handleOpenSidebarNav} />
         <ScrollTop elementId="feed-scrolltop-hook" />
     </div>
 );
