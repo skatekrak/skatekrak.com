@@ -1,17 +1,32 @@
+import classNames from 'classnames';
 import { distanceInWordsToNow } from 'date-fns';
 import React from 'react';
+import { FacebookIcon, FacebookShareButton, TwitterIcon, TwitterShareButton } from 'react-share';
 import Truncate from 'react-truncate';
 import { Content } from 'rss-feed';
 
+import IconClipboard from 'components/Ui/Icons/Clipboard';
 import BackgroundLoader from 'components/Ui/Utils/BackgroundLoader';
 
 type Props = {
     content: Content;
 };
 
-type State = {};
+type State = {
+    isCopied: boolean;
+    url: string;
+};
 
 class Card extends React.PureComponent<Props, State> {
+    public state: State = {
+        isCopied: false,
+        url: '',
+    };
+
+    public componentDidMount() {
+        this.setState({ url: this.props.content.webUrl });
+    }
+
     public render() {
         const { content } = this.props;
 
@@ -27,6 +42,23 @@ class Card extends React.PureComponent<Props, State> {
                     </div>
                     <h2 className="news-article-title">{content.title}</h2>
                 </a>
+                <div className="news-article-share">
+                    <FacebookShareButton url={this.getArticleUrl(content)}>
+                        <FacebookIcon size={24} round />
+                    </FacebookShareButton>
+                    <TwitterShareButton url={this.state.url}>
+                        <TwitterIcon size={24} round />
+                    </TwitterShareButton>
+                    <button
+                        className={classNames('news-article-share-clipboard', {
+                            'news-article-share-clipboard--copied': this.state.isCopied,
+                        })}
+                        onClick={this.copyToClipboard}
+                    >
+                        <IconClipboard />
+                        {this.state.isCopied ? 'Copied!' : ''}
+                    </button>
+                </div>
                 <div className="news-article-details">
                     <div className="news-article-details-source">
                         by
@@ -50,6 +82,21 @@ class Card extends React.PureComponent<Props, State> {
             </>
         );
     }
+
+    private copyToClipboard = () => {
+        const el = document.createElement('textarea');
+        el.value = this.state.url;
+        el.setAttribute('readonly', '');
+        el.style.position = 'absolute';
+        el.style.left = '-9999px';
+        document.body.appendChild(el);
+        el.select();
+        document.execCommand('copy');
+        document.body.removeChild(el);
+
+        this.setState({ isCopied: true });
+        setTimeout(() => this.setState({ isCopied: false }), 1000);
+    };
 
     private getImage(content: Content): string {
         if (content.media && content.media.url) {

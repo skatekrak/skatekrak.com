@@ -68,14 +68,68 @@
 				margin-bottom: 1rem
 
 .news-article
+		position: relative
 		margin-bottom: 2rem
 
 		&:last-child
 			margin-bottom: 0
 
+		&-share
+			position: absolute
+			top: .5rem
+			left: 1.5rem
+			display: flex
+			transition: .2s
+
+			&:hover
+				opacity: 1
+
+			+mq($from: "medium")
+				opacity: 0
+
+			&-clipboard
+				display: flex
+				align-items: center
+				color: $white
+				background: $primary
+				border-radius: 4rem
+				transition: .2s
+				
+				&:hover
+					background-color: $grey-900
+
+				&--copied
+					background-color: $grey-900
+					padding-right: .5rem
+
+				& svg
+					height: 1rem
+					width: 1rem
+					margin: .25rem
+					fill: $white
+
+			& .SocialMediaShareButton
+				margin-right: .5rem
+				cursor: pointer
+
+				&:last-child
+					margin-right: 0
+
+				& circle
+					transition: .2s
+
+				&:hover
+					& circle
+						fill: $grey-900
+
 		&-link
-			&:hover .news-article-cover-img
-				transform: scale(1.03)
+			&:hover
+				& .news-article-cover-img
+					transform: scale(1.03)
+
+				& + .news-article-share
+					opacity: 1
+
 
 		&-cover-img
 			position: absolute
