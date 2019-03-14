@@ -46,7 +46,7 @@ class Card extends React.PureComponent<Props, State> {
                     <FacebookShareButton url={this.getArticleUrl(content)}>
                         <FacebookIcon size={24} round />
                     </FacebookShareButton>
-                    <TwitterShareButton url={this.getArticleUrl(content)}>
+                    <TwitterShareButton url={this.state.url}>
                         <TwitterIcon size={24} round />
                     </TwitterShareButton>
                     <button
