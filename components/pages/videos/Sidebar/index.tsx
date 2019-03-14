@@ -8,7 +8,9 @@ const Sidebar: React.SFC = () => (
     <div id="feed-scrolltop-hook" className="feed-sidebar-container">
         <div className="feed-sidebar-header">
             <h1 className="feed-sidebar-header-title">
-                We all need our weekly dose{' '}
+                We all need
+                <br />
+                our weekly dose{' '}
                 <span className="feed-sidebar-header-subtitle">
                     [at least] <Emoji symbol="🐙" label="Kraken" /> <Emoji symbol="📺" label="television" />
                 </span>
