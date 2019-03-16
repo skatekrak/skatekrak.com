@@ -16,7 +16,7 @@ const Sidebar: React.SFC<Props> = ({ SidebarNavIsOpen, handleOpenSidebarNav }: P
                 <br />
                 skateboarding news
                 <span className="feed-sidebar-header-subtitle">
-                    [at least] <Emoji symbol="🐙" label="Kraken" /> <Emoji symbol="📰" label="newspaper" />
+                    [<Emoji symbol="🐙" label="Kraken" /> <Emoji symbol="📰" label="newspaper" />]
                 </span>
             </h1>
         </div>
