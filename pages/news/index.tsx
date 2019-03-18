@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import { withRouter, WithRouterProps } from 'next/router';
 import React from 'react';
 
 import Layout from 'components/Layout/Layout';
@@ -6,6 +7,7 @@ import BannerTop from 'components/Ui/Banners/BannerTop';
 import LayoutFeed from 'components/Ui/Feed/LayoutFeed';
 
 import Articles from 'components/pages/news/Articles';
+import ArticleModal from 'components/pages/news/Articles/Article/ArticleModal';
 import Sidebar from 'components/pages/news/Sidebar';
 
 const NewsHead = () => (
@@ -26,28 +28,37 @@ const NewsHead = () => (
     </Head>
 );
 
-type State = {
-    SidebarNavIsOpen: boolean;
+type QueryProps = {
+    id: string;
 };
 
-class News extends React.PureComponent<{}, State> {
+type State = {
+    sidebarNavIsOpen: boolean;
+};
+
+class News extends React.PureComponent<WithRouterProps<QueryProps>, State> {
     public state: State = {
-        SidebarNavIsOpen: false,
+        sidebarNavIsOpen: false,
     };
 
     public render() {
-        const { SidebarNavIsOpen } = this.state;
+        const { router } = this.props;
+        const { sidebarNavIsOpen } = this.state;
+
+        const id = router.query.id;
+
         return (
             <Layout head={<NewsHead />}>
                 <React.Fragment>
                     <BannerTop />
                     <div id="news-container" className="inner-page-container">
+                        {id && <ArticleModal id={id} />}
                         <LayoutFeed
-                            mainView={<Articles SidebarNavIsOpen={SidebarNavIsOpen} />}
+                            mainView={<Articles SidebarNavIsOpen={sidebarNavIsOpen} />}
                             sidebar={
                                 <Sidebar
                                     handleOpenSidebarNav={this.handleOpenSidebarNav}
-                                    SidebarNavIsOpen={SidebarNavIsOpen}
+                                    SidebarNavIsOpen={sidebarNavIsOpen}
                                 />
                             }
                         />
@@ -58,9 +69,9 @@ class News extends React.PureComponent<{}, State> {
     }
 
     private handleOpenSidebarNav = () => {
-        const { SidebarNavIsOpen } = this.state;
-        this.setState({ SidebarNavIsOpen: !SidebarNavIsOpen });
+        const { sidebarNavIsOpen } = this.state;
+        this.setState({ sidebarNavIsOpen: !sidebarNavIsOpen });
     };
 }
 
-export default News;
+export default withRouter(News);
