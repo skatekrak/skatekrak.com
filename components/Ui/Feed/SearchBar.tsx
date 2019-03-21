@@ -67,7 +67,7 @@ class SearchBar extends React.PureComponent<WithRouterProps<QueryProps> & Props,
         const { value } = event.target;
         this.delayedSearch(value);
 
-        if (value.length === 0) {
+        if (!value || value.length === 0) {
             this.setState({ hasValue: false });
             Router.replace('/news');
         } else {
