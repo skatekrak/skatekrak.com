@@ -93,6 +93,7 @@ class SearchBar extends React.PureComponent<WithRouterProps<QueryProps> & Props,
     private cleanInput = () => {
         (document.getElementById('feed-searchbar-input') as HTMLInputElement).value = '';
         this.setState({ hasValue: false });
+        Router.replace('/news');
         this.delayedSearch('');
     };
 }
