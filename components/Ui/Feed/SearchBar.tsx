@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+import Router, { withRouter, WithRouterProps } from 'next/router';
 import React from 'react';
 import { connect } from 'react-redux';
 
@@ -6,6 +7,10 @@ import Types from 'Types';
 
 import IconCross from 'components/Ui/Icons/Cross';
 import { search } from 'store/news/actions';
+
+type QueryProps = {
+    query: string;
+};
 
 type Props = {
     nbFilters: number;
@@ -18,11 +23,19 @@ type State = {
     hasValue: boolean;
 };
 
-class SearchBar extends React.PureComponent<Props, State> {
+class SearchBar extends React.PureComponent<WithRouterProps<QueryProps> & Props, State> {
     public state: State = {
         sendRequestTimeout: undefined,
         hasValue: false,
     };
+
+    public componentDidMount() {
+        const value = this.props.router.query.query;
+        if (value) {
+            this.delayedSearch(value);
+            this.setState({ hasValue: true });
+        }
+    }
 
     public render() {
         return (
@@ -54,10 +67,12 @@ class SearchBar extends React.PureComponent<Props, State> {
         const { value } = event.target;
         this.delayedSearch(value);
 
-        if (value.length === 0) {
+        if (!value || value.length === 0) {
             this.setState({ hasValue: false });
+            Router.replace('/news');
         } else {
             this.setState({ hasValue: true });
+            Router.replace(`/news?query=${value}`);
         }
     };
 
@@ -78,6 +93,7 @@ class SearchBar extends React.PureComponent<Props, State> {
     private cleanInput = () => {
         (document.getElementById('feed-searchbar-input') as HTMLInputElement).value = '';
         this.setState({ hasValue: false });
+        Router.replace('/news');
         this.delayedSearch('');
     };
 }
@@ -86,4 +102,4 @@ const mapStateToProps = ({ news }: Types.RootState) => {
     return { search: news.search };
 };
 
-export default connect(mapStateToProps)(SearchBar);
+export default withRouter(connect(mapStateToProps)(SearchBar));

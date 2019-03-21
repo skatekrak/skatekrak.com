@@ -53,7 +53,7 @@ class Articles extends React.Component<Props, State> {
             Analytics.default().trackLinks();
         }
 
-        if (this.props.news.search !== prevProps.news.search) {
+        if (this.props.news.search !== prevProps.news.search && !this.state.isLoading) {
             this.setState({ contents: [], hasMore: false });
             await this.loadMore(1);
         }
@@ -163,7 +163,7 @@ class Articles extends React.Component<Props, State> {
     }
 
     private genArticlesList(contents: Content[]): JSX.Element[] {
-        const articles = contents.map((content) => (
+        const articles = contents.map(content => (
             <Article key={content.id} content={content} currency={this.props.payment.currency} />
         ));
         for (const index of this.state.promoCardIndexes) {
