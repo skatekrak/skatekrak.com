@@ -2,9 +2,11 @@ import axios from 'axios';
 import Router from 'next/router';
 import React from 'react';
 
+import Card from 'components/pages/news/Articles/Article/Card';
 import { KrakLoading } from 'components/Ui/Icons/Spinners';
 import Modal from 'components/Ui/Modal';
 import { Content } from 'rss-feed';
+import Emoji from 'components/Ui/Icons/Emoji';
 
 type Props = {
     id: string;
@@ -13,11 +15,13 @@ type Props = {
 type State = {
     open: boolean;
     content?: Content;
+    nothingFound: boolean;
 };
 
 class ArticleModal extends React.Component<Props, State> {
     public state: State = {
         open: false,
+        nothingFound: false,
     };
 
     public async componentDidMount() {
@@ -31,26 +35,36 @@ class ArticleModal extends React.Component<Props, State> {
                 this.setState({ content: res.data });
             }
         } catch (err) {
-            this.onClose();
+            this.setState({ nothingFound: true });
         }
     }
 
     public render() {
-        const { content, open } = this.state;
+        const { content, open, nothingFound } = this.state;
         return (
             <Modal open={open} onClose={this.onClose} closable={true}>
                 {content && (
-                    <p>
-                        {content.author}
-                        <br /> {content.createdAt}
-                        <br /> {content.title}
-                        <br /> {content.summary}
-                        <br /> {content.webUrl}
-                        <br />
-                        {content.keywords}
-                    </p>
+                    <div className="news-article-modal">
+                        <Card content={content} />
+                    </div>
                 )}
-                {!content && <KrakLoading />}
+                {!content && !nothingFound && <KrakLoading />}
+                {nothingFound && (
+                    <div className="news-article-modal-nothing">
+                        <img
+                            className="news-article-modal-nothing-img"
+                            src="/static/images/pindejo-lucas-beaufort.jpg"
+                            alt="Lucas beaufort krak illustration"
+                        />
+                        <p>
+                            Something went wrong when trying to copy the url... but still, you're on the right page to
+                            enjoy some skateboarding news.
+                        </p>
+                        <p>
+                            <Emoji symbol="🍕" label="pizza" /> lucky you <Emoji symbol="🌭" label="hot dog" />
+                        </p>
+                    </div>
+                )}
             </Modal>
         );
     }
