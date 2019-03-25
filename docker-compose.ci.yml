@@ -6,6 +6,7 @@ services:
       context: .
       args:
         - NPM_AUTH_TOKEN
+        - BEARER
         - STRIPE_KEY
         - CAIROTE_URL
         - SESTERCES_URL
