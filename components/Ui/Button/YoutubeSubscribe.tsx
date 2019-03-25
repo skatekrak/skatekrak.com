@@ -11,7 +11,7 @@ const YoutubeSubscribe: React.SFC = () => (
                        L101.6,123.2L101.6,123.2z"
             />
         </svg>
-        Subscribe to our youtube chanel
+        Subscribe to our youtube channel
     </a>
 );
 
