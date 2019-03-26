@@ -3,10 +3,10 @@ import Router from 'next/router';
 import React from 'react';
 
 import Card from 'components/pages/news/Articles/Article/Card';
+import Emoji from 'components/Ui/Icons/Emoji';
 import { KrakLoading } from 'components/Ui/Icons/Spinners';
 import Modal from 'components/Ui/Modal';
 import { Content } from 'rss-feed';
-import Emoji from 'components/Ui/Icons/Emoji';
 
 type Props = {
     id: string;
