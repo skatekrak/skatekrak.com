@@ -1,32 +1,19 @@
-import classNames from 'classnames';
 import { distanceInWordsToNow } from 'date-fns';
 import React from 'react';
 import { FacebookIcon, FacebookShareButton, TwitterIcon, TwitterShareButton } from 'react-share';
 import Truncate from 'react-truncate';
 import { Content } from 'rss-feed';
 
-import IconClipboard from 'components/Ui/Icons/Clipboard';
+import ClipboardButton from 'components/Ui/Button/ClipboardButton';
 import BackgroundLoader from 'components/Ui/Utils/BackgroundLoader';
 
 type Props = {
     content: Content;
 };
 
-type State = {
-    isCopied: boolean;
-    url: string;
-};
+type State = {};
 
 class Card extends React.PureComponent<Props, State> {
-    public state: State = {
-        isCopied: false,
-        url: '',
-    };
-
-    public componentDidMount() {
-        this.setState({ url: this.props.content.webUrl });
-    }
-
     public render() {
         const { content } = this.props;
 
@@ -43,21 +30,16 @@ class Card extends React.PureComponent<Props, State> {
                     <h2 className="news-article-title">{content.title}</h2>
                 </a>
                 <div className="news-article-share">
-                    <FacebookShareButton url={this.getArticleUrl(content)} quote="shared via skatekrak.com">
+                    <FacebookShareButton
+                        url={this.getArticlePopupUrl(content)}
+                        quote={`${content.title} shared via skatekrak.com`}
+                    >
                         <FacebookIcon size={24} round />
                     </FacebookShareButton>
-                    <TwitterShareButton url={this.state.url} title={content.title} via="skatekrak">
+                    <TwitterShareButton url={this.getArticlePopupUrl(content)} title={content.title} via="skatekrak">
                         <TwitterIcon size={24} round />
                     </TwitterShareButton>
-                    <button
-                        className={classNames('news-article-share-clipboard', {
-                            'news-article-share-clipboard--copied': this.state.isCopied,
-                        })}
-                        onClick={this.copyToClipboard}
-                    >
-                        <IconClipboard />
-                        {this.state.isCopied ? 'Copied!' : ''}
-                    </button>
+                    <ClipboardButton value={this.getArticlePopupUrl(content)} />
                 </div>
                 <div className="news-article-details">
                     <div className="news-article-details-source">
@@ -83,21 +65,6 @@ class Card extends React.PureComponent<Props, State> {
         );
     }
 
-    private copyToClipboard = () => {
-        const el = document.createElement('textarea');
-        el.value = this.state.url;
-        el.setAttribute('readonly', '');
-        el.style.position = 'absolute';
-        el.style.left = '-9999px';
-        document.body.appendChild(el);
-        el.select();
-        document.execCommand('copy');
-        document.body.removeChild(el);
-
-        this.setState({ isCopied: true });
-        setTimeout(() => this.setState({ isCopied: false }), 1000);
-    };
-
     private getImage(content: Content): string {
         if (content.media && content.media.url) {
             return `${process.env.CACHING_URL}/${encodeURIComponent(content.media.url)}`;
@@ -111,6 +78,10 @@ class Card extends React.PureComponent<Props, State> {
 
     private getArticleUrl(content: Content): string {
         return `${process.env.REDIRECT_URL}/${encodeURIComponent(content.webUrl)}`;
+    }
+
+    private getArticlePopupUrl(content: Content): string {
+        return `${window.location.origin}/news?id=${content.id}`;
     }
 
     private getWebsiteUrl(content: Content): string {
