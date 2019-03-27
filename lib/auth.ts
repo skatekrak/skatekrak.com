@@ -38,9 +38,9 @@ export const getBearerFromServerCookie = (req: any) => {
         return undefined;
     }
     const cookie = Cookie.parse(req.headers.cookie);
-    return cookie.bearer;
+    return cookie[process.env.BEARER];
 };
 
 export const getBearerFromLocalCookie = () => {
-    return Cookies.getJSON('bearer');
+    return Cookies.getJSON(process.env.BEARER);
 };
