@@ -68,7 +68,7 @@ export function* signinUser() {
 }
 
 export function* signoutUser() {
-    yield takeEvery(SIGNOUT_USER, signout);
+    yield takeLatest(SIGNOUT_USER, signout);
 }
 
 export function* getMyself() {

@@ -28,6 +28,7 @@ class AuthQuery extends React.Component<Props, {}> {
                             if (error) {
                                 if (error.graphQLErrors[0].message === ERROR_MESSAGE) {
                                     this.props.userSignout();
+                                    return <React.Fragment />;
                                 } else {
                                     return <pre>{JSON.stringify(error, undefined, 2)}</pre>;
                                 }
