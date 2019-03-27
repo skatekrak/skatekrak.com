@@ -1,11 +1,10 @@
 import React from 'react';
-import { Query } from 'react-apollo';
 
 import Layout from 'components/Layout/Layout';
+import AuthQuery from 'components/pages/club/profile/AuthQuery';
 import LayoutProfile from 'components/pages/club/profile/LayoutProfile';
 import TrackedPage from 'components/pages/TrackedPage';
 import ErrorMessage from 'components/Ui/Form/ErrorMessage';
-import { KrakLoading } from 'components/Ui/Icons/Spinners';
 
 import ProfilePreferencesSection from 'components/pages/club/profile/Ui/ProfilePreferencesSection';
 
@@ -18,16 +17,8 @@ class ProfilePreference extends React.Component {
         return (
             <TrackedPage name="Club/Profile/Preference">
                 <Layout>
-                    <Query query={GET_ME}>
-                        {({ loading, error, data }) => {
-                            if (loading) {
-                                return <KrakLoading />;
-                            }
-
-                            if (error) {
-                                return <pre>{JSON.stringify(error, undefined, 2)}</pre>;
-                            }
-
+                    <AuthQuery query={GET_ME}>
+                        {({ data }) => {
                             if (data && data.me) {
                                 return (
                                     <LayoutProfile profile={data.me} view="preference">
@@ -38,7 +29,7 @@ class ProfilePreference extends React.Component {
                                 return <ErrorMessage message="Oh, weird" />;
                             }
                         }}
-                    </Query>
+                    </AuthQuery>
                 </Layout>
             </TrackedPage>
         );
