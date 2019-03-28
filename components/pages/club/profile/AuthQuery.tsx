@@ -17,30 +17,28 @@ class AuthQuery extends React.Component<Props, {}> {
         const { children, query } = this.props;
 
         return (
-            <React.Fragment>
-                {query && (
-                    <Query query={query}>
-                        {({ loading, error, data }) => {
-                            if (loading) {
-                                return <KrakLoading />;
-                            }
+            query && (
+                <Query query={query}>
+                    {({ loading, error, data }) => {
+                        if (loading) {
+                            return <KrakLoading />;
+                        }
 
-                            if (error) {
-                                if (error.graphQLErrors[0].message === ERROR_MESSAGE) {
-                                    this.props.userSignout();
-                                    return <React.Fragment />;
-                                } else {
-                                    return <pre>{JSON.stringify(error, undefined, 2)}</pre>;
-                                }
+                        if (error) {
+                            if (error.graphQLErrors[0].message === ERROR_MESSAGE) {
+                                this.props.userSignout();
+                                return <React.Fragment />;
+                            } else {
+                                return <pre>{JSON.stringify(error, undefined, 2)}</pre>;
                             }
+                        }
 
-                            if (data) {
-                                return children({ data });
-                            }
-                        }}
-                    </Query>
-                )}
-            </React.Fragment>
+                        if (data) {
+                            return children({ data });
+                        }
+                    }}
+                </Query>
+            )
         );
     }
 }
