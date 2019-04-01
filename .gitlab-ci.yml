@@ -21,7 +21,6 @@ variables:
     - docker:dind
   script:
     - env | sed -n "s/^$PREFIX_VAR\(.*\)$/\1/p" > .env
-    - source .env
     - echo $CI_JOB_TOKEN | docker login -u gitlab-ci-token --password-stdin $CI_REGISTRY
     - docker pull $CI_REGISTRY_IMAGE:$BUILD_TAG || true
     - docker-compose -f docker-compose.ci.yml build $DOCKER_BUILD_NAME
