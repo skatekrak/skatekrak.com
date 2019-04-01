@@ -2,6 +2,8 @@
 /.git
 /.gitignore
 /.next
+/.env
+/.npmrc
 /node_modules
 /out
 /public
