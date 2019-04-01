@@ -9,8 +9,8 @@ variables:
   DOCKER_LINT_NAME: skatekrak-lint
   K8S_DEPLOYMENT_NAME: skatekrak
   K8S_CONTAINER_NAME: skatekrak
-  BUILD_STAGING_BUILD_TAG: build-staging
-  BUILD_PROD_BUILD_TAG: build-prod
+  BUILD_TAG_STAGING: build-staging
+  BUILD_TAG_PROD: build-prod
   STAGING_TAG: staging
   STABLE_TAG: latest
 
@@ -30,7 +30,7 @@ build_feature:
   extends: .build
   variables:
     PREFIX_VAR: BUILD_STAGING_
-    BUILD_STAGING_BUILD_TAG: $CI_COMMIT_REF_SLUG
+    BUILD_TAG: $CI_COMMIT_REF_SLUG
   only:
     - /^feature\/.*$/
   when: manual
@@ -40,6 +40,7 @@ build_staging:
   extends: .build
   variables:
     PREFIX_VAR: BUILD_STAGING_
+    BUILD_TAG: $BUILD_TAG_STAGING
   only:
     - develop
 
@@ -47,6 +48,7 @@ build_prod:
   extends: .build
   variables:
     PREFIX_VAR: BUILD_PROD_
+    BUILD_TAG: $BUILD_TAG_PROD
   only:
     - tags
 
@@ -64,14 +66,14 @@ build_prod:
 lint_staging:
   extends: .lint
   variables:
-    BUILD_TAG: $BUILD_STAGING_BUILD_TAG
+    BUILD_TAG: $BUILD_TAG_STAGING
   only:
     - develop
 
 lint_prod:
   extends: .lint
   variables:
-    BUILD_TAG: $BUILD_PROD_BUILD_TAG
+    BUILD_TAG: $BUILD_TAG_PROD
   only:
     - tags
 
@@ -88,7 +90,7 @@ lint_prod:
 release_staging:
   extends: .release
   variables:
-    BUILD_TAG: $BUILD_STAGING_BUILD_TAG
+    BUILD_TAG: $BUILD_TAG_STAGING
   script:
     - docker tag $CI_REGISTRY_IMAGE:$BUILD_TAG $CI_REGISTRY_IMAGE:$STAGING_TAG
     - docker push $CI_REGISTRY_IMAGE:$STAGING_TAG
@@ -98,7 +100,7 @@ release_staging:
 release_prod:
   extends: .release
   variables:
-    BUILD_TAG: $BUILD_PROD_BUILD_TAG
+    BUILD_TAG: $BUILD_TAG_PROD
   script:
     - docker tag $CI_REGISTRY_IMAGE:$BUILD_TAG $CI_REGISTRY_IMAGE:$CI_COMMIT_TAG
     - docker tag $CI_REGISTRY_IMAGE:$BUILD_TAG $CI_REGISTRY_IMAGE:$STABLE_TAG
