@@ -45,14 +45,18 @@ class CreateAccount extends React.Component<Props & WithApolloProps> {
                                     </p>
                                     {!quarterFull ? (
                                         <>
-                                            <p id="subscribe-promote-main-cover">to be covered until April 4th 2019</p>
+                                            <p id="subscribe-promote-main-cover">
+                                                to be covered until {process.env.RENEW_DATE}
+                                            </p>
                                         </>
                                     ) : (
                                         <>
                                             <p id="subscribe-promote-main-cover">
                                                 to guarantee your slot for the next quarter
                                             </p>
-                                            <p id="subscribe-promote-main-cover">from April 5th to July 4th 2019</p>
+                                            <p id="subscribe-promote-main-cover">
+                                                from {process.env.RENEW_DATE} to {process.env.RENEW_DATE_QUARTERFULL}
+                                            </p>
                                         </>
                                     )}
                                 </main>
@@ -75,7 +79,7 @@ class CreateAccount extends React.Component<Props & WithApolloProps> {
                                 <p className="modal-two-col-content-description">
                                     {!quarterFull
                                         ? 'Become a Kraken.'
-                                        : 'Be sure to become a Kraken on April 5th 2019.'}
+                                        : `Be sure to become a Kraken on ${process.env.RENEW_DATE}.`}
                                 </p>
                                 <div className="form-double-field-line">
                                     <Field name="firstName" placeholder="First name" />

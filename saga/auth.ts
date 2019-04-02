@@ -1,4 +1,4 @@
-import { all, call, fork, put, takeEvery, takeLatest } from 'redux-saga/effects';
+import { all, call, fork, put, takeLatest } from 'redux-saga/effects';
 import { ActionType } from 'typesafe-actions';
 
 import { removeUser, setUser } from 'lib/auth';
@@ -68,7 +68,7 @@ export function* signinUser() {
 }
 
 export function* signoutUser() {
-    yield takeEvery(SIGNOUT_USER, signout);
+    yield takeLatest(SIGNOUT_USER, signout);
 }
 
 export function* getMyself() {

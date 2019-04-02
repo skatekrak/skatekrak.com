@@ -2,7 +2,7 @@
     "defaultSeverity": "error",
     "extends": ["tslint:recommended", "tslint-react", "tslint-config-prettier"],
     "rules": {
-        "quotemark": [true, "single", "jsx-double"],
+        "quotemark": [true, "single", "jsx-double", "avoid-escape"],
         "import-name": false,
         "variable-name": [true, "ban-keywords", "check-format", "allow-leading-underscore", "allow-pascal-case"],
         "object-literal-sort-keys": false,

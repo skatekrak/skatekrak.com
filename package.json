@@ -1,6 +1,6 @@
 {
     "name": "skatekrak.com",
-    "version": "5.7.1",
+    "version": "5.7.2",
     "main": "index.js",
     "repository": "ssh://git@git.thepunk.tech/web/skatekrak.com.git",
     "author": "Arthur <a@skatekrak.com>",
@@ -23,7 +23,6 @@
         "classnames": "^2.2.6",
         "cookie": "^0.3.1",
         "date-fns": "^1.30.1",
-        "dotenv": "^6.1.0",
         "email-validator": "^2.0.4",
         "final-form": "^4.11.0",
         "graphql": "^14.1.1",

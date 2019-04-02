@@ -1,9 +1,9 @@
 import format from 'date-fns/format';
 import React from 'react';
-import { Query } from 'react-apollo';
 import { Elements, StripeProvider } from 'react-stripe-elements';
 
 import Layout from 'components/Layout/Layout';
+import AuthQuery from 'components/pages/club/profile/AuthQuery';
 import LayoutProfile from 'components/pages/club/profile/LayoutProfile';
 import BillingAddress from 'components/pages/club/profile/Ui/BillingAddress';
 import ProfileItem from 'components/pages/club/profile/Ui/item';
@@ -14,7 +14,6 @@ import ProfileSection from 'components/pages/club/profile/Ui/section';
 import ProfileSectionHeader from 'components/pages/club/profile/Ui/sectionHeader';
 import TrackedPage from 'components/pages/TrackedPage';
 import Emoji from 'components/Ui/Icons/Emoji';
-import { KrakLoading } from 'components/Ui/Icons/Spinners';
 
 import { GET_ME } from 'pages/club/profile';
 
@@ -39,16 +38,8 @@ class ProfilePayment extends React.Component<{}, State> {
         return (
             <TrackedPage name="Club/Profile/Shipment">
                 <Layout>
-                    <Query query={GET_ME}>
-                        {({ loading, error, data }) => {
-                            if (loading) {
-                                return <KrakLoading />;
-                            }
-
-                            if (error) {
-                                return <pre>{JSON.stringify(error, undefined, 2)}</pre>;
-                            }
-
+                    <AuthQuery query={GET_ME}>
+                        {({ data }) => {
                             if (data && data.me) {
                                 return (
                                     <StripeProvider stripe={this.state.stripe}>
@@ -139,7 +130,7 @@ class ProfilePayment extends React.Component<{}, State> {
                                             )}
                                             <ProfileSection>
                                                 <ProfileSectionHeader title="History" />
-                                                {data.me.paymentHistory.map((payment) => (
+                                                {data.me.paymentHistory.map(payment => (
                                                     <PaymentLine key={payment.id} payment={payment} />
                                                 ))}
                                             </ProfileSection>
@@ -148,7 +139,7 @@ class ProfilePayment extends React.Component<{}, State> {
                                 );
                             }
                         }}
-                    </Query>
+                    </AuthQuery>
                 </Layout>
             </TrackedPage>
         );

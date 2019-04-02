@@ -14,6 +14,8 @@ services:
         - INTERCOM_ID
         - CACHING_URL
         - REDIRECT_URL
+        - RENEW_DATE
+        - RENEW_DATE_QUARTERFULL
       cache_from:
         - ${CI_REGISTRY_IMAGE}:${BUILD_TAG}
 
