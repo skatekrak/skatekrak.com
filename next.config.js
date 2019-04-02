@@ -15,6 +15,7 @@ module.exports = withPlugins([withTypescript, withCSS, withStylus], {
                 'INTERCOM_ID',
                 'CACHING_URL',
                 'REDIRECT_URL',
+                'BEARER',
                 'RENEW_DATE',
                 'RENEW_DATE_QUARTERFULL',
             ]),
