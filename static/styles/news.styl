@@ -194,12 +194,24 @@
 		line-height: 1.4
 		color: $grey-600
 
+	/* ARTICLE MODAL */
 	&-modal
 		margin-top: -2rem
 
 		+mq($from: "small")
 			max-width: 350px
 			margin-top: -3rem
+
+		&-close-button
+			position: fixed
+			cursor: pointer
+			
+			+mq($from: "small")
+				top: 2rem
+				right: 2rem
+
+			& svg
+				fill: $white
 
 		&-nothing
 			font-size: $fs-medium
@@ -215,6 +227,17 @@
 
 			& p:last-child
 				margin-top: 1rem
+
+		&-read-more
+			margin-top: 1rem
+			padding: .5rem 1rem !important
+			font-family: $ff-roboto-regular !important
+			font-size: $fs-small
+			color: $white
+			background-color: $grey-900
+
+			&:hover
+				background-color: $black
 
 		& .news-article-cover-img-container
 			margin: 0 -1rem 1rem
