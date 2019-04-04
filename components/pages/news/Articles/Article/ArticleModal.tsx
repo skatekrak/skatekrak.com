@@ -53,6 +53,14 @@ class ArticleModal extends React.Component<Props, State> {
                 {content && (
                     <div className="news-article-modal">
                         <Card content={content} />
+                        <a
+                            href={content.webUrl}
+                            className="news-article-modal-read-more button-primary"
+                            target="_blank"
+                            rel="noreferrer"
+                        >
+                            Read full article
+                        </a>
                     </div>
                 )}
                 {!content && !nothingFound && <KrakLoading />}
