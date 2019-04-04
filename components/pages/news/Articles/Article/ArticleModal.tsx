@@ -37,6 +37,13 @@ class ArticleModal extends React.Component<Props, State> {
         } catch (err) {
             this.setState({ nothingFound: true });
         }
+
+        // Stylize close button
+        document.getElementsByClassName('modal-close-button')[0].classList.add('news-article-modal-close-button');
+    }
+
+    public componentWillUnmount() {
+        document.getElementsByClassName('modal-close-button')[0].classList.remove('news-article-modal-close-button');
     }
 
     public render() {
