@@ -1,12 +1,10 @@
 stages:
   - build
-  - lint
   - release
   - deploy
 
 variables:
   DOCKER_BUILD_NAME: skatekrak-build
-  DOCKER_LINT_NAME: skatekrak-lint
   K8S_DEPLOYMENT_NAME: skatekrak
   K8S_CONTAINER_NAME: skatekrak
   BUILD_TAG_STAGING: build-staging
@@ -48,31 +46,6 @@ build_prod:
   extends: .build
   variables:
     PREFIX_VAR: BUILD_PROD_
-    BUILD_TAG: $BUILD_TAG_PROD
-  only:
-    - tags
-
-.lint:
-  stage: lint
-  retry: 1
-  services:
-    - docker:dind
-  script:
-    - echo $CI_JOB_TOKEN | docker login -u gitlab-ci-token --password-stdin $CI_REGISTRY
-    - docker pull $CI_REGISTRY_IMAGE:$BUILD_TAG
-    - docker-compose -f docker-compose.ci.yml run --rm $DOCKER_LINT_NAME
-  when: on_success
-
-lint_staging:
-  extends: .lint
-  variables:
-    BUILD_TAG: $BUILD_TAG_STAGING
-  only:
-    - develop
-
-lint_prod:
-  extends: .lint
-  variables:
     BUILD_TAG: $BUILD_TAG_PROD
   only:
     - tags

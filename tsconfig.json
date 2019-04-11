@@ -1,24 +1,20 @@
 {
     "compilerOptions": {
-        "target": "es2017",
-        "module": "esnext",
+        "allowJs": true,
+        "allowSyntheticDefaultImports": true,
         "jsx": "preserve",
         "lib": ["dom", "es2017"],
+        "module": "esnext",
         "moduleResolution": "node",
-        "allowJs": false,
         "noEmit": true,
-        "allowSyntheticDefaultImports": true,
-        "skipLibCheck": true,
         "noUnusedLocals": true,
         "noUnusedParameters": true,
-        "removeComments": false,
         "preserveConstEnums": true,
+        "removeComments": false,
+        "skipLibCheck": true,
         "sourceMap": true,
-        "baseUrl": ".",
-        "paths": {
-            "*": ["*"]
-        }
-    },
-    "include": ["**/*.tsx", "**/*.ts"],
-    "exclude": [".next", "node_modules"]
+        "strict": false,
+        "target": "esnext",
+        "baseUrl": "."
+    }
 }

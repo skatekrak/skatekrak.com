@@ -5,14 +5,16 @@
             "name": "Chrome Client",
             "type": "chrome",
             "request": "launch",
+            "preLaunchTask": "start",
             "runtimeArgs": ["--auto-open-devtools-for-tabs"],
             "userDataDir": "${env:HOME}/Library/Application Support/Google/ChromeDebug",
             "url": "https://dev.skatekrak.com",
             "webRoot": "${workspaceFolder}",
+            "sourceMaps": true,
             "disableNetworkCache": true
         },
         {
-            "name": "Docker Server",
+            "name": "Next Server",
             "type": "node",
             "request": "attach",
             "preLaunchTask": "start",
@@ -21,7 +23,7 @@
             "internalConsoleOptions": "neverOpen",
             "protocol": "inspector",
             "address": "localhost",
-            "port": 9230,
+            "port": 9233,
             "sourceMaps": true,
             "localRoot": "${workspaceFolder}",
             "remoteRoot": "/app"
