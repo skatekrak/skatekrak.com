@@ -63,7 +63,7 @@ class SourceOption extends React.PureComponent<Props, State> {
     }
 
     private getIcon(source: Source): string {
-        return `${process.env.CACHING_URL}/${encodeURIComponent(source.iconUrl)}`;
+        return source.iconUrl;
     }
 
     private handleSourceOptionClick = () => {
