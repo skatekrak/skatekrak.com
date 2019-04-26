@@ -73,7 +73,7 @@ class Card extends React.PureComponent<Props, State> {
     }
 
     private getPlaceholder(content: Content): string {
-        return `${process.env.CACHING_URL}/${encodeURIComponent(content.source.coverUrl)}`;
+        return content.source.coverUrl;
     }
 
     private getArticleUrl(content: Content): string {

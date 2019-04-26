@@ -23,7 +23,11 @@ const ActiveLink = ({ router, children, href, ...props }) => {
 
 function encodeQueryData(data) {
     const ret = [];
-    for (let d in data) ret.push(encodeURIComponent(d) + '=' + encodeURIComponent(data[d]));
+    for (let d in data) {
+        if (data.hasOwnProperty(d)) {
+            ret.push(encodeURIComponent(d) + '=' + encodeURIComponent(data[d]));
+        }
+    }
     let str = '';
     if (ret.length > 0) {
         const join = ret.join('&');
