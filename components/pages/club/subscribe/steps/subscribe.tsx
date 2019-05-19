@@ -68,14 +68,11 @@ class Subscribe extends React.Component<Props & WithApolloProps & ReactStripeEle
                                     {quarterFull && (
                                         <p className="modal-two-col-content-description-paragraph">
                                             Pre-pay your membership now and be sure to become a Kraken from{' '}
-                                            {process.env.RENEW_DATE} to
-                                            {process.env.RENEW_DATE_QUARTERFULL}.
+                                            {process.env.RENEW_DATE_QUARTERFULL} to January 5th 2020.
                                         </p>
                                     )}
-                                    {!quarterFull
-                                        ? `On ${process.env.RENEW_DATE}`
-                                        : `On ${process.env.RENEW_DATE_QUARTERFULL}`}
-                                    , your membership will be automatically renewed. Of course, you can cancel anytime.
+                                    {!quarterFull ? `On ${process.env.RENEW_DATE}` : `On January 5th 2020`}, your
+                                    membership will be automatically renewed. Of course, you can cancel anytime.
                                 </p>
                                 <div className="subscribe-payment-line">
                                     <p className="subscribe-payment-line-title">Club membership:</p>
@@ -103,8 +100,8 @@ class Subscribe extends React.Component<Props & WithApolloProps & ReactStripeEle
                                 </div>
                                 <div className="form-element">
                                     <label htmlFor="agreeTC" className="checkbox-container">
-                                        I understand & accept that my membership will be automatically renewed on{' '}
-                                        {process.env.RENEW_DATE}
+                                        I understand & accept that my membership will be automatically renewed on
+                                        January 5th 2020
                                         <ReactField id="agreeTC" name="agreeTC" type="checkbox" component="input" />
                                         {submitErrors && submitErrors.agreeTC && (
                                             <ErrorMessage message={submitErrors.agreeTC} />
