@@ -52,10 +52,7 @@ class CreateAccount extends React.Component<Props & WithApolloProps> {
                                     ) : (
                                         <>
                                             <p id="subscribe-promote-main-cover">
-                                                to guarantee your slot for the next quarter
-                                            </p>
-                                            <p id="subscribe-promote-main-cover">
-                                                from {process.env.RENEW_DATE} to {process.env.RENEW_DATE_QUARTERFULL}
+                                                to guarantee your slot for the next bash
                                             </p>
                                         </>
                                     )}
@@ -79,7 +76,7 @@ class CreateAccount extends React.Component<Props & WithApolloProps> {
                                 <p className="modal-two-col-content-description">
                                     {!quarterFull
                                         ? 'Become a Kraken.'
-                                        : `Be sure to become a Kraken on ${process.env.RENEW_DATE}.`}
+                                        : `Be sure to become a Kraken on ${process.env.RENEW_DATE_QUARTERFULL}.`}
                                 </p>
                                 <div className="form-double-field-line">
                                     <Field name="firstName" placeholder="First name" />
