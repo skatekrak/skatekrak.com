@@ -91,8 +91,7 @@ class Club extends React.Component<Props, State> {
                                                 className="club-cta button-primary"
                                                 onClick={this.onOpenSubscribeModal}
                                             >
-                                                Become a Kraken for{' '}
-                                                {this.getPricingText(String(this.props.payment.price / 100))} a quarter
+                                                Save your spot for the last quarter
                                             </button>
                                         )}
                                         <p className="club-cta-shipping">
@@ -256,8 +255,7 @@ class Club extends React.Component<Props, State> {
                                                 className="club-cta button-primary"
                                                 onClick={this.onOpenSubscribeModal}
                                             >
-                                                Become a Kraken for{' '}
-                                                {this.getPricingText(String(this.props.payment.price / 100))} a quarter
+                                                Save your spot for the last quarter
                                             </button>
                                         )}
                                         <p className="club-cta-shipping">
