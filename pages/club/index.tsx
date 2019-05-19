@@ -302,21 +302,21 @@ class Club extends React.Component<Props, State> {
         this.setState({ isSubscribeModalOpen: false });
     };
 
-    private getPricingText(price: string): string {
-        const { payment } = this.props;
-        let res = '';
-        if (payment.currency === 'usd') {
-            res += '$';
-        }
-        if (payment.currency === 'gbp') {
-            res += '£';
-        }
-        res += price;
-        if (payment.currency === 'eur') {
-            res += '€';
-        }
-        return res;
-    }
+    // private getPricingText(price: string): string {
+    //     const { payment } = this.props;
+    //     let res = '';
+    //     if (payment.currency === 'usd') {
+    //         res += '$';
+    //     }
+    //     if (payment.currency === 'gbp') {
+    //         res += '£';
+    //     }
+    //     res += price;
+    //     if (payment.currency === 'eur') {
+    //         res += '€';
+    //     }
+    //     return res;
+    // }
 }
 
 const mapStateToProps = ({ payment, auth }: Types.RootState) => {
