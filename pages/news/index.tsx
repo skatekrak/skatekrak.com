@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import { withRouter, WithRouterProps } from 'next/router';
 import React from 'react';
 
 import Layout from 'components/Layout/Layout';
@@ -6,6 +7,7 @@ import BannerTop from 'components/Ui/Banners/BannerTop';
 import LayoutFeed from 'components/Ui/Feed/LayoutFeed';
 
 import Articles from 'components/pages/news/Articles';
+import ArticleModal from 'components/pages/news/Articles/Article/ArticleModal';
 import Sidebar from 'components/pages/news/Sidebar';
 
 const NewsHead = () => (
@@ -26,28 +28,37 @@ const NewsHead = () => (
     </Head>
 );
 
+type QueryProps = {
+    id: string;
+};
+
 type State = {
     sidebarNavIsOpen: boolean;
 };
 
-class News extends React.PureComponent<{}, State> {
+class News extends React.PureComponent<WithRouterProps<QueryProps>, State> {
     public state: State = {
         sidebarNavIsOpen: false,
     };
 
     public render() {
+        const { router } = this.props;
         const { sidebarNavIsOpen } = this.state;
+
+        const id = router.query.id;
+
         return (
             <Layout head={<NewsHead />}>
                 <React.Fragment>
                     <BannerTop />
                     <div id="news-container" className="inner-page-container">
+                        {id && <ArticleModal id={id} />}
                         <LayoutFeed
-                            mainView={<Articles sidebarNavIsOpen={sidebarNavIsOpen} />}
+                            mainView={<Articles SidebarNavIsOpen={sidebarNavIsOpen} />}
                             sidebar={
                                 <Sidebar
                                     handleOpenSidebarNav={this.handleOpenSidebarNav}
-                                    sidebarNavIsOpen={sidebarNavIsOpen}
+                                    SidebarNavIsOpen={sidebarNavIsOpen}
                                 />
                             }
                         />
@@ -63,4 +74,4 @@ class News extends React.PureComponent<{}, State> {
     };
 }
 
-export default News;
+export default withRouter(News);

@@ -31,7 +31,7 @@ class LanguageFilter extends React.PureComponent<Props, {}> {
     }
 
     private getIcon(language: Language): string {
-        return `${process.env.CACHING_URL}/${encodeURIComponent(language.image)}`;
+        return language.image;
     }
 
     private handleLanguageFilterClick = () => {

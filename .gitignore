@@ -5,14 +5,9 @@ Thumbs.db
 # NPM packages folder.
 node_modules/
 
-# Brunch folder for temporary files.
-tmp/
-
-# Brunch output folder.
+.next/
 public/
-/.next
 /yarn-error.log
-/out
 
-\.npmrc
-/.env
+/.npmrc
+/.env*

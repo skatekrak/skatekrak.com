@@ -39,7 +39,7 @@ class VideoFeed extends React.Component<Props, State> {
     };
 
     public async componentDidMount() {
-        const req: Promise<any> = axios.get(`${process.env.RSS_BACKEND_URL}/videos/featured`);
+        const req: Promise<any> = axios.get(`${getConfig().publicRuntimeConfig.RSS_BACKEND_URL}/videos/featured`);
 
         const [res] = await Promise.all([req, Thread.sleep(150)]);
         if (res.data) {

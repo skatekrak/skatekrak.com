@@ -7,13 +7,14 @@ services:
     networks:
       - web
     ports:
-      - 9230:9230
+      - 9233:9230
     labels:
       - traefik.enable=true
       - traefik.docker.network=web
       - traefik.backend=skatekrak
       - traefik.frontend.rule=Host:dev.skatekrak.com
       - traefik.port=3000
+    env_file: .env
     volumes:
       - ~/.npmrc:/app/.npmrc:ro
       - ./:/app:delegated

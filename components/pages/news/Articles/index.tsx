@@ -1,6 +1,7 @@
 import Analytics from '@thepunkclub/analytics';
 import axios from 'axios';
 import classNames from 'classnames';
+import getConfig from 'next/config';
 import React from 'react';
 import InfiniteScroll from 'react-infinite-scroller';
 import { connect } from 'react-redux';
@@ -53,7 +54,7 @@ class Articles extends React.Component<Props, State> {
             Analytics.default().trackLinks();
         }
 
-        if (this.props.news.search !== prevProps.news.search) {
+        if (this.props.news.search !== prevProps.news.search && !this.state.isLoading) {
             this.setState({ contents: [], hasMore: false });
             await this.loadMore(1);
         }
@@ -101,11 +102,13 @@ class Articles extends React.Component<Props, State> {
                 req = Promise.resolve();
             } else {
                 if (this.props.news.search) {
-                    req = axios.get(`${process.env.RSS_BACKEND_URL}/feeds/search`, {
+                    req = axios.get(`${getConfig().publicRuntimeConfig.RSS_BACKEND_URL}/feeds/search`, {
                         params: { page, filters, query: this.props.news.search },
                     });
                 } else {
-                    req = axios.get(`${process.env.RSS_BACKEND_URL}/feeds/`, { params: { page, filters } });
+                    req = axios.get(`${getConfig().publicRuntimeConfig.RSS_BACKEND_URL}/feeds/`, {
+                        params: { page, filters },
+                    });
                 }
             }
             // Force minumum wait time of 150ms

@@ -2,7 +2,9 @@
 @import "./styleguide"
 
 *
-    -webkit-overflow-scrolling: touch
+	-webkit-overflow-scrolling: touch
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 
 body
 	position: relative
@@ -190,10 +192,18 @@ button
 						transition: .2s
 
 		&-credits
+			display: flex
+			align-items: center
+			justify-content: center
 			margin-top: 1rem
 			font-size: $fs-smallest
 			text-align: center
 			color: $grey-400
+
+			& svg
+				width: .5rem
+				margin-right: .35rem
+				fill: $grey-400
 
 #home
 	&-container

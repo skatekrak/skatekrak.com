@@ -6,16 +6,5 @@ services:
       context: .
       args:
         - NPM_AUTH_TOKEN
-        - STRIPE_KEY
-        - CAIROTE_URL
-        - SESTERCES_URL
-        - RSS_BACKEND_URL
-        - INTERCOM_ID
-        - CACHING_URL
-        - REDIRECT_URL
       cache_from:
         - ${CI_REGISTRY_IMAGE}:${BUILD_TAG}
-
-  skatekrak-lint:
-    image: ${CI_REGISTRY_IMAGE}:${BUILD_TAG}
-    command: /bin/bash -c "yarn install && yarn build:ts && yarn lint:ts"

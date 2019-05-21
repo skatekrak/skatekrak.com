@@ -1,6 +1,7 @@
 import validator from 'email-validator';
 import { FORM_ERROR } from 'final-form';
 import gql from 'graphql-tag';
+import getConfig from 'next/config';
 import React from 'react';
 import { Form, FormSpy } from 'react-final-form';
 import { connect } from 'react-redux';
@@ -15,7 +16,6 @@ import Field from 'components/Ui/Form/Field';
 import { updateFormState } from 'store/form/actions';
 
 type Props = {
-    quarterFull: boolean;
     onNextClick: () => void;
     updateFormState: (form, state) => void;
     payment: {
@@ -26,7 +26,8 @@ type Props = {
 
 class CreateAccount extends React.Component<Props & WithApolloProps> {
     public render() {
-        const { quarterFull, payment } = this.props;
+        const { payment } = this.props;
+        const quarterFull: boolean = getConfig().publicRuntimeConfig.IS_QUARTERFULL;
         return (
             <Form onSubmit={this.handleSubmit} validate={validateForm}>
                 {({ handleSubmit, submitting, submitError }) => (
@@ -45,14 +46,15 @@ class CreateAccount extends React.Component<Props & WithApolloProps> {
                                     </p>
                                     {!quarterFull ? (
                                         <>
-                                            <p id="subscribe-promote-main-cover">to be covered until April 4th 2019</p>
+                                            <p id="subscribe-promote-main-cover">
+                                                to be covered until {getConfig().publicRuntimeConfig.NEXT_QUARTER_START}
+                                            </p>
                                         </>
                                     ) : (
                                         <>
                                             <p id="subscribe-promote-main-cover">
-                                                to guarantee your slot for the next quarter
+                                                to guarantee your slot for the next batch
                                             </p>
-                                            <p id="subscribe-promote-main-cover">from April 5th to July 4th 2019</p>
                                         </>
                                     )}
                                 </main>
@@ -75,7 +77,9 @@ class CreateAccount extends React.Component<Props & WithApolloProps> {
                                 <p className="modal-two-col-content-description">
                                     {!quarterFull
                                         ? 'Become a Kraken.'
-                                        : 'Be sure to become a Kraken on April 5th 2019.'}
+                                        : `Be sure to become a Kraken on ${
+                                              getConfig().publicRuntimeConfig.NEXT_QUARTER_START
+                                          }.`}
                                 </p>
                                 <div className="form-double-field-line">
                                     <Field name="firstName" placeholder="First name" />

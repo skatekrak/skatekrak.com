@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import NavItem from 'components/Header/NavItem';
 import Link from 'components/Link';
-import IconCross from 'components/Ui/Icons/Cross.tsx';
+import IconCross from 'components/Ui/Icons/Cross';
 import IconKrakenHead from 'components/Ui/Icons/Kraken/KrakenHead';
 import IconPower from 'components/Ui/Icons/Power';
 
@@ -192,7 +192,12 @@ class Header extends React.Component<Props, State> {
                             </li>
                         </ul>
                     </nav>
-                    <p id="header-nav-credits">© {new Date().getUTCFullYear()} skatekrak</p>
+                    <div id="header-nav-credits">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 205.9 272.1">
+                            <path d="M203.76,103.91v-1.39a101.28,101.28,0,1,0-202.56,0v1.39h0v59.46H67.47L1.2,208.8h0v62L5.37,268l96.14-64.32h1.25L199.59,268l4.31,2.78v-62l-67-45.43h67V103.91Z" />
+                        </svg>
+                        <p>© {new Date().getUTCFullYear()} skatekrak</p>
+                    </div>
                 </div>
             </header>
         );

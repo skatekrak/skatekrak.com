@@ -1,6 +1,7 @@
 import Analytics from '@thepunkclub/analytics';
 import classNames from 'classnames';
 import gql from 'graphql-tag';
+import getConfig from 'next/config';
 import React from 'react';
 import { Field as ReactField, Form, FormSpy } from 'react-final-form';
 import { connect } from 'react-redux';
@@ -25,7 +26,6 @@ import IconValid from 'components/Ui/Icons/Valid';
 import { FORM_ERROR } from 'final-form';
 
 type Props = {
-    quarterFull: boolean;
     onNextClick: () => void;
     updateFormState: (form, state) => void;
     subscribeForm?: { [key: string]: any };
@@ -51,8 +51,9 @@ class Subscribe extends React.Component<Props & WithApolloProps & ReactStripeEle
     };
 
     public render() {
-        const { quarterFull, subscribeForm } = this.props;
+        const { subscribeForm } = this.props;
         const { addressView, isSpecialCodeValid } = this.state;
+        const quarterFull: boolean = getConfig().publicRuntimeConfig.IS_QUARTERFULL;
         return (
             <Form
                 onSubmit={this.handleSubmit}
@@ -67,12 +68,15 @@ class Subscribe extends React.Component<Props & WithApolloProps & ReactStripeEle
                                 <p className="modal-two-col-content-description" data-size="fs-regular">
                                     {quarterFull && (
                                         <p className="modal-two-col-content-description-paragraph">
-                                            Pre-pay your membership now and be sure to become a Kraken from April 5th to
-                                            July 4th 2019.
+                                            Pre-pay your membership now and be sure to become a Kraken from{' '}
+                                            {getConfig().publicRuntimeConfig.NEXT_QUARTER_START} to{' '}
+                                            {getConfig().publicRuntimeConfig.NEXT_QUARTER_END}.
                                         </p>
                                     )}
-                                    {!quarterFull ? 'On April 5th 2019' : 'On July 5th 2019'}, your membership will be
-                                    automatically renewed. Of course, you can cancel anytime.
+                                    {!quarterFull
+                                        ? `On ${getConfig().publicRuntimeConfig.NEXT_QUARTER_START}`
+                                        : `On ${getConfig().publicRuntimeConfig.NEXT_QUARTER_END}`}
+                                    , your membership will be automatically renewed. Of course, you can cancel anytime.
                                 </p>
                                 <div className="subscribe-payment-line">
                                     <p className="subscribe-payment-line-title">Club membership:</p>
@@ -100,8 +104,10 @@ class Subscribe extends React.Component<Props & WithApolloProps & ReactStripeEle
                                 </div>
                                 <div className="form-element">
                                     <label htmlFor="agreeTC" className="checkbox-container">
-                                        I understand & accept that my membership will be automatically renewed on April
-                                        5th 2019
+                                        I understand & accept that my membership will be automatically renewed on{' '}
+                                        {!quarterFull
+                                            ? `${getConfig().publicRuntimeConfig.NEXT_QUARTER_START}`
+                                            : `${getConfig().publicRuntimeConfig.NEXT_QUARTER_END}`}
                                         <ReactField id="agreeTC" name="agreeTC" type="checkbox" component="input" />
                                         {submitErrors && submitErrors.agreeTC && (
                                             <ErrorMessage message={submitErrors.agreeTC} />
@@ -221,7 +227,6 @@ class Subscribe extends React.Component<Props & WithApolloProps & ReactStripeEle
             },
         };
 
-        // Create token with the billing address
         try {
             const address = values.shippingAsBilling ? values.shipping : values.billing;
             const response = await stripe.createToken({

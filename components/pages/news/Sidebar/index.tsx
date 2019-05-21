@@ -11,15 +11,14 @@ type Props = {
 const Sidebar: React.SFC<Props> = ({ sidebarNavIsOpen, handleOpenSidebarNav }: Props) => (
     <div id="feed-scrolltop-hook" className="feed-sidebar-container">
         <div className="feed-sidebar-header">
-            <h1 className="feed-sidebar-header-title">
-                We all need
+            <h1 className="feed-sidebar-header-title" data-name="news-sidebar-title">
+                Our daily dose of
                 <br />
-                our daily dose{' '}
+                skateboarding news
                 <span className="feed-sidebar-header-subtitle">
-                    [at least] <Emoji symbol="🐙" label="Kraken" /> <Emoji symbol="📰" label="newspaper" />
+                    [<Emoji symbol="🐙" label="Kraken" /> <Emoji symbol="📰" label="newspaper" />]
                 </span>
             </h1>
-            <p className="feed-sidebar-header-text">Our daily dose of skateboarding news.</p>
         </div>
         <Nav navIsOpen={sidebarNavIsOpen} handleOpenSourcesMenu={handleOpenSidebarNav} />
         <ScrollTop elementId="feed-scrolltop-hook" />

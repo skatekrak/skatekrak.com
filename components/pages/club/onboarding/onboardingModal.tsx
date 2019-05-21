@@ -33,7 +33,7 @@ class OnboardingModal extends React.Component<Props, State> {
             <React.Fragment>
                 <OnboardingHead />
                 <Modal open={open} onClose={this.onClose} closable={false}>
-                    {step === 'congrats' && <Congrats quarterFull={false} onNextClick={this.onNextStep} />}
+                    {step === 'congrats' && <Congrats onNextClick={this.onNextStep} />}
                     {step === 'preferences' && <Preference profile={profile} onNextClick={this.onNextStep} />}
                 </Modal>
             </React.Fragment>

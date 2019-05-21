@@ -1,4 +1,5 @@
 import axios, { AxiosError, AxiosResponse } from 'axios';
+import getConfig from 'next/config';
 
 import { userSignoutSuccess } from 'store/auth/actions';
 
@@ -15,7 +16,7 @@ const successAuthInterceptors = (response: AxiosResponse) => {
 };
 
 export const cairote = axios.create({
-    baseURL: process.env.CAIROTE_URL,
+    baseURL: getConfig().publicRuntimeConfig.CAIROTE_URL,
     withCredentials: true,
 });
 cairote.interceptors.response.use(successAuthInterceptors, failedAuthInterceptors);
