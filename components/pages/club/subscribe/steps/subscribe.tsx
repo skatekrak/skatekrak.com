@@ -1,6 +1,7 @@
 import Analytics from '@thepunkclub/analytics';
 import classNames from 'classnames';
 import gql from 'graphql-tag';
+import getConfig from 'next/config';
 import React from 'react';
 import { Field as ReactField, Form, FormSpy } from 'react-final-form';
 import { connect } from 'react-redux';
@@ -25,7 +26,6 @@ import IconValid from 'components/Ui/Icons/Valid';
 import { FORM_ERROR } from 'final-form';
 
 type Props = {
-    quarterFull: boolean;
     onNextClick: () => void;
     updateFormState: (form, state) => void;
     subscribeForm?: { [key: string]: any };
@@ -51,8 +51,9 @@ class Subscribe extends React.Component<Props & WithApolloProps & ReactStripeEle
     };
 
     public render() {
-        const { quarterFull, subscribeForm } = this.props;
+        const { subscribeForm } = this.props;
         const { addressView, isSpecialCodeValid } = this.state;
+        const quarterFull: boolean = getConfig().publicRuntimeConfig.IS_QUARTERFULL;
         return (
             <Form
                 onSubmit={this.handleSubmit}
@@ -68,11 +69,14 @@ class Subscribe extends React.Component<Props & WithApolloProps & ReactStripeEle
                                     {quarterFull && (
                                         <p className="modal-two-col-content-description-paragraph">
                                             Pre-pay your membership now and be sure to become a Kraken from{' '}
-                                            {process.env.RENEW_DATE_QUARTERFULL} to January 5th 2020.
+                                            {getConfig().publicRuntimeConfig.NEXT_QUARTER_START} to{' '}
+                                            {getConfig().publicRuntimeConfig.NEXT_QUARTER_END}.
                                         </p>
                                     )}
-                                    {!quarterFull ? `On ${process.env.RENEW_DATE}` : `On January 5th 2020`}, your
-                                    membership will be automatically renewed. Of course, you can cancel anytime.
+                                    {!quarterFull
+                                        ? `On ${getConfig().publicRuntimeConfig.NEXT_QUARTER_START}`
+                                        : `On ${getConfig().publicRuntimeConfig.NEXT_QUARTER_END}`}
+                                    , your membership will be automatically renewed. Of course, you can cancel anytime.
                                 </p>
                                 <div className="subscribe-payment-line">
                                     <p className="subscribe-payment-line-title">Club membership:</p>
@@ -100,8 +104,10 @@ class Subscribe extends React.Component<Props & WithApolloProps & ReactStripeEle
                                 </div>
                                 <div className="form-element">
                                     <label htmlFor="agreeTC" className="checkbox-container">
-                                        I understand & accept that my membership will be automatically renewed on
-                                        January 5th 2020
+                                        I understand & accept that my membership will be automatically renewed on{' '}
+                                        {!quarterFull
+                                            ? `${getConfig().publicRuntimeConfig.NEXT_QUARTER_START}`
+                                            : `${getConfig().publicRuntimeConfig.NEXT_QUARTER_END}`}
                                         <ReactField id="agreeTC" name="agreeTC" type="checkbox" component="input" />
                                         {submitErrors && submitErrors.agreeTC && (
                                             <ErrorMessage message={submitErrors.agreeTC} />

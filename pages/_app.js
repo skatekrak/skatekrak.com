@@ -1,5 +1,6 @@
 import axios from 'axios';
 import App, { Container } from 'next/app';
+import getConfig from 'next/config';
 import React from 'react';
 import { ApolloProvider } from 'react-apollo';
 import { Provider } from 'react-redux';
@@ -38,7 +39,7 @@ class MyApp extends App {
     componentDidMount() {
         // If not in dev, we query ipdata.co to get country based on IP
         // and show currency accordingly
-        if (process.env.NODE_ENV !== 'development') {
+        if (getConfig().publicRuntimeConfig.NODE_ENV !== 'development') {
             axios('https://api.ipdata.co/?api-key=4a4e1261ab0b0b8288f5ffef913072c177a0262cf1945fb399a0b712').then(
                 (result) => {
                     let countryCode = undefined;
@@ -106,7 +107,7 @@ class MyApp extends App {
                             <Component {...pageProps} />
                             {(this.props.router.route.startsWith('/club') ||
                                 this.props.router.route.startsWith('/auth')) && (
-                                <Intercom appID={process.env.INTERCOM_ID} {...user} />
+                                <Intercom appID={getConfig().publicRuntimeConfig.INTERCOM_ID} {...user} />
                             )}
                         </>
                     </ApolloProvider>

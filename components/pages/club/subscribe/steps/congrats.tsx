@@ -1,13 +1,13 @@
+import getConfig from 'next/config';
 import React from 'react';
 
 import Emoji from 'components/Ui/Icons/Emoji';
 
 type Props = {
-    quarterFull: boolean;
     onNextClick: () => void;
 };
 
-const Congrats = ({ quarterFull, onNextClick }: Props) => (
+const Congrats = ({ onNextClick }: Props) => (
     <div className="subscribe modal-two-col-container modal-two-col-form">
         <div className="modal-two-col-first-container modal-two-col-item-container">
             <div id="subscribe-congrats-first-container">
@@ -17,10 +17,10 @@ const Congrats = ({ quarterFull, onNextClick }: Props) => (
                     Bang
                     <Emoji symbol="💥" label="bang" />
                 </p>
-                {!quarterFull ? (
-                    <p id="subscribe-congrats-first-text">You're a Kraken now!</p>
-                ) : (
+                {getConfig().publicRuntimeConfig.IS_QUARTERFULL ? (
                     <p id="subscribe-congrats-first-text">You’ll be a kraken soon</p>
+                ) : (
+                    <p id="subscribe-congrats-first-text">You're a Kraken now!</p>
                 )}
             </div>
             <div className="modal-two-col-container-separator" />

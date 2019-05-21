@@ -1,3 +1,4 @@
+import getConfig from 'next/config';
 import Head from 'next/head';
 import React from 'react';
 import { connect } from 'react-redux';
@@ -56,7 +57,7 @@ class Club extends React.Component<Props, State> {
     public componentDidMount() {
         document.getElementById('header-top').classList.add('header-white');
         this.setState({
-            stripe: (window as any).Stripe(process.env.STRIPE_KEY),
+            stripe: (window as any).Stripe(getConfig().publicRuntimeConfig.STRIPE_KEY),
         });
     }
 

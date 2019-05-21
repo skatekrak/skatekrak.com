@@ -1,5 +1,6 @@
 import Analytics from '@thepunkclub/analytics';
 import axios from 'axios';
+import getConfig from 'next/config';
 import React from 'react';
 import InfiniteScroll from 'react-infinite-scroller';
 
@@ -27,7 +28,7 @@ class VideoFeed extends React.Component<{}, State> {
     };
 
     public async componentDidMount() {
-        const req: Promise<any> = axios.get(`${process.env.RSS_BACKEND_URL}/videos/featured`);
+        const req: Promise<any> = axios.get(`${getConfig().publicRuntimeConfig.RSS_BACKEND_URL}/videos/featured`);
 
         const [res] = await Promise.all([req, Thread.sleep(150)]);
         if (res.data) {
@@ -85,7 +86,9 @@ class VideoFeed extends React.Component<{}, State> {
         try {
             this.setState({ isLoading: true });
 
-            const req: Promise<any> = axios.get(`${process.env.RSS_BACKEND_URL}/videos/`, { params: { page } });
+            const req: Promise<any> = axios.get(`${getConfig().publicRuntimeConfig.RSS_BACKEND_URL}/videos/`, {
+                params: { page },
+            });
             const [res] = await Promise.all([req, Thread.sleep(150)]);
             if (res.data) {
                 const data: Video[] = res.data;
