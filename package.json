@@ -1,12 +1,12 @@
 {
     "name": "skatekrak.com",
-    "version": "5.7.4",
+    "version": "5.8.0",
     "main": "index.js",
     "license": "MIT",
     "private": true,
     "scripts": {
         "dev": "docker-compose up skatekrak",
-        "start:cmd:dev": "next --inspect=0.0.0.0:9230",
+        "start:cmd:dev": "next --inspect",
         "build": "next build",
         "start": "next start"
     },

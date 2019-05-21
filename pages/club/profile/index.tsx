@@ -96,10 +96,10 @@ class ProfileMain extends React.Component<{}, State> {
                                 </div>
                                 <ProfileSection>
                                     <ProfileSectionHeader title="Membership" />
-                                    <div className="profile-section-line">
-                                        {/* <ProfileItem title="Member ID" content={`#${data.me.id}`} /> */}
+                                    {/* <div className="profile-section-line">
+                                        <ProfileItem title="Member ID" content={`#${data.me.id}`} />
                                         <ProfileItem title="Quarter" content="First quarter" />
-                                    </div>
+                                    </div> */}
                                     <div className="profile-section-line">
                                         <ProfileItem
                                             title="Starting day"

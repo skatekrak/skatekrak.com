@@ -1,5 +1,6 @@
 import Cookie from 'cookie';
 import Cookies from 'js-cookie';
+import getConfig from 'next/config';
 import Router from 'next/router';
 
 export const setUser = (user: any) => {
@@ -38,9 +39,9 @@ export const getBearerFromServerCookie = (req: any) => {
         return undefined;
     }
     const cookie = Cookie.parse(req.headers.cookie);
-    return cookie[process.env.BEARER];
+    return cookie[getConfig().publicRuntimeConfig.BEARER];
 };
 
 export const getBearerFromLocalCookie = () => {
-    return Cookies.getJSON(process.env.BEARER);
+    return Cookies.getJSON(getConfig().publicRuntimeConfig.BEARER);
 };

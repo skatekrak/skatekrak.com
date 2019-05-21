@@ -1,5 +1,6 @@
 import { ApolloClient, HttpLink, InMemoryCache, NormalizedCacheObject } from 'apollo-boost';
 import fetch from 'isomorphic-unfetch';
+import getConfig from 'next/config';
 
 let apolloClient: ApolloClient<NormalizedCacheObject> = null;
 
@@ -13,7 +14,7 @@ function create(initialState?: any): ApolloClient<NormalizedCacheObject> {
         connectToDevTools: process.browser,
         ssrMode: !process.browser, // Disables forceFetch on the server (so queries are only run once)
         link: new HttpLink({
-            uri: process.env.SESTERCES_URL,
+            uri: getConfig().publicRuntimeConfig.SESTERCES_URL,
             credentials: 'include',
         }),
         cache: new InMemoryCache().restore(initialState || {}),

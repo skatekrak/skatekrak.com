@@ -1,4 +1,5 @@
 import format from 'date-fns/format';
+import getConfig from 'next/config';
 import React from 'react';
 import { Elements, StripeProvider } from 'react-stripe-elements';
 
@@ -30,7 +31,7 @@ class ProfilePayment extends React.Component<{}, State> {
 
     public componentDidMount() {
         this.setState({
-            stripe: (window as any).Stripe(process.env.STRIPE_KEY),
+            stripe: (window as any).Stripe(getConfig().publicRuntimeConfig.STRIPE_KEY),
         });
     }
 
@@ -73,8 +74,9 @@ class ProfilePayment extends React.Component<{}, State> {
                                                             <div className="profile-section-desc">
                                                                 <p>
                                                                     For any doubt & question here - never forget the
-                                                                    best way to reach us [and talk to Hugo; he's a very
-                                                                    nice dude]: send an email to{' '}
+                                                                    best way to reach us [and talk to{' '}
+                                                                    {getConfig().publicRuntimeConfig.CLUB_CONTACT_NAME};
+                                                                    he's a very nice dude]: send an email to{' '}
                                                                     <a
                                                                         className="text-primary"
                                                                         href="mailto:club@skatekrak.com"
@@ -130,7 +132,7 @@ class ProfilePayment extends React.Component<{}, State> {
                                             )}
                                             <ProfileSection>
                                                 <ProfileSectionHeader title="History" />
-                                                {data.me.paymentHistory.map(payment => (
+                                                {data.me.paymentHistory.map((payment) => (
                                                     <PaymentLine key={payment.id} payment={payment} />
                                                 ))}
                                             </ProfileSection>

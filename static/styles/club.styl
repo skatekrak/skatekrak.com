@@ -48,6 +48,20 @@
 			+mq($from: "medium")
 				color: $white
 
+		&-sold-out
+			z-index: 10
+
+			& svg
+				width: 50%
+				height: 8rem
+				transform: rotate(-15deg)
+
+				+mq($from: "small")
+					height: 10rem
+
+				+mq($from: "infinite")
+					height: 12rem
+
 		&-obsessed
 			font-family: 'Permanent Marker', cursive
 			font-size: $fs-largest

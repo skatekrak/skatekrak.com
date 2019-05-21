@@ -1,4 +1,5 @@
 import axios from 'axios';
+import getConfig from 'next/config';
 import Router from 'next/router';
 import React from 'react';
 
@@ -29,7 +30,7 @@ class ArticleModal extends React.Component<Props, State> {
         this.setState({ open: true });
 
         try {
-            const res = await axios.get(`${process.env.RSS_BACKEND_URL}/contents/${this.props.id}`);
+            const res = await axios.get(`${getConfig().publicRuntimeConfig.RSS_BACKEND_URL}/contents/${this.props.id}`);
 
             if (res.data) {
                 this.setState({ content: res.data });
