@@ -53,7 +53,7 @@ class CreateAccount extends React.Component<Props & WithApolloProps> {
                                     ) : (
                                         <>
                                             <p id="subscribe-promote-main-cover">
-                                                to guarantee your slot for the next bash
+                                                to guarantee your slot for the next batch
                                             </p>
                                         </>
                                     )}

@@ -96,7 +96,7 @@ class Club extends React.Component<Props, State> {
                                                 className="club-cta button-primary"
                                                 onClick={this.onOpenSubscribeModal}
                                             >
-                                                Save your spot for the last quarter
+                                                Save your spot
                                             </button>
                                         )}
                                         <p className="club-cta-shipping">
@@ -260,7 +260,7 @@ class Club extends React.Component<Props, State> {
                                                 className="club-cta button-primary"
                                                 onClick={this.onOpenSubscribeModal}
                                             >
-                                                Save your spot for the last quarter
+                                                Save your spot
                                             </button>
                                         )}
                                         <p className="club-cta-shipping">
