@@ -1,3 +1,4 @@
+import getConfig from 'next/config';
 import Head from 'next/head';
 import React from 'react';
 import { connect } from 'react-redux';
@@ -13,6 +14,7 @@ import SubscribeModal from 'components/pages/club/subscribe/subscribeModal';
 import TrackedPage from 'components/pages/TrackedPage';
 import Emoji from 'components/Ui/Icons/Emoji';
 import SkateistanLogo from 'components/Ui/Icons/Logos/Skateistan';
+import SoldOut from 'components/Ui/Icons/SoldOut';
 import VideoPlayer from 'components/Ui/Player/VideoPlayer';
 
 type Props = {
@@ -55,7 +57,7 @@ class Club extends React.Component<Props, State> {
     public componentDidMount() {
         document.getElementById('header-top').classList.add('header-white');
         this.setState({
-            stripe: (window as any).Stripe(process.env.STRIPE_KEY),
+            stripe: (window as any).Stripe(getConfig().publicRuntimeConfig.STRIPE_KEY),
         });
     }
 
@@ -79,7 +81,10 @@ class Club extends React.Component<Props, State> {
                                         <h1 id="club-header-title">Krak Skate Club</h1>
                                         <h2 id="club-header-subtitle">Dig deeper into skateboarding</h2>
                                     </div>
-                                    <p id="club-header-obsessed">Obsessed to ride</p>
+                                    {/* <p id="club-header-obsessed">Obsessed to ride</p> */}
+                                    <div id="club-header-sold-out">
+                                        <SoldOut />
+                                    </div>
                                     <div className="club-cta-container">
                                         <p className="club-cta-limited">- Limited quantities available -</p>
                                         {this.props.authUser ? (
@@ -91,8 +96,7 @@ class Club extends React.Component<Props, State> {
                                                 className="club-cta button-primary"
                                                 onClick={this.onOpenSubscribeModal}
                                             >
-                                                Become a Kraken for{' '}
-                                                {this.getPricingText(String(this.props.payment.price / 100))} a quarter
+                                                Save your spot
                                             </button>
                                         )}
                                         <p className="club-cta-shipping">
@@ -256,8 +260,7 @@ class Club extends React.Component<Props, State> {
                                                 className="club-cta button-primary"
                                                 onClick={this.onOpenSubscribeModal}
                                             >
-                                                Become a Kraken for{' '}
-                                                {this.getPricingText(String(this.props.payment.price / 100))} a quarter
+                                                Save your spot
                                             </button>
                                         )}
                                         <p className="club-cta-shipping">
@@ -300,21 +303,21 @@ class Club extends React.Component<Props, State> {
         this.setState({ isSubscribeModalOpen: false });
     };
 
-    private getPricingText(price: string): string {
-        const { payment } = this.props;
-        let res = '';
-        if (payment.currency === 'usd') {
-            res += '$';
-        }
-        if (payment.currency === 'gbp') {
-            res += '£';
-        }
-        res += price;
-        if (payment.currency === 'eur') {
-            res += '€';
-        }
-        return res;
-    }
+    // private getPricingText(price: string): string {
+    //     const { payment } = this.props;
+    //     let res = '';
+    //     if (payment.currency === 'usd') {
+    //         res += '$';
+    //     }
+    //     if (payment.currency === 'gbp') {
+    //         res += '£';
+    //     }
+    //     res += price;
+    //     if (payment.currency === 'eur') {
+    //         res += '€';
+    //     }
+    //     return res;
+    // }
 }
 
 const mapStateToProps = ({ payment, auth }: Types.RootState) => {

@@ -1,4 +1,5 @@
 import { distanceInWordsToNow } from 'date-fns';
+import getConfig from 'next/config';
 import React from 'react';
 import { FacebookIcon, FacebookShareButton, TwitterIcon, TwitterShareButton } from 'react-share';
 import Truncate from 'react-truncate';
@@ -67,7 +68,7 @@ class Card extends React.PureComponent<Props, State> {
 
     private getImage(content: Content): string {
         if (content.media && content.media.url) {
-            return `${process.env.CACHING_URL}/${encodeURIComponent(content.media.url)}`;
+            return `${getConfig().publicRuntimeConfig.CACHING_URL}/${encodeURIComponent(content.media.url)}`;
         }
         return null;
     }
@@ -77,7 +78,7 @@ class Card extends React.PureComponent<Props, State> {
     }
 
     private getArticleUrl(content: Content): string {
-        return `${process.env.REDIRECT_URL}/${encodeURIComponent(content.webUrl)}`;
+        return `${getConfig().publicRuntimeConfig.REDIRECT_URL}/${encodeURIComponent(content.webUrl)}`;
     }
 
     private getArticlePopupUrl(content: Content): string {
@@ -85,7 +86,7 @@ class Card extends React.PureComponent<Props, State> {
     }
 
     private getWebsiteUrl(content: Content): string {
-        return `${process.env.REDIRECT_URL}/${encodeURIComponent(content.source.website)}`;
+        return `${getConfig().publicRuntimeConfig.REDIRECT_URL}/${encodeURIComponent(content.source.website)}`;
     }
 
     private getContent(content: Content): string {

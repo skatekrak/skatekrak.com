@@ -1,6 +1,7 @@
 import validator from 'email-validator';
 import { FORM_ERROR } from 'final-form';
 import gql from 'graphql-tag';
+import getConfig from 'next/config';
 import React from 'react';
 import { Form, FormSpy } from 'react-final-form';
 import { connect } from 'react-redux';
@@ -15,7 +16,6 @@ import Field from 'components/Ui/Form/Field';
 import { updateFormState } from 'store/form/actions';
 
 type Props = {
-    quarterFull: boolean;
     onNextClick: () => void;
     updateFormState: (form, state) => void;
     payment: {
@@ -26,7 +26,8 @@ type Props = {
 
 class CreateAccount extends React.Component<Props & WithApolloProps> {
     public render() {
-        const { quarterFull, payment } = this.props;
+        const { payment } = this.props;
+        const quarterFull: boolean = getConfig().publicRuntimeConfig.IS_QUARTERFULL;
         return (
             <Form onSubmit={this.handleSubmit} validate={validateForm}>
                 {({ handleSubmit, submitting, submitError }) => (
@@ -46,16 +47,13 @@ class CreateAccount extends React.Component<Props & WithApolloProps> {
                                     {!quarterFull ? (
                                         <>
                                             <p id="subscribe-promote-main-cover">
-                                                to be covered until {process.env.RENEW_DATE}
+                                                to be covered until {getConfig().publicRuntimeConfig.NEXT_QUARTER_START}
                                             </p>
                                         </>
                                     ) : (
                                         <>
                                             <p id="subscribe-promote-main-cover">
-                                                to guarantee your slot for the next quarter
-                                            </p>
-                                            <p id="subscribe-promote-main-cover">
-                                                from {process.env.RENEW_DATE} to {process.env.RENEW_DATE_QUARTERFULL}
+                                                to guarantee your slot for the next batch
                                             </p>
                                         </>
                                     )}
@@ -79,7 +77,9 @@ class CreateAccount extends React.Component<Props & WithApolloProps> {
                                 <p className="modal-two-col-content-description">
                                     {!quarterFull
                                         ? 'Become a Kraken.'
-                                        : `Be sure to become a Kraken on ${process.env.RENEW_DATE}.`}
+                                        : `Be sure to become a Kraken on ${
+                                              getConfig().publicRuntimeConfig.NEXT_QUARTER_START
+                                          }.`}
                                 </p>
                                 <div className="form-double-field-line">
                                     <Field name="firstName" placeholder="First name" />

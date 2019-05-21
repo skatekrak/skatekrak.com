@@ -1,6 +1,7 @@
 import Analytics from '@thepunkclub/analytics';
 import axios from 'axios';
 import classNames from 'classnames';
+import getConfig from 'next/config';
 import React from 'react';
 import { connect } from 'react-redux';
 
@@ -28,7 +29,7 @@ type Props = {
 class Sources extends React.PureComponent<Props> {
     public async componentDidMount() {
         try {
-            const res = await axios.get<Source[]>(`${process.env.RSS_BACKEND_URL}/sources`);
+            const res = await axios.get<Source[]>(`${getConfig().publicRuntimeConfig.RSS_BACKEND_URL}/sources`);
             this.props.setAllSources(res.data);
         } catch (err) {
             //
