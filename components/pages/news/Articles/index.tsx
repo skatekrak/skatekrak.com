@@ -102,11 +102,11 @@ class Articles extends React.Component<Props, State> {
                 req = Promise.resolve();
             } else {
                 if (this.props.news.search) {
-                    req = axios.get(`${getConfig().publicRuntimeConfig.RSS_BACKEND_URL}/feeds/search`, {
+                    req = axios.get(`${getConfig().publicRuntimeConfig.RSS_BACKEND_URL}/contents/search`, {
                         params: { page, filters, query: this.props.news.search },
                     });
                 } else {
-                    req = axios.get(`${getConfig().publicRuntimeConfig.RSS_BACKEND_URL}/feeds/`, {
+                    req = axios.get(`${getConfig().publicRuntimeConfig.RSS_BACKEND_URL}/contents/`, {
                         params: { page, filters },
                     });
                 }
