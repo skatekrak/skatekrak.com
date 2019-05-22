@@ -89,7 +89,7 @@ class VideoFeed extends React.Component<Props, State> {
                 >
                     <div className={classNames('row', { hide: this.props.sidebarNavIsOpen })}>
                         {displayedVideos.map((video, index) => (
-                            <div key={index} className="video-card-container col-xs-12 col-sm-6 col-lg-4">
+                            <div key={index} className="video-card-container col-xs-12 col-sm-6">
                                 <VideoCard video={video} />
                             </div>
                         ))}
