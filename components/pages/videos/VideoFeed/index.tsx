@@ -1,6 +1,7 @@
 import Analytics from '@thepunkclub/analytics';
 import axios from 'axios';
 import classNames from 'classnames';
+import getConfig from 'next/config';
 import React from 'react';
 import InfiniteScroll from 'react-infinite-scroller';
 import { connect } from 'react-redux';
@@ -115,11 +116,13 @@ class VideoFeed extends React.Component<Props, State> {
                 req = Promise.resolve();
             } else {
                 if (this.props.video.search) {
-                    req = axios.get(`${process.env.RSS_BACKEND_URL}/videos/search`, {
+                    req = axios.get(`${getConfig().publicRuntimeConfig.RSS_BACKEND_URL}/videos/search`, {
                         params: { page, filters, query: this.props.video.search },
                     });
                 } else {
-                    req = axios.get(`${process.env.RSS_BACKEND_URL}/videos/`, { params: { page, filters } });
+                    req = axios.get(`${getConfig().publicRuntimeConfig.RSS_BACKEND_URL}/videos/`, {
+                        params: { page, filters },
+                    });
                 }
             }
             // Force minumum wait time of 150ms

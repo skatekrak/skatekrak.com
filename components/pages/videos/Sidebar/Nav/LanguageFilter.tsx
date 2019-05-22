@@ -1,3 +1,4 @@
+import getConfig from 'next/config';
 import React from 'react';
 import { connect } from 'react-redux';
 
@@ -31,7 +32,7 @@ class LanguageFilter extends React.PureComponent<Props, {}> {
     }
 
     private getIcon(language: Language): string {
-        return `${process.env.CACHING_URL}/${encodeURIComponent(language.image)}`;
+        return `${getConfig().publicRuntimeConfig.CACHING_URL}/${encodeURIComponent(language.image)}`;
     }
 
     private handleLanguageFilterClick = () => {

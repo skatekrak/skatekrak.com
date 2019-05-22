@@ -1,6 +1,7 @@
 import Analytics from '@thepunkclub/analytics';
 import axios from 'axios';
 import classNames from 'classnames';
+import getConfig from 'next/config';
 import React from 'react';
 import { connect } from 'react-redux';
 
@@ -28,7 +29,9 @@ type Props = {
 class Sources extends React.PureComponent<Props> {
     public async componentDidMount() {
         try {
-            const res = await axios.get<Source[]>(`${process.env.RSS_BACKEND_URL}/sources/?type=youtube`);
+            const res = await axios.get<Source[]>(
+                `${getConfig().publicRuntimeConfig.RSS_BACKEND_URL}/sources/?type=youtube`,
+            );
             this.props.setAllSources(res.data);
         } catch (err) {
             //
@@ -91,14 +94,14 @@ class Sources extends React.PureComponent<Props> {
                         <ul className="feed-sidebar-nav-main-options-container">
                             {items.length === 0 && (
                                 <div className="feed-sidebar-nav-main-loader">
-                                    <SpinnerCircle /> Loading magazines
+                                    <SpinnerCircle /> Loading channels
                                 </div>
                             )}
                             {items}
                         </ul>
                     </form>
                     <p className="feed-sidebar-nav-main-request">
-                        You'd be down to add your blog/mag source here - email{' '}
+                        You'd be down to add your youtube channel source here - email{' '}
                         <a href="mailto:news@skatekrak.com" className="feed-sidebar-nav-main-request-mail">
                             news@skatekrak.com
                         </a>

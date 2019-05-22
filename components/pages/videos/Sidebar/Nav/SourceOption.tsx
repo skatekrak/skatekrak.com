@@ -1,5 +1,6 @@
 import Analytics from '@thepunkclub/analytics';
 import classNames from 'classnames';
+import getConfig from 'next/config';
 import React from 'react';
 import { connect } from 'react-redux';
 
@@ -63,7 +64,7 @@ class SourceOption extends React.PureComponent<Props, State> {
     }
 
     private getIcon(source: Source): string {
-        return `${process.env.CACHING_URL}/${encodeURIComponent(source.iconUrl)}`;
+        return `${getConfig().publicRuntimeConfig.CACHING_URL}/${encodeURIComponent(source.iconUrl)}`;
     }
 
     private handleSourceOptionClick = () => {
