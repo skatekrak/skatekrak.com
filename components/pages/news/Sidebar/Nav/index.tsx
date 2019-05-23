@@ -8,8 +8,8 @@ import { connect } from 'react-redux';
 import Types from 'Types';
 
 import LanguageFilter from 'components/pages/news/Sidebar/Nav/LanguageFilter';
+import SearchBar from 'components/pages/news/Sidebar/Nav/SearchBar';
 import SourceOption from 'components/pages/news/Sidebar/Nav/SourceOption';
-import SearchBar from 'components/Ui/Feed/SearchBar';
 import { SpinnerCircle } from 'components/Ui/Icons/Spinners';
 import { Language, Source } from 'rss-feed';
 import { selectAllFilters, setAllSources, unselectAllFilters } from 'store/news/actions';
