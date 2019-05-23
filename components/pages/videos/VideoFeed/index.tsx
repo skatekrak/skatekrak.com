@@ -93,9 +93,13 @@ class VideoFeed extends React.Component<Props, State> {
                                 <VideoCard video={video} />
                             </div>
                         ))}
-
+                        {displayedVideos.length === 0 && !isLoading && (
+                            <NoContent title="No video to display" desc="Select some channels to be back in the loop" />
+                        )}
                         {isLoading && <KrakLoading />}
-                        {displayedVideos.length > 0 && !hasMore && <NoContent title="No more video" desc="" />}
+                        {displayedVideos.length > 0 && !hasMore && (
+                            <NoContent title="No more video" desc="Select other channels if you're still hungry" />
+                        )}
                     </div>
                 </InfiniteScroll>
             </div>
