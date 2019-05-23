@@ -5,7 +5,7 @@ import LocalStorage from 'lib/LocalStorage';
 
 import {
     FEED_REFRESH_END,
-    SEARCH,
+    SEARCH_NEWS,
     SELECT_ALL_FILTERS,
     SELECT_LANGUAGE,
     SET_ALL_SOURCES,
@@ -52,7 +52,7 @@ export default (state: State = initialState, action: NewsAction): State => {
                 }
 
                 // add language if new
-                if (languages.find(language => language.isoCode === source.lang.isoCode) === undefined) {
+                if (languages.find((language) => language.isoCode === source.lang.isoCode) === undefined) {
                     languages.push(source.lang);
                 }
             }
@@ -136,7 +136,7 @@ export default (state: State = initialState, action: NewsAction): State => {
                 sources: map,
             };
         }
-        case SEARCH: {
+        case SEARCH_NEWS: {
             const search = action.payload !== '' ? action.payload : undefined;
             return {
                 ...state,
