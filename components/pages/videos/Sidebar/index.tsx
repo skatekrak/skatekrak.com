@@ -1,10 +1,15 @@
 import React from 'react';
 
+import Nav from 'components/pages/videos/Sidebar/Nav';
 import YoutubeSubscribe from 'components/Ui/Button/YoutubeSubscribe';
 import Emoji from 'components/Ui/Icons/Emoji';
 import ScrollTop from 'components/Ui/Utils/ScrollTop';
 
-const Sidebar: React.SFC = () => (
+type Props = {
+    sidebarNavIsOpen: boolean;
+    handleOpenSidebarNav: () => void;
+};
+const Sidebar: React.SFC<Props> = ({ sidebarNavIsOpen, handleOpenSidebarNav }: Props) => (
     <div id="feed-scrolltop-hook" className="feed-sidebar-container">
         <div className="feed-sidebar-header">
             <h1 className="feed-sidebar-header-title">
@@ -21,6 +26,7 @@ const Sidebar: React.SFC = () => (
             </p>
             <YoutubeSubscribe />
         </div>
+        <Nav navIsOpen={sidebarNavIsOpen} handleOpenSourcesMenu={handleOpenSidebarNav} />
         <ScrollTop elementId="feed-scrolltop-hook" />
     </div>
 );

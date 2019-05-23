@@ -2,14 +2,15 @@ export const SAVE_PRICING_CURRENCY = 'save_pricing_currency';
 
 export const SET_DEVICE_SIZE = 'set_device_size';
 
-// News
+// News & Video
 export const SET_ALL_SOURCES = 'set_all_sources';
 export const FEED_REFRESH_END = 'feed_refresh_end';
 export const SELECT_LANGUAGE = 'select_language';
 export const SELECT_ALL_FILTERS = 'select_all_filters';
 export const UNSELECT_ALL_FILTERS = 'unselect_all_filters';
 export const TOGGLE_FILTER = 'toggle_filter';
-export const SEARCH = 'search';
+export const SEARCH_NEWS = 'search_news';
+export const SEARCH_VIDEO = 'search_video';
 
 // Authentication
 export const SIGNIN_USER = 'signin_user';

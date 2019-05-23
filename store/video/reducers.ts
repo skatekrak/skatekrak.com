@@ -5,7 +5,7 @@ import LocalStorage from 'lib/LocalStorage';
 
 import {
     FEED_REFRESH_END,
-    SEARCH_NEWS,
+    SEARCH_VIDEO,
     SELECT_ALL_FILTERS,
     SELECT_LANGUAGE,
     SET_ALL_SOURCES,
@@ -13,9 +13,9 @@ import {
     UNSELECT_ALL_FILTERS,
 } from '../constants';
 
-import * as news from './actions';
+import * as video from './actions';
 
-export type NewsAction = ActionType<typeof news>;
+export type VideoAction = ActionType<typeof video>;
 
 export enum FilterState {
     SELECTED = 'SELECTED',
@@ -38,7 +38,7 @@ const initialState: State = {
     search: undefined,
 };
 
-export default (state: State = initialState, action: NewsAction): State => {
+export default (state: State = initialState, action: VideoAction): State => {
     switch (action.type) {
         case SET_ALL_SOURCES: {
             const sources: Source[] = action.payload;
@@ -136,7 +136,7 @@ export default (state: State = initialState, action: NewsAction): State => {
                 sources: map,
             };
         }
-        case SEARCH_NEWS: {
+        case SEARCH_VIDEO: {
             const search = action.payload !== '' ? action.payload : undefined;
             return {
                 ...state,

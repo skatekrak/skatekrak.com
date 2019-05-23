@@ -54,11 +54,11 @@ class News extends React.PureComponent<WithRouterProps<QueryProps>, State> {
                     <div id="news-container" className="inner-page-container">
                         {id && <ArticleModal id={id} />}
                         <LayoutFeed
-                            mainView={<Articles SidebarNavIsOpen={sidebarNavIsOpen} />}
+                            mainView={<Articles sidebarNavIsOpen={sidebarNavIsOpen} />}
                             sidebar={
                                 <Sidebar
                                     handleOpenSidebarNav={this.handleOpenSidebarNav}
-                                    SidebarNavIsOpen={sidebarNavIsOpen}
+                                    sidebarNavIsOpen={sidebarNavIsOpen}
                                 />
                             }
                         />
