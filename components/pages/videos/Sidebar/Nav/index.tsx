@@ -9,7 +9,6 @@ import Types from 'Types';
 
 import LanguageFilter from 'components/pages/news/Sidebar/Nav/LanguageFilter';
 import SourceOption from 'components/pages/news/Sidebar/Nav/SourceOption';
-import SearchBar from 'components/Ui/Feed/SearchBar';
 import { SpinnerCircle } from 'components/Ui/Icons/Spinners';
 import { Language, Source } from 'rss-feed';
 import { selectAllFilters, setAllSources, unselectAllFilters } from 'store/video/actions';
@@ -63,7 +62,6 @@ class Sources extends React.PureComponent<Props> {
                             {!navIsOpen ? 'Filters' : 'Close'}
                         </button>
                     </div>
-                    <SearchBar nbFilters={length} />
                 </div>
                 <div
                     className={classNames('feed-sidebar-nav-main', {
