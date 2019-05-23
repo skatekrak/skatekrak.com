@@ -24,7 +24,7 @@ type Props = {
     feedLayout: FeedLayout;
     dispatch: (fct: any) => void;
     payment: any;
-    SidebarNavIsOpen: boolean;
+    sidebarNavIsOpen: boolean;
 };
 
 type State = {
@@ -75,7 +75,7 @@ class Articles extends React.Component<Props, State> {
                     getScrollParent={this.getScrollContainer}
                     useWindow={false}
                 >
-                    <div className={classNames('row', { hide: this.props.SidebarNavIsOpen })}>
+                    <div className={classNames('row', { hide: this.props.sidebarNavIsOpen })}>
                         {contents.length === 0 && !isLoading && (
                             <NoContent title="No news to display" desc="Select some mags to be back in the loop" />
                         )}

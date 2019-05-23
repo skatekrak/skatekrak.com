@@ -20,15 +20,41 @@ const VideoHead = () => (
     </Head>
 );
 
-const Videos: React.SFC = () => (
-    <Layout head={<VideoHead />}>
-        <React.Fragment>
-            <BannerTop />
-            <div id="videos-container" className="inner-page-container">
-                <LayoutFeed mainView={<VideoFeed />} sidebar={<Sidebar />} />
-            </div>
-        </React.Fragment>
-    </Layout>
-);
+type State = {
+    sidebarNavIsOpen: boolean;
+};
+
+class Videos extends React.PureComponent<{}, State> {
+    public state: State = {
+        sidebarNavIsOpen: false,
+    };
+
+    public render() {
+        const { sidebarNavIsOpen } = this.state;
+        return (
+            <Layout head={<VideoHead />}>
+                <React.Fragment>
+                    <BannerTop />
+                    <div id="videos-container" className="inner-page-container">
+                        <LayoutFeed
+                            mainView={<VideoFeed sidebarNavIsOpen={sidebarNavIsOpen} />}
+                            sidebar={
+                                <Sidebar
+                                    handleOpenSidebarNav={this.handleOpenSidebarNav}
+                                    sidebarNavIsOpen={sidebarNavIsOpen}
+                                />
+                            }
+                        />
+                    </div>
+                </React.Fragment>
+            </Layout>
+        );
+    }
+
+    private handleOpenSidebarNav = () => {
+        const { sidebarNavIsOpen } = this.state;
+        this.setState({ sidebarNavIsOpen: !sidebarNavIsOpen });
+    };
+}
 
 export default Videos;
