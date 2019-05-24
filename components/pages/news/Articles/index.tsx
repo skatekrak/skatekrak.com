@@ -13,7 +13,6 @@ import TrackedPage from 'components/pages/TrackedPage';
 import NoContent from 'components/Ui/Feed/NoContent';
 import { KrakLoading } from 'components/Ui/Icons/Spinners';
 import ScrollHelper from 'lib/ScrollHelper';
-import Thread from 'lib/Thread';
 import { Content, Source } from 'rss-feed';
 import { feedEndRefresh } from 'store/news/actions';
 import { FilterState, State as NewsState } from 'store/news/reducers';
