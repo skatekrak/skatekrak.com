@@ -41,8 +41,7 @@ class VideoFeed extends React.Component<Props, State> {
 
     public async componentDidMount() {
         const req: Promise<any> = axios.get(`${getConfig().publicRuntimeConfig.RSS_BACKEND_URL}/videos/featured`);
-
-        const [res] = await Promise.all([req, Thread.sleep(150)]);
+        const res = await req;
         if (res.data) {
             const data: Video[] = res.data;
             this.getFeaturedVideo(data);
@@ -129,8 +128,7 @@ class VideoFeed extends React.Component<Props, State> {
                     });
                 }
             }
-            // Force minumum wait time of 150ms
-            const [res] = await Promise.all([req, Thread.sleep(150)]);
+            const res = await req;
             if (res.data) {
                 const data: Video[] = res.data;
                 const displayedVideos = this.state.displayedVideos;

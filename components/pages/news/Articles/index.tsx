@@ -111,8 +111,7 @@ class Articles extends React.Component<Props, State> {
                     });
                 }
             }
-            // Force minumum wait time of 150ms
-            const [res] = await Promise.all([req, Thread.sleep(150)]);
+            const res = await req;
             if (res.data) {
                 const data: Content[] = res.data;
                 const contents = this.state.contents;
