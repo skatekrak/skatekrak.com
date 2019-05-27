@@ -58,11 +58,6 @@ class VideoFeed extends React.Component<Props, State> {
         ) {
             Analytics.default().trackLinks();
         }
-
-        if (this.props.video.search !== prevProps.video.search) {
-            this.setState({ displayedVideos: [], hasMore: false });
-            await this.loadMore(1);
-        }
     }
 
     public render() {
@@ -78,6 +73,7 @@ class VideoFeed extends React.Component<Props, State> {
                 )}
                 <TrackedPage name={`Videos/${Math.ceil(displayedVideos.length / 20)}`} initial={false} />
                 <InfiniteScroll
+                    key={`infinite-need-refresh-${this.props.video.feedNeedRefresh}`}
                     pageStart={1}
                     initialLoad={false}
                     loadMore={this.loadMore}

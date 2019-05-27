@@ -52,11 +52,6 @@ class Articles extends React.Component<Props, State> {
         if (this.state.contents.length > 0 && this.state.contents.length > prevState.contents.length) {
             Analytics.default().trackLinks();
         }
-
-        if (this.props.news.search !== prevProps.news.search && !this.state.isLoading) {
-            this.setState({ contents: [], hasMore: false });
-            await this.loadMore(1);
-        }
     }
 
     public render() {
