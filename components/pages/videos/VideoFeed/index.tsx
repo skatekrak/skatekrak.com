@@ -47,7 +47,7 @@ class VideoFeed extends React.Component<Props, State> {
         }
     }
 
-    public async componentDidUpdate(prevProps: Props, prevState: State) {
+    public async componentDidUpdate(_prevProps: Props, prevState: State) {
         if (this.props.video.feedNeedRefresh && !this.state.isLoading) {
             this.setState({ displayedVideos: [], hasMore: false });
             await this.loadMore(1);
