@@ -41,7 +41,7 @@ class Articles extends React.Component<Props, State> {
         hasMore: true,
     };
 
-    public async componentDidUpdate(prevProps: Readonly<Props>, prevState: Readonly<State>) {
+    public async componentDidUpdate(_prevProps: Readonly<Props>, prevState: Readonly<State>) {
         if (this.props.news.feedNeedRefresh && !this.state.isLoading) {
             this.setState({ contents: [], hasMore: false });
             await this.loadMore(1);
