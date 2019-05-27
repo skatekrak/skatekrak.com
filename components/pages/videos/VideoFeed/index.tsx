@@ -47,7 +47,7 @@ class VideoFeed extends React.Component<Props, State> {
         }
     }
 
-    public async componentDidUpdate(prevProps: Props, prevState: State) {
+    public async componentDidUpdate(_prevProps: Props, prevState: State) {
         if (this.props.video.feedNeedRefresh && !this.state.isLoading) {
             this.setState({ displayedVideos: [], hasMore: false });
             await this.loadMore(1);
@@ -57,11 +57,6 @@ class VideoFeed extends React.Component<Props, State> {
             this.state.displayedVideos.length > prevState.displayedVideos.length
         ) {
             Analytics.default().trackLinks();
-        }
-
-        if (this.props.video.search !== prevProps.video.search) {
-            this.setState({ displayedVideos: [], hasMore: false });
-            await this.loadMore(1);
         }
     }
 
@@ -78,6 +73,7 @@ class VideoFeed extends React.Component<Props, State> {
                 )}
                 <TrackedPage name={`Videos/${Math.ceil(displayedVideos.length / 20)}`} initial={false} />
                 <InfiniteScroll
+                    key={`infinite-need-refresh-${this.props.video.feedNeedRefresh}`}
                     pageStart={1}
                     initialLoad={false}
                     loadMore={this.loadMore}

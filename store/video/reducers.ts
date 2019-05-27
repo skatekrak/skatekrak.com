@@ -140,6 +140,7 @@ export default (state: State = initialState, action: VideoAction): State => {
             const search = action.payload !== '' ? action.payload : undefined;
             return {
                 ...state,
+                feedNeedRefresh: true,
                 search,
             };
         }
