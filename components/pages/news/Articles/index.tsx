@@ -12,10 +12,11 @@ import Article from 'components/pages/news/Articles/Article';
 import TrackedPage from 'components/pages/TrackedPage';
 import NoContent from 'components/Ui/Feed/NoContent';
 import { KrakLoading } from 'components/Ui/Icons/Spinners';
+import { FilterState } from 'lib/FilterState';
 import ScrollHelper from 'lib/ScrollHelper';
 import { Content, Source } from 'rss-feed';
 import { feedEndRefresh } from 'store/news/actions';
-import { FilterState, State as NewsState } from 'store/news/reducers';
+import { State as NewsState } from 'store/news/reducers';
 import { FeedLayout } from 'store/settings/reducers';
 
 type Props = {

@@ -4,9 +4,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { SpinnerCircle } from 'components/Ui/Icons/Spinners';
+import { FilterState } from 'lib/FilterState';
 import { Source } from 'rss-feed';
 import { toggleFilter } from 'store/news/actions';
-import { FilterState } from 'store/news/reducers';
 
 type Props = {
     source: Source;

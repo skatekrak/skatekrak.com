@@ -1,6 +1,7 @@
 import { Language, Source } from 'rss-feed';
 import { ActionType } from 'typesafe-actions';
 
+import { FilterState, FilterStateUtil } from 'lib/FilterState';
 import LocalStorage from 'lib/LocalStorage';
 
 import {
@@ -16,13 +17,6 @@ import {
 import * as news from './actions';
 
 export type NewsAction = ActionType<typeof news>;
-
-export enum FilterState {
-    SELECTED = 'SELECTED',
-    LOADING_TO_SELECTED = 'LOADING_TO_SELECTED',
-    LOADING_TO_UNSELECTED = 'LOADING_TO_UNSELECTED',
-    UNSELECTED = 'UNSELECTED',
-}
 
 export type State = {
     feedNeedRefresh: boolean;
@@ -124,10 +118,22 @@ export default (state: State = initialState, action: NewsAction): State => {
             const filterState = state.sources.get(source);
 
             const map = new Map(state.sources.entries());
-            if (filterState === FilterState.SELECTED) {
+            if (FilterStateUtil.isAllSelected(map.values())) {
+                for (const src of map.keys()) {
+                    if (src.id !== source.id) {
+                        map.set(src, FilterState.LOADING_TO_UNSELECTED);
+                    }
+                }
+                map.set(source, FilterState.LOADING_TO_SELECTED);
+            } else if (filterState === FilterState.SELECTED) {
                 map.set(source, FilterState.LOADING_TO_UNSELECTED);
             } else if (filterState === FilterState.UNSELECTED) {
                 map.set(source, FilterState.LOADING_TO_SELECTED);
+            }
+            if (FilterStateUtil.isAllUnSelected(map.values())) {
+                for (const src of map.keys()) {
+                    map.set(src, FilterState.LOADING_TO_SELECTED);
+                }
             }
 
             return {
