@@ -50,6 +50,8 @@ declare module 'rss-feed' {
     }
 
     export interface Video {
+        id: string;
+
         createdAt: Date;
         updatedAt: Date;
         order: Order;
