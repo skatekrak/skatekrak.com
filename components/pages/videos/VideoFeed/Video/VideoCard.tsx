@@ -2,8 +2,8 @@ import { distanceInWordsToNow } from 'date-fns';
 import React from 'react';
 import { FacebookIcon, FacebookShareButton, TwitterIcon, TwitterShareButton } from 'react-share';
 
+import VideoPlayerCaption from 'components/pages/videos/VideoFeed/Video/VideoPlayerCaption';
 import ClipboardButton from 'components/Ui/Button/ClipboardButton';
-import VideoPlayer from 'components/Ui/Player/VideoPlayer';
 import { Video } from 'rss-feed';
 
 type Props = {
@@ -18,8 +18,7 @@ class VideoCard extends React.PureComponent<Props, State> {
 
         return (
             <div className="video-card">
-                <VideoPlayer url={`https://www.youtube.com/watch?v=${video.videoId}`} controls light playing />
-
+                <VideoPlayerCaption video={video} />
                 <div className="video-card-share">
                     <FacebookShareButton
                         url={this.getVideoPopupUrl(video)}
