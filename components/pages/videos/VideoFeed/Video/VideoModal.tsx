@@ -58,7 +58,7 @@ class VideoModal extends React.Component<Props, State> {
                 {video && (
                     <div className="video-modal">
                         <VideoCardShare video={video} />
-                        <VideoPlayer url={`https://www.youtube.com/watch?v=${video.videoId}`} playing controls />
+                        <VideoPlayer url={`https://www.youtube.com/watch?v=${video.videoId}`} playing controls pip />
                         <h2 className="video-modal-title">{video.title}</h2>
                         <div className="video-modal-details">
                             <p className="video-modal-details-source">
