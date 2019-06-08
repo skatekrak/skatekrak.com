@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import { withRouter, WithRouterProps } from 'next/router';
 import React from 'react';
 
 import Layout from 'components/Layout/Layout';
@@ -7,6 +8,7 @@ import LayoutFeed from 'components/Ui/Feed/LayoutFeed';
 
 import Sidebar from 'components/pages/videos/Sidebar';
 import VideoFeed from 'components/pages/videos/VideoFeed';
+import VideoModal from 'components/pages/videos/VideoFeed/Video/VideoModal';
 
 const VideoHead = () => (
     <Head>
@@ -20,22 +22,31 @@ const VideoHead = () => (
     </Head>
 );
 
+type QueryProps = {
+    id: string;
+};
+
 type State = {
     sidebarNavIsOpen: boolean;
 };
 
-class Videos extends React.PureComponent<{}, State> {
+class Videos extends React.PureComponent<WithRouterProps<QueryProps>, State> {
     public state: State = {
         sidebarNavIsOpen: false,
     };
 
     public render() {
+        const { router } = this.props;
         const { sidebarNavIsOpen } = this.state;
+
+        const id = router.query.id;
+
         return (
             <Layout head={<VideoHead />}>
                 <React.Fragment>
                     <BannerTop />
                     <div id="videos-container" className="inner-page-container">
+                        {id && <VideoModal id={id} />}
                         <LayoutFeed
                             mainView={<VideoFeed sidebarNavIsOpen={sidebarNavIsOpen} />}
                             sidebar={
@@ -57,4 +68,4 @@ class Videos extends React.PureComponent<{}, State> {
     };
 }
 
-export default Videos;
+export default withRouter(Videos);

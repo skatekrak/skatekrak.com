@@ -11,9 +11,9 @@ import LanguageFilter from 'components/pages/news/Sidebar/Nav/LanguageFilter';
 import SourceOption from 'components/pages/news/Sidebar/Nav/SourceOption';
 import SearchBar from 'components/pages/videos/Sidebar/Nav/SearchBar';
 import { SpinnerCircle } from 'components/Ui/Icons/Spinners';
+import { FilterState } from 'lib/FilterState';
 import { Language, Source } from 'rss-feed';
-import { selectAllFilters, setAllSources, unselectAllFilters } from 'store/video/actions';
-import { FilterState } from 'store/video/reducers';
+import { selectAllFilters, setAllSources, unselectAllFilters } from 'store/feed/actions';
 
 type Props = {
     navIsOpen: boolean;

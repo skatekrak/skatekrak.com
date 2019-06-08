@@ -15,6 +15,8 @@
 /* Video card */
 .video
 	&-card
+		position: relative
+
 		&-container
 			margin-bottom: 2rem
 
@@ -34,6 +36,53 @@
 			font-size: $fs-smaller
 			color: $grey-400
 
+		& .video-player
+			display: block
+			width: 100%
+
+			& .react-player__preview
+				display: flex
+				align-items: center
+				justify-content: center
+				height: 100%
+				background-position: center
+
+				& .react-player__shadow
+					display: flex
+
+		& .video-player-container
+			&:hover
+				& + .video-card-share
+					opacity: 1
+
+		&-share
+			position: absolute
+			top: .5rem
+			left: .5rem
+			display: flex
+			transition: .2s
+
+			&:hover
+				opacity: 1
+
+			+mq($from: "medium")
+				opacity: 0
+
+			& .SocialMediaShareButton
+				margin-right: .5rem
+				cursor: pointer
+
+				&:last-child
+					margin-right: 0
+
+				& circle
+					transition: .2s
+
+				&:hover
+					& circle
+						fill: $grey-900
+
+	/* Featured video card */
 	&-featured
 		position: relative
 
@@ -49,3 +98,66 @@
 			margin: .75rem 0 .5rem
 			font-size: $fs-small
 			color: $grey-400
+
+	/* Video modal */
+	&-modal
+		color: $grey-100
+
+		+mq($from: "small")
+			width: 80vw
+
+		+mq($from: "large")
+			width: 60vw
+
+		&-overlay
+			background: rgba(0, 0, 0, 0.8)
+
+		&-container
+			padding: 0
+			background: none
+			box-shadow: none
+
+		&-close-button
+			position: fixed
+			cursor: pointer
+			
+			+mq($from: "small")
+				top: 2rem
+				right: 2rem
+
+			& svg
+				fill: $white
+
+		& .video-player
+			border-radius: 0
+
+		& .video-card-share
+			position: relative
+			top: 0
+			left: 0
+			margin-bottom: 1rem
+			opacity: 1
+
+		&-title
+			margin-top: 1.5rem
+			font-family: $ff-roboto-black
+			font-size: $fs-medium
+
+		&-details
+			margin-top: .75rem
+			font-size: $fs-small
+
+		&-nothing
+			font-size: $fs-medium
+			color: $grey-100
+			text-align: center
+
+			+mq($from: "small")
+				max-width: 350px
+			
+			&-img
+				max-width: 100%
+				margin: -1rem 0 1rem
+
+			& p:last-child
+				margin-top: 1rem

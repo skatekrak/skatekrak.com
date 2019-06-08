@@ -18,7 +18,13 @@ type Props = {
 const VideoPlayer = ({ url, ...props }: Props) => (
     <div className="video-player-container">
         <div className="video-player">
-            <ReactPlayer height="100%" width="100%" url={url} {...props} />
+            <ReactPlayer
+                height="100%"
+                width="100%"
+                url={url}
+                config={{ youtube: { playerVars: { disablekb: 0, fs: 1 } } }}
+                {...props}
+            />
         </div>
     </div>
 );

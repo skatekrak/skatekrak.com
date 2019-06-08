@@ -1,7 +1,8 @@
 import { distanceInWordsToNow } from 'date-fns';
 import React from 'react';
 
-import VideoPlayer from 'components/Ui/Player/VideoPlayer';
+import VideoCardShare from 'components/pages/videos/VideoFeed/Video/VideoCardShare';
+import VideoPlayerCaption from 'components/pages/videos/VideoFeed/Video/VideoPlayerCaption';
 import { Video } from 'rss-feed';
 
 type Props = {
@@ -16,7 +17,8 @@ class VideoCard extends React.PureComponent<Props, State> {
 
         return (
             <div className="video-card">
-                <VideoPlayer url={`https://www.youtube.com/watch?v=${video.videoId}`} controls light playing />
+                <VideoPlayerCaption video={video} />
+                <VideoCardShare video={video} />
                 <div className="video-card-details">
                     <p className="video-card-details-source">
                         by {video.source.title}
