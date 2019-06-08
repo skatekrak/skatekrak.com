@@ -16,8 +16,8 @@ import { KrakLoading } from 'components/Ui/Icons/Spinners';
 import { FilterState } from 'lib/FilterState';
 import ScrollHelper from 'lib/ScrollHelper';
 import { Source, Video } from 'rss-feed';
-import { feedEndRefresh } from 'store/video/actions';
-import { State as VideoState } from 'store/video/reducers';
+import { feedEndRefresh } from 'store/feed/actions';
+import { State as VideoState } from 'store/feed/reducers';
 
 type Props = {
     video: VideoState;

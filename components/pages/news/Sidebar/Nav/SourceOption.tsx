@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { SpinnerCircle } from 'components/Ui/Icons/Spinners';
 import { FilterState } from 'lib/FilterState';
 import { Source } from 'rss-feed';
-import { toggleFilter } from 'store/news/actions';
+import { toggleFilter } from 'store/feed/actions';
 
 type Props = {
     source: Source;
