@@ -15,8 +15,8 @@ import { KrakLoading } from 'components/Ui/Icons/Spinners';
 import { FilterState } from 'lib/FilterState';
 import ScrollHelper from 'lib/ScrollHelper';
 import { Content, Source } from 'rss-feed';
-import { feedEndRefresh } from 'store/news/actions';
-import { State as NewsState } from 'store/news/reducers';
+import { feedEndRefresh } from 'store/feed/actions';
+import { State as NewsState } from 'store/feed/reducers';
 import { FeedLayout } from 'store/settings/reducers';
 
 type Props = {

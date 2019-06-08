@@ -19,8 +19,8 @@ export default class ClipboardButton extends React.Component<Props, State> {
     public render() {
         return (
             <button
-                className={classNames('news-article-share-clipboard', {
-                    'news-article-share-clipboard--copied': this.state.isCopied,
+                className={classNames('clipboard-button', {
+                    'clipboard-button--copied': this.state.isCopied,
                 })}
                 onClick={this.copyToClipboard}
             >

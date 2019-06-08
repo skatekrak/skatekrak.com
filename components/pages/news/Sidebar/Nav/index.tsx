@@ -13,7 +13,7 @@ import SourceOption from 'components/pages/news/Sidebar/Nav/SourceOption';
 import { SpinnerCircle } from 'components/Ui/Icons/Spinners';
 import { FilterState } from 'lib/FilterState';
 import { Language, Source } from 'rss-feed';
-import { selectAllFilters, setAllSources, unselectAllFilters } from 'store/news/actions';
+import { selectAllFilters, setAllSources, unselectAllFilters } from 'store/feed/actions';
 
 type Props = {
     navIsOpen: boolean;

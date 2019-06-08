@@ -16,8 +16,8 @@ import { KrakLoading } from 'components/Ui/Icons/Spinners';
 import { FilterState } from 'lib/FilterState';
 import ScrollHelper from 'lib/ScrollHelper';
 import { Source, Video } from 'rss-feed';
-import { feedEndRefresh } from 'store/video/actions';
-import { State as VideoState } from 'store/video/reducers';
+import { feedEndRefresh } from 'store/feed/actions';
+import { State as VideoState } from 'store/feed/reducers';
 
 type Props = {
     video: VideoState;
@@ -84,7 +84,7 @@ class VideoFeed extends React.Component<Props, State> {
                 >
                     <div className={classNames('row', { hide: this.props.sidebarNavIsOpen })}>
                         {displayedVideos.map((video, index) => (
-                            <div key={index} className="video-card-container col-xs-12 col-sm-6">
+                            <div key={index} className="video-card-container col-xs-12 col-sm-6 col-lg-4">
                                 <VideoCard video={video} />
                             </div>
                         ))}

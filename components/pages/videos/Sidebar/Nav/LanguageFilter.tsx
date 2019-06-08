@@ -3,7 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { Language } from 'rss-feed';
-import { selectLanguage } from 'store/news/actions';
+import { selectLanguage } from 'store/feed/actions';
 
 type Props = {
     language: Language;

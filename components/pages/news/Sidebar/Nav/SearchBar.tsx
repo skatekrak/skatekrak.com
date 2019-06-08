@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import Types from 'Types';
 
 import IconCross from 'components/Ui/Icons/Cross';
-import { search } from 'store/news/actions';
+import { search } from 'store/feed/actions';
 
 type QueryProps = {
     query: string;
