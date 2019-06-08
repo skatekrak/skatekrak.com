@@ -1,9 +1,8 @@
 import { distanceInWordsToNow } from 'date-fns';
 import React from 'react';
-import { FacebookIcon, FacebookShareButton, TwitterIcon, TwitterShareButton } from 'react-share';
 
+import VideoCardShare from 'components/pages/videos/VideoFeed/Video/VideoCardShare';
 import VideoPlayerCaption from 'components/pages/videos/VideoFeed/Video/VideoPlayerCaption';
-import ClipboardButton from 'components/Ui/Button/ClipboardButton';
 import { Video } from 'rss-feed';
 
 type Props = {
@@ -19,18 +18,7 @@ class FeaturedVideo extends React.PureComponent<Props, State> {
         return (
             <div className="video-card video-featured">
                 <VideoPlayerCaption video={video} />
-                <div className="video-card-share">
-                    <FacebookShareButton
-                        url={this.getVideoPopupUrl(video)}
-                        quote={`${video.title} shared via skatekrak.com`}
-                    >
-                        <FacebookIcon size={24} round />
-                    </FacebookShareButton>
-                    <TwitterShareButton url={this.getVideoPopupUrl(video)} title={video.title} via="skatekrak">
-                        <TwitterIcon size={24} round />
-                    </TwitterShareButton>
-                    <ClipboardButton value={this.getVideoPopupUrl(video)} />
-                </div>
+                <VideoCardShare video={video} />
                 <div className="video-featured-details">
                     <p className="video-featured-details-source">
                         by {video.source.title}
@@ -42,10 +30,6 @@ class FeaturedVideo extends React.PureComponent<Props, State> {
                 <h2 className="video-featured-title">{video.title}</h2>
             </div>
         );
-    }
-
-    private getVideoPopupUrl(video: Video): string {
-        return `${window.location.origin}/video?id=${video.id}`;
     }
 }
 

@@ -3,9 +3,8 @@ import { distanceInWordsToNow } from 'date-fns';
 import getConfig from 'next/config';
 import Router from 'next/router';
 import React from 'react';
-import { FacebookIcon, FacebookShareButton, TwitterIcon, TwitterShareButton } from 'react-share';
 
-import ClipboardButton from 'components/Ui/Button/ClipboardButton';
+import VideoCardShare from 'components/pages/videos/VideoFeed/Video/VideoCardShare';
 import Emoji from 'components/Ui/Icons/Emoji';
 import { KrakLoading } from 'components/Ui/Icons/Spinners';
 import Modal from 'components/Ui/Modal';
@@ -58,18 +57,7 @@ class VideoModal extends React.Component<Props, State> {
             <Modal open={open} onClose={this.onClose} closeOnOverlayClick={false}>
                 {video && (
                     <div className="video-modal">
-                        <div className="video-card-share">
-                            <FacebookShareButton
-                                url={this.getVideoPopupUrl(video)}
-                                quote={`${video.title} shared via skatekrak.com`}
-                            >
-                                <FacebookIcon size={24} round />
-                            </FacebookShareButton>
-                            <TwitterShareButton url={this.getVideoPopupUrl(video)} title={video.title} via="skatekrak">
-                                <TwitterIcon size={24} round />
-                            </TwitterShareButton>
-                            <ClipboardButton value={this.getVideoPopupUrl(video)} />
-                        </div>
+                        <VideoCardShare video={video} />
                         <VideoPlayer url={`https://www.youtube.com/watch?v=${video.videoId}`} playing controls />
                         <h2 className="video-modal-title">{video.title}</h2>
                         <div className="video-modal-details">
@@ -101,10 +89,6 @@ class VideoModal extends React.Component<Props, State> {
                 )}
             </Modal>
         );
-    }
-
-    private getVideoPopupUrl(video: Video): string {
-        return `${window.location.origin}/video?id=${video.id}`;
     }
 
     private onClose = () => {
