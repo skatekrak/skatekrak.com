@@ -81,6 +81,10 @@ class CreateAccount extends React.Component<Props & WithApolloProps> {
                                               getConfig().publicRuntimeConfig.NEXT_QUARTER_START
                                           }.`}
                                 </p>
+                                <p className="modal-two-col-content-description-nb">
+                                    nb: we might send you few surprises before the official starting date - yep, that’s
+                                    what it means to be a kraken!
+                                </p>
                                 <div className="form-double-field-line">
                                     <Field name="firstName" placeholder="First name" />
                                     <Field name="lastName" placeholder="Last name" />
