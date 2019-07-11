@@ -18,15 +18,14 @@
 		display: flex
 		flex-direction: column
 		justify-content: space-between
-		padding-bottom: 2rem
+		padding-bottom: 1rem
 		margin-bottom: 6rem
-		min-height: 65vh
+		min-height: 70vh
 		text-align: center
 		color: $white
 
-		+mq($from: "medium")
-			min-height 70vh
-			padding-bottom: 4rem
+		+mq($from: "small")
+			padding-bottom: 2rem
 
 		&-title
 			position: relative
@@ -49,11 +48,12 @@
 				color: $white
 
 		&-sold-out
+			margin: 1rem 0
 			z-index: 10
 
 			& svg
 				width: 50%
-				height: 8rem
+				height: 6rem
 				transform: rotate(-15deg)
 
 				+mq($from: "small")
@@ -62,18 +62,13 @@
 				+mq($from: "infinite")
 					height: 12rem
 
-		&-obsessed
-			font-family: 'Permanent Marker', cursive
-			font-size: $fs-largest
-			transform: rotate(-9deg)
-			z-index: 10
+			&-next
+				margin-top: 1rem
+				font-family: 'Permanent Marker', cursive
+				font-size: $fs-large
 
-			+mq($from: "small")
-				font-size: 3rem
-				transform: none
-
-			+mq($from: "large")
-				font-size: 3.5rem
+				+mq($from: "medium")
+					font-size: $fs-larger
 
 		&-bg-image
 			display: block
@@ -214,11 +209,20 @@
 			z-index: 3
 
 		&-limited
-			margin-bottom: 1rem
+			margin-bottom: .5rem
+			font-size: $fs-small
+
+			+mq($from: "small")
+				margin-bottom: 1rem
+				font-size: $fs-regular
 
 		&-shipping
-			margin-top: 1rem
-			font-size: $fs-medium
+			margin-top: .5rem
+			font-size: $fs-small
+
+			+mq($from: "small")
+				margin-top: 1rem
+				font-size: $fs-medium
 
 			& .emoji
 				margin-right: .5rem
