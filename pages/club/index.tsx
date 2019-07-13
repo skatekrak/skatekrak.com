@@ -81,9 +81,13 @@ class Club extends React.Component<Props, State> {
                                         <h1 id="club-header-title">Krak Skate Club</h1>
                                         <h2 id="club-header-subtitle">Dig deeper into skateboarding</h2>
                                     </div>
-                                    {/* <p id="club-header-obsessed">Obsessed to ride</p> */}
                                     <div id="club-header-sold-out">
                                         <SoldOut />
+                                        <p id="club-header-sold-out-next">
+                                            Next batch starts
+                                            <br />
+                                            on {getConfig().publicRuntimeConfig.NEXT_QUARTER_START}
+                                        </p>
                                     </div>
                                     <div className="club-cta-container">
                                         <p className="club-cta-limited">- Limited quantities available -</p>
