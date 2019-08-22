@@ -161,6 +161,162 @@ fluid-type($properties, $min-vw, $max-vw, $min-value, $max-value)
 				transform: rotate(-90deg)
 				transform-origin: top left
 
+	&-main
+		padding-top: 2rem
+
+		+mq($from: "small")
+			padding-top: 4rem
+
+		+mq($from: "large")
+			min-width: 1024px
+			margin: auto
+
+	&-intro
+		position: relative
+		margin: 0 -1rem
+		padding: 2rem 2rem 4rem
+		background-color: $surface-grey-light
+		box-shadow: $surface-shadow
+
+		+mq($from: "small")
+			padding: 4rem
+
+		+mq($from: "medium")
+			display: flex
+			flex-direction: row-reverse
+			margin: inherit
+			padding: 4rem 2rem
+
+		+mq($from: "large")
+			padding: 4rem
+
+		&-content
+			+mq($from: "medium")
+				display: flex
+				flex-direction: column
+				width: 60%
+
+			+mq($from: "large")
+				width: 40%
+				margin: 3rem 0
+
+			&-title
+				font-family: $ff-roboto-condensed-bold
+				font-size: $fs-larger2
+				margin-bottom: 1rem
+
+			&-desc
+				margin-bottom: 2rem
+				font-size: $fs-medium
+				color: $grey-400
+
+			&-kraken
+				display: flex
+				align-items: center
+				margin-bottom: 2rem
+				font-size: $fs-small
+				color: $grey-500
+
+				&-images
+					display: flex
+					align-items: center
+
+					& .club-intro-content-kraken
+						width: 3rem
+						margin-left: -1rem
+
+						+mq($from: "large")
+							width: 4rem
+
+					& .club-intro-content-kraken:first-child
+						margin-left: 0
+
+					& .club-intro-content-kraken:last-child
+						margin-right: 1rem
+
+					& .club-intro-content-kraken > img
+						width: 100%
+						border-radius: 100%
+
+			&-anchors
+				margin-top: 2rem
+
+				+mq($from: "medium")
+					margin-top: auto
+
+				& .club-intro-content-anchor
+					display: block
+
+				& .club-intro-content-anchor:hover
+					& svg
+						transform: translateX(.5rem)
+				
+				& .club-intro-content-anchor:first-child
+					padding-bottom: 1rem
+					margin-bottom: 1rem
+					border-bottom: 1px solid $surface-divider
+
+				& .club-intro-content-anchor-title
+					display: flex
+					justify-content: space-between
+					align-items: center
+					font-family: $ff-roboto-bold
+
+					& svg
+						width: 1.5rem
+						transition: .3s
+
+				& p
+					margin-top: .25rem
+					color: $grey-400
+						
+
+		&-image
+			position: absolute
+			left: 1rem
+			right: 1rem
+			min-height: 200px
+			max-height: 500px
+			margin-top: 2rem
+			padding-bottom: 75%
+
+			+mq($from: "small")
+				left: 4rem
+				right: 4rem
+				padding-bottom: 33%
+
+			+mq($from: "medium")
+				position: relative
+				left: 0
+				right: 0
+				height: 50vh
+				width: 40%
+				margin:auto 3rem auto 0
+				padding-bottom: 0
+
+			+mq($from: "large")
+				height: 60vh
+				width: 60%
+				margin: 0 4rem 0 -8rem
+
+			&:after
+				content: ''
+				position: absolute
+				top: 0
+				right: 0
+				bottom: 0
+				left: 0
+				background: url('https://res.skatekrak.com/static/skatekrak.com/Krakens/crew_low.jpg')
+				background-repeat: no-repeat
+				background-size: cover
+				background-position: 100%
+
+				+mq($from: "medium")
+					left: -8rem
+
+				+mq($from: "large")
+					left: -4rem
+
 
 /**
  * ANIMATIONS
