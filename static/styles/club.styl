@@ -1,6 +1,22 @@
 @import "./stylus-mq"
 @import "./styleguide"
 
+/********
+ ** Test fluid typography
+ ********/
+fluid-type($properties, $min-vw, $max-vw, $min-value, $max-value)
+	for $property in $properties
+		{$property} $min-value
+		
+	@media screen and (min-width: $min-vw)
+		for $property in $properties
+			{$property} "calc(%s + %s * ((100vw - %s) / %s))" % ($min-value (remove-unit($max-value - $min-value)) $min-vw (remove-unit($max-vw - $min-vw)))
+
+	@media screen and (min-width: $max-vw)
+		for $property in $properties
+			{$property} $max-value
+
+
 /* Club presentation page styles */
 #club
 	padding-top: 0
@@ -13,62 +29,96 @@
 		flex-direction: column
 		padding-top: 4rem
 
-	&-header
+	&-hero
 		position: relative
 		display: flex
 		flex-direction: column
 		justify-content: space-between
+		height: calc(100vh - 115px)
 		padding-bottom: 1rem
 		margin-bottom: 6rem
-		min-height: 70vh
 		text-align: center
 		color: $white
 
 		+mq($from: "small")
-			padding-bottom: 2rem
+			height : calc(100vh - 195px)
+
+		+mq($from: "medium")
+			height: calc(100vh - 4rem)
+
+		&-logo
+			width: 75%
+			max-width: 325px
+			margin: auto auto 0
+
+			+mq($from: "medium")
+				width: 27%
+				min-width: 300px
+				margin-top: 4rem
+
+			+mq($from: "large")
+				max-width: 500px
+				margin: auto
+
+		&-baseline
+			display: none
+			font-family: $ff-roboto-condensed-bold
+			fluid-type(font-size, 20rem, 90rem, 0.875rem, 1.25rem)
+			text-transform: uppercase
+			color: $grey-100
+
+			+mq($from: "medium")
+				display: block
 
 		&-title
-			position: relative
-			margin-bottom: .5rem
-			font-family: $ff-roboto-black
-			font-size: $fs-largest
-			z-index: 2
-
-			+mq($from: "medium")
-				margin-bottom: .5rem
-				color: $white
-
-		&-subtitle
-			position: relative
-			font-size: $fs-regular
+			margin: 25% 0 12.5%
+			fluid-type(margin-top, 20rem, 32rem, 2rem, 5rem)
+			fluid-type(margin-bottom, 20rem, 32rem, 1rem, 3rem)
+			font-family: $ff-roboto-condensed-regular
+			fluid-type(font-size, 20rem, 90rem, 0.875rem, 1.125rem)
+			text-transform: uppercase
 			color: $grey-100
-			z-index: 2
 
 			+mq($from: "medium")
+				margin-top: 4rem
+				margin-bottom: 2rem
+
+				+mq($from: "large")
+					margin-top: 0
+
+		&-cta
+			margin: 0 auto auto
+			fluid-type(margin-bottom, 20rem, 32rem, 2rem, 3rem)
+			fluid-type(font-size, 20rem, 64rem, 1rem, 1.125rem)
+			color: $grey-900
+			text-transform: uppercase
+			background-color: $white
+			box-shadow: $box-shadow-1
+			transition: .3s
+
+			+mq($from: "medium")
+				font-size: 1rem
+			
+			&:hover
 				color: $white
+				background-color: $primaryLight
+				transform: scale(1.05)
 
-		&-sold-out
-			margin: 1rem 0
-			z-index: 10
+		&-discover-more
+			display: flex
+			flex-direction: column
+			align-items: center
+			font-size: $fs-smaller
+			text-transform: uppercase
+			color: $grey-300
 
-			& svg
-				width: 50%
-				height: 6rem
-				transform: rotate(-15deg)
-
-				+mq($from: "small")
-					height: 10rem
-
-				+mq($from: "infinite")
-					height: 12rem
-
-			&-next
-				margin-top: 1rem
-				font-family: 'Permanent Marker', cursive
-				font-size: $fs-large
-
-				+mq($from: "medium")
-					font-size: $fs-larger
+			&-arrow
+				width: 1rem
+				margin: 0 auto
+				fill: $grey-300
+				transform: rotate(90deg)
+				animation: .6s infinite alternate bouncingArrow
+				animation-timing-function: cubic-bezier(.34,.75,.72,.99)
 
 		&-bg-image
 			display: block
@@ -77,6 +127,7 @@
 			background-position: 20% 50%
 			background-size: cover
 			transform: scale(1.02)
+			filter: blur(2px)
 
 			+mq($from: "medium")
 				background-position: center
@@ -87,7 +138,7 @@
 				left: -2rem
 				right: -2rem
 				bottom: 0
-				z-index: 1
+				z-index: -1
 				overflow: hidden
 
 				+mq($from: "small")
@@ -111,197 +162,15 @@
 				transform: rotate(-90deg)
 				transform-origin: top left
 
-	&-main
-		text-align: center
 
-		&-title
-			margin-bottom: 3rem
-			font-family: $ff-roboto-bold
-			font-size: $fs-larger
-			color: $grey-600
-
-			+mq($from: "medium")
-				font-size: $fs-large
-
-		&-benefits
-			position: relative
-
-			+mq($from: "large")
-				max-width: 900px
-				margin: auto
-
-		&-santa
-			margin: 8rem 0 10rem
-			font-size: $fs-larger
-			color: $grey-400
-
-			+mq($from: "medium")
-				font-size: $fs-large
-
-			&-emoji
-				margin-bottom: .5rem
-				font-size: 1.75rem
-
-		&-youtube
-			+mq($from: "large")
-				max-width: 1200px
-				margin: auto
-
-			&-title
-				margin-bottom: 2rem
-				font-family: $ff-roboto-bold
-				font-size: $fs-larger2
-				color: $grey-800
-
-	&-footer
-		margin-top: 6rem
-		text-align: center
-
-		& .club-cta-container
-			color: $grey-600
-
-		&-skateistan
-			position: relative
-			margin: 6rem 0 0
-			text-align: center
-			color: $grey-600
-			z-index: 3
-
-			+mq($from: "medium")
-				display: flex
-				align-items: center
-				margin: 10rem auto 2rem
-				font-size: $fs-small
-				text-align: left
-
-			& #citizens-skateistan
-				display: block
-				width: 4rem
-				margin: 0 auto 1.5rem
-				fill: $grey-600
-
-				+mq($from: "medium")
-					width: 3rem
-					margin: 0 1rem 0 0
-
-			&-link
-				font-family: $ff-roboto-black-italic
-
-			&-citizens
-				+mq($from: "medium")
-					display: block
-
-.club
-	&-cta
-		display: inline-block
-		color: $white
-		background-color: $primary
-		box-shadow: $box-shadow-1
-
-		&:hover
-			background-color: $primaryDark
-
-		+mq($from: "medium")
-			font-size: $fs-medium
-
-		&-container
-			position: relative
-			z-index: 3
-
-		&-limited
-			margin-bottom: .5rem
-			font-size: $fs-small
-
-			+mq($from: "small")
-				margin-bottom: 1rem
-				font-size: $fs-regular
-
-		&-shipping
-			margin-top: .5rem
-			font-size: $fs-small
-
-			+mq($from: "small")
-				margin-top: 1rem
-				font-size: $fs-medium
-
-			& .emoji
-				margin-right: .5rem
-	
-	&-main
-		&-benefit
-			margin-bottom: 3rem
-
-			&-icon
-				display: block
-				max-width: 35%
-				margin: auto
-
-				& svg
-					max-width 100%
-					fill: $grey-200
-
-			&-title
-				margin-bottom: 1rem
-				font-family: 'Permanent Marker', cursive
-				font-size: $fs-larger2
-
-			&-text
-				font-size: $fs-medium
-				color: $grey-600
-
-				&-item
-					display: block
-					margin-bottom: .5rem
-
-					&:last-child
-						margin-bottom: 0
-
-		&-youtube
-			&-item
-				margin-bottom: 2rem
-
-				&:last-child
-					margin-bottom: 0
-
-				&-title
-					margin-top: 1rem
-					font-family: $ff-roboto-condensed-bold
-					font-size: $fs-large
-					text-transform: uppercase
-					color: $grey-800
-					z-index: 3
-
-				&-player
-					position: absolute
-					top: 0
-					right: 0
-					bottom: 0
-					left: 0
-					background-color: $grey-900
-					border-radius: .25rem
-					cursor: pointer
-
-					& .react-player__preview
-						background-size: 101% !important
-						border-radius: .25rem
-
-						&:hover
-							&:after
-								opacity: .2
-
-						&:after
-							content: ''
-							position: absolute
-							top: 0
-							right: 0
-							bottom: 0
-							left: 0
-							background-color: $grey-900
-							border-radius: .25rem
-							opacity: 0
-							transition: .2s
-							pointer-events: none
-
-					&-container
-						position: relative
-						padding-bottom: 56.25%
+/**
+ * ANIMATIONS
+**/
+@keyframes bouncingArrow {
+	from {
+		transform: translateY(0) rotate(90deg)
+	}
+	to {
+		transform: translateY(.5rem) rotate(90deg)
+	}
+}
