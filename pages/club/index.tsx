@@ -11,6 +11,7 @@ import { User } from 'store/auth/reducers';
 import Layout from 'components/Layout/Layout';
 import Hero from 'components/pages/club/landing/Hero';
 import Intro from 'components/pages/club/landing/Intro';
+import Monthly from 'components/pages/club/landing/Monthly';
 import SubscribeModal from 'components/pages/club/subscribe/subscribeModal';
 import TrackedPage from 'components/pages/TrackedPage';
 // import Emoji from 'components/Ui/Icons/Emoji';
@@ -83,6 +84,7 @@ class Club extends React.Component<Props, State> {
                                         currency={this.getPricingText(String())}
                                         pricing={this.getPricingText(String(this.props.payment.price / 100))}
                                     />
+                                    <Monthly />
                                 </main>
                             </div>
                         </>
