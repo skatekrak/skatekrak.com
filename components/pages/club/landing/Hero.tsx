@@ -18,13 +18,8 @@ class Hero extends React.PureComponent<Props, {}> {
 
         return (
             <header id="club-hero">
-                <h3 id="club-hero-baseline">Dig deeper into skateboarding</h3>
                 <img src="/static/images/club/club-hero-logo.svg" alt="Krak skate club" id="club-hero-logo" />
-                <h2 id="club-hero-title">
-                    Join a global community of international
-                    <br />
-                    skateboarders exploring the streets
-                </h2>
+                <h2 id="club-hero-baseline">Dig deeper into skateboarding</h2>
                 {authUser ? (
                     <Link href="/club/profile">
                         <a id="club-hero-cta" className="button-primary">

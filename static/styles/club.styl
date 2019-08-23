@@ -35,16 +35,16 @@ fluid-type($properties, $min-vw, $max-vw, $min-value, $max-value)
 		display: flex
 		flex-direction: column
 		justify-content: space-between
-		height: calc(100vh - 115px)
+		min-height: calc(100vh - 115px)
 		padding-bottom: 1rem
 		text-align: center
 		color: $white
 
 		+mq($from: "small")
-			height : calc(100vh - 195px)
+			min-height : calc(100vh - 195px)
 
 		+mq($from: "medium")
-			height: calc(100vh - 4rem)
+			min-height: calc(100vh - 4rem)
 
 		&-logo
 			width: 75%
@@ -52,39 +52,28 @@ fluid-type($properties, $min-vw, $max-vw, $min-value, $max-value)
 			margin: auto auto 0
 
 			+mq($from: "medium")
-				width: 27%
-				min-width: 300px
-				margin-top: 4rem
+				width: 35%
+				min-width: 320px
+				margin-top: auto
 
 			+mq($from: "large")
+				max-width: 360px
+
+			+mq($from: "infinite")
 				max-width: 500px
-				margin: auto
 
 		&-baseline
-			display: none
-			font-family: $ff-roboto-condensed-bold
-			fluid-type(font-size, 20rem, 90rem, 0.875rem, 1.25rem)
-			text-transform: uppercase
-			color: $grey-100
-
-			+mq($from: "medium")
-				display: block
-
-		&-title
-			margin: 25% 0 12.5%
 			fluid-type(margin-top, 20rem, 32rem, 2rem, 5rem)
 			fluid-type(margin-bottom, 20rem, 32rem, 1rem, 3rem)
-			font-family: $ff-roboto-condensed-regular
-			fluid-type(font-size, 20rem, 90rem, 0.875rem, 1.125rem)
+			font-family: $ff-roboto-condensed-bold
+			fluid-type(font-size, 20rem, 90rem, 1rem, 1.5rem)
 			text-transform: uppercase
 			color: $grey-100
 
 			+mq($from: "medium")
-				margin-top: 4rem
+				margin-top: 3rem
 				margin-bottom: 2rem
-
-				+mq($from: "large")
-					margin-top: 0
+				font-size: $fs-large
 
 		&-cta
 			margin: 0 auto auto
