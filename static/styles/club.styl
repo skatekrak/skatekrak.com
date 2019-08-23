@@ -182,7 +182,7 @@ fluid-type($properties, $min-vw, $max-vw, $min-value, $max-value)
 
 	&-intro
 		position: relative
-		margin: 0 -1rem
+		margin: 0 -1rem 3rem
 		padding: 2rem
 		background-color: $surface-grey-light
 		box-shadow: $surface-shadow
@@ -198,6 +198,7 @@ fluid-type($properties, $min-vw, $max-vw, $min-value, $max-value)
 
 		+mq($from: "large")
 			padding: 4rem
+			margin-bottom: 4rem
 
 		&-content
 			+mq($from: "medium")
@@ -255,6 +256,7 @@ fluid-type($properties, $min-vw, $max-vw, $min-value, $max-value)
 
 				& .club-intro-content-anchor
 					display: block
+					cursor: pointer
 
 				& .club-intro-content-anchor:hover
 					& svg
@@ -328,10 +330,10 @@ fluid-type($properties, $min-vw, $max-vw, $min-value, $max-value)
 
 	&-monthly
 		position: relative
-		padding: 6rem 0
+		padding: 3rem 0
 
 		+mq($from: "large")
-			padding: 8rem 0
+			padding: 4rem 0
 
 		&-main
 			position: relative

@@ -1,6 +1,8 @@
+import jump from 'jump.js';
 import React from 'react';
 
 import IconArrowHead from 'components/Ui/Icons/ArrowHead';
+import ScrollHelper from 'lib/ScrollHelper';
 
 type Props = {
     pricing: string;
@@ -50,13 +52,19 @@ class Intro extends React.PureComponent<Props, {}> {
                         </p>
                     </div>
                     <div id="club-intro-content-anchors">
-                        <a href="#" className="club-intro-content-anchor">
+                        <a
+                            onClick={() => this.handleAnchorScroll('#club-monthly')}
+                            className="club-intro-content-anchor"
+                        >
                             <div className="club-intro-content-anchor-title">
                                 Monthly membership - 9{this.props.currency} / month <IconArrowHead />
                             </div>
                             <p>Join your tribe</p>
                         </a>
-                        <a href="#" className="club-intro-content-anchor">
+                        <a
+                            onClick={() => this.handleAnchorScroll('#club-monthly')}
+                            className="club-intro-content-anchor"
+                        >
                             <div className="club-intro-content-anchor-title">
                                 Quarterly plan - {this.props.pricing} / quarter <IconArrowHead />
                             </div>
@@ -68,6 +76,13 @@ class Intro extends React.PureComponent<Props, {}> {
             </section>
         );
     }
+
+    private handleAnchorScroll = (id: string) => {
+        const scrollContainer = ScrollHelper.getScrollContainer();
+        jump(id, {
+            container: scrollContainer,
+        });
+    };
 }
 
 export default Intro;
