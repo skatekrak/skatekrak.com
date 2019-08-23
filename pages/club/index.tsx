@@ -12,12 +12,9 @@ import Layout from 'components/Layout/Layout';
 import Hero from 'components/pages/club/landing/Hero';
 import Intro from 'components/pages/club/landing/Intro';
 import Monthly from 'components/pages/club/landing/Monthly';
+import Quarterly from 'components/pages/club/landing/Quarterly';
 import SubscribeModal from 'components/pages/club/subscribe/subscribeModal';
 import TrackedPage from 'components/pages/TrackedPage';
-// import Emoji from 'components/Ui/Icons/Emoji';
-// import SkateistanLogo from 'components/Ui/Icons/Logos/Skateistan';
-// import SoldOut from 'components/Ui/Icons/SoldOut';
-// import VideoPlayer from 'components/Ui/Player/VideoPlayer';
 
 type Props = {
     payment: {
@@ -85,6 +82,8 @@ class Club extends React.Component<Props, State> {
                                         pricing={this.getPricingText(String(this.props.payment.price / 100))}
                                     />
                                     <Monthly />
+                                    <div className="club-section-divider" />
+                                    <Quarterly onOpenSubscribeModal={this.onOpenSubscribeModal} />
                                 </main>
                             </div>
                         </>

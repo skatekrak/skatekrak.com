@@ -53,8 +53,9 @@ class Intro extends React.PureComponent<Props, {}> {
                     </div>
                     <div id="club-intro-content-anchors">
                         <a
-                            onClick={() => this.handleAnchorScroll('#club-monthly')}
+                            onClick={this.handleAnchorScroll}
                             className="club-intro-content-anchor"
+                            data-anchor="#club-monthly"
                         >
                             <div className="club-intro-content-anchor-title">
                                 Monthly membership - 9{this.props.currency} / month <IconArrowHead />
@@ -62,8 +63,9 @@ class Intro extends React.PureComponent<Props, {}> {
                             <p>Join your tribe</p>
                         </a>
                         <a
-                            onClick={() => this.handleAnchorScroll('#club-monthly')}
+                            onClick={this.handleAnchorScroll}
                             className="club-intro-content-anchor"
+                            data-anchor="#club-quarterly"
                         >
                             <div className="club-intro-content-anchor-title">
                                 Quarterly plan - {this.props.pricing} / quarter <IconArrowHead />
@@ -77,9 +79,10 @@ class Intro extends React.PureComponent<Props, {}> {
         );
     }
 
-    private handleAnchorScroll = (id: string) => {
+    private handleAnchorScroll = (evt: any) => {
         const scrollContainer = ScrollHelper.getScrollContainer();
-        jump(id, {
+        const scrollTarget = evt.currentTarget.getAttribute('data-anchor');
+        jump(scrollTarget, {
             container: scrollContainer,
         });
     };
