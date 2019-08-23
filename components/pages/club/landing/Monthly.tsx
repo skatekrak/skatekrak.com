@@ -76,7 +76,9 @@ const Monthly: React.SFC = () => (
                         Become a citizen too.
                     </p>
                 </div>
-                <a className="button-primary club-cta">Join us.</a>
+                <a className="button-primary club-cta" href="https://www.krakito.com">
+                    Join us
+                </a>
             </div>
         </div>
     </section>
