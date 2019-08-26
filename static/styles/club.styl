@@ -455,41 +455,27 @@ fluid-type($properties, $min-vw, $max-vw, $min-value, $max-value)
 						&:last-child
 							margin-right: 0
 
+						&:after
+							display: block
+							margin-top: .25rem
+							padding: .25rem
+							color: $surface-grey-light
+
+							+mq($from: "medium")
+								color: $grey-700
+								background-color: $surface-grey-light
+
 				&-krakito
 					&:after
 						content: 'Krakito'
-						display: block
-						margin-top: .25rem
-						padding: .25rem
-						color: $surface-grey-light
-
-						+mq($from: "medium")
-							color: $grey-700
-							background-color: $surface-grey-light
 
 				&-krakapp
 					&:after
 						content: 'Krak app'
-						display: block
-						margin-top: .25rem
-						padding: .25rem
-						color: $surface-grey-light
-
-						+mq($from: "medium")
-							color: $grey-700
-							background-color: $surface-grey-light
 
 				&-kraksession
 					&:after
 						content: 'Krak Session'
-						display: block
-						margin-top: .25rem
-						padding: .25rem
-						color: $surface-grey-light
-
-						+mq($from: "medium")
-							color: $grey-700
-							background-color: $surface-grey-light
 
 		&-sec
 			display: flex
