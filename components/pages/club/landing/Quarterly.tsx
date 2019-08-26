@@ -1,7 +1,7 @@
 import getConfig from 'next/config';
 import React from 'react';
 
-import IconSoldOut from 'components/Ui/Icons/soldOut';
+import IconSoldOut from 'components/Ui/Icons/SoldOut';
 import VideoPlayer from 'components/Ui/Player/VideoPlayer';
 
 type Props = {
