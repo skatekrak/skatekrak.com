@@ -5,10 +5,10 @@ import IconSoldOut from 'components/Ui/Icons/SoldOut';
 import VideoPlayer from 'components/Ui/Player/VideoPlayer';
 
 type Props = {
-    onOpenSubscribeModal: () => void;
+    onOpenQuarterModal: () => void;
 };
 
-const Monthly: React.SFC<Props> = ({ onOpenSubscribeModal }) => (
+const Monthly: React.SFC<Props> = ({ onOpenQuarterModal }) => (
     <section id="club-quarterly">
         <h2 className="club-section-title">Quarterly membership</h2>
         <p className="club-section-subtitle">Limited quantities available</p>
@@ -22,7 +22,7 @@ const Monthly: React.SFC<Props> = ({ onOpenSubscribeModal }) => (
                 <IconSoldOut />
                 <p id="club-quarterly-main-date-title">Next batch starts on</p>
                 <p id="club-quarterly-main-date">{getConfig().publicRuntimeConfig.NEXT_QUARTER_START}</p>
-                <button className="club-cta button-primary" onClick={onOpenSubscribeModal}>
+                <button className="club-cta button-primary" onClick={onOpenQuarterModal}>
                     Save your spot
                 </button>
             </div>
@@ -44,7 +44,7 @@ const Monthly: React.SFC<Props> = ({ onOpenSubscribeModal }) => (
                 <p id="club-quarterly-main-shipping-desc">
                     It’s damn simple. We put Santa Claus on a board all year long 🎄🎅🌴
                 </p>
-                <p id="club-quarterly-main-shipping-countries">
+                <div id="club-quarterly-main-shipping-countries">
                     Only open for those countries:
                     <div id="club-quarterly-main-shipping-countries-flag">
                         <img src="https://res.skatekrak.com/static/skatekrak.com/flags/united-states.svg" alt="Flag" />
@@ -55,7 +55,7 @@ const Monthly: React.SFC<Props> = ({ onOpenSubscribeModal }) => (
                         <img src="https://res.skatekrak.com/static/skatekrak.com/flags/belgium.svg" alt="Flag" />
                         <img src="https://res.skatekrak.com/static/skatekrak.com/flags/netherlands.svg" alt="Flag" />
                     </div>
-                </p>
+                </div>
             </div>
             <div id="club-quarterly-main-image1" />
             <div id="club-quarterly-main-image2" />

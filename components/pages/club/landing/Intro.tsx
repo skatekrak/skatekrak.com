@@ -6,7 +6,6 @@ import ScrollHelper from 'lib/ScrollHelper';
 
 type Props = {
     pricing: string;
-    currency: string;
 };
 
 class Intro extends React.PureComponent<Props, {}> {
@@ -58,7 +57,7 @@ class Intro extends React.PureComponent<Props, {}> {
                             data-anchor="#club-monthly"
                         >
                             <div className="club-intro-content-anchor-title">
-                                Monthly membership - 9{this.props.currency} / month <IconArrowHead />
+                                Monthly membership - 9 / month <IconArrowHead />
                             </div>
                             <p>Join your tribe</p>
                         </a>

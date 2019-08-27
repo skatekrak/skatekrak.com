@@ -9,12 +9,12 @@ import ScrollHelper from 'lib/ScrollHelper';
 
 type Props = {
     authUser?: User;
-    onOpenSubscribeModal: () => void;
+    onOpenSummaryModal: () => void;
 };
 
 class Hero extends React.PureComponent<Props, {}> {
     public render() {
-        const { authUser, onOpenSubscribeModal } = this.props;
+        const { authUser, onOpenSummaryModal } = this.props;
 
         return (
             <header id="club-hero">
@@ -27,7 +27,7 @@ class Hero extends React.PureComponent<Props, {}> {
                         </a>
                     </Link>
                 ) : (
-                    <button id="club-hero-cta" className="button-primary" onClick={onOpenSubscribeModal}>
+                    <button id="club-hero-cta" className="button-primary" onClick={onOpenSummaryModal}>
                         Become a Kraken
                     </button>
                 )}

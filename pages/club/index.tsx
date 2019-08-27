@@ -16,6 +16,8 @@ import Quarterly from 'components/pages/club/landing/Quarterly';
 import SubscribeModal from 'components/pages/club/subscribe/subscribeModal';
 import TrackedPage from 'components/pages/TrackedPage';
 
+import { getPricingText } from 'lib/moneyHelper';
+
 type Props = {
     payment: {
         price: number;
@@ -27,6 +29,7 @@ type Props = {
 type State = {
     stripe?: any;
     isSubscribeModalOpen: boolean;
+    modalStep: string;
 };
 
 const ClubHead = () => (
@@ -51,6 +54,7 @@ class Club extends React.Component<Props, State> {
     public state: State = {
         stripe: null,
         isSubscribeModalOpen: false,
+        modalStep: 'summary',
     };
 
     public componentDidMount() {
@@ -65,25 +69,28 @@ class Club extends React.Component<Props, State> {
     }
 
     public render() {
-        const { isSubscribeModalOpen } = this.state;
+        const { payment } = this.props;
+        const { isSubscribeModalOpen, modalStep } = this.state;
         return (
             <TrackedPage name="Club">
                 <Layout head={<ClubHead />}>
                     <StripeProvider stripe={this.state.stripe}>
                         <>
                             <Elements>
-                                <SubscribeModal open={isSubscribeModalOpen} onClose={this.onCloseSubscribeModal} />
+                                <SubscribeModal
+                                    open={isSubscribeModalOpen}
+                                    onClose={this.onCloseSubscribeModal}
+                                    modalStep={modalStep}
+                                    pricing={getPricingText(String(payment.price / 100), payment.currency)}
+                                />
                             </Elements>
                             <div id="club" className="inner-page-container container-fluid">
-                                <Hero authUser={this.props.authUser} onOpenSubscribeModal={this.onOpenSubscribeModal} />
+                                <Hero authUser={this.props.authUser} onOpenSummaryModal={this.onOpenSummaryModal} />
                                 <main id="club-main">
-                                    <Intro
-                                        currency={this.getPricingText(String())}
-                                        pricing={this.getPricingText(String(this.props.payment.price / 100))}
-                                    />
+                                    <Intro pricing={getPricingText(String(payment.price / 100), payment.currency)} />
                                     <Monthly />
                                     <div className="club-section-divider" />
-                                    <Quarterly onOpenSubscribeModal={this.onOpenSubscribeModal} />
+                                    <Quarterly onOpenQuarterModal={this.onOpenQuarterModal} />
                                 </main>
                             </div>
                         </>
@@ -93,31 +100,23 @@ class Club extends React.Component<Props, State> {
         );
     }
 
-    private onOpenSubscribeModal = () => {
+    private onOpenSummaryModal = () => {
         this.setState({
             isSubscribeModalOpen: true,
+            modalStep: 'summary',
+        });
+    };
+
+    private onOpenQuarterModal = () => {
+        this.setState({
+            isSubscribeModalOpen: true,
+            modalStep: 'account',
         });
     };
 
     private onCloseSubscribeModal = () => {
-        this.setState({ isSubscribeModalOpen: false });
+        this.setState({ isSubscribeModalOpen: false, modalStep: 'summary' });
     };
-
-    private getPricingText(price: string): string {
-        const { payment } = this.props;
-        let res = '';
-        if (payment.currency === 'usd') {
-            res += '$';
-        }
-        if (payment.currency === 'gbp') {
-            res += '£';
-        }
-        res += price;
-        if (payment.currency === 'eur') {
-            res += '€';
-        }
-        return res;
-    }
 }
 
 const mapStateToProps = ({ payment, auth }: Types.RootState) => {
