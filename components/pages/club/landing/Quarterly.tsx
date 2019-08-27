@@ -1,6 +1,7 @@
 import getConfig from 'next/config';
 import React from 'react';
 
+import Emoji from 'components/Ui/Icons/Emoji';
 import IconSoldOut from 'components/Ui/Icons/SoldOut';
 import VideoPlayer from 'components/Ui/Player/VideoPlayer';
 
@@ -55,6 +56,9 @@ const Monthly: React.SFC<Props> = ({ onOpenQuarterModal }) => (
                         <img src="https://res.skatekrak.com/static/skatekrak.com/flags/belgium.svg" alt="Flag" />
                         <img src="https://res.skatekrak.com/static/skatekrak.com/flags/netherlands.svg" alt="Flag" />
                     </div>
+                    <p>
+                        <Emoji symbol="🚚" label="Truck" /> Free shipping
+                    </p>
                 </div>
             </div>
             <div id="club-quarterly-main-image1" />
