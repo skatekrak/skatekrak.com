@@ -11,7 +11,6 @@ variables:
   BUILD_TAG_PROD: build-prod
   STAGING_TAG: staging
   STABLE_TAG: latest
-  CI_REGISTRY: https://$CI_REGISTRY
 
 .build:
   stage: build
@@ -19,7 +18,7 @@ variables:
   services:
     - docker:dind
   script:
-    - echo $CI_JOB_TOKEN | docker login -u gitlab-ci-token --password-stdin $CI_REGISTRY
+    - echo $CI_JOB_TOKEN | docker login -u gitlab-ci-token --password-stdin https://$CI_REGISTRY
     - docker pull $CI_REGISTRY_IMAGE:$BUILD_TAG || true
     - docker-compose -f docker-compose.ci.yml build $DOCKER_BUILD_NAME
     - docker push $CI_REGISTRY_IMAGE:$BUILD_TAG
@@ -53,7 +52,7 @@ build_prod:
   services:
     - docker:dind
   before_script:
-    - echo $CI_JOB_TOKEN | docker login -u gitlab-ci-token --password-stdin $CI_REGISTRY
+    - echo $CI_JOB_TOKEN | docker login -u gitlab-ci-token --password-stdin https://$CI_REGISTRY
     - docker pull $CI_REGISTRY_IMAGE:$BUILD_TAG
   when: on_success
 
