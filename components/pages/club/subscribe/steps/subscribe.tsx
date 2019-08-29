@@ -12,6 +12,7 @@ import Types from 'Types';
 import withApollo, { WithApolloProps } from 'hocs/withApollo';
 
 import { checkPath } from 'lib/checkPath';
+import { getPricingText } from 'lib/moneyHelper';
 import { userSignin } from 'store/auth/actions';
 import { updateFormState } from 'store/form/actions';
 import { savePricingCurrency } from 'store/payment/actions';
@@ -65,7 +66,7 @@ class Subscribe extends React.Component<Props & WithApolloProps & ReactStripeEle
                         <div className="modal-two-col-first-container modal-two-col-item-container">
                             <h1 className="modal-two-col-title">{!quarterFull ? 'Become a Kraken' : 'Pre-pay'}</h1>
                             <div className="modal-two-col-content">
-                                <p className="modal-two-col-content-description" data-size="fs-regular">
+                                <div className="modal-two-col-content-description" data-size="fs-regular">
                                     {quarterFull && (
                                         <p className="modal-two-col-content-description-paragraph">
                                             Pre-pay your membership now and be sure to become a Kraken from{' '}
@@ -77,12 +78,15 @@ class Subscribe extends React.Component<Props & WithApolloProps & ReactStripeEle
                                         ? `On ${getConfig().publicRuntimeConfig.NEXT_QUARTER_START}`
                                         : `On ${getConfig().publicRuntimeConfig.NEXT_QUARTER_END}`}
                                     , your membership will be automatically renewed. Of course, you can cancel anytime.
-                                </p>
+                                </div>
                                 <div className="subscribe-payment-line">
                                     <p className="subscribe-payment-line-title">Club membership:</p>
                                     <div className="subscribe-payment-line-separator" />
                                     <span className="subscribe-payment-line-price">
-                                        {this.getPricingText(String(this.props.payment.price / 100))}
+                                        {getPricingText(
+                                            String(this.props.payment.price / 100),
+                                            this.props.payment.currency,
+                                        )}
                                     </span>
                                 </div>
                                 <div className="form-element" data-element-name="creditCard">
@@ -177,7 +181,8 @@ class Subscribe extends React.Component<Props & WithApolloProps & ReactStripeEle
                                 loading={submitting}
                                 loadingContent="Paying"
                             >
-                                Pay {this.getPricingText(String(this.props.payment.price / 100))}
+                                Pay{' '}
+                                {getPricingText(String(this.props.payment.price / 100), this.props.payment.currency)}
                             </ButtonPrimary>
                         </div>
                     </form>
@@ -300,22 +305,6 @@ class Subscribe extends React.Component<Props & WithApolloProps & ReactStripeEle
             this.setState({ addressView: 'billing' });
         }
     };
-
-    private getPricingText(price: string): string {
-        const { payment } = this.props;
-        let res = '';
-        if (payment.currency === 'usd') {
-            res += '$';
-        }
-        if (payment.currency === 'gbp') {
-            res += '£';
-        }
-        res += price;
-        if (payment.currency === 'eur') {
-            res += '€';
-        }
-        return res;
-    }
 
     private checkSpecial = async (value) => {
         if (value) {

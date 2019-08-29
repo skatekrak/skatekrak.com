@@ -15,6 +15,8 @@ import Field from 'components/Ui/Form/Field';
 
 import { updateFormState } from 'store/form/actions';
 
+import { getPricingText } from 'lib/moneyHelper';
+
 type Props = {
     onNextClick: () => void;
     updateFormState: (form, state) => void;
@@ -31,7 +33,7 @@ class CreateAccount extends React.Component<Props & WithApolloProps> {
         return (
             <Form onSubmit={this.handleSubmit} validate={validateForm}>
                 {({ handleSubmit, submitting, submitError }) => (
-                    <form className="subscribe modal-two-col-container modal-two-col-form" onSubmit={handleSubmit}>
+                    <form className="modal-two-col-container modal-two-col-form" onSubmit={handleSubmit}>
                         <FormSpy onChange={this.onFormChange} />
                         <div className="modal-two-col-first-container">
                             <article id="subscribe-promote">
@@ -42,7 +44,7 @@ class CreateAccount extends React.Component<Props & WithApolloProps> {
                                 </header>
                                 <main id="subscribe-promote-main">
                                     <p id="subscribe-promote-main-price">
-                                        {this.getPricingText(String(payment.price / 100))} today
+                                        {getPricingText(String(payment.price / 100), payment.currency)} today
                                     </p>
                                     {!quarterFull ? (
                                         <>
@@ -128,22 +130,6 @@ class CreateAccount extends React.Component<Props & WithApolloProps> {
             return { [FORM_ERROR]: 'Oops, something went wrong, try later or contact us' };
         }
     };
-
-    private getPricingText(price: string): string {
-        const { payment } = this.props;
-        let res = '';
-        if (payment.currency === 'usd') {
-            res += '$';
-        }
-        if (payment.currency === 'gbp') {
-            res += '£';
-        }
-        res += price;
-        if (payment.currency === 'eur') {
-            res += '€';
-        }
-        return res;
-    }
 
     private onFormChange = (state) => {
         this.props.updateFormState('account', state.values);

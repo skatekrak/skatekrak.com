@@ -18,6 +18,9 @@ import 'static/styles/styleguide.styl';
 import 'static/styles/stylus-mq.styl';
 import 'static/styles/form.styl';
 import 'static/styles/modal.styl';
+import 'static/styles/checkbox.styl';
+import 'static/styles/icons.styl';
+import 'static/styles/ui.styl';
 
 import 'static/styles/auth.styl';
 import 'static/styles/subscribe.styl';
@@ -25,10 +28,6 @@ import 'static/styles/onboarding.styl';
 import 'static/styles/club.styl';
 import 'static/styles/news.styl';
 import 'static/styles/videos.styl';
-
-import 'static/styles/checkbox.styl';
-import 'static/styles/icons.styl';
-import 'static/styles/ui.styl';
 
 import 'react-datepicker/dist/react-datepicker.css';
 import 'static/styles/react-datepicker.css';

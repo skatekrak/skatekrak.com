@@ -46,12 +46,16 @@ class Login extends React.Component<Props> {
                 <Layout head={<LoginHead />}>
                     <div className="auth-container container-fluid">
                         <div className="auth-form-container">
-                            <h1 className="auth-form-title">Enter the club</h1>
+                            <h1 className="auth-form-title">Quarterly Kraken only</h1>
                             <p className="auth-form-desc">
                                 {this.props.showMessage ? (
                                     <ErrorMessage message={this.props.alertMessage} />
                                 ) : (
-                                    'Welcome back Kraken!'
+                                    <span>
+                                        Keep your details like
+                                        <br />
+                                        size & address up-to-date here
+                                    </span>
                                 )}
                             </p>
                             <Form
