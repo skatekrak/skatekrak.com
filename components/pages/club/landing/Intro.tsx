@@ -2,10 +2,12 @@ import jump from 'jump.js';
 import React from 'react';
 
 import IconArrowHead from 'components/Ui/Icons/ArrowHead';
+import Emoji from 'components/Ui/Icons/Emoji';
 import ScrollHelper from 'lib/ScrollHelper';
 
 type Props = {
-    pricing: string;
+    pricingQuarter: string;
+    pricingMonth: string;
 };
 
 class Intro extends React.PureComponent<Props, {}> {
@@ -57,7 +59,7 @@ class Intro extends React.PureComponent<Props, {}> {
                             data-anchor="#club-monthly"
                         >
                             <div className="club-intro-content-anchor-title">
-                                Monthly membership - 9 / month <IconArrowHead />
+                                Monthly membership - {this.props.pricingMonth} / month <IconArrowHead />
                             </div>
                             <p>Join your tribe</p>
                         </a>
@@ -67,9 +69,13 @@ class Intro extends React.PureComponent<Props, {}> {
                             data-anchor="#club-quarterly"
                         >
                             <div className="club-intro-content-anchor-title">
-                                Quarterly plan - {this.props.pricing} / quarter <IconArrowHead />
+                                <div>
+                                    <Emoji symbol="📦" label="Box" /> Quarterly membership - {this.props.pricingQuarter}{' '}
+                                    / quarter
+                                </div>
+                                <IconArrowHead />
                             </div>
-                            <p>Your tribe + products at home</p>
+                            <p>Join your tribe + receive products at home</p>
                         </a>
                     </div>
                 </div>

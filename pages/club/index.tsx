@@ -81,13 +81,17 @@ class Club extends React.Component<Props, State> {
                                     open={isSubscribeModalOpen}
                                     onClose={this.onCloseSubscribeModal}
                                     modalStep={modalStep}
-                                    pricing={getPricingText(String(payment.price / 100), payment.currency)}
+                                    pricingQuarter={getPricingText(String(payment.price / 100), payment.currency)}
+                                    pricingMonth={getPricingText(String(9), payment.currency)}
                                 />
                             </Elements>
                             <div id="club" className="inner-page-container container-fluid">
                                 <Hero authUser={this.props.authUser} onOpenSummaryModal={this.onOpenSummaryModal} />
                                 <main id="club-main">
-                                    <Intro pricing={getPricingText(String(payment.price / 100), payment.currency)} />
+                                    <Intro
+                                        pricingQuarter={getPricingText(String(payment.price / 100), payment.currency)}
+                                        pricingMonth={getPricingText(String(9), payment.currency)}
+                                    />
                                     <Monthly />
                                     <div className="club-section-divider" />
                                     <Quarterly onOpenQuarterModal={this.onOpenQuarterModal} />

@@ -261,7 +261,13 @@ fluid-type($properties, $min-vw, $max-vw, $min-value, $max-value)
 					display: flex
 					justify-content: space-between
 					align-items: center
+					margin-right: -1rem
 					font-family: $ff-roboto-bold
+					font-size: $fs-small
+
+					+mq($from: "small")
+						margin-right: 0
+						font-size: $fs-regular
 
 					& svg
 						width: 1.5rem
@@ -715,25 +721,16 @@ fluid-type($properties, $min-vw, $max-vw, $min-value, $max-value)
 						padding-bottom: .75rem
 						border-bottom: 1px solid $surface-divider
 
-					& span
-						font-size: $fs-medium
-
-						+mq($from: "medium")
-							font-size: $fs-small
-
-						+mq($from: "large")
-							font-size: $fs-medium
-
 					&:last-child
 						margin-bottom: 0
-						font-size: $fs-medium
+						font-size: $fs-large
 						border-bottom: none
 
 						+mq($from: "medium")
-							font-size: $fs-small
+							font-size: $fs-regular
 
-							+mq($from: "large")
-								font-size: $fs-medium
+						+mq($from: "large")
+							font-size: $fs-medium
 
 			&-shipping
 				&-container

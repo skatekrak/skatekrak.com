@@ -259,3 +259,12 @@
 				margin-bottom: .5rem
 				font-size: $fs-small
 				color: $grey-700
+
+				+mq($from: "small")
+					margin-top: auto
+
+				& + .subscribe-summary-cta
+					margin-top: 0.5rem
+
+					+mq($from: "large")
+						margin-top: 1rem

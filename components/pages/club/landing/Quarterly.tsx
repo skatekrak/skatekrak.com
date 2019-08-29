@@ -14,9 +14,9 @@ const Monthly: React.SFC<Props> = ({ onOpenQuarterModal }) => (
         <h2 className="club-section-title">Quarterly membership</h2>
         <p className="club-section-subtitle">Limited quantities available</p>
         <p className="club-section-desc">
-            Enjoy skateboarding more. We're so passionate to work with <br />
-            independant skate brands & artists around the world that we had <br />
-            to keep that launchpad alive. Shout out to all of them.
+            Enjoy skateboarding more. We've been supporting independent <br />
+            skate brands & artists around the world for the past 4 years.
+            <br /> Shout out to all of them.
         </p>
         <div id="club-quarterly-main">
             <div id="club-quarterly-main-date-container">
@@ -35,10 +35,7 @@ const Monthly: React.SFC<Props> = ({ onOpenQuarterModal }) => (
                     <li className="club-quarterly-main-benefit">an exclusive deck +</li>
                     <li className="club-quarterly-main-benefit">an exclusive T-shirt +</li>
                     <li className="club-quarterly-main-benefit">the one & only KrakBox +</li>
-                    <li className="club-quarterly-main-benefit">
-                        few surprises <span>[some are big!]</span>
-                    </li>
-                    <li className="club-quarterly-main-benefit">+ everything from the monthly plan</li>
+                    <li className="club-quarterly-main-benefit">everything from the monthly plan</li>
                 </ul>
             </div>
             <div id="club-quarterly-main-shipping-container">

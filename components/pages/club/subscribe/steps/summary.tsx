@@ -5,18 +5,19 @@ import IconSoldOut from 'components/Ui/Icons/SoldOut';
 
 type Props = {
     onNextClick: () => void;
-    pricing: string;
+    pricingQuarter: string;
+    pricingMonth: string;
 };
 
 class Summary extends React.Component<Props, {}> {
     public render() {
-        const { onNextClick, pricing } = this.props;
+        const { onNextClick, pricingQuarter, pricingMonth } = this.props;
         const quarterFull: boolean = getConfig().publicRuntimeConfig.IS_QUARTERFULL;
         return (
             <div className="subscribe modal-two-col-container modal-two-col-form subscribe-summary">
                 <div className="modal-two-col-first-container modal-two-col-item-container">
                     <h3 className="subscribe-summary-title">Monthly membership</h3>
-                    <p className="subscribe-summary-price">9 / month</p>
+                    <p className="subscribe-summary-price">{pricingMonth} / month</p>
                     <ul className="subscribe-summary-app-container">
                         <li className="subscribe-summary-app">
                             <img src="https://res.skatekrak.com/static/skatekrak.com/Icons/krakito.svg" alt="Krakito" />
@@ -47,7 +48,7 @@ class Summary extends React.Component<Props, {}> {
                 </div>
                 <div className="modal-two-col-second-container modal-two-col-item-container">
                     <h3 className="subscribe-summary-title">Quarterly membership</h3>
-                    <p className="subscribe-summary-price">{pricing} / quarterly</p>
+                    <p className="subscribe-summary-price">{pricingQuarter} / quarterly</p>
                     <div className="subscribe-summary-quarter-status">
                         {!quarterFull ? (
                             'Become a Kraken.'
@@ -56,7 +57,6 @@ class Summary extends React.Component<Props, {}> {
                                 <span>Next batch</span>
                                 <IconSoldOut />
                                 <span>{removeYear(getConfig().publicRuntimeConfig.NEXT_QUARTER_START)}</span>
-                                {/* <span>October 5th</span> */}
                             </div>
                         )}
                     </div>
@@ -67,7 +67,6 @@ class Summary extends React.Component<Props, {}> {
                         <li className="subscribe-summary-benefit">an exclusive deck +</li>
                         <li className="subscribe-summary-benefit">an exclusive T-shirt +</li>
                         <li className="subscribe-summary-benefit">the one & only KrakBox +</li>
-                        <li className="subscribe-summary-benefit">few surprises [some are big!]</li>
                     </ul>
                     <p className="subscribe-summary-cta-text">Limited quantities available</p>
                     <button className="button-primary subscribe-summary-cta" onClick={onNextClick}>
