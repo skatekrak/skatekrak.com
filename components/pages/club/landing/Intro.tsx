@@ -17,7 +17,7 @@ class Intro extends React.PureComponent<Props, {}> {
                 <div id="club-intro-content">
                     <h2 id="club-intro-content-title">Never ride alone anymore</h2>
                     <p id="club-intro-content-desc">
-                        Join a global community of international skateboarders exploring the streets
+                        Join a global community of international skateboarders exploring the streets.
                     </p>
                     <div id="club-intro-content-kraken">
                         <ul id="club-intro-content-kraken-images">
