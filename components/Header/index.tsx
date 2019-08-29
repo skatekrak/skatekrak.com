@@ -96,16 +96,6 @@ class Header extends React.Component<Props, State> {
                                         >
                                             <IconCross />
                                         </button>
-                                        <p className="header-nav-main-item-app-text">
-                                            We are currently building the web app prototype, if you wanna help us
-                                            improve the whole thing, send an email to&nbsp;
-                                            <a
-                                                href="mailto:app@skatekrak.com"
-                                                className="header-nav-main-item-app-text-mail"
-                                            >
-                                                app@skatekrak.com
-                                            </a>
-                                        </p>
                                     </>
                                 )}
                             </div>

@@ -1,9 +1,26 @@
 @import "./stylus-mq"
 @import "./styleguide"
 
+/********
+ ** Test fluid typography
+ ********/
+fluid-type($properties, $min-vw, $max-vw, $min-value, $max-value)
+	for $property in $properties
+		{$property} $min-value
+		
+	@media screen and (min-width: $min-vw)
+		for $property in $properties
+			{$property} "calc(%s + %s * ((100vw - %s) / %s))" % ($min-value (remove-unit($max-value - $min-value)) $min-vw (remove-unit($max-vw - $min-vw)))
+
+	@media screen and (min-width: $max-vw)
+		for $property in $properties
+			{$property} $max-value
+
+
 /* Club presentation page styles */
 #club
 	padding-top: 0
+	padding-bottom: 0
 
 	+mq($from: "small")
 		padding-top: 2rem
@@ -13,62 +30,84 @@
 		flex-direction: column
 		padding-top: 4rem
 
-	&-header
+	&-hero
 		position: relative
 		display: flex
 		flex-direction: column
 		justify-content: space-between
+		min-height: calc(100vh - 115px)
 		padding-bottom: 1rem
-		margin-bottom: 6rem
-		min-height: 70vh
 		text-align: center
 		color: $white
 
 		+mq($from: "small")
-			padding-bottom: 2rem
+			min-height : calc(100vh - 195px)
 
-		&-title
-			position: relative
-			margin-bottom: .5rem
-			font-family: $ff-roboto-black
-			font-size: $fs-largest
-			z-index: 2
+		+mq($from: "medium")
+			min-height: calc(100vh - 4rem)
+
+		&-logo
+			width: 75%
+			max-width: 325px
+			margin: auto auto 0
 
 			+mq($from: "medium")
-				margin-bottom: .5rem
-				color: $white
+				width: 35%
+				min-width: 320px
+				margin-top: auto
 
-		&-subtitle
-			position: relative
-			font-size: $fs-regular
+			+mq($from: "large")
+				max-width: 360px
+
+			+mq($from: "infinite")
+				max-width: 500px
+
+		&-baseline
+			fluid-type(margin-top, 20rem, 32rem, 2rem, 5rem)
+			fluid-type(margin-bottom, 20rem, 32rem, 1rem, 3rem)
+			font-family: $ff-roboto-condensed-bold
+			fluid-type(font-size, 20rem, 90rem, 1rem, 1.5rem)
+			text-transform: uppercase
 			color: $grey-100
-			z-index: 2
 
 			+mq($from: "medium")
-				color: $white
-
-		&-sold-out
-			margin: 1rem 0
-			z-index: 10
-
-			& svg
-				width: 50%
-				height: 6rem
-				transform: rotate(-15deg)
-
-				+mq($from: "small")
-					height: 10rem
-
-				+mq($from: "infinite")
-					height: 12rem
-
-			&-next
-				margin-top: 1rem
-				font-family: 'Permanent Marker', cursive
+				margin-top: 3rem
+				margin-bottom: 2rem
 				font-size: $fs-large
 
-				+mq($from: "medium")
-					font-size: $fs-larger
+		&-cta
+			margin: 0 auto auto
+			fluid-type(margin-bottom, 20rem, 32rem, 2rem, 3rem)
+			fluid-type(font-size, 20rem, 64rem, 1rem, 1.125rem)
+			color: $grey-900
+			text-transform: uppercase
+			background-color: $white
+			box-shadow: $box-shadow-1
+			transition: .3s
+
+			+mq($from: "medium")
+				font-size: 1rem
+			
+			&:hover
+				color: $white
+				background-color: $primaryLight
+				transform: scale(1.05)
+
+		&-discover-more
+			display: flex
+			flex-direction: column
+			align-items: center
+			font-size: $fs-smaller
+			text-transform: uppercase
+			color: $grey-300
+
+			&-arrow
+				width: 1rem
+				margin: 0 auto
+				fill: $grey-300
+				transform: rotate(90deg)
+				animation: .6s infinite alternate bouncingArrow
+				animation-timing-function: cubic-bezier(.34,.75,.72,.99)
 
 		&-bg-image
 			display: block
@@ -77,6 +116,7 @@
 			background-position: 20% 50%
 			background-size: cover
 			transform: scale(1.02)
+			filter: blur(2px)
 
 			+mq($from: "medium")
 				background-position: center
@@ -87,7 +127,7 @@
 				left: -2rem
 				right: -2rem
 				bottom: 0
-				z-index: 1
+				z-index: -1
 				overflow: hidden
 
 				+mq($from: "small")
@@ -111,197 +151,832 @@
 				transform: rotate(-90deg)
 				transform-origin: top left
 
+
+
+
+
+
+
+
+
+
 	&-main
-		text-align: center
+		padding-top: 2rem
 
-		&-title
-			margin-bottom: 3rem
-			font-family: $ff-roboto-bold
-			font-size: $fs-larger
-			color: $grey-600
+		+mq($from: "small")
+			padding-top: 4rem
 
-			+mq($from: "medium")
-				font-size: $fs-large
+		+mq($from: "large")
+			min-width: 1024px
+			margin: auto
 
-		&-benefits
-			position: relative
+	&-intro
+		position: relative
+		margin: 0 -1rem 3rem
+		padding: 2rem
+		background-color: $surface-grey-light
+		box-shadow: $surface-shadow
 
-			+mq($from: "large")
-				max-width: 900px
-				margin: auto
-
-		&-santa
-			margin: 8rem 0 10rem
-			font-size: $fs-larger
-			color: $grey-400
-
-			+mq($from: "medium")
-				font-size: $fs-large
-
-			&-emoji
-				margin-bottom: .5rem
-				font-size: 1.75rem
-
-		&-youtube
-			+mq($from: "large")
-				max-width: 1200px
-				margin: auto
-
-			&-title
-				margin-bottom: 2rem
-				font-family: $ff-roboto-bold
-				font-size: $fs-larger2
-				color: $grey-800
-
-	&-footer
-		margin-top: 6rem
-		text-align: center
-
-		& .club-cta-container
-			color: $grey-600
-
-		&-skateistan
-			position: relative
-			margin: 6rem 0 0
-			text-align: center
-			color: $grey-600
-			z-index: 3
-
-			+mq($from: "medium")
-				display: flex
-				align-items: center
-				margin: 10rem auto 2rem
-				font-size: $fs-small
-				text-align: left
-
-			& #citizens-skateistan
-				display: block
-				width: 4rem
-				margin: 0 auto 1.5rem
-				fill: $grey-600
-
-				+mq($from: "medium")
-					width: 3rem
-					margin: 0 1rem 0 0
-
-			&-link
-				font-family: $ff-roboto-black-italic
-
-			&-citizens
-				+mq($from: "medium")
-					display: block
-
-.club
-	&-cta
-		display: inline-block
-		color: $white
-		background-color: $primary
-		box-shadow: $box-shadow-1
-
-		&:hover
-			background-color: $primaryDark
+		+mq($from: "small")
+			padding: 4rem
 
 		+mq($from: "medium")
-			font-size: $fs-medium
+			display: flex
+			flex-direction: row-reverse
+			margin: inherit
+			padding: 4rem 2rem
 
-		&-container
-			position: relative
-			z-index: 3
+		+mq($from: "large")
+			padding: 4rem
+			margin-bottom: 4rem
 
-		&-limited
-			margin-bottom: .5rem
-			font-size: $fs-small
+		&-content
+			+mq($from: "medium")
+				display: flex
+				flex-direction: column
+				width: 60%
 
-			+mq($from: "small")
-				margin-bottom: 1rem
-				font-size: $fs-regular
-
-		&-shipping
-			margin-top: .5rem
-			font-size: $fs-small
-
-			+mq($from: "small")
-				margin-top: 1rem
-				font-size: $fs-medium
-
-			& .emoji
-				margin-right: .5rem
-	
-	&-main
-		&-benefit
-			margin-bottom: 3rem
-
-			&-icon
-				display: block
-				max-width: 35%
-				margin: auto
-
-				& svg
-					max-width 100%
-					fill: $grey-200
+			+mq($from: "large")
+				width: 40%
+				margin: 3rem 0
 
 			&-title
+				font-family: $ff-roboto-condensed-bold
+				font-size: $fs-larger2
 				margin-bottom: 1rem
-				font-family: 'Permanent Marker', cursive
+
+			&-desc
+				margin-bottom: 2rem
+				font-size: $fs-medium
+				color: $grey-400
+
+			&-kraken
+				display: flex
+				align-items: center
+				margin-bottom: 2rem
+				font-size: $fs-small
+				color: $grey-500
+
+				&-images
+					display: flex
+					align-items: center
+
+					& .club-intro-content-kraken
+						width: 3rem
+						margin-left: -1rem
+
+						+mq($from: "large")
+							width: 4rem
+
+					& .club-intro-content-kraken:first-child
+						margin-left: 0
+
+					& .club-intro-content-kraken:last-child
+						margin-right: 1rem
+
+					& .club-intro-content-kraken > img
+						width: 100%
+						border-radius: 100%
+
+			&-anchors
+				margin-top: 2rem
+
+				+mq($from: "medium")
+					margin-top: auto
+
+				& .club-intro-content-anchor
+					display: block
+					cursor: pointer
+
+				& .club-intro-content-anchor:hover
+					& svg
+						transform: translateX(.5rem)
+				
+				& .club-intro-content-anchor:first-child
+					padding-bottom: 1rem
+					margin-bottom: 1rem
+					border-bottom: 1px solid $surface-divider
+
+				& .club-intro-content-anchor-title
+					display: flex
+					justify-content: space-between
+					align-items: center
+					margin-right: -1rem
+					font-family: $ff-roboto-bold
+					font-size: $fs-small
+
+					+mq($from: "small")
+						margin-right: 0
+						font-size: $fs-regular
+
+					& svg
+						width: 1.5rem
+						transition: .3s
+
+				& p
+					margin-top: .25rem
+					color: $grey-400
+						
+
+		&-image
+			position: relative
+			max-height: 500px
+			margin-top: 2rem
+			padding-bottom: 50%
+
+			+mq($from: "small")
+				padding-bottom: 33%
+
+			+mq($from: "medium")
+				height: 50vh
+				width: 40%
+				margin:auto 3rem auto 0
+				padding-bottom: 0
+
+			+mq($from: "large")
+				height: 60vh
+				width: 60%
+				margin: 0 4rem 0 -8rem
+
+			&:after
+				content: ''
+				position: absolute
+				top: 0
+				right: -2rem
+				bottom: -2rem
+				left: -2rem
+				background: url('https://res.skatekrak.com/static/skatekrak.com/Krakens/crew_low.jpg')
+				background-repeat: no-repeat
+				background-size: cover
+				background-position: 100%
+
+				+mq($from: "small")
+					right: -4rem
+					bottom: -4rem
+					left: -4rem
+
+				+mq($from: "medium")
+					right: 0
+					bottom: 0
+					left: -8rem
+
+				+mq($from: "large")
+					left: -4rem
+
+			&:before
+				content: 'Photo: Lucas Fiederling'
+				position: absolute
+				bottom: -1.5rem
+				left: -1rem
+				font-size: $fs-smaller
+				color: $grey-900
+				z-index: 1
+
+				+mq($from: "small")
+					bottom: -3.5rem
+					left: -3rem
+
+				+mq($from: "medium")
+					bottom: .5rem
+					right: 1.5rem
+					left: inherit
+
+				+mq($from: "large")
+					left: -3.5rem
+					right: inherit
+
+
+
+
+
+
+
+
+
+	&-monthly
+		position: relative
+		padding: 3rem 0 4rem
+
+		+mq($from: "medium")
+			padding: 6rem 0 4rem
+
+		&-main
+			position: relative
+			margin: 2rem -1rem
+			padding: 2rem
+			background-color: $surface-grey-light
+			box-shadow: $surface-shadow
+
+			+mq($from: "small")
+				padding: 4rem 4rem 2rem
+
+			+mq($from: "medium")
+				max-width: 28rem
+				margin: 4rem 0
+				padding: 3rem
+
+			+mq($from: "large")
+				max-width: 35rem
+				padding: 4rem
+
+			&-container
+				+mq($from: "medium")
+					display: flex
+
+			&-title
+				display: none
+				font-family: $ff-roboto-condensed-bold
+				font-size: $fs-larger
+				margin-bottom: 1rem
+
+				+mq($from: "small")
+					font-size: $fs-larger2
+
+				+mq($from: "medium")
+					display: block
+					font-size: $fs-larger
+
+				+mq($from: "large")
+					font-size: $fs-larger2
+
+				& br
+					display: none
+
+					+mq($from: "medium")
+						display: inline
+
+			&-desc
+				display: none
+				margin-bottom: 2rem
+				color: $grey-400
+
+				+mq($from: "small")
+					font-size: $fs-medium
+
+				+mq($from: "medium")
+					display: block
+					font-size: $fs-small
+
+				+mq($from: "large")
+					font-size: $fs-medium
+
+			&-list
+				& .club-monthly-main-list-item
+					padding: 1rem 0
+					font-family: $ff-roboto-bold
+					border-bottom: 1px solid $surface-divider
+
+					+mq($from: "medium")
+						font-size: $fs-small
+
+					+mq($from: "large")
+						font-size: $fs-regular
+
+					&:first-child
+						padding-top: 0
+
+					&:last-child
+						padding-bottom: 0
+						border-bottom: none
+
+					& br
+						display: none
+
+						+mq($from: "medium")
+							display: inline
+
+					& a
+						font-style: italic
+						text-decoration: underline
+
+			&-app
+				display: flex
+				align-items: center
+				justify-content: center
+				margin: 2rem auto -5rem
+				font-family: $ff-roboto-condensed-bold
+				font-size: $fs-smallest
+				text-align: center
+				text-transform: uppercase
+
+				+mq($from: "medium")
+					position: absolute
+					top: 0
+					right: -2rem
+					flex-direction: column
+
+				& .club-monthly-main-app
+					max-width: 4rem
+
+					&-container
+						display: flex
+						flex-direction: column
+						align-items: center
+						margin-right: 1rem
+
+						+mq($from: "medium")
+							margin-right: 0
+							margin-bottom: 1rem
+
+						&:last-child
+							margin-right: 0
+
+						&:after
+							display: block
+							margin-top: .25rem
+							padding: .25rem
+							color: $surface-grey-light
+
+							+mq($from: "medium")
+								color: $grey-700
+								background-color: $surface-grey-light
+
+				&-krakito
+					&:after
+						content: 'Krakito'
+
+				&-krakapp
+					&:after
+						content: 'Krak app'
+
+				&-kraksession
+					&:after
+						content: 'Krak Session'
+
+		&-sec
+			display: flex
+			flex-direction: column
+
+			+mq($from: "medium")
+				align-items: center
+				width: 50%
+
+			&-image
+				position: relative
+				width: 100%
+				margin-top: -2rem
+				padding-bottom: 50%
+				z-index: -1
+
+				+mq($from: "medium")
+					margin-top: 3rem
+					margin-left: -2rem
+					padding-bottom: 75%
+
+				&:after
+					content: ''
+					position: absolute
+					top: 0
+					right: 0
+					left: 0
+					bottom: 0
+					background: url('https://res.skatekrak.com/static/skatekrak.com/Krakens/kraken-map.jpg')
+					background-size: 130%
+					background-repeat: no-repeat
+					background-position: center
+
+					+mq($from: "medium")
+						right: -1rem
+
+			&-skateistan
+				order: 10
+				max-width: 19rem
+				margin: auto
+				font-size: $fs-small
+				color: $grey-700
+				text-align: center
+
+				+mq($from: "medium")
+					order: inherit
+					margin: auto 2rem
+					font-size: $fs-smaller
+
+				+mq($from: "large")
+					font-size: $fs-small
+
+				&-logo
+					display: block
+					max-width: 4rem
+					margin: 4rem auto 1rem
+					opacity: .7
+
+					+mq($from: "medium")
+						margin: 0 auto 1rem
+
+				& a
+					font-family: $ff-roboto-bold
+					font-style: italic
+
+					&:hover
+						text-decoration: underline
+
+			& .club-cta
+				margin-top: 4rem
+
+				+mq($from: "medium")
+					margin: 0rem auto 2rem -3rem
+					font-size: 1rem !important
+					z-index: 2
+
+				+mq($from: "large")
+					margin-left: -6rem
+
+
+
+
+
+
+
+
+
+	&-quarterly
+		padding: 4rem 0 0
+
+		& .club-cta
+			font-size: $fs-medium !important
+
+			&:hover
+				bgc
+
+		&-main
+			display: grid
+			grid-template-areas: "date"\
+													"benefits"\
+													"image1"\
+													"shipping"\
+													"image2"\
+													"image3"
+			margin: 5rem -1rem
+			padding: 2rem
+			background-color: $surface-grey-light
+			box-shadow: $surface-shadow
+
+			+mq($from: "medium")
+				grid-template-areas: "image1 date image2"\
+														 "benefits image3 shipping"
+				grid-template-columns: 1fr 1fr 1fr
+				grid-template-rows: auto 1fr
+				margin: 5rem -2rem
+
+			+mq($from: "medium")
+				margin: 5rem -2rem
+
+			+mq($from: "large")
+				max-width: 60rem
+				margin: 6rem auto
+				padding: 0
+
+			&-date
+				margin-bottom: 2rem
+				font-family: $ff-roboto-black
 				font-size: $fs-larger2
 
-			&-text
-				font-size: $fs-medium
-				color: $grey-600
+				+mq($from: "medium")
+					font-size: $fs-larger
 
-				&-item
-					display: block
-					margin-bottom: .5rem
+				+mq($from: "large")
+					font-size: $fs-larger2
+
+				&-container
+					grid-area: date
+					position: relative
+					display: flex
+					flex-direction: column
+					text-align: center
+
+					& #icon-sold-out
+						position: absolute
+						max-width: 5rem
+						top: -4.5rem
+						left: calc(50% - 2.5rem)
+						margin: auto
+
+						+mq($from: "large")
+							top: -3rem
+							max-width: 6rem
+							left: calc(50% - 3rem)
+
+						&-circle
+							animation: 4s infinite linear spiningSoldOut
+							transform-origin: 50% 50%
+							box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25)
+
+					& .club-cta
+						padding: 1rem 2rem !important
+						font-size: 1rem !important
+
+						+mq($from: "medium")
+							margin: 0 auto auto
+
+				&-title
+					margin: 2rem 0 1rem
+					font-family: $ff-roboto-condensed-bold
+					text-transform: uppercase
+					color: $grey-700
+
+					+mq($from: "medium")
+						margin: auto 0 1rem
+						font-size: $fs-small
+
+					+mq($from: "large")
+						margin-top: auto
+						font-size:  $fs-regular
+
+			&-benefits
+				&-container
+					grid-area: benefits
+
+					+mq($from: "small")
+						text-align: center
+
+					+mq($from: "medium")
+						padding: 1rem 1rem 1rem 0
+						text-align: left
+
+					+mq($from: "large")
+						padding: 1rem 2rem
+
+				&-desc
+					margin: 3rem 0 1rem
+					font-size: $fs-medium
+					color: $grey-400
+
+					+mq($from: "medium")
+						margin: 0 0 1rem 0
+						font-size: $fs-small
+
+					+mq($from: "large")
+						font-size: $fs-medium
+
+				& .club-quarterly-main-benefit
+					margin-bottom: 1rem
+					font-family: $ff-roboto-condensed-bold
+					font-size: $fs-larger
+
+					+mq($from: "medium")
+						margin-bottom: .75rem
+						font-size: $fs-large
+
+					+mq($from: "large")
+						padding-bottom: .75rem
+						border-bottom: 1px solid $surface-divider
 
 					&:last-child
 						margin-bottom: 0
+						font-size: $fs-large
+						border-bottom: none
 
-		&-youtube
-			&-item
-				margin-bottom: 2rem
+						+mq($from: "medium")
+							font-size: $fs-regular
 
-				&:last-child
-					margin-bottom: 0
+						+mq($from: "large")
+							font-size: $fs-medium
 
-				&-title
-					margin-top: 1rem
+			&-shipping
+				&-container
+					grid-area: shipping
+
+					+mq($from: "medium")
+						padding: 1rem 0 1rem 2rem
+
+					+mq($from: "large")
+						padding: 1rem 2rem
+
+				&-desc
+					padding-bottom: 2rem
+					margin-bottom: 2rem
+					font-size: $fs-medium
+					color: $grey-400
+					border-bottom: 1px solid $surface-divider
+
+					+mq($from: "medium")
+						font-size: $fs-small
+
+					+mq($from: "large")
+						font-size: $fs-medium
+
+				&-countries
 					font-family: $ff-roboto-condensed-bold
-					font-size: $fs-large
-					text-transform: uppercase
-					color: $grey-800
-					z-index: 3
 
-				&-player
+					+mq($from: "medium")
+						font-size: $fs-small
+
+					&-flag
+						display: flex
+						align-items: center
+						flex-wrap: wrap
+						margin-top: .5rem
+
+						& img
+							width 1.5rem
+							margin-right: .5rem
+							margin-bottom: .5rem
+							border: 1px solid $grey-200
+							border-radius: 100%
+
+							&:last-child
+								margin-right: 0
+
+					& p
+						margin-top: 1rem
+						font-family: $ff-roboto-regular
+						color: $grey-400
+
+			&-image1
+				position: relative
+				grid-area: image1
+				width 100%
+				padding-bottom: 100%
+				margin: 3rem 0
+
+				+mq($from: "medium")
+					left: -1rem
+					margin: -1rem 0 auto
+
+				&:after
+					content: ''
 					position: absolute
 					top: 0
 					right: 0
 					bottom: 0
 					left: 0
-					background-color: $grey-900
-					border-radius: .25rem
-					cursor: pointer
+					background: url('https://res.skatekrak.com/static/skatekrak.com/Krakbox/DSC_3280_low.jpg')
+					background-size: cover
+					background-position: center
 
-					& .react-player__preview
-						background-size: 101% !important
-						border-radius: .25rem
+					+mq($from: "medium")
+						top: -1rem
+						left: -1rem
 
-						&:hover
-							&:after
-								opacity: .2
+					+mq($from: "large")
+						right: 1rem
+						bottom:1rem
 
-						&:after
-							content: ''
-							position: absolute
-							top: 0
-							right: 0
-							bottom: 0
-							left: 0
-							background-color: $grey-900
-							border-radius: .25rem
-							opacity: 0
-							transition: .2s
-							pointer-events: none
+			&-image2
+				position: relative
+				grid-area: image2
+				width 100%
+				padding-bottom: 100%
+				margin: 3rem 0 2rem
 
-					&-container
-						position: relative
-						padding-bottom: 56.25%
+				+mq($from: "medium")
+					margin: -1rem 0 1rem 1rem
+
+				&:after
+					content: ''
+					position: absolute
+					top: 0
+					right: 0
+					bottom: 0
+					left: 0
+					background: url('https://res.skatekrak.com/static/skatekrak.com/Krakbox/krakbox4.jpg')
+					background-size: cover
+					background-position: center
+
+					+mq($from: "medium")
+						top: -1rem
+						right: -1rem
+
+					+mq($from: "large")
+						left: 1rem
+						bottom: 1rem
+
+			&-image3
+				position: relative
+				grid-area: image3
+				width 100%
+				padding-bottom: 100%
+
+				+mq($from: "medium")
+					margin: 1rem 0 -2rem
+
+				&:after
+					content: ''
+					position: absolute
+					top: 0
+					right: 0
+					bottom: 0
+					left: 0
+					background: url('https://res.skatekrak.com/static/skatekrak.com/Krakbox/krakbox-1702_low.jpg')
+					background-size: cover
+					background-position: center
+
+		&-krakbox
+			margin: 0 -2rem
+			padding: 3rem
+			color: $grey-100
+			background-color: $grey-900
+
+			+mq($from: "small")
+				margin: 0 -8rem
+
+			+mq($from: "medium")
+				position: absolute
+				left: 0
+				right: 0
+				display: flex
+				flex-direction: column
+				margin: 0
+				height: 100vh
+				padding: 5rem 8rem
+				background-color: $black
+
+			+mq($from: "large")
+				padding: 5rem 16rem
+
+			&-title
+				margin-bottom: 2rem
+				font-family: $ff-roboto-condensed-bold
+				font-size: $fs-larger
+				text-align: center
+
+			& .video-player-container
+				margin: 0 -1rem -1rem
+
+				+mq($from: "small")
+					margin: 0 2rem 2rem
+
+				+mq($from: "medium")
+					width: 100%
+					margin: auto
+
+
+
+
+
+
+
+
+
+
+
+/**
+ * Generic class
+**/
+.club
+	&-section
+		&-divider
+			width 50%
+			margin: auto
+			border-bottom: 1px solid $grey-200
+
+		&-title
+			margin-bottom: 2rem
+			font-family: $ff-roboto-condensed-bold
+			font-size: $fs-larger2
+			text-align: center
+
+		&-subtitle
+			margin: -1.5rem auto 2rem
+			font-family: $ff-roboto-condensed-bold
+			font-size: $fs-medium
+			text-align: center
+
+		&-desc
+			font-size: $fs-medium
+			text-align: center
+
+			& br
+				display: none
+
+				+mq($from: "medium")
+					display: inline
+
+	&-cta
+		margin: auto
+		padding: 1rem 4rem !important
+		font-size: $fs-large !important
+		text-transform: uppercase
+		color: $surface-grey-light
+		background-color: $grey-900
+		border: 2px solid transparent
+		border-radius: 0 !important
+		box-shadow: 0px 5.53672px 11.0734px rgba(0, 0, 0, 0.25);
+		cursor: pointer
+
+		&:hover
+			color: $grey-900
+			background-color: $white
+			border: 2px solid $grey-900
+			transform: scale(1.05)
+
+/**
+ * ANIMATIONS
+**/
+@keyframes bouncingArrow {
+	from {
+		transform: translateY(0) rotate(90deg)
+	}
+	to {
+		transform: translateY(.5rem) rotate(90deg)
+	}
+}
+
+@keyframes spiningSoldOut {
+	from {
+		transform: rotate(0deg)
+	}
+	to {
+		transform: rotate(360deg)
+	}
+}

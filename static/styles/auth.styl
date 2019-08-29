@@ -8,12 +8,18 @@
 	&-container
 		position: relative
 		display: flex
-		height: 100vh
+		min-height: calc(100vh - 8rem)
 		width: 100%
+		padding-top: 2rem
+		padding-bottom: 4rem
 		color: $grey-800
 		overflow: hidden
 
+		+mq($from: "small")
+			min-height: calc(100vh - 12rem)
+		
 		+mq($from: "medium")
+			min-height: 100vh
 			color: $grey-100
 
 		&:after, &:before
@@ -92,13 +98,13 @@
 
 		&-title
 			display: flex
-			font-family: 'Permanent Marker', cursive
-			font-size: $fs-large
+			font-family: $ff-roboto-condensed-bold
+			font-size: $fs-larger
 
 			&:before
 				content: ''
 				border-bottom: 1px solid $grey-800
-				width: 1.5rem
+				width: 1rem
 				margin: auto 1rem auto auto
 
 				+mq($from: "medium")
@@ -107,7 +113,7 @@
 			&:after
 				content: ''
 				border-bottom: 1px solid $grey-800
-				width: 1.5rem
+				width: 1rem
 				margin: auto auto auto 1rem
 
 				+mq($from: "medium")
@@ -123,7 +129,7 @@
 			text-align: left
 
 		& .checkbox-container
-			font-family: 'Permanent Marker', cursive
+			font-family: $ff-roboto-condensed-bold
 			text-align: left
 			color: $grey-400
 
