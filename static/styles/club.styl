@@ -317,6 +317,28 @@ fluid-type($properties, $min-vw, $max-vw, $min-value, $max-value)
 				+mq($from: "large")
 					left: -4rem
 
+			&:before
+				content: 'Photo: Lucas Fiederling'
+				position: absolute
+				bottom: -1.5rem
+				left: -1rem
+				font-size: $fs-smaller
+				color: $grey-900
+				z-index: 1
+
+				+mq($from: "small")
+					bottom: -3.5rem
+					left: -3rem
+
+				+mq($from: "medium")
+					bottom: .5rem
+					right: 1.5rem
+					left: inherit
+
+				+mq($from: "large")
+					left: -3.5rem
+					right: inherit
+
 
 
 
