@@ -18,11 +18,14 @@ const Monthly: React.SFC = () => (
                 </p>
                 <ul id="club-monthly-main-list">
                     <li className="club-monthly-main-list-item">
-                        Get access to our private network: <a href="https://www.krakito.com/">Krakito</a>
+                        Geek out everything skate in our private network:{' '}
+                        <a href="https://www.krakito.com/" target="_blank" rel="noreferrer noopener">
+                            Krakito
+                        </a>
                     </li>
                     <li className="club-monthly-main-list-item">Discover deals on skate goods & paraphernalia</li>
                     <li className="club-monthly-main-list-item">Digest exclusive interviews & workshops</li>
-                    <li className="club-monthly-main-list-item">Benefit (always) from thoughtful feedback & advice</li>
+                    <li className="club-monthly-main-list-item">Benefit from thoughtful feedback & advice</li>
                     <li className="club-monthly-main-list-item">
                         Receive invites to secret events
                         <br />
