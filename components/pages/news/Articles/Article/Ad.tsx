@@ -14,11 +14,7 @@ const ArticleAd = ({ currency }: Props) => (
             alt="Krak club illustration"
         />
         <div className="news-article-club-cta-container">
-            <p className="news-article-club-cta-text">
-                {currency === 'usd' && '$'}
-                {currency === 'gbp' && '£'}99
-                {currency === 'eur' && '€'}/quarter
-            </p>
+            <p className="news-article-club-cta-text">Join the community</p>
             <Link href="/club">
                 <a className="news-article-club-cta">Discover</a>
             </Link>
