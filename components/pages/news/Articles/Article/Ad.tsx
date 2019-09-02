@@ -2,11 +2,7 @@ import React from 'react';
 
 import Link from 'components/Link';
 
-type Props = {
-    currency: 'usd' | 'eur' | 'gbp';
-};
-
-const ArticleAd = ({ currency }: Props) => (
+const ArticleAd = () => (
     <div className="news-article-club">
         <img
             className="news-article-club-illustration"
