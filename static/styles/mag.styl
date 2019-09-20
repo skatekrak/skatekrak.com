@@ -1,0 +1,98 @@
+@import "./stylus-mq"
+@import "./styleguide"
+
+/* MAG STYLES */
+#mag
+	&-container
+		& #krakmag-logo
+			width: 100%
+			max-width: 250px
+			margin-bottom: 1rem
+
+			+mq($from: "medium")
+				margin-bottom: 0.5rem
+
+		& .feed-sidebar
+			&-header-title
+				position: absolute
+				opacity: 0
+
+			&-nav-header
+				display: none
+
+.mag
+	//card
+	&-card
+		&-container
+			position: relative
+			margin-bottom: 3rem
+
+			&:last-child
+				margin-bottom: 0
+
+		&-link
+			&:hover
+				& .mag-card-cover-img
+					transform: scale(1.03)
+
+				& + .mag-card-share
+					opacity: 1
+
+
+		&-cover-img
+			position: absolute
+			top: 0
+			right: 0
+			bottom: 0
+			left: 0
+			background-color: $grey-200
+			background-position: center
+			background-size: cover
+			background-repeat: no-repeat
+			transition: .3s
+
+			&-container
+				position: relative
+				padding-top: 56.25%
+				margin-bottom: 1rem
+				border-radius: 0.25rem
+				overflow: hidden
+
+		&-details
+			display: flex
+			flex-direction: column
+			margin-top: 1rem
+			text-align: center
+
+			&-category
+				font-family: $ff-roboto-condensed-regular
+				font-size: $fs-small
+				text-transform: uppercase
+				color: $primary
+
+				+mq($from: "small")
+					font-size: $fs-smaller
+
+			&-title
+				margin: .5rem
+				font-family: $ff-roboto-condensed-bold
+				font-size: $fs-large
+				text-transform: uppercase
+				line-height: 1.2
+				color: $grey-900
+
+				+mq($from: "small")
+					font-size: $fs-medium
+
+				+mq($from: "large")
+					font-size: $fs-large
+
+			&-date
+				font-size: $fs-small
+				color: $grey-400
+
+				+mq($from: "small")
+					font-size: $fs-smaller
+
+				+mq($from: "large")
+					font-size: $fs-small
