@@ -42,7 +42,12 @@ class Summary extends React.Component<Props, {}> {
                         <li className="subscribe-summary-benefit">Invites to secret events</li>
                         <li className="subscribe-summary-benefit">Special features on our apps</li>
                     </ul>
-                    <a className="button-primary subscribe-summary-cta" href="https://www.krakito.com">
+                    <a
+                        className="button-primary subscribe-summary-cta"
+                        href="https://www.krakito.com"
+                        target="_blank"
+                        rel="noreferrer noopener"
+                    >
                         Join
                     </a>
                 </div>
