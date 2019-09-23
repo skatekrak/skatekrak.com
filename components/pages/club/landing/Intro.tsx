@@ -3,6 +3,7 @@ import React from 'react';
 
 import IconArrowHead from 'components/Ui/Icons/ArrowHead';
 import Emoji from 'components/Ui/Icons/Emoji';
+import IconStartFull from 'components/Ui/Icons/StarFull';
 import ScrollHelper from 'lib/ScrollHelper';
 
 type Props = {
@@ -70,8 +71,12 @@ class Intro extends React.PureComponent<Props, {}> {
                         >
                             <div className="club-intro-content-anchor-title">
                                 <div>
-                                    <Emoji symbol="📦" label="Box" /> Quarterly membership - {this.props.pricingQuarter}{' '}
-                                    / quarter
+                                    <Emoji symbol="📦" label="Box" /> Quarterly membership -{' '}
+                                    <span className="club-intro-sold-out">
+                                        <IconStartFull />
+                                        Sold out
+                                        <IconStartFull />
+                                    </span>
                                 </div>
                                 <IconArrowHead />
                             </div>

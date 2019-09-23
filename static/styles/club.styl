@@ -273,6 +273,26 @@ fluid-type($properties, $min-vw, $max-vw, $min-value, $max-value)
 						width: 1.5rem
 						transition: .3s
 
+				& .club-intro-sold-out
+					display: inline-flex
+					align-items: center
+					padding: 0.25rem 0.5rem
+					font-family: $ff-roboto-condensed-bold
+					font-size: $fs-smaller
+					background-color: #4BFF47
+					border-radius: 2rem
+					text-transform: uppercase
+
+					& svg
+						width: .5rem
+						transform: none !important
+
+						&:first-child
+							margin-right: .25rem
+
+						&:last-child
+							margin-left: .25rem
+
 				& p
 					margin-top: .25rem
 					color: $grey-400

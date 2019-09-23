@@ -19,19 +19,20 @@
 			padding: 3rem
 
 		&-header
-			&-join
-				margin-bottom: 1rem
-				font-family: $ff-roboto-bold
-				color: $grey-200
+			&-logo
+				max-width: 100%
+				width: 50%
 
-			&-title
-				margin-bottom: .5rem
-				font-family: $ff-roboto-black
-				font-size: $fs-larger2
-				color: #99FFCE
+				+mq($from: "small")
+					width: 30%
+
+				+mq($from: "medium")
+					width: 40%
 
 			&-subtitle
-				font-size: $fs-small
+				margin-top: 1rem
+				font-family: $ff-roboto-condensed-bold
+				text-transform: uppercase
 
 		&-main
 			&-price

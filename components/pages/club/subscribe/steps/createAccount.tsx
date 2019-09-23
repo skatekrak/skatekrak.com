@@ -38,9 +38,12 @@ class CreateAccount extends React.Component<Props & WithApolloProps> {
                         <div className="modal-two-col-first-container">
                             <article id="subscribe-promote">
                                 <header id="subscribe-promote-header">
-                                    <p id="subscribe-promote-header-join">Join the club</p>
-                                    <h2 id="subscribe-promote-header-title">Krak Skate Club</h2>
-                                    <h3 id="subscribe-promote-header-subtitle">- Quarterly membership -</h3>
+                                    <img
+                                        src="/static/images/club/club-hero-logo.svg"
+                                        alt="Krak skate club"
+                                        id="subscribe-promote-header-logo"
+                                    />
+                                    <h3 id="subscribe-promote-header-subtitle">Quarterly membership</h3>
                                 </header>
                                 <main id="subscribe-promote-main">
                                     <p id="subscribe-promote-main-price">

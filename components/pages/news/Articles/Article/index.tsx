@@ -20,7 +20,7 @@ class Article extends React.PureComponent<Props, {}> {
 
         return (
             <div className="news-article col-xs-12 col-sm-6 col-lg-3">
-                {!isClubPromotion ? <Card content={content} /> : <Ad currency={this.props.currency} />}
+                {!isClubPromotion ? <Card content={content} /> : <Ad />}
             </div>
         );
     }
