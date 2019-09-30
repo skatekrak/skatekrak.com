@@ -87,27 +87,39 @@ class Feed extends React.Component<Props, State> {
 
         for (const post of posts) {
             // Get formated categories
-            const categories = post.categories;
-            let formatedCategories = '';
-            for (let iCategory = 0; iCategory < categories.length; iCategory++) {
-                const res = await axios.get(
-                    `https://mag.skatekrak.com/wp-json/wp/v2/categories/${categories[iCategory]}`,
-                );
-                const categoryName = res.data.name;
-                formatedCategories += categoryName;
-                if (iCategory !== categories.length - 1) {
-                    formatedCategories += ', ';
+            if (post.categories) {
+                const categories = post.categories;
+                let formatedCategories = '';
+                for (let iCategory = 0; iCategory < categories.length; iCategory++) {
+                    const res = await axios.get(
+                        `https://mag.skatekrak.com/wp-json/wp/v2/categories/${categories[iCategory]}`,
+                    );
+                    const categoryName = res.data.name;
+                    formatedCategories += categoryName;
+                    if (iCategory !== categories.length - 1) {
+                        formatedCategories += ', ';
+                    }
                 }
+                post.categoriesString = formatedCategories;
             }
-            post.categoriesString = formatedCategories;
 
             // Get image
-            const resMedia = await axios.get(`https://mag.skatekrak.com/wp-json/wp/v2/media/${post.featured_media}`);
-            const thumbnailImage = resMedia.data.media_details.sizes.medium_large.source_url;
-            post.thumbnailImage = thumbnailImage;
+            if (post.featured_media) {
+                const resMedia = await axios.get(
+                    `https://mag.skatekrak.com/wp-json/wp/v2/media/${post.featured_media}`,
+                );
+                if (resMedia.data.media_details.sizes.medium_large) {
+                    const thumbnailImage = resMedia.data.media_details.sizes.medium_large.source_url;
+                    post.thumbnailImage = thumbnailImage;
+                } else if (resMedia.data.media_details.sizes.medium) {
+                    const thumbnailImage = resMedia.data.media_details.sizes.medium.source_url;
+                    post.thumbnailImage = thumbnailImage;
+                }
+            }
 
             formatedPosts.push(post);
         }
+
         return formatedPosts;
     };
 }
