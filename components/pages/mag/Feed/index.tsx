@@ -13,6 +13,7 @@ export interface Post {
     title: {
         rendered: string;
     };
+    slug: string;
     link: string;
     date: string;
     featured_media: number;
