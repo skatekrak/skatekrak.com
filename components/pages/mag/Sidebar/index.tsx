@@ -10,7 +10,7 @@ type Props = {
 const Sidebar: React.SFC<Props> = ({ sidebarNavIsOpen, handleOpenSidebarNav }: Props) => (
     <div id="feed-scrolltop-hook" className="feed-sidebar-container">
         <div className="feed-sidebar-header">
-            <h1 className="feed-sidebar-header-title">Krak mag</h1>
+            <h2 className="feed-sidebar-header-title">Krak mag</h2>
             <img src="https://res.skatekrak.com/static/krakmag_logo.png" alt="Krak mag" id="krakmag-logo" />
             <p className="feed-sidebar-header-text">Articles, updtaes, interview everything from the mag just here</p>
         </div>
