@@ -1,6 +1,8 @@
 import { format } from 'date-fns';
 import React from 'react';
 
+import createMarkup from 'lib/createMarkup';
+
 import Link from 'components/Link';
 import { Post } from 'components/pages/mag/Feed';
 
@@ -31,7 +33,7 @@ class Card extends React.PureComponent<Props, State> {
                         <a className="mag-card-details-link">
                             <h2
                                 className="mag-card-details-title"
-                                dangerouslySetInnerHTML={this.createMarkup(post.title.rendered)}
+                                dangerouslySetInnerHTML={createMarkup(post.title.rendered)}
                             />
                         </a>
                     </Link>
@@ -41,10 +43,6 @@ class Card extends React.PureComponent<Props, State> {
                 </div>
             </>
         );
-    }
-
-    private createMarkup(content) {
-        return { __html: content };
     }
 }
 
