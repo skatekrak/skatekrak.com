@@ -22,6 +22,8 @@ export interface Post {
     };
     featured_media?: number;
     thumbnailImage?: string;
+    featuredImageFull?: string;
+    _format_video_embed?: string;
     categories?: any[];
     categoriesString?: string;
     _embedded?: object;
