@@ -37,7 +37,7 @@ class Article extends React.PureComponent<Props, State> {
                 this.setState({ post: formatedPost });
             }
         } catch (err) {
-            console.log(err);
+            // console.log(err);
         } finally {
             this.setState({ isLoading: false });
         }
@@ -51,7 +51,6 @@ class Article extends React.PureComponent<Props, State> {
                 {isLoading && <KrakLoading />}
                 {post && (
                     <article id="mag-article">
-                        {console.log(`https://skatekrak.com/mag/${post.slug}`)}
                         <div id="mag-article-actions">
                             <Link href="/mag">
                                 <a id="mag-article-back">Back to the mag</a>
