@@ -20,6 +20,236 @@
 			&-nav-header
 				display: none
 
+	//article
+	&-article
+		max-width: 750px
+		margin: 0 auto 4rem
+
+		+mq($from: "small")
+			margin: 0 auto 8rem
+
+		+mq($from: "large")
+			max-width: 800px
+
+		+mq($from: "infinite")
+			max-width: 80%
+
+		&-actions
+			display: flex
+			align-items: center
+			justify-content: space-between
+			padding-bottom: 1rem
+			border-bottom: 1px solid $grey-200
+
+		&-back
+			font-family: $ff-roboto-bold
+
+		&-share
+			display: flex
+			align-items: center
+
+			&-text
+				margin-right: .5rem
+				font-family: $ff-roboto-bold
+
+			& .SocialMediaShareButton
+				margin-right: .5rem
+				cursor: pointer
+
+		&-header 
+			margin: 2rem 0
+			text-align: center
+
+			+mq($from: "small")
+				margin: 4rem 0 2rem
+		
+		&-category
+			font-family: $ff-roboto-condensed-regular
+			font-size: $fs-medium
+			color: $primary
+
+		&-title
+			margin: 1rem 0 1.5rem
+			font-family: $ff-roboto-condensed-bold
+			font-size: $fs-larger2
+
+		&-date
+			color: $grey-400
+
+		&-video
+			position: relative
+			height: 0
+			padding-top: 62.56%
+			overflow: hidden
+
+			+mq($from: "small")
+				margin: 0 -2rem
+
+			& iframe
+				position: absolute
+				top: 0
+				right: 0
+				bottom: 0
+				left: 0
+				width: 100%
+				height: 100%
+
+		&-cover-img
+			position: absolute
+			top: 0
+			right: 0
+			bottom: 0
+			left: 0
+			background-color: $grey-200
+			background-position: center
+			background-size: cover
+			background-repeat: no-repeat
+			transition: .3s
+
+			&-container
+				position: relative
+				padding-top: 62.25%
+				border-radius: 0.25rem
+				overflow: hidden
+
+				+mq($from: "small")
+					margin: 0 -2rem 4rem
+
+		&-content
+			line-height: 1.4
+
+			& p
+				margin-bottom: 1.5rem
+
+			& a
+				color: $primary
+				transition: .3s
+
+				&:hover
+					color: $primaryDark
+
+			& strong
+				display: block
+				margin: 2.5rem 0 1.5rem
+				font-family: $ff-roboto-bold
+
+			& b
+				display: block
+				margin: 1.5rem 0 .5rem
+				font-family: $ff-roboto-bold
+
+			& img
+				display: block
+				max-width: 100%
+				height: auto
+				margin: 2rem auto
+
+			& iframe
+				display: block
+				margin: auto
+
+			& span + br
+				display: none
+
+			& em
+				font-style: italic
+
+			& .wp-caption
+				margin: 2rem auto 
+
+				& img
+					margin: 0 auto
+
+			& .wp-caption-text
+				margin-top: 1rem
+				font-size: $fs-smaller
+				text-align: center
+
+		//comment
+		&-comment
+			position: relative
+			display: flex
+			flex-direction: column
+			z-index: 0
+			
+			&-container
+				position: relative
+				margin-top: 4rem
+				text-align: center
+
+				+mq($from: "small")
+					margin-top: 6rem
+
+			&-title
+				font-family: $ff-roboto-condensed-regular
+				color: $grey-600
+
+			&-textarea
+				min-height: 120px
+				margin: 1rem 0
+				border: 1px solid $grey-200
+				border-radius: .25rem
+
+			&-button
+				align-items: center
+				margin-right: auto
+				padding: .5rem 1rem
+				font-family: $ff-roboto-condensed-regular
+				font-size: $fs-small
+				color: $grey-700
+				background-color: $grey-200
+				border-radius: .25rem
+
+			&-bg
+				position: absolute
+				bottom: 0
+				top: 0
+				left: 0
+				right: 0
+				background: linear-gradient(180deg, rgba(235, 235, 235, 0) 0%, rgba(235, 235, 235, 0.8) 100%)
+
+			&-kraken
+				position: relative
+				max-width: 80%
+				margin: -9rem auto 0
+				padding: 1rem 2rem
+				z-index: 2
+
+				&-title
+					font-family: $ff-roboto-condensed-bold
+					font-size: $fs-medium
+					text-transform: uppercase
+
+				&-text
+					margin: 1rem 0
+					font-size: $fs-small
+
+				& .mag-club-cta
+					padding: .75rem 3rem
+					font-family: $ff-roboto-condensed-bold
+					color: $white
+					text-transform: uppercase
+					background-color: $primary
+					transition: .3s
+
+					&:hover
+						background-color: $primaryDark
+
+				&-bg
+					position: absolute
+					top: 0
+					right: 0
+					bottom: 0
+					left: 0
+					background-color: $white
+					border-radius: .5rem
+					opacity: .6
+					z-index: -1
+
+
+
+
+
 .mag
 	//card
 	&-card
