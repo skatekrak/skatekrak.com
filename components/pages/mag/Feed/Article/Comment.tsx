@@ -10,7 +10,7 @@ import React from 'react';
 /*
  * Code
  */
-const VideoPlayer = () => (
+const Comment = () => (
     <div id="mag-article-comment-container">
         <div id="mag-article-comment">
             <p id="mag-article-comment-title">Leave a comment</p>
@@ -41,4 +41,4 @@ const VideoPlayer = () => (
 /*
  * Export Default
  */
-export default VideoPlayer;
+export default Comment;
