@@ -1,17 +1,21 @@
-import Analytics from '@thepunkclub/analytics';
 import classNames from 'classnames';
 import React from 'react';
 import { connect } from 'react-redux';
 
 import { SpinnerCircle } from 'components/Ui/Icons/Spinners';
-import { FilterState } from 'lib/FilterState';
-import { Source } from 'rss-feed';
-import { toggleFilter } from 'store/feed/actions';
+// import { FilterState } from 'lib/FilterState';
+// import { Source } from 'rss-feed';
+// import { toggleFilter } from 'store/feed/actions';
+
+export interface Source {
+    id?: number;
+    name?: string;
+}
 
 type Props = {
     source: Source;
-    state: FilterState;
-    dispatch: (fct: any) => void;
+    // state: FilterState;
+    // dispatch: (fct: any) => void;
 };
 
 type State = {
@@ -20,14 +24,14 @@ type State = {
 };
 
 class SourceOption extends React.PureComponent<Props, State> {
-    public static getDerivedStateFromProps(nextProps: Readonly<Props>): State {
-        return {
-            isActive: nextProps.state === FilterState.SELECTED || nextProps.state !== FilterState.UNSELECTED,
-            isLoading:
-                nextProps.state === FilterState.LOADING_TO_SELECTED ||
-                nextProps.state === FilterState.LOADING_TO_UNSELECTED,
-        };
-    }
+    // public static getDerivedStateFromProps(nextProps: Readonly<Props>): State {
+    //     return {
+    //         isActive: nextProps.state === FilterState.SELECTED || nextProps.state !== FilterState.UNSELECTED,
+    //         isLoading:
+    //             nextProps.state === FilterState.LOADING_TO_SELECTED ||
+    //             nextProps.state === FilterState.LOADING_TO_UNSELECTED,
+    //     };
+    // }
 
     public state: State = {
         isActive: true,
@@ -40,40 +44,30 @@ class SourceOption extends React.PureComponent<Props, State> {
 
         return (
             <li
-                className={classNames('feed-sidebar-nav-option', {
+                className={classNames('feed-sidebar-nav-option feed-sidebar-nav-option-without-logo', {
                     'feed-sidebar-nav-option--active': isActive,
                 })}
             >
                 <label
                     htmlFor={`input-${source.id}`}
                     className="feed-sidebar-nav-option-label"
-                    onClick={this.handleSourceOptionClick}
+                    // onClick={this.handleSourceOptionClick}
                 >
-                    <span className="feed-sidebar-nav-option-logo-container">
-                        {isLoading ? (
-                            <SpinnerCircle />
-                        ) : (
-                            <img src={this.getIcon(source)} alt="" className="feed-sidebar-nav-option-logo" />
-                        )}
-                    </span>
-                    <span className="feed-sidebar-nav-option-name">{source.label}</span>
+                    <span className="feed-sidebar-nav-option-name">{source.name}</span>
+                    {isLoading && <SpinnerCircle />}
                 </label>
             </li>
         );
     }
 
-    private getIcon(source: Source): string {
-        return source.iconUrl;
-    }
-
-    private handleSourceOptionClick = () => {
-        if (this.props.state === FilterState.SELECTED) {
-            Analytics.default().trackEvent('Click', 'Filter_Unselect', { name: this.props.source.label, value: 1 });
-        } else if (this.props.state === FilterState.UNSELECTED) {
-            Analytics.default().trackEvent('Click', 'Filter_Select', { name: this.props.source.label, value: 1 });
-        }
-        this.props.dispatch(toggleFilter(this.props.source));
-    };
+    // private handleSourceOptionClick = () => {
+    //     if (this.props.state === FilterState.SELECTED) {
+    //         Analytics.default().trackEvent('Click', 'Filter_Unselect', { name: this.props.source.label, value: 1 });
+    //     } else if (this.props.state === FilterState.UNSELECTED) {
+    //         Analytics.default().trackEvent('Click', 'Filter_Select', { name: this.props.source.label, value: 1 });
+    //     }
+    //     this.props.dispatch(toggleFilter(this.props.source));
+    // };
 }
 
 export default connect()(SourceOption);
