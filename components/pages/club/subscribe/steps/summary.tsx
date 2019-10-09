@@ -17,7 +17,7 @@ class Summary extends React.Component<Props, {}> {
             <div className="subscribe modal-two-col-container modal-two-col-form subscribe-summary">
                 <div className="modal-two-col-first-container modal-two-col-item-container">
                     <h3 className="subscribe-summary-title">Monthly membership</h3>
-                    <p className="subscribe-summary-price">{pricingMonth} / month</p>
+                    <p className="subscribe-summary-price">Starts at {pricingMonth} / month</p>
                     <ul className="subscribe-summary-app-container">
                         <li className="subscribe-summary-app">
                             <img src="https://res.skatekrak.com/static/skatekrak.com/Icons/krakito.svg" alt="Krakito" />
