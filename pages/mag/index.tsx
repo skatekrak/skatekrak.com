@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import { withRouter, WithRouterProps } from 'next/router';
+import { Router, withRouter } from 'next/router';
 import React from 'react';
 
 import Layout from 'components/Layout/Layout';
@@ -23,15 +23,15 @@ const MagHead = () => (
     </Head>
 );
 
-type QueryProps = {
-    id: string;
+type Props = {
+    router: Router;
 };
 
 type State = {
     sidebarNavIsOpen: boolean;
 };
 
-class Mag extends React.Component<WithRouterProps<QueryProps>, State> {
+class Mag extends React.Component<Props, State> {
     public state: State = {
         sidebarNavIsOpen: false,
     };
@@ -47,7 +47,7 @@ class Mag extends React.Component<WithRouterProps<QueryProps>, State> {
                 <BannerTop />
                 <div id="mag-container" className="inner-page-container">
                     <LayoutFeed
-                        mainView={this.displayMainView(id, sidebarNavIsOpen)}
+                        mainView={<Feed sidebarNavIsOpen={sidebarNavIsOpen} />}
                         sidebar={
                             <Sidebar
                                 handleOpenSidebarNav={this.handleOpenSidebarNav}

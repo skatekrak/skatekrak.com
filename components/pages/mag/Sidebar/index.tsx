@@ -1,3 +1,4 @@
+import { Router, withRouter } from 'next/router';
 import React from 'react';
 
 import Nav from 'components/pages/mag/Sidebar/Nav';
@@ -6,8 +7,9 @@ import ScrollTop from 'components/Ui/Utils/ScrollTop';
 type Props = {
     sidebarNavIsOpen: boolean;
     handleOpenSidebarNav: () => void;
+    router: Router;
 };
-const Sidebar: React.SFC<Props> = ({ sidebarNavIsOpen, handleOpenSidebarNav }: Props) => (
+const Sidebar: React.SFC<Props> = ({ router, sidebarNavIsOpen, handleOpenSidebarNav }: Props) => (
     <div id="feed-scrolltop-hook" className="feed-sidebar-container">
         <div className="feed-sidebar-header">
             <h2 className="feed-sidebar-header-title">Krak mag</h2>
@@ -19,4 +21,4 @@ const Sidebar: React.SFC<Props> = ({ sidebarNavIsOpen, handleOpenSidebarNav }: P
     </div>
 );
 
-export default Sidebar;
+export default withRouter(Sidebar);

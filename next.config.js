@@ -1,6 +1,5 @@
 const path = require('path');
 
-const withTypescript = require('@zeit/next-typescript');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const withCustomBabelConfigFile = require('next-plugin-custom-babel-config');
 
@@ -10,7 +9,7 @@ const withPlugins = require('next-compose-plugins');
 
 const webpack = require('webpack');
 
-module.exports = withPlugins([withCSS, withStylus, withCustomBabelConfigFile, withTypescript], {
+module.exports = withPlugins([withCSS, withStylus, withCustomBabelConfigFile], {
     babelConfigFile: path.resolve('./babel.config.js'),
     publicRuntimeConfig: {
         BEARER: process.env.BEARER,
@@ -40,6 +39,15 @@ module.exports = withPlugins([withCSS, withStylus, withCustomBabelConfigFile, wi
                 }),
             );
         }
+        return config;
+    },
+    // DO NOT COMMIT
+    webpackDevMiddleware: (config) => {
+        config.watchOptions = {
+            poll: 1000,
+            aggregateTimeout: 300,
+            ignored: [/\.git/, /\.next\//, /node_modules/],
+        };
         return config;
     },
 });
