@@ -41,13 +41,4 @@ module.exports = withPlugins([withCSS, withStylus, withCustomBabelConfigFile], {
         }
         return config;
     },
-    // DO NOT COMMIT
-    webpackDevMiddleware: (config) => {
-        config.watchOptions = {
-            poll: 1000,
-            aggregateTimeout: 300,
-            ignored: [/\.git/, /\.next\//, /node_modules/],
-        };
-        return config;
-    },
 });
