@@ -60,7 +60,7 @@ class Intro extends React.PureComponent<Props, {}> {
                             data-anchor="#club-monthly"
                         >
                             <div className="club-intro-content-anchor-title">
-                                Monthly membership - {this.props.pricingMonth} / month <IconArrowHead />
+                                Monthly membership - starts at {this.props.pricingMonth} / month <IconArrowHead />
                             </div>
                             <p>Join your tribe</p>
                         </a>
