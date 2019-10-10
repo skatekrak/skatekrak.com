@@ -20,6 +20,9 @@ export interface Post {
     content?: {
         rendered?: string;
     };
+    excerpt?: {
+        rendered?: string;
+    };
     featured_media?: number;
     thumbnailImage?: string;
     featuredImageFull?: string;

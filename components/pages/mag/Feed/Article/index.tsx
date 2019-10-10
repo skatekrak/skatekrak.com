@@ -1,4 +1,4 @@
-import axios from 'axios';
+import classNames from 'classnames';
 import { format } from 'date-fns';
 import React from 'react';
 import { FacebookIcon, FacebookShareButton, TwitterIcon, TwitterShareButton } from 'react-share';
@@ -13,44 +13,20 @@ import ClipboardButton from 'components/Ui/Button/ClipboardButton';
 import { KrakLoading } from 'components/Ui/Icons/Spinners';
 
 type Props = {
-    id: string;
-};
-
-type State = {
-    post?: Post;
+    post: Post;
     isLoading: boolean;
+    sidebarNavIsOpen: boolean;
 };
 
-class Article extends React.PureComponent<Props, State> {
-    public state: State = {
-        isLoading: false,
-    };
-
-    public async componentDidMount() {
-        this.setState({ isLoading: true });
-
-        try {
-            const res = await axios.get(`https://mag.skatekrak.com/wp-json/wp/v2/posts/${this.props.id}?_embed`);
-
-            if (res.data) {
-                const formatedPost = await this.getFormatedPost(res.data);
-                this.setState({ post: formatedPost });
-            }
-        } catch (err) {
-            // console.log(err);
-        } finally {
-            this.setState({ isLoading: false });
-        }
-    }
-
+class Article extends React.PureComponent<Props> {
     public render() {
-        const { post, isLoading } = this.state;
+        const { post, isLoading, sidebarNavIsOpen } = this.props;
 
         return (
             <>
                 {isLoading && <KrakLoading />}
                 {post && (
-                    <article id="mag-article">
+                    <article id="mag-article" className={classNames({ hide: sidebarNavIsOpen })}>
                         <div id="mag-article-actions">
                             <Link href="/mag">
                                 <a id="mag-article-back">Back to the mag</a>
@@ -105,30 +81,6 @@ class Article extends React.PureComponent<Props, State> {
             </>
         );
     }
-
-    private getFormatedPost = async (post: Post) => {
-        // Get formated categories
-        if (post.categories) {
-            const categories = post._embedded['wp:term'][0];
-            let formatedCategories = '';
-            for (let iCategory = 0; iCategory < categories.length; iCategory++) {
-                const categoryName = categories[iCategory].name;
-                formatedCategories += categoryName;
-                if (iCategory !== categories.length - 1) {
-                    formatedCategories += ', ';
-                }
-            }
-            post.categoriesString = formatedCategories;
-        }
-
-        // Get image
-        if (post.featured_media) {
-            const featuredImageFull = post._embedded['wp:featuredmedia'][0].media_details.sizes.full.source_url;
-            post.featuredImageFull = featuredImageFull;
-        }
-
-        return post;
-    };
 }
 
 export default Article;
