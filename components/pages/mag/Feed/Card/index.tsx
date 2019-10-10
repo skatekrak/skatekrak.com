@@ -1,10 +1,13 @@
 import { format } from 'date-fns';
 import React from 'react';
+import { FacebookIcon, FacebookShareButton, TwitterIcon, TwitterShareButton } from 'react-share';
 
 import createMarkup from 'lib/createMarkup';
+import decodeHTML from 'lib/decodeHTML';
 
 import Link from 'components/Link';
 import { Post } from 'components/pages/mag/Feed';
+import ClipboardButton from 'components/Ui/Button/ClipboardButton';
 
 type Props = {
     post: Post;
@@ -17,7 +20,7 @@ class Card extends React.PureComponent<Props, State> {
         const { post } = this.props;
         return (
             <>
-                <Link href={`/mag?id=${post.id}`} as={`/mag/${post.slug}`}>
+                <Link href={`/mag/${post.slug}`}>
                     <a className="mag-card-link">
                         <div className="mag-card-cover-img-container">
                             <div
@@ -27,6 +30,22 @@ class Card extends React.PureComponent<Props, State> {
                         </div>
                     </a>
                 </Link>
+                <div className="mag-card-share">
+                    <FacebookShareButton
+                        url={`https://skatekrak.com/mag/${post.slug}`}
+                        quote={`${decodeHTML(post.title.rendered)} - shared via skatekrak.com`}
+                    >
+                        <FacebookIcon size={24} round />
+                    </FacebookShareButton>
+                    <TwitterShareButton
+                        url={`https://skatekrak.com/mag/${post.slug}`}
+                        title={decodeHTML(post.title.rendered)}
+                        via="skatekrak"
+                    >
+                        <TwitterIcon size={24} round />
+                    </TwitterShareButton>
+                    <ClipboardButton value={`https://skatekrak.com/mag/${post.slug}`} />
+                </div>
                 <div className="mag-card-details">
                     <p className="mag-card-details-category">{post.categoriesString}</p>
                     <Link href={`/mag?id=${post.id}`} as={`/mag/${post.slug}`}>
