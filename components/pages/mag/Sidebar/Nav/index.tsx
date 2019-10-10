@@ -69,12 +69,6 @@ class Nav extends React.PureComponent<Props, State> {
                                 categories.map((category) => <SourceOption key={category.id} source={category} />)}
                         </ul>
                     </div>
-                    <p className="feed-sidebar-nav-main-request">
-                        You'd be down to contribute - email{' '}
-                        <a href="mailto:mag@skatekrak.com" className="feed-sidebar-nav-main-request-mail">
-                            mag@skatekrak.com
-                        </a>
-                    </p>
                 </div>
             </>
         );

@@ -248,6 +248,29 @@
 					opacity: .6
 					z-index: -1
 
+	&-related-posts
+		margin-top: 3rem
+
+		&-title
+			display: flex
+			align-items: center
+			margin-bottom: 2rem
+			font-family: $ff-roboto-condensed-regular
+			text-transform: uppercase
+			color: $grey-500
+			text-align: center
+
+			&:before, &:after
+				content: ''
+				flex-grow: 1
+				border-bottom: 1px solid $grey-400
+
+			&:before
+				margin-right: 1rem
+
+			&:after
+				margin-left: 1rem
+
 
 
 
@@ -255,6 +278,33 @@
 .mag
 	//card
 	&-card
+		&-share
+			position: absolute
+			top: 0.5rem
+			left: 1.5rem
+			display: flex
+			transition: 0.2s
+
+			&:hover
+				opacity: 1
+
+			+mq($from: "medium")
+				opacity: 0
+
+			& .SocialMediaShareButton
+				margin-right: .5rem
+				cursor: pointer
+
+				&:last-child
+					margin-right: 0
+
+				& circle
+					transition: .2s
+
+				&:hover
+					& circle
+						fill: $grey-900
+
 		&-container
 			position: relative
 			margin-bottom: 3rem
@@ -328,3 +378,48 @@
 
 				+mq($from: "large")
 					font-size: $fs-small
+
+
+
+.mag-related-posts
+	&-item
+		display: flex
+		padding-bottom: 1rem
+		margin-bottom: 1rem
+		border-bottom: 1px solid $grey-200
+
+		&:last-child
+			padding-bottom: 0
+			margin-bottom: 0
+			border-bottom: none
+
+		&-img
+			position: absolute
+			top: 0
+			right: 0
+			bottom: 0
+			left: 0
+			background-color: $grey-400
+			background-position: center
+			background-size: cover
+
+			&-box-container
+				flex-grow: 1
+
+			&-container
+				position: relative
+				padding-top: 56.25%
+				height: 0
+				overflow: hidden
+
+		&-details
+			width: 60%
+			margin-left: .5rem
+
+			&-title
+				font-family: $ff-roboto-condensed-bold
+				margin-bottom: .25rem
+
+			&-date
+				font-size: $fs-smaller
+				color: $grey-500
