@@ -67,7 +67,6 @@ class Header extends React.Component<Props, State> {
                             <NavItem title="Club" url="/club" />
                             <NavItem title="Mag" url="/mag" />
                             <NavItem title="News" url="/news" />
-                            {/* <NavItem title="Mag" url="https://mag.skatekrak.com/" blank /> */}
                             <NavItem title="Video" url="/video" />
                             <div className="header-nav-main-item-app-container">
                                 {!navItemAppIsOpen ? (
