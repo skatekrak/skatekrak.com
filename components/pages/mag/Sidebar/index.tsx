@@ -24,7 +24,7 @@ const Sidebar: React.SFC<Props> = ({ post, router, sidebarNavIsOpen, handleOpenS
         <p className="feed-sidebar-nav-main-request">
             You'd be down to contribute - email{' '}
             <a href="mailto:mag@skatekrak.com" className="feed-sidebar-nav-main-request-mail">
-                mag@skatekrak.com
+                news@skatekrak.com
             </a>
         </p>
         <ScrollTop elementId="feed-scrolltop-hook" />
