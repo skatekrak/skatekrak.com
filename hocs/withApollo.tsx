@@ -10,7 +10,7 @@ export type WithApolloProps = {
     apolloClient: ApolloClient<NormalizedCacheObject>;
 };
 
-function withApollo(App: NextPage<any>): NextComponentType<any> {
+function withApollo(App: any): NextComponentType<any> {
     return class Apollo extends React.Component {
         public static displayName = 'withApollo(App)';
 
