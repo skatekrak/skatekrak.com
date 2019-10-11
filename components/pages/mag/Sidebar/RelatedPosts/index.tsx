@@ -5,6 +5,7 @@ import React from 'react';
 
 import createMarkup from 'lib/createMarkup';
 
+import Link from 'components/Link';
 import { Post } from 'components/pages/mag/Feed';
 import { SpinnerCircle } from 'components/Ui/Icons/Spinners';
 
@@ -20,6 +21,7 @@ type State = {
 class RelatedPosts extends React.PureComponent<Props, State> {
     public state: State = {
         isLoading: false,
+        relatedPosts: [],
     };
 
     public async componentDidMount() {
@@ -49,31 +51,35 @@ class RelatedPosts extends React.PureComponent<Props, State> {
         return (
             <>
                 {relatedPosts && relatedPosts.length !== 0 && (
-                    <div id="mag-related-posts">
-                        <h3 id="mag-related-posts-title">Related posts</h3>
+                    <div className="mag-sidebar-posts">
+                        <h3 className="mag-sidebar-posts-title">Related articles</h3>
                         {isLoading && <SpinnerCircle />}
-                        <ul id="mag-related-posts-list">
+                        <ul className="mag-sidebar-posts-list">
                             {relatedPosts.map((post) => (
-                                <li className="mag-related-posts-item">
-                                    <div className="mag-related-posts-item-img-box-container">
-                                        <div className="mag-related-posts-item-img-container">
-                                            <div
-                                                className="mag-related-posts-item-img"
-                                                style={{
-                                                    backgroundImage: `url("${post._embedded['wp:featuredmedia'][0].media_details.sizes.medium.source_url}")`,
-                                                }}
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="mag-related-posts-item-details">
-                                        <h4
-                                            className="mag-related-posts-item-details-title"
-                                            dangerouslySetInnerHTML={createMarkup(post.title.rendered)}
-                                        />
-                                        <p className="mag-related-posts-item-details-date">
-                                            {format(post.date, 'MMMM D')}, {format(post.date, 'YYYY')}
-                                        </p>
-                                    </div>
+                                <li className="mag-sidebar-posts-item">
+                                    <Link href={`/mag/${post.slug}`}>
+                                        <a>
+                                            <div className="mag-sidebar-posts-item-img-box-container">
+                                                <div className="mag-sidebar-posts-item-img-container">
+                                                    <div
+                                                        className="mag-sidebar-posts-item-img"
+                                                        style={{
+                                                            backgroundImage: `url("${post._embedded['wp:featuredmedia'][0].media_details.sizes.medium.source_url}")`,
+                                                        }}
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div className="mag-sidebar-posts-item-details">
+                                                <h4
+                                                    className="mag-sidebar-posts-item-details-title"
+                                                    dangerouslySetInnerHTML={createMarkup(post.title.rendered)}
+                                                />
+                                                <p className="mag-sidebar-posts-item-details-date">
+                                                    {format(post.date, 'MMMM D')}, {format(post.date, 'YYYY')}
+                                                </p>
+                                            </div>
+                                        </a>
+                                    </Link>
                                 </li>
                             ))}
                         </ul>
