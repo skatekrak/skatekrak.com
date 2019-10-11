@@ -52,33 +52,31 @@ class RelatedPosts extends React.PureComponent<Props, State> {
                     <div id="mag-related-posts">
                         <h3 id="mag-related-posts-title">Related posts</h3>
                         {isLoading && <SpinnerCircle />}
-                        {relatedPosts && (
-                            <ul id="mag-related-posts-list">
-                                {relatedPosts.map((post) => (
-                                    <li className="mag-related-posts-item">
-                                        <div className="mag-related-posts-item-img-box-container">
-                                            <div className="mag-related-posts-item-img-container">
-                                                <div
-                                                    className="mag-related-posts-item-img"
-                                                    style={{
-                                                        backgroundImage: `url("${post._embedded['wp:featuredmedia'][0].media_details.sizes.medium.source_url}")`,
-                                                    }}
-                                                />
-                                            </div>
-                                        </div>
-                                        <div className="mag-related-posts-item-details">
-                                            <h4
-                                                className="mag-related-posts-item-details-title"
-                                                dangerouslySetInnerHTML={createMarkup(post.title.rendered)}
+                        <ul id="mag-related-posts-list">
+                            {relatedPosts.map((post) => (
+                                <li className="mag-related-posts-item">
+                                    <div className="mag-related-posts-item-img-box-container">
+                                        <div className="mag-related-posts-item-img-container">
+                                            <div
+                                                className="mag-related-posts-item-img"
+                                                style={{
+                                                    backgroundImage: `url("${post._embedded['wp:featuredmedia'][0].media_details.sizes.medium.source_url}")`,
+                                                }}
                                             />
-                                            <p className="mag-related-posts-item-details-date">
-                                                {format(post.date, 'MMMM D')}, {format(post.date, 'YYYY')}
-                                            </p>
                                         </div>
-                                    </li>
-                                ))}
-                            </ul>
-                        )}
+                                    </div>
+                                    <div className="mag-related-posts-item-details">
+                                        <h4
+                                            className="mag-related-posts-item-details-title"
+                                            dangerouslySetInnerHTML={createMarkup(post.title.rendered)}
+                                        />
+                                        <p className="mag-related-posts-item-details-date">
+                                            {format(post.date, 'MMMM D')}, {format(post.date, 'YYYY')}
+                                        </p>
+                                    </div>
+                                </li>
+                            ))}
+                        </ul>
                     </div>
                 )}
             </>
