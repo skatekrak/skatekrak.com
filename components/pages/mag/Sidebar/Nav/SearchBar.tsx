@@ -66,10 +66,10 @@ class SearchBar extends React.PureComponent<Props, State> {
 
         if (!value || value.length === 0) {
             this.setState({ hasValue: false });
-            this.props.router.replace('/news');
+            this.props.router.replace('/mag');
         } else {
             this.setState({ hasValue: true });
-            this.props.router.replace(`/news?query=${value}`);
+            this.props.router.replace(`/mag?query=${value}`);
         }
     };
 
@@ -90,13 +90,13 @@ class SearchBar extends React.PureComponent<Props, State> {
     private cleanInput = () => {
         (document.getElementById('feed-searchbar-input') as HTMLInputElement).value = '';
         this.setState({ hasValue: false });
-        this.props.router.replace('/news');
+        this.props.router.replace('/mag');
         this.delayedSearch('');
     };
 }
 
-const mapStateToProps = ({ news }: Types.RootState) => {
-    return { search: news.search };
+const mapStateToProps = ({ mag }: Types.RootState) => {
+    return { search: mag.search };
 };
 
 export default withRouter(connect(mapStateToProps)(SearchBar));

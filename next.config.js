@@ -23,6 +23,7 @@ module.exports = withPlugins([withCSS, withStylus, withCustomBabelConfigFile], {
         REDIRECT_URL: process.env.REDIRECT_URL,
         RSS_BACKEND_URL: process.env.RSS_BACKEND_URL,
         SESTERCES_URL: process.env.SESTERCES_URL,
+        KRAKMAG_URL: process.env.KRAKMAG_URL,
 
         CLUB_CONTACT_NAME: process.env.CLUB_CONTACT_NAME,
         IS_QUARTERFULL: process.env.IS_QUARTERFULL === 'true',

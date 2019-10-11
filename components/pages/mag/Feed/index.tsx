@@ -1,28 +1,30 @@
+import Analytics from '@thepunkclub/analytics';
 import axios from 'axios';
 import classNames from 'classnames';
+import getConfig from 'next/config';
 import React from 'react';
 import InfiniteScroll from 'react-infinite-scroller';
+import { connect } from 'react-redux';
 
-import TrackedPage from 'components/pages/TrackedPage';
+import Types from 'Types';
 
 import Card from 'components/pages/mag/Feed/Card';
+import TrackedPage from 'components/pages/TrackedPage';
 import { KrakLoading } from 'components/Ui/Icons/Spinners';
+import { FilterState } from 'lib/FilterState';
 import ScrollHelper from 'lib/ScrollHelper';
+import { Source } from 'rss-feed';
+import { feedEndRefresh } from 'store/feed/actions';
+import { State as MagState } from 'store/feed/reducers';
 
 export interface Post {
     id?: number;
-    title?: {
-        rendered?: string;
-    };
+    title?: { rendered?: string };
     slug?: string;
     link?: string;
     date?: string;
-    content?: {
-        rendered?: string;
-    };
-    excerpt?: {
-        rendered?: string;
-    };
+    content?: { rendered?: string };
+    excerpt?: { rendered?: string };
     featured_media?: number;
     thumbnailImage?: string;
     featuredImageFull?: string;
@@ -33,30 +35,36 @@ export interface Post {
 }
 
 type Props = {
+    mag: MagState;
+    dispatch: (fct: any) => void;
     sidebarNavIsOpen: boolean;
 };
 
 type State = {
-    posts?: Post[];
-    page: number;
     isLoading: boolean;
     hasMore: boolean;
+    posts: Post[];
 };
 
 class Feed extends React.Component<Props, State> {
     public state: State = {
-        posts: [],
-        page: 1,
         isLoading: false,
         hasMore: true,
+        posts: [],
     };
 
-    public async componentDidMount() {
-        await this.loadMore();
+    public async componentDidUpdate(_prevProps: Props, prevState: State) {
+        if (this.props.mag.feedNeedRefresh && !this.state.isLoading) {
+            this.setState({ posts: [], hasMore: false });
+            await this.loadMore(1);
+        }
+        if (this.state.posts.length > 0 && this.state.posts.length > prevState.posts.length) {
+            Analytics.default().trackLinks();
+        }
     }
 
     public render() {
-        const { posts, isLoading, hasMore } = this.state;
+        const { isLoading, hasMore, posts } = this.state;
 
         return (
             <div id="mag-feed">
@@ -83,39 +91,58 @@ class Feed extends React.Component<Props, State> {
         );
     }
 
-    private loadMore = async () => {
-        this.setState({ isLoading: true });
+    private getScrollContainer = () => {
+        return ScrollHelper.getScrollContainer();
+    };
 
+    private loadMore = async (page: number) => {
         try {
+            this.setState({ isLoading: true });
+
+            const filters = this.getFilters(this.props.mag.sources);
             let req: Promise<any>;
-            if (this.state.posts.length !== 0) {
-                req = axios.get(
-                    `https://mag.skatekrak.com/wp-json/wp/v2/posts?per_page=20&before=${this.state.posts[this.state.posts.length - 1].date}&_embed`,
-                );
+            if (filters.length === 0) {
+                req = Promise.resolve();
             } else {
-                req = axios.get(`https://mag.skatekrak.com/wp-json/wp/v2/posts?per_page=20&page=1&_embed`);
+                if (this.props.mag.search) {
+                    req = axios.get(`${getConfig().publicRuntimeConfig.KRAKMAG_URL}/wp-json/wp/v2/posts`, {
+                        params: { per_page: 20, page, categories: filters, search: this.props.mag.search, _embed: 1 },
+                    });
+                } else {
+                    req = axios.get(`${getConfig().publicRuntimeConfig.KRAKMAG_URL}/wp-json/wp/v2/posts`, {
+                        params: { per_page: 20, page, categories: filters, _embed: 1 },
+                    });
+                }
             }
             const res = await req;
-
             if (res.data) {
                 const data: Post[] = res.data;
-                const formatedPosts = await this.getFormatedPosts(data);
+                const formatedPosts = this.getFormatedPosts(data);
                 const posts = this.state.posts;
                 this.setState({
                     posts: posts.concat(formatedPosts),
+                    hasMore: formatedPosts.length >= 20,
                 });
             }
         } catch (err) {
             // console.log(err);
         } finally {
-            this.setState({
-                isLoading: false,
-                page: this.state.page += 1,
-            });
+            this.props.dispatch(feedEndRefresh());
+            this.setState({ isLoading: false });
         }
     };
 
-    private getFormatedPosts = async (posts: Post[]) => {
+    private getFilters(sources: Map<Source, FilterState>): string[] {
+        const arr: string[] = [];
+        for (const entry of sources.entries()) {
+            if (entry[1] === FilterState.LOADING_TO_SELECTED || entry[1] === FilterState.SELECTED) {
+                arr.push(entry[0].id);
+            }
+        }
+        return arr;
+    }
+
+    private getFormatedPosts = (posts: Post[]) => {
         const formatedPosts = [];
 
         for (const post of posts) {
@@ -144,10 +171,8 @@ class Feed extends React.Component<Props, State> {
 
         return formatedPosts;
     };
-
-    private getScrollContainer = () => {
-        return ScrollHelper.getScrollContainer();
-    };
 }
 
-export default Feed;
+export default connect(({ mag }: Types.RootState) => ({
+    mag,
+}))(Feed);

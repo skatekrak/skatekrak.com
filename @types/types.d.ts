@@ -15,5 +15,6 @@ declare module 'Types' {
         settings: SettingsState;
         news: FeedState;
         video: FeedState;
+        mag: FeedState;
     };
 }
