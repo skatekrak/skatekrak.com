@@ -140,6 +140,9 @@
 				margin: 1.5rem 0 .5rem
 				font-family: $ff-roboto-bold
 
+			& div[style]
+				max-width: 100%
+
 			& img
 				display: block
 				max-width: 100%
@@ -148,7 +151,11 @@
 
 			& iframe
 				display: block
-				margin: auto
+				margin: 2rem auto
+
+			& iframe[width="1080"]
+				width: inherit
+				height: inherit
 
 			& span + br
 				display: none
