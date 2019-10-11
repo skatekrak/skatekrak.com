@@ -10,6 +10,7 @@ import Types from 'Types';
 
 import Card from 'components/pages/mag/Feed/Card';
 import TrackedPage from 'components/pages/TrackedPage';
+import NoContent from 'components/Ui/Feed/NoContent';
 import { KrakLoading } from 'components/Ui/Icons/Spinners';
 import { FilterState } from 'lib/FilterState';
 import ScrollHelper from 'lib/ScrollHelper';
@@ -85,6 +86,13 @@ class Feed extends React.Component<Props, State> {
                                 </div>
                             ))}
                         {isLoading && <KrakLoading />}
+                        {posts.length === 0 && !isLoading && (
+                            <NoContent
+                                title="No article to display"
+                                desc="Select some categories to be back in the loop"
+                            />
+                        )}
+                        {posts.length > 0 && !hasMore && <NoContent title="No more article" desc="" />}
                     </div>
                 </InfiniteScroll>
             </div>
