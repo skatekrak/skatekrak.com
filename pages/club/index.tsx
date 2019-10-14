@@ -18,6 +18,8 @@ import TrackedPage from 'components/pages/TrackedPage';
 
 import { getPricingText } from 'lib/moneyHelper';
 
+import { withApollo } from 'hocs/withApollo';
+
 type Props = {
     payment: {
         price: number;
@@ -127,4 +129,4 @@ const mapStateToProps = ({ payment, auth }: Types.RootState) => {
     return { payment, authUser: auth.authUser };
 };
 
-export default connect(mapStateToProps)(Club);
+export default connect(mapStateToProps)(withApollo(Club));
