@@ -1,6 +1,7 @@
 import format from 'date-fns/format';
 import gql from 'graphql-tag';
 import React from 'react';
+import { compose } from 'recompose';
 
 import Layout from 'components/Layout/Layout';
 import AuthQuery from 'components/pages/club/profile/AuthQuery';
@@ -12,6 +13,7 @@ import ProfileSectionHeader from 'components/pages/club/profile/Ui/sectionHeader
 import TrackedPage from 'components/pages/TrackedPage';
 import Emoji from 'components/Ui/Icons/Emoji';
 
+import { withApollo } from 'hocs/withApollo';
 import withAuth from 'hocs/withAuth';
 
 import 'static/styles/form.styl';
@@ -150,4 +152,7 @@ class ProfileMain extends React.Component<{}, State> {
     };
 }
 
-export default withAuth(ProfileMain);
+export default compose(
+    withAuth,
+    withApollo,
+)(ProfileMain);

@@ -1,13 +1,12 @@
 import gql from 'graphql-tag';
 import React from 'react';
 
-import withApollo, { WithApolloProps } from 'hocs/withApollo';
-
 import Field from 'components/Ui/Form/Field';
 import Select from 'components/Ui/Form/Select';
 
 import countries from 'lib/countries';
 import createPropsGetter from 'lib/getProps';
+import { useQuery } from 'react-apollo';
 
 const GET_COUNTRIES = gql`
     query {
@@ -30,7 +29,7 @@ const defaultProps = {
 
 const getProps = createPropsGetter(defaultProps);
 
-class Address extends React.PureComponent<Props & WithApolloProps> {
+class Address extends React.PureComponent<Props> {
     public render() {
         const { namePrefix, allCountries } = getProps(this.props);
         return (
@@ -67,18 +66,16 @@ class Address extends React.PureComponent<Props & WithApolloProps> {
     }
 
     private queryCountries = (_inputValue: string, callback: (options: {}[]) => void) => {
-        this.props.apolloClient
-            .query<any>({
-                query: GET_COUNTRIES,
-            })
-            .then((result) => {
-                const options = result.data.countries.map((country) => ({
+        useQuery(GET_COUNTRIES, {
+            onCompleted: result => {
+                const options = result.data.countries.map(country => ({
                     label: country.name,
                     value: country.isoCode,
                 }));
 
                 callback(options);
-            });
+            },
+        });
     };
 }
 
@@ -100,4 +97,4 @@ const formatCountries = (cntrs: typeof countries): { label: string; value: strin
     return options;
 };
 
-export default withApollo(Address);
+export default Address;

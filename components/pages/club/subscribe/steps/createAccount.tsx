@@ -8,14 +8,13 @@ import { connect } from 'react-redux';
 
 import Types from 'Types';
 
-import withApollo, { WithApolloProps } from 'hocs/withApollo';
-
 import ErrorMessage from 'components/Ui/Form/ErrorMessage';
 import Field from 'components/Ui/Form/Field';
 
 import { updateFormState } from 'store/form/actions';
 
 import { getPricingText } from 'lib/moneyHelper';
+import { useQuery } from 'react-apollo';
 
 type Props = {
     onNextClick: () => void;
@@ -26,7 +25,7 @@ type Props = {
     };
 };
 
-class CreateAccount extends React.Component<Props & WithApolloProps> {
+class CreateAccount extends React.Component<Props> {
     public render() {
         const { payment } = this.props;
         const quarterFull: boolean = getConfig().publicRuntimeConfig.IS_QUARTERFULL;
@@ -113,28 +112,23 @@ class CreateAccount extends React.Component<Props & WithApolloProps> {
     }
 
     private handleSubmit = async (values: any) => {
-        try {
-            if (values.email) {
-                values.email = values.email.toLowerCase();
-            }
+        const { data, loading, error } = useQuery(CHECK_EMAIL, { variables: { email: values.email } });
 
-            const results = await this.props.apolloClient.query({
-                query: CHECK_EMAIL,
-                variables: {
-                    email: values.email,
-                },
-            });
+        if (loading) {
+            return;
+        }
 
-            if ((results.data as any).checkEmail) {
-                return { email: 'This email is already used' };
-            }
-            this.props.onNextClick();
-        } catch (error) {
+        if (error) {
             return { [FORM_ERROR]: 'Oops, something went wrong, try later or contact us' };
         }
+
+        if ((data as any).checkEmail) {
+            return { email: 'This email is already used' };
+        }
+        this.props.onNextClick();
     };
 
-    private onFormChange = (state) => {
+    private onFormChange = state => {
         this.props.updateFormState('account', state.values);
     };
 }
@@ -178,4 +172,4 @@ export default connect(
     {
         updateFormState,
     },
-)(withApollo(CreateAccount));
+)(CreateAccount);

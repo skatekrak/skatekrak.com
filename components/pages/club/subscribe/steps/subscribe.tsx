@@ -9,8 +9,6 @@ import { CardElement, injectStripe, ReactStripeElements } from 'react-stripe-ele
 
 import Types from 'Types';
 
-import withApollo, { WithApolloProps } from 'hocs/withApollo';
-
 import { checkPath } from 'lib/checkPath';
 import { getPricingText } from 'lib/moneyHelper';
 import { userSignin } from 'store/auth/actions';
@@ -25,6 +23,7 @@ import Field from 'components/Ui/Form/Field';
 import Emoji from 'components/Ui/Icons/Emoji';
 import IconValid from 'components/Ui/Icons/Valid';
 import { FORM_ERROR } from 'final-form';
+import { useMutation, useQuery } from 'react-apollo';
 
 type Props = {
     onNextClick: () => void;
@@ -45,7 +44,7 @@ type State = {
     cardError?: string;
 };
 
-class Subscribe extends React.Component<Props & WithApolloProps & ReactStripeElements.InjectedStripeProps, State> {
+class Subscribe extends React.Component<Props & ReactStripeElements.InjectedStripeProps, State> {
     public state: State = {
         addressView: 'shipping',
         isSpecialCodeValid: false,
@@ -214,7 +213,7 @@ class Subscribe extends React.Component<Props & WithApolloProps & ReactStripeEle
             return errors;
         }
 
-        const { apolloClient, accountForm, stripe } = this.props;
+        const { accountForm, stripe } = this.props;
 
         if (accountForm.email) {
             accountForm.email = accountForm.email.toLowerCase();
@@ -256,13 +255,14 @@ class Subscribe extends React.Component<Props & WithApolloProps & ReactStripeEle
             return;
         }
 
+        const [joinClub] = useMutation(JOIN_CLUB);
+
         try {
-            await apolloClient.mutate({
-                mutation: JOIN_CLUB,
+            await joinClub({
                 variables: { data },
                 update: (_cache, result) => {
-                    const { joinClub } = result.data as any;
-                    Analytics.default().trackOrder(joinClub.id, this.props.payment.price / 100);
+                    const { joinClubData } = result.data as any;
+                    Analytics.default().trackOrder(joinClubData.id, this.props.payment.price / 100);
                     this.props.onNextClick();
                     this.props.userSignin(data.email, data.password, true);
                 },
@@ -278,7 +278,7 @@ class Subscribe extends React.Component<Props & WithApolloProps & ReactStripeEle
         }
     };
 
-    private onFormChange = (state) => {
+    private onFormChange = state => {
         if (checkPath(state, 'values.shipping.country.value')) {
             const countryCode = state.values.shipping.country.value;
             let currency = 'eur';
@@ -306,20 +306,15 @@ class Subscribe extends React.Component<Props & WithApolloProps & ReactStripeEle
         }
     };
 
-    private checkSpecial = async (value) => {
+    private checkSpecial = async value => {
         if (value) {
-            try {
-                const response = await this.props.apolloClient.query({
-                    query: CHECK_SPECIAL,
-                    variables: {
-                        code: value,
-                    },
-                });
-                const { checkSpecial } = response.data as any;
-                this.setState({ isSpecialCodeValid: checkSpecial });
-            } catch (error) {
-                //
-            }
+            useQuery(CHECK_SPECIAL, {
+                variables: { code: value },
+                onCompleted: data => {
+                    const { checkSpecial } = data;
+                    this.setState({ isSpecialCodeValid: checkSpecial });
+                },
+            });
         } else {
             this.setState({ isSpecialCodeValid: false });
         }
@@ -429,4 +424,4 @@ export default connect(
         savePricingCurrency,
         userSignin,
     },
-)(withApollo(injectStripe(Subscribe)));
+)(injectStripe(Subscribe));

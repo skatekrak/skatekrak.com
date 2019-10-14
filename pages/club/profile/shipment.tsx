@@ -13,10 +13,11 @@ import IconCross from 'components/Ui/Icons/Cross';
 import IconFull from 'components/Ui/Icons/iconFull';
 import { showConfirmation } from 'components/Ui/Modal/ModalConfirmation';
 
-import withApollo, { WithApolloProps } from 'hocs/withApollo';
+import { withApollo } from 'hocs/withApollo';
 import withAuth from 'hocs/withAuth';
 
 import { GET_ME } from 'pages/club/profile';
+import { useMutation } from 'react-apollo';
 
 type State = {
     addressModalOpen: boolean;
@@ -24,7 +25,7 @@ type State = {
     deleteModalOpen: boolean;
 };
 // tslint:disable:jsx-no-lambda
-class ProfileShipment extends React.Component<WithApolloProps, State> {
+class ProfileShipment extends React.Component<{}, State> {
     public state: State = {
         addressModalOpen: false,
         deleteModalOpen: false,
@@ -108,8 +109,8 @@ class ProfileShipment extends React.Component<WithApolloProps, State> {
     };
 
     private deleteAddress = async ({ id }: any) => {
-        await this.props.apolloClient.mutate({
-            mutation: DELETE_ADDRESS,
+        const [deleteAddress] = useMutation(DELETE_ADDRESS);
+        deleteAddress({
             variables: { id },
             update: (cache, result) => {
                 const query = cache.readQuery<any>({
@@ -127,14 +128,15 @@ class ProfileShipment extends React.Component<WithApolloProps, State> {
                         },
                     });
                 }
+
+                this.onCloseDeleteModal();
             },
         });
-        this.onCloseDeleteModal();
     };
 
     private setAsDefault = async ({ id }: any) => {
-        await this.props.apolloClient.mutate({
-            mutation: SET_AS_DEFAULT,
+        const [setAsDefault] = useMutation(SET_AS_DEFAULT);
+        setAsDefault({
             variables: { id },
             update: (cache, result) => {
                 const query = cache.readQuery<any>({
@@ -186,6 +188,6 @@ const DELETE_ADDRESS = gql`
 `;
 
 export default compose(
-    withApollo,
     withAuth,
+    withApollo,
 )(ProfileShipment);

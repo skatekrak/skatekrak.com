@@ -18,6 +18,8 @@ import Emoji from 'components/Ui/Icons/Emoji';
 
 import { GET_ME } from 'pages/club/profile';
 
+import { withApollo } from 'hocs/withApollo';
+
 type State = {
     modalOpenName?: 'creditCardInfo' | 'billingAddressInfo';
     stripe?: any;
@@ -132,7 +134,7 @@ class ProfilePayment extends React.Component<{}, State> {
                                             )}
                                             <ProfileSection>
                                                 <ProfileSectionHeader title="History" />
-                                                {data.me.paymentHistory.map((payment) => (
+                                                {data.me.paymentHistory.map(payment => (
                                                     <PaymentLine key={payment.id} payment={payment} />
                                                 ))}
                                             </ProfileSection>
@@ -158,4 +160,4 @@ class ProfilePayment extends React.Component<{}, State> {
     };
 }
 
-export default ProfilePayment;
+export default withApollo(ProfilePayment);

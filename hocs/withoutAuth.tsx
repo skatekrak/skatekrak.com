@@ -1,10 +1,10 @@
-import { NextPage } from 'next';
+import { NextComponentType } from 'next';
 import Router from 'next/router';
 import React, { Component } from 'react';
 
 import { getBearerFromLocalCookie, getBearerFromServerCookie } from 'lib/auth';
 
-const withAuth = (Page: NextPage<any>) =>
+const withAuth = (Page: NextComponentType<any>) =>
     class WithAuth extends Component {
         public static async getInitialProps({ req, res }) {
             const bearer = (process as any).browser ? getBearerFromLocalCookie() : getBearerFromServerCookie(req);
