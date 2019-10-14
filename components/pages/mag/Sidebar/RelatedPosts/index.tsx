@@ -2,6 +2,7 @@ import axios from 'axios';
 import { format } from 'date-fns';
 import getConfig from 'next/config';
 import React from 'react';
+import Truncate from 'react-truncate';
 
 import createMarkup from 'lib/createMarkup';
 
@@ -29,14 +30,17 @@ class RelatedPosts extends React.PureComponent<Props, State> {
         const { post } = this.props;
 
         try {
-            const res = await axios.get(
-                `${getConfig().publicRuntimeConfig.KRAKMAG_URL}/wp-json/wp/v2/posts?per_page=3&categories=${
-                    post.categories[0]
-                }&_embed`,
-            );
+            const res = await axios.get(`${getConfig().publicRuntimeConfig.KRAKMAG_URL}/wp-json/wp/v2/posts`, {
+                params: { per_page: 3, categories: post.categories[0], before: post.date, _embed: 1 },
+            });
 
-            if (res.data) {
+            if (res.data && res.data.length !== 0) {
                 this.setState({ relatedPosts: res.data });
+            } else {
+                const res2 = await axios.get(`${getConfig().publicRuntimeConfig.KRAKMAG_URL}/wp-json/wp/v2/posts`, {
+                    params: { per_page: 3, categories: post.categories[0], _embed: 1 },
+                });
+                this.setState({ relatedPosts: res2.data });
             }
         } catch (err) {
             // console.log(err);
@@ -56,7 +60,7 @@ class RelatedPosts extends React.PureComponent<Props, State> {
                         {isLoading && <SpinnerCircle />}
                         <ul className="mag-sidebar-posts-list">
                             {relatedPosts.map((post) => (
-                                <li className="mag-sidebar-posts-item">
+                                <li key={post.id} className="mag-sidebar-posts-item">
                                     <Link href={`/mag/${post.slug}`}>
                                         <a>
                                             <div className="mag-sidebar-posts-item-img-box-container">
@@ -70,10 +74,13 @@ class RelatedPosts extends React.PureComponent<Props, State> {
                                                 </div>
                                             </div>
                                             <div className="mag-sidebar-posts-item-details">
-                                                <h4
-                                                    className="mag-sidebar-posts-item-details-title"
-                                                    dangerouslySetInnerHTML={createMarkup(post.title.rendered)}
-                                                />
+                                                <h4 className="mag-sidebar-posts-item-details-title">
+                                                    <Truncate lines={2} ellipsis="..." trimWhitespace>
+                                                        <span
+                                                            dangerouslySetInnerHTML={createMarkup(post.title.rendered)}
+                                                        />
+                                                    </Truncate>
+                                                </h4>
                                                 <p className="mag-sidebar-posts-item-details-date">
                                                     {format(post.date, 'MMMM D')}, {format(post.date, 'YYYY')}
                                                 </p>
