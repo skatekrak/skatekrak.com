@@ -2,6 +2,7 @@ import axios from 'axios';
 import { format } from 'date-fns';
 import getConfig from 'next/config';
 import React from 'react';
+import Truncate from 'react-truncate';
 
 import createMarkup from 'lib/createMarkup';
 
@@ -49,7 +50,7 @@ class LatestPosts extends React.PureComponent<Props, State> {
                 {latestPosts.length !== 0 && (
                     <ul className="mag-sidebar-posts-list">
                         {latestPosts.map((post) => (
-                            <li className="mag-sidebar-posts-item">
+                            <li key={post.id} className="mag-sidebar-posts-item">
                                 <Link href={`/mag/${post.slug}`}>
                                     <a>
                                         <div className="mag-sidebar-posts-item-img-box-container">
@@ -63,10 +64,11 @@ class LatestPosts extends React.PureComponent<Props, State> {
                                             </div>
                                         </div>
                                         <div className="mag-sidebar-posts-item-details">
-                                            <h4
-                                                className="mag-sidebar-posts-item-details-title"
-                                                dangerouslySetInnerHTML={createMarkup(post.title.rendered)}
-                                            />
+                                            <h4 className="mag-sidebar-posts-item-details-title">
+                                                <Truncate lines={2} ellipsis="..." trimWhitespace>
+                                                    <span dangerouslySetInnerHTML={createMarkup(post.title.rendered)} />
+                                                </Truncate>
+                                            </h4>
                                             <p className="mag-sidebar-posts-item-details-date">
                                                 {format(post.date, 'MMMM D')}, {format(post.date, 'YYYY')}
                                             </p>
