@@ -32,7 +32,7 @@ export function withApollo(PageComponent: NextComponentType, { ssr = true } = {}
         const displayName = PageComponent.displayName || PageComponent.name || 'Component';
 
         if (displayName === 'App') {
-            console.warn('This withApollo HOC only works with PageComponents.');
+            // console.warn('This withApollo HOC only works with PageComponents.');
         }
 
         WithApollo.displayName = `withApollo(${displayName})`;
@@ -77,7 +77,7 @@ export function withApollo(PageComponent: NextComponentType, { ssr = true } = {}
                         // Prevent Apollo Client GraphQL errors from crashing SSR.
                         // Handle them in components via the data.error prop:
                         // https://www.apollographql.com/docs/react/api/react-apollo.html#graphql-query-data-error
-                        console.error('Error while running `getDataFromTree`', error);
+                        // console.error('Error while running `getDataFromTree`', error);
                     }
 
                     // getDataFromTree does not call componentWillUnmount
