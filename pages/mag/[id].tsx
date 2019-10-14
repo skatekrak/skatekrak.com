@@ -75,16 +75,18 @@ class ArticlePage extends React.PureComponent<Props, State> {
             <Layout head={<MagArticleHead isLoading={isLoading} post={post} />}>
                 <BannerTop />
                 <div id="mag-container" className="inner-page-container">
-                    <LayoutFeed
-                        mainView={<Article post={post} isLoading={isLoading} sidebarNavIsOpen={sidebarNavIsOpen} />}
-                        sidebar={
-                            <Sidebar
-                                post={post}
-                                handleOpenSidebarNav={this.handleOpenSidebarNav}
-                                sidebarNavIsOpen={sidebarNavIsOpen}
-                            />
-                        }
-                    />
+                    <div id="mag-article-container">
+                        <LayoutFeed
+                            mainView={<Article post={post} isLoading={isLoading} sidebarNavIsOpen={sidebarNavIsOpen} />}
+                            sidebar={
+                                <Sidebar
+                                    post={post}
+                                    handleOpenSidebarNav={this.handleOpenSidebarNav}
+                                    sidebarNavIsOpen={sidebarNavIsOpen}
+                                />
+                            }
+                        />
+                    </div>
                 </div>
             </Layout>
         );

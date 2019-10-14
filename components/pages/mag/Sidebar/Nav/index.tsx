@@ -27,7 +27,9 @@ type Props = {
 class Nav extends React.PureComponent<Props> {
     public async componentDidMount() {
         try {
-            const res = await axios.get(`${getConfig().publicRuntimeConfig.KRAKMAG_URL}/wp-json/wp/v2/categories`);
+            const res = await axios.get(
+                `${getConfig().publicRuntimeConfig.KRAKMAG_URL}/wp-json/wp/v2/categories?per_page=100`,
+            );
             const sources = this.extractSourcesFromData(res.data);
             this.props.setAllSources(sources);
         } catch (err) {
@@ -38,9 +40,13 @@ class Nav extends React.PureComponent<Props> {
     public render() {
         const { sidebarNavIsOpen, handleOpenSidebarNav, sources } = this.props;
 
+        let length = 0;
         const items = [];
         if (sources instanceof Map) {
             for (const [source, state] of sources.entries()) {
+                if (state === FilterState.SELECTED) {
+                    length += 1;
+                }
                 items.push(<SourceOption key={source.id} source={source} state={state} />);
             }
         }
@@ -49,30 +55,36 @@ class Nav extends React.PureComponent<Props> {
             <>
                 <div className="feed-sidebar-nav-container">
                     <div className="feed-sidebar-nav-header">
+                        <span className="feed-sidebar-nav-header-title">
+                            From {length} categor{`${length > 1 ? 'ies' : 'y'}`}
+                        </span>
                         <button className="feed-sidebar-nav-header-toggle-button" onClick={handleOpenSidebarNav}>
                             {!sidebarNavIsOpen ? 'Categories' : 'Close'}
                         </button>
                     </div>
                     <SearchBar nbFilters={0} />
                 </div>
-                <div className="feed-sidebar-nav-main-controls">
-                    <div className="feed-sidebar-nav-main-controls-select">
-                        <button className="feed-sidebar-nav-main-controls-select-item" onClick={this.onSelectAllClick}>
-                            Select all
-                        </button>
-                        <button
-                            className="feed-sidebar-nav-main-controls-select-item"
-                            onClick={this.onDeselectAllClick}
-                        >
-                            Deselect all
-                        </button>
-                    </div>
-                </div>
                 <div
                     className={classNames('feed-sidebar-nav-main', {
                         'feed-sidebar-nav-main--open': sidebarNavIsOpen,
                     })}
                 >
+                    <div className="feed-sidebar-nav-main-controls">
+                        <div className="feed-sidebar-nav-main-controls-select">
+                            <button
+                                className="feed-sidebar-nav-main-controls-select-item"
+                                onClick={this.onSelectAllClick}
+                            >
+                                Select all
+                            </button>
+                            <button
+                                className="feed-sidebar-nav-main-controls-select-item"
+                                onClick={this.onDeselectAllClick}
+                            >
+                                Deselect all
+                            </button>
+                        </div>
+                    </div>
                     <div className="feed-sidebar-nav-main-options">
                         <p className="feed-sidebar-nav-header-small-title">Categories</p>
                         <ul className="feed-sidebar-nav-main-options-container">
@@ -84,6 +96,12 @@ class Nav extends React.PureComponent<Props> {
                             {items}
                         </ul>
                     </div>
+                    <p className="feed-sidebar-nav-main-request">
+                        You'd be down to contribute - email{' '}
+                        <a href="mailto:mag@skatekrak.com" className="feed-sidebar-nav-main-request-mail">
+                            news@skatekrak.com
+                        </a>
+                    </p>
                 </div>
             </>
         );
