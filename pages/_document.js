@@ -16,15 +16,6 @@ export default class MyDocument extends Document {
                     <link rel="icon" type="image/png" sizes="32x32" href="/static/images/favicon_32.png" />
                     <link rel="icon" type="image/png" sizes="16x16" href="/static/images/favicon_16.png" />
                     <script src="https://js.stripe.com/v3" />
-                    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" />
-                    <script
-                        dangerouslySetInnerHTML={{
-                            __html: `(adsbygoogle = window.adsbygoogle || []).push({
-                        google_ad_client: 'ca-pub-8520381468370007',
-                        enable_page_level_ads: true
-                    });`,
-                        }}
-                    />
                 </Head>
                 <body>
                     <Main />
