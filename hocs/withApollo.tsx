@@ -4,6 +4,7 @@ import { ApolloClient } from 'apollo-client';
 import { HttpLink } from 'apollo-link-http';
 import fetch from 'isomorphic-unfetch';
 import { NextComponentType } from 'next';
+import getConfig from 'next/config';
 import Head from 'next/head';
 import React from 'react';
 
@@ -126,7 +127,7 @@ function createApolloClient(initialState = {}): ApolloClient<NormalizedCacheObje
     return new ApolloClient({
         ssrMode: typeof window === 'undefined', // Disables forceFetch on the server (so queries are only run once)
         link: new HttpLink({
-            uri: 'https://api.graph.cool/simple/v1/cixmkt2ul01q00122mksg82pn', // Server URL (must be absolute)
+            uri: getConfig().publicRuntimeConfig.SESTERCES_URL, // Server URL (must be absolute)
             credentials: 'same-origin', // Additional fetch() options like `credentials` or `headers`
             fetch,
         }),
