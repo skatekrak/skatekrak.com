@@ -92,7 +92,9 @@ class Feed extends React.Component<Props, State> {
                                 desc="Select some categories to be back in the loop"
                             />
                         )}
-                        {posts.length > 0 && !hasMore && <NoContent title="No more article" desc="" />}
+                        {posts.length > 0 && !hasMore && (
+                            <NoContent title="No more article" desc="Add more categories" />
+                        )}
                     </div>
                 </InfiniteScroll>
             </div>
