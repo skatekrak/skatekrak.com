@@ -29,55 +29,53 @@ const defaultProps = {
 
 const getProps = createPropsGetter(defaultProps);
 
-class Address extends React.PureComponent<Props> {
-    public render() {
-        const { namePrefix, allCountries } = getProps(this.props);
-        return (
-            <>
-                <div className="form-double-field-line">
-                    <Field name={getName('firstName', namePrefix)} placeholder="First name" />
-                    <Field name={getName('lastName', namePrefix)} placeholder="Last name" />
-                </div>
-                <Field name={getName('line1', namePrefix)} placeholder="Street" />
-                <Field name={getName('line2', namePrefix)} placeholder="Apt/unit etc (optional)" />
-                <div className="form-double-field-line">
-                    <Field name={getName('city', namePrefix)} placeholder="City" />
-                    <Field name={getName('postalCode', namePrefix)} placeholder="Postal code" />
-                </div>
-                <Field name={getName('state', namePrefix)} placeholder="State" />
-                {allCountries ? (
-                    <Select
-                        name={getName('country', namePrefix)}
-                        placeholder="Country"
-                        options={formatCountries(countries)}
-                        menuMaxHeight={200}
-                        isSearchable
-                    />
-                ) : (
-                    <Select
-                        name={getName('country', namePrefix)}
-                        placeholder="Country"
-                        loadOptions={this.queryCountries}
-                        menuMaxHeight={200}
-                    />
-                )}
-            </>
-        );
+const Address = (props: Props) => {
+    const { namePrefix, allCountries } = getProps(props);
+
+    const { loading, data } = useQuery(GET_COUNTRIES);
+
+    let queriedCountries = [];
+
+    if (data) {
+        queriedCountries = data.countries.map(country => ({
+            label: country.name,
+            value: country.isoCode,
+        }));
     }
 
-    private queryCountries = (_inputValue: string, callback: (options: {}[]) => void) => {
-        useQuery(GET_COUNTRIES, {
-            onCompleted: result => {
-                const options = result.data.countries.map(country => ({
-                    label: country.name,
-                    value: country.isoCode,
-                }));
-
-                callback(options);
-            },
-        });
-    };
-}
+    return (
+        <>
+            <div className="form-double-field-line">
+                <Field name={getName('firstName', namePrefix)} placeholder="First name" />
+                <Field name={getName('lastName', namePrefix)} placeholder="Last name" />
+            </div>
+            <Field name={getName('line1', namePrefix)} placeholder="Street" />
+            <Field name={getName('line2', namePrefix)} placeholder="Apt/unit etc (optional)" />
+            <div className="form-double-field-line">
+                <Field name={getName('city', namePrefix)} placeholder="City" />
+                <Field name={getName('postalCode', namePrefix)} placeholder="Postal code" />
+            </div>
+            <Field name={getName('state', namePrefix)} placeholder="State" />
+            {allCountries ? (
+                <Select
+                    name={getName('country', namePrefix)}
+                    placeholder="Country"
+                    options={formatCountries(countries)}
+                    menuMaxHeight={200}
+                    isSearchable
+                />
+            ) : (
+                <Select
+                    name={getName('country', namePrefix)}
+                    placeholder="Country"
+                    options={queriedCountries}
+                    menuMaxHeight={200}
+                    isLoading={loading}
+                />
+            )}
+        </>
+    );
+};
 
 const getName = (name: string, prefix?: string): string => {
     if (prefix) {
