@@ -1,6 +1,5 @@
 const path = require('path');
 
-const withTypescript = require('@zeit/next-typescript');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const withCustomBabelConfigFile = require('next-plugin-custom-babel-config');
 
@@ -10,7 +9,7 @@ const withPlugins = require('next-compose-plugins');
 
 const webpack = require('webpack');
 
-module.exports = withPlugins([withCSS, withStylus, withCustomBabelConfigFile, withTypescript], {
+module.exports = withPlugins([withCSS, withStylus, withCustomBabelConfigFile], {
     babelConfigFile: path.resolve('./babel.config.js'),
     publicRuntimeConfig: {
         BEARER: process.env.BEARER,
@@ -24,6 +23,7 @@ module.exports = withPlugins([withCSS, withStylus, withCustomBabelConfigFile, wi
         REDIRECT_URL: process.env.REDIRECT_URL,
         RSS_BACKEND_URL: process.env.RSS_BACKEND_URL,
         SESTERCES_URL: process.env.SESTERCES_URL,
+        KRAKMAG_URL: process.env.KRAKMAG_URL,
 
         CLUB_CONTACT_NAME: process.env.CLUB_CONTACT_NAME,
         IS_QUARTERFULL: process.env.IS_QUARTERFULL === 'true',

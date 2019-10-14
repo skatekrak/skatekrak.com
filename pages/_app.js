@@ -1,5 +1,5 @@
 import axios from 'axios';
-import App, { Container } from 'next/app';
+import App from 'next/app';
 import getConfig from 'next/config';
 import React from 'react';
 import { ApolloProvider } from 'react-apollo';
@@ -100,19 +100,17 @@ class MyApp extends App {
         }
 
         return (
-            <Container>
-                <Provider store={reduxStore}>
-                    <ApolloProvider client={apolloClient}>
-                        <>
-                            <Component {...pageProps} />
-                            {(this.props.router.route.startsWith('/club') ||
-                                this.props.router.route.startsWith('/auth')) && (
-                                <Intercom appID={getConfig().publicRuntimeConfig.INTERCOM_ID} {...user} />
-                            )}
-                        </>
-                    </ApolloProvider>
-                </Provider>
-            </Container>
+            <Provider store={reduxStore}>
+                <ApolloProvider client={apolloClient}>
+                    <>
+                        <Component {...pageProps} />
+                        {(this.props.router.route.startsWith('/club') ||
+                            this.props.router.route.startsWith('/auth')) && (
+                            <Intercom appID={getConfig().publicRuntimeConfig.INTERCOM_ID} {...user} />
+                        )}
+                    </>
+                </ApolloProvider>
+            </Provider>
         );
     }
 }

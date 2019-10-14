@@ -47,7 +47,10 @@ export default () => {
                     }
 
                     // add language if new
-                    if (languages.find((language) => language.isoCode === source.lang.isoCode) === undefined) {
+                    if (
+                        source.lang &&
+                        languages.find((language) => language.isoCode === source.lang.isoCode) === undefined
+                    ) {
                         languages.push(source.lang);
                     }
                 }

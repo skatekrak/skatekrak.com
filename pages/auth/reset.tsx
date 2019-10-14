@@ -1,6 +1,6 @@
 import { FORM_ERROR } from 'final-form';
 import Head from 'next/head';
-import Router, { withRouter, WithRouterProps } from 'next/router';
+import { Router, withRouter } from 'next/router';
 import React from 'react';
 import { Form } from 'react-final-form';
 
@@ -19,11 +19,11 @@ const ResetHead = () => (
     </Head>
 );
 
-type QueryProps = {
-    token: string;
+type Props = {
+    router: Router;
 };
 
-class ResetPassword extends React.Component<WithRouterProps<QueryProps>> {
+class ResetPassword extends React.Component<Props> {
     public render() {
         return (
             <TrackedPage name="Auth/ResetPassword">
@@ -64,7 +64,7 @@ class ResetPassword extends React.Component<WithRouterProps<QueryProps>> {
                     password,
                     resetToken: token,
                 });
-                Router.push('/auth/login');
+                this.props.router.push('/auth/login');
             } catch (error) {
                 return { [FORM_ERROR]: 'Could not reset the password' };
             }

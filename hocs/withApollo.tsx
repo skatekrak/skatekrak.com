@@ -4,13 +4,13 @@ import React from 'react';
 import { getDataFromTree } from 'react-apollo';
 
 import initApollo from 'lib/initApollo';
-import { NextComponentType } from 'next';
+import { NextComponentType, NextPage } from 'next';
 
 export type WithApolloProps = {
     apolloClient: ApolloClient<NormalizedCacheObject>;
 };
 
-function withApollo(App: NextComponentType<any>): NextComponentType<any> {
+function withApollo(App: any): NextComponentType<any> {
     return class Apollo extends React.Component {
         public static displayName = 'withApollo(App)';
 

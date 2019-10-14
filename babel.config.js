@@ -1,8 +1,6 @@
 module.exports = (api) => {
     api.cache(true);
 
-    const presets = ['next/babel', ['@zeit/next-typescript/babel', { allExtensions: true, isTSX: true }]];
-
     const plugins = [
         [
             'module-resolver',
@@ -21,7 +19,7 @@ module.exports = (api) => {
     ];
 
     return {
+        presets: ['next/babel'],
         plugins,
-        presets,
     };
 };

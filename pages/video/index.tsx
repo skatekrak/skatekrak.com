@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import { withRouter, WithRouterProps } from 'next/router';
+import { Router, withRouter } from 'next/router';
 import React from 'react';
 
 import Layout from 'components/Layout/Layout';
@@ -22,15 +22,16 @@ const VideoHead = () => (
     </Head>
 );
 
-type QueryProps = {
+type Props = {
     id: string;
+    router: Router;
 };
 
 type State = {
     sidebarNavIsOpen: boolean;
 };
 
-class Videos extends React.PureComponent<WithRouterProps<QueryProps>, State> {
+class Videos extends React.PureComponent<Props, State> {
     public state: State = {
         sidebarNavIsOpen: false,
     };
@@ -39,7 +40,7 @@ class Videos extends React.PureComponent<WithRouterProps<QueryProps>, State> {
         const { router } = this.props;
         const { sidebarNavIsOpen } = this.state;
 
-        const id = router.query.id;
+        const id = router.query.id as string;
 
         return (
             <Layout head={<VideoHead />}>
