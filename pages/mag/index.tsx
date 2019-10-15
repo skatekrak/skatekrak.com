@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import React from 'react';
+import React, { useState } from 'react';
 
 import Layout from 'components/Layout/Layout';
 import BannerTop from 'components/Ui/Banners/BannerTop';
@@ -7,6 +7,7 @@ import LayoutFeed from 'components/Ui/Feed/LayoutFeed';
 
 import Feed from 'components/pages/mag/Feed';
 import Sidebar from 'components/pages/mag/Sidebar';
+import { NextPage } from 'next';
 
 const MagHead = () => (
     <Head>
@@ -21,40 +22,24 @@ const MagHead = () => (
     </Head>
 );
 
-type State = {
-    sidebarNavIsOpen: boolean;
+const Mag: NextPage = () => {
+    const [sidebarNavIsOpen, setSidebarNavOpen] = useState(false);
+
+    const setSidebarOpeness = () => {
+        setSidebarNavOpen(!sidebarNavIsOpen);
+    };
+
+    return (
+        <Layout head={<MagHead />}>
+            <BannerTop />
+            <div id="mag-container" className="inner-page-container">
+                <LayoutFeed
+                    mainView={<Feed sidebarNavIsOpen={sidebarNavIsOpen} />}
+                    sidebar={<Sidebar handleOpenSidebarNav={setSidebarOpeness} sidebarNavIsOpen={sidebarNavIsOpen} />}
+                />
+            </div>
+        </Layout>
+    );
 };
-
-class Mag extends React.Component<{}, State> {
-    public state: State = {
-        sidebarNavIsOpen: false,
-    };
-
-    public render() {
-        const { sidebarNavIsOpen } = this.state;
-
-        return (
-            <Layout head={<MagHead />}>
-                <BannerTop />
-                <div id="mag-container" className="inner-page-container">
-                    <LayoutFeed
-                        mainView={<Feed sidebarNavIsOpen={sidebarNavIsOpen} />}
-                        sidebar={
-                            <Sidebar
-                                handleOpenSidebarNav={this.handleOpenSidebarNav}
-                                sidebarNavIsOpen={sidebarNavIsOpen}
-                            />
-                        }
-                    />
-                </div>
-            </Layout>
-        );
-    }
-
-    private handleOpenSidebarNav = () => {
-        const { sidebarNavIsOpen } = this.state;
-        this.setState({ sidebarNavIsOpen: !sidebarNavIsOpen });
-    };
-}
 
 export default Mag;

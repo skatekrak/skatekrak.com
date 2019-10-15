@@ -1,4 +1,3 @@
-import { Router, withRouter } from 'next/router';
 import React from 'react';
 
 import LatestPosts from 'components/pages/mag/Sidebar/LatestPosts';
