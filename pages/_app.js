@@ -1,7 +1,6 @@
 import axios from 'axios';
 import App from 'next/app';
 import getConfig from 'next/config';
-import React from 'react';
 import { Provider } from 'react-redux';
 
 import withReduxStore from 'hocs/withRedux';
@@ -64,14 +63,7 @@ class MyApp extends App {
     }
 
     render() {
-        const { Component, pageProps, reduxStore, authUser } = this.props;
-
-        const user = {};
-        if (authUser) {
-            user.email = authUser.email;
-            user.user_id = authUser.id;
-            user.user_hash = authUser.intercomHmac;
-        }
+        const { Component, pageProps, reduxStore } = this.props;
 
         return (
             <Provider store={reduxStore}>

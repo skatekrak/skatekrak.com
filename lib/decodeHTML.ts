@@ -1,6 +1,11 @@
+import htmlEntities from 'html-entities';
+
+const Entities = htmlEntities.AllHtmlEntities;
+const entities = new Entities();
+
 export default function decodeHTML(str: string) {
-    const txt = document.createElement('textarea');
-    txt.innerHTML = str;
-    txt.remove();
-    return txt.value;
+    return entities
+        .decode(str)
+        .replace('<p>', '')
+        .replace('</p>', '');
 }
