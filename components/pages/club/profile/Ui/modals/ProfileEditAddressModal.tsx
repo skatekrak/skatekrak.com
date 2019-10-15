@@ -238,4 +238,4 @@ const ADD_ADDRESS = gql`
     }
 `;
 
-export default withApollo(ProfileEditAddressModal);
+export default withApollo<Props>(ProfileEditAddressModal);

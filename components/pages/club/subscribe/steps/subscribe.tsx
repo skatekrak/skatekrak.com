@@ -422,4 +422,4 @@ export default connect(
         savePricingCurrency,
         userSignin,
     },
-)(injectStripe(withApollo(Subscribe)));
+)(injectStripe(withApollo<Props>(Subscribe)));
