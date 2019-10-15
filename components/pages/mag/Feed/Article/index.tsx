@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import format from 'date-fns/format';
+import { format, parseISO } from 'date-fns';
 import React from 'react';
 import { FacebookIcon, FacebookShareButton, TwitterIcon, TwitterShareButton } from 'react-share';
 
@@ -51,7 +51,7 @@ const Article: React.SFC<Props> = ({ post, isLoading, sidebarNavIsOpen }: Props)
                         <p id="mag-article-category">{post.categoriesString}</p>
                         <h1 id="mag-article-title" dangerouslySetInnerHTML={createMarkup(post.title.rendered)} />
                         <p id="mag-article-date">
-                            {format(new Date(post.date), 'MMMM d')}, {format(new Date(post.date), 'yyyy')}
+                            {format(parseISO(post.date), 'MMMM d')}, {format(parseISO(post.date), 'yyyy')}
                         </p>
                     </header>
                     <main id="mag-article-main">

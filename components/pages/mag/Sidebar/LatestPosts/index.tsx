@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { format } from 'date-fns';
+import { format, parseISO } from 'date-fns';
 import getConfig from 'next/config';
 import React from 'react';
 import Truncate from 'react-truncate';
@@ -70,7 +70,8 @@ class LatestPosts extends React.PureComponent<Props, State> {
                                                 </Truncate>
                                             </h4>
                                             <p className="mag-sidebar-posts-item-details-date">
-                                                {format(post.date, 'MMMM D')}, {format(post.date, 'YYYY')}
+                                                {format(parseISO(post.date), 'MMMM d')},{' '}
+                                                {format(parseISO(post.date), 'yyyy')}
                                             </p>
                                         </div>
                                     </a>

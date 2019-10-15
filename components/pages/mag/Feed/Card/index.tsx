@@ -1,4 +1,4 @@
-import { format } from 'date-fns';
+import { format, parseISO } from 'date-fns';
 import React from 'react';
 import { FacebookIcon, FacebookShareButton, TwitterIcon, TwitterShareButton } from 'react-share';
 
@@ -49,7 +49,7 @@ const Card: React.SFC<Props> = ({ post }: Props) => (
                 </a>
             </Link>
             <span className="mag-card-details-date">
-                {format(new Date(post.date), 'MMMM D')}, {format(new Date(post.date), 'YYYY')}
+                {format(parseISO(post.date), 'MMMM d')}, {format(parseISO(post.date), 'yyyy')}
             </span>
         </div>
     </>
