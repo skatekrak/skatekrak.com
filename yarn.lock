@@ -1116,6 +1116,11 @@
   resolved "https://npm.thepunk.tech/@types%2fnode/-/node-12.7.12.tgz#7c6c571cc2f3f3ac4a59a5f2bd48f5bdbc8653cc"
   integrity sha512-KPYGmfD0/b1eXurQ59fXD1GBzhSQfz6/lKBxkaHX9dKTzjXbK68Zt7yGUxUsCS1jeTy/8aL+d9JEr+S54mpkWQ==
 
+"@types/object-assign@^4.0.30":
+  version "4.0.30"
+  resolved "https://npm.thepunk.tech/@types%2fobject-assign/-/object-assign-4.0.30.tgz#8949371d5a99f4381ee0f1df0a9b7a187e07e652"
+  integrity sha1-iUk3HVqZ9Dge4PHfCpt6GH4H5lI=
+
 "@types/prop-types@*":
   version "15.7.3"
   resolved "https://npm.thepunk.tech/@types%2fprop-types/-/prop-types-15.7.3.tgz#2ab0d5da2e5815f94b0b9d4b95d1e5f243ab2ca7"
@@ -4339,12 +4344,20 @@ next-compose-plugins@^2.2.0:
   resolved "https://npm.thepunk.tech/next-compose-plugins/-/next-compose-plugins-2.2.0.tgz#95cd8eb40ab0652070d76572fb648354191628b0"
   integrity sha512-ChUlpT9tWfJ7YxqGw/WQ2T1gf8EeX93n1XqeQw0lkvGa7seszahvF4eOZUJoq7Hetsbzg4UHVnPoCXfXTyQR3g==
 
+next-cookie@^2.0.0:
+  version "2.0.0"
+  resolved "https://npm.thepunk.tech/next-cookie/-/next-cookie-2.0.0.tgz#1fd1e6007fdbf40775e273929092eb0f005b7e01"
+  integrity sha512-+03YHyrxSI/YPoKRaJ+yFlWs5Sg5aDq3XBS9G2qp4QWlycesobQJLKvTl9u9HcTlmnXU9MR0692fd2OFUrMN4w==
+  dependencies:
+    next ">9.0.0"
+    universal-cookie "^4.0.2"
+
 next-plugin-custom-babel-config@^1.0.2:
   version "1.0.2"
   resolved "https://npm.thepunk.tech/next-plugin-custom-babel-config/-/next-plugin-custom-babel-config-1.0.2.tgz#670e0684ecee84048f720173ac85955a0d6bd219"
   integrity sha512-ZVb50Finz0U3l5TjTMCz7yTk91t1UR5WsBOuexkG7tR/21Eyp6JtzvpVDHVwSSH3Z835/9aoVieHnQaRmJqWGA==
 
-next@^9.1.1:
+next@>9.0.0, next@^9.1.1:
   version "9.1.1"
   resolved "https://npm.thepunk.tech/next/-/next-9.1.1.tgz#bede2e834548020bc4d3be0c46e3ed7edaac6d14"
   integrity sha512-++jiUA1GN/dOqe6+oLT78rdrRnPmf5yHUbug1tdZBYeQ6HE+ypDIeVelmCmyGx+JDNB3TcxNx5R2+D/Cbrwnng==
@@ -6745,6 +6758,16 @@ unique-slug@^2.0.0:
   integrity sha512-zoWr9ObaxALD3DOPfjPSqxt4fnZiWblxHIgeWqW8x7UqDzEtHEQLzji2cuJYQFCU6KmoJikOYAZlrTHHebjx2w==
   dependencies:
     imurmurhash "^0.1.4"
+
+universal-cookie@^4.0.2:
+  version "4.0.2"
+  resolved "https://npm.thepunk.tech/universal-cookie/-/universal-cookie-4.0.2.tgz#c3398a64c72ff0c31fecb1ac4966c424e8669c6d"
+  integrity sha512-n14lhA//lQeYRweP9j9uXsshN9Cs4LunVSnvAGmnA69SofwsjpUU03geaCaPC9LlsH2rkBy99o3zxQyVOldGvA==
+  dependencies:
+    "@types/cookie" "^0.3.3"
+    "@types/object-assign" "^4.0.30"
+    cookie "^0.4.0"
+    object-assign "^4.1.1"
 
 unpipe@1.0.0:
   version "1.0.0"

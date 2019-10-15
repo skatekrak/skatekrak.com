@@ -31,6 +31,7 @@
         "jump.js": "https://github.com/MilllerTime/jump.js.git#b95f9279a4c0f4ca942fd648a6b97094b53bcbab",
         "next": "^9.1.1",
         "next-compose-plugins": "^2.2.0",
+        "next-cookie": "^2.0.0",
         "next-plugin-custom-babel-config": "^1.0.2",
         "react": "^16.10.2",
         "react-apollo": "^3.1.2",
