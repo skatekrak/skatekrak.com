@@ -1,9 +1,11 @@
+import { withApollo, WithApolloClient } from '@apollo/react-hoc';
 import Analytics from '@thepunkclub/analytics';
 import classNames from 'classnames';
+import { FORM_ERROR } from 'final-form';
 import gql from 'graphql-tag';
 import getConfig from 'next/config';
 import React from 'react';
-import { Field as ReactField, Form, FormSpy } from 'react-final-form';
+import { Field as ReactField, Form, FormSpy, FormSpyRenderProps } from 'react-final-form';
 import { connect } from 'react-redux';
 import { CardElement, injectStripe, ReactStripeElements } from 'react-stripe-elements';
 
@@ -22,8 +24,6 @@ import ErrorMessage from 'components/Ui/Form/ErrorMessage';
 import Field from 'components/Ui/Form/Field';
 import Emoji from 'components/Ui/Icons/Emoji';
 import IconValid from 'components/Ui/Icons/Valid';
-import { FORM_ERROR } from 'final-form';
-import { useMutation, useQuery } from 'react-apollo';
 
 type Props = {
     onNextClick: () => void;
@@ -44,7 +44,7 @@ type State = {
     cardError?: string;
 };
 
-class Subscribe extends React.Component<Props & ReactStripeElements.InjectedStripeProps, State> {
+class Subscribe extends React.Component<WithApolloClient<Props & ReactStripeElements.InjectedStripeProps>, State> {
     public state: State = {
         addressView: 'shipping',
         isSpecialCodeValid: false,
@@ -255,10 +255,9 @@ class Subscribe extends React.Component<Props & ReactStripeElements.InjectedStri
             return;
         }
 
-        const [joinClub] = useMutation(JOIN_CLUB);
-
         try {
-            await joinClub({
+            await this.props.client.mutate({
+                mutation: JOIN_CLUB,
                 variables: { data },
                 update: (_cache, result) => {
                     const { joinClubData } = result.data as any;
@@ -278,9 +277,9 @@ class Subscribe extends React.Component<Props & ReactStripeElements.InjectedStri
         }
     };
 
-    private onFormChange = state => {
-        if (checkPath(state, 'values.shipping.country.value')) {
-            const countryCode = state.values.shipping.country.value;
+    private onFormChange = (props: FormSpyRenderProps) => {
+        if (checkPath(props, 'values.shipping.country.value')) {
+            const countryCode = props.values.shipping.country.value;
             let currency = 'eur';
             switch (countryCode) {
                 case 'us':
@@ -295,7 +294,7 @@ class Subscribe extends React.Component<Props & ReactStripeElements.InjectedStri
             this.props.savePricingCurrency(9900, currency);
         }
 
-        this.props.updateFormState('subscribe', state.values);
+        this.props.updateFormState('subscribe', props.values);
     };
 
     private toggleAddressView = () => {
@@ -308,13 +307,12 @@ class Subscribe extends React.Component<Props & ReactStripeElements.InjectedStri
 
     private checkSpecial = async value => {
         if (value) {
-            useQuery(CHECK_SPECIAL, {
+            const result = await this.props.client.query<any>({
+                query: CHECK_SPECIAL,
                 variables: { code: value },
-                onCompleted: data => {
-                    const { checkSpecial } = data;
-                    this.setState({ isSpecialCodeValid: checkSpecial });
-                },
             });
+            const { checkSpecial } = result.data;
+            this.setState({ isSpecialCodeValid: checkSpecial });
         } else {
             this.setState({ isSpecialCodeValid: false });
         }
@@ -424,4 +422,4 @@ export default connect(
         savePricingCurrency,
         userSignin,
     },
-)(injectStripe(Subscribe));
+)(injectStripe(withApollo(Subscribe)));
