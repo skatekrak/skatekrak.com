@@ -49,7 +49,7 @@ const Card: React.SFC<Props> = ({ post }: Props) => (
                 </a>
             </Link>
             <span className="mag-card-details-date">
-                {format(post.date, 'MMMM D')}, {format(post.date, 'YYYY')}
+                {format(new Date(post.date), 'MMMM D')}, {format(new Date(post.date), 'YYYY')}
             </span>
         </div>
     </>

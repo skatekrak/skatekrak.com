@@ -1,4 +1,4 @@
-import { distanceInWordsToNow } from 'date-fns';
+import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 import getConfig from 'next/config';
 import React from 'react';
 import { FacebookIcon, FacebookShareButton, TwitterIcon, TwitterShareButton } from 'react-share';
@@ -55,7 +55,7 @@ class Card extends React.PureComponent<Props, State> {
                             <span className="news-article-details-source-name">{content.source.label}</span>
                         </a>
                     </div>
-                    <span className="news-article-details-date">&nbsp;- {distanceInWordsToNow(content.createdAt)}</span>
+                    <span className="news-article-details-date">&nbsp;- {formatDistanceToNow(content.createdAt)}</span>
                 </div>
                 <p className="news-article-desc">
                     <Truncate lines={4} ellipsis="...">

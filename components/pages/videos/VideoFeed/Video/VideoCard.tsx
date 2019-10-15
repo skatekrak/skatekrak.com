@@ -1,4 +1,4 @@
-import { distanceInWordsToNow } from 'date-fns';
+import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 import React from 'react';
 
 import VideoCardShare from 'components/pages/videos/VideoFeed/Video/VideoCardShare';
@@ -22,7 +22,7 @@ class VideoCard extends React.PureComponent<Props, State> {
                 <div className="video-card-details">
                     <p className="video-card-details-source">
                         by {video.source.title}
-                        <span className="video-card-details-date">&nbsp;- {distanceInWordsToNow(video.createdAt)}</span>
+                        <span className="video-card-details-date">&nbsp;- {formatDistanceToNow(video.createdAt)}</span>
                     </p>
                 </div>
                 <h2 className="video-card-title">{video.title}</h2>
