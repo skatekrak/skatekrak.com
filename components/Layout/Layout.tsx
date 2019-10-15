@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import Head from 'next/head';
 import React from 'react';
-import { connect } from 'react-redux';
+import { connect, DispatchProp } from 'react-redux';
 
 import Types from 'Types';
 
@@ -33,13 +33,14 @@ import 'static/styles/videos.styl';
 import 'react-datepicker/dist/react-datepicker.css';
 import 'static/styles/react-datepicker.css';
 
-type Props = {
-    head?: React.ReactNode;
-    isMobile: boolean;
-    dispatch: (fct: any) => void;
+type IComponentOwnProps = {
+    head?: React.ReactElement;
+    children?: any;
 };
 
-class Layout extends React.Component<Props, {}> {
+type IComponentProps = IComponentOwnProps & IComponentStoreProps & DispatchProp;
+
+class Layout extends React.Component<IComponentProps> {
     public componentDidMount() {
         window.addEventListener('resize', this.setWindowsDimensions);
         this.setWindowsDimensions();
@@ -85,4 +86,7 @@ const mapStateToProps = ({ settings }: Types.RootState) => {
     const { isMobile } = settings;
     return { isMobile };
 };
+
+type IComponentStoreProps = ReturnType<typeof mapStateToProps>;
+
 export default connect(mapStateToProps)(Layout);
