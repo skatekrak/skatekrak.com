@@ -18,7 +18,7 @@ class Hero extends React.PureComponent<Props, {}> {
 
         return (
             <header id="club-hero">
-                <img src="/static/images/club/club-hero-logo.svg" alt="Krak skate club" id="club-hero-logo" />
+                <img src="/images/club/club-hero-logo.svg" alt="Krak skate club" id="club-hero-logo" />
                 <h2 id="club-hero-baseline">Dig deeper into skateboarding</h2>
                 {authUser ? (
                     <Link href="/club/profile">

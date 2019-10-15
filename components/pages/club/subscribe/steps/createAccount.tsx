@@ -60,7 +60,7 @@ const CreateAccount = (props: Props) => {
                         <article id="subscribe-promote">
                             <header id="subscribe-promote-header">
                                 <img
-                                    src="/static/images/club/club-hero-logo.svg"
+                                    src="/images/club/club-hero-logo.svg"
                                     alt="Krak skate club"
                                     id="subscribe-promote-header-logo"
                                 />

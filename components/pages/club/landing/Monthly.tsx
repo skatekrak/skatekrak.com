@@ -39,21 +39,21 @@ const Monthly: React.SFC = () => (
                 <div id="club-monthly-main-app">
                     <div className="club-monthly-main-app-container" id="club-monthly-main-app-krakito">
                         <img
-                            src="https://res.skatekrak.com/static/skatekrak.com/Icons/krakito.svg"
+                            src="https://res.skatekrak.com/public/skatekrak.com/Icons/krakito.svg"
                             alt="Krakito"
                             className="club-monthly-main-app"
                         />
                     </div>
                     <div className="club-monthly-main-app-container" id="club-monthly-main-app-krakapp">
                         <img
-                            src="https://res.skatekrak.com/static/skatekrak.com/Icons/krakapp.svg"
+                            src="https://res.skatekrak.com/public/skatekrak.com/Icons/krakapp.svg"
                             alt="Krak app"
                             className="club-monthly-main-app"
                         />
                     </div>
                     <div className="club-monthly-main-app-container" id="club-monthly-main-app-kraksession">
                         <img
-                            src="https://res.skatekrak.com/static/skatekrak.com/Icons/kraksession.svg"
+                            src="https://res.skatekrak.com/public/skatekrak.com/Icons/kraksession.svg"
                             alt="Krak session"
                             id="club-monthly-main-app-kraksession"
                             className="club-monthly-main-app"
@@ -65,7 +65,7 @@ const Monthly: React.SFC = () => (
                 <div id="club-monthly-sec-image" />
                 <div id="club-monthly-sec-skateistan">
                     <img
-                        src="https://res.skatekrak.com/static/skatekrak.com/Icons/citizens-of-skateistan.svg"
+                        src="https://res.skatekrak.com/public/skatekrak.com/Icons/citizens-of-skateistan.svg"
                         alt=""
                         id="club-monthly-sec-skateistan-logo"
                     />

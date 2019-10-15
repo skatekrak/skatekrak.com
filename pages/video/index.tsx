@@ -17,7 +17,7 @@ const VideoHead = () => (
         <meta property="og:title" content="Krak | Videos" />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://skatekrak.com/videos" />
-        <meta property="og:image" content="https://skatekrak.com/static/images/og-news.jpg" />
+        <meta property="og:image" content="https://skatekrak.com/images/og-news.jpg" />
         <meta property="og:description" content="Don't miss anything in the skateboarding world" />
     </Head>
 );

@@ -15,7 +15,7 @@ const MagHead = () => (
         <meta property="og:title" content="Krak mag" />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://skatekrak.com/mag" />
-        <meta property="og:image" content="https://skatekrak.com/static/images/og-news.jpg" />
+        <meta property="og:image" content="https://skatekrak.com/images/og-news.jpg" />
         <meta property="og:description" content="Krak mag" />
         {/* TODO: Connect WP OG tags */}
     </Head>

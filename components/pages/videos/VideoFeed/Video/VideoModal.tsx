@@ -75,7 +75,7 @@ class VideoModal extends React.Component<Props, State> {
                     <div className="video-modal-nothing">
                         <img
                             className="video-modal-nothing-img"
-                            src="/static/images/pindejo-lucas-beaufort.jpg"
+                            src="/images/pindejo-lucas-beaufort.jpg"
                             alt="Lucas beaufort krak illustration"
                         />
                         <p>

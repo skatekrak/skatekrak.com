@@ -11,7 +11,7 @@ const Congrats = ({ onNextClick }: Props) => (
     <div className="subscribe modal-two-col-container modal-two-col-form">
         <div className="modal-two-col-first-container modal-two-col-item-container">
             <div id="subscribe-congrats-first-container">
-                <img id="subscribe-congrats-first-img" src="/static/images/step_3_2x.png" alt="Welcome kraken" />
+                <img id="subscribe-congrats-first-img" src="/images/step_3_2x.png" alt="Welcome kraken" />
                 <p id="subscribe-congrats-first-title">
                     <Emoji symbol="💥" label="bang" />
                     Bang

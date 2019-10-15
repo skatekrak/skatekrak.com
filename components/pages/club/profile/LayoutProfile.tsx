@@ -3,7 +3,7 @@ import React from 'react';
 import OnboardingModal from 'components/pages/club/onboarding/onboardingModal';
 import ProfileNav from 'components/pages/club/profile/nav';
 
-import 'static/styles/profile.styl';
+import '/public/styles/profile.styl';
 
 type Props = {
     profile: any;

@@ -22,7 +22,7 @@ const HomeHead = () => (
         <meta property="og:title" content="Krak" />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://skatekrak.com" />
-        <meta property="og:image" content="https://skatekrak.com/static/images/og-home.jpg" />
+        <meta property="og:image" content="https://skatekrak.com/images/og-home.jpg" />
         <meta
             property="og:description"
             content="Skateboarding is not a hobby. And it’s not a sport. Skateboarding is a way of learning how to redefine the world around you. Ian Mackaye"
@@ -81,7 +81,7 @@ class Index extends React.PureComponent<{}, State> {
         this.setState({ email: event.target.value });
     };
 
-    private handleSubmit = (event) => {
+    private handleSubmit = event => {
         event.preventDefault();
         const { email } = this.state;
         if (!validator.validate(email)) {

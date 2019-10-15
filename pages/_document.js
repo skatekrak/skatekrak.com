@@ -7,9 +7,9 @@ export default class MyDocument extends Document {
                 <Head>
                     <meta charSet="utf-8" />
                     <meta name="viewport" content="with-device-with, initial-scale=1" />
-                    <link rel="apple-touch-icon" sizes="180x180" href="/static/images/apple-touch-icon.png" />
-                    <link rel="icon" type="image/png" sizes="32x32" href="/static/images/favicon_32.png" />
-                    <link rel="icon" type="image/png" sizes="16x16" href="/static/images/favicon_16.png" />
+                    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png" />
+                    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon_32.png" />
+                    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon_16.png" />
                     <script src="https://js.stripe.com/v3" />
                 </Head>
                 <body>

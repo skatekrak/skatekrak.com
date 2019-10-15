@@ -1,6 +1,6 @@
 import React from 'react';
 
-import 'static/styles/feed.styl';
+import '/public/styles/feed.styl';
 
 type Props = {
     mainView: React.ReactNode;

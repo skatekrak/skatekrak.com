@@ -16,7 +16,7 @@ import Emoji from 'components/Ui/Icons/Emoji';
 import { withApollo } from 'hocs/withApollo';
 import withAuth from 'hocs/withAuth';
 
-import 'static/styles/form.styl';
+import '/public/styles/form.styl';
 
 export const GET_ME = gql`
     query {

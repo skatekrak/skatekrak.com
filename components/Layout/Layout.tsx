@@ -9,29 +9,29 @@ import Header from 'components/Header';
 import { setDeviceSize } from 'store/settings/actions';
 
 /* tslint:disable:ordered-imports */
-import 'static/styles/reset.css';
-import 'static/styles/flexbox-grid.css';
-import 'static/styles/fonts.styl';
-import 'static/styles/helpers.styl';
-import 'static/styles/main.styl';
-import 'static/styles/styleguide.styl';
-import 'static/styles/stylus-mq.styl';
-import 'static/styles/form.styl';
-import 'static/styles/modal.styl';
-import 'static/styles/checkbox.styl';
-import 'static/styles/icons.styl';
-import 'static/styles/ui.styl';
+import '/public/styles/reset.css';
+import '/public/styles/flexbox-grid.css';
+import '/public/styles/fonts.styl';
+import '/public/styles/helpers.styl';
+import '/public/styles/main.styl';
+import '/public/styles/styleguide.styl';
+import '/public/styles/stylus-mq.styl';
+import '/public/styles/form.styl';
+import '/public/styles/modal.styl';
+import '/public/styles/checkbox.styl';
+import '/public/styles/icons.styl';
+import '/public/styles/ui.styl';
 
-import 'static/styles/auth.styl';
-import 'static/styles/subscribe.styl';
-import 'static/styles/onboarding.styl';
-import 'static/styles/club.styl';
-import 'static/styles/mag.styl';
-import 'static/styles/news.styl';
-import 'static/styles/videos.styl';
+import '/public/styles/auth.styl';
+import '/public/styles/subscribe.styl';
+import '/public/styles/onboarding.styl';
+import '/public/styles/club.styl';
+import '/public/styles/mag.styl';
+import '/public/styles/news.styl';
+import '/public/styles/videos.styl';
 
 import 'react-datepicker/dist/react-datepicker.css';
-import 'static/styles/react-datepicker.css';
+import '/public/styles/react-datepicker.css';
 
 type IComponentOwnProps = {
     head?: React.ReactElement;
