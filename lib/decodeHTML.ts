@@ -1,7 +1,6 @@
-import htmlEntities from 'html-entities';
+import XmlEntities from 'lib/XmlEntities';
 
-const Entities = htmlEntities.AllHtmlEntities;
-const entities = new Entities();
+const entities = new XmlEntities();
 
 export default function decodeHTML(str: string) {
     return entities
