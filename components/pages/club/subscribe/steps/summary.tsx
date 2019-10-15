@@ -10,7 +10,7 @@ type Props = {
 };
 
 const Summary = (props: Props) => {
-    const { onNextClick, pricingQuarter, pricingMonth } = this.props;
+    const { onNextClick, pricingQuarter, pricingMonth } = props;
     const quarterFull: boolean = getConfig().publicRuntimeConfig.IS_QUARTERFULL;
     return (
         <div className="subscribe modal-two-col-container modal-two-col-form subscribe-summary">
