@@ -45,13 +45,13 @@ const Monthly: React.SFC<Props> = ({ onOpenQuarterModal }) => (
                 <div id="club-quarterly-main-shipping-countries">
                     Only open for those countries:
                     <div id="club-quarterly-main-shipping-countries-flag">
-                        <img src="https://res.skatekrak.com/public/skatekrak.com/flags/united-states.svg" alt="Flag" />
-                        <img src="https://res.skatekrak.com/public/skatekrak.com/flags/france.svg" alt="Flag" />
-                        <img src="https://res.skatekrak.com/public/skatekrak.com/flags/germany.svg" alt="Flag" />
-                        <img src="https://res.skatekrak.com/public/skatekrak.com/flags/united-kingdom.svg" alt="Flag" />
-                        <img src="https://res.skatekrak.com/public/skatekrak.com/flags/portugal.svg" alt="Flag" />
-                        <img src="https://res.skatekrak.com/public/skatekrak.com/flags/belgium.svg" alt="Flag" />
-                        <img src="https://res.skatekrak.com/public/skatekrak.com/flags/netherlands.svg" alt="Flag" />
+                        <img src="https://res.skatekrak.com/static/skatekrak.com/flags/united-states.svg" alt="Flag" />
+                        <img src="https://res.skatekrak.com/static/skatekrak.com/flags/france.svg" alt="Flag" />
+                        <img src="https://res.skatekrak.com/static/skatekrak.com/flags/germany.svg" alt="Flag" />
+                        <img src="https://res.skatekrak.com/static/skatekrak.com/flags/united-kingdom.svg" alt="Flag" />
+                        <img src="https://res.skatekrak.com/static/skatekrak.com/flags/portugal.svg" alt="Flag" />
+                        <img src="https://res.skatekrak.com/static/skatekrak.com/flags/belgium.svg" alt="Flag" />
+                        <img src="https://res.skatekrak.com/static/skatekrak.com/flags/netherlands.svg" alt="Flag" />
                     </div>
                     <p>
                         <Emoji symbol="🚚" label="Truck" /> Free shipping

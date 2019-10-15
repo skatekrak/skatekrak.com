@@ -17,7 +17,7 @@ const Sidebar: React.SFC<Props> = ({ post, router, sidebarNavIsOpen, handleOpenS
     <div id="feed-scrolltop-hook" className="feed-sidebar-container">
         <div className="feed-sidebar-header">
             <h2 className="feed-sidebar-header-title">Krak mag</h2>
-            <img src="https://res.skatekrak.com/public/krakmag_logo.png" alt="Krak mag" id="krakmag-logo" />
+            <img src="https://res.skatekrak.com/static/krakmag_logo.png" alt="Krak mag" id="krakmag-logo" />
         </div>
         {!router.query.id ? (
             <Nav sidebarNavIsOpen={sidebarNavIsOpen} handleOpenSidebarNav={handleOpenSidebarNav} />

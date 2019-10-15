@@ -19,14 +19,14 @@ const Summary = (props: Props) => {
                 <p className="subscribe-summary-price">Starts at {pricingMonth} / month</p>
                 <ul className="subscribe-summary-app-container">
                     <li className="subscribe-summary-app">
-                        <img src="https://res.skatekrak.com/public/skatekrak.com/Icons/krakito.svg" alt="Krakito" />
+                        <img src="https://res.skatekrak.com/static/skatekrak.com/Icons/krakito.svg" alt="Krakito" />
                     </li>
                     <li className="subscribe-summary-app">
-                        <img src="https://res.skatekrak.com/public/skatekrak.com/Icons/krakapp.svg" alt="Krak app" />
+                        <img src="https://res.skatekrak.com/static/skatekrak.com/Icons/krakapp.svg" alt="Krak app" />
                     </li>
                     <li className="subscribe-summary-app">
                         <img
-                            src="https://res.skatekrak.com/public/skatekrak.com/Icons/kraksession.svg"
+                            src="https://res.skatekrak.com/static/skatekrak.com/Icons/kraksession.svg"
                             alt="Krak session"
                             id="club-monthly-main-app-kraksession"
                         />
