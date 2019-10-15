@@ -11,7 +11,7 @@ const PaymentLine: React.SFC<Props> = ({ payment }) => (
         <span className="profile-payment-history-line-desc">{payment.description}</span>
         <div className="profile-payment-history-line-details">
             <span className="profile-payment-history-line-details-date">
-                {payment.createdAt ? format(payment.createdAt, 'DD MMMM YYYY').toLowerCase() : ''}
+                {payment.createdAt ? format(payment.createdAt, 'dd MMMM yyyy').toLowerCase() : ''}
             </span>
             <span className="profile-payment-history-line-details-price">{payment.amount / 100 + '€'}</span>
             <Tooltip />

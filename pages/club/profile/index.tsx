@@ -109,7 +109,7 @@ class ProfileMain extends React.Component<{}, State> {
                                         />
                                         <ProfileItem
                                             title="Next renewal"
-                                            content={data.me.renewAt ? format(data.me.renewAt, 'D MMMM YYYY') : 'Never'}
+                                            content={data.me.renewAt ? format(data.me.renewAt, 'd MMMM yyyy') : 'Never'}
                                         />
                                     </div>
                                 </ProfileSection>

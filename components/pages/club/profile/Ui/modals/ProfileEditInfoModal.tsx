@@ -82,7 +82,7 @@ class ProfileEditInfoModal extends React.Component<Props & ChildProps> {
                             firstName: dirtyValues.firstName,
                             lastName: dirtyValues.lastName,
                             phone: dirtyValues.phone,
-                            birthday: dirtyValues.birthday ? format(dirtyValues.birthday, 'YYYY-MM-DD') : undefined,
+                            birthday: dirtyValues.birthday ? format(dirtyValues.birthday, 'yyyy-MM-dd') : undefined,
                         },
                     },
                     update: (cache, result) => {

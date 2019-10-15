@@ -51,7 +51,7 @@ const Article: React.SFC<Props> = ({ post, isLoading, sidebarNavIsOpen }: Props)
                         <p id="mag-article-category">{post.categoriesString}</p>
                         <h1 id="mag-article-title" dangerouslySetInnerHTML={createMarkup(post.title.rendered)} />
                         <p id="mag-article-date">
-                            {format(new Date(post.date), 'MMMM D')}, {format(new Date(post.date), 'YYYY')}
+                            {format(new Date(post.date), 'MMMM d')}, {format(new Date(post.date), 'yyyy')}
                         </p>
                     </header>
                     <main id="mag-article-main">

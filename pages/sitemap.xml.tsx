@@ -1,7 +1,7 @@
 import format from 'date-fns/format';
 import React from 'react';
 
-const lastMod = format(new Date(), 'YYYY-MM-DD');
+const lastMod = format(new Date(), 'yyyy-MM-dd');
 
 const sitemapXml = `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>

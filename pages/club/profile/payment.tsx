@@ -104,7 +104,7 @@ class ProfilePayment extends React.Component<{}, State> {
                                                                 title="Next renewal"
                                                                 content={
                                                                     data.me.renewAt
-                                                                        ? format(data.me.renewAt, 'D MMMM YYYY')
+                                                                        ? format(data.me.renewAt, 'd MMMM yyyy')
                                                                         : 'Never'
                                                                 }
                                                             />
