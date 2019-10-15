@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from '@apollo/react-hooks';
+import { withApollo, WithApolloClient } from '@apollo/react-hoc';
 import { FORM_ERROR, FormApi } from 'final-form';
 import gql from 'graphql-tag';
 import React from 'react';
@@ -28,7 +28,7 @@ const GET_COUNTRIES = gql`
     }
 `;
 
-class ProfileEditAddressModal extends React.Component<Props> {
+class ProfileEditAddressModal extends React.Component<WithApolloClient<Props>> {
     public render() {
         let formattedInitialValues: any = {};
         if (this.props.address) {
@@ -103,8 +103,8 @@ class ProfileEditAddressModal extends React.Component<Props> {
                 variables.address.country = variables.address.country.value;
             }
 
-            const [addOrUpdateAddress] = useMutation(this.props.address ? UPDATE_ADDRESS : ADD_ADDRESS);
-            addOrUpdateAddress({
+            this.props.client.mutate({
+                mutation: this.props.address ? UPDATE_ADDRESS : ADD_ADDRESS,
                 variables,
                 update: (cache, result) => {
                     const query = cache.readQuery<any>({
@@ -147,16 +147,18 @@ class ProfileEditAddressModal extends React.Component<Props> {
     };
 
     private queryCountries = (_inputValue: string, callback: (options: {}[]) => void) => {
-        useQuery(GET_COUNTRIES, {
-            onCompleted: data => {
-                const options = data.countriesByCurrency.map(country => ({
+        this.props.client
+            .query({
+                query: GET_COUNTRIES,
+            })
+            .then(result => {
+                const options = result.data.countriesByCurrency.map(country => ({
                     label: country.name,
                     value: country.isoCode,
                 }));
 
                 callback(options);
-            },
-        });
+            });
     };
 }
 
@@ -236,4 +238,4 @@ const ADD_ADDRESS = gql`
     }
 `;
 
-export default ProfileEditAddressModal;
+export default withApollo(ProfileEditAddressModal);
