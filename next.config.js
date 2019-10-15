@@ -2,14 +2,17 @@ const path = require('path');
 
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const withCustomBabelConfigFile = require('next-plugin-custom-babel-config');
-
 const withStylus = require('@zeit/next-stylus');
 const withCSS = require('@zeit/next-css');
 const withPlugins = require('next-compose-plugins');
 
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+    enabled: process.env.ANALYZE === 'true',
+});
+
 const webpack = require('webpack');
 
-module.exports = withPlugins([withCSS, withStylus, withCustomBabelConfigFile], {
+module.exports = withPlugins([withBundleAnalyzer, withCSS, withStylus, withCustomBabelConfigFile], {
     babelConfigFile: path.resolve('./babel.config.js'),
     publicRuntimeConfig: {
         BEARER: process.env.BEARER,
