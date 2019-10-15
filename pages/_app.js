@@ -4,36 +4,12 @@ import getConfig from 'next/config';
 import React from 'react';
 import { Provider } from 'react-redux';
 
-import withApolloClient from 'hocs/withApollo';
 import withReduxStore from 'hocs/withRedux';
 import { userSigninSuccess, getMe } from 'store/auth/actions';
 import { savePricingCurrency } from 'store/payment/actions';
-import {
-    removeUser,
-    getBearerFromLocalCookie,
-    getBearerFromServerCookie,
-    getUserFromLocalCookie,
-    getUserFromServerCookie,
-} from 'lib/auth';
+import { removeUser } from 'lib/auth';
 
 class MyApp extends App {
-    static async getInitialProps({ Component, router, ctx }) {
-        const authUser = process.browser ? getUserFromLocalCookie() : getUserFromServerCookie(ctx.req);
-        const bearer = process.browser ? getBearerFromLocalCookie() : getBearerFromServerCookie(ctx.req);
-
-        let pageProps = {};
-
-        if (Component.getInitialProps) {
-            pageProps = await Component.getInitialProps(ctx);
-        }
-
-        return {
-            ...pageProps,
-            authUser,
-            isAuthenticated: !!bearer,
-        };
-    }
-
     componentDidMount() {
         // If not in dev, we query ipdata.co to get country based on IP
         // and show currency accordingly
