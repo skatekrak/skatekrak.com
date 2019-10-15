@@ -21,9 +21,8 @@ const Comment = () => (
         <div id="mag-article-comment-kraken">
             <p id="mag-article-comment-kraken-title">For krakens only</p>
             <p id="mag-article-comment-kraken-text">
-                We created a network for all our members to discuss skateboarding as a whole.
-                <br />
-                Let’s talk about it there, we are good folks ;)
+                Go beyond the story with fellow passionate skateboarders from all around the world. No ads, no clickbait
+                - only comments with substance.
             </p>
             <a
                 className="button-primary mag-club-cta"
