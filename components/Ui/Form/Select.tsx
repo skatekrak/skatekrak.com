@@ -2,7 +2,7 @@ import classnames from 'classnames';
 import React from 'react';
 import { Field } from 'react-final-form';
 import ReactSelect from 'react-select';
-import AsyncSelect from 'react-select/Async';
+import AsyncSelect from 'react-select/async';
 
 import ErrorMessage from 'components/Ui/Form/ErrorMessage';
 
