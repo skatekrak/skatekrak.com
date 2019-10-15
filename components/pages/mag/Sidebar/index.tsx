@@ -11,24 +11,23 @@ type Props = {
     post?: Post;
     sidebarNavIsOpen: boolean;
     handleOpenSidebarNav: () => void;
-    router: Router;
 };
-const Sidebar: React.SFC<Props> = ({ post, router, sidebarNavIsOpen, handleOpenSidebarNav }: Props) => (
+const Sidebar = ({ post, sidebarNavIsOpen, handleOpenSidebarNav }: Props) => (
     <div id="feed-scrolltop-hook" className="feed-sidebar-container">
         <div className="feed-sidebar-header">
             <h2 className="feed-sidebar-header-title">Krak mag</h2>
             <img src="https://res.skatekrak.com/static/krakmag_logo.png" alt="Krak mag" id="krakmag-logo" />
         </div>
-        {!router.query.id ? (
-            <Nav sidebarNavIsOpen={sidebarNavIsOpen} handleOpenSidebarNav={handleOpenSidebarNav} />
-        ) : (
+        {post ? (
             <>
-                {post && <RelatedPosts post={post} />}
+                <RelatedPosts post={post} />
                 <LatestPosts />
             </>
+        ) : (
+            <Nav sidebarNavIsOpen={sidebarNavIsOpen} handleOpenSidebarNav={handleOpenSidebarNav} />
         )}
         <ScrollTop elementId="feed-scrolltop-hook" />
     </div>
 );
 
-export default withRouter(Sidebar);
+export default Sidebar;
