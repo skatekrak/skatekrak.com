@@ -1,6 +1,7 @@
+import Link from 'next/link';
 import React from 'react';
 
-import Link from 'components/Link';
+// import Link from 'components/Link';
 
 type Props = {
     title: string;
@@ -9,14 +10,14 @@ type Props = {
     as?: string;
 };
 
-const NavItem: React.SFC<Props> = ({ title, url, blank, as }: Props) => (
+const NavItem = ({ title, url, blank, as }: Props) => (
     <li className="header-nav-main-item">
         {blank ? (
             <a href={url} className="header-nav-main-item-link" target={blank ? '_blank' : undefined}>
                 {title}
             </a>
         ) : (
-            <Link href={url} as={as} activeClassName="active">
+            <Link href={url} as={as}>
                 <a className="header-nav-main-item-link">{title}</a>
             </Link>
         )}
