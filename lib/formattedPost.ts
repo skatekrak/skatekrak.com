@@ -17,11 +17,11 @@ export const formatPost = (post: Post): Post => {
 
     // Get image
     if (post.featured_media) {
-        const thumbnailImage = post._embedded['wp:featuredmedia'][0].media_details.sizes.medium_large.source_url;
-        post.thumbnailImage = thumbnailImage;
+        // const thumbnailImage = post._embedded['wp:featuredmedia'][0].media_details.sizes.medium_large.source_url;
 
         const featuredImageFull = post._embedded['wp:featuredmedia'][0].media_details.sizes.full.source_url;
         post.featuredImageFull = featuredImageFull;
+        post.thumbnailImage = featuredImageFull;
     }
 
     return post;
