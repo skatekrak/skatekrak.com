@@ -7,7 +7,7 @@ type Props = {
     sidebar: React.ReactNode;
 };
 
-const LayoutFeed: React.SFC<Props> = ({ mainView, sidebar }) => (
+const LayoutFeed = ({ mainView, sidebar }: Props) => (
     <div className="container-fluid">
         <div className="row">
             <div className="feed-sidebar col-xs-12 last-md col-md-4 col-lg-3">{sidebar}</div>

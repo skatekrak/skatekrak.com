@@ -1,5 +1,6 @@
 import axios from 'axios';
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
+import parseISO from 'date-fns/parseISO';
 import getConfig from 'next/config';
 import Router from 'next/router';
 import React from 'react';
@@ -64,7 +65,7 @@ class VideoModal extends React.Component<Props, State> {
                             <p className="video-modal-details-source">
                                 by {video.source.title}
                                 <span className="video-modal-details-date">
-                                    &nbsp;- {formatDistanceToNow(video.createdAt)}
+                                    &nbsp;- {formatDistanceToNow(parseISO(video.createdAt))}
                                 </span>
                             </p>
                         </div>

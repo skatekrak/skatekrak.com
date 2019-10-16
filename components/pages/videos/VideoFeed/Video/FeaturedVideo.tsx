@@ -1,4 +1,5 @@
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
+import parseISO from 'date-fns/parseISO';
 import React from 'react';
 
 import VideoCardShare from 'components/pages/videos/VideoFeed/Video/VideoCardShare';
@@ -23,7 +24,7 @@ class FeaturedVideo extends React.PureComponent<Props, State> {
                     <p className="video-featured-details-source">
                         by {video.source.title}
                         <span className="video-featured-details-date">
-                            &nbsp;- {formatDistanceToNow(video.createdAt)}
+                            &nbsp;- {formatDistanceToNow(parseISO(video.createdAt))}
                         </span>
                     </p>
                 </div>
