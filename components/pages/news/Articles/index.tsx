@@ -92,21 +92,18 @@ class Articles extends React.Component<Props, State> {
             this.setState({ isLoading: true });
 
             const filters = this.getFilters(this.props.news.sources);
-            let req: Promise<any>;
             if (filters.length === 0) {
-                req = Promise.resolve();
-            } else {
-                if (this.props.news.search) {
-                    req = axios.get(`${getConfig().publicRuntimeConfig.RSS_BACKEND_URL}/contents/search`, {
-                        params: { page, filters, query: this.props.news.search },
-                    });
-                } else {
-                    req = axios.get(`${getConfig().publicRuntimeConfig.RSS_BACKEND_URL}/contents/`, {
-                        params: { page, filters },
-                    });
-                }
+                return Promise.resolve();
             }
-            const res = await req;
+
+            const params = { page, filters };
+            const res = await axios.get(`${getConfig().publicRuntimeConfig.RSS_BACKEND_URL}/contents/`, {
+                params: {
+                    ...params,
+                    search: this.props.news.search,
+                },
+            });
+
             if (res.data) {
                 const data: Content[] = res.data;
                 const contents = this.state.contents;
@@ -154,13 +151,13 @@ class Articles extends React.Component<Props, State> {
             }
             const minBound = i * range + range * (1 / 3);
             const maxBound = (i + 1) * range - range * (1 / 3);
-            indexes.push(this.getRandomInt(minBound, maxBound));
+            indexes.push(getRandomInt(minBound, maxBound));
         }
         this.setState({ promoCardIndexes: indexes });
     }
 
     private genArticlesList(contents: Content[]): JSX.Element[] {
-        const articles = contents.map((content) => (
+        const articles = contents.map(content => (
             <Article key={content.id} content={content} currency={this.props.payment.currency} />
         ));
         for (const index of this.state.promoCardIndexes) {
@@ -174,13 +171,13 @@ class Articles extends React.Component<Props, State> {
         }
         return articles;
     }
-
-    private getRandomInt(min: number, max: number): number {
-        min = Math.ceil(min);
-        max = Math.floor(max);
-        return Math.floor(Math.random() * (max - min)) + min;
-    }
 }
+
+const getRandomInt = (min: number, max: number): number => {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min)) + min;
+};
 
 export default connect(({ news, settings, payment }: Types.RootState) => ({
     news,

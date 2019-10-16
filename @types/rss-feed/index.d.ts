@@ -31,8 +31,8 @@ declare module 'rss-feed' {
     export interface Content {
         id: string;
 
-        createdAt: Date;
-        updatedAt: Date;
+        createdAt: string;
+        updatedAt: string;
         source: Source;
         contentId: string;
         title: string;
@@ -52,8 +52,8 @@ declare module 'rss-feed' {
     export interface Video {
         id: string;
 
-        createdAt: Date;
-        updatedAt: Date;
+        createdAt: string;
+        updatedAt: string;
         order: Order;
         source: Source;
         videoId: string;

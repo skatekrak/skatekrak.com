@@ -1,5 +1,6 @@
 import axios from 'axios';
-import { distanceInWordsToNow } from 'date-fns';
+import formatDistanceToNow from 'date-fns/formatDistanceToNow';
+import parseISO from 'date-fns/parseISO';
 import getConfig from 'next/config';
 import Router from 'next/router';
 import React from 'react';
@@ -64,7 +65,7 @@ class VideoModal extends React.Component<Props, State> {
                             <p className="video-modal-details-source">
                                 by {video.source.title}
                                 <span className="video-modal-details-date">
-                                    &nbsp;- {distanceInWordsToNow(video.createdAt)}
+                                    &nbsp;- {formatDistanceToNow(parseISO(video.createdAt))}
                                 </span>
                             </p>
                         </div>
@@ -75,7 +76,7 @@ class VideoModal extends React.Component<Props, State> {
                     <div className="video-modal-nothing">
                         <img
                             className="video-modal-nothing-img"
-                            src="/static/images/pindejo-lucas-beaufort.jpg"
+                            src="/images/pindejo-lucas-beaufort.jpg"
                             alt="Lucas beaufort krak illustration"
                         />
                         <p>

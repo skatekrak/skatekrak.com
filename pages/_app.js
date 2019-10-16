@@ -1,47 +1,20 @@
 import axios from 'axios';
-import App, { Container } from 'next/app';
+import App from 'next/app';
 import getConfig from 'next/config';
-import React from 'react';
-import { ApolloProvider } from 'react-apollo';
 import { Provider } from 'react-redux';
-import Intercom from 'react-intercom';
 
-import withApolloClient from 'hocs/withApollo';
 import withReduxStore from 'hocs/withRedux';
 import { userSigninSuccess, getMe } from 'store/auth/actions';
 import { savePricingCurrency } from 'store/payment/actions';
-import {
-    removeUser,
-    getBearerFromLocalCookie,
-    getBearerFromServerCookie,
-    getUserFromLocalCookie,
-    getUserFromServerCookie,
-} from 'lib/auth';
+import { removeUser } from 'lib/auth';
 
 class MyApp extends App {
-    static async getInitialProps({ Component, router, ctx }) {
-        const authUser = process.browser ? getUserFromLocalCookie() : getUserFromServerCookie(ctx.req);
-        const bearer = process.browser ? getBearerFromLocalCookie() : getBearerFromServerCookie(ctx.req);
-
-        let pageProps = {};
-
-        if (Component.getInitialProps) {
-            pageProps = await Component.getInitialProps(ctx);
-        }
-
-        return {
-            ...pageProps,
-            authUser,
-            isAuthenticated: !!bearer,
-        };
-    }
-
     componentDidMount() {
         // If not in dev, we query ipdata.co to get country based on IP
         // and show currency accordingly
         if (getConfig().publicRuntimeConfig.NODE_ENV !== 'development') {
             axios('https://api.ipdata.co/?api-key=4a4e1261ab0b0b8288f5ffef913072c177a0262cf1945fb399a0b712').then(
-                (result) => {
+                result => {
                     let countryCode = undefined;
                     if (result.data && result.data.country_code) {
                         countryCode = result.data.country_code.toLowerCase();
@@ -81,7 +54,7 @@ class MyApp extends App {
 
     componentDidUpdate(prevProps) {
         if (prevProps.isAuthenticated && !this.props.isAuthenticated) {
-            this.props.apolloClient.resetStore();
+            // this.props.apolloClient.resetStore();
         }
 
         if (this.props.authUser && !this.props.isAuthenticated) {
@@ -90,31 +63,14 @@ class MyApp extends App {
     }
 
     render() {
-        const { Component, pageProps, reduxStore, apolloClient, authUser } = this.props;
-
-        const user = {};
-        if (authUser) {
-            user.email = authUser.email;
-            user.user_id = authUser.id;
-            user.user_hash = authUser.intercomHmac;
-        }
+        const { Component, pageProps, reduxStore } = this.props;
 
         return (
-            <Container>
-                <Provider store={reduxStore}>
-                    <ApolloProvider client={apolloClient}>
-                        <>
-                            <Component {...pageProps} />
-                            {(this.props.router.route.startsWith('/club') ||
-                                this.props.router.route.startsWith('/auth')) && (
-                                <Intercom appID={getConfig().publicRuntimeConfig.INTERCOM_ID} {...user} />
-                            )}
-                        </>
-                    </ApolloProvider>
-                </Provider>
-            </Container>
+            <Provider store={reduxStore}>
+                <Component {...pageProps} />
+            </Provider>
         );
     }
 }
 
-export default withReduxStore(withApolloClient(MyApp));
+export default withReduxStore(MyApp);

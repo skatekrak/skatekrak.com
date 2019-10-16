@@ -69,7 +69,7 @@ class ArticleModal extends React.Component<Props, State> {
                     <div className="news-article-modal-nothing">
                         <img
                             className="news-article-modal-nothing-img"
-                            src="/static/images/pindejo-lucas-beaufort.jpg"
+                            src="/images/pindejo-lucas-beaufort.jpg"
                             alt="Lucas beaufort krak illustration"
                         />
                         <p>

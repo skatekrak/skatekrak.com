@@ -1,8 +1,9 @@
+import Link from 'next/link';
 import React from 'react';
 import { connect } from 'react-redux';
 
 import NavItem from 'components/Header/NavItem';
-import Link from 'components/Link';
+import ActiveLink from 'components/Link';
 import IconCross from 'components/Ui/Icons/Cross';
 import IconKrakenHead from 'components/Ui/Icons/Kraken/KrakenHead';
 import IconPower from 'components/Ui/Icons/Power';
@@ -65,8 +66,8 @@ class Header extends React.Component<Props, State> {
                     <nav id="header-nav-main">
                         <ul id="header-nav-main-container">
                             <NavItem title="Club" url="/club" />
+                            <NavItem title="Mag" url="/mag" />
                             <NavItem title="News" url="/news" />
-                            {/* <NavItem title="Mag" url="https://mag.skatekrak.com/" blank /> */}
                             <NavItem title="Video" url="/video" />
                             <div className="header-nav-main-item-app-container">
                                 {!navItemAppIsOpen ? (

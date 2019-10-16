@@ -2,7 +2,7 @@ import classnames from 'classnames';
 import React from 'react';
 import { Field } from 'react-final-form';
 import ReactSelect from 'react-select';
-import AsyncSelect from 'react-select/lib/Async';
+import AsyncSelect from 'react-select/async';
 
 import ErrorMessage from 'components/Ui/Form/ErrorMessage';
 
@@ -16,10 +16,10 @@ const customSelectStyles = {
         minHeight: '3rem',
         // borderColor: state.isFocused ? '' : '',
     }),
-    valueContainer: (styles) => ({ ...styles, padding: '.75rem 1rem' }),
-    singleValue: (styles) => ({ ...styles, margin: '0', padding: '0' }),
-    input: (styles) => ({ ...styles, padding: '0', margin: '0' }),
-    menu: (styles) => ({
+    valueContainer: styles => ({ ...styles, padding: '.75rem 1rem' }),
+    singleValue: styles => ({ ...styles, margin: '0', padding: '0' }),
+    input: styles => ({ ...styles, padding: '0', margin: '0' }),
+    menu: styles => ({
         ...styles,
         borderRadius: '.25rem',
         boxShadow: '0px 0px 8px 0px hsla(0,0%,0%,0.1), 0 4px 11px hsla(0,0%,0%,0.1)',
@@ -50,6 +50,7 @@ const defaultProps = {
     isMulti: false,
     disabled: false,
     isSearchable: false,
+    isLoading: false,
 };
 
 const getProps = createPropsGetter(defaultProps);

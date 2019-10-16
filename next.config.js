@@ -1,18 +1,21 @@
 const path = require('path');
 
-const withTypescript = require('@zeit/next-typescript');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const withCustomBabelConfigFile = require('next-plugin-custom-babel-config');
-
 const withStylus = require('@zeit/next-stylus');
 const withCSS = require('@zeit/next-css');
 const withPlugins = require('next-compose-plugins');
 
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+    enabled: process.env.ANALYZE === 'true',
+});
+
 const webpack = require('webpack');
 
-module.exports = withPlugins([withCSS, withStylus, withCustomBabelConfigFile, withTypescript], {
+module.exports = withPlugins([withBundleAnalyzer, withCSS, withStylus, withCustomBabelConfigFile], {
     babelConfigFile: path.resolve('./babel.config.js'),
     publicRuntimeConfig: {
+        WEBSITE_URL: process.env.WEBSITE_URL,
         BEARER: process.env.BEARER,
         NODE_ENV: process.env.NODE_ENV,
 
@@ -24,6 +27,7 @@ module.exports = withPlugins([withCSS, withStylus, withCustomBabelConfigFile, wi
         REDIRECT_URL: process.env.REDIRECT_URL,
         RSS_BACKEND_URL: process.env.RSS_BACKEND_URL,
         SESTERCES_URL: process.env.SESTERCES_URL,
+        KRAKMAG_URL: process.env.KRAKMAG_URL,
 
         CLUB_CONTACT_NAME: process.env.CLUB_CONTACT_NAME,
         IS_QUARTERFULL: process.env.IS_QUARTERFULL === 'true',

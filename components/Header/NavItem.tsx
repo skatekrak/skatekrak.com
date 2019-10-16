@@ -1,26 +1,37 @@
+import { useRouter } from 'next/router';
 import React from 'react';
-
-import Link from 'components/Link';
 
 type Props = {
     title: string;
     url: string;
     blank?: boolean;
-    as?: string;
 };
 
-const NavItem: React.SFC<Props> = ({ title, url, blank, as }: Props) => (
+const NavItem = ({ title, url, blank }: Props) => (
     <li className="header-nav-main-item">
         {blank ? (
             <a href={url} className="header-nav-main-item-link" target={blank ? '_blank' : undefined}>
                 {title}
             </a>
         ) : (
-            <Link href={url} as={as} activeClassName="active">
-                <a className="header-nav-main-item-link">{title}</a>
-            </Link>
+            <ActiveLink href={url} className="header-nav-main-item-link" activeClassName="active">
+                {title}
+            </ActiveLink>
         )}
     </li>
 );
+
+const ActiveLink = ({ children, activeClassName, href, ...props }) => {
+    const { pathname } = useRouter();
+    const className = pathname.startsWith(href)
+        ? `${props.className} ${props.className}-${activeClassName}`.trim()
+        : props.className;
+
+    return (
+        <a className={className} href={href}>
+            {children}
+        </a>
+    );
+};
 
 export default NavItem;

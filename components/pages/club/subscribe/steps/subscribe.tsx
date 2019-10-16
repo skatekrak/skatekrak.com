@@ -1,15 +1,16 @@
+import { withApollo, WithApolloClient } from '@apollo/react-hoc';
 import Analytics from '@thepunkclub/analytics';
 import classNames from 'classnames';
+import { FORM_ERROR } from 'final-form';
 import gql from 'graphql-tag';
 import getConfig from 'next/config';
+import Link from 'next/link';
 import React from 'react';
-import { Field as ReactField, Form, FormSpy } from 'react-final-form';
+import { Field as ReactField, Form, FormSpy, FormSpyRenderProps } from 'react-final-form';
 import { connect } from 'react-redux';
 import { CardElement, injectStripe, ReactStripeElements } from 'react-stripe-elements';
 
 import Types from 'Types';
-
-import withApollo, { WithApolloProps } from 'hocs/withApollo';
 
 import { checkPath } from 'lib/checkPath';
 import { getPricingText } from 'lib/moneyHelper';
@@ -17,14 +18,12 @@ import { userSignin } from 'store/auth/actions';
 import { updateFormState } from 'store/form/actions';
 import { savePricingCurrency } from 'store/payment/actions';
 
-import Link from 'components/Link';
 import ButtonPrimary from 'components/Ui/Button/ButtonPrimary';
 import Address from 'components/Ui/Form/Address';
 import ErrorMessage from 'components/Ui/Form/ErrorMessage';
 import Field from 'components/Ui/Form/Field';
 import Emoji from 'components/Ui/Icons/Emoji';
 import IconValid from 'components/Ui/Icons/Valid';
-import { FORM_ERROR } from 'final-form';
 
 type Props = {
     onNextClick: () => void;
@@ -45,7 +44,7 @@ type State = {
     cardError?: string;
 };
 
-class Subscribe extends React.Component<Props & WithApolloProps & ReactStripeElements.InjectedStripeProps, State> {
+class Subscribe extends React.Component<WithApolloClient<Props & ReactStripeElements.InjectedStripeProps>, State> {
     public state: State = {
         addressView: 'shipping',
         isSpecialCodeValid: false,
@@ -214,7 +213,7 @@ class Subscribe extends React.Component<Props & WithApolloProps & ReactStripeEle
             return errors;
         }
 
-        const { apolloClient, accountForm, stripe } = this.props;
+        const { accountForm, stripe } = this.props;
 
         if (accountForm.email) {
             accountForm.email = accountForm.email.toLowerCase();
@@ -257,12 +256,12 @@ class Subscribe extends React.Component<Props & WithApolloProps & ReactStripeEle
         }
 
         try {
-            await apolloClient.mutate({
+            await this.props.client.mutate({
                 mutation: JOIN_CLUB,
                 variables: { data },
                 update: (_cache, result) => {
-                    const { joinClub } = result.data as any;
-                    Analytics.default().trackOrder(joinClub.id, this.props.payment.price / 100);
+                    const { joinClubData } = result.data as any;
+                    Analytics.default().trackOrder(joinClubData.id, this.props.payment.price / 100);
                     this.props.onNextClick();
                     this.props.userSignin(data.email, data.password, true);
                 },
@@ -278,9 +277,9 @@ class Subscribe extends React.Component<Props & WithApolloProps & ReactStripeEle
         }
     };
 
-    private onFormChange = (state) => {
-        if (checkPath(state, 'values.shipping.country.value')) {
-            const countryCode = state.values.shipping.country.value;
+    private onFormChange = (props: FormSpyRenderProps) => {
+        if (checkPath(props, 'values.shipping.country.value')) {
+            const countryCode = props.values.shipping.country.value;
             let currency = 'eur';
             switch (countryCode) {
                 case 'us':
@@ -295,7 +294,7 @@ class Subscribe extends React.Component<Props & WithApolloProps & ReactStripeEle
             this.props.savePricingCurrency(9900, currency);
         }
 
-        this.props.updateFormState('subscribe', state.values);
+        this.props.updateFormState('subscribe', props.values);
     };
 
     private toggleAddressView = () => {
@@ -306,20 +305,14 @@ class Subscribe extends React.Component<Props & WithApolloProps & ReactStripeEle
         }
     };
 
-    private checkSpecial = async (value) => {
+    private checkSpecial = async value => {
         if (value) {
-            try {
-                const response = await this.props.apolloClient.query({
-                    query: CHECK_SPECIAL,
-                    variables: {
-                        code: value,
-                    },
-                });
-                const { checkSpecial } = response.data as any;
-                this.setState({ isSpecialCodeValid: checkSpecial });
-            } catch (error) {
-                //
-            }
+            const result = await this.props.client.query<any>({
+                query: CHECK_SPECIAL,
+                variables: { code: value },
+            });
+            const { checkSpecial } = result.data;
+            this.setState({ isSpecialCodeValid: checkSpecial });
         } else {
             this.setState({ isSpecialCodeValid: false });
         }
@@ -429,4 +422,4 @@ export default connect(
         savePricingCurrency,
         userSignin,
     },
-)(withApollo(injectStripe(Subscribe)));
+)(injectStripe(withApollo<Props>(Subscribe)));

@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import Router, { withRouter, WithRouterProps } from 'next/router';
+import { Router, withRouter } from 'next/router';
 import React from 'react';
 import { connect } from 'react-redux';
 
@@ -8,14 +8,11 @@ import Types from 'Types';
 import IconCross from 'components/Ui/Icons/Cross';
 import { search } from 'store/feed/actions';
 
-type QueryProps = {
-    query: string;
-};
-
 type Props = {
     nbFilters: number;
     search?: string;
     dispatch: (fct: any) => void;
+    router: Router;
 };
 
 type State = {
@@ -23,7 +20,7 @@ type State = {
     hasValue: boolean;
 };
 
-class SearchBar extends React.PureComponent<WithRouterProps<QueryProps> & Props, State> {
+class SearchBar extends React.PureComponent<Props, State> {
     public state: State = {
         sendRequestTimeout: undefined,
         hasValue: false,
@@ -31,7 +28,7 @@ class SearchBar extends React.PureComponent<WithRouterProps<QueryProps> & Props,
 
     public componentDidMount() {
         const value = this.props.router.query.query;
-        if (value) {
+        if (typeof value === 'string') {
             this.delayedSearch(value);
             this.setState({ hasValue: true });
         }
@@ -69,10 +66,10 @@ class SearchBar extends React.PureComponent<WithRouterProps<QueryProps> & Props,
 
         if (!value || value.length === 0) {
             this.setState({ hasValue: false });
-            Router.replace('/news');
+            this.props.router.replace('/news');
         } else {
             this.setState({ hasValue: true });
-            Router.replace(`/news?query=${value}`);
+            this.props.router.replace(`/news?query=${value}`);
         }
     };
 
@@ -93,7 +90,7 @@ class SearchBar extends React.PureComponent<WithRouterProps<QueryProps> & Props,
     private cleanInput = () => {
         (document.getElementById('feed-searchbar-input') as HTMLInputElement).value = '';
         this.setState({ hasValue: false });
-        Router.replace('/news');
+        this.props.router.replace('/news');
         this.delayedSearch('');
     };
 }

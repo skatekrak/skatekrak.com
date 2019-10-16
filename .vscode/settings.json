@@ -7,7 +7,6 @@
         "coverage/": true,
         "data/": true,
         "node_modules/": true,
-        "public/": true,
         "paws/": true,
         "out": true
     },

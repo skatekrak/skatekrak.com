@@ -1,7 +1,8 @@
 import classNames from 'classnames';
+import getConfig from 'next/config';
 import Head from 'next/head';
 import React from 'react';
-import { connect } from 'react-redux';
+import { connect, DispatchProp } from 'react-redux';
 
 import Types from 'Types';
 
@@ -9,36 +10,38 @@ import Header from 'components/Header';
 import { setDeviceSize } from 'store/settings/actions';
 
 /* tslint:disable:ordered-imports */
-import 'static/styles/reset.css';
-import 'static/styles/flexbox-grid.css';
-import 'static/styles/fonts.styl';
-import 'static/styles/helpers.styl';
-import 'static/styles/main.styl';
-import 'static/styles/styleguide.styl';
-import 'static/styles/stylus-mq.styl';
-import 'static/styles/form.styl';
-import 'static/styles/modal.styl';
-import 'static/styles/checkbox.styl';
-import 'static/styles/icons.styl';
-import 'static/styles/ui.styl';
+import '/public/styles/reset.css';
+import '/public/styles/flexbox-grid.css';
+import '/public/styles/fonts.styl';
+import '/public/styles/helpers.styl';
+import '/public/styles/main.styl';
+import '/public/styles/styleguide.styl';
+import '/public/styles/stylus-mq.styl';
+import '/public/styles/form.styl';
+import '/public/styles/modal.styl';
+import '/public/styles/checkbox.styl';
+import '/public/styles/icons.styl';
+import '/public/styles/ui.styl';
 
-import 'static/styles/auth.styl';
-import 'static/styles/subscribe.styl';
-import 'static/styles/onboarding.styl';
-import 'static/styles/club.styl';
-import 'static/styles/news.styl';
-import 'static/styles/videos.styl';
+import '/public/styles/auth.styl';
+import '/public/styles/subscribe.styl';
+import '/public/styles/onboarding.styl';
+import '/public/styles/club.styl';
+import '/public/styles/mag.styl';
+import '/public/styles/news.styl';
+import '/public/styles/videos.styl';
 
 import 'react-datepicker/dist/react-datepicker.css';
-import 'static/styles/react-datepicker.css';
+import '/public/styles/react-datepicker.css';
 
-type Props = {
-    head?: React.ReactNode;
-    isMobile: boolean;
-    dispatch: (fct: any) => void;
+type IComponentOwnProps = {
+    head?: React.ReactElement;
+    children?: any;
 };
 
-class Layout extends React.Component<Props, {}> {
+type IComponentProps = IComponentOwnProps & IComponentStoreProps & DispatchProp;
+
+class Layout extends React.Component<IComponentProps> {
     public componentDidMount() {
         window.addEventListener('resize', this.setWindowsDimensions);
         this.setWindowsDimensions();
@@ -61,7 +64,7 @@ class Layout extends React.Component<Props, {}> {
                         <meta property="og:title" content="Krak - Dig deeper into skateboarding" />
                         <meta property="og:type" content="website" />
                         <meta property="og:description" content="" />
-                        <meta property="og:url" content="https://skatekrak.com" />
+                        <meta property="og:url" content={getConfig().publicRuntimeConfig.WEBSITE_URL} />
                     </Head>
                 )}
                 <div id="page-container" className={classNames({ 'scroll-container': isMobile })}>
@@ -84,4 +87,7 @@ const mapStateToProps = ({ settings }: Types.RootState) => {
     const { isMobile } = settings;
     return { isMobile };
 };
+
+type IComponentStoreProps = ReturnType<typeof mapStateToProps>;
+
 export default connect(mapStateToProps)(Layout);

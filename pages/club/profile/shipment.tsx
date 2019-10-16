@@ -1,3 +1,4 @@
+import { withApollo, WithApolloClient } from '@apollo/react-hoc';
 import gql from 'graphql-tag';
 import React from 'react';
 import { compose } from 'recompose';
@@ -13,7 +14,6 @@ import IconCross from 'components/Ui/Icons/Cross';
 import IconFull from 'components/Ui/Icons/iconFull';
 import { showConfirmation } from 'components/Ui/Modal/ModalConfirmation';
 
-import withApollo, { WithApolloProps } from 'hocs/withApollo';
 import withAuth from 'hocs/withAuth';
 
 import { GET_ME } from 'pages/club/profile';
@@ -24,7 +24,7 @@ type State = {
     deleteModalOpen: boolean;
 };
 // tslint:disable:jsx-no-lambda
-class ProfileShipment extends React.Component<WithApolloProps, State> {
+class ProfileShipment extends React.Component<WithApolloClient<{}>, State> {
     public state: State = {
         addressModalOpen: false,
         deleteModalOpen: false,
@@ -108,7 +108,7 @@ class ProfileShipment extends React.Component<WithApolloProps, State> {
     };
 
     private deleteAddress = async ({ id }: any) => {
-        await this.props.apolloClient.mutate({
+        this.props.client.mutate({
             mutation: DELETE_ADDRESS,
             variables: { id },
             update: (cache, result) => {
@@ -127,13 +127,14 @@ class ProfileShipment extends React.Component<WithApolloProps, State> {
                         },
                     });
                 }
+
+                this.onCloseDeleteModal();
             },
         });
-        this.onCloseDeleteModal();
     };
 
     private setAsDefault = async ({ id }: any) => {
-        await this.props.apolloClient.mutate({
+        this.props.client.mutate({
             mutation: SET_AS_DEFAULT,
             variables: { id },
             update: (cache, result) => {
@@ -186,6 +187,6 @@ const DELETE_ADDRESS = gql`
 `;
 
 export default compose(
-    withApollo,
     withAuth,
+    withApollo,
 )(ProfileShipment);

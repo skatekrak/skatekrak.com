@@ -1,36 +1,38 @@
 import format from 'date-fns/format';
+import getConfig from 'next/config';
 import React from 'react';
 
-const lastMod = format(new Date(), 'YYYY-MM-DD');
+const lastMod = format(new Date(), 'yyyy-MM-dd');
+const baseURL = getConfig().publicRuntimeConfig.WEBSITE_URL;
 
 const sitemapXml = `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
-        <loc>https://skatekrak.com</loc>
+        <loc>${baseURL}</loc>
         <lastmod>${lastMod}</lastmod>
         <changefreq>daily</changefreq>
     </url>
     <url>
-        <loc>https://skatekrak.com/club</loc>
+        <loc>${baseURL}/club</loc>
         <lastmod>${lastMod}</lastmod>
         <changefreq>daily</changefreq>
     </url>
     <url>
-        <loc>https://skatekrak.com/news</loc>
+        <loc>${baseURL}/news</loc>
         <lastmod>${lastMod}</lastmod>
         <changefreq>hourly</changefreq>
     </url>
     <url>
-        <loc>https://skatekrak.com/video</loc>
+        <loc>${baseURL}/video</loc>
         <lastmod>${lastMod}</lastmod>
         <changefreq>daily</changefreq>
     </url>
     <url>
-        <loc>https://skatekrak.com/auth/login</loc>
+        <loc>${baseURL}/auth/login</loc>
         <lastmod>${lastMod}</lastmod>
         <changefreq>daily</changefreq>
     </url>
     <url>
-        <loc>https://mag.skatekrak.com</loc>
+        <loc>${baseURL}/mag</loc>
         <lastmod>${lastMod}</lastmod>
         <changefreq>hourly</changefreq>
     </url>

@@ -1,5 +1,6 @@
+import getConfig from 'next/config';
 import Head from 'next/head';
-import { withRouter, WithRouterProps } from 'next/router';
+import { Router, withRouter } from 'next/router';
 import React from 'react';
 
 import Layout from 'components/Layout/Layout';
@@ -10,33 +11,36 @@ import Articles from 'components/pages/news/Articles';
 import ArticleModal from 'components/pages/news/Articles/Article/ArticleModal';
 import Sidebar from 'components/pages/news/Sidebar';
 
-const NewsHead = () => (
-    <Head>
-        <title>Krak | News</title>
-        <meta
-            name="description"
-            content="Don't miss anything in the skateboarding world - Krak is bringing you the 'news' from 40 sources hand-curated with passion, love & noise."
-        />
-        <meta property="og:title" content="Krak | News" />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://skatekrak.com/news" />
-        <meta property="og:image" content="https://skatekrak.com/static/images/og-news.jpg" />
-        <meta
-            property="og:description"
-            content="Don't miss anything in the skateboarding world - Krak is bringing you the 'news' from 40 sources hand-curated with passion, love & noise"
-        />
-    </Head>
-);
+const NewsHead = () => {
+    const baseURL = getConfig().publicRuntimeConfig.WEBSITE_URL;
+    return (
+        <Head>
+            <title>Krak | News</title>
+            <meta
+                name="description"
+                content="Don't miss anything in the skateboarding world - Krak is bringing you the 'news' from 40 sources hand-curated with passion, love & noise."
+            />
+            <meta property="og:title" content="Krak | News" />
+            <meta property="og:type" content="website" />
+            <meta property="og:url" content={`${baseURL}/news`} />
+            <meta property="og:image" content={`${baseURL}/images/og-news.jpg`} />
+            <meta
+                property="og:description"
+                content="Don't miss anything in the skateboarding world - Krak is bringing you the 'news' from 40 sources hand-curated with passion, love & noise"
+            />
+        </Head>
+    );
+};
 
-type QueryProps = {
-    id: string;
+type Props = {
+    router: Router;
 };
 
 type State = {
     sidebarNavIsOpen: boolean;
 };
 
-class News extends React.PureComponent<WithRouterProps<QueryProps>, State> {
+class News extends React.Component<Props, State> {
     public state: State = {
         sidebarNavIsOpen: false,
     };
@@ -45,7 +49,7 @@ class News extends React.PureComponent<WithRouterProps<QueryProps>, State> {
         const { router } = this.props;
         const { sidebarNavIsOpen } = this.state;
 
-        const id = router.query.id;
+        const id = router.query.id as string;
 
         return (
             <Layout head={<NewsHead />}>

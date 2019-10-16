@@ -1,5 +1,6 @@
 import axios, { AxiosError } from 'axios';
 import validator from 'email-validator';
+import getConfig from 'next/config';
 import Head from 'next/head';
 import React from 'react';
 
@@ -12,23 +13,26 @@ type State = {
     email: string;
 };
 
-const HomeHead = () => (
-    <Head>
-        <title>Krak</title>
-        <meta
-            name="description"
-            content="Skateboarding is not a hobby. And it’s not a sport. Skateboarding is a way of learning how to redefine the world around you. Ian Mackaye."
-        />
-        <meta property="og:title" content="Krak" />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://skatekrak.com" />
-        <meta property="og:image" content="https://skatekrak.com/static/images/og-home.jpg" />
-        <meta
-            property="og:description"
-            content="Skateboarding is not a hobby. And it’s not a sport. Skateboarding is a way of learning how to redefine the world around you. Ian Mackaye"
-        />
-    </Head>
-);
+const HomeHead = () => {
+    const baseURL = getConfig().publicRuntimeConfig.WEBSITE_URL;
+    return (
+        <Head>
+            <title>Krak</title>
+            <meta
+                name="description"
+                content="Skateboarding is not a hobby. And it’s not a sport. Skateboarding is a way of learning how to redefine the world around you. Ian Mackaye."
+            />
+            <meta property="og:title" content="Krak" />
+            <meta property="og:type" content="website" />
+            <meta property="og:url" content={baseURL} />
+            <meta property="og:image" content={`${baseURL}/images/og-home.jpg`} />
+            <meta
+                property="og:description"
+                content="Skateboarding is not a hobby. And it’s not a sport. Skateboarding is a way of learning how to redefine the world around you. Ian Mackaye"
+            />
+        </Head>
+    );
+};
 
 /* tslint:disable:max-line-length */
 class Index extends React.PureComponent<{}, State> {
@@ -81,7 +85,7 @@ class Index extends React.PureComponent<{}, State> {
         this.setState({ email: event.target.value });
     };
 
-    private handleSubmit = (event) => {
+    private handleSubmit = event => {
         event.preventDefault();
         const { email } = this.state;
         if (!validator.validate(email)) {

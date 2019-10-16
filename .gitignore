@@ -6,7 +6,6 @@ Thumbs.db
 node_modules/
 
 .next/
-public/
 /yarn-error.log
 
 /.npmrc

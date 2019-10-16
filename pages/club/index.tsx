@@ -18,6 +18,8 @@ import TrackedPage from 'components/pages/TrackedPage';
 
 import { getPricingText } from 'lib/moneyHelper';
 
+import { withApollo } from 'hocs/withApollo';
+
 type Props = {
     payment: {
         price: number;
@@ -32,23 +34,26 @@ type State = {
     modalStep: string;
 };
 
-const ClubHead = () => (
-    <Head>
-        <title>Krak | Club</title>
-        <meta
-            name="description"
-            content="Krak Skateboarding Club. You're not alone. Let's enjoy skateboarding even more."
-        />
-        <meta property="og:title" content="Krak Skateboarding Club" />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://skatekrak.com/club" />
-        <meta property="og:image" content="https://skatekrak.com/static/images/og-club.jpg" />
-        <meta
-            property="og:description"
-            content="Krak Skateboarding Club. You're not alone. Let's enjoy skateboarding even more"
-        />
-    </Head>
-);
+const ClubHead = () => {
+    const baseURL = getConfig().publicRuntimeConfig.WEBSITE_URL;
+    return (
+        <Head>
+            <title>Krak | Club</title>
+            <meta
+                name="description"
+                content="Krak Skateboarding Club. You're not alone. Let's enjoy skateboarding even more."
+            />
+            <meta property="og:title" content="Krak Skateboarding Club" />
+            <meta property="og:type" content="website" />
+            <meta property="og:url" content={`${baseURL}/club`} />
+            <meta property="og:image" content={`${baseURL}/images/og-club.jpg`} />
+            <meta
+                property="og:description"
+                content="Krak Skateboarding Club. You're not alone. Let's enjoy skateboarding even more"
+            />
+        </Head>
+    );
+};
 
 class Club extends React.Component<Props, State> {
     public state: State = {
@@ -127,4 +132,4 @@ const mapStateToProps = ({ payment, auth }: Types.RootState) => {
     return { payment, authUser: auth.authUser };
 };
 
-export default connect(mapStateToProps)(Club);
+export default connect(mapStateToProps)(withApollo(Club));

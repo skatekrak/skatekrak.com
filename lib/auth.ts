@@ -1,6 +1,6 @@
-import Cookie from 'cookie';
-import Cookies from 'js-cookie';
-import getConfig from 'next/config';
+import cookie from 'js-cookie';
+import { NextPageContext } from 'next';
+import nextCookie from 'next-cookies';
 import Router from 'next/router';
 
 export const setUser = (user: any) => {
@@ -8,7 +8,7 @@ export const setUser = (user: any) => {
         return;
     }
 
-    Cookies.set('user', JSON.stringify(user));
+    cookie.set('user', JSON.stringify(user));
     Router.push('/club/profile');
 };
 
@@ -17,31 +17,6 @@ export const removeUser = () => {
         return;
     }
 
-    Cookies.remove('user');
+    cookie.remove('user');
     Router.push('/auth/login');
-};
-
-export const getUserFromServerCookie = (req: any) => {
-    if (!req.headers.cookie || '') {
-        return undefined;
-    }
-    const cookie = Cookie.parse(req.headers.cookie);
-    const stringUser = cookie.user ? JSON.parse(cookie.user) : undefined;
-    return stringUser;
-};
-
-export const getUserFromLocalCookie = () => {
-    return Cookies.getJSON('user');
-};
-
-export const getBearerFromServerCookie = (req: any) => {
-    if (!req.headers.cookie || '') {
-        return undefined;
-    }
-    const cookie = Cookie.parse(req.headers.cookie);
-    return cookie[getConfig().publicRuntimeConfig.BEARER];
-};
-
-export const getBearerFromLocalCookie = () => {
-    return Cookies.getJSON(getConfig().publicRuntimeConfig.BEARER);
 };

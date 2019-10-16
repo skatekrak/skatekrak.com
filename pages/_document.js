@@ -1,36 +1,22 @@
-import Document, { Head, Main, NextScript } from 'next/document';
+import Document, { Html, Head, Main, NextScript } from 'next/document';
 
 export default class MyDocument extends Document {
-    static async getInitialProps(ctx) {
-        const initialProps = await Document.getInitialProps(ctx);
-        return { ...initialProps };
-    }
-
     render() {
         return (
-            <html>
+            <Html>
                 <Head>
                     <meta charSet="utf-8" />
                     <meta name="viewport" content="with-device-with, initial-scale=1" />
-                    <link rel="apple-touch-icon" sizes="180x180" href="/static/images/apple-touch-icon.png" />
-                    <link rel="icon" type="image/png" sizes="32x32" href="/static/images/favicon_32.png" />
-                    <link rel="icon" type="image/png" sizes="16x16" href="/static/images/favicon_16.png" />
+                    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png" />
+                    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon_32.png" />
+                    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon_16.png" />
                     <script src="https://js.stripe.com/v3" />
-                    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" />
-                    <script
-                        dangerouslySetInnerHTML={{
-                            __html: `(adsbygoogle = window.adsbygoogle || []).push({
-                        google_ad_client: 'ca-pub-8520381468370007',
-                        enable_page_level_ads: true
-                    });`,
-                        }}
-                    />
                 </Head>
                 <body>
                     <Main />
                     <NextScript />
                 </body>
-            </html>
+            </Html>
         );
     }
 }

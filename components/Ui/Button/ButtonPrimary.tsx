@@ -16,7 +16,7 @@ type Props = {
     loadingContent?: string;
     loading?: boolean;
     className?: string;
-    type?: string;
+    type?: 'reset' | 'submit' | 'button';
     disabled?: boolean;
 };
 
