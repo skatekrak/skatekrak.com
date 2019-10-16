@@ -12,6 +12,7 @@ import LayoutFeed from 'components/Ui/Feed/LayoutFeed';
 
 import { Post } from 'components/pages/mag/Feed';
 import Article from 'components/pages/mag/Feed/Article';
+import TrackedPage from 'components/pages/TrackedPage';
 
 type HeadProps = {
     post: Post;
@@ -93,23 +94,25 @@ class ArticlePage extends React.Component<Props, State> {
         const { post } = this.props;
 
         return (
-            <Layout head={<MagArticleHead post={post} />}>
-                <BannerTop />
-                <div id="mag-container" className="inner-page-container">
-                    <div id="mag-article-container">
-                        <LayoutFeed
-                            mainView={<Article post={post} sidebarNavIsOpen={sidebarNavIsOpen} />}
-                            sidebar={
-                                <Sidebar
-                                    post={post}
-                                    handleOpenSidebarNav={this.handleOpenSidebarNav}
-                                    sidebarNavIsOpen={sidebarNavIsOpen}
-                                />
-                            }
-                        />
+            <TrackedPage name={`Mag/${post.slug!}`}>
+                <Layout head={<MagArticleHead post={post} />}>
+                    <BannerTop />
+                    <div id="mag-container" className="inner-page-container">
+                        <div id="mag-article-container">
+                            <LayoutFeed
+                                mainView={<Article post={post} sidebarNavIsOpen={sidebarNavIsOpen} />}
+                                sidebar={
+                                    <Sidebar
+                                        post={post}
+                                        handleOpenSidebarNav={this.handleOpenSidebarNav}
+                                        sidebarNavIsOpen={sidebarNavIsOpen}
+                                    />
+                                }
+                            />
+                        </div>
                     </div>
-                </div>
-            </Layout>
+                </Layout>
+            </TrackedPage>
         );
     }
 
