@@ -1,4 +1,5 @@
 import { FORM_ERROR } from 'final-form';
+import getConfig from 'next/config';
 import Head from 'next/head';
 import { Router, withRouter } from 'next/router';
 import React from 'react';
@@ -15,7 +16,7 @@ const ResetHead = () => (
     <Head>
         <title>Krak | Reset</title>
         <meta property="og:title" content="Krak | Reset" />
-        <meta property="og:url" content="https://skatekrak.com/auth/reset" />
+        <meta property="og:url" content={`${getConfig().publicRuntimeConfig.WEBSITE_URL}/auth/reset`} />
     </Head>
 );
 

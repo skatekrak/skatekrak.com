@@ -1,5 +1,6 @@
 import classNames from 'classnames';
 import { format, parseISO } from 'date-fns';
+import getConfig from 'next/config';
 import React from 'react';
 import { FacebookIcon, FacebookShareButton, TwitterIcon, TwitterShareButton } from 'react-share';
 
@@ -33,6 +34,8 @@ const Article = (rawProps: Props) => {
         return <KrakLoading />;
     }
 
+    const baseURL = getConfig().publicRuntimeConfig.WEBSITE_URL;
+
     return (
         <article id="mag-article" className={classNames({ hide: sidebarNavIsOpen })}>
             <div id="mag-article-actions">
@@ -42,19 +45,19 @@ const Article = (rawProps: Props) => {
                 <div id="mag-article-share">
                     <span id="mag-article-share-text">Share on:</span>
                     <FacebookShareButton
-                        url={`https://skatekrak.com/mag/${post.slug}`}
+                        url={`${baseURL}/mag/${post.slug}`}
                         quote={`${decodeHTML(post.title.rendered)} - shared via skatekrak.com`}
                     >
                         <FacebookIcon size={24} round />
                     </FacebookShareButton>
                     <TwitterShareButton
-                        url={`https://skatekrak.com/mag/${post.slug}`}
+                        url={`${baseURL}/mag/${post.slug}`}
                         title={decodeHTML(post.title.rendered)}
                         via="skatekrak"
                     >
                         <TwitterIcon size={24} round />
                     </TwitterShareButton>
-                    <ClipboardButton value={`https://skatekrak.com/mag/${post.slug}`} />
+                    <ClipboardButton value={`${baseURL}/mag/${post.slug}`} />
                 </div>
             </div>
             <header id="mag-article-header">

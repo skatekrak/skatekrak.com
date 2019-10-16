@@ -79,12 +79,11 @@ class Feed extends React.Component<Props, State> {
                     useWindow={false}
                 >
                     <div className={classNames('row', { hide: this.props.sidebarNavIsOpen })}>
-                        {posts.length !== 0 &&
-                            posts.map((post) => (
-                                <div key={post.id} className="mag-card-container col-xs-12 col-sm-6 col-lg-4">
-                                    <Card post={post} />
-                                </div>
-                            ))}
+                        {posts.map(post => (
+                            <div key={post.id} className="mag-card-container col-xs-12 col-sm-6 col-lg-4">
+                                <Card post={post} />
+                            </div>
+                        ))}
                         {isLoading && <KrakLoading />}
                         {posts.length === 0 && !isLoading && (
                             <NoContent
@@ -152,8 +151,8 @@ class Feed extends React.Component<Props, State> {
         return arr;
     }
 
-    private getFormatedPosts = (posts: Post[]) => {
-        const formatedPosts = [];
+    private getFormatedPosts = (posts: Post[]): Post[] => {
+        const formatedPosts: Post[] = [];
 
         for (const post of posts) {
             // Get formated categories

@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { NextPageContext } from 'next';
+import getConfig from 'next/config';
 import Head from 'next/head';
 import React from 'react';
 
@@ -28,7 +29,7 @@ const MagArticleHead = ({ post }: HeadProps) => {
             <meta name="description" content={description} />
             <meta property="og:title" content={title} />
             <meta property="og:type" content="website" />
-            <meta property="og:url" content="https://skatekrak.com/mag" />
+            <meta property="og:url" content={`${getConfig().publicRuntimeConfig.WEBSITE_URL}/mag`} />
             <meta property="og:image" content={post.thumbnailImage} />
             <meta property="og:description" content={description} />
         </Head>

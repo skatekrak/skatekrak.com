@@ -1,3 +1,4 @@
+import getConfig from 'next/config';
 import Head from 'next/head';
 import { Router, withRouter } from 'next/router';
 import React from 'react';
@@ -10,23 +11,26 @@ import Articles from 'components/pages/news/Articles';
 import ArticleModal from 'components/pages/news/Articles/Article/ArticleModal';
 import Sidebar from 'components/pages/news/Sidebar';
 
-const NewsHead = () => (
-    <Head>
-        <title>Krak | News</title>
-        <meta
-            name="description"
-            content="Don't miss anything in the skateboarding world - Krak is bringing you the 'news' from 40 sources hand-curated with passion, love & noise."
-        />
-        <meta property="og:title" content="Krak | News" />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://skatekrak.com/news" />
-        <meta property="og:image" content="https://skatekrak.com/images/og-news.jpg" />
-        <meta
-            property="og:description"
-            content="Don't miss anything in the skateboarding world - Krak is bringing you the 'news' from 40 sources hand-curated with passion, love & noise"
-        />
-    </Head>
-);
+const NewsHead = () => {
+    const baseURL = getConfig().publicRuntimeConfig.WEBSITE_URL;
+    return (
+        <Head>
+            <title>Krak | News</title>
+            <meta
+                name="description"
+                content="Don't miss anything in the skateboarding world - Krak is bringing you the 'news' from 40 sources hand-curated with passion, love & noise."
+            />
+            <meta property="og:title" content="Krak | News" />
+            <meta property="og:type" content="website" />
+            <meta property="og:url" content={`${baseURL}/news`} />
+            <meta property="og:image" content={`${baseURL}/images/og-news.jpg`} />
+            <meta
+                property="og:description"
+                content="Don't miss anything in the skateboarding world - Krak is bringing you the 'news' from 40 sources hand-curated with passion, love & noise"
+            />
+        </Head>
+    );
+};
 
 type Props = {
     router: Router;

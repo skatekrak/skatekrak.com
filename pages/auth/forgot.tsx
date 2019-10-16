@@ -1,5 +1,6 @@
 import validator from 'email-validator';
 import { FORM_ERROR } from 'final-form';
+import getConfig from 'next/config';
 import Head from 'next/head';
 import React from 'react';
 import { Form } from 'react-final-form';
@@ -18,7 +19,7 @@ const ForgotHead = () => (
     <Head>
         <title>Krak | Forgot</title>
         <meta property="og:title" content="Krak | Forgot" />
-        <meta property="og:url" content="https://skatekrak.com/auth/forgot" />
+        <meta property="og:url" content={`${getConfig().publicRuntimeConfig.WEBSITE_URL}/auth/forgot`} />
     </Head>
 );
 

@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+import getConfig from 'next/config';
 import Head from 'next/head';
 import React from 'react';
 import { connect, DispatchProp } from 'react-redux';
@@ -63,7 +64,7 @@ class Layout extends React.Component<IComponentProps> {
                         <meta property="og:title" content="Krak - Dig deeper into skateboarding" />
                         <meta property="og:type" content="website" />
                         <meta property="og:description" content="" />
-                        <meta property="og:url" content="https://skatekrak.com" />
+                        <meta property="og:url" content={getConfig().publicRuntimeConfig.WEBSITE_URL} />
                     </Head>
                 )}
                 <div id="page-container" className={classNames({ 'scroll-container': isMobile })}>

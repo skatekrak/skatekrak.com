@@ -1,4 +1,5 @@
 import validator from 'email-validator';
+import getConfig from 'next/config';
 import Head from 'next/head';
 import React from 'react';
 import { Field as ReactField, Form } from 'react-final-form';
@@ -23,7 +24,7 @@ const LoginHead = () => (
         <title>Krak | Login</title>
         <meta name="description" content="Krak skateboarding club | Login to your account." />
         <meta property="og:title" content="Krak | Login" />
-        <meta property="og:url" content="https://skatekrak.com/auth/login" />
+        <meta property="og:url" content={`${getConfig().publicRuntimeConfig.WEBSITE_URL}/auth/login`} />
         <meta property="og:description" content="Krak skateboarding club | Login to your account." />
     </Head>
 );

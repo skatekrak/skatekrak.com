@@ -15,6 +15,7 @@ const webpack = require('webpack');
 module.exports = withPlugins([withBundleAnalyzer, withCSS, withStylus, withCustomBabelConfigFile], {
     babelConfigFile: path.resolve('./babel.config.js'),
     publicRuntimeConfig: {
+        WEBSITE_URL: process.env.WEBSITE_URL,
         BEARER: process.env.BEARER,
         NODE_ENV: process.env.NODE_ENV,
 
