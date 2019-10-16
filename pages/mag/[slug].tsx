@@ -15,6 +15,8 @@ import { Post } from 'components/pages/mag/Feed';
 import Article from 'components/pages/mag/Feed/Article';
 import TrackedPage from 'components/pages/TrackedPage';
 
+import { formatPost } from 'lib/formattedPost';
+
 type HeadProps = {
     post: Post;
 };
@@ -50,7 +52,7 @@ class ArticlePage extends React.Component<Props, State> {
             const { slug } = query;
             const res = await axios.get(`https://mag.skatekrak.com/wp-json/wp/v2/posts?slug=${slug}&_embed`);
             if (res.data) {
-                const formattedPost = ArticlePage.getFormattedPost(res.data[0]);
+                const formattedPost = formatPost(res.data[0]);
                 return { post: formattedPost };
             }
             return {};
@@ -58,33 +60,6 @@ class ArticlePage extends React.Component<Props, State> {
             return {};
         }
     }
-
-    private static getFormattedPost = (post: Post): Post => {
-        // Get formated categories
-        if (post.categories) {
-            const categories = post._embedded['wp:term'][0];
-            let formatedCategories = '';
-            for (let iCategory = 0; iCategory < categories.length; iCategory++) {
-                const categoryName = categories[iCategory].name;
-                formatedCategories += categoryName;
-                if (iCategory !== categories.length - 1) {
-                    formatedCategories += ', ';
-                }
-            }
-            post.categoriesString = formatedCategories;
-        }
-
-        // Get image
-        if (post.featured_media) {
-            const thumbnailImage = post._embedded['wp:featuredmedia'][0].media_details.sizes.medium.source_url;
-            post.thumbnailImage = thumbnailImage;
-
-            const featuredImageFull = post._embedded['wp:featuredmedia'][0].media_details.sizes.full.source_url;
-            post.featuredImageFull = featuredImageFull;
-        }
-
-        return post;
-    };
 
     public state: State = {
         sidebarNavIsOpen: false,
