@@ -1,8 +1,9 @@
-import { withRouter } from 'next/router';
+import { useRouter } from 'next/router';
 import Link from 'next/link';
 import React, { Children } from 'react';
 
-const ActiveLink = ({ router, children, href, ...props }) => {
+const ActiveLink = ({ children, href, ...props }) => {
+    const router = useRouter();
     const child = Children.only(children);
 
     let className = child.props.className || '';
@@ -36,4 +37,4 @@ function encodeQueryData(data) {
     return str;
 }
 
-export default withRouter(ActiveLink);
+export default ActiveLink;
