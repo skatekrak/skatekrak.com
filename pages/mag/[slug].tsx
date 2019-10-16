@@ -31,9 +31,9 @@ const MagArticleHead = ({ post }: HeadProps) => {
             <meta name="description" content={description} />
             <meta property="og:title" content={title} />
             <meta property="og:type" content="website" />
-            <meta property="og:url" content={`${getConfig().publicRuntimeConfig.WEBSITE_URL}/mag`} />
+            <meta property="og:url" content={`${getConfig().publicRuntimeConfig.WEBSITE_URL}/mag/${post.slug!}`} />
             <meta property="og:image" content={post.thumbnailImage} />
-            <meta property="og:description" content={description} />
+            <meta property="og:description" content={description.substring(0, 300)} />
         </Head>
     );
 };
