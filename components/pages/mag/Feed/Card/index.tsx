@@ -1,12 +1,12 @@
 import { format, parseISO } from 'date-fns';
 import getConfig from 'next/config';
+import Link from 'next/link';
 import React from 'react';
 import { FacebookIcon, FacebookShareButton, TwitterIcon, TwitterShareButton } from 'react-share';
 
 import createMarkup from 'lib/createMarkup';
 import decodeHTML from 'lib/decodeHTML';
 
-import Link from 'components/Link';
 import { Post } from 'components/pages/mag/Feed';
 import ClipboardButton from 'components/Ui/Button/ClipboardButton';
 

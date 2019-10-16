@@ -1,12 +1,12 @@
 import axios from 'axios';
 import { format, parseISO } from 'date-fns';
 import getConfig from 'next/config';
+import Link from 'next/link';
 import React from 'react';
 import Truncate from 'react-truncate';
 
 import createMarkup from 'lib/createMarkup';
 
-import Link from 'components/Link';
 import { SpinnerCircle } from 'components/Ui/Icons/Spinners';
 
 type Props = {};
@@ -49,7 +49,7 @@ class LatestPosts extends React.PureComponent<Props, State> {
                 {isLoading && <SpinnerCircle />}
                 {latestPosts.length !== 0 && (
                     <ul className="mag-sidebar-posts-list">
-                        {latestPosts.map((post) => (
+                        {latestPosts.map(post => (
                             <li key={post.id} className="mag-sidebar-posts-item">
                                 <Link href={`/mag/${post.slug}`}>
                                     <a>

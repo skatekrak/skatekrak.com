@@ -1,3 +1,4 @@
+import { NextPage } from 'next';
 import getConfig from 'next/config';
 import Head from 'next/head';
 import React, { useState } from 'react';
@@ -8,7 +9,6 @@ import LayoutFeed from 'components/Ui/Feed/LayoutFeed';
 
 import Feed from 'components/pages/mag/Feed';
 import Sidebar from 'components/pages/mag/Sidebar';
-import { NextPage } from 'next';
 
 const MagHead = () => {
     const baseURL = getConfig().publicRuntimeConfig.WEBSITE_URL;

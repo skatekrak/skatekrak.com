@@ -1,8 +1,9 @@
+import Link from 'next/link';
 import React from 'react';
 import { connect } from 'react-redux';
 
 import NavItem from 'components/Header/NavItem';
-import Link from 'components/Link';
+import ActiveLink from 'components/Link';
 import IconCross from 'components/Ui/Icons/Cross';
 import IconKrakenHead from 'components/Ui/Icons/Kraken/KrakenHead';
 import IconPower from 'components/Ui/Icons/Power';

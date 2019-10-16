@@ -1,9 +1,9 @@
 import jump from 'jump.js';
+import Link from 'next/link';
 import React from 'react';
 
 import { User } from 'store/auth/reducers';
 
-import Link from 'components/Link';
 import IconArrowHead from 'components/Ui/Icons/ArrowHead';
 import ScrollHelper from 'lib/ScrollHelper';
 

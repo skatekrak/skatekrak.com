@@ -40,7 +40,7 @@ type State = {
     sidebarNavIsOpen: boolean;
 };
 
-class News extends React.PureComponent<Props, State> {
+class News extends React.Component<Props, State> {
     public state: State = {
         sidebarNavIsOpen: false,
     };

@@ -1,12 +1,12 @@
 import axios from 'axios';
 import { format, parseISO } from 'date-fns';
 import getConfig from 'next/config';
+import Link from 'next/link';
 import React from 'react';
 import Truncate from 'react-truncate';
 
 import createMarkup from 'lib/createMarkup';
 
-import Link from 'components/Link';
 import { Post } from 'components/pages/mag/Feed';
 import { SpinnerCircle } from 'components/Ui/Icons/Spinners';
 
@@ -59,7 +59,7 @@ class RelatedPosts extends React.PureComponent<Props, State> {
                         <h3 className="mag-sidebar-posts-title">Related articles</h3>
                         {isLoading && <SpinnerCircle />}
                         <ul className="mag-sidebar-posts-list">
-                            {relatedPosts.map((post) => (
+                            {relatedPosts.map(post => (
                                 <li key={post.id} className="mag-sidebar-posts-item">
                                     <Link href={`/mag/${post.slug}`}>
                                         <a>

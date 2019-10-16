@@ -1,6 +1,5 @@
+import Link from 'next/link';
 import React from 'react';
-
-import Link from 'components/Link';
 
 const ArticleAd = () => (
     <div className="news-article-club">

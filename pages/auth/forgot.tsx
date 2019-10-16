@@ -2,11 +2,11 @@ import validator from 'email-validator';
 import { FORM_ERROR } from 'final-form';
 import getConfig from 'next/config';
 import Head from 'next/head';
+import Link from 'next/link';
 import React from 'react';
 import { Form } from 'react-final-form';
 
 import Layout from 'components/Layout/Layout';
-import Link from 'components/Link';
 import TrackedPage from 'components/pages/TrackedPage';
 import ErrorMessage from 'components/Ui/Form/ErrorMessage';
 import Field from 'components/Ui/Form/Field';

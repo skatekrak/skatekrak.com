@@ -1,7 +1,7 @@
 import classNames from 'classnames';
+import Link from 'next/link';
 import React from 'react';
 
-import Link from 'components/Link';
 import ArrowHead from 'components/Ui/Icons/ArrowHead';
 import Emoji from 'components/Ui/Icons/Emoji';
 

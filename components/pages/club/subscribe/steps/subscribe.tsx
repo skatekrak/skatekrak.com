@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import { FORM_ERROR } from 'final-form';
 import gql from 'graphql-tag';
 import getConfig from 'next/config';
+import Link from 'next/link';
 import React from 'react';
 import { Field as ReactField, Form, FormSpy, FormSpyRenderProps } from 'react-final-form';
 import { connect } from 'react-redux';
@@ -17,7 +18,6 @@ import { userSignin } from 'store/auth/actions';
 import { updateFormState } from 'store/form/actions';
 import { savePricingCurrency } from 'store/payment/actions';
 
-import Link from 'components/Link';
 import ButtonPrimary from 'components/Ui/Button/ButtonPrimary';
 import Address from 'components/Ui/Form/Address';
 import ErrorMessage from 'components/Ui/Form/ErrorMessage';

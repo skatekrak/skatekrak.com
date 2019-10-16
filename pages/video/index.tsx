@@ -27,7 +27,6 @@ const VideoHead = () => {
 };
 
 type Props = {
-    id: string;
     router: Router;
 };
 
@@ -35,7 +34,7 @@ type State = {
     sidebarNavIsOpen: boolean;
 };
 
-class Videos extends React.PureComponent<Props, State> {
+class Videos extends React.Component<Props, State> {
     public state: State = {
         sidebarNavIsOpen: false,
     };

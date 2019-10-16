@@ -1,6 +1,7 @@
 /*
  * Npm import
  */
+import Link from 'next/link';
 import React from 'react';
 import { connect } from 'react-redux';
 
@@ -9,7 +10,6 @@ import Types from 'Types';
 /*
  * Local import
  */
-import Link from 'components/Link';
 import ScrollHelper from 'lib/ScrollHelper';
 import { State as SettingState } from 'store/settings/reducers';
 

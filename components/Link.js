@@ -2,39 +2,13 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import React, { Children } from 'react';
 
-const ActiveLink = ({ children, href, ...props }) => {
-    const router = useRouter();
+const ActiveLink = ({ children, activeClassName, ...props }) => {
+    const { pathname } = useRouter();
     const child = Children.only(children);
 
-    let className = child.props.className || '';
-    if (router.pathname.startsWith(href) && props.activeClassName) {
-        className = `${className} ${className}-${props.activeClassName}`.trim();
-    }
+    const className = pathname === props.href ? `${child.props.className} ${activeClassName}` : child.props.className;
 
-    delete props.activeClassName;
-
-    delete router.query.modal;
-
-    return (
-        <Link href={href} {...props}>
-            {React.cloneElement(child, { className })}
-        </Link>
-    );
+    return <Link {...props}>{React.cloneElement(child, { className })}</Link>;
 };
-
-function encodeQueryData(data) {
-    const ret = [];
-    for (let d in data) {
-        if (data.hasOwnProperty(d)) {
-            ret.push(encodeURIComponent(d) + '=' + encodeURIComponent(data[d]));
-        }
-    }
-    let str = '';
-    if (ret.length > 0) {
-        const join = ret.join('&');
-        str = `?${join}`;
-    }
-    return str;
-}
 
 export default ActiveLink;

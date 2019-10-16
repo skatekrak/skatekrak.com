@@ -1,6 +1,7 @@
 import validator from 'email-validator';
 import getConfig from 'next/config';
 import Head from 'next/head';
+import Link from 'next/link';
 import React from 'react';
 import { Field as ReactField, Form } from 'react-final-form';
 import { connect } from 'react-redux';
@@ -9,7 +10,7 @@ import { compose } from 'recompose';
 import Types from 'Types';
 
 import Layout from 'components/Layout/Layout';
-import Link from 'components/Link';
+
 import TrackedPage from 'components/pages/TrackedPage';
 import ButtonPrimary from 'components/Ui/Button/ButtonPrimary';
 import ErrorMessage from 'components/Ui/Form/ErrorMessage';
