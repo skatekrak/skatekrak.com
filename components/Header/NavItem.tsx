@@ -1,7 +1,5 @@
-import ActiveLink from 'components/Link';
+import { useRouter } from 'next/router';
 import React from 'react';
-
-// import Link from 'components/Link';
 
 type Props = {
     title: string;
@@ -16,14 +14,24 @@ const NavItem = ({ title, url, blank }: Props) => (
                 {title}
             </a>
         ) : (
-            // <ActiveLink href={url} activeClassName="active">
-            //     <a className="header-nav-main-item-link">{title}</a>
-            // </ActiveLink>
-            <a href={url} className="header-nav-main-item-link">
+            <ActiveLink href={url} className="header-nav-main-item-link" activeClassName="active">
                 {title}
-            </a>
+            </ActiveLink>
         )}
     </li>
 );
+
+const ActiveLink = ({ children, activeClassName, href, ...props }) => {
+    const { pathname } = useRouter();
+    const className = pathname.startsWith(href)
+        ? `${props.className} ${props.className}-${activeClassName}`.trim()
+        : props.className;
+
+    return (
+        <a className={className} href={href}>
+            {children}
+        </a>
+    );
+};
 
 export default NavItem;
