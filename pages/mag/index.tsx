@@ -26,37 +26,24 @@ const MagHead = () => {
     );
 };
 
-type State = {
-    sidebarNavIsOpen: boolean;
-};
+const Mag: NextPage = () => {
+    const [sidebarNavIsOpen, setSidebarNavOpen] = useState(false);
 
-class Mag extends React.Component<{}, State> {
-    public state: State = {
-        sidebarNavIsOpen: false,
+    const setSidebarOpeness = () => {
+        setSidebarNavOpen(!sidebarNavIsOpen);
     };
 
-    public render() {
-        const setSidebarOpeness = () => {
-            this.setState({ sidebarNavIsOpen: !this.state.sidebarNavIsOpen });
-        };
-
-        return (
-            <Layout head={<MagHead />}>
-                <BannerTop />
-                <div id="mag-container" className="inner-page-container">
-                    <LayoutFeed
-                        mainView={<Feed sidebarNavIsOpen={this.state.sidebarNavIsOpen} />}
-                        sidebar={
-                            <Sidebar
-                                handleOpenSidebarNav={setSidebarOpeness}
-                                sidebarNavIsOpen={this.state.sidebarNavIsOpen}
-                            />
-                        }
-                    />
-                </div>
-            </Layout>
-        );
-    }
-}
+    return (
+        <Layout head={<MagHead />}>
+            <BannerTop />
+            <div id="mag-container" className="inner-page-container">
+                <LayoutFeed
+                    mainView={<Feed sidebarNavIsOpen={sidebarNavIsOpen} />}
+                    sidebar={<Sidebar handleOpenSidebarNav={setSidebarOpeness} sidebarNavIsOpen={sidebarNavIsOpen} />}
+                />
+            </div>
+        </Layout>
+    );
+};
 
 export default Mag;
