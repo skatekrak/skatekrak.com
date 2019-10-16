@@ -16,9 +16,12 @@ const NavItem = ({ title, url, blank }: Props) => (
                 {title}
             </a>
         ) : (
-            <ActiveLink href={url} activeClassName="active">
-                <a className="header-nav-main-item-link">{title}</a>
-            </ActiveLink>
+            // <ActiveLink href={url} activeClassName="active">
+            //     <a className="header-nav-main-item-link">{title}</a>
+            // </ActiveLink>
+            <a href={url} className="header-nav-main-item-link">
+                {title}
+            </a>
         )}
     </li>
 );
