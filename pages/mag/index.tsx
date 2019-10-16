@@ -47,7 +47,10 @@ class Mag extends React.Component<{}, State> {
                     <LayoutFeed
                         mainView={<Feed sidebarNavIsOpen={this.state.sidebarNavIsOpen} />}
                         sidebar={
-                            <Sidebar handleOpenSidebarNav={setSidebarOpeness} sidebarNavIsOpen={sidebarNavIsOpen} />
+                            <Sidebar
+                                handleOpenSidebarNav={setSidebarOpeness}
+                                sidebarNavIsOpen={this.state.sidebarNavIsOpen}
+                            />
                         }
                     />
                 </div>
