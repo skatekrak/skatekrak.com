@@ -30,6 +30,7 @@ import '/public/styles/club.styl';
 import '/public/styles/mag.styl';
 import '/public/styles/news.styl';
 import '/public/styles/videos.styl';
+import '/public/styles/feed.styl';
 
 import 'react-datepicker/dist/react-datepicker.css';
 import '/public/styles/react-datepicker.css';
