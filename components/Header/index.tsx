@@ -69,37 +69,7 @@ class Header extends React.Component<Props, State> {
                             <NavItem title="Mag" url="/mag" />
                             <NavItem title="News" url="/news" />
                             <NavItem title="Video" url="/video" />
-                            <div className="header-nav-main-item-app-container">
-                                {!navItemAppIsOpen ? (
-                                    <li className="header-nav-main-item">
-                                        <button onClick={this.handleClickAppItem} className="header-nav-main-item-link">
-                                            App
-                                        </button>
-                                    </li>
-                                ) : (
-                                    <>
-                                        <div className="header-nav-main-item-app-container-open">
-                                            <NavItem
-                                                title="Play store"
-                                                url="https://play.google.com/store/apps/details?id=com.krak"
-                                                blank
-                                            />
-                                            <span className="header-nav-main-item-app-separator" />
-                                            <NavItem
-                                                title="App store"
-                                                url="https://itunes.apple.com/us/app/krak/id916474561"
-                                                blank
-                                            />
-                                        </div>
-                                        <button
-                                            onClick={this.handleClickAppItem}
-                                            className="header-nav-main-item-app-container-open-closer"
-                                        >
-                                            <IconCross />
-                                        </button>
-                                    </>
-                                )}
-                            </div>
+                            <NavItem title="App" url="/app" />
                         </ul>
                     </nav>
                     <nav id="header-nav-subnav">
