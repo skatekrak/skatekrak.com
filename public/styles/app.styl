@@ -1,9 +1,72 @@
 @import "./stylus-mq"
 @import "./styleguide"
 
+
 /* APP STYLES */
 #app
 	&-container
-		min-height: 100vh
+		position: relative
+		flex-grow: 1
+		display: flex
+		flex-direction: column
+		align-items: center
+		justify-content: center
 		color: $grey-100
 		background-color: $grey-900
+
+		&:after
+			content: ''
+			position: absolute
+			top: 0
+			right: 0
+			bottom: 0
+			left: 0
+			background: radial-gradient(32.59% 41.28% at 50% 50%, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0) 100%)
+			z-index: 0
+
+	&-content-container
+		display: flex
+		flex-direction: column
+		align-items: center
+		width: 100%
+		margin-top: -4rem
+		z-index: 1
+
+	&-illustration
+		width: 40%
+		max-width: 140px
+		margin: 0 auto
+
+		+mq($from: "infinite")
+			max-width: 200px
+
+	&-title
+		margin: 2.5rem 0 3rem
+		font-family: $ff-dirty-brush
+		font-size: 3rem
+		line-height: 1
+		text-align: center
+		transform: rotate(-3deg)
+
+		+mq($from: "infinite")
+			font-size: 4rem
+
+	&-links
+		display: flex
+		align-items: center
+		width: 100%
+		max-width: 300px
+
+		+mq($from: "infinite")
+			max-width: 400px
+
+
+.app
+	&-link
+		width: calc(50% - 0.5rem)
+
+		&:first-child
+			margin-right: 1rem
+
+		// & svg
+		// 	width: 100%
