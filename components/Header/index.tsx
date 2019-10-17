@@ -1,10 +1,10 @@
+import classNames from 'classnames';
 import Link from 'next/link';
+import { Router, withRouter } from 'next/router';
 import React from 'react';
 import { connect } from 'react-redux';
 
 import NavItem from 'components/Header/NavItem';
-import ActiveLink from 'components/Link';
-import IconCross from 'components/Ui/Icons/Cross';
 import IconKrakenHead from 'components/Ui/Icons/Kraken/KrakenHead';
 import IconPower from 'components/Ui/Icons/Power';
 
@@ -16,17 +16,10 @@ import { userSignout } from 'store/auth/actions';
 type Props = {
     authUser: any;
     userSignout: () => void;
+    router: Router;
 };
 
-type State = {
-    navItemAppIsOpen: boolean;
-};
-
-class Header extends React.Component<Props, State> {
-    public state: State = {
-        navItemAppIsOpen: false,
-    };
-
+class Header extends React.Component<Props, {}> {
     public componentDidMount() {
         const header = document.getElementById('header');
         const burgerMenu = document.getElementById('header-top-burger');
@@ -42,9 +35,10 @@ class Header extends React.Component<Props, State> {
     }
 
     public render() {
-        const { navItemAppIsOpen } = this.state;
+        const { router } = this.props;
+
         return (
-            <header id="header">
+            <header id="header" className={classNames({ 'header-dark': router.pathname === '/app' })}>
                 <div id="header-top">
                     <Link href="/">
                         <a id="header-top-logo">
@@ -69,37 +63,7 @@ class Header extends React.Component<Props, State> {
                             <NavItem title="Mag" url="/mag" />
                             <NavItem title="News" url="/news" />
                             <NavItem title="Video" url="/video" />
-                            <div className="header-nav-main-item-app-container">
-                                {!navItemAppIsOpen ? (
-                                    <li className="header-nav-main-item">
-                                        <button onClick={this.handleClickAppItem} className="header-nav-main-item-link">
-                                            App
-                                        </button>
-                                    </li>
-                                ) : (
-                                    <>
-                                        <div className="header-nav-main-item-app-container-open">
-                                            <NavItem
-                                                title="Play store"
-                                                url="https://play.google.com/store/apps/details?id=com.krak"
-                                                blank
-                                            />
-                                            <span className="header-nav-main-item-app-separator" />
-                                            <NavItem
-                                                title="App store"
-                                                url="https://itunes.apple.com/us/app/krak/id916474561"
-                                                blank
-                                            />
-                                        </div>
-                                        <button
-                                            onClick={this.handleClickAppItem}
-                                            className="header-nav-main-item-app-container-open-closer"
-                                        >
-                                            <IconCross />
-                                        </button>
-                                    </>
-                                )}
-                            </div>
+                            <NavItem title="App" url="/app" />
                         </ul>
                     </nav>
                     <nav id="header-nav-subnav">
@@ -193,11 +157,6 @@ class Header extends React.Component<Props, State> {
             </header>
         );
     }
-
-    private handleClickAppItem = () => {
-        const { navItemAppIsOpen } = this.state;
-        this.setState({ navItemAppIsOpen: !navItemAppIsOpen });
-    };
 }
 
 const mapStateToProps = ({ auth }: Types.RootState) => {
@@ -205,9 +164,11 @@ const mapStateToProps = ({ auth }: Types.RootState) => {
     return { authUser };
 };
 
-export default connect(
-    mapStateToProps,
-    {
-        userSignout,
-    },
-)(Header);
+export default withRouter(
+    connect(
+        mapStateToProps,
+        {
+            userSignout,
+        },
+    )(Header),
+);
