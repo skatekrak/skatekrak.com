@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -7,30 +8,23 @@ type Props = {
     blank?: boolean;
 };
 
-const NavItem = ({ title, url, blank }: Props) => (
-    <li className="header-nav-main-item">
-        {blank ? (
-            <a href={url} className="header-nav-main-item-link" target={blank ? '_blank' : undefined}>
-                {title}
-            </a>
-        ) : (
-            <ActiveLink href={url} className="header-nav-main-item-link" activeClassName="active">
-                {title}
-            </ActiveLink>
-        )}
-    </li>
-);
-
-const ActiveLink = ({ children, activeClassName, href, ...props }) => {
+const NavItem = ({ title, url, blank }: Props) => {
     const { pathname } = useRouter();
-    const className = pathname.startsWith(href)
-        ? `${props.className} ${props.className}-${activeClassName}`.trim()
-        : props.className;
+    let className = 'header-nav-main-item-link';
+    className = pathname.startsWith(url) ? `${className} ${className}-active`.trim() : className;
 
     return (
-        <a className={className} href={href}>
-            {children}
-        </a>
+        <li className="header-nav-main-item">
+            {blank ? (
+                <a href={url} className={className} target={blank ? '_blank' : undefined}>
+                    {title}
+                </a>
+            ) : (
+                <Link href={url}>
+                    <a className={className}>{title}</a>
+                </Link>
+            )}
+        </li>
     );
 };
 
