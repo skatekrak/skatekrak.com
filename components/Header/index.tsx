@@ -1,10 +1,10 @@
+import classNames from 'classnames';
 import Link from 'next/link';
+import { Router, withRouter } from 'next/router';
 import React from 'react';
 import { connect } from 'react-redux';
 
 import NavItem from 'components/Header/NavItem';
-import ActiveLink from 'components/Link';
-import IconCross from 'components/Ui/Icons/Cross';
 import IconKrakenHead from 'components/Ui/Icons/Kraken/KrakenHead';
 import IconPower from 'components/Ui/Icons/Power';
 
@@ -16,17 +16,10 @@ import { userSignout } from 'store/auth/actions';
 type Props = {
     authUser: any;
     userSignout: () => void;
+    router: Router;
 };
 
-type State = {
-    navItemAppIsOpen: boolean;
-};
-
-class Header extends React.Component<Props, State> {
-    public state: State = {
-        navItemAppIsOpen: false,
-    };
-
+class Header extends React.Component<Props, {}> {
     public componentDidMount() {
         const header = document.getElementById('header');
         const burgerMenu = document.getElementById('header-top-burger');
@@ -42,9 +35,10 @@ class Header extends React.Component<Props, State> {
     }
 
     public render() {
-        const { navItemAppIsOpen } = this.state;
+        const { router } = this.props;
+
         return (
-            <header id="header">
+            <header id="header" className={classNames({ 'header-dark': router.pathname === '/app' })}>
                 <div id="header-top">
                     <Link href="/">
                         <a id="header-top-logo">
@@ -163,11 +157,6 @@ class Header extends React.Component<Props, State> {
             </header>
         );
     }
-
-    private handleClickAppItem = () => {
-        const { navItemAppIsOpen } = this.state;
-        this.setState({ navItemAppIsOpen: !navItemAppIsOpen });
-    };
 }
 
 const mapStateToProps = ({ auth }: Types.RootState) => {
@@ -175,9 +164,11 @@ const mapStateToProps = ({ auth }: Types.RootState) => {
     return { authUser };
 };
 
-export default connect(
-    mapStateToProps,
-    {
-        userSignout,
-    },
-)(Header);
+export default withRouter(
+    connect(
+        mapStateToProps,
+        {
+            userSignout,
+        },
+    )(Header),
+);
