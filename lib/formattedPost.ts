@@ -1,5 +1,8 @@
 import { Post } from 'components/pages/mag/Feed';
 
+/**
+ * Format the post data from Wordpress to a more readable format
+ */
 export const formatPost = (post: Post): Post => {
     // Get formated categories
     if (post.categories) {
@@ -17,11 +20,17 @@ export const formatPost = (post: Post): Post => {
 
     // Get image
     if (post.featured_media) {
-        // const thumbnailImage = post._embedded['wp:featuredmedia'][0].media_details.sizes.medium_large.source_url;
+        const sizes = post._embedded['wp:featuredmedia'][0].media_details.sizes;
 
-        const featuredImageFull = post._embedded['wp:featuredmedia'][0].media_details.sizes.full.source_url;
-        post.featuredImageFull = featuredImageFull;
-        post.thumbnailImage = featuredImageFull;
+        if (sizes.medium_large) {
+            post.thumbnailImage = sizes.medium_large.source_url;
+        } else {
+            post.thumbnailImage = sizes.medium.source_url;
+        }
+
+        if (sizes.full) {
+            post.featuredImageFull = sizes.full.source_url;
+        }
     }
 
     return post;

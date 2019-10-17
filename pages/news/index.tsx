@@ -1,7 +1,8 @@
+import { NextPage } from 'next';
 import getConfig from 'next/config';
 import Head from 'next/head';
-import { Router, withRouter } from 'next/router';
-import React from 'react';
+import { useRouter } from 'next/router';
+import React, { useState } from 'react';
 
 import Layout from 'components/Layout/Layout';
 import BannerTop from 'components/Ui/Banners/BannerTop';
@@ -32,50 +33,30 @@ const NewsHead = () => {
     );
 };
 
-type Props = {
-    router: Router;
-};
+const News: NextPage = () => {
+    const router = useRouter();
+    const [sidebarNavIsOpen, setSidebarIsOpen] = useState(false);
 
-type State = {
-    sidebarNavIsOpen: boolean;
-};
+    const id = router.query.id as string;
 
-class News extends React.Component<Props, State> {
-    public state: State = {
-        sidebarNavIsOpen: false,
+    const handleOpenSidebarNav = () => {
+        setSidebarIsOpen(!sidebarNavIsOpen);
     };
 
-    public render() {
-        const { router } = this.props;
-        const { sidebarNavIsOpen } = this.state;
+    return (
+        <Layout head={<NewsHead />}>
+            <BannerTop />
+            <div id="news-container" className="inner-page-container">
+                {id && <ArticleModal id={id} />}
+                <LayoutFeed
+                    mainView={<Articles sidebarNavIsOpen={sidebarNavIsOpen} />}
+                    sidebar={
+                        <Sidebar handleOpenSidebarNav={handleOpenSidebarNav} sidebarNavIsOpen={sidebarNavIsOpen} />
+                    }
+                />
+            </div>
+        </Layout>
+    );
+};
 
-        const id = router.query.id as string;
-
-        return (
-            <Layout head={<NewsHead />}>
-                <React.Fragment>
-                    <BannerTop />
-                    <div id="news-container" className="inner-page-container">
-                        {id && <ArticleModal id={id} />}
-                        <LayoutFeed
-                            mainView={<Articles sidebarNavIsOpen={sidebarNavIsOpen} />}
-                            sidebar={
-                                <Sidebar
-                                    handleOpenSidebarNav={this.handleOpenSidebarNav}
-                                    sidebarNavIsOpen={sidebarNavIsOpen}
-                                />
-                            }
-                        />
-                    </div>
-                </React.Fragment>
-            </Layout>
-        );
-    }
-
-    private handleOpenSidebarNav = () => {
-        const { sidebarNavIsOpen } = this.state;
-        this.setState({ sidebarNavIsOpen: !sidebarNavIsOpen });
-    };
-}
-
-export default withRouter(News);
+export default News;
