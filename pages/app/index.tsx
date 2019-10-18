@@ -4,6 +4,7 @@ import Head from 'next/head';
 import React from 'react';
 
 import Layout from 'components/Layout/Layout';
+import TrackedPage from 'components/pages/TrackedPage';
 import IconAppStore from 'components/Ui/Icons/Stores/Appstore';
 import IconPlayStore from 'components/Ui/Icons/Stores/Playstore';
 
@@ -29,40 +30,42 @@ const AppHead = () => {
 };
 
 const App: NextPage = () => (
-    <Layout head={<AppHead />}>
-        <div id="app-container" className="inner-page-container container-fluid">
-            <div id="app-content-container">
-                <img
-                    src={`${getConfig().publicRuntimeConfig.WEBSITE_URL}/images/krak-app-illustration.svg`}
-                    alt=""
-                    id="app-illustration"
-                />
-                <h1 id="app-title">
-                    Skateboarding culture
-                    <br />
-                    in your pocket
-                </h1>
-                <div id="app-links">
-                    <a
-                        className="app-link"
-                        href="https://itunes.apple.com/us/app/krak/id916474561"
-                        target="_blank"
-                        rel="noreferrer noopener"
-                    >
-                        <IconAppStore />
-                    </a>
-                    <a
-                        className="app-link"
-                        href="https://play.google.com/store/apps/details?id=com.krak"
-                        target="_blank"
-                        rel="noreferrer noopener"
-                    >
-                        <IconPlayStore />
-                    </a>
+    <TrackedPage name="App">
+        <Layout head={<AppHead />}>
+            <div id="app-container" className="inner-page-container container-fluid">
+                <div id="app-content-container">
+                    <img
+                        src={`${getConfig().publicRuntimeConfig.WEBSITE_URL}/images/krak-app-illustration.svg`}
+                        alt=""
+                        id="app-illustration"
+                    />
+                    <h1 id="app-title">
+                        Skateboarding culture
+                        <br />
+                        in your pocket
+                    </h1>
+                    <div id="app-links">
+                        <a
+                            className="app-link"
+                            href="https://itunes.apple.com/us/app/krak/id916474561"
+                            target="_blank"
+                            rel="noreferrer noopener"
+                        >
+                            <IconAppStore />
+                        </a>
+                        <a
+                            className="app-link"
+                            href="https://play.google.com/store/apps/details?id=com.krak"
+                            target="_blank"
+                            rel="noreferrer noopener"
+                        >
+                            <IconPlayStore />
+                        </a>
+                    </div>
                 </div>
             </div>
-        </div>
-    </Layout>
+        </Layout>
+    </TrackedPage>
 );
 
 export default App;
