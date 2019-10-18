@@ -15,15 +15,21 @@ const ArticleModal = ({ content, show }: Props) => {
     const [open, setOpen] = useState(false);
     const router = useRouter();
 
-    // Use the useEffect hook to show the popup
+    // Use the useEffect hook to show the popup and avoid SSR issue
     useEffect(() => {
         setOpen(show);
 
-        // document.getElementsByClassName('modal-close-button')[0].classList.add('news-article-modal-close-button');
+        const elements = document.getElementsByClassName('modal-close-button');
+        if (elements.length > 0) {
+            const first = elements[0];
+            first.classList.add('news-article-modal-close-button');
+        }
+
         return function cleanup() {
-            // document
-            //     .getElementsByClassName('modal-close-button')[0]
-            //     .classList.remove('news-article-modal-close-button');
+            if (elements.length > 0) {
+                const first = elements[0];
+                first.classList.remove('news-article-modal-close-button');
+            }
         };
     });
 
