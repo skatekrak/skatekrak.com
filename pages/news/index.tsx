@@ -1,7 +1,8 @@
+import axios from 'axios';
+import { NextPage } from 'next';
 import getConfig from 'next/config';
 import Head from 'next/head';
-import { Router, withRouter } from 'next/router';
-import React from 'react';
+import React, { useState } from 'react';
 
 import Layout from 'components/Layout/Layout';
 import BannerTop from 'components/Ui/Banners/BannerTop';
@@ -11,71 +12,85 @@ import Articles from 'components/pages/news/Articles';
 import ArticleModal from 'components/pages/news/Articles/Article/ArticleModal';
 import Sidebar from 'components/pages/news/Sidebar';
 
-const NewsHead = () => {
+import { Content } from 'rss-feed';
+
+const NewsHead = ({ content }: { content: Content }) => {
     const baseURL = getConfig().publicRuntimeConfig.WEBSITE_URL;
+
+    const description = content
+        ? content.summary
+        : "Don't miss anything in the skateboarding world - Krak is bringing you the 'news' from 40 sources hand-curated with passion, love & noise.";
+
+    const title = content ? content.title : 'Krak | News';
+    const image = (() => {
+        if (content) {
+            if (content.media && content.media.url) {
+                return `${getConfig().publicRuntimeConfig.CACHING_URL}/${encodeURIComponent(content.media.url)}`;
+            }
+            return content.source.coverUrl;
+        }
+        return `${baseURL}/images/og-news.jpg`;
+    })();
+
+    const url = (() => {
+        if (content) {
+            return `${baseURL}/news?id=${content.id}`;
+        }
+        return `${baseURL}/news`;
+    })();
+
     return (
         <Head>
-            <title>Krak | News</title>
-            <meta
-                name="description"
-                content="Don't miss anything in the skateboarding world - Krak is bringing you the 'news' from 40 sources hand-curated with passion, love & noise."
-            />
-            <meta property="og:title" content="Krak | News" />
+            <title>Krak News | {title}</title>
+            <meta name="description" key="description" content={description} />
+            <meta property="og:title" content={`Krak News | ${title}`} />
             <meta property="og:type" content="website" />
-            <meta property="og:url" content={`${baseURL}/news`} />
-            <meta property="og:image" content={`${baseURL}/images/og-news.jpg`} />
-            <meta
-                property="og:description"
-                content="Don't miss anything in the skateboarding world - Krak is bringing you the 'news' from 40 sources hand-curated with passion, love & noise"
-            />
+            <meta property="og:url" content={url} />
+            <meta property="og:image" content={image} />
+            <meta property="og:description" key="og:description" content={description} />
         </Head>
     );
 };
 
 type Props = {
-    router: Router;
+    content?: Content | undefined;
+    gotId: boolean;
 };
 
-type State = {
-    sidebarNavIsOpen: boolean;
-};
+const News: NextPage<Props> = ({ content, gotId }) => {
+    const [sidebarNavIsOpen, setSidebarIsOpen] = useState(false);
 
-class News extends React.Component<Props, State> {
-    public state: State = {
-        sidebarNavIsOpen: false,
+    const handleOpenSidebarNav = () => {
+        setSidebarIsOpen(!sidebarNavIsOpen);
     };
 
-    public render() {
-        const { router } = this.props;
-        const { sidebarNavIsOpen } = this.state;
+    return (
+        <Layout head={<NewsHead content={content} />}>
+            <BannerTop />
+            <div id="news-container" className="inner-page-container">
+                <ArticleModal show={gotId} content={content} />
+                <LayoutFeed
+                    mainView={<Articles sidebarNavIsOpen={sidebarNavIsOpen} />}
+                    sidebar={
+                        <Sidebar handleOpenSidebarNav={handleOpenSidebarNav} sidebarNavIsOpen={sidebarNavIsOpen} />
+                    }
+                />
+            </div>
+        </Layout>
+    );
+};
 
-        const id = router.query.id as string;
-
-        return (
-            <Layout head={<NewsHead />}>
-                <React.Fragment>
-                    <BannerTop />
-                    <div id="news-container" className="inner-page-container">
-                        {id && <ArticleModal id={id} />}
-                        <LayoutFeed
-                            mainView={<Articles sidebarNavIsOpen={sidebarNavIsOpen} />}
-                            sidebar={
-                                <Sidebar
-                                    handleOpenSidebarNav={this.handleOpenSidebarNav}
-                                    sidebarNavIsOpen={sidebarNavIsOpen}
-                                />
-                            }
-                        />
-                    </div>
-                </React.Fragment>
-            </Layout>
-        );
+News.getInitialProps = async ({ query }) => {
+    if (query.id) {
+        try {
+            const res = await axios.get(`${getConfig().publicRuntimeConfig.RSS_BACKEND_URL}/contents/${query.id}`);
+            return { content: res.data, gotId: true };
+        } catch (error) {
+            return { gotId: true };
+        }
     }
 
-    private handleOpenSidebarNav = () => {
-        const { sidebarNavIsOpen } = this.state;
-        this.setState({ sidebarNavIsOpen: !sidebarNavIsOpen });
-    };
-}
+    return { gotId: false };
+};
 
-export default withRouter(News);
+export default News;

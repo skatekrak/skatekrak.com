@@ -1,7 +1,5 @@
 import React from 'react';
 
-import '/public/styles/feed.styl';
-
 type Props = {
     mainView: React.ReactNode;
     sidebar: React.ReactNode;

@@ -10,17 +10,11 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
     enabled: process.env.ANALYZE === 'true',
 });
 
-const webpack = require('webpack');
-
 module.exports = withPlugins([withBundleAnalyzer, withCSS, withStylus, withCustomBabelConfigFile], {
     babelConfigFile: path.resolve('./babel.config.js'),
     publicRuntimeConfig: {
         WEBSITE_URL: process.env.WEBSITE_URL,
-        BEARER: process.env.BEARER,
         NODE_ENV: process.env.NODE_ENV,
-
-        INTERCOM_ID: process.env.INTERCOM_ID,
-        STRIPE_KEY: process.env.STRIPE_KEY,
 
         CACHING_URL: process.env.CACHING_URL,
         CAIROTE_URL: process.env.CAIROTE_URL,
@@ -28,6 +22,8 @@ module.exports = withPlugins([withBundleAnalyzer, withCSS, withStylus, withCusto
         RSS_BACKEND_URL: process.env.RSS_BACKEND_URL,
         SESTERCES_URL: process.env.SESTERCES_URL,
         KRAKMAG_URL: process.env.KRAKMAG_URL,
+
+        STRIPE_KEY: process.env.STRIPE_KEY,
 
         CLUB_CONTACT_NAME: process.env.CLUB_CONTACT_NAME,
         IS_QUARTERFULL: process.env.IS_QUARTERFULL === 'true',

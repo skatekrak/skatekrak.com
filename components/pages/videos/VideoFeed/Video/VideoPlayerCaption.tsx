@@ -1,13 +1,9 @@
 /*
  * Npm import
  */
-import Router from 'next/router';
+import { useRouter } from 'next/router';
 import React from 'react';
 import { Video } from 'rss-feed';
-
-/*
- * Local import
- */
 
 /*
  * Code
@@ -15,26 +11,26 @@ import { Video } from 'rss-feed';
 type Props = {
     video: Video;
 };
-class VideoPlayerCaption extends React.PureComponent<Props, {}> {
-    public render() {
-        const { video } = this.props;
 
-        return (
-            <div className="video-player-container">
-                <button className="video-player" onClick={this.onVideoClick}>
-                    <div className="react-player__preview" style={{ backgroundImage: `url(${video.thumbnail})` }}>
-                        <div className="react-player__shadow">
-                            <div className="react-player__play-icon" />
-                        </div>
-                    </div>
-                </button>
-            </div>
-        );
-    }
-    private onVideoClick = () => {
-        Router.push(`/video?id=${this.props.video.id}`);
+const VideoPlayerCaption = ({ video }: Props) => {
+    const router = useRouter();
+
+    const onVideoClick = () => {
+        router.replace('/video?id=' + video.id);
     };
-}
+
+    return (
+        <div className="video-player-container">
+            <button className="video-player" onClick={onVideoClick}>
+                <div className="react-player__preview" style={{ backgroundImage: `url(${video.thumbnail})` }}>
+                    <div className="react-player__shadow">
+                        <div className="react-player__play-icon" />
+                    </div>
+                </div>
+            </button>
+        </div>
+    );
+};
 
 /*
  * Export Default

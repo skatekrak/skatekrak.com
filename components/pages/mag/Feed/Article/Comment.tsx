@@ -1,6 +1,7 @@
 /*
  * Npm import
  */
+import Link from 'next/link';
 import React from 'react';
 
 /*
@@ -24,14 +25,9 @@ const Comment = () => (
                 Go beyond the story with fellow passionate skateboarders from all around the world. No ads, no clickbait
                 - only comments with substance.
             </p>
-            <a
-                className="button-primary mag-club-cta"
-                href="https://www.krakito.com"
-                target="_blank"
-                rel="noreferrer noopener"
-            >
-                Join us
-            </a>
+            <Link href="/club">
+                <a className="button-primary mag-club-cta">Join us</a>
+            </Link>
             <div id="mag-article-comment-kraken-bg" />
         </div>
     </div>

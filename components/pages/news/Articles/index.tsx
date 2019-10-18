@@ -35,6 +35,30 @@ type State = {
 };
 
 class Articles extends React.Component<Props, State> {
+    private static genArticlesList(
+        contents: Content[],
+        currency: 'usd' | 'eur' | 'gbp',
+        promoCardIndexes: number[],
+    ): JSX.Element[] {
+        const articles = contents.map(content => <Article key={content.id} content={content} currency={currency} />);
+        for (const index of promoCardIndexes) {
+            if (index < articles.length) {
+                articles.splice(index, 0, <Article key={`ksc-card-${index}`} isClubPromotion currency={currency} />);
+            }
+        }
+        return articles;
+    }
+
+    private static getFilters(sources: Map<Source, FilterState>): string[] {
+        const arr: string[] = [];
+        for (const entry of sources.entries()) {
+            if (entry[1] === FilterState.LOADING_TO_SELECTED || entry[1] === FilterState.SELECTED) {
+                arr.push(entry[0].id);
+            }
+        }
+        return arr;
+    }
+
     public state: State = {
         contents: [],
         promoCardIndexes: [],
@@ -75,7 +99,7 @@ class Articles extends React.Component<Props, State> {
                             <NoContent title="No news to display" desc="Select some mags to be back in the loop" />
                         )}
 
-                        {this.genArticlesList(contents)}
+                        {Articles.genArticlesList(contents, this.props.payment.currency, this.state.promoCardIndexes)}
 
                         {isLoading && <KrakLoading />}
                         {contents.length > 0 && !hasMore && (
@@ -91,16 +115,16 @@ class Articles extends React.Component<Props, State> {
         try {
             this.setState({ isLoading: true });
 
-            const filters = this.getFilters(this.props.news.sources);
+            const filters = Articles.getFilters(this.props.news.sources);
             if (filters.length === 0) {
                 return Promise.resolve();
             }
 
-            const params = { page, filters };
             const res = await axios.get(`${getConfig().publicRuntimeConfig.RSS_BACKEND_URL}/contents/`, {
                 params: {
-                    ...params,
-                    search: this.props.news.search,
+                    page,
+                    filters,
+                    query: this.props.news.search,
                 },
             });
 
@@ -124,16 +148,6 @@ class Articles extends React.Component<Props, State> {
         return ScrollHelper.getScrollContainer();
     };
 
-    private getFilters(sources: Map<Source, FilterState>): string[] {
-        const arr: string[] = [];
-        for (const entry of sources.entries()) {
-            if (entry[1] === FilterState.LOADING_TO_SELECTED || entry[1] === FilterState.SELECTED) {
-                arr.push(entry[0].id);
-            }
-        }
-        return arr;
-    }
-
     private genClubPromotionIndexes(): void {
         const indexes: number[] = [];
         for (let i = 0; i < 20; i++) {
@@ -154,22 +168,6 @@ class Articles extends React.Component<Props, State> {
             indexes.push(getRandomInt(minBound, maxBound));
         }
         this.setState({ promoCardIndexes: indexes });
-    }
-
-    private genArticlesList(contents: Content[]): JSX.Element[] {
-        const articles = contents.map(content => (
-            <Article key={content.id} content={content} currency={this.props.payment.currency} />
-        ));
-        for (const index of this.state.promoCardIndexes) {
-            if (index < articles.length) {
-                articles.splice(
-                    index,
-                    0,
-                    <Article key={`ksc-card-${index}`} isClubPromotion currency={this.props.payment.currency} />,
-                );
-            }
-        }
-        return articles;
     }
 }
 

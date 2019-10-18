@@ -25,6 +25,8 @@ export interface Post {
     slug?: string;
     link?: string;
     date?: string;
+    date_gmt?: string;
+    modified_gmt?: string;
     content?: { rendered?: string };
     excerpt?: { rendered?: string };
     featured_media?: number;
@@ -49,6 +51,16 @@ type State = {
 };
 
 class Feed extends React.Component<Props, State> {
+    private static getFilters(sources: Map<Source, FilterState>): string[] {
+        const arr: string[] = [];
+        for (const entry of sources.entries()) {
+            if (entry[1] === FilterState.LOADING_TO_SELECTED || entry[1] === FilterState.SELECTED) {
+                arr.push(entry[0].id);
+            }
+        }
+        return arr;
+    }
+
     public state: State = {
         isLoading: false,
         hasMore: true,
@@ -109,7 +121,7 @@ class Feed extends React.Component<Props, State> {
         try {
             this.setState({ isLoading: true });
 
-            const filters = this.getFilters(this.props.mag.sources);
+            const filters = Feed.getFilters(this.props.mag.sources);
 
             if (filters.length === 0) {
                 return Promise.resolve();
@@ -124,12 +136,11 @@ class Feed extends React.Component<Props, State> {
             });
 
             if (res.data) {
-                const data: Post[] = res.data;
-                const formatedPosts = data.map(post => formatPost(post));
+                const formattedPosts = res.data.map(post => formatPost(post));
                 const posts = this.state.posts;
                 this.setState({
-                    posts: posts.concat(formatedPosts),
-                    hasMore: formatedPosts.length >= 20,
+                    posts: posts.concat(formattedPosts),
+                    hasMore: formattedPosts.length >= 20,
                 });
             }
         } catch (err) {
@@ -139,16 +150,6 @@ class Feed extends React.Component<Props, State> {
             this.setState({ isLoading: false });
         }
     };
-
-    private getFilters(sources: Map<Source, FilterState>): string[] {
-        const arr: string[] = [];
-        for (const entry of sources.entries()) {
-            if (entry[1] === FilterState.LOADING_TO_SELECTED || entry[1] === FilterState.SELECTED) {
-                arr.push(entry[0].id);
-            }
-        }
-        return arr;
-    }
 }
 
 export default connect(({ mag }: Types.RootState) => ({
