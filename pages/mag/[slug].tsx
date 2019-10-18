@@ -1,8 +1,8 @@
 import axios from 'axios';
-import { NextPageContext } from 'next';
+import { NextPage } from 'next';
 import getConfig from 'next/config';
 import Head from 'next/head';
-import React from 'react';
+import React, { useState } from 'react';
 
 import decodeHTML from 'lib/decodeHTML';
 
@@ -30,10 +30,13 @@ const MagArticleHead = ({ post }: HeadProps) => {
             <title>Krak Mag. | {title}</title>
             <meta name="description" content={description} />
             <meta property="og:title" content={title} />
-            <meta property="og:type" content="website" />
+            <meta property="og:type" content="article" />
             <meta property="og:url" content={`${getConfig().publicRuntimeConfig.WEBSITE_URL}/mag/${post.slug!}`} />
             <meta property="og:image" content={post.featuredImageFull} />
             <meta property="og:description" content={description.substring(0, 300)} />
+
+            <meta property="og:article:publish_time" content={post.date_gmt} />
+            <meta property="og:article:modified_time" content={post.modified_gmt} />
         </Head>
     );
 };
@@ -46,56 +49,48 @@ type State = {
     sidebarNavIsOpen: boolean;
 };
 
-class ArticlePage extends React.Component<Props, State> {
-    public static async getInitialProps({ query }: NextPageContext) {
-        try {
-            const { slug } = query;
-            const res = await axios.get(`https://mag.skatekrak.com/wp-json/wp/v2/posts?slug=${slug}&_embed`);
-            if (res.data) {
-                const formattedPost = formatPost(res.data[0]);
-                return { post: formattedPost };
-            }
-            return {};
-        } catch (err) {
-            return {};
-        }
-    }
+const ArticlePage: NextPage<Props> = ({ post }) => {
+    const [sidebarNavIsOpen, setSidebarNavOpen] = useState(false);
 
-    public state: State = {
-        sidebarNavIsOpen: false,
+    const handleOpenSidebarNav = () => {
+        setSidebarNavOpen(!sidebarNavIsOpen);
     };
 
-    public render() {
-        const { sidebarNavIsOpen } = this.state;
-        const { post } = this.props;
-
-        return (
-            <TrackedPage name={`Mag/${post.slug!}`}>
-                <Layout head={<MagArticleHead post={post} />}>
-                    <BannerTop />
-                    <div id="mag-container" className="inner-page-container">
-                        <div id="mag-article-container">
-                            <LayoutFeed
-                                mainView={<Article post={post} sidebarNavIsOpen={sidebarNavIsOpen} />}
-                                sidebar={
-                                    <Sidebar
-                                        post={post}
-                                        handleOpenSidebarNav={this.handleOpenSidebarNav}
-                                        sidebarNavIsOpen={sidebarNavIsOpen}
-                                    />
-                                }
-                            />
-                        </div>
+    return (
+        <TrackedPage name={`Mag/${post.slug!}`}>
+            <Layout head={<MagArticleHead post={post} />}>
+                <BannerTop />
+                <div id="mag-container" className="inner-page-container">
+                    <div id="mag-article-container">
+                        <LayoutFeed
+                            mainView={<Article post={post} sidebarNavIsOpen={sidebarNavIsOpen} />}
+                            sidebar={
+                                <Sidebar
+                                    post={post}
+                                    handleOpenSidebarNav={handleOpenSidebarNav}
+                                    sidebarNavIsOpen={sidebarNavIsOpen}
+                                />
+                            }
+                        />
                     </div>
-                </Layout>
-            </TrackedPage>
-        );
-    }
+                </div>
+            </Layout>
+        </TrackedPage>
+    );
+};
 
-    private handleOpenSidebarNav = () => {
-        const { sidebarNavIsOpen } = this.state;
-        this.setState({ sidebarNavIsOpen: !sidebarNavIsOpen });
-    };
-}
+ArticlePage.getInitialProps = async ({ query }) => {
+    try {
+        const { slug } = query;
+        const res = await axios.get(`https://mag.skatekrak.com/wp-json/wp/v2/posts?slug=${slug}&_embed`);
+        if (res.data) {
+            const formattedPost = formatPost(res.data[0]);
+            return { post: formattedPost };
+        }
+        return {};
+    } catch (err) {
+        return {};
+    }
+};
 
 export default ArticlePage;

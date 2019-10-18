@@ -25,6 +25,8 @@ export interface Post {
     slug?: string;
     link?: string;
     date?: string;
+    date_gmt?: string;
+    modified_gmt?: string;
     content?: { rendered?: string };
     excerpt?: { rendered?: string };
     featured_media?: number;
