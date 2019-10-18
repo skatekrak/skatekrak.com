@@ -1,7 +1,8 @@
+import axios from 'axios';
+import { NextPage, NextPageContext } from 'next';
 import getConfig from 'next/config';
 import Head from 'next/head';
-import { Router, withRouter } from 'next/router';
-import React from 'react';
+import React, { useState } from 'react';
 
 import Layout from 'components/Layout/Layout';
 import BannerTop from 'components/Ui/Banners/BannerTop';
@@ -10,66 +11,77 @@ import LayoutFeed from 'components/Ui/Feed/LayoutFeed';
 import Sidebar from 'components/pages/videos/Sidebar';
 import VideoFeed from 'components/pages/videos/VideoFeed';
 import VideoModal from 'components/pages/videos/VideoFeed/Video/VideoModal';
+import { Video } from 'rss-feed';
 
-const VideoHead = () => {
+const VideoHead = ({ video }: { video: Video }) => {
     const baseURL = getConfig().publicRuntimeConfig.WEBSITE_URL;
+
+    const title = (() => {
+        if (video) {
+            return `Krak Videos | ${video.title}`;
+        }
+        return 'Krak | Videos';
+    })();
+    const description = video ? video.description : "Don't miss anything in the skateboarding world";
+    const image = video ? video.thumbnail : `${baseURL}/images/og-news.jpg`;
+    let url = `${baseURL}/video`;
+    if (video) {
+        url += `?id=${video.id}`;
+    }
+
+    const type = video ? 'video.other' : 'website';
+
     return (
         <Head>
-            <title>Krak | Videos</title>
-            <meta name="description" content="Don't miss anything in the skateboarding world" />
-            <meta property="og:title" content="Krak | Videos" />
-            <meta property="og:type" content="website" />
-            <meta property="og:url" content={`${baseURL}/videos`} />
-            <meta property="og:image" content={`${baseURL}/images/og-news.jpg`} />
-            <meta property="og:description" content="Don't miss anything in the skateboarding world" />
+            <title>{title}</title>
+            <meta name="description" key="description" content={description} />
+            <meta property="og:title" key="og:title" content={title} />
+            <meta property="og:type" key="og:type" content={type} />
+            <meta property="og:url" key="og:url" content={url} />
+            <meta property="og:image" key="og:image" content={image} />
+            <meta property="og:description" key="og:description" content={description} />
         </Head>
     );
 };
 
 type Props = {
-    router: Router;
+    video?: Video;
+    gotId: boolean;
 };
 
-type State = {
-    sidebarNavIsOpen: boolean;
-};
+const Videos: NextPage<Props> = ({ video, gotId }) => {
+    const [sidebarNavIsOpen, setSidebarNavIsOpen] = useState(false);
 
-class Videos extends React.Component<Props, State> {
-    public state: State = {
-        sidebarNavIsOpen: false,
+    const handleOpenSidebarNav = () => {
+        setSidebarNavIsOpen(!sidebarNavIsOpen);
     };
 
-    public render() {
-        const { router } = this.props;
-        const { sidebarNavIsOpen } = this.state;
+    return (
+        <Layout head={<VideoHead video={video} />}>
+            <BannerTop />
+            <div id="videos-container" className="inner-page-container">
+                {gotId && <VideoModal video={video} />}
+                <LayoutFeed
+                    mainView={<VideoFeed sidebarNavIsOpen={sidebarNavIsOpen} />}
+                    sidebar={
+                        <Sidebar handleOpenSidebarNav={handleOpenSidebarNav} sidebarNavIsOpen={sidebarNavIsOpen} />
+                    }
+                />
+            </div>
+        </Layout>
+    );
+};
 
-        const id = router.query.id as string;
-
-        return (
-            <Layout head={<VideoHead />}>
-                <React.Fragment>
-                    <BannerTop />
-                    <div id="videos-container" className="inner-page-container">
-                        {id && <VideoModal id={id} />}
-                        <LayoutFeed
-                            mainView={<VideoFeed sidebarNavIsOpen={sidebarNavIsOpen} />}
-                            sidebar={
-                                <Sidebar
-                                    handleOpenSidebarNav={this.handleOpenSidebarNav}
-                                    sidebarNavIsOpen={sidebarNavIsOpen}
-                                />
-                            }
-                        />
-                    </div>
-                </React.Fragment>
-            </Layout>
-        );
+Videos.getInitialProps = async ({ query }: NextPageContext) => {
+    if (query.id) {
+        try {
+            const res = await axios.get(`${getConfig().publicRuntimeConfig.RSS_BACKEND_URL}/videos/${query.id}`);
+            return { video: res.data, gotId: true };
+        } catch {
+            return { gotId: true };
+        }
     }
+    return { gotId: false };
+};
 
-    private handleOpenSidebarNav = () => {
-        const { sidebarNavIsOpen } = this.state;
-        this.setState({ sidebarNavIsOpen: !sidebarNavIsOpen });
-    };
-}
-
-export default withRouter(Videos);
+export default Videos;
