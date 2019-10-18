@@ -19,7 +19,6 @@ module.exports = withPlugins([withBundleAnalyzer, withCSS, withStylus, withCusto
         BEARER: process.env.BEARER,
         NODE_ENV: process.env.NODE_ENV,
 
-        INTERCOM_ID: process.env.INTERCOM_ID,
         STRIPE_KEY: process.env.STRIPE_KEY,
 
         CACHING_URL: process.env.CACHING_URL,
