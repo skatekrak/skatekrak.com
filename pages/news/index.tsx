@@ -17,9 +17,12 @@ import { Content } from 'rss-feed';
 const NewsHead = ({ content }: { content: Content }) => {
     const baseURL = getConfig().publicRuntimeConfig.WEBSITE_URL;
 
-    const description = content
-        ? content.summary
-        : "Don't miss anything in the skateboarding world - Krak is bringing you the 'news' from 40 sources hand-curated with passion, love & noise.";
+    const description = (() => {
+        if (content) {
+            return content.summary || content.content;
+        }
+        return "Don't miss anything in the skateboarding world - Krak is bringing you the 'news' from 40 sources hand-curated with passion, love & noise.";
+    })();
 
     const title = (() => {
         if (content) {
