@@ -1,23 +1,16 @@
-import axios from 'axios';
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 import parseISO from 'date-fns/parseISO';
-import getConfig from 'next/config';
-import Router, { useRouter } from 'next/router';
-import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
+import React, { useEffect, useState } from 'react';
 
 import VideoCardShare from 'components/pages/videos/VideoFeed/Video/VideoCardShare';
 import Emoji from 'components/Ui/Icons/Emoji';
-import { KrakLoading } from 'components/Ui/Icons/Spinners';
 import Modal from 'components/Ui/Modal';
 import VideoPlayer from 'components/Ui/Player/VideoPlayer';
 import { Video } from 'rss-feed';
 
 type Props = {
     video?: Video;
-};
-
-type State = {
-    open: boolean;
 };
 
 const VideoModal = ({ video }: Props) => {
