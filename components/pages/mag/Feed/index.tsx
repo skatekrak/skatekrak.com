@@ -92,7 +92,7 @@ class Feed extends React.Component<Props, State> {
                     useWindow={false}
                 >
                     <div className={classNames('row', { hide: this.props.sidebarNavIsOpen })}>
-                        {posts.map(post => (
+                        {posts.map((post) => (
                             <div key={post.id} className="mag-card-container col-xs-12 col-sm-6 col-lg-4">
                                 <Card post={post} />
                             </div>
@@ -136,7 +136,7 @@ class Feed extends React.Component<Props, State> {
             });
 
             if (res.data) {
-                const formattedPosts = res.data.map(post => formatPost(post));
+                const formattedPosts = res.data.map((post) => formatPost(post));
                 const posts = this.state.posts;
                 this.setState({
                     posts: posts.concat(formattedPosts),
