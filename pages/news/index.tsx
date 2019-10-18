@@ -12,14 +12,14 @@ import Articles from 'components/pages/news/Articles';
 import ArticleModal from 'components/pages/news/Articles/Article/ArticleModal';
 import Sidebar from 'components/pages/news/Sidebar';
 
-import { Content } from 'rss-feed';
+import Content from 'models/Content';
 
 const NewsHead = ({ content }: { content: Content }) => {
     const baseURL = getConfig().publicRuntimeConfig.WEBSITE_URL;
 
     const description = (() => {
         if (content) {
-            return content.summary || content.content;
+            return content.getContent() || '';
         }
         return "Don't miss anything in the skateboarding world - Krak is bringing you the 'news' from 40 sources hand-curated with passion, love & noise.";
     })();
@@ -33,24 +33,21 @@ const NewsHead = ({ content }: { content: Content }) => {
 
     const image = (() => {
         if (content) {
-            if (content.media && content.media.url) {
-                return `${getConfig().publicRuntimeConfig.CACHING_URL}/${encodeURIComponent(content.media.url)}`;
-            }
-            return content.source.coverUrl;
+            return content.getImage();
         }
         return `${baseURL}/images/og-news.jpg`;
     })();
 
     const url = (() => {
         if (content) {
-            return `${baseURL}/news?id=${content.id}`;
+            return content.getArticlePopupUrl();
         }
         return `${baseURL}/news`;
     })();
 
     return (
         <Head>
-            <title>Krak News | {title}</title>
+            <title>{title}</title>
             <meta name="description" key="description" content={description} />
             <meta property="og:title" content={title} />
             <meta property="og:type" content="website" />
@@ -62,16 +59,18 @@ const NewsHead = ({ content }: { content: Content }) => {
 };
 
 type Props = {
-    content?: Content | undefined;
+    contentData?: any;
     gotId: boolean;
 };
 
-const News: NextPage<Props> = ({ content, gotId }) => {
+const News: NextPage<Props> = ({ contentData, gotId }) => {
     const [sidebarNavIsOpen, setSidebarIsOpen] = useState(false);
 
     const handleOpenSidebarNav = () => {
         setSidebarIsOpen(!sidebarNavIsOpen);
     };
+
+    const content = contentData ? new Content(contentData) : undefined;
 
     return (
         <Layout head={<NewsHead content={content} />}>
@@ -93,7 +92,7 @@ News.getInitialProps = async ({ query }) => {
     if (query.id) {
         try {
             const res = await axios.get(`${getConfig().publicRuntimeConfig.RSS_BACKEND_URL}/contents/${query.id}`);
-            return { content: res.data, gotId: true };
+            return { contentData: res.data, gotId: true };
         } catch (error) {
             return { gotId: true };
         }

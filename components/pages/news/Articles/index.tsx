@@ -14,10 +14,12 @@ import NoContent from 'components/Ui/Feed/NoContent';
 import { KrakLoading } from 'components/Ui/Icons/Spinners';
 import { FilterState } from 'lib/FilterState';
 import ScrollHelper from 'lib/ScrollHelper';
-import { Content, Source } from 'rss-feed';
+import { Source } from 'rss-feed';
 import { feedEndRefresh } from 'store/feed/actions';
 import { State as NewsState } from 'store/feed/reducers';
 import { FeedLayout } from 'store/settings/reducers';
+
+import Content from 'models/Content';
 
 type Props = {
     news: NewsState;
@@ -129,7 +131,7 @@ class Articles extends React.Component<Props, State> {
             });
 
             if (res.data) {
-                const data: Content[] = res.data;
+                const data: Content[] = res.data.map(content => new Content(content));
                 const contents = this.state.contents;
                 this.setState({
                     contents: contents.concat(data),

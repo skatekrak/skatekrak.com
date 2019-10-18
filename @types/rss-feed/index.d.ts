@@ -28,7 +28,7 @@ declare module 'rss-feed' {
         contentType: string;
     }
 
-    export interface Content {
+    export interface IContent {
         id: string;
 
         createdAt: string;

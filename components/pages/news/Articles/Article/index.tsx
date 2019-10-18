@@ -1,5 +1,6 @@
 import React from 'react';
-import { Content } from 'rss-feed';
+
+import Content from 'models/Content';
 
 import Ad from 'components/pages/news/Articles/Article/Ad';
 import Card from 'components/pages/news/Articles/Article/Card';

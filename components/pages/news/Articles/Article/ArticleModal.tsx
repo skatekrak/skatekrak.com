@@ -4,7 +4,8 @@ import React, { useEffect, useState } from 'react';
 import Card from 'components/pages/news/Articles/Article/Card';
 import Emoji from 'components/Ui/Icons/Emoji';
 import Modal from 'components/Ui/Modal';
-import { Content } from 'rss-feed';
+
+import Content from 'models/Content';
 
 type Props = {
     content?: Content | undefined;
