@@ -47,7 +47,7 @@ const Card = ({ post }: Props) => {
             </div>
             <div className="mag-card-details">
                 <p className="mag-card-details-category">{post.categoriesString}</p>
-                <Link href={`/mag?id=${post.id}`} as={`/mag/${post.slug}`}>
+                <Link href={`/mag/${post.slug}`}>
                     <a className="mag-card-details-link">
                         <h2
                             className="mag-card-details-title"
