@@ -17,11 +17,20 @@ import { Content } from 'rss-feed';
 const NewsHead = ({ content }: { content: Content }) => {
     const baseURL = getConfig().publicRuntimeConfig.WEBSITE_URL;
 
-    const description = content
-        ? content.summary
-        : "Don't miss anything in the skateboarding world - Krak is bringing you the 'news' from 40 sources hand-curated with passion, love & noise.";
+    const description = (() => {
+        if (content) {
+            return content.summary || content.content;
+        }
+        return "Don't miss anything in the skateboarding world - Krak is bringing you the 'news' from 40 sources hand-curated with passion, love & noise.";
+    })();
 
-    const title = content ? content.title : 'Krak | News';
+    const title = (() => {
+        if (content) {
+            return `Krak News | ${content.title}`;
+        }
+        return 'Krak | News';
+    })();
+
     const image = (() => {
         if (content) {
             if (content.media && content.media.url) {
@@ -43,7 +52,7 @@ const NewsHead = ({ content }: { content: Content }) => {
         <Head>
             <title>Krak News | {title}</title>
             <meta name="description" key="description" content={description} />
-            <meta property="og:title" content={`Krak News | ${title}`} />
+            <meta property="og:title" content={title} />
             <meta property="og:type" content="website" />
             <meta property="og:url" content={url} />
             <meta property="og:image" content={image} />
