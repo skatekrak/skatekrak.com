@@ -51,7 +51,7 @@ const News: NextPage<Props> = ({ content, gotId }) => {
         <Layout head={<NewsHead />}>
             <BannerTop />
             <div id="news-container" className="inner-page-container">
-                {gotId && <ArticleModal content={content} />}
+                <ArticleModal show={gotId} content={content} />
                 <LayoutFeed
                     mainView={<Articles sidebarNavIsOpen={sidebarNavIsOpen} />}
                     sidebar={

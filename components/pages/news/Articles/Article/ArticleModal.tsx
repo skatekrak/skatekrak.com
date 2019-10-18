@@ -8,19 +8,22 @@ import { Content } from 'rss-feed';
 
 type Props = {
     content?: Content | undefined;
+    show: boolean;
 };
 
-const ArticleModal = ({ content }: Props) => {
-    const [open, setOpen] = useState(true);
+const ArticleModal = ({ content, show }: Props) => {
+    const [open, setOpen] = useState(false);
     const router = useRouter();
 
+    // Use the useEffect hook to show the popup
     useEffect(() => {
-        document.getElementsByClassName('modal-close-button')[0].classList.add('news-article-modal-close-button');
+        setOpen(show);
 
+        // document.getElementsByClassName('modal-close-button')[0].classList.add('news-article-modal-close-button');
         return function cleanup() {
-            document
-                .getElementsByClassName('modal-close-button')[0]
-                .classList.remove('news-article-modal-close-button');
+            // document
+            //     .getElementsByClassName('modal-close-button')[0]
+            //     .classList.remove('news-article-modal-close-button');
         };
     });
 
