@@ -13,93 +13,84 @@ type Props = {
     content: Content;
 };
 
-type State = {};
-
-class Card extends React.PureComponent<Props, State> {
-    public render() {
-        const { content } = this.props;
-
-        return (
-            <>
-                <a href={this.getArticleUrl(content)} className="news-article-link" target="_blank" rel="noreferrer">
-                    <div className="news-article-cover-img-container">
-                        <BackgroundLoader
-                            className="news-article-cover-img"
-                            src={this.getImage(content)}
-                            placeholder={this.getPlaceholder(content)}
-                        />
-                    </div>
-                    <h2 className="news-article-title">{content.title}</h2>
-                </a>
-                <div className="news-article-share">
-                    <FacebookShareButton
-                        url={this.getArticlePopupUrl(content)}
-                        quote={`${content.title} shared via skatekrak.com`}
-                    >
-                        <FacebookIcon size={24} round />
-                    </FacebookShareButton>
-                    <TwitterShareButton url={this.getArticlePopupUrl(content)} title={content.title} via="skatekrak">
-                        <TwitterIcon size={24} round />
-                    </TwitterShareButton>
-                    <ClipboardButton value={this.getArticlePopupUrl(content)} />
-                </div>
-                <div className="news-article-details">
-                    <div className="news-article-details-source">
-                        by
-                        <a
-                            href={this.getWebsiteUrl(content)}
-                            className="news-article-details-source-link"
-                            target="_blank"
-                            rel="noreferrer"
-                        >
-                            &nbsp;
-                            <span className="news-article-details-source-name">{content.source.label}</span>
-                        </a>
-                    </div>
-                    <span className="news-article-details-date">
-                        &nbsp;- {formatDistanceToNow(parseISO(content.createdAt))}
-                    </span>
-                </div>
-                <p className="news-article-desc">
-                    <Truncate lines={4} ellipsis="...">
-                        {this.getContent(content)}
-                    </Truncate>
-                </p>
-            </>
-        );
-    }
-
-    private getImage(content: Content): string {
+const Card = ({ content }: Props) => {
+    const getImage = (): string => {
         if (content.media && content.media.url) {
             return `${getConfig().publicRuntimeConfig.CACHING_URL}/${encodeURIComponent(content.media.url)}`;
         }
         return null;
-    }
+    };
 
-    private getPlaceholder(content: Content): string {
+    const getPlaceholder = (): string => {
         return content.source.coverUrl;
-    }
+    };
 
-    private getArticleUrl(content: Content): string {
+    const getArticleUrl = (): string => {
         return `${getConfig().publicRuntimeConfig.REDIRECT_URL}/${encodeURIComponent(content.webUrl)}`;
-    }
+    };
 
-    private getArticlePopupUrl(content: Content): string {
+    const getArticlePopupUrl = (): string => {
         return `${window.location.origin}/news?id=${content.id}`;
-    }
+    };
 
-    private getWebsiteUrl(content: Content): string {
+    const getWebsiteUrl = (): string => {
         return `${getConfig().publicRuntimeConfig.REDIRECT_URL}/${encodeURIComponent(content.source.website)}`;
-    }
+    };
 
-    private getContent(content: Content): string {
+    const getContent = (): string => {
         if (content.summary) {
             return content.summary;
         } else if (content.content) {
             return content.content;
         }
         return null;
-    }
-}
+    };
+
+    return (
+        <>
+            <a href={getArticleUrl()} className="news-article-link" target="_blank" rel="noreferrer">
+                <div className="news-article-cover-img-container">
+                    <BackgroundLoader
+                        className="news-article-cover-img"
+                        src={getImage()}
+                        placeholder={getPlaceholder()}
+                    />
+                </div>
+                <h2 className="news-article-title">{content.title}</h2>
+            </a>
+            <div className="news-article-share">
+                <FacebookShareButton url={getArticlePopupUrl()} quote={`${content.title} shared via skatekrak.com`}>
+                    <FacebookIcon size={24} round />
+                </FacebookShareButton>
+                <TwitterShareButton url={getArticlePopupUrl()} title={content.title} via="skatekrak">
+                    <TwitterIcon size={24} round />
+                </TwitterShareButton>
+                <ClipboardButton value={getArticlePopupUrl()} />
+            </div>
+            <div className="news-article-details">
+                <div className="news-article-details-source">
+                    by
+                    <a
+                        href={getWebsiteUrl()}
+                        className="news-article-details-source-link"
+                        target="_blank"
+                        rel="noreferrer"
+                    >
+                        &nbsp;
+                        <span className="news-article-details-source-name">{content.source.label}</span>
+                    </a>
+                </div>
+                <span className="news-article-details-date">
+                    &nbsp;- {formatDistanceToNow(parseISO(content.createdAt))}
+                </span>
+            </div>
+            <p className="news-article-desc">
+                <Truncate lines={4} ellipsis="...">
+                    {getContent()}
+                </Truncate>
+            </p>
+        </>
+    );
+};
 
 export default Card;
