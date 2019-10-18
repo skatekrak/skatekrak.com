@@ -10,8 +10,6 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
     enabled: process.env.ANALYZE === 'true',
 });
 
-const webpack = require('webpack');
-
 module.exports = withPlugins([withBundleAnalyzer, withCSS, withStylus, withCustomBabelConfigFile], {
     babelConfigFile: path.resolve('./babel.config.js'),
     publicRuntimeConfig: {
