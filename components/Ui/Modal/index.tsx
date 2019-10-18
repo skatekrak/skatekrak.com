@@ -25,7 +25,7 @@ type Props = {
     closable?: boolean;
 } & Partial<ReactResponseiveModalProps>;
 
-const ModalWithStyle: React.SFC<Props> = ({ open, onClose, children, closable, ...props }) => (
+const ModalWithStyle: React.FunctionComponent<Props> = ({ open, onClose, children, closable, ...props }) => (
     <Modal
         open={open}
         onClose={onClose}
