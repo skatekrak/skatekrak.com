@@ -7,12 +7,13 @@ import React, { useState } from 'react';
 import decodeHTML from 'lib/decodeHTML';
 
 import Layout from 'components/Layout/Layout';
-import Sidebar from 'components/pages/mag/Sidebar';
+
 import BannerTop from 'components/Ui/Banners/BannerTop';
 import LayoutFeed from 'components/Ui/Feed/LayoutFeed';
 
 import Article from 'components/pages/mag/Article';
 import { Post } from 'components/pages/mag/Feed';
+import Sidebar from 'components/pages/mag/Sidebar';
 import TrackedPage from 'components/pages/TrackedPage';
 
 import { formatPost } from 'lib/formattedPost';
@@ -76,8 +77,9 @@ const ArticlePage: NextPage<Props> = ({ post }) => {
 };
 
 ArticlePage.getInitialProps = async ({ query }) => {
+    const { slug } = query;
+
     try {
-        const { slug } = query;
         const res = await axios.get(`https://mag.skatekrak.com/wp-json/wp/v2/posts?slug=${slug}&_embed`);
         if (res.data) {
             const formattedPost = formatPost(res.data[0]);

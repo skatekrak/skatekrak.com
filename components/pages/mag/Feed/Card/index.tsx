@@ -19,7 +19,7 @@ const Card = ({ post }: Props) => {
 
     return (
         <>
-            <Link href={`/mag/${post.slug}`}>
+            <Link href={`/mag?slug=${post.slug}`} as={`/mag/${post.slug}`}>
                 <a className="mag-card-link">
                     <div className="mag-card-cover-img-container">
                         <div
@@ -47,7 +47,7 @@ const Card = ({ post }: Props) => {
             </div>
             <div className="mag-card-details">
                 <p className="mag-card-details-category">{post.categoriesString}</p>
-                <Link href={`/mag/${post.slug}`}>
+                <Link href={`/mag?slug=${post.slug}`} as={`/mag/${post.slug}`}>
                     <a className="mag-card-details-link">
                         <h2
                             className="mag-card-details-title"

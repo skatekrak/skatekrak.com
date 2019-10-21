@@ -1,13 +1,18 @@
 import { NextPage } from 'next';
 import getConfig from 'next/config';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
+
+import Types from 'Types';
 
 import Layout from 'components/Layout/Layout';
 import BannerTop from 'components/Ui/Banners/BannerTop';
 import LayoutFeed from 'components/Ui/Feed/LayoutFeed';
 
-import Feed from 'components/pages/mag/Feed';
+import Article from 'components/pages/mag/Article';
+import Feed, { Post } from 'components/pages/mag/Feed';
 import Sidebar from 'components/pages/mag/Sidebar';
 
 const MagHead = () => {
@@ -26,11 +31,37 @@ const MagHead = () => {
     );
 };
 
-const Mag: NextPage = () => {
+type Props = {
+    items: Post[];
+};
+
+const Mag: NextPage<Props> = ({ items }) => {
     const [sidebarNavIsOpen, setSidebarNavOpen] = useState(false);
 
     const setSidebarOpeness = () => {
         setSidebarNavOpen(!sidebarNavIsOpen);
+    };
+
+    //
+    const router = useRouter();
+    let selectedArticle: Post;
+    if (router.query.slug) {
+        // Search for current slug in items list
+        selectedArticle = (() => {
+            for (const item of items) {
+                if (item.slug === router.query.slug) {
+                    return item;
+                }
+            }
+            return undefined;
+        })();
+    }
+
+    const mainView = () => {
+        if (selectedArticle) {
+            return <Article post={selectedArticle} sidebarNavIsOpen={sidebarNavIsOpen} />;
+        }
+        return <Feed sidebarNavIsOpen={sidebarNavIsOpen} />;
     };
 
     return (
@@ -38,12 +69,20 @@ const Mag: NextPage = () => {
             <BannerTop />
             <div id="mag-container" className="inner-page-container">
                 <LayoutFeed
-                    mainView={<Feed sidebarNavIsOpen={sidebarNavIsOpen} />}
-                    sidebar={<Sidebar handleOpenSidebarNav={setSidebarOpeness} sidebarNavIsOpen={sidebarNavIsOpen} />}
+                    mainView={mainView()}
+                    sidebar={
+                        <Sidebar
+                            post={selectedArticle}
+                            handleOpenSidebarNav={setSidebarOpeness}
+                            sidebarNavIsOpen={sidebarNavIsOpen}
+                        />
+                    }
                 />
             </div>
         </Layout>
     );
 };
 
-export default Mag;
+export default connect(({ mag }: Types.RootState) => ({
+    items: mag.items,
+}))(Mag);
