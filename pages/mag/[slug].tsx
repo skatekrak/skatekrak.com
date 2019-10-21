@@ -11,8 +11,8 @@ import Sidebar from 'components/pages/mag/Sidebar';
 import BannerTop from 'components/Ui/Banners/BannerTop';
 import LayoutFeed from 'components/Ui/Feed/LayoutFeed';
 
+import Article from 'components/pages/mag/Article';
 import { Post } from 'components/pages/mag/Feed';
-import Article from 'components/pages/mag/Feed/Article';
 import TrackedPage from 'components/pages/TrackedPage';
 
 import { formatPost } from 'lib/formattedPost';
@@ -43,10 +43,6 @@ const MagArticleHead = ({ post }: HeadProps) => {
 
 type Props = {
     post?: Post;
-};
-
-type State = {
-    sidebarNavIsOpen: boolean;
 };
 
 const ArticlePage: NextPage<Props> = ({ post }) => {

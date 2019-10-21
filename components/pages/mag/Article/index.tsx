@@ -10,8 +10,8 @@ import createMarkup from 'lib/createMarkup';
 import decodeHTML from 'lib/decodeHTML';
 import createPropsGetter from 'lib/getProps';
 
+import Comment from 'components/pages/mag/Article/Comment';
 import { Post } from 'components/pages/mag/Feed';
-import Comment from 'components/pages/mag/Feed/Article/Comment';
 import ClipboardButton from 'components/Ui/Button/ClipboardButton';
 import { KrakLoading } from 'components/Ui/Icons/Spinners';
 
