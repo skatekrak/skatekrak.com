@@ -26,28 +26,28 @@ class Intro extends React.PureComponent<Props, {}> {
                         <ul id="club-intro-content-kraken-images">
                             <li className="club-intro-content-kraken">
                                 <Image
-                                    retina={true}
+                                    retina
                                     src="https://res.skatekrak.com/static/skatekrak.com/Krakens/kev_low.jpg"
                                     alt="Kraken"
                                 />
                             </li>
                             <li className="club-intro-content-kraken">
                                 <Image
-                                    retina={true}
+                                    retina
                                     src="https://res.skatekrak.com/static/skatekrak.com/Krakens/simon_low.jpg"
                                     alt="Kraken"
                                 />
                             </li>
                             <li className="club-intro-content-kraken">
                                 <Image
-                                    retina={true}
+                                    retina
                                     src="https://res.skatekrak.com/static/skatekrak.com/Krakens/felix_low.jpg"
                                     alt="Kraken"
                                 />
                             </li>
                             <li className="club-intro-content-kraken">
                                 <Image
-                                    retina={true}
+                                    retina
                                     src="https://res.skatekrak.com/static/skatekrak.com/Krakens/thomas_low.jpg"
                                     alt="Kraken"
                                 />

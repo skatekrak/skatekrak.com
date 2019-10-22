@@ -20,6 +20,8 @@ const Image = (rawProps: Props) => {
         props.srcSet = generateSrcSet(props.src);
     }
 
+    delete props.retina;
+
     return <img {...props} />;
 };
 
