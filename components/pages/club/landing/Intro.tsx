@@ -4,6 +4,8 @@ import React from 'react';
 import IconArrowHead from 'components/Ui/Icons/ArrowHead';
 import Emoji from 'components/Ui/Icons/Emoji';
 import IconStartFull from 'components/Ui/Icons/StarFull';
+import Image from 'components/Ui/Image';
+
 import ScrollHelper from 'lib/ScrollHelper';
 
 type Props = {
@@ -23,25 +25,29 @@ class Intro extends React.PureComponent<Props, {}> {
                     <div id="club-intro-content-kraken">
                         <ul id="club-intro-content-kraken-images">
                             <li className="club-intro-content-kraken">
-                                <img
+                                <Image
+                                    retina
                                     src="https://res.skatekrak.com/static/skatekrak.com/Krakens/kev_low.jpg"
                                     alt="Kraken"
                                 />
                             </li>
                             <li className="club-intro-content-kraken">
-                                <img
+                                <Image
+                                    retina
                                     src="https://res.skatekrak.com/static/skatekrak.com/Krakens/simon_low.jpg"
                                     alt="Kraken"
                                 />
                             </li>
                             <li className="club-intro-content-kraken">
-                                <img
+                                <Image
+                                    retina
                                     src="https://res.skatekrak.com/static/skatekrak.com/Krakens/felix_low.jpg"
                                     alt="Kraken"
                                 />
                             </li>
                             <li className="club-intro-content-kraken">
-                                <img
+                                <Image
+                                    retina
                                     src="https://res.skatekrak.com/static/skatekrak.com/Krakens/thomas_low.jpg"
                                     alt="Kraken"
                                 />

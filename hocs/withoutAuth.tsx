@@ -12,12 +12,12 @@ const withAuth = (Page: NextComponentType<any>) => {
          * if there is no user it means he's not logged in
          */
         if (ctx.req && user) {
-            ctx.res.writeHead(302, { Location: '/profile' });
+            ctx.res.writeHead(302, { Location: '/club/profile' });
             ctx.res.end();
         }
 
         if (user) {
-            Router.push('/profile');
+            Router.push('/club/profile');
         }
 
         const componentProps = Page.getInitialProps && (await Page.getInitialProps(ctx));

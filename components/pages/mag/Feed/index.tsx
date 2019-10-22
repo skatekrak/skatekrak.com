@@ -16,7 +16,7 @@ import { FilterState } from 'lib/FilterState';
 import { formatPost } from 'lib/formattedPost';
 import ScrollHelper from 'lib/ScrollHelper';
 import { Source } from 'rss-feed';
-import { feedEndRefresh } from 'store/feed/actions';
+import { feedEndRefresh, setItems } from 'store/feed/actions';
 import { State as MagState } from 'store/feed/reducers';
 
 export interface Post {
@@ -92,7 +92,7 @@ class Feed extends React.Component<Props, State> {
                     useWindow={false}
                 >
                     <div className={classNames('row', { hide: this.props.sidebarNavIsOpen })}>
-                        {posts.map((post) => (
+                        {posts.map(post => (
                             <div key={post.id} className="mag-card-container col-xs-12 col-sm-6 col-lg-4">
                                 <Card post={post} />
                             </div>
@@ -136,12 +136,13 @@ class Feed extends React.Component<Props, State> {
             });
 
             if (res.data) {
-                const formattedPosts = res.data.map((post) => formatPost(post));
-                const posts = this.state.posts;
+                const formattedPosts = res.data.map(post => formatPost(post));
+                const posts = this.state.posts.concat(formattedPosts);
                 this.setState({
-                    posts: posts.concat(formattedPosts),
+                    posts,
                     hasMore: formattedPosts.length >= 20,
                 });
+                this.props.dispatch(setItems(posts));
             }
         } catch (err) {
             // console.log(err);

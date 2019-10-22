@@ -55,7 +55,6 @@ const Monthly: React.SFC = () => (
                         <img
                             src="https://res.skatekrak.com/static/skatekrak.com/Icons/kraksession.svg"
                             alt="Krak session"
-                            id="club-monthly-main-app-kraksession"
                             className="club-monthly-main-app"
                         />
                     </div>

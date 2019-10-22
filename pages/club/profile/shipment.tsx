@@ -1,4 +1,4 @@
-import { withApollo, WithApolloClient } from '@apollo/react-hoc';
+import { WithApolloClient } from '@apollo/react-hoc';
 import gql from 'graphql-tag';
 import React from 'react';
 import { compose } from 'recompose';
@@ -14,6 +14,7 @@ import IconCross from 'components/Ui/Icons/Cross';
 import IconFull from 'components/Ui/Icons/iconFull';
 import { showConfirmation } from 'components/Ui/Modal/ModalConfirmation';
 
+import { withApollo } from 'hocs/withApollo';
 import withAuth from 'hocs/withAuth';
 
 import { GET_ME } from 'pages/club/profile';

@@ -10,6 +10,7 @@ import {
     SELECT_ALL_FILTERS,
     SELECT_LANGUAGE,
     SET_ALL_SOURCES,
+    SET_ITEMS,
     TOGGLE_FILTER,
     UNSELECT_ALL_FILTERS,
 } from '../constants';
@@ -23,6 +24,7 @@ export type State = {
     sources: Map<Source, FilterState>;
     languages: Language[];
     search?: string;
+    items: any[];
 };
 
 export default () => {
@@ -31,6 +33,7 @@ export default () => {
         sources: new Map<Source, FilterState>(),
         languages: new Array<Language>(),
         search: undefined,
+        items: [],
     };
 
     return (state: State = initialState, action: FeedAction): State => {
@@ -49,7 +52,7 @@ export default () => {
                     // add language if new
                     if (
                         source.lang &&
-                        languages.find((language) => language.isoCode === source.lang.isoCode) === undefined
+                        languages.find(language => language.isoCode === source.lang.isoCode) === undefined
                     ) {
                         languages.push(source.lang);
                     }
@@ -152,6 +155,12 @@ export default () => {
                     ...state,
                     feedNeedRefresh: true,
                     search,
+                };
+            }
+            case SET_ITEMS: {
+                return {
+                    ...state,
+                    items: action.payload,
                 };
             }
             default:

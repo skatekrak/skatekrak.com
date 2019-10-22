@@ -1,4 +1,5 @@
 import format from 'date-fns/format';
+import parseISO from 'date-fns/parseISO';
 import gql from 'graphql-tag';
 import React from 'react';
 import { compose } from 'recompose';
@@ -105,11 +106,15 @@ class ProfileMain extends React.Component<{}, State> {
                                     <div className="profile-section-line">
                                         <ProfileItem
                                             title="Starting day"
-                                            content={format(data.me.createdAt, 'D MMMM YYYY')}
+                                            content={format(parseISO(data.me.createdAt), 'd MMMM yyyy')}
                                         />
                                         <ProfileItem
                                             title="Next renewal"
-                                            content={data.me.renewAt ? format(data.me.renewAt, 'd MMMM yyyy') : 'Never'}
+                                            content={
+                                                data.me.renewAt
+                                                    ? format(parseISO(data.me.renewAt), 'd MMMM yyyy')
+                                                    : 'Never'
+                                            }
                                         />
                                     </div>
                                 </ProfileSection>
