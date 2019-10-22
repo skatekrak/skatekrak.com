@@ -80,7 +80,9 @@ ArticlePage.getInitialProps = async ({ query }) => {
     const { slug } = query;
 
     try {
-        const res = await axios.get(`https://mag.skatekrak.com/wp-json/wp/v2/posts?slug=${slug}&_embed`);
+        const res = await axios.get(
+            `${getConfig().publicRuntimeConfig.KRAKMAG_URL}/wp-json/wp/v2/posts?slug=${slug}&_embed`,
+        );
         if (res.data) {
             const formattedPost = formatPost(res.data[0]);
             return { post: formattedPost };
