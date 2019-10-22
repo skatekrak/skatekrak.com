@@ -1,4 +1,5 @@
 import format from 'date-fns/format';
+import parseISO from 'date-fns/parseISO';
 import getConfig from 'next/config';
 import React from 'react';
 import { Elements, StripeProvider } from 'react-stripe-elements';
@@ -104,7 +105,10 @@ class ProfilePayment extends React.Component<{}, State> {
                                                                 title="Next renewal"
                                                                 content={
                                                                     data.me.renewAt
-                                                                        ? format(data.me.renewAt, 'd MMMM yyyy')
+                                                                        ? format(
+                                                                              parseISO(data.me.renewAt),
+                                                                              'd MMMM yyyy',
+                                                                          )
                                                                         : 'Never'
                                                                 }
                                                             />
