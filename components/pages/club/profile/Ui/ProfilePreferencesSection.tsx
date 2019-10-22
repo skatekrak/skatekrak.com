@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
-import React from 'react';
-import { Query } from 'react-apollo';
+import React, { useState } from 'react';
+import { Query, useQuery } from 'react-apollo';
 
 import ProfileItem from 'components/pages/club/profile/Ui/item';
 import ProfileEditPreferencesModal from 'components/pages/club/profile/Ui/modals/ProfileEditPreferencesModal';
@@ -30,65 +30,53 @@ type State = {
     modalOpen: boolean;
 };
 
-class ProfilePreferencesSection extends React.Component<Props, State> {
-    public state: State = {
-        modalOpen: false,
-    };
-    public render() {
-        const { member } = this.props;
-        return (
-            <>
-                <ProfileSection>
-                    <Query query={GET_PREFERENCES_SETTING} variables={{ memberId: member.id }}>
-                        {({ data, loading, error }) => (
-                            <>
-                                <ProfileSectionHeader
-                                    title="Preferences"
-                                    edit
-                                    editTitle="Preferences"
-                                    onEditClick={!loading && !error ? this.openModal : null}
-                                />
-                                {loading && (
-                                    <div className="profile-preferences-loader">
-                                        <KrakLoading />
-                                    </div>
-                                )}
-                                {error && <pre>{JSON.stringify(error, undefined, 2)}</pre>}
-                                {data && data.getPreferencesSetting && (
-                                    <>
-                                        <ProfileEditPreferencesModal
-                                            open={this.state.modalOpen}
-                                            onClose={this.closeModal}
-                                            memberId={member.id}
-                                            preferences={member.preferences}
-                                            preferencesSetting={data.getPreferencesSetting}
-                                        />
-                                        {data.getPreferencesSetting.map((setting) => (
-                                            <div key={setting.id} className="profile-section-line">
-                                                <ProfileItem
-                                                    title={setting.name}
-                                                    content={getPreferenceWithSetting(setting, member.preferences)}
-                                                />
-                                            </div>
-                                        ))}
-                                    </>
-                                )}
-                            </>
-                        )}
-                    </Query>
-                </ProfileSection>
-            </>
-        );
-    }
+const ProfilePreferencesSection = ({ member }: Props) => {
+    const [modalOpen, setModalOpen] = useState(false);
+    const { loading, error, data } = useQuery(GET_PREFERENCES_SETTING, { variables: { memberId: member.id } });
 
-    private closeModal = () => {
-        this.setState({ modalOpen: false });
+    const openModal = () => {
+        setModalOpen(true);
     };
 
-    private openModal = () => {
-        this.setState({ modalOpen: true });
+    const closeModal = () => {
+        setModalOpen(false);
     };
-}
+
+    return (
+        <ProfileSection>
+            <ProfileSectionHeader
+                title="Preferences"
+                edit
+                editTitle="Preferences"
+                onEditClick={!loading && !error ? openModal : null}
+            />
+            {loading && (
+                <div className="profile-preferences-loader">
+                    <KrakLoading />
+                </div>
+            )}
+            {data && data.getPreferencesSetting && (
+                <>
+                    <ProfileEditPreferencesModal
+                        open={modalOpen}
+                        onClose={closeModal}
+                        memberId={member.id}
+                        preferences={member.preferences}
+                        preferencesSetting={data.getPreferencesSetting}
+                    />
+                    {data.getPreferencesSetting.map(setting => (
+                        <div key={setting.id} className="profile-section-line">
+                            <ProfileItem
+                                title={setting.name}
+                                content={getPreferenceWithSetting(setting, member.preferences)}
+                            />
+                        </div>
+                    ))}
+                </>
+            )}
+        </ProfileSection>
+    );
+};
 
 const getPreferenceWithSetting = (preferenceSetting: any, preferences: any[]): string => {
     for (const preference of preferences) {

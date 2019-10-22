@@ -10,10 +10,10 @@ import ErrorMessage from 'components/Ui/Form/ErrorMessage';
 
 import ProfilePreferencesSection from 'components/pages/club/profile/Ui/ProfilePreferencesSection';
 
+import { withApollo } from 'hocs/withApollo';
 import withAuth from 'hocs/withAuth';
 
 import { GET_ME } from 'pages/club/profile';
-import { withApollo } from 'react-apollo';
 
 const ProfilePreference: NextPage = () => (
     <TrackedPage name="Club/Profile/Preference">
