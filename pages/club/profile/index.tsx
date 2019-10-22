@@ -106,7 +106,7 @@ class ProfileMain extends React.Component<{}, State> {
                                     <div className="profile-section-line">
                                         <ProfileItem
                                             title="Starting day"
-                                            content={format(parseISO(data.me.createdAt), 'D MMMM YYYY')}
+                                            content={format(parseISO(data.me.createdAt), 'd MMMM YYYY')}
                                         />
                                         <ProfileItem
                                             title="Next renewal"
