@@ -3,20 +3,24 @@ import React from 'react';
 
 import IconSoldOut from 'components/Ui/Icons/SoldOut';
 
+import { getPricingText } from 'lib/moneyHelper';
+import usePayment from 'lib/usePayment';
+
 type Props = {
     onNextClick: () => void;
-    pricingQuarter: string;
-    pricingMonth: string;
 };
 
 const Summary = (props: Props) => {
-    const { onNextClick, pricingQuarter, pricingMonth } = props;
+    const { onNextClick } = props;
+    const payment = usePayment();
     const quarterFull: boolean = getConfig().publicRuntimeConfig.IS_QUARTERFULL;
     return (
         <div className="subscribe modal-two-col-container modal-two-col-form subscribe-summary">
             <div className="modal-two-col-first-container modal-two-col-item-container">
                 <h3 className="subscribe-summary-title">Monthly membership</h3>
-                <p className="subscribe-summary-price">Starts at {pricingMonth} / month</p>
+                <p className="subscribe-summary-price">
+                    Starts at {getPricingText(String(5), payment.currency)} / month
+                </p>
                 <ul className="subscribe-summary-app-container">
                     <li className="subscribe-summary-app">
                         <img src="https://res.skatekrak.com/static/skatekrak.com/Icons/krakito.svg" alt="Krakito" />
@@ -49,7 +53,9 @@ const Summary = (props: Props) => {
             </div>
             <div className="modal-two-col-second-container modal-two-col-item-container">
                 <h3 className="subscribe-summary-title">Quarterly membership</h3>
-                <p className="subscribe-summary-price">{pricingQuarter} / quarterly</p>
+                <p className="subscribe-summary-price">
+                    {getPricingText(String(payment.price / 100), payment.currency)} / quarterly
+                </p>
                 <div className="subscribe-summary-quarter-status">
                     {!quarterFull ? (
                         'Become a Kraken.'

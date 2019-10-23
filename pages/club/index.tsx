@@ -21,10 +21,6 @@ import { getPricingText } from 'lib/moneyHelper';
 import { withApollo } from 'hocs/withApollo';
 
 type Props = {
-    payment: {
-        price: number;
-        currency: string;
-    };
     authUser?: User;
 };
 
@@ -74,7 +70,6 @@ class Club extends React.Component<Props, State> {
     }
 
     public render() {
-        const { payment } = this.props;
         const { isSubscribeModalOpen, modalStep } = this.state;
         return (
             <TrackedPage name="Club">
@@ -86,17 +81,12 @@ class Club extends React.Component<Props, State> {
                                     open={isSubscribeModalOpen}
                                     onClose={this.onCloseSubscribeModal}
                                     modalStep={modalStep}
-                                    pricingQuarter={getPricingText(String(payment.price / 100), payment.currency)}
-                                    pricingMonth={getPricingText(String(5), payment.currency)}
                                 />
                             </Elements>
                             <div id="club" className="inner-page-container container-fluid">
                                 <Hero authUser={this.props.authUser} onOpenSummaryModal={this.onOpenSummaryModal} />
                                 <main id="club-main">
-                                    <Intro
-                                        pricingQuarter={getPricingText(String(payment.price / 100), payment.currency)}
-                                        pricingMonth={getPricingText(String(5), payment.currency)}
-                                    />
+                                    <Intro />
                                     <Monthly />
                                     <div className="club-section-divider" />
                                     <Quarterly onOpenQuarterModal={this.onOpenQuarterModal} />
@@ -128,8 +118,8 @@ class Club extends React.Component<Props, State> {
     };
 }
 
-const mapStateToProps = ({ payment, auth }: Types.RootState) => {
-    return { payment, authUser: auth.authUser };
+const mapStateToProps = ({ auth }: Types.RootState) => {
+    return { authUser: auth.authUser };
 };
 
 export default connect(mapStateToProps)(withApollo(Club));

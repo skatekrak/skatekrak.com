@@ -7,26 +7,22 @@ import { useLazyQuery } from 'react-apollo';
 import { Form, FormSpy } from 'react-final-form';
 import { connect } from 'react-redux';
 
-import Types from 'Types';
-
 import ErrorMessage from 'components/Ui/Form/ErrorMessage';
 import Field from 'components/Ui/Form/Field';
 
 import { updateFormState } from 'store/form/actions';
 
 import { getPricingText } from 'lib/moneyHelper';
+import usePayment from 'lib/usePayment';
 
 type Props = {
     onNextClick: () => void;
     updateFormState: (form, state) => void;
-    payment: {
-        price: number;
-        currency: string;
-    };
 };
 
 const CreateAccount = (props: Props) => {
     const [checkEmail, { loading, data, error }] = useLazyQuery(CHECK_EMAIL);
+    const payment = usePayment();
 
     const submit = async (values: any) => {
         checkEmail({ variables: { email: values.email } });
@@ -49,7 +45,6 @@ const CreateAccount = (props: Props) => {
         props.updateFormState('account', state.values);
     };
 
-    const { payment } = props;
     const quarterFull: boolean = getConfig().publicRuntimeConfig.IS_QUARTERFULL;
     return (
         <Form onSubmit={submit} validate={validateForm}>
@@ -163,12 +158,8 @@ const CHECK_EMAIL = gql`
     }
 `;
 
-const mapStateToProps = ({ payment }: Types.RootState) => {
-    return { payment };
-};
-
 export default connect(
-    mapStateToProps,
+    null,
     {
         updateFormState,
     },

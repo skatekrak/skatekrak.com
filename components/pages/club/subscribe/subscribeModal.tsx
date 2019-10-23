@@ -12,8 +12,6 @@ type Props = {
     open: boolean;
     onClose: () => void;
     resetForm: () => void;
-    pricingQuarter: string;
-    pricingMonth: string;
     modalStep?: string;
 };
 
@@ -33,18 +31,12 @@ class SubscribeModal extends React.Component<Props, State> {
     }
 
     public render() {
-        const { open, pricingQuarter, pricingMonth } = this.props;
+        const { open } = this.props;
         const { step } = this.state;
         return (
             <>
                 <Modal open={open} onClose={this.onClose} closeOnEsc={false}>
-                    {step === 'summary' && (
-                        <Summary
-                            onNextClick={this.onNextStep}
-                            pricingQuarter={pricingQuarter}
-                            pricingMonth={pricingMonth}
-                        />
-                    )}
+                    {step === 'summary' && <Summary onNextClick={this.onNextStep} />}
                     {step === 'account' && <CreateAccount onNextClick={this.onNextStep} />}
                     {step === 'subscribe' && <Subscribe onNextClick={this.onNextStep} />}
                 </Modal>
