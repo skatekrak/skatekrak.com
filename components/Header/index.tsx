@@ -38,7 +38,13 @@ class Header extends React.Component<Props, {}> {
         const { router } = this.props;
 
         return (
-            <header id="header" className={classNames({ 'header-dark': router.pathname === '/app' })}>
+            <header
+                id="header"
+                className={classNames({
+                    'header-dark': router.pathname === '/app',
+                    'header-white': router.pathname === '/shop',
+                })}
+            >
                 <div id="header-top">
                     <Link href="/">
                         <a id="header-top-logo">
