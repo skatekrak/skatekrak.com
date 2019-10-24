@@ -86,7 +86,7 @@ const Intro = () => {
                                         <IconStartFull />
                                     </span>
                                 ) : (
-                                    <span className="club-intro-sold-out">9 spots left</span>
+                                    <span>9 spots left</span>
                                 )}
                             </div>
                             <IconArrowHead />
