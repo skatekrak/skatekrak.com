@@ -1,8 +1,8 @@
 import getConfig from 'next/config';
+import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import React from 'react';
 import { connect } from 'react-redux';
-import { Elements, StripeProvider } from 'react-stripe-elements';
 
 import Types from 'Types';
 
@@ -13,26 +13,9 @@ import Hero from 'components/pages/club/landing/Hero';
 import Intro from 'components/pages/club/landing/Intro';
 import Monthly from 'components/pages/club/landing/Monthly';
 import Quarterly from 'components/pages/club/landing/Quarterly';
-import SubscribeModal from 'components/pages/club/subscribe/subscribeModal';
 import TrackedPage from 'components/pages/TrackedPage';
 
-import { getPricingText } from 'lib/moneyHelper';
-
 import { withApollo } from 'hocs/withApollo';
-
-type Props = {
-    payment: {
-        price: number;
-        currency: string;
-    };
-    authUser?: User;
-};
-
-type State = {
-    stripe?: any;
-    isSubscribeModalOpen: boolean;
-    modalStep: string;
-};
 
 const ClubHead = () => {
     const baseURL = getConfig().publicRuntimeConfig.WEBSITE_URL;
@@ -55,18 +38,25 @@ const ClubHead = () => {
     );
 };
 
+const DynamicSubscribeModal = dynamic(() => import('components/pages/club/subscribe/subscribeModal'), { ssr: false });
+
+type Props = {
+    authUser?: User;
+};
+
+type State = {
+    isSubscribeModalOpen: boolean;
+    modalStep: string;
+};
+
 class Club extends React.Component<Props, State> {
     public state: State = {
-        stripe: null,
         isSubscribeModalOpen: false,
         modalStep: 'summary',
     };
 
     public componentDidMount() {
         document.getElementById('header-top').classList.add('header-white');
-        this.setState({
-            stripe: (window as any).Stripe(getConfig().publicRuntimeConfig.STRIPE_KEY),
-        });
     }
 
     public componentWillUnmount() {
@@ -74,36 +64,24 @@ class Club extends React.Component<Props, State> {
     }
 
     public render() {
-        const { payment } = this.props;
         const { isSubscribeModalOpen, modalStep } = this.state;
         return (
             <TrackedPage name="Club">
                 <Layout head={<ClubHead />}>
-                    <StripeProvider stripe={this.state.stripe}>
-                        <>
-                            <Elements>
-                                <SubscribeModal
-                                    open={isSubscribeModalOpen}
-                                    onClose={this.onCloseSubscribeModal}
-                                    modalStep={modalStep}
-                                    pricingQuarter={getPricingText(String(payment.price / 100), payment.currency)}
-                                    pricingMonth={getPricingText(String(5), payment.currency)}
-                                />
-                            </Elements>
-                            <div id="club" className="inner-page-container container-fluid">
-                                <Hero authUser={this.props.authUser} onOpenSummaryModal={this.onOpenSummaryModal} />
-                                <main id="club-main">
-                                    <Intro
-                                        pricingQuarter={getPricingText(String(payment.price / 100), payment.currency)}
-                                        pricingMonth={getPricingText(String(5), payment.currency)}
-                                    />
-                                    <Monthly />
-                                    <div className="club-section-divider" />
-                                    <Quarterly onOpenQuarterModal={this.onOpenQuarterModal} />
-                                </main>
-                            </div>
-                        </>
-                    </StripeProvider>
+                    <DynamicSubscribeModal
+                        open={isSubscribeModalOpen}
+                        onClose={this.onCloseSubscribeModal}
+                        modalStep={modalStep}
+                    />
+                    <div id="club" className="inner-page-container container-fluid">
+                        <Hero authUser={this.props.authUser} onOpenSummaryModal={this.onOpenSummaryModal} />
+                        <main id="club-main">
+                            <Intro />
+                            <Monthly />
+                            <div className="club-section-divider" />
+                            <Quarterly onOpenQuarterModal={this.onOpenQuarterModal} />
+                        </main>
+                    </div>
                 </Layout>
             </TrackedPage>
         );
@@ -128,8 +106,8 @@ class Club extends React.Component<Props, State> {
     };
 }
 
-const mapStateToProps = ({ payment, auth }: Types.RootState) => {
-    return { payment, authUser: auth.authUser };
+const mapStateToProps = ({ auth }: Types.RootState) => {
+    return { authUser: auth.authUser };
 };
 
 export default connect(mapStateToProps)(withApollo(Club));

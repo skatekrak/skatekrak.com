@@ -20,12 +20,12 @@ import { State as NewsState } from 'store/feed/reducers';
 import { FeedLayout } from 'store/settings/reducers';
 
 import Content from 'models/Content';
+import ArticlesList from '../ArticlesList';
 
 type Props = {
     news: NewsState;
     feedLayout: FeedLayout;
     dispatch: (fct: any) => void;
-    payment: any;
     sidebarNavIsOpen: boolean;
 };
 
@@ -37,20 +37,6 @@ type State = {
 };
 
 class Articles extends React.Component<Props, State> {
-    private static genArticlesList(
-        contents: Content[],
-        currency: 'usd' | 'eur' | 'gbp',
-        promoCardIndexes: number[],
-    ): JSX.Element[] {
-        const articles = contents.map(content => <Article key={content.id} content={content} currency={currency} />);
-        for (const index of promoCardIndexes) {
-            if (index < articles.length) {
-                articles.splice(index, 0, <Article key={`ksc-card-${index}`} isClubPromotion currency={currency} />);
-            }
-        }
-        return articles;
-    }
-
     private static getFilters(sources: Map<Source, FilterState>): string[] {
         const arr: string[] = [];
         for (const entry of sources.entries()) {
@@ -82,7 +68,7 @@ class Articles extends React.Component<Props, State> {
     }
 
     public render() {
-        const { contents, isLoading, hasMore } = this.state;
+        const { contents, isLoading, hasMore, promoCardIndexes } = this.state;
 
         return (
             <div id="news-articles-container">
@@ -101,7 +87,7 @@ class Articles extends React.Component<Props, State> {
                             <NoContent title="No news to display" desc="Select some mags to be back in the loop" />
                         )}
 
-                        {Articles.genArticlesList(contents, this.props.payment.currency, this.state.promoCardIndexes)}
+                        <ArticlesList contents={contents} promoCardIndexes={promoCardIndexes} />
 
                         {isLoading && <KrakLoading />}
                         {contents.length > 0 && !hasMore && (
@@ -179,8 +165,7 @@ const getRandomInt = (min: number, max: number): number => {
     return Math.floor(Math.random() * (max - min)) + min;
 };
 
-export default connect(({ news, settings, payment }: Types.RootState) => ({
+export default connect(({ news, settings }: Types.RootState) => ({
     news,
     feedLayout: settings.feedLayout,
-    payment,
 }))(Articles);

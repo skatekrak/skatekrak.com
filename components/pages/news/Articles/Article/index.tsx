@@ -4,27 +4,30 @@ import Content from 'models/Content';
 
 import Ad from 'components/pages/news/Articles/Article/Ad';
 import Card from 'components/pages/news/Articles/Article/Card';
+import createPropsGetter from 'lib/getProps';
 
 type Props = {
     content?: Content;
-    isClubPromotion?: boolean;
-    currency: 'usd' | 'eur' | 'gbp';
+} & Partial<DefaultProps>;
+
+type DefaultProps = Readonly<typeof defaultProps>;
+
+const defaultProps = {
+    isClubPromotion: false,
 };
 
-class Article extends React.PureComponent<Props, {}> {
-    public static defaultProps = {
-        isClubPromotion: false,
-    };
+const getProps = createPropsGetter(defaultProps);
 
-    public render() {
-        const { content, isClubPromotion } = this.props;
+const Article = (rawProps: Props) => {
+    const props = getProps(rawProps);
 
-        return (
-            <div className="news-article col-xs-12 col-sm-6 col-lg-3">
-                {!isClubPromotion ? <Card content={content} /> : <Ad />}
-            </div>
-        );
-    }
-}
+    const { content, isClubPromotion } = props;
 
-export default Article;
+    return (
+        <div className="news-article col-xs-12 col-sm-6 col-lg-3">
+            {!isClubPromotion ? <Card content={content} /> : <Ad />}
+        </div>
+    );
+};
+
+export default React.memo(Article);

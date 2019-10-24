@@ -1,3 +1,4 @@
+import getConfig from 'next/config';
 import React from 'react';
 import { connect } from 'react-redux';
 
@@ -8,23 +9,31 @@ import Modal from 'components/Ui/Modal';
 
 import { resetForm } from 'store/form/actions';
 
+import { Elements, StripeProvider } from 'react-stripe-elements';
+
 type Props = {
     open: boolean;
     onClose: () => void;
     resetForm: () => void;
-    pricingQuarter: string;
-    pricingMonth: string;
     modalStep?: string;
 };
 
 type State = {
     step: string;
+    stripe: any;
 };
 
 class SubscribeModal extends React.Component<Props, State> {
     public state: State = {
         step: 'summary',
+        stripe: null,
     };
+
+    public componentDidMount() {
+        this.setState({
+            stripe: (window as any).Stripe(getConfig().publicRuntimeConfig.STRIPE_KEY),
+        });
+    }
 
     public componentDidUpdate(prevProps) {
         if (prevProps.modalStep !== this.props.modalStep) {
@@ -33,22 +42,18 @@ class SubscribeModal extends React.Component<Props, State> {
     }
 
     public render() {
-        const { open, pricingQuarter, pricingMonth } = this.props;
+        const { open } = this.props;
         const { step } = this.state;
         return (
-            <>
-                <Modal open={open} onClose={this.onClose} closeOnEsc={false}>
-                    {step === 'summary' && (
-                        <Summary
-                            onNextClick={this.onNextStep}
-                            pricingQuarter={pricingQuarter}
-                            pricingMonth={pricingMonth}
-                        />
-                    )}
-                    {step === 'account' && <CreateAccount onNextClick={this.onNextStep} />}
-                    {step === 'subscribe' && <Subscribe onNextClick={this.onNextStep} />}
-                </Modal>
-            </>
+            <StripeProvider stripe={this.state.stripe}>
+                <Elements>
+                    <Modal open={open} onClose={this.onClose} closeOnEsc={false}>
+                        {step === 'summary' && <Summary onNextClick={this.onNextStep} />}
+                        {step === 'account' && <CreateAccount onNextClick={this.onNextStep} />}
+                        {step === 'subscribe' && <Subscribe onNextClick={this.onNextStep} />}
+                    </Modal>
+                </Elements>
+            </StripeProvider>
         );
     }
 
