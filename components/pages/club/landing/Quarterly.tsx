@@ -9,7 +9,7 @@ type Props = {
     onOpenQuarterModal: () => void;
 };
 
-const Monthly: React.SFC<Props> = ({ onOpenQuarterModal }) => (
+const Monthly = ({ onOpenQuarterModal }: Props) => (
     <section id="club-quarterly">
         <h2 className="club-section-title">Quarterly membership</h2>
         <p className="club-section-subtitle">Limited quantities available</p>

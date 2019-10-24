@@ -10,9 +10,6 @@ import { User } from 'store/auth/reducers';
 
 import Layout from 'components/Layout/Layout';
 import Hero from 'components/pages/club/landing/Hero';
-import Intro from 'components/pages/club/landing/Intro';
-import Monthly from 'components/pages/club/landing/Monthly';
-import Quarterly from 'components/pages/club/landing/Quarterly';
 import TrackedPage from 'components/pages/TrackedPage';
 
 import { withApollo } from 'hocs/withApollo';
@@ -39,6 +36,28 @@ const ClubHead = () => {
 };
 
 const DynamicSubscribeModal = dynamic(() => import('components/pages/club/subscribe/subscribeModal'), { ssr: false });
+
+interface DynamicMainProps {
+    onOpenQuarterModal: () => void;
+}
+const DynamicMain = dynamic<DynamicMainProps>({
+    modules: () => {
+        const components: any = {
+            Intro: import('components/pages/club/landing/Intro'),
+            Monthly: import('components/pages/club/landing/Monthly'),
+            Quarterly: import('components/pages/club/landing/Quarterly'),
+        };
+        return components;
+    },
+    render: (props, { Intro, Monthly, Quarterly }) => (
+        <main id="club-main">
+            <Intro />
+            <Monthly />
+            <div className="club-section-divider" />
+            <Quarterly onOpenQuarterModal={props.onOpenQuarterModal} />
+        </main>
+    ),
+});
 
 type Props = {
     authUser?: User;
@@ -75,12 +94,7 @@ class Club extends React.Component<Props, State> {
                     />
                     <div id="club" className="inner-page-container container-fluid">
                         <Hero authUser={this.props.authUser} onOpenSummaryModal={this.onOpenSummaryModal} />
-                        <main id="club-main">
-                            <Intro />
-                            <Monthly />
-                            <div className="club-section-divider" />
-                            <Quarterly onOpenQuarterModal={this.onOpenQuarterModal} />
-                        </main>
+                        <DynamicMain onOpenQuarterModal={this.onOpenQuarterModal} />
                     </div>
                 </Layout>
             </TrackedPage>
