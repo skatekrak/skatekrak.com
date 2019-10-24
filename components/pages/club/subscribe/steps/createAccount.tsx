@@ -41,7 +41,7 @@ const CreateAccount = (props: Props) => {
         props.onNextClick();
     };
 
-    const onFormChange = state => {
+    const onFormChange = (state) => {
         props.updateFormState('account', state.values);
     };
 
@@ -119,7 +119,7 @@ const CreateAccount = (props: Props) => {
                             className="button-primary modal-two-col-form-submit"
                             disabled={submitting}
                         >
-                            {!quarterFull ? 'Become a Kraken' : 'Pre-pay'}
+                            {!quarterFull ? 'Pay' : 'Pre-pay'}
                         </button>
                     </div>
                 </form>
