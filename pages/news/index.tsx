@@ -21,7 +21,7 @@ const NewsHead = ({ content }: { content: Content }) => {
         if (content) {
             return content.getContent() || '';
         }
-        return "Don't miss anything in the skateboarding world - Krak is bringing you the 'news' from 40 sources hand-curated with passion, love & noise.";
+        return "Don't miss anything in the skateboarding world - Krak is bringing you the 'news' from sources hand-curated with passion, love & noise.";
     })();
 
     const title = (() => {
