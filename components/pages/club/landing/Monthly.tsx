@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Monthly: React.SFC = () => (
+const Monthly = () => (
     <section id="club-monthly">
         <h2 className="club-section-title">Monthly membership</h2>
         <p className="club-section-desc">

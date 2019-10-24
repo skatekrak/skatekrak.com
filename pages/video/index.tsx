@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { NextPage, NextPageContext } from 'next';
 import getConfig from 'next/config';
+import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import React, { useState } from 'react';
 
@@ -10,8 +11,9 @@ import LayoutFeed from 'components/Ui/Feed/LayoutFeed';
 
 import Sidebar from 'components/pages/videos/Sidebar';
 import VideoFeed from 'components/pages/videos/VideoFeed';
-import VideoModal from 'components/pages/videos/VideoFeed/Video/VideoModal';
 import { Video } from 'rss-feed';
+
+const DynamicVideoModal = dynamic(() => import('components/pages/videos/VideoFeed/Video/VideoModal'));
 
 const VideoHead = ({ video }: { video: Video }) => {
     const baseURL = getConfig().publicRuntimeConfig.WEBSITE_URL;
@@ -60,7 +62,7 @@ const Videos: NextPage<Props> = ({ video, gotId }) => {
         <Layout head={<VideoHead video={video} />}>
             <BannerTop />
             <div id="videos-container" className="inner-page-container">
-                {gotId && <VideoModal video={video} />}
+                {gotId && <DynamicVideoModal video={video} />}
                 <LayoutFeed
                     mainView={<VideoFeed sidebarNavIsOpen={sidebarNavIsOpen} />}
                     sidebar={
