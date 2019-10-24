@@ -1,4 +1,5 @@
 import jump from 'jump.js';
+import getConfig from 'next/config';
 import React from 'react';
 
 import IconArrowHead from 'components/Ui/Icons/ArrowHead';
@@ -20,6 +21,7 @@ const Intro = () => {
     };
 
     const payment = usePayment();
+    const quarterFull: boolean = getConfig().publicRuntimeConfig.IS_QUARTERFULL;
 
     return (
         <section id="club-intro">
@@ -77,11 +79,15 @@ const Intro = () => {
                         <div className="club-intro-content-anchor-title">
                             <div>
                                 <Emoji symbol="📦" label="Box" /> Quarterly membership -{' '}
-                                <span className="club-intro-sold-out">
-                                    <IconStartFull />
-                                    Sold out
-                                    <IconStartFull />
-                                </span>
+                                {quarterFull ? (
+                                    <span className="club-intro-sold-out">
+                                        <IconStartFull />
+                                        Sold out
+                                        <IconStartFull />
+                                    </span>
+                                ) : (
+                                    <span>9 spots left</span>
+                                )}
                             </div>
                             <IconArrowHead />
                         </div>

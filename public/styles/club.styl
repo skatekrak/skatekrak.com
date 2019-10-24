@@ -704,6 +704,28 @@ fluid-type($properties, $min-vw, $max-vw, $min-value, $max-value)
 						margin-top: auto
 						font-size:  $fs-regular
 
+				&-spot
+					width: 90%
+					margin: 0 auto
+
+					+mq($from: "small")
+						width: 50%
+
+					+mq($from: "medium")
+						width: 75%
+
+					+mq($from: "large")
+						margin-top: 2rem
+
+					&-text
+						margin: .5rem auto 1rem
+						font-family: $ff-roboto-condensed-bold
+						text-transform: uppercase
+						color: $grey-300
+
+						+mq($from: "small")
+							font-size: $fs-small
+
 			&-benefits
 				&-container
 					grid-area: benefits
@@ -884,7 +906,7 @@ fluid-type($properties, $min-vw, $max-vw, $min-value, $max-value)
 					background-size: cover
 					background-position: center
 
-				retina('https://res.skatekrak.com/static/skatekrak.com/Krakbox/krakbox-1702_low', 'jpg')
+					retina('https://res.skatekrak.com/static/skatekrak.com/Krakbox/krakbox-1702_low', 'jpg')
 
 		&-krakbox
 			margin: 0 -2rem
