@@ -81,7 +81,7 @@ const Summary = (props: Props) => {
                 </ul>
                 <p className="subscribe-summary-cta-text">Limited quantities available</p>
                 <button className="button-primary subscribe-summary-cta" onClick={onNextClick}>
-                    Save your spot
+                    {quarterFull ? 'Save your spot' : 'Get yours'}
                 </button>
             </div>
         </div>
