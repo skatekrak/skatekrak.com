@@ -76,12 +76,7 @@ const Intro = () => {
                     <a onClick={handleAnchorScroll} className="club-intro-content-anchor" data-anchor="#club-quarterly">
                         <div className="club-intro-content-anchor-title">
                             <div>
-                                <Emoji symbol="📦" label="Box" /> Quarterly membership -{' '}
-                                <span className="club-intro-sold-out">
-                                    <IconStartFull />
-                                    Sold out
-                                    <IconStartFull />
-                                </span>
+                                <Emoji symbol="📦" label="Box" /> Quarterly membership - 9 spots left
                             </div>
                             <IconArrowHead />
                         </div>
