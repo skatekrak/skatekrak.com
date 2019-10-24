@@ -39,7 +39,7 @@ const Monthly = ({ onOpenQuarterModal }: Props) => {
                     )}
                     <p id="club-quarterly-main-date">{getConfig().publicRuntimeConfig.NEXT_QUARTER_START}</p>
                     <button className="club-cta button-primary" onClick={onOpenQuarterModal}>
-                        Save your spot
+                        {quarterFull ? 'Save your spot' : 'Get yours'}
                     </button>
                 </div>
                 <div id="club-quarterly-main-benefits-container">
