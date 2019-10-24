@@ -70,23 +70,16 @@ class Header extends React.Component<Props, {}> {
                             <NavItem title="News" url="/news" />
                             <NavItem title="Video" url="/video" />
                             <NavItem title="App" url="/app" />
-                            <NavItem title="Shop" url="/shop" />
                         </ul>
                     </nav>
                     <nav id="header-nav-subnav">
                         <div id="header-nav-subnav-kraken">
-                            <Link href={this.props.authUser ? '/club/profile' : '/auth/login'}>
+                            <Link href="/shop">
                                 <a id="header-nav-subnav-kraken-login" className="header-nav-main-item-link">
                                     <IconKrakenHead />
-                                    Kraken Access
+                                    Shop
                                 </a>
                             </Link>
-                            {this.props.authUser && (
-                                <button id="header-nav-subnav-kraken-logout" onClick={this.props.userSignout}>
-                                    <IconPower />
-                                    Log out
-                                </button>
-                            )}
                         </div>
                         <ul id="header-nav-subnav-container">
                             <li className="header-nav-subnav-item">
