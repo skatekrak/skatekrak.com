@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { NextPage } from 'next';
 import getConfig from 'next/config';
+import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import React, { useState } from 'react';
 
@@ -9,10 +10,13 @@ import BannerTop from 'components/Ui/Banners/BannerTop';
 import LayoutFeed from 'components/Ui/Feed/LayoutFeed';
 
 import Articles from 'components/pages/news/Articles';
-import ArticleModal from 'components/pages/news/Articles/Article/ArticleModal';
 import Sidebar from 'components/pages/news/Sidebar';
 
 import Content from 'models/Content';
+
+const DynamicArticleModal = dynamic(() => import('components/pages/news/Articles/Article/ArticleModal'), {
+    ssr: false,
+});
 
 const NewsHead = ({ content }: { content: Content }) => {
     const baseURL = getConfig().publicRuntimeConfig.WEBSITE_URL;
@@ -76,7 +80,7 @@ const News: NextPage<Props> = ({ contentData, gotId }) => {
         <Layout head={<NewsHead content={content} />}>
             <BannerTop />
             <div id="news-container" className="inner-page-container">
-                <ArticleModal show={gotId} content={content} />
+                <DynamicArticleModal show={gotId} content={content} />
                 <LayoutFeed
                     mainView={<Articles sidebarNavIsOpen={sidebarNavIsOpen} />}
                     sidebar={
