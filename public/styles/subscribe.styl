@@ -206,27 +206,39 @@
 				+mq($from: "medium")
 					margin: 3rem auto
 
-		&-quarter-full
-			display: flex
-			align-items: center
-			justify-content: center
-			margin: 3rem auto
+		&-quarter
+			&-status
+				&-img
+					width: 90%
+					margin: 2rem auto 1rem
 
-			+mq($from: "medium")
-				margin: 2rem auto
+					+mq($from: "small")
+						width: 50%
 
-			& span
-				padding-bottom: .5rem
-				font-family: $ff-roboto-condensed-bold
-				font-size: $ff-smaller
-				text-transform: uppercase
-				color: $grey-700
-				border-bottom: 2px solid $grey-700
+					+mq($from: "medium")
+						width: 70%
 
-			& svg
-				width: 25%
-				max-width: 5rem
-				margin: 0 1rem
+			&-full
+				display: flex
+				align-items: center
+				justify-content: center
+				margin: 3rem auto
+
+				+mq($from: "medium")
+					margin: 2rem auto
+
+				& span
+					padding-bottom: .5rem
+					font-family: $ff-roboto-condensed-bold
+					font-size: $ff-smaller
+					text-transform: uppercase
+					color: $grey-700
+					border-bottom: 2px solid $grey-700
+
+				& svg
+					width: 25%
+					max-width: 5rem
+					margin: 0 1rem
 
 		&-benefits
 			margin-bottom: 3rem
