@@ -75,7 +75,7 @@ class Header extends React.Component<Props, {}> {
                     <nav id="header-nav-subnav">
                         <div id="header-nav-subnav-kraken">
                             <Link href="/shop">
-                                <a id="header-nav-subnav-kraken-login" className="header-nav-main-item-link">
+                                <a id="header-nav-subnav-kraken-link" className="header-nav-main-item-link">
                                     <IconKrakenHead />
                                     Shop
                                 </a>
