@@ -38,7 +38,13 @@ class Header extends React.Component<Props, {}> {
         const { router } = this.props;
 
         return (
-            <header id="header" className={classNames({ 'header-dark': router.pathname === '/app' })}>
+            <header
+                id="header"
+                className={classNames({
+                    'header-dark': router.pathname === '/app',
+                    'header-white': router.pathname === '/shop',
+                })}
+            >
                 <div id="header-top">
                     <Link href="/">
                         <a id="header-top-logo">
@@ -68,18 +74,12 @@ class Header extends React.Component<Props, {}> {
                     </nav>
                     <nav id="header-nav-subnav">
                         <div id="header-nav-subnav-kraken">
-                            <Link href={this.props.authUser ? '/club/profile' : '/auth/login'}>
+                            <Link href="/shop">
                                 <a id="header-nav-subnav-kraken-login" className="header-nav-main-item-link">
                                     <IconKrakenHead />
-                                    Kraken Access
+                                    Shop
                                 </a>
                             </Link>
-                            {this.props.authUser && (
-                                <button id="header-nav-subnav-kraken-logout" onClick={this.props.userSignout}>
-                                    <IconPower />
-                                    Log out
-                                </button>
-                            )}
                         </div>
                         <ul id="header-nav-subnav-container">
                             <li className="header-nav-subnav-item">
