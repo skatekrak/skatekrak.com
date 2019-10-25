@@ -5,6 +5,7 @@ import { FORM_ERROR } from 'final-form';
 import gql from 'graphql-tag';
 import getConfig from 'next/config';
 import Link from 'next/link';
+import Router from 'next/router';
 import React from 'react';
 import { Field as ReactField, Form, FormSpy, FormSpyRenderProps } from 'react-final-form';
 import { connect } from 'react-redux';
@@ -264,6 +265,7 @@ class Subscribe extends React.Component<WithApolloClient<Props & ReactStripeElem
                     Analytics.default().trackOrder(joinClubData.id, this.props.payment.price / 100);
                     this.props.onNextClick();
                     this.props.userSignin(data.email, data.password, true);
+                    Router.push('/club/profile');
                 },
             });
         } catch (error) {
