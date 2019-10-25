@@ -31,31 +31,21 @@ const ClubHead = () => {
     );
 };
 
-const DynamicSubscribeModal = dynamic(() => import('components/pages/club/subscribe/subscribeModal'), { ssr: false });
+const SubscribeModal = dynamic(() => import('components/pages/club/subscribe/subscribeModal'), { ssr: false });
+const Intro = dynamic(() => import('components/pages/club/landing/Intro'));
+const Monthly = dynamic(() => import('components/pages/club/landing/Monthly'));
+const Quarterly = dynamic(() => import('components/pages/club/landing/Quarterly'));
 
 interface DynamicMainProps {
     onOpenQuarterModal: () => void;
 }
-const DynamicMain = dynamic<DynamicMainProps>(
-    {
-        modules: () => {
-            const components: any = {
-                Intro: import('components/pages/club/landing/Intro'),
-                Monthly: import('components/pages/club/landing/Monthly'),
-                Quarterly: import('components/pages/club/landing/Quarterly'),
-            };
-            return components;
-        },
-        render: (props, { Intro, Monthly, Quarterly }) => (
-            <main id="club-main">
-                <Intro />
-                <Monthly />
-                <div className="club-section-divider" />
-                <Quarterly onOpenQuarterModal={props.onOpenQuarterModal} />
-            </main>
-        ),
-    },
-    { ssr: false },
+const DynamicMain = (props: DynamicMainProps) => (
+    <main id="club-main">
+        <Intro />
+        <Monthly />
+        <div className="club-section-divider" />
+        <Quarterly onOpenQuarterModal={props.onOpenQuarterModal} />
+    </main>
 );
 
 type State = {
@@ -82,7 +72,7 @@ class Club extends React.Component<{}, State> {
         return (
             <TrackedPage name="Club">
                 <Layout head={<ClubHead />}>
-                    <DynamicSubscribeModal
+                    <SubscribeModal
                         open={isSubscribeModalOpen}
                         onClose={this.onCloseSubscribeModal}
                         modalStep={modalStep}
