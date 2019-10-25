@@ -38,24 +38,27 @@ const DynamicSubscribeModal = dynamic(() => import('components/pages/club/subscr
 interface DynamicMainProps {
     onOpenQuarterModal: () => void;
 }
-const DynamicMain = dynamic<DynamicMainProps>({
-    modules: () => {
-        const components: any = {
-            Intro: import('components/pages/club/landing/Intro'),
-            Monthly: import('components/pages/club/landing/Monthly'),
-            Quarterly: import('components/pages/club/landing/Quarterly'),
-        };
-        return components;
+const DynamicMain = dynamic<DynamicMainProps>(
+    {
+        modules: () => {
+            const components: any = {
+                Intro: import('components/pages/club/landing/Intro'),
+                Monthly: import('components/pages/club/landing/Monthly'),
+                Quarterly: import('components/pages/club/landing/Quarterly'),
+            };
+            return components;
+        },
+        render: (props, { Intro, Monthly, Quarterly }) => (
+            <main id="club-main">
+                <Intro />
+                <Monthly />
+                <div className="club-section-divider" />
+                <Quarterly onOpenQuarterModal={props.onOpenQuarterModal} />
+            </main>
+        ),
     },
-    render: (props, { Intro, Monthly, Quarterly }) => (
-        <main id="club-main">
-            <Intro />
-            <Monthly />
-            <div className="club-section-divider" />
-            <Quarterly onOpenQuarterModal={props.onOpenQuarterModal} />
-        </main>
-    ),
-});
+    { ssr: false },
+);
 
 type Props = {
     authUser?: User;
