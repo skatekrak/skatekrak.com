@@ -260,7 +260,7 @@ class Subscribe extends React.Component<WithApolloClient<Props & ReactStripeElem
                 mutation: JOIN_CLUB,
                 variables: { data },
                 update: (_cache, result) => {
-                    const { joinClubData } = result.data as any;
+                    const joinClubData = result.data as any;
                     Analytics.default().trackOrder(joinClubData.id, this.props.payment.price / 100);
                     this.props.onNextClick();
                     this.props.userSignin(data.email, data.password, true);
