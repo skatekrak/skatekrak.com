@@ -2,6 +2,7 @@ import getConfig from 'next/config';
 import React from 'react';
 import { connect } from 'react-redux';
 
+import Congrats from 'components/pages/club/subscribe/steps/congrats';
 import CreateAccount from 'components/pages/club/subscribe/steps/createAccount';
 import Subscribe from 'components/pages/club/subscribe/steps/subscribe';
 import Summary from 'components/pages/club/subscribe/steps/summary';
@@ -51,6 +52,7 @@ class SubscribeModal extends React.Component<Props, State> {
                         {step === 'summary' && <Summary onNextClick={this.onNextStep} />}
                         {step === 'account' && <CreateAccount onNextClick={this.onNextStep} />}
                         {step === 'subscribe' && <Subscribe onNextClick={this.onNextStep} />}
+                        {step === 'congrats' && <Congrats onNextClick={this.onClose} />}
                     </Modal>
                 </Elements>
             </StripeProvider>
