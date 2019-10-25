@@ -35,12 +35,12 @@ const Congrats = ({ onNextClick }: Props) => (
                 <p className="modal-two-col-content-description">
                     We’re devoted to one mission: making the world a huge playground. That starts here and now. We’re
                     psyched to count on your support and be sure of one thing: we’ll have fun. We started skateboarding
-                    more than 15 years ago and our passion only grew ever since. Never hesitate to contact us if you’d
-                    have any question. Peace <Emoji symbol="✌" label="peace" />
+                    more than 15 years ago and our passion only grew ever since. We’ll be in touch in the coming days so
+                    be sure to check your email inbox. You rock - peace <Emoji symbol="✌" label="peace" />
                 </p>
             </div>
             <button className="button-primary modal-two-col-form-submit" onClick={onNextClick}>
-                Join the ride
+                I'm psyched
             </button>
         </div>
     </div>
