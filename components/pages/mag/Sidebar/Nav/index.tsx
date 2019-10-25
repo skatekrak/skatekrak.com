@@ -25,12 +25,26 @@ type Props = {
 };
 
 class Nav extends React.PureComponent<Props> {
+    private static extractSourcesFromData(data: any[]): Source[] {
+        const sources = [];
+        data.forEach(item => {
+            if (item.slug !== 'uncategorized') {
+                sources.push({
+                    id: item.id,
+                    title: item.name,
+                    label: item.name,
+                });
+            }
+        });
+        return sources;
+    }
+
     public async componentDidMount() {
         try {
             const res = await axios.get(
                 `${getConfig().publicRuntimeConfig.KRAKMAG_URL}/wp-json/wp/v2/categories?per_page=100`,
             );
-            const sources = this.extractSourcesFromData(res.data);
+            const sources = Nav.extractSourcesFromData(res.data);
             this.props.setAllSources(sources);
         } catch (err) {
             // console.log(err);
@@ -105,18 +119,6 @@ class Nav extends React.PureComponent<Props> {
                 </div>
             </>
         );
-    }
-
-    private extractSourcesFromData(data: any[]): Source[] {
-        const sources = [];
-        data.forEach((item) => {
-            sources.push({
-                id: item.id,
-                title: item.name,
-                label: item.name,
-            });
-        });
-        return sources;
     }
 
     private onSelectAllClick = () => {
