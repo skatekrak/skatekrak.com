@@ -70,6 +70,7 @@ class Header extends React.Component<Props, {}> {
                             <NavItem title="News" url="/news" />
                             <NavItem title="Video" url="/video" />
                             <NavItem title="App" url="/app" />
+                            <NavItem title="Shop" url="/shop" />
                         </ul>
                     </nav>
                     <nav id="header-nav-subnav">
