@@ -1,9 +1,6 @@
 import validator from 'email-validator';
-import { FORM_ERROR } from 'final-form';
-import gql from 'graphql-tag';
 import getConfig from 'next/config';
 import React from 'react';
-import { useLazyQuery } from 'react-apollo';
 import { Form, FormSpy } from 'react-final-form';
 import { connect } from 'react-redux';
 
@@ -21,27 +18,13 @@ type Props = {
 };
 
 const CreateAccount = (props: Props) => {
-    const [checkEmail, { loading, data, error }] = useLazyQuery(CHECK_EMAIL);
     const payment = usePayment();
 
-    const submit = async (values: any) => {
-        checkEmail({ variables: { email: values.email } });
-
-        if (loading) {
-            return;
-        }
-
-        if (error) {
-            return { [FORM_ERROR]: 'Oops, something went wrong, try later or contact us' };
-        }
-
-        if (data && data.checkEmail) {
-            return { email: 'This email is already used' };
-        }
+    const submit = async () => {
         props.onNextClick();
     };
 
-    const onFormChange = (state) => {
+    const onFormChange = state => {
         props.updateFormState('account', state.values);
     };
 
@@ -111,7 +94,6 @@ const CreateAccount = (props: Props) => {
                                 <Field name="lastName" placeholder="Last name" />
                             </div>
                             <Field name="email" placeholder="Email" type="email" />
-                            <Field name="password" placeholder="Password" type="password" />
                         </div>
                         <ErrorMessage message={submitError} />
                         <button
@@ -145,18 +127,8 @@ const validateForm = (values: any) => {
         errors.email = 'Not a valid email';
     }
 
-    if (!values.password) {
-        errors.password = 'Required';
-    }
-
     return errors;
 };
-
-const CHECK_EMAIL = gql`
-    query checkEmail($email: String!) {
-        checkEmail(email: $email)
-    }
-`;
 
 export default connect(
     null,
