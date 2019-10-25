@@ -1,4 +1,3 @@
-import gql from 'graphql-tag';
 import React from 'react';
 
 import Field from 'components/Ui/Form/Field';
@@ -6,16 +5,6 @@ import Select from 'components/Ui/Form/Select';
 
 import countries from 'lib/countries';
 import createPropsGetter from 'lib/getProps';
-import { useQuery } from 'react-apollo';
-
-const GET_COUNTRIES = gql`
-    query {
-        countries {
-            isoCode
-            name
-        }
-    }
-`;
 
 type Props = {
     namePrefix?: string;
@@ -29,19 +18,44 @@ const defaultProps = {
 
 const getProps = createPropsGetter(defaultProps);
 
+const shippingCountries = [
+    {
+        isoCode: 'fr',
+        name: 'France',
+    },
+    {
+        isoCode: 'gb',
+        name: 'United Kingdom',
+    },
+    {
+        isoCode: 'be',
+        name: 'Belgium',
+    },
+    {
+        isoCode: 'pt',
+        name: 'Portgual',
+    },
+    {
+        isoCode: 'de',
+        name: 'Deutschland',
+    },
+    {
+        isoCode: 'nl',
+        name: 'Nederland',
+    },
+    {
+        isoCode: 'us',
+        name: 'United States',
+    },
+];
+
 const Address = (props: Props) => {
     const { namePrefix, allCountries } = getProps(props);
 
-    const { loading, data } = useQuery(GET_COUNTRIES);
-
-    let queriedCountries = [];
-
-    if (data) {
-        queriedCountries = data.countries.map(country => ({
-            label: country.name,
-            value: country.isoCode,
-        }));
-    }
+    const queriedCountries = shippingCountries.map(country => ({
+        label: country.name,
+        value: country.isoCode,
+    }));
 
     return (
         <>
@@ -56,23 +70,13 @@ const Address = (props: Props) => {
                 <Field name={getName('postalCode', namePrefix)} placeholder="Postal code" />
             </div>
             <Field name={getName('state', namePrefix)} placeholder="State" />
-            {allCountries ? (
-                <Select
-                    name={getName('country', namePrefix)}
-                    placeholder="Country"
-                    options={formatCountries(countries)}
-                    menuMaxHeight={200}
-                    isSearchable
-                />
-            ) : (
-                <Select
-                    name={getName('country', namePrefix)}
-                    placeholder="Country"
-                    options={queriedCountries}
-                    menuMaxHeight={200}
-                    isLoading={loading}
-                />
-            )}
+            <Select
+                name={getName('country', namePrefix)}
+                placeholder="Country"
+                options={allCountries ? formatCountries(countries) : queriedCountries}
+                menuMaxHeight={200}
+                isSearchable
+            />
         </>
     );
 };

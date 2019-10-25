@@ -12,8 +12,6 @@ import Layout from 'components/Layout/Layout';
 import Hero from 'components/pages/club/landing/Hero';
 import TrackedPage from 'components/pages/TrackedPage';
 
-import { withApollo } from 'hocs/withApollo';
-
 const ClubHead = () => {
     const baseURL = getConfig().publicRuntimeConfig.WEBSITE_URL;
     return (
@@ -124,4 +122,4 @@ const mapStateToProps = ({ auth }: Types.RootState) => {
     return { authUser: auth.authUser };
 };
 
-export default connect(mapStateToProps)(withApollo(Club));
+export default connect(mapStateToProps)(Club);
