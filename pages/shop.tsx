@@ -43,7 +43,12 @@ const Shop: NextPage = () => (
                         Aladdin's cave on the other side
                         <br />- get your password first.
                     </h3>
-                    <a className="button-primary club-cta" href="#" target="_blank" rel="noreferrer noopener">
+                    <a
+                        className="button-primary club-cta"
+                        href="https://shop.skatekrak.com"
+                        target="_blank"
+                        rel="noreferrer noopener"
+                    >
                         Access shop
                     </a>
                     <div id="shop-main-countries">
