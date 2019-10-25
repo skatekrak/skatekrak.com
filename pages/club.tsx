@@ -6,8 +6,6 @@ import { connect } from 'react-redux';
 
 import Types from 'Types';
 
-import { User } from 'store/auth/reducers';
-
 import Layout from 'components/Layout/Layout';
 import Hero from 'components/pages/club/landing/Hero';
 import TrackedPage from 'components/pages/TrackedPage';
@@ -60,16 +58,12 @@ const DynamicMain = dynamic<DynamicMainProps>(
     { ssr: false },
 );
 
-type Props = {
-    authUser?: User;
-};
-
 type State = {
     isSubscribeModalOpen: boolean;
     modalStep: string;
 };
 
-class Club extends React.Component<Props, State> {
+class Club extends React.Component<{}, State> {
     public state: State = {
         isSubscribeModalOpen: false,
         modalStep: 'summary',
@@ -94,7 +88,7 @@ class Club extends React.Component<Props, State> {
                         modalStep={modalStep}
                     />
                     <div id="club" className="inner-page-container container-fluid">
-                        <Hero authUser={this.props.authUser} onOpenSummaryModal={this.onOpenSummaryModal} />
+                        <Hero onOpenSummaryModal={this.onOpenSummaryModal} />
                         <DynamicMain onOpenQuarterModal={this.onOpenQuarterModal} />
                     </div>
                 </Layout>
@@ -121,8 +115,4 @@ class Club extends React.Component<Props, State> {
     };
 }
 
-const mapStateToProps = ({ auth }: Types.RootState) => {
-    return { authUser: auth.authUser };
-};
-
-export default connect(mapStateToProps)(Club);
+export default Club;
