@@ -27,6 +27,7 @@ const ClubHead = () => {
                 property="og:description"
                 content="Krak Skateboarding Club. You're not alone. Let's enjoy skateboarding even more"
             />
+            <script src="https://js.stripe.com/v3" />
         </Head>
     );
 };
