@@ -1,11 +1,9 @@
-import { withApollo, WithApolloClient } from '@apollo/react-hoc';
 import Analytics from '@thepunkclub/analytics';
+import axios from 'axios';
 import classNames from 'classnames';
 import { FORM_ERROR } from 'final-form';
-import gql from 'graphql-tag';
 import getConfig from 'next/config';
 import Link from 'next/link';
-import Router from 'next/router';
 import React from 'react';
 import { Field as ReactField, Form, FormSpy, FormSpyRenderProps } from 'react-final-form';
 import { connect } from 'react-redux';
@@ -15,7 +13,6 @@ import Types from 'Types';
 
 import { checkPath } from 'lib/checkPath';
 import { getPricingText } from 'lib/moneyHelper';
-import { userSignin } from 'store/auth/actions';
 import { updateFormState } from 'store/form/actions';
 import { savePricingCurrency } from 'store/payment/actions';
 
@@ -36,7 +33,6 @@ type Props = {
         price: number;
         currency: string;
     };
-    userSignin: (email: string, password: string, rememberMe: boolean) => void;
 };
 
 type State = {
@@ -45,7 +41,7 @@ type State = {
     cardError?: string;
 };
 
-class Subscribe extends React.Component<WithApolloClient<Props & ReactStripeElements.InjectedStripeProps>, State> {
+class Subscribe extends React.Component<Props & ReactStripeElements.InjectedStripeProps, State> {
     public state: State = {
         addressView: 'shipping',
         isSpecialCodeValid: false,
@@ -224,11 +220,10 @@ class Subscribe extends React.Component<WithApolloClient<Props & ReactStripeElem
             email: accountForm.email,
             firstName: accountForm.firstName,
             lastName: accountForm.lastName,
-            password: accountForm.password,
             special: values.special,
             shippingAddress: {
                 ...values.shipping,
-                country: values.shipping.country.value,
+                country: values.shipping.country.value.toUpperCase(),
             },
         };
 
@@ -250,24 +245,16 @@ class Subscribe extends React.Component<WithApolloClient<Props & ReactStripeElem
             }
 
             // Once done we can save the token in the data
-            data.stripeToken = token.id;
+            data.token = token.id;
         } catch (error) {
             this.setState({ cardError: error.message });
             return;
         }
 
         try {
-            await this.props.client.mutate({
-                mutation: JOIN_CLUB,
-                variables: { data },
-                update: (_cache, result) => {
-                    const joinClubData = result.data as any;
-                    Analytics.default().trackOrder(joinClubData.id, this.props.payment.price / 100);
-                    this.props.onNextClick();
-                    this.props.userSignin(data.email, data.password, true);
-                    Router.push('/club/profile');
-                },
-            });
+            const res = await axios.post(`${getConfig().publicRuntimeConfig.TALENT_URL}/orders`, data);
+            Analytics.default().trackOrder(res.data.id, this.props.payment.price / 100);
+            this.props.onNextClick();
         } catch (error) {
             if (error.graphQLErrors) {
                 if (!(error.graphQLErrors instanceof Array)) {
@@ -307,14 +294,10 @@ class Subscribe extends React.Component<WithApolloClient<Props & ReactStripeElem
         }
     };
 
-    private checkSpecial = async value => {
+    private checkSpecial = async (value: string) => {
         if (value) {
-            const result = await this.props.client.query<any>({
-                query: CHECK_SPECIAL,
-                variables: { code: value },
-            });
-            const { checkSpecial } = result.data;
-            this.setState({ isSpecialCodeValid: checkSpecial });
+            const res = await axios(`${getConfig().publicRuntimeConfig.TALENT_URL}/specials/${value}`);
+            this.setState({ isSpecialCodeValid: res.data.exists });
         } else {
             this.setState({ isSpecialCodeValid: false });
         }
@@ -398,20 +381,6 @@ const validateForm = (values: any) => {
     return errors;
 };
 
-const CHECK_SPECIAL = gql`
-    query checkSpecial($code: String!) {
-        checkSpecial(code: $code)
-    }
-`;
-
-const JOIN_CLUB = gql`
-    mutation joinClub($data: JoinClubInput) {
-        joinClub(data: $data) {
-            id
-        }
-    }
-`;
-
 const mapStateToProps = ({ form, payment }: Types.RootState) => {
     const { subscribe, account } = form;
     return { subscribeForm: subscribe, accountForm: account, payment };
@@ -422,6 +391,5 @@ export default connect(
     {
         updateFormState,
         savePricingCurrency,
-        userSignin,
     },
-)(injectStripe(withApollo<Props>(Subscribe)));
+)(injectStripe(Subscribe));
