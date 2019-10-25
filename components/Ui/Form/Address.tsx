@@ -46,8 +46,8 @@ const Address = (props: Props) => {
     return (
         <>
             <div className="form-double-field-line">
-                <Field name={getName('firstName', namePrefix)} placeholder="First name" />
-                <Field name={getName('lastName', namePrefix)} placeholder="Last name" />
+                <Field name={getName('firstname', namePrefix)} placeholder="First name" />
+                <Field name={getName('lastname', namePrefix)} placeholder="Last name" />
             </div>
             <Field name={getName('line1', namePrefix)} placeholder="Street" />
             <Field name={getName('line2', namePrefix)} placeholder="Apt/unit etc (optional)" />

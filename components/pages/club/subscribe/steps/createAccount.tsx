@@ -90,8 +90,8 @@ const CreateAccount = (props: Props) => {
                                 it means to be a kraken!
                             </p>
                             <div className="form-double-field-line">
-                                <Field name="firstName" placeholder="First name" />
-                                <Field name="lastName" placeholder="Last name" />
+                                <Field name="firstname" placeholder="First name" />
+                                <Field name="lastname" placeholder="Last name" />
                             </div>
                             <Field name="email" placeholder="Email" type="email" />
                         </div>
@@ -113,12 +113,12 @@ const CreateAccount = (props: Props) => {
 const validateForm = (values: any) => {
     const errors: any = {};
 
-    if (!values.firstName) {
-        errors.firstName = 'Required';
+    if (!values.firstname) {
+        errors.firstname = 'Required';
     }
 
-    if (!values.lastName) {
-        errors.lastName = 'Required';
+    if (!values.lastname) {
+        errors.lastname = 'Required';
     }
 
     if (!values.email) {

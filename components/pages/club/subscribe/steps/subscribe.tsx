@@ -218,10 +218,10 @@ class Subscribe extends React.Component<Props & ReactStripeElements.InjectedStri
 
         const data: { [key: string]: any } = {
             email: accountForm.email,
-            firstName: accountForm.firstName,
-            lastName: accountForm.lastName,
+            firstname: accountForm.firstname,
+            lastname: accountForm.lastname,
             special: values.special,
-            shippingAddress: {
+            shipping: {
                 ...values.shipping,
                 country: values.shipping.country.value.toUpperCase(),
             },
@@ -230,7 +230,7 @@ class Subscribe extends React.Component<Props & ReactStripeElements.InjectedStri
         try {
             const address = values.shippingAsBilling ? values.shipping : values.billing;
             const response = await stripe.createToken({
-                name: `${accountForm.firstName} ${accountForm.lastName}`,
+                name: `${accountForm.firstname} ${accountForm.lastname}`,
                 address_line1: address.line1,
                 address_line2: address.line2,
                 address_city: address.city,
@@ -313,12 +313,12 @@ const validateForm = (values: any) => {
     }
 
     if (values.shipping) {
-        if (!values.shipping.firstName) {
-            shippingErrors.firstName = 'Required';
+        if (!values.shipping.firstname) {
+            shippingErrors.firstname = 'Required';
         }
 
-        if (!values.shipping.lastName) {
-            shippingErrors.lastName = 'Required';
+        if (!values.shipping.lastname) {
+            shippingErrors.lastname = 'Required';
         }
 
         if (!values.shipping.line1) {
