@@ -10,6 +10,7 @@ import Types from 'Types';
 import Layout from 'components/Layout/Layout';
 import BannerTop from 'components/Ui/Banners/BannerTop';
 import LayoutFeed from 'components/Ui/Feed/LayoutFeed';
+import RefreshScrollOnNewPage from 'components/Ui/Utils/RefreshScrollOnNewPage';
 
 import Article from 'components/pages/mag/Article';
 import Feed, { Post } from 'components/pages/mag/Feed';
@@ -70,21 +71,23 @@ const Mag: NextPage<Props> = ({ items }) => {
     };
 
     return (
-        <Layout head={<MagHead />}>
-            <BannerTop />
-            <div id={selectedArticle ? 'mag-article-container' : 'mag-container'} className="inner-page-container">
-                <LayoutFeed
-                    mainView={mainView()}
-                    sidebar={
-                        <Sidebar
-                            post={selectedArticle}
-                            handleOpenSidebarNav={setSidebarOpeness}
-                            sidebarNavIsOpen={sidebarNavIsOpen}
-                        />
-                    }
-                />
-            </div>
-        </Layout>
+        <RefreshScrollOnNewPage>
+            <Layout head={<MagHead />}>
+                <BannerTop />
+                <div id={selectedArticle ? 'mag-article-container' : 'mag-container'} className="inner-page-container">
+                    <LayoutFeed
+                        mainView={mainView()}
+                        sidebar={
+                            <Sidebar
+                                post={selectedArticle}
+                                handleOpenSidebarNav={setSidebarOpeness}
+                                sidebarNavIsOpen={sidebarNavIsOpen}
+                            />
+                        }
+                    />
+                </div>
+            </Layout>
+        </RefreshScrollOnNewPage>
     );
 };
 
