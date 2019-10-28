@@ -57,19 +57,17 @@ const ArticlePage: NextPage<Props> = ({ post }) => {
         <TrackedPage name={`Mag/${post.slug!}`}>
             <Layout head={<MagArticleHead post={post} />}>
                 <BannerTop />
-                <div id="mag-container" className="inner-page-container">
-                    <div id="mag-article-container">
-                        <LayoutFeed
-                            mainView={<Article post={post} sidebarNavIsOpen={sidebarNavIsOpen} />}
-                            sidebar={
-                                <Sidebar
-                                    post={post}
-                                    handleOpenSidebarNav={handleOpenSidebarNav}
-                                    sidebarNavIsOpen={sidebarNavIsOpen}
-                                />
-                            }
-                        />
-                    </div>
+                <div id="mag-article-container" className="inner-page-container">
+                    <LayoutFeed
+                        mainView={<Article post={post} sidebarNavIsOpen={sidebarNavIsOpen} />}
+                        sidebar={
+                            <Sidebar
+                                post={post}
+                                handleOpenSidebarNav={handleOpenSidebarNav}
+                                sidebarNavIsOpen={sidebarNavIsOpen}
+                            />
+                        }
+                    />
                 </div>
             </Layout>
         </TrackedPage>

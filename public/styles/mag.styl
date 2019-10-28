@@ -4,12 +4,9 @@
 /* MAG STYLES */
 #mag
 	&-container
-		& #krakmag-logo
+		& .krakmag-logo
 			width: 100%
 			max-width: 250px
-
-			+mq($from: "medium")
-				margin-bottom: 0.5rem
 
 		& .feed-sidebar
 			&-header
@@ -18,11 +15,13 @@
 				&-title
 					position: absolute
 					opacity: 0
+					z-index: -1
 
 			&-nav-header
 				& .feed-sidebar-nav-header-toggle-button
 					+mq($from: "medium")
 						display: none
+
 
 	//article
 	&-article
@@ -42,21 +41,35 @@
 			max-width: 80%
 
 		&-container
-			margin-top: -2rem
-
-			+mq($from: "small")
-				margin: 0
-
-			.feed-sidebar
-				order: 2
-
-			& #krakmag-logo
-				display: none
+			& .krakmag-logo
+				width: 100%
+				max-width: 250px
+				margin-bottom: 2rem
 
 				+mq($from: "medium")
-					display: block
+					display: none
 
+			& .feed-sidebar
+				order: 2
 
+				&-header
+					display: none
+					margin-bottom: 0
+					border-bottom: 0
+
+					&-title
+						position: absolute
+						opacity: 0
+						z-index: -1
+
+					+mq($from: "medium")
+						display: block
+
+					& .krakmag-logo
+						display: none
+
+						+mq($from: "medium")
+							display: block
 
 		&-actions
 			display: flex

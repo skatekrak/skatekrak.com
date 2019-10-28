@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import React from 'react';
 
 import LatestPosts from 'components/pages/mag/Sidebar/LatestPosts';
@@ -15,7 +16,15 @@ const Sidebar = ({ post, sidebarNavIsOpen, handleOpenSidebarNav }: Props) => (
     <div id="feed-scrolltop-hook" className="feed-sidebar-container">
         <div className="feed-sidebar-header">
             <h2 className="feed-sidebar-header-title">Krak mag</h2>
-            <img src="https://res.skatekrak.com/static/krakmag_logo.png" alt="Krak mag" id="krakmag-logo" />
+            <Link href="/mag">
+                <a>
+                    <img
+                        src="https://res.skatekrak.com/static/krakmag_logo.png"
+                        alt="Krak mag"
+                        className="krakmag-logo"
+                    />
+                </a>
+            </Link>
         </div>
         {post ? (
             <>

@@ -17,11 +17,10 @@ module.exports = withPlugins([withBundleAnalyzer, withCSS, withStylus, withCusto
         NODE_ENV: process.env.NODE_ENV,
 
         CACHING_URL: process.env.CACHING_URL,
-        CAIROTE_URL: process.env.CAIROTE_URL,
         REDIRECT_URL: process.env.REDIRECT_URL,
         RSS_BACKEND_URL: process.env.RSS_BACKEND_URL,
-        SESTERCES_URL: process.env.SESTERCES_URL,
         KRAKMAG_URL: process.env.KRAKMAG_URL,
+        TALENT_URL: process.env.TALENT_URL,
 
         STRIPE_KEY: process.env.STRIPE_KEY,
 

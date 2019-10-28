@@ -1,36 +1,24 @@
 import jump from 'jump.js';
-import Link from 'next/link';
 import React from 'react';
-
-import { User } from 'store/auth/reducers';
 
 import IconArrowHead from 'components/Ui/Icons/ArrowHead';
 import ScrollHelper from 'lib/ScrollHelper';
 
 type Props = {
-    authUser?: User;
     onOpenSummaryModal: () => void;
 };
 
 class Hero extends React.PureComponent<Props, {}> {
     public render() {
-        const { authUser, onOpenSummaryModal } = this.props;
+        const { onOpenSummaryModal } = this.props;
 
         return (
             <header id="club-hero">
                 <img src="/images/club/club-hero-logo.svg" alt="Krak skate club" id="club-hero-logo" />
                 <h2 id="club-hero-baseline">Dig deeper into skateboarding</h2>
-                {authUser ? (
-                    <Link href="/club/profile">
-                        <a id="club-hero-cta" className="button-primary">
-                            Go to my profile
-                        </a>
-                    </Link>
-                ) : (
-                    <button id="club-hero-cta" className="button-primary" onClick={onOpenSummaryModal}>
-                        Become a Kraken
-                    </button>
-                )}
+                <button id="club-hero-cta" className="button-primary" onClick={onOpenSummaryModal}>
+                    Become a Kraken
+                </button>
                 <button id="club-hero-discover-more" onClick={this.handleAnchorScroll}>
                     Discover more
                     <span id="club-hero-discover-more-arrow">

@@ -7,6 +7,7 @@ import VideoCardShare from 'components/pages/videos/VideoFeed/Video/VideoCardSha
 import Emoji from 'components/Ui/Icons/Emoji';
 import Modal from 'components/Ui/Modal';
 import VideoPlayer from 'components/Ui/Player/VideoPlayer';
+import { SourceType } from 'lib/constants';
 import { Video } from 'rss-feed';
 
 type Props = {
@@ -50,7 +51,12 @@ const VideoModal = ({ video }: Props) => {
             {video ? (
                 <div className="video-modal">
                     <VideoCardShare video={video} />
-                    <VideoPlayer url={`https://www.youtube.com/watch?v=${video.videoId}`} playing controls pip />
+                    {video.source.type === SourceType.YOUTUBE && (
+                        <VideoPlayer url={`https://www.youtube.com/watch?v=${video.videoId}`} playing controls pip />
+                    )}
+                    {video.source.type === SourceType.VIMEO && (
+                        <VideoPlayer url={`https://vimeo.com/${video.videoId}`} playing controls pip />
+                    )}
                     <h2 className="video-modal-title">{video.title}</h2>
                     <div className="video-modal-details">
                         <p className="video-modal-details-source">

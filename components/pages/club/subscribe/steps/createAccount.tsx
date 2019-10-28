@@ -1,9 +1,6 @@
 import validator from 'email-validator';
-import { FORM_ERROR } from 'final-form';
-import gql from 'graphql-tag';
 import getConfig from 'next/config';
 import React from 'react';
-import { useLazyQuery } from 'react-apollo';
 import { Form, FormSpy } from 'react-final-form';
 import { connect } from 'react-redux';
 
@@ -21,23 +18,9 @@ type Props = {
 };
 
 const CreateAccount = (props: Props) => {
-    const [checkEmail, { loading, data, error }] = useLazyQuery(CHECK_EMAIL);
     const payment = usePayment();
 
-    const submit = async (values: any) => {
-        checkEmail({ variables: { email: values.email } });
-
-        if (loading) {
-            return;
-        }
-
-        if (error) {
-            return { [FORM_ERROR]: 'Oops, something went wrong, try later or contact us' };
-        }
-
-        if (data && data.checkEmail) {
-            return { email: 'This email is already used' };
-        }
+    const submit = async () => {
         props.onNextClick();
     };
 
@@ -107,11 +90,10 @@ const CreateAccount = (props: Props) => {
                                 it means to be a kraken!
                             </p>
                             <div className="form-double-field-line">
-                                <Field name="firstName" placeholder="First name" />
-                                <Field name="lastName" placeholder="Last name" />
+                                <Field name="firstname" placeholder="First name" />
+                                <Field name="lastname" placeholder="Last name" />
                             </div>
                             <Field name="email" placeholder="Email" type="email" />
-                            <Field name="password" placeholder="Password" type="password" />
                         </div>
                         <ErrorMessage message={submitError} />
                         <button
@@ -119,7 +101,7 @@ const CreateAccount = (props: Props) => {
                             className="button-primary modal-two-col-form-submit"
                             disabled={submitting}
                         >
-                            {!quarterFull ? 'Become a Kraken' : 'Pre-pay'}
+                            {!quarterFull ? 'Pay' : 'Pre-pay'}
                         </button>
                     </div>
                 </form>
@@ -131,12 +113,12 @@ const CreateAccount = (props: Props) => {
 const validateForm = (values: any) => {
     const errors: any = {};
 
-    if (!values.firstName) {
-        errors.firstName = 'Required';
+    if (!values.firstname) {
+        errors.firstname = 'Required';
     }
 
-    if (!values.lastName) {
-        errors.lastName = 'Required';
+    if (!values.lastname) {
+        errors.lastname = 'Required';
     }
 
     if (!values.email) {
@@ -145,18 +127,8 @@ const validateForm = (values: any) => {
         errors.email = 'Not a valid email';
     }
 
-    if (!values.password) {
-        errors.password = 'Required';
-    }
-
     return errors;
 };
-
-const CHECK_EMAIL = gql`
-    query checkEmail($email: String!) {
-        checkEmail(email: $email)
-    }
-`;
 
 export default connect(
     null,

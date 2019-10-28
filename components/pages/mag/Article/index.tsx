@@ -5,7 +5,6 @@ import Link from 'next/link';
 import React from 'react';
 import { FacebookIcon, FacebookShareButton, TwitterIcon, TwitterShareButton } from 'react-share';
 
-import TrackedPage from 'components/pages/TrackedPage';
 import createMarkup from 'lib/createMarkup';
 import decodeHTML from 'lib/decodeHTML';
 import createPropsGetter from 'lib/getProps';
@@ -38,6 +37,15 @@ const Article = (rawProps: Props) => {
 
     return (
         <article id="mag-article" className={classNames({ hide: sidebarNavIsOpen })}>
+            <Link href="/mag">
+                <a>
+                    <img
+                        src="https://res.skatekrak.com/static/krakmag_logo.png"
+                        alt="Krak mag"
+                        className="krakmag-logo"
+                    />
+                </a>
+            </Link>
             <div id="mag-article-actions">
                 <Link href="/mag">
                     <a id="mag-article-back">Back to the mag</a>

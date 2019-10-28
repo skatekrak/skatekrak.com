@@ -1,0 +1,145 @@
+@import "./stylus-mq"
+@import "./styleguide"
+
+/* SHOP STYLES */
+
+#shop
+	&-container
+		flex-grow: 1
+		display: flex
+		flex-direction: column
+		padding-top: 0
+
+		+mq($from: "small")
+			padding-top: 4rem
+
+	&-header
+		position: relative
+		padding-bottom: 3rem
+		font-family: $ff-roboto-condensed-bold
+		color: $white
+		text-align: center
+
+		&-hero-img
+			display: block
+			height: 100%
+			background: linear-gradient(0deg, rgba(0, 0, 0, 0.90) 0%, rgba(0, 0, 0, 0.2) 45.83%, rgba(0, 0, 0, 0.75) 100%), url(/images/shop-header.jpg)
+			background-position: center
+			background-size: cover
+
+			&-container
+				position: absolute
+				top: -10rem
+				left: -2rem
+				right: -2rem
+				bottom: 0
+				z-index: -1
+				overflow: hidden
+
+				+mq($from: "small")
+					top: -15rem
+					left: -8rem
+					right: -8rem
+
+				+mq($from: "medium")
+					left: -4rem
+					right: -4rem
+
+		&-title
+			font-size: 4rem
+			text-transform: uppercase
+			text-shadow: 0px 3px 1.5px rgba(0, 0, 0, 0.5)
+
+			+mq($from: "large")
+				font-size: 5.5rem
+
+		&-subtitle
+			font-size: $fs-large
+			text-shadow: 0px 2px 1.5px rgba(0, 0, 0, 0.5)
+
+			+mq($from: "large")
+				font-size: $fs-larger
+
+	&-main
+		flex-grow: 1
+		position: relative
+		display: flex
+		flex-direction: column
+		align-items: center
+		padding-top: 3rem
+		text-align: center
+
+		+mq($from: "small")
+			padding-top: 6rem
+
+		&-title
+			font-family: $ff-roboto-bold
+			font-size: $fs-large
+
+			+mq($from: "small")
+				font-size: $fs-larger2
+
+			+mq($from: "medium")
+				font-size: $fs-larger
+
+			+mq($from: "large")
+				font-size: $fs-larger2
+
+		& .button-primary
+			 margin: 3rem auto 2rem
+
+		&-countries
+			font-family: $ff-roboto-condensed-bold
+			font-size: $fs-smaller
+			text-transform: uppercase
+
+			&-flag
+				display: flex
+				margin-top: .5rem
+
+				& img
+					width: 1.5rem
+					margin-right: .5rem
+					border: 1px solid $grey-500
+					border-radius: 100%
+
+					&:last-child
+						margin-right: 0
+
+		&-bg-img
+			position: relative
+			display: block
+			height: 100%
+			background: url(/images/shop-pattern.jpg)
+			background-position: center
+			background-size: cover
+			filter: blur(1px)
+			opacity: .5
+
+			&:after
+				content: ''
+				position: absolute
+				left: 0
+				right: 0
+				top: 0
+				bottom: 0
+				height: 100%
+				width: 100%
+				background: linear-gradient(180deg, #EBEBEB 0%, rgba(235, 235, 235, 0) 100%)
+
+			&-container
+				position: absolute
+				top: 0
+				left: -2rem
+				right: -2rem
+				bottom: -2rem
+				z-index: -1
+				overflow: hidden
+
+				+mq($from: "small")
+					left: -8rem
+					right: -8rem
+
+				+mq($from: "medium")
+					left: -4rem
+					right: -4rem
