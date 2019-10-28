@@ -72,7 +72,7 @@ const Mag: NextPage<Props> = ({ items }) => {
     return (
         <Layout head={<MagHead />}>
             <BannerTop />
-            <div id="mag-container" className="inner-page-container">
+            <div id={selectedArticle ? 'mag-article-container' : 'mag-container'} className="inner-page-container">
                 <LayoutFeed
                     mainView={mainView()}
                     sidebar={
