@@ -2,9 +2,6 @@ import getConfig from 'next/config';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import React from 'react';
-import { connect } from 'react-redux';
-
-import Types from 'Types';
 
 import Layout from 'components/Layout/Layout';
 import Hero from 'components/pages/club/landing/Hero';
@@ -27,7 +24,6 @@ const ClubHead = () => {
                 property="og:description"
                 content="Krak Skateboarding Club. You're not alone. Let's enjoy skateboarding even more"
             />
-            <script src="https://js.stripe.com/v3" />
         </Head>
     );
 };
