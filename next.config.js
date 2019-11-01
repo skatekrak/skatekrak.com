@@ -21,6 +21,7 @@ module.exports = withPlugins([withBundleAnalyzer, withCSS, withStylus, withCusto
         RSS_BACKEND_URL: process.env.RSS_BACKEND_URL,
         KRAKMAG_URL: process.env.KRAKMAG_URL,
         TALENT_URL: process.env.TALENT_URL,
+        CARRELAGE_URL: process.env.CARRELAGE_URL,
 
         STRIPE_KEY: process.env.STRIPE_KEY,
         MAPBOX_ACCESS_TOKEN: process.env.MAPBOX_ACCESS_TOKEN,

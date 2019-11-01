@@ -3,97 +3,113 @@ import axios from 'axios';
 import classNames from 'classnames';
 import getConfig from 'next/config';
 import React from 'react';
-import ReactMapGL, { ViewportProps } from 'react-map-gl';
+import ReactMapGL, { ExtraState, GeolocateControl, NavigationControl, ViewportProps } from 'react-map-gl';
+
+import { Cluster } from 'carrelage';
+import SpotCluster from 'components/pages/map/SpotCluster';
 
 import 'mapbox-gl/dist/mapbox-gl.css';
+import SpotMarker from './SpotMarker';
 
 type Props = {};
 
 type State = {
     viewport: {
-        // width: number,
-        // height: number,
         latitude: number;
         longitude: number;
         zoom: number;
     };
+    clusters: Cluster[];
 };
-
-const mapbox = (id: string, token: string) => (x, y, z, dpr) => {
-    return `https://api.mapbox.com/styles/v1/mapbox/${id}/tiles/256/${z}/${x}/${y}${
-        dpr >= 2 ? '@2x' : ''
-    }?access_token=${token}`;
-};
-
-const MapboxAttribution = () => (
-    <span className="map-attribution">
-        <span>
-            © <a href="https://www.mapbox.com/about/maps/">Mapbox</a>
-        </span>
-        {' | '}
-        <span>
-            © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>
-        </span>
-        {' | '}
-        <strong>
-            <a href="https://www.mapbox.com/map-feedback/" target="_blank">
-                Improve this map
-            </a>
-        </strong>
-    </span>
-);
 
 class MapContainer extends React.Component<Props, State> {
     public state: State = {
         viewport: {
-            // width: 400,
-            // height: 400,
             latitude: 48.860332,
             longitude: 2.345054,
             zoom: 12,
         },
+        clusters: [],
     };
 
-    public async componentDidMount() {}
+    private mapRef = React.createRef<ReactMapGL>();
+    private loadTimeout: NodeJS.Timeout;
+
+    public componentDidMount() {
+        this.load();
+    }
 
     public render() {
+        const markers = [];
+        for (const cluster of this.state.clusters) {
+            if (cluster.spots.length > 0) {
+                cluster.spots.forEach((spot) => {
+                    markers.push(<SpotMarker spot={spot} />);
+                });
+            } else {
+                markers.push(<SpotCluster key={cluster._id} cluster={cluster} />);
+            }
+        }
+
         return (
             <div id="city-grid">
                 <div id="city-map">
                     <div id="city-map-frame">
                         <ReactMapGL
+                            ref={this.mapRef}
                             width="100%"
                             height="100%"
                             {...this.state.viewport}
                             mapboxApiAccessToken={getConfig().publicRuntimeConfig.MAPBOX_ACCESS_TOKEN}
                             mapStyle="mapbox://styles/mapbox/dark-v9"
-                            onViewportChange={this.syncViewPort}
-                        />
+                            onViewportChange={this.onViewportChange}
+                        >
+                            <div style={{ position: 'absolute', right: '1rem', bottom: '2rem' }}>
+                                <GeolocateControl
+                                    style={{ marginBottom: '1rem' }}
+                                    positionOptions={{ enableHighAccuracy: true }}
+                                    trackUserLocation={true}
+                                />
+                                <NavigationControl />
+                            </div>
+                            {markers}
+                        </ReactMapGL>
                     </div>
                 </div>
             </div>
         );
     }
 
-    private async load() {
-        try {
-            const res = await axios.get(`${getConfig().publicRuntimeConfig.CARRELAGE_URL}/spots/search`, {
-                params: {
-                    clustering: true,
-                    // northEastLatitude: ,
-                    // northEastLongitude: ,
-                    // southWestLatitude: ,
-                    // southWestLongitude: ,
-                },
-            });
-            return { video: res.data, gotId: true };
-        } catch {
-            return { gotId: true };
-        }
+    private load() {
+        clearTimeout(this.loadTimeout);
+        this.loadTimeout = setTimeout(async () => {
+            try {
+                console.log('Refresh Spots');
+                const map = this.mapRef.current.getMap();
+                const bounds = map.getBounds();
+                const northEast = bounds.getNorthEast();
+                const southWest = bounds.getSouthWest();
+
+                const res = await axios.get(`${getConfig().publicRuntimeConfig.CARRELAGE_URL}/spots/search`, {
+                    params: {
+                        clustering: true,
+                        northEastLatitude: northEast.lat,
+                        northEastLongitude: northEast.lng,
+                        southWestLatitude: southWest.lat,
+                        southWestLongitude: southWest.lng,
+                    },
+                });
+
+                this.setState({ clusters: res.data });
+            } catch (err) {
+                console.log(err);
+            }
+        }, 200);
     }
 
-    private syncViewPort = (viewport: ViewportProps) => {
+    private onViewportChange = (viewport: ViewportProps, interactionState: ExtraState, oldViewport: ViewportProps) => {
         this.setState({ viewport });
+        this.load();
     };
 }
 
