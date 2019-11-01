@@ -23,6 +23,7 @@ module.exports = withPlugins([withBundleAnalyzer, withCSS, withStylus, withCusto
         TALENT_URL: process.env.TALENT_URL,
 
         STRIPE_KEY: process.env.STRIPE_KEY,
+        MAPBOX_ACCESS_TOKEN: process.env.MAPBOX_ACCESS_TOKEN,
 
         CLUB_CONTACT_NAME: process.env.CLUB_CONTACT_NAME,
         IS_QUARTERFULL: process.env.IS_QUARTERFULL === 'true',

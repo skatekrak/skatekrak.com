@@ -1,0 +1,97 @@
+@import "./stylus-mq"
+@import "./styleguide"
+
+/* CITY PAGE STYLES */
+
+/*
+ * City grid mobile
+ */
+#city
+	&-grid
+		display: grid
+		flex-grow: 1
+		grid-template-rows: auto auto auto 150px 150px 100px
+		grid-row-gap: 1rem
+		grid-template-areas: "hero"\
+												"video"\
+												"map"\
+												"shop"\
+												"spot"\
+												"community"
+		
+		+mq($from: "medium")
+			grid-template-rows: auto auto auto 150px 150px
+			grid-template-columns: 80% auto
+			grid-row-gap: 0
+			grid-template-areas: "hero community"\
+													"video community"\
+													"map community"\
+													"shop community"\
+													"spot community"
+
+	&-hero
+		grid-area: hero
+		padding: 0 2rem 2rem
+		text-align: center
+
+		&-title
+			font-family: $ff-roboto-black
+			font-size: $fs-huge
+
+			+mq($from: "small")
+				font-size: 4rem
+
+	&-video
+		grid-area: video
+		display: flex
+		padding: 2rem
+		overflow-x: scroll
+
+	&-map
+		grid-area: map
+		padding: 0 1rem
+
+		+mq($from: "small")
+			padding: 2rem
+
+		&-container
+			position: relative
+			padding-top: (16 / 9) * 100%
+			overflow: hidden
+
+			+mq($from: "small")
+				padding-top: 76.25%
+
+		&-frame
+			position: absolute
+			top: 0
+			right: 0
+			bottom: 0
+			left: 0
+			background-color: #cbcbff
+	
+	&-shop
+		grid-area: shop
+		padding: 0 2rem
+		background-color: $grey-300
+	
+	&-spot
+		grid-area: spot
+		padding: 0 2rem
+		background-color: $grey-300
+	
+	&-community
+		grid-area: community
+		padding: 0 2rem
+		background-color: $grey-600
+
+.city
+	&-video
+		min-width: 75%
+		margin-right: 1rem
+
+		&:last-child
+			margin-right: 2rem
+
+		+mq($from: "small")
+			min-width: 45%
