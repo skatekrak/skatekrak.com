@@ -44,10 +44,10 @@ class MapContainer extends React.Component<Props, State> {
         for (const cluster of this.state.clusters) {
             if (cluster.spots.length > 0) {
                 cluster.spots.forEach((spot) => {
-                    markers.push(<SpotMarker spot={spot} />);
+                    markers.push(<SpotMarker key={spot.id} spot={spot} />);
                 });
             } else {
-                markers.push(<SpotCluster key={cluster._id} cluster={cluster} />);
+                markers.push(<SpotCluster key={cluster.id} cluster={cluster} />);
             }
         }
 

@@ -87,7 +87,7 @@ declare module 'carrelage' {
     }
 
     export interface Spot {
-        id: String;
+        id: string;
         createdAt: Date;
         updatedAt: Date;
         className: string;
@@ -116,7 +116,7 @@ declare module 'carrelage' {
     }
 
     export interface Cluster {
-        _id: string;
+        id: string;
         latitude: number;
         longitude: number;
         count: number;
