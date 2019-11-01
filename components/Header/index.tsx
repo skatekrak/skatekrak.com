@@ -57,6 +57,7 @@ const Header = () => {
                         <NavItem title="Mag" url="/mag" />
                         <NavItem title="News" url="/news" />
                         <NavItem title="Video" url="/video" />
+                        <NavItem title="Map" url="/map" />
                         <NavItem title="App" url="/app" />
                     </ul>
                 </nav>
