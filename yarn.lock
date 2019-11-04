@@ -7170,7 +7170,7 @@ vary@~1.1.2:
   resolved "https://npm.thepunk.tech/vary/-/vary-1.1.2.tgz#2299f02c6ded30d4a5961b0b9f74524a18f634fc"
   integrity sha1-IpnwLG3tMNSllhsLn3RSShj2NPw=
 
-viewport-mercator-project@^6.2.1:
+viewport-mercator-project@^6.2.1, viewport-mercator-project@^6.2.2:
   version "6.2.2"
   resolved "https://npm.thepunk.tech/viewport-mercator-project/-/viewport-mercator-project-6.2.2.tgz#f524819ad53fcc009b46136a59f73461bfcf1604"
   integrity sha512-vs9pjDZxDwoiEqr+GgdpRAUogEQRoZ9D9COVLSr4+h/WdcUWhYN36SQr3n5jaTKrl/wlfdRj+TYU8wTk05grbg==

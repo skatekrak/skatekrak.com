@@ -1,11 +1,12 @@
 // import Overlay from 'pigeon-overlay';
 import React from 'react';
 
-import { Spot } from 'carrelage';
+import { Cluster, Spot } from 'carrelage';
 import { Marker } from 'react-map-gl';
 
 type Props = {
     spot: Spot;
+    fitBounds: (b1: [number, number], b2: [number, number]) => void;
 };
 
 class SpotMarker extends React.Component<Props> {
@@ -22,12 +23,17 @@ class SpotMarker extends React.Component<Props> {
                         display: 'inline-block',
                         textAlign: 'center',
                     }}
+                    onClick={this.onClick}
                 >
                     {spot.name}
                 </div>
             </Marker>
         );
     }
+
+    private onClick = () => {
+        console.log('Click');
+    };
 }
 
 export default SpotMarker;

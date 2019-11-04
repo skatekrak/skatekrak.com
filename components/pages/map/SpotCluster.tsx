@@ -1,10 +1,10 @@
 import React from 'react';
 
-import { Cluster } from 'carrelage';
-import { Marker } from 'react-map-gl';
-
+import { Cluster, Spot } from 'carrelage';
+import { InteractiveMap, Marker } from 'react-map-gl';
 type Props = {
     cluster: Cluster;
+    fitBounds: (b1: [number, number], b2: [number, number]) => void;
 };
 
 class SpotCluster extends React.Component<Props> {
@@ -21,12 +21,18 @@ class SpotCluster extends React.Component<Props> {
                         display: 'inline-block',
                         textAlign: 'center',
                     }}
+                    onClick={this.onClick}
                 >
                     {cluster.count}
                 </div>
             </Marker>
         );
     }
+
+    private onClick = () => {
+        const cluster = this.props.cluster;
+        this.props.fitBounds([cluster.minLongitude, cluster.minLatitude], [cluster.maxLongitude, cluster.maxLatitude]);
+    };
 }
 
 export default SpotCluster;

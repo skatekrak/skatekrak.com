@@ -1,15 +1,23 @@
 import Analytics from '@thepunkclub/analytics';
 import axios from 'axios';
-import classNames from 'classnames';
 import getConfig from 'next/config';
 import React from 'react';
-import ReactMapGL, { ExtraState, GeolocateControl, NavigationControl, ViewportProps } from 'react-map-gl';
+import ReactMapGL, {
+    ExtraState,
+    FlyToInterpolator,
+    GeolocateControl,
+    InteractiveMap,
+    NavigationControl,
+    TransitionInterpolator,
+    ViewportProps,
+} from 'react-map-gl';
+import WebMercatorViewport from 'viewport-mercator-project';
 
 import { Cluster } from 'carrelage';
 import SpotCluster from 'components/pages/map/SpotCluster';
+import SpotMarker from 'components/pages/map/SpotMarker';
 
 import 'mapbox-gl/dist/mapbox-gl.css';
-import SpotMarker from './SpotMarker';
 
 type Props = {};
 
@@ -18,6 +26,8 @@ type State = {
         latitude: number;
         longitude: number;
         zoom: number;
+        transitionDuration?: number;
+        transitionInterpolator?: TransitionInterpolator;
     };
     clusters: Cluster[];
 };
@@ -28,11 +38,13 @@ class MapContainer extends React.Component<Props, State> {
             latitude: 48.860332,
             longitude: 2.345054,
             zoom: 12,
+            transitionDuration: 1000,
+            transitionInterpolator: new FlyToInterpolator(),
         },
         clusters: [],
     };
 
-    private mapRef = React.createRef<ReactMapGL>();
+    private mapRef = React.createRef<InteractiveMap>();
     private loadTimeout: NodeJS.Timeout;
 
     public componentDidMount() {
@@ -44,10 +56,10 @@ class MapContainer extends React.Component<Props, State> {
         for (const cluster of this.state.clusters) {
             if (cluster.spots.length > 0) {
                 cluster.spots.forEach((spot) => {
-                    markers.push(<SpotMarker key={spot.id} spot={spot} />);
+                    markers.push(<SpotMarker key={spot.id} spot={spot} fitBounds={this.fitBounds} />);
                 });
             } else {
-                markers.push(<SpotCluster key={cluster.id} cluster={cluster} />);
+                markers.push(<SpotCluster key={cluster.id} cluster={cluster} fitBounds={this.fitBounds} />);
             }
         }
 
@@ -84,7 +96,6 @@ class MapContainer extends React.Component<Props, State> {
         clearTimeout(this.loadTimeout);
         this.loadTimeout = setTimeout(async () => {
             try {
-                console.log('Refresh Spots');
                 const map = this.mapRef.current.getMap();
                 const bounds = map.getBounds();
                 const northEast = bounds.getNorthEast();
@@ -100,12 +111,28 @@ class MapContainer extends React.Component<Props, State> {
                     },
                 });
 
-                this.setState({ clusters: res.data });
+                const clusters = res.data as Cluster[];
+                this.setState({ clusters });
             } catch (err) {
                 console.log(err);
             }
         }, 200);
     }
+
+    private fitBounds = (b1: [number, number], b2: [number, number]) => {
+        const { longitude, latitude, zoom } = new WebMercatorViewport(this.state.viewport).fitBounds([b1, b2], {
+            padding: 50,
+        });
+        const viewport = {
+            ...this.state.viewport,
+            longitude,
+            latitude,
+            zoom,
+            transitionDuration: 1000,
+            transitionInterpolator: new FlyToInterpolator(),
+        };
+        this.setState({ viewport });
+    };
 
     private onViewportChange = (viewport: ViewportProps, interactionState: ExtraState, oldViewport: ViewportProps) => {
         this.setState({ viewport });
