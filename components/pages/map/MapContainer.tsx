@@ -11,7 +11,7 @@ import ReactMapGL, {
     TransitionInterpolator,
     ViewportProps,
 } from 'react-map-gl';
-import WebMercatorViewport from 'viewport-mercator-project';
+import WebMercatorViewport, { getDistanceScales } from 'viewport-mercator-project';
 
 import { Cluster } from 'carrelage';
 import SpotCluster from 'components/pages/map/SpotCluster';
@@ -26,9 +26,8 @@ type State = {
         latitude: number;
         longitude: number;
         zoom: number;
-        transitionDuration?: number;
-        transitionInterpolator?: TransitionInterpolator;
     };
+    pixelsPerDegree: [number, number, number];
     clusters: Cluster[];
 };
 
@@ -38,9 +37,8 @@ class MapContainer extends React.Component<Props, State> {
             latitude: 48.860332,
             longitude: 2.345054,
             zoom: 12,
-            transitionDuration: 1000,
-            transitionInterpolator: new FlyToInterpolator(),
         },
+        pixelsPerDegree: [0, 0, 0],
         clusters: [],
     };
 
@@ -54,12 +52,19 @@ class MapContainer extends React.Component<Props, State> {
     public render() {
         const markers = [];
         for (const cluster of this.state.clusters) {
-            if (cluster.spots.length > 0) {
+            if (this.mapRef.current.props.zoom > this.mapRef.current.props.maxZoom - 2) {
                 cluster.spots.forEach((spot) => {
                     markers.push(<SpotMarker key={spot.id} spot={spot} fitBounds={this.fitBounds} />);
                 });
             } else {
-                markers.push(<SpotCluster key={cluster.id} cluster={cluster} fitBounds={this.fitBounds} />);
+                markers.push(
+                    <SpotCluster
+                        key={cluster.id}
+                        cluster={cluster}
+                        pixelsPerDegree={this.state.pixelsPerDegree}
+                        fitBounds={this.fitBounds}
+                    />,
+                );
             }
         }
 
@@ -69,13 +74,16 @@ class MapContainer extends React.Component<Props, State> {
                     <div id="city-map-frame">
                         <ReactMapGL
                             ref={this.mapRef}
+                            {...this.state.viewport}
                             width="100%"
                             height="100%"
-                            {...this.state.viewport}
+                            minZoom={2}
+                            maxZoom={20}
                             mapboxApiAccessToken={getConfig().publicRuntimeConfig.MAPBOX_ACCESS_TOKEN}
                             mapStyle="mapbox://styles/mapbox/dark-v9"
                             onViewportChange={this.onViewportChange}
                         >
+                            {markers}
                             <div style={{ position: 'absolute', right: '1rem', bottom: '2rem' }}>
                                 <GeolocateControl
                                     style={{ marginBottom: '1rem' }}
@@ -84,7 +92,6 @@ class MapContainer extends React.Component<Props, State> {
                                 />
                                 <NavigationControl />
                             </div>
-                            {markers}
                         </ReactMapGL>
                     </div>
                 </div>
@@ -112,6 +119,7 @@ class MapContainer extends React.Component<Props, State> {
                 });
 
                 const clusters = res.data as Cluster[];
+                console.log('Load');
                 this.setState({ clusters });
             } catch (err) {
                 console.log(err);
@@ -121,21 +129,21 @@ class MapContainer extends React.Component<Props, State> {
 
     private fitBounds = (b1: [number, number], b2: [number, number]) => {
         const { longitude, latitude, zoom } = new WebMercatorViewport(this.state.viewport).fitBounds([b1, b2], {
-            padding: 50,
+            padding: 20,
         });
+        const maxZoom = this.mapRef.current.props.maxZoom;
         const viewport = {
             ...this.state.viewport,
             longitude,
             latitude,
-            zoom,
-            transitionDuration: 1000,
-            transitionInterpolator: new FlyToInterpolator(),
+            zoom: zoom < maxZoom ? zoom : maxZoom,
         };
-        this.setState({ viewport });
+        this.onViewportChange(viewport);
     };
 
-    private onViewportChange = (viewport: ViewportProps, interactionState: ExtraState, oldViewport: ViewportProps) => {
-        this.setState({ viewport });
+    private onViewportChange = (viewport: { latitude: number; longitude: number; zoom: number }) => {
+        console.log('onViewportChange');
+        this.setState({ viewport, pixelsPerDegree: getDistanceScales(viewport).pixelsPerDegree });
         this.load();
     };
 }

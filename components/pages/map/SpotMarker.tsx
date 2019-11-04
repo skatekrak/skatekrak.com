@@ -13,11 +13,16 @@ class SpotMarker extends React.Component<Props> {
     public render() {
         const { spot } = this.props;
         return (
-            <Marker latitude={spot.location.latitude} longitude={spot.location.longitude}>
+            <Marker
+                latitude={spot.location.latitude}
+                longitude={spot.location.longitude}
+                offsetLeft={-15}
+                offsetTop={-15}
+            >
                 <div
                     style={{
-                        height: '2rem',
-                        width: '2rem',
+                        height: '30px',
+                        width: '30px',
                         backgroundColor: '#bbb',
                         borderRadius: '50%',
                         display: 'inline-block',
@@ -25,7 +30,8 @@ class SpotMarker extends React.Component<Props> {
                     }}
                     onClick={this.onClick}
                 >
-                    {spot.name}
+                    {/* {spot.name} */}
+                    {'S'}
                 </div>
             </Marker>
         );
