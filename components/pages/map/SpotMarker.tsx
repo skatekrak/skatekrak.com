@@ -6,6 +6,11 @@ import { Marker } from 'react-map-gl';
 
 type Props = {
     spot: Spot;
+    viewport: {
+        latitude: number;
+        longitude: number;
+        zoom: number;
+    };
     fitBounds: (b1: [number, number], b2: [number, number]) => void;
 };
 
@@ -16,23 +21,19 @@ class SpotMarker extends React.Component<Props> {
             <Marker
                 latitude={spot.location.latitude}
                 longitude={spot.location.longitude}
-                offsetLeft={-15}
-                offsetTop={-15}
+                offsetLeft={-24}
+                offsetTop={-24}
             >
-                <div
+                <img
+                    src={`/images/map/icons/${spot.type}.svg`}
+                    alt="Street spot icon"
                     style={{
-                        height: '30px',
-                        width: '30px',
-                        backgroundColor: '#bbb',
-                        borderRadius: '50%',
+                        height: '48px',
+                        width: '48px',
                         display: 'inline-block',
-                        textAlign: 'center',
                     }}
                     onClick={this.onClick}
-                >
-                    {/* {spot.name} */}
-                    {'S'}
-                </div>
+                />
             </Marker>
         );
     }

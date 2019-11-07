@@ -50,9 +50,9 @@ class MapContainer extends React.Component<Props, State> {
         const clusters = [];
         const markers = [];
         for (const cluster of this.state.clusters) {
-            if (this.mapRef.current.props.zoom > this.mapRef.current.props.maxZoom - 6 && cluster.spots.length > 0) {
+            if (this.mapRef.current.props.zoom > this.mapRef.current.props.maxZoom - 5 && cluster.spots.length > 0) {
                 cluster.spots.forEach((spot) => {
-                    markers.push(<SpotMarker key={spot.id} spot={spot} fitBounds={this.fitBounds} />);
+                    markers.push(<SpotMarker key={spot.id} spot={spot} viewport={this.state.viewport} fitBounds={this.fitBounds} />);
                 });
             } else {
                 clusters.push(cluster);
