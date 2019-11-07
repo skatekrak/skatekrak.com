@@ -38,9 +38,7 @@ class SpotMarker extends React.Component<Props> {
         );
     }
 
-    private onClick = () => {
-        console.log('Click');
-    };
+    private onClick = () => {};
 }
 
 export default SpotMarker;
