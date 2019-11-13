@@ -10,6 +10,8 @@ import IconPrivate from 'components/pages/map/marker/icons/Private';
 import IconShop from 'components/pages/map/marker/icons/Shop';
 import IconStreet from 'components/pages/map/marker/icons/Street';
 
+import BadgeIconic from 'components/pages/map/marker/badges/Iconic';
+
 type Props = {
     spot: Spot;
     viewport: {
@@ -39,9 +41,13 @@ class SpotMarker extends React.Component<Props> {
                         {spot.type === 'private' && <IconPrivate />}
                         {spot.type === 'diy' && <IconDiy />}
                     </div>
-                    <div className="map-marker-badges">
-                        <span />
-                    </div>
+                    {spot.tags.length !== 0 && (
+                        <div className="map-marker-badges">
+                            {spot.tags.map((tag) => (
+                                <BadgeIconic key={tag} />
+                            ))}
+                        </div>
+                    )}
                 </button>
             </Marker>
         );

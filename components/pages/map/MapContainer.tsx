@@ -351,6 +351,7 @@ class MapContainer extends React.Component<Props, State> {
                         <div id="map-gradients">
                             <svg width="0" height="0">
                                 <defs>
+                                    {/* Icon */}
                                     <linearGradient id="map-gradients-street" x1="0" x2="0" y1="0" y2="1">
                                         <stop offset="0%" className="stop-top" />
                                         <stop offset="100%" className="stop-bottom" />
@@ -370,6 +371,14 @@ class MapContainer extends React.Component<Props, State> {
                                     <linearGradient id="map-gradients-diy" x1="0" x2="0" y1="0" y2="1">
                                         <stop offset="0%" className="stop-top" />
                                         <stop offset="100%" className="stop-bottom" />
+                                    </linearGradient>
+                                    {/* Badge */}
+                                    <linearGradient id="map-gradients-iconic" x1="0" x2="0" y1="0" y2="1">
+                                        <stop offset="0%" stop-color="#FFEB38" />
+                                        <stop offset="25%" stop-color="#E6D432" />
+                                        <stop offset="45%" stop-color="#BDAE28" />
+                                        <stop offset="65%" stop-color="#FAE634" />
+                                        <stop offset="100%" stop-color="#766C14" />
                                     </linearGradient>
                                 </defs>
                             </svg>

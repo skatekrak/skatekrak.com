@@ -58,12 +58,41 @@
 
 .map
 	&-marker
+		position: relative
+
 		&-icon
 			width: 3rem
 			height: 3rem
 
 		& svg
 			width: 100%
+
+		&-badges
+			position: absolute
+			top: -10px
+			left: calc(100% - 10px)
+			display: flex
+			align-items: center
+
+			& svg
+				position: relative
+				height: 20px
+				width: 20px
+				margin-left: -10px
+				border-radius: 100%
+
+				&:first-child
+					margin-left: 0
+					z-index: 100
+
+				&:nth-child(0n + 2)
+					z-index: 90
+
+				&:nth-child(0n + 3)
+					z-index: 80
+
+				&:nth-child(0n +3) ~ svg
+					display: none
 
 	&-icon
 		&-stroke
@@ -92,3 +121,19 @@
 		&-diy
 			&-fill
 				fill: url('#map-gradients-diy') $diy
+
+	&-badge
+		overflow: visible
+
+		&-stroke-outter
+			fill: $grey-800
+
+		&-street
+			&-bg
+				fill: $grey-800
+
+			&-stroke
+				fill: $private
+
+			&-shape
+				fill: url('#map-gradients-iconic') $private
