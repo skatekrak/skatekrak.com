@@ -1,0 +1,94 @@
+@import "../stylus-mq"
+@import "../styleguide"
+@import "./map-styleguide"
+
+/* MAP PAGE STYLES */
+#map
+	position: absolute
+	top: 0
+	right: 0
+	bottom: 0
+	left: 0
+	background-color: $grey-800
+
+	&-container
+		flex-grow: 1
+
+	&-gradients
+		opacity: 0
+
+		&-street
+			& .stop-top
+				stop-color: $street
+			& .stop-bottom
+				stop-color: $streetDark
+
+		&-park
+			& .stop-top
+				stop-color: $park
+			& .stop-bottom
+				stop-color: $parkDark
+
+		&-shop
+			& .stop-top
+				stop-color: $shop
+			& .stop-bottom
+				stop-color: $shopDark
+
+		&-private
+			& .stop-top
+				stop-color: $private
+			& .stop-bottom
+				stop-color: $privateDark
+
+		&-diy
+			& .stop-top
+				stop-color: $diy
+			& .stop-bottom
+				stop-color: $diyDark
+
+
+
+
+.mapboxgl-marker
+	display: flex
+
+	&:hover
+			z-index: 1000
+
+.map
+	&-marker
+		&-icon
+			width: 3rem
+			height: 3rem
+
+		& svg
+			width: 100%
+
+	&-icon
+		&-stroke
+			&-inner
+				fill: $grey-800
+			&-outter
+				fill: $grey-100
+
+
+		&-street
+			&-fill
+				fill: url('#map-gradients-street') $street
+				
+		&-park
+			&-fill
+				fill: url('#map-gradients-park') $park
+
+		&-shop
+			&-fill
+				fill: url('#map-gradients-shop') $shop
+
+		&-private
+			&-fill
+				fill: url('#map-gradients-private') $private
+
+		&-diy
+			&-fill
+				fill: url('#map-gradients-diy') $diy
