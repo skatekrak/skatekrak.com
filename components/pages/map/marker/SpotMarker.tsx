@@ -1,4 +1,4 @@
-// import Overlay from 'pigeon-overlay';
+import classNames from 'classnames';
 import React from 'react';
 
 import { Cluster, Spot } from 'carrelage';
@@ -12,6 +12,8 @@ import IconStreet from 'components/pages/map/marker/icons/Street';
 
 import BadgeIconic from 'components/pages/map/marker/badges/Iconic';
 
+import Activity from 'components/pages/map/marker/Activity';
+
 type Props = {
     spot: Spot;
     viewport: {
@@ -22,10 +24,24 @@ type Props = {
     fitBounds: (b1: [number, number], b2: [number, number]) => void;
 };
 
-class SpotMarker extends React.Component<Props> {
+type State = {
+    firing: boolean;
+};
+
+class SpotMarker extends React.Component<Props, State> {
+    public state: State = {
+        firing: false,
+    };
+
+    public componentDidMount() {
+        if (this.props.spot.mediasStat.all >= 10) {
+            this.setState({ firing: true });
+        }
+    }
+
     public render() {
         const { spot } = this.props;
-        // console.log(spot);
+        const { firing } = this.state;
         return (
             <Marker
                 latitude={spot.location.latitude}
@@ -33,7 +49,12 @@ class SpotMarker extends React.Component<Props> {
                 offsetLeft={-24}
                 offsetTop={-24}
             >
-                <button className="map-marker" onClick={this.onMarkerClick}>
+                <button
+                    className={classNames('map-marker', {
+                        'map-marker-firing': firing,
+                    })}
+                    onClick={this.onMarkerClick}
+                >
                     <div className="map-marker-icon">
                         {spot.type === 'street' && <IconStreet />}
                         {spot.type === 'park' && <IconPark />}
@@ -48,13 +69,14 @@ class SpotMarker extends React.Component<Props> {
                             ))}
                         </div>
                     )}
+                    {spot.mediasStat.all > 1 && <Activity firing={firing} />}
                 </button>
             </Marker>
         );
     }
 
     private onMarkerClick = () => {
-        console.log('clicked!');
+        console.log(this.props.spot);
     };
 }
 
