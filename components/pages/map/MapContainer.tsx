@@ -374,11 +374,11 @@ class MapContainer extends React.Component<Props, State> {
                                     </linearGradient>
                                     {/* Badge */}
                                     <linearGradient id="map-gradients-iconic" x1="0" x2="0" y1="0" y2="1">
-                                        <stop offset="0%" stop-color="#FFEB38" />
-                                        <stop offset="25%" stop-color="#E6D432" />
-                                        <stop offset="45%" stop-color="#BDAE28" />
-                                        <stop offset="65%" stop-color="#FAE634" />
-                                        <stop offset="100%" stop-color="#766C14" />
+                                        <stop offset="0%" stopColor="#FFEB38" />
+                                        <stop offset="25%" stopColor="#E6D432" />
+                                        <stop offset="45%" stopColor="#BDAE28" />
+                                        <stop offset="65%" stopColor="#FAE634" />
+                                        <stop offset="100%" stopColor="#766C14" />
                                     </linearGradient>
                                 </defs>
                             </svg>
