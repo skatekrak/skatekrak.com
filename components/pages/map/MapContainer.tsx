@@ -4,7 +4,7 @@ import * as Immutable from 'immutable';
 import getConfig from 'next/config';
 import dynamic from 'next/dynamic';
 import React from 'react';
-import ReactMapGL, { GeolocateControl, InteractiveMap, NavigationControl, PointerEvent } from 'react-map-gl';
+import ReactMapGL, { GeolocateControl, InteractiveMap, NavigationControl, PointerEvent, Popup } from 'react-map-gl';
 import WebMercatorViewport, { getDistanceScales } from 'viewport-mercator-project';
 
 const HeatmapOverlay = dynamic<any>(() => import('react-map-gl-heatmap-overlay'), { ssr: false });
@@ -24,6 +24,8 @@ type State = {
     pixelsPerDegree: [number, number, number];
     clusters: Cluster[];
     clusterMaxSpots: number;
+    popupInfo: Spot;
+    spotMarkerClicked?: string;
 };
 
 const MIN_ZOOM_LEVEL = 4;
@@ -39,6 +41,8 @@ class MapContainer extends React.Component<Props, State> {
         pixelsPerDegree: [0, 0, 0],
         clusters: [],
         clusterMaxSpots: 1,
+        popupInfo: null,
+        spotMarkerClicked: null,
     };
 
     private mapRef = React.createRef<InteractiveMap>();
@@ -49,6 +53,8 @@ class MapContainer extends React.Component<Props, State> {
     }
 
     public render() {
+        const { popupInfo, spotMarkerClicked } = this.state;
+
         const clusters = [];
         const markers = [];
         for (const cluster of this.state.clusters) {
@@ -60,6 +66,8 @@ class MapContainer extends React.Component<Props, State> {
                             spot={spot}
                             viewport={this.state.viewport}
                             fitBounds={this.fitBounds}
+                            onSpotMarkerClick={this.onSpotMarkerClick}
+                            spotMarkerClicked={spotMarkerClicked}
                         />,
                     );
                 });
@@ -82,6 +90,19 @@ class MapContainer extends React.Component<Props, State> {
                         mapStyle="mapbox://styles/mapbox/dark-v9"
                         onViewportChange={this.onViewportChange}
                     >
+                        {/* Popup */}
+                        {this.state.popupInfo && (
+                            <Popup
+                                className="map-spot-popup"
+                                longitude={popupInfo.location.longitude}
+                                latitude={popupInfo.location.latitude}
+                                onClose={this.onPopupclose}
+                            >
+                                {popupInfo.name}
+                            </Popup>
+                        )}
+
+                        {/* Heatmap overlay */}
                         <HeatmapOverlay
                             locations={clusters}
                             {...this.state.viewport}
@@ -347,7 +368,8 @@ class MapContainer extends React.Component<Props, State> {
                                 '#fcffa4',
                             ])}
                         />
-                        {/* Define gradients here */}
+
+                        {/* Define svg gradients here */}
                         <div id="map-gradients">
                             <svg width="0" height="0">
                                 <defs>
@@ -383,7 +405,11 @@ class MapContainer extends React.Component<Props, State> {
                                 </defs>
                             </svg>
                         </div>
+
+                        {/* Marker */}
                         {markers}
+
+                        {/* Controller */}
                         <div style={{ position: 'absolute', right: '1rem', bottom: '2rem' }}>
                             <GeolocateControl
                                 style={{ marginBottom: '1rem' }}
@@ -469,6 +495,20 @@ class MapContainer extends React.Component<Props, State> {
             return 0.25;
         }
         return ratio;
+    };
+
+    private onPopupclose = () => {
+        this.setState({
+            popupInfo: null,
+            spotMarkerClicked: null,
+        });
+    };
+
+    private onSpotMarkerClick = (spot: Spot) => {
+        this.setState({
+            popupInfo: spot,
+            spotMarkerClicked: spot.id,
+        });
     };
 }
 

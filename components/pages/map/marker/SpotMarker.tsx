@@ -22,15 +22,25 @@ type Props = {
         zoom: number;
     };
     fitBounds: (b1: [number, number], b2: [number, number]) => void;
+    onSpotMarkerClick: (spot: Spot) => void;
+    spotMarkerClicked?: string;
 };
 
 type State = {
-    firing: boolean;
+    firing?: boolean;
+    isClicked: boolean;
 };
 
 class SpotMarker extends React.Component<Props, State> {
+    public static getDerivedStateFromProps(nextProps: Readonly<Props>): State {
+        return {
+            isClicked: nextProps.spotMarkerClicked === nextProps.spot.id ? true : false,
+        };
+    }
+
     public state: State = {
         firing: false,
+        isClicked: false,
     };
 
     public componentDidMount() {
@@ -41,13 +51,15 @@ class SpotMarker extends React.Component<Props, State> {
 
     public render() {
         const { spot } = this.props;
-        const { firing } = this.state;
+        const { firing, isClicked } = this.state;
+
         return (
             <Marker
                 latitude={spot.location.latitude}
                 longitude={spot.location.longitude}
                 offsetLeft={-24}
                 offsetTop={-24}
+                className={classNames({ 'map-marker-clicked': isClicked })}
             >
                 <button
                     className={classNames('map-marker', {
@@ -76,7 +88,7 @@ class SpotMarker extends React.Component<Props, State> {
     }
 
     private onMarkerClick = () => {
-        console.log(this.props.spot);
+        this.props.onSpotMarkerClick(this.props.spot);
     };
 }
 

@@ -60,6 +60,9 @@
 	&-marker
 		position: relative
 
+		&-clicked
+			z-index: 100
+
 		&-icon
 			position: relative
 			width: 3rem
@@ -181,6 +184,9 @@
 
 			&-shape
 				fill: url('#map-gradients-iconic') $private
+
+	&-spot-popup
+		z-index: 10000
 
 
 @keyframes bounceActivity
