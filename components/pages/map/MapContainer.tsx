@@ -93,12 +93,19 @@ class MapContainer extends React.Component<Props, State> {
                         {/* Popup */}
                         {this.state.popupInfo && (
                             <Popup
-                                className="map-spot-popup"
+                                className="map-popup-spot"
                                 longitude={popupInfo.location.longitude}
                                 latitude={popupInfo.location.latitude}
                                 onClose={this.onPopupclose}
+                                tipSize={8}
                             >
-                                {popupInfo.name}
+                                <h4 className="map-popup-spot-name">{popupInfo.name}</h4>
+                                {popupInfo.coverURL && (
+                                    <div
+                                        className="map-popup-spot-cover"
+                                        style={{ backgroundImage: `url("${popupInfo.coverURL}")` }}
+                                    />
+                                )}
                             </Popup>
                         )}
 
