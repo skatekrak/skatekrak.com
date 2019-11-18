@@ -98,6 +98,7 @@ class MapContainer extends React.Component<Props, State> {
                                 latitude={popupInfo.location.latitude}
                                 onClose={this.onPopupclose}
                                 tipSize={8}
+                                closeButton={false}
                             >
                                 <h4 className="map-popup-spot-name">{popupInfo.name}</h4>
                                 {popupInfo.coverURL && (
