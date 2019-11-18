@@ -4,7 +4,14 @@ import * as Immutable from 'immutable';
 import getConfig from 'next/config';
 import dynamic from 'next/dynamic';
 import React from 'react';
-import ReactMapGL, { GeolocateControl, InteractiveMap, NavigationControl, PointerEvent, Popup } from 'react-map-gl';
+import ReactMapGL, {
+    FullscreenControl,
+    GeolocateControl,
+    InteractiveMap,
+    NavigationControl,
+    PointerEvent,
+    Popup,
+} from 'react-map-gl';
 import WebMercatorViewport, { getDistanceScales } from 'viewport-mercator-project';
 
 const HeatmapOverlay = dynamic<any>(() => import('react-map-gl-heatmap-overlay'), { ssr: false });
@@ -99,6 +106,7 @@ class MapContainer extends React.Component<Props, State> {
                                 onClose={this.onPopupclose}
                                 tipSize={8}
                                 closeButton={false}
+                                closeOnClick={false}
                             >
                                 <h4 className="map-popup-spot-name">{popupInfo.name}</h4>
                                 {popupInfo.coverURL && (
@@ -418,9 +426,13 @@ class MapContainer extends React.Component<Props, State> {
                         {markers}
 
                         {/* Controller */}
-                        <div style={{ position: 'absolute', right: '1rem', bottom: '2rem' }}>
+                        <FullscreenControl
+                            container={document.querySelector('map-container')}
+                            className="map-control-fullscreen"
+                        />
+                        <div className="map-control-container">
                             <GeolocateControl
-                                style={{ marginBottom: '1rem' }}
+                                className="map-control-geolocalisation"
                                 positionOptions={{ enableHighAccuracy: false }}
                                 trackUserLocation={true}
                             />
