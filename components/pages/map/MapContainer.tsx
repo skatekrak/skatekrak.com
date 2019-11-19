@@ -426,10 +426,10 @@ class MapContainer extends React.Component<Props, State> {
                         {markers}
 
                         {/* Controller */}
-                        <FullscreenControl
-                            container={document.querySelector('map-container')}
+                        {/* <FullscreenControl
+                            container={document.querySelector('#map-container')}
                             className="map-control-fullscreen"
-                        />
+                        /> */}
                         <div className="map-control-container">
                             <GeolocateControl
                                 className="map-control-geolocalisation"
