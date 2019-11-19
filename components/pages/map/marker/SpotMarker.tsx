@@ -81,7 +81,7 @@ class SpotMarker extends React.Component<Props, State> {
                             ))}
                         </div>
                     )}
-                    {spot.mediasStat.all > 1 && <Activity firing={firing} />}
+                    {spot.mediasStat.all > 3 && <Activity firing={firing} />}
                 </button>
             </Marker>
         );
