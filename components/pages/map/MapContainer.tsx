@@ -270,18 +270,50 @@ class MapContainer extends React.Component<Props, State> {
 
     // Compute size of the cluster
     private heatmapSizeAccessor = (cluster: Cluster) => {
+        let heatmapSizeMultiplier: number;
+
+        if (this.state.viewport.zoom >= MIN_ZOOM_LEVEL) {
+            heatmapSizeMultiplier = 15;
+        }
+
+        if (this.state.viewport.zoom >= 6) {
+            heatmapSizeMultiplier = 40;
+        }
+
+        if (this.state.viewport.zoom >= 8) {
+            heatmapSizeMultiplier = 30;
+        }
+
+        if (this.state.viewport.zoom >= 11) {
+            heatmapSizeMultiplier = 50;
+        }
+
         const latDeg = Math.abs(cluster.minLatitude - cluster.maxLatitude);
         const lngDeg = Math.abs(cluster.minLongitude - cluster.maxLongitude);
 
         const [lngPxPerDeg, latPxPerDeg] = this.state.pixelsPerDegree;
 
-        return Math.max(lngDeg * lngPxPerDeg, latDeg * latPxPerDeg, 50);
+        return Math.max(lngDeg * lngPxPerDeg, latDeg * latPxPerDeg, heatmapSizeMultiplier);
     };
 
     private heatmapIntensityAccessor = (cluster: Cluster) => {
-        const ratio = cluster.count / this.state.clusterMaxSpots - 0.4;
-        if (ratio < 0.1) {
-            return 0.1;
+        let ratioReducer: number;
+
+        if (this.state.viewport.zoom >= MIN_ZOOM_LEVEL) {
+            ratioReducer = 0.6;
+        }
+
+        if (this.state.viewport.zoom >= 6) {
+            ratioReducer = 0.4;
+        }
+
+        if (this.state.viewport.zoom >= 8) {
+            ratioReducer = 0.8;
+        }
+
+        const ratio = cluster.count / this.state.clusterMaxSpots - ratioReducer;
+        if (ratio < 0.115) {
+            return 0.115;
         }
         return ratio;
     };
