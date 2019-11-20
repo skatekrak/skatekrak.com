@@ -1,5 +1,6 @@
 import Analytics from '@thepunkclub/analytics';
 import axios from 'axios';
+import classNames from 'classnames';
 import * as Immutable from 'immutable';
 import getConfig from 'next/config';
 import dynamic from 'next/dynamic';
@@ -20,6 +21,13 @@ import { Cluster, Spot } from 'carrelage';
 import SpotMarker from 'components/pages/map/marker/SpotMarker';
 
 import 'mapbox-gl/dist/mapbox-gl.css';
+import { string } from 'prop-types';
+
+interface MostLikedMedia {
+    image?: {
+        url: string;
+    };
+}
 
 type Props = {};
 type State = {
@@ -32,6 +40,7 @@ type State = {
     clusters: Cluster[];
     clusterMaxSpots: number;
     popupInfo: Spot;
+    popupImage?: string;
     spotMarkerClicked?: string;
 };
 
@@ -60,7 +69,7 @@ class MapContainer extends React.Component<Props, State> {
     }
 
     public render() {
-        const { popupInfo, spotMarkerClicked } = this.state;
+        const { popupInfo, popupImage, spotMarkerClicked } = this.state;
 
         const clusters = [];
         const markers = [];
@@ -99,7 +108,7 @@ class MapContainer extends React.Component<Props, State> {
                         onClick={this.onPopupclose}
                     >
                         {/* Popup */}
-                        {this.state.popupInfo && (
+                        {popupInfo && (
                             <Popup
                                 className="map-popup-spot"
                                 longitude={popupInfo.location.longitude}
@@ -109,12 +118,20 @@ class MapContainer extends React.Component<Props, State> {
                                 closeButton={false}
                                 closeOnClick={false}
                             >
-                                <h4 className="map-popup-spot-name">{popupInfo.name}</h4>
-                                {popupInfo.coverURL && (
-                                    <div
-                                        className="map-popup-spot-cover"
-                                        style={{ backgroundImage: `url("${popupInfo.coverURL}")` }}
-                                    />
+                                <h4
+                                    className={classNames('map-popup-spot-name', {
+                                        'map-popup-spot-name-center': !popupImage,
+                                    })}
+                                >
+                                    {popupInfo.name}
+                                </h4>
+                                {popupImage && (
+                                    <div className="map-popup-spot-cover-container">
+                                        <div
+                                            className="map-popup-spot-cover"
+                                            style={{ backgroundImage: `url("${popupImage}")` }}
+                                        />
+                                    </div>
                                 )}
                             </Popup>
                         )}
@@ -272,11 +289,49 @@ class MapContainer extends React.Component<Props, State> {
         });
     };
 
-    private onSpotMarkerClick = (spot: Spot) => {
+    private onSpotMarkerClick = async (spot: Spot) => {
         this.setState({
             popupInfo: spot,
             spotMarkerClicked: spot.id,
         });
+
+        try {
+            const res = await axios.get(`${getConfig().publicRuntimeConfig.CARRELAGE_URL}/spots/${spot.id}/overview`);
+
+            if (res.data) {
+                const { medias } = res.data;
+
+                if (medias.length === 0) {
+                    this.setState({
+                        popupImage: null,
+                    });
+
+                    return;
+                }
+
+                let mostLikedMedia: MostLikedMedia = {};
+
+                const getMostLikedMedia = (acc, media, index) => {
+                    if (index === 0) {
+                        return media;
+                    }
+
+                    if (media.likes.length > acc.likes.length) {
+                        return media;
+                    }
+
+                    return acc;
+                };
+
+                mostLikedMedia = medias.reduce(getMostLikedMedia, medias);
+
+                this.setState({
+                    popupImage: mostLikedMedia.image.url,
+                });
+            }
+        } catch (err) {
+            // console.log(err);
+        }
     };
 }
 
