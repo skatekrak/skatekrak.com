@@ -318,8 +318,12 @@ class MapContainer extends React.Component<Props, State> {
 
                 let mostLikedMedia: MostLikedMedia = {};
 
-                const getMostLikedMedia = (acc, media, index) => {
+                const getMostLikedMedia = (acc, media, index, array) => {
                     if (index === 0) {
+                        return media;
+                    }
+
+                    if (acc.type === 'video') {
                         return media;
                     }
 
@@ -327,7 +331,11 @@ class MapContainer extends React.Component<Props, State> {
                         return media;
                     }
 
-                    return acc;
+                    if (array.length === index + 1 && media.type === 'video') {
+                        return null;
+                    } else {
+                        return acc;
+                    }
                 };
 
                 mostLikedMedia = medias.reduce(getMostLikedMedia, medias);
