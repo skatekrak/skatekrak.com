@@ -41,6 +41,7 @@ type State = {
     clusterMaxSpots: number;
     popupInfo: Spot;
     popupImage?: string;
+    isPopupImageLoading: boolean;
     spotMarkerClicked?: string;
 };
 
@@ -58,6 +59,7 @@ class MapContainer extends React.Component<Props, State> {
         clusters: [],
         clusterMaxSpots: 1,
         popupInfo: null,
+        isPopupImageLoading: false,
         spotMarkerClicked: null,
     };
 
@@ -69,7 +71,7 @@ class MapContainer extends React.Component<Props, State> {
     }
 
     public render() {
-        const { popupInfo, popupImage, spotMarkerClicked } = this.state;
+        const { popupInfo, isPopupImageLoading, popupImage, spotMarkerClicked } = this.state;
 
         const clusters = [];
         const markers = [];
@@ -127,10 +129,12 @@ class MapContainer extends React.Component<Props, State> {
                                 </h4>
                                 {popupImage && (
                                     <div className="map-popup-spot-cover-container">
-                                        <div
-                                            className="map-popup-spot-cover"
-                                            style={{ backgroundImage: `url("${popupImage}")` }}
-                                        />
+                                        {!isPopupImageLoading && (
+                                            <div
+                                                className="map-popup-spot-cover"
+                                                style={{ backgroundImage: `url("${popupImage}")` }}
+                                            />
+                                        )}
                                     </div>
                                 )}
                             </Popup>
@@ -286,11 +290,13 @@ class MapContainer extends React.Component<Props, State> {
         this.setState({
             popupInfo: null,
             spotMarkerClicked: null,
+            popupImage: null,
         });
     };
 
     private onSpotMarkerClick = async (spot: Spot) => {
         this.setState({
+            isPopupImageLoading: true,
             popupInfo: spot,
             spotMarkerClicked: spot.id,
         });
@@ -304,6 +310,7 @@ class MapContainer extends React.Component<Props, State> {
                 if (medias.length === 0) {
                     this.setState({
                         popupImage: null,
+                        isPopupImageLoading: false,
                     });
 
                     return;
@@ -326,6 +333,7 @@ class MapContainer extends React.Component<Props, State> {
                 mostLikedMedia = medias.reduce(getMostLikedMedia, medias);
 
                 this.setState({
+                    isPopupImageLoading: false,
                     popupImage: mostLikedMedia.image.url,
                 });
             }
