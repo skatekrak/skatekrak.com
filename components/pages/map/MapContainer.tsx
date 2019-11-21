@@ -27,6 +27,10 @@ interface MostLikedMedia {
     image?: {
         url: string;
     };
+
+    type?: string;
+
+    likes?: any[];
 }
 
 type Props = {};
@@ -348,33 +352,24 @@ class MapContainer extends React.Component<Props, State> {
                     return;
                 }
 
-                let mostLikedMedia: MostLikedMedia = {};
+                const mediasWithoutVideo = medias.filter((media) => media.type !== 'video');
 
-                const getMostLikedMedia = (acc, media, index, array) => {
-                    if (index === 0) {
-                        return media;
-                    }
+                if (mediasWithoutVideo.length > 0) {
+                    const mostLikedMedia: MostLikedMedia = mediasWithoutVideo.reduce((likest, media) => {
+                        return (likest.likes.length || 0) > media.likes.length ? likest : media;
+                    }, mediasWithoutVideo[0]);
 
-                    if (acc.type === 'video') {
-                        return media;
-                    }
-
-                    if (media.likes.length > acc.likes.length) {
-                        return media;
-                    }
-
-                    if (array.length === index + 1 && media.type === 'video') {
-                        return null;
-                    } else {
-                        return acc;
-                    }
-                };
-
-                mostLikedMedia = medias.reduce(getMostLikedMedia, medias);
+                    this.setState({
+                        popupImage: mostLikedMedia.image.url,
+                    });
+                } else {
+                    this.setState({
+                        popupImage: null,
+                    });
+                }
 
                 this.setState({
                     isPopupImageLoading: false,
-                    popupImage: mostLikedMedia.image.url,
                 });
             }
         } catch (err) {
