@@ -10,6 +10,7 @@ import IconPrivate from 'components/pages/map/marker/icons/Private';
 import IconRip from 'components/pages/map/marker/icons/Rip';
 import IconShop from 'components/pages/map/marker/icons/Shop';
 import IconStreet from 'components/pages/map/marker/icons/Street';
+import IconWip from 'components/pages/map/marker/icons/Wip';
 
 import BadgeIconic from 'components/pages/map/marker/badges/Iconic';
 
@@ -70,6 +71,7 @@ class SpotMarker extends React.Component<Props, State> {
                 >
                     <div className="map-marker-icon">
                         {spot.status === 'rip' && <IconRip />}
+                        {spot.status === 'wip' && <IconWip />}
                         {spot.status === 'active' && [
                             spot.type === 'street' && <IconStreet />,
                             spot.type === 'park' && <IconPark />,
