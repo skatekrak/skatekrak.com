@@ -56,6 +56,11 @@
 				stop-color: $ripMid
 			& .stop-bottom
 				stop-color: $ripDark
+		&-wip
+			& .stop-top
+				stop-color: $wip
+			& .stop-bottom
+				stop-color: $wipDark
 
 .mapboxgl-marker
 	display: flex
@@ -178,6 +183,13 @@
 		&-rip
 			&-fill
 				fill: url('#map-gradients-rip') $rip
+
+		&-wip
+			&-fill
+				fill: url('#map-gradients-wip') $wip
+			&-details
+				fill: #FEEA34
+
 
 	&-badge
 		overflow: visible
