@@ -183,6 +183,11 @@ class MapContainer extends React.Component<Props, State> {
                                         <stop offset="0%" className="stop-top" />
                                         <stop offset="100%" className="stop-bottom" />
                                     </linearGradient>
+                                    <linearGradient id="map-gradients-rip" x1="0" x2="0" y1="0" y2="1">
+                                        <stop offset="0%" className="stop-top" />
+                                        <stop offset="60%" className="stop-2" />
+                                        <stop offset="100%" className="stop-bottom" />
+                                    </linearGradient>
                                     {/* Badge */}
                                     <linearGradient id="map-gradients-iconic" x1="0" x2="0" y1="0" y2="1">
                                         <stop offset="0%" stopColor="#FFEB38" />

@@ -49,6 +49,14 @@
 			& .stop-bottom
 				stop-color: $diyDark
 
+		&-rip
+			& .stop-top
+				stop-color: $rip
+			& .stop-2
+				stop-color: $ripMid
+			& .stop-bottom
+				stop-color: $ripDark
+
 .mapboxgl-marker
 	display: flex
 
@@ -147,7 +155,6 @@
 			&-outter
 				fill: $grey-100
 
-
 		&-street
 			&-fill
 				fill: url('#map-gradients-street') $street
@@ -167,6 +174,10 @@
 		&-diy
 			&-fill
 				fill: url('#map-gradients-diy') $diy
+
+		&-rip
+			&-fill
+				fill: url('#map-gradients-rip') $rip
 
 	&-badge
 		overflow: visible
