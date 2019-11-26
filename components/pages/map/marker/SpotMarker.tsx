@@ -29,6 +29,7 @@ type Props = {
 };
 
 type State = {
+    active?: boolean;
     firing?: boolean;
     isClicked: boolean;
 };
@@ -41,11 +42,16 @@ class SpotMarker extends React.Component<Props, State> {
     }
 
     public state: State = {
+        active: false,
         firing: false,
         isClicked: false,
     };
 
     public componentDidMount() {
+        if (this.props.spot.mediasStat.all > 3) {
+            this.setState({ active: true });
+        }
+
         if (this.props.spot.mediasStat.all >= 10) {
             this.setState({ firing: true });
         }
@@ -53,7 +59,7 @@ class SpotMarker extends React.Component<Props, State> {
 
     public render() {
         const { spot } = this.props;
-        const { firing, isClicked } = this.state;
+        const { active, firing, isClicked } = this.state;
 
         return (
             <Marker
@@ -61,7 +67,11 @@ class SpotMarker extends React.Component<Props, State> {
                 longitude={spot.location.longitude}
                 offsetLeft={-24}
                 offsetTop={-24}
-                className={classNames({ 'map-marker-clicked': isClicked })}
+                className={classNames({
+                    'map-marker-clicked': isClicked,
+                    'map-marker-active': active && !firing,
+                    'map-marker-firing': firing,
+                })}
             >
                 <button
                     className={classNames('map-marker', {
@@ -70,14 +80,14 @@ class SpotMarker extends React.Component<Props, State> {
                     onClick={this.onMarkerClick}
                 >
                     <div className="map-marker-icon">
-                        {spot.status === 'rip' && <IconRip />}
-                        {spot.status === 'wip' && <IconWip />}
+                        {spot.status === 'rip' && <IconRip key={spot.id} />}
+                        {spot.status === 'wip' && <IconWip key={spot.id} />}
                         {spot.status === 'active' && [
-                            spot.type === 'street' && <IconStreet />,
-                            spot.type === 'park' && <IconPark />,
-                            spot.type === 'shop' && <IconShop />,
-                            spot.type === 'private' && <IconPrivate />,
-                            spot.type === 'diy' && <IconDiy />,
+                            spot.type === 'street' && <IconStreet key={spot.id} />,
+                            spot.type === 'park' && <IconPark key={spot.id} />,
+                            spot.type === 'shop' && <IconShop key={spot.id} />,
+                            spot.type === 'private' && <IconPrivate key={spot.id} />,
+                            spot.type === 'diy' && <IconDiy key={spot.id} />,
                         ]}
                     </div>
                     {spot.tags.length !== 0 && (
@@ -87,7 +97,7 @@ class SpotMarker extends React.Component<Props, State> {
                             ))}
                         </div>
                     )}
-                    {spot.mediasStat.all > 3 && <Activity firing={firing} />}
+                    {active && <Activity firing={firing} />}
                 </button>
             </Marker>
         );
