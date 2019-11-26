@@ -7,6 +7,7 @@ import { Marker } from 'react-map-gl';
 import IconDiy from 'components/pages/map/marker/icons/Diy';
 import IconPark from 'components/pages/map/marker/icons/Park';
 import IconPrivate from 'components/pages/map/marker/icons/Private';
+import IconRip from 'components/pages/map/marker/icons/Rip';
 import IconShop from 'components/pages/map/marker/icons/Shop';
 import IconStreet from 'components/pages/map/marker/icons/Street';
 
@@ -68,11 +69,14 @@ class SpotMarker extends React.Component<Props, State> {
                     onClick={this.onMarkerClick}
                 >
                     <div className="map-marker-icon">
-                        {spot.type === 'street' && <IconStreet />}
-                        {spot.type === 'park' && <IconPark />}
-                        {spot.type === 'shop' && <IconShop />}
-                        {spot.type === 'private' && <IconPrivate />}
-                        {spot.type === 'diy' && <IconDiy />}
+                        {spot.status === 'rip' && <IconRip />}
+                        {spot.status === 'active' && [
+                            spot.type === 'street' && <IconStreet />,
+                            spot.type === 'park' && <IconPark />,
+                            spot.type === 'shop' && <IconShop />,
+                            spot.type === 'private' && <IconPrivate />,
+                            spot.type === 'diy' && <IconDiy />,
+                        ]}
                     </div>
                     {spot.tags.length !== 0 && (
                         <div className="map-marker-badges">
