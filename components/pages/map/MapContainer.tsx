@@ -229,29 +229,31 @@ class MapContainer extends React.Component<Props, State> {
     private load() {
         clearTimeout(this.loadTimeout);
         this.loadTimeout = setTimeout(async () => {
-            const map = this.mapRef.current.getMap();
-            const bounds = map.getBounds();
-            const northEast = bounds.getNorthEast();
-            const southWest = bounds.getSouthWest();
+            if (this.mapRef.current) {
+                const map = this.mapRef.current.getMap();
+                const bounds = map.getBounds();
+                const northEast = bounds.getNorthEast();
+                const southWest = bounds.getSouthWest();
 
-            const res = await axios.get(`${getConfig().publicRuntimeConfig.CARRELAGE_URL}/spots/search`, {
-                params: {
-                    clustering: true,
-                    northEastLatitude: northEast.lat,
-                    northEastLongitude: northEast.lng,
-                    southWestLatitude: southWest.lat,
-                    southWestLongitude: southWest.lng,
-                },
-            });
+                const res = await axios.get(`${getConfig().publicRuntimeConfig.CARRELAGE_URL}/spots/search`, {
+                    params: {
+                        clustering: true,
+                        northEastLatitude: northEast.lat,
+                        northEastLongitude: northEast.lng,
+                        southWestLatitude: southWest.lat,
+                        southWestLongitude: southWest.lng,
+                    },
+                });
 
-            const clusters = res.data as Cluster[];
-            let clusterMaxSpots = 1;
-            for (const cluster of clusters) {
-                if (clusterMaxSpots < cluster.count) {
-                    clusterMaxSpots = cluster.count;
+                const clusters = res.data as Cluster[];
+                let clusterMaxSpots = 1;
+                for (const cluster of clusters) {
+                    if (clusterMaxSpots < cluster.count) {
+                        clusterMaxSpots = cluster.count;
+                    }
                 }
+                this.setState({ clusters, clusterMaxSpots });
             }
-            this.setState({ clusters, clusterMaxSpots });
         }, 200);
     }
 
