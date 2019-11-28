@@ -16,9 +16,15 @@ services:
       - traefik.port=3000
     env_file: .env
     volumes:
-      - ~/.npmrc:/app/.npmrc:ro
       - ./:/app:delegated
+      - ~/.npmrc:/app/.npmrc:ro
+      - skatekrak-next:/app/.next
+      - skatekrak-node_modules:/app/node_modules
 
 networks:
   web:
     external: true
+
+volumes:
+  skatekrak-next: null
+  skatekrak-node_modules: null
