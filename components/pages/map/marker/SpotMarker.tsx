@@ -92,9 +92,12 @@ class SpotMarker extends React.Component<Props, State> {
                     </div>
                     {spot.tags.length !== 0 && (
                         <div className="map-marker-badges">
-                            {spot.tags.map((tag) => (
-                                <BadgeIconic key={tag} />
-                            ))}
+                            {spot.tags.map((tag) => {
+                                if (tag === 'famous') {
+                                    return <BadgeIconic key={tag} />;
+                                }
+                                return;
+                            })}
                         </div>
                     )}
                     {active && <Activity firing={firing} />}
