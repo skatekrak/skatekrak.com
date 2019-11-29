@@ -30,7 +30,7 @@ const Header = () => {
             id="header"
             className={classNames({
                 'header-dark': router.pathname === '/app',
-                'header-white': router.pathname === '/shop',
+                'header-white': router.pathname === '/shop' || router.pathname === '/map',
             })}
         >
             <div id="header-top">

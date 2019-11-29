@@ -19,6 +19,7 @@ const HeatmapOverlay = dynamic<any>(() => import('react-map-gl-heatmap-overlay')
 
 import { Cluster, Spot } from 'carrelage';
 import SpotMarker from 'components/pages/map/marker/SpotMarker';
+import BannerTop from 'components/Ui/Banners/BannerTop';
 
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { string } from 'prop-types';
@@ -100,6 +101,11 @@ class MapContainer extends React.Component<Props, State> {
 
         return (
             <div id="map-container">
+                <BannerTop
+                    offsetScroll={false}
+                    link="/app"
+                    text="The world is our playground. Download the app & help us enrich this map."
+                />
                 <div id="map">
                     <ReactMapGL
                         ref={this.mapRef}

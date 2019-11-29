@@ -5,14 +5,29 @@
 /* MAP PAGE STYLES */
 #map
 	position: absolute
-	top: 0
+	top: -10rem
 	right: 0
 	bottom: 0
 	left: 0
 	background-color: $grey-800
 
+	+mq($from: "small")
+		top: -15rem
+
+	+mq($from: "medium")
+		top: 0
+
 	&-container
 		flex-grow: 1
+
+		& #banner-top
+			top: 6rem
+
+			+mq($from: "small")
+				top: 12rem
+
+			+mq($from: "medium")
+				top: 0
 
 	&-gradients
 		height: 0
@@ -266,6 +281,7 @@
 			position: absolute
 			right: 2rem
 			bottom: 2rem
+			z-index: 10000
 
 		&-geolocalisation
 			margin-bottom: 1rem
