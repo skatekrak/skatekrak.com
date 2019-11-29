@@ -11,6 +11,7 @@ import MapContainer from 'components/pages/map/MapContainer';
 
 import Layout from 'components/Layout/Layout';
 import TrackedPage from 'components/pages/TrackedPage';
+import BannerTop from 'components/Ui/Banners/BannerTop';
 
 const MapHead = () => {
     const baseURL = getConfig().publicRuntimeConfig.WEBSITE_URL;
@@ -30,6 +31,11 @@ const MapHead = () => {
 const Map: NextPage = () => (
     <TrackedPage name="Map">
         <Layout head={<MapHead />}>
+            <BannerTop
+                offsetScroll={false}
+                link="/app"
+                text="The world is our playground. Download the app & help us enrich this map."
+            />
             <MapContainer />
         </Layout>
     </TrackedPage>
