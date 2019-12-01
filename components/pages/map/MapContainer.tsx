@@ -1,7 +1,6 @@
 import Analytics from '@thepunkclub/analytics';
 import axios from 'axios';
 import classNames from 'classnames';
-import * as Immutable from 'immutable';
 import getConfig from 'next/config';
 import dynamic from 'next/dynamic';
 import React from 'react';
@@ -15,9 +14,8 @@ import ReactMapGL, {
 } from 'react-map-gl';
 import WebMercatorViewport, { getDistanceScales } from 'viewport-mercator-project';
 
-const HeatmapOverlay = dynamic<any>(() => import('react-map-gl-heatmap-overlay'), { ssr: false });
-
 import { Cluster, Spot } from 'carrelage';
+import SpotCluster from 'components/pages/map/marker/SpotCluster';
 import SpotMarker from 'components/pages/map/marker/SpotMarker';
 import BannerTop from 'components/Ui/Banners/BannerTop';
 
@@ -95,7 +93,9 @@ class MapContainer extends React.Component<Props, State> {
                     );
                 });
             } else {
-                clusters.push(cluster);
+                markers.push(
+                    <SpotCluster key={cluster.id} cluster={cluster} viewportZoom={this.state.viewport.zoom} />,
+                );
             }
         }
 
@@ -149,20 +149,6 @@ class MapContainer extends React.Component<Props, State> {
                                 )}
                             </Popup>
                         )}
-
-                        {/* Heatmap overlay */}
-                        <HeatmapOverlay
-                            locations={clusters}
-                            {...this.state.viewport}
-                            lngLatAccessor={this.heatmapLngLatAccessor}
-                            sizeAccessor={this.heatmapSizeAccessor}
-                            intensityAccessor={this.heatmapIntensityAccessor}
-                            gradientColors={Immutable.List([
-                                'rgba(255, 173, 85, 0.05)',
-                                'rgba(255, 89, 44, 0.1)',
-                                'rgba(255, 0, 0, 0.1)',
-                            ])}
-                        />
 
                         {/* Define svg gradients here */}
                         <div id="map-gradients">
@@ -283,60 +269,6 @@ class MapContainer extends React.Component<Props, State> {
             pixelsPerDegree: getDistanceScales(viewport).pixelsPerDegree,
         });
         this.load();
-    };
-
-    private heatmapLngLatAccessor = (cluster: Cluster) => {
-        return [cluster.longitude, cluster.latitude];
-    };
-
-    // Compute size of the cluster
-    private heatmapSizeAccessor = (cluster: Cluster) => {
-        let heatmapSizeMultiplier: number;
-
-        if (this.state.viewport.zoom >= MIN_ZOOM_LEVEL) {
-            heatmapSizeMultiplier = 15;
-        }
-
-        if (this.state.viewport.zoom >= 6) {
-            heatmapSizeMultiplier = 40;
-        }
-
-        if (this.state.viewport.zoom >= 8) {
-            heatmapSizeMultiplier = 30;
-        }
-
-        if (this.state.viewport.zoom >= 11) {
-            heatmapSizeMultiplier = 50;
-        }
-
-        const latDeg = Math.abs(cluster.minLatitude - cluster.maxLatitude);
-        const lngDeg = Math.abs(cluster.minLongitude - cluster.maxLongitude);
-
-        const [lngPxPerDeg, latPxPerDeg] = this.state.pixelsPerDegree;
-
-        return Math.max(lngDeg * lngPxPerDeg, latDeg * latPxPerDeg, heatmapSizeMultiplier);
-    };
-
-    private heatmapIntensityAccessor = (cluster: Cluster) => {
-        let ratioReducer: number;
-
-        if (this.state.viewport.zoom >= MIN_ZOOM_LEVEL) {
-            ratioReducer = 0.6;
-        }
-
-        if (this.state.viewport.zoom >= 6) {
-            ratioReducer = 0.4;
-        }
-
-        if (this.state.viewport.zoom >= 8) {
-            ratioReducer = 0.8;
-        }
-
-        const ratio = cluster.count / this.state.clusterMaxSpots - ratioReducer;
-        if (ratio < 0.115) {
-            return 0.115;
-        }
-        return ratio;
     };
 
     private onPopupclose = () => {
