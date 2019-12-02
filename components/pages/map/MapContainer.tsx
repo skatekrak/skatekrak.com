@@ -12,15 +12,18 @@ import ReactMapGL, {
     PointerEvent,
     Popup,
 } from 'react-map-gl';
+import { connect } from 'react-redux';
 import WebMercatorViewport, { getDistanceScales } from 'viewport-mercator-project';
-
-import { Cluster, Spot } from 'carrelage';
-import SpotCluster from 'components/pages/map/marker/SpotCluster';
-import SpotMarker from 'components/pages/map/marker/SpotMarker';
-import BannerTop from 'components/Ui/Banners/BannerTop';
 
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { string } from 'prop-types';
+import Types from 'Types';
+
+import { Cluster, Spot } from 'carrelage';
+
+import SpotCluster from 'components/pages/map/marker/SpotCluster';
+import SpotMarker from 'components/pages/map/marker/SpotMarker';
+import BannerTop from 'components/Ui/Banners/BannerTop';
 
 interface MostLikedMedia {
     image?: {
@@ -32,7 +35,10 @@ interface MostLikedMedia {
     likes?: any[];
 }
 
-type Props = {};
+type Props = {
+    isMobile: boolean;
+};
+
 type State = {
     viewport: {
         latitude: number;
@@ -75,6 +81,7 @@ class MapContainer extends React.Component<Props, State> {
 
     public render() {
         const { popupInfo, isPopupImageLoading, popupImage, spotMarkerClicked } = this.state;
+        const { isMobile } = this.props;
 
         const clusters = [];
         const markers = [];
@@ -100,7 +107,20 @@ class MapContainer extends React.Component<Props, State> {
         }
 
         return (
-            <div id="map-container">
+            <div
+                id="map-container"
+                className={classNames({
+                    'map-mobile': isMobile,
+                })}
+            >
+                {isMobile && (
+                    <div id="map-mobile-message">
+                        If you wanna enjoy our skatespots map and you're currently on your mobile, best way is to{' '}
+                        <a href="/app" id="map-mobile-message-link">
+                            download the app
+                        </a>
+                    </div>
+                )}
                 <BannerTop
                     offsetScroll={false}
                     link="/app"
@@ -327,4 +347,8 @@ class MapContainer extends React.Component<Props, State> {
     };
 }
 
-export default MapContainer;
+// export default MapContainer;
+
+export default connect(({ settings }: Types.RootState) => ({
+    isMobile: settings.isMobile,
+}))(MapContainer);

@@ -5,29 +5,38 @@
 /* MAP PAGE STYLES */
 #map
 	position: absolute
-	top: -10rem
+	top: 0
 	right: 0
 	bottom: 0
 	left: 0
-	background-color: $grey-800
-
-	+mq($from: "small")
-		top: -15rem
-
-	+mq($from: "medium")
-		top: 0
 
 	&-container
 		flex-grow: 1
+		display: flex
+		margin-top: -12rem
+		background-color: $grey-800
 
-		& #banner-top
-			top: 6rem
+		+mq($from: "medium")
+			margin-top: 0
+
+	&-mobile
+		&-message
+			margin: auto
+			padding: 6rem 2rem 0
+			text-align: center
+			line-height: 1.6
+			color: $grey-200
 
 			+mq($from: "small")
-				top: 12rem
+				padding: 6rem 8rem 0
 
-			+mq($from: "medium")
-				top: 0
+			&-link
+				color: $primary
+				text-decoration: underline
+				transition: .2s
+
+				&:hover
+					color: $primaryDark
 
 	&-gradients
 		height: 0
@@ -84,6 +93,10 @@
 			z-index: 1000
 
 .map
+	&-mobile
+		& #map, & #banner-top
+			display: none !important
+
 	&-marker
 		position: relative
 
