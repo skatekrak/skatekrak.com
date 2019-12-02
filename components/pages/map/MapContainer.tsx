@@ -205,11 +205,11 @@ class MapContainer extends React.Component<Props, State> {
                             className="map-control-fullscreen"
                         /> */}
                         <div className="map-control-container">
-                            <GeolocateControl
+                            {/* <GeolocateControl
                                 className="map-control-geolocalisation"
                                 positionOptions={{ enableHighAccuracy: false }}
                                 trackUserLocation={true}
-                            />
+                            /> */}
                             <NavigationControl />
                         </div>
                     </ReactMapGL>
