@@ -11,6 +11,7 @@
 		flex-direction: column
 		align-items: center
 		justify-content: center
+		padding-bottom: 6rem
 		color: $grey-100
 		background-color: $grey-900
 
@@ -29,7 +30,6 @@
 		flex-direction: column
 		align-items: center
 		width: 100%
-		margin-top: -4rem
 		z-index: 1
 
 	&-illustration
@@ -41,12 +41,15 @@
 			max-width: 200px
 
 	&-title
-		margin: 2.5rem 0 3rem
+		margin: 2rem 0 3rem
 		font-family: $ff-dirty-brush
-		font-size: 3rem
+		font-size: 2.5rem
 		line-height: 1
 		text-align: center
 		transform: rotate(-3deg)
+
+		+mq($from: "medium")
+			font-size: 3rem
 
 		+mq($from: "infinite")
 			font-size: 4rem
