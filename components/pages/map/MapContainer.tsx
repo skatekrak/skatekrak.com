@@ -1,22 +1,17 @@
-import Analytics from '@thepunkclub/analytics';
 import axios from 'axios';
 import classNames from 'classnames';
 import getConfig from 'next/config';
-import dynamic from 'next/dynamic';
 import React from 'react';
 import ReactMapGL, {
-    FullscreenControl,
-    GeolocateControl,
+    // GeolocateControl,
     InteractiveMap,
     NavigationControl,
-    PointerEvent,
     Popup,
 } from 'react-map-gl';
 import { connect } from 'react-redux';
 import WebMercatorViewport, { getDistanceScales } from 'viewport-mercator-project';
 
 import 'mapbox-gl/dist/mapbox-gl.css';
-import { string } from 'prop-types';
 import Types from 'Types';
 
 import { Cluster, Spot } from 'carrelage';

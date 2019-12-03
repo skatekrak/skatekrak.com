@@ -33,24 +33,11 @@ module.exports = withPlugins([withBundleAnalyzer, withCSS, withStylus, withCusto
     },
     serverRuntimeConfig: {},
     webpack: (config, options) => {
-        config.module.rules.push({
-            test: /node_modules.+js$/,
-            loader: 'ify-loader',
-        });
-
         if (options.isServer) {
             config.plugins.push(
-                new ForkTsCheckerWebpackPlugin({
-                    tsconfig: './tsconfig.json',
-                    tslint: './tslint.json',
-                }),
+                new ForkTsCheckerWebpackPlugin({ tsconfig: './tsconfig.json', tslint: './tslint.json' }),
             );
-        } else {
-            config.node = {
-                fs: 'empty',
-            };
         }
-
         return config;
     },
 });
