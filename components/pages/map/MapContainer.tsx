@@ -20,16 +20,6 @@ import SpotCluster from 'components/pages/map/marker/SpotCluster';
 import SpotMarker from 'components/pages/map/marker/SpotMarker';
 import BannerTop from 'components/Ui/Banners/BannerTop';
 
-interface MostLikedMedia {
-    image?: {
-        url: string;
-    };
-
-    type?: string;
-
-    likes?: any[];
-}
-
 type Props = {
     isMobile: boolean;
 };
@@ -305,36 +295,13 @@ class MapContainer extends React.Component<Props, State> {
             const res = await axios.get(`${getConfig().publicRuntimeConfig.CARRELAGE_URL}/spots/${spot.id}/overview`);
 
             if (res.data) {
-                const { medias } = res.data;
+                const { mostLikedMedia } = res.data;
 
-                if (medias.length === 0) {
-                    this.setState({
-                        popupImage: null,
-                        isPopupImageLoading: false,
-                    });
-
-                    return;
-                }
-
-                const mediasWithoutVideo = medias.filter((media) => media.type !== 'video');
-
-                if (mediasWithoutVideo.length > 0) {
-                    const mostLikedMedia: MostLikedMedia = mediasWithoutVideo.reduce((likest, media) => {
-                        return (likest.likes.length || 0) > media.likes.length ? likest : media;
-                    }, mediasWithoutVideo[0]);
-
-                    this.setState({
-                        popupImage: mostLikedMedia.image.url,
-                    });
+                if (!mostLikedMedia) {
+                    this.setState({ popupImage: null, isPopupImageLoading: false });
                 } else {
-                    this.setState({
-                        popupImage: null,
-                    });
+                    this.setState({ popupImage: mostLikedMedia.image.jpg, isPopupImageLoading: false });
                 }
-
-                this.setState({
-                    isPopupImageLoading: false,
-                });
             }
         } catch (err) {
             // console.log(err);
