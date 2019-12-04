@@ -21,8 +21,10 @@ module.exports = withPlugins([withBundleAnalyzer, withCSS, withStylus, withCusto
         RSS_BACKEND_URL: process.env.RSS_BACKEND_URL,
         KRAKMAG_URL: process.env.KRAKMAG_URL,
         TALENT_URL: process.env.TALENT_URL,
+        CARRELAGE_URL: process.env.CARRELAGE_URL,
 
         STRIPE_KEY: process.env.STRIPE_KEY,
+        MAPBOX_ACCESS_TOKEN: process.env.MAPBOX_ACCESS_TOKEN,
 
         CLUB_CONTACT_NAME: process.env.CLUB_CONTACT_NAME,
         IS_QUARTERFULL: process.env.IS_QUARTERFULL === 'true',
@@ -33,10 +35,7 @@ module.exports = withPlugins([withBundleAnalyzer, withCSS, withStylus, withCusto
     webpack: (config, options) => {
         if (options.isServer) {
             config.plugins.push(
-                new ForkTsCheckerWebpackPlugin({
-                    tsconfig: './tsconfig.json',
-                    tslint: './tslint.json',
-                }),
+                new ForkTsCheckerWebpackPlugin({ tsconfig: './tsconfig.json', tslint: './tslint.json' }),
             );
         }
         return config;

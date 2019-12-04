@@ -9,7 +9,7 @@ type Props = {
     onOpenQuarterModal: () => void;
 };
 
-const Monthly = ({ onOpenQuarterModal }: Props) => {
+const Quarterly = ({ onOpenQuarterModal }: Props) => {
     const quarterFull: boolean = getConfig().publicRuntimeConfig.IS_QUARTERFULL;
     return (
         <section id="club-quarterly">
@@ -30,7 +30,7 @@ const Monthly = ({ onOpenQuarterModal }: Props) => {
                     ) : (
                         <>
                             <img
-                                src="https://res.skatekrak.com/static/skatekrak.com/Club/spots-left.png"
+                                src="https://res.skatekrak.com/static/skatekrak.com/Club/6-spots-left.png"
                                 alt="Krak skate club spots left"
                                 id="club-quarterly-main-date-spot"
                             />
@@ -94,4 +94,4 @@ const Monthly = ({ onOpenQuarterModal }: Props) => {
     );
 };
 
-export default Monthly;
+export default Quarterly;

@@ -30,7 +30,7 @@ const Header = () => {
             id="header"
             className={classNames({
                 'header-dark': router.pathname === '/app',
-                'header-white': router.pathname === '/shop',
+                'header-white': router.pathname === '/shop' || router.pathname === '/map',
             })}
         >
             <div id="header-top">
@@ -57,6 +57,7 @@ const Header = () => {
                         <NavItem title="Mag" url="/mag" />
                         <NavItem title="News" url="/news" />
                         <NavItem title="Video" url="/video" />
+                        <NavItem title="Map" url="/map" />
                         <NavItem title="App" url="/app" />
                     </ul>
                 </nav>

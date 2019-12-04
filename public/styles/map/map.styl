@@ -1,0 +1,314 @@
+@import "../stylus-mq"
+@import "../styleguide"
+@import "./map-styleguide"
+
+/* MAP PAGE STYLES */
+#map
+	position: absolute
+	top: 0
+	right: 0
+	bottom: 0
+	left: 0
+
+	&-container
+		flex-grow: 1
+		display: flex
+		margin-top: -12rem
+		background-color: $grey-800
+
+		+mq($from: "medium")
+			margin-top: 0
+
+	&-mobile
+		&-message
+			margin: auto
+			padding: 6rem 2rem 0
+			text-align: center
+			line-height: 1.6
+			color: $grey-200
+
+			+mq($from: "small")
+				padding: 6rem 8rem 0
+
+			&-link
+				color: $primary
+				text-decoration: underline
+				transition: .2s
+
+				&:hover
+					color: $primaryDark
+
+	&-gradients
+		height: 0
+		width: 0
+		opacity: 0
+
+		&-street
+			& .stop-top
+				stop-color: $street
+			& .stop-bottom
+				stop-color: $streetDark
+
+		&-park
+			& .stop-top
+				stop-color: $park
+			& .stop-bottom
+				stop-color: $parkDark
+
+		&-shop
+			& .stop-top
+				stop-color: $shop
+			& .stop-bottom
+				stop-color: $shopDark
+
+		&-private
+			& .stop-top
+				stop-color: $private
+			& .stop-bottom
+				stop-color: $privateDark
+
+		&-diy
+			& .stop-top
+				stop-color: $diy
+			& .stop-bottom
+				stop-color: $diyDark
+
+		&-rip
+			& .stop-top
+				stop-color: $rip
+			& .stop-2
+				stop-color: $ripMid
+			& .stop-bottom
+				stop-color: $ripDark
+		&-wip
+			& .stop-top
+				stop-color: $wip
+			& .stop-bottom
+				stop-color: $wipDark
+
+.mapboxgl-marker
+	display: flex
+
+	&:hover
+			z-index: 1000
+
+.map
+	&-mobile
+		& #map, & #banner-top
+			display: none !important
+
+	&-marker
+		position: relative
+
+		&-active
+			z-index: 25
+
+		&-firing
+			z-index: 50
+
+		&-clicked
+			z-index: 100
+
+		&-icon
+			position: relative
+			width: 3rem
+			height: 3rem
+			z-index: 1
+
+		&-badges
+			position: absolute
+			top: -7px
+			left: calc(100% - 13px)
+			display: flex
+			align-items: center
+			z-index: 1
+
+			& svg
+				position: relative
+				height: 20px
+				width: 20px
+				margin-left: -13px
+				border-radius: 100%
+
+				&:first-child
+					margin-left: 0
+					z-index: 100
+
+				&:nth-child(0n + 2)
+					z-index: 90
+
+				&:nth-child(0n + 3)
+					z-index: 80
+
+				&:nth-child(0n +3) ~ svg
+					display: none
+
+		&-activity
+			position: absolute
+			top: 0
+			left: 0
+			width: 48px
+			height: 48px
+			overflow: visible
+			z-index: 0
+
+			& circle
+				fill: $primary
+
+			&-inner
+				transform-origin: center
+				animation: 6s ease-in-out infinite bounceActivity
+
+			&-middle
+				transform-origin: center
+				animation: 6s ease-in-out infinite bounceActivity
+				animation-delay: 2s
+
+			&-outter
+				transform-origin: center
+				animation: 6s ease-in-out infinite bounceActivity
+				animation-delay: 4s
+
+			&-firing
+				transform: scale(1.5)
+
+				& .map-marker-activity-inner
+					animation-duration: 3s
+
+				& .map-marker-activity-middle
+					animation-duration: 3s
+					animation-delay: 1s
+
+				& .map-marker-activity-outter
+					animation-duration: 3s
+					animation-delay: 2s
+
+		&-firing
+			& .map-icon-stroke-outter
+				fill: $primary
+
+	&-icon
+		&-stroke
+			&-inner
+				fill: $grey-800
+			&-outter
+				fill: $grey-100
+
+		&-street
+			&-fill
+				fill: url('#map-gradients-street') $street
+				
+		&-park
+			&-fill
+				fill: url('#map-gradients-park') $park
+
+		&-shop
+			&-fill
+				fill: url('#map-gradients-shop') $shop
+
+		&-private
+			&-fill
+				fill: url('#map-gradients-private') $private
+
+		&-diy
+			&-fill
+				fill: url('#map-gradients-diy') $diy
+
+		&-rip
+			&-fill
+				fill: url('#map-gradients-rip') $rip
+
+		&-wip
+			&-fill
+				fill: url('#map-gradients-wip') $wip
+			&-details
+				fill: #FEEA34
+
+
+	&-badge
+		overflow: visible
+
+		&-stroke-outter
+			fill: $grey-800
+
+		&-street
+			&-bg
+				fill: $grey-800
+
+			&-stroke
+				fill: $private
+
+			&-shape
+				fill: url('#map-gradients-iconic') $private
+
+	&-popup
+		&-spot
+			margin-top: -1.5rem
+			z-index: 10000
+			cursor: pointer
+
+			& .mapboxgl-popup-content
+				padding: 0.5rem
+				background: none
+				box-shadow: none
+
+			&-name
+				max-width: 275px;
+				font-family: $ff-roboto-black
+				font-size: $fs-larger
+				color: $white
+				text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.3)
+
+				&-center
+					text-align: center
+
+			&-cover
+				position: absolute
+				top: 0
+				right: 0
+				bottom: 0
+				left: 0
+				width: 100%
+				height: 100%
+				background-position: center
+				background-size: cover
+
+				&-container
+					position: relative
+					height: 0
+					width: 275px
+					padding-top: 56.25%
+					margin-top: .5rem
+					overflow: hidden
+					background-color: $grey-800
+					border-radius: .25rem
+					box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.4)
+
+	&-control
+		&-fullscreen
+			position: absolute
+			top: 2rem
+			right: 2rem
+
+		&-container
+			position: absolute
+			right: 2rem
+			bottom: 2rem
+			z-index: 10000
+
+		&-geolocalisation
+			margin-bottom: 1rem
+
+@keyframes bounceActivity
+	from {
+		transform: scale(0.3)
+	}
+
+	33% {
+		opacity: .5
+	}
+
+	to {
+		opacity: 0
+		transform: scale(1.15)
+	}
