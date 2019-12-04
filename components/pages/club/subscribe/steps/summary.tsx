@@ -59,7 +59,7 @@ const Summary = (props: Props) => {
                 <div className="subscribe-summary-quarter-status">
                     {!quarterFull ? (
                         <img
-                            src="https://res.skatekrak.com/static/skatekrak.com/Club/spots-left.png"
+                            src="https://res.skatekrak.com/static/skatekrak.com/Club/6-spots-left.png"
                             alt="Krak skate club spots left"
                             className="subscribe-summary-quarter-status-img"
                         />
