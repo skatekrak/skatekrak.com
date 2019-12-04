@@ -45,8 +45,8 @@ button
 
 #header
 	max-height: 100vh
-	padding: 1.5rem 2rem 2rem
-	z-index: 100
+	padding: 1.5rem 2rem
+	z-index: 1000000000
 
 	+mq($from: "small")
 		padding: 4.5rem 8rem 2rem
@@ -127,11 +127,12 @@ button
 			&-kraken
 				display: flex
 				align-items: center
-				margin-bottom: 3rem
+				margin-bottom: 1.5rem
 				margin-left: -.5rem
 
 				+mq($from: "small")
 					flex-direction: column
+					margin-bottom: 3rem
 
 				+mq($from: "medium")
 					margin-bottom: 2rem
@@ -368,7 +369,7 @@ button
 	&-nav
 		&-main-item
 			position: relative
-			margin-bottom: 1.75rem
+			margin-bottom: 1.5rem
 
 			+mq($from: "small")
 				margin-bottom: 2rem

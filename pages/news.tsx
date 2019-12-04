@@ -78,7 +78,7 @@ const News: NextPage<Props> = ({ contentData, gotId }) => {
 
     return (
         <Layout head={<NewsHead content={content} />}>
-            <BannerTop />
+            <BannerTop link="/club" offsetScroll text="Join the club" />
             <div id="news-container" className="inner-page-container">
                 <DynamicArticleModal show={gotId} content={content} />
                 <LayoutFeed

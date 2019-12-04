@@ -2,10 +2,9 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Chrome Client",
+            "name": "Next: Chrome",
             "type": "chrome",
             "request": "launch",
-            "preLaunchTask": "start",
             "runtimeArgs": ["--auto-open-devtools-for-tabs"],
             "userDataDir": "${env:HOME}/Library/Application Support/Google/ChromeDebug",
             "url": "https://dev.skatekrak.com",
@@ -14,21 +13,21 @@
             "disableNetworkCache": true
         },
         {
-            "name": "Next Server",
             "type": "node",
             "request": "launch",
+            "name": "Next: Server",
             "runtimeExecutable": "yarn",
-            "runtimeArgs": ["run", "dev"],
-            "console": "integratedTerminal",
-            "protocol": "inspector",
-            "address": "localhost",
-            "port": 9233,
+            "runtimeArgs": ["start:cmd:debug"],
+            "port": 9229,
             "restart": true,
-            "timeout": 60000,
-            "internalConsoleOptions": "neverOpen",
-            "sourceMaps": true,
-            "localRoot": "${workspaceFolder}",
-            "remoteRoot": "/app"
+            "console": "integratedTerminal",
+            "skipFiles": ["<node_internals>/**"]
+        }
+    ],
+    "compounds": [
+        {
+            "name": "Next: Full",
+            "configurations": ["Next: Server", "Next: Chrome"]
         }
     ]
 }

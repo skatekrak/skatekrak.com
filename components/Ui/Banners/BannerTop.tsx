@@ -17,6 +17,9 @@ import { State as SettingState } from 'store/settings/reducers';
  * Code
  */
 type Props = {
+    offsetScroll: boolean;
+    link: string;
+    text: string;
     settings: SettingState;
 };
 
@@ -25,6 +28,11 @@ class BannerTop extends React.Component<Props, {}> {
         const scrollContainer = ScrollHelper.getScrollContainer();
         if (scrollContainer) {
             scrollContainer.addEventListener('scroll', this.handleScroll);
+        }
+
+        const banner = document.getElementById('banner-top');
+        if (!this.props.offsetScroll) {
+            banner.classList.add('banner-top-show');
         }
     }
 
@@ -46,8 +54,8 @@ class BannerTop extends React.Component<Props, {}> {
 
     public render() {
         return (
-            <Link href="/club">
-                <a id="banner-top">Join the club</a>
+            <Link href={this.props.link}>
+                <a id="banner-top">{this.props.text}</a>
             </Link>
         );
     }
@@ -65,7 +73,7 @@ class BannerTop extends React.Component<Props, {}> {
             }
 
             const banner = document.getElementById('banner-top');
-            if (scrollContainer.scrollTop > showFrom) {
+            if (scrollContainer.scrollTop >= showFrom) {
                 banner.classList.add('banner-top-show');
             } else {
                 banner.classList.remove('banner-top-show');

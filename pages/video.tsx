@@ -60,7 +60,7 @@ const Videos: NextPage<Props> = ({ video, gotId }) => {
 
     return (
         <Layout head={<VideoHead video={video} />}>
-            <BannerTop />
+            <BannerTop offsetScroll link="/club" text="Join the club" />
             <div id="videos-container" className="inner-page-container">
                 {gotId && <DynamicVideoModal video={video} />}
                 <LayoutFeed
