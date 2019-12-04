@@ -54,7 +54,7 @@ const Summary = (props: Props) => {
             <div className="modal-two-col-second-container modal-two-col-item-container">
                 <h3 className="subscribe-summary-title">Quarterly membership</h3>
                 <p className="subscribe-summary-price">
-                    {getPricingText(String(payment.price / 100), payment.currency)} / quarterly
+                    {getPricingText(String(payment.price / 100), payment.currency)} / quarter
                 </p>
                 <div className="subscribe-summary-quarter-status">
                     {!quarterFull ? (
