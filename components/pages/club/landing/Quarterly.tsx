@@ -9,7 +9,7 @@ type Props = {
     onOpenQuarterModal: () => void;
 };
 
-const Monthly = ({ onOpenQuarterModal }: Props) => {
+const Quarterly = ({ onOpenQuarterModal }: Props) => {
     const quarterFull: boolean = getConfig().publicRuntimeConfig.IS_QUARTERFULL;
     return (
         <section id="club-quarterly">
@@ -94,4 +94,4 @@ const Monthly = ({ onOpenQuarterModal }: Props) => {
     );
 };
 
-export default Monthly;
+export default Quarterly;
