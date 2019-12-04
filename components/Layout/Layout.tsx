@@ -38,6 +38,8 @@ import '/public/styles/map/map.styl';
 import 'react-datepicker/dist/react-datepicker.css';
 import '/public/styles/react-datepicker.css';
 
+import 'mapbox-gl/dist/mapbox-gl.css';
+
 type IComponentOwnProps = {
     head?: React.ReactElement;
     children?: any;

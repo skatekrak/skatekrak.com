@@ -86,7 +86,7 @@ const Intro = () => {
                                         <IconStartFull />
                                     </span>
                                 ) : (
-                                    <span>9 spots left</span>
+                                    <span>6 spots left</span>
                                 )}
                             </div>
                             <IconArrowHead />

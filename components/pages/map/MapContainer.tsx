@@ -11,7 +11,6 @@ import ReactMapGL, {
 import { connect } from 'react-redux';
 import WebMercatorViewport, { getDistanceScales } from 'viewport-mercator-project';
 
-import 'mapbox-gl/dist/mapbox-gl.css';
 import Types from 'Types';
 
 import { Cluster, Spot } from 'carrelage';
@@ -68,11 +67,10 @@ class MapContainer extends React.Component<Props, State> {
         const { popupInfo, isPopupImageLoading, popupImage, spotMarkerClicked } = this.state;
         const { isMobile } = this.props;
 
-        const clusters = [];
         const markers = [];
         for (const cluster of this.state.clusters) {
             if (this.mapRef.current.props.zoom > this.mapRef.current.props.maxZoom - 5.5 && cluster.spots.length > 0) {
-                cluster.spots.forEach((spot) => {
+                for (const spot of cluster.spots) {
                     markers.push(
                         <SpotMarker
                             key={spot.id}
@@ -83,7 +81,7 @@ class MapContainer extends React.Component<Props, State> {
                             spotMarkerClicked={spotMarkerClicked}
                         />,
                     );
-                });
+                }
             } else {
                 markers.push(
                     <SpotCluster key={cluster.id} cluster={cluster} viewportZoom={this.state.viewport.zoom} />,
