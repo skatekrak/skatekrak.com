@@ -90,7 +90,7 @@
 	display: flex
 
 	&:hover
-			z-index: 1000
+			z-index: 8
 
 .map
 	&-mobile
@@ -101,13 +101,13 @@
 		position: relative
 
 		&-active
-			z-index: 25
+			z-index: 3
 
 		&-firing
-			z-index: 50
+			z-index: 4
 
 		&-clicked
-			z-index: 100
+			z-index: 5
 
 		&-icon
 			position: relative
@@ -132,13 +132,13 @@
 
 				&:first-child
 					margin-left: 0
-					z-index: 100
+					z-index: 8
 
 				&:nth-child(0n + 2)
-					z-index: 90
+					z-index: 7
 
 				&:nth-child(0n + 3)
-					z-index: 80
+					z-index: 6
 
 				&:nth-child(0n +3) ~ svg
 					display: none
@@ -244,7 +244,7 @@
 	&-popup
 		&-spot
 			margin-top: -1.5rem
-			z-index: 10000
+			z-index: 9
 			cursor: pointer
 
 			& .mapboxgl-popup-content
@@ -294,7 +294,7 @@
 			position: absolute
 			right: 2rem
 			bottom: 2rem
-			z-index: 10000
+			z-index: 10
 
 		&-geolocalisation
 			margin-bottom: 1rem
