@@ -21,7 +21,7 @@ const MapHead = () => {
             <meta property="og:title" content="Krak Map" />
             <meta property="og:type" content="website" />
             <meta property="og:url" content={`${baseURL}/map`} />
-            <meta property="og:image" content={`${baseURL}/images/og-map.jpg`} />
+            <meta property="og:image" content={`${baseURL}/images/og-map.png`} />
             <meta property="og:description" content="Krak Map. Discover new spots to skate in from a unique angle." />
         </Head>
     );
