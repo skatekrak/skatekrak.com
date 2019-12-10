@@ -24,12 +24,12 @@ export const formatPost = (post: Post): Post => {
 
         post.thumbnailImage = sizes.thumbnail.source_url;
 
-        if (sizes.medium_large) {
-            post.thumbnailImage = sizes.medium_large.source_url;
-        }
-
         if (sizes.medium) {
             post.thumbnailImage = sizes.medium.source_url;
+        }
+
+        if (sizes.medium_large) {
+            post.thumbnailImage = sizes.medium_large.source_url;
         }
 
         if (sizes.full) {
