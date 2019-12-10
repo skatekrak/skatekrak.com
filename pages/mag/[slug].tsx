@@ -16,7 +16,7 @@ import { Post } from 'components/pages/mag/Feed';
 import Sidebar from 'components/pages/mag/Sidebar';
 import TrackedPage from 'components/pages/TrackedPage';
 
-import { formatPost } from 'lib/formattedPost';
+import { formatPost } from 'lib/mag/formattedPost';
 
 type HeadProps = {
     post: Post;
