@@ -59,47 +59,44 @@ class RelatedPosts extends React.PureComponent<Props, State> {
         const { isLoading, relatedPosts } = this.state;
 
         return (
-            <>
+            <div className="mag-sidebar-posts">
+                <h3 className="mag-sidebar-posts-title">Related articles</h3>
+                {isLoading && <SpinnerCircle />}
+                {!isLoading && relatedPosts.length === 0 && <div>No related articles</div>}
                 {relatedPosts && relatedPosts.length !== 0 && (
-                    <div className="mag-sidebar-posts">
-                        <h3 className="mag-sidebar-posts-title">Related articles</h3>
-                        {isLoading && <SpinnerCircle />}
-                        <ul className="mag-sidebar-posts-list">
-                            {relatedPosts.map((post) => (
-                                <li key={post.id} className="mag-sidebar-posts-item">
-                                    <Link href={`/mag/${post.slug}`}>
-                                        <a>
-                                            <div className="mag-sidebar-posts-item-img-box-container">
-                                                <div className="mag-sidebar-posts-item-img-container">
-                                                    <div
-                                                        className="mag-sidebar-posts-item-img"
-                                                        style={{
-                                                            backgroundImage: `url("${post.thumbnailImage}")`,
-                                                        }}
-                                                    />
-                                                </div>
+                    <ul className="mag-sidebar-posts-list">
+                        {relatedPosts.map((post) => (
+                            <li key={post.id} className="mag-sidebar-posts-item">
+                                <Link href={`/mag/${post.slug}`}>
+                                    <a>
+                                        <div className="mag-sidebar-posts-item-img-box-container">
+                                            <div className="mag-sidebar-posts-item-img-container">
+                                                <div
+                                                    className="mag-sidebar-posts-item-img"
+                                                    style={{
+                                                        backgroundImage: `url("${post.thumbnailImage}")`,
+                                                    }}
+                                                />
                                             </div>
-                                            <div className="mag-sidebar-posts-item-details">
-                                                <h4 className="mag-sidebar-posts-item-details-title">
-                                                    <Truncate lines={2} ellipsis="..." trimWhitespace>
-                                                        <span
-                                                            dangerouslySetInnerHTML={createMarkup(post.title.rendered)}
-                                                        />
-                                                    </Truncate>
-                                                </h4>
-                                                <p className="mag-sidebar-posts-item-details-date">
-                                                    {format(parseISO(post.date), 'MMMM d')},{' '}
-                                                    {format(parseISO(post.date), 'yyyy')}
-                                                </p>
-                                            </div>
-                                        </a>
-                                    </Link>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
+                                        </div>
+                                        <div className="mag-sidebar-posts-item-details">
+                                            <h4 className="mag-sidebar-posts-item-details-title">
+                                                <Truncate lines={2} ellipsis="..." trimWhitespace>
+                                                    <span dangerouslySetInnerHTML={createMarkup(post.title.rendered)} />
+                                                </Truncate>
+                                            </h4>
+                                            <p className="mag-sidebar-posts-item-details-date">
+                                                {format(parseISO(post.date), 'MMMM d')},{' '}
+                                                {format(parseISO(post.date), 'yyyy')}
+                                            </p>
+                                        </div>
+                                    </a>
+                                </Link>
+                            </li>
+                        ))}
+                    </ul>
                 )}
-            </>
+            </div>
         );
     }
 }
