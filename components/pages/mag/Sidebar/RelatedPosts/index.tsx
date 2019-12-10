@@ -6,6 +6,7 @@ import React from 'react';
 import Truncate from 'react-truncate';
 
 import createMarkup from 'lib/createMarkup';
+import { formatPost } from 'lib/mag/formattedPost';
 
 import { Post } from 'components/pages/mag/Feed';
 import { SpinnerCircle } from 'components/Ui/Icons/Spinners';
@@ -35,12 +36,17 @@ class RelatedPosts extends React.PureComponent<Props, State> {
             });
 
             if (res.data && res.data.length !== 0) {
-                this.setState({ relatedPosts: res.data });
+                const relatedPosts = res.data.map((relatedPost) => formatPost(relatedPost));
+                this.setState({ relatedPosts });
             } else {
                 const res2 = await axios.get(`${getConfig().publicRuntimeConfig.KRAKMAG_URL}/wp-json/wp/v2/posts`, {
                     params: { per_page: 3, categories: post.categories[0], _embed: 1 },
                 });
-                this.setState({ relatedPosts: res2.data });
+
+                if (res2.data && res.data.length !== 0) {
+                    const relatedPosts = res.data.map((relatedPost) => formatPost(relatedPost));
+                    this.setState({ relatedPosts });
+                }
             }
         } catch (err) {
             // console.log(err);
@@ -59,7 +65,7 @@ class RelatedPosts extends React.PureComponent<Props, State> {
                         <h3 className="mag-sidebar-posts-title">Related articles</h3>
                         {isLoading && <SpinnerCircle />}
                         <ul className="mag-sidebar-posts-list">
-                            {relatedPosts.map(post => (
+                            {relatedPosts.map((post) => (
                                 <li key={post.id} className="mag-sidebar-posts-item">
                                     <Link href={`/mag/${post.slug}`}>
                                         <a>
@@ -68,7 +74,7 @@ class RelatedPosts extends React.PureComponent<Props, State> {
                                                     <div
                                                         className="mag-sidebar-posts-item-img"
                                                         style={{
-                                                            backgroundImage: `url("${post._embedded['wp:featuredmedia'][0].media_details.sizes.medium.source_url}")`,
+                                                            backgroundImage: `url("${post.thumbnailImage}")`,
                                                         }}
                                                     />
                                                 </div>
