@@ -6,6 +6,7 @@ import React from 'react';
 import Truncate from 'react-truncate';
 
 import createMarkup from 'lib/createMarkup';
+import { formatPost } from 'lib/mag/formattedPost';
 
 import { SpinnerCircle } from 'components/Ui/Icons/Spinners';
 
@@ -31,7 +32,8 @@ class LatestPosts extends React.PureComponent<Props, State> {
             );
 
             if (res.data) {
-                this.setState({ latestPosts: res.data });
+                const latestPosts = res.data.map((latestPost) => formatPost(latestPost));
+                this.setState({ latestPosts });
             }
         } catch (err) {
             // console.log(err);
@@ -49,7 +51,7 @@ class LatestPosts extends React.PureComponent<Props, State> {
                 {isLoading && <SpinnerCircle />}
                 {latestPosts.length !== 0 && (
                     <ul className="mag-sidebar-posts-list">
-                        {latestPosts.map(post => (
+                        {latestPosts.map((post) => (
                             <li key={post.id} className="mag-sidebar-posts-item">
                                 <Link href={`/mag/${post.slug}`}>
                                     <a>
@@ -58,7 +60,7 @@ class LatestPosts extends React.PureComponent<Props, State> {
                                                 <div
                                                     className="mag-sidebar-posts-item-img"
                                                     style={{
-                                                        backgroundImage: `url("${post._embedded['wp:featuredmedia'][0].media_details.sizes.medium.source_url}")`,
+                                                        backgroundImage: `url("${post.thumbnailImage}")`,
                                                     }}
                                                 />
                                             </div>
