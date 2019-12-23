@@ -65,9 +65,7 @@ const Summary = (props: Props) => {
                         />
                     ) : (
                         <div className="subscribe-summary-quarter-full">
-                            <span>Next batch</span>
                             <IconSoldOut />
-                            <span>{removeYear(getConfig().publicRuntimeConfig.NEXT_QUARTER_START)}</span>
                         </div>
                     )}
                 </div>
@@ -79,10 +77,20 @@ const Summary = (props: Props) => {
                     <li className="subscribe-summary-benefit">an exclusive T-shirt +</li>
                     <li className="subscribe-summary-benefit">the one & only KrakBox +</li>
                 </ul>
-                <p className="subscribe-summary-cta-text">Limited quantities available</p>
-                <button className="button-primary subscribe-summary-cta" onClick={onNextClick}>
-                    {quarterFull ? 'Save your spot' : 'Get yours'}
-                </button>
+                {!quarterFull ? (
+                    <>
+                        <p className="subscribe-summary-cta-text">Limited quantities available</p>
+                        <button className="button-primary subscribe-summary-cta" onClick={onNextClick}>
+                            Get yours
+                        </button>
+                    </>
+                ) : (
+                    <p className="subscribe-summary-quarter-full-bottom-text">
+                        Time to catch our breath while
+                        <br />
+                        we’re crafting the next exclusives.
+                    </p>
+                )}
             </div>
         </div>
     );

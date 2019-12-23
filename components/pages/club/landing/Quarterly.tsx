@@ -25,7 +25,9 @@ const Quarterly = ({ onOpenQuarterModal }: Props) => {
                     {quarterFull ? (
                         <>
                             <IconSoldOut />
-                            <p id="club-quarterly-main-date-title">Next batch starts on</p>
+                            <p id="club-quarterly-main-date-full-text">
+                                Time to catch our breath while we’re crafting the next exclusives.
+                            </p>
                         </>
                     ) : (
                         <>
@@ -35,12 +37,12 @@ const Quarterly = ({ onOpenQuarterModal }: Props) => {
                                 id="club-quarterly-main-date-spot"
                             />
                             <p id="club-quarterly-main-date-spot-text">until</p>
+                            <p id="club-quarterly-main-date">{getConfig().publicRuntimeConfig.NEXT_QUARTER_START}</p>
+                            <button className="club-cta button-primary" onClick={onOpenQuarterModal}>
+                                Get yours
+                            </button>
                         </>
                     )}
-                    <p id="club-quarterly-main-date">{getConfig().publicRuntimeConfig.NEXT_QUARTER_START}</p>
-                    <button className="club-cta button-primary" onClick={onOpenQuarterModal}>
-                        {quarterFull ? 'Save your spot' : 'Get yours'}
-                    </button>
                 </div>
                 <div id="club-quarterly-main-benefits-container">
                     <p id="club-quarterly-main-benefits-desc">
