@@ -15,6 +15,7 @@ import Types from 'Types';
 
 import { Cluster, Spot } from 'carrelage';
 
+import Legend from 'components/pages/map/Legend';
 import SpotCluster from 'components/pages/map/marker/SpotCluster';
 import SpotMarker from 'components/pages/map/marker/SpotMarker';
 import BannerTop from 'components/Ui/Banners/BannerTop';
@@ -109,6 +110,7 @@ class MapContainer extends React.Component<Props, State> {
                     link="/app"
                     text="The world is our playground. Download the app & help us enrich this map."
                 />
+                <Legend />
                 <div id="map">
                     <ReactMapGL
                         ref={this.mapRef}

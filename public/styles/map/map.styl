@@ -1,6 +1,7 @@
 @import "../stylus-mq"
 @import "../styleguide"
 @import "./map-styleguide"
+@import "./map-legend"
 
 /* MAP PAGE STYLES */
 #map
@@ -231,7 +232,7 @@
 		&-stroke-outter
 			fill: $grey-800
 
-		&-street
+		&-iconic
 			&-bg
 				fill: $grey-800
 
@@ -240,6 +241,16 @@
 
 			&-shape
 				fill: url('#map-gradients-iconic') $private
+
+		&-history
+			&-bg
+				fill: $primary
+			
+			&-stroke
+				fill: $grey-100
+			
+			&-shape
+				fill: $grey-100
 
 	&-popup
 		&-spot
@@ -312,3 +323,10 @@
 		opacity: 0
 		transform: scale(1.15)
 	}
+
+
+// Hide mapbox copyrights overlay
+.mapboxgl-ctrl-bottom-left, .mapboxgl-ctrl-bottom-right
+	display: none
+
+
