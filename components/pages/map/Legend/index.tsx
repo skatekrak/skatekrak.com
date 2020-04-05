@@ -84,7 +84,7 @@ const index = () => {
                                     <BadgeHistory />
                                     History Clip
                                 </li>
-                                <li className="map-legend-tags">Minute</li>
+                                {/* <li className="map-legend-tags">Minute</li> */}
                             </ul>
                             <div className="map-legend-divider" />
                             <h4 className="map-legend-title">Activity [amount of media uploaded]</h4>
