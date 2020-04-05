@@ -18,6 +18,7 @@ import { Cluster, Spot } from 'carrelage';
 import SpotCluster from 'components/pages/map/marker/SpotCluster';
 import SpotMarker from 'components/pages/map/marker/SpotMarker';
 import BannerTop from 'components/Ui/Banners/BannerTop';
+import MapNavigation from './MapNavigation';
 
 type Props = {
     isMobile: boolean;
@@ -96,127 +97,131 @@ class MapContainer extends React.Component<Props, State> {
                     'map-mobile': isMobile,
                 })}
             >
-                {isMobile && (
+                {isMobile ? (
                     <div id="map-mobile-message">
                         If you wanna enjoy our skatespots map and you're currently on your mobile, best way is to{' '}
                         <a href="/app" id="map-mobile-message-link">
                             download the app
                         </a>
                     </div>
-                )}
-                <BannerTop
-                    offsetScroll={false}
-                    link="/app"
-                    text="The world is our playground. Download the app & help us enrich this map."
-                />
-                <div id="map">
-                    <ReactMapGL
-                        ref={this.mapRef}
-                        {...this.state.viewport}
-                        width="100%"
-                        height="100%"
-                        minZoom={MIN_ZOOM_LEVEL}
-                        maxZoom={MAX_ZOOM_LEVEL}
-                        mapboxApiAccessToken={getConfig().publicRuntimeConfig.MAPBOX_ACCESS_TOKEN}
-                        mapStyle="mapbox://styles/mapbox/dark-v9"
-                        onViewportChange={this.onViewportChange}
-                        onClick={this.onPopupclose}
-                    >
-                        {/* Popup */}
-                        {popupInfo && (
-                            <Popup
-                                className="map-popup-spot"
-                                longitude={popupInfo.location.longitude}
-                                latitude={popupInfo.location.latitude}
-                                onClose={this.onPopupclose}
-                                tipSize={8}
-                                closeButton={false}
-                                closeOnClick={false}
+                ) : (
+                    <>
+                        <BannerTop
+                            offsetScroll={false}
+                            link="/app"
+                            text="The world is our playground. Download the app & help us enrich this map."
+                        />
+                        <MapNavigation />
+                        <div id="map">
+                            <ReactMapGL
+                                ref={this.mapRef}
+                                {...this.state.viewport}
+                                width="100%"
+                                height="100%"
+                                minZoom={MIN_ZOOM_LEVEL}
+                                maxZoom={MAX_ZOOM_LEVEL}
+                                mapboxApiAccessToken={getConfig().publicRuntimeConfig.MAPBOX_ACCESS_TOKEN}
+                                mapStyle="mapbox://styles/mapbox/dark-v9"
+                                onViewportChange={this.onViewportChange}
+                                onClick={this.onPopupclose}
                             >
-                                <h4
-                                    className={classNames('map-popup-spot-name', {
-                                        'map-popup-spot-name-center': !popupImage,
-                                    })}
-                                >
-                                    {popupInfo.name}
-                                </h4>
-                                {popupImage && (
-                                    <div className="map-popup-spot-cover-container">
-                                        {!isPopupImageLoading && (
-                                            <div
-                                                className="map-popup-spot-cover"
-                                                style={{ backgroundImage: `url("${popupImage}")` }}
-                                            />
+                                {/* Popup */}
+                                {popupInfo && (
+                                    <Popup
+                                        className="map-popup-spot"
+                                        longitude={popupInfo.location.longitude}
+                                        latitude={popupInfo.location.latitude}
+                                        onClose={this.onPopupclose}
+                                        tipSize={8}
+                                        closeButton={false}
+                                        closeOnClick={false}
+                                    >
+                                        <h4
+                                            className={classNames('map-popup-spot-name', {
+                                                'map-popup-spot-name-center': !popupImage,
+                                            })}
+                                        >
+                                            {popupInfo.name}
+                                        </h4>
+                                        {popupImage && (
+                                            <div className="map-popup-spot-cover-container">
+                                                {!isPopupImageLoading && (
+                                                    <div
+                                                        className="map-popup-spot-cover"
+                                                        style={{ backgroundImage: `url("${popupImage}")` }}
+                                                    />
+                                                )}
+                                            </div>
                                         )}
-                                    </div>
+                                    </Popup>
                                 )}
-                            </Popup>
-                        )}
 
-                        {/* Define svg gradients here */}
-                        <div id="map-gradients">
-                            <svg width="0" height="0">
-                                <defs>
-                                    {/* Icon */}
-                                    <linearGradient id="map-gradients-street" x1="0" x2="0" y1="0" y2="1">
-                                        <stop offset="0%" className="stop-top" />
-                                        <stop offset="100%" className="stop-bottom" />
-                                    </linearGradient>
-                                    <linearGradient id="map-gradients-park" x1="0" x2="0" y1="0" y2="1">
-                                        <stop offset="0%" className="stop-top" />
-                                        <stop offset="100%" className="stop-bottom" />
-                                    </linearGradient>
-                                    <linearGradient id="map-gradients-shop" x1="0" x2="0" y1="0" y2="1">
-                                        <stop offset="0%" className="stop-top" />
-                                        <stop offset="100%" className="stop-bottom" />
-                                    </linearGradient>
-                                    <linearGradient id="map-gradients-private" x1="0" x2="0" y1="0" y2="1">
-                                        <stop offset="0%" className="stop-top" />
-                                        <stop offset="100%" className="stop-bottom" />
-                                    </linearGradient>
-                                    <linearGradient id="map-gradients-diy" x1="0" x2="0" y1="0" y2="1">
-                                        <stop offset="0%" className="stop-top" />
-                                        <stop offset="100%" className="stop-bottom" />
-                                    </linearGradient>
-                                    <linearGradient id="map-gradients-rip" x1="0" x2="0" y1="0" y2="1">
-                                        <stop offset="0%" className="stop-top" />
-                                        <stop offset="60%" className="stop-2" />
-                                        <stop offset="100%" className="stop-bottom" />
-                                    </linearGradient>
-                                    <linearGradient id="map-gradients-wip" x1="0" x2="0" y1="0" y2="1">
-                                        <stop offset="0%" className="stop-top" />
-                                        <stop offset="100%" className="stop-bottom" />
-                                    </linearGradient>
-                                    {/* Badge */}
-                                    <linearGradient id="map-gradients-iconic" x1="0" x2="0" y1="0" y2="1">
-                                        <stop offset="0%" stopColor="#FFEB38" />
-                                        <stop offset="25%" stopColor="#E6D432" />
-                                        <stop offset="45%" stopColor="#BDAE28" />
-                                        <stop offset="65%" stopColor="#FAE634" />
-                                        <stop offset="100%" stopColor="#766C14" />
-                                    </linearGradient>
-                                </defs>
-                            </svg>
-                        </div>
+                                {/* Define svg gradients here */}
+                                <div id="map-gradients">
+                                    <svg width="0" height="0">
+                                        <defs>
+                                            {/* Icon */}
+                                            <linearGradient id="map-gradients-street" x1="0" x2="0" y1="0" y2="1">
+                                                <stop offset="0%" className="stop-top" />
+                                                <stop offset="100%" className="stop-bottom" />
+                                            </linearGradient>
+                                            <linearGradient id="map-gradients-park" x1="0" x2="0" y1="0" y2="1">
+                                                <stop offset="0%" className="stop-top" />
+                                                <stop offset="100%" className="stop-bottom" />
+                                            </linearGradient>
+                                            <linearGradient id="map-gradients-shop" x1="0" x2="0" y1="0" y2="1">
+                                                <stop offset="0%" className="stop-top" />
+                                                <stop offset="100%" className="stop-bottom" />
+                                            </linearGradient>
+                                            <linearGradient id="map-gradients-private" x1="0" x2="0" y1="0" y2="1">
+                                                <stop offset="0%" className="stop-top" />
+                                                <stop offset="100%" className="stop-bottom" />
+                                            </linearGradient>
+                                            <linearGradient id="map-gradients-diy" x1="0" x2="0" y1="0" y2="1">
+                                                <stop offset="0%" className="stop-top" />
+                                                <stop offset="100%" className="stop-bottom" />
+                                            </linearGradient>
+                                            <linearGradient id="map-gradients-rip" x1="0" x2="0" y1="0" y2="1">
+                                                <stop offset="0%" className="stop-top" />
+                                                <stop offset="60%" className="stop-2" />
+                                                <stop offset="100%" className="stop-bottom" />
+                                            </linearGradient>
+                                            <linearGradient id="map-gradients-wip" x1="0" x2="0" y1="0" y2="1">
+                                                <stop offset="0%" className="stop-top" />
+                                                <stop offset="100%" className="stop-bottom" />
+                                            </linearGradient>
+                                            {/* Badge */}
+                                            <linearGradient id="map-gradients-iconic" x1="0" x2="0" y1="0" y2="1">
+                                                <stop offset="0%" stopColor="#FFEB38" />
+                                                <stop offset="25%" stopColor="#E6D432" />
+                                                <stop offset="45%" stopColor="#BDAE28" />
+                                                <stop offset="65%" stopColor="#FAE634" />
+                                                <stop offset="100%" stopColor="#766C14" />
+                                            </linearGradient>
+                                        </defs>
+                                    </svg>
+                                </div>
 
-                        {/* Marker */}
-                        {markers}
+                                {/* Marker */}
+                                {markers}
 
-                        {/* Controller */}
-                        {/* <FullscreenControl
+                                {/* Controller */}
+                                {/* <FullscreenControl
                             container={document.querySelector('#map-container')}
                             className="map-control-fullscreen"
                         /> */}
-                        <div className="map-control-container">
-                            {/* <GeolocateControl
+                                <div className="map-control-container">
+                                    {/* <GeolocateControl
                                 className="map-control-geolocalisation"
                                 positionOptions={{ enableHighAccuracy: false }}
                                 trackUserLocation={true}
                             /> */}
-                            <NavigationControl />
+                                    <NavigationControl />
+                                </div>
+                            </ReactMapGL>
                         </div>
-                    </ReactMapGL>
-                </div>
+                    </>
+                )}
             </div>
         );
     }
