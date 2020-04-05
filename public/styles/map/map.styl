@@ -1,6 +1,7 @@
 @import "../stylus-mq"
 @import "../styleguide"
 @import "./map-styleguide"
+@import "./map-navigation"
 
 /* MAP PAGE STYLES */
 #map
@@ -18,6 +19,9 @@
 
 		+mq($from: "medium")
 			margin-top: 0
+
+		& #banner-top
+			width: calc(100% - 4rem)
 
 	&-mobile
 		&-message

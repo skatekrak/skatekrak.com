@@ -8,6 +8,7 @@ import { connect, DispatchProp } from 'react-redux';
 import Types from 'Types';
 
 import Header from 'components/Header';
+import HeaderSmall from 'components/Header/HeaderSmall';
 import { setDeviceSize } from 'store/settings/actions';
 
 /* tslint:disable:ordered-imports */
@@ -18,6 +19,7 @@ import '/public/styles/helpers.styl';
 import '/public/styles/main.styl';
 import '/public/styles/styleguide.styl';
 import '/public/styles/stylus-mq.styl';
+import '/public/styles/header.styl';
 import '/public/styles/form.styl';
 import '/public/styles/modal.styl';
 import '/public/styles/checkbox.styl';
@@ -78,7 +80,7 @@ const Layout: React.FC<IComponentProps> = ({ head, children, isMobile, ...props 
                 </Head>
             )}
             <div id="page-container" className={classNames({ 'scroll-container': isMobile })}>
-                <Header router={router} />
+                {router.pathname === '/map' && !isMobile ? <HeaderSmall /> : <Header router={router} />}
                 <main id="main-container" className={classNames({ 'scroll-container': !isMobile })}>
                     {children}
                 </main>
