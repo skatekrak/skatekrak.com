@@ -1,14 +1,18 @@
 import classNames from 'classnames';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
 
 import NavItem from 'components/Header/NavItem';
 import IconKrakenHead from 'components/Ui/Icons/Kraken/KrakenHead';
+import { NextRouter } from 'next/router';
 
 /* tslint:disable:max-line-length */
 
-const Header = () => {
+type Props = {
+    router: NextRouter;
+};
+
+const Header = ({ router }: Props) => {
     useEffect(() => {
         const header = document.getElementById('header');
         const burgerMenu = document.getElementById('header-top-burger');
@@ -22,8 +26,6 @@ const Header = () => {
             mainContainer.classList.toggle('hide');
         });
     }, []);
-
-    const router = useRouter();
 
     return (
         <header
