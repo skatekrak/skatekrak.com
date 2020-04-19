@@ -23,7 +23,7 @@ const HeaderSmall = () => {
                         <NavItem title="Video" url="/video" />
                         <NavItem title="Map" url="/map" />
                         <NavItem title="App" url="/app" />
-                        <NavItem title="Shop" url="/shop" />
+                        <NavItem title="Shop" url="https://shop.skatekrak.com/" blank />
                     </ul>
                 </nav>
                 <nav id="header-nav-subnav">

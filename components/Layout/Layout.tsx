@@ -30,7 +30,6 @@ import '/public/styles/mag.styl';
 import '/public/styles/news.styl';
 import '/public/styles/videos.styl';
 import '/public/styles/app.styl';
-import '/public/styles/shop.styl';
 import '/public/styles/feed.styl';
 import '/public/styles/map/map.styl';
 

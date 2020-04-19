@@ -32,7 +32,7 @@ const Header = ({ router }: Props) => {
             id="header"
             className={classNames({
                 'header-dark': router.pathname === '/app',
-                'header-white': router.pathname === '/shop' || router.pathname === '/map',
+                'header-white': router.pathname === '/map',
             })}
         >
             <div id="header-top">
@@ -64,12 +64,16 @@ const Header = ({ router }: Props) => {
                 </nav>
                 <nav id="header-nav-subnav">
                     <div id="header-nav-subnav-kraken">
-                        <Link href="/shop">
-                            <a id="header-nav-subnav-kraken-link" className="header-nav-main-item-link">
-                                <IconKrakenHead />
-                                Shop
-                            </a>
-                        </Link>
+                        <a
+                            href="https://shop.skatekrak.com/"
+                            id="header-nav-subnav-kraken-link"
+                            className="header-nav-main-item-link"
+                            target="_blank"
+                            rel="noreferrer noopener"
+                        >
+                            <IconKrakenHead />
+                            Shop
+                        </a>
                     </div>
                     <ul id="header-nav-subnav-container">
                         <li className="header-nav-subnav-item">
