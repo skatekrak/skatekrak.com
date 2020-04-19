@@ -55,7 +55,6 @@ const Header = ({ router }: Props) => {
             <div id="header-nav-container">
                 <nav id="header-nav-main">
                     <ul id="header-nav-main-container">
-                        <NavItem title="Club" url="/club" />
                         <NavItem title="Mag" url="/mag" />
                         <NavItem title="News" url="/news" />
                         <NavItem title="Video" url="/video" />
