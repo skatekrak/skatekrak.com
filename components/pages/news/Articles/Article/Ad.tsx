@@ -10,7 +10,7 @@ const ArticleAd = () => (
         />
         <div className="news-article-club-cta-container">
             <p className="news-article-club-cta-text">Join the community</p>
-            <Link href="/club">
+            <Link href="/">
                 <a className="news-article-club-cta">Discover</a>
             </Link>
         </div>
