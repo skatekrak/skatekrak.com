@@ -6,6 +6,7 @@ import React from 'react';
 
 import Layout from 'components/Layout/Layout';
 import TrackedPage from 'components/pages/TrackedPage';
+import KrakSymbole from 'components/Ui/branding/KrakSymbole';
 import LikeIcon from 'components/Ui/Icons/Like';
 
 type State = {
@@ -48,21 +49,45 @@ class Index extends React.PureComponent<{}, State> {
                 <Layout head={<HomeHead />}>
                     <React.Fragment>
                         <div id="home-container" className="container-fluid">
-                            <form id="home-news" onSubmit={this.handleSubmit}>
-                                <h2 id="home-news-title">Get hooked up :</h2>
-                                <input
-                                    type="mail"
-                                    id="home-news-input"
-                                    placeholder="love@skatekrak.com"
-                                    value={email}
-                                    onChange={this.emailOnChange}
-                                />
-                                <button id="home-news-button">
-                                    Subscribe
-                                    <LikeIcon />
-                                </button>
-                            </form>
+                            <div id="home-content">
+                                <div id="home-symboles">
+                                    <KrakSymbole />
+                                    <KrakSymbole />
+                                    <KrakSymbole />
+                                </div>
+                                <h1 id="home-title">
+                                    The first skateboarding
+                                    <br />
+                                    tech <span>co-op</span>
+                                </h1>
+                                <form id="home-form" onSubmit={this.handleSubmit}>
+                                    <h4 id="home-form-title">Become a co-owner</h4>
+                                    <div id="home-form-field">
+                                        <input
+                                            type="mail"
+                                            id="home-form-field-input"
+                                            placeholder="love@skatekrak.com"
+                                            value={email}
+                                            onChange={this.emailOnChange}
+                                        />
+                                        <button id="home-form-field-button">
+                                            More Info
+                                            <LikeIcon />
+                                        </button>
+                                    </div>
+                                </form>
+                                <h3>
+                                    Let's make sure skateboarding keeps its roots
+                                    <br />
+                                    deep in creativity, openness, rebellion & freedom
+                                </h3>
+                            </div>
                             <div id="home-image" />
+                            <h2 id="home-owned">
+                                100% owned by skateboarders,
+                                <br />
+                                workers and community
+                            </h2>
                         </div>
                         <div id="quote-container">
                             <p
@@ -85,7 +110,7 @@ class Index extends React.PureComponent<{}, State> {
         this.setState({ email: event.target.value });
     };
 
-    private handleSubmit = event => {
+    private handleSubmit = (event) => {
         event.preventDefault();
         const { email } = this.state;
         if (!validator.validate(email)) {
