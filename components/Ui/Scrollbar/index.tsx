@@ -1,31 +1,16 @@
 import React from 'react';
-import { Scrollbars } from 'react-custom-scrollbars';
+import SimpleBar from 'simplebar-react';
 
 type Props = {
     maxHeight?: string;
 };
 
 const index: React.SFC<Props> = ({ children, maxHeight }) => {
-    const renderThumb = ({ style, ...props }: any) => {
-        return (
-            <div
-                style={{
-                    ...style,
-                    backgroundColor: '#333333',
-                    borderRadius: '0.125rem',
-                    width: '0.25rem',
-                    marginLeft: 'auto',
-                }}
-                {...props}
-            />
-        );
+    const styles = {
+        maxHeight,
     };
 
-    return (
-        <Scrollbars autoHeight autoHeightMax={maxHeight} renderThumbVertical={renderThumb}>
-            {children}
-        </Scrollbars>
-    );
+    return <SimpleBar style={styles}>{children}</SimpleBar>;
 };
 
 export default index;

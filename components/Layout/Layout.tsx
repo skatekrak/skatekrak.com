@@ -16,6 +16,7 @@ import '/public/styles/reset.css';
 import '/public/styles/flexbox-grid.css';
 import '/public/styles/fonts.styl';
 import '/public/styles/helpers.styl';
+import 'simplebar/dist/simplebar.min.css';
 import '/public/styles/main.styl';
 import '/public/styles/styleguide.styl';
 import '/public/styles/stylus-mq.styl';
