@@ -16,6 +16,7 @@ import '/public/styles/reset.css';
 import '/public/styles/flexbox-grid.css';
 import '/public/styles/fonts.styl';
 import '/public/styles/helpers.styl';
+import 'simplebar/dist/simplebar.min.css';
 import '/public/styles/main.styl';
 import '/public/styles/styleguide.styl';
 import '/public/styles/stylus-mq.styl';
@@ -26,15 +27,11 @@ import '/public/styles/checkbox.styl';
 import '/public/styles/icons.styl';
 import '/public/styles/ui.styl';
 
-import '/public/styles/auth.styl';
-import '/public/styles/subscribe.styl';
-import '/public/styles/onboarding.styl';
-import '/public/styles/club.styl';
+import '/public/styles/home.styl';
 import '/public/styles/mag.styl';
 import '/public/styles/news.styl';
 import '/public/styles/videos.styl';
 import '/public/styles/app.styl';
-import '/public/styles/shop.styl';
 import '/public/styles/feed.styl';
 import '/public/styles/map/map.styl';
 

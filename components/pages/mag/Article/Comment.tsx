@@ -25,7 +25,7 @@ const Comment = () => (
                 Go beyond the story with fellow passionate skateboarders from all around the world. No ads, no clickbait
                 - only comments with substance.
             </p>
-            <Link href="/club">
+            <Link href="/">
                 <a className="button-primary mag-club-cta">Join us</a>
             </Link>
             <div id="mag-article-comment-kraken-bg" />

@@ -32,7 +32,7 @@ const Header = ({ router }: Props) => {
             id="header"
             className={classNames({
                 'header-dark': router.pathname === '/app',
-                'header-white': router.pathname === '/shop' || router.pathname === '/map',
+                'header-white': router.pathname === '/map',
             })}
         >
             <div id="header-top">
@@ -55,7 +55,6 @@ const Header = ({ router }: Props) => {
             <div id="header-nav-container">
                 <nav id="header-nav-main">
                     <ul id="header-nav-main-container">
-                        <NavItem title="Club" url="/club" />
                         <NavItem title="Mag" url="/mag" />
                         <NavItem title="News" url="/news" />
                         <NavItem title="Video" url="/video" />
@@ -65,12 +64,16 @@ const Header = ({ router }: Props) => {
                 </nav>
                 <nav id="header-nav-subnav">
                     <div id="header-nav-subnav-kraken">
-                        <Link href="/shop">
-                            <a id="header-nav-subnav-kraken-link" className="header-nav-main-item-link">
-                                <IconKrakenHead />
-                                Shop
-                            </a>
-                        </Link>
+                        <a
+                            href="https://shop.skatekrak.com/"
+                            id="header-nav-subnav-kraken-link"
+                            className="header-nav-main-item-link"
+                            target="_blank"
+                            rel="noreferrer noopener"
+                        >
+                            <IconKrakenHead />
+                            Shop
+                        </a>
                     </div>
                     <ul id="header-nav-subnav-container">
                         <li className="header-nav-subnav-item">

@@ -73,7 +73,7 @@ const Mag: NextPage<Props> = ({ items }) => {
     return (
         <RefreshScrollOnNewPage>
             <Layout head={<MagHead />}>
-                <BannerTop offsetScroll link="/club" text="Join the club" />
+                <BannerTop offsetScroll link="/" text="Become a co-owner" />
                 <div id={selectedArticle ? 'mag-article-container' : 'mag-container'} className="inner-page-container">
                     <LayoutFeed
                         mainView={mainView()}

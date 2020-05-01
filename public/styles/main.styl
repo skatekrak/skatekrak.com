@@ -43,118 +43,12 @@ button
 			height: 100vh
 			overflow: auto
 
-#home
-	&-container
-		position: absolute
-		left: 0
-		right: 0
-		top: 0
-		bottom: 0
-		display: flex
-		flex-direction: column
 
-		+mq($from: "medium")
-			padding-top: 4rem
+/* Custom scrollbqr -> SimpleBar */
+.simplebar-track.simplebar-vertical
+	width: 0.5rem
 
-	&-news
-		display: flex
-		flex-direction: column
-		margin-top: .5rem
-
-		+mq($from: "medium")
-			flex-direction: row
-			align-items: center
-			justify-content: flex-end
-			margin-top: 0
-
-		&-title
-			font-family: $ff-roboto-black-italic
-			font-size: $fs-large
-			color: $primary
-
-		&-input
-			margin: 1rem 0
-			padding: 1rem
-			font-family: $ff-roboto-regular
-			border: 0
-
-			+mq($from: "medium")
-				width: 250px
-				margin: 0 0 0 1rem
-				padding: .75rem
-
-			&:placeholder
-				color: $text-light
-
-		&-button
-			display: flex
-			align-self: flex-end
-			padding: .5rem 1.5rem
-			font-family: $ff-roboto-condensed-bold
-			font-size: $fs-small
-			letter-spacing: 0.025rem
-			color: $text-lighter
-			background-color: $grey-900
-
-			+mq($from: "medium")
-				padding: .75rem 1.5rem
-
-			&:hover
-				background-color: $black
-
-				& svg
-					fill: $primary
-
-			& svg
-				height: 1.2rem
-				width: 1.2rem
-				margin-left: .75rem
-				fill: $white
-				transition: .2s
-
-	&-image
-		flex-grow: 1
-		width: 100%
-		max-width: 500px
-		margin: 1rem auto 3rem
-		background-image: url(/images/pindejo-lucas-beaufort.jpg)
-		background-position: 50% 40%
-		background-size: 140%
-		background-repeat: no-repeat
-
-		+mq($from: "medium")
-			max-width: 600px
-
-
-#quote
-	position: absolute
-	font-family: $ff-roboto-black-italic
-	font-size: $fs-large
-	text-align:left
-	white-space: nowrap
-	color: $primary
-	transform: translateX(-100%)
-	animation: linear marqueelike 10s infinite
-
-	&:after
-		content:attr(data-text)
-		position:absolute
-		white-space:nowrap
-
-	&-container
-		position: absolute
-		bottom: 0
-		left: 0
-		right: 0
-		display:flex
-		align-items: center
-		height: 3rem
-		table-layout: fixed
-		width 100%
-		overflow: hidden
-		background-color: $white
-
-@keyframes marqueelike {
-	0%, 100% {transform: translateX(0%)}
-	99.99999% {transform: translateX(-100%)}
-}
+.simplebar-scrollbar:before
+	left: 0
+	right: 0
+	background: $grey-800
