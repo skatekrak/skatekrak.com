@@ -56,7 +56,7 @@ const ArticlePage: NextPage<Props> = ({ post }) => {
     return (
         <TrackedPage name={`Mag/${post.slug!}`}>
             <Layout head={<MagArticleHead post={post} />}>
-                <BannerTop offsetScroll link="/club" text="Join the club" />
+                <BannerTop offsetScroll link="/" text="Become a co-owner" />
                 <div id="mag-article-container" className="inner-page-container">
                     <LayoutFeed
                         mainView={<Article post={post} sidebarNavIsOpen={sidebarNavIsOpen} />}

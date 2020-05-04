@@ -1,0 +1,207 @@
+@import "./stylus-mq"
+@import "./styleguide"
+
+#home
+	&-container
+		display: flex
+		flex-direction: column
+		min-height: 80vh
+		padding-bottom: 4rem
+		padding-top: 2rem
+
+		+mq($from: "small")
+			position: absolute
+			left: 0
+			right: 0
+			top: 0
+			bottom: 0
+			padding-top: 0
+			padding-bottom: 3rem
+			overflow: hidden
+
+	&-content
+		text-align: center
+
+		+mq($from: "small")
+			margin-top: 6rem
+
+		+mq($from: "medium")
+			margin: auto 0
+
+		& h3
+			margin-bottom: 2rem
+			font-size: $fs-small
+			line-height: 1.45
+			color: $grey-400
+
+			+mq($from: "small")
+				margin-bottom: 0
+
+	&-title
+		margin-bottom: 2rem
+		font-family: $ff-roboto-black
+		font-size: $fs-largest
+
+		+mq($from: "small")
+			margin-bottom: 3rem
+
+		& span
+			color: $primary
+
+	&-symboles
+		display: flex
+		justify-content: center
+		margin-bottom: 1.5rem
+
+		+mq($from: "medium")
+			margin-top: -3.5rem
+
+		& svg
+			width: 2rem
+			fill: $white
+
+			&:first-child
+				margin-right: 1.5rem
+				stroke: $grey-900
+				stroke-width: 2px
+				fill: none
+				overflow: visible
+
+			&:last-child
+				margin-left: 1.5rem
+				fill: $primary
+
+	&-form
+		display: flex
+		flex-direction: column
+		margin-top: .5rem
+
+		+mq($from: "medium")
+			align-items: center
+			margin-top: 0
+
+		&-title
+			font-family: $ff-inkfree
+			font-size: $fs-large
+			color: $grey-800
+
+		&-field
+			display: flex
+			flex-direction: column
+			justify-content: center
+			margin: 1rem 0 2.5rem
+
+			+mq($from: "small")
+				flex-direction: row
+				box-shadow: 0px 0px 32px rgba(0, 0, 0, 0.05)
+
+			&-input
+				padding: 0.65rem 1rem
+				font-family: $ff-roboto-regular
+				font-size: $fs-regular
+				border: 0
+				border-radius: 0.25rem
+
+				+mq($from: "small")
+					width: 250px
+					border-radius: 0.25rem 0 0 0.25rem
+
+				&::placeholder
+					color: $grey-400
+
+			&-button
+				display: flex
+				align-self: flex-end
+				margin: 0.5rem auto 0
+				padding: .65rem 1rem
+				font-family: $ff-roboto-condensed-bold
+				font-size: $fs-regular
+				letter-spacing: 0.025rem
+				color: $text-lighter
+				background-color: $grey-900
+				border-radius: 0.25rem
+
+				+mq($from: "small")
+					margin: 0
+					border-radius: 0 0.25rem 0.25rem 0
+
+				&:hover
+					background-color: $black
+
+					& svg
+						fill: $primary
+
+				& svg
+					height: 1.2rem
+					width: 1.2rem
+					margin-left: .75rem
+					fill: $white
+					transition: .2s
+
+	&-owned
+		font-family: $ff-inkfree
+		font-size: $fs-medium
+		color: $grey-800
+		text-align: center
+
+		+mq($from: "small")
+			position: absolute
+			bottom: 5rem
+			text-align: left
+
+	&-image
+		height: 200px
+		width: 200px
+		margin: auto
+		background-image: url(/images/pindejo-lucas-beaufort.jpg)
+		background-position: 50% 40%
+		background-size: 140%
+		background-repeat: no-repeat
+		overflow: hidden
+		z-index: -1
+
+		+mq($from: "small")
+			position: absolute
+			bottom: 0.5rem
+			right: -4rem
+			height: 300px
+			width: 300px
+		
+		+mq($from: "medium")
+			right: -5rem
+			height: 350px
+			width: 350px
+
+
+#quote
+	position: absolute
+	font-family: $ff-roboto-black-italic
+	font-size: $fs-large
+	text-align:left
+	white-space: nowrap
+	color: $primary
+	transform: translateX(-100%)
+	animation: linear marqueelike 10s infinite
+
+	&:after
+		content:attr(data-text)
+		position:absolute
+		white-space:nowrap
+
+	&-container
+		position: absolute
+		bottom: 0
+		left: 0
+		right: 0
+		display:flex
+		align-items: center
+		height: 3rem
+		table-layout: fixed
+		width 100%
+		overflow: hidden
+		background-color: $white
+
+@keyframes marqueelike {
+	0%, 100% {transform: translateX(0%)}
+	99.99999% {transform: translateX(-100%)}
+}

@@ -104,6 +104,27 @@
 				display: inline
 
 /*
+ * Edit button
+ */
+.krak-close-button
+	display: flex
+	align-items: center
+	justify-content: center
+	width: 1.5rem
+	height: 1.5rem
+	padding: 0.25rem
+	background-color: $grey-800
+	border-radius: 100%
+	transition: .15s
+
+	&:hover
+		background-color: lighten($grey-800, 5%)
+
+	& svg
+		width: 100%
+		fill: $grey-300
+
+/*
  * Clipboard button
  */
 .clipboard-button
