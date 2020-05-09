@@ -150,27 +150,38 @@
 			text-align: left
 
 	&-image
-		height: 200px
-		width: 200px
-		margin: auto
+		position: absolute
+		top: 0
+		right: 0
+		bottom: 0
+		left: 0
 		background-image: url(/images/pindejo-lucas-beaufort.jpg)
 		background-position: 50% 40%
-		background-size: 140%
+		background-size: cover
 		background-repeat: no-repeat
-		overflow: hidden
-		z-index: -1
 
-		+mq($from: "small")
-			position: absolute
-			bottom: 0.5rem
-			right: -4rem
-			height: 300px
-			width: 300px
-		
-		+mq($from: "medium")
-			right: -5rem
-			height: 350px
-			width: 350px
+		&-container
+			position: relative
+			padding-bottom: 100%
+			overflow: hidden
+
+			&-container
+				height: 200px
+				width: 200px
+				margin: 0 auto .5rem
+				z-index: -1
+
+				+mq($from: "small")
+					position: absolute
+					bottom: 0.5rem
+					right: -3.5rem
+					height: 280px
+					width: 280px
+				
+				+mq($from: "medium")
+					right: -4.5rem
+					height: 330px
+					width: 330px
 
 
 #quote
