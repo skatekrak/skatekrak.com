@@ -81,17 +81,17 @@ class Index extends React.PureComponent<{}, State> {
                                     <br />
                                     deep in creativity, openness, rebellion & freedom
                                 </h3>
-                            </div>
-                            <div id="home-image-container-container">
-                                <div id="home-image-container">
-                                    <div id="home-image" />
+                                <div id="home-image-container-container">
+                                    <div id="home-image-container">
+                                        <div id="home-image" />
+                                    </div>
                                 </div>
+                                <h2 id="home-owned">
+                                    100% owned by skateboarders,
+                                    <br />
+                                    workers and community
+                                </h2>
                             </div>
-                            <h2 id="home-owned">
-                                100% owned by skateboarders,
-                                <br />
-                                workers and community
-                            </h2>
                         </div>
                         <div id="quote-container">
                             <p
