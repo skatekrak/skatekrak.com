@@ -1,5 +1,4 @@
 import format from 'date-fns/format';
-import getConfig from 'next/config';
 import React from 'react';
 
 const lastMod = format(new Date(), 'yyyy-MM-dd');

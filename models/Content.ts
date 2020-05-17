@@ -1,4 +1,3 @@
-import getConfig from 'next/config';
 import { IContent, Media, Source } from 'rss-feed';
 
 export default class Content implements IContent {

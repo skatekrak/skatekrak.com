@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { NextPage } from 'next';
-import getConfig from 'next/config';
 import Head from 'next/head';
 import React, { useState } from 'react';
 

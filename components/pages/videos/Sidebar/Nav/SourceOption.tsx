@@ -1,5 +1,4 @@
 import classNames from 'classnames';
-import getConfig from 'next/config';
 import React from 'react';
 import { connect } from 'react-redux';
 

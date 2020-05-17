@@ -1,5 +1,4 @@
 import { NextPage } from 'next';
-import getConfig from 'next/config';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';

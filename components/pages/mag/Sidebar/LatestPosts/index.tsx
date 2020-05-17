@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { format, parseISO } from 'date-fns';
-import getConfig from 'next/config';
 import Link from 'next/link';
 import React from 'react';
 import Truncate from 'react-truncate';

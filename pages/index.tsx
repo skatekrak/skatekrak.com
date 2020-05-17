@@ -1,6 +1,5 @@
 import axios, { AxiosError } from 'axios';
 import validator from 'email-validator';
-import getConfig from 'next/config';
 import Head from 'next/head';
 import React from 'react';
 

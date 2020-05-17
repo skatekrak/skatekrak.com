@@ -1,5 +1,4 @@
 import classNames from 'classnames';
-import getConfig from 'next/config';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
