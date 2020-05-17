@@ -122,7 +122,7 @@ class MapContainer extends React.Component<Props, State> {
                                 height="100%"
                                 minZoom={MIN_ZOOM_LEVEL}
                                 maxZoom={MAX_ZOOM_LEVEL}
-                                mapboxApiAccessToken={getConfig().publicRuntimeConfig.MAPBOX_ACCESS_TOKEN}
+                                mapboxApiAccessToken={process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}
                                 mapStyle="mapbox://styles/mapbox/dark-v9"
                                 onViewportChange={this.onViewportChange}
                                 onClick={this.onPopupclose}
@@ -237,7 +237,7 @@ class MapContainer extends React.Component<Props, State> {
                 const northEast = bounds.getNorthEast();
                 const southWest = bounds.getSouthWest();
 
-                const res = await axios.get(`${getConfig().publicRuntimeConfig.CARRELAGE_URL}/spots/search`, {
+                const res = await axios.get(`${process.env.NEXT_PUBLIC_CARRELAGE_URL}/spots/search`, {
                     params: {
                         clustering: true,
                         northEastLatitude: northEast.lat,
@@ -297,7 +297,7 @@ class MapContainer extends React.Component<Props, State> {
         });
 
         try {
-            const res = await axios.get(`${getConfig().publicRuntimeConfig.CARRELAGE_URL}/spots/${spot.id}/overview`);
+            const res = await axios.get(`${process.env.NEXT_PUBLIC_CARRELAGE_URL}/spots/${spot.id}/overview`);
 
             if (res.data) {
                 const { mostLikedMedia } = res.data;

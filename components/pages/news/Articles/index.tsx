@@ -1,4 +1,3 @@
-import Analytics from '@thepunkclub/analytics';
 import axios from 'axios';
 import classNames from 'classnames';
 import getConfig from 'next/config';
@@ -8,7 +7,6 @@ import { connect } from 'react-redux';
 
 import Types from 'Types';
 
-import Article from 'components/pages/news/Articles/Article';
 import TrackedPage from 'components/pages/TrackedPage';
 import NoContent from 'components/Ui/Feed/NoContent';
 import { KrakLoading } from 'components/Ui/Icons/Spinners';
@@ -62,9 +60,6 @@ class Articles extends React.Component<Props, State> {
         if (this.props.feedLayout && this.state.promoCardIndexes.length === 0) {
             this.genClubPromotionIndexes();
         }
-        if (this.state.contents.length > 0 && this.state.contents.length > prevState.contents.length) {
-            Analytics.default().trackLinks();
-        }
     }
 
     public render() {
@@ -108,7 +103,7 @@ class Articles extends React.Component<Props, State> {
                 return Promise.resolve();
             }
 
-            const res = await axios.get(`${getConfig().publicRuntimeConfig.RSS_BACKEND_URL}/contents/`, {
+            const res = await axios.get(`${process.env.NEXT_PUBLIC_RSS_BACKEND_URL}/contents/`, {
                 params: {
                     page,
                     filters,

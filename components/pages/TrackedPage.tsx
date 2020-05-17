@@ -1,5 +1,6 @@
-import Analytics from '@thepunkclub/analytics';
 import React from 'react';
+
+import Analytics from 'lib/analytics';
 
 type Props = {
     name: string;
@@ -14,23 +15,17 @@ class TrackedPage extends React.Component<Props, State> {
     };
 
     public componentDidMount() {
-        Analytics.default().init('2', {
-            cookieDomain: '*.skatekrak.com',
-            crossDomainLinking: true,
-            domains: ['*.skatekrak.com', '*.krakbox.com'],
-            async: false,
-        });
+        Analytics.init('UA-54975174-1');
         if (this.props.initial) {
             // console.log(`Tracked Initial Page ${this.props.name}`);
-            Analytics.default().trackPageView(this.props.name);
-            Analytics.default().trackLinks();
+            Analytics.trackPageView(this.props.name);
         }
     }
 
     public componentDidUpdate(prevPros: Readonly<Props>) {
         if (prevPros.name !== this.props.name) {
             // console.log(`Tracked Update Page ${this.props.name}`);
-            Analytics.default().trackPageView(this.props.name);
+            Analytics.trackPageView(this.props.name);
         }
     }
 

@@ -1,4 +1,3 @@
-import Analytics from '@thepunkclub/analytics';
 import axios from 'axios';
 import classNames from 'classnames';
 import getConfig from 'next/config';
@@ -10,6 +9,7 @@ import Types from 'Types';
 import SearchBar from 'components/pages/mag/Sidebar/Nav/SearchBar';
 import SourceOption from 'components/pages/mag/Sidebar/Nav/SourceOption';
 import { SpinnerCircle } from 'components/Ui/Icons/Spinners';
+import Analytics from 'lib/analytics';
 import { FilterState } from 'lib/FilterState';
 import { Source } from 'rss-feed';
 import { selectAllFilters, setAllSources, unselectAllFilters } from 'store/feed/actions';
@@ -42,7 +42,7 @@ class Nav extends React.PureComponent<Props> {
     public async componentDidMount() {
         try {
             const res = await axios.get(
-                `${getConfig().publicRuntimeConfig.KRAKMAG_URL}/wp-json/wp/v2/categories?per_page=100`,
+                `${process.env.NEXT_PUBLIC_KRAKMAG_URL}/wp-json/wp/v2/categories?per_page=100`,
             );
             const sources = Nav.extractSourcesFromData(res.data);
             this.props.setAllSources(sources);
@@ -123,14 +123,14 @@ class Nav extends React.PureComponent<Props> {
 
     private onSelectAllClick = () => {
         if (this.props.sources.size > 0) {
-            Analytics.default().trackEvent('Click', 'Filter_Select_All', { value: 1 });
+            Analytics.trackEvent('Click', 'Filter_Select_All');
         }
         this.props.selectAllFilters();
     };
 
     private onDeselectAllClick = () => {
         if (this.props.sources.size > 0) {
-            Analytics.default().trackEvent('Click', 'Filter_Unselect_All', { value: 1 });
+            Analytics.trackEvent('Click', 'Filter_Unselect_All');
         }
         this.props.unselectAllFilters();
     };

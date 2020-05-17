@@ -3,7 +3,7 @@ import getConfig from 'next/config';
 import React from 'react';
 
 const lastMod = format(new Date(), 'yyyy-MM-dd');
-const baseURL = getConfig().publicRuntimeConfig.WEBSITE_URL;
+const baseURL = process.env.NEXT_PUBLIC_NEXT_PUBLIC_WEBSITE_URL;
 
 const sitemapXml = `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>

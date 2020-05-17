@@ -19,7 +19,7 @@ const DynamicArticleModal = dynamic(() => import('components/pages/news/Articles
 });
 
 const NewsHead = ({ content }: { content: Content }) => {
-    const baseURL = getConfig().publicRuntimeConfig.WEBSITE_URL;
+    const baseURL = process.env.NEXT_PUBLIC_NEXT_PUBLIC_WEBSITE_URL;
 
     const description = (() => {
         if (content) {
@@ -95,7 +95,7 @@ const News: NextPage<Props> = ({ contentData, gotId }) => {
 News.getInitialProps = async ({ query }) => {
     if (query.id) {
         try {
-            const res = await axios.get(`${getConfig().publicRuntimeConfig.RSS_BACKEND_URL}/contents/${query.id}`);
+            const res = await axios.get(`${process.env.NEXT_PUBLIC_RSS_BACKEND_URL}/contents/${query.id}`);
             return { contentData: res.data, gotId: true };
         } catch (error) {
             return { gotId: true };

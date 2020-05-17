@@ -15,7 +15,7 @@ type Props = {
 };
 
 const Card = ({ post }: Props) => {
-    const baseURL = getConfig().publicRuntimeConfig.WEBSITE_URL;
+    const baseURL = process.env.NEXT_PUBLIC_NEXT_PUBLIC_WEBSITE_URL;
 
     return (
         <>

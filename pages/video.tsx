@@ -16,7 +16,7 @@ import { Video } from 'rss-feed';
 const DynamicVideoModal = dynamic(() => import('components/pages/videos/VideoFeed/Video/VideoModal'));
 
 const VideoHead = ({ video }: { video: Video }) => {
-    const baseURL = getConfig().publicRuntimeConfig.WEBSITE_URL;
+    const baseURL = process.env.NEXT_PUBLIC_NEXT_PUBLIC_WEBSITE_URL;
 
     const title = (() => {
         if (video) {
@@ -77,7 +77,7 @@ const Videos: NextPage<Props> = ({ video, gotId }) => {
 Videos.getInitialProps = async ({ query }: NextPageContext) => {
     if (query.id) {
         try {
-            const res = await axios.get(`${getConfig().publicRuntimeConfig.RSS_BACKEND_URL}/videos/${query.id}`);
+            const res = await axios.get(`${process.env.NEXT_PUBLIC_RSS_BACKEND_URL}/videos/${query.id}`);
             return { video: res.data, gotId: true };
         } catch {
             return { gotId: true };

@@ -1,4 +1,3 @@
-import Analytics from '@thepunkclub/analytics';
 import axios from 'axios';
 import classNames from 'classnames';
 import getConfig from 'next/config';
@@ -40,7 +39,7 @@ class VideoFeed extends React.Component<Props, State> {
     };
 
     public async componentDidMount() {
-        const req: Promise<any> = axios.get(`${getConfig().publicRuntimeConfig.RSS_BACKEND_URL}/videos/featured`);
+        const req: Promise<any> = axios.get(`${process.env.NEXT_PUBLIC_RSS_BACKEND_URL}/videos/featured`);
         const res = await req;
         if (res.data) {
             const data: Video[] = res.data;
@@ -52,12 +51,6 @@ class VideoFeed extends React.Component<Props, State> {
         if (this.props.video.feedNeedRefresh && !this.state.isLoading) {
             this.setState({ displayedVideos: [], hasMore: false });
             await this.loadMore(1);
-        }
-        if (
-            this.state.displayedVideos.length > 0 &&
-            this.state.displayedVideos.length > prevState.displayedVideos.length
-        ) {
-            Analytics.default().trackLinks();
         }
     }
 
@@ -115,11 +108,11 @@ class VideoFeed extends React.Component<Props, State> {
                 req = Promise.resolve();
             } else {
                 if (this.props.video.search) {
-                    req = axios.get(`${getConfig().publicRuntimeConfig.RSS_BACKEND_URL}/videos/search`, {
+                    req = axios.get(`${process.env.NEXT_PUBLIC_RSS_BACKEND_URL}/videos/search`, {
                         params: { page, filters, query: this.props.video.search },
                     });
                 } else {
-                    req = axios.get(`${getConfig().publicRuntimeConfig.RSS_BACKEND_URL}/videos/`, {
+                    req = axios.get(`${process.env.NEXT_PUBLIC_RSS_BACKEND_URL}/videos/`, {
                         params: { page, filters },
                     });
                 }

@@ -1,4 +1,3 @@
-import Analytics from '@thepunkclub/analytics';
 import axios from 'axios';
 import classNames from 'classnames';
 import getConfig from 'next/config';
@@ -72,9 +71,6 @@ class Feed extends React.Component<Props, State> {
             this.setState({ posts: [], hasMore: false });
             await this.loadMore(1);
         }
-        if (this.state.posts.length > 0 && this.state.posts.length > prevState.posts.length) {
-            Analytics.default().trackLinks();
-        }
     }
 
     public render() {
@@ -128,7 +124,7 @@ class Feed extends React.Component<Props, State> {
             }
 
             const params = { per_page: 20, page, categories: filters, search: this.props.mag.search, _embed: 1 };
-            const res = await axios.get(`${getConfig().publicRuntimeConfig.KRAKMAG_URL}/wp-json/wp/v2/posts`, {
+            const res = await axios.get(`${process.env.NEXT_PUBLIC_KRAKMAG_URL}/wp-json/wp/v2/posts`, {
                 params: {
                     ...params,
                     search: this.props.mag.search,
