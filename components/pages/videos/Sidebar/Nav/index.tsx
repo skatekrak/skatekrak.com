@@ -30,7 +30,7 @@ class Sources extends React.PureComponent<Props> {
     public async componentDidMount() {
         try {
             const res = await axios.get<Source[]>(
-                `${getConfig().publicRuntimeConfig.RSS_BACKEND_URL}/sources/?types[]=youtube&types[]=vimeo`,
+                `${process.env.NEXT_PUBLIC_RSS_BACKEND_URL}/sources/?types[]=youtube&types[]=vimeo`,
             );
             this.props.setAllSources(res.data);
         } catch (err) {

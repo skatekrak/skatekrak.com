@@ -17,7 +17,7 @@ import Feed, { Post } from 'components/pages/mag/Feed';
 import Sidebar from 'components/pages/mag/Sidebar';
 
 const MagHead = () => {
-    const baseURL = getConfig().publicRuntimeConfig.WEBSITE_URL;
+    const baseURL = process.env.NEXT_PUBLIC_NEXT_PUBLIC_WEBSITE_URL;
     return (
         <Head>
             <title>Krak Mag | our very own skate stories, interviews, reviews and cie.</title>

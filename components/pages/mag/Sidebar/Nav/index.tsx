@@ -42,7 +42,7 @@ class Nav extends React.PureComponent<Props> {
     public async componentDidMount() {
         try {
             const res = await axios.get(
-                `${getConfig().publicRuntimeConfig.KRAKMAG_URL}/wp-json/wp/v2/categories?per_page=100`,
+                `${process.env.NEXT_PUBLIC_KRAKMAG_URL}/wp-json/wp/v2/categories?per_page=100`,
             );
             const sources = Nav.extractSourcesFromData(res.data);
             this.props.setAllSources(sources);

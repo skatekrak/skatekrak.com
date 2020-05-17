@@ -32,7 +32,7 @@ const MagArticleHead = ({ post }: HeadProps) => {
             <meta name="description" content={description} />
             <meta property="og:title" content={title} />
             <meta property="og:type" content="article" />
-            <meta property="og:url" content={`${getConfig().publicRuntimeConfig.WEBSITE_URL}/mag/${post.slug!}`} />
+            <meta property="og:url" content={`${process.env.NEXT_PUBLIC_NEXT_PUBLIC_WEBSITE_URL}/mag/${post.slug!}`} />
             <meta property="og:image" content={post.featuredImageFull} />
             <meta property="og:description" content={description.substring(0, 300)} />
 
@@ -79,7 +79,7 @@ ArticlePage.getInitialProps = async ({ query }) => {
 
     try {
         const res = await axios.get(
-            `${getConfig().publicRuntimeConfig.KRAKMAG_URL}/wp-json/wp/v2/posts?slug=${slug}&_embed`,
+            `${process.env.NEXT_PUBLIC_KRAKMAG_URL}/wp-json/wp/v2/posts?slug=${slug}&_embed`,
         );
         if (res.data) {
             const formattedPost = formatPost(res.data[0]);

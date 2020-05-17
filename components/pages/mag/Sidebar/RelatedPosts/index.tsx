@@ -31,7 +31,7 @@ class RelatedPosts extends React.PureComponent<Props, State> {
         const { post } = this.props;
 
         try {
-            const res = await axios.get(`${getConfig().publicRuntimeConfig.KRAKMAG_URL}/wp-json/wp/v2/posts`, {
+            const res = await axios.get(`${process.env.NEXT_PUBLIC_KRAKMAG_URL}/wp-json/wp/v2/posts`, {
                 params: { per_page: 3, categories: post.categories[0], before: post.date, _embed: 1 },
             });
 
@@ -39,7 +39,7 @@ class RelatedPosts extends React.PureComponent<Props, State> {
                 const relatedPosts = res.data.map((relatedPost) => formatPost(relatedPost));
                 this.setState({ relatedPosts });
             } else {
-                const res2 = await axios.get(`${getConfig().publicRuntimeConfig.KRAKMAG_URL}/wp-json/wp/v2/posts`, {
+                const res2 = await axios.get(`${process.env.NEXT_PUBLIC_KRAKMAG_URL}/wp-json/wp/v2/posts`, {
                     params: { per_page: 3, categories: post.categories[0], _embed: 1 },
                 });
 

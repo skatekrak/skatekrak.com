@@ -28,7 +28,7 @@ class LatestPosts extends React.PureComponent<Props, State> {
 
         try {
             const res = await axios.get(
-                `${getConfig().publicRuntimeConfig.KRAKMAG_URL}/wp-json/wp/v2/posts?per_page=3&_embed`,
+                `${process.env.NEXT_PUBLIC_KRAKMAG_URL}/wp-json/wp/v2/posts?per_page=3&_embed`,
             );
 
             if (res.data) {

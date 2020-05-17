@@ -70,7 +70,7 @@ const Layout: React.FC<IComponentProps> = ({ head, children, isMobile, ...props 
                     <meta property="og:title" content="Krak - Dig deeper into skateboarding" />
                     <meta property="og:type" content="website" />
                     <meta property="og:description" content="" />
-                    <meta property="og:url" content={getConfig().publicRuntimeConfig.WEBSITE_URL} />
+                    <meta property="og:url" content={process.env.NEXT_PUBLIC_NEXT_PUBLIC_WEBSITE_URL} />
                 </Head>
             )}
             <div id="page-container" className={classNames({ 'scroll-container': isMobile })}>

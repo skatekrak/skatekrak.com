@@ -78,7 +78,7 @@ export default function usePayment() {
     useEffect(() => {
         // If not in dev, we query ipdata.co to get country based on IP
         // and show currency accordingly
-        if (!fetchedData && getConfig().publicRuntimeConfig.NODE_ENV !== 'development') {
+        if (!fetchedData && process.env.NEXT_PUBLIC_NODE_ENV !== 'development') {
             axios('https://api.ipdata.co/?api-key=4a4e1261ab0b0b8288f5ffef913072c177a0262cf1945fb399a0b712').then(
                 result => {
                     if (result.data && result.data.country_code) {

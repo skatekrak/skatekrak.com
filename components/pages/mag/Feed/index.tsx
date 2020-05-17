@@ -124,7 +124,7 @@ class Feed extends React.Component<Props, State> {
             }
 
             const params = { per_page: 20, page, categories: filters, search: this.props.mag.search, _embed: 1 };
-            const res = await axios.get(`${getConfig().publicRuntimeConfig.KRAKMAG_URL}/wp-json/wp/v2/posts`, {
+            const res = await axios.get(`${process.env.NEXT_PUBLIC_KRAKMAG_URL}/wp-json/wp/v2/posts`, {
                 params: {
                     ...params,
                     search: this.props.mag.search,

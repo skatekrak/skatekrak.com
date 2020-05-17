@@ -29,7 +29,7 @@ type Props = {
 class Sources extends React.PureComponent<Props> {
     public async componentDidMount() {
         try {
-            const res = await axios.get<Source[]>(`${getConfig().publicRuntimeConfig.RSS_BACKEND_URL}/sources`);
+            const res = await axios.get<Source[]>(`${process.env.NEXT_PUBLIC_RSS_BACKEND_URL}/sources`);
             this.props.setAllSources(res.data);
         } catch (err) {
             //

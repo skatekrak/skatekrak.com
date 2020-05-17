@@ -103,7 +103,7 @@ class Articles extends React.Component<Props, State> {
                 return Promise.resolve();
             }
 
-            const res = await axios.get(`${getConfig().publicRuntimeConfig.RSS_BACKEND_URL}/contents/`, {
+            const res = await axios.get(`${process.env.NEXT_PUBLIC_RSS_BACKEND_URL}/contents/`, {
                 params: {
                     page,
                     filters,
