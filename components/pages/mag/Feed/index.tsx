@@ -1,4 +1,3 @@
-import Analytics from '@thepunkclub/analytics';
 import axios from 'axios';
 import classNames from 'classnames';
 import getConfig from 'next/config';
@@ -71,9 +70,6 @@ class Feed extends React.Component<Props, State> {
         if (this.props.mag.feedNeedRefresh && !this.state.isLoading) {
             this.setState({ posts: [], hasMore: false });
             await this.loadMore(1);
-        }
-        if (this.state.posts.length > 0 && this.state.posts.length > prevState.posts.length) {
-            Analytics.default().trackLinks();
         }
     }
 

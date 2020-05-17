@@ -1,4 +1,3 @@
-import Analytics from '@thepunkclub/analytics';
 import axios from 'axios';
 import classNames from 'classnames';
 import getConfig from 'next/config';
@@ -11,6 +10,7 @@ import LanguageFilter from 'components/pages/news/Sidebar/Nav/LanguageFilter';
 import SearchBar from 'components/pages/news/Sidebar/Nav/SearchBar';
 import SourceOption from 'components/pages/news/Sidebar/Nav/SourceOption';
 import { SpinnerCircle } from 'components/Ui/Icons/Spinners';
+import Analytics from 'lib/analytics';
 import { FilterState } from 'lib/FilterState';
 import { Language, Source } from 'rss-feed';
 import { selectAllFilters, setAllSources, unselectAllFilters } from 'store/feed/actions';
@@ -111,14 +111,14 @@ class Sources extends React.PureComponent<Props> {
 
     private onSelectAllClick = () => {
         if (this.props.sources.size > 0) {
-            Analytics.default().trackEvent('Click', 'Filter_Select_All', { value: 1 });
+            Analytics.trackEvent('Click', 'Filter_Select_All', { value: 1 });
         }
         this.props.selectAllFilters();
     };
 
     private onDeselectAllClick = () => {
         if (this.props.sources.size > 0) {
-            Analytics.default().trackEvent('Click', 'Filter_Unselect_All', { value: 1 });
+            Analytics.trackEvent('Click', 'Filter_Unselect_All', { value: 1 });
         }
         this.props.unselectAllFilters();
     };

@@ -1,4 +1,3 @@
-import Analytics from '@thepunkclub/analytics';
 import axios from 'axios';
 import classNames from 'classnames';
 import getConfig from 'next/config';
@@ -52,12 +51,6 @@ class VideoFeed extends React.Component<Props, State> {
         if (this.props.video.feedNeedRefresh && !this.state.isLoading) {
             this.setState({ displayedVideos: [], hasMore: false });
             await this.loadMore(1);
-        }
-        if (
-            this.state.displayedVideos.length > 0 &&
-            this.state.displayedVideos.length > prevState.displayedVideos.length
-        ) {
-            Analytics.default().trackLinks();
         }
     }
 
