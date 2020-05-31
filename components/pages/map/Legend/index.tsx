@@ -14,6 +14,7 @@ import IconWip from 'components/pages/map/marker/icons/Wip';
 import Activity from 'components/pages/map/marker/Activity';
 import BadgeHistory from 'components/pages/map/marker/badges/History';
 import BadgeIconic from 'components/pages/map/marker/badges/Iconic';
+import BadgeMinute from 'components/pages/map/marker/badges/Minute';
 import KrakAppIcon from 'components/Ui/Icons/Logos/KrakAppIcon';
 
 const index = () => {
@@ -84,7 +85,10 @@ const index = () => {
                                     <BadgeHistory />
                                     History Clip
                                 </li>
-                                {/* <li className="map-legend-tags">Minute</li> */}
+                                <li className="map-legend-tags">
+                                    <BadgeMinute />
+                                    Minute
+                                </li>
                             </ul>
                             <div className="map-legend-divider" />
                             <h4 className="map-legend-title">Activity [amount of media uploaded]</h4>

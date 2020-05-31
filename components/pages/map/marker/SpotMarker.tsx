@@ -12,7 +12,9 @@ import IconShop from 'components/pages/map/marker/icons/Shop';
 import IconStreet from 'components/pages/map/marker/icons/Street';
 import IconWip from 'components/pages/map/marker/icons/Wip';
 
+import BadgeHistory from 'components/pages/map/marker/badges/History';
 import BadgeIconic from 'components/pages/map/marker/badges/Iconic';
+import BadgeMinute from 'components/pages/map/marker/badges/Minute';
 
 import Activity from 'components/pages/map/marker/Activity';
 
@@ -92,12 +94,13 @@ class SpotMarker extends React.Component<Props, State> {
                     </div>
                     {spot.tags.length !== 0 && (
                         <div className="map-marker-badges">
-                            {spot.tags.map((tag) => {
-                                if (tag === 'famous') {
-                                    return <BadgeIconic key={tag} />;
-                                }
-                                return;
-                            })}
+                            {spot.tags.map((tag) => (
+                                <React.Fragment key={tag}>
+                                    {tag === 'famous' && <BadgeIconic />}
+                                    {tag === 'history' && <BadgeHistory />}
+                                    {tag === 'minute' && <BadgeMinute />}
+                                </React.Fragment>
+                            ))}
                         </div>
                     )}
                     {active && <Activity firing={firing} />}
