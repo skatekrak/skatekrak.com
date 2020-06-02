@@ -11,7 +11,7 @@ export enum FilterName {
     RIP = 'rip',
 }
 
-const index = () =
+const index = () => {
     const onFilterClick = (name: FilterName) => {
         // tslint:disable-next-line: no-console
         console.log(name);
