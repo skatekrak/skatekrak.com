@@ -19,6 +19,7 @@ import SpotCluster from 'components/pages/map/marker/SpotCluster';
 import SpotMarker from 'components/pages/map/marker/SpotMarker';
 import BannerTop from 'components/Ui/Banners/BannerTop';
 import MapNavigation from './MapNavigation';
+import { boxSpotsSearch } from 'lib/carrelageClient';
 
 type Props = {
     isMobile: boolean;
@@ -236,17 +237,14 @@ class MapContainer extends React.Component<Props, State> {
                 const northEast = bounds.getNorthEast();
                 const southWest = bounds.getSouthWest();
 
-                const res = await axios.get(`${process.env.NEXT_PUBLIC_CARRELAGE_URL}/spots/search`, {
-                    params: {
-                        clustering: true,
-                        northEastLatitude: northEast.lat,
-                        northEastLongitude: northEast.lng,
-                        southWestLatitude: southWest.lat,
-                        southWestLongitude: southWest.lng,
-                    },
+                const clusters = await boxSpotsSearch({
+                    clustering: true,
+                    northEastLatitude: northEast.lat,
+                    northEastLongitude: northEast.lng,
+                    southWestLatitude: southWest.lat,
+                    southWestLongitude: southWest.lng,
                 });
 
-                const clusters = res.data as Cluster[];
                 let clusterMaxSpots = 1;
                 for (const cluster of clusters) {
                     if (clusterMaxSpots < cluster.count) {
