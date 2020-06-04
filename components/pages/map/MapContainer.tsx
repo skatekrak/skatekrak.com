@@ -12,7 +12,7 @@ import WebMercatorViewport, { getDistanceScales } from 'viewport-mercator-projec
 
 import Types from 'Types';
 
-import { Cluster, Spot } from 'carrelage';
+import { Cluster, Spot } from 'lib/carrelageClient';
 
 import Legend from 'components/pages/map/Legend';
 import SpotCluster from 'components/pages/map/marker/SpotCluster';
@@ -20,9 +20,11 @@ import SpotMarker from 'components/pages/map/marker/SpotMarker';
 import BannerTop from 'components/Ui/Banners/BannerTop';
 import MapNavigation from './MapNavigation';
 import { boxSpotsSearch } from 'lib/carrelageClient';
+import { MapState } from 'store/map/reducers';
 
 type Props = {
     isMobile: boolean;
+    map: MapState;
 };
 
 type State = {
@@ -63,6 +65,12 @@ class MapContainer extends React.Component<Props, State> {
 
     public componentDidMount() {
         this.load();
+    }
+
+    public componentDidUpdate(prevProps: Props) {
+        if (prevProps.map.status !== this.props.map.status || prevProps.map.types !== this.props.map.types) {
+            this.load();
+        }
     }
 
     public render() {
@@ -243,6 +251,10 @@ class MapContainer extends React.Component<Props, State> {
                     northEastLongitude: northEast.lng,
                     southWestLatitude: southWest.lat,
                     southWestLongitude: southWest.lng,
+                    filters: {
+                        type: this.props.map.types,
+                        status: this.props.map.status,
+                    },
                 });
 
                 let clusterMaxSpots = 1;
@@ -313,6 +325,7 @@ class MapContainer extends React.Component<Props, State> {
 
 // export default MapContainer;
 
-export default connect(({ settings }: Types.RootState) => ({
+export default connect(({ settings, map }: Types.RootState) => ({
     isMobile: settings.isMobile,
+    map,
 }))(MapContainer);

@@ -1,25 +1,25 @@
 import classNames from 'classnames';
 import React, { useState } from 'react';
 
-import { FilterName } from './index';
+import { Types, Status } from 'lib/carrelageClient';
 
 type Props = {
-    name: FilterName;
+    filter: Types | Status;
     icon: JSX.Element;
-    onFilterClick: (name: FilterName) => void;
+    onFilterClick: (filter: Types | Status, active: boolean) => void;
 };
 
-const MapFilter: React.FC<Props> = ({ name, icon, onFilterClick }) => {
+const MapFilter: React.FC<Props> = ({ filter, icon, onFilterClick }) => {
     const [isActive, setIsActive] = useState(true);
 
     const handleOnClick = () => {
+        onFilterClick(filter, !isActive);
         setIsActive(!isActive);
-        onFilterClick(name);
     };
 
     return (
         <button
-            className={classNames(`map-navigation-filter map-navigation-filter-${name}`, {
+            className={classNames(`map-navigation-filter map-navigation-filter-${filter}`, {
                 'map-navigation-filter-inactive': !isActive,
             })}
             onClick={handleOnClick}

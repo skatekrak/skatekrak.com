@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Cluster } from 'carrelage';
+import { Cluster } from 'lib/carrelageClient';
 import { Marker } from 'react-map-gl';
 
 type Props = {

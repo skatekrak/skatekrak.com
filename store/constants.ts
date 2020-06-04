@@ -15,3 +15,7 @@ export const SET_ITEMS = 'SET_ITEMS';
 // Form
 export const UPDATE_FORM_STATE = 'update_form_state';
 export const RESET_FORM = 'reset_form';
+
+// Map
+export const SET_MAP_SPOTS_TYPE = 'set_map_spots_type';
+export const SET_MAP_SPOTS_STATUS = 'set-map_spots_status';
