@@ -12,16 +12,19 @@ import WebMercatorViewport, { getDistanceScales } from 'viewport-mercator-projec
 
 import Types from 'Types';
 
-import { Cluster, Spot } from 'carrelage';
+import { Cluster, Spot } from 'lib/carrelageClient';
 
 import Legend from 'components/pages/map/Legend';
 import SpotCluster from 'components/pages/map/marker/SpotCluster';
 import SpotMarker from 'components/pages/map/marker/SpotMarker';
 import BannerTop from 'components/Ui/Banners/BannerTop';
 import MapNavigation from './MapNavigation';
+import { boxSpotsSearch } from 'lib/carrelageClient';
+import { MapState } from 'store/map/reducers';
 
 type Props = {
     isMobile: boolean;
+    map: MapState;
 };
 
 type State = {
@@ -62,6 +65,12 @@ class MapContainer extends React.Component<Props, State> {
 
     public componentDidMount() {
         this.load();
+    }
+
+    public componentDidUpdate(prevProps: Props) {
+        if (prevProps.map.status !== this.props.map.status || prevProps.map.types !== this.props.map.types) {
+            this.load();
+        }
     }
 
     public render() {
@@ -236,17 +245,18 @@ class MapContainer extends React.Component<Props, State> {
                 const northEast = bounds.getNorthEast();
                 const southWest = bounds.getSouthWest();
 
-                const res = await axios.get(`${process.env.NEXT_PUBLIC_CARRELAGE_URL}/spots/search`, {
-                    params: {
-                        clustering: true,
-                        northEastLatitude: northEast.lat,
-                        northEastLongitude: northEast.lng,
-                        southWestLatitude: southWest.lat,
-                        southWestLongitude: southWest.lng,
+                const clusters = await boxSpotsSearch({
+                    clustering: true,
+                    northEastLatitude: northEast.lat,
+                    northEastLongitude: northEast.lng,
+                    southWestLatitude: southWest.lat,
+                    southWestLongitude: southWest.lng,
+                    filters: {
+                        type: this.props.map.types,
+                        status: this.props.map.status,
                     },
                 });
 
-                const clusters = res.data as Cluster[];
                 let clusterMaxSpots = 1;
                 for (const cluster of clusters) {
                     if (clusterMaxSpots < cluster.count) {
@@ -315,6 +325,7 @@ class MapContainer extends React.Component<Props, State> {
 
 // export default MapContainer;
 
-export default connect(({ settings }: Types.RootState) => ({
+export default connect(({ settings, map }: Types.RootState) => ({
     isMobile: settings.isMobile,
+    map,
 }))(MapContainer);

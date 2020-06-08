@@ -1,9 +1,9 @@
 import classNames from 'classnames';
 import React from 'react';
 
-import { Cluster, Spot } from 'carrelage';
 import { Marker } from 'react-map-gl';
 
+import { Spot } from 'lib/carrelageClient';
 import IconDiy from 'components/pages/map/marker/icons/Diy';
 import IconPark from 'components/pages/map/marker/icons/Park';
 import IconPrivate from 'components/pages/map/marker/icons/Private';
