@@ -3,6 +3,8 @@ import React from 'react';
 
 import KrakLogoHand from 'components/Ui/branding/KrakLogoHand';
 import MapFilters from './MapFilters';
+import MapSearch from './MapSearch';
+import DividerVertical from 'components/Ui/dividers/DividerVertical';
 
 const index = () => {
     return (
@@ -14,6 +16,8 @@ const index = () => {
                             <KrakLogoHand />
                         </a>
                     </Link>
+                    <DividerVertical />
+                    <MapSearch />
                 </div>
                 <MapFilters />
             </div>

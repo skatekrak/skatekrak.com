@@ -1,0 +1,36 @@
+@import "../stylus-mq"
+@import "../styleguide"
+
+@import "./filters"
+@import "./search"
+
+
+#map-navigation
+	z-index: 990
+
+	&-top-nav
+		position: absolute
+		top: 4rem
+		left: 1.5rem
+
+		&-main
+			position: relative
+			display: flex
+			align-items: center
+			height: 56px
+			padding: 1rem
+			padding-left: 0.5rem
+			background-color: $grey-900
+			border: 1.5px solid $grey-800
+			border-radius: 0.25rem
+			box-shadow: $shadowSurface
+			z-index: 1
+	
+	&-link-home
+		margin-right: .5rem
+		padding: 0 1rem
+
+		& svg
+			display: block
+			width: 3.5rem
+			fill: $white

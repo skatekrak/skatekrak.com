@@ -1,0 +1,174 @@
+@import "../stylus-mq"
+@import "../styleguide"
+
+
+#map-navigation
+	&-search
+		&-bar
+			display: flex
+			align-items: center
+			min-width: 18rem
+			margin-left: 1.5rem
+
+			&-input
+				width: 100%
+				font-size: $fs-regular
+				color: $grey-100
+				font-weight: 600
+				letter-spacing: 0.2px
+				background-color: inherit
+
+				&:placeholder
+					color: $grey-400
+
+			& button
+				display: flex
+				margin-left: 1rem
+
+			& svg
+				width: 1.5rem
+				fill: $grey-400
+
+		&-results
+			position: absolute
+			left: -1px
+			top: 3.325rem
+			width: 27.225rem
+			color: $grey-100
+			background-color: $grey-900
+			border: 1.5px solid $grey-800
+			border-radius: 0.25rem
+			box-shadow: $shadowSurface
+
+
+.map-navigation
+	&-search
+		&-result
+			&-loading
+				display: flex
+				align-items: center
+				padding: 15px 16px 15px 12px
+
+				& span
+					display: block
+					border-radius: 0.125rem
+					background-color: $grey-800
+
+				& > .skeleton-circle
+					width: 2rem
+					height: 2rem
+					border-radius: 100%
+
+				& > .skeleton-container-start
+					flex-grow: 1
+					margin-left: 12px
+
+					& > .skeleton-box
+						height: 0.625 rem
+						width: 65%
+
+						&:first-child
+							margin-bottom: 0.5rem
+
+						&:last-child
+							width: 80%
+				
+				& > .skeleton-container-end
+					margin-left: auto
+					width: 20%
+
+					& > .skeleton-box
+						height: 0.625 rem
+						width: 100%
+
+						&:first-child
+							margin-bottom: 0.5rem
+
+			&-no-content
+				padding: 1rem
+				text-align: center
+
+				& > span
+					color: $grey-300
+					font-size: $fs-small
+
+					& a
+						text-decoration: underline
+
+			&-place
+				&-name
+					font-size: $fs-regular
+					font-style: italic
+					color: $grey-100
+
+			&-spot
+				position: relative
+				display: flex
+				align-items: center
+				width: 100%
+				padding: 0.625rem 1rem 0.625rem 0.5rem
+				text-align: inherit
+
+				&-divider
+					height: 1px
+					background-color: $grey-800
+
+					&:last-of-type
+						display: none
+
+				&-icon
+					display: flex
+					margin: auto 0.5rem auto 0
+
+					& svg
+						width: 2.25rem
+
+				&-container-start
+					width: 15rem
+
+				&-name
+					margin-bottom: 0.125rem
+					white-space: nowrap
+					overflow: hidden
+					text-overflow: ellipsis
+					font-size: $fs-regular
+					font-weight: 600
+					letter-spacing: 0.2px
+					color: $grey-100
+
+				&-street
+					white-space: nowrap
+					overflow: hidden
+					text-overflow: ellipsis
+					font-size: $fs-small
+					color: $grey-400
+					font-style: italic
+
+				&-city
+					position: absolute
+					right: 1rem
+					bottom: 0.625rem
+					width: 7rem
+					white-space: nowrap
+					overflow: hidden
+					text-overflow: ellipsis
+					text-align: right
+					font-size $fs-small
+					color: $grey-600
+
+				&-badges
+					position: absolute
+					top: 0.75rem
+					right: 1rem
+					display: flex
+					align-items: center
+
+					&-counter
+						color: $grey-400
+
+					& svg
+						width: 1rem
+						margin-right: 0.375rem
+
+						&:last-child
+							margin-right: 0
