@@ -44,13 +44,13 @@ const index = () => {
 
     return (
         <div id="map-navigation-filters">
-            <MapFilter filter={Types.Street} icon={<StreetIcon />} onFilterClick={onFilterClick} />
-            <MapFilter filter={Types.Park} icon={<ParkIcon />} onFilterClick={onFilterClick} />
-            <MapFilter filter={Types.Diy} icon={<DiyIcon />} onFilterClick={onFilterClick} />
-            <MapFilter filter={Types.Private} icon={<PrivateIcon />} onFilterClick={onFilterClick} />
-            <MapFilter filter={Types.Shop} icon={<ShopIcon />} onFilterClick={onFilterClick} />
-            <MapFilter filter={Status.Wip} icon={<WipIcon />} onFilterClick={onFilterClick} />
-            <MapFilter filter={Status.Rip} icon={<RipIcon />} onFilterClick={onFilterClick} />
+            <MapFilter loading={false} filter={Types.Street} icon={<StreetIcon />} onFilterClick={onFilterClick} />
+            <MapFilter loading={false} filter={Types.Park} icon={<ParkIcon />} onFilterClick={onFilterClick} />
+            <MapFilter loading={false} filter={Types.Diy} icon={<DiyIcon />} onFilterClick={onFilterClick} />
+            <MapFilter loading={true} filter={Types.Private} icon={<PrivateIcon />} onFilterClick={onFilterClick} />
+            <MapFilter loading={false} filter={Types.Shop} icon={<ShopIcon />} onFilterClick={onFilterClick} />
+            <MapFilter loading={false} filter={Status.Wip} icon={<WipIcon />} onFilterClick={onFilterClick} />
+            <MapFilter loading={false} filter={Status.Rip} icon={<RipIcon />} onFilterClick={onFilterClick} />
         </div>
     );
 };
