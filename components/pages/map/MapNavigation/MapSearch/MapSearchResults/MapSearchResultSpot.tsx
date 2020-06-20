@@ -11,7 +11,7 @@ import IconicBadge from 'components/pages/map/marker/badges/Iconic';
 import HistoryBadge from 'components/pages/map/marker/badges/History';
 import MinuteBadge from 'components/pages/map/marker/badges/Minute';
 
-import { Spot } from 'carrelage';
+import { Spot } from 'lib/carrelageClient';
 
 type Props = {
     spot: any;

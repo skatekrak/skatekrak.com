@@ -7,7 +7,7 @@ import MapSearchResultNoContent from './MapSearchResultNoContent';
 import MapSearchResultSpot from './MapSearchResultSpot';
 import MapSearchResultPlace from './MapSearchResultPlace';
 
-import { Spot } from 'carrelage';
+import { Spot } from 'lib/carrelageClient';
 
 const fakeSpot = {
     id: 'dazdazd',
@@ -26,7 +26,7 @@ const fakeSpot = {
 const index = () => {
     const loading = false;
     const results = [fakeSpot, fakeSpot, fakeSpot];
-    const places = [{ name: 'Place name' }];
+    const places = [{ name: 'New York City' }];
 
     const onSpotClick = (spot: Spot) => {
         return;
