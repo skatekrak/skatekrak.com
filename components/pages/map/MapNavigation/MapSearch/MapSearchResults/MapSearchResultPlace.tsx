@@ -1,6 +1,6 @@
 import React from 'react';
 
-import DiyIcon from 'components/pages/map/marker/icons/Diy';
+import PlaceIcon from 'components/pages/map/marker/icons/Place';
 
 type Props = {
     place: any;
@@ -16,7 +16,7 @@ const MapSearchResultSpot = ({ place, onPlaceClick }: Props) => {
         <>
             <button className="map-navigation-search-result-spot" onClick={handlePlaceClick}>
                 <div className="map-navigation-search-result-spot-icon">
-                    <DiyIcon />
+                    <PlaceIcon />
                 </div>
                 <div className="map-navigation-search-result-spot-container-start">
                     <p className="map-navigation-search-result-place-name">{place.name}</p>
