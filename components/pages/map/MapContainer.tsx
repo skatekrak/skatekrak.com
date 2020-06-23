@@ -10,9 +10,9 @@ import ReactMapGL, {
 import { connect } from 'react-redux';
 import WebMercatorViewport, { getDistanceScales } from 'viewport-mercator-project';
 
-import Types from 'Types';
+import Typings from 'Types';
 
-import { Cluster, Spot } from 'lib/carrelageClient';
+import { Cluster, Spot, Status, Types } from 'lib/carrelageClient';
 
 import Legend from 'components/pages/map/Legend';
 import SpotCluster from 'components/pages/map/marker/SpotCluster';
@@ -21,10 +21,15 @@ import BannerTop from 'components/Ui/Banners/BannerTop';
 import MapNavigation from './MapNavigation';
 import { boxSpotsSearch } from 'lib/carrelageClient';
 import { MapState } from 'store/map/reducers';
+import { selectAllMapFilters, mapRefreshEnd } from 'store/map/actions';
+import { FilterState, FilterStateUtil } from 'lib/FilterState';
 
 type Props = {
     isMobile: boolean;
     map: MapState;
+
+    selectAllMapFilters: () => void;
+    mapRefreshEnd: () => void;
 };
 
 type State = {
@@ -64,6 +69,7 @@ class MapContainer extends React.Component<Props, State> {
     private loadTimeout: NodeJS.Timeout;
 
     public componentDidMount() {
+        // this.props.selectAllMapFilters();
         this.load();
     }
 
@@ -238,6 +244,10 @@ class MapContainer extends React.Component<Props, State> {
 
     private load() {
         clearTimeout(this.loadTimeout);
+
+        let type = FilterStateUtil.getSelected(this.props.map.types);
+        let status = FilterStateUtil.getSelected(this.props.map.status);
+
         this.loadTimeout = setTimeout(async () => {
             if (this.mapRef.current) {
                 const map = this.mapRef.current.getMap();
@@ -251,11 +261,9 @@ class MapContainer extends React.Component<Props, State> {
                     northEastLongitude: northEast.lng,
                     southWestLatitude: southWest.lat,
                     southWestLongitude: southWest.lng,
-                    filters: {
-                        type: this.props.map.types,
-                        status: this.props.map.status,
-                    },
+                    filters: { type, status },
                 });
+                this.props.mapRefreshEnd();
 
                 let clusterMaxSpots = 1;
                 for (const cluster of clusters) {
@@ -323,9 +331,9 @@ class MapContainer extends React.Component<Props, State> {
     };
 }
 
-// export default MapContainer;
-
-export default connect(({ settings, map }: Types.RootState) => ({
+const mapStateProps = ({ settings, map }: Typings.RootState) => ({
     isMobile: settings.isMobile,
     map,
-}))(MapContainer);
+});
+
+export default connect(mapStateProps, { selectAllMapFilters, mapRefreshEnd })(MapContainer);

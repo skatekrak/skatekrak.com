@@ -1,23 +1,55 @@
 import classNames from 'classnames';
-import React, { useState } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
+import Typings from 'Types';
 
 import { Types, Status } from 'lib/carrelageClient';
 import { SpinnerCircle } from 'components/Ui/Icons/Spinners';
+import { toggleMapFilter } from 'store/map/actions';
+import { FilterStateUtil, FilterState } from 'lib/FilterState';
 
 type Props = {
-    loading: boolean;
     filter: Types | Status;
     icon: JSX.Element;
-    onFilterClick: (filter: Types | Status, active: boolean) => void;
 };
 
-const MapFilter: React.FC<Props> = ({ loading, filter, icon, onFilterClick }) => {
+const MapFilter: React.FC<Props> = ({ filter, icon }) => {
     const [isActive, setIsActive] = useState(true);
+    const [loading, setLoading] = useState(false);
+    const mapState = useSelector((state: Typings.RootState) => state.map);
+    const dispatch = useDispatch();
 
-    const handleOnClick = () => {
-        onFilterClick(filter, !isActive);
-        setIsActive(!isActive);
-    };
+    const handleOnClick = useCallback(() => {
+        dispatch(toggleMapFilter(filter));
+        // setIsActive(!isActive);
+    }, [dispatch]);
+
+    useEffect(() => {
+        if (Object.values(Types).includes(filter as any)) {
+            setIsActive(FilterStateUtil.isSelected(mapState.types[filter as Types]));
+        } else if (Object.values(Status).includes(filter as any)) {
+            setIsActive(FilterStateUtil.isSelected(mapState.status[filter as Status]));
+        }
+    }, [mapState]);
+
+    useEffect(() => {
+        if (Object.values(Types).includes(filter as any)) {
+            const filterState = mapState.types[filter as Types];
+            if (filterState === FilterState.LOADING_TO_SELECTED || filterState === FilterState.LOADING_TO_UNSELECTED) {
+                setLoading(true);
+            } else {
+                setLoading(false);
+            }
+        } else if (Object.values(Status).includes(filter as any)) {
+            const filterState = mapState.status[filter as Status];
+            if (filterState === FilterState.LOADING_TO_SELECTED || filterState === FilterState.LOADING_TO_UNSELECTED) {
+                setLoading(true);
+            } else {
+                setLoading(false);
+            }
+        }
+    }, [mapState]);
 
     return (
         <button
