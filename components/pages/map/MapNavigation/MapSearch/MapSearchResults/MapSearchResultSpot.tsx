@@ -14,7 +14,7 @@ import MinuteBadge from 'components/pages/map/marker/badges/Minute';
 import { Spot } from 'lib/carrelageClient';
 
 type Props = {
-    spot: any;
+    spot: Spot;
     onSpotClick: (spot: Spot) => void;
 };
 
@@ -29,9 +29,8 @@ const MapSearchResultSpot = ({ spot, onSpotClick }: Props) => {
 
     useEffect(() => {
         if (spot.tags.length > 5) {
-            return setOverBadgeCounter(spot.tags.length - 4);
+            setOverBadgeCounter(spot.tags.length - 4);
         }
-        return undefined;
     }, [spot.tags]);
 
     const handleSpotClick = () => {

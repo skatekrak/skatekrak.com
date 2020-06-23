@@ -9,24 +9,13 @@ import MapSearchResultPlace from './MapSearchResultPlace';
 
 import { Spot } from 'lib/carrelageClient';
 
-const fakeSpot = {
-    id: 'dazdazd',
-    name: 'Triple set Santa Monica - Los Angeles',
-    type: 'street',
-    // status: 'wip',
-    tags: ['famous', 'history', 'minute', 'famous', 'minute', 'famous', 'minute'],
-    location: {
-        streetNumber: '154',
-        streetName: 'Maison fond gare du Nord, rue de la nation skateboard',
-        city: 'New york city',
-        country: 'USA',
-    },
+type MapSearchResultsProps = {
+    loading: boolean;
+    spots: Spot[];
 };
 
-const index = () => {
-    const loading = false;
-    const results = [fakeSpot, fakeSpot, fakeSpot];
-    const places = [{ name: 'New York City' }];
+const MapSearchResults: React.FC<MapSearchResultsProps> = ({ spots, loading }) => {
+    const places = [];
 
     const onSpotClick = (spot: Spot) => {
         return;
@@ -39,17 +28,22 @@ const index = () => {
     return (
         <div id="map-navigation-search-results">
             <Scrollbar maxHeight="22.25rem">
-                {loading && <MapSearchResultLoading />}
-                {results.length === 0 ? (
-                    <MapSearchResultNoContent />
+                {loading ? (
+                    <MapSearchResultLoading />
                 ) : (
                     <>
-                        {results.map((spot) => (
-                            <MapSearchResultSpot spot={fakeSpot} onSpotClick={onSpotClick} />
-                        ))}
-                        {places.map((place) => (
-                            <MapSearchResultPlace place={place} onPlaceClick={onPlaceClick} />
-                        ))}
+                        {spots.length === 0 ? (
+                            <MapSearchResultNoContent />
+                        ) : (
+                            <>
+                                {spots.map((spot) => (
+                                    <MapSearchResultSpot key={spot.id} spot={spot} onSpotClick={onSpotClick} />
+                                ))}
+                                {places.map((place) => (
+                                    <MapSearchResultPlace place={place} onPlaceClick={onPlaceClick} />
+                                ))}
+                            </>
+                        )}
                     </>
                 )}
             </Scrollbar>
@@ -57,4 +51,4 @@ const index = () => {
     );
 };
 
-export default index;
+export default MapSearchResults;
