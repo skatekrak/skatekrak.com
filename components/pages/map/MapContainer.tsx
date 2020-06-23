@@ -12,7 +12,7 @@ import WebMercatorViewport, { getDistanceScales } from 'viewport-mercator-projec
 
 import Typings from 'Types';
 
-import { Cluster, Spot, Status, Types } from 'lib/carrelageClient';
+import { Cluster, Spot } from 'lib/carrelageClient';
 
 import Legend from 'components/pages/map/Legend';
 import SpotCluster from 'components/pages/map/marker/SpotCluster';
@@ -22,7 +22,7 @@ import MapNavigation from './MapNavigation';
 import { boxSpotsSearch } from 'lib/carrelageClient';
 import { MapState } from 'store/map/reducers';
 import { selectAllMapFilters, mapRefreshEnd } from 'store/map/actions';
-import { FilterState, FilterStateUtil } from 'lib/FilterState';
+import { FilterStateUtil } from 'lib/FilterState';
 
 type Props = {
     isMobile: boolean;
@@ -69,7 +69,6 @@ class MapContainer extends React.Component<Props, State> {
     private loadTimeout: NodeJS.Timeout;
 
     public componentDidMount() {
-        // this.props.selectAllMapFilters();
         this.load();
     }
 
