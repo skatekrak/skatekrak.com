@@ -6,6 +6,8 @@ import ReactMapGL, {
     InteractiveMap,
     NavigationControl,
     Popup,
+    FlyToInterpolator,
+    ViewportProps,
 } from 'react-map-gl';
 import { connect } from 'react-redux';
 import WebMercatorViewport, { getDistanceScales } from 'viewport-mercator-project';
@@ -34,11 +36,7 @@ type Props = {
 };
 
 type State = {
-    viewport: {
-        latitude: number;
-        longitude: number;
-        zoom: number;
-    };
+    viewport: Partial<ViewportProps>;
     pixelsPerDegree: [number, number, number];
     clusters: Cluster[];
     clusterMaxSpots: number;
@@ -76,6 +74,11 @@ class MapContainer extends React.Component<Props, State> {
     public componentDidUpdate(prevProps: Props) {
         if (prevProps.map.status !== this.props.map.status || prevProps.map.types !== this.props.map.types) {
             this.load();
+        }
+
+        if (prevProps.map.selectedSpot?.id !== this.props.map.selectedSpot?.id && this.props.map.selectedSpot) {
+            this.flyTo(this.props.map.selectedSpot);
+            this.onSpotMarkerClick(this.props.map.selectedSpot);
         }
     }
 
@@ -318,6 +321,18 @@ class MapContainer extends React.Component<Props, State> {
             // console.log(err);
         }
     };
+
+    private flyTo(spot: Spot) {
+        const viewport: Partial<ViewportProps> = {
+            ...this.state.viewport,
+            latitude: spot.location.latitude,
+            longitude: spot.location.longitude,
+            transitionDuration: 1000,
+            transitionInterpolator: new FlyToInterpolator(),
+        };
+
+        this.setState({ viewport });
+    }
 
     private refreshMap = (_clusters: Cluster[] | undefined = undefined) => {
         const clusters = this.filterClusters(_clusters ?? this.state.clusters);

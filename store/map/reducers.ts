@@ -1,8 +1,14 @@
 import { ActionType } from 'typesafe-actions';
 
-import { Types, Status } from 'lib/carrelageClient';
-import { FilterState, FilterStateUtil } from 'lib/FilterState';
-import { SELECT_ALL_MAP_FILTERS, UNSELECT_ALL_MAP_FILTERS, TOGGLE_MAP_FILTER, MAP_REFRESH_END } from '../constants';
+import { Types, Status, Spot } from 'lib/carrelageClient';
+import { FilterState } from 'lib/FilterState';
+import {
+    SELECT_ALL_MAP_FILTERS,
+    UNSELECT_ALL_MAP_FILTERS,
+    TOGGLE_MAP_FILTER,
+    MAP_REFRESH_END,
+    SELECT_SPOT,
+} from '../constants';
 import * as mapActions from './actions';
 
 export type MapAction = ActionType<typeof mapActions>;
@@ -10,6 +16,7 @@ export type MapAction = ActionType<typeof mapActions>;
 export type MapState = {
     types: Record<Types, FilterState>;
     status: Record<Status, FilterState>;
+    selectedSpot?: Spot;
 };
 
 const initialState: MapState = {
@@ -25,6 +32,7 @@ const initialState: MapState = {
         [Status.Wip]: FilterState.SELECTED,
         [Status.Rip]: FilterState.SELECTED,
     },
+    selectedSpot: undefined,
 };
 
 export default (state: MapState = initialState, action: MapAction): MapState => {
@@ -52,6 +60,7 @@ export default (state: MapState = initialState, action: MapAction): MapState => 
             };
 
             return {
+                ...state,
                 status,
                 types,
             };
@@ -108,6 +117,11 @@ export default (state: MapState = initialState, action: MapAction): MapState => 
 
             return newState;
         }
+        case SELECT_SPOT:
+            return {
+                ...state,
+                selectedSpot: action.payload,
+            };
         default:
             return state;
     }

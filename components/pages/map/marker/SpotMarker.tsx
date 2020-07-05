@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import React from 'react';
 
-import { Marker } from 'react-map-gl';
+import { Marker, ViewportProps } from 'react-map-gl';
 
 import { Spot } from 'lib/carrelageClient';
 import IconDiy from 'components/pages/map/marker/icons/Diy';
@@ -20,11 +20,7 @@ import Activity from 'components/pages/map/marker/Activity';
 
 type Props = {
     spot: Spot;
-    viewport: {
-        latitude: number;
-        longitude: number;
-        zoom: number;
-    };
+    viewport: Partial<ViewportProps>;
     fitBounds: (b1: [number, number], b2: [number, number]) => void;
     onSpotMarkerClick: (spot: Spot) => void;
     spotMarkerClicked?: string;

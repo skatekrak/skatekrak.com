@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useCallback } from 'react';
+import { useDispatch } from 'react-redux';
 
 import Scrollbar from 'components/Ui/Scrollbar';
 
@@ -8,6 +9,7 @@ import MapSearchResultSpot from './MapSearchResultSpot';
 import MapSearchResultPlace from './MapSearchResultPlace';
 
 import { Spot } from 'lib/carrelageClient';
+import { selectSpot } from 'store/map/actions';
 
 type MapSearchResultsProps = {
     loading: boolean;
@@ -15,11 +17,15 @@ type MapSearchResultsProps = {
 };
 
 const MapSearchResults: React.FC<MapSearchResultsProps> = ({ spots, loading }) => {
+    const dispatch = useDispatch();
     const places = [];
 
-    const onSpotClick = (spot: Spot) => {
-        return;
-    };
+    const onSpotClick = useCallback(
+        (spot: Spot) => {
+            dispatch(selectSpot(spot));
+        },
+        [dispatch],
+    );
 
     const onPlaceClick = (place) => {
         return;
