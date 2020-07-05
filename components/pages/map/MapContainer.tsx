@@ -245,9 +245,6 @@ class MapContainer extends React.Component<Props, State> {
     private load() {
         clearTimeout(this.loadTimeout);
 
-        let type = FilterStateUtil.getSelected(this.props.map.types);
-        let status = FilterStateUtil.getSelected(this.props.map.status);
-
         this.loadTimeout = setTimeout(async () => {
             if (this.mapRef.current) {
                 const map = this.mapRef.current.getMap();
@@ -263,30 +260,7 @@ class MapContainer extends React.Component<Props, State> {
                     southWestLongitude: southWest.lng,
                 });
 
-                clusters = clusters
-                    .map((cluster) => {
-                        return {
-                            ...cluster,
-                            spots: cluster.spots.filter((spot) => {
-                                if (spot.status === Status.Active) {
-                                    return type.indexOf(spot.type) !== -1;
-                                } else {
-                                    return status.indexOf(spot.status) !== -1;
-                                }
-                            }),
-                        };
-                    })
-                    .filter((cluster) => cluster.spots.length > 0);
-
-                this.props.mapRefreshEnd();
-
-                let clusterMaxSpots = 1;
-                for (const cluster of clusters) {
-                    if (clusterMaxSpots < cluster.count) {
-                        clusterMaxSpots = cluster.count;
-                    }
-                }
-                this.setState({ clusters, clusterMaxSpots });
+                this.refreshMap(clusters);
             }
         }, 200);
     }
@@ -343,6 +317,40 @@ class MapContainer extends React.Component<Props, State> {
         } catch (err) {
             // console.log(err);
         }
+    };
+
+    private refreshMap = (_clusters: Cluster[] | undefined = undefined) => {
+        const clusters = this.filterClusters(_clusters ?? this.state.clusters);
+
+        this.props.mapRefreshEnd();
+
+        let clusterMaxSpots = 1;
+        for (const cluster of clusters) {
+            if (clusterMaxSpots < cluster.count) {
+                clusterMaxSpots = cluster.count;
+            }
+        }
+        this.setState({ clusters, clusterMaxSpots });
+    };
+
+    private filterClusters = (clusters: Cluster[]): Cluster[] => {
+        let type = FilterStateUtil.getSelected(this.props.map.types);
+        let status = FilterStateUtil.getSelected(this.props.map.status);
+
+        return clusters
+            .map((cluster) => {
+                return {
+                    ...cluster,
+                    spots: cluster.spots.filter((spot) => {
+                        if (spot.status === Status.Active) {
+                            return type.indexOf(spot.type) !== -1;
+                        } else {
+                            return status.indexOf(spot.status) !== -1;
+                        }
+                    }),
+                };
+            })
+            .filter((cluster) => cluster.spots.length > 0);
     };
 }
 
