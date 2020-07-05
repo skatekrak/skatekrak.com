@@ -133,7 +133,7 @@ export interface Cluster {
     spots: Spot[];
 }
 
-const carrelage = axios.create({
+export const carrelage = axios.create({
     baseURL: `${process.env.NEXT_PUBLIC_CARRELAGE_URL}`,
 });
 

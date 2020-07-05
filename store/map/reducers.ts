@@ -85,15 +85,6 @@ export default (state: MapState = initialState, action: MapAction): MapState => 
 
                 newState.status = map;
             }
-
-            // In case no types are selected, we unselect the Active status
-            const selectedTypes = FilterStateUtil.getSelected(state.types);
-            if (selectedTypes.length === 0) {
-                newState.status[Status.Active] = FilterState.LOADING_TO_UNSELECTED;
-            } else {
-                newState.status[Status.Active] = FilterState.LOADING_TO_SELECTED;
-            }
-
             return newState;
         }
         case MAP_REFRESH_END: {

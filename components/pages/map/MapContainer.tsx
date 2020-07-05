@@ -12,7 +12,7 @@ import WebMercatorViewport, { getDistanceScales } from 'viewport-mercator-projec
 
 import Typings from 'Types';
 
-import { Cluster, Spot } from 'lib/carrelageClient';
+import { Cluster, Spot, Status } from 'lib/carrelageClient';
 
 import Legend from 'components/pages/map/Legend';
 import SpotCluster from 'components/pages/map/marker/SpotCluster';
@@ -23,6 +23,7 @@ import { boxSpotsSearch } from 'lib/carrelageClient';
 import { MapState } from 'store/map/reducers';
 import { selectAllMapFilters, mapRefreshEnd } from 'store/map/actions';
 import { FilterStateUtil } from 'lib/FilterState';
+import { types } from 'util';
 
 type Props = {
     isMobile: boolean;
@@ -254,14 +255,29 @@ class MapContainer extends React.Component<Props, State> {
                 const northEast = bounds.getNorthEast();
                 const southWest = bounds.getSouthWest();
 
-                const clusters = await boxSpotsSearch({
+                let clusters = await boxSpotsSearch({
                     clustering: true,
                     northEastLatitude: northEast.lat,
                     northEastLongitude: northEast.lng,
                     southWestLatitude: southWest.lat,
                     southWestLongitude: southWest.lng,
-                    filters: { type, status },
                 });
+
+                clusters = clusters
+                    .map((cluster) => {
+                        return {
+                            ...cluster,
+                            spots: cluster.spots.filter((spot) => {
+                                if (spot.status === Status.Active) {
+                                    return type.indexOf(spot.type) !== -1;
+                                } else {
+                                    return status.indexOf(spot.status) !== -1;
+                                }
+                            }),
+                        };
+                    })
+                    .filter((cluster) => cluster.spots.length > 0);
+
                 this.props.mapRefreshEnd();
 
                 let clusterMaxSpots = 1;
