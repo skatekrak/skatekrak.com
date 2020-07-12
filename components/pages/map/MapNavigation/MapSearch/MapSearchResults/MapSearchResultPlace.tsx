@@ -15,9 +15,7 @@ const MapSearchResultSpot = ({ place, onPlaceClick }: Props) => {
     return (
         <>
             <button className="map-navigation-search-result-spot" onClick={handlePlaceClick}>
-                <div className="map-navigation-search-result-spot-icon">
-                    <PlaceIcon />
-                </div>
+                <PlaceIcon />
                 <div className="map-navigation-search-result-spot-container-start">
                     <p className="map-navigation-search-result-place-name">{place.name}</p>
                 </div>

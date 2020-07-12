@@ -40,15 +40,13 @@ const MapSearchResultSpot = ({ spot, onSpotClick }: Props) => {
     return (
         <>
             <button className="map-navigation-search-result-spot" onClick={handleSpotClick}>
-                <div className="map-navigation-search-result-spot-icon">
-                    {spot.type === 'street' && <StreetIcon />}
-                    {spot.type === 'park' && <ParkIcon />}
-                    {spot.type === 'diy' && <DiyIcon />}
-                    {spot.type === 'shop' && <ShopIcon />}
-                    {spot.type === 'private' && <PrivateIcon />}
-                    {spot.status === 'wip' && <WipIcon />}
-                    {spot.status === 'rip' && <RipIcon />}
-                </div>
+                {spot.type === 'street' && <StreetIcon />}
+                {spot.type === 'park' && <ParkIcon />}
+                {spot.type === 'diy' && <DiyIcon />}
+                {spot.type === 'shop' && <ShopIcon />}
+                {spot.type === 'private' && <PrivateIcon />}
+                {spot.status === 'wip' && <WipIcon />}
+                {spot.status === 'rip' && <RipIcon />}
                 <div className="map-navigation-search-result-spot-container-start">
                     <p className="map-navigation-search-result-spot-name">{spot.name}</p>
                     <p className="map-navigation-search-result-spot-street">
