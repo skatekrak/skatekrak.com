@@ -1,0 +1,21 @@
+{
+    "editor.formatOnSave": true,
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "**/.next": true,
+        "**/.devcontainer": true,
+        "**/next-env.d.ts": true,
+        "**/.prettierrc": true,
+        "**/.eslintrc.js": true,
+        "**/babel.config.js": true,
+        "**/.gitignore": true,
+        "**/yarn-error.log": true,
+        "**/yarn.lock": true,
+        "**/node_modules": true,
+        "**/tsconfig.json": true
+    }
+}

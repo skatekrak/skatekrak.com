@@ -15,3 +15,10 @@ export const SET_ITEMS = 'SET_ITEMS';
 // Form
 export const UPDATE_FORM_STATE = 'update_form_state';
 export const RESET_FORM = 'reset_form';
+
+// Map
+export const SELECT_ALL_MAP_FILTERS = 'select_all_map_filters';
+export const UNSELECT_ALL_MAP_FILTERS = 'unselect_all_map_filters';
+export const TOGGLE_MAP_FILTER = 'toggle_map_filter';
+export const MAP_REFRESH_END = 'map_refresh_end';
+export const SELECT_SPOT = 'select_spot';

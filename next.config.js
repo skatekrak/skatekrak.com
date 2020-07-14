@@ -15,9 +15,7 @@ module.exports = withPlugins([withBundleAnalyzer, withCSS, withStylus, withCusto
     serverRuntimeConfig: {},
     webpack: (config, options) => {
         if (options.isServer) {
-            config.plugins.push(
-                new ForkTsCheckerWebpackPlugin({ tsconfig: './tsconfig.json', tslint: './tslint.json' }),
-            );
+            config.plugins.push(new ForkTsCheckerWebpackPlugin({ tsconfig: './tsconfig.json', eslint: true }));
         }
         return config;
     },

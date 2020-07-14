@@ -24,7 +24,7 @@ import '/public/styles/form.styl';
 import '/public/styles/modal.styl';
 import '/public/styles/checkbox.styl';
 import '/public/styles/icons.styl';
-import '/public/styles/ui.styl';
+import '/public/styles/ui/ui.styl';
 
 import '/public/styles/home.styl';
 import '/public/styles/mag.styl';

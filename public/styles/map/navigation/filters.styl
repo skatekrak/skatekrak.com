@@ -1,0 +1,98 @@
+@import "../stylus-mq"
+@import "../styleguide"
+
+
+#map-navigation
+	&-filters
+		display: flex
+		align-items: center
+		margin: 0.5rem 2px 0 2px
+
+
+.map-navigation
+	&-filter
+		position: relative
+		display: flex
+		width: 2.5rem
+		height: 2.5rem
+		margin-right: 0.5rem
+		background-color: $grey-900
+		background-clip: padding-box
+		border: solid 1.5px transparent
+		border-radius: 0.2rem
+		box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25)
+
+		&:before
+			content: ''
+			position: absolute
+			top: 0
+			right: 0
+			bottom: 0
+			left: 0
+			margin: -1.5px
+			border-radius: inherit
+			background: linear-gradient($shop, $shopDark)
+			z-index: -1
+
+		&:last-child
+			margin-right: 0
+
+		& svg
+			width: 1.75rem
+			margin: auto
+
+		&-street
+			&:before
+				background: linear-gradient($street, $streetDark)
+		
+		&-park
+			&:before
+				background: linear-gradient($park, $parkDark)
+		
+		&-diy
+			&:before
+				background: linear-gradient($diy, $diyDark)
+		
+		&-private
+			&:before
+				background: linear-gradient($private, $privateDark)
+		
+		&-shop
+			&:before
+				background: linear-gradient($shop, $shopDark)
+		
+		&-wip
+			&:before
+				background: linear-gradient($wip, $wipDark)
+		
+		&-rip
+			&:before
+				background: linear-gradient($rip, $ripDark)
+
+		&-inactive
+				&:before
+					background: $grey-600
+
+				& .map-icon-street-fill, 
+					.map-icon-park-fill, 
+					.map-icon-diy-fill, 
+					.map-icon-private-fill, 
+					.map-icon-shop-fill, 
+					.map-icon-wip-fill, 
+					.map-icon-rip-fill,
+					.map-icon-wip-details,
+					.details
+						fill: $grey-800
+				& .map-icon-stroke-outter
+					fill: $grey-600
+
+		&-loading
+			&:before
+				background: $grey-600
+
+			& svg
+				width: 1.25rem
+		
+				& .path
+					stroke-width: 4px
+					stroke: $grey-600

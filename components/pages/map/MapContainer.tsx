@@ -6,30 +6,37 @@ import ReactMapGL, {
     InteractiveMap,
     NavigationControl,
     Popup,
+    FlyToInterpolator,
+    ViewportProps,
 } from 'react-map-gl';
 import { connect } from 'react-redux';
 import WebMercatorViewport, { getDistanceScales } from 'viewport-mercator-project';
 
-import Types from 'Types';
+import Typings from 'Types';
 
-import { Cluster, Spot } from 'carrelage';
+import { Cluster, Spot, Status } from 'lib/carrelageClient';
 
 import Legend from 'components/pages/map/Legend';
 import SpotCluster from 'components/pages/map/marker/SpotCluster';
 import SpotMarker from 'components/pages/map/marker/SpotMarker';
 import BannerTop from 'components/Ui/Banners/BannerTop';
 import MapNavigation from './MapNavigation';
+import { boxSpotsSearch } from 'lib/carrelageClient';
+import { MapState } from 'store/map/reducers';
+import { selectAllMapFilters, mapRefreshEnd } from 'store/map/actions';
+import { FilterStateUtil } from 'lib/FilterState';
+import { types } from 'util';
 
 type Props = {
     isMobile: boolean;
+    map: MapState;
+
+    selectAllMapFilters: () => void;
+    mapRefreshEnd: () => void;
 };
 
 type State = {
-    viewport: {
-        latitude: number;
-        longitude: number;
-        zoom: number;
-    };
+    viewport: Partial<ViewportProps>;
     pixelsPerDegree: [number, number, number];
     clusters: Cluster[];
     clusterMaxSpots: number;
@@ -62,6 +69,17 @@ class MapContainer extends React.Component<Props, State> {
 
     public componentDidMount() {
         this.load();
+    }
+
+    public componentDidUpdate(prevProps: Props) {
+        if (prevProps.map.status !== this.props.map.status || prevProps.map.types !== this.props.map.types) {
+            this.load();
+        }
+
+        if (prevProps.map.selectedSpot?.id !== this.props.map.selectedSpot?.id && this.props.map.selectedSpot) {
+            this.flyTo(this.props.map.selectedSpot);
+            this.onSpotMarkerClick(this.props.map.selectedSpot);
+        }
     }
 
     public render() {
@@ -229,6 +247,7 @@ class MapContainer extends React.Component<Props, State> {
 
     private load() {
         clearTimeout(this.loadTimeout);
+
         this.loadTimeout = setTimeout(async () => {
             if (this.mapRef.current) {
                 const map = this.mapRef.current.getMap();
@@ -236,24 +255,15 @@ class MapContainer extends React.Component<Props, State> {
                 const northEast = bounds.getNorthEast();
                 const southWest = bounds.getSouthWest();
 
-                const res = await axios.get(`${process.env.NEXT_PUBLIC_CARRELAGE_URL}/spots/search`, {
-                    params: {
-                        clustering: true,
-                        northEastLatitude: northEast.lat,
-                        northEastLongitude: northEast.lng,
-                        southWestLatitude: southWest.lat,
-                        southWestLongitude: southWest.lng,
-                    },
+                let clusters = await boxSpotsSearch({
+                    clustering: true,
+                    northEastLatitude: northEast.lat,
+                    northEastLongitude: northEast.lng,
+                    southWestLatitude: southWest.lat,
+                    southWestLongitude: southWest.lng,
                 });
 
-                const clusters = res.data as Cluster[];
-                let clusterMaxSpots = 1;
-                for (const cluster of clusters) {
-                    if (clusterMaxSpots < cluster.count) {
-                        clusterMaxSpots = cluster.count;
-                    }
-                }
-                this.setState({ clusters, clusterMaxSpots });
+                this.refreshMap(clusters);
             }
         }, 200);
     }
@@ -311,10 +321,57 @@ class MapContainer extends React.Component<Props, State> {
             // console.log(err);
         }
     };
+
+    private flyTo(spot: Spot) {
+        const viewport: Partial<ViewportProps> = {
+            ...this.state.viewport,
+            latitude: spot.location.latitude,
+            longitude: spot.location.longitude,
+            transitionDuration: 1000,
+            transitionInterpolator: new FlyToInterpolator(),
+        };
+
+        this.setState({ viewport });
+    }
+
+    private refreshMap = (_clusters: Cluster[] | undefined = undefined) => {
+        const clusters = this.filterClusters(_clusters ?? this.state.clusters);
+
+        this.props.mapRefreshEnd();
+
+        let clusterMaxSpots = 1;
+        for (const cluster of clusters) {
+            if (clusterMaxSpots < cluster.count) {
+                clusterMaxSpots = cluster.count;
+            }
+        }
+        this.setState({ clusters, clusterMaxSpots });
+    };
+
+    private filterClusters = (clusters: Cluster[]): Cluster[] => {
+        let type = FilterStateUtil.getSelected(this.props.map.types);
+        let status = FilterStateUtil.getSelected(this.props.map.status);
+
+        return clusters
+            .map((cluster) => {
+                return {
+                    ...cluster,
+                    spots: cluster.spots.filter((spot) => {
+                        if (spot.status === Status.Active) {
+                            return type.indexOf(spot.type) !== -1;
+                        } else {
+                            return status.indexOf(spot.status) !== -1;
+                        }
+                    }),
+                };
+            })
+            .filter((cluster) => cluster.spots.length > 0);
+    };
 }
 
-// export default MapContainer;
-
-export default connect(({ settings }: Types.RootState) => ({
+const mapStateProps = ({ settings, map }: Typings.RootState) => ({
     isMobile: settings.isMobile,
-}))(MapContainer);
+    map,
+});
+
+export default connect(mapStateProps, { selectAllMapFilters, mapRefreshEnd })(MapContainer);

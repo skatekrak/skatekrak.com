@@ -28,5 +28,24 @@ export class FilterStateUtil {
         return state === FilterState.SELECTED || state === FilterState.LOADING_TO_SELECTED;
     }
 
+    public static getSelected<T extends string>(sources: Record<T, FilterState>): T[] {
+        const arr: T[] = [];
+        for (const key in sources) {
+            if (sources[key] === FilterState.LOADING_TO_SELECTED || sources[key] === FilterState.SELECTED) {
+                arr.push(key);
+            }
+        }
+
+        return arr;
+    }
+
+    public static getKeys<T extends string>(sources: Record<T, FilterState>): T[] {
+        const arr: T[] = [];
+        for (const key in sources) {
+            arr.push(key);
+        }
+        return arr;
+    }
+
     private constructor() {}
 }
