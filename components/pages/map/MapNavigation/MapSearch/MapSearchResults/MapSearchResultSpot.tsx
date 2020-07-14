@@ -11,7 +11,7 @@ import IconicBadge from 'components/pages/map/marker/badges/Iconic';
 import HistoryBadge from 'components/pages/map/marker/badges/History';
 import MinuteBadge from 'components/pages/map/marker/badges/Minute';
 
-import { Spot } from 'lib/carrelageClient';
+import { Spot, Status, Types } from 'lib/carrelageClient';
 
 type Props = {
     spot: Spot;
@@ -40,13 +40,19 @@ const MapSearchResultSpot = ({ spot, onSpotClick }: Props) => {
     return (
         <>
             <button className="map-navigation-search-result-spot" onClick={handleSpotClick}>
-                {spot.type === 'street' && <StreetIcon />}
-                {spot.type === 'park' && <ParkIcon />}
-                {spot.type === 'diy' && <DiyIcon />}
-                {spot.type === 'shop' && <ShopIcon />}
-                {spot.type === 'private' && <PrivateIcon />}
-                {spot.status === 'wip' && <WipIcon />}
-                {spot.status === 'rip' && <RipIcon />}
+                <div className="map-navigation-search-result-spot-icon">
+                    {spot.status === Status.Active && (
+                        <>
+                            {spot.type === Types.Park && <ParkIcon />}
+                            {spot.type === Types.Street && <StreetIcon />}
+                            {spot.type === Types.Shop && <ShopIcon />}
+                            {spot.type === Types.Diy && <DiyIcon />}
+                            {spot.type === Types.Private && <PrivateIcon />}
+                        </>
+                    )}
+                    {spot.status === Status.Wip && <WipIcon />}
+                    {spot.status === Status.Rip && <RipIcon />}
+                </div>
                 <div className="map-navigation-search-result-spot-container-start">
                     <p className="map-navigation-search-result-spot-name">{spot.name}</p>
                     <p className="map-navigation-search-result-spot-street">
