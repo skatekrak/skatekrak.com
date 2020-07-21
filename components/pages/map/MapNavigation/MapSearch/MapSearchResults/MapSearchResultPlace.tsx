@@ -1,10 +1,11 @@
 import React from 'react';
 
 import PlaceIcon from 'components/pages/map/marker/icons/Place';
+import { Place } from 'lib/placeApi';
 
 type Props = {
-    place: any;
-    onPlaceClick: (place) => void;
+    place: Place;
+    onPlaceClick: (place: Place) => void;
 };
 
 const MapSearchResultSpot = ({ place, onPlaceClick }: Props) => {
