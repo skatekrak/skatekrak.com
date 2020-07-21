@@ -1,5 +1,6 @@
 import React, { useCallback } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { FlyToInterpolator } from 'react-map-gl';
 
 import Scrollbar from 'components/Ui/Scrollbar';
 
@@ -8,17 +9,21 @@ import MapSearchResultNoContent from './MapSearchResultNoContent';
 import MapSearchResultSpot from './MapSearchResultSpot';
 import MapSearchResultPlace from './MapSearchResultPlace';
 
+import Types from 'Types';
+
 import { Spot } from 'lib/carrelageClient';
-import { selectSpot } from 'store/map/actions';
+import { Place } from 'lib/placeApi';
+import { selectSpot, setViewport } from 'store/map/actions';
 
 type MapSearchResultsProps = {
     loading: boolean;
+    places: Place[];
     spots: Spot[];
 };
 
-const MapSearchResults: React.FC<MapSearchResultsProps> = ({ spots, loading }) => {
+const MapSearchResults: React.FC<MapSearchResultsProps> = ({ spots, loading, places }) => {
     const dispatch = useDispatch();
-    const places = [];
+    const { viewport } = useSelector((state: Types.RootState) => state.map);
 
     const onSpotClick = useCallback(
         (spot: Spot) => {
@@ -27,9 +32,20 @@ const MapSearchResults: React.FC<MapSearchResultsProps> = ({ spots, loading }) =
         [dispatch],
     );
 
-    const onPlaceClick = (place) => {
-        return;
-    };
+    const onPlaceClick = useCallback(
+        (place: Place) => {
+            dispatch(
+                setViewport({
+                    ...viewport,
+                    latitude: place.geometry.location.lat,
+                    longitude: place.geometry.location.lng,
+                    transitionDuration: 1000,
+                    transitionInterpolator: new FlyToInterpolator(),
+                }),
+            );
+        },
+        [dispatch],
+    );
 
     return (
         <div id="map-navigation-search-results">
@@ -42,11 +58,11 @@ const MapSearchResults: React.FC<MapSearchResultsProps> = ({ spots, loading }) =
                             <MapSearchResultNoContent />
                         ) : (
                             <>
+                                {places.map((place) => (
+                                    <MapSearchResultPlace key={place.id} place={place} onPlaceClick={onPlaceClick} />
+                                ))}
                                 {spots.map((spot) => (
                                     <MapSearchResultSpot key={spot.id} spot={spot} onSpotClick={onSpotClick} />
-                                ))}
-                                {places.map((place) => (
-                                    <MapSearchResultPlace place={place} onPlaceClick={onPlaceClick} />
                                 ))}
                             </>
                         )}

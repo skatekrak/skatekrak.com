@@ -8,8 +8,10 @@ import {
     TOGGLE_MAP_FILTER,
     MAP_REFRESH_END,
     SELECT_SPOT,
+    SET_VIEWPORT,
 } from '../constants';
 import * as mapActions from './actions';
+import { ViewportProps } from 'react-map-gl';
 
 export type MapAction = ActionType<typeof mapActions>;
 
@@ -17,6 +19,7 @@ export type MapState = {
     types: Record<Types, FilterState>;
     status: Record<Status, FilterState>;
     selectedSpot?: Spot;
+    viewport: Partial<ViewportProps>;
 };
 
 const initialState: MapState = {
@@ -33,6 +36,11 @@ const initialState: MapState = {
         [Status.Rip]: FilterState.SELECTED,
     },
     selectedSpot: undefined,
+    viewport: {
+        latitude: 48.860332,
+        longitude: 2.345054,
+        zoom: 12,
+    },
 };
 
 export default (state: MapState = initialState, action: MapAction): MapState => {
@@ -121,6 +129,11 @@ export default (state: MapState = initialState, action: MapAction): MapState => 
             return {
                 ...state,
                 selectedSpot: action.payload,
+            };
+        case SET_VIEWPORT:
+            return {
+                ...state,
+                viewport: action.payload,
             };
         default:
             return state;

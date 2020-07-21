@@ -23,7 +23,7 @@ import BannerTop from 'components/Ui/Banners/BannerTop';
 import MapNavigation from './MapNavigation';
 import { boxSpotsSearch } from 'lib/carrelageClient';
 import { MapState } from 'store/map/reducers';
-import { selectAllMapFilters, mapRefreshEnd } from 'store/map/actions';
+import { selectAllMapFilters, mapRefreshEnd, setViewport } from 'store/map/actions';
 import { FilterStateUtil } from 'lib/FilterState';
 import { types } from 'util';
 
@@ -33,10 +33,10 @@ type Props = {
 
     selectAllMapFilters: () => void;
     mapRefreshEnd: () => void;
+    setViewport: (viewport: Partial<ViewportProps>) => void;
 };
 
 type State = {
-    viewport: Partial<ViewportProps>;
     pixelsPerDegree: [number, number, number];
     clusters: Cluster[];
     clusterMaxSpots: number;
@@ -51,11 +51,6 @@ const MAX_ZOOM_LEVEL = 18;
 
 class MapContainer extends React.Component<Props, State> {
     public state: State = {
-        viewport: {
-            latitude: 48.860332,
-            longitude: 2.345054,
-            zoom: 12,
-        },
         pixelsPerDegree: [0, 0, 0],
         clusters: [],
         clusterMaxSpots: 1,
@@ -94,7 +89,7 @@ class MapContainer extends React.Component<Props, State> {
                         <SpotMarker
                             key={spot.id}
                             spot={spot}
-                            viewport={this.state.viewport}
+                            viewport={this.props.map.viewport}
                             fitBounds={this.fitBounds}
                             onSpotMarkerClick={this.onSpotMarkerClick}
                             spotMarkerClicked={spotMarkerClicked}
@@ -103,7 +98,7 @@ class MapContainer extends React.Component<Props, State> {
                 }
             } else {
                 markers.push(
-                    <SpotCluster key={cluster.id} cluster={cluster} viewportZoom={this.state.viewport.zoom} />,
+                    <SpotCluster key={cluster.id} cluster={cluster} viewportZoom={this.props.map.viewport.zoom} />,
                 );
             }
         }
@@ -134,7 +129,7 @@ class MapContainer extends React.Component<Props, State> {
                         <div id="map">
                             <ReactMapGL
                                 ref={this.mapRef}
-                                {...this.state.viewport}
+                                {...this.props.map.viewport}
                                 width="100%"
                                 height="100%"
                                 minZoom={MIN_ZOOM_LEVEL}
@@ -269,12 +264,12 @@ class MapContainer extends React.Component<Props, State> {
     }
 
     private fitBounds = (b1: [number, number], b2: [number, number]) => {
-        const { longitude, latitude, zoom } = new WebMercatorViewport(this.state.viewport).fitBounds([b1, b2], {
+        const { longitude, latitude, zoom } = new WebMercatorViewport(this.props.map.viewport).fitBounds([b1, b2], {
             padding: 20,
         });
         const maxZoom = this.mapRef.current.props.maxZoom;
         const viewport = {
-            ...this.state.viewport,
+            ...this.props.map.viewport,
             longitude,
             latitude,
             zoom: zoom < maxZoom ? zoom : maxZoom,
@@ -283,8 +278,8 @@ class MapContainer extends React.Component<Props, State> {
     };
 
     private onViewportChange = (viewport: { latitude: number; longitude: number; zoom: number }) => {
+        this.props.setViewport(viewport);
         this.setState({
-            viewport,
             pixelsPerDegree: getDistanceScales(viewport).pixelsPerDegree,
         });
         this.load();
@@ -324,14 +319,14 @@ class MapContainer extends React.Component<Props, State> {
 
     private flyTo(spot: Spot) {
         const viewport: Partial<ViewportProps> = {
-            ...this.state.viewport,
+            ...this.props.map.viewport,
             latitude: spot.location.latitude,
             longitude: spot.location.longitude,
             transitionDuration: 1000,
             transitionInterpolator: new FlyToInterpolator(),
         };
 
-        this.setState({ viewport });
+        this.props.setViewport(viewport);
     }
 
     private refreshMap = (_clusters: Cluster[] | undefined = undefined) => {
@@ -374,4 +369,4 @@ const mapStateProps = ({ settings, map }: Typings.RootState) => ({
     map,
 });
 
-export default connect(mapStateProps, { selectAllMapFilters, mapRefreshEnd })(MapContainer);
+export default connect(mapStateProps, { selectAllMapFilters, mapRefreshEnd, setViewport })(MapContainer);
