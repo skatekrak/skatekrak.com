@@ -41,7 +41,7 @@ const index = () => {
         { refetchOnWindowFocus: false },
     );
 
-    const isLoading = useMemo(() => spotSearchLoading && placeSearchLoading, [spotSearchLoading, placeSearchLoading]);
+    const isLoading = spotSearchLoading && placeSearchLoading;
 
     const handleSearchChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
         setSearchValue(evt.target.value);
