@@ -17,31 +17,21 @@ const fetchPlaces = async (query: string): Promise<Place[]> => {
 const index = () => {
     const [searchValue, setSearchValue] = useState('');
 
-    const debouncedSpotsSearch = useConstant(() => AwesomeDebouncePromise(querySpotsSearch, 200));
-    const { isLoading: spotSearchLoading, data: spots } = useQuery(
+    const debouncedSpotsSearch = useConstant(() =>
+        AwesomeDebouncePromise((query: string) => Promise.all([querySpotsSearch({ query }), fetchPlaces(query)]), 200),
+    );
+    const { isLoading, data } = useQuery(
         ['search-spots', { query: searchValue }],
         (key, { query }) => {
             if (!query) {
                 return null;
             }
-            return debouncedSpotsSearch({ query });
+            return debouncedSpotsSearch(query);
         },
         { refetchOnWindowFocus: false },
     );
 
-    const debouncedPlacesSearch = useConstant(() => AwesomeDebouncePromise(fetchPlaces, 200));
-    const { isLoading: placeSearchLoading, data: places } = useQuery(
-        ['search-places', { query: searchValue }],
-        (key, { query }) => {
-            if (!query) {
-                return null;
-            }
-            return debouncedPlacesSearch(query);
-        },
-        { refetchOnWindowFocus: false },
-    );
-
-    const isLoading = spotSearchLoading && placeSearchLoading;
+    const [spots, places] = data ?? [[], []];
 
     const handleSearchChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
         setSearchValue(evt.target.value);
