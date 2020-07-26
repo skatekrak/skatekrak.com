@@ -26,6 +26,7 @@ import { MapState } from 'store/map/reducers';
 import { selectAllMapFilters, mapRefreshEnd, setViewport } from 'store/map/actions';
 import { FilterStateUtil } from 'lib/FilterState';
 import { types } from 'util';
+import MapCustomNavigationTrail from './MapCustom/MapCustomNavigationTrail/MapCustomNavigationTrail';
 
 type Props = {
     isMobile: boolean;
@@ -125,6 +126,7 @@ class MapContainer extends React.Component<Props, State> {
                             text="The world is our playground. Download the app & help us enrich this map."
                         />
                         <MapNavigation />
+                        <MapCustomNavigationTrail />
                         <Legend />
                         <div id="map">
                             <ReactMapGL
