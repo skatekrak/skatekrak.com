@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Link from 'next/link';
 
 import CloseButton from 'components/Ui/Button/CloseButton';
 import Scrollbar from 'components/Ui/Scrollbar';
@@ -41,7 +42,7 @@ const index = () => {
                                 Skateboarding isn't easy. It takes time, passion, effort & learning. But when you're in
                                 the flow, starting to see things all around you differently, it's incredibly thrilling &
                                 addictive. That's why we're making this map. There's so much more to come. If you want
-                                to be a part of it, please join us.
+                                to be a part of it, please <Link href="/">join us.</Link>
                             </p>
                             <h4 className="map-legend-title">Categories & status</h4>
                             <ul className="map-legend-section-container">
