@@ -54,7 +54,7 @@ const MapSearchResults: React.FC<MapSearchResultsProps> = ({ spots, loading, pla
                     <MapSearchResultLoading />
                 ) : (
                     <>
-                        {spots.length === 0 ? (
+                        {spots.length === 0 && places.length === 0 ? (
                             <MapSearchResultNoContent />
                         ) : (
                             <>
