@@ -25,8 +25,6 @@
         "email-validator": "^2.0.4",
         "final-form": "^4.18.5",
         "fork-ts-checker-webpack-plugin": "^1.5.1",
-        "graphql": "^14.1.1",
-        "graphql-tag": "^2.10.1",
         "isomorphic-unfetch": "^3.0.0",
         "js-cookie": "^2.2.1",
         "jump.js": "https://github.com/MilllerTime/jump.js.git#b95f9279a4c0f4ca942fd648a6b97094b53bcbab",
