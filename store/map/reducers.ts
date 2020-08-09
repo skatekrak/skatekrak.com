@@ -43,7 +43,7 @@ const initialState: MapState = {
     },
 };
 
-export default (state: MapState = initialState, action: MapAction): MapState => {
+const MapReducers = (state: MapState = initialState, action: MapAction): MapState => {
     switch (action.type) {
         case SELECT_ALL_MAP_FILTERS: {
             return {
@@ -139,3 +139,5 @@ export default (state: MapState = initialState, action: MapAction): MapState => 
             return state;
     }
 };
+
+export default MapReducers;
