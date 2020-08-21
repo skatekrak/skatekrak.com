@@ -21,28 +21,19 @@ import Activity from 'components/pages/map/marker/Activity';
 type Props = {
     spot: Spot;
     viewport: Partial<ViewportProps>;
-    fitBounds: (b1: [number, number], b2: [number, number]) => void;
     onSpotMarkerClick: (spot: Spot) => void;
-    spotMarkerClicked?: string;
+    isSelected: boolean;
 };
 
 type State = {
     active?: boolean;
     firing?: boolean;
-    isClicked: boolean;
 };
 
 class SpotMarker extends React.Component<Props, State> {
-    public static getDerivedStateFromProps(nextProps: Readonly<Props>): State {
-        return {
-            isClicked: nextProps.spotMarkerClicked === nextProps.spot.id ? true : false,
-        };
-    }
-
     public state: State = {
         active: false,
         firing: false,
-        isClicked: false,
     };
 
     public componentDidMount() {
@@ -56,8 +47,8 @@ class SpotMarker extends React.Component<Props, State> {
     }
 
     public render() {
-        const { spot } = this.props;
-        const { active, firing, isClicked } = this.state;
+        const { spot, isSelected } = this.props;
+        const { active, firing } = this.state;
 
         return (
             <Marker
@@ -66,7 +57,7 @@ class SpotMarker extends React.Component<Props, State> {
                 offsetLeft={-24}
                 offsetTop={-24}
                 className={classNames({
-                    'map-marker-clicked': isClicked,
+                    'map-marker-clicked': isSelected,
                     'map-marker-active': active && !firing,
                     'map-marker-firing': firing,
                 })}

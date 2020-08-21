@@ -133,6 +133,23 @@ export interface Cluster {
     spots: Spot[];
 }
 
+export interface Media {
+    id: string;
+    image: {
+        url: string;
+        publicId: string;
+        jpg: string;
+    };
+    // TODO: complete Media interface
+}
+
+export interface SpotOverview {
+    spot: Spot;
+    medias: Media[];
+    mostLikedMedia?: Media;
+    // TODO: complete SpotOverview interface
+}
+
 export const carrelage = axios.create({
     baseURL: `${process.env.NEXT_PUBLIC_CARRELAGE_URL}`,
 });
@@ -179,6 +196,11 @@ export const querySpotsSearch = async (params: QuerySearchSpotsParam) => {
 
 export const searchSpots = (params: SearchSpotsParams) => {
     return carrelage.get('/spots/search', { params });
+};
+
+export const getSpotOverview = async (spotId: string): Promise<SpotOverview> => {
+    const res = await carrelage.get<SpotOverview>(`/spots/${spotId}/overview`);
+    return res.data;
 };
 
 export default carrelage;
