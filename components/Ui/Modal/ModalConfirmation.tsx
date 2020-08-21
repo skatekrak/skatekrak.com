@@ -44,7 +44,7 @@ const ModalConfirmation = ({ onClose, title, message, buttons }: Props) => {
                 <p className="modal-confirmation-title">{title}</p>
                 <p className="modal-confirmation-message">{message}</p>
                 <div className="modal-confirmation-buttons">
-                    {buttons.map(button => (
+                    {buttons.map((button) => (
                         <ButtonPrimary
                             key={button.label}
                             className="button-primary modal-confirmation-button"

@@ -16,7 +16,7 @@ export function getOrCreateStore(initialState) {
     return window[__NEXT_REDUX_STORE__];
 }
 
-export default App => {
+const withRedux = (App) => {
     return class AppWithRedux extends React.Component {
         static async getInitialProps(appContext) {
             const reduxStore = getOrCreateStore();
@@ -44,3 +44,5 @@ export default App => {
         }
     };
 };
+
+export default withRedux;

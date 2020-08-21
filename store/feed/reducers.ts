@@ -27,7 +27,7 @@ export type State = {
     items: any[];
 };
 
-export default () => {
+const FeedReducers = () => {
     const initialState: State = {
         feedNeedRefresh: false,
         sources: new Map<Source, FilterState>(),
@@ -52,7 +52,7 @@ export default () => {
                     // add language if new
                     if (
                         source.lang &&
-                        languages.find(language => language.isoCode === source.lang.isoCode) === undefined
+                        languages.find((language) => language.isoCode === source.lang.isoCode) === undefined
                     ) {
                         languages.push(source.lang);
                     }
@@ -168,3 +168,5 @@ export default () => {
         }
     };
 };
+
+export default FeedReducers;
