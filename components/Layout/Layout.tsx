@@ -73,7 +73,7 @@ const Layout: React.FC<IComponentProps> = ({ head, children, isMobile, ...props 
                 </Head>
             )}
             <div id="page-container" className={classNames({ 'scroll-container': isMobile })}>
-                {router.pathname === '/map' && !isMobile ? <HeaderSmall /> : <Header router={router} />}
+                {router.pathname.startsWith('/map') && !isMobile ? <HeaderSmall /> : <Header router={router} />}
                 <main id="main-container" className={classNames({ 'scroll-container': !isMobile })}>
                     {children}
                 </main>
