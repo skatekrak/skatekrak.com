@@ -1,3 +1,4 @@
+import axios from 'axios';
 import classNames from 'classnames';
 import React, { useState, useEffect, useRef } from 'react';
 import { InteractiveMap, FlyToInterpolator, ViewportProps } from 'react-map-gl';
@@ -18,6 +19,7 @@ import MapCustomNavigation from './MapCustom/MapCustomNavigation';
 import MapNavigation from './MapNavigation';
 import MapComponent from './MapComponent';
 import MapGradients from './MapGradients';
+import { useRouter } from 'next/router';
 
 const filterClusters = (
     clusters: Cluster[],
@@ -47,10 +49,15 @@ const MapContainer = () => {
     const [isMobile, map] = useSelector((state: Typings.RootState) => [state.settings.isMobile, state.map]);
     const dispatch = useDispatch();
 
+    const router = useRouter();
+    const id = router.query.id === undefined ? undefined : String(router.query.id);
+    console.log('map id', id);
+
     const [clusters, setClusters] = useState<Cluster[]>([]);
     const [pixelsPerDegree, setPixelsPerDegree] = useState([0, 0, 0]);
     const [clusterMaxSpots, setClusterMaxSpots] = useState(1);
     const [selectedSpotOverview, setSelectedSpot] = useState<SpotOverview>();
+    const [customMapInfo, setCustomMapInfo] = useState<Record<string, any>>();
 
     const mapRef = useRef<InteractiveMap>();
     const loadTimeout = useRef<NodeJS.Timeout>();
@@ -73,24 +80,44 @@ const MapContainer = () => {
     const load = () => {
         clearTimeout(loadTimeout.current);
 
-        loadTimeout.current = setTimeout(async () => {
-            if (mapRef.current) {
-                const map = mapRef.current.getMap();
-                const bounds = map.getBounds();
-                const northEast = bounds.getNorthEast();
-                const southWest = bounds.getSouthWest();
+        // We are in path `/map`
+        if (id === undefined) {
+            loadTimeout.current = setTimeout(async () => {
+                if (mapRef.current) {
+                    const map = mapRef.current.getMap();
+                    const bounds = map.getBounds();
+                    const northEast = bounds.getNorthEast();
+                    const southWest = bounds.getSouthWest();
 
-                let clusters = await boxSpotsSearch({
-                    clustering: true,
-                    northEastLatitude: northEast.lat,
-                    northEastLongitude: northEast.lng,
-                    southWestLatitude: southWest.lat,
-                    southWestLongitude: southWest.lng,
-                });
+                    let clusters = await boxSpotsSearch({
+                        clustering: true,
+                        northEastLatitude: northEast.lat,
+                        northEastLongitude: northEast.lng,
+                        southWestLatitude: southWest.lat,
+                        southWestLongitude: southWest.lng,
+                    });
 
-                refreshMap(clusters);
-            }
-        }, 200);
+                    refreshMap(clusters);
+                }
+            }, 200);
+        } else {
+            // We should try to load a custom map
+            const loadCustomMap = async () => {
+                const response = await axios.get('/api/custom-maps', { params: { id } });
+                const customMap = response.data;
+                setCustomMapInfo(customMap);
+                refreshMap(
+                    customMap.spots.map((spot) => ({
+                        id: spot.id,
+                        latitude: spot.location.latitude,
+                        longitude: spot.location.longitude,
+                        count: 1,
+                        spots: [spot],
+                    })),
+                );
+            };
+            loadCustomMap();
+        }
     };
 
     const flyTo = (spot: Spot) => {
@@ -126,7 +153,7 @@ const MapContainer = () => {
 
     useEffect(() => {
         load();
-    }, [map.status, map.types]);
+    }, [map.status, map.types, id]);
 
     useEffect(() => {
         const { selectedSpot } = map;
@@ -158,8 +185,16 @@ const MapContainer = () => {
                         link="/app"
                         text="The world is our playground. Download the app & help us enrich this map."
                     />
-                    <MapNavigation />
-                    {/* <MapCustomNavigation /> */}
+                    {id !== undefined && customMapInfo !== undefined ? (
+                        <MapCustomNavigation
+                            title={customMapInfo.name}
+                            about={customMapInfo.about}
+                            subtitle={customMapInfo.subtitle}
+                            spots={customMapInfo.spots}
+                        />
+                    ) : (
+                        <MapNavigation />
+                    )}
                     <MapCustomNavigationTrail />
                     <Legend />
                     <MapComponent
@@ -169,6 +204,7 @@ const MapContainer = () => {
                         onSpotMarkerClick={onSpotMarkerClick}
                         onViewportChange={onViewportChange}
                         onPopupClose={onPopupClose}
+                        clustering={id === undefined}
                     />
                     <MapGradients />
                 </>
