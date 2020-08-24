@@ -8,7 +8,7 @@ import Layout from 'components/Layout/Layout';
 import TrackedPage from 'components/pages/TrackedPage';
 
 const MapHead = () => {
-    const baseURL = process.env.NEXT_PUBLIC_NEXT_PUBLIC_WEBSITE_URL;
+    const baseURL = process.env.NEXT_PUBLIC_WEBSITE_URL;
     return (
         <Head>
             <title>Krak | Map</title>

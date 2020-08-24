@@ -18,7 +18,7 @@ const DynamicArticleModal = dynamic(() => import('components/pages/news/Articles
 });
 
 const NewsHead = ({ content }: { content: Content }) => {
-    const baseURL = process.env.NEXT_PUBLIC_NEXT_PUBLIC_WEBSITE_URL;
+    const baseURL = process.env.NEXT_PUBLIC_WEBSITE_URL;
 
     const description = (() => {
         if (content) {

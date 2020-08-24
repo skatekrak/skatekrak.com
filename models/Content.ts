@@ -52,7 +52,7 @@ export default class Content implements IContent {
     }
 
     public getArticlePopupUrl(): string {
-        return `${process.env.NEXT_PUBLIC_NEXT_PUBLIC_WEBSITE_URL}/news?id=${this.id}`;
+        return `${process.env.NEXT_PUBLIC_WEBSITE_URL}/news?id=${this.id}`;
     }
 
     public getWebsiteUrl(): string {
