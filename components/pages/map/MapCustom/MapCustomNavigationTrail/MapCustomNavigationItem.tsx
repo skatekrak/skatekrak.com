@@ -31,6 +31,7 @@ const MapCustomNavigationItem = ({ map }: Props) => {
         <Link
             href="/map?id=volcom"
             as="/map/volcom"
+            shallow
             // onClick={onMapClick}
         >
             <a
