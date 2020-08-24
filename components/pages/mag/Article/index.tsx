@@ -32,7 +32,7 @@ const Article = (rawProps: Props) => {
         return <KrakLoading />;
     }
 
-    const baseURL = process.env.NEXT_PUBLIC_NEXT_PUBLIC_WEBSITE_URL;
+    const baseURL = process.env.NEXT_PUBLIC_WEBSITE_URL;
 
     return (
         <article id="mag-article" className={classNames({ hide: sidebarNavIsOpen })}>

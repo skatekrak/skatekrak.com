@@ -8,7 +8,7 @@ import IconAppStore from 'components/Ui/Icons/Stores/Appstore';
 import IconPlayStore from 'components/Ui/Icons/Stores/Playstore';
 
 const AppHead = () => {
-    const baseURL = process.env.NEXT_PUBLIC_NEXT_PUBLIC_WEBSITE_URL;
+    const baseURL = process.env.NEXT_PUBLIC_WEBSITE_URL;
     return (
         <Head>
             <title>Krak App | skateboarding</title>
@@ -34,7 +34,7 @@ const App: NextPage = () => (
             <div id="app-container" className="inner-page-container container-fluid">
                 <div id="app-content-container">
                     <img
-                        src={`${process.env.NEXT_PUBLIC_NEXT_PUBLIC_WEBSITE_URL}/images/krak-app-illustration.svg`}
+                        src={`${process.env.NEXT_PUBLIC_WEBSITE_URL}/images/krak-app-illustration.svg`}
                         alt=""
                         id="app-illustration"
                     />

@@ -14,7 +14,7 @@ type State = {
 };
 
 const HomeHead = () => {
-    const baseURL = process.env.NEXT_PUBLIC_NEXT_PUBLIC_WEBSITE_URL;
+    const baseURL = process.env.NEXT_PUBLIC_WEBSITE_URL;
     return (
         <Head>
             <title>Krak</title>

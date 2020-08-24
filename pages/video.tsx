@@ -15,7 +15,7 @@ import { Video } from 'rss-feed';
 const DynamicVideoModal = dynamic(() => import('components/pages/videos/VideoFeed/Video/VideoModal'));
 
 const VideoHead = ({ video }: { video: Video }) => {
-    const baseURL = process.env.NEXT_PUBLIC_NEXT_PUBLIC_WEBSITE_URL;
+    const baseURL = process.env.NEXT_PUBLIC_WEBSITE_URL;
 
     const title = (() => {
         if (video) {
