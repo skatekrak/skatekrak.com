@@ -3,16 +3,19 @@ import classNames from 'classnames';
 
 import IconArrowHead from 'components/Ui/Icons/ArrowHead';
 import { SpinnerCircle } from 'components/Ui/Icons/Spinners';
+import { useRouter } from 'next/router';
 
 type Props = {
     map: any;
 };
 
 const MapCustomNavigationItem = ({ map }: Props) => {
+    const router = useRouter();
     const [isMapSelected, setIsMapSelected] = useState(false);
     const [isMapLoading, setIsMapLoading] = useState(false);
 
     const onMapClick = () => {
+        router.push(`/map?id=volcom`, '/map/volcom', { shallow: true });
         setIsMapLoading(true);
         if (isMapSelected) {
             setIsMapSelected(false);

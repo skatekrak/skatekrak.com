@@ -7,8 +7,8 @@ import IconArrow from 'components/Ui/Icons/Arrow';
 import MapCustomNavigationAbout from './MapCustomNavigationAbout';
 import MapCustomNavigationSpots from './MapCustomNavigationSpots';
 
-import mapData from './mapData';
 import IconArrowHead from 'components/Ui/Icons/ArrowHead';
+import { Spot } from 'lib/carrelageClient';
 
 enum MapCustomNavigationMode {
     NONE = 'NONE',
@@ -16,7 +16,14 @@ enum MapCustomNavigationMode {
     SPOTS = 'SPOTS',
 }
 
-const index = () => {
+type MapCustomNavigationProps = {
+    title: string;
+    about: string;
+    subtitle: string;
+    spots: Spot[];
+};
+
+const MapCustomNavigation = ({ title, about, subtitle, spots }: MapCustomNavigationProps) => {
     const [navigationMode, setNavigationMode] = useState<MapCustomNavigationMode>(MapCustomNavigationMode.NONE);
 
     const onCloseNavigationMode = () => {
@@ -33,7 +40,7 @@ const index = () => {
                     </a>
                 </Link>
                 <div id="custom-map-navigation-main">
-                    <h2 id="custom-map-navigation-main-title">Nike teenage tour</h2>
+                    <h2 id="custom-map-navigation-main-title">{title}</h2>
                     <button
                         className="custom-map-navigation-link"
                         onClick={() => setNavigationMode(MapCustomNavigationMode.ABOUT)}
@@ -52,7 +59,7 @@ const index = () => {
                             }
                         }}
                     >
-                        28 spots
+                        {spots.length} spots
                         <IconArrowHead />
                     </button>
                 </div>
@@ -60,15 +67,17 @@ const index = () => {
             {navigationMode !== MapCustomNavigationMode.NONE && (
                 <div id="custom-map-navigation-extension">
                     {navigationMode === MapCustomNavigationMode.ABOUT && (
-                        <MapCustomNavigationAbout map={mapData} onCloseNavigationMode={onCloseNavigationMode} />
+                        <MapCustomNavigationAbout
+                            subtitle={subtitle}
+                            about={about}
+                            onCloseNavigationMode={onCloseNavigationMode}
+                        />
                     )}
-                    {navigationMode === MapCustomNavigationMode.SPOTS && (
-                        <MapCustomNavigationSpots mapSpots={mapData.spots} />
-                    )}
+                    {navigationMode === MapCustomNavigationMode.SPOTS && <MapCustomNavigationSpots mapSpots={spots} />}
                 </div>
             )}
         </div>
     );
 };
 
-export default index;
+export default MapCustomNavigation;

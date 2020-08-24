@@ -3,20 +3,21 @@ import React from 'react';
 import IconCross from 'components/Ui/Icons/Cross';
 
 type Props = {
-    map: any;
+    subtitle: string;
+    about: string;
     onCloseNavigationMode: () => void;
 };
 
-const MapCustomNavigationAbout = ({ map, onCloseNavigationMode }: Props) => {
+const MapCustomNavigationAbout = ({ subtitle, about, onCloseNavigationMode }: Props) => {
     return (
         <div id="custom-map-navigation-extension-about">
             <div id="custom-map-navigation-extension-about-header">
-                <h3>{map.name}</h3>
+                <h3>{subtitle}</h3>
                 <button onClick={onCloseNavigationMode}>
                     <IconCross />
                 </button>
             </div>
-            <p id="custom-map-navigation-extension-about-desc">{map.about}</p>
+            <p id="custom-map-navigation-extension-about-desc">{about}</p>
         </div>
     );
 };
