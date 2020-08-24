@@ -19,6 +19,7 @@ type MapComponentProps = {
     onSpotMarkerClick: (spot: Spot) => void;
     onViewportChange?: (viewport: { latitude: number; longitude: number; zoom: number }) => void;
     onPopupClose?: () => void;
+    clustering: boolean;
 };
 
 const MapComponent = ({
@@ -28,13 +29,17 @@ const MapComponent = ({
     onSpotMarkerClick,
     onViewportChange,
     onPopupClose,
+    clustering,
 }: MapComponentProps) => {
     const mapState = useSelector((state: Typings.RootState) => state.map);
 
     const markers = useMemo(() => {
         const _markers: JSX.Element[] = [];
         for (const cluster of clusters) {
-            if (mapRef.current.props.zoom > mapRef.current.props.maxZoom - 5.5 && cluster.spots.length > 0) {
+            if (
+                !clustering ||
+                (mapRef.current.props.zoom > mapRef.current.props.maxZoom - 5.5 && cluster.spots.length > 0)
+            ) {
                 for (const spot of cluster.spots) {
                     _markers.push(
                         <SpotMarker
