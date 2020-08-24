@@ -51,7 +51,7 @@ const MapComponent = ({
             }
         }
         return _markers;
-    }, [clusters]);
+    }, [clusters, selectedSpotOverview]);
 
     return (
         <div id="map">
