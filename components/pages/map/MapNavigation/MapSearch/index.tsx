@@ -14,7 +14,7 @@ const fetchPlaces = async (query: string): Promise<Place[]> => {
     return res.data;
 };
 
-const index = () => {
+const MapNavigation = () => {
     const [searchValue, setSearchValue] = useState('');
 
     const debouncedSpotsSearch = useConstant(() =>
@@ -55,4 +55,4 @@ const index = () => {
     );
 };
 
-export default index;
+export default MapNavigation;
