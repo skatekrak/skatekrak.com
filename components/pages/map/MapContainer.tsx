@@ -2,8 +2,9 @@ import axios from 'axios';
 import classNames from 'classnames';
 import React, { useState, useEffect, useRef } from 'react';
 import { InteractiveMap, FlyToInterpolator, ViewportProps } from 'react-map-gl';
-import { connect, useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { getDistanceScales } from 'viewport-mercator-project';
+import dynamic from 'next/dynamic';
 
 import Typings from 'Types';
 
@@ -17,9 +18,10 @@ import { FilterStateUtil, FilterState } from 'lib/FilterState';
 import MapCustomNavigationTrail from './MapCustom/MapCustomNavigationTrail/MapCustomNavigationTrail';
 import MapCustomNavigation from './MapCustom/MapCustomNavigation';
 import MapNavigation from './MapNavigation';
-import MapComponent from './MapComponent';
 import MapGradients from './MapGradients';
 import { useRouter } from 'next/router';
+
+const DynamicMapComponent = dynamic(() => import('./MapComponent'), { ssr: false });
 
 const filterClusters = (
     clusters: Cluster[],
@@ -197,7 +199,7 @@ const MapContainer = () => {
                     )}
                     <MapCustomNavigationTrail />
                     <Legend />
-                    <MapComponent
+                    <DynamicMapComponent
                         mapRef={mapRef}
                         clusters={clusters}
                         selectedSpotOverview={selectedSpotOverview}
