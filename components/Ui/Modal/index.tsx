@@ -1,5 +1,5 @@
 import React from 'react';
-import Modal, { Props as ReactResponseiveModalProps } from 'react-responsive-modal';
+import { Modal, ModalProps } from '@oppenheimer/react-responsive-modal';
 
 import IconCross from 'components/Ui/Icons/Cross';
 
@@ -23,15 +23,14 @@ type Props = {
     open: boolean;
     onClose: () => void;
     closable?: boolean;
-} & Partial<ReactResponseiveModalProps>;
+} & Partial<ModalProps>;
 
 const ModalWithStyle: React.FunctionComponent<Props> = ({ open, onClose, children, closable, ...props }) => (
     <Modal
         open={open}
         onClose={onClose}
         classNames={classNames}
-        closeIconSvgPath={<IconCross />}
-        closeIconSize={24}
+        closeIcon={<IconCross />}
         animationDuration={300}
         closeOnEsc={closable}
         closeOnOverlayClick={closable}

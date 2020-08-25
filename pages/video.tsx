@@ -12,7 +12,7 @@ import Sidebar from 'components/pages/videos/Sidebar';
 import VideoFeed from 'components/pages/videos/VideoFeed';
 import { Video } from 'rss-feed';
 
-const DynamicVideoModal = dynamic(() => import('components/pages/videos/VideoFeed/Video/VideoModal'));
+const VideoModal = dynamic(() => import('components/pages/videos/VideoFeed/Video/VideoModal'), { ssr: false });
 
 const VideoHead = ({ video }: { video: Video }) => {
     const baseURL = process.env.NEXT_PUBLIC_WEBSITE_URL;
@@ -61,7 +61,7 @@ const Videos: NextPage<Props> = ({ video, gotId }) => {
         <Layout head={<VideoHead video={video} />}>
             <BannerTop offsetScroll link="/" text="Become a co-owner" />
             <div id="videos-container" className="inner-page-container">
-                {gotId && <DynamicVideoModal video={video} />}
+                <VideoModal video={video} open={gotId} />
                 <LayoutFeed
                     mainView={<VideoFeed sidebarNavIsOpen={sidebarNavIsOpen} />}
                     sidebar={
