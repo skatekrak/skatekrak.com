@@ -19,4 +19,13 @@ module.exports = withPlugins([withBundleAnalyzer, withCSS, withStylus, withCusto
         }
         return config;
     },
+    async redirects() {
+        return [
+            {
+                source: '/club',
+                destination: 'https://krakito.com',
+                permanent: true,
+            },
+        ];
+    },
 });
