@@ -34,7 +34,7 @@ const MapCustomNavigationSpots = ({ mapSpots }: Props) => {
 
     return (
         <div id="custom-map-navigation-extension-spots">
-            <div id="custom-map-navigation-extension-spots-search">
+            {/* <div id="custom-map-navigation-extension-spots-search">
                 <input
                     id="custom-map-navigation-extension-spots-search-input"
                     type="text"
@@ -50,7 +50,7 @@ const MapCustomNavigationSpots = ({ mapSpots }: Props) => {
                         <IconClear />
                     </button>
                 )}
-            </div>
+            </div> */}
             <div id="custom-map-navigation-extension-spots-results">
                 <Scrollbar maxHeight="22.25rem">
                     {isSearchSpotsLoading ? (
