@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import Cors from 'cors';
 
-import CustomMaps from './_spots';
+import CustomMaps from '../../data/_spots';
 
 const cors = Cors({
     methods: ['GET', 'HEAD'],
@@ -31,7 +31,15 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
     const id = req.query.id;
     if (id === undefined) {
-        return res.status(400).json({ message: 'Missing id' });
+        return res.status(200).json(
+            CustomMaps.map((map) => ({
+                id: map.id,
+                name: map.name,
+                subtitle: map.subtitle,
+                about: map.about,
+                numberOfSpots: map.spots.length,
+            })),
+        );
     }
 
     if (typeof id !== 'string') {
