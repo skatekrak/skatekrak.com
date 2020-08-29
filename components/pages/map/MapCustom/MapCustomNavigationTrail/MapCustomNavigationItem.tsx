@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import classNames from 'classnames';
 
 import IconArrowHead from 'components/Ui/Icons/ArrowHead';
@@ -6,34 +6,22 @@ import { SpinnerCircle } from 'components/Ui/Icons/Spinners';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 
+import type { CustomMap } from './MapCustomNavigationTrail';
+
 type Props = {
-    map: any;
+    map: CustomMap;
 };
 
 const MapCustomNavigationItem = ({ map }: Props) => {
     const router = useRouter();
-    const [isMapSelected, setIsMapSelected] = useState(false);
     const [isMapLoading, setIsMapLoading] = useState(false);
 
-    const onMapClick = () => {
-        router.push(`/map?id=volcom`, '/map/volcom', { shallow: true });
-        setIsMapLoading(true);
-        if (isMapSelected) {
-            setIsMapSelected(false);
-        }
-        setTimeout(() => {
-            setIsMapSelected(!isMapSelected);
-            setIsMapLoading(false);
-        }, 1000);
-    };
+    const isMapSelected = useMemo(() => {
+        return router.query.id === map.id;
+    }, [router.query.id]);
 
     return (
-        <Link
-            href="/map?id=volcom"
-            as="/map/volcom"
-            shallow
-            // onClick={onMapClick}
-        >
+        <Link href="/map?id=volcom" as="/map/volcom" shallow>
             <a
                 className={classNames('custom-map-navigation-item', {
                     'custom-map-navigation-item--selected': isMapSelected,
@@ -55,8 +43,8 @@ const MapCustomNavigationItem = ({ map }: Props) => {
                         <h4 className="custom-map-navigation-item-name">{map.name}</h4>
                         <IconArrowHead />
                     </div>
-                    <p className="custom-map-navigation-item-body">{map.desc}</p>
-                    <p className="custom-map-navigation-item-spots">{map.nbSpot} spots</p>
+                    <p className="custom-map-navigation-item-body">{map.about}</p>
+                    <p className="custom-map-navigation-item-spots">{map.numberOfSpots} spots</p>
                 </div>
             </a>
         </Link>
