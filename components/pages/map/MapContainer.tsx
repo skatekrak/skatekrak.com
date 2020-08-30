@@ -53,7 +53,6 @@ const MapContainer = () => {
 
     const router = useRouter();
     const id = router.query.id === undefined ? undefined : String(router.query.id);
-    console.log('map id', id);
 
     const [clusters, setClusters] = useState<Cluster[]>([]);
     const [pixelsPerDegree, setPixelsPerDegree] = useState([0, 0, 0]);

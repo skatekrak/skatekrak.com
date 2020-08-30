@@ -18,7 +18,7 @@ const MapCustomNavigationTrail = () => {
 
     return (
         <div id="custom-map-navigation-trail">
-            {!isLoading && data.map((map) => <MapCustomNavigationItem map={map} />)}
+            {!isLoading && data.map((map) => <MapCustomNavigationItem map={map} key={map.id} />)}
         </div>
     );
 };
