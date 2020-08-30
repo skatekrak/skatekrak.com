@@ -7,15 +7,13 @@
 	top: 4rem
 	left: 1.5rem
 	min-width: 20rem
-	width: 27rem
+	width: 27.25rem
 	color: $grey-400
+	background-color: $grey-900
+	border: 1.5px solid $grey-800
+	border-radius: 0.25rem
+	box-shadow: $shadowSurface
 	z-index: 1000
-
-	&-container
-		background-color: $grey-900
-		border: 1.5px solid $grey-800
-		border-radius: 0.25rem
-		box-shadow: $shadowSurface
 
 	&-close
 		display: inline-flex
@@ -31,32 +29,48 @@
 
 	&-main
 		display: flex
-		align-items: baseline
+		align-items: center
 		padding: 0.75rem 1.25rem 1rem
 
+		&-logo
+			max-width: 100%
+			margin: auto
+
+			&-container
+				display: flex
+				width: 2.5rem
+				height: 2.5rem
+				margin-right: .5rem
+				background-color: white
+				border-radius: 100%
+
+
+		&-container
+			display: flex
+			align-items: baseline
+			padding-top: 0.25rem
+
 		&-title
-			min-width: 13rem
+			width: 12rem
 			margin-right: auto
 			font-family: $ff-roboto-condensed-bold
 			font-size: $fs-larger
 			color: $grey-100
 
 		& .custom-map-navigation-link
-			padding: 0.25rem 0.5rem
 			font-size: $fs-regular
 			color: $grey-200
 
 			&:first-of-type
-				margin-right: 0.5rem
+				margin: 0 1rem 0 1rem
 
 		& .custom-map-navigation-link-spot
 			display: flex
 
 			& svg
 				width: 1.5rem
-				margin-left: .25rem 
 				fill: $grey-400
-				transition: .1s
+				transition: .075s
 
 			&--open
 				& svg

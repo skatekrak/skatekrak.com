@@ -32,14 +32,20 @@ const MapCustomNavigation = ({ title, about, subtitle, spots }: MapCustomNavigat
 
     return (
         <div id="custom-map-navigation">
-            <div id="custom-map-navigation-container">
-                <Link href="/map">
-                    <a id="custom-map-navigation-close">
-                        <IconArrow />
-                        Back to Krak map
-                    </a>
-                </Link>
-                <div id="custom-map-navigation-main">
+            <Link href="/map">
+                <a id="custom-map-navigation-close">
+                    <IconArrow />
+                    Back to Krak map
+                </a>
+            </Link>
+            <div id="custom-map-navigation-main">
+                <div id="custom-map-navigation-main-logo-container">
+                    <img
+                        src="https://upload.wikimedia.org/wikipedia/fr/8/8e/Swoosh.svg"
+                        id="custom-map-navigation-main-logo"
+                    />
+                </div>
+                <div id="custom-map-navigation-main-container">
                     <h2 id="custom-map-navigation-main-title">{title}</h2>
                     <button
                         className="custom-map-navigation-link"
