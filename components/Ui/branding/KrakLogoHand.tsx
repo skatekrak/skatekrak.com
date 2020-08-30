@@ -1,5 +1,5 @@
 /* tslint:disable:max-line-length */
-export default () => (
+const KrakLogoHand = () => (
     <svg viewBox="0 0 451 314.05">
         <path
             className="krak-logo-hand-shape"
@@ -7,3 +7,5 @@ export default () => (
         />
     </svg>
 );
+
+export default KrakLogoHand;
