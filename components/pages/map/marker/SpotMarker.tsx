@@ -60,8 +60,8 @@ const SpotMarker = ({ spot, onSpotMarkerClick, isSelected }: SpotMarkerProps) =>
                 onClick={onMarkerClick}
             >
                 <div className="map-marker-icon">
-                    {spot.status === 'rip' || (spot.status === 'wip' && <Pin key={spot.id} imageName={spot.status} />)}
-                    {spot.status === 'active' && [<Pin key={spot.id} imageName={spot.type} />]}
+                    {(spot.status == 'rip' || spot.status === 'wip') && <Pin key={spot.id} imageName={spot.status} />}
+                    {spot.status === 'active' && <Pin key={spot.id} imageName={spot.type} />}
                 </div>
                 {spot.tags.length !== 0 && (
                     <div className="map-marker-badges">
