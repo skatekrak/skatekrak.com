@@ -26,6 +26,7 @@ import { MapState } from 'store/map/reducers';
 import { selectAllMapFilters, mapRefreshEnd, setViewport } from 'store/map/actions';
 import { FilterStateUtil } from 'lib/FilterState';
 import { types } from 'util';
+import { withRouter, Router } from 'next/router';
 
 type Props = {
     isMobile: boolean;
@@ -34,6 +35,7 @@ type Props = {
     selectAllMapFilters: () => void;
     mapRefreshEnd: () => void;
     setViewport: (viewport: Partial<ViewportProps>) => void;
+    router: Router;
 };
 
 type State = {
@@ -291,6 +293,8 @@ class MapContainer extends React.Component<Props, State> {
             spotMarkerClicked: null,
             popupImage: null,
         });
+
+        this.props.router.push('/map', undefined, { shallow: true });
     };
 
     private onSpotMarkerClick = async (spot: Spot) => {
@@ -299,6 +303,8 @@ class MapContainer extends React.Component<Props, State> {
             popupInfo: spot,
             spotMarkerClicked: spot.id,
         });
+
+        this.props.router.push(`/map?spot=${spot.id}`, undefined, { shallow: true });
 
         try {
             const res = await axios.get(`${process.env.NEXT_PUBLIC_CARRELAGE_URL}/spots/${spot.id}/overview`);
@@ -369,4 +375,4 @@ const mapStateProps = ({ settings, map }: Typings.RootState) => ({
     map,
 });
 
-export default connect(mapStateProps, { selectAllMapFilters, mapRefreshEnd, setViewport })(MapContainer);
+export default withRouter(connect(mapStateProps, { selectAllMapFilters, mapRefreshEnd, setViewport })(MapContainer));
