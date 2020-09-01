@@ -1,8 +1,9 @@
 import { NextPage } from 'next';
 import Head from 'next/head';
 import React from 'react';
+import dynamic from 'next/dynamic';
 
-import MapContainer from 'components/pages/map/MapContainer';
+const DyamicMapContainer = dynamic(() => import('components/pages/map/MapContainer'), { ssr: false });
 
 import Layout from 'components/Layout/Layout';
 import TrackedPage from 'components/pages/TrackedPage';
@@ -25,7 +26,7 @@ const MapHead = () => {
 const Map: NextPage = () => (
     <TrackedPage name="Map">
         <Layout head={<MapHead />}>
-            <MapContainer />
+            <DyamicMapContainer />
         </Layout>
     </TrackedPage>
 );
