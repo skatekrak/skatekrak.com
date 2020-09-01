@@ -1,12 +1,13 @@
-import Link from 'next/link';
+import NextLink from 'next/link';
 import React from 'react';
+const Link = React.memo(NextLink);
 
 import KrakLogoHand from 'components/Ui/branding/KrakLogoHand';
 import MapFilters from './MapFilters';
 import MapSearch from './MapSearch';
 import DividerVertical from 'components/Ui/dividers/DividerVertical';
 
-const index = () => {
+const MapNavigation = () => {
     return (
         <div id="map-navigation">
             <div id="map-navigation-top-nav">
@@ -25,4 +26,4 @@ const index = () => {
     );
 };
 
-export default index;
+export default React.memo(MapNavigation);

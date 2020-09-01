@@ -55,4 +55,4 @@ const MapNavigation = () => {
     );
 };
 
-export default MapNavigation;
+export default React.memo(MapNavigation);

@@ -1,5 +1,6 @@
-/* tslint:disable:max-line-length */
-export default () => (
+import React from 'react';
+
+const StreetIcon = () => (
     <svg className="map-icon-street" viewBox="0 0 48 48">
         <path
             className="map-icon-stroke-outter"
@@ -15,3 +16,5 @@ export default () => (
         />
     </svg>
 );
+
+export default React.memo(StreetIcon);

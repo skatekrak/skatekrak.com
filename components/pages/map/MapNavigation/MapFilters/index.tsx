@@ -11,7 +11,7 @@ import WipIcon from 'components/pages/map/marker/icons/Wip';
 
 import MapFilter from './MapFilter';
 
-const index = () => {
+const MapFilters = () => {
     return (
         <div id="map-navigation-filters">
             <MapFilter filter={Types.Street} icon={<StreetIcon />} />
@@ -25,4 +25,4 @@ const index = () => {
     );
 };
 
-export default index;
+export default React.memo(MapFilters);

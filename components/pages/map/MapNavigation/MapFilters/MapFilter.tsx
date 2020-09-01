@@ -64,4 +64,4 @@ const MapFilter: React.FC<Props> = ({ filter, icon }) => {
     );
 };
 
-export default MapFilter;
+export default React.memo(MapFilter);

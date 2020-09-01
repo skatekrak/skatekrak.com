@@ -1,5 +1,6 @@
-/* tslint:disable:max-line-length */
-export default () => (
+import React from 'react';
+
+const WipIcon = () => (
     <svg className="map-icon-wip" viewBox="0 0 48 48">
         <path
             className="map-icon-stroke-outter"
@@ -19,3 +20,5 @@ export default () => (
         />
     </svg>
 );
+
+export default React.memo(WipIcon);

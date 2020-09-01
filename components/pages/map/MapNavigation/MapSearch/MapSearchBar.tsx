@@ -30,4 +30,4 @@ const MapSearchBar = ({ searchValue, handleSearchChange, clearSearchValue }: Pro
     );
 };
 
-export default MapSearchBar;
+export default React.memo(MapSearchBar);

@@ -1,4 +1,5 @@
-/* tslint:disable:max-line-length */
+import React from 'react';
+
 const KrakLogoHand = () => (
     <svg viewBox="0 0 451 314.05">
         <path
@@ -8,4 +9,4 @@ const KrakLogoHand = () => (
     </svg>
 );
 
-export default KrakLogoHand;
+export default React.memo(KrakLogoHand);
