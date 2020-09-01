@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import classNames from 'classnames';
-import Link from 'next/link';
+import NextLink from 'next/link';
+const Link = React.memo(NextLink);
 
 import IconArrow from 'components/Ui/Icons/Arrow';
+import IconArrowHead from 'components/Ui/Icons/ArrowHead';
 
 import MapCustomNavigationAbout from './MapCustomNavigationAbout';
 import MapCustomNavigationSpots from './MapCustomNavigationSpots';
 
-import IconArrowHead from 'components/Ui/Icons/ArrowHead';
 import { Spot } from 'lib/carrelageClient';
 
 enum MapCustomNavigationMode {
@@ -86,4 +87,4 @@ const MapCustomNavigation = ({ title, about, subtitle, spots }: MapCustomNavigat
     );
 };
 
-export default MapCustomNavigation;
+export default React.memo(MapCustomNavigation);

@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 
 import Scrollbar from 'components/Ui/Scrollbar';
-import IconSearch from 'components/Ui/Icons/Search';
-import IconClear from 'components/Ui/Icons/Clear';
 
 import MapSearchResultLoading from '../../MapNavigation/MapSearch/MapSearchResults/MapSearchResultLoading';
 import MapSearchResultNoContent from '../../MapNavigation/MapSearch/MapSearchResults/MapSearchResultNoContent';
@@ -81,4 +79,4 @@ const MapCustomNavigationSpots = ({ mapSpots }: Props) => {
     );
 };
 
-export default MapCustomNavigationSpots;
+export default React.memo(MapCustomNavigationSpots);

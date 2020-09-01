@@ -22,4 +22,4 @@ const MapCustomNavigationAbout = ({ subtitle, about, onCloseNavigationMode }: Pr
     );
 };
 
-export default MapCustomNavigationAbout;
+export default React.memo(MapCustomNavigationAbout);
