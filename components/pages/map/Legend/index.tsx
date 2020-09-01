@@ -18,7 +18,7 @@ import BadgeIconic from 'components/pages/map/marker/badges/Iconic';
 import BadgeMinute from 'components/pages/map/marker/badges/Minute';
 import KrakAppIcon from 'components/Ui/Icons/Logos/KrakAppIcon';
 
-const index = () => {
+const Legend = () => {
     const [isLegendOpen, setLegendOpen] = useState(false);
 
     const handleLegendOpen = () => {
@@ -135,4 +135,4 @@ const index = () => {
     );
 };
 
-export default index;
+export default React.memo(Legend);
