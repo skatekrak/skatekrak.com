@@ -1,5 +1,6 @@
-/* tslint:disable:max-line-length */
-export default () => (
+import React from 'react';
+
+const RipIcon = () => (
     <svg className="map-icon-rip" viewBox="0 0 48 48">
         <path
             className="map-icon-stroke-outter"
@@ -23,3 +24,5 @@ export default () => (
         <circle className="details" cx="25.98" cy="30.6" r="0.51" />
     </svg>
 );
+
+export default React.memo(RipIcon);

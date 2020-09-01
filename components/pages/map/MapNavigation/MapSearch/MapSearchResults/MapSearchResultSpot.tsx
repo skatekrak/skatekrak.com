@@ -21,14 +21,14 @@ type Props = {
 const MapSearchResultSpot = ({ spot, onSpotClick }: Props) => {
     const [overBadgeCounter, setOverBadgeCounter] = useState<number | undefined>(undefined);
 
-    const renderedTags = spot.tags.filter((tag, index: number, originaltags) => {
+    const renderedTags = spot.tags?.filter((tag, index: number, originaltags) => {
         if (originaltags.length > 5 && index < 4) {
             return tag;
         }
     });
 
     useEffect(() => {
-        if (spot.tags.length > 5) {
+        if (spot.tags?.length > 5) {
             setOverBadgeCounter(spot.tags.length - 4);
         }
     }, [spot.tags]);
@@ -55,24 +55,32 @@ const MapSearchResultSpot = ({ spot, onSpotClick }: Props) => {
                 </div>
                 <div className="map-navigation-search-result-spot-container-start">
                     <p className="map-navigation-search-result-spot-name">{spot.name}</p>
-                    <p className="map-navigation-search-result-spot-street">
-                        {spot.location.streetNumber} {spot.location.streetName}
-                    </p>
+                    {spot.location && (
+                        <p className="map-navigation-search-result-spot-street">
+                            {spot.location.streetNumber} {spot.location.streetName}
+                        </p>
+                    )}
                 </div>
                 <div className="map-navigation-search-result-spot-container-end">
-                    <div className="map-navigation-search-result-spot-badges">
-                        {renderedTags.map((tag) => (
-                            <React.Fragment key={tag}>
-                                {tag === 'famous' && <IconicBadge />}
-                                {tag === 'history' && <HistoryBadge />}
-                                {tag === 'minute' && <MinuteBadge />}
-                            </React.Fragment>
-                        ))}
-                        {overBadgeCounter && (
-                            <div className="map-navigation-search-result-spot-badges-counter">+{overBadgeCounter}</div>
-                        )}
-                    </div>
-                    <p className="map-navigation-search-result-spot-city">{spot.location.city}</p>
+                    {renderedTags && (
+                        <div className="map-navigation-search-result-spot-badges">
+                            {renderedTags.map((tag) => (
+                                <React.Fragment key={tag}>
+                                    {tag === 'famous' && <IconicBadge />}
+                                    {tag === 'history' && <HistoryBadge />}
+                                    {tag === 'minute' && <MinuteBadge />}
+                                </React.Fragment>
+                            ))}
+                            {overBadgeCounter && (
+                                <div className="map-navigation-search-result-spot-badges-counter">
+                                    +{overBadgeCounter}
+                                </div>
+                            )}
+                        </div>
+                    )}
+                    {spot.location && spot.location.city && (
+                        <p className="map-navigation-search-result-spot-city">{spot.location.city}</p>
+                    )}
                 </div>
             </button>
             <div className="map-navigation-search-result-spot-divider" />

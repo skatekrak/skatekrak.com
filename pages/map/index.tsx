@@ -1,15 +1,12 @@
 import { NextPage } from 'next';
 import Head from 'next/head';
-import { useRouter } from 'next/router';
-import React, { useState } from 'react';
-import { connect } from 'react-redux';
-
-import Types from 'Types';
-
-import MapContainer from 'components/pages/map/MapContainer';
+import React from 'react';
+import dynamic from 'next/dynamic';
 
 import Layout from 'components/Layout/Layout';
 import TrackedPage from 'components/pages/TrackedPage';
+
+const DyamicMapContainer = dynamic(() => import('components/pages/map/MapContainer'), { ssr: false });
 
 const MapHead = () => {
     const baseURL = process.env.NEXT_PUBLIC_WEBSITE_URL;
@@ -29,7 +26,7 @@ const MapHead = () => {
 const Map: NextPage = () => (
     <TrackedPage name="Map">
         <Layout head={<MapHead />}>
-            <MapContainer />
+            <DyamicMapContainer />
         </Layout>
     </TrackedPage>
 );

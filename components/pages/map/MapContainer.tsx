@@ -1,344 +1,72 @@
 import axios from 'axios';
 import classNames from 'classnames';
-import React from 'react';
-import ReactMapGL, {
-    // GeolocateControl,
-    InteractiveMap,
-    NavigationControl,
-    Popup,
-    FlyToInterpolator,
-    ViewportProps,
-} from 'react-map-gl';
-import { connect } from 'react-redux';
-import WebMercatorViewport, { getDistanceScales } from 'viewport-mercator-project';
+import React, { useState, useEffect, useRef } from 'react';
+import { InteractiveMap, FlyToInterpolator, ViewportProps } from 'react-map-gl';
+import { useSelector, useDispatch } from 'react-redux';
+import { getDistanceScales } from 'viewport-mercator-project';
+import dynamic from 'next/dynamic';
 
 import Typings from 'Types';
 
-import { Cluster, Spot, Status } from 'lib/carrelageClient';
+import { Cluster, Spot, Status, SpotOverview, Types } from 'lib/carrelageClient';
 
 import Legend from 'components/pages/map/Legend';
-import SpotCluster from 'components/pages/map/marker/SpotCluster';
-import SpotMarker from 'components/pages/map/marker/SpotMarker';
 import BannerTop from 'components/Ui/Banners/BannerTop';
+import { boxSpotsSearch, getSpotOverview } from 'lib/carrelageClient';
+import { mapRefreshEnd, setViewport } from 'store/map/actions';
+import { FilterStateUtil, FilterState } from 'lib/FilterState';
+import MapCustomNavigationTrail from './MapCustom/MapCustomNavigationTrail/MapCustomNavigationTrail';
+import MapCustomNavigation from './MapCustom/MapCustomNavigation';
 import MapNavigation from './MapNavigation';
-import { boxSpotsSearch } from 'lib/carrelageClient';
-import { MapState } from 'store/map/reducers';
-import { selectAllMapFilters, mapRefreshEnd, setViewport } from 'store/map/actions';
-import { FilterStateUtil } from 'lib/FilterState';
-import { types } from 'util';
-import { withRouter, Router } from 'next/router';
+import MapGradients from './MapGradients';
+import { useRouter } from 'next/router';
 
-type Props = {
-    isMobile: boolean;
-    map: MapState;
+const DynamicMapComponent = dynamic(() => import('./MapComponent'), { ssr: false });
 
-    selectAllMapFilters: () => void;
-    mapRefreshEnd: () => void;
-    setViewport: (viewport: Partial<ViewportProps>) => void;
-    router: Router;
+const filterClusters = (
+    clusters: Cluster[],
+    types: Record<Types, FilterState>,
+    status: Record<Status, FilterState>,
+): Cluster[] => {
+    let selectedTypes = FilterStateUtil.getSelected(types);
+    let selectedStatus = FilterStateUtil.getSelected(status);
+
+    return clusters
+        .map((cluster) => {
+            return {
+                ...cluster,
+                spots: cluster.spots.filter((spot) => {
+                    if (spot.status === Status.Active) {
+                        return selectedTypes.indexOf(spot.type) !== -1;
+                    } else {
+                        return selectedStatus.indexOf(spot.status) !== -1;
+                    }
+                }),
+            };
+        })
+        .filter((cluster) => cluster.spots.length > 0);
 };
 
-type State = {
-    pixelsPerDegree: [number, number, number];
-    clusters: Cluster[];
-    clusterMaxSpots: number;
-    popupInfo: Spot;
-    popupImage?: string;
-    isPopupImageLoading: boolean;
-    spotMarkerClicked?: string;
-};
+const MapContainer = () => {
+    const [isMobile, map] = useSelector((state: Typings.RootState) => [state.settings.isMobile, state.map]);
+    const dispatch = useDispatch();
 
-const MIN_ZOOM_LEVEL = 4;
-const MAX_ZOOM_LEVEL = 18;
+    const router = useRouter();
+    const id = router.query.id === undefined ? undefined : String(router.query.id);
 
-class MapContainer extends React.Component<Props, State> {
-    public state: State = {
-        pixelsPerDegree: [0, 0, 0],
-        clusters: [],
-        clusterMaxSpots: 1,
-        popupInfo: null,
-        isPopupImageLoading: false,
-        spotMarkerClicked: null,
-    };
+    const [clusters, setClusters] = useState<Cluster[]>([]);
+    const [pixelsPerDegree, setPixelsPerDegree] = useState([0, 0, 0]);
+    const [clusterMaxSpots, setClusterMaxSpots] = useState(1);
+    const [selectedSpotOverview, setSelectedSpot] = useState<SpotOverview>();
+    const [customMapInfo, setCustomMapInfo] = useState<Record<string, any>>();
 
-    private mapRef = React.createRef<InteractiveMap>();
-    private loadTimeout: NodeJS.Timeout;
+    const mapRef = useRef<InteractiveMap>();
+    const loadTimeout = useRef<NodeJS.Timeout>();
 
-    public componentDidMount() {
-        this.load();
-    }
+    const refreshMap = (_clusters: Cluster[] | undefined = undefined) => {
+        const clusters = filterClusters(_clusters ?? this.state.clusters, map.types, map.status);
 
-    public componentDidUpdate(prevProps: Props) {
-        if (prevProps.map.status !== this.props.map.status || prevProps.map.types !== this.props.map.types) {
-            this.load();
-        }
-
-        if (prevProps.map.selectedSpot?.id !== this.props.map.selectedSpot?.id && this.props.map.selectedSpot) {
-            this.flyTo(this.props.map.selectedSpot);
-            this.onSpotMarkerClick(this.props.map.selectedSpot);
-        }
-    }
-
-    public render() {
-        const { popupInfo, isPopupImageLoading, popupImage, spotMarkerClicked } = this.state;
-        const { isMobile } = this.props;
-
-        const markers = [];
-        for (const cluster of this.state.clusters) {
-            if (this.mapRef.current.props.zoom > this.mapRef.current.props.maxZoom - 5.5 && cluster.spots.length > 0) {
-                for (const spot of cluster.spots) {
-                    markers.push(
-                        <SpotMarker
-                            key={spot.id}
-                            spot={spot}
-                            viewport={this.props.map.viewport}
-                            fitBounds={this.fitBounds}
-                            onSpotMarkerClick={this.onSpotMarkerClick}
-                            spotMarkerClicked={spotMarkerClicked}
-                        />,
-                    );
-                }
-            } else {
-                markers.push(
-                    <SpotCluster key={cluster.id} cluster={cluster} viewportZoom={this.props.map.viewport.zoom} />,
-                );
-            }
-        }
-
-        return (
-            <div
-                id="map-container"
-                className={classNames({
-                    'map-mobile': isMobile,
-                })}
-            >
-                {isMobile ? (
-                    <div id="map-mobile-message">
-                        If you wanna enjoy our skatespots map and you're currently on your mobile, best way is to{' '}
-                        <a href="/app" id="map-mobile-message-link">
-                            download the app
-                        </a>
-                    </div>
-                ) : (
-                    <>
-                        <BannerTop
-                            offsetScroll={false}
-                            link="/app"
-                            text="The world is our playground. Download the app & help us enrich this map."
-                        />
-                        <MapNavigation />
-                        <Legend />
-                        <div id="map">
-                            <ReactMapGL
-                                ref={this.mapRef}
-                                {...this.props.map.viewport}
-                                width="100%"
-                                height="100%"
-                                minZoom={MIN_ZOOM_LEVEL}
-                                maxZoom={MAX_ZOOM_LEVEL}
-                                mapboxApiAccessToken={process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}
-                                mapStyle="mapbox://styles/mapbox/dark-v9"
-                                onViewportChange={this.onViewportChange}
-                                onClick={this.onPopupclose}
-                            >
-                                {/* Popup */}
-                                {popupInfo && (
-                                    <Popup
-                                        className="map-popup-spot"
-                                        longitude={popupInfo.location.longitude}
-                                        latitude={popupInfo.location.latitude}
-                                        onClose={this.onPopupclose}
-                                        tipSize={8}
-                                        closeButton={false}
-                                        closeOnClick={false}
-                                    >
-                                        <h4
-                                            className={classNames('map-popup-spot-name', {
-                                                'map-popup-spot-name-center': !popupImage,
-                                            })}
-                                        >
-                                            {popupInfo.name}
-                                        </h4>
-                                        {popupImage && (
-                                            <div className="map-popup-spot-cover-container">
-                                                {!isPopupImageLoading && (
-                                                    <div
-                                                        className="map-popup-spot-cover"
-                                                        style={{ backgroundImage: `url("${popupImage}")` }}
-                                                    />
-                                                )}
-                                            </div>
-                                        )}
-                                    </Popup>
-                                )}
-
-                                {/* Define svg gradients here */}
-                                <div id="map-gradients">
-                                    <svg width="0" height="0">
-                                        <defs>
-                                            {/* Icon */}
-                                            <linearGradient id="map-gradients-street" x1="0" x2="0" y1="0" y2="1">
-                                                <stop offset="0%" className="stop-top" />
-                                                <stop offset="100%" className="stop-bottom" />
-                                            </linearGradient>
-                                            <linearGradient id="map-gradients-park" x1="0" x2="0" y1="0" y2="1">
-                                                <stop offset="0%" className="stop-top" />
-                                                <stop offset="100%" className="stop-bottom" />
-                                            </linearGradient>
-                                            <linearGradient id="map-gradients-shop" x1="0" x2="0" y1="0" y2="1">
-                                                <stop offset="0%" className="stop-top" />
-                                                <stop offset="100%" className="stop-bottom" />
-                                            </linearGradient>
-                                            <linearGradient id="map-gradients-private" x1="0" x2="0" y1="0" y2="1">
-                                                <stop offset="0%" className="stop-top" />
-                                                <stop offset="100%" className="stop-bottom" />
-                                            </linearGradient>
-                                            <linearGradient id="map-gradients-diy" x1="0" x2="0" y1="0" y2="1">
-                                                <stop offset="0%" className="stop-top" />
-                                                <stop offset="100%" className="stop-bottom" />
-                                            </linearGradient>
-                                            <linearGradient id="map-gradients-rip" x1="0" x2="0" y1="0" y2="1">
-                                                <stop offset="0%" className="stop-top" />
-                                                <stop offset="60%" className="stop-2" />
-                                                <stop offset="100%" className="stop-bottom" />
-                                            </linearGradient>
-                                            <linearGradient id="map-gradients-wip" x1="0" x2="0" y1="0" y2="1">
-                                                <stop offset="0%" className="stop-top" />
-                                                <stop offset="100%" className="stop-bottom" />
-                                            </linearGradient>
-                                            {/* Badge */}
-                                            <linearGradient id="map-gradients-iconic" x1="0" x2="0" y1="0" y2="1">
-                                                <stop offset="0%" stopColor="#FFEB38" />
-                                                <stop offset="25%" stopColor="#E6D432" />
-                                                <stop offset="45%" stopColor="#BDAE28" />
-                                                <stop offset="65%" stopColor="#FAE634" />
-                                                <stop offset="100%" stopColor="#766C14" />
-                                            </linearGradient>
-                                        </defs>
-                                    </svg>
-                                </div>
-
-                                {/* Marker */}
-                                {markers}
-
-                                {/* Controller */}
-                                {/* <FullscreenControl
-                            container={document.querySelector('#map-container')}
-                            className="map-control-fullscreen"
-                        /> */}
-                                <div className="map-control-container">
-                                    {/* <GeolocateControl
-                                className="map-control-geolocalisation"
-                                positionOptions={{ enableHighAccuracy: false }}
-                                trackUserLocation={true}
-                            /> */}
-                                    <NavigationControl />
-                                </div>
-                            </ReactMapGL>
-                        </div>
-                    </>
-                )}
-            </div>
-        );
-    }
-
-    private load() {
-        clearTimeout(this.loadTimeout);
-
-        this.loadTimeout = setTimeout(async () => {
-            if (this.mapRef.current) {
-                const map = this.mapRef.current.getMap();
-                const bounds = map.getBounds();
-                const northEast = bounds.getNorthEast();
-                const southWest = bounds.getSouthWest();
-
-                let clusters = await boxSpotsSearch({
-                    clustering: true,
-                    northEastLatitude: northEast.lat,
-                    northEastLongitude: northEast.lng,
-                    southWestLatitude: southWest.lat,
-                    southWestLongitude: southWest.lng,
-                });
-
-                this.refreshMap(clusters);
-            }
-        }, 200);
-    }
-
-    private fitBounds = (b1: [number, number], b2: [number, number]) => {
-        const { longitude, latitude, zoom } = new WebMercatorViewport(this.props.map.viewport).fitBounds([b1, b2], {
-            padding: 20,
-        });
-        const maxZoom = this.mapRef.current.props.maxZoom;
-        const viewport = {
-            ...this.props.map.viewport,
-            longitude,
-            latitude,
-            zoom: zoom < maxZoom ? zoom : maxZoom,
-        };
-        this.onViewportChange(viewport);
-    };
-
-    private onViewportChange = (viewport: { latitude: number; longitude: number; zoom: number }) => {
-        this.props.setViewport(viewport);
-        this.setState({
-            pixelsPerDegree: getDistanceScales(viewport).pixelsPerDegree,
-        });
-        this.load();
-    };
-
-    private onPopupclose = () => {
-        this.setState({
-            popupInfo: null,
-            spotMarkerClicked: null,
-            popupImage: null,
-        });
-
-        this.props.router.push('/map', undefined, { shallow: true });
-    };
-
-    private onSpotMarkerClick = async (spot: Spot) => {
-        this.setState({
-            isPopupImageLoading: true,
-            popupInfo: spot,
-            spotMarkerClicked: spot.id,
-        });
-
-        this.props.router.push(`/map?spot=${spot.id}`, undefined, { shallow: true });
-
-        try {
-            const res = await axios.get(`${process.env.NEXT_PUBLIC_CARRELAGE_URL}/spots/${spot.id}/overview`);
-
-            if (res.data) {
-                const { mostLikedMedia } = res.data;
-
-                if (!mostLikedMedia) {
-                    this.setState({ popupImage: null, isPopupImageLoading: false });
-                } else {
-                    this.setState({ popupImage: mostLikedMedia.image.jpg, isPopupImageLoading: false });
-                }
-            }
-        } catch (err) {
-            // console.log(err);
-        }
-    };
-
-    private flyTo(spot: Spot) {
-        const viewport: Partial<ViewportProps> = {
-            ...this.props.map.viewport,
-            latitude: spot.location.latitude,
-            longitude: spot.location.longitude,
-            transitionDuration: 1000,
-            transitionInterpolator: new FlyToInterpolator(),
-        };
-
-        this.props.setViewport(viewport);
-    }
-
-    private refreshMap = (_clusters: Cluster[] | undefined = undefined) => {
-        const clusters = this.filterClusters(_clusters ?? this.state.clusters);
-
-        this.props.mapRefreshEnd();
+        dispatch(mapRefreshEnd());
 
         let clusterMaxSpots = 1;
         for (const cluster of clusters) {
@@ -346,33 +74,144 @@ class MapContainer extends React.Component<Props, State> {
                 clusterMaxSpots = cluster.count;
             }
         }
-        this.setState({ clusters, clusterMaxSpots });
+        setClusters(clusters);
+        setClusterMaxSpots(clusterMaxSpots);
     };
 
-    private filterClusters = (clusters: Cluster[]): Cluster[] => {
-        let type = FilterStateUtil.getSelected(this.props.map.types);
-        let status = FilterStateUtil.getSelected(this.props.map.status);
+    const load = () => {
+        clearTimeout(loadTimeout.current);
 
-        return clusters
-            .map((cluster) => {
-                return {
-                    ...cluster,
-                    spots: cluster.spots.filter((spot) => {
-                        if (spot.status === Status.Active) {
-                            return type.indexOf(spot.type) !== -1;
-                        } else {
-                            return status.indexOf(spot.status) !== -1;
-                        }
-                    }),
-                };
-            })
-            .filter((cluster) => cluster.spots.length > 0);
+        // We are in path `/map`
+        if (id === undefined) {
+            loadTimeout.current = setTimeout(async () => {
+                if (mapRef.current) {
+                    const map = mapRef.current.getMap();
+                    const bounds = map.getBounds();
+                    const northEast = bounds.getNorthEast();
+                    const southWest = bounds.getSouthWest();
+
+                    let clusters = await boxSpotsSearch({
+                        clustering: true,
+                        northEastLatitude: northEast.lat,
+                        northEastLongitude: northEast.lng,
+                        southWestLatitude: southWest.lat,
+                        southWestLongitude: southWest.lng,
+                    });
+
+                    refreshMap(clusters);
+                }
+            }, 200);
+        } else {
+            // We should try to load a custom map
+            const loadCustomMap = async () => {
+                const response = await axios.get('/api/custom-maps', { params: { id } });
+                const customMap = response.data;
+                setCustomMapInfo(customMap);
+                refreshMap(
+                    customMap.spots.map((spot) => ({
+                        id: spot.id,
+                        latitude: spot.location.latitude,
+                        longitude: spot.location.longitude,
+                        count: 1,
+                        spots: [spot],
+                    })),
+                );
+            };
+            loadCustomMap();
+        }
     };
-}
 
-const mapStateProps = ({ settings, map }: Typings.RootState) => ({
-    isMobile: settings.isMobile,
-    map,
-});
+    const flyTo = (spot: Spot) => {
+        const viewport: Partial<ViewportProps> = {
+            ...map.viewport,
+            latitude: spot.location.latitude,
+            longitude: spot.location.longitude,
+            transitionDuration: 1000,
+            transitionInterpolator: new FlyToInterpolator(),
+        };
 
-export default withRouter(connect(mapStateProps, { selectAllMapFilters, mapRefreshEnd, setViewport })(MapContainer));
+        dispatch(setViewport(viewport));
+    };
+
+    const onSpotMarkerClick = async (spot: Spot) => {
+        try {
+            const spotOverview = await getSpotOverview(spot.id);
+            setSelectedSpot(spotOverview);
+        } catch (err) {
+            // console.log(err);
+        }
+    };
+
+    const onViewportChange = (viewport: { latitude: number; longitude: number; zoom: number }) => {
+        dispatch(setViewport(viewport));
+        setPixelsPerDegree(getDistanceScales(viewport).pixelsPerDegree);
+        load();
+    };
+
+    const onPopupClose = () => {
+        setSelectedSpot(undefined);
+    };
+
+    useEffect(() => {
+        load();
+    }, [map.status, map.types, id]);
+
+    useEffect(() => {
+        const { selectedSpot } = map;
+
+        if (selectedSpot) {
+            flyTo(selectedSpot);
+            onSpotMarkerClick(selectedSpot);
+        }
+    }, [map.selectedSpot]);
+
+    return (
+        <div
+            id="map-container"
+            className={classNames({
+                'map-mobile': isMobile,
+            })}
+        >
+            {isMobile ? (
+                <div id="map-mobile-message">
+                    If you wanna enjoy our skatespots map and you're currently on your mobile, best way is to{' '}
+                    <a href="/app" id="map-mobile-message-link">
+                        download the app
+                    </a>
+                </div>
+            ) : (
+                <>
+                    <BannerTop
+                        offsetScroll={false}
+                        link="/app"
+                        text="The world is our playground. Download the app & help us enrich this map."
+                    />
+                    {id !== undefined && customMapInfo !== undefined ? (
+                        <MapCustomNavigation
+                            title={customMapInfo.name}
+                            about={customMapInfo.about}
+                            subtitle={customMapInfo.subtitle}
+                            spots={customMapInfo.spots}
+                        />
+                    ) : (
+                        <MapNavigation />
+                    )}
+                    <MapCustomNavigationTrail />
+                    <Legend />
+                    <DynamicMapComponent
+                        mapRef={mapRef}
+                        clusters={clusters}
+                        selectedSpotOverview={selectedSpotOverview}
+                        onSpotMarkerClick={onSpotMarkerClick}
+                        onViewportChange={onViewportChange}
+                        onPopupClose={onPopupClose}
+                        clustering={id === undefined}
+                    />
+                    <MapGradients />
+                </>
+            )}
+        </div>
+    );
+};
+
+export default MapContainer;

@@ -79,6 +79,7 @@
 		top: .5rem
 		left: 1.5rem
 		display: flex
+		align-items: center
 		transition: .2s
 
 		&:hover
@@ -87,7 +88,9 @@
 		+mq($from: "medium")
 			opacity: 0
 
-		& .SocialMediaShareButton
+		& .react-share__ShareButton
+			width: 1.5rem
+			height: 1.5rem
 			margin-right: .5rem
 			cursor: pointer
 

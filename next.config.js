@@ -7,10 +7,10 @@ const withCSS = require('@zeit/next-css');
 const withPlugins = require('next-compose-plugins');
 
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
-    enabled: process.env.NEXT_PUBLIC_ANALYZE === 'true',
+    enabled: process.env.ANALYZE === 'true',
 });
 
-module.exports = withPlugins([withBundleAnalyzer, withCSS, withStylus, withCustomBabelConfigFile], {
+module.exports = withPlugins([withBundleAnalyzer({}), withCSS, withStylus, withCustomBabelConfigFile], {
     babelConfigFile: path.resolve('./babel.config.js'),
     serverRuntimeConfig: {},
     webpack: (config, options) => {
