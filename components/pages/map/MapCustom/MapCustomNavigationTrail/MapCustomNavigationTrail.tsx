@@ -23,4 +23,4 @@ const MapCustomNavigationTrail = () => {
     );
 };
 
-export default MapCustomNavigationTrail;
+export default React.memo(MapCustomNavigationTrail);

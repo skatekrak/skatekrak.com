@@ -14,7 +14,7 @@ type Props = {
 
 const MapCustomNavigationItem = ({ map }: Props) => {
     const router = useRouter();
-    const [isMapLoading, setIsMapLoading] = useState(false);
+    const isMapLoading = false;
 
     const isMapSelected = useMemo(() => {
         return router.query.id === map.id;
@@ -51,4 +51,4 @@ const MapCustomNavigationItem = ({ map }: Props) => {
     );
 };
 
-export default MapCustomNavigationItem;
+export default React.memo(MapCustomNavigationItem);
