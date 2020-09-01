@@ -45,7 +45,6 @@ const MapComponent = ({
                         <SpotMarker
                             key={spot.id}
                             spot={spot}
-                            viewport={mapState.viewport}
                             onSpotMarkerClick={onSpotMarkerClick}
                             isSelected={selectedSpotOverview ? selectedSpotOverview.spot.id === spot.id : false}
                         />,
