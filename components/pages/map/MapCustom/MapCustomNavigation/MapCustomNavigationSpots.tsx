@@ -9,8 +9,6 @@ import MapSearchResultPlace from '../../MapNavigation/MapSearch/MapSearchResults
 
 import { Spot } from 'lib/carrelageClient';
 
-const places = [];
-
 type Props = {
     mapSpots: any;
 };
@@ -59,13 +57,6 @@ const MapCustomNavigationSpots = ({ mapSpots }: Props) => {
                                 <MapSearchResultNoContent />
                             ) : (
                                 <>
-                                    {places.map((place) => (
-                                        <MapSearchResultPlace
-                                            key={place.id}
-                                            place={place}
-                                            onPlaceClick={onPlaceClick}
-                                        />
-                                    ))}
                                     {mapSpots.map((spot: Spot) => (
                                         <MapSearchResultSpot key={spot.id} spot={spot} onSpotClick={onSpotClick} />
                                     ))}
