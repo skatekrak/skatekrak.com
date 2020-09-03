@@ -16,6 +16,10 @@ const MapCustomNavigationItem = ({ map }: Props) => {
     const router = useRouter();
     const isMapLoading = false;
 
+    const isMapNotSelected = useMemo(() => {
+        return router.query.id !== undefined && router.query.id !== map.id;
+    }, [router.query.id]);
+
     const isMapSelected = useMemo(() => {
         return router.query.id === map.id;
     }, [router.query.id]);
@@ -32,7 +36,9 @@ const MapCustomNavigationItem = ({ map }: Props) => {
                         <SpinnerCircle />
                     ) : (
                         <img
-                            className="custom-map-navigation-item-image"
+                            className={classNames('custom-map-navigation-item-image', {
+                                'custom-map-navigation-item-image--not-selected': isMapNotSelected,
+                            })}
                             src="/images/favicon_32.png"
                             alt={`${map.name} map logo`}
                         />
