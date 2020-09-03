@@ -64,17 +64,17 @@ const MapContainer = () => {
     const loadTimeout = useRef<NodeJS.Timeout>();
 
     const refreshMap = (_clusters: Cluster[] | undefined = undefined) => {
-        const clusters = filterClusters(_clusters ?? this.state.clusters, map.types, map.status);
+        const filteredClusters = filterClusters(_clusters ?? clusters, map.types, map.status);
 
         dispatch(mapRefreshEnd());
 
         let clusterMaxSpots = 1;
-        for (const cluster of clusters) {
+        for (const cluster of filteredClusters) {
             if (clusterMaxSpots < cluster.count) {
                 clusterMaxSpots = cluster.count;
             }
         }
-        setClusters(clusters);
+        setClusters(filteredClusters);
         setClusterMaxSpots(clusterMaxSpots);
     };
 
@@ -90,7 +90,7 @@ const MapContainer = () => {
                     const northEast = bounds.getNorthEast();
                     const southWest = bounds.getSouthWest();
 
-                    let clusters = await boxSpotsSearch({
+                    let newClusters = await boxSpotsSearch({
                         clustering: true,
                         northEastLatitude: northEast.lat,
                         northEastLongitude: northEast.lng,
@@ -98,7 +98,7 @@ const MapContainer = () => {
                         southWestLongitude: southWest.lng,
                     });
 
-                    refreshMap(clusters);
+                    refreshMap(mergeClusters(clusters, newClusters));
                 }
             }, 200);
         } else {
@@ -213,5 +213,17 @@ const MapContainer = () => {
         </div>
     );
 };
+
+function mergeClusters(array1: Cluster[], array2: Cluster[]): Cluster[] {
+    const array: Cluster[] = array1;
+
+    for (const cluster of array2) {
+        if (array.findIndex((c) => c.id === cluster.id) === -1) {
+            array.push(cluster);
+        }
+    }
+
+    return array;
+}
 
 export default MapContainer;
