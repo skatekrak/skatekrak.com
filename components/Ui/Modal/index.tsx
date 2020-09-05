@@ -1,6 +1,5 @@
 import React from 'react';
 import Modal, { Props as ReactResponseiveModalProps } from 'react-responsive-modal';
-import '../../../node_modules/react-responsive-modal/styles.css';
 
 import IconCross from 'components/Ui/Icons/Cross';
 
@@ -14,7 +13,7 @@ import IconCross from 'components/Ui/Icons/Cross';
         - Set the max-width of the popup with the children element
 */
 
-const classNames = {
+let classNames = {
     overlay: 'modal-overlay',
     modal: 'modal-container',
     closeButton: 'modal-close-button',
@@ -24,23 +23,44 @@ type Props = {
     open: boolean;
     onClose: () => void;
     closable?: boolean;
+    customClassNames?: {
+        customOverlay?: string;
+        customModal?: string;
+        customCloseButton?: string;
+    };
 } & Partial<ReactResponseiveModalProps>;
 
-const ModalWithStyle: React.FunctionComponent<Props> = ({ open, onClose, children, closable, ...props }) => (
-    <Modal
-        open={open}
-        center
-        closeOnEsc={closable}
-        closeOnOverlayClick={closable}
-        showCloseIcon={closable}
-        classNames={classNames}
-        closeIconSvgPath={<IconCross />}
-        animationDuration={300}
-        onClose={onClose}
-        {...props}
-    >
-        {children}
-    </Modal>
-);
+const ModalWithStyle: React.FunctionComponent<Props> = ({
+    open,
+    onClose,
+    children,
+    closable,
+    customClassNames,
+    ...props
+}) => {
+    if (customClassNames) {
+        classNames = {
+            overlay: classNames.overlay + ' ' + customClassNames.customOverlay,
+            modal: classNames.modal + ' ' + customClassNames.customModal,
+            closeButton: classNames.closeButton + ' ' + customClassNames.customCloseButton,
+        };
+    }
+    return (
+        <Modal
+            open={open}
+            center
+            closeOnEsc={closable}
+            closeOnOverlayClick={closable}
+            showCloseIcon={closable}
+            classNames={classNames}
+            closeIconSvgPath={<IconCross />}
+            animationDuration={300}
+            onClose={onClose}
+            {...props}
+        >
+            {children}
+        </Modal>
+    );
+};
 
 export default ModalWithStyle;

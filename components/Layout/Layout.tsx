@@ -21,6 +21,7 @@ import '/public/styles/styleguide.styl';
 import '/public/styles/stylus-mq.styl';
 import '/public/styles/header.styl';
 import '/public/styles/form.styl';
+import '../../node_modules/react-responsive-modal/styles.css';
 import '/public/styles/modal.styl';
 import '/public/styles/checkbox.styl';
 import '/public/styles/icons.styl';

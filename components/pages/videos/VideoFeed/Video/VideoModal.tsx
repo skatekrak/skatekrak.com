@@ -25,29 +25,16 @@ const VideoModal = ({ video }: Props) => {
 
     useEffect(() => {
         setOpen(true);
-
-        const overlays = document.getElementsByClassName('modal-overlay');
-        if (overlays.length > 0) {
-            overlays[0].classList.add('video-modal-overlay');
-        }
-
-        const containers = document.getElementsByClassName('modal-container');
-        if (containers.length) {
-            containers[0].classList.add('video-modal-container');
-        }
-
-        const closeButtons = document.getElementsByClassName('modal-close-button');
-        if (closeButtons.length > 0) {
-            closeButtons[0].classList.add('video-modal-close-button');
-        }
-
-        return function cleanup() {
-            document.getElementsByClassName('modal-close-button')[0].classList.remove('video-modal-close-button');
-        };
     });
 
+    const customClassNames = {
+        customOverlay: 'video-modal-overlay',
+        customModal: 'video-modal-container',
+        customCloseButton: 'video-modal-close-button',
+    };
+
     return (
-        <Modal open={open} onClose={onClose} closeOnOverlayClick={false}>
+        <Modal open={open} onClose={onClose} customClassNames={customClassNames} closeOnOverlayClick={false}>
             {video ? (
                 <div className="video-modal">
                     <VideoCardShare video={video} />
