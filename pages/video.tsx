@@ -61,7 +61,7 @@ const Videos: NextPage<Props> = ({ video, gotId }) => {
         <Layout head={<VideoHead video={video} />}>
             <BannerTop offsetScroll link="/" text="Become a co-owner" />
             <div id="videos-container" className="inner-page-container">
-                <VideoModal video={video} open={gotId} />
+                {gotId && <VideoModal video={video} open={gotId} />}
                 <LayoutFeed
                     mainView={<VideoFeed sidebarNavIsOpen={sidebarNavIsOpen} />}
                     sidebar={
