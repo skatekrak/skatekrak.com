@@ -5230,7 +5230,7 @@ next@^9.5.1:
 
 no-scroll@^2.1.1:
   version "2.1.1"
-  resolved "https://registry.yarnpkg.com/no-scroll/-/no-scroll-2.1.1.tgz#f37e08cb159b75a5bdbfc0a87cd9223e120e6e27"
+  resolved "https://npm.thepunk.tech/no-scroll/-/no-scroll-2.1.1.tgz#f37e08cb159b75a5bdbfc0a87cd9223e120e6e27"
   integrity sha512-YTzGAJOo/B6hkodeT5SKKHpOhAzjMfkUCCXjLJwjWk2F4/InIg+HbdH9kmT7bKpleDuqLZDTRy2OdNtAj0IVyQ==
 
 node-fetch@2.6.0:
@@ -6345,7 +6345,7 @@ react-refresh@0.8.3:
 
 react-responsive-modal@^5.1.0:
   version "5.1.0"
-  resolved "https://registry.yarnpkg.com/react-responsive-modal/-/react-responsive-modal-5.1.0.tgz#0f660cc004b7eb85bf16778ca84514576f9ee4af"
+  resolved "https://npm.thepunk.tech/react-responsive-modal/-/react-responsive-modal-5.1.0.tgz#0f660cc004b7eb85bf16778ca84514576f9ee4af"
   integrity sha512-LmjKsBH2r+mzweJeKtd42ZHjzjZIbmw/4hHIGbiHqFeFVZuOg34fgKSMyELwtv8QOWlX7/TuB/O2kmXMCnhJUw==
   dependencies:
     classnames "^2.2.6"

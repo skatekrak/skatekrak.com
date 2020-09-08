@@ -9,17 +9,19 @@
 		padding: 1rem
 
 	&-close-button
-		top: 1rem
-		right: 1rem
+		top: 0.75rem !important
+		right: 0.75rem !important
 
 		& svg
+			width: 1.5rem
+			height: 1.5rem
 			fill: $grey-900
 
 	&-container
 		width: 100%
 		max-width: none
 		margin: auto
-		padding: 2rem 1rem
+		padding: 1.5rem !important
 		color: $grey-900
 		background: $grey-100
 		border-radius: .25rem
@@ -27,6 +29,22 @@
 		+mq($from: "small")
 			width: auto
 			padding: 3rem 2rem 2rem
+
+		& .react-share__ShareButton
+			width: 1.5rem
+			height: 1.5rem
+			margin-right: .5rem
+			cursor: pointer
+
+			&:last-child
+				margin-right: 0
+
+			& circle
+				transition: .2s
+
+			&:hover
+				& circle
+					fill: $grey-900
 
 /*
  * Modal confirmation styles

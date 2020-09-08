@@ -112,7 +112,6 @@
 			& + .news-article-share
 				opacity: 1
 
-
 	&-cover-img
 		position: absolute
 		top: 0
@@ -176,11 +175,8 @@
 
 	/* ARTICLE MODAL */
 	&-modal
-		margin-top: -2rem
-
 		+mq($from: "small")
 			max-width: 350px
-			margin-top: -3rem
 
 		&-close-button
 			position: fixed
@@ -220,12 +216,9 @@
 				background-color: $black
 
 		& .news-article-cover-img-container
-			margin: 0 -1rem 1rem
+			margin: -1.5rem -1.5rem 1rem
 			padding-top: 56.25%
 			border-radius: .25rem .25rem 0 0
-
-			+mq($from: "small")
-				margin: 0 -2rem 1rem
 
 		& .news-article-cover-img
 			transform: scale(1.01)

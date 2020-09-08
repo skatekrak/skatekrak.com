@@ -1,7 +1,7 @@
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 import parseISO from 'date-fns/parseISO';
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import VideoCardShare from 'components/pages/videos/VideoFeed/Video/VideoCardShare';
 import Emoji from 'components/Ui/Icons/Emoji';
@@ -12,27 +12,29 @@ import { Video } from 'rss-feed';
 
 type Props = {
     video?: Video;
-    open: boolean;
 };
 
-const VideoModal = ({ video, open }: Props) => {
+const VideoModal = ({ video }: Props) => {
+    const [open, setOpen] = useState(false);
     const router = useRouter();
 
     const onClose = () => {
+        setOpen(false);
         router.replace('/video');
     };
 
+    useEffect(() => {
+        setOpen(true);
+    });
+
+    const customClassNames = {
+        customOverlay: 'video-modal-overlay',
+        customModal: 'video-modal-container',
+        customCloseButton: 'video-modal-close-button',
+    };
+
     return (
-        <Modal
-            open={open}
-            classNames={{
-                overlay: 'modal-overlay video-modal-overlay',
-                modal: 'modal-container video-modal-container',
-                closeButton: 'modal-close-button video-modal-close-button',
-            }}
-            onClose={onClose}
-            closeOnOverlayClick={false}
-        >
+        <Modal open={open} onClose={onClose} customClassNames={customClassNames} closeOnOverlayClick={false}>
             {video ? (
                 <div className="video-modal">
                     <VideoCardShare video={video} />
