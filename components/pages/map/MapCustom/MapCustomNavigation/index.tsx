@@ -18,13 +18,14 @@ enum MapCustomNavigationMode {
 }
 
 type MapCustomNavigationProps = {
+    id: string;
     title: string;
     about: string;
     subtitle: string;
     spots: Spot[];
 };
 
-const MapCustomNavigation = ({ title, about, subtitle, spots }: MapCustomNavigationProps) => {
+const MapCustomNavigation = ({ id, title, about, subtitle, spots }: MapCustomNavigationProps) => {
     const [navigationMode, setNavigationMode] = useState<MapCustomNavigationMode>(MapCustomNavigationMode.NONE);
 
     const onCloseNavigationMode = () => {
@@ -42,7 +43,12 @@ const MapCustomNavigation = ({ title, about, subtitle, spots }: MapCustomNavigat
             <div id="custom-map-navigation-main">
                 <div id="custom-map-navigation-main-logo-container">
                     <img
-                        src="https://upload.wikimedia.org/wikipedia/fr/8/8e/Swoosh.svg"
+                        src={`/images/map/custom-maps/${id}.png`}
+                        srcSet={`
+                            /images/map/custom-maps/${id}.png 1x,
+                            /images/map/custom-maps/${id}-@2x.png 2x,
+                            /images/map/custom-maps/${id}-@3x.png 3x
+                        `}
                         id="custom-map-navigation-main-logo"
                     />
                 </div>

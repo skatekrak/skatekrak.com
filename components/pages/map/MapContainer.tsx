@@ -209,6 +209,7 @@ const MapContainer = () => {
                     />
                     {id !== undefined && customMapInfo !== undefined ? (
                         <MapCustomNavigation
+                            id={customMapInfo.id}
                             title={customMapInfo.name}
                             about={customMapInfo.about}
                             subtitle={customMapInfo.subtitle}
