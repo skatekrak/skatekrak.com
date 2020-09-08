@@ -10,7 +10,7 @@ import Header from 'components/Header';
 import HeaderSmall from 'components/Header/HeaderSmall';
 import { setDeviceSize } from 'store/settings/actions';
 
-import '@oppenheimer/react-responsive-modal/styles.css';
+import 'react-responsive-modal/styles.css';
 
 /* tslint:disable:ordered-imports */
 import '/public/styles/reset.css';

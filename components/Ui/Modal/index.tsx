@@ -1,5 +1,5 @@
 import React from 'react';
-import Modal, { Props as ReactResponseiveModalProps } from 'react-responsive-modal';
+import Modal, { ModalProps } from 'react-responsive-modal';
 
 import IconCross from 'components/Ui/Icons/Cross';
 
@@ -28,7 +28,7 @@ type Props = {
         customModal?: string;
         customCloseButton?: string;
     };
-} & Partial<ReactResponseiveModalProps>;
+} & Partial<ModalProps>;
 
 const ModalWithStyle: React.FunctionComponent<Props> = ({
     open,
@@ -53,7 +53,7 @@ const ModalWithStyle: React.FunctionComponent<Props> = ({
             closeOnOverlayClick={closable}
             showCloseIcon={closable}
             classNames={classNames}
-            closeIconSvgPath={<IconCross />}
+            closeIcon={<IconCross />}
             animationDuration={300}
             onClose={onClose}
             {...props}

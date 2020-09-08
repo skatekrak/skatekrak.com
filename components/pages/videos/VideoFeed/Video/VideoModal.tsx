@@ -1,7 +1,7 @@
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 import parseISO from 'date-fns/parseISO';
 import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 import VideoCardShare from 'components/pages/videos/VideoFeed/Video/VideoCardShare';
 import Emoji from 'components/Ui/Icons/Emoji';
@@ -12,20 +12,15 @@ import { Video } from 'rss-feed';
 
 type Props = {
     video?: Video;
+    open: boolean;
 };
 
-const VideoModal = ({ video }: Props) => {
-    const [open, setOpen] = useState(false);
+const VideoModal = ({ video, open }: Props) => {
     const router = useRouter();
 
     const onClose = () => {
-        setOpen(false);
         router.replace('/video');
     };
-
-    useEffect(() => {
-        setOpen(true);
-    });
 
     const customClassNames = {
         customOverlay: 'video-modal-overlay',
