@@ -170,7 +170,7 @@ const MapContainer = () => {
                 longitude,
                 latitude,
                 zoom,
-                transitionDuration: 'auto',
+                transitionDuration: 1500,
                 transitionInterpolator: new FlyToInterpolator(),
             };
             dispatch(setViewport(newViewport));
