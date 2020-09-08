@@ -1199,14 +1199,6 @@
   resolved "https://registry.yarnpkg.com/@next/react-refresh-utils/-/react-refresh-utils-9.5.1.tgz#fe257fafe1a7f1c0c6e818017fa65b5ee45c5eca"
   integrity sha512-A19z/E6f08RXfBRc2STQ+5qo7iSPif7mNcww9dZAVli3Idu4umGP5dbpL71Hz1vyRs1eMUEylXTpXsY2WzY07g==
 
-"@oppenheimer/react-responsive-modal@^5.0.4":
-  version "5.0.4"
-  resolved "https://registry.yarnpkg.com/@oppenheimer/react-responsive-modal/-/react-responsive-modal-5.0.4.tgz#ca1e7b1ce980503be4b1cdf7f25479cbd712603f"
-  integrity sha512-bADk3SROYM+k3WsJpQ6ioSpHZgEqfnQBfyfdQGgtpsq/2/4piH7jvh9R//yYhMCU/cv3w5D1NZ6acqjxb1roFw==
-  dependencies:
-    classnames "^2.2.6"
-    no-scroll "^2.1.1"
-
 "@redux-saga/core@^1.1.3":
   version "1.1.3"
   resolved "https://registry.yarnpkg.com/@redux-saga/core/-/core-1.1.3.tgz#3085097b57a4ea8db5528d58673f20ce0950f6a4"
@@ -6350,6 +6342,14 @@ react-refresh@0.8.3:
   version "0.8.3"
   resolved "https://registry.yarnpkg.com/react-refresh/-/react-refresh-0.8.3.tgz#721d4657672d400c5e3c75d063c4a85fb2d5d68f"
   integrity sha512-X8jZHc7nCMjaCqoU+V2I0cOhNW+QMBwSUkeXnTi8IPe6zaRWfn60ZzvFDZqWPfmSJfjub7dDW1SP0jaHWLu/hg==
+
+react-responsive-modal@^5.1.0:
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/react-responsive-modal/-/react-responsive-modal-5.1.0.tgz#0f660cc004b7eb85bf16778ca84514576f9ee4af"
+  integrity sha512-LmjKsBH2r+mzweJeKtd42ZHjzjZIbmw/4hHIGbiHqFeFVZuOg34fgKSMyELwtv8QOWlX7/TuB/O2kmXMCnhJUw==
+  dependencies:
+    classnames "^2.2.6"
+    no-scroll "^2.1.1"
 
 react-share@^4.2.1:
   version "4.2.1"

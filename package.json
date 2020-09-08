@@ -36,7 +36,7 @@
         "react-player": "^2.6.0",
         "react-query": "^2.5.13",
         "react-redux": "^7.2.1",
-        "@oppenheimer/react-responsive-modal": "^5.0.4",
+        "react-responsive-modal": "^5.1.0",
         "react-share": "^4.2.1",
         "react-truncate": "^2.4.0",
         "recompose": "^0.30.0",
