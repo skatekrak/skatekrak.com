@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import classNames from 'classnames';
 
 import IconArrowHead from 'components/Ui/Icons/ArrowHead';
@@ -25,7 +25,7 @@ const MapCustomNavigationItem = ({ map }: Props) => {
     }, [router.query.id]);
 
     return (
-        <Link href="/map?id=volcom" as="/map/volcom" shallow>
+        <Link href={`/map?id=${map.id}`} as={`/map/${map.id}`} shallow>
             <a
                 className={classNames('custom-map-navigation-item', {
                     'custom-map-navigation-item--selected': isMapSelected,
