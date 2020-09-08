@@ -161,7 +161,10 @@ const MapContainer = () => {
 
     useEffect(() => {
         if (id !== undefined && customMapInfo !== undefined) {
-            const bounds = customMapInfo.spots.map((spot) => [spot.location.longitude, spot.location.latitude]);
+            const bounds = findBoundsCoordinate(
+                customMapInfo.spots.map((spot) => [spot.location.longitude, spot.location.latitude]),
+            );
+            console.log(bounds);
             const { longitude, latitude, zoom } = new WebMercatorViewport(map.viewport).fitBounds(bounds, {
                 padding: 300,
             });
@@ -173,6 +176,7 @@ const MapContainer = () => {
                 transitionDuration: 1500,
                 transitionInterpolator: new FlyToInterpolator(),
             };
+            console.log(newViewport);
             dispatch(setViewport(newViewport));
         }
     }, [customMapInfo, map.viewport.width]);
@@ -246,6 +250,18 @@ function mergeClusters(array1: Cluster[], array2: Cluster[]): Cluster[] {
     }
 
     return array;
+}
+
+function findBoundsCoordinate(coordinates: [[number, number]]): [[number, number], [number, number]] {
+    const northEastLatitude = Math.max(...coordinates.map((c) => c[1]));
+    const northEastLongitude = Math.max(...coordinates.map((c) => c[0]));
+    const southWestLatitude = Math.min(...coordinates.map((c) => c[1]));
+    const southWestLongitude = Math.min(...coordinates.map((c) => c[0]));
+
+    return [
+        [northEastLongitude, northEastLatitude],
+        [southWestLongitude, southWestLatitude],
+    ];
 }
 
 export default MapContainer;
