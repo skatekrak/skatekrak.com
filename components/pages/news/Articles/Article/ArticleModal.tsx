@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 import Card from 'components/pages/news/Articles/Article/Card';
 import Emoji from 'components/Ui/Icons/Emoji';
@@ -13,34 +13,14 @@ type Props = {
 };
 
 const ArticleModal = ({ content, show }: Props) => {
-    const [open, setOpen] = useState(false);
     const router = useRouter();
 
-    // Use the useEffect hook to show the popup and avoid SSR issue
-    useEffect(() => {
-        setOpen(show);
-
-        const elements = document.getElementsByClassName('modal-close-button');
-        if (elements.length > 0) {
-            const first = elements[0];
-            first.classList.add('news-article-modal-close-button');
-        }
-
-        return function cleanup() {
-            if (elements.length > 0) {
-                const first = elements[0];
-                first.classList.remove('news-article-modal-close-button');
-            }
-        };
-    });
-
     const onClose = () => {
-        setOpen(false);
         router.replace('/news');
     };
 
     return (
-        <Modal open={open} onClose={onClose} closable={true}>
+        <Modal open={show} onClose={onClose} closable={true}>
             {content ? (
                 <div className="news-article-modal">
                     <Card content={content} />
