@@ -1,9 +1,9 @@
 import axios from 'axios';
 import classNames from 'classnames';
 import React, { useState, useEffect, useRef } from 'react';
-import { InteractiveMap, FlyToInterpolator, ViewportProps } from 'react-map-gl';
+import { InteractiveMap, FlyToInterpolator, ViewportProps, WebMercatorViewport } from 'react-map-gl';
 import { useSelector, useDispatch } from 'react-redux';
-import WebMercatorViewport, { getDistanceScales } from 'viewport-mercator-project';
+import { getDistanceScales } from 'viewport-mercator-project';
 import dynamic from 'next/dynamic';
 
 import Typings from 'Types';
@@ -116,20 +116,6 @@ const MapContainer = () => {
                         spots: [spot],
                     })),
                 );
-
-                const bounds = customMap.spots.map((spot) => [spot.location.longitude, spot.location.latitude]);
-                const { longitude, latitude, zoom } = new WebMercatorViewport(map.viewport).fitBounds(bounds, {
-                    padding: 100,
-                });
-                const newViewport: Partial<ViewportProps> = {
-                    ...map.viewport,
-                    longitude,
-                    latitude,
-                    zoom,
-                    transitionDuration: 'auto',
-                    transitionInterpolator: new FlyToInterpolator(),
-                };
-                dispatch(setViewport(newViewport));
             };
             loadCustomMap();
         }
@@ -172,6 +158,24 @@ const MapContainer = () => {
     useEffect(() => {
         load();
     }, [map.status, map.types, id]);
+
+    useEffect(() => {
+        if (id !== undefined && customMapInfo !== undefined) {
+            const bounds = customMapInfo.spots.map((spot) => [spot.location.longitude, spot.location.latitude]);
+            const { longitude, latitude, zoom } = new WebMercatorViewport(map.viewport).fitBounds(bounds, {
+                padding: 100,
+            });
+            const newViewport: Partial<ViewportProps> = {
+                ...map.viewport,
+                longitude,
+                latitude,
+                zoom,
+                transitionDuration: 'auto',
+                transitionInterpolator: new FlyToInterpolator(),
+            };
+            dispatch(setViewport(newViewport));
+        }
+    }, [customMapInfo, map.viewport.width]);
 
     useEffect(() => {
         const { selectedSpot } = map;
