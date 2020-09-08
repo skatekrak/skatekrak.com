@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import React, { useState, useEffect, useRef } from 'react';
 import { InteractiveMap, FlyToInterpolator, ViewportProps } from 'react-map-gl';
 import { useSelector, useDispatch } from 'react-redux';
-import { getDistanceScales } from 'viewport-mercator-project';
+import WebMercatorViewport, { getDistanceScales } from 'viewport-mercator-project';
 import dynamic from 'next/dynamic';
 
 import Typings from 'Types';
@@ -116,6 +116,20 @@ const MapContainer = () => {
                         spots: [spot],
                     })),
                 );
+
+                const bounds = customMap.spots.map((spot) => [spot.location.longitude, spot.location.latitude]);
+                const { longitude, latitude, zoom } = new WebMercatorViewport(map.viewport).fitBounds(bounds, {
+                    padding: 100,
+                });
+                const newViewport: Partial<ViewportProps> = {
+                    ...map.viewport,
+                    longitude,
+                    latitude,
+                    zoom,
+                    transitionDuration: 'auto',
+                    transitionInterpolator: new FlyToInterpolator(),
+                };
+                dispatch(setViewport(newViewport));
             };
             loadCustomMap();
         }
@@ -145,7 +159,10 @@ const MapContainer = () => {
     const onViewportChange = (viewport: { latitude: number; longitude: number; zoom: number }) => {
         dispatch(setViewport(viewport));
         setPixelsPerDegree(getDistanceScales(viewport).pixelsPerDegree);
-        load();
+        // Avoid loop when the viewport is changed when in Custom Map mode
+        if (id === undefined) {
+            load();
+        }
     };
 
     const onPopupClose = () => {
