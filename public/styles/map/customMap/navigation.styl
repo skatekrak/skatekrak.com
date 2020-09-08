@@ -20,12 +20,19 @@
 		align-items: center
 		padding: 0.75rem 1.5rem
 		font-size: $fs-small
+		transition: .075s
 
 		& svg
 			width: 1rem
 			margin-right: .5rem
 			fill: $grey-400
 			transform: rotate(180deg)
+
+		&:hover
+			color: $grey-100
+
+			& svg
+				fill: $grey-100
 
 	&-main
 		display: flex
@@ -51,29 +58,39 @@
 			padding-top: 0.25rem
 
 		&-title
-			width: 12rem
+			width: 11rem
 			margin-right: auto
 			font-family: $ff-roboto-condensed-bold
 			font-size: $fs-larger
 			color: $grey-100
 
 		& .custom-map-navigation-link
+			display: flex
+			align-items: center
 			font-size: $fs-regular
-			color: $grey-200
+			color: $grey-300
 
 			&:first-of-type
 				margin: 0 1rem 0 1rem
 
-		& .custom-map-navigation-link-spot
-			display: flex
-
 			& svg
-				width: 1.5rem
+				margin-top: 0.125rem
+				width: 1.25rem
 				fill: $grey-400
 				transition: .075s
 
-			&--open
+			&:hover
+				color: $grey-200
+
 				& svg
+					fill: $grey-200
+
+			&--open, &--open:hover
+				font-family: $ff-roboto-bold
+				color: $grey-100
+
+				& svg
+					fill: $grey-100
 					transform: rotate(90deg)
 
 	&-extension

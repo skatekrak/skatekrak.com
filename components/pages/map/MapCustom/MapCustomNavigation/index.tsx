@@ -28,10 +28,6 @@ type MapCustomNavigationProps = {
 const MapCustomNavigation = ({ id, title, about, subtitle, spots }: MapCustomNavigationProps) => {
     const [navigationMode, setNavigationMode] = useState<MapCustomNavigationMode>(MapCustomNavigationMode.NONE);
 
-    const onCloseNavigationMode = () => {
-        setNavigationMode(MapCustomNavigationMode.NONE);
-    };
-
     return (
         <div id="custom-map-navigation">
             <Link href="/map">
@@ -55,20 +51,29 @@ const MapCustomNavigation = ({ id, title, about, subtitle, spots }: MapCustomNav
                 <div id="custom-map-navigation-main-container">
                     <h2 id="custom-map-navigation-main-title">{title}</h2>
                     <button
-                        className="custom-map-navigation-link"
-                        onClick={() => setNavigationMode(MapCustomNavigationMode.ABOUT)}
-                    >
-                        About
-                    </button>
-                    <button
-                        className={classNames('custom-map-navigation-link', 'custom-map-navigation-link-spot', {
-                            'custom-map-navigation-link-spot--open': navigationMode === MapCustomNavigationMode.SPOTS,
+                        className={classNames('custom-map-navigation-link', {
+                            'custom-map-navigation-link--open': navigationMode === MapCustomNavigationMode.ABOUT,
                         })}
                         onClick={() => {
-                            if (navigationMode === MapCustomNavigationMode.NONE) {
-                                setNavigationMode(MapCustomNavigationMode.SPOTS);
-                            } else {
+                            if (navigationMode === MapCustomNavigationMode.ABOUT) {
                                 setNavigationMode(MapCustomNavigationMode.NONE);
+                            } else {
+                                setNavigationMode(MapCustomNavigationMode.ABOUT);
+                            }
+                        }}
+                    >
+                        About
+                        <IconArrowHead />
+                    </button>
+                    <button
+                        className={classNames('custom-map-navigation-link', {
+                            'custom-map-navigation-link--open': navigationMode === MapCustomNavigationMode.SPOTS,
+                        })}
+                        onClick={() => {
+                            if (navigationMode === MapCustomNavigationMode.SPOTS) {
+                                setNavigationMode(MapCustomNavigationMode.NONE);
+                            } else {
+                                setNavigationMode(MapCustomNavigationMode.SPOTS);
                             }
                         }}
                     >
@@ -80,11 +85,7 @@ const MapCustomNavigation = ({ id, title, about, subtitle, spots }: MapCustomNav
             {navigationMode !== MapCustomNavigationMode.NONE && (
                 <div id="custom-map-navigation-extension">
                     {navigationMode === MapCustomNavigationMode.ABOUT && (
-                        <MapCustomNavigationAbout
-                            subtitle={subtitle}
-                            about={about}
-                            onCloseNavigationMode={onCloseNavigationMode}
-                        />
+                        <MapCustomNavigationAbout subtitle={subtitle} about={about} />
                     )}
                     {navigationMode === MapCustomNavigationMode.SPOTS && <MapCustomNavigationSpots mapSpots={spots} />}
                 </div>
