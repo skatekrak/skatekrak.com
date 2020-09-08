@@ -39,7 +39,12 @@ const MapCustomNavigationItem = ({ map }: Props) => {
                             className={classNames('custom-map-navigation-item-image', {
                                 'custom-map-navigation-item-image--not-selected': isMapNotSelected,
                             })}
-                            src="/images/favicon_32.png"
+                            src={`/images/map/custom-maps/${map.id}.png`}
+                            srcSet={`
+                                /images/map/custom-maps/${map.id}.png 1x,
+                                /images/map/custom-maps/${map.id}-@2x.png 2x,
+                                /images/map/custom-maps/${map.id}-@3x.png 3x
+                            `}
                             alt={`${map.name} map logo`}
                         />
                     )}
