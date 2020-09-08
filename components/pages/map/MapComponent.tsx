@@ -41,14 +41,16 @@ const MapComponent = ({
                 (mapRef.current.props.zoom > mapRef.current.props.maxZoom - 5.5 && cluster.spots.length > 0)
             ) {
                 for (const spot of cluster.spots) {
-                    _markers.push(
-                        <SpotMarker
-                            key={spot.id}
-                            spot={spot}
-                            onSpotMarkerClick={onSpotMarkerClick}
-                            isSelected={selectedSpotOverview ? selectedSpotOverview.spot.id === spot.id : false}
-                        />,
-                    );
+                    if (_markers.findIndex((m) => m.key === spot.id) === -1) {
+                        _markers.push(
+                            <SpotMarker
+                                key={spot.id}
+                                spot={spot}
+                                onSpotMarkerClick={onSpotMarkerClick}
+                                isSelected={selectedSpotOverview ? selectedSpotOverview.spot.id === spot.id : false}
+                            />,
+                        );
+                    }
                 }
             } else {
                 _markers.push(<SpotCluster key={cluster.id} cluster={cluster} viewportZoom={mapState.viewport.zoom} />);
