@@ -163,7 +163,7 @@ const MapContainer = () => {
         if (id !== undefined && customMapInfo !== undefined) {
             const bounds = customMapInfo.spots.map((spot) => [spot.location.longitude, spot.location.latitude]);
             const { longitude, latitude, zoom } = new WebMercatorViewport(map.viewport).fitBounds(bounds, {
-                padding: 100,
+                padding: 300,
             });
             const newViewport: Partial<ViewportProps> = {
                 ...map.viewport,
