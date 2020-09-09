@@ -1,7 +1,5 @@
 import React from 'react';
 
-import IconCross from 'components/Ui/Icons/Cross';
-
 type Props = {
     subtitle: string;
     about: string;
