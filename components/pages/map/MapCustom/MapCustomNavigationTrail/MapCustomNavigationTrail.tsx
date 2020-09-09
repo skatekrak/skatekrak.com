@@ -8,6 +8,7 @@ export type CustomMap = {
     name: string;
     subtitle: string;
     about: string;
+    edito: string;
     numberOfSpots: number;
 };
 
