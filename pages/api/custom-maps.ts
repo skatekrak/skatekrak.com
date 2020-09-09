@@ -37,6 +37,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
                 name: map.name,
                 subtitle: map.subtitle,
                 about: map.about,
+                edito: map.edito,
                 numberOfSpots: map.spots.length,
             })),
         );

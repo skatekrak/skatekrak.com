@@ -54,7 +54,7 @@ const MapCustomNavigationItem = ({ map }: Props) => {
                         <h4 className="custom-map-navigation-item-name">{map.name}</h4>
                         <IconArrowHead />
                     </div>
-                    <p className="custom-map-navigation-item-body">{map.about}</p>
+                    <p className="custom-map-navigation-item-body">{map.edito}</p>
                     <p className="custom-map-navigation-item-spots">{map.numberOfSpots} spots</p>
                 </div>
             </a>
