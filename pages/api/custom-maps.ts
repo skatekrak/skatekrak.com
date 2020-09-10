@@ -1,6 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import Cors from 'cors';
-import fs from 'fs';
 
 import CustomMaps from '../../data/_spots';
 import { CustomMap } from 'components/pages/map/MapCustom/MapCustomNavigationTrail/MapCustomNavigationTrail';
@@ -36,16 +35,13 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         const maps: CustomMap[] = [];
 
         for (const map of CustomMaps) {
-            const data = await readFile(`./data/${map.file}`);
-            const spots = JSON.parse(data);
-
             maps.push({
                 id: map.id,
                 name: map.name,
                 subtitle: map.subtitle,
                 about: map.about,
                 edito: map.edito,
-                numberOfSpots: spots.length,
+                numberOfSpots: map.spots.length,
             });
         }
 
@@ -61,25 +57,5 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         return res.status(404).json({ message: 'Map not found' });
     }
 
-    const data = await readFile(`./data/${customMap.file}`);
-    const spots = JSON.parse(data);
-
-    delete customMap.file;
-
-    res.status(200).json({
-        ...customMap,
-        spots,
-    });
+    res.status(200).json(customMap);
 };
-
-function readFile(path: string): Promise<string> {
-    return new Promise((resolve, reject) => {
-        fs.readFile(path, 'utf8', (err, data) => {
-            if (err) {
-                reject(err);
-            } else {
-                resolve(data);
-            }
-        });
-    });
-}
