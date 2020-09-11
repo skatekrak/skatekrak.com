@@ -36,10 +36,7 @@ const MapComponent = ({
     const markers = useMemo(() => {
         const _markers: JSX.Element[] = [];
         for (const cluster of clusters) {
-            if (
-                !clustering ||
-                (mapRef.current.props.zoom > mapRef.current.props.maxZoom - 5.5 && cluster.spots.length > 0)
-            ) {
+            if (!clustering || (mapState.viewport.zoom > mapState.viewport.maxZoom - 5.5 && cluster.spots.length > 0)) {
                 for (const spot of cluster.spots) {
                     if (_markers.findIndex((m) => m.key === spot.id) === -1) {
                         _markers.push(
