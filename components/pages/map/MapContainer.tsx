@@ -48,7 +48,10 @@ const filterClusters = (
 };
 
 const MapContainer = () => {
-    const [isMobile, map] = useSelector((state: Typings.RootState) => [state.settings.isMobile, state.map]);
+    const { isMobile, map } = useSelector((state: Typings.RootState) => ({
+        map: state.map,
+        isMobile: state.settings.isMobile,
+    }));
     const dispatch = useDispatch();
 
     const router = useRouter();
