@@ -163,7 +163,7 @@ const MapContainer = () => {
     }, [map.status, map.types, id]);
 
     useEffect(() => {
-        if (id !== undefined && customMapInfo !== undefined) {
+        if (mapRef.current != null && id !== undefined && customMapInfo !== undefined) {
             const bounds = findBoundsCoordinate(
                 customMapInfo.spots.map((spot) => [spot.location.longitude, spot.location.latitude]),
             );
