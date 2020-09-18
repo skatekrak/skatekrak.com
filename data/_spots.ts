@@ -32,4 +32,14 @@ If you want your event and all the details to be professionally executed by prov
         `,
         spots: require('data/theboardr.json'),
     },
+    {
+        id: 'theblacklist',
+        name: 'The Black List',
+        subtitle: 'Black-owned biz to support',
+        edito:
+            'We believe that getting eyeballs on a list of Black-owned brands is a humble, yet necessary offering to building whatever lies ahead.',
+        about:
+            '"Over the last decade, skating has diversified and globalized tremendously. Despite this progress, however, “The Industry” remains very white, very Californian, and it retains hegemonic control over the direction of skateboarding."\nSpecial thanks to Patrick Kigongo.',
+        spots: require('data/theblacklist.json'),
+    },
 ];
