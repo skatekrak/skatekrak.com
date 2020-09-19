@@ -194,7 +194,6 @@ const MapContainer = () => {
         const { selectedSpot } = map;
 
         if (selectedSpot) {
-            flyTo(selectedSpot);
             onSpotMarkerClick(selectedSpot);
         }
     }, [map.selectedSpot]);

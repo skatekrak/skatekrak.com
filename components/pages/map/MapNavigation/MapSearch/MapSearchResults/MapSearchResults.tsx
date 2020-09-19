@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { FlyToInterpolator } from 'react-map-gl';
+import { FlyToInterpolator, ViewportProps } from 'react-map-gl';
 
 import Scrollbar from 'components/Ui/Scrollbar';
 
@@ -27,6 +27,14 @@ const MapSearchResults: React.FC<MapSearchResultsProps> = ({ spots, loading, pla
 
     const onSpotClick = useCallback(
         (spot: Spot) => {
+            const newViewport: Partial<ViewportProps> = {
+                ...viewport,
+                latitude: spot.location.latitude,
+                longitude: spot.location.longitude,
+                transitionDuration: 1000,
+                transitionInterpolator: new FlyToInterpolator(),
+            };
+            dispatch(setViewport(newViewport));
             dispatch(selectSpot(spot));
         },
         [dispatch],
