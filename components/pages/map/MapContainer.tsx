@@ -3,7 +3,6 @@ import classNames from 'classnames';
 import React, { useState, useEffect, useRef } from 'react';
 import { InteractiveMap, FlyToInterpolator, ViewportProps, WebMercatorViewport } from 'react-map-gl';
 import { useSelector, useDispatch } from 'react-redux';
-import { getDistanceScales } from 'viewport-mercator-project';
 import dynamic from 'next/dynamic';
 
 import Typings from 'Types';
@@ -58,8 +57,6 @@ const MapContainer = () => {
     const id = router.query.id === undefined ? undefined : String(router.query.id);
 
     const [clusters, setClusters] = useState<Cluster[]>([]);
-    const [pixelsPerDegree, setPixelsPerDegree] = useState([0, 0, 0]);
-    const [clusterMaxSpots, setClusterMaxSpots] = useState(1);
     const [selectedSpotOverview, setSelectedSpot] = useState<SpotOverview>();
     const [customMapInfo, setCustomMapInfo] = useState<Record<string, any>>();
 
@@ -70,15 +67,7 @@ const MapContainer = () => {
         const filteredClusters = filterClusters(_clusters ?? clusters, map.types, map.status);
 
         dispatch(mapRefreshEnd());
-
-        let clusterMaxSpots = 1;
-        for (const cluster of filteredClusters) {
-            if (clusterMaxSpots < cluster.count) {
-                clusterMaxSpots = cluster.count;
-            }
-        }
         setClusters(filteredClusters);
-        setClusterMaxSpots(clusterMaxSpots);
     };
 
     const load = () => {
@@ -111,7 +100,7 @@ const MapContainer = () => {
                 const customMap = response.data;
                 setCustomMapInfo(customMap);
                 refreshMap(
-                    customMap.spots.map((spot) => ({
+                    customMap.spots.map((spot: Spot) => ({
                         id: spot.id,
                         latitude: spot.location.latitude,
                         longitude: spot.location.longitude,
@@ -122,18 +111,6 @@ const MapContainer = () => {
             };
             loadCustomMap();
         }
-    };
-
-    const flyTo = (spot: Spot) => {
-        const viewport: Partial<ViewportProps> = {
-            ...map.viewport,
-            latitude: spot.location.latitude,
-            longitude: spot.location.longitude,
-            transitionDuration: 1000,
-            transitionInterpolator: new FlyToInterpolator(),
-        };
-
-        dispatch(setViewport(viewport));
     };
 
     const onSpotMarkerClick = async (spot: Spot) => {
@@ -147,7 +124,6 @@ const MapContainer = () => {
 
     const onViewportChange = (viewport: { latitude: number; longitude: number; zoom: number }) => {
         dispatch(setViewport(viewport));
-        setPixelsPerDegree(getDistanceScales(viewport).pixelsPerDegree);
         // Avoid loop when the viewport is changed when in Custom Map mode
         if (id === undefined) {
             load();
@@ -171,7 +147,7 @@ const MapContainer = () => {
     useEffect(() => {
         if (mapRef.current != null && id !== undefined && customMapInfo !== undefined) {
             const bounds = findBoundsCoordinate(
-                customMapInfo.spots.map((spot) => [spot.location.longitude, spot.location.latitude]),
+                customMapInfo.spots.map((spot: Spot) => [spot.location.longitude, spot.location.latitude]),
             );
             console.log(bounds);
             const { longitude, latitude, zoom } = new WebMercatorViewport(map.viewport).fitBounds(bounds, {
