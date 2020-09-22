@@ -150,6 +150,7 @@ const MapContainer = () => {
                 customMapInfo.spots.map((spot: Spot) => [spot.location.longitude, spot.location.latitude]),
             );
             console.log(bounds);
+            console.log(map.viewport.width);
             const { longitude, latitude, zoom } = new WebMercatorViewport(map.viewport).fitBounds(bounds, {
                 padding: 300,
             });
