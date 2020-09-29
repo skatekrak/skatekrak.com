@@ -6,8 +6,9 @@
 	position: absolute
 	top: 4rem
 	left: 1.5rem
+	display: flex
+	align-items: center
 	min-width: 20rem
-	width: 30rem
 	color: $grey-400
 	background-color: $grey-900
 	border: 1.5px solid $grey-800
@@ -18,12 +19,13 @@
 	&-close
 		display: inline-flex
 		align-items: center
-		padding: 0.75rem 1.5rem
-		font-size: $fs-small
+		padding: 0.75rem 1.25rem
+		font-family: $ff-roboto-bold
+		font-size: $fs-regular
 		transition: .075s
 
 		& svg
-			width: 1rem
+			width: 1.25rem
 			margin-right: .5rem
 			fill: $grey-400
 			transform: rotate(180deg)
@@ -34,10 +36,13 @@
 			& svg
 				fill: $grey-100
 
+	& .divider-vertical
+		height: 1.5rem
+
 	&-main
 		display: flex
 		align-items: center
-		padding: 0.75rem 1.25rem 1rem
+		padding: 0.75rem 1.5rem
 
 		&-logo
 			max-width: 100%
@@ -47,20 +52,20 @@
 				display: flex
 				width: 2.5rem
 				height: 2.5rem
-				margin-right: 0.5rem
+				margin-right: 1rem
 				background-color: $grey-800
-				border: 1.5px solid $grey-700
-				border-radius: 100%
+				border-radius: 0.125rem
+				overflow: hidden
 
 
 		&-container
 			flex-grow: 1
 			display: flex
 			align-items: baseline
-			padding-top: 0.25rem
 
 		&-title
-			max-width: 13.5rem
+			min-width: 12rem
+			max-width: 16rem
 			margin-right: auto
 			font-family: $ff-roboto-condensed-bold
 			font-size: $fs-larger
@@ -99,7 +104,10 @@
 					transform: rotate(90deg)
 
 	&-extension
-		margin-top: -1px
+		position: absolute
+		top: 4rem
+		right: 0
+		left: 6.5rem
 		background-color: $grey-900
 		border: 1.5px solid $grey-800
 		border-radius: 0.25rem
