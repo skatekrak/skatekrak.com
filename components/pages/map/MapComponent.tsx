@@ -2,6 +2,7 @@ import React, { useMemo } from 'react';
 import ReactMapGL, { Popup, NavigationControl } from 'react-map-gl';
 import { useSelector } from 'react-redux';
 import classNames from 'classnames';
+import { useRouter } from 'next/router';
 
 import Typings from 'Types';
 
@@ -17,6 +18,7 @@ type MapComponentProps = {
     clusters: Cluster[];
     selectedSpotOverview?: SpotOverview;
     onSpotMarkerClick: (spot: Spot) => void;
+    onSpotOverviewClick: () => void;
     onViewportChange?: (viewport: { latitude: number; longitude: number; zoom: number }) => void;
     onPopupClose?: () => void;
     clustering: boolean;
@@ -27,11 +29,13 @@ const MapComponent = ({
     clusters,
     selectedSpotOverview,
     onSpotMarkerClick,
+    onSpotOverviewClick,
     onViewportChange,
     onPopupClose,
     clustering,
 }: MapComponentProps) => {
     const mapState = useSelector((state: Typings.RootState) => state.map);
+    const router = useRouter();
 
     const markers = useMemo(() => {
         const _markers: JSX.Element[] = [];
@@ -81,23 +85,25 @@ const MapComponent = ({
                         closeButton={false}
                         closeOnClick={false}
                     >
-                        <h4
-                            className={classNames('map-popup-spot-name', {
-                                'map-popup-spot-name-center': !selectedSpotOverview.mostLikedMedia,
-                            })}
-                        >
-                            {selectedSpotOverview.spot.name}
-                        </h4>
-                        {selectedSpotOverview.mostLikedMedia && (
-                            <div className="map-popup-spot-cover-container">
-                                <div
-                                    className="map-popup-spot-cover"
-                                    style={{
-                                        backgroundImage: `url("${selectedSpotOverview.mostLikedMedia.image.jpg}")`,
-                                    }}
-                                />
-                            </div>
-                        )}
+                        <button className="map-popup-spot-container" onClick={onSpotOverviewClick}>
+                            <h4
+                                className={classNames('map-popup-spot-name', {
+                                    'map-popup-spot-name-center': !selectedSpotOverview.mostLikedMedia,
+                                })}
+                            >
+                                {selectedSpotOverview.spot.name}
+                            </h4>
+                            {selectedSpotOverview.mostLikedMedia && (
+                                <div className="map-popup-spot-cover-container">
+                                    <div
+                                        className="map-popup-spot-cover"
+                                        style={{
+                                            backgroundImage: `url("${selectedSpotOverview.mostLikedMedia.image.jpg}")`,
+                                        }}
+                                    />
+                                </div>
+                            )}
+                        </button>
                     </Popup>
                 )}
 

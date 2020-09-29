@@ -18,6 +18,7 @@ import { FilterStateUtil, FilterState } from 'lib/FilterState';
 import MapCustomNavigationTrail from './MapCustom/MapCustomNavigationTrail/MapCustomNavigationTrail';
 import MapCustomNavigation from './MapCustom/MapCustomNavigation';
 import MapNavigation from './MapNavigation';
+import MapFullSPot from './MapFullSpot';
 import MapGradients from './MapGradients';
 import { useRouter } from 'next/router';
 
@@ -65,6 +66,23 @@ const MapContainer = () => {
 
     const mapRef = useRef<InteractiveMap>();
     const loadTimeout = useRef<NodeJS.Timeout>();
+
+    useEffect(() => {
+        const query = Object.assign({}, router.query);
+        if (selectedSpotOverview == null) {
+            delete query.spot;
+        } else {
+            query.spot = selectedSpotOverview.spot.id;
+        }
+        let asPath = router.pathname.replace('/[id]', '');
+        if (query.id) {
+            asPath += `/${query.id}`;
+        }
+        if (selectedSpotOverview != null) {
+            asPath += `?spot=${selectedSpotOverview.spot.id}`;
+        }
+        router.push({ query }, asPath, { shallow: true });
+    }, [selectedSpotOverview]);
 
     const refreshMap = (_clusters: Cluster[] | undefined = undefined) => {
         const filteredClusters = filterClusters(_clusters ?? clusters, map.types, map.status);
@@ -136,21 +154,33 @@ const MapContainer = () => {
         dispatch(setViewport(viewport));
     };
 
-    const onSpotMarkerClick = async (spot: Spot) => {
-        try {
-            const spotOverview = await getSpotOverview(spot.id);
-            setSelectedSpot(spotOverview);
-        } catch (err) {
-            // console.log(err);
-        }
-    };
-
     const onViewportChange = (viewport: { latitude: number; longitude: number; zoom: number }) => {
         dispatch(setViewport(viewport));
         setPixelsPerDegree(getDistanceScales(viewport).pixelsPerDegree);
         // Avoid loop when the viewport is changed when in Custom Map mode
         if (id === undefined) {
             load();
+        }
+    };
+    // Full spot
+    const fullSpotContainerRef = useRef();
+    const [isFullSpotOpen, setIsFullSpotOpen] = useState(false);
+
+    const onSpotOverviewClick = () => {
+        setIsFullSpotOpen(true);
+    };
+
+    const onFullSpotClose = () => {
+        setIsFullSpotOpen(false);
+    };
+
+    // Spot Overview
+    const onSpotMarkerClick = async (spot: Spot) => {
+        try {
+            const spotOverview = await getSpotOverview(spot.id);
+            setSelectedSpot(spotOverview);
+        } catch (err) {
+            // console.log(err);
         }
     };
 
@@ -201,6 +231,7 @@ const MapContainer = () => {
     return (
         <div
             id="map-container"
+            ref={fullSpotContainerRef}
             className={classNames({
                 'map-mobile': isMobile,
             })}
@@ -232,11 +263,17 @@ const MapContainer = () => {
                     )}
                     <MapCustomNavigationTrail />
                     <Legend />
+                    <MapFullSPot
+                        open={isFullSpotOpen}
+                        onClose={onFullSpotClose}
+                        container={fullSpotContainerRef.current}
+                    />
                     <DynamicMapComponent
                         mapRef={mapRef}
                         clusters={clusters}
                         selectedSpotOverview={selectedSpotOverview}
                         onSpotMarkerClick={onSpotMarkerClick}
+                        onSpotOverviewClick={onSpotOverviewClick}
                         onViewportChange={onViewportChange}
                         onPopupClose={onPopupClose}
                         clustering={id === undefined}
