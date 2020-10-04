@@ -18,11 +18,11 @@ import { FilterStateUtil, FilterState } from 'lib/FilterState';
 import MapCustomNavigationTrail from './MapCustom/MapCustomNavigationTrail/MapCustomNavigationTrail';
 import MapCustomNavigation from './MapCustom/MapCustomNavigation';
 import MapNavigation from './MapNavigation';
-import MapFullSPot from './MapFullSpot';
 import MapGradients from './MapGradients';
 import { useRouter } from 'next/router';
 
 const DynamicMapComponent = dynamic(() => import('./MapComponent'), { ssr: false });
+const MapFullSpot = dynamic(() => import('./MapFullSpot'), { ssr: false });
 
 const filterClusters = (
     clusters: Cluster[],
@@ -263,7 +263,7 @@ const MapContainer = () => {
                     )}
                     <MapCustomNavigationTrail />
                     <Legend />
-                    <MapFullSPot
+                    <MapFullSpot
                         open={isFullSpotOpen}
                         onClose={onFullSpotClose}
                         container={fullSpotContainerRef.current}
