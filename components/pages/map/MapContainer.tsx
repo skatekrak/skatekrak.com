@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import React, { useState, useEffect, useRef } from 'react';
 import { InteractiveMap, FlyToInterpolator, ViewportProps, WebMercatorViewport } from 'react-map-gl';
 import { useSelector, useDispatch } from 'react-redux';
+import { getDistanceScales } from 'viewport-mercator-project';
 import dynamic from 'next/dynamic';
 
 import Typings from 'Types';
@@ -17,6 +18,7 @@ import { FilterStateUtil, FilterState } from 'lib/FilterState';
 import MapCustomNavigationTrail from './MapCustom/MapCustomNavigationTrail/MapCustomNavigationTrail';
 import MapCustomNavigation from './MapCustom/MapCustomNavigation';
 import MapNavigation from './MapNavigation';
+import MapFullSPot from './MapFullSpot';
 import MapGradients from './MapGradients';
 import { useRouter } from 'next/router';
 
@@ -57,17 +59,44 @@ const MapContainer = () => {
     const id = router.query.id === undefined ? undefined : String(router.query.id);
 
     const [clusters, setClusters] = useState<Cluster[]>([]);
+    const [pixelsPerDegree, setPixelsPerDegree] = useState([0, 0, 0]);
+    const [clusterMaxSpots, setClusterMaxSpots] = useState(1);
     const [selectedSpotOverview, setSelectedSpot] = useState<SpotOverview>();
     const [customMapInfo, setCustomMapInfo] = useState<Record<string, any>>();
 
     const mapRef = useRef<InteractiveMap>();
     const loadTimeout = useRef<NodeJS.Timeout>();
 
+    useEffect(() => {
+        const query = Object.assign({}, router.query);
+        if (selectedSpotOverview == null) {
+            delete query.spot;
+        } else {
+            query.spot = selectedSpotOverview.spot.id;
+        }
+        let asPath = router.pathname.replace('/[id]', '');
+        if (query.id) {
+            asPath += `/${query.id}`;
+        }
+        if (selectedSpotOverview != null) {
+            asPath += `?spot=${selectedSpotOverview.spot.id}`;
+        }
+        router.push({ query }, asPath, { shallow: true });
+    }, [selectedSpotOverview]);
+
     const refreshMap = (_clusters: Cluster[] | undefined = undefined) => {
         const filteredClusters = filterClusters(_clusters ?? clusters, map.types, map.status);
 
         dispatch(mapRefreshEnd());
+
+        let clusterMaxSpots = 1;
+        for (const cluster of filteredClusters) {
+            if (clusterMaxSpots < cluster.count) {
+                clusterMaxSpots = cluster.count;
+            }
+        }
         setClusters(filteredClusters);
+        setClusterMaxSpots(clusterMaxSpots);
     };
 
     const load = () => {
@@ -100,7 +129,7 @@ const MapContainer = () => {
                 const customMap = response.data;
                 setCustomMapInfo(customMap);
                 refreshMap(
-                    customMap.spots.map((spot: Spot) => ({
+                    customMap.spots.map((spot) => ({
                         id: spot.id,
                         latitude: spot.location.latitude,
                         longitude: spot.location.longitude,
@@ -113,20 +142,45 @@ const MapContainer = () => {
         }
     };
 
+    const flyTo = (spot: Spot) => {
+        const viewport: Partial<ViewportProps> = {
+            ...map.viewport,
+            latitude: spot.location.latitude,
+            longitude: spot.location.longitude,
+            transitionDuration: 1000,
+            transitionInterpolator: new FlyToInterpolator(),
+        };
+
+        dispatch(setViewport(viewport));
+    };
+
+    const onViewportChange = (viewport: { latitude: number; longitude: number; zoom: number }) => {
+        dispatch(setViewport(viewport));
+        setPixelsPerDegree(getDistanceScales(viewport).pixelsPerDegree);
+        // Avoid loop when the viewport is changed when in Custom Map mode
+        if (id === undefined) {
+            load();
+        }
+    };
+    // Full spot
+    const fullSpotContainerRef = useRef();
+    const [isFullSpotOpen, setIsFullSpotOpen] = useState(false);
+
+    const onSpotOverviewClick = () => {
+        setIsFullSpotOpen(true);
+    };
+
+    const onFullSpotClose = () => {
+        setIsFullSpotOpen(false);
+    };
+
+    // Spot Overview
     const onSpotMarkerClick = async (spot: Spot) => {
         try {
             const spotOverview = await getSpotOverview(spot.id);
             setSelectedSpot(spotOverview);
         } catch (err) {
             // console.log(err);
-        }
-    };
-
-    const onViewportChange = (viewport: { latitude: number; longitude: number; zoom: number }) => {
-        dispatch(setViewport(viewport));
-        // Avoid loop when the viewport is changed when in Custom Map mode
-        if (id === undefined) {
-            load();
         }
     };
 
@@ -147,12 +201,11 @@ const MapContainer = () => {
     useEffect(() => {
         if (mapRef.current != null && id !== undefined && customMapInfo !== undefined) {
             const bounds = findBoundsCoordinate(
-                customMapInfo.spots.map((spot: Spot) => [spot.location.longitude, spot.location.latitude]),
+                customMapInfo.spots.map((spot) => [spot.location.longitude, spot.location.latitude]),
             );
             console.log(bounds);
-            console.log(map.viewport.width);
             const { longitude, latitude, zoom } = new WebMercatorViewport(map.viewport).fitBounds(bounds, {
-                padding: map.viewport.width * 0.15, // padding of 15%
+                padding: map.viewport.width * 0.15, // padding of 15%,
             });
             const newViewport: Partial<ViewportProps> = {
                 ...map.viewport,
@@ -178,6 +231,7 @@ const MapContainer = () => {
     return (
         <div
             id="map-container"
+            ref={fullSpotContainerRef}
             className={classNames({
                 'map-mobile': isMobile,
             })}
@@ -209,11 +263,17 @@ const MapContainer = () => {
                     )}
                     <MapCustomNavigationTrail />
                     <Legend />
+                    <MapFullSPot
+                        open={isFullSpotOpen}
+                        onClose={onFullSpotClose}
+                        container={fullSpotContainerRef.current}
+                    />
                     <DynamicMapComponent
                         mapRef={mapRef}
                         clusters={clusters}
                         selectedSpotOverview={selectedSpotOverview}
                         onSpotMarkerClick={onSpotMarkerClick}
+                        onSpotOverviewClick={onSpotOverviewClick}
                         onViewportChange={onViewportChange}
                         onPopupClose={onPopupClose}
                         clustering={id === undefined}

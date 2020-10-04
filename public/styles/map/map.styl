@@ -5,6 +5,7 @@
 @import "./map-legend"
 @import "./navigation"
 @import "./customMap"
+@import "./fullSpotPopup"
 
 /* MAP PAGE STYLES */
 #map
@@ -297,12 +298,14 @@
 		&-spot
 			margin-top: -1.5rem
 			z-index: 9
-			cursor: pointer
 
 			& .mapboxgl-popup-content
 				padding: 0.5rem
 				background: none
 				box-shadow: none
+
+			&-container
+				text-align: left
 
 			&-name
 				max-width: 275px;

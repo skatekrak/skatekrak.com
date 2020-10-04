@@ -5,6 +5,7 @@ const Link = React.memo(NextLink);
 
 import IconArrow from 'components/Ui/Icons/Arrow';
 import IconArrowHead from 'components/Ui/Icons/ArrowHead';
+import DividerVertical from 'components/Ui/dividers/DividerVertical';
 
 import MapCustomNavigationAbout from './MapCustomNavigationAbout';
 import MapCustomNavigationSpots from './MapCustomNavigationSpots';
@@ -33,9 +34,10 @@ const MapCustomNavigation = ({ id, title, about, subtitle, spots }: MapCustomNav
             <Link href="/map">
                 <a id="custom-map-navigation-close">
                     <IconArrow />
-                    Back to Krak map
+                    Back
                 </a>
             </Link>
+            <DividerVertical />
             <div id="custom-map-navigation-main">
                 <div id="custom-map-navigation-main-logo-container">
                     <img
