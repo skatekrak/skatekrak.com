@@ -59,12 +59,17 @@ const MapContainer = () => {
     const id = router.query.id === undefined ? undefined : String(router.query.id);
     /** Spot ID in the query */
     const spotId = router.query.spot === undefined ? undefined : String(router.query.spot);
+    const modalOpen = router.query.modal === undefined ? false : Boolean(router.query.modal);
 
     const [clusters, setClusters] = useState<Cluster[]>([]);
     const [pixelsPerDegree, setPixelsPerDegree] = useState([0, 0, 0]);
     const [clusterMaxSpots, setClusterMaxSpots] = useState(1);
     const [selectedSpotOverview, setSelectedSpot] = useState<SpotOverview>();
     const [customMapInfo, setCustomMapInfo] = useState<Record<string, any>>();
+
+    // Full spot
+    const fullSpotContainerRef = useRef<HTMLDivElement>();
+    const [isFullSpotOpen, setIsFullSpotOpen] = useState(modalOpen);
 
     const mapRef = useRef<InteractiveMap>();
     const loadTimeout = useRef<NodeJS.Timeout>();
@@ -103,6 +108,12 @@ const MapContainer = () => {
             } else {
                 query.spot = selectedSpotOverview.spot.id;
             }
+
+            if (isFullSpotOpen) {
+                query.modal = '1';
+            } else {
+                delete query.modal;
+            }
         }
         let asPath = router.pathname.replace('/[id]', '');
         if (query.id) {
@@ -111,8 +122,12 @@ const MapContainer = () => {
         if (selectedSpotOverview != null) {
             asPath += `?spot=${selectedSpotOverview.spot.id}`;
         }
+        if (isFullSpotOpen) {
+            asPath += `&modal=1`;
+        }
+
         router.push({ query }, asPath, { shallow: true });
-    }, [selectedSpotOverview]);
+    }, [selectedSpotOverview, isFullSpotOpen]);
 
     const refreshMap = (_clusters: Cluster[] | undefined = undefined) => {
         const filteredClusters = filterClusters(_clusters ?? clusters, map.types, map.status);
@@ -192,9 +207,6 @@ const MapContainer = () => {
             load();
         }
     };
-    // Full spot
-    const fullSpotContainerRef = useRef();
-    const [isFullSpotOpen, setIsFullSpotOpen] = useState(false);
 
     const onSpotOverviewClick = () => {
         setIsFullSpotOpen(true);
