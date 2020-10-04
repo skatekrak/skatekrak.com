@@ -2,6 +2,8 @@ import React from 'react';
 import { useRouter } from 'next/router';
 
 import Modal from 'components/Ui/Modal';
+import MapFullSpotNav from './MapFullSpotNav';
+import MapFullSpotMain from './MapFullSpotMain';
 
 type MapFullSpotProps = {
     open: boolean;
@@ -11,6 +13,7 @@ type MapFullSpotProps = {
 
 const MapFullSpot: React.FC<MapFullSpotProps> = ({ open, onClose, container }) => {
     const router = useRouter();
+    console.log(container);
 
     let classNames = {
         customOverlay: 'full-spot-overlay',
@@ -21,8 +24,12 @@ const MapFullSpot: React.FC<MapFullSpotProps> = ({ open, onClose, container }) =
     return (
         <Modal open={open} onClose={onClose} closable customClassNames={classNames} container={container}>
             <div id="map-full-spot-popup">
-                <div id="map-full-spot-popup-nav">Nav</div>
-                <div id="map-full-spot-popup-main">Main</div>
+                <header id="map-full-spot-popup-nav-container">
+                    <MapFullSpotNav />
+                </header>
+                <main id="map-full-spot-popup-main-container">
+                    <MapFullSpotMain />
+                </main>
             </div>
         </Modal>
     );
