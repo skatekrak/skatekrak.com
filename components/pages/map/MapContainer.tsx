@@ -57,6 +57,8 @@ const MapContainer = () => {
 
     const router = useRouter();
     const id = router.query.id === undefined ? undefined : String(router.query.id);
+    /** Spot ID in the query */
+    const spotId = router.query.spot === undefined ? undefined : String(router.query.spot);
 
     const [clusters, setClusters] = useState<Cluster[]>([]);
     const [pixelsPerDegree, setPixelsPerDegree] = useState([0, 0, 0]);
@@ -67,12 +69,30 @@ const MapContainer = () => {
     const mapRef = useRef<InteractiveMap>();
     const loadTimeout = useRef<NodeJS.Timeout>();
 
+    /**
+     * If there is a spotId in the URL at launch, we query that spot
+     */
+    useEffect(() => {
+        if (spotId != null) {
+            (async () => {
+                try {
+                    const overview = await getSpotOverview(spotId);
+                    setSelectedSpot(overview);
+                } catch (error) {
+                    //
+                }
+            })();
+        }
+    }, []);
+
     useEffect(() => {
         const query = Object.assign({}, router.query);
-        if (selectedSpotOverview == null) {
-            delete query.spot;
-        } else {
-            query.spot = selectedSpotOverview.spot.id;
+        if (spotId == null) {
+            if (selectedSpotOverview == null) {
+                delete query.spot;
+            } else {
+                query.spot = selectedSpotOverview.spot.id;
+            }
         }
         let asPath = router.pathname.replace('/[id]', '');
         if (query.id) {
