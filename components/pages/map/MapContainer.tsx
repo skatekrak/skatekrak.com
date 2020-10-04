@@ -78,6 +78,16 @@ const MapContainer = () => {
                 try {
                     const overview = await getSpotOverview(spotId);
                     setSelectedSpot(overview);
+
+                    const newViewport: Partial<ViewportProps> = {
+                        ...map.viewport,
+                        longitude: overview.spot.location.longitude,
+                        latitude: overview.spot.location.latitude,
+                        zoom: 14,
+                        transitionDuration: 1500,
+                        transitionInterpolator: new FlyToInterpolator(),
+                    };
+                    dispatch(setViewport(newViewport));
                 } catch (error) {
                     //
                 }
