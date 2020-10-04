@@ -205,7 +205,7 @@ const MapContainer = () => {
             );
             console.log(bounds);
             const { longitude, latitude, zoom } = new WebMercatorViewport(map.viewport).fitBounds(bounds, {
-                padding: 300,
+                padding: map.viewport.width * 0.15, // padding of 15%,
             });
             const newViewport: Partial<ViewportProps> = {
                 ...map.viewport,

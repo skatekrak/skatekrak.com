@@ -10,7 +10,7 @@ import { Cluster, Spot, SpotOverview } from 'lib/carrelageClient';
 import SpotCluster from 'components/pages/map/marker/SpotCluster';
 import SpotMarker from 'components/pages/map/marker/SpotMarker';
 
-const MIN_ZOOM_LEVEL = 4;
+const MIN_ZOOM_LEVEL = 2;
 const MAX_ZOOM_LEVEL = 18;
 
 type MapComponentProps = {
