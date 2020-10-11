@@ -2,6 +2,9 @@
 @import "../styleguide"
 
 @import "./nav"
+@import "./main"
+@import "./clips"
+
 
 .full-spot-overlay
 	position: absolute
@@ -14,6 +17,7 @@
 	border-radius: 0.25rem
 	background-color: $grey-900
 	box-shadow: 0px 0px 16px rgba(0, 0, 0, 0.25)
+	overflow: hidden
 
 .full-spot-close-button
 	display: flex
@@ -34,17 +38,16 @@
 	display: grid
 	grid-template-columns: minmax(16rem, 1fr) 3fr
 	grid-template-areas: 'fullSpotNav fullSpotMain'
-	width: 64rem
 	height: 40rem
 	color: $grey-100
 
 	+mq($from: "mediumLarge")
-		grid-template-columns: minmax(18rem, 1fr) 3fr
+		grid-template-columns: 18rem 3fr
+		width: 64rem
 
 	+mq($from: "large")
-		grid-template-columns: 20rem 3fr
-		width: 80rem
-		height: 44rem
+		width: 72rem
+		height: 40rem
 	
 	+mq($from: "infinite")
 		width: 88rem
@@ -60,6 +63,11 @@
 	
 	&-main-container
 		grid-area: fullSpotMain
-		position: relative
-		// background-color: $grey-800
+		position: absolute
+		top: 0
+		right: 0
+		bottom: 0
+		left: 0
+		background-color: #262626
+		overflow: hidden
 

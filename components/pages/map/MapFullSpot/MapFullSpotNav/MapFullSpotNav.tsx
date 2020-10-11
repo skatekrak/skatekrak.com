@@ -16,12 +16,12 @@ const MapFullSpotNav = () => {
                 <p id="map-full-spot-popup-nav-header-street">Rue Notre Dame de Nazareth, Paris</p>
                 <div id="map-full-spot-popup-nav-header-extra">
                     <IconStreet />
-                    <div id="map-full-spot-popup-nav-header-extra-time">
+                    {/* <div id="map-full-spot-popup-nav-header-extra-time">
                         <p id="map-full-spot-popup-nav-header-extra-time-title">
                             Local time<span> - GMT+4</span>
                         </p>
                         <p id="map-full-spot-popup-nav-header-extra-time-formated">08 : 56 pm</p>
-                    </div>
+                    </div> */}
                 </div>
             </div>
             <nav id="map-full-spot-popup-nav-main">
