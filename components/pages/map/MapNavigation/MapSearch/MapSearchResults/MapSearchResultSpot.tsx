@@ -11,15 +11,15 @@ import IconicBadge from 'components/pages/map/marker/badges/Iconic';
 import HistoryBadge from 'components/pages/map/marker/badges/History';
 import MinuteBadge from 'components/pages/map/marker/badges/Minute';
 
-import { Status, Types } from 'lib/carrelageClient';
+import { Spot, Status, Types } from 'lib/carrelageClient';
 import type { SpotHit } from 'lib/algolia';
 
-type Props = {
-    spot: SpotHit;
-    onSpotClick: (spot: SpotHit) => void;
+type Props<T> = {
+    spot: T;
+    onSpotClick: (spot: T) => void;
 };
 
-const MapSearchResultSpot = ({ spot, onSpotClick }: Props) => {
+export default function MapSearchResultSpot<T extends Spot | SpotHit>({ spot, onSpotClick }: Props<T>) {
     const [overBadgeCounter, setOverBadgeCounter] = useState<number | undefined>(undefined);
 
     const renderedTags = spot.tags?.filter((tag, index: number, originaltags) => {
@@ -88,5 +88,3 @@ const MapSearchResultSpot = ({ spot, onSpotClick }: Props) => {
         </>
     );
 };
-
-export default MapSearchResultSpot;

@@ -19,7 +19,7 @@ export type MapAction = ActionType<typeof mapActions>;
 export type MapState = {
     types: Record<Types, FilterState>;
     status: Record<Status, FilterState>;
-    selectedSpot?: SpotHit;
+    selectedSpotId?: string;
     viewport: Partial<ViewportProps>;
 };
 
@@ -36,7 +36,7 @@ const initialState: MapState = {
         [Status.Wip]: FilterState.SELECTED,
         [Status.Rip]: FilterState.SELECTED,
     },
-    selectedSpot: undefined,
+    selectedSpotId: undefined,
     viewport: {
         latitude: 48.860332,
         longitude: 2.345054,
@@ -129,7 +129,7 @@ const MapReducers = (state: MapState = initialState, action: MapAction): MapStat
         case SELECT_SPOT:
             return {
                 ...state,
-                selectedSpot: action.payload,
+                selectedSpotId: action.payload,
             };
         case SET_VIEWPORT:
             return {

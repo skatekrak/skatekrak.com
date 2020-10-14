@@ -249,12 +249,12 @@ const MapContainer = () => {
     }, [customMapInfo, map.viewport.width]);
 
     useEffect(() => {
-        const { selectedSpot } = map;
+        const { selectedSpotId } = map;
 
-        if (selectedSpot) {
-            onSpotMarkerClick(selectedSpot.objectID);
+        if (selectedSpotId) {
+            onSpotMarkerClick(selectedSpotId);
         }
-    }, [map.selectedSpot]);
+    }, [map.selectedSpotId]);
 
     return (
         <div

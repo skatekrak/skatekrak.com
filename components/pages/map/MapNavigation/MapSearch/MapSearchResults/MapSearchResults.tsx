@@ -35,7 +35,7 @@ const MapSearchResults: React.FC<MapSearchResultsProps> = ({ spots, loading, pla
                 transitionInterpolator: new FlyToInterpolator(),
             };
             dispatch(setViewport(newViewport));
-            dispatch(selectSpot(spot));
+            dispatch(selectSpot(spot.objectID));
         },
         [dispatch],
     );
