@@ -4,9 +4,11 @@ import Bugsnag from '@bugsnag/js';
 import BugsnagPluginReact from '@bugsnag/plugin-react';
 
 Bugsnag.start({
-    apiKey: '4682b68bd8f242f45afba6142adba586',
+    apiKey: process.env.NEXT_PUBLIC_BUGSNAG_KEY,
     plugins: [new BugsnagPluginReact()],
-    enabledReleaseStages: ['production']
+    enabledReleaseStages: ['production', 'staging'],
+    releaseStage: process.env.NEXT_PUBLIC_STAGE,
+    collectUserIp: false,
 });
 
 import { wrapper } from 'store';
