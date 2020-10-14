@@ -12,13 +12,14 @@ import {
 } from '../constants';
 import * as mapActions from './actions';
 import { ViewportProps } from 'react-map-gl';
+import { SpotHit } from 'lib/algolia';
 
 export type MapAction = ActionType<typeof mapActions>;
 
 export type MapState = {
     types: Record<Types, FilterState>;
     status: Record<Status, FilterState>;
-    selectedSpot?: Spot;
+    selectedSpot?: SpotHit;
     viewport: Partial<ViewportProps>;
 };
 

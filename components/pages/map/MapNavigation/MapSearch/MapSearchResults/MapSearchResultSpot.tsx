@@ -11,11 +11,12 @@ import IconicBadge from 'components/pages/map/marker/badges/Iconic';
 import HistoryBadge from 'components/pages/map/marker/badges/History';
 import MinuteBadge from 'components/pages/map/marker/badges/Minute';
 
-import { Spot, Status, Types } from 'lib/carrelageClient';
+import { Status, Types } from 'lib/carrelageClient';
+import type { SpotHit } from 'lib/algolia';
 
 type Props = {
-    spot: Spot;
-    onSpotClick: (spot: Spot) => void;
+    spot: SpotHit;
+    onSpotClick: (spot: SpotHit) => void;
 };
 
 const MapSearchResultSpot = ({ spot, onSpotClick }: Props) => {

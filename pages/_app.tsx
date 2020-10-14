@@ -6,6 +6,7 @@ import BugsnagPluginReact from '@bugsnag/plugin-react';
 Bugsnag.start({
     apiKey: '4682b68bd8f242f45afba6142adba586',
     plugins: [new BugsnagPluginReact()],
+    enabledReleaseStages: ['production']
 });
 
 import { wrapper } from 'store';

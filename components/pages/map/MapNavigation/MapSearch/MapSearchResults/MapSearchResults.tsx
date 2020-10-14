@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { FlyToInterpolator, ViewportProps } from 'react-map-gl';
 
 import Scrollbar from 'components/Ui/Scrollbar';
+import type { SpotHit } from 'lib/algolia';
 
 import MapSearchResultLoading from './MapSearchResultLoading';
 import MapSearchResultNoContent from './MapSearchResultNoContent';
@@ -11,14 +12,13 @@ import MapSearchResultPlace from './MapSearchResultPlace';
 
 import Types from 'Types';
 
-import { Spot } from 'lib/carrelageClient';
 import { Place } from 'lib/placeApi';
 import { selectSpot, setViewport } from 'store/map/actions';
 
 type MapSearchResultsProps = {
     loading: boolean;
     places: Place[];
-    spots: Spot[];
+    spots: SpotHit[];
 };
 
 const MapSearchResults: React.FC<MapSearchResultsProps> = ({ spots, loading, places }) => {
@@ -26,11 +26,11 @@ const MapSearchResults: React.FC<MapSearchResultsProps> = ({ spots, loading, pla
     const { viewport } = useSelector((state: Types.RootState) => state.map);
 
     const onSpotClick = useCallback(
-        (spot: Spot) => {
+        (spot: SpotHit) => {
             const newViewport: Partial<ViewportProps> = {
                 ...viewport,
-                latitude: spot.location.latitude,
-                longitude: spot.location.longitude,
+                latitude: spot._geoloc.lat,
+                longitude: spot._geoloc.lng,
                 transitionDuration: 1000,
                 transitionInterpolator: new FlyToInterpolator(),
             };
@@ -70,7 +70,7 @@ const MapSearchResults: React.FC<MapSearchResultsProps> = ({ spots, loading, pla
                                     <MapSearchResultPlace key={place.id} place={place} onPlaceClick={onPlaceClick} />
                                 ))}
                                 {spots.map((spot) => (
-                                    <MapSearchResultSpot key={spot.id} spot={spot} onSpotClick={onSpotClick} />
+                                    <MapSearchResultSpot key={spot.objectID} spot={spot} onSpotClick={onSpotClick} />
                                 ))}
                             </>
                         )}

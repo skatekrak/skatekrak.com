@@ -8,7 +8,7 @@ import dynamic from 'next/dynamic';
 
 import Typings from 'Types';
 
-import { Cluster, Spot, Status, SpotOverview, Types } from 'lib/carrelageClient';
+import { Cluster, Status, SpotOverview, Types } from 'lib/carrelageClient';
 
 import Legend from 'components/pages/map/Legend';
 import BannerTop from 'components/Ui/Banners/BannerTop';
@@ -63,7 +63,6 @@ const MapContainer = () => {
 
     const [clusters, setClusters] = useState<Cluster[]>([]);
     const [pixelsPerDegree, setPixelsPerDegree] = useState([0, 0, 0]);
-    const [clusterMaxSpots, setClusterMaxSpots] = useState(1);
     const [selectedSpotOverview, setSelectedSpot] = useState<SpotOverview>();
     const [customMapInfo, setCustomMapInfo] = useState<Record<string, any>>();
 
@@ -141,7 +140,6 @@ const MapContainer = () => {
             }
         }
         setClusters(filteredClusters);
-        setClusterMaxSpots(clusterMaxSpots);
     };
 
     const load = () => {
@@ -187,18 +185,6 @@ const MapContainer = () => {
         }
     };
 
-    const flyTo = (spot: Spot) => {
-        const viewport: Partial<ViewportProps> = {
-            ...map.viewport,
-            latitude: spot.location.latitude,
-            longitude: spot.location.longitude,
-            transitionDuration: 1000,
-            transitionInterpolator: new FlyToInterpolator(),
-        };
-
-        dispatch(setViewport(viewport));
-    };
-
     const onViewportChange = (viewport: { latitude: number; longitude: number; zoom: number }) => {
         dispatch(setViewport(viewport));
         setPixelsPerDegree(getDistanceScales(viewport).pixelsPerDegree);
@@ -217,9 +203,9 @@ const MapContainer = () => {
     };
 
     // Spot Overview
-    const onSpotMarkerClick = async (spot: Spot) => {
+    const onSpotMarkerClick = async (spotId: string) => {
         try {
-            const spotOverview = await getSpotOverview(spot.id);
+            const spotOverview = await getSpotOverview(spotId);
             setSelectedSpot(spotOverview);
         } catch (err) {
             // console.log(err);
@@ -266,7 +252,7 @@ const MapContainer = () => {
         const { selectedSpot } = map;
 
         if (selectedSpot) {
-            onSpotMarkerClick(selectedSpot);
+            onSpotMarkerClick(selectedSpot.objectID);
         }
     }, [map.selectedSpot]);
 
@@ -314,7 +300,7 @@ const MapContainer = () => {
                         mapRef={mapRef}
                         clusters={clusters}
                         selectedSpotOverview={selectedSpotOverview}
-                        onSpotMarkerClick={onSpotMarkerClick}
+                        onSpotMarkerClick={(spot) => onSpotMarkerClick(spot.id)}
                         onSpotOverviewClick={onSpotOverviewClick}
                         onViewportChange={onViewportChange}
                         onPopupClose={onPopupClose}

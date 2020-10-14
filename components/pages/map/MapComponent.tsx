@@ -2,7 +2,6 @@ import React, { useMemo } from 'react';
 import ReactMapGL, { Popup, NavigationControl } from 'react-map-gl';
 import { useSelector } from 'react-redux';
 import classNames from 'classnames';
-import { useRouter } from 'next/router';
 
 import Typings from 'Types';
 
@@ -35,7 +34,6 @@ const MapComponent = ({
     clustering,
 }: MapComponentProps) => {
     const mapState = useSelector((state: Typings.RootState) => state.map);
-    const router = useRouter();
 
     const markers = useMemo(() => {
         const _markers: JSX.Element[] = [];
