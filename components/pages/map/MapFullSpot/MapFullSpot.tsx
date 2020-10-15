@@ -1,9 +1,14 @@
 import React from 'react';
-import { useRouter } from 'next/router';
 
 import Modal from 'components/Ui/Modal';
 import MapFullSpotNav from './MapFullSpotNav';
 import MapFullSpotMain from './MapFullSpotMain';
+
+const classNames = {
+    customOverlay: 'full-spot-overlay',
+    customModal: 'full-spot-container',
+    customCloseButton: 'full-spot-close-button',
+};
 
 type MapFullSpotProps = {
     open: boolean;
@@ -12,15 +17,6 @@ type MapFullSpotProps = {
 };
 
 const MapFullSpot: React.FC<MapFullSpotProps> = ({ open, onClose, container }) => {
-    const router = useRouter();
-    console.log(container);
-
-    let classNames = {
-        customOverlay: 'full-spot-overlay',
-        customModal: 'full-spot-container',
-        customCloseButton: 'full-spot-close-button',
-    };
-
     return (
         <Modal open={open} onClose={onClose} closable customClassNames={classNames} container={container}>
             <div id="map-full-spot-popup">
