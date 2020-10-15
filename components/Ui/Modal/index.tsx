@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import Modal, { ModalProps } from 'react-responsive-modal';
 
 import IconCross from 'components/Ui/Icons/Cross';
@@ -13,7 +13,7 @@ import IconCross from 'components/Ui/Icons/Cross';
         - Set the max-width of the popup with the children element
 */
 
-let classNames = {
+const defaultClassNames = {
     overlay: 'modal-overlay',
     modal: 'modal-container',
     closeButton: 'modal-close-button',
@@ -38,13 +38,17 @@ const ModalWithStyle: React.FunctionComponent<Props> = ({
     customClassNames,
     ...props
 }) => {
-    if (customClassNames) {
-        classNames = {
-            overlay: classNames.overlay + ' ' + customClassNames.customOverlay,
-            modal: classNames.modal + ' ' + customClassNames.customModal,
-            closeButton: classNames.closeButton + ' ' + customClassNames.customCloseButton,
-        };
-    }
+    const classNames = useMemo(() => {
+        if (customClassNames) {
+            return {
+                overlay: defaultClassNames.overlay + ' ' + customClassNames.customOverlay,
+                modal: defaultClassNames.modal + ' ' + customClassNames.customModal,
+                closeButton: defaultClassNames.closeButton + ' ' + customClassNames.customCloseButton,
+            };
+        }
+        return defaultClassNames;
+    }, [customClassNames]);
+
     return (
         <Modal
             open={open}
