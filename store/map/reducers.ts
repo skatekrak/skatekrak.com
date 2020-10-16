@@ -1,6 +1,6 @@
 import { ActionType } from 'typesafe-actions';
 
-import { Types, Status, Spot } from 'lib/carrelageClient';
+import { Types, Status, SpotOverview } from 'lib/carrelageClient';
 import { FilterState } from 'lib/FilterState';
 import {
     SELECT_ALL_MAP_FILTERS,
@@ -9,10 +9,10 @@ import {
     MAP_REFRESH_END,
     SELECT_SPOT,
     SET_VIEWPORT,
+    SET_SPOT_OVERVIEW,
 } from '../constants';
 import * as mapActions from './actions';
 import { ViewportProps } from 'react-map-gl';
-import { SpotHit } from 'lib/algolia';
 
 export type MapAction = ActionType<typeof mapActions>;
 
@@ -20,6 +20,7 @@ export type MapState = {
     types: Record<Types, FilterState>;
     status: Record<Status, FilterState>;
     selectedSpotId?: string;
+    spotOverview?: SpotOverview;
     viewport: Partial<ViewportProps>;
 };
 
@@ -37,6 +38,7 @@ const initialState: MapState = {
         [Status.Rip]: FilterState.SELECTED,
     },
     selectedSpotId: undefined,
+    spotOverview: undefined,
     viewport: {
         latitude: 48.860332,
         longitude: 2.345054,
@@ -130,6 +132,11 @@ const MapReducers = (state: MapState = initialState, action: MapAction): MapStat
             return {
                 ...state,
                 selectedSpotId: action.payload,
+            };
+        case SET_SPOT_OVERVIEW:
+            return {
+                ...state,
+                spotOverview: action.payload,
             };
         case SET_VIEWPORT:
             return {

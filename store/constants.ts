@@ -23,3 +23,4 @@ export const TOGGLE_MAP_FILTER = 'toggle_map_filter';
 export const MAP_REFRESH_END = 'map_refresh_end';
 export const SELECT_SPOT = 'select_spot';
 export const SET_VIEWPORT = 'set_viewport';
+export const SET_SPOT_OVERVIEW = 'set_spot_overview';
