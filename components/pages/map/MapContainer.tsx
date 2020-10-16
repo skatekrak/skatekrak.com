@@ -13,7 +13,7 @@ import { Cluster, Status, SpotOverview, Types } from 'lib/carrelageClient';
 import Legend from 'components/pages/map/Legend';
 import BannerTop from 'components/Ui/Banners/BannerTop';
 import { boxSpotsSearch, getSpotOverview } from 'lib/carrelageClient';
-import { mapRefreshEnd, setViewport } from 'store/map/actions';
+import { mapRefreshEnd, setSpotOverview, setViewport } from 'store/map/actions';
 import { FilterStateUtil, FilterState } from 'lib/FilterState';
 import MapCustomNavigationTrail from './MapCustom/MapCustomNavigationTrail/MapCustomNavigationTrail';
 import MapCustomNavigation from './MapCustom/MapCustomNavigation';
@@ -61,7 +61,6 @@ const MapContainer = () => {
 
     const [clusters, setClusters] = useState<Cluster[]>([]);
     const [pixelsPerDegree, setPixelsPerDegree] = useState([0, 0, 0]);
-    const [selectedSpotOverview, setSelectedSpot] = useState<SpotOverview>();
     const [customMapInfo, setCustomMapInfo] = useState<Record<string, any>>();
 
     // Full spot
@@ -79,7 +78,7 @@ const MapContainer = () => {
             (async () => {
                 try {
                     const overview = await getSpotOverview(spotId);
-                    setSelectedSpot(overview);
+                    dispatch(setSpotOverview(overview))
 
                     const newViewport: Partial<ViewportProps> = {
                         ...map.viewport,
@@ -100,10 +99,10 @@ const MapContainer = () => {
     useEffect(() => {
         const query = Object.assign({}, router.query);
         if (spotId == null) {
-            if (selectedSpotOverview == null) {
+            if (map.spotOverview == null) {
                 delete query.spot;
             } else {
-                query.spot = selectedSpotOverview.spot.id;
+                query.spot = map.spotOverview.spot.id;
             }
 
             if (isFullSpotOpen) {
@@ -116,15 +115,15 @@ const MapContainer = () => {
         if (query.id) {
             asPath += `/${query.id}`;
         }
-        if (selectedSpotOverview != null) {
-            asPath += `?spot=${selectedSpotOverview.spot.id}`;
+        if (map.spotOverview != null) {
+            asPath += `?spot=${map.spotOverview.spot.id}`;
         }
         if (isFullSpotOpen) {
             asPath += `&modal=1`;
         }
 
         router.push({ query }, asPath, { shallow: true });
-    }, [selectedSpotOverview, isFullSpotOpen]);
+    }, [map.spotOverview, isFullSpotOpen]);
 
     const refreshMap = (_clusters: Cluster[] | undefined = undefined) => {
         const filteredClusters = filterClusters(_clusters ?? clusters, map.types, map.status);
@@ -204,14 +203,14 @@ const MapContainer = () => {
     const onSpotMarkerClick = async (spotId: string) => {
         try {
             const spotOverview = await getSpotOverview(spotId);
-            setSelectedSpot(spotOverview);
+            dispatch(setSpotOverview(spotOverview));
         } catch (err) {
             // console.log(err);
         }
     };
 
     const onPopupClose = () => {
-        setSelectedSpot(undefined);
+        dispatch(setSpotOverview(undefined));
     };
 
     useEffect(() => {
@@ -219,8 +218,8 @@ const MapContainer = () => {
     }, [map.status, map.types, id]);
 
     useEffect(() => {
-        if (selectedSpotOverview != null) {
-            setSelectedSpot(undefined);
+        if (map.spotOverview != null) {
+            dispatch(setSpotOverview(undefined));
         }
     }, [id]);
 
@@ -297,7 +296,7 @@ const MapContainer = () => {
                     <DynamicMapComponent
                         mapRef={mapRef}
                         clusters={clusters}
-                        selectedSpotOverview={selectedSpotOverview}
+                        selectedSpotOverview={map.spotOverview}
                         onSpotMarkerClick={(spot) => onSpotMarkerClick(spot.id)}
                         onSpotOverviewClick={onSpotOverviewClick}
                         onViewportChange={onViewportChange}
