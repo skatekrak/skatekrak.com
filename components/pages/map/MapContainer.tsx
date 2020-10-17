@@ -6,6 +6,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getDistanceScales } from 'viewport-mercator-project';
 import dynamic from 'next/dynamic';
 import queryString from 'query-string';
+import { useRouter } from 'next/router';
+import useConstant from 'use-constant';
 
 import Typings from 'Types';
 
@@ -20,7 +22,6 @@ import MapCustomNavigationTrail from './MapCustom/MapCustomNavigationTrail/MapCu
 import MapCustomNavigation from './MapCustom/MapCustomNavigation';
 import MapNavigation from './MapNavigation';
 import MapGradients from './MapGradients';
-import { useRouter } from 'next/router';
 
 const DynamicMapComponent = dynamic(() => import('./MapComponent'), { ssr: false });
 const MapFullSpot = dynamic(() => import('./MapFullSpot'), { ssr: false });
@@ -57,8 +58,7 @@ const MapContainer = () => {
     const router = useRouter();
     const id = router.query.id === undefined ? undefined : String(router.query.id);
     /** Spot ID in the query */
-    const spotId = router.query.spot === undefined ? undefined : String(router.query.spot);
-    const modalOpen = router.query.modal === undefined ? false : Boolean(router.query.modal);
+    const spotId = useConstant(() => router.query.spot === undefined ? undefined : String(router.query.spot));
 
     const [clusters, setClusters] = useState<Cluster[]>([]);
     const [pixelsPerDegree, setPixelsPerDegree] = useState([0, 0, 0]);
@@ -66,7 +66,7 @@ const MapContainer = () => {
 
     // Full spot
     const fullSpotContainerRef = useRef<HTMLDivElement>();
-    const [isFullSpotOpen, setIsFullSpotOpen] = useState(modalOpen);
+    const [isFullSpotOpen, setIsFullSpotOpen] = useState(() => router.query.modal === undefined ? false : Boolean(router.query.modal));
 
     const mapRef = useRef<InteractiveMap>();
     const loadTimeout = useRef<NodeJS.Timeout>();
@@ -76,6 +76,7 @@ const MapContainer = () => {
      */
     useEffect(() => {
         if (spotId != null) {
+            dispatch(selectSpot(spotId));
             (async () => {
                 try {
                     const overview = await getSpotOverview(spotId);
