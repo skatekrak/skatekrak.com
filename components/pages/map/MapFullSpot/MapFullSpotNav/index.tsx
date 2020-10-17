@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Typings from 'Types';
 
@@ -35,11 +35,12 @@ const SpotIcon = ({ type, status }: { type: Types; status: Status }) => {
 };
 
 const MapFullSpotNav = () => {
+    const dispatch = useDispatch();
     const spotOverview = useSelector((state: Typings.RootState) => state.map.spotOverview);
     const selectedTab = useSelector((state: Typings.RootState) => state.map.fullSpotSelectedTab);
 
     const onTabSelect = (tab: FullSpotTab) => {
-        selectFullSpotTab(tab);
+        dispatch(selectFullSpotTab(tab));
     };
 
     return (
