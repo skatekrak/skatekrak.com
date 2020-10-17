@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
-import { connect, DispatchProp } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Types from 'Types';
 
@@ -10,9 +10,6 @@ import Header from 'components/Header';
 import HeaderSmall from 'components/Header/HeaderSmall';
 import { setDeviceSize } from 'store/settings/actions';
 
-import 'react-responsive-modal/styles.css';
-
-/* tslint:disable:ordered-imports */
 import '/public/styles/reset.css';
 import '/public/styles/flexbox-grid.css';
 import '/public/styles/fonts.styl';
@@ -23,7 +20,7 @@ import '/public/styles/styleguide.styl';
 import '/public/styles/stylus-mq.styl';
 import '/public/styles/header.styl';
 import '/public/styles/form.styl';
-import '../../node_modules/react-responsive-modal/styles.css';
+import 'react-responsive-modal/styles.css';
 import '/public/styles/modal.styl';
 import '/public/styles/checkbox.styl';
 import '/public/styles/icons.styl';
@@ -39,27 +36,26 @@ import '/public/styles/map/map.styl';
 
 import 'mapbox-gl/dist/mapbox-gl.css';
 
-type IComponentOwnProps = {
+export type LayoutProps = {
     head?: React.ReactElement;
-    children?: any;
 };
 
-type IComponentProps = IComponentOwnProps & IComponentStoreProps & DispatchProp;
+const Layout: React.FC<LayoutProps> = ({ head, children }) => {
+    const router = useRouter();
+    const dispatch = useDispatch();
+    const isMobile = useSelector((state: Types.RootState) => state.settings.isMobile);
 
-const Layout: React.FC<IComponentProps> = ({ head, children, isMobile, ...props }) => {
     const setWindowsDimensions = () => {
-        props.dispatch(setDeviceSize(window.innerWidth));
+        dispatch(setDeviceSize(window.innerWidth));
     };
 
     useEffect(() => {
         window.addEventListener('resize', setWindowsDimensions);
-        props.dispatch(setDeviceSize(window.innerWidth));
+        dispatch(setDeviceSize(window.innerWidth));
         return () => {
             window.removeEventListener('resize', setWindowsDimensions);
         };
     }, []);
-
-    const router = useRouter();
 
     return (
         <div>
@@ -85,12 +81,4 @@ const Layout: React.FC<IComponentProps> = ({ head, children, isMobile, ...props 
     );
 };
 
-// export default Layout;
-const mapStateToProps = ({ settings }: Types.RootState) => {
-    const { isMobile } = settings;
-    return { isMobile };
-};
-
-type IComponentStoreProps = ReturnType<typeof mapStateToProps>;
-
-export default connect(mapStateToProps)(Layout);
+export default Layout;
