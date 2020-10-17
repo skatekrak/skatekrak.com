@@ -10,8 +10,10 @@ import {
     SELECT_SPOT,
     SET_VIEWPORT,
     SET_SPOT_OVERVIEW,
+    SELECT_FULL_SPOT_TAB,
 } from '../constants';
 import { ViewportProps } from 'react-map-gl';
+import { FullSpotTab } from './reducers';
 
 export const selectAllMapFilters = () => action(SELECT_ALL_MAP_FILTERS);
 export const unselectAllMapFilters = () => action(UNSELECT_ALL_MAP_FILTERS);
@@ -20,3 +22,4 @@ export const mapRefreshEnd = () => action(MAP_REFRESH_END);
 export const selectSpot = (spotId?: string) => action(SELECT_SPOT, spotId);
 export const setSpotOverview = (overview?: SpotOverview) => action(SET_SPOT_OVERVIEW, overview);
 export const setViewport = (viewport: Partial<ViewportProps>) => action(SET_VIEWPORT, viewport);
+export const selectFullSpotTab = (tab?: FullSpotTab) => action(SELECT_FULL_SPOT_TAB, tab);

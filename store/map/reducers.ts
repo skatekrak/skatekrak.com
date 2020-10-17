@@ -10,9 +10,12 @@ import {
     SELECT_SPOT,
     SET_VIEWPORT,
     SET_SPOT_OVERVIEW,
+    SELECT_FULL_SPOT_TAB,
 } from '../constants';
 import * as mapActions from './actions';
 import { ViewportProps } from 'react-map-gl';
+
+export type FullSpotTab = 'info' | 'clips' | 'tips' | 'edito';
 
 export type MapAction = ActionType<typeof mapActions>;
 
@@ -22,6 +25,7 @@ export type MapState = {
     selectedSpotId?: string;
     spotOverview?: SpotOverview;
     viewport: Partial<ViewportProps>;
+    fullSpotSelectedTab: FullSpotTab;
 };
 
 const initialState: MapState = {
@@ -44,6 +48,7 @@ const initialState: MapState = {
         longitude: 2.345054,
         zoom: 12,
     },
+    fullSpotSelectedTab: 'info',
 };
 
 const MapReducers = (state: MapState = initialState, action: MapAction): MapState => {
@@ -142,6 +147,11 @@ const MapReducers = (state: MapState = initialState, action: MapAction): MapStat
             return {
                 ...state,
                 viewport: action.payload,
+            };
+        case SELECT_FULL_SPOT_TAB:
+            return {
+                ...state,
+                fullSpotSelectedTab: action.payload ?? 'info',
             };
         default:
             return state;
