@@ -1,7 +1,12 @@
 import React from 'react';
 
 const YoutubeSubscribe: React.SFC = () => (
-    <a href="https://www.youtube.com/krakskate?sub_confirmation=1" target="_blank" className="youtube-subscribe">
+    <a
+        href="https://www.youtube.com/krakskate?sub_confirmation=1"
+        target="_blank"
+        rel="noreferrer"
+        className="youtube-subscribe"
+    >
         <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 180">
             <path
                 d="M253.3,38.8c0,0-2.5-17.6-10.2-25.4c-9.7-10.2-20.6-10.2-25.7-10.8C181.7,0,128,0,128,0H128

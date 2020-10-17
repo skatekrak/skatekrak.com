@@ -31,8 +31,8 @@ const filterClusters = (
     types: Record<Types, FilterState>,
     status: Record<Status, FilterState>,
 ): Cluster[] => {
-    let selectedTypes = FilterStateUtil.getSelected(types);
-    let selectedStatus = FilterStateUtil.getSelected(status);
+    const selectedTypes = FilterStateUtil.getSelected(types);
+    const selectedStatus = FilterStateUtil.getSelected(status);
 
     return clusters
         .map((cluster) => {
@@ -58,7 +58,7 @@ const MapContainer = () => {
     const router = useRouter();
     const id = router.query.id === undefined ? undefined : String(router.query.id);
     /** Spot ID in the query */
-    const spotId = useConstant(() => router.query.spot === undefined ? undefined : String(router.query.spot));
+    const spotId = useConstant(() => (router.query.spot === undefined ? undefined : String(router.query.spot)));
 
     const [clusters, setClusters] = useState<Cluster[]>([]);
     const [pixelsPerDegree, setPixelsPerDegree] = useState([0, 0, 0]);
@@ -66,7 +66,9 @@ const MapContainer = () => {
 
     // Full spot
     const fullSpotContainerRef = useRef<HTMLDivElement>();
-    const [isFullSpotOpen, setIsFullSpotOpen] = useState(() => router.query.modal === undefined ? false : Boolean(router.query.modal));
+    const [isFullSpotOpen, setIsFullSpotOpen] = useState(() =>
+        router.query.modal === undefined ? false : Boolean(router.query.modal),
+    );
 
     const mapRef = useRef<InteractiveMap>();
     const loadTimeout = useRef<NodeJS.Timeout>();
@@ -80,7 +82,7 @@ const MapContainer = () => {
             (async () => {
                 try {
                     const overview = await getSpotOverview(spotId);
-                    dispatch(setSpotOverview(overview))
+                    dispatch(setSpotOverview(overview));
 
                     const newViewport: Partial<ViewportProps> = {
                         ...map.viewport,
@@ -105,23 +107,31 @@ const MapContainer = () => {
             modal: isFullSpotOpen ? 1 : undefined,
         };
         // Delete value that are undefined
-        Object.keys(query).forEach(key => query[key] === undefined && delete query[key]);
+        Object.keys(query).forEach((key) => query[key] === undefined && delete query[key]);
 
         let asPath = router.pathname.replace('/[id]', router.query.id ? `/${router.query.id}` : '');
 
         // Create a string version of the query without the `id` attribute
-        const queryStr = queryString.stringify(Object.keys(query).filter((key) => key !== 'id').reduce((obj, key) => {
-            obj[key] = query[key];
-            return obj;
-        }, {}));
+        const queryStr = queryString.stringify(
+            Object.keys(query)
+                .filter((key) => key !== 'id')
+                .reduce((obj, key) => {
+                    obj[key] = query[key];
+                    return obj;
+                }, {}),
+        );
 
         if (queryStr !== '') {
             asPath += `?${queryStr}`;
         }
 
-        router.replace({
-            query,
-        }, asPath, { shallow: true });
+        router.replace(
+            {
+                query,
+            },
+            asPath,
+            { shallow: true },
+        );
     }, [map.selectedSpotId, isFullSpotOpen]);
 
     const refreshMap = (_clusters: Cluster[] | undefined = undefined) => {
@@ -150,7 +160,7 @@ const MapContainer = () => {
                     const northEast = bounds.getNorthEast();
                     const southWest = bounds.getSouthWest();
 
-                    let newClusters = await boxSpotsSearch({
+                    const newClusters = await boxSpotsSearch({
                         clustering: true,
                         northEastLatitude: northEast.lat,
                         northEastLongitude: northEast.lng,

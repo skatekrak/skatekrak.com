@@ -17,7 +17,7 @@ const fetchPlaces = async (query: string): Promise<Place[]> => {
 const fetchSpots = async (query: string): Promise<SpotHit[]> => {
     const res = await spotIndex.search<SpotSearchResult>(query, { hitsPerPage: 20 });
     return res.hits;
-}
+};
 
 const MapNavigation = () => {
     const [searchValue, setSearchValue] = useState('');

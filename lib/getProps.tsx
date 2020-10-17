@@ -1,4 +1,4 @@
-const createPropsGetter = <DP extends object>(defaultProps: DP) => {
+const createPropsGetter = <DP extends Record<string, any>>(defaultProps: DP) => {
     return <P extends Partial<DP>>(props: P) => {
         type PropsExcludingDefaults = Pick<P, Exclude<keyof P, keyof DP>>;
         type RecomposedProps = DP & PropsExcludingDefaults;

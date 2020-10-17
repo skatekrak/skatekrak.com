@@ -33,7 +33,7 @@ export interface Post {
     _format_video_embed?: string;
     categories?: any[];
     categoriesString?: string;
-    _embedded?: object;
+    _embedded?: Record<string, any>;
 }
 
 type Props = {

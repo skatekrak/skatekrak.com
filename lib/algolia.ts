@@ -7,7 +7,7 @@ import { Types, Status } from 'lib/carrelageClient';
 
 const client = algoliasearch(process.env.NEXT_PUBLIC_ALGOLIA_APP_ID, process.env.NEXT_PUBLIC_ALGOLIA_API_KEY);
 
-export function places<T>(appId: string = '', apiKey: string = '', options: any = {}) {
+export function places<T>(appId = '', apiKey = '', options: any = {}) {
     const placesClient = algoliasearch(appId, apiKey, {
         hosts: [{ url: 'places-dsn.algolia.net' }].concat(
             shuffle([

@@ -7,9 +7,7 @@ type Props = {
     initial: boolean;
 };
 
-type State = {};
-
-class TrackedPage extends React.Component<Props, State> {
+class TrackedPage extends React.Component<Props> {
     public static defaultProps = {
         initial: true,
     };

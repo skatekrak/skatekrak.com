@@ -87,4 +87,4 @@ export default function MapSearchResultSpot<T extends Spot | SpotHit>({ spot, on
             <div className="map-navigation-search-result-spot-divider" />
         </>
     );
-};
+}

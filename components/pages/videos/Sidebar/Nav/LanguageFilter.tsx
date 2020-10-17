@@ -9,7 +9,7 @@ type Props = {
     dispatch: (fct: any) => void;
 };
 
-class LanguageFilter extends React.PureComponent<Props, {}> {
+class LanguageFilter extends React.PureComponent<Props> {
     public render() {
         const { language } = this.props;
 

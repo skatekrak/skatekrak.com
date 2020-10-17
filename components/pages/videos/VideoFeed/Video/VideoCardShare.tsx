@@ -8,9 +8,7 @@ type Props = {
     video: Video;
 };
 
-type State = {};
-
-class VideoCardShare extends React.PureComponent<Props, State> {
+class VideoCardShare extends React.PureComponent<Props> {
     public render() {
         const { video } = this.props;
 

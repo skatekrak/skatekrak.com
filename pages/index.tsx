@@ -35,7 +35,7 @@ const HomeHead = () => {
 };
 
 /* tslint:disable:max-line-length */
-class Index extends React.PureComponent<{}, State> {
+class Index extends React.PureComponent<unknown, State> {
     public state: State = {
         email: '',
         subscribeError: null,

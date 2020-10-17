@@ -30,14 +30,7 @@ type Props = {
     };
 } & Partial<ModalProps>;
 
-const ModalWithStyle: React.FunctionComponent<Props> = ({
-    open,
-    onClose,
-    children,
-    closable,
-    customClassNames,
-    ...props
-}) => {
+const ModalWithStyle: React.FC<Props> = ({ open, onClose, children, closable, customClassNames, ...props }) => {
     const classNames = useMemo(() => {
         if (customClassNames) {
             return {

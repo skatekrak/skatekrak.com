@@ -14,9 +14,9 @@ import IconWip from 'components/pages/map/marker/icons/Wip';
 import IconArrowHead from 'components/Ui/Icons/ArrowHead';
 import { Status, Types } from 'lib/carrelageClient';
 
-const SpotIcon = ({ type, status}: { type: Types, status: Status}) => {
+const SpotIcon = ({ type, status }: { type: Types; status: Status }) => {
     if (status === Status.Rip) {
-        return <IconRip />
+        return <IconRip />;
     } else if (status === Status.Wip) {
         return <IconWip />;
     } else if (type === Types.Street) {
@@ -30,11 +30,11 @@ const SpotIcon = ({ type, status}: { type: Types, status: Status}) => {
     } else {
         return <IconPrivate />;
     }
-}
+};
 
 const MapFullSpotNav = () => {
     const { spotOverview } = useSelector((state: Typings.RootState) => state.map);
-    
+
     return (
         <div id="map-full-spot-popup-nav">
             {spotOverview != null && (
@@ -46,7 +46,10 @@ const MapFullSpotNav = () => {
                             </p>
                         </div>
                         <h1 id="map-full-spot-popup-nav-header-name">{spotOverview.spot.name}</h1>
-                        <p id="map-full-spot-popup-nav-header-street">{spotOverview.spot.location.streetNumber} {spotOverview.spot.location.streetName}, {spotOverview.spot.location.city}</p>
+                        <p id="map-full-spot-popup-nav-header-street">
+                            {spotOverview.spot.location.streetNumber} {spotOverview.spot.location.streetName},{' '}
+                            {spotOverview.spot.location.city}
+                        </p>
                         <div id="map-full-spot-popup-nav-header-extra">
                             <SpotIcon type={spotOverview.spot.type} status={spotOverview.spot.status} />
                             <div id="map-full-spot-popup-nav-header-extra-time">

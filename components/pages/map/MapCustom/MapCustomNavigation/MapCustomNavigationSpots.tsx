@@ -62,7 +62,11 @@ const MapCustomNavigationSpots = ({ mapSpots }: Props) => {
                             ) : (
                                 <>
                                     {mapSpots.map((spot: Spot) => (
-                                        <MapSearchResultSpot<Spot> key={spot.id} spot={spot} onSpotClick={onSpotClick} />
+                                        <MapSearchResultSpot<Spot>
+                                            key={spot.id}
+                                            spot={spot}
+                                            onSpotClick={onSpotClick}
+                                        />
                                     ))}
                                 </>
                             )}

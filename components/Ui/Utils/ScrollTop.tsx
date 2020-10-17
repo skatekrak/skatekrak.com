@@ -100,4 +100,4 @@ const mapStateToProps = ({ settings }: Types.RootState): StateProps => {
     return { settings };
 };
 
-export default connect<StateProps, {}, OwnProps>(mapStateToProps)(ScrollTop);
+export default connect<StateProps, Record<string, unknown>, OwnProps>(mapStateToProps)(ScrollTop);
