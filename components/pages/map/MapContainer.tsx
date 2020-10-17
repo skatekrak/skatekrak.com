@@ -5,15 +5,16 @@ import { InteractiveMap, FlyToInterpolator, ViewportProps, WebMercatorViewport }
 import { useSelector, useDispatch } from 'react-redux';
 import { getDistanceScales } from 'viewport-mercator-project';
 import dynamic from 'next/dynamic';
+import queryString from 'query-string';
 
 import Typings from 'Types';
 
-import { Cluster, Status, SpotOverview, Types } from 'lib/carrelageClient';
+import { Cluster, Status, Types } from 'lib/carrelageClient';
 
 import Legend from 'components/pages/map/Legend';
 import BannerTop from 'components/Ui/Banners/BannerTop';
 import { boxSpotsSearch, getSpotOverview } from 'lib/carrelageClient';
-import { mapRefreshEnd, setSpotOverview, setViewport } from 'store/map/actions';
+import { mapRefreshEnd, selectSpot, setSpotOverview, setViewport } from 'store/map/actions';
 import { FilterStateUtil, FilterState } from 'lib/FilterState';
 import MapCustomNavigationTrail from './MapCustom/MapCustomNavigationTrail/MapCustomNavigationTrail';
 import MapCustomNavigation from './MapCustom/MapCustomNavigation';
@@ -97,33 +98,30 @@ const MapContainer = () => {
     }, []);
 
     useEffect(() => {
-        const query = Object.assign({}, router.query);
-        if (spotId == null) {
-            if (map.spotOverview == null) {
-                delete query.spot;
-            } else {
-                query.spot = map.spotOverview.spot.id;
-            }
+        const query = {
+            ...router.query,
+            spot: map.selectedSpotId,
+            modal: isFullSpotOpen ? 1 : undefined,
+        };
+        // Delete value that are undefined
+        Object.keys(query).forEach(key => query[key] === undefined && delete query[key]);
 
-            if (isFullSpotOpen) {
-                query.modal = '1';
-            } else {
-                delete query.modal;
-            }
-        }
-        let asPath = router.pathname.replace('/[id]', '');
-        if (query.id) {
-            asPath += `/${query.id}`;
-        }
-        if (map.spotOverview != null) {
-            asPath += `?spot=${map.spotOverview.spot.id}`;
-        }
-        if (isFullSpotOpen) {
-            asPath += `&modal=1`;
+        let asPath = router.pathname.replace('/[id]', router.query.id ? `/${router.query.id}` : '');
+
+        // Create a string version of the query without the `id` attribute
+        const queryStr = queryString.stringify(Object.keys(query).filter((key) => key !== 'id').reduce((obj, key) => {
+            obj[key] = query[key];
+            return obj;
+        }, {}));
+
+        if (queryStr !== '') {
+            asPath += `?${queryStr}`;
         }
 
-        router.push({ query }, asPath, { shallow: true });
-    }, [map.spotOverview, isFullSpotOpen]);
+        router.replace({
+            query,
+        }, asPath, { shallow: true });
+    }, [map.selectedSpotId, isFullSpotOpen]);
 
     const refreshMap = (_clusters: Cluster[] | undefined = undefined) => {
         const filteredClusters = filterClusters(_clusters ?? clusters, map.types, map.status);
@@ -203,6 +201,9 @@ const MapContainer = () => {
     const onSpotMarkerClick = async (spotId: string) => {
         try {
             const spotOverview = await getSpotOverview(spotId);
+            if (spotId !== map.selectedSpotId) {
+                dispatch(selectSpot(spotId));
+            }
             dispatch(setSpotOverview(spotOverview));
         } catch (err) {
             // console.log(err);
@@ -210,6 +211,7 @@ const MapContainer = () => {
     };
 
     const onPopupClose = () => {
+        dispatch(selectSpot(undefined));
         dispatch(setSpotOverview(undefined));
     };
 
@@ -217,8 +219,10 @@ const MapContainer = () => {
         load();
     }, [map.status, map.types, id]);
 
+    // If the user click on a custom map, we make sure we close and dismiss selected spot
     useEffect(() => {
         if (map.spotOverview != null) {
+            setIsFullSpotOpen(false);
             dispatch(setSpotOverview(undefined));
         }
     }, [id]);
