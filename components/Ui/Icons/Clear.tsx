@@ -1,5 +1,6 @@
-/* tslint:disable:max-line-length */
-export default () => (
+import React from 'react';
+
+const ClearIcon = () => (
     <svg className="icon-clear" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
         <path
             fillRule="evenodd"
@@ -8,3 +9,5 @@ export default () => (
         />
     </svg>
 );
+
+export default ClearIcon;

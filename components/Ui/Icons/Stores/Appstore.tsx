@@ -1,5 +1,6 @@
-/* tslint:disable:max-line-length */
-export default () => (
+import React from 'react';
+
+const AppstoreIcon = () => (
     <svg viewBox="0 0 163 48" fill="none" xmlns="http://www.w3.org/2000/svg">
         <g clipPath="url(#clip0)">
             <path
@@ -107,3 +108,5 @@ export default () => (
         </defs>
     </svg>
 );
+
+export default AppstoreIcon;

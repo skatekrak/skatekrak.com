@@ -20,7 +20,6 @@ module.exports = {
         '@typescript-eslint/explicit-module-boundary-types': 'off',
         'react/prop-types': 'off',
         'react/display-name': 'warn',
-        'react/react-in-jsx-scope': 'warn',
         'react/no-unescaped-entities': ['error', { forbid: ['>', '}'] }],
     },
     settings: {

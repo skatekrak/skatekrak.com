@@ -1,5 +1,6 @@
-/* tslint:disable:max-line-length */
-export default ({ firing }) => (
+import React from 'react';
+
+const Activity = ({ firing }) => (
     <svg
         className={`
             map-marker-activity
@@ -12,3 +13,5 @@ export default ({ firing }) => (
         <circle className="map-marker-activity-outter" opacity="0" cx="24" cy="24" r="24" />
     </svg>
 );
+
+export default Activity;

@@ -65,7 +65,7 @@ class Feed extends React.Component<Props, State> {
         posts: [],
     };
 
-    public async componentDidUpdate(_prevProps: Props, prevState: State) {
+    public async componentDidUpdate() {
         if (this.props.mag.feedNeedRefresh && !this.state.isLoading) {
             this.setState({ posts: [], hasMore: false });
             await this.loadMore(1);

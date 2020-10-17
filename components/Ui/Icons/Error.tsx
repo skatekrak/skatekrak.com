@@ -1,5 +1,6 @@
-/* tslint:disable:max-line-length */
-export default () => (
+import React from 'react';
+
+const ErrorIcon = () => (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96">
         <path
             className="icon-error"
@@ -7,3 +8,5 @@ export default () => (
         />
     </svg>
 );
+
+export default ErrorIcon;

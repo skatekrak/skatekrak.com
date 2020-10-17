@@ -14,7 +14,7 @@ const titleStyle = {
     marginTop: '15px',
 };
 
-export default () => (
+const PrivacyPolicy = () => (
     <TrackedPage name="PrivacyPolicy">
         <Layout>
             <div className="container-fluid" style={{ paddingTop: '4em', paddingBottom: '4em' }}>
@@ -182,3 +182,5 @@ export default () => (
         </Layout>
     </TrackedPage>
 );
+
+export default PrivacyPolicy;

@@ -1,5 +1,6 @@
-/* tslint:disable:max-line-length */
-export default () => (
+import React from 'react';
+
+const LikeIcon = () => (
     <svg viewBox="0 0 48 48">
         <title>Like</title>
         <g className="icon-like">
@@ -57,3 +58,5 @@ export default () => (
         </g>
     </svg>
 );
+
+export default LikeIcon;

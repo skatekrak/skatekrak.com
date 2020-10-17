@@ -1,6 +1,9 @@
-/* tslint:disable:max-line-length */
-export default () => (
+import React from 'react';
+
+const StarFullIcon = () => (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96">
         <path d="M49.9,11.79,57,33.62A2,2,0,0,0,58.9,35h23A2,2,0,0,1,83,38.62L64.46,52.11a2,2,0,0,0-.73,2.24l7.09,21.83a2,2,0,0,1-3.08,2.24L49.18,64.92a2,2,0,0,0-2.35,0L28.25,78.42a2,2,0,0,1-3.08-2.24l7.09-21.83a2,2,0,0,0-.73-2.24L13,38.62A2,2,0,0,1,14.15,35h23A2,2,0,0,0,39,33.62L46.1,11.79A2,2,0,0,1,49.9,11.79Z" />
     </svg>
 );
+
+export default StarFullIcon;
