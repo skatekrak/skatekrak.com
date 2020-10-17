@@ -34,72 +34,75 @@ const SpotIcon = ({ type, status}: { type: Types, status: Status}) => {
 
 const MapFullSpotNav = () => {
     const { spotOverview } = useSelector((state: Typings.RootState) => state.map);
-    const { spot } = spotOverview;
     
     return (
         <div id="map-full-spot-popup-nav">
-            <div id="map-full-spot-popup-nav-header">
-                <div id="map-full-spot-popup-nav-header-city">
-                    <p>
-                        <span>{spot.location.city}</span> | {spot.location.country}
-                    </p>
-                </div>
-                <h1 id="map-full-spot-popup-nav-header-name">{spot.name}</h1>
-                <p id="map-full-spot-popup-nav-header-street">{spot.location.streetNumber} {spot.location.streetName}, {spot.location.city}</p>
-                <div id="map-full-spot-popup-nav-header-extra">
-                    <SpotIcon type={spot.type} status={spot.status} />
-                    <div id="map-full-spot-popup-nav-header-extra-time">
-                        <p id="map-full-spot-popup-nav-header-extra-time-title">
-                            Local time<span> - GMT+4</span>
-                        </p>
-                        <p id="map-full-spot-popup-nav-header-extra-time-formated">08 : 56 pm</p>
+            {spotOverview != null && (
+                <>
+                    <div id="map-full-spot-popup-nav-header">
+                        <div id="map-full-spot-popup-nav-header-city">
+                            <p>
+                                <span>{spotOverview.spot.location.city}</span> | {spotOverview.spot.location.country}
+                            </p>
+                        </div>
+                        <h1 id="map-full-spot-popup-nav-header-name">{spotOverview.spot.name}</h1>
+                        <p id="map-full-spot-popup-nav-header-street">{spotOverview.spot.location.streetNumber} {spotOverview.spot.location.streetName}, {spotOverview.spot.location.city}</p>
+                        <div id="map-full-spot-popup-nav-header-extra">
+                            <SpotIcon type={spotOverview.spot.type} status={spotOverview.spot.status} />
+                            <div id="map-full-spot-popup-nav-header-extra-time">
+                                <p id="map-full-spot-popup-nav-header-extra-time-title">
+                                    Local time<span> - GMT+4</span>
+                                </p>
+                                <p id="map-full-spot-popup-nav-header-extra-time-formated">08 : 56 pm</p>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <nav id="map-full-spot-popup-nav-main">
-                <button className="map-full-spot-popup-nav-link">
-                    <p>Info</p>
-                    <IconArrowHead />
-                </button>
-                <button className="map-full-spot-popup-nav-link">
-                    <p>Edito</p>
-                    <IconArrowHead />
-                </button>
-                <button className="map-full-spot-popup-nav-link">
-                    <p>Tips(5)</p>
-                    <IconArrowHead />
-                </button>
-                <button className="map-full-spot-popup-nav-link">
-                    <p>Photos(23)</p>
-                    <IconArrowHead />
-                </button>
-                <button className="map-full-spot-popup-nav-link">
-                    <p>videos(45)</p>
-                    <IconArrowHead />
-                </button>
-                <button className="map-full-spot-popup-nav-link">
-                    <p>Clips(11)</p>
-                    <IconArrowHead />
-                </button>
-                <button className="map-full-spot-popup-nav-link">
-                    <p>Contests</p>
-                    <IconArrowHead />
-                </button>
-                <button className="map-full-spot-popup-nav-link">
-                    <p>Events</p>
-                    <IconArrowHead />
-                </button>
-                <div id="map-full-spot-popup-nav-footer">
-                    <button className="map-full-spot-popup-nav-link">
-                        <p>Instagram</p>
-                        <IconArrowHead />
-                    </button>
-                    <button className="map-full-spot-popup-nav-link">
-                        <p>Contributors</p>
-                        <IconArrowHead />
-                    </button>
-                </div>
-            </nav>
+                    <nav id="map-full-spot-popup-nav-main">
+                        <button className="map-full-spot-popup-nav-link">
+                            <p>Info</p>
+                            <IconArrowHead />
+                        </button>
+                        <button className="map-full-spot-popup-nav-link">
+                            <p>Edito</p>
+                            <IconArrowHead />
+                        </button>
+                        <button className="map-full-spot-popup-nav-link">
+                            <p>Tips(5)</p>
+                            <IconArrowHead />
+                        </button>
+                        <button className="map-full-spot-popup-nav-link">
+                            <p>Photos(23)</p>
+                            <IconArrowHead />
+                        </button>
+                        <button className="map-full-spot-popup-nav-link">
+                            <p>videos(45)</p>
+                            <IconArrowHead />
+                        </button>
+                        <button className="map-full-spot-popup-nav-link">
+                            <p>Clips(11)</p>
+                            <IconArrowHead />
+                        </button>
+                        <button className="map-full-spot-popup-nav-link">
+                            <p>Contests</p>
+                            <IconArrowHead />
+                        </button>
+                        <button className="map-full-spot-popup-nav-link">
+                            <p>Events</p>
+                            <IconArrowHead />
+                        </button>
+                        <div id="map-full-spot-popup-nav-footer">
+                            <button className="map-full-spot-popup-nav-link">
+                                <p>Instagram</p>
+                                <IconArrowHead />
+                            </button>
+                            <button className="map-full-spot-popup-nav-link">
+                                <p>Contributors</p>
+                                <IconArrowHead />
+                            </button>
+                        </div>
+                    </nav>
+                </>
+            )}
         </div>
     );
 };
