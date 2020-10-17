@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import Modal from 'components/Ui/Modal';
 import MapFullSpotNav from './MapFullSpotNav';
 import MapFullSpotMain from './MapFullSpotMain';
+import { useDispatch } from 'react-redux';
+import { selectFullSpotTab } from 'store/map/actions';
 
 const classNames = {
     customOverlay: 'full-spot-overlay',
@@ -17,6 +19,13 @@ type MapFullSpotProps = {
 };
 
 const MapFullSpot: React.FC<MapFullSpotProps> = ({ open, onClose, container }) => {
+    const dispatch = useDispatch();
+    useEffect(() => {
+        if (!open) {
+            dispatch(selectFullSpotTab());
+        }
+    }, [open]);
+
     return (
         <Modal open={open} onClose={onClose} closable customClassNames={classNames} container={container}>
             <div id="map-full-spot-popup">

@@ -13,6 +13,8 @@ import IconWip from 'components/pages/map/marker/icons/Wip';
 
 import IconArrowHead from 'components/Ui/Icons/ArrowHead';
 import { Status, Types } from 'lib/carrelageClient';
+import { FullSpotTab } from 'store/map/reducers';
+import { selectFullSpotTab } from 'store/map/actions';
 
 const SpotIcon = ({ type, status }: { type: Types; status: Status }) => {
     if (status === Status.Rip) {
@@ -33,7 +35,12 @@ const SpotIcon = ({ type, status }: { type: Types; status: Status }) => {
 };
 
 const MapFullSpotNav = () => {
-    const { spotOverview } = useSelector((state: Typings.RootState) => state.map);
+    const spotOverview = useSelector((state: Typings.RootState) => state.map.spotOverview);
+    const selectedTab = useSelector((state: Typings.RootState) => state.map.fullSpotSelectedTab);
+
+    const onTabSelect = (tab: FullSpotTab) => {
+        selectFullSpotTab(tab);
+    };
 
     return (
         <div id="map-full-spot-popup-nav">
@@ -61,28 +68,28 @@ const MapFullSpotNav = () => {
                         </div>
                     </div>
                     <nav id="map-full-spot-popup-nav-main">
-                        <button className="map-full-spot-popup-nav-link">
+                        <button className="map-full-spot-popup-nav-link" onClick={() => onTabSelect('info')}>
                             <p>Info</p>
                             <IconArrowHead />
                         </button>
-                        <button className="map-full-spot-popup-nav-link">
+                        <button className="map-full-spot-popup-nav-link" onClick={() => onTabSelect('edito')}>
                             <p>Edito</p>
                             <IconArrowHead />
                         </button>
-                        <button className="map-full-spot-popup-nav-link">
-                            <p>Tips(5)</p>
+                        <button className="map-full-spot-popup-nav-link" onClick={() => onTabSelect('tips')}>
+                            <p>Tips(x)</p>
                             <IconArrowHead />
                         </button>
                         <button className="map-full-spot-popup-nav-link">
-                            <p>Photos(23)</p>
+                            <p>Photos(x)</p>
                             <IconArrowHead />
                         </button>
                         <button className="map-full-spot-popup-nav-link">
-                            <p>videos(45)</p>
+                            <p>videos(x)</p>
                             <IconArrowHead />
                         </button>
-                        <button className="map-full-spot-popup-nav-link">
-                            <p>Clips(11)</p>
+                        <button className="map-full-spot-popup-nav-link" onClick={() => onTabSelect('clips')}>
+                            <p>Clips({spotOverview.spot.clipsStat.all})</p>
                             <IconArrowHead />
                         </button>
                         <button className="map-full-spot-popup-nav-link">
