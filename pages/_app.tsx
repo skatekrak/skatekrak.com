@@ -1,15 +1,21 @@
 import React from 'react';
 import { AppProps } from 'next/app';
-import Bugsnag from '@bugsnag/js';
+import Bugsnag, { BrowserConfig } from '@bugsnag/js';
 import BugsnagPluginReact from '@bugsnag/plugin-react';
 
-Bugsnag.start({
+const config: BrowserConfig = {
     apiKey: process.env.NEXT_PUBLIC_BUGSNAG_KEY,
     plugins: [new BugsnagPluginReact()],
     enabledReleaseStages: ['production', 'staging'],
     releaseStage: process.env.NEXT_PUBLIC_STAGE,
     collectUserIp: false,
-});
+};
+
+if (process.env.NEXT_PUBLIC_STAGE === 'development') {
+    config.logger = null;
+}
+
+Bugsnag.start(config);
 
 import { wrapper } from 'store';
 import Head from 'next/head';
