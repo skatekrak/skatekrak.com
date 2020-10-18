@@ -58,7 +58,7 @@ const MapContainer = () => {
     const router = useRouter();
     const id = router.query.id === undefined ? undefined : String(router.query.id);
     /** Spot ID in the query */
-    const spotId = useConstant(() => (router.query.spot === undefined ? undefined : String(router.query.spot)));
+    const spotId = router.query.spot === undefined ? undefined : String(router.query.spot);
 
     const [clusters, setClusters] = useState<Cluster[]>([]);
     const [pixelsPerDegree, setPixelsPerDegree] = useState([0, 0, 0]);
@@ -76,34 +76,39 @@ const MapContainer = () => {
     /**
      * If there is a spotId in the URL at launch, we query that spot
      */
-    useEffect(() => {
-        if (spotId != null) {
-            dispatch(selectSpot(spotId));
-            (async () => {
-                try {
-                    const overview = await getSpotOverview(spotId);
-                    dispatch(setSpotOverview(overview));
+    // useEffect(() => {
+    //     console.log('useEffect check', spotId);
+    //     if (spotId != null) {
+    //         dispatch(selectSpot(spotId));
+    //         (async () => {
+    //             try {
+    //                 const overview = await getSpotOverview(spotId);
+    //                 dispatch(setSpotOverview(overview));
 
-                    const newViewport: Partial<ViewportProps> = {
-                        ...map.viewport,
-                        longitude: overview.spot.location.longitude,
-                        latitude: overview.spot.location.latitude,
-                        zoom: 14,
-                        transitionDuration: 1500,
-                        transitionInterpolator: new FlyToInterpolator(),
-                    };
-                    dispatch(setViewport(newViewport));
-                } catch (error) {
-                    //
-                }
-            })();
-        }
-    }, []);
+    //                 const newViewport: Partial<ViewportProps> = {
+    //                     ...map.viewport,
+    //                     longitude: overview.spot.location.longitude,
+    //                     latitude: overview.spot.location.latitude,
+    //                     zoom: 14,
+    //                     transitionDuration: 1500,
+    //                     transitionInterpolator: new FlyToInterpolator(),
+    //                 };
+    //                 dispatch(setViewport(newViewport));
+    //             } catch (error) {
+    //                 //
+    //             }
+    //         })();
+    //     }
+    // }, []);
+
+    useEffect(() => {
+        console.log('spotId changed:', spotId);
+    }, [spotId]);
 
     useEffect(() => {
         const query = {
             ...router.query,
-            spot: map.selectedSpotId,
+            spot: spotId,
             modal: isFullSpotOpen ? 1 : undefined,
         };
         // Delete value that are undefined
@@ -132,7 +137,7 @@ const MapContainer = () => {
             asPath,
             { shallow: true },
         );
-    }, [map.selectedSpotId, isFullSpotOpen]);
+    }, [spotId, isFullSpotOpen]);
 
     const refreshMap = (_clusters: Cluster[] | undefined = undefined) => {
         const filteredClusters = filterClusters(_clusters ?? clusters, map.types, map.status);

@@ -2952,6 +2952,11 @@ concat-stream@^2.0.0, concat-stream@~2.0.0:
     readable-stream "^3.0.2"
     typedarray "^0.0.6"
 
+connected-next-router@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/connected-next-router/-/connected-next-router-3.1.0.tgz#c4a3d3c1328832d21f561577318d5a8d0a4fb079"
+  integrity sha512-CUx6MPzkMACBQipKxPUuFcnzvOUBc+O5cizsiV5mAsq/OBpmvxphDnJrMkxTR5VT3k4pAbZxHwVYEvyFThnDSw==
+
 console-browserify@^1.1.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/console-browserify/-/console-browserify-1.2.0.tgz#67063cef57ceb6cf4993a2ab3a55840ae8c49336"
