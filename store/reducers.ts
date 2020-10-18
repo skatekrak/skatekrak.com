@@ -1,5 +1,4 @@
 import { combineReducers } from 'redux';
-import { routerReducer } from 'connected-next-router';
 
 import feed from './feed/reducers';
 import settings from './settings/reducers';
@@ -11,7 +10,6 @@ const reducers = combineReducers({
     video: feed(),
     mag: feed(),
     map,
-    router: routerReducer,
 });
 
 export default reducers;

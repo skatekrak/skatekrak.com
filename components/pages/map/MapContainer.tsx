@@ -1,27 +1,24 @@
 import axios from 'axios';
 import classNames from 'classnames';
-import React, { useState, useEffect, useRef } from 'react';
-import { InteractiveMap, FlyToInterpolator, ViewportProps, WebMercatorViewport } from 'react-map-gl';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { InteractiveMap, FlyToInterpolator, ViewportProps } from 'react-map-gl';
 import { useSelector, useDispatch } from 'react-redux';
-import { getDistanceScales } from 'viewport-mercator-project';
 import dynamic from 'next/dynamic';
-import queryString from 'query-string';
-import { useRouter } from 'next/router';
-import useConstant from 'use-constant';
 
 import Typings from 'Types';
 
-import { Cluster, Status, Types } from 'lib/carrelageClient';
+import { Cluster, Spot, Status, Types } from 'lib/carrelageClient';
 
 import Legend from 'components/pages/map/Legend';
 import BannerTop from 'components/Ui/Banners/BannerTop';
 import { boxSpotsSearch, getSpotOverview } from 'lib/carrelageClient';
-import { mapRefreshEnd, selectSpot, setSpotOverview, setViewport } from 'store/map/actions';
+import { flyToCustomMap, mapRefreshEnd, setSpotOverview, setViewport } from 'store/map/actions';
 import { FilterStateUtil, FilterState } from 'lib/FilterState';
 import MapCustomNavigationTrail from './MapCustom/MapCustomNavigationTrail/MapCustomNavigationTrail';
 import MapCustomNavigation from './MapCustom/MapCustomNavigation';
 import MapNavigation from './MapNavigation';
 import MapGradients from './MapGradients';
+import { useDispatchRouterQuery, useRouterQuery } from 'lib/url-query-hook';
 
 const DynamicMapComponent = dynamic(() => import('./MapComponent'), { ssr: false });
 const MapFullSpot = dynamic(() => import('./MapFullSpot'), { ssr: false });
@@ -55,105 +52,78 @@ const MapContainer = () => {
     const map = useSelector((state: Typings.RootState) => state.map);
     const dispatch = useDispatch();
 
-    const router = useRouter();
-    const id = router.query.id === undefined ? undefined : String(router.query.id);
     /** Spot ID in the query */
-    const spotId = router.query.spot === undefined ? undefined : String(router.query.spot);
+    const id = useRouterQuery('id');
+    const spotId = useRouterQuery('spot');
+    const modal = useRouterQuery('modal');
+    const isFullSpotOpen = modal === undefined ? false : Boolean(modal);
+    const dispatchQuery = useDispatchRouterQuery();
 
     const [clusters, setClusters] = useState<Cluster[]>([]);
-    const [pixelsPerDegree, setPixelsPerDegree] = useState([0, 0, 0]);
     const [customMapInfo, setCustomMapInfo] = useState<Record<string, any>>();
+    const [firstLoad, setFirstLoad] = useState(() => (spotId ? true : false));
 
     // Full spot
     const fullSpotContainerRef = useRef<HTMLDivElement>();
-    const [isFullSpotOpen, setIsFullSpotOpen] = useState(() =>
-        router.query.modal === undefined ? false : Boolean(router.query.modal),
-    );
 
     const mapRef = useRef<InteractiveMap>();
     const loadTimeout = useRef<NodeJS.Timeout>();
 
+    const centerToSpot = useCallback(
+        (spot: Spot) => {
+            const newViewport: Partial<ViewportProps> = {
+                longitude: spot.location.longitude,
+                latitude: spot.location.latitude,
+                zoom: 14,
+                transitionDuration: 1500,
+                transitionInterpolator: new FlyToInterpolator(),
+            };
+            dispatch(setViewport(newViewport));
+        },
+        [dispatch],
+    );
+
+    useEffect(() => {
+        const loadOverview = async () => {
+            if (spotId != null) {
+                try {
+                    const overview = await getSpotOverview(spotId);
+                    dispatch(setSpotOverview(overview));
+
+                    setFirstLoad((value) => {
+                        if (value) {
+                            centerToSpot(overview.spot);
+                            return !value;
+                        }
+                        return value;
+                    });
+                } catch (err) {
+                    console.error(err);
+                }
+            }
+        };
+
+        loadOverview();
+    }, [spotId, dispatch, centerToSpot]);
+
     /**
      * If there is a spotId in the URL at launch, we query that spot
      */
-    // useEffect(() => {
-    //     console.log('useEffect check', spotId);
-    //     if (spotId != null) {
-    //         dispatch(selectSpot(spotId));
-    //         (async () => {
-    //             try {
-    //                 const overview = await getSpotOverview(spotId);
-    //                 dispatch(setSpotOverview(overview));
 
-    //                 const newViewport: Partial<ViewportProps> = {
-    //                     ...map.viewport,
-    //                     longitude: overview.spot.location.longitude,
-    //                     latitude: overview.spot.location.latitude,
-    //                     zoom: 14,
-    //                     transitionDuration: 1500,
-    //                     transitionInterpolator: new FlyToInterpolator(),
-    //                 };
-    //                 dispatch(setViewport(newViewport));
-    //             } catch (error) {
-    //                 //
-    //             }
-    //         })();
-    //     }
-    // }, []);
+    const refreshMap = useCallback(
+        (_clusters: Cluster[] | undefined = undefined) => {
+            setClusters((clusters) => {
+                const filteredClusters = filterClusters(_clusters ?? clusters, map.types, map.status);
 
-    useEffect(() => {
-        console.log('spotId changed:', spotId);
-    }, [spotId]);
+                dispatch(mapRefreshEnd());
 
-    useEffect(() => {
-        const query = {
-            ...router.query,
-            spot: spotId,
-            modal: isFullSpotOpen ? 1 : undefined,
-        };
-        // Delete value that are undefined
-        Object.keys(query).forEach((key) => query[key] === undefined && delete query[key]);
+                return filteredClusters;
+            });
+        },
+        [dispatch, map.types, map.status],
+    );
 
-        let asPath = router.pathname.replace('/[id]', router.query.id ? `/${router.query.id}` : '');
-
-        // Create a string version of the query without the `id` attribute
-        const queryStr = queryString.stringify(
-            Object.keys(query)
-                .filter((key) => key !== 'id')
-                .reduce((obj, key) => {
-                    obj[key] = query[key];
-                    return obj;
-                }, {}),
-        );
-
-        if (queryStr !== '') {
-            asPath += `?${queryStr}`;
-        }
-
-        router.replace(
-            {
-                query,
-            },
-            asPath,
-            { shallow: true },
-        );
-    }, [spotId, isFullSpotOpen]);
-
-    const refreshMap = (_clusters: Cluster[] | undefined = undefined) => {
-        const filteredClusters = filterClusters(_clusters ?? clusters, map.types, map.status);
-
-        dispatch(mapRefreshEnd());
-
-        let clusterMaxSpots = 1;
-        for (const cluster of filteredClusters) {
-            if (clusterMaxSpots < cluster.count) {
-                clusterMaxSpots = cluster.count;
-            }
-        }
-        setClusters(filteredClusters);
-    };
-
-    const load = () => {
+    const load = useCallback(() => {
         clearTimeout(loadTimeout.current);
 
         // We are in path `/map`
@@ -194,40 +164,34 @@ const MapContainer = () => {
             };
             loadCustomMap();
         }
-    };
+    }, [clusters, id, refreshMap]);
 
-    const onViewportChange = (viewport: { latitude: number; longitude: number; zoom: number }) => {
-        dispatch(setViewport(viewport));
-        setPixelsPerDegree(getDistanceScales(viewport).pixelsPerDegree);
-        // Avoid loop when the viewport is changed when in Custom Map mode
-        if (id === undefined) {
-            load();
-        }
-    };
+    const onViewportChange = useCallback(
+        (viewport: { latitude: number; longitude: number; zoom: number }) => {
+            dispatch(setViewport(viewport));
+            // Avoid loop when the viewport is changed when in Custom Map mode
+            if (id === undefined) {
+                load();
+            }
+        },
+        [dispatch, id, load],
+    );
 
     const onSpotOverviewClick = () => {
-        setIsFullSpotOpen(true);
+        dispatchQuery('modal', '1');
     };
 
     const onFullSpotClose = () => {
-        setIsFullSpotOpen(false);
+        dispatchQuery('modal');
     };
 
     // Spot Overview
     const onSpotMarkerClick = async (spotId: string) => {
-        try {
-            const spotOverview = await getSpotOverview(spotId);
-            if (spotId !== map.selectedSpotId) {
-                dispatch(selectSpot(spotId));
-            }
-            dispatch(setSpotOverview(spotOverview));
-        } catch (err) {
-            // console.log(err);
-        }
+        dispatchQuery('spot', spotId);
     };
 
     const onPopupClose = () => {
-        dispatch(selectSpot(undefined));
+        dispatchQuery('spot', undefined);
         dispatch(setSpotOverview(undefined));
     };
 
@@ -235,43 +199,14 @@ const MapContainer = () => {
         load();
     }, [map.status, map.types, id]);
 
-    // If the user click on a custom map, we make sure we close and dismiss selected spot
-    useEffect(() => {
-        if (map.spotOverview != null) {
-            setIsFullSpotOpen(false);
-            dispatch(setSpotOverview(undefined));
-        }
-    }, [id]);
-
     useEffect(() => {
         if (mapRef.current != null && id !== undefined && customMapInfo !== undefined) {
             const bounds = findBoundsCoordinate(
                 customMapInfo.spots.map((spot) => [spot.location.longitude, spot.location.latitude]),
             );
-            console.log(bounds);
-            const { longitude, latitude, zoom } = new WebMercatorViewport(map.viewport).fitBounds(bounds, {
-                padding: map.viewport.width * 0.15, // padding of 15%,
-            });
-            const newViewport: Partial<ViewportProps> = {
-                ...map.viewport,
-                longitude,
-                latitude,
-                zoom,
-                transitionDuration: 1500,
-                transitionInterpolator: new FlyToInterpolator(),
-            };
-            console.log(newViewport);
-            dispatch(setViewport(newViewport));
+            dispatch(flyToCustomMap(bounds));
         }
-    }, [customMapInfo, map.viewport.width]);
-
-    useEffect(() => {
-        const { selectedSpotId } = map;
-
-        if (selectedSpotId) {
-            onSpotMarkerClick(selectedSpotId);
-        }
-    }, [map.selectedSpotId]);
+    }, [customMapInfo, map.viewport.width, id, dispatch]);
 
     return (
         <div

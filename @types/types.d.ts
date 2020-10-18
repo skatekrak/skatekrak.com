@@ -5,7 +5,6 @@ declare module 'Types' {
     import { State as AuthState } from 'store/auth/reducers';
     import { State as FormState } from 'store/form/reducers';
     import { MapState } from 'store/map/reducers';
-    import type { RouterState } from 'connected-next-router/types';
 
     export type RootState = {
         auth: AuthState;
@@ -16,6 +15,5 @@ declare module 'Types' {
         video: FeedState;
         mag: FeedState;
         map: MapState;
-        router: RouterState;
     };
 }

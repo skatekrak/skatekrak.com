@@ -20,10 +20,6 @@ const reducer: Reducer<Typings.RootState, AnyAction> = (state, action) => {
             ...action.payload,
         };
 
-        if (typeof window !== 'undefined' && state?.router) {
-            nextState.router = state.router;
-        }
-
         return nextState;
     } else {
         return reducers(state, action);
@@ -31,16 +27,9 @@ const reducer: Reducer<Typings.RootState, AnyAction> = (state, action) => {
 };
 
 export const initializeStore: MakeStore<Typings.RootState> = (context) => {
-    const { asPath, pathname, query } = (context as AppContext).ctx || Router.router || {};
     let initialState;
-    if (asPath) {
-        const url = format({ pathname, query });
-        initialState = {
-            router: initialRouterState(url, asPath),
-        };
-    }
 
-    const middlewares = [sagaMiddleware, routerMiddleware];
+    const middlewares = [sagaMiddleware];
     const middlewareEnhancer = applyMiddleware(...middlewares);
 
     const composedEnhancers = composeWithDevTools(...[middlewareEnhancer]);

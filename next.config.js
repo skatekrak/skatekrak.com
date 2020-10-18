@@ -32,6 +32,11 @@ module.exports = withPlugins([withBundleAnalyzer({}), withCSS, withStylus, withC
                 destination: 'https://krakito.com',
                 permanent: true,
             },
+            {
+                source: '/map/:mapId',
+                destination: '/map?id=:mapId',
+                permanent: false,
+            },
         ];
     },
 });

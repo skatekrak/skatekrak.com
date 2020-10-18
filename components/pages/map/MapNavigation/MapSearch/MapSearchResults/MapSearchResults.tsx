@@ -13,7 +13,8 @@ import MapSearchResultPlace from './MapSearchResultPlace';
 import Types from 'Types';
 
 import { Place } from 'lib/placeApi';
-import { selectSpot, setViewport } from 'store/map/actions';
+import { setViewport } from 'store/map/actions';
+import { useDispatchRouterQuery } from 'lib/url-query-hook';
 
 type MapSearchResultsProps = {
     loading: boolean;
@@ -23,21 +24,21 @@ type MapSearchResultsProps = {
 
 const MapSearchResults: React.FC<MapSearchResultsProps> = ({ spots, loading, places }) => {
     const dispatch = useDispatch();
+    const dispatchQuery = useDispatchRouterQuery();
     const { viewport } = useSelector((state: Types.RootState) => state.map);
 
     const onSpotClick = useCallback(
         (spot: SpotHit) => {
             const newViewport: Partial<ViewportProps> = {
-                ...viewport,
                 latitude: spot._geoloc.lat,
                 longitude: spot._geoloc.lng,
                 transitionDuration: 1000,
                 transitionInterpolator: new FlyToInterpolator(),
             };
             dispatch(setViewport(newViewport));
-            dispatch(selectSpot(spot.objectID));
+            dispatchQuery('spot', spot.objectID);
         },
-        [dispatch],
+        [dispatch, dispatchQuery],
     );
 
     const onPlaceClick = useCallback(

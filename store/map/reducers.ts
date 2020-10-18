@@ -7,13 +7,13 @@ import {
     UNSELECT_ALL_MAP_FILTERS,
     TOGGLE_MAP_FILTER,
     MAP_REFRESH_END,
-    SELECT_SPOT,
     SET_VIEWPORT,
     SET_SPOT_OVERVIEW,
     SELECT_FULL_SPOT_TAB,
+    FLY_TO_CUSTOM_MAP,
 } from '../constants';
 import * as mapActions from './actions';
-import { ViewportProps } from 'react-map-gl';
+import { FlyToInterpolator, ViewportProps, WebMercatorViewport } from 'react-map-gl';
 
 export type FullSpotTab = 'info' | 'clips' | 'tips' | 'edito';
 
@@ -22,7 +22,6 @@ export type MapAction = ActionType<typeof mapActions>;
 export type MapState = {
     types: Record<Types, FilterState>;
     status: Record<Status, FilterState>;
-    selectedSpotId?: string;
     spotOverview?: SpotOverview;
     viewport: Partial<ViewportProps>;
     fullSpotSelectedTab: FullSpotTab;
@@ -41,7 +40,6 @@ const initialState: MapState = {
         [Status.Wip]: FilterState.SELECTED,
         [Status.Rip]: FilterState.SELECTED,
     },
-    selectedSpotId: undefined,
     spotOverview: undefined,
     viewport: {
         latitude: 48.860332,
@@ -133,11 +131,6 @@ const MapReducers = (state: MapState = initialState, action: MapAction): MapStat
 
             return newState;
         }
-        case SELECT_SPOT:
-            return {
-                ...state,
-                selectedSpotId: action.payload,
-            };
         case SET_SPOT_OVERVIEW:
             return {
                 ...state,
@@ -146,12 +139,31 @@ const MapReducers = (state: MapState = initialState, action: MapAction): MapStat
         case SET_VIEWPORT:
             return {
                 ...state,
-                viewport: action.payload,
+                viewport: {
+                    ...state.viewport,
+                    ...action.payload,
+                },
             };
         case SELECT_FULL_SPOT_TAB:
             return {
                 ...state,
                 fullSpotSelectedTab: action.payload ?? 'info',
+            };
+        case FLY_TO_CUSTOM_MAP:
+            const { longitude, latitude, zoom } = new WebMercatorViewport(state.viewport).fitBounds(action.payload, {
+                padding: state.viewport.width * 0.15, // padding of 15%
+            });
+
+            return {
+                ...state,
+                viewport: {
+                    ...state.viewport,
+                    latitude,
+                    longitude,
+                    zoom,
+                    transitionDuration: 1500,
+                    transitionInterpolator: new FlyToInterpolator(),
+                },
             };
         default:
             return state;
