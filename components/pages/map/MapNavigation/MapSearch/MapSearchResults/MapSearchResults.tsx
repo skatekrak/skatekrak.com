@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { FlyToInterpolator, ViewportProps } from 'react-map-gl';
 
 import Scrollbar from 'components/Ui/Scrollbar';
@@ -9,8 +9,6 @@ import MapSearchResultLoading from './MapSearchResultLoading';
 import MapSearchResultNoContent from './MapSearchResultNoContent';
 import MapSearchResultSpot from './MapSearchResultSpot';
 import MapSearchResultPlace from './MapSearchResultPlace';
-
-import Types from 'Types';
 
 import { Place } from 'lib/placeApi';
 import { setViewport } from 'store/map/actions';
@@ -25,7 +23,6 @@ type MapSearchResultsProps = {
 const MapSearchResults: React.FC<MapSearchResultsProps> = ({ spots, loading, places }) => {
     const dispatch = useDispatch();
     const dispatchQuery = useDispatchRouterQuery();
-    const { viewport } = useSelector((state: Types.RootState) => state.map);
 
     const onSpotClick = useCallback(
         (spot: SpotHit) => {
@@ -45,7 +42,6 @@ const MapSearchResults: React.FC<MapSearchResultsProps> = ({ spots, loading, pla
         (place: Place) => {
             dispatch(
                 setViewport({
-                    ...viewport,
                     latitude: place.geometry.location.lat,
                     longitude: place.geometry.location.lng,
                     transitionDuration: 1000,
