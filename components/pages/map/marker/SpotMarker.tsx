@@ -13,7 +13,6 @@ import { useDispatchRouterQuery } from 'lib/url-query-hook';
 
 type SpotMarkerProps = {
     spot: Spot;
-    onSpotMarkerClick: (spot: Spot) => void;
     isSelected: boolean;
 };
 
@@ -26,13 +25,12 @@ const Pin = ({ imageName }: { imageName: string }) => {
     );
 };
 
-const SpotMarker = ({ spot, onSpotMarkerClick, isSelected }: SpotMarkerProps) => {
+const SpotMarker = ({ spot, isSelected }: SpotMarkerProps) => {
     const dispatchQuery = useDispatchRouterQuery();
     const active = spot.mediasStat.all > 3;
     const firing = spot.mediasStat.all >= 10;
 
     const onMarkerClick = () => {
-        // onSpotMarkerClick(spot);
         dispatchQuery('spot', spot.id);
     };
 

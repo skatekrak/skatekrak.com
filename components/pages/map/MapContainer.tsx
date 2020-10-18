@@ -185,11 +185,6 @@ const MapContainer = () => {
         dispatchQuery('modal');
     };
 
-    // Spot Overview
-    const onSpotMarkerClick = async (spotId: string) => {
-        dispatchQuery('spot', spotId);
-    };
-
     const onPopupClose = () => {
         dispatchQuery('spot', undefined);
         dispatch(setSpotOverview(undefined));
@@ -252,7 +247,6 @@ const MapContainer = () => {
                         mapRef={mapRef}
                         clusters={clusters}
                         selectedSpotOverview={map.spotOverview}
-                        onSpotMarkerClick={(spot) => onSpotMarkerClick(spot.id)}
                         onSpotOverviewClick={onSpotOverviewClick}
                         onViewportChange={onViewportChange}
                         onPopupClose={onPopupClose}

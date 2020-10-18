@@ -16,7 +16,6 @@ type MapComponentProps = {
     mapRef?: React.RefObject<ReactMapGL>;
     clusters: Cluster[];
     selectedSpotOverview?: SpotOverview;
-    onSpotMarkerClick: (spot: Spot) => void;
     onSpotOverviewClick: () => void;
     onViewportChange?: (viewport: { latitude: number; longitude: number; zoom: number }) => void;
     onPopupClose?: () => void;
@@ -27,7 +26,6 @@ const MapComponent = ({
     mapRef,
     clusters,
     selectedSpotOverview,
-    onSpotMarkerClick,
     onSpotOverviewClick,
     onViewportChange,
     onPopupClose,
@@ -45,7 +43,6 @@ const MapComponent = ({
                             <SpotMarker
                                 key={spot.id}
                                 spot={spot}
-                                onSpotMarkerClick={onSpotMarkerClick}
                                 isSelected={selectedSpotOverview ? selectedSpotOverview.spot.id === spot.id : false}
                             />,
                         );
@@ -56,7 +53,7 @@ const MapComponent = ({
             }
         }
         return _markers;
-    }, [clusters, selectedSpotOverview]);
+    }, [clusters, selectedSpotOverview, clustering, mapState.viewport.zoom, mapState.viewport.maxZoom]);
 
     return (
         <div id="map">
