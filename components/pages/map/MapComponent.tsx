@@ -8,6 +8,7 @@ import Typings from 'Types';
 import { Cluster, Spot, SpotOverview } from 'lib/carrelageClient';
 import SpotCluster from 'components/pages/map/marker/SpotCluster';
 import SpotMarker from 'components/pages/map/marker/SpotMarker';
+import { useDispatchRouterQuery } from 'lib/url-query-hook';
 
 const MIN_ZOOM_LEVEL = 2;
 const MAX_ZOOM_LEVEL = 18;
@@ -16,21 +17,12 @@ type MapComponentProps = {
     mapRef?: React.RefObject<ReactMapGL>;
     clusters: Cluster[];
     selectedSpotOverview?: SpotOverview;
-    onSpotOverviewClick: () => void;
     onViewportChange?: (viewport: { latitude: number; longitude: number; zoom: number }) => void;
-    onPopupClose?: () => void;
     clustering: boolean;
 };
 
-const MapComponent = ({
-    mapRef,
-    clusters,
-    selectedSpotOverview,
-    onSpotOverviewClick,
-    onViewportChange,
-    onPopupClose,
-    clustering,
-}: MapComponentProps) => {
+const MapComponent = ({ mapRef, clusters, selectedSpotOverview, onViewportChange, clustering }: MapComponentProps) => {
+    const dispatchQuery = useDispatchRouterQuery();
     const mapState = useSelector((state: Typings.RootState) => state.map);
 
     const markers = useMemo(() => {
@@ -54,6 +46,14 @@ const MapComponent = ({
         }
         return _markers;
     }, [clusters, selectedSpotOverview, clustering, mapState.viewport.zoom, mapState.viewport.maxZoom]);
+
+    const onPopupClick = () => {
+        dispatchQuery('modal', '1');
+    };
+
+    const onPopupClose = () => {
+        dispatchQuery('modal');
+    };
 
     return (
         <div id="map">
@@ -80,7 +80,7 @@ const MapComponent = ({
                         closeButton={false}
                         closeOnClick={false}
                     >
-                        <button className="map-popup-spot-container" onClick={onSpotOverviewClick}>
+                        <button className="map-popup-spot-container" onClick={onPopupClick}>
                             <h4
                                 className={classNames('map-popup-spot-name', {
                                     'map-popup-spot-name-center': !selectedSpotOverview.mostLikedMedia,

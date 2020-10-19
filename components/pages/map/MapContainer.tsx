@@ -177,17 +177,8 @@ const MapContainer = () => {
         [dispatch, id, load],
     );
 
-    const onSpotOverviewClick = () => {
-        dispatchQuery('modal', '1');
-    };
-
     const onFullSpotClose = () => {
         dispatchQuery('modal');
-    };
-
-    const onPopupClose = () => {
-        dispatchQuery('spot', undefined);
-        dispatch(setSpotOverview(undefined));
     };
 
     useEffect(() => {
@@ -247,9 +238,7 @@ const MapContainer = () => {
                         mapRef={mapRef}
                         clusters={clusters}
                         selectedSpotOverview={map.spotOverview}
-                        onSpotOverviewClick={onSpotOverviewClick}
                         onViewportChange={onViewportChange}
-                        onPopupClose={onPopupClose}
                         clustering={id === undefined}
                     />
                     <MapGradients />
