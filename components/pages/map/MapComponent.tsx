@@ -1,14 +1,15 @@
 import React, { useMemo } from 'react';
-import ReactMapGL, { Popup, NavigationControl } from 'react-map-gl';
-import { useSelector } from 'react-redux';
+import ReactMapGL, { Popup, NavigationControl, ContextViewportChangeHandler } from 'react-map-gl';
+import { useDispatch, useSelector } from 'react-redux';
 import classNames from 'classnames';
 
 import Typings from 'Types';
 
-import { Cluster, Spot, SpotOverview } from 'lib/carrelageClient';
+import { Cluster, SpotOverview } from 'lib/carrelageClient';
 import SpotCluster from 'components/pages/map/marker/SpotCluster';
 import SpotMarker from 'components/pages/map/marker/SpotMarker';
 import { useDispatchRouterQuery } from 'lib/url-query-hook';
+import { setViewport } from 'store/map/actions';
 
 const MIN_ZOOM_LEVEL = 2;
 const MAX_ZOOM_LEVEL = 18;
@@ -17,12 +18,12 @@ type MapComponentProps = {
     mapRef?: React.RefObject<ReactMapGL>;
     clusters: Cluster[];
     selectedSpotOverview?: SpotOverview;
-    onViewportChange?: (viewport: { latitude: number; longitude: number; zoom: number }) => void;
     clustering: boolean;
 };
 
-const MapComponent = ({ mapRef, clusters, selectedSpotOverview, onViewportChange, clustering }: MapComponentProps) => {
+const MapComponent = ({ mapRef, clusters, selectedSpotOverview, clustering }: MapComponentProps) => {
     const dispatchQuery = useDispatchRouterQuery();
+    const dispatch = useDispatch();
     const mapState = useSelector((state: Typings.RootState) => state.map);
 
     const markers = useMemo(() => {
@@ -53,6 +54,10 @@ const MapComponent = ({ mapRef, clusters, selectedSpotOverview, onViewportChange
 
     const onPopupClose = () => {
         dispatchQuery('modal');
+    };
+
+    const onViewportChange: ContextViewportChangeHandler = (viewState) => {
+        dispatch(setViewport(viewState));
     };
 
     return (

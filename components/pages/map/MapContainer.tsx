@@ -61,7 +61,7 @@ const MapContainer = () => {
 
     const [clusters, setClusters] = useState<Cluster[]>([]);
     const [customMapInfo, setCustomMapInfo] = useState<Record<string, any>>();
-    const [firstLoad, setFirstLoad] = useState(() => (spotId ? true : false));
+    const [, setFirstLoad] = useState(() => (spotId ? true : false));
 
     // Full spot
     const fullSpotContainerRef = useRef<HTMLDivElement>();
@@ -166,24 +166,13 @@ const MapContainer = () => {
         }
     }, [clusters, id, refreshMap]);
 
-    const onViewportChange = useCallback(
-        (viewport: { latitude: number; longitude: number; zoom: number }) => {
-            dispatch(setViewport(viewport));
-            // Avoid loop when the viewport is changed when in Custom Map mode
-            if (id === undefined) {
-                load();
-            }
-        },
-        [dispatch, id, load],
-    );
-
     const onFullSpotClose = () => {
         dispatchQuery('modal');
     };
 
     useEffect(() => {
         load();
-    }, [map.status, map.types, id]);
+    }, [map.status, map.types, id, map.viewport]);
 
     useEffect(() => {
         if (mapRef.current != null && id !== undefined && customMapInfo !== undefined) {
@@ -238,7 +227,6 @@ const MapContainer = () => {
                         mapRef={mapRef}
                         clusters={clusters}
                         selectedSpotOverview={map.spotOverview}
-                        onViewportChange={onViewportChange}
                         clustering={id === undefined}
                     />
                     <MapGradients />
