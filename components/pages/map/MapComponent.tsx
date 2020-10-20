@@ -8,8 +8,8 @@ import Typings from 'Types';
 import { Cluster, SpotOverview } from 'lib/carrelageClient';
 import SpotCluster from 'components/pages/map/marker/SpotCluster';
 import SpotMarker from 'components/pages/map/marker/SpotMarker';
-import { useDispatchRouterQuery } from 'lib/url-query-hook';
-import { setViewport } from 'store/map/actions';
+import { useDispatchRouterQuery, useRouterQuery } from 'lib/url-query-hook';
+import { setSpotOverview, setViewport } from 'store/map/actions';
 
 const MIN_ZOOM_LEVEL = 2;
 const MAX_ZOOM_LEVEL = 18;
@@ -24,6 +24,7 @@ type MapComponentProps = {
 const MapComponent = ({ mapRef, clusters, selectedSpotOverview, clustering }: MapComponentProps) => {
     const dispatchQuery = useDispatchRouterQuery();
     const dispatch = useDispatch();
+    const spotId = useRouterQuery('spot');
     const mapState = useSelector((state: Typings.RootState) => state.map);
 
     const markers = useMemo(() => {
@@ -53,7 +54,8 @@ const MapComponent = ({ mapRef, clusters, selectedSpotOverview, clustering }: Ma
     };
 
     const onPopupClose = () => {
-        dispatchQuery('modal');
+        dispatchQuery('spot');
+        dispatch(setSpotOverview(undefined));
     };
 
     const onViewportChange: ContextViewportChangeHandler = (viewState) => {
@@ -75,7 +77,7 @@ const MapComponent = ({ mapRef, clusters, selectedSpotOverview, clustering }: Ma
                 onClick={onPopupClose}
             >
                 {/* Popup */}
-                {selectedSpotOverview && (
+                {spotId != null && selectedSpotOverview != null && (
                     <Popup
                         className="map-popup-spot"
                         longitude={selectedSpotOverview.spot.location.longitude}

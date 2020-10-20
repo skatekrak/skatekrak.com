@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { InteractiveMap, FlyToInterpolator, ViewportProps } from 'react-map-gl';
 import { useSelector, useDispatch } from 'react-redux';
 import dynamic from 'next/dynamic';
+import { useQuery } from 'react-query';
 
 import Typings from 'Types';
 
@@ -60,8 +61,26 @@ const MapContainer = () => {
     const dispatchQuery = useDispatchRouterQuery();
 
     const [clusters, setClusters] = useState<Cluster[]>([]);
-    const [customMapInfo, setCustomMapInfo] = useState<Record<string, any>>();
+    // const [customMapInfo, setCustomMapInfo] = useState<Record<string, any>>();
     const [, setFirstLoad] = useState(() => (spotId ? true : false));
+
+    const { data: customMapInfo, isLoading: customMapLoading } = useQuery(
+        ['load-custom-map', id],
+        async (key, customMapId) => {
+            const response = await axios.get('/api/custom-maps', { params: { id: customMapId } });
+            const customMap = response.data;
+            return {
+                ...customMap,
+                clusters: customMap.spots.map((spot) => ({
+                    id: spot.id,
+                    latitude: spot.location.latitude,
+                    longitude: spot.location.longitude,
+                    count: 1,
+                    spots: [spot],
+                })),
+            };
+        },
+    );
 
     // Full spot
     const fullSpotContainerRef = useRef<HTMLDivElement>();
@@ -82,6 +101,25 @@ const MapContainer = () => {
         },
         [dispatch],
     );
+
+    const refreshMap = useCallback(
+        (_clusters: Cluster[] | undefined = undefined) => {
+            setClusters((clusters) => {
+                const filteredClusters = filterClusters(_clusters ?? clusters, map.types, map.status);
+
+                dispatch(mapRefreshEnd());
+
+                return filteredClusters;
+            });
+        },
+        [dispatch, map.types, map.status],
+    );
+
+    useEffect(() => {
+        if (customMapInfo && customMapInfo.clusters) {
+            refreshMap(customMapInfo.clusters);
+        }
+    }, [customMapInfo, refreshMap]);
 
     useEffect(() => {
         const loadOverview = async () => {
@@ -106,23 +144,6 @@ const MapContainer = () => {
         loadOverview();
     }, [spotId, dispatch, centerToSpot]);
 
-    /**
-     * If there is a spotId in the URL at launch, we query that spot
-     */
-
-    const refreshMap = useCallback(
-        (_clusters: Cluster[] | undefined = undefined) => {
-            setClusters((clusters) => {
-                const filteredClusters = filterClusters(_clusters ?? clusters, map.types, map.status);
-
-                dispatch(mapRefreshEnd());
-
-                return filteredClusters;
-            });
-        },
-        [dispatch, map.types, map.status],
-    );
-
     const load = useCallback(() => {
         clearTimeout(loadTimeout.current);
 
@@ -146,23 +167,6 @@ const MapContainer = () => {
                     refreshMap(mergeClusters(clusters, newClusters));
                 }
             }, 200);
-        } else {
-            // We should try to load a custom map
-            const loadCustomMap = async () => {
-                const response = await axios.get('/api/custom-maps', { params: { id } });
-                const customMap = response.data;
-                setCustomMapInfo(customMap);
-                refreshMap(
-                    customMap.spots.map((spot) => ({
-                        id: spot.id,
-                        latitude: spot.location.latitude,
-                        longitude: spot.location.longitude,
-                        count: 1,
-                        spots: [spot],
-                    })),
-                );
-            };
-            loadCustomMap();
         }
     }, [clusters, id, refreshMap]);
 
@@ -171,7 +175,9 @@ const MapContainer = () => {
     };
 
     useEffect(() => {
-        load();
+        if (id === undefined) {
+            load();
+        }
     }, [map.status, map.types, id, map.viewport]);
 
     useEffect(() => {
