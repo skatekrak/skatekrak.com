@@ -67,6 +67,10 @@ const MapContainer = () => {
     const { data: customMapInfo, isLoading: customMapLoading } = useQuery(
         ['load-custom-map', id],
         async (key, customMapId) => {
+            if (customMapId == null) {
+                return null;
+            }
+
             const response = await axios.get('/api/custom-maps', { params: { id: customMapId } });
             const customMap = response.data;
             return {
