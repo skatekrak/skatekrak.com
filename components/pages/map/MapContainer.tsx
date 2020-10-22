@@ -55,8 +55,7 @@ const MapContainer = () => {
 
     /** Spot ID in the query */
     const id = useRouterQuery('id');
-    // const spotId = useRouterQuery('spot');
-    const spotId = useSelector((state: Typings.RootState) => state.map.selectedSpotId);
+    const spotId = useRouterQuery('spot');
     const modal = useRouterQuery('modal');
     const isFullSpotOpen = modal === undefined ? false : Boolean(modal);
     const dispatchQuery = useDispatchRouterQuery();
@@ -65,27 +64,24 @@ const MapContainer = () => {
     // const [customMapInfo, setCustomMapInfo] = useState<Record<string, any>>();
     const [, setFirstLoad] = useState(() => (spotId ? true : false));
 
-    const { data: customMapInfo, isLoading: customMapLoading } = useQuery(
-        ['load-custom-map', id],
-        async (key, customMapId) => {
-            if (customMapId == null) {
-                return null;
-            }
+    const { data: customMapInfo } = useQuery(['load-custom-map', id], async (key, customMapId) => {
+        if (customMapId == null) {
+            return null;
+        }
 
-            const response = await axios.get('/api/custom-maps', { params: { id: customMapId } });
-            const customMap = response.data;
-            return {
-                ...customMap,
-                clusters: customMap.spots.map((spot) => ({
-                    id: spot.id,
-                    latitude: spot.location.latitude,
-                    longitude: spot.location.longitude,
-                    count: 1,
-                    spots: [spot],
-                })),
-            };
-        },
-    );
+        const response = await axios.get('/api/custom-maps', { params: { id: customMapId } });
+        const customMap = response.data;
+        return {
+            ...customMap,
+            clusters: customMap.spots.map((spot) => ({
+                id: spot.id,
+                latitude: spot.location.latitude,
+                longitude: spot.location.longitude,
+                count: 1,
+                spots: [spot],
+            })),
+        };
+    });
 
     // Full spot
     const fullSpotContainerRef = useRef<HTMLDivElement>();

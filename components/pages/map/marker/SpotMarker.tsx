@@ -10,8 +10,6 @@ import BadgeIconic from 'components/pages/map/marker/badges/Iconic';
 import BadgeMinute from 'components/pages/map/marker/badges/Minute';
 import Activity from 'components/pages/map/marker/Activity';
 import { useDispatchRouterQuery } from 'lib/url-query-hook';
-import { useDispatch } from 'react-redux';
-import { selectSpot } from 'store/map/actions';
 
 type SpotMarkerProps = {
     spot: Spot;
@@ -29,13 +27,11 @@ const Pin = ({ imageName }: { imageName: string }) => {
 
 const SpotMarker = ({ spot, isSelected }: SpotMarkerProps) => {
     const dispatchQuery = useDispatchRouterQuery();
-    const dispatch = useDispatch();
     const active = spot.mediasStat.all > 3;
     const firing = spot.mediasStat.all >= 10;
 
     const onMarkerClick = () => {
-        // dispatchQuery('spot', spot.id);
-        dispatch(selectSpot(spot.id));
+        dispatchQuery('spot', spot.id);
     };
 
     return (
