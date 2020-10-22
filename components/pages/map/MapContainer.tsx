@@ -55,7 +55,8 @@ const MapContainer = () => {
 
     /** Spot ID in the query */
     const id = useRouterQuery('id');
-    const spotId = useRouterQuery('spot');
+    // const spotId = useRouterQuery('spot');
+    const spotId = useSelector((state: Typings.RootState) => state.map.selectedSpotId);
     const modal = useRouterQuery('modal');
     const isFullSpotOpen = modal === undefined ? false : Boolean(modal);
     const dispatchQuery = useDispatchRouterQuery();

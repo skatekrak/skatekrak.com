@@ -9,7 +9,7 @@ import { Cluster, SpotOverview } from 'lib/carrelageClient';
 import SpotCluster from 'components/pages/map/marker/SpotCluster';
 import SpotMarker from 'components/pages/map/marker/SpotMarker';
 import { useDispatchRouterQuery, useRouterQuery } from 'lib/url-query-hook';
-import { setSpotOverview, setViewport } from 'store/map/actions';
+import { selectSpot, setSpotOverview, setViewport } from 'store/map/actions';
 
 const MIN_ZOOM_LEVEL = 2;
 const MAX_ZOOM_LEVEL = 18;
@@ -24,7 +24,8 @@ type MapComponentProps = {
 const MapComponent = ({ mapRef, clusters, selectedSpotOverview, clustering }: MapComponentProps) => {
     const dispatchQuery = useDispatchRouterQuery();
     const dispatch = useDispatch();
-    const spotId = useRouterQuery('spot');
+    // const spotId = useRouterQuery('spot');
+    const spotId = useSelector((state: Typings.RootState) => state.map.selectedSpotId);
     const mapState = useSelector((state: Typings.RootState) => state.map);
 
     const markers = useMemo(() => {
@@ -54,7 +55,8 @@ const MapComponent = ({ mapRef, clusters, selectedSpotOverview, clustering }: Ma
     };
 
     const onPopupClose = () => {
-        dispatchQuery('spot');
+        // dispatchQuery('spot');
+        dispatch(selectSpot(undefined));
         dispatch(setSpotOverview(undefined));
     };
 

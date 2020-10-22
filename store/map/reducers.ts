@@ -11,6 +11,7 @@ import {
     SET_SPOT_OVERVIEW,
     SELECT_FULL_SPOT_TAB,
     FLY_TO_CUSTOM_MAP,
+    SELECT_SPOT_ID,
 } from '../constants';
 import * as mapActions from './actions';
 import { FlyToInterpolator, ViewportProps, WebMercatorViewport } from 'react-map-gl';
@@ -25,6 +26,7 @@ export type MapState = {
     spotOverview?: SpotOverview;
     viewport: Partial<ViewportProps>;
     fullSpotSelectedTab: FullSpotTab;
+    selectedSpotId?: string;
 };
 
 const initialState: MapState = {
@@ -41,6 +43,7 @@ const initialState: MapState = {
         [Status.Rip]: FilterState.SELECTED,
     },
     spotOverview: undefined,
+    selectedSpotId: undefined,
     viewport: {
         latitude: 48.860332,
         longitude: 2.345054,
@@ -148,6 +151,11 @@ const MapReducers = (state: MapState = initialState, action: MapAction): MapStat
             return {
                 ...state,
                 fullSpotSelectedTab: action.payload ?? 'info',
+            };
+        case SELECT_SPOT_ID:
+            return {
+                ...state,
+                selectedSpotId: action.payload,
             };
         case FLY_TO_CUSTOM_MAP:
             const { longitude, latitude, zoom } = new WebMercatorViewport(state.viewport).fitBounds(action.payload, {
