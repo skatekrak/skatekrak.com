@@ -12,12 +12,12 @@ const MapFullSpotMain = () => {
     const selectedTab = useSelector((state: Typings.RootState) => state.map.fullSpotSelectedTab);
 
     return (
-        <div id="map-full-spot-popup-main">
+        <>
             {selectedTab === 'clips' && <MapFullSpotMainClips />}
             {selectedTab === 'info' && <MapFullSpotInfo />}
             {selectedTab === 'tips' && <MapFullSpotTips />}
             {selectedTab === 'edito' && <MapFullSpotEdito />}
-        </div>
+        </>
     );
 };
 

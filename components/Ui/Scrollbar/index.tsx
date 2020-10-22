@@ -6,7 +6,7 @@ type Props = {
     ref?: Ref<SimpleBar>;
 };
 
-const index: React.FC<Props> = React.forwardRef(({ children, maxHeight }, ref) => {
+const ScrollBar: React.FC<Props> = React.forwardRef(({ children, maxHeight }, ref) => {
     const styles = {
         maxHeight,
     };
@@ -18,4 +18,4 @@ const index: React.FC<Props> = React.forwardRef(({ children, maxHeight }, ref) =
     );
 });
 
-export default index;
+export default ScrollBar;
