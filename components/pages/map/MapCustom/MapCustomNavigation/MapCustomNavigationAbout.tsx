@@ -16,4 +16,4 @@ const MapCustomNavigationAbout = ({ subtitle, about }: Props) => {
     );
 };
 
-export default React.memo(MapCustomNavigationAbout);
+export default MapCustomNavigationAbout;

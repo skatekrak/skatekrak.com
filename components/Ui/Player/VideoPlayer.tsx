@@ -11,11 +11,8 @@ import ReactPlayer, { ReactPlayerProps } from 'react-player';
 /*
  * Code
  */
-type Props = {
-    url: string;
-} & Partial<ReactPlayerProps>;
 
-const VideoPlayer = ({ url, ...props }: Props) => (
+const VideoPlayer = ({ url, ...props }: Partial<ReactPlayerProps>) => (
     <div className="video-player-container">
         <div className="video-player">
             <ReactPlayer

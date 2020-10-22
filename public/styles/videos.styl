@@ -36,20 +36,6 @@
 			font-size: $fs-smaller
 			color: $grey-400
 
-		& .video-player
-			display: block
-			width: 100%
-
-			& .react-player__preview
-				display: flex
-				align-items: center
-				justify-content: center
-				height: 100%
-				background-position: center
-
-				& .react-player__shadow
-					display: flex
-
 		& .video-player-container
 			&:hover
 				& + .video-card-share
@@ -60,6 +46,7 @@
 			top: .5rem
 			left: .5rem
 			display: flex
+			align-items: center
 			transition: .2s
 
 			&:hover
@@ -68,7 +55,8 @@
 			+mq($from: "medium")
 				opacity: 0
 
-			& .SocialMediaShareButton
+			& .react-share__ShareButton
+				display: flex
 				margin-right: .5rem
 				cursor: pointer
 
