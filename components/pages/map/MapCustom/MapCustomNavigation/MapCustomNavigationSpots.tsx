@@ -8,15 +8,14 @@ import MapSearchResultSpot from '../../MapNavigation/MapSearch/MapSearchResults/
 import MapSearchResultPlace from '../../MapNavigation/MapSearch/MapSearchResults/MapSearchResultPlace';
 
 import { Spot } from 'lib/carrelageClient';
-import { useDispatch } from 'react-redux';
-import { selectSpot } from 'store/map/actions';
+import { useDispatchRouterQuery } from 'lib/url-query-hook';
 
 type Props = {
     mapSpots: any;
 };
 
 const MapCustomNavigationSpots = ({ mapSpots }: Props) => {
-    const dispatch = useDispatch();
+    const dispatchQuery = useDispatchRouterQuery();
     const [searchValue, setSearchValue] = useState('');
     const [isSearchSpotsLoading, setIsSearchSpotsLoading] = useState(false);
 
@@ -28,7 +27,7 @@ const MapCustomNavigationSpots = ({ mapSpots }: Props) => {
         setSearchValue('');
     };
 
-    const onSpotClick = (spot: Spot) => dispatch(selectSpot(spot));
+    const onSpotClick = (spot: Spot) => dispatchQuery('spot', spot.id);
     const onPlaceClick = () => console.log('place clicked');
 
     return (
@@ -61,7 +60,11 @@ const MapCustomNavigationSpots = ({ mapSpots }: Props) => {
                             ) : (
                                 <>
                                     {mapSpots.map((spot: Spot) => (
-                                        <MapSearchResultSpot key={spot.id} spot={spot} onSpotClick={onSpotClick} />
+                                        <MapSearchResultSpot<Spot>
+                                            key={spot.id}
+                                            spot={spot}
+                                            onSpotClick={onSpotClick}
+                                        />
                                     ))}
                                 </>
                             )}

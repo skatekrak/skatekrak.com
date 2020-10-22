@@ -111,7 +111,7 @@ class Articles extends React.Component<Props, State> {
             });
 
             if (res.data) {
-                const data: Content[] = res.data.map(content => new Content(content));
+                const data: Content[] = res.data.map((content) => new Content(content));
                 const contents = this.state.contents;
                 this.setState({
                     contents: contents.concat(data),

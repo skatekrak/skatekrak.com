@@ -9,7 +9,7 @@ import { formatPost } from 'lib/mag/formattedPost';
 
 import { SpinnerCircle } from 'components/Ui/Icons/Spinners';
 
-type Props = {};
+type Props = unknown;
 
 type State = {
     isLoading: boolean;
@@ -26,9 +26,7 @@ class LatestPosts extends React.PureComponent<Props, State> {
         this.setState({ isLoading: true });
 
         try {
-            const res = await axios.get(
-                `${process.env.NEXT_PUBLIC_KRAKMAG_URL}/wp-json/wp/v2/posts?per_page=3&_embed`,
-            );
+            const res = await axios.get(`${process.env.NEXT_PUBLIC_KRAKMAG_URL}/wp-json/wp/v2/posts?per_page=3&_embed`);
 
             if (res.data) {
                 const latestPosts = res.data.map((latestPost) => formatPost(latestPost));

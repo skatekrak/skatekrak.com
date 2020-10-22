@@ -127,11 +127,8 @@ const mapStateToProps = ({ news }: Types.RootState) => {
     return { sources: news.sources, languages: news.languages };
 };
 
-export default connect(
-    mapStateToProps,
-    {
-        setAllSources,
-        selectAllFilters,
-        unselectAllFilters,
-    },
-)(Sources);
+export default connect(mapStateToProps, {
+    setAllSources,
+    selectAllFilters,
+    unselectAllFilters,
+})(Sources);

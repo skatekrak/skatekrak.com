@@ -1,5 +1,6 @@
-/* tslint:disable:max-line-length */
-export default () => (
+import React from 'react';
+
+const KrakAppIcon = () => (
     <svg viewBox="0 0 28 28">
         <rect width="28" height="28" rx="2" fill="#FF3D38" />
         <path
@@ -8,3 +9,5 @@ export default () => (
         />
     </svg>
 );
+
+export default KrakAppIcon;

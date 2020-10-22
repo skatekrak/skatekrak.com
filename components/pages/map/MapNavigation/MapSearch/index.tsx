@@ -1,24 +1,29 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState } from 'react';
 import useConstant from 'use-constant';
 import AwesomeDebouncePromise from 'awesome-debounce-promise';
 import { useQuery } from 'react-query';
 import axios from 'axios';
 
-import { querySpotsSearch } from 'lib/carrelageClient';
 import MapSearchBar from './MapSearchBar';
 import MapSearchResults from './MapSearchResults/MapSearchResults';
-import type { Place } from 'lib/placeApi';
+import { SpotHit, spotIndex, SpotSearchResult } from 'lib/algolia';
+import { Place } from 'lib/placeApi';
 
 const fetchPlaces = async (query: string): Promise<Place[]> => {
     const res = await axios.get('/api/place-search', { params: { input: query } });
     return res.data;
 };
 
+const fetchSpots = async (query: string): Promise<SpotHit[]> => {
+    const res = await spotIndex.search<SpotSearchResult>(query, { hitsPerPage: 20 });
+    return res.hits;
+};
+
 const MapNavigation = () => {
     const [searchValue, setSearchValue] = useState('');
 
     const debouncedSpotsSearch = useConstant(() =>
-        AwesomeDebouncePromise((query: string) => Promise.all([querySpotsSearch({ query }), fetchPlaces(query)]), 200),
+        AwesomeDebouncePromise((query: string) => Promise.all([fetchSpots(query), fetchPlaces(query)]), 200),
     );
     const { isLoading, data } = useQuery(
         ['search-spots', { query: searchValue }],

@@ -1,50 +1,47 @@
 import React, { useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { FlyToInterpolator, ViewportProps } from 'react-map-gl';
 
 import Scrollbar from 'components/Ui/Scrollbar';
+import type { SpotHit } from 'lib/algolia';
 
 import MapSearchResultLoading from './MapSearchResultLoading';
 import MapSearchResultNoContent from './MapSearchResultNoContent';
 import MapSearchResultSpot from './MapSearchResultSpot';
 import MapSearchResultPlace from './MapSearchResultPlace';
 
-import Types from 'Types';
-
-import { Spot } from 'lib/carrelageClient';
 import { Place } from 'lib/placeApi';
-import { selectSpot, setViewport } from 'store/map/actions';
+import { setViewport } from 'store/map/actions';
+import { useDispatchRouterQuery } from 'lib/url-query-hook';
 
 type MapSearchResultsProps = {
     loading: boolean;
     places: Place[];
-    spots: Spot[];
+    spots: SpotHit[];
 };
 
 const MapSearchResults: React.FC<MapSearchResultsProps> = ({ spots, loading, places }) => {
     const dispatch = useDispatch();
-    const { viewport } = useSelector((state: Types.RootState) => state.map);
+    const dispatchQuery = useDispatchRouterQuery();
 
     const onSpotClick = useCallback(
-        (spot: Spot) => {
+        (spot: SpotHit) => {
             const newViewport: Partial<ViewportProps> = {
-                ...viewport,
-                latitude: spot.location.latitude,
-                longitude: spot.location.longitude,
+                latitude: spot._geoloc.lat,
+                longitude: spot._geoloc.lng,
                 transitionDuration: 1000,
                 transitionInterpolator: new FlyToInterpolator(),
             };
             dispatch(setViewport(newViewport));
-            dispatch(selectSpot(spot));
+            dispatchQuery('spot', spot.objectID);
         },
-        [dispatch],
+        [dispatch, dispatchQuery],
     );
 
     const onPlaceClick = useCallback(
         (place: Place) => {
             dispatch(
                 setViewport({
-                    ...viewport,
                     latitude: place.geometry.location.lat,
                     longitude: place.geometry.location.lng,
                     transitionDuration: 1000,
@@ -70,7 +67,7 @@ const MapSearchResults: React.FC<MapSearchResultsProps> = ({ spots, loading, pla
                                     <MapSearchResultPlace key={place.id} place={place} onPlaceClick={onPlaceClick} />
                                 ))}
                                 {spots.map((spot) => (
-                                    <MapSearchResultSpot key={spot.id} spot={spot} onSpotClick={onSpotClick} />
+                                    <MapSearchResultSpot key={spot.objectID} spot={spot} onSpotClick={onSpotClick} />
                                 ))}
                             </>
                         )}

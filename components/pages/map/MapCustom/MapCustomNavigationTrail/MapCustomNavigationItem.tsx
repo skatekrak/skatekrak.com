@@ -18,14 +18,14 @@ const MapCustomNavigationItem = ({ map }: Props) => {
 
     const isMapNotSelected = useMemo(() => {
         return router.query.id !== undefined && router.query.id !== map.id;
-    }, [router.query.id]);
+    }, [router.query.id, map.id]);
 
     const isMapSelected = useMemo(() => {
         return router.query.id === map.id;
-    }, [router.query.id]);
+    }, [router.query.id, map.id]);
 
     return (
-        <Link href={`/map?id=${map.id}`} as={`/map/${map.id}`} shallow>
+        <Link href={`/map?id=${map.id}`} shallow>
             <a
                 className={classNames('custom-map-navigation-item', {
                     'custom-map-navigation-item--selected': isMapSelected,

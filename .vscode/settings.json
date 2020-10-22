@@ -9,13 +9,16 @@
         "**/.next": true,
         "**/.devcontainer": true,
         "**/next-env.d.ts": true,
-        "**/.prettierrc": true,
-        "**/.eslintrc.js": true,
-        "**/babel.config.js": true,
+        "**/.prettierrc": false,
+        "**/.eslintrc.js": false,
+        "**/babel.config.js": false,
         "**/.gitignore": true,
         "**/yarn-error.log": true,
         "**/yarn.lock": true,
         "**/node_modules": true,
-        "**/tsconfig.json": true
+        "**/tsconfig.json": false
+    },
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": true
     }
 }

@@ -23,7 +23,7 @@ type Props = {
     settings: SettingState;
 };
 
-class BannerTop extends React.Component<Props, {}> {
+class BannerTop extends React.Component<Props> {
     public componentDidMount() {
         const scrollContainer = ScrollHelper.getScrollContainer();
         if (scrollContainer) {
