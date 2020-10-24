@@ -1,7 +1,6 @@
 import classNames from 'classnames';
 import Head from 'next/head';
-import { useRouter, withRouter } from 'next/router';
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Types from 'Types';
@@ -35,15 +34,10 @@ import '/public/styles/feed.styl';
 import '/public/styles/map/map.styl';
 
 import 'mapbox-gl/dist/mapbox-gl.css';
+import usePathname from 'lib/use-pathname';
 
 export type LayoutProps = {
     head?: React.ReactElement;
-};
-
-const usePathname = () => {
-    const router = useRouter();
-    const { pathname } = router;
-    return useMemo(() => pathname, [pathname]);
 };
 
 const Layout: React.FC<LayoutProps> = ({ head, children }) => {
@@ -51,11 +45,11 @@ const Layout: React.FC<LayoutProps> = ({ head, children }) => {
     const dispatch = useDispatch();
     const isMobile = useSelector((state: Types.RootState) => state.settings.isMobile);
 
-    const setWindowsDimensions = () => {
-        dispatch(setDeviceSize(window.innerWidth));
-    };
-
     useEffect(() => {
+        const setWindowsDimensions = () => {
+            dispatch(setDeviceSize(window.innerWidth));
+        };
+
         window.addEventListener('resize', setWindowsDimensions);
         dispatch(setDeviceSize(window.innerWidth));
         return () => {
