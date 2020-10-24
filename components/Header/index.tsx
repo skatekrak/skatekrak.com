@@ -4,15 +4,12 @@ import React, { useEffect } from 'react';
 
 import NavItem from 'components/Header/NavItem';
 import IconKrakenHead from 'components/Ui/Icons/Kraken/KrakenHead';
-import { NextRouter } from 'next/router';
-
-/* tslint:disable:max-line-length */
 
 type Props = {
-    router: NextRouter;
+    pathname: string;
 };
 
-const Header = ({ router }: Props) => {
+const Header = ({ pathname }: Props) => {
     useEffect(() => {
         const header = document.getElementById('header');
         const burgerMenu = document.getElementById('header-top-burger');
@@ -31,8 +28,8 @@ const Header = ({ router }: Props) => {
         <header
             id="header"
             className={classNames({
-                'header-dark': router.pathname === '/app',
-                'header-white': router.pathname === '/map',
+                'header-dark': pathname === '/app',
+                'header-white': pathname === '/map',
             })}
         >
             <div id="header-top">

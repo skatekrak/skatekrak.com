@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import Head from 'next/head';
-import { useRouter } from 'next/router';
-import React, { useEffect } from 'react';
+import { useRouter, withRouter } from 'next/router';
+import React, { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Types from 'Types';
@@ -40,8 +40,14 @@ export type LayoutProps = {
     head?: React.ReactElement;
 };
 
-const Layout: React.FC<LayoutProps> = ({ head, children }) => {
+const usePathname = () => {
     const router = useRouter();
+    const { pathname } = router;
+    return useMemo(() => pathname, [pathname]);
+};
+
+const Layout: React.FC<LayoutProps> = ({ head, children }) => {
+    const pathname = usePathname();
     const dispatch = useDispatch();
     const isMobile = useSelector((state: Types.RootState) => state.settings.isMobile);
 
@@ -72,7 +78,7 @@ const Layout: React.FC<LayoutProps> = ({ head, children }) => {
                 </Head>
             )}
             <div id="page-container" className={classNames({ 'scroll-container': isMobile })}>
-                {router.pathname.startsWith('/map') && !isMobile ? <HeaderSmall /> : <Header router={router} />}
+                {pathname.startsWith('/map') && !isMobile ? <HeaderSmall /> : <Header pathname={pathname} />}
                 <main id="main-container" className={classNames({ 'scroll-container': !isMobile })}>
                     {children}
                 </main>
