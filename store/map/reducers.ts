@@ -15,7 +15,17 @@ import {
 import * as mapActions from './actions';
 import { FlyToInterpolator, ViewportProps, WebMercatorViewport } from 'react-map-gl';
 
-export type FullSpotTab = 'info' | 'clips' | 'tips' | 'edito';
+export type FullSpotTab =
+    | 'info'
+    | 'clips'
+    | 'tips'
+    | 'edito'
+    | 'photos'
+    | 'videos'
+    | 'contests'
+    | 'events'
+    | 'instagram'
+    | 'contributors';
 
 export type MapAction = ActionType<typeof mapActions>;
 

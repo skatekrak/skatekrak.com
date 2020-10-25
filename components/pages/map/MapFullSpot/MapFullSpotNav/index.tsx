@@ -11,10 +11,10 @@ import IconRip from 'components/pages/map/marker/icons/Rip';
 import IconShop from 'components/pages/map/marker/icons/Shop';
 import IconWip from 'components/pages/map/marker/icons/Wip';
 
-import IconArrowHead from 'components/Ui/Icons/ArrowHead';
 import { Status, Types } from 'lib/carrelageClient';
 import { FullSpotTab } from 'store/map/reducers';
 import { selectFullSpotTab } from 'store/map/actions';
+import MapFullSpotNavItem from './MapFullSpotNavItem/MapFullSpotNavItem';
 
 const SpotIcon = ({ type, status }: { type: Types; status: Status }) => {
     if (status === Status.Rip) {
@@ -69,47 +69,57 @@ const MapFullSpotNav = () => {
                         </div>
                     </div>
                     <nav id="map-full-spot-popup-nav-main">
-                        <button className="map-full-spot-popup-nav-link" onClick={() => onTabSelect('info')}>
-                            <p>Info</p>
-                            <IconArrowHead />
-                        </button>
-                        <button className="map-full-spot-popup-nav-link" onClick={() => onTabSelect('edito')}>
-                            <p>Edito</p>
-                            <IconArrowHead />
-                        </button>
-                        <button className="map-full-spot-popup-nav-link" onClick={() => onTabSelect('tips')}>
-                            <p>Tips(x)</p>
-                            <IconArrowHead />
-                        </button>
-                        <button className="map-full-spot-popup-nav-link">
-                            <p>Photos(x)</p>
-                            <IconArrowHead />
-                        </button>
-                        <button className="map-full-spot-popup-nav-link">
-                            <p>videos(x)</p>
-                            <IconArrowHead />
-                        </button>
-                        <button className="map-full-spot-popup-nav-link" onClick={() => onTabSelect('clips')}>
-                            <p>Clips({spotOverview.spot.clipsStat.all})</p>
-                            <IconArrowHead />
-                        </button>
-                        <button className="map-full-spot-popup-nav-link">
-                            <p>Contests</p>
-                            <IconArrowHead />
-                        </button>
-                        <button className="map-full-spot-popup-nav-link">
-                            <p>Events</p>
-                            <IconArrowHead />
-                        </button>
+                        <MapFullSpotNavItem
+                            text="Info"
+                            onClick={() => onTabSelect('info')}
+                            isActive={selectedTab === 'info'}
+                        />
+                        <MapFullSpotNavItem
+                            text="Edito"
+                            onClick={() => onTabSelect('edito')}
+                            isActive={selectedTab === 'edito'}
+                        />
+                        <MapFullSpotNavItem
+                            text="Tips(x)"
+                            onClick={() => onTabSelect('tips')}
+                            isActive={selectedTab === 'tips'}
+                        />
+                        <MapFullSpotNavItem
+                            text="Photos(x)"
+                            onClick={() => onTabSelect('photos')}
+                            isActive={selectedTab === 'photos'}
+                        />
+                        <MapFullSpotNavItem
+                            text="Videos(x)"
+                            onClick={() => onTabSelect('videos')}
+                            isActive={selectedTab === 'videos'}
+                        />
+                        <MapFullSpotNavItem
+                            text="Clips(x)"
+                            onClick={() => onTabSelect('clips')}
+                            isActive={selectedTab === 'clips'}
+                        />
+                        <MapFullSpotNavItem
+                            text="Contests"
+                            onClick={() => onTabSelect('contests')}
+                            isActive={selectedTab === 'contests'}
+                        />
+                        <MapFullSpotNavItem
+                            text="Events"
+                            onClick={() => onTabSelect('events')}
+                            isActive={selectedTab === 'events'}
+                        />
                         <div id="map-full-spot-popup-nav-footer">
-                            <button className="map-full-spot-popup-nav-link">
-                                <p>Instagram</p>
-                                <IconArrowHead />
-                            </button>
-                            <button className="map-full-spot-popup-nav-link">
-                                <p>Contributors</p>
-                                <IconArrowHead />
-                            </button>
+                            <MapFullSpotNavItem
+                                text="Instagram"
+                                onClick={() => onTabSelect('instagram')}
+                                isActive={selectedTab === 'instagram'}
+                            />
+                            <MapFullSpotNavItem
+                                text="Contributors"
+                                onClick={() => onTabSelect('contributors')}
+                                isActive={selectedTab === 'contributors'}
+                            />
                         </div>
                     </nav>
                 </>
