@@ -60,12 +60,7 @@ const MapFullSpotNav = () => {
                         </p>
                         <div id="map-full-spot-popup-nav-header-extra">
                             <SpotIcon type={spotOverview.spot.type} status={spotOverview.spot.status} />
-                            <div id="map-full-spot-popup-nav-header-extra-time">
-                                <p id="map-full-spot-popup-nav-header-extra-time-title">
-                                    Local time<span> - GMT+4</span>
-                                </p>
-                                <p id="map-full-spot-popup-nav-header-extra-time-formated">08 : 56 pm</p>
-                            </div>
+                            {/* <div id="map-full-spot-popup-nav-header-extra-badge" /> */}
                         </div>
                     </div>
                     <nav id="map-full-spot-popup-nav-main">
