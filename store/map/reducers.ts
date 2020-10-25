@@ -56,7 +56,7 @@ const initialState: MapState = {
         longitude: 2.345054,
         zoom: 12,
     },
-    fullSpotSelectedTab: 'info',
+    fullSpotSelectedTab: 'clips',
 };
 
 const MapReducers = (state: MapState = initialState, action: MapAction): MapState => {
@@ -157,7 +157,7 @@ const MapReducers = (state: MapState = initialState, action: MapAction): MapStat
         case SELECT_FULL_SPOT_TAB:
             return {
                 ...state,
-                fullSpotSelectedTab: action.payload ?? 'info',
+                fullSpotSelectedTab: action.payload ?? 'clips',
             };
         case FLY_TO_CUSTOM_MAP:
             const { longitude, latitude, zoom } = new WebMercatorViewport(state.viewport).fitBounds(action.payload, {

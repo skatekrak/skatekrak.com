@@ -69,7 +69,7 @@ const MapFullSpotNav = () => {
                         </div>
                     </div>
                     <nav id="map-full-spot-popup-nav-main">
-                        <MapFullSpotNavItem
+                        {/* <MapFullSpotNavItem
                             text="Info"
                             onClick={() => onTabSelect('info')}
                             isActive={selectedTab === 'info'}
@@ -93,13 +93,13 @@ const MapFullSpotNav = () => {
                             text="Videos(x)"
                             onClick={() => onTabSelect('videos')}
                             isActive={selectedTab === 'videos'}
-                        />
+                        /> */}
                         <MapFullSpotNavItem
                             text="Clips(x)"
                             onClick={() => onTabSelect('clips')}
                             isActive={selectedTab === 'clips'}
                         />
-                        <MapFullSpotNavItem
+                        {/* <MapFullSpotNavItem
                             text="Contests"
                             onClick={() => onTabSelect('contests')}
                             isActive={selectedTab === 'contests'}
@@ -120,7 +120,7 @@ const MapFullSpotNav = () => {
                                 onClick={() => onTabSelect('contributors')}
                                 isActive={selectedTab === 'contributors'}
                             />
-                        </div>
+                        </div> */}
                     </nav>
                 </>
             )}
