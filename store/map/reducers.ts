@@ -1,28 +1,49 @@
 import { ActionType } from 'typesafe-actions';
 
-import { Types, Status, Spot } from 'lib/carrelageClient';
+import { Types, Status, SpotOverview } from 'lib/carrelageClient';
 import { FilterState } from 'lib/FilterState';
 import {
     SELECT_ALL_MAP_FILTERS,
     UNSELECT_ALL_MAP_FILTERS,
     TOGGLE_MAP_FILTER,
     MAP_REFRESH_END,
-    SELECT_SPOT,
     SET_VIEWPORT,
+    SET_SPOT_OVERVIEW,
+    SELECT_FULL_SPOT_TAB,
+    FLY_TO_CUSTOM_MAP,
+    SELECT_SPOT,
+    TOGGLE_SPOT_MODAL,
+    TOGGLE_CUSTOM_MAP,
 } from '../constants';
 import * as mapActions from './actions';
-import { ViewportProps } from 'react-map-gl';
+import { FlyToInterpolator, ViewportProps, WebMercatorViewport } from 'react-map-gl';
+
+export type FullSpotTab =
+    | 'info'
+    | 'clips'
+    | 'tips'
+    | 'edito'
+    | 'photos'
+    | 'videos'
+    | 'contests'
+    | 'events'
+    | 'instagram'
+    | 'contributors';
 
 export type MapAction = ActionType<typeof mapActions>;
 
 export type MapState = {
     types: Record<Types, FilterState>;
     status: Record<Status, FilterState>;
-    selectedSpot?: Spot;
+    spotOverview?: SpotOverview;
     viewport: Partial<ViewportProps>;
+    fullSpotSelectedTab: FullSpotTab;
+    selectSpot?: string;
+    modalVisible: boolean;
+    customMapId?: string;
 };
 
-const initialState: MapState = {
+export const initialState: MapState = {
     types: {
         [Types.Diy]: FilterState.SELECTED,
         [Types.Park]: FilterState.SELECTED,
@@ -35,12 +56,16 @@ const initialState: MapState = {
         [Status.Wip]: FilterState.SELECTED,
         [Status.Rip]: FilterState.SELECTED,
     },
-    selectedSpot: undefined,
+    spotOverview: undefined,
     viewport: {
         latitude: 48.860332,
         longitude: 2.345054,
         zoom: 12,
     },
+    fullSpotSelectedTab: 'clips',
+    selectSpot: undefined,
+    modalVisible: false,
+    customMapId: undefined,
 };
 
 const MapReducers = (state: MapState = initialState, action: MapAction): MapState => {
@@ -125,15 +150,54 @@ const MapReducers = (state: MapState = initialState, action: MapAction): MapStat
 
             return newState;
         }
-        case SELECT_SPOT:
+        case SET_SPOT_OVERVIEW:
             return {
                 ...state,
-                selectedSpot: action.payload,
+                spotOverview: action.payload,
             };
         case SET_VIEWPORT:
             return {
                 ...state,
-                viewport: action.payload,
+                viewport: {
+                    ...state.viewport,
+                    ...action.payload,
+                },
+            };
+        case SELECT_FULL_SPOT_TAB:
+            return {
+                ...state,
+                fullSpotSelectedTab: action.payload ?? 'clips',
+            };
+        case FLY_TO_CUSTOM_MAP:
+            const { longitude, latitude, zoom } = new WebMercatorViewport(state.viewport).fitBounds(action.payload, {
+                padding: state.viewport.width * 0.15, // padding of 15%
+            });
+
+            return {
+                ...state,
+                viewport: {
+                    ...state.viewport,
+                    latitude,
+                    longitude,
+                    zoom,
+                    transitionDuration: 1500,
+                    transitionInterpolator: new FlyToInterpolator(),
+                },
+            };
+        case SELECT_SPOT:
+            return {
+                ...state,
+                selectSpot: action.payload,
+            };
+        case TOGGLE_SPOT_MODAL:
+            return {
+                ...state,
+                modalVisible: action.payload,
+            };
+        case TOGGLE_CUSTOM_MAP:
+            return {
+                ...state,
+                customMapId: action.payload,
             };
         default:
             return state;

@@ -1,6 +1,9 @@
-import Link from 'next/link';
-import { useRouter } from 'next/router';
+import NextLink from 'next/link';
 import React from 'react';
+
+import usePathname from 'lib/use-pathname';
+
+const Link = React.memo(NextLink);
 
 type Props = {
     title: string;
@@ -9,7 +12,7 @@ type Props = {
 };
 
 const NavItem = ({ title, url, blank }: Props) => {
-    const { pathname } = useRouter();
+    const pathname = usePathname();
     let className = 'header-nav-main-item-link';
     className = pathname.startsWith(url) ? `${className} ${className}-active`.trim() : className;
 
@@ -28,4 +31,4 @@ const NavItem = ({ title, url, blank }: Props) => {
     );
 };
 
-export default NavItem;
+export default React.memo(NavItem);

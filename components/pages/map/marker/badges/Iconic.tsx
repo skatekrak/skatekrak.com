@@ -1,5 +1,6 @@
-/* tslint:disable:max-line-length */
-export default () => (
+import React from 'react';
+
+const IconicBadge = () => (
     <svg className="map-badge-iconic map-badge" viewBox="0 0 20 20">
         <path
             className="map-badge-stroke-outter"
@@ -16,3 +17,5 @@ export default () => (
         />
     </svg>
 );
+
+export default IconicBadge;

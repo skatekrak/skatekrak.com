@@ -92,6 +92,33 @@ export interface Comment {
     likes: Like[];
 }
 
+export interface AddedBy {
+    username: string;
+    id: string;
+    profilePicture?: {
+        url: string;
+        publicId: string;
+        jpg: string;
+    };
+}
+
+export enum VideoProvider {
+    YOUTUBE = 'youtube',
+    VIMEO = 'vimeo',
+}
+
+export interface Clip {
+    id: string;
+    createdAt: Date;
+    updatedAt: Date;
+    title: string;
+    provider: VideoProvider;
+    videoURL: string;
+    thumbnailURL: string;
+    spot: string;
+    addedBy: AddedBy;
+}
+
 export interface Spot {
     id: string;
     createdAt: Date;
@@ -146,6 +173,7 @@ export interface Media {
 export interface SpotOverview {
     spot: Spot;
     medias: Media[];
+    clips: Clip[];
     mostLikedMedia?: Media;
     // TODO: complete SpotOverview interface
 }
@@ -200,6 +228,17 @@ export const searchSpots = (params: SearchSpotsParams) => {
 
 export const getSpotOverview = async (spotId: string): Promise<SpotOverview> => {
     const res = await carrelage.get<SpotOverview>(`/spots/${spotId}/overview`);
+    return res.data;
+};
+
+export const getClips = async (spotId: string, older: Date = new Date(), limit = 10) => {
+    const res = await carrelage.get<Clip[]>(`/spots/${spotId}/clips`, {
+        params: {
+            older,
+            limit,
+        },
+    });
+
     return res.data;
 };
 

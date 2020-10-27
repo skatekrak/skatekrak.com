@@ -10,9 +10,7 @@ type Props = {
     video: Video;
 };
 
-type State = {};
-
-class FeaturedVideo extends React.PureComponent<Props, State> {
+class FeaturedVideo extends React.PureComponent<Props> {
     public render() {
         const { video } = this.props;
 

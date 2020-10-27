@@ -1,34 +1,34 @@
 import axios from 'axios';
 import classNames from 'classnames';
-import React, { useState, useEffect, useRef } from 'react';
-import { InteractiveMap, FlyToInterpolator, ViewportProps, WebMercatorViewport } from 'react-map-gl';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { InteractiveMap, FlyToInterpolator, ViewportProps } from 'react-map-gl';
 import { useSelector, useDispatch } from 'react-redux';
 import dynamic from 'next/dynamic';
+import { useQuery } from 'react-query';
 
-import Typings from 'Types';
-
-import { Cluster, Spot, Status, SpotOverview, Types } from 'lib/carrelageClient';
+import { Cluster, Spot, Status, Types } from 'lib/carrelageClient';
 
 import Legend from 'components/pages/map/Legend';
 import BannerTop from 'components/Ui/Banners/BannerTop';
 import { boxSpotsSearch, getSpotOverview } from 'lib/carrelageClient';
-import { mapRefreshEnd, setViewport } from 'store/map/actions';
+import { flyToCustomMap, mapRefreshEnd, setSpotOverview, setViewport, toggleSpotModal } from 'store/map/actions';
 import { FilterStateUtil, FilterState } from 'lib/FilterState';
 import MapCustomNavigationTrail from './MapCustom/MapCustomNavigationTrail/MapCustomNavigationTrail';
 import MapCustomNavigation from './MapCustom/MapCustomNavigation';
 import MapNavigation from './MapNavigation';
 import MapGradients from './MapGradients';
-import { useRouter } from 'next/router';
+import { RootState } from 'store/reducers';
 
 const DynamicMapComponent = dynamic(() => import('./MapComponent'), { ssr: false });
+const MapFullSpot = dynamic(() => import('./MapFullSpot'), { ssr: false });
 
 const filterClusters = (
     clusters: Cluster[],
     types: Record<Types, FilterState>,
     status: Record<Status, FilterState>,
 ): Cluster[] => {
-    let selectedTypes = FilterStateUtil.getSelected(types);
-    let selectedStatus = FilterStateUtil.getSelected(status);
+    const selectedTypes = FilterStateUtil.getSelected(types);
+    const selectedStatus = FilterStateUtil.getSelected(status);
 
     return clusters
         .map((cluster) => {
@@ -47,30 +47,105 @@ const filterClusters = (
 };
 
 const MapContainer = () => {
-    const { isMobile, map } = useSelector((state: Typings.RootState) => ({
-        map: state.map,
-        isMobile: state.settings.isMobile,
-    }));
+    const isMobile = useSelector((state: RootState) => state.settings.isMobile);
+    // const map = useSelector((state: Typings.RootState) => state.map);
+    const status = useSelector((state: RootState) => state.map.status);
+    const types = useSelector((state: RootState) => state.map.types);
+    const viewport = useSelector((state: RootState) => state.map.viewport);
     const dispatch = useDispatch();
 
-    const router = useRouter();
-    const id = router.query.id === undefined ? undefined : String(router.query.id);
+    /** Spot ID in the query */
+    const id = useSelector((state: RootState) => state.map.customMapId);
+    const spotId = useSelector((state: RootState) => state.map.selectSpot);
+    const modalVisible = useSelector((state: RootState) => state.map.modalVisible);
 
     const [clusters, setClusters] = useState<Cluster[]>([]);
-    const [selectedSpotOverview, setSelectedSpot] = useState<SpotOverview>();
-    const [customMapInfo, setCustomMapInfo] = useState<Record<string, any>>();
+    const [, setFirstLoad] = useState(() => (spotId ? true : false));
+
+    const { data: customMapInfo, isLoading: customMapLoading } = useQuery(
+        ['load-custom-map', id],
+        async (key, customMapId) => {
+            if (customMapId == null) {
+                return null;
+            }
+            const response = await axios.get('/api/custom-maps', { params: { id: customMapId } });
+            const customMap = response.data;
+            return {
+                ...customMap,
+                clusters: customMap.spots.map((spot) => ({
+                    id: spot.id,
+                    latitude: spot.location.latitude,
+                    longitude: spot.location.longitude,
+                    count: 1,
+                    spots: [spot],
+                })),
+            };
+        },
+    );
+
+    // Full spot
+    const fullSpotContainerRef = useRef<HTMLDivElement>();
 
     const mapRef = useRef<InteractiveMap>();
     const loadTimeout = useRef<NodeJS.Timeout>();
 
-    const refreshMap = (_clusters: Cluster[] | undefined = undefined) => {
-        const filteredClusters = filterClusters(_clusters ?? clusters, map.types, map.status);
+    const centerToSpot = useCallback(
+        (spot: Spot) => {
+            const newViewport: Partial<ViewportProps> = {
+                longitude: spot.location.longitude,
+                latitude: spot.location.latitude,
+                zoom: 14,
+                transitionDuration: 1500,
+                transitionInterpolator: new FlyToInterpolator(),
+            };
+            dispatch(setViewport(newViewport));
+        },
+        [dispatch],
+    );
 
-        dispatch(mapRefreshEnd());
-        setClusters(filteredClusters);
-    };
+    const refreshMap = useCallback(
+        (_clusters: Cluster[] | undefined = undefined) => {
+            setClusters((clusters) => {
+                const filteredClusters = filterClusters(_clusters ?? clusters, types, status);
 
-    const load = () => {
+                dispatch(mapRefreshEnd());
+
+                return filteredClusters;
+            });
+        },
+        [dispatch, types, status],
+    );
+
+    useEffect(() => {
+        if (customMapInfo && customMapInfo.clusters) {
+            refreshMap(customMapInfo.clusters);
+        }
+    }, [customMapInfo, refreshMap]);
+
+    useEffect(() => {
+        const loadOverview = async () => {
+            if (spotId != null) {
+                try {
+                    const overview = await getSpotOverview(spotId);
+                    dispatch(setSpotOverview(overview));
+
+                    setFirstLoad((value) => {
+                        if (value) {
+                            centerToSpot(overview.spot);
+                            return !value;
+                        }
+                        return value;
+                    });
+                } catch (err) {
+                    console.error(err);
+                }
+            }
+        };
+
+        loadOverview();
+    }, [spotId, dispatch, centerToSpot]);
+
+    const load = useCallback(() => {
         clearTimeout(loadTimeout.current);
 
         // We are in path `/map`
@@ -82,7 +157,7 @@ const MapContainer = () => {
                     const northEast = bounds.getNorthEast();
                     const southWest = bounds.getSouthWest();
 
-                    let newClusters = await boxSpotsSearch({
+                    const newClusters = await boxSpotsSearch({
                         clustering: true,
                         northEastLatitude: northEast.lat,
                         northEastLongitude: northEast.lng,
@@ -93,91 +168,32 @@ const MapContainer = () => {
                     refreshMap(mergeClusters(clusters, newClusters));
                 }
             }, 200);
-        } else {
-            // We should try to load a custom map
-            const loadCustomMap = async () => {
-                const response = await axios.get('/api/custom-maps', { params: { id } });
-                const customMap = response.data;
-                setCustomMapInfo(customMap);
-                refreshMap(
-                    customMap.spots.map((spot: Spot) => ({
-                        id: spot.id,
-                        latitude: spot.location.latitude,
-                        longitude: spot.location.longitude,
-                        count: 1,
-                        spots: [spot],
-                    })),
-                );
-            };
-            loadCustomMap();
         }
+    }, [clusters, id, refreshMap]);
+
+    const onFullSpotClose = () => {
+        dispatch(toggleSpotModal(false));
     };
 
-    const onSpotMarkerClick = async (spot: Spot) => {
-        try {
-            const spotOverview = await getSpotOverview(spot.id);
-            setSelectedSpot(spotOverview);
-        } catch (err) {
-            // console.log(err);
-        }
-    };
-
-    const onViewportChange = (viewport: { latitude: number; longitude: number; zoom: number }) => {
-        dispatch(setViewport(viewport));
-        // Avoid loop when the viewport is changed when in Custom Map mode
+    useEffect(() => {
         if (id === undefined) {
             load();
         }
-    };
-
-    const onPopupClose = () => {
-        setSelectedSpot(undefined);
-    };
-
-    useEffect(() => {
-        load();
-    }, [map.status, map.types, id]);
-
-    useEffect(() => {
-        if (selectedSpotOverview != null) {
-            setSelectedSpot(undefined);
-        }
-    }, [id]);
+    }, [status, types, id, viewport]);
 
     useEffect(() => {
         if (mapRef.current != null && id !== undefined && customMapInfo !== undefined) {
             const bounds = findBoundsCoordinate(
-                customMapInfo.spots.map((spot: Spot) => [spot.location.longitude, spot.location.latitude]),
+                customMapInfo.spots.map((spot) => [spot.location.longitude, spot.location.latitude]),
             );
-            console.log(bounds);
-            console.log(map.viewport.width);
-            const { longitude, latitude, zoom } = new WebMercatorViewport(map.viewport).fitBounds(bounds, {
-                padding: map.viewport.width * 0.15, // padding of 15%
-            });
-            const newViewport: Partial<ViewportProps> = {
-                ...map.viewport,
-                longitude,
-                latitude,
-                zoom,
-                transitionDuration: 1500,
-                transitionInterpolator: new FlyToInterpolator(),
-            };
-            console.log(newViewport);
-            dispatch(setViewport(newViewport));
+            dispatch(flyToCustomMap(bounds));
         }
-    }, [customMapInfo, map.viewport.width]);
-
-    useEffect(() => {
-        const { selectedSpot } = map;
-
-        if (selectedSpot) {
-            onSpotMarkerClick(selectedSpot);
-        }
-    }, [map.selectedSpot]);
+    }, [customMapInfo, viewport.width, id, dispatch]);
 
     return (
         <div
             id="map-container"
+            ref={fullSpotContainerRef}
             className={classNames({
                 'map-mobile': isMobile,
             })}
@@ -209,15 +225,12 @@ const MapContainer = () => {
                     )}
                     <MapCustomNavigationTrail />
                     <Legend />
-                    <DynamicMapComponent
-                        mapRef={mapRef}
-                        clusters={clusters}
-                        selectedSpotOverview={selectedSpotOverview}
-                        onSpotMarkerClick={onSpotMarkerClick}
-                        onViewportChange={onViewportChange}
-                        onPopupClose={onPopupClose}
-                        clustering={id === undefined}
+                    <MapFullSpot
+                        open={modalVisible}
+                        onClose={onFullSpotClose}
+                        container={fullSpotContainerRef.current}
                     />
+                    <DynamicMapComponent mapRef={mapRef} clusters={customMapLoading ? [] : clusters} />
                     <MapGradients />
                 </>
             )}

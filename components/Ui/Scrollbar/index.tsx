@@ -1,16 +1,21 @@
 import React from 'react';
-import SimpleBar from 'simplebar-react';
+import SimpleBar, { Props as SimpleBarProps } from 'simplebar-react';
 
 type Props = {
     maxHeight?: string;
-};
+    children: React.ReactNode;
+} & SimpleBarProps;
 
-const index: React.SFC<Props> = ({ children, maxHeight }) => {
+const ScrollBar = React.forwardRef<SimpleBar, Props>(function FowardSimpleBar({ children, maxHeight, ...props }, ref) {
     const styles = {
         maxHeight,
     };
 
-    return <SimpleBar style={styles}>{children}</SimpleBar>;
-};
+    return (
+        <SimpleBar style={styles} ref={ref} {...props}>
+            {children}
+        </SimpleBar>
+    );
+});
 
-export default index;
+export default ScrollBar;

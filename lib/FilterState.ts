@@ -46,6 +46,4 @@ export class FilterStateUtil {
         }
         return arr;
     }
-
-    private constructor() {}
 }

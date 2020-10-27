@@ -1,0 +1,29 @@
+@import "../stylus-mq"
+@import "../styleguide"
+
+#map-full-spot-popup-main-clips
+	display: flex
+	flex-direction: column
+	flex-grow: 1
+	padding: 3rem
+
+	+mq($from: "large")
+		padding: 5rem
+
+
+.map-full-spot-popup-main-clip
+	margin-bottom: 4rem
+
+	&:last-child
+		margin-bottom: 0
+
+	&-author
+		margin-bottom: 0.5rem
+		font-family: $ff-roboto-condensed-bold
+		font-size: $fs-small
+		color: $grey-200
+	
+	&-title
+		margin-bottom: 1rem
+		font-family: $ff-roboto-bold
+		font-size: $fs-large

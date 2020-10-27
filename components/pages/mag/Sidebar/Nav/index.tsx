@@ -26,7 +26,7 @@ type Props = {
 class Nav extends React.PureComponent<Props> {
     private static extractSourcesFromData(data: any[]): Source[] {
         const sources = [];
-        data.forEach(item => {
+        data.forEach((item) => {
             if (item.slug !== 'uncategorized') {
                 sources.push({
                     id: item.id,
@@ -40,9 +40,7 @@ class Nav extends React.PureComponent<Props> {
 
     public async componentDidMount() {
         try {
-            const res = await axios.get(
-                `${process.env.NEXT_PUBLIC_KRAKMAG_URL}/wp-json/wp/v2/categories?per_page=100`,
-            );
+            const res = await axios.get(`${process.env.NEXT_PUBLIC_KRAKMAG_URL}/wp-json/wp/v2/categories?per_page=100`);
             const sources = Nav.extractSourcesFromData(res.data);
             this.props.setAllSources(sources);
         } catch (err) {
@@ -139,11 +137,8 @@ const mapStateToProps = ({ mag }: Types.RootState) => {
     return { sources: mag.sources };
 };
 
-export default connect(
-    mapStateToProps,
-    {
-        setAllSources,
-        selectAllFilters,
-        unselectAllFilters,
-    },
-)(Nav);
+export default connect(mapStateToProps, {
+    setAllSources,
+    selectAllFilters,
+    unselectAllFilters,
+})(Nav);

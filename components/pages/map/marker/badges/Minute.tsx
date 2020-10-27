@@ -1,5 +1,6 @@
-/* tslint:disable:max-line-length */
-export default () => (
+import React from 'react';
+
+const MinuteBadge = () => (
     <svg className="map-badge-minute map-badge" viewBox="0 0 20 20">
         <circle className="map-badge-minute-bg" cx="10" cy="10" r="10" />
         <path
@@ -18,3 +19,5 @@ export default () => (
         />
     </svg>
 );
+
+export default MinuteBadge;

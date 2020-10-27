@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
 import classNames from 'classnames';
-import NextLink from 'next/link';
-const Link = React.memo(NextLink);
 
 import IconArrow from 'components/Ui/Icons/Arrow';
 import IconArrowHead from 'components/Ui/Icons/ArrowHead';
+import DividerVertical from 'components/Ui/dividers/DividerVertical';
 
 import MapCustomNavigationAbout from './MapCustomNavigationAbout';
 import MapCustomNavigationSpots from './MapCustomNavigationSpots';
 
 import { Spot } from 'lib/carrelageClient';
+import { useDispatch } from 'react-redux';
+import { selectSpot, toggleCustomMap, toggleSpotModal } from 'store/map/actions';
 
 enum MapCustomNavigationMode {
     NONE = 'NONE',
@@ -26,16 +27,23 @@ type MapCustomNavigationProps = {
 };
 
 const MapCustomNavigation = ({ id, title, about, subtitle, spots }: MapCustomNavigationProps) => {
+    const dispatch = useDispatch();
     const [navigationMode, setNavigationMode] = useState<MapCustomNavigationMode>(MapCustomNavigationMode.NONE);
+
+    const goBack = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+        e.preventDefault();
+        dispatch(toggleCustomMap());
+        dispatch(selectSpot());
+        dispatch(toggleSpotModal(false));
+    };
 
     return (
         <div id="custom-map-navigation">
-            <Link href="/map">
-                <a id="custom-map-navigation-close">
-                    <IconArrow />
-                    Back to Krak map
-                </a>
-            </Link>
+            <a href="map" onClick={goBack} id="custom-map-navigation-close">
+                <IconArrow />
+                Back
+            </a>
+            <DividerVertical />
             <div id="custom-map-navigation-main">
                 <div id="custom-map-navigation-main-logo-container">
                     <img

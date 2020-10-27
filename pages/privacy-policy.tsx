@@ -14,7 +14,7 @@ const titleStyle = {
     marginTop: '15px',
 };
 
-export default () => (
+const PrivacyPolicy = () => (
     <TrackedPage name="PrivacyPolicy">
         <Layout>
             <div className="container-fluid" style={{ paddingTop: '4em', paddingBottom: '4em' }}>
@@ -164,7 +164,7 @@ export default () => (
 
                 <P>
                     This privacy policy is available under a{' '}
-                    <a href="http://creativecommons.org/licenses/by-sa/2.5/" target="_blank">
+                    <a href="http://creativecommons.org/licenses/by-sa/2.5/" target="_blank" rel="noreferrer">
                         Creative Commons Sharealike
                     </a>{' '}
                     license, which means you’re more than welcome to steal it and repurpose it for your own use, just
@@ -173,7 +173,7 @@ export default () => (
 
                 <P>
                     We deeply respect{' '}
-                    <a href="http://automattic.com/" target="_blank">
+                    <a href="http://automattic.com/" target="_blank" rel="noreferrer">
                         Automattic
                     </a>{' '}
                     for sharing the original version of this Privacy Policy. Thanks, Automattic!
@@ -182,3 +182,5 @@ export default () => (
         </Layout>
     </TrackedPage>
 );
+
+export default PrivacyPolicy;

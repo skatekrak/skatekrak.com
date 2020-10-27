@@ -1,6 +1,9 @@
-/* tslint:disable:max-line-length */
-export default () => (
+import React from 'react';
+
+const ClipboardIcon = () => (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96">
         <path d="M79.76,23.15H62V10.06a2,2,0,0,0-2-2H16.24a2,2,0,0,0-2,2V70.85a2,2,0,0,0,2,2H34V85.94a2,2,0,0,0,2,2H79.76a2,2,0,0,0,2-2V25.15A2,2,0,0,0,79.76,23.15ZM34,25.15V65H24.12a2,2,0,0,1-2-2v-45a2,2,0,0,1,2-2h28a2,2,0,0,1,2,2v5.21H36A2,2,0,0,0,34,25.15ZM73.88,78.06a2,2,0,0,1-2,2h-28a2,2,0,0,1-2-2V33a2,2,0,0,1,2-2h28a2,2,0,0,1,2,2Z" />
     </svg>
 );
+
+export default ClipboardIcon;
