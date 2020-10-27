@@ -11,8 +11,7 @@ import MapSearchResultSpot from './MapSearchResultSpot';
 import MapSearchResultPlace from './MapSearchResultPlace';
 
 import { Place } from 'lib/placeApi';
-import { setViewport } from 'store/map/actions';
-import { useDispatchRouterQuery } from 'lib/url-query-hook';
+import { selectSpot, setViewport } from 'store/map/actions';
 
 type MapSearchResultsProps = {
     loading: boolean;
@@ -22,7 +21,6 @@ type MapSearchResultsProps = {
 
 const MapSearchResults: React.FC<MapSearchResultsProps> = ({ spots, loading, places }) => {
     const dispatch = useDispatch();
-    const dispatchQuery = useDispatchRouterQuery();
 
     const onSpotClick = useCallback(
         (spot: SpotHit) => {
@@ -33,9 +31,9 @@ const MapSearchResults: React.FC<MapSearchResultsProps> = ({ spots, loading, pla
                 transitionInterpolator: new FlyToInterpolator(),
             };
             dispatch(setViewport(newViewport));
-            dispatchQuery('spot', spot.objectID);
+            dispatch(selectSpot(spot.objectID));
         },
-        [dispatch, dispatchQuery],
+        [dispatch],
     );
 
     const onPlaceClick = useCallback(

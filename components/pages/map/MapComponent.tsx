@@ -8,8 +8,7 @@ import Typings from 'Types';
 import { Cluster, SpotOverview } from 'lib/carrelageClient';
 import SpotCluster from 'components/pages/map/marker/SpotCluster';
 import SpotMarker from 'components/pages/map/marker/SpotMarker';
-import { useDispatchRouterQuery, useRouterQuery } from 'lib/url-query-hook';
-import { setSpotOverview, setViewport } from 'store/map/actions';
+import { selectSpot, setSpotOverview, setViewport, toggleSpotModal } from 'store/map/actions';
 
 const MIN_ZOOM_LEVEL = 2;
 const MAX_ZOOM_LEVEL = 18;
@@ -22,10 +21,9 @@ type MapComponentProps = {
 };
 
 const MapComponent = ({ mapRef, clusters, selectedSpotOverview, clustering }: MapComponentProps) => {
-    const dispatchQuery = useDispatchRouterQuery();
     const dispatch = useDispatch();
-    const spotId = useRouterQuery('spot');
     const mapState = useSelector((state: Typings.RootState) => state.map);
+    const spotId = mapState.selectSpot;
 
     const markers = useMemo(() => {
         const _markers: JSX.Element[] = [];
@@ -50,11 +48,11 @@ const MapComponent = ({ mapRef, clusters, selectedSpotOverview, clustering }: Ma
     }, [clusters, selectedSpotOverview, clustering, mapState.viewport.zoom, mapState.viewport.maxZoom]);
 
     const onPopupClick = () => {
-        dispatchQuery('modal', '1');
+        dispatch(toggleSpotModal(true));
     };
 
     const onPopupClose = () => {
-        dispatchQuery('spot');
+        dispatch(selectSpot());
         dispatch(setSpotOverview(undefined));
     };
 

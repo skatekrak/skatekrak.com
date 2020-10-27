@@ -13,13 +13,13 @@ import { Cluster, Spot, Status, Types } from 'lib/carrelageClient';
 import Legend from 'components/pages/map/Legend';
 import BannerTop from 'components/Ui/Banners/BannerTop';
 import { boxSpotsSearch, getSpotOverview } from 'lib/carrelageClient';
-import { flyToCustomMap, mapRefreshEnd, setSpotOverview, setViewport } from 'store/map/actions';
+import { flyToCustomMap, mapRefreshEnd, setSpotOverview, setViewport, toggleSpotModal } from 'store/map/actions';
 import { FilterStateUtil, FilterState } from 'lib/FilterState';
 import MapCustomNavigationTrail from './MapCustom/MapCustomNavigationTrail/MapCustomNavigationTrail';
 import MapCustomNavigation from './MapCustom/MapCustomNavigation';
 import MapNavigation from './MapNavigation';
 import MapGradients from './MapGradients';
-import { useDispatchRouterQuery, useRouterQuery } from 'lib/url-query-hook';
+import { useRouterQuery } from 'lib/url-query-hook';
 
 const DynamicMapComponent = dynamic(() => import('./MapComponent'), { ssr: false });
 const MapFullSpot = dynamic(() => import('./MapFullSpot'), { ssr: false });
@@ -55,13 +55,12 @@ const MapContainer = () => {
 
     /** Spot ID in the query */
     const id = useRouterQuery('id');
-    const spotId = useRouterQuery('spot');
-    const modal = useRouterQuery('modal');
+    const spotId = map.selectSpot;
+    const modal = map.modalVisible;
+
     const isFullSpotOpen = modal === undefined ? false : Boolean(modal);
-    const dispatchQuery = useDispatchRouterQuery();
 
     const [clusters, setClusters] = useState<Cluster[]>([]);
-    // const [customMapInfo, setCustomMapInfo] = useState<Record<string, any>>();
     const [, setFirstLoad] = useState(() => (spotId ? true : false));
 
     const { data: customMapInfo } = useQuery(['load-custom-map', id], async (key, customMapId) => {
@@ -172,7 +171,7 @@ const MapContainer = () => {
     }, [clusters, id, refreshMap]);
 
     const onFullSpotClose = () => {
-        dispatchQuery('modal');
+        dispatch(toggleSpotModal(false));
     };
 
     useEffect(() => {

@@ -25,3 +25,5 @@ export const SET_VIEWPORT = 'set_viewport';
 export const SET_SPOT_OVERVIEW = 'set_spot_overview';
 export const SELECT_FULL_SPOT_TAB = 'select_full_spot_tab';
 export const FLY_TO_CUSTOM_MAP = 'fly_to_custom_map';
+export const SELECT_SPOT = 'select_spot';
+export const TOGGLE_SPOT_MODAL = 'TOGGLE_SPOT_MODAL';
