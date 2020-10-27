@@ -10,15 +10,20 @@ import MapFullSpotTips from './Tips';
 
 const MapFullSpotMain = () => {
     const selectedTab = useSelector((state: Typings.RootState) => state.map.fullSpotSelectedTab);
+    const spotOverview = useSelector((state: Typings.RootState) => state.map.spotOverview);
 
-    return (
-        <>
-            {selectedTab === 'clips' && <MapFullSpotMainClips />}
-            {selectedTab === 'info' && <MapFullSpotInfo />}
-            {selectedTab === 'tips' && <MapFullSpotTips />}
-            {selectedTab === 'edito' && <MapFullSpotEdito />}
-        </>
-    );
+    if (spotOverview) {
+        return (
+            <>
+                {selectedTab === 'clips' && <MapFullSpotMainClips clips={spotOverview.clips} />}
+                {selectedTab === 'info' && <MapFullSpotInfo />}
+                {selectedTab === 'tips' && <MapFullSpotTips />}
+                {selectedTab === 'edito' && <MapFullSpotEdito />}
+            </>
+        );
+    }
+
+    return <div />;
 };
 
 export default MapFullSpotMain;
