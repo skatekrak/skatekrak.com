@@ -13,6 +13,7 @@ import {
     FLY_TO_CUSTOM_MAP,
     SELECT_SPOT,
     TOGGLE_SPOT_MODAL,
+    TOGGLE_CUSTOM_MAP,
 } from '../constants';
 import * as mapActions from './actions';
 import { FlyToInterpolator, ViewportProps, WebMercatorViewport } from 'react-map-gl';
@@ -39,6 +40,7 @@ export type MapState = {
     fullSpotSelectedTab: FullSpotTab;
     selectSpot?: string;
     modalVisible: boolean;
+    customMapId?: string;
 };
 
 export const initialState: MapState = {
@@ -63,6 +65,7 @@ export const initialState: MapState = {
     fullSpotSelectedTab: 'clips',
     selectSpot: undefined,
     modalVisible: false,
+    customMapId: undefined,
 };
 
 const MapReducers = (state: MapState = initialState, action: MapAction): MapState => {
@@ -190,6 +193,11 @@ const MapReducers = (state: MapState = initialState, action: MapAction): MapStat
             return {
                 ...state,
                 modalVisible: action.payload,
+            };
+        case TOGGLE_CUSTOM_MAP:
+            return {
+                ...state,
+                customMapId: action.payload,
             };
         default:
             return state;

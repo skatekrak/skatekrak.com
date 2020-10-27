@@ -50,6 +50,7 @@ export const initializeStore: MakeStore<Typings.RootState> = (context) => {
                 ...mapInitialState,
                 selectSpot: params.spot,
                 modalVisible: params.modal === '1',
+                customMapId: params.id,
             },
         };
     }

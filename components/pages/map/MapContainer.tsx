@@ -19,7 +19,6 @@ import MapCustomNavigationTrail from './MapCustom/MapCustomNavigationTrail/MapCu
 import MapCustomNavigation from './MapCustom/MapCustomNavigation';
 import MapNavigation from './MapNavigation';
 import MapGradients from './MapGradients';
-import { useRouterQuery } from 'lib/url-query-hook';
 
 const DynamicMapComponent = dynamic(() => import('./MapComponent'), { ssr: false });
 const MapFullSpot = dynamic(() => import('./MapFullSpot'), { ssr: false });
@@ -54,7 +53,7 @@ const MapContainer = () => {
     const dispatch = useDispatch();
 
     /** Spot ID in the query */
-    const id = useRouterQuery('id');
+    const id = map.customMapId;
     const spotId = map.selectSpot;
     const modal = map.modalVisible;
 
