@@ -73,62 +73,14 @@ const MapFullSpotNav = () => {
                         <p id="map-full-spot-popup-nav-header-street">{displayAddress(spotOverview.spot)}</p>
                         <div id="map-full-spot-popup-nav-header-extra">
                             <SpotIcon type={spotOverview.spot.type} status={spotOverview.spot.status} />
-                            {/* <div id="map-full-spot-popup-nav-header-extra-badge" /> */}
                         </div>
                     </div>
                     <nav id="map-full-spot-popup-nav-main">
-                        {/* <MapFullSpotNavItem
-                            text="Info"
-                            onClick={() => onTabSelect('info')}
-                            isActive={selectedTab === 'info'}
-                        />
-                        <MapFullSpotNavItem
-                            text="Edito"
-                            onClick={() => onTabSelect('edito')}
-                            isActive={selectedTab === 'edito'}
-                        />
-                        <MapFullSpotNavItem
-                            text="Tips(x)"
-                            onClick={() => onTabSelect('tips')}
-                            isActive={selectedTab === 'tips'}
-                        />
-                        <MapFullSpotNavItem
-                            text="Photos(x)"
-                            onClick={() => onTabSelect('photos')}
-                            isActive={selectedTab === 'photos'}
-                        />
-                        <MapFullSpotNavItem
-                            text="Videos(x)"
-                            onClick={() => onTabSelect('videos')}
-                            isActive={selectedTab === 'videos'}
-                        /> */}
                         <MapFullSpotNavItem
                             text={`Clips(${spotOverview.spot.clipsStat.all})`}
                             onClick={() => onTabSelect('clips')}
                             isActive={selectedTab === 'clips'}
                         />
-                        {/* <MapFullSpotNavItem
-                            text="Contests"
-                            onClick={() => onTabSelect('contests')}
-                            isActive={selectedTab === 'contests'}
-                        />
-                        <MapFullSpotNavItem
-                            text="Events"
-                            onClick={() => onTabSelect('events')}
-                            isActive={selectedTab === 'events'}
-                        />
-                        <div id="map-full-spot-popup-nav-footer">
-                            <MapFullSpotNavItem
-                                text="Instagram"
-                                onClick={() => onTabSelect('instagram')}
-                                isActive={selectedTab === 'instagram'}
-                            />
-                            <MapFullSpotNavItem
-                                text="Contributors"
-                                onClick={() => onTabSelect('contributors')}
-                                isActive={selectedTab === 'contributors'}
-                            />
-                        </div> */}
                     </nav>
                 </>
             )}
