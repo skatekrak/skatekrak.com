@@ -26,4 +26,5 @@ export const setViewport = (viewport: Partial<ViewportProps>) => action(SET_VIEW
 export const selectFullSpotTab = (tab?: FullSpotTab) => action(SELECT_FULL_SPOT_TAB, tab);
 export const flyToCustomMap = (bounds: [[number, number], [number, number]]) => action(FLY_TO_CUSTOM_MAP, bounds);
 export const selectSpot = (spotId?: string) => action(SELECT_SPOT, spotId, { pushToUrl: { spot: spotId } });
-export const toggleSpotModal = (open = true) => action(TOGGLE_SPOT_MODAL, open, { pushToUrl: { modal: open } });
+export const toggleSpotModal = (open = true) =>
+    action(TOGGLE_SPOT_MODAL, open, { pushToUrl: { modal: open ? '1' : null } });

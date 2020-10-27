@@ -2,6 +2,10 @@ import React from 'react';
 import { AppProps } from 'next/app';
 import Bugsnag, { BrowserConfig } from '@bugsnag/js';
 import BugsnagPluginReact from '@bugsnag/plugin-react';
+import Head from 'next/head';
+import { ConnectedRouter } from 'connected-next-router';
+
+import { wrapper } from 'store';
 
 import '/public/styles/reset.css';
 import '/public/styles/flexbox-grid.css';
@@ -43,9 +47,6 @@ if (process.env.NEXT_PUBLIC_STAGE === 'development') {
 
 Bugsnag.start(config);
 
-import { wrapper } from 'store';
-import Head from 'next/head';
-
 const ErrorBoundary = Bugsnag.getPlugin('react').createErrorBoundary(React);
 
 const WrappedApp: React.FC<AppProps> = ({ Component, pageProps }) => (
@@ -54,7 +55,9 @@ const WrappedApp: React.FC<AppProps> = ({ Component, pageProps }) => (
             <meta charSet="utf-8" />
             <meta name="viewport" content="with-device-with, initial-scale=1" />
         </Head>
-        <Component {...pageProps} />
+        <ConnectedRouter>
+            <Component {...pageProps} />
+        </ConnectedRouter>
     </ErrorBoundary>
 );
 

@@ -41,7 +41,7 @@ export type MapState = {
     modalVisible: boolean;
 };
 
-const initialState: MapState = {
+export const initialState: MapState = {
     types: {
         [Types.Diy]: FilterState.SELECTED,
         [Types.Park]: FilterState.SELECTED,
