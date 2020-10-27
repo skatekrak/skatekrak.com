@@ -27,9 +27,11 @@ const VideoPlayerContainer = ({ clip, onVideoClick, ...props }: VideoPlayerProps
         <div className="video-player-container">
             <button className="video-player" onClick={handleVideoClick}>
                 <div className="react-player__preview" style={{ backgroundImage: `url(${clip.thumbnailURL})` }}>
-                    <div className="react-player__shadow">
-                        <div className="react-player__play-icon" />
-                    </div>
+                    {clip.provider !== VideoProvider.VIMEO && (
+                        <div className="react-player__shadow">
+                            <div className="react-player__play-icon" />
+                        </div>
+                    )}
                 </div>
             </button>
         </div>
