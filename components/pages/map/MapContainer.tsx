@@ -228,12 +228,7 @@ const MapContainer = () => {
                         onClose={onFullSpotClose}
                         container={fullSpotContainerRef.current}
                     />
-                    <DynamicMapComponent
-                        mapRef={mapRef}
-                        clusters={clusters}
-                        selectedSpotOverview={map.spotOverview}
-                        clustering={id === undefined}
-                    />
+                    <DynamicMapComponent mapRef={mapRef} clusters={clusters} />
                     <MapGradients />
                 </>
             )}
