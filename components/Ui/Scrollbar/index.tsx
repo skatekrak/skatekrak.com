@@ -1,18 +1,18 @@
-import React, { Ref } from 'react';
-import SimpleBar from 'simplebar-react';
+import React from 'react';
+import SimpleBar, { Props as SimpleBarProps } from 'simplebar-react';
 
 type Props = {
     maxHeight?: string;
-    ref?: Ref<SimpleBar>;
-};
+    children: React.ReactNode;
+} & SimpleBarProps;
 
-const ScrollBar: React.FC<Props> = React.forwardRef(({ children, maxHeight }, ref) => {
+const ScrollBar = React.forwardRef<SimpleBar, Props>(function FowardSimpleBar({ children, maxHeight, ...props }, ref) {
     const styles = {
         maxHeight,
     };
 
     return (
-        <SimpleBar style={styles} ref={ref}>
+        <SimpleBar style={styles} ref={ref} {...props}>
             {children}
         </SimpleBar>
     );
