@@ -104,7 +104,7 @@ export interface AddedBy {
 
 export enum VideoProvider {
     YOUTUBE = 'youtube',
-    VIMEO = 'Vimeo',
+    VIMEO = 'vimeo',
 }
 
 export interface Clip {
@@ -146,7 +146,6 @@ export interface Spot {
     clipsStat: Stat;
     tricksDoneStat: Stat;
     tags: string[];
-    clips: Clip[];
 }
 
 export interface Cluster {
@@ -174,6 +173,7 @@ export interface Media {
 export interface SpotOverview {
     spot: Spot;
     medias: Media[];
+    clips: Clip[];
     mostLikedMedia?: Media;
     // TODO: complete SpotOverview interface
 }
