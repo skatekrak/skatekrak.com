@@ -77,7 +77,9 @@ const MapFullSpotNav = () => {
                     </div>
                     <nav id="map-full-spot-popup-nav-main">
                         <MapFullSpotNavItem
-                            text={`Clips(${spotOverview.spot.clipsStat.all})`}
+                            text={`Clips${
+                                spotOverview.spot.clipsStat.all > 0 ? ` (${spotOverview.spot.clipsStat.all})` : ''
+                            }`}
                             onClick={() => onTabSelect('clips')}
                             isActive={selectedTab === 'clips'}
                         />
