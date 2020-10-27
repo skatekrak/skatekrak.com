@@ -3,17 +3,17 @@ import { ReactPlayerProps } from 'react-player';
 
 import VideoPlayer from './VideoPlayer';
 
-import { SourceType } from 'lib/constants';
+import { Clip, VideoProvider } from 'lib/carrelageClient';
 
 /*
  * Code
  */
-type Props = {
-    video: any;
+export type VideoPlayerProps = {
+    clip: Clip;
     onVideoClick?: () => void;
 } & Partial<ReactPlayerProps>;
 
-const VideoPlayerContainer: React.FC<Props> = ({ video, onVideoClick, ...props }) => {
+const VideoPlayerContainer = ({ clip, onVideoClick, ...props }: VideoPlayerProps) => {
     const [isOpen, setIsOpen] = useState(false);
 
     const handleVideoClick = () => {
@@ -26,7 +26,7 @@ const VideoPlayerContainer: React.FC<Props> = ({ video, onVideoClick, ...props }
     return !isOpen ? (
         <div className="video-player-container">
             <button className="video-player" onClick={handleVideoClick}>
-                <div className="react-player__preview" style={{ backgroundImage: `url(${video.thumbnail})` }}>
+                <div className="react-player__preview" style={{ backgroundImage: `url(${clip.thumbnailURL})` }}>
                     <div className="react-player__shadow">
                         <div className="react-player__play-icon" />
                     </div>
@@ -35,11 +35,11 @@ const VideoPlayerContainer: React.FC<Props> = ({ video, onVideoClick, ...props }
         </div>
     ) : (
         <>
-            {video.source.type === SourceType.YOUTUBE && (
-                <VideoPlayer url={`https://www.youtube.com/watch?v=${video.videoId}`} playing controls pip {...props} />
+            {clip.provider === VideoProvider.YOUTUBE && (
+                <VideoPlayer url={clip.videoURL} playing controls pip {...props} />
             )}
-            {video.source.type === SourceType.VIMEO && (
-                <VideoPlayer url={`https://vimeo.com/${video.videoId}`} playing controls pip {...props} />
+            {clip.provider === VideoProvider.VIMEO && (
+                <VideoPlayer url={clip.videoURL} playing controls pip {...props} />
             )}
         </>
     );
