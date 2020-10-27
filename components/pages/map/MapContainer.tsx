@@ -57,9 +57,7 @@ const MapContainer = () => {
     /** Spot ID in the query */
     const id = useSelector((state: RootState) => state.map.customMapId);
     const spotId = useSelector((state: RootState) => state.map.selectSpot);
-    const modal = useSelector((state: RootState) => state.map.modalVisible);
-
-    const isFullSpotOpen = modal === undefined ? false : Boolean(modal);
+    const modalVisible = useSelector((state: RootState) => state.map.modalVisible);
 
     const [clusters, setClusters] = useState<Cluster[]>([]);
     const [, setFirstLoad] = useState(() => (spotId ? true : false));
@@ -228,7 +226,7 @@ const MapContainer = () => {
                     <MapCustomNavigationTrail />
                     <Legend />
                     <MapFullSpot
-                        open={isFullSpotOpen}
+                        open={modalVisible}
                         onClose={onFullSpotClose}
                         container={fullSpotContainerRef.current}
                     />
