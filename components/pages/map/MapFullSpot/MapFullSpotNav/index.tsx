@@ -14,7 +14,7 @@ import IconWip from 'components/pages/map/marker/icons/Wip';
 import { Status, Types } from 'lib/carrelageClient';
 import { FullSpotTab } from 'store/map/reducers';
 import { selectFullSpotTab } from 'store/map/actions';
-import MapFullSpotNavItem from './MapFullSpotNavItem/MapFullSpotNavItem';
+import MapFullSpotNavItem from './MapFullSpotNavItem';
 
 const SpotIcon = ({ type, status }: { type: Types; status: Status }) => {
     if (status === Status.Rip) {

@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 
-import IconArrowHead from '../../../../../Ui/Icons/ArrowHead';
+import IconArrowHead from 'components/Ui/Icons/ArrowHead';
 
 type MapFullSpotNavItemProps = {
     text: string;
