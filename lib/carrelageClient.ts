@@ -92,6 +92,33 @@ export interface Comment {
     likes: Like[];
 }
 
+export interface AddedBy {
+    username: string;
+    id: string;
+    profilePicture?: {
+        url: string;
+        publicId: string;
+        jpg: string;
+    };
+}
+
+export enum VideoProvider {
+    YOUTUBE = 'youtube',
+    VIMEO = 'Vimeo',
+}
+
+export interface Clip {
+    id: string;
+    createdAt: Date;
+    updatedAt: Date;
+    title: string;
+    provider: VideoProvider;
+    videoURL: string;
+    thumbnailURL: string;
+    spot: string;
+    addedBy: AddedBy;
+}
+
 export interface Spot {
     id: string;
     createdAt: Date;
@@ -119,6 +146,7 @@ export interface Spot {
     clipsStat: Stat;
     tricksDoneStat: Stat;
     tags: string[];
+    clips: Clip[];
 }
 
 export interface Cluster {
