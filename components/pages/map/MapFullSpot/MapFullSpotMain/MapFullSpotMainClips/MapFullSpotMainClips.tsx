@@ -50,7 +50,6 @@ const MapFullSpotMainClips = ({ clips: defaultClips, spot }: MapFullSpotMainClip
                     <div id="map-full-spot-popup-main-clips">
                         {clips.map((clip) => (
                             <div key={clip.id} className="map-full-spot-popup-main-clip">
-                                <h3 className="map-full-spot-popup-main-clip-author">{clip.addedBy.username}</h3>
                                 <h2 className="map-full-spot-popup-main-clip-title">{clip.title}</h2>
                                 <VideoPlayerContainer clip={clip} />
                             </div>
