@@ -20,6 +20,10 @@ type MapComponentProps = {
     clustering: boolean;
 };
 
+const generateCloudinaryURL = (publicId: string): string => {
+    return `https://res.cloudinary.com/krak/image/upload/w_275,ar_1.5,c_fill,dpr_auto/${publicId}.jpg`;
+};
+
 const MapComponent = ({ mapRef, clusters, selectedSpotOverview, clustering }: MapComponentProps) => {
     const dispatch = useDispatch();
     const mapState = useSelector((state: Typings.RootState) => state.map);
@@ -98,7 +102,9 @@ const MapComponent = ({ mapRef, clusters, selectedSpotOverview, clustering }: Ma
                                     <div
                                         className="map-popup-spot-cover"
                                         style={{
-                                            backgroundImage: `url("${selectedSpotOverview.mostLikedMedia.image.jpg}")`,
+                                            backgroundImage: `url("${generateCloudinaryURL(
+                                                selectedSpotOverview.mostLikedMedia.image.publicId,
+                                            )}")`,
                                         }}
                                     />
                                 </div>
