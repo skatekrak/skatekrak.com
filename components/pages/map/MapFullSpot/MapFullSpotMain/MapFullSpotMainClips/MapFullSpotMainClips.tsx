@@ -36,6 +36,11 @@ const MapFullSpotMainClips = ({ clips: defaultClips, spot }: MapFullSpotMainClip
         }
     };
 
+    const getScrollParent = () => {
+        const wrappers = document.getElementsByClassName('simplebar-content-wrapper');
+        return wrappers[wrappers.length - 1] as HTMLElement;
+    };
+
     return (
         <ScrollBar id="clip-scroll" maxHeight="100%">
             <InfiniteScroll
@@ -43,7 +48,7 @@ const MapFullSpotMainClips = ({ clips: defaultClips, spot }: MapFullSpotMainClip
                 initialLoad={false}
                 loadMore={loadMore}
                 hasMore={!isLoading && hasMore}
-                getScrollParent={() => document.getElementsByClassName('simplebar-content-wrapper')[0] as HTMLElement}
+                getScrollParent={getScrollParent}
                 useWindow={false}
             >
                 <div id="map-full-spot-popup-main">
