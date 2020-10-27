@@ -6,8 +6,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import dynamic from 'next/dynamic';
 import { useQuery } from 'react-query';
 
-import Typings from 'Types';
-
 import { Cluster, Spot, Status, Types } from 'lib/carrelageClient';
 
 import Legend from 'components/pages/map/Legend';
@@ -19,6 +17,7 @@ import MapCustomNavigationTrail from './MapCustom/MapCustomNavigationTrail/MapCu
 import MapCustomNavigation from './MapCustom/MapCustomNavigation';
 import MapNavigation from './MapNavigation';
 import MapGradients from './MapGradients';
+import { RootState } from 'store/reducers';
 
 const DynamicMapComponent = dynamic(() => import('./MapComponent'), { ssr: false });
 const MapFullSpot = dynamic(() => import('./MapFullSpot'), { ssr: false });
@@ -48,38 +47,41 @@ const filterClusters = (
 };
 
 const MapContainer = () => {
-    const isMobile = useSelector((state: Typings.RootState) => state.settings.isMobile);
-    const map = useSelector((state: Typings.RootState) => state.map);
+    const isMobile = useSelector((state: RootState) => state.settings.isMobile);
+    // const map = useSelector((state: Typings.RootState) => state.map);
+    const status = useSelector((state: RootState) => state.map.status);
+    const types = useSelector((state: RootState) => state.map.types);
+    const viewport = useSelector((state: RootState) => state.map.viewport);
     const dispatch = useDispatch();
 
     /** Spot ID in the query */
-    const id = map.customMapId;
-    const spotId = map.selectSpot;
-    const modal = map.modalVisible;
-
-    const isFullSpotOpen = modal === undefined ? false : Boolean(modal);
+    const id = useSelector((state: RootState) => state.map.customMapId);
+    const spotId = useSelector((state: RootState) => state.map.selectSpot);
+    const modalVisible = useSelector((state: RootState) => state.map.modalVisible);
 
     const [clusters, setClusters] = useState<Cluster[]>([]);
     const [, setFirstLoad] = useState(() => (spotId ? true : false));
 
-    const { data: customMapInfo } = useQuery(['load-custom-map', id], async (key, customMapId) => {
-        if (customMapId == null) {
-            return null;
-        }
-
-        const response = await axios.get('/api/custom-maps', { params: { id: customMapId } });
-        const customMap = response.data;
-        return {
-            ...customMap,
-            clusters: customMap.spots.map((spot) => ({
-                id: spot.id,
-                latitude: spot.location.latitude,
-                longitude: spot.location.longitude,
-                count: 1,
-                spots: [spot],
-            })),
-        };
-    });
+    const { data: customMapInfo, isLoading: customMapLoading } = useQuery(
+        ['load-custom-map', id],
+        async (key, customMapId) => {
+            if (customMapId == null) {
+                return null;
+            }
+            const response = await axios.get('/api/custom-maps', { params: { id: customMapId } });
+            const customMap = response.data;
+            return {
+                ...customMap,
+                clusters: customMap.spots.map((spot) => ({
+                    id: spot.id,
+                    latitude: spot.location.latitude,
+                    longitude: spot.location.longitude,
+                    count: 1,
+                    spots: [spot],
+                })),
+            };
+        },
+    );
 
     // Full spot
     const fullSpotContainerRef = useRef<HTMLDivElement>();
@@ -104,14 +106,14 @@ const MapContainer = () => {
     const refreshMap = useCallback(
         (_clusters: Cluster[] | undefined = undefined) => {
             setClusters((clusters) => {
-                const filteredClusters = filterClusters(_clusters ?? clusters, map.types, map.status);
+                const filteredClusters = filterClusters(_clusters ?? clusters, types, status);
 
                 dispatch(mapRefreshEnd());
 
                 return filteredClusters;
             });
         },
-        [dispatch, map.types, map.status],
+        [dispatch, types, status],
     );
 
     useEffect(() => {
@@ -177,7 +179,7 @@ const MapContainer = () => {
         if (id === undefined) {
             load();
         }
-    }, [map.status, map.types, id, map.viewport]);
+    }, [status, types, id, viewport]);
 
     useEffect(() => {
         if (mapRef.current != null && id !== undefined && customMapInfo !== undefined) {
@@ -186,7 +188,7 @@ const MapContainer = () => {
             );
             dispatch(flyToCustomMap(bounds));
         }
-    }, [customMapInfo, map.viewport.width, id, dispatch]);
+    }, [customMapInfo, viewport.width, id, dispatch]);
 
     return (
         <div
@@ -224,16 +226,11 @@ const MapContainer = () => {
                     <MapCustomNavigationTrail />
                     <Legend />
                     <MapFullSpot
-                        open={isFullSpotOpen}
+                        open={modalVisible}
                         onClose={onFullSpotClose}
                         container={fullSpotContainerRef.current}
                     />
-                    <DynamicMapComponent
-                        mapRef={mapRef}
-                        clusters={clusters}
-                        selectedSpotOverview={map.spotOverview}
-                        clustering={id === undefined}
-                    />
+                    <DynamicMapComponent mapRef={mapRef} clusters={customMapLoading ? [] : clusters} />
                     <MapGradients />
                 </>
             )}
