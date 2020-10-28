@@ -1,10 +1,8 @@
 import axios from 'axios';
 import classNames from 'classnames';
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroller';
-import { connect } from 'react-redux';
-
-import Types from 'Types';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Card from 'components/pages/mag/Feed/Card';
 import TrackedPage from 'components/pages/TrackedPage';
@@ -15,7 +13,7 @@ import { formatPost } from 'lib/mag/formattedPost';
 import ScrollHelper from 'lib/ScrollHelper';
 import { Source } from 'rss-feed';
 import { feedEndRefresh, setItems } from 'store/feed/actions';
-import { State as MagState } from 'store/feed/reducers';
+import { RootState } from 'store/reducers';
 
 export interface Post {
     id?: number;
@@ -37,117 +35,99 @@ export interface Post {
 }
 
 type Props = {
-    mag: MagState;
-    dispatch: (fct: any) => void;
     sidebarNavIsOpen: boolean;
 };
 
-type State = {
-    isLoading: boolean;
-    hasMore: boolean;
-    posts: Post[];
+const getFilters = (sources: Map<Source, FilterState>): string[] => {
+    const arr: string[] = [];
+    for (const entry of sources.entries()) {
+        if (entry[1] === FilterState.LOADING_TO_SELECTED || entry[1] === FilterState.SELECTED) {
+            arr.push(entry[0].id);
+        }
+    }
+    return arr;
 };
 
-class Feed extends React.Component<Props, State> {
-    private static getFilters(sources: Map<Source, FilterState>): string[] {
-        const arr: string[] = [];
-        for (const entry of sources.entries()) {
-            if (entry[1] === FilterState.LOADING_TO_SELECTED || entry[1] === FilterState.SELECTED) {
-                arr.push(entry[0].id);
-            }
-        }
-        return arr;
-    }
+const Feed = ({ sidebarNavIsOpen }: Props) => {
+    const [isLoading, setLoading] = useState(false);
+    const [hasMore, setHasMore] = useState(false);
+    const [posts, setPosts] = useState<Post[]>([]);
 
-    public state: State = {
-        isLoading: false,
-        hasMore: true,
-        posts: [],
-    };
+    const mag = useSelector((state: RootState) => state.mag);
+    const dispatch = useDispatch();
 
-    public async componentDidUpdate() {
-        if (this.props.mag.feedNeedRefresh && !this.state.isLoading) {
-            this.setState({ posts: [], hasMore: false });
-            await this.loadMore(1);
-        }
-    }
+    const loadMore = useCallback(
+        async (page: number) => {
+            try {
+                setLoading(true);
 
-    public render() {
-        const { isLoading, hasMore, posts } = this.state;
+                const filters = getFilters(mag.sources);
 
-        return (
-            <div id="mag-feed">
-                <TrackedPage name={`Mag/${Math.ceil(posts.length / 20)}`} initial={false} />
-                <InfiniteScroll
-                    pageStart={1}
-                    initialLoad={false}
-                    loadMore={this.loadMore}
-                    hasMore={!isLoading && hasMore}
-                    getScrollParent={this.getScrollContainer}
-                    useWindow={false}
-                >
-                    <div className={classNames('row', { hide: this.props.sidebarNavIsOpen })}>
-                        {posts.map((post) => (
-                            <div key={post.id} className="mag-card-container col-xs-12 col-sm-6 col-lg-4">
-                                <Card post={post} />
-                            </div>
-                        ))}
-                        {isLoading && <KrakLoading />}
-                        {posts.length === 0 && !isLoading && (
-                            <NoContent
-                                title="No article to display"
-                                desc="Select some categories to be back in the loop"
-                            />
-                        )}
-                        {posts.length > 0 && !hasMore && (
-                            <NoContent title="No more article" desc="Add more categories" />
-                        )}
-                    </div>
-                </InfiniteScroll>
-            </div>
-        );
-    }
+                if (filters.length === 0) {
+                    return Promise.resolve();
+                }
 
-    private getScrollContainer = () => {
-        return ScrollHelper.getScrollContainer();
-    };
-
-    private loadMore = async (page: number) => {
-        try {
-            this.setState({ isLoading: true });
-
-            const filters = Feed.getFilters(this.props.mag.sources);
-
-            if (filters.length === 0) {
-                return Promise.resolve();
-            }
-
-            const params = { per_page: 20, page, categories: filters, search: this.props.mag.search, _embed: 1 };
-            const res = await axios.get(`${process.env.NEXT_PUBLIC_KRAKMAG_URL}/wp-json/wp/v2/posts`, {
-                params: {
-                    ...params,
-                    search: this.props.mag.search,
-                },
-            });
-
-            if (res.data) {
-                const formattedPosts = res.data.map((post) => formatPost(post));
-                const posts = this.state.posts.concat(formattedPosts);
-                this.setState({
-                    posts,
-                    hasMore: formattedPosts.length >= 20,
+                const params = { per_page: 20, page, categories: filters, search: mag.search, _embed: 1 };
+                const res = await axios.get(`${process.env.NEXT_PUBLIC_KRAKMAG_URL}/wp-json/wp/v2/posts`, {
+                    params: {
+                        ...params,
+                        search: mag.search,
+                    },
                 });
-                this.props.dispatch(setItems(posts));
-            }
-        } catch (err) {
-            // console.log(err);
-        } finally {
-            this.props.dispatch(feedEndRefresh());
-            this.setState({ isLoading: false });
-        }
-    };
-}
 
-export default connect(({ mag }: Types.RootState) => ({
-    mag,
-}))(Feed);
+                if (res.data) {
+                    const formattedPosts = res.data.map((post) => formatPost(post));
+                    setPosts((posts) => {
+                        const _p = posts.concat(formattedPosts);
+                        dispatch(setItems(_p));
+                        return _p;
+                    });
+                    setHasMore(formattedPosts.length >= 20);
+                }
+            } catch (err) {
+                // console.log(err);
+            } finally {
+                dispatch(feedEndRefresh());
+                setLoading(false);
+            }
+        },
+        [dispatch, mag.search, mag.sources],
+    );
+
+    useEffect(() => {
+        if (mag.feedNeedRefresh && !isLoading) {
+            setPosts([]);
+            setHasMore(false);
+            loadMore(1);
+        }
+    }, [mag.feedNeedRefresh, isLoading, loadMore]);
+
+    return (
+        <div id="mag-feed">
+            <TrackedPage name={`Mag/${Math.ceil(posts.length / 20)}`} initial={false} />
+            <InfiniteScroll
+                pageStart={1}
+                initialLoad={false}
+                loadMore={loadMore}
+                hasMore={!isLoading && hasMore}
+                getScrollParent={ScrollHelper.getScrollContainer}
+                useWindow={false}
+            >
+                <div className={classNames('row', { hide: sidebarNavIsOpen })}>
+                    {posts.map((post) => (
+                        <div key={post.id} className="mag-card-container col-xs-12 col-sm-6 col-lg-4">
+                            <Card post={post} />
+                        </div>
+                    ))}
+                    {isLoading && <KrakLoading />}
+                    {posts.length === 0 && !isLoading && (
+                        <NoContent title="No article to display" desc="Select some categories to be back in the loop" />
+                    )}
+                    {posts.length > 0 && !hasMore && <NoContent title="No more article" desc="Add more categories" />}
+                </div>
+            </InfiniteScroll>
+        </div>
+    );
+};
+
+export default Feed;
