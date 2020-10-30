@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { formatPost } from 'lib/mag/formattedPost';
-import { useCallback } from 'react';
 import { useInfiniteQuery } from 'react-query';
+import queryString from 'query-string';
 
 export interface Post {
     id?: number;
@@ -28,27 +28,24 @@ export type PostsFetchParam = {
     search?: string;
 };
 
-const usePosts = (params: PostsFetchParam) => {
-    const fetchPosts = useCallback(
-        async (key: string, page = 1) => {
-            const { data } = await axios.get<Post[]>(`${process.env.NEXT_PUBLIC_KRAKMAG_URL}/wp-json/wp/v2/posts`, {
-                params: {
-                    ...params,
-                    page,
-                    _embed: 1,
-                },
-            });
-
-            const posts = data.map((post) => formatPost(post));
-            return posts;
+const fetchPosts = async (key: string, page: any = 1) => {
+    const { data } = await axios.get<Post[]>(`${process.env.NEXT_PUBLIC_KRAKMAG_URL}/wp-json/wp/v2/posts`, {
+        params: {
+            ...queryString.parse(key),
+            page,
+            _embed: 1,
         },
-        [params],
-    );
+    });
 
-    return useInfiniteQuery('wp-posts', fetchPosts, {
+    const posts = data.map((post) => formatPost(post));
+    return posts;
+};
+
+const usePosts = (params: PostsFetchParam) => {
+    return useInfiniteQuery(queryString.stringify(params), fetchPosts, {
         getFetchMore: (lastPages, allPages) => {
             if (lastPages.length < params.per_page) {
-                return null;
+                return false;
             }
             return allPages.length + 1;
         },
