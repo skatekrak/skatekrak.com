@@ -18,7 +18,7 @@ const Card = ({ post }: Props) => {
 
     return (
         <>
-            <Link href={`/mag?slug=${post.slug}`} as={`/mag/${post.slug}`}>
+            <Link href={`/mag/${post.slug}`}>
                 <a className="mag-card-link">
                     <div className="mag-card-cover-img-container">
                         <div
