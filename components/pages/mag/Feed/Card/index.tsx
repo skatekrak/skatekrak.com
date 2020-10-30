@@ -6,8 +6,8 @@ import { FacebookIcon, FacebookShareButton, TwitterIcon, TwitterShareButton } fr
 import createMarkup from 'lib/createMarkup';
 import decodeHTML from 'lib/decodeHTML';
 
-import { Post } from 'components/pages/mag/Feed';
 import ClipboardButton from 'components/Ui/Button/ClipboardButton';
+import { Post } from 'lib/hook/mag/posts';
 
 type Props = {
     post: Post;
