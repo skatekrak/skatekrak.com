@@ -11,11 +11,11 @@ import BannerTop from 'components/Ui/Banners/BannerTop';
 import LayoutFeed from 'components/Ui/Feed/LayoutFeed';
 
 import Article from 'components/pages/mag/Article';
-import { Post } from 'components/pages/mag/Feed';
 import Sidebar from 'components/pages/mag/Sidebar';
 import TrackedPage from 'components/pages/TrackedPage';
 
 import { formatPost } from 'lib/mag/formattedPost';
+import { Post } from 'lib/hook/mag/posts';
 
 type HeadProps = {
     post: Post;
