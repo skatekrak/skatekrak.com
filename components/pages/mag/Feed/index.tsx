@@ -1,7 +1,7 @@
 import classNames from 'classnames';
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import InfiniteScroll from 'react-infinite-scroller';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Card from 'components/pages/mag/Feed/Card';
 import TrackedPage from 'components/pages/TrackedPage';
@@ -13,6 +13,7 @@ import { Source } from 'rss-feed';
 import { RootState } from 'store/reducers';
 
 import usePosts from 'lib/hook/mag/posts';
+import { feedEndRefresh } from 'store/feed/actions';
 
 type Props = {
     sidebarNavIsOpen: boolean;
@@ -30,6 +31,7 @@ const getFilters = (sources: Map<Source, FilterState>): string[] => {
 
 const Feed = ({ sidebarNavIsOpen }: Props) => {
     const mag = useSelector((state: RootState) => state.mag);
+    const dispatch = useDispatch();
 
     const categories = useMemo(() => getFilters(mag.sources), [mag.sources]);
 
@@ -41,13 +43,23 @@ const Feed = ({ sidebarNavIsOpen }: Props) => {
     // Flatten the posts list
     const posts = (data ?? []).reduce((acc, val) => acc.concat(val), []);
 
+    useEffect(() => {
+        if (!isFetching) {
+            dispatch(feedEndRefresh());
+        }
+    }, [isFetching, dispatch]);
+
     return (
         <div id="mag-feed">
             <TrackedPage name={`Mag/${Math.ceil(posts.length / 20)}`} initial={false} />
             <InfiniteScroll
                 pageStart={1}
                 initialLoad={false}
-                loadMore={() => fetchMore()}
+                loadMore={() => {
+                    if (canFetchMore) {
+                        fetchMore();
+                    }
+                }}
                 hasMore={canFetchMore}
                 getScrollParent={ScrollHelper.getScrollContainer}
                 useWindow={false}
