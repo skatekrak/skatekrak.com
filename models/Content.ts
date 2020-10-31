@@ -48,7 +48,7 @@ export default class Content implements IContent {
     }
 
     public getArticleUrl(): string {
-        return `${process.env.NEXT_PUBLIC_REDIRECT_URL}/${encodeURIComponent(this.webUrl)}`;
+        return this.webUrl;
     }
 
     public getArticlePopupUrl(): string {
@@ -56,7 +56,7 @@ export default class Content implements IContent {
     }
 
     public getWebsiteUrl(): string {
-        return `${process.env.NEXT_PUBLIC_REDIRECT_URL}/${encodeURIComponent(this.source.website)}`;
+        return this.source.website;
     }
 
     public getContent() {
