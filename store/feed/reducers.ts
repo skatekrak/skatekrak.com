@@ -10,7 +10,6 @@ import {
     SELECT_ALL_FILTERS,
     SELECT_LANGUAGE,
     SET_ALL_SOURCES,
-    SET_ITEMS,
     TOGGLE_FILTER,
     UNSELECT_ALL_FILTERS,
 } from '../constants';
@@ -24,7 +23,6 @@ export type State = {
     sources: Map<Source, FilterState>;
     languages: Language[];
     search?: string;
-    items: any[];
 };
 
 const FeedReducers = () => {
@@ -33,7 +31,6 @@ const FeedReducers = () => {
         sources: new Map<Source, FilterState>(),
         languages: new Array<Language>(),
         search: undefined,
-        items: [],
     };
 
     return (state: State = initialState, action: FeedAction): State => {
@@ -155,12 +152,6 @@ const FeedReducers = () => {
                     ...state,
                     feedNeedRefresh: true,
                     search,
-                };
-            }
-            case SET_ITEMS: {
-                return {
-                    ...state,
-                    items: action.payload,
                 };
             }
             default:
