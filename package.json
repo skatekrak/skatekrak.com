@@ -32,7 +32,7 @@
         "email-validator": "^2.0.4",
         "fork-ts-checker-webpack-plugin": "^5.2.0",
         "jump.js": "https://github.com/MilllerTime/jump.js.git#b95f9279a4c0f4ca942fd648a6b97094b53bcbab",
-        "next": "^9.5.5",
+        "next": "^10.0.0",
         "next-compose-plugins": "^2.2.0",
         "next-plugin-custom-babel-config": "^1.0.4",
         "next-redux-wrapper": "^6.0.2",
