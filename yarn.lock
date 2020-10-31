@@ -6959,12 +6959,12 @@ react-player@^2.6.0:
     prop-types "^15.7.2"
     react-fast-compare "^3.0.1"
 
-react-query@^2.5.13:
-  version "2.5.13"
-  resolved "https://registry.yarnpkg.com/react-query/-/react-query-2.5.13.tgz#0948e044416562c4c58c966c27387ce4037bbf5a"
-  integrity sha512-jdpHWav8hh8KwIL6v021/S1jE7GTKBcZe7o86MfKObZ7fIAz8Rx6HhC8Pej5MwcR//uESdnfNoyr+OQr2Pbfeg==
+react-query@^2.25.2:
+  version "2.25.2"
+  resolved "https://registry.yarnpkg.com/react-query/-/react-query-2.25.2.tgz#afefdf57a166bcbf08c93a26522a8c6cb1bdf849"
+  integrity sha512-GIz75WlRAzJ+wKos9VPw6PMAB3FqGmB2lHtRZlvKKByurlMNHa5rOFPz4WCYGWsPBSk7m6FHWrkK9aItDrP2mw==
   dependencies:
-    ts-toolbelt "^6.9.4"
+    "@babel/runtime" "^7.5.5"
 
 react-redux@^7.2.1:
   version "7.2.1"
@@ -8194,11 +8194,6 @@ ts-pnp@^1.1.6:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/ts-pnp/-/ts-pnp-1.2.0.tgz#a500ad084b0798f1c3071af391e65912c86bca92"
   integrity sha512-csd+vJOb/gkzvcCHgTGSChYpy5f1/XKNsmvBGO4JXS+z1v2HobugDz4s1IeFXM3wZB44uczs+eazB5Q/ccdhQw==
-
-ts-toolbelt@^6.9.4:
-  version "6.12.2"
-  resolved "https://registry.yarnpkg.com/ts-toolbelt/-/ts-toolbelt-6.12.2.tgz#d9007906d903b89d7bf210f43fbefe2a2bfd5734"
-  integrity sha512-Z9VWXJ32UpLrjw5OqieJ944heNN5gkVm69VLvVf9GgrdxoxPiM4ughyYFip6pIDqRnrVuiegMTD48zxnOW5j/Q==
 
 tslib@^1.8.1, tslib@^1.9.0:
   version "1.13.0"
