@@ -42,7 +42,7 @@ const fetchPosts = async (key: string, page: any = 1) => {
 };
 
 const usePosts = (params: PostsFetchParam) => {
-    return useInfiniteQuery(queryString.stringify(params), fetchPosts, {
+    return useInfiniteQuery(queryString.stringify({ ...params, key: 'mag-feed' }), fetchPosts, {
         getFetchMore: (lastPages, allPages) => {
             if (lastPages.length < params.per_page) {
                 return false;

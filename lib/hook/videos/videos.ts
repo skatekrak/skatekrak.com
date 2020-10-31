@@ -33,14 +33,18 @@ export type FetchVideoParams = {
 };
 
 const useVideos = (params: FetchVideoParams) => {
-    return useInfiniteQuery(queryString.stringify(params, { arrayFormat: 'bracket' }), fetchVideos, {
-        getFetchMore: (lastPages, allPages) => {
-            if (lastPages.length < 20) {
-                return false;
-            }
-            return allPages.length + 1;
+    return useInfiniteQuery(
+        queryString.stringify({ ...params, key: 'videos-feed' }, { arrayFormat: 'bracket' }),
+        fetchVideos,
+        {
+            getFetchMore: (lastPages, allPages) => {
+                if (lastPages.length < 20) {
+                    return false;
+                }
+                return allPages.length + 1;
+            },
         },
-    });
+    );
 };
 
 export default useVideos;
