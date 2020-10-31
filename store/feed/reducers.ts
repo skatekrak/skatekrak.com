@@ -169,4 +169,18 @@ const FeedReducers = () => {
     };
 };
 
+/**
+ * Helpers to get selected source
+ * @param sources Sources
+ */
+export const getFilters = (sources: Map<Source, FilterState>): string[] => {
+    const arr: string[] = [];
+    for (const entry of sources.entries()) {
+        if (entry[1] === FilterState.LOADING_TO_SELECTED || entry[1] === FilterState.SELECTED) {
+            arr.push(entry[0].id);
+        }
+    }
+    return arr;
+};
+
 export default FeedReducers;

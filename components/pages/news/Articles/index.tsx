@@ -1,4 +1,3 @@
-import axios from 'axios';
 import classNames from 'classnames';
 import React, { useCallback, useEffect, useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroller';
@@ -12,9 +11,9 @@ import { feedEndRefresh } from 'store/feed/actions';
 import { getFilters } from 'store/feed/reducers';
 import { FeedLayout } from 'store/settings/reducers';
 
-import Content from 'models/Content';
 import ArticlesList from '../ArticlesList';
 import { RootState } from 'store/reducers';
+import useNewsContent from 'lib/hook/news/contents';
 
 type ArticlesProps = {
     sidebarNavIsOpen: boolean;
@@ -25,9 +24,6 @@ const Articles = ({ sidebarNavIsOpen }: ArticlesProps) => {
     const feedLayout = useSelector((state: RootState) => state.settings.feedLayout);
     const dispatch = useDispatch();
 
-    const [isLoading, setLoading] = useState(false);
-    const [contents, setContents] = useState<Content[]>([]);
-    const [hasMore, setHasMore] = useState(false);
     const [promoCardIndexes, setPromoCardIndexes] = useState<number[]>([]);
 
     const genClubPromotionIndexes = useCallback(() => {
@@ -52,46 +48,18 @@ const Articles = ({ sidebarNavIsOpen }: ArticlesProps) => {
         setPromoCardIndexes(indexes);
     }, [setPromoCardIndexes, feedLayout]);
 
-    const loadMore = useCallback(
-        async (page: number) => {
-            try {
-                setLoading(true);
-
-                const filters = getFilters(news.sources);
-                if (filters.length === 0) {
-                    return Promise.resolve();
-                }
-
-                const res = await axios.get(`${process.env.NEXT_PUBLIC_RSS_BACKEND_URL}/contents/`, {
-                    params: {
-                        page,
-                        filters,
-                        query: news.search,
-                    },
-                });
-
-                if (res.data) {
-                    const data: Content[] = res.data.map((content) => new Content(content));
-                    setContents((contents) => contents.concat(data));
-                    setHasMore(data.length >= 20);
-                }
-            } catch (err) {
-                //
-            } finally {
-                dispatch(feedEndRefresh());
-                setLoading(false);
-            }
-        },
-        [dispatch, news.sources, news.search],
-    );
+    const filters = getFilters(news.sources);
+    const { data, isFetching, canFetchMore, fetchMore } = useNewsContent({
+        filters,
+        query: news.search,
+    });
+    const contents = (data ?? []).reduce((acc, val) => acc.concat(val), []);
 
     useEffect(() => {
-        if (news.feedNeedRefresh && !isLoading) {
-            setContents([]);
-            setHasMore(false);
-            loadMore(1);
+        if (!isFetching) {
+            dispatch(feedEndRefresh());
         }
-    }, [news.feedNeedRefresh, isLoading, loadMore]);
+    }, [isFetching, dispatch]);
 
     useEffect(() => {
         if (feedLayout && promoCardIndexes.length === 0) {
@@ -106,20 +74,24 @@ const Articles = ({ sidebarNavIsOpen }: ArticlesProps) => {
                 key={`infinite-need-refresh-${news.feedNeedRefresh}`}
                 pageStart={1}
                 initialLoad={false}
-                loadMore={loadMore}
-                hasMore={!isLoading && hasMore}
+                loadMore={() => {
+                    if (canFetchMore) {
+                        fetchMore();
+                    }
+                }}
+                hasMore={canFetchMore}
                 getScrollParent={ScrollHelper.getScrollContainer}
                 useWindow={false}
             >
                 <div className={classNames('row', { hide: sidebarNavIsOpen })}>
-                    {contents.length === 0 && !isLoading && (
+                    {contents.length === 0 && !isFetching && (
                         <NoContent title="No news to display" desc="Select some mags to be back in the loop" />
                     )}
 
                     <ArticlesList contents={contents} promoCardIndexes={promoCardIndexes} />
 
-                    {isLoading && <KrakLoading />}
-                    {contents.length > 0 && !hasMore && (
+                    {isFetching && <KrakLoading />}
+                    {contents.length > 0 && !canFetchMore && (
                         <NoContent title="No more news" desc="Add more mags or start your own ;)" />
                     )}
                 </div>
