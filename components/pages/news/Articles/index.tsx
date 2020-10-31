@@ -1,140 +1,40 @@
 import axios from 'axios';
 import classNames from 'classnames';
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroller';
-import { connect } from 'react-redux';
-
-import Types from 'Types';
+import { useDispatch, useSelector } from 'react-redux';
 
 import TrackedPage from 'components/pages/TrackedPage';
 import NoContent from 'components/Ui/Feed/NoContent';
 import { KrakLoading } from 'components/Ui/Icons/Spinners';
-import { FilterState } from 'lib/FilterState';
 import ScrollHelper from 'lib/ScrollHelper';
-import { Source } from 'rss-feed';
 import { feedEndRefresh } from 'store/feed/actions';
-import { State as NewsState } from 'store/feed/reducers';
+import { getFilters } from 'store/feed/reducers';
 import { FeedLayout } from 'store/settings/reducers';
 
 import Content from 'models/Content';
 import ArticlesList from '../ArticlesList';
+import { RootState } from 'store/reducers';
 
-type Props = {
-    news: NewsState;
-    feedLayout: FeedLayout;
-    dispatch: (fct: any) => void;
+type ArticlesProps = {
     sidebarNavIsOpen: boolean;
 };
 
-type State = {
-    contents: Content[];
-    promoCardIndexes: number[];
-    isLoading: boolean;
-    hasMore: boolean;
-};
+const Articles = ({ sidebarNavIsOpen }: ArticlesProps) => {
+    const news = useSelector((state: RootState) => state.news);
+    const feedLayout = useSelector((state: RootState) => state.settings.feedLayout);
+    const dispatch = useDispatch();
 
-class Articles extends React.Component<Props, State> {
-    private static getFilters(sources: Map<Source, FilterState>): string[] {
-        const arr: string[] = [];
-        for (const entry of sources.entries()) {
-            if (entry[1] === FilterState.LOADING_TO_SELECTED || entry[1] === FilterState.SELECTED) {
-                arr.push(entry[0].id);
-            }
-        }
-        return arr;
-    }
+    const [isLoading, setLoading] = useState(false);
+    const [contents, setContents] = useState<Content[]>([]);
+    const [hasMore, setHasMore] = useState(false);
+    const [promoCardIndexes, setPromoCardIndexes] = useState<number[]>([]);
 
-    public state: State = {
-        contents: [],
-        promoCardIndexes: [],
-        isLoading: false,
-        hasMore: true,
-    };
-
-    public async componentDidUpdate(_prevProps: Readonly<Props>, prevState: Readonly<State>) {
-        if (this.props.news.feedNeedRefresh && !this.state.isLoading) {
-            this.setState({ contents: [], hasMore: false });
-            await this.loadMore(1);
-        }
-        if (this.props.feedLayout && this.state.promoCardIndexes.length === 0) {
-            this.genClubPromotionIndexes();
-        }
-    }
-
-    public render() {
-        const { contents, isLoading, hasMore, promoCardIndexes } = this.state;
-
-        return (
-            <div id="news-articles-container">
-                <TrackedPage name={`News/${Math.ceil(contents.length / 20)}`} initial={false} />
-                <InfiniteScroll
-                    key={`infinite-need-refresh-${this.props.news.feedNeedRefresh}`}
-                    pageStart={1}
-                    initialLoad={false}
-                    loadMore={this.loadMore}
-                    hasMore={!isLoading && hasMore}
-                    getScrollParent={this.getScrollContainer}
-                    useWindow={false}
-                >
-                    <div className={classNames('row', { hide: this.props.sidebarNavIsOpen })}>
-                        {contents.length === 0 && !isLoading && (
-                            <NoContent title="No news to display" desc="Select some mags to be back in the loop" />
-                        )}
-
-                        <ArticlesList contents={contents} promoCardIndexes={promoCardIndexes} />
-
-                        {isLoading && <KrakLoading />}
-                        {contents.length > 0 && !hasMore && (
-                            <NoContent title="No more news" desc="Add more mags or start your own ;)" />
-                        )}
-                    </div>
-                </InfiniteScroll>
-            </div>
-        );
-    }
-
-    private loadMore = async (page: number) => {
-        try {
-            this.setState({ isLoading: true });
-
-            const filters = Articles.getFilters(this.props.news.sources);
-            if (filters.length === 0) {
-                return Promise.resolve();
-            }
-
-            const res = await axios.get(`${process.env.NEXT_PUBLIC_RSS_BACKEND_URL}/contents/`, {
-                params: {
-                    page,
-                    filters,
-                    query: this.props.news.search,
-                },
-            });
-
-            if (res.data) {
-                const data: Content[] = res.data.map((content) => new Content(content));
-                const contents = this.state.contents;
-                this.setState({
-                    contents: contents.concat(data),
-                    hasMore: data.length >= 20,
-                });
-            }
-        } catch (err) {
-            //
-        } finally {
-            this.props.dispatch(feedEndRefresh());
-            this.setState({ isLoading: false });
-        }
-    };
-
-    private getScrollContainer = () => {
-        return ScrollHelper.getScrollContainer();
-    };
-
-    private genClubPromotionIndexes(): void {
+    const genClubPromotionIndexes = useCallback(() => {
         const indexes: number[] = [];
         for (let i = 0; i < 20; i++) {
             let range = 0;
-            switch (this.props.feedLayout) {
+            switch (feedLayout) {
                 case FeedLayout.OneColumn:
                     range = 40;
                     break;
@@ -149,9 +49,84 @@ class Articles extends React.Component<Props, State> {
             const maxBound = (i + 1) * range - range * (1 / 3);
             indexes.push(getRandomInt(minBound, maxBound));
         }
-        this.setState({ promoCardIndexes: indexes });
-    }
-}
+        setPromoCardIndexes(indexes);
+    }, [setPromoCardIndexes, feedLayout]);
+
+    const loadMore = useCallback(
+        async (page: number) => {
+            try {
+                setLoading(true);
+
+                const filters = getFilters(news.sources);
+                if (filters.length === 0) {
+                    return Promise.resolve();
+                }
+
+                const res = await axios.get(`${process.env.NEXT_PUBLIC_RSS_BACKEND_URL}/contents/`, {
+                    params: {
+                        page,
+                        filters,
+                        query: news.search,
+                    },
+                });
+
+                if (res.data) {
+                    const data: Content[] = res.data.map((content) => new Content(content));
+                    setContents((contents) => contents.concat(data));
+                    setHasMore(data.length >= 20);
+                }
+            } catch (err) {
+                //
+            } finally {
+                dispatch(feedEndRefresh());
+                setLoading(false);
+            }
+        },
+        [dispatch, news.sources, news.search],
+    );
+
+    useEffect(() => {
+        if (news.feedNeedRefresh && !isLoading) {
+            setContents([]);
+            setHasMore(false);
+            loadMore(1);
+        }
+    }, [news.feedNeedRefresh, isLoading, loadMore]);
+
+    useEffect(() => {
+        if (feedLayout && promoCardIndexes.length === 0) {
+            genClubPromotionIndexes();
+        }
+    }, [feedLayout, promoCardIndexes, genClubPromotionIndexes]);
+
+    return (
+        <div id="news-articles-container">
+            <TrackedPage name={`News/${Math.ceil(contents.length / 20)}`} initial={false} />
+            <InfiniteScroll
+                key={`infinite-need-refresh-${news.feedNeedRefresh}`}
+                pageStart={1}
+                initialLoad={false}
+                loadMore={loadMore}
+                hasMore={!isLoading && hasMore}
+                getScrollParent={ScrollHelper.getScrollContainer}
+                useWindow={false}
+            >
+                <div className={classNames('row', { hide: sidebarNavIsOpen })}>
+                    {contents.length === 0 && !isLoading && (
+                        <NoContent title="No news to display" desc="Select some mags to be back in the loop" />
+                    )}
+
+                    <ArticlesList contents={contents} promoCardIndexes={promoCardIndexes} />
+
+                    {isLoading && <KrakLoading />}
+                    {contents.length > 0 && !hasMore && (
+                        <NoContent title="No more news" desc="Add more mags or start your own ;)" />
+                    )}
+                </div>
+            </InfiniteScroll>
+        </div>
+    );
+};
 
 const getRandomInt = (min: number, max: number): number => {
     min = Math.ceil(min);
@@ -159,7 +134,4 @@ const getRandomInt = (min: number, max: number): number => {
     return Math.floor(Math.random() * (max - min)) + min;
 };
 
-export default connect(({ news, settings }: Types.RootState) => ({
-    news,
-    feedLayout: settings.feedLayout,
-}))(Articles);
+export default Articles;
