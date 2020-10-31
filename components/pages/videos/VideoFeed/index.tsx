@@ -14,6 +14,7 @@ import { feedEndRefresh } from 'store/feed/actions';
 import { getFilters } from 'store/feed/reducers';
 import { RootState } from 'store/reducers';
 import { Video } from 'rss-feed';
+import useVideos from 'lib/hook/videos/videos';
 
 type VideoFeedProps = {
     sidebarNavIsOpen: boolean;
@@ -25,46 +26,18 @@ const VideoFeed = ({ sidebarNavIsOpen }: VideoFeedProps) => {
     const search = useSelector((state: RootState) => state.video.search);
     const feedNeedRefresh = useSelector((state: RootState) => state.video.feedNeedRefresh);
 
-    const [isLoading, setLoading] = useState(false);
-    const [hasMore, setHasMore] = useState(true);
     const [featuredVideo, setFeaturedVideo] = useState<Video>();
-    const [displayedVideos, setDisplayedVideos] = useState<Video[]>([]);
 
-    const loadMore = useCallback(
-        async (page: number) => {
-            try {
-                setLoading(true);
+    const filters = getFilters(sources);
+    const { data, isFetching, canFetchMore, fetchMore } = useVideos({ filters, query: search });
 
-                const filters = getFilters(sources);
-                let req: Promise<any>;
-                if (filters.length === 0) {
-                    req = Promise.resolve();
-                } else {
-                    if (search) {
-                        req = axios.get(`${process.env.NEXT_PUBLIC_RSS_BACKEND_URL}/videos/search`, {
-                            params: { page, filters, query: search },
-                        });
-                    } else {
-                        req = axios.get(`${process.env.NEXT_PUBLIC_RSS_BACKEND_URL}/videos/`, {
-                            params: { page, filters },
-                        });
-                    }
-                }
-                const res = await req;
-                if (res.data) {
-                    const data: Video[] = res.data;
-                    setDisplayedVideos((videos) => videos.concat(data));
-                    setHasMore(data.length >= 20);
-                }
-            } catch (err) {
-                //
-            } finally {
-                dispatch(feedEndRefresh());
-                setLoading(false);
-            }
-        },
-        [sources, dispatch, search],
-    );
+    const displayedVideos = (data ?? []).reduce((acc, val) => acc.concat(val), []);
+
+    useEffect(() => {
+        if (!isFetching) {
+            dispatch(feedEndRefresh());
+        }
+    }, [isFetching, dispatch]);
 
     useEffect(() => {
         (async () => {
@@ -78,16 +51,6 @@ const VideoFeed = ({ sidebarNavIsOpen }: VideoFeedProps) => {
             }
         })();
     }, []);
-
-    useEffect(() => {
-        (async () => {
-            if (feedNeedRefresh && !isLoading) {
-                setDisplayedVideos([]);
-                setHasMore(false);
-                await loadMore(1);
-            }
-        })();
-    }, [feedNeedRefresh, isLoading, loadMore]);
 
     return (
         <div id="videos-feed-container">
@@ -103,8 +66,12 @@ const VideoFeed = ({ sidebarNavIsOpen }: VideoFeedProps) => {
                 key={`infinite-need-refresh-${feedNeedRefresh}`}
                 pageStart={1}
                 initialLoad={false}
-                loadMore={loadMore}
-                hasMore={!isLoading && hasMore}
+                loadMore={() => {
+                    if (canFetchMore) {
+                        fetchMore();
+                    }
+                }}
+                hasMore={!isFetching && canFetchMore}
                 getScrollParent={ScrollHelper.getScrollContainer}
                 useWindow={false}
             >
@@ -114,11 +81,11 @@ const VideoFeed = ({ sidebarNavIsOpen }: VideoFeedProps) => {
                             <VideoCard video={video} />
                         </div>
                     ))}
-                    {displayedVideos.length === 0 && !isLoading && (
+                    {displayedVideos.length === 0 && !isFetching && (
                         <NoContent title="No video to display" desc="Select some channels to be back in the loop" />
                     )}
-                    {isLoading && <KrakLoading />}
-                    {displayedVideos.length > 0 && !hasMore && (
+                    {isFetching && <KrakLoading />}
+                    {displayedVideos.length > 0 && !canFetchMore && (
                         <NoContent title="No more video" desc="Select other channels if you're still hungry" />
                     )}
                 </div>
