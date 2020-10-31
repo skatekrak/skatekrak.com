@@ -1,6 +1,5 @@
-import axios from 'axios';
 import classNames from 'classnames';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import InfiniteScroll from 'react-infinite-scroller';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -13,8 +12,8 @@ import ScrollHelper from 'lib/ScrollHelper';
 import { feedEndRefresh } from 'store/feed/actions';
 import { getFilters } from 'store/feed/reducers';
 import { RootState } from 'store/reducers';
-import { Video } from 'rss-feed';
 import useVideos from 'lib/hook/videos/videos';
+import useFeaturedVideos from 'lib/hook/videos/featured';
 
 type VideoFeedProps = {
     sidebarNavIsOpen: boolean;
@@ -26,12 +25,11 @@ const VideoFeed = ({ sidebarNavIsOpen }: VideoFeedProps) => {
     const search = useSelector((state: RootState) => state.video.search);
     const feedNeedRefresh = useSelector((state: RootState) => state.video.feedNeedRefresh);
 
-    const [featuredVideo, setFeaturedVideo] = useState<Video>();
-
     const filters = getFilters(sources);
     const { data, isFetching, canFetchMore, fetchMore } = useVideos({ filters, query: search });
-
     const displayedVideos = (data ?? []).reduce((acc, val) => acc.concat(val), []);
+
+    const { data: featuredVideos, isLoading: loadingFeaturedVideos, error: featuredVideosError } = useFeaturedVideos();
 
     useEffect(() => {
         if (!isFetching) {
@@ -39,25 +37,12 @@ const VideoFeed = ({ sidebarNavIsOpen }: VideoFeedProps) => {
         }
     }, [isFetching, dispatch]);
 
-    useEffect(() => {
-        (async () => {
-            const req: Promise<any> = axios.get(`${process.env.NEXT_PUBLIC_RSS_BACKEND_URL}/videos/featured`);
-            const res = await req;
-            if (res.data) {
-                const data: Video[] = res.data;
-                if (data.length > 0) {
-                    setFeaturedVideo(data[0]);
-                }
-            }
-        })();
-    }, []);
-
     return (
         <div id="videos-feed-container">
-            {featuredVideo && (
+            {!loadingFeaturedVideos && !featuredVideosError && featuredVideos.length > 0 && (
                 <div id="videos-feed-header" className="row">
                     <div className="col-xs-12">
-                        <FeaturedVideo video={featuredVideo} />
+                        <FeaturedVideo video={featuredVideos[0]} />
                     </div>
                 </div>
             )}
