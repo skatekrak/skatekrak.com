@@ -13,7 +13,6 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 
 module.exports = withPlugins([withBundleAnalyzer({}), withCSS, withStylus, withCustomBabelConfigFile, withSourceMaps], {
     babelConfigFile: path.resolve('./babel.config.js'),
-    serverRuntimeConfig: {},
     webpack: (config, options) => {
         if (options.isServer) {
             config.plugins.push(
