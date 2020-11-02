@@ -10,13 +10,12 @@ import {
     SET_VIEWPORT,
     SET_SPOT_OVERVIEW,
     SELECT_FULL_SPOT_TAB,
-    FLY_TO_CUSTOM_MAP,
     SELECT_SPOT,
     TOGGLE_SPOT_MODAL,
     TOGGLE_CUSTOM_MAP,
 } from '../constants';
 import * as mapActions from './actions';
-import { FlyToInterpolator, ViewportProps, WebMercatorViewport } from 'react-map-gl';
+import type { ViewportProps } from 'react-map-gl';
 
 export type FullSpotTab =
     | 'info'
@@ -167,22 +166,6 @@ const MapReducers = (state: MapState = initialState, action: MapAction): MapStat
             return {
                 ...state,
                 fullSpotSelectedTab: action.payload ?? 'clips',
-            };
-        case FLY_TO_CUSTOM_MAP:
-            const { longitude, latitude, zoom } = new WebMercatorViewport(state.viewport).fitBounds(action.payload, {
-                padding: state.viewport.width * 0.15, // padding of 15%
-            });
-
-            return {
-                ...state,
-                viewport: {
-                    ...state.viewport,
-                    latitude,
-                    longitude,
-                    zoom,
-                    transitionDuration: 1500,
-                    transitionInterpolator: new FlyToInterpolator(),
-                },
             };
         case SELECT_SPOT:
             return {

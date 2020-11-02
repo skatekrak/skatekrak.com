@@ -7,6 +7,7 @@ import createSagaMiddleWare from 'redux-saga';
 import { createWrapper, MakeStore } from 'next-redux-wrapper';
 import { createRouterMiddleware, initialRouterState } from 'connected-next-router';
 import queryString from 'query-string';
+import thunk from 'redux-thunk';
 
 import Typings from 'Types';
 
@@ -55,7 +56,7 @@ export const initializeStore: MakeStore<Typings.RootState> = (context) => {
         };
     }
 
-    const middlewares = [sagaMiddleware, routerMiddleware, querySyncMiddleware];
+    const middlewares = [sagaMiddleware, routerMiddleware, querySyncMiddleware, thunk];
     const middlewareEnhancer = applyMiddleware(...middlewares);
 
     const composedEnhancers = composeWithDevTools(...[middlewareEnhancer]);
