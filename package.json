@@ -31,6 +31,7 @@
         "date-fns": "^2.15.0",
         "email-validator": "^2.0.4",
         "fork-ts-checker-webpack-plugin": "^5.2.0",
+        "immutable": "^4.0.0-rc.12",
         "jump.js": "https://github.com/MilllerTime/jump.js.git#b95f9279a4c0f4ca942fd648a6b97094b53bcbab",
         "next": "^10.0.0",
         "next-compose-plugins": "^2.2.0",
