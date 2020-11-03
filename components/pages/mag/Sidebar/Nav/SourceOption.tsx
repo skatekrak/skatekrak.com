@@ -16,7 +16,7 @@ type SourceOptionProps = {
 const SourceOption = ({ source, loading }: SourceOptionProps) => {
     const selectedCategories = useSelector((state: RootState) => state.mag.selectedCategories);
     const isActive = useMemo(() => {
-        if (selectedCategories.size <= 0) {
+        if (selectedCategories.length <= 0) {
             return true;
         }
         return selectedCategories.indexOf(source.id) !== -1;

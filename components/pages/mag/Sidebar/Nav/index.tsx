@@ -24,13 +24,13 @@ const Nav = ({ sidebarNavIsOpen, handleOpenSidebarNav }: NavProps) => {
 
     const { isFetching } = usePosts({
         per_page: 20,
-        categories: sources.toArray(),
+        categories: sources,
     });
 
     /** Either the length of selected categories, or the length of every available categories */
     const length = useMemo(() => {
-        if (sources.size > 0) {
-            return sources.size;
+        if (sources.length > 0) {
+            return sources.length;
         }
         return (categories ?? []).length;
     }, [sources, categories]);
