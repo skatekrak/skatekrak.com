@@ -18,11 +18,10 @@ type Props = {
 
 const Feed = ({ sidebarNavIsOpen }: Props) => {
     const mag = useSelector((state: RootState) => state.mag);
-    const categories = Object.keys(mag.categories);
 
     const { data, isFetching, canFetchMore, fetchMore } = usePosts({
         per_page: 20,
-        categories,
+        categories: mag.selectedCategories.toArray(),
     });
 
     // Flatten the posts list

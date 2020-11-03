@@ -1,7 +1,5 @@
 import { ActionType } from 'typesafe-actions';
-
-import { FilterState, FilterStateUtil } from 'lib/FilterState';
-import LocalStorage from 'lib/LocalStorage';
+import { List } from 'immutable';
 
 import { TOGGLE_CATEGORY, SET_MAG_SEARCH, RESET_CATEGORIES } from '../constants';
 
@@ -11,29 +9,26 @@ import { Reducer } from 'redux';
 export type MagAction = ActionType<typeof magActions>;
 
 export type MagState = {
-    categories: Record<string, FilterState>;
+    selectedCategories: List<string>;
     search?: string;
 };
 
 const initialState: MagState = {
-    categories: {},
+    selectedCategories: List(),
     search: undefined,
 };
 
 const MagReducer: Reducer<MagState, MagAction> = (state = initialState, action) => {
     switch (action.type) {
         case TOGGLE_CATEGORY:
-            const categories = Object.assign({}, state.categories);
-
-            if (categories[action.payload.id] != null) {
-                delete categories[action.payload.id];
-            } else {
-                categories[action.payload.id] = FilterState.SELECTED;
-            }
+            const index = state.selectedCategories.indexOf(action.payload.id);
 
             return {
                 ...state,
-                categories,
+                selectedCategories:
+                    index === -1
+                        ? state.selectedCategories.push(action.payload.id)
+                        : state.selectedCategories.remove(index),
             };
         case SET_MAG_SEARCH:
             return {
@@ -43,7 +38,7 @@ const MagReducer: Reducer<MagState, MagAction> = (state = initialState, action) 
         case RESET_CATEGORIES:
             return {
                 ...state,
-                categories: {},
+                selectedCategories: List(),
             };
         default:
             return state;

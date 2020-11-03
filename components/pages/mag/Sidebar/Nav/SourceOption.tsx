@@ -1,10 +1,9 @@
 import classNames from 'classnames';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { SpinnerCircle } from 'components/Ui/Icons/Spinners';
 import Analytics from 'lib/analytics';
-import { FilterState } from 'lib/FilterState';
 import { Source } from 'rss-feed';
 import { RootState } from 'store/reducers';
 import { toggleCategory } from 'store/mag/actions';
@@ -15,22 +14,20 @@ type SourceOptionProps = {
 };
 
 const SourceOption = ({ source, loading }: SourceOptionProps) => {
-    const selectedCategories = useSelector((state: RootState) => state.mag.categories);
-    const state = (() => {
-        if (Object.keys(selectedCategories).length <= 0) {
-            return FilterState.SELECTED;
+    const selectedCategories = useSelector((state: RootState) => state.mag.selectedCategories);
+    const isActive = useMemo(() => {
+        if (selectedCategories.size <= 0) {
+            return true;
         }
-        return selectedCategories[source.id] ?? FilterState.UNSELECTED;
-    })();
-
-    const isActive = state === FilterState.SELECTED || state !== FilterState.UNSELECTED;
+        return selectedCategories.indexOf(source.id) !== -1;
+    }, [selectedCategories, source.id]);
 
     const dispatch = useDispatch();
 
     const handleSourceOptionClick = () => {
-        if (state === FilterState.SELECTED) {
+        if (isActive) {
             Analytics.trackEvent('Click', 'Filter_Unselect', { name: source.label, value: 1 });
-        } else if (state === FilterState.UNSELECTED) {
+        } else {
             Analytics.trackEvent('Click', 'Filter_Select', { name: source.label, value: 1 });
         }
         dispatch(toggleCategory(source));

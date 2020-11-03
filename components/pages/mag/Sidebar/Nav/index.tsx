@@ -18,33 +18,32 @@ type NavProps = {
 
 const Nav = ({ sidebarNavIsOpen, handleOpenSidebarNav }: NavProps) => {
     const dispatch = useDispatch();
-    const sources = useSelector((state: RootState) => state.mag.categories);
+    const sources = useSelector((state: RootState) => state.mag.selectedCategories);
 
     const { data: categories, isLoading } = useMagCategories();
 
     const { isFetching } = usePosts({
         per_page: 20,
-        categories: Object.keys(sources),
+        categories: sources.toArray(),
     });
 
     /** Either the length of selected categories, or the length of every available categories */
     const length = useMemo(() => {
-        const sourcesLength = Object.keys(sources).length;
-        if (sourcesLength > 0) {
-            return sourcesLength;
+        if (sources.size > 0) {
+            return sources.size;
         }
         return (categories ?? []).length;
     }, [sources, categories]);
 
     const onSelectAllClick = () => {
-        if (Object.keys(categories).length > 0) {
+        if (categories.length > 0) {
             Analytics.trackEvent('Click', 'Filter_Select_All');
         }
         dispatch(resetCategories());
     };
 
     const onDeselectAllClick = () => {
-        if (Object.keys(categories).length > 0) {
+        if (categories.length > 0) {
             Analytics.trackEvent('Click', 'Filter_Unselect_All');
         }
         dispatch(resetCategories());
