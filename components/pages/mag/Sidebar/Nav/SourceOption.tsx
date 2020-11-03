@@ -1,20 +1,28 @@
 import classNames from 'classnames';
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { SpinnerCircle } from 'components/Ui/Icons/Spinners';
 import Analytics from 'lib/analytics';
 import { FilterState } from 'lib/FilterState';
 import { Source } from 'rss-feed';
-import { toggleFilter } from 'store/feed/actions';
+import { RootState } from 'store/reducers';
+import { toggleCategory } from 'store/mag/actions';
 
 type SourceOptionProps = {
     source: Source;
-    state: FilterState;
+    loading: boolean;
 };
 
-const SourceOption = ({ source, state }: SourceOptionProps) => {
-    const isLoading = state === FilterState.LOADING_TO_SELECTED || state === FilterState.LOADING_TO_UNSELECTED;
+const SourceOption = ({ source, loading }: SourceOptionProps) => {
+    const selectedCategories = useSelector((state: RootState) => state.mag.categories);
+    const state = (() => {
+        if (Object.keys(selectedCategories).length <= 0) {
+            return FilterState.SELECTED;
+        }
+        return selectedCategories[source.id] ?? FilterState.UNSELECTED;
+    })();
+
     const isActive = state === FilterState.SELECTED || state !== FilterState.UNSELECTED;
 
     const dispatch = useDispatch();
@@ -25,7 +33,7 @@ const SourceOption = ({ source, state }: SourceOptionProps) => {
         } else if (state === FilterState.UNSELECTED) {
             Analytics.trackEvent('Click', 'Filter_Select', { name: source.label, value: 1 });
         }
-        dispatch(toggleFilter(source));
+        dispatch(toggleCategory(source));
     };
 
     return (
@@ -40,7 +48,7 @@ const SourceOption = ({ source, state }: SourceOptionProps) => {
                 onClick={handleSourceOptionClick}
             >
                 <span className="feed-sidebar-nav-option-name">{source.label}</span>
-                {isLoading && <SpinnerCircle />}
+                {isActive && loading && <SpinnerCircle />}
             </label>
         </li>
     );
