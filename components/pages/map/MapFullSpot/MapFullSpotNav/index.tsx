@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Typings from 'Types';
@@ -59,6 +59,10 @@ const MapFullSpotNav = () => {
         dispatch(selectFullSpotTab(tab));
     };
 
+    const photos = useMemo(() => {
+        return spotOverview.medias.filter((media) => media.type === 'image');
+    }, [spotOverview.medias]);
+
     return (
         <div id="map-full-spot-popup-nav">
             {spotOverview != null && (
@@ -76,6 +80,11 @@ const MapFullSpotNav = () => {
                         </div>
                     </div>
                     <nav id="map-full-spot-popup-nav-main">
+                        <MapFullSpotNavItem
+                            text={`Photos${photos.length > 0 ? ` (${photos.length})` : ''}`}
+                            onClick={() => onTabSelect('photos')}
+                            isActive={selectedTab === 'photos'}
+                        />
                         <MapFullSpotNavItem
                             text={`Clips${
                                 spotOverview.spot.clipsStat.all > 0 ? ` (${spotOverview.spot.clipsStat.all})` : ''
