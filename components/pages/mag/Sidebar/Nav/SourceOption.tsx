@@ -1,31 +1,36 @@
 import classNames from 'classnames';
-import React from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useMemo } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { SpinnerCircle } from 'components/Ui/Icons/Spinners';
 import Analytics from 'lib/analytics';
-import { FilterState } from 'lib/FilterState';
 import { Source } from 'rss-feed';
-import { toggleFilter } from 'store/feed/actions';
+import { RootState } from 'store/reducers';
+import { toggleCategory } from 'store/mag/actions';
 
 type SourceOptionProps = {
     source: Source;
-    state: FilterState;
+    loading: boolean;
 };
 
-const SourceOption = ({ source, state }: SourceOptionProps) => {
-    const isLoading = state === FilterState.LOADING_TO_SELECTED || state === FilterState.LOADING_TO_UNSELECTED;
-    const isActive = state === FilterState.SELECTED || state !== FilterState.UNSELECTED;
+const SourceOption = ({ source, loading }: SourceOptionProps) => {
+    const selectedCategories = useSelector((state: RootState) => state.mag.selectedCategories);
+    const isActive = useMemo(() => {
+        if (selectedCategories.length <= 0) {
+            return true;
+        }
+        return selectedCategories.indexOf(source.id) !== -1;
+    }, [selectedCategories, source.id]);
 
     const dispatch = useDispatch();
 
     const handleSourceOptionClick = () => {
-        if (state === FilterState.SELECTED) {
+        if (isActive) {
             Analytics.trackEvent('Click', 'Filter_Unselect', { name: source.label, value: 1 });
-        } else if (state === FilterState.UNSELECTED) {
+        } else {
             Analytics.trackEvent('Click', 'Filter_Select', { name: source.label, value: 1 });
         }
-        dispatch(toggleFilter(source));
+        dispatch(toggleCategory(source));
     };
 
     return (
@@ -40,7 +45,7 @@ const SourceOption = ({ source, state }: SourceOptionProps) => {
                 onClick={handleSourceOptionClick}
             >
                 <span className="feed-sidebar-nav-option-name">{source.label}</span>
-                {isLoading && <SpinnerCircle />}
+                {isActive && loading && <SpinnerCircle />}
             </label>
         </li>
     );

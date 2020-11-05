@@ -1,15 +1,15 @@
 import classNames from 'classnames';
-import React, { useEffect, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import SearchBar from 'components/pages/mag/Sidebar/Nav/SearchBar';
 import SourceOption from 'components/pages/mag/Sidebar/Nav/SourceOption';
 import { SpinnerCircle } from 'components/Ui/Icons/Spinners';
 import Analytics from 'lib/analytics';
-import { FilterState } from 'lib/FilterState';
-import { selectAllFilters, setAllSources, unselectAllFilters } from 'store/feed/actions';
 import { RootState } from 'store/reducers';
 import useMagCategories from 'lib/hook/mag/categories';
+import { resetCategories } from 'store/mag/actions';
+import usePosts from 'lib/hook/mag/posts';
 
 type NavProps = {
     sidebarNavIsOpen: boolean;
@@ -18,38 +18,35 @@ type NavProps = {
 
 const Nav = ({ sidebarNavIsOpen, handleOpenSidebarNav }: NavProps) => {
     const dispatch = useDispatch();
-    const sources = useSelector((state: RootState) => state.mag.sources);
+    const sources = useSelector((state: RootState) => state.mag.selectedCategories);
 
-    const { data: categories } = useMagCategories();
+    const { data: categories, isLoading } = useMagCategories();
 
-    useEffect(() => {
-        dispatch(setAllSources(categories ?? []));
-    }, [categories, dispatch]);
+    const { isFetching } = usePosts({
+        per_page: 20,
+        categories: sources,
+    });
 
-    const [items, length] = useMemo(() => {
-        let _length = 0;
-        const _items = [];
-        for (const [source, state] of sources.entries()) {
-            if (state === FilterState.SELECTED) {
-                _length += 1;
-            }
-            _items.push(<SourceOption key={source.id} source={source} state={state} />);
+    /** Either the length of selected categories, or the length of every available categories */
+    const length = useMemo(() => {
+        if (sources.length > 0) {
+            return sources.length;
         }
-        return [_items, _length];
-    }, [sources]);
+        return (categories ?? []).length;
+    }, [sources, categories]);
 
     const onSelectAllClick = () => {
-        if (sources.size > 0) {
+        if (categories.length > 0) {
             Analytics.trackEvent('Click', 'Filter_Select_All');
         }
-        dispatch(selectAllFilters());
+        dispatch(resetCategories());
     };
 
     const onDeselectAllClick = () => {
-        if (sources.size > 0) {
+        if (categories.length > 0) {
             Analytics.trackEvent('Click', 'Filter_Unselect_All');
         }
-        dispatch(unselectAllFilters());
+        dispatch(resetCategories());
     };
 
     return (
@@ -83,12 +80,15 @@ const Nav = ({ sidebarNavIsOpen, handleOpenSidebarNav }: NavProps) => {
                 <div className="feed-sidebar-nav-main-options">
                     <p className="feed-sidebar-nav-header-small-title">Categories</p>
                     <ul className="feed-sidebar-nav-main-options-container">
-                        {items.length === 0 && (
+                        {isLoading && (
                             <div className="feed-sidebar-nav-main-loader">
                                 <SpinnerCircle /> Loading categories
                             </div>
                         )}
-                        {items}
+                        {categories != null &&
+                            categories.map((category) => (
+                                <SourceOption key={category.id} source={category} loading={isFetching} />
+                            ))}
                     </ul>
                 </div>
                 <p className="feed-sidebar-nav-main-request">

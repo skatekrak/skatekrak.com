@@ -7,7 +7,7 @@ import createMarkup from 'lib/createMarkup';
 import decodeHTML from 'lib/decodeHTML';
 
 import ClipboardButton from 'components/Ui/Button/ClipboardButton';
-import { Post } from 'lib/hook/mag/posts';
+import { Post } from 'wordpress-types';
 
 type Props = {
     post: Post;

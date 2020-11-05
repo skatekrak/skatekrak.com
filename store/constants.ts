@@ -23,7 +23,11 @@ export const MAP_REFRESH_END = 'map_refresh_end';
 export const SET_VIEWPORT = 'set_viewport';
 export const SET_SPOT_OVERVIEW = 'set_spot_overview';
 export const SELECT_FULL_SPOT_TAB = 'select_full_spot_tab';
-export const FLY_TO_CUSTOM_MAP = 'fly_to_custom_map';
 export const SELECT_SPOT = 'select_spot';
 export const TOGGLE_SPOT_MODAL = 'toggle_spot_modal';
 export const TOGGLE_CUSTOM_MAP = 'toggle_custom_map';
+
+// Mag
+export const TOGGLE_CATEGORY = 'mag:toggle_category';
+export const SET_MAG_SEARCH = 'mag:set_search';
+export const RESET_CATEGORIES = 'mag:reset_categories';

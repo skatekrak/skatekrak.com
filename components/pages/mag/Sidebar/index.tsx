@@ -5,7 +5,7 @@ import LatestPosts from 'components/pages/mag/Sidebar/LatestPosts';
 import Nav from 'components/pages/mag/Sidebar/Nav';
 import RelatedPosts from 'components/pages/mag/Sidebar/RelatedPosts';
 import ScrollTop from 'components/Ui/Utils/ScrollTop';
-import { Post } from 'lib/hook/mag/posts';
+import { Post } from 'wordpress-types';
 
 type Props = {
     post?: Post;

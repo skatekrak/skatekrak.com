@@ -1,53 +1,31 @@
 import classNames from 'classnames';
-import React, { useEffect, useMemo } from 'react';
+import React from 'react';
 import InfiniteScroll from 'react-infinite-scroller';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import Card from 'components/pages/mag/Feed/Card';
 import TrackedPage from 'components/pages/TrackedPage';
 import NoContent from 'components/Ui/Feed/NoContent';
 import { KrakLoading } from 'components/Ui/Icons/Spinners';
-import { FilterState } from 'lib/FilterState';
 import ScrollHelper from 'lib/ScrollHelper';
-import { Source } from 'rss-feed';
 import { RootState } from 'store/reducers';
 
 import usePosts from 'lib/hook/mag/posts';
-import { feedEndRefresh } from 'store/feed/actions';
 
 type Props = {
     sidebarNavIsOpen: boolean;
 };
 
-const getFilters = (sources: Map<Source, FilterState>): string[] => {
-    const arr: string[] = [];
-    for (const entry of sources.entries()) {
-        if (entry[1] === FilterState.LOADING_TO_SELECTED || entry[1] === FilterState.SELECTED) {
-            arr.push(entry[0].id);
-        }
-    }
-    return arr;
-};
-
 const Feed = ({ sidebarNavIsOpen }: Props) => {
     const mag = useSelector((state: RootState) => state.mag);
-    const dispatch = useDispatch();
-
-    const categories = useMemo(() => getFilters(mag.sources), [mag.sources]);
 
     const { data, isFetching, canFetchMore, fetchMore } = usePosts({
         per_page: 20,
-        categories,
+        categories: mag.selectedCategories,
     });
 
     // Flatten the posts list
     const posts = (data ?? []).reduce((acc, val) => acc.concat(val), []);
-
-    useEffect(() => {
-        if (!isFetching) {
-            dispatch(feedEndRefresh());
-        }
-    }, [isFetching, dispatch]);
 
     return (
         <div id="mag-feed">
