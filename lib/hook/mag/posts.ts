@@ -1,4 +1,4 @@
-import axios from 'axios';
+import krakmag from 'lib/clients/krakmag';
 import { formatPost } from 'lib/mag/formattedPost';
 import { useInfiniteQuery } from 'react-query';
 import queryString from 'query-string';
@@ -29,7 +29,7 @@ export type PostsFetchParam = {
 };
 
 const fetchPosts = async (key: string, page: any = 1) => {
-    const { data } = await axios.get<Post[]>(`${process.env.NEXT_PUBLIC_KRAKMAG_URL}/wp-json/wp/v2/posts`, {
+    const { data } = await krakmag.get<Post[]>(`/wp-json/wp/v2/posts`, {
         params: {
             ...queryString.parse(key),
             page,

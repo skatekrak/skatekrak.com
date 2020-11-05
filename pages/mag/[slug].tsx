@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { NextPage } from 'next';
 import Head from 'next/head';
 import React, { useState } from 'react';
@@ -16,6 +15,7 @@ import TrackedPage from 'components/pages/TrackedPage';
 
 import { formatPost } from 'lib/mag/formattedPost';
 import { Post } from 'lib/hook/mag/posts';
+import krakmag from 'lib/clients/krakmag';
 
 type HeadProps = {
     post: Post;
@@ -77,7 +77,7 @@ ArticlePage.getInitialProps = async ({ query }) => {
     const { slug } = query;
 
     try {
-        const res = await axios.get(`${process.env.NEXT_PUBLIC_KRAKMAG_URL}/wp-json/wp/v2/posts?slug=${slug}&_embed`);
+        const res = await krakmag.get(`/wp-json/wp/v2/posts?slug=${slug}&_embed`);
         if (res.data) {
             const formattedPost = formatPost(res.data[0]);
             return { post: formattedPost };
