@@ -14,7 +14,7 @@ import Sidebar from 'components/pages/mag/Sidebar';
 import TrackedPage from 'components/pages/TrackedPage';
 
 import { formatPost } from 'lib/mag/formattedPost';
-import { Post } from 'lib/hook/mag/posts';
+import { Post } from 'wordpress-types';
 import krakmag from 'lib/clients/krakmag';
 
 type HeadProps = {

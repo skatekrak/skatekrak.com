@@ -11,7 +11,7 @@ import createPropsGetter from 'lib/getProps';
 import Comment from 'components/pages/mag/Article/Comment';
 import ClipboardButton from 'components/Ui/Button/ClipboardButton';
 import { KrakLoading } from 'components/Ui/Icons/Spinners';
-import { Post } from 'lib/hook/mag/posts';
+import { Post } from 'wordpress-types';
 
 type Props = {
     post: Post;

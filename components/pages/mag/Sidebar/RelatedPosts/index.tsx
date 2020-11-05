@@ -6,7 +6,7 @@ import Truncate from 'react-truncate';
 
 import createMarkup from 'lib/createMarkup';
 import { formatPost } from 'lib/mag/formattedPost';
-import { Post } from 'lib/hook/mag/posts';
+import { Post } from 'wordpress-types'
 
 import { SpinnerCircle } from 'components/Ui/Icons/Spinners';
 
