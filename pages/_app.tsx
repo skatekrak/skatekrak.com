@@ -33,6 +33,8 @@ import '/public/styles/map/map.styl';
 
 import 'mapbox-gl/dist/mapbox-gl.css';
 
+import '/public/styles/masonry.css';
+
 const config: BrowserConfig = {
     apiKey: process.env.NEXT_PUBLIC_BUGSNAG_KEY,
     plugins: [new BugsnagPluginReact()],
