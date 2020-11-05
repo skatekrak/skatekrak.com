@@ -10,6 +10,8 @@ export type PostsFetchParam = {
     search?: string;
 };
 
+// Disable the warning for any, so the infinitQuery is happy
+/* eslint @typescript-eslint/no-explicit-any: "off" */
 const fetchPosts = async (key: string, page: any = 1) => {
     const { data } = await krakmag.get<Post[]>(`/wp-json/wp/v2/posts`, {
         params: {
