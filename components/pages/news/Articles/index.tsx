@@ -8,7 +8,6 @@ import NoContent from 'components/Ui/Feed/NoContent';
 import { KrakLoading } from 'components/Ui/Icons/Spinners';
 import ScrollHelper from 'lib/ScrollHelper';
 import { feedEndRefresh } from 'store/feed/actions';
-import { getFilters } from 'store/feed/reducers';
 import { FeedLayout } from 'store/settings/reducers';
 
 import ArticlesList from '../ArticlesList';
@@ -20,7 +19,8 @@ type ArticlesProps = {
 };
 
 const Articles = ({ sidebarNavIsOpen }: ArticlesProps) => {
-    const news = useSelector((state: RootState) => state.news);
+    const newsSearch = useSelector((state: RootState) => state.news.search);
+    const selectedSources = useSelector((state: RootState) => state.news.selectSources);
     const feedLayout = useSelector((state: RootState) => state.settings.feedLayout);
     const dispatch = useDispatch();
 
@@ -48,10 +48,9 @@ const Articles = ({ sidebarNavIsOpen }: ArticlesProps) => {
         setPromoCardIndexes(indexes);
     }, [setPromoCardIndexes, feedLayout]);
 
-    const filters = getFilters(news.sources);
     const { data, isFetching, canFetchMore, fetchMore } = useNewsContent({
-        filters,
-        query: news.search,
+        filters: selectedSources,
+        query: newsSearch,
     });
     const contents = (data ?? []).reduce((acc, val) => acc.concat(val), []);
 
@@ -71,7 +70,7 @@ const Articles = ({ sidebarNavIsOpen }: ArticlesProps) => {
         <div id="news-articles-container">
             <TrackedPage name={`News/${Math.ceil(contents.length / 20)}`} initial={false} />
             <InfiniteScroll
-                key={`infinite-need-refresh-${news.feedNeedRefresh}`}
+                key={`infinite-need-refresh`}
                 pageStart={1}
                 initialLoad={false}
                 loadMore={() => {

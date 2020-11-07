@@ -31,3 +31,9 @@ export const TOGGLE_CUSTOM_MAP = 'toggle_custom_map';
 export const TOGGLE_CATEGORY = 'mag:toggle_category';
 export const SET_MAG_SEARCH = 'mag:set_search';
 export const RESET_CATEGORIES = 'mag:reset_categories';
+
+// News
+export const TOGGLE_NEWS_SOURCE = 'news:toggle_source';
+export const SELECT_NEWS_SOURCES = 'news:select_news_sources';
+export const SET_NEWS_SEARCH = 'news:set_search';
+export const RESET_NEWS = 'news:reset';

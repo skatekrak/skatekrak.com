@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React, { useEffect, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import LanguageFilter from 'components/pages/news/Sidebar/Nav/LanguageFilter';
@@ -7,10 +7,12 @@ import SearchBar from 'components/pages/news/Sidebar/Nav/SearchBar';
 import SourceOption from 'components/pages/news/Sidebar/Nav/SourceOption';
 import { SpinnerCircle } from 'components/Ui/Icons/Spinners';
 import Analytics from 'lib/analytics';
-import { FilterState } from 'lib/FilterState';
-import { selectAllFilters, setAllSources, unselectAllFilters } from 'store/feed/actions';
 import { RootState } from 'store/reducers';
 import useNewsSources from 'lib/hook/news/sources';
+import useNewsLanguages from 'lib/hook/news/languages';
+import { resetNews, selectNewsSources, toggleNewsSource } from 'store/news/actions';
+import { Language, Source } from 'rss-feed';
+import useNewsContent from 'lib/hook/news/contents';
 
 type NewsSourcesProps = {
     navIsOpen: boolean;
@@ -19,43 +21,53 @@ type NewsSourcesProps = {
 
 const Sources = ({ navIsOpen, handleOpenSourcesMenu }: NewsSourcesProps) => {
     const dispatch = useDispatch();
-    const sources = useSelector((state: RootState) => state.news.sources);
-    const languages = useSelector((state: RootState) => state.news.languages);
+    const selectedSources = useSelector((state: RootState) => state.news.selectSources);
+    const query = useSelector((state: RootState) => state.news.search);
 
-    const { data } = useNewsSources();
+    const { data: sources, isLoading } = useNewsSources();
+    const { data: languages } = useNewsLanguages();
 
-    useEffect(() => {
-        dispatch(setAllSources(data ?? []));
-    }, [data, dispatch]);
+    const { isFetching } = useNewsContent({
+        filters: selectedSources,
+        query,
+    });
 
     const onSelectAllClick = () => {
-        if (sources.size > 0) {
+        if (sources.length > 0) {
             Analytics.trackEvent('Click', 'Filter_Select_All', { value: 1 });
         }
-        dispatch(selectAllFilters());
+        dispatch(resetNews());
     };
 
     const onDeselectAllClick = () => {
-        if (sources.size > 0) {
+        if (sources.length > 0) {
             Analytics.trackEvent('Click', 'Filter_Unselect_All', { value: 1 });
         }
-        dispatch(unselectAllFilters());
+        dispatch(resetNews());
     };
 
-    const [items, length] = useMemo(() => {
-        let _length = 0;
-        const _items = [];
-        if (sources instanceof Map) {
-            for (const [source, state] of sources.entries()) {
-                if (state === FilterState.SELECTED) {
-                    _length += 1;
-                }
-                _items.push(<SourceOption key={source.id} source={source} state={state} />);
-            }
+    const isActive = (source: Source): boolean => {
+        if (selectedSources.length <= 0) {
+            return true;
         }
+        return selectedSources.indexOf(source.id) !== -1;
+    };
 
-        return [_items, _length];
-    }, [sources]);
+    const length = useMemo(() => {
+        if (selectedSources.length > 0) {
+            return selectedSources.length;
+        }
+        return (sources ?? []).length;
+    }, [sources, selectedSources]);
+
+    const toggleLanguage = (language: Language) => {
+        const sourcesToSelect = sources.filter((source) => source.lang.isoCode === language.isoCode);
+        dispatch(selectNewsSources(sourcesToSelect));
+    };
+
+    const toggleSource = (source: Source) => {
+        dispatch(toggleNewsSource(source));
+    };
 
     return (
         <>
@@ -68,7 +80,7 @@ const Sources = ({ navIsOpen, handleOpenSourcesMenu }: NewsSourcesProps) => {
                         {!navIsOpen ? 'Filters' : 'Close'}
                     </button>
                 </div>
-                <SearchBar nbFilters={length} />
+                <SearchBar />
             </div>
             <div
                 className={classNames('feed-sidebar-nav-main', {
@@ -77,7 +89,10 @@ const Sources = ({ navIsOpen, handleOpenSourcesMenu }: NewsSourcesProps) => {
             >
                 <div className="feed-sidebar-nav-main-controls">
                     <ul className="feed-sidebar-nav-main-controls-languages">
-                        {languages && languages.map((language, i) => <LanguageFilter key={i} language={language} />)}
+                        {languages &&
+                            languages.map((language, i) => (
+                                <LanguageFilter key={i} language={language} toggle={toggleLanguage} />
+                            ))}
                     </ul>
                     <div className="feed-sidebar-nav-main-controls-select">
                         <button className="feed-sidebar-nav-main-controls-select-item" onClick={onSelectAllClick}>
@@ -90,12 +105,21 @@ const Sources = ({ navIsOpen, handleOpenSourcesMenu }: NewsSourcesProps) => {
                 </div>
                 <form className="feed-sidebar-nav-main-options">
                     <ul className="feed-sidebar-nav-main-options-container">
-                        {items.length === 0 && (
+                        {isLoading && (
                             <div className="feed-sidebar-nav-main-loader">
                                 <SpinnerCircle /> Loading magazines
                             </div>
                         )}
-                        {items}
+                        {sources != null &&
+                            sources.map((source) => (
+                                <SourceOption
+                                    key={source.id}
+                                    source={source}
+                                    loading={isFetching}
+                                    isActive={isActive(source)}
+                                    toggle={toggleSource}
+                                />
+                            ))}
                     </ul>
                 </form>
                 <p className="feed-sidebar-nav-main-request">
