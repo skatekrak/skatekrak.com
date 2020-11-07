@@ -22,7 +22,10 @@ export type FetchNewsParams = {
 
 const useNewsContent = (params: FetchNewsParams) => {
     return useInfiniteQuery(
-        queryString.stringify({ ...params, key: 'news-feed' }, { arrayFormat: 'bracket' }),
+        queryString.stringify(
+            { ...params, key: 'news-feed' },
+            { arrayFormat: 'bracket', skipEmptyString: true, skipNull: true },
+        ),
         fetchContents,
         {
             getFetchMore: (lastPages, allPages) => {
