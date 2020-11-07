@@ -6,10 +6,11 @@ import feed, { State as FeedState } from './feed/reducers';
 import settings, { State as SettingsState } from './settings/reducers';
 import map, { MapState } from './map/reducers';
 import mag, { MagState } from './mag/reducers';
+import news, { NewsState } from './news/reducer';
 
 export type RootState = {
     settings: SettingsState;
-    news: FeedState;
+    news: NewsState;
     video: FeedState;
     mag: MagState;
     map: MapState;
@@ -18,7 +19,7 @@ export type RootState = {
 
 const reducers = combineReducers({
     settings,
-    news: feed(),
+    news: news,
     video: feed(),
     mag,
     map,
