@@ -9,12 +9,12 @@ export type NewsAction = ActionType<typeof news>;
 
 export type NewsState = {
     selectSources: string[];
-    search?: string;
+    search: string;
 };
 
 const initialState: NewsState = {
     selectSources: [],
-    search: undefined,
+    search: '',
 };
 
 const NewsReducer: Reducer<NewsState, NewsAction> = (state = initialState, action) => {

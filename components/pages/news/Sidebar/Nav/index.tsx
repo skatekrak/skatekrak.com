@@ -80,7 +80,7 @@ const Sources = ({ navIsOpen, handleOpenSourcesMenu }: NewsSourcesProps) => {
                         {!navIsOpen ? 'Filters' : 'Close'}
                     </button>
                 </div>
-                <SearchBar nbFilters={length} />
+                <SearchBar />
             </div>
             <div
                 className={classNames('feed-sidebar-nav-main', {
