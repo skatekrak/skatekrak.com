@@ -5,8 +5,8 @@ import { connect } from 'react-redux';
 
 import Types from 'Types';
 
-import LanguageFilter from 'components/pages/news/Sidebar/Nav/LanguageFilter';
-import SourceOption from 'components/pages/news/Sidebar/Nav/SourceOption';
+import LanguageFilter from 'components/pages/videos/Sidebar/Nav/LanguageFilter';
+import SourceOption from 'components/pages/videos/Sidebar/Nav/SourceOption';
 import SearchBar from 'components/pages/videos/Sidebar/Nav/SearchBar';
 import { SpinnerCircle } from 'components/Ui/Icons/Spinners';
 import Analytics from 'lib/analytics';
