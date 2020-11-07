@@ -38,7 +38,7 @@ export default class Content implements IContent {
 
     public getImage(): string | null {
         if (this.media && this.media.url) {
-            return `${process.env.NEXT_PUBLIC_CACHING_URL}/${encodeURIComponent(this.media.url)}`;
+            return this.media.url;
         }
         return null;
     }
