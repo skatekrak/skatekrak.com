@@ -1,79 +1,53 @@
 import classNames from 'classnames';
 import React from 'react';
-import { connect } from 'react-redux';
 
 import { SpinnerCircle } from 'components/Ui/Icons/Spinners';
 import Analytics from 'lib/analytics';
-import { FilterState } from 'lib/FilterState';
 import { Source } from 'rss-feed';
-import { toggleFilter } from 'store/feed/actions';
 
-type Props = {
+type SourceOptionProps = {
     source: Source;
-    state: FilterState;
-    dispatch: (fct: any) => void;
-};
-
-type State = {
     isActive: boolean;
-    isLoading: boolean;
+    loading: boolean;
+    toggle: (source: Source) => void;
 };
 
-class SourceOption extends React.PureComponent<Props, State> {
-    public static getDerivedStateFromProps(nextProps: Readonly<Props>): State {
-        return {
-            isActive: nextProps.state === FilterState.SELECTED || nextProps.state !== FilterState.UNSELECTED,
-            isLoading:
-                nextProps.state === FilterState.LOADING_TO_SELECTED ||
-                nextProps.state === FilterState.LOADING_TO_UNSELECTED,
-        };
-    }
-
-    public state: State = {
-        isActive: true,
-        isLoading: false,
+const SourceOption = ({ source, loading, isActive, toggle }: SourceOptionProps) => {
+    const handleSourceOptionClick = () => {
+        if (isActive) {
+            Analytics.trackEvent('Click', 'Filter_Unselect', { name: source.label, value: 1 });
+        } else {
+            Analytics.trackEvent('Click', 'Filter_Select', { name: source.label, value: 1 });
+        }
+        toggle(source);
     };
 
-    public render() {
-        const { isActive, isLoading } = this.state;
-        const { source } = this.props;
-
-        return (
-            <li
-                className={classNames('feed-sidebar-nav-option', {
-                    'feed-sidebar-nav-option--active': isActive,
-                })}
+    return (
+        <li
+            className={classNames('feed-sidebar-nav-option', {
+                'feed-sidebar-nav-option-without-logo': source.iconUrl == null,
+                'feed-sidebar-nav-option--active': isActive,
+            })}
+        >
+            <label
+                htmlFor={`input-${source.id}`}
+                className="feed-sidebar-nav-option-label"
+                onClick={handleSourceOptionClick}
             >
-                <label
-                    htmlFor={`input-${source.id}`}
-                    className="feed-sidebar-nav-option-label"
-                    onClick={this.handleSourceOptionClick}
-                >
+                {source.iconUrl && (
                     <span className="feed-sidebar-nav-option-logo-container">
-                        {isLoading ? (
+                        {isActive && loading ? (
                             <SpinnerCircle />
                         ) : (
-                            <img src={this.getIcon(source)} alt="" className="feed-sidebar-nav-option-logo" />
+                            <img src={source.iconUrl} alt="" className="feed-sidebar-nav-option-logo" />
                         )}
                     </span>
-                    <span className="feed-sidebar-nav-option-name">{source.label}</span>
-                </label>
-            </li>
-        );
-    }
+                )}
+                <span className="feed-sidebar-nav-option-name">{source.label}</span>
+                {!source.iconUrl && isActive && loading && <SpinnerCircle />}
+            </label>
+        </li>
+    );
+};
 
-    private getIcon(source: Source): string {
-        return source.iconUrl;
-    }
-
-    private handleSourceOptionClick = () => {
-        if (this.props.state === FilterState.SELECTED) {
-            Analytics.trackEvent('Click', 'Filter_Unselect', { name: this.props.source.label, value: 1 });
-        } else if (this.props.state === FilterState.UNSELECTED) {
-            Analytics.trackEvent('Click', 'Filter_Select', { name: this.props.source.label, value: 1 });
-        }
-        this.props.dispatch(toggleFilter(this.props.source));
-    };
-}
-
-export default connect()(SourceOption);
+export default React.memo(SourceOption);
