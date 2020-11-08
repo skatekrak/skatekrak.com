@@ -12,7 +12,7 @@ export type NewsState = {
     search: string;
 };
 
-const initialState: NewsState = {
+export const initialState: NewsState = {
     selectSources: [],
     search: '',
 };

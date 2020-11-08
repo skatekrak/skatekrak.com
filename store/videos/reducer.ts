@@ -11,7 +11,7 @@ export type VideosState = {
     search: string;
 };
 
-const initialState: VideosState = {
+export const initialState: VideosState = {
     selectSources: [],
     search: '',
 };

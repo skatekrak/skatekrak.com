@@ -13,7 +13,7 @@ export type MagState = {
     search: string;
 };
 
-const initialState: MagState = {
+export const initialState: MagState = {
     selectedCategories: [],
     search: '',
 };
