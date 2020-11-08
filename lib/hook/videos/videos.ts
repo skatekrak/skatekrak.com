@@ -34,7 +34,10 @@ export type FetchVideoParams = {
 
 const useVideos = (params: FetchVideoParams) => {
     return useInfiniteQuery(
-        queryString.stringify({ ...params, key: 'videos-feed' }, { arrayFormat: 'bracket' }),
+        queryString.stringify(
+            { ...params, key: 'videos-feed' },
+            { arrayFormat: 'bracket', skipEmptyString: true, skipNull: true },
+        ),
         fetchVideos,
         {
             getFetchMore: (lastPages, allPages) => {

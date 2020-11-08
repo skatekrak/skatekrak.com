@@ -37,3 +37,9 @@ export const TOGGLE_NEWS_SOURCE = 'news:toggle_source';
 export const SELECT_NEWS_SOURCES = 'news:select_news_sources';
 export const SET_NEWS_SEARCH = 'news:set_search';
 export const RESET_NEWS = 'news:reset';
+
+// Videos
+export const TOGGLE_VIDEOS_SOURCE = 'videos:toggle_source';
+export const SELECT_VIDEOS_SOURCES = 'videos:select_sources';
+export const SET_VIDEOS_SEARCH = 'videos:set_search';
+export const RESET_VIDEOS = 'videos:reset';

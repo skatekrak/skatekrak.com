@@ -1,7 +1,7 @@
 import classNames from 'classnames';
-import React, { useEffect } from 'react';
+import React from 'react';
 import InfiniteScroll from 'react-infinite-scroller';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import TrackedPage from 'components/pages/TrackedPage';
 import FeaturedVideo from 'components/pages/videos/VideoFeed/Video/FeaturedVideo';
@@ -9,8 +9,6 @@ import VideoCard from 'components/pages/videos/VideoFeed/Video/VideoCard';
 import NoContent from 'components/Ui/Feed/NoContent';
 import { KrakLoading } from 'components/Ui/Icons/Spinners';
 import ScrollHelper from 'lib/ScrollHelper';
-import { feedEndRefresh } from 'store/feed/actions';
-import { getFilters } from 'store/feed/reducers';
 import { RootState } from 'store/reducers';
 import useVideos from 'lib/hook/videos/videos';
 import useFeaturedVideos from 'lib/hook/videos/featured';
@@ -20,22 +18,13 @@ type VideoFeedProps = {
 };
 
 const VideoFeed = ({ sidebarNavIsOpen }: VideoFeedProps) => {
-    const dispatch = useDispatch();
-    const sources = useSelector((state: RootState) => state.video.sources);
+    const selectSources = useSelector((state: RootState) => state.video.selectSources);
     const search = useSelector((state: RootState) => state.video.search);
-    const feedNeedRefresh = useSelector((state: RootState) => state.video.feedNeedRefresh);
 
-    const filters = getFilters(sources);
-    const { data, isFetching, canFetchMore, fetchMore } = useVideos({ filters, query: search });
+    const { data, isFetching, canFetchMore, fetchMore } = useVideos({ filters: selectSources, query: search });
     const displayedVideos = (data ?? []).reduce((acc, val) => acc.concat(val), []);
 
     const { data: featuredVideos, isLoading: loadingFeaturedVideos, error: featuredVideosError } = useFeaturedVideos();
-
-    useEffect(() => {
-        if (!isFetching) {
-            dispatch(feedEndRefresh());
-        }
-    }, [isFetching, dispatch]);
 
     return (
         <div id="videos-feed-container">
@@ -48,7 +37,7 @@ const VideoFeed = ({ sidebarNavIsOpen }: VideoFeedProps) => {
             )}
             <TrackedPage name={`Videos/${Math.ceil(displayedVideos.length / 20)}`} initial={false} />
             <InfiniteScroll
-                key={`infinite-need-refresh-${feedNeedRefresh}`}
+                key={`infinite-need-refresh`}
                 pageStart={1}
                 initialLoad={false}
                 loadMore={() => {
