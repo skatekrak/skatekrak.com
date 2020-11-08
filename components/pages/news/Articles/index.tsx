@@ -1,13 +1,12 @@
 import classNames from 'classnames';
 import React, { useCallback, useEffect, useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroller';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import TrackedPage from 'components/pages/TrackedPage';
 import NoContent from 'components/Ui/Feed/NoContent';
 import { KrakLoading } from 'components/Ui/Icons/Spinners';
 import ScrollHelper from 'lib/ScrollHelper';
-import { feedEndRefresh } from 'store/feed/actions';
 import { FeedLayout } from 'store/settings/reducers';
 
 import ArticlesList from '../ArticlesList';
@@ -22,7 +21,6 @@ const Articles = ({ sidebarNavIsOpen }: ArticlesProps) => {
     const newsSearch = useSelector((state: RootState) => state.news.search);
     const selectedSources = useSelector((state: RootState) => state.news.selectSources);
     const feedLayout = useSelector((state: RootState) => state.settings.feedLayout);
-    const dispatch = useDispatch();
 
     const [promoCardIndexes, setPromoCardIndexes] = useState<number[]>([]);
 
@@ -53,12 +51,6 @@ const Articles = ({ sidebarNavIsOpen }: ArticlesProps) => {
         query: newsSearch,
     });
     const contents = (data ?? []).reduce((acc, val) => acc.concat(val), []);
-
-    useEffect(() => {
-        if (!isFetching) {
-            dispatch(feedEndRefresh());
-        }
-    }, [isFetching, dispatch]);
 
     useEffect(() => {
         if (feedLayout && promoCardIndexes.length === 0) {
