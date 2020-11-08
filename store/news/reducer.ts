@@ -25,7 +25,7 @@ const NewsReducer: Reducer<NewsState, NewsAction> = (state = initialState, actio
             return {
                 ...state,
                 selectSources:
-                    index !== -1 ? push(state.selectSources, action.payload.id) : remove(state.selectSources, index),
+                    index === -1 ? push(state.selectSources, action.payload.id) : remove(state.selectSources, index),
             };
         }
         case SELECT_NEWS_SOURCES: {
