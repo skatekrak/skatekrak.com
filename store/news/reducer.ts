@@ -42,7 +42,6 @@ const NewsReducer: Reducer<NewsState, NewsAction> = (state = initialState, actio
         case RESET_NEWS:
             return {
                 ...state,
-                selectLanguages: [],
                 selectSources: [],
             };
         default:
