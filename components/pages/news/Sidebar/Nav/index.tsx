@@ -2,15 +2,15 @@ import classNames from 'classnames';
 import React, { useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import LanguageFilter from 'components/pages/news/Sidebar/Nav/LanguageFilter';
-import SearchBar from 'components/pages/news/Sidebar/Nav/SearchBar';
-import SourceOption from 'components/pages/news/Sidebar/Nav/SourceOption';
+import LanguageFilter from 'components/Ui/Feed/Sidebar/LanguageFilter';
+import SearchBar from 'components/Ui/Feed/Sidebar/SearchBar';
+import SourceOption from 'components/Ui/Feed/Sidebar/SourceOption';
 import { SpinnerCircle } from 'components/Ui/Icons/Spinners';
 import Analytics from 'lib/analytics';
 import { RootState } from 'store/reducers';
 import useNewsSources from 'lib/hook/news/sources';
 import useNewsLanguages from 'lib/hook/news/languages';
-import { resetNews, selectNewsSources, toggleNewsSource } from 'store/news/actions';
+import { resetNews, selectNewsSources, setNewsSearch, toggleNewsSource } from 'store/news/actions';
 import { Language, Source } from 'rss-feed';
 import useNewsContent from 'lib/hook/news/contents';
 
@@ -69,6 +69,10 @@ const Sources = ({ navIsOpen, handleOpenSourcesMenu }: NewsSourcesProps) => {
         dispatch(toggleNewsSource(source));
     };
 
+    const onQueryChange = (value: string) => {
+        dispatch(setNewsSearch(value));
+    };
+
     return (
         <>
             <div className="feed-sidebar-nav-container">
@@ -80,7 +84,7 @@ const Sources = ({ navIsOpen, handleOpenSourcesMenu }: NewsSourcesProps) => {
                         {!navIsOpen ? 'Filters' : 'Close'}
                     </button>
                 </div>
-                <SearchBar />
+                <SearchBar value={query} onValueChange={onQueryChange} />
             </div>
             <div
                 className={classNames('feed-sidebar-nav-main', {
