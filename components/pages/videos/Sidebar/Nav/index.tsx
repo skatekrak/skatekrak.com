@@ -2,15 +2,15 @@ import classNames from 'classnames';
 import React, { useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import LanguageFilter from 'components/pages/news/Sidebar/Nav/LanguageFilter';
-import SearchBar from 'components/pages/videos/Sidebar/Nav/SearchBar';
+import LanguageFilter from 'components/Ui/Feed/Sidebar/LanguageFilter';
+import SearchBar from 'components/Ui/Feed/Sidebar/SearchBar';
 import { SpinnerCircle } from 'components/Ui/Icons/Spinners';
 import Analytics from 'lib/analytics';
 import { Language, Source } from 'rss-feed';
 import useLanguages from 'lib/hook/languages';
 import useVideosSources from 'lib/hook/videos/sources';
-import { resetVideos, selectVideosSources, toggleVideosSource } from 'store/videos/action';
-import SourceOption from 'components/pages/news/Sidebar/Nav/SourceOption';
+import { resetVideos, selectVideosSources, setVideosSearch, toggleVideosSource } from 'store/videos/action';
+import SourceOption from 'components/Ui/Feed/Sidebar/SourceOption';
 import { RootState } from 'store/reducers';
 import useVideos from 'lib/hook/videos/videos';
 
@@ -65,6 +65,10 @@ const Sources = ({ navIsOpen, handleOpenSourcesMenu }: SourcesProps) => {
         dispatch(toggleVideosSource(source));
     };
 
+    const onQueryChange = (value: string) => {
+        dispatch(setVideosSearch(value));
+    };
+
     return (
         <>
             <div className="feed-sidebar-nav-container">
@@ -76,7 +80,7 @@ const Sources = ({ navIsOpen, handleOpenSourcesMenu }: SourcesProps) => {
                         {!navIsOpen ? 'Filters' : 'Close'}
                     </button>
                 </div>
-                <SearchBar nbFilters={length} />
+                <SearchBar value={query} onValueChange={onQueryChange} />
             </div>
             <div
                 className={classNames('feed-sidebar-nav-main', {
