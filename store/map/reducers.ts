@@ -13,6 +13,7 @@ import {
     SELECT_SPOT,
     TOGGLE_SPOT_MODAL,
     TOGGLE_CUSTOM_MAP,
+    SET_VIDEO_PLAYING,
 } from '../constants';
 import * as mapActions from './actions';
 import type { ViewportProps } from 'react-map-gl';
@@ -40,6 +41,7 @@ export type MapState = {
     selectSpot?: string;
     modalVisible: boolean;
     customMapId?: string;
+    videoPlayingId?: string;
 };
 
 export const initialState: MapState = {
@@ -65,6 +67,7 @@ export const initialState: MapState = {
     selectSpot: undefined,
     modalVisible: false,
     customMapId: undefined,
+    videoPlayingId: undefined,
 };
 
 const MapReducers = (state: MapState = initialState, action: MapAction): MapState => {
@@ -181,6 +184,11 @@ const MapReducers = (state: MapState = initialState, action: MapAction): MapStat
             return {
                 ...state,
                 customMapId: action.payload,
+            };
+        case SET_VIDEO_PLAYING:
+            return {
+                ...state,
+                videoPlayingId: action.payload,
             };
         default:
             return state;

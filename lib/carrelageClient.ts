@@ -162,11 +162,14 @@ export interface Cluster {
 
 export interface Media {
     id: string;
-    image: {
-        url: string;
-        publicId: string;
-        jpg: string;
-    };
+    image: CloudinaryFile;
+    video?: CloudinaryFile;
+    addedBy: AddedBy;
+    spot?: Spot;
+    type: 'image' | 'video';
+    createdAt: Date;
+    updatedAt: Date;
+    caption?: string;
     // TODO: complete Media interface
 }
 
