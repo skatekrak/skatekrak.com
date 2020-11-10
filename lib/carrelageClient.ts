@@ -169,6 +169,7 @@ export interface Media {
     type: 'image' | 'video';
     createdAt: Date;
     updatedAt: Date;
+    caption?: string;
     // TODO: complete Media interface
 }
 
