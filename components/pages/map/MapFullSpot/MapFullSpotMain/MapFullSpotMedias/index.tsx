@@ -39,7 +39,7 @@ const MapFullSpotMedias: React.FC<MapFullSpotMediasProps> = ({ medias: firstMedi
                 getScrollParent={getScrollParent}
                 useWindow={false}
             >
-                <div id="map-full-spot-popup-main-photos">
+                <div id="map-full-spot-popup-main-media">
                     <KrakMasonry breakpointCols={2}>
                         {medias.map((media) => {
                             if (media.type === 'video') {
