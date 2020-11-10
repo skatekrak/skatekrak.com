@@ -19,9 +19,7 @@ const MapFullSpotMain = () => {
                 {selectedTab === 'clips' && (
                     <MapFullSpotMainClips clips={spotOverview.clips} spot={spotOverview.spot} />
                 )}
-                {selectedTab === 'photos' && (
-                    <MapFullSpotMedias medias={spotOverview.medias} spot={spotOverview.spot} />
-                )}
+                {selectedTab === 'media' && <MapFullSpotMedias medias={spotOverview.medias} spot={spotOverview.spot} />}
                 {selectedTab === 'info' && <MapFullSpotInfo />}
                 {selectedTab === 'tips' && <MapFullSpotTips />}
                 {selectedTab === 'edito' && <MapFullSpotEdito />}

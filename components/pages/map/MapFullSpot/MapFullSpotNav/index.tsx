@@ -79,8 +79,8 @@ const MapFullSpotNav = () => {
                             text={`Media${
                                 spotOverview.spot.mediasStat.all > 0 ? ` (${spotOverview.spot.mediasStat.all})` : ''
                             }`}
-                            onClick={() => onTabSelect('photos')}
-                            isActive={selectedTab === 'photos'}
+                            onClick={() => onTabSelect('media')}
+                            isActive={selectedTab === 'media'}
                         />
                         <MapFullSpotNavItem
                             text={`Clips${

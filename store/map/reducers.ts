@@ -23,8 +23,7 @@ export type FullSpotTab =
     | 'clips'
     | 'tips'
     | 'edito'
-    | 'photos'
-    | 'videos'
+    | 'media'
     | 'contests'
     | 'events'
     | 'instagram'
@@ -63,7 +62,7 @@ export const initialState: MapState = {
         longitude: 2.345054,
         zoom: 12,
     },
-    fullSpotSelectedTab: 'clips',
+    fullSpotSelectedTab: 'media',
     selectSpot: undefined,
     modalVisible: false,
     customMapId: undefined,
@@ -168,7 +167,7 @@ const MapReducers = (state: MapState = initialState, action: MapAction): MapStat
         case SELECT_FULL_SPOT_TAB:
             return {
                 ...state,
-                fullSpotSelectedTab: action.payload ?? 'clips',
+                fullSpotSelectedTab: action.payload ?? initialState.fullSpotSelectedTab,
             };
         case SELECT_SPOT:
             return {
