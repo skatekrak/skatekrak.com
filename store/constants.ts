@@ -26,6 +26,7 @@ export const SELECT_FULL_SPOT_TAB = 'select_full_spot_tab';
 export const SELECT_SPOT = 'select_spot';
 export const TOGGLE_SPOT_MODAL = 'toggle_spot_modal';
 export const TOGGLE_CUSTOM_MAP = 'toggle_custom_map';
+export const SET_VIDEO_PLAYING = 'set_video_playing';
 
 // Mag
 export const TOGGLE_CATEGORY = 'mag:toggle_category';
