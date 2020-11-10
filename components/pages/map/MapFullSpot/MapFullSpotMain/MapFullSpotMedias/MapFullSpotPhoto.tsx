@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { Media } from 'lib/carrelageClient';
+import MapFullSpotMediaOverlay from './MapFullSpotMediaOverlay';
 
 export type MapFullSpotPhotoProps = {
     media: Media;
@@ -18,13 +19,7 @@ const MapFullSpotPhoto: React.FC<MapFullSpotPhotoProps> = ({ media }) => {
                 src={media.image.url}
                 alt={media.addedBy.username}
             />
-            <div className="map-full-spot-popup-main-media-overlay">
-                <h5 className="map-full-spot-popup-main-media-overlay-author">{media.addedBy.username}</h5>
-                <p className="map-full-spot-popup-main-media-overlay-caption">
-                    Une description a faire rougir jean michel redaction. La plus longue qu'on puisse trouver dans l'app
-                    je te dis.
-                </p>
-            </div>
+            <MapFullSpotMediaOverlay media={media} />
         </div>
     );
 };
