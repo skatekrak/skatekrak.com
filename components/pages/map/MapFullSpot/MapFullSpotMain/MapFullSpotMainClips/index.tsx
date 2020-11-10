@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroller';
 
-import VideoPlayerContainer from 'components/Ui/Player/VideoPlayerContainer';
 import ScrollBar from 'components/Ui/Scrollbar';
 import { Clip, getClips, Spot } from 'lib/carrelageClient';
 import Bugsnag from '@bugsnag/js';
 import { KrakLoading } from 'components/Ui/Icons/Spinners';
+
+import MapFullSpotMainClip from './MapFullSpotMainClip';
 
 export type MapFullSpotMainClipsProps = {
     clips: Clip[];
@@ -54,10 +55,7 @@ const MapFullSpotMainClips = ({ clips: defaultClips, spot }: MapFullSpotMainClip
                 <div id="map-full-spot-popup-main">
                     <div id="map-full-spot-popup-main-clips">
                         {clips.map((clip) => (
-                            <div key={clip.id} className="map-full-spot-popup-main-clip">
-                                <h2 className="map-full-spot-popup-main-clip-title">{clip.title}</h2>
-                                <VideoPlayerContainer clip={clip} />
-                            </div>
+                            <MapFullSpotMainClip key={clip.id} clip={clip} />
                         ))}
                         {isLoading && <KrakLoading />}
                     </div>

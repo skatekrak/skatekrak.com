@@ -24,7 +24,6 @@ const MapFullSpotVideo: React.FC<MapFullSpotVideoProps> = ({ media }) => {
 
     useEffect(() => {
         if (!isPlaying && playerRef.current) {
-            console.log('reset preview');
             playerRef.current.showPreview();
         }
     }, [isPlaying]);
