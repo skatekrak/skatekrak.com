@@ -10,12 +10,12 @@ export type MagAction = ActionType<typeof magActions>;
 
 export type MagState = {
     selectedCategories: string[];
-    search?: string;
+    search: string;
 };
 
-const initialState: MagState = {
+export const initialState: MagState = {
     selectedCategories: [],
-    search: undefined,
+    search: '',
 };
 
 const MagReducer: Reducer<MagState, MagAction> = (state = initialState, action) => {

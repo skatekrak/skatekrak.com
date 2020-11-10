@@ -2,24 +2,23 @@ import { ActionType, Reducer } from 'typesafe-actions';
 
 import { push, remove } from 'lib/immutable';
 
-import { SELECT_NEWS_SOURCES, TOGGLE_NEWS_SOURCE, SET_NEWS_SEARCH, RESET_NEWS } from '../constants';
+import { TOGGLE_VIDEOS_SOURCE, SELECT_VIDEOS_SOURCES, SET_VIDEOS_SEARCH, RESET_VIDEOS } from '../constants';
+import * as videos from './action';
+export type VideosAction = ActionType<typeof videos>;
 
-import * as news from './actions';
-export type NewsAction = ActionType<typeof news>;
-
-export type NewsState = {
+export type VideosState = {
     selectSources: string[];
     search: string;
 };
 
-export const initialState: NewsState = {
+export const initialState: VideosState = {
     selectSources: [],
     search: '',
 };
 
-const NewsReducer: Reducer<NewsState, NewsAction> = (state = initialState, action) => {
+const VideosReducer: Reducer<VideosState, VideosAction> = (state = initialState, action) => {
     switch (action.type) {
-        case TOGGLE_NEWS_SOURCE: {
+        case TOGGLE_VIDEOS_SOURCE: {
             const index = state.selectSources.indexOf(action.payload.id);
 
             return {
@@ -28,18 +27,18 @@ const NewsReducer: Reducer<NewsState, NewsAction> = (state = initialState, actio
                     index === -1 ? push(state.selectSources, action.payload.id) : remove(state.selectSources, index),
             };
         }
-        case SELECT_NEWS_SOURCES: {
+        case SELECT_VIDEOS_SOURCES: {
             return {
                 ...state,
                 selectSources: action.payload.map((source) => source.id),
             };
         }
-        case SET_NEWS_SEARCH:
+        case SET_VIDEOS_SEARCH:
             return {
                 ...state,
                 search: action.payload,
             };
-        case RESET_NEWS:
+        case RESET_VIDEOS:
             return {
                 ...state,
                 selectSources: [],
@@ -49,4 +48,4 @@ const NewsReducer: Reducer<NewsState, NewsAction> = (state = initialState, actio
     }
 };
 
-export default NewsReducer;
+export default VideosReducer;

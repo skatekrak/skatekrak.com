@@ -1,22 +1,22 @@
 import classNames from 'classnames';
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 
 import IconCross from 'components/Ui/Icons/Cross';
-import { RootState } from 'store/reducers';
-import { setNewsSearch } from 'store/news/actions';
 
-const SearchBar = () => {
-    const dispatch = useDispatch();
-    const search = useSelector((state: RootState) => state.news.search);
-    const hasValue = search != null && search !== '';
+type SearchBarProps = {
+    value: string;
+    onValueChange: (value: string) => void;
+};
+
+const SearchBar = ({ value, onValueChange }: SearchBarProps) => {
+    const hasValue = value != null && value !== '';
 
     const onChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
-        dispatch(setNewsSearch(evt.target.value));
+        onValueChange(evt.target.value);
     };
 
-    const cleanInput = () => {
-        dispatch(setNewsSearch(''));
+    const onCleanInput = () => {
+        onValueChange('');
     };
 
     return (
@@ -27,7 +27,7 @@ const SearchBar = () => {
                     'feed-searchbar-input--has-value': hasValue,
                 })}
                 type="text"
-                value={search}
+                value={value}
                 placeholder="Search"
                 onChange={onChange}
                 autoComplete="off"
@@ -36,7 +36,7 @@ const SearchBar = () => {
                 className={classNames('feed-searchbar-icon', {
                     show: hasValue,
                 })}
-                onClick={cleanInput}
+                onClick={onCleanInput}
             >
                 <IconCross />
             </button>

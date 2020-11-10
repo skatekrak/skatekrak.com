@@ -22,6 +22,7 @@ const Feed = ({ sidebarNavIsOpen }: Props) => {
     const { data, isFetching, canFetchMore, fetchMore } = usePosts({
         per_page: 20,
         categories: mag.selectedCategories,
+        search: mag.search,
     });
 
     // Flatten the posts list

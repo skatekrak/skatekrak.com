@@ -15,6 +15,9 @@ import reducers from './reducers';
 import querySyncMiddleware from './middleware/query-sync';
 
 import { initialState as mapInitialState } from './map/reducers';
+import { initialState as magInitialState } from './mag/reducers';
+import { initialState as newsInitialState } from './news/reducer';
+import { initialState as videosInitialState } from './news/reducer';
 
 const reducer: Reducer<Typings.RootState, AnyAction> = (state, action) => {
     if (action.type === 'HYDRATE') {
@@ -52,6 +55,18 @@ export const initializeStore: MakeStore<Typings.RootState> = (context) => {
                 selectSpot: params.spot,
                 modalVisible: params.modal === '1',
                 customMapId: params.id,
+            },
+            mag: {
+                ...magInitialState,
+                search: params.query ?? '',
+            },
+            news: {
+                ...newsInitialState,
+                search: params.query ?? '',
+            },
+            video: {
+                ...videosInitialState,
+                search: params.query ?? '',
             },
         };
     }

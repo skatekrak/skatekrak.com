@@ -2,14 +2,15 @@ import classNames from 'classnames';
 import React, { useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import SearchBar from 'components/pages/mag/Sidebar/Nav/SearchBar';
-import SourceOption from 'components/pages/mag/Sidebar/Nav/SourceOption';
+import SearchBar from 'components/Ui/Feed/Sidebar/SearchBar';
+import SourceOption from 'components/Ui/Feed/Sidebar/SourceOption';
 import { SpinnerCircle } from 'components/Ui/Icons/Spinners';
 import Analytics from 'lib/analytics';
 import { RootState } from 'store/reducers';
 import useMagCategories from 'lib/hook/mag/categories';
-import { resetCategories } from 'store/mag/actions';
+import { resetCategories, setMagSearch, toggleCategory } from 'store/mag/actions';
 import usePosts from 'lib/hook/mag/posts';
+import { Source } from 'rss-feed';
 
 type NavProps = {
     sidebarNavIsOpen: boolean;
@@ -19,12 +20,14 @@ type NavProps = {
 const Nav = ({ sidebarNavIsOpen, handleOpenSidebarNav }: NavProps) => {
     const dispatch = useDispatch();
     const sources = useSelector((state: RootState) => state.mag.selectedCategories);
+    const query = useSelector((state: RootState) => state.mag.search);
 
     const { data: categories, isLoading } = useMagCategories();
 
     const { isFetching } = usePosts({
         per_page: 20,
         categories: sources,
+        search: query,
     });
 
     /** Either the length of selected categories, or the length of every available categories */
@@ -49,6 +52,21 @@ const Nav = ({ sidebarNavIsOpen, handleOpenSidebarNav }: NavProps) => {
         dispatch(resetCategories());
     };
 
+    const isActive = (source: Source): boolean => {
+        if (sources.length <= 0) {
+            return true;
+        }
+        return sources.indexOf(source.id) !== -1;
+    };
+
+    const toggleSource = (source: Source) => {
+        dispatch(toggleCategory(source));
+    };
+
+    const onQueryChange = (value: string) => {
+        dispatch(setMagSearch(value));
+    };
+
     return (
         <>
             <div className="feed-sidebar-nav-container">
@@ -60,7 +78,7 @@ const Nav = ({ sidebarNavIsOpen, handleOpenSidebarNav }: NavProps) => {
                         {!sidebarNavIsOpen ? 'Categories' : 'Close'}
                     </button>
                 </div>
-                <SearchBar nbFilters={0} />
+                <SearchBar value={query} onValueChange={onQueryChange} />
             </div>
             <div
                 className={classNames('feed-sidebar-nav-main', {
@@ -87,7 +105,13 @@ const Nav = ({ sidebarNavIsOpen, handleOpenSidebarNav }: NavProps) => {
                         )}
                         {categories != null &&
                             categories.map((category) => (
-                                <SourceOption key={category.id} source={category} loading={isFetching} />
+                                <SourceOption
+                                    key={category.id}
+                                    source={category}
+                                    isActive={isActive(category)}
+                                    loading={isFetching}
+                                    toggle={toggleSource}
+                                />
                             ))}
                     </ul>
                 </div>
