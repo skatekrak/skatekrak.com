@@ -16,7 +16,7 @@ const MapFullSpotPhoto: React.FC<MapFullSpotPhotoProps> = ({ media }) => {
             <img
                 key={media.id}
                 className="map-full-spot-popup-main-media"
-                src={media.image.url}
+                src={media.image.jpg}
                 alt={media.addedBy.username}
             />
             <MapFullSpotMediaOverlay media={media} />
