@@ -1,4 +1,4 @@
-import { NextPage } from 'next';
+import { GetServerSideProps, GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import Head from 'next/head';
 import React, { useState } from 'react';
 
@@ -16,6 +16,8 @@ import TrackedPage from 'components/pages/TrackedPage';
 import { formatPost } from 'lib/mag/formattedPost';
 import { Post } from 'wordpress-types';
 import krakmag from 'lib/clients/krakmag';
+import { useRouter } from 'next/router';
+import { KrakLoading } from 'components/Ui/Icons/Spinners';
 
 type HeadProps = {
     post: Post;
@@ -41,16 +43,55 @@ const MagArticleHead = ({ post }: HeadProps) => {
     );
 };
 
+export const getStaticPaths: GetStaticPaths = async () => {
+    const { data } = await krakmag.get<Post[]>('/wp-json/wp/v2/posts', {
+        params: {
+            per_page: 40,
+            page: 1,
+        },
+    });
+
+    return {
+        paths: data.map((post) => `/mag/${post.slug}`),
+        fallback: true,
+    };
+};
+
+type MagPostStaticProps = {
+    post: Post;
+};
+
+export const getStaticProps: GetStaticProps<MagPostStaticProps> = async ({ params }) => {
+    const { data } = await krakmag.get<Post>(`/wp-json/wp/v2/posts`, {
+        params: {
+            slug: params.slug,
+            _embed: 1,
+        },
+    });
+
+    return {
+        props: {
+            post: formatPost(data[0]),
+        },
+        revalidate: 3600,
+    };
+};
+
 type Props = {
     post?: Post;
 };
 
 const ArticlePage: NextPage<Props> = ({ post }) => {
+    const router = useRouter();
     const [sidebarNavIsOpen, setSidebarNavOpen] = useState(false);
 
     const handleOpenSidebarNav = () => {
         setSidebarNavOpen(!sidebarNavIsOpen);
     };
+
+    if (router.isFallback) {
+        return <KrakLoading />;
+    }
 
     return (
         <TrackedPage name={`Mag/${post.slug!}`}>
@@ -71,21 +112,6 @@ const ArticlePage: NextPage<Props> = ({ post }) => {
             </Layout>
         </TrackedPage>
     );
-};
-
-ArticlePage.getInitialProps = async ({ query }) => {
-    const { slug } = query;
-
-    try {
-        const res = await krakmag.get(`/wp-json/wp/v2/posts?slug=${slug}&_embed`);
-        if (res.data) {
-            const formattedPost = formatPost(res.data[0]);
-            return { post: formattedPost };
-        }
-        return {};
-    } catch (err) {
-        return {};
-    }
 };
 
 export default ArticlePage;
