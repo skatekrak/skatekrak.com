@@ -3,11 +3,12 @@ import Router from 'next/router';
 import { format } from 'url';
 import { AppContext } from 'next/app';
 import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
-import createSagaMiddleWare from 'redux-saga';
 import { createWrapper, MakeStore } from 'next-redux-wrapper';
 import { createRouterMiddleware, initialRouterState } from 'connected-next-router';
 import queryString from 'query-string';
 import thunk from 'redux-thunk';
+import { save, load } from 'redux-localstorage-simple';
+import merge from 'deepmerge';
 
 import Typings from 'Types';
 
@@ -37,7 +38,6 @@ const reducer: Reducer<Typings.RootState, AnyAction> = (state, action) => {
 };
 
 export const initializeStore: MakeStore<Typings.RootState> = (context) => {
-    const sagaMiddleware = createSagaMiddleWare();
     const routerMiddleware = createRouterMiddleware();
 
     const { asPath, pathname, query } = (context as AppContext).ctx || Router.router || {};
@@ -48,7 +48,7 @@ export const initializeStore: MakeStore<Typings.RootState> = (context) => {
         const initialRouter = initialRouterState(url, asPath);
         const params = queryString.parse(initialRouter.location.search);
 
-        initialState = {
+        const state = {
             router: initialRouter,
             map: {
                 ...mapInitialState,
@@ -69,9 +69,22 @@ export const initializeStore: MakeStore<Typings.RootState> = (context) => {
                 search: params.query ?? '',
             },
         };
+
+        initialState = merge(
+            state,
+            load({
+                states: ['mag', 'news', 'videos'],
+                namespace: 'skatekrak',
+            }),
+        );
     }
 
-    const middlewares = [sagaMiddleware, routerMiddleware, querySyncMiddleware, thunk];
+    const middlewares = [
+        routerMiddleware,
+        querySyncMiddleware,
+        thunk,
+        save({ states: ['news', 'mag', 'videos'], debounce: 500, namespace: 'skatekrak' }),
+    ];
     const middlewareEnhancer = applyMiddleware(...middlewares);
 
     const composedEnhancers = composeWithDevTools(...[middlewareEnhancer]);
