@@ -77,7 +77,7 @@ class Index extends React.PureComponent<unknown, State> {
                                         </button>
                                     </div>
                                 </form>
-                                <p>
+                                <p id="home-content-roots">
                                     Let's make sure skateboarding keeps its roots
                                     <br />
                                     deep in creativity, openness, rebellion & freedom
