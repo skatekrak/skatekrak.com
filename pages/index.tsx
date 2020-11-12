@@ -60,7 +60,7 @@ class Index extends React.PureComponent<unknown, State> {
                                     tech <span>co-op</span>
                                 </h1>
                                 <form id="home-form" onSubmit={this.handleSubmit}>
-                                    <label id="home-form-field-input" htmlFor="mail">
+                                    <label id="home-form-title" htmlFor="home-form-field-input">
                                         Become a co-owner
                                     </label>
                                     <div id="home-form-field">
