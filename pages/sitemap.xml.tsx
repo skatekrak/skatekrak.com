@@ -11,11 +11,6 @@ const sitemapXml = `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
         <changefreq>daily</changefreq>
     </url>
     <url>
-        <loc>${baseURL}/club</loc>
-        <lastmod>${lastMod}</lastmod>
-        <changefreq>daily</changefreq>
-    </url>
-    <url>
         <loc>${baseURL}/mag</loc>
         <lastmod>${lastMod}</lastmod>
         <changefreq>hourly</changefreq>
@@ -31,12 +26,12 @@ const sitemapXml = `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
         <changefreq>daily</changefreq>
     </url>
     <url>
-        <loc>${baseURL}/app</loc>
+        <loc>${baseURL}/map</loc>
         <lastmod>${lastMod}</lastmod>
         <changefreq>daily</changefreq>
     </url>
     <url>
-        <loc>${baseURL}/auth/login</loc>
+        <loc>${baseURL}/app</loc>
         <lastmod>${lastMod}</lastmod>
         <changefreq>daily</changefreq>
     </url>
