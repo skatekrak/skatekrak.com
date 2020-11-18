@@ -29,7 +29,7 @@ const MapFullSpotMedias: React.FC<MapFullSpotMediasProps> = ({ medias: firstMedi
         <ScrollBar maxHeight="100%">
             <InfiniteScroll
                 pageStart={1}
-                initialLoad={false}
+                initialLoad={true}
                 loadMore={() => {
                     if (canFetchMore) {
                         fetchMore();
