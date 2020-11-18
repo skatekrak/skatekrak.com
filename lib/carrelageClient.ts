@@ -14,8 +14,8 @@ export interface CloudinaryFile {
     version: string;
     url: string;
     format: string;
-    width: string;
-    height: string;
+    width: number;
+    height: number;
     jpg: string;
 }
 

@@ -37,6 +37,10 @@ const MapFullSpotVideo: React.FC<MapFullSpotVideoProps> = ({ media }) => {
                     onReady={onReady}
                     url={media.video.jpg}
                     light={media.image.jpg}
+                    videoSize={{
+                        width: media.video.width,
+                        height: media.video.height,
+                    }}
                     loop
                     controls
                 />
