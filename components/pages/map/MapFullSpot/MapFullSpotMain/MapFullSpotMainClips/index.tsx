@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import InfiniteScroll from 'react-infinite-scroller';
 
 import ScrollBar from 'components/Ui/Scrollbar';
-import { Clip, getClips, Spot } from 'lib/carrelageClient';
-import Bugsnag from '@bugsnag/js';
+import { Clip, Spot } from 'lib/carrelageClient';
+import useSpotClips from 'lib/hook/carrelage/spot-clips';
 import { KrakLoading } from 'components/Ui/Icons/Spinners';
 
 import MapFullSpotMainClip from './MapFullSpotMainClip';
+import { flatten } from 'lib/helpers';
 
 export type MapFullSpotMainClipsProps = {
     clips: Clip[];
@@ -14,28 +15,8 @@ export type MapFullSpotMainClipsProps = {
 };
 
 const MapFullSpotMainClips = ({ clips: defaultClips, spot }: MapFullSpotMainClipsProps) => {
-    const [hasMore, setHasMore] = useState(defaultClips.length <= spot.clipsStat.all);
-    const [clips, setClips] = useState(() => defaultClips);
-    const [isLoading, setLoading] = useState(false);
-
-    const loadMore = async (page: number) => {
-        setLoading(true);
-        console.log('load more', page);
-
-        try {
-            const lastClip = clips[clips.length - 1];
-            const newClips = await getClips(spot.id, lastClip.createdAt);
-            setClips((clips) => [...clips, ...newClips]);
-            if (newClips.length <= 0) {
-                setHasMore(false);
-            }
-        } catch (err) {
-            Bugsnag.notify(err);
-        } finally {
-            setLoading(false);
-            setHasMore(false);
-        }
-    };
+    const { isFetching, data, canFetchMore, fetchMore } = useSpotClips(spot.id, defaultClips);
+    const clips = flatten(data);
 
     const getScrollParent = () => {
         const wrappers = document.getElementsByClassName('simplebar-content-wrapper');
@@ -47,8 +28,12 @@ const MapFullSpotMainClips = ({ clips: defaultClips, spot }: MapFullSpotMainClip
             <InfiniteScroll
                 pageStart={1}
                 initialLoad={false}
-                loadMore={loadMore}
-                hasMore={!isLoading && hasMore}
+                loadMore={() => {
+                    if (canFetchMore) {
+                        fetchMore();
+                    }
+                }}
+                hasMore={!isFetching && canFetchMore}
                 getScrollParent={getScrollParent}
                 useWindow={false}
             >
@@ -57,7 +42,7 @@ const MapFullSpotMainClips = ({ clips: defaultClips, spot }: MapFullSpotMainClip
                         {clips.map((clip) => (
                             <MapFullSpotMainClip key={clip.id} clip={clip} />
                         ))}
-                        {isLoading && <KrakLoading />}
+                        {isFetching && <KrakLoading />}
                     </div>
                 </div>
             </InfiniteScroll>
