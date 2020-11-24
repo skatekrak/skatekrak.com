@@ -17,7 +17,7 @@ const generateCloudinaryURL = (publicId: string): string => {
 const MapSpotOverview: React.FC<MapSpotOverviewProps> = ({ spotOverview, onPopupClick, onPopupClose }) => {
     return (
         <Popup
-            className="map-popup-spot"
+            className="map-spot-overview"
             longitude={spotOverview.spot.location.longitude}
             latitude={spotOverview.spot.location.latitude}
             onClose={onPopupClose}
@@ -25,18 +25,18 @@ const MapSpotOverview: React.FC<MapSpotOverviewProps> = ({ spotOverview, onPopup
             closeButton={false}
             closeOnClick={false}
         >
-            <button className="map-popup-spot-container" onClick={onPopupClick}>
+            <button className="map-spot-overview-container" onClick={onPopupClick}>
                 <h4
-                    className={classNames('map-popup-spot-name', {
-                        'map-popup-spot-name-center': !spotOverview.mostLikedMedia,
+                    className={classNames('map-spot-overview-name', {
+                        'map-spot-overview-name-center': !spotOverview.mostLikedMedia,
                     })}
                 >
                     {spotOverview.spot.name}
                 </h4>
                 {spotOverview.mostLikedMedia && (
-                    <div className="map-popup-spot-cover-container">
+                    <div className="map-spot-overview-cover-container">
                         <div
-                            className="map-popup-spot-cover"
+                            className="map-spot-overview-cover"
                             style={{
                                 backgroundImage: `url("${generateCloudinaryURL(
                                     spotOverview.mostLikedMedia.image.publicId,
@@ -45,6 +45,20 @@ const MapSpotOverview: React.FC<MapSpotOverviewProps> = ({ spotOverview, onPopup
                         />
                     </div>
                 )}
+                <div
+                    className={classNames('map-spot-overview-overlay', {
+                        'map-spot-overview-overlay--relative': !spotOverview.mostLikedMedia,
+                    })}
+                >
+                    <div className="map-spot-overview-overlay-amount-container">
+                        <div className="map-spot-overview-overlay-amount-icon" />
+                        <p className="map-spot-overview-overlay-amount-number">{spotOverview.spot.mediasStat.all}</p>
+                    </div>
+                    <div className="map-spot-overview-overlay-amount-container">
+                        <div className="map-spot-overview-overlay-amount-icon" />
+                        <p className="map-spot-overview-overlay-amount-number">{spotOverview.spot.clipsStat.all}</p>
+                    </div>
+                </div>
             </button>
         </Popup>
     );
