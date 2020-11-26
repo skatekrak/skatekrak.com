@@ -2,6 +2,9 @@ import React from 'react';
 import classNames from 'classnames';
 import { Popup } from 'react-map-gl';
 
+import IconMedia from 'components/Ui/Icons/IconMedia';
+import IconClips from 'components/Ui/Icons/IconClips';
+
 import { SpotOverview } from 'lib/carrelageClient';
 
 type MapSpotOverviewProps = {
@@ -51,11 +54,11 @@ const MapSpotOverview: React.FC<MapSpotOverviewProps> = ({ spotOverview, onPopup
                     })}
                 >
                     <div className="map-spot-overview-overlay-amount-container">
-                        <div className="map-spot-overview-overlay-amount-icon" />
+                        <IconMedia />
                         <p className="map-spot-overview-overlay-amount-number">{spotOverview.spot.mediasStat.all}</p>
                     </div>
                     <div className="map-spot-overview-overlay-amount-container">
-                        <div className="map-spot-overview-overlay-amount-icon" />
+                        <IconClips />
                         <p className="map-spot-overview-overlay-amount-number">{spotOverview.spot.clipsStat.all}</p>
                     </div>
                 </div>
