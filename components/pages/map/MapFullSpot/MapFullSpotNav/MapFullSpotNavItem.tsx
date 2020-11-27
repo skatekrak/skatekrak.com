@@ -7,9 +7,10 @@ type MapFullSpotNavItemProps = {
     text: string;
     onClick?: () => void;
     isActive: boolean;
+    icon?: React.ReactElement;
 };
 
-const MapFullSpotNavItem: React.FC<MapFullSpotNavItemProps> = ({ text, onClick, isActive }) => {
+const MapFullSpotNavItem: React.FC<MapFullSpotNavItemProps> = ({ text, onClick, isActive, icon }) => {
     return (
         <button
             className={classNames('map-full-spot-popup-nav-link', {
@@ -17,7 +18,8 @@ const MapFullSpotNavItem: React.FC<MapFullSpotNavItemProps> = ({ text, onClick, 
             })}
             onClick={onClick}
         >
-            <p>{text}</p>
+            {icon && <div className="map-full-spot-popup-nav-link-icon">{icon}</div>}
+            <p className="map-full-spot-popup-nav-link-text">{text}</p>
             <IconArrowHead />
         </button>
     );

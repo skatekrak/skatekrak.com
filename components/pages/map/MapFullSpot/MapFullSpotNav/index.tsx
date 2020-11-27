@@ -14,6 +14,8 @@ import { FullSpotTab } from 'store/map/reducers';
 import { selectFullSpotTab } from 'store/map/actions';
 import MapFullSpotNavItem from './MapFullSpotNavItem';
 import { RootState } from 'store/reducers';
+import IconMedia from 'components/Ui/Icons/IconMedia';
+import IconClips from 'components/Ui/Icons/IconClips';
 
 const SpotIcon = ({ type, status }: { type: Types; status: Status }) => {
     if (status === Status.Rip) {
@@ -81,6 +83,7 @@ const MapFullSpotNav = () => {
                             }`}
                             onClick={() => onTabSelect('media')}
                             isActive={selectedTab === 'media'}
+                            icon={<IconMedia />}
                         />
                         <MapFullSpotNavItem
                             text={`Clips${
@@ -88,6 +91,7 @@ const MapFullSpotNav = () => {
                             }`}
                             onClick={() => onTabSelect('clips')}
                             isActive={selectedTab === 'clips'}
+                            icon={<IconClips />}
                         />
                     </nav>
                 </>
