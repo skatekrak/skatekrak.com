@@ -78,17 +78,13 @@ const MapFullSpotNav = () => {
                     </div>
                     <nav id="map-full-spot-popup-nav-main">
                         <MapFullSpotNavItem
-                            text={`Media${
-                                spotOverview.spot.mediasStat.all > 0 ? ` (${spotOverview.spot.mediasStat.all})` : ''
-                            }`}
+                            text={`Media(${spotOverview.spot.mediasStat.all})`}
                             onClick={() => onTabSelect('media')}
                             isActive={selectedTab === 'media'}
                             icon={<IconMedia />}
                         />
                         <MapFullSpotNavItem
-                            text={`Clips${
-                                spotOverview.spot.clipsStat.all > 0 ? ` (${spotOverview.spot.clipsStat.all})` : ''
-                            }`}
+                            text={`Clips(${spotOverview.spot.clipsStat.all})`}
                             onClick={() => onTabSelect('clips')}
                             isActive={selectedTab === 'clips'}
                             icon={<IconClips />}
