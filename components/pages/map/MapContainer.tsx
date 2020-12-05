@@ -11,7 +11,7 @@ import { Cluster, Spot, Status, Types } from 'lib/carrelageClient';
 import Legend from 'components/pages/map/Legend';
 import BannerTop from 'components/Ui/Banners/BannerTop';
 import { boxSpotsSearch, getSpotOverview } from 'lib/carrelageClient';
-import { mapRefreshEnd, setSpotOverview, setViewport, toggleSpotModal } from 'store/map/actions';
+import { mapRefreshEnd, selectSpot, setSpotOverview, setViewport, toggleSpotModal } from 'store/map/actions';
 import { FilterStateUtil, FilterState } from 'lib/FilterState';
 import MapCustomNavigationTrail from './MapCustom/MapCustomNavigationTrail/MapCustomNavigationTrail';
 import MapCustomNavigation from './MapCustom/MapCustomNavigation';
@@ -174,6 +174,8 @@ const MapContainer = () => {
 
     const onFullSpotClose = () => {
         dispatch(toggleSpotModal(false));
+        dispatch(setSpotOverview(undefined));
+        dispatch(selectSpot());
     };
 
     useEffect(() => {

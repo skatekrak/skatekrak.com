@@ -6,7 +6,7 @@ import { Cluster } from 'lib/carrelageClient';
 import SpotCluster from 'components/pages/map/marker/SpotCluster';
 import SpotMarker from 'components/pages/map/marker/SpotMarker';
 import MapSpotOverview from './MapSpotOverview';
-import { selectSpot, setSpotOverview, setViewport, toggleSpotModal } from 'store/map/actions';
+import { selectSpot, setSpotOverview, setViewport, toggleLegend, toggleSpotModal } from 'store/map/actions';
 import type { RootState } from 'store/reducers';
 
 const MIN_ZOOM_LEVEL = 2;
@@ -49,6 +49,7 @@ const MapComponent = ({ mapRef, clusters }: MapComponentProps) => {
 
     const onPopupClick = () => {
         dispatch(toggleSpotModal(true));
+        dispatch(toggleLegend(false));
     };
 
     const onPopupClose = () => {

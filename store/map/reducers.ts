@@ -14,7 +14,8 @@ import {
     TOGGLE_SPOT_MODAL,
     TOGGLE_CUSTOM_MAP,
     SET_VIDEO_PLAYING,
-} from '../constants';
+    TOGGLE_LEGEND,
+} from './constants';
 import * as mapActions from './actions';
 import type { ViewportProps } from 'react-map-gl';
 
@@ -39,6 +40,7 @@ export type MapState = {
     fullSpotSelectedTab: FullSpotTab;
     selectSpot?: string;
     modalVisible: boolean;
+    legendOpen: boolean;
     customMapId?: string;
     videoPlayingId?: string;
 };
@@ -56,16 +58,17 @@ export const initialState: MapState = {
         [Status.Wip]: FilterState.SELECTED,
         [Status.Rip]: FilterState.SELECTED,
     },
-    spotOverview: undefined,
     viewport: {
         latitude: 48.860332,
         longitude: 2.345054,
         zoom: 12,
     },
-    fullSpotSelectedTab: 'media',
+    spotOverview: undefined,
     selectSpot: undefined,
     modalVisible: false,
+    legendOpen: false,
     customMapId: undefined,
+    fullSpotSelectedTab: 'media',
     videoPlayingId: undefined,
 };
 
@@ -178,6 +181,11 @@ const MapReducers = (state: MapState = initialState, action: MapAction): MapStat
             return {
                 ...state,
                 modalVisible: action.payload,
+            };
+        case TOGGLE_LEGEND:
+            return {
+                ...state,
+                legendOpen: action.payload,
             };
         case TOGGLE_CUSTOM_MAP:
             return {

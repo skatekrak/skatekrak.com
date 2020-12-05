@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import Link from 'next/link';
 
 import CloseButton from 'components/Ui/Button/CloseButton';
@@ -18,16 +19,24 @@ import BadgeIconic from 'components/pages/map/marker/badges/Iconic';
 import BadgeMinute from 'components/pages/map/marker/badges/Minute';
 import KrakAppIcon from 'components/Ui/Icons/Logos/KrakAppIcon';
 
+import { RootState } from 'store/reducers';
+import { toggleLegend } from 'store/map/actions';
+
 const Legend = () => {
-    const [isLegendOpen, setLegendOpen] = useState(false);
+    const dispatch = useDispatch();
+    const legendOpen = useSelector((state: RootState) => state.map.legendOpen);
+
+    const isLegendOpen = useMemo(() => {
+        return legendOpen;
+    }, [legendOpen]);
 
     const handleLegendOpen = () => {
-        setLegendOpen(!isLegendOpen);
+        dispatch(toggleLegend(!isLegendOpen));
     };
 
     return (
         <>
-            {!isLegendOpen ? (
+            {!legendOpen ? (
                 <button id="map-legend-trigger" onClick={handleLegendOpen}>
                     <KrakAppIcon />
                     Legend
