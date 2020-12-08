@@ -11,14 +11,14 @@ import { Cluster, Spot, Status, Types } from 'lib/carrelageClient';
 import Legend from 'components/pages/map/Legend';
 import BannerTop from 'components/Ui/Banners/BannerTop';
 import { boxSpotsSearch, getSpotOverview } from 'lib/carrelageClient';
-import { mapRefreshEnd, selectSpot, setSpotOverview, setViewport, toggleSpotModal } from 'store/map/actions';
+import { mapRefreshEnd, setSpotOverview, setViewport, updateUrlParams } from 'store/map/actions';
 import { FilterStateUtil, FilterState } from 'lib/FilterState';
 import MapCustomNavigationTrail from './MapCustom/MapCustomNavigationTrail/MapCustomNavigationTrail';
 import MapCustomNavigation from './MapCustom/MapCustomNavigation';
 import MapNavigation from './MapNavigation';
 import MapGradients from './MapGradients';
 import { RootState } from 'store/reducers';
-import flyTo from 'store/map/thunk';
+import { flyTo } from 'store/map/thunk';
 
 const DynamicMapComponent = dynamic(() => import('./MapComponent'), { ssr: false });
 const MapFullSpot = dynamic(() => import('./MapFullSpot'), { ssr: false });
@@ -173,9 +173,8 @@ const MapContainer = () => {
     }, [clusters, id, refreshMap]);
 
     const onFullSpotClose = () => {
-        dispatch(toggleSpotModal(false));
         dispatch(setSpotOverview(undefined));
-        dispatch(selectSpot());
+        dispatch(updateUrlParams({ spotId: undefined, modal: false }));
     };
 
     useEffect(() => {

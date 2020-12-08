@@ -25,4 +25,4 @@ const flyTo = (bounds: [[number, number], [number, number]]): ThunkAction<void, 
     };
 };
 
-export default flyTo;
+export { flyTo };
