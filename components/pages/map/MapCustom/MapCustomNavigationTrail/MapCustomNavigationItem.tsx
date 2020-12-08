@@ -7,7 +7,7 @@ import IconArrowHead from 'components/Ui/Icons/ArrowHead';
 import { SpinnerCircle } from 'components/Ui/Icons/Spinners';
 
 import type { CustomMap } from './MapCustomNavigationTrail';
-import { selectSpot, toggleCustomMap, toggleSpotModal } from 'store/map/actions';
+import { toggleLegend, updateUrlParams } from 'store/map/actions';
 
 type Props = {
     map: CustomMap;
@@ -28,9 +28,14 @@ const MapCustomNavigationItem = ({ map }: Props) => {
 
     const onClick = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
         e.preventDefault();
-        dispatch(toggleCustomMap(map.id));
-        dispatch(selectSpot());
-        dispatch(toggleSpotModal(false));
+        dispatch(toggleLegend(false));
+        dispatch(
+            updateUrlParams({
+                spotId: undefined,
+                modal: false,
+                customMapId: map.id,
+            }),
+        );
     };
 
     return (
