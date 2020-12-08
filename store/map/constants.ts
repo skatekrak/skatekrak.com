@@ -12,3 +12,4 @@ export const TOGGLE_CUSTOM_MAP = 'toggle_custom_map';
 export const SET_VIDEO_PLAYING = 'set_video_playing';
 export const TOGGLE_LEGEND = 'toggle_legend';
 export const UPDATE_URL_PARAM = 'map:update_url_params';
+export const TOGGLE_SEARCH_RESULT = 'map:toggle_search_result';

@@ -16,6 +16,7 @@ import {
     SET_VIDEO_PLAYING,
     TOGGLE_LEGEND,
     UPDATE_URL_PARAM,
+    TOGGLE_SEARCH_RESULT,
 } from './constants';
 import * as mapActions from './actions';
 import type { ViewportProps } from 'react-map-gl';
@@ -42,6 +43,7 @@ export type MapState = {
     selectSpot?: string;
     modalVisible: boolean;
     legendOpen: boolean;
+    searchResultOpen: boolean;
     customMapId?: string;
     videoPlayingId?: string;
 };
@@ -68,6 +70,7 @@ export const initialState: MapState = {
     selectSpot: undefined,
     modalVisible: false,
     legendOpen: false,
+    searchResultOpen: false,
     customMapId: undefined,
     fullSpotSelectedTab: 'media',
     videoPlayingId: undefined,
@@ -203,6 +206,12 @@ const MapReducers = (state: MapState = initialState, action: MapAction): MapStat
                 ...state,
                 selectSpot: action.payload.spotId,
                 modalVisible: action.payload.modal,
+                customMapId: action.payload.customMapId,
+            };
+        case TOGGLE_SEARCH_RESULT:
+            return {
+                ...state,
+                searchResultOpen: action.payload,
             };
         default:
             return state;
