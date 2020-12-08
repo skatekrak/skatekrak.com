@@ -6,7 +6,7 @@ type Props = {
     searchValue: string;
     handleSearchChange: (evt: React.ChangeEvent<HTMLInputElement>) => void;
     clearSearchValue: () => void;
-    onFocus: (isFocused: boolean) => void;
+    onFocus: () => void;
 };
 
 const MapSearchBar = ({ searchValue, handleSearchChange, clearSearchValue, onFocus }: Props) => {
@@ -19,8 +19,7 @@ const MapSearchBar = ({ searchValue, handleSearchChange, clearSearchValue, onFoc
                 value={searchValue}
                 onChange={handleSearchChange}
                 autoComplete="off"
-                onFocus={() => onFocus(true)}
-                onBlur={() => onFocus(false)}
+                onFocus={() => onFocus()}
             />
             {searchValue.length === 0 ? (
                 <SearchIcon />

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import useConstant from 'use-constant';
 import AwesomeDebouncePromise from 'awesome-debounce-promise';
 import { useQuery } from 'react-query';
@@ -8,6 +8,9 @@ import MapSearchBar from './MapSearchBar';
 import MapSearchResults from './MapSearchResults/MapSearchResults';
 import { SpotHit, spotIndex, SpotSearchResult } from 'lib/algolia';
 import { Place } from 'lib/placeApi';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from 'store/reducers';
+import { toggleSearchResult } from 'store/map/actions';
 
 const fetchPlaces = async (query: string): Promise<Place[]> => {
     const res = await axios.get('/api/place-search', { params: { input: query } });
@@ -21,7 +24,8 @@ const fetchSpots = async (query: string): Promise<SpotHit[]> => {
 
 const MapNavigation = () => {
     const [searchValue, setSearchValue] = useState('');
-    const [searchFieldFocus, setSearchFieldFocus] = useState(false);
+    const searchResultOpen = useSelector((state: RootState) => state.map.searchResultOpen);
+    const dispatch = useDispatch();
 
     const debouncedSpotsSearch = useConstant(() =>
         AwesomeDebouncePromise((query: string) => Promise.all([fetchSpots(query), fetchPlaces(query)]), 200),
@@ -47,20 +51,27 @@ const MapNavigation = () => {
         setSearchValue('');
     };
 
+    const updateSearchResultVisibility = useCallback(
+        (open: boolean) => {
+            dispatch(toggleSearchResult(open));
+        },
+        [dispatch],
+    );
+
     return (
         <div>
             <MapSearchBar
                 searchValue={searchValue}
                 handleSearchChange={handleSearchChange}
                 clearSearchValue={clearSearchValue}
-                onFocus={setSearchFieldFocus}
+                onFocus={() => updateSearchResultVisibility(true)}
             />
-            {searchFieldFocus && (
+            {searchValue !== '' && searchResultOpen && (
                 <MapSearchResults
-                    hasValue={searchValue !== ''}
                     places={places ?? []}
                     spots={spots ?? []}
                     loading={isLoading}
+                    onClick={() => updateSearchResultVisibility(false)}
                 />
             )}
         </div>
