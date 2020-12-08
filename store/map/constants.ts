@@ -11,3 +11,4 @@ export const TOGGLE_SPOT_MODAL = 'toggle_spot_modal';
 export const TOGGLE_CUSTOM_MAP = 'toggle_custom_map';
 export const SET_VIDEO_PLAYING = 'set_video_playing';
 export const TOGGLE_LEGEND = 'toggle_legend';
+export const UPDATE_URL_PARAM = 'map:update_url_params';

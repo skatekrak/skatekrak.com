@@ -15,6 +15,7 @@ import {
     TOGGLE_CUSTOM_MAP,
     SET_VIDEO_PLAYING,
     TOGGLE_LEGEND,
+    UPDATE_URL_PARAM,
 } from './constants';
 import type { ViewportProps } from 'react-map-gl';
 import { FullSpotTab } from './reducers';
@@ -33,3 +34,17 @@ export const toggleCustomMap = (customMapId?: string) =>
     action(TOGGLE_CUSTOM_MAP, customMapId, { pushToUrl: { id: customMapId } });
 export const toggleLegend = (open: boolean) => action(TOGGLE_LEGEND, open);
 export const setVideoPlaying = (id?: string) => action(SET_VIDEO_PLAYING, id);
+export const updateUrlParams = ({
+    spotId,
+    modal,
+    customMapId,
+}: {
+    spotId?: string;
+    modal: boolean;
+    customMapId?: string;
+}) =>
+    action(
+        UPDATE_URL_PARAM,
+        { spotId, modal },
+        { pushToUrl: { spot: spotId, modal: modal ? '1' : null, id: customMapId } },
+    );

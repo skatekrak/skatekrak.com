@@ -15,6 +15,7 @@ import {
     TOGGLE_CUSTOM_MAP,
     SET_VIDEO_PLAYING,
     TOGGLE_LEGEND,
+    UPDATE_URL_PARAM,
 } from './constants';
 import * as mapActions from './actions';
 import type { ViewportProps } from 'react-map-gl';
@@ -196,6 +197,12 @@ const MapReducers = (state: MapState = initialState, action: MapAction): MapStat
             return {
                 ...state,
                 videoPlayingId: action.payload,
+            };
+        case UPDATE_URL_PARAM:
+            return {
+                ...state,
+                selectSpot: action.payload.spotId,
+                modalVisible: action.payload.modal,
             };
         default:
             return state;
