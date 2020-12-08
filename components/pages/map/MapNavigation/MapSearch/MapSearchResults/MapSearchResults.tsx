@@ -14,12 +14,14 @@ import { Place } from 'lib/placeApi';
 import { selectSpot, setViewport } from 'store/map/actions';
 
 type MapSearchResultsProps = {
+    /** Does the search field has any value */
+    hasValue: boolean;
     loading: boolean;
     places: Place[];
     spots: SpotHit[];
 };
 
-const MapSearchResults: React.FC<MapSearchResultsProps> = ({ spots, loading, places }) => {
+const MapSearchResults: React.FC<MapSearchResultsProps> = ({ spots, loading, places, hasValue }) => {
     const dispatch = useDispatch();
 
     const onSpotClick = useCallback(
@@ -57,7 +59,7 @@ const MapSearchResults: React.FC<MapSearchResultsProps> = ({ spots, loading, pla
                     <MapSearchResultLoading />
                 ) : (
                     <>
-                        {spots.length === 0 && places.length === 0 ? (
+                        {spots.length === 0 && places.length === 0 && hasValue ? (
                             <MapSearchResultNoContent />
                         ) : (
                             <>

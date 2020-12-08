@@ -21,6 +21,7 @@ const fetchSpots = async (query: string): Promise<SpotHit[]> => {
 
 const MapNavigation = () => {
     const [searchValue, setSearchValue] = useState('');
+    const [searchFieldFocus, setSearchFieldFocus] = useState(false);
 
     const debouncedSpotsSearch = useConstant(() =>
         AwesomeDebouncePromise((query: string) => Promise.all([fetchSpots(query), fetchPlaces(query)]), 200),
@@ -52,9 +53,15 @@ const MapNavigation = () => {
                 searchValue={searchValue}
                 handleSearchChange={handleSearchChange}
                 clearSearchValue={clearSearchValue}
+                onFocus={setSearchFieldFocus}
             />
-            {searchValue.length !== 0 && (
-                <MapSearchResults places={places ?? []} spots={spots ?? []} loading={isLoading} />
+            {searchFieldFocus && (
+                <MapSearchResults
+                    hasValue={searchValue !== ''}
+                    places={places ?? []}
+                    spots={spots ?? []}
+                    loading={isLoading}
+                />
             )}
         </div>
     );
