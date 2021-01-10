@@ -58,8 +58,8 @@ const MapCustomNavigationItem = ({ map }: Props) => {
                         src={`/images/map/custom-maps/${map.id}.png`}
                         srcSet={`
                                 /images/map/custom-maps/${map.id}.png 1x,
-                                /images/map/custom-maps/${map.id}-@2x.png 2x,
-                                /images/map/custom-maps/${map.id}-@3x.png 3x
+                                /images/map/custom-maps/${map.id}@2x.png 2x,
+                                /images/map/custom-maps/${map.id}@3x.png 3x
                             `}
                         alt={`${map.name} map logo`}
                     />
