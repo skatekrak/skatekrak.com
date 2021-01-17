@@ -7,7 +7,8 @@ import IconArrowHead from 'components/Ui/Icons/ArrowHead';
 import { SpinnerCircle } from 'components/Ui/Icons/Spinners';
 
 import type { CustomMap } from './MapCustomNavigationTrail';
-import { toggleLegend, toggleSearchResult, updateUrlParams } from 'store/map/actions';
+import { toggleLegend, toggleSearchResult } from 'store/map/actions';
+import { updateUrlParams } from 'store/map/thunk';
 
 type Props = {
     map: CustomMap;
@@ -32,7 +33,7 @@ const MapCustomNavigationItem = ({ map }: Props) => {
         dispatch(toggleSearchResult(false));
         dispatch(
             updateUrlParams({
-                spotId: undefined,
+                spotId: null,
                 modal: false,
                 customMapId: map.id,
             }),

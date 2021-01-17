@@ -36,14 +36,14 @@ export const toggleCustomMap = (customMapId?: string) =>
 export const toggleLegend = (open: boolean) => action(TOGGLE_LEGEND, open);
 export const setVideoPlaying = (id?: string) => action(SET_VIDEO_PLAYING, id);
 export const toggleSearchResult = (open: boolean) => action(TOGGLE_SEARCH_RESULT, open);
-export const updateUrlParams = ({
+export const _updateUrlParams = ({
     spotId,
     modal,
     customMapId,
 }: {
-    spotId?: string;
+    spotId: string | null;
     modal: boolean;
-    customMapId?: string;
+    customMapId: string | null;
 }) =>
     action(
         UPDATE_URL_PARAM,
