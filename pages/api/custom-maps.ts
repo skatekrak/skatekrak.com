@@ -3,6 +3,7 @@ import Cors from 'cors';
 
 import CustomMaps from '../../data/_spots';
 import { CustomMap } from 'components/pages/map/MapCustom/MapCustomNavigationTrail/MapCustomNavigationTrail';
+import { Spot } from 'lib/carrelageClient';
 
 const cors = Cors({
     methods: ['GET', 'HEAD'],
@@ -29,12 +30,17 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     if (req.method !== 'GET') {
         return res.status(400).json({ message: 'Must be a GET' });
     }
-
+    const customMaps = CustomMaps.filter((map) => {
+        if (process.env.NEXT_PUBLIC_STAGE === 'production') {
+            return !map.staging;
+        }
+        return true;
+    });
     const id = req.query.id;
     if (id === undefined) {
         const maps: CustomMap[] = [];
 
-        for (const map of CustomMaps) {
+        for (const map of customMaps) {
             maps.push({
                 id: map.id,
                 name: map.name,
@@ -53,6 +59,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     }
 
     const customMap = CustomMaps.find((map) => map.id === id);
+    customMap.spots = customMap.spots.sort((a: Spot, b: Spot) => a.name.localeCompare(b.name));
     if (customMap === undefined) {
         return res.status(404).json({ message: 'Map not found' });
     }

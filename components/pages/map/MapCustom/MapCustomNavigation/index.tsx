@@ -50,8 +50,8 @@ const MapCustomNavigation = ({ id, title, about, subtitle, spots }: MapCustomNav
                         src={`/images/map/custom-maps/${id}.png`}
                         srcSet={`
                             /images/map/custom-maps/${id}.png 1x,
-                            /images/map/custom-maps/${id}-@2x.png 2x,
-                            /images/map/custom-maps/${id}-@3x.png 3x
+                            /images/map/custom-maps/${id}@2x.png 2x,
+                            /images/map/custom-maps/${id}@3x.png 3x
                         `}
                         id="custom-map-navigation-main-logo"
                     />
