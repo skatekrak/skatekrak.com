@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 import IconArrowHead from 'components/Ui/Icons/ArrowHead';
 import { SpinnerCircle } from 'components/Ui/Icons/Spinners';
 
-import type { CustomMap } from './MapCustomNavigationTrail';
+import type { CustomMap } from 'components/pages/map/MapQuickAccess/MapQuickAccess';
 import { toggleLegend, toggleSearchResult } from 'store/map/actions';
 import { updateUrlParams } from 'store/map/thunk';
 
@@ -14,7 +14,7 @@ type Props = {
     map: CustomMap;
 };
 
-const MapCustomNavigationItem = ({ map }: Props) => {
+const MapQuickAccessItem = ({ map }: Props) => {
     const router = useRouter();
     const dispatch = useDispatch();
     const isMapLoading = false;
@@ -44,17 +44,17 @@ const MapCustomNavigationItem = ({ map }: Props) => {
         <a
             href="map"
             onClick={onClick}
-            className={classNames('custom-map-navigation-item', {
-                'custom-map-navigation-item--selected': isMapSelected,
+            className={classNames('map-quick-access-item', {
+                'map-quick-access-item--selected': isMapSelected,
             })}
         >
-            <div className="custom-map-navigation-item-image-container">
+            <div className="map-quick-access-item-image-container">
                 {isMapLoading ? (
                     <SpinnerCircle />
                 ) : (
                     <img
-                        className={classNames('custom-map-navigation-item-image', {
-                            'custom-map-navigation-item-image--not-selected': isMapNotSelected,
+                        className={classNames('map-quick-access-item-image', {
+                            'map-quick-access-item-image--not-selected': isMapNotSelected,
                         })}
                         src={`/images/map/custom-maps/${map.id}.png`}
                         srcSet={`
@@ -66,16 +66,16 @@ const MapCustomNavigationItem = ({ map }: Props) => {
                     />
                 )}
             </div>
-            <div className="custom-map-navigation-item-description">
-                <div className="custom-map-navigation-item-header">
-                    <h4 className="custom-map-navigation-item-name">{map.name}</h4>
+            <div className="map-quick-access-item-description">
+                <div className="map-quick-access-item-header">
+                    <h4 className="map-quick-access-item-name">{map.name}</h4>
                     <IconArrowHead />
                 </div>
-                <p className="custom-map-navigation-item-body">{map.edito}</p>
-                <p className="custom-map-navigation-item-spots">{map.numberOfSpots} spots</p>
+                <p className="map-quick-access-item-body">{map.edito}</p>
+                <p className="map-quick-access-item-spots">{map.numberOfSpots} spots</p>
             </div>
         </a>
     );
 };
 
-export default React.memo(MapCustomNavigationItem);
+export default React.memo(MapQuickAccessItem);

@@ -13,7 +13,7 @@ import BannerTop from 'components/Ui/Banners/BannerTop';
 import { boxSpotsSearch, getSpotOverview } from 'lib/carrelageClient';
 import { mapRefreshEnd, setSpotOverview, setViewport } from 'store/map/actions';
 import { FilterStateUtil, FilterState } from 'lib/FilterState';
-import MapCustomNavigationTrail from './MapCustom/MapCustomNavigationTrail/MapCustomNavigationTrail';
+import MapQuickAccess from './MapQuickAccess';
 import MapCustomNavigation from './MapCustom/MapCustomNavigation';
 import MapNavigation from './MapNavigation';
 import MapGradients from './MapGradients';
@@ -225,7 +225,7 @@ const MapContainer = () => {
                     ) : (
                         <MapNavigation />
                     )}
-                    <MapCustomNavigationTrail />
+                    <MapQuickAccess />
                     <Legend />
                     <MapFullSpot
                         open={modalVisible}

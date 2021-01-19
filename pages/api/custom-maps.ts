@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import Cors from 'cors';
 
 import CustomMaps from '../../data/_spots';
-import { CustomMap } from 'components/pages/map/MapCustom/MapCustomNavigationTrail/MapCustomNavigationTrail';
+import { CustomMap } from 'components/pages/map/MapQuickAccess/MapQuickAccess';
 import { Spot } from 'lib/carrelageClient';
 
 const cors = Cors({
