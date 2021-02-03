@@ -71,6 +71,21 @@ If you want your event and all the details to be professionally executed by prov
             '"Over the last decade, skating has diversified and globalized tremendously. Despite this progress, however, “The Industry” remains very white, very Californian, and it retains hegemonic control over the direction of skateboarding."\nSpecial thanks to Patrick Kigongo.',
         spots: require('data/theblacklist.json'),
     },
+    {
+        id: 'nycsubway',
+        name: 'NYC Subway Spots',
+        subtitle: '100% Illegal',
+        edito: 'Your guide to skating the NYC subway system.',
+        about: `
+Our friends at Jenkem cooked us a brief map to some of the most skateable spots within the NYC subway system a while ago. 
+
+It's a non-exhaustive list so feel free to add your spots on the map with the app!
+        
+As they reminded in their article, don't forget skateboarding on MTA property is 100% illegal so watch out before you go for a trick!
+        `,
+        spots: require('data/nycsubway.json'),
+    },
+
     // IN TESTING ONLY
     {
         id: 'knobbuster',
@@ -95,21 +110,6 @@ Let History continue! The show must go on!
 Nobody can teach you frontside flips better than Andrew! It's been his signature trick for decades now and he brought it to quite a lot of iconic spots! 
         `,
         spots: require('data/andrew.json'),
-        staging: true,
-    },
-    {
-        id: 'nycsubway',
-        name: 'NYC Subway Spots',
-        subtitle: '100% Illegal',
-        edito: 'Your guide to skating the NYC subway system.',
-        about: `
-Our friends at Jenkem cooked us a brief map to some of the most skateable spots within the NYC subway system a while ago. 
-
-It's a non-exhaustive list so feel free to add your spots on the map with the app!
-        
-As they reminded in their article, don't forget skateboarding on MTA property is 100% illegal so watch out before you go for a trick!
-        `,
-        spots: require('data/nycsubway.json'),
         staging: true,
     },
     {
