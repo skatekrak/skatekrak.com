@@ -1,5 +1,43 @@
 export default [
     {
+        id: 'famous',
+        name: 'Famous Spots',
+        subtitle: 'Who did what?',
+        edito: 'Worldwide famous spots with decades of skateboard history..',
+        about: `
+We try to keep track of what's been done on these spots for a while now! Rewatch skateboarding history on all these familiar spots and add your knowledge or your own footage on the app!
+        `,
+        spots: require('data/famous.json'),
+    },
+    {
+        id: 'history',
+        name: 'Krak History Clip',
+        subtitle: 'Krak History Clip',
+        edito: 'Skateboarding History right there!',
+        about: `
+Decades of Skateboarding History on famous worldwide epic spots.
+
+We tried to compile every tricks we had in mind landed on these spots and we update the list on our mag when we think of something we forgot or everytime someone lands a new trick!
+
+Check it in the clips section of each spot!
+        `,
+        spots: require('data/history.json'),
+    },
+    {
+        id: 'minute',
+        name: 'Krak Minute',
+        subtitle: 'Krak Minute',
+        edito: 'One minute of tricks on worldwide famous spots.',
+        about: `
+After the History Clip serie, we kept going with this new format that enabled us to highlight less legendary but still amazing spots. 
+
+Krak Minute is one minute of tricks from the best footage uploaded on the app. 
+
+Check it in the clips section of each spot!
+        `,
+        spots: require('data/minute.json'),
+    },
+    {
         id: 'spohnranch',
         name: 'Spohn Ranch',
         subtitle: 'Spohn Ranch Skateparks',
@@ -34,45 +72,21 @@ If you want your event and all the details to be professionally executed by prov
         spots: require('data/theblacklist.json'),
     },
     {
-        id: 'minute',
-        name: 'Krak Minute',
-        subtitle: 'Krak Minute',
-        edito: 'One minute of tricks on worldwide famous spots.',
+        id: 'nycsubway',
+        name: 'NYC Subway Spots',
+        subtitle: '100% Illegal',
+        edito: 'Your guide to skating the NYC subway system.',
         about: `
-After the History Clip serie, we kept going with this new format that enabled us to highlight less legendary but still amazing spots. 
+Our friends at Jenkem cooked us a brief map to some of the most skateable spots within the NYC subway system a while ago. 
 
-Krak Minute is one minute of tricks from the best footage uploaded on the app. 
-
-Check it in the clips section of each spot!
+It's a non-exhaustive list so feel free to add your spots on the map with the app!
+        
+As they reminded in their article, don't forget skateboarding on MTA property is 100% illegal so watch out before you go for a trick!
         `,
-        spots: require('data/minute.json'),
+        spots: require('data/nycsubway.json'),
     },
-    {
-        id: 'history',
-        name: 'Krak History Clip',
-        subtitle: 'Krak History Clip',
-        edito: 'Skateboarding History right there!',
-        about: `
-Decades of Skateboarding History on famous worldwide epic spots.
 
-We tried to compile every tricks we had in mind landed on these spots and we update the list on our mag when we think of something we forgot or everytime someone lands a new trick!
-
-Check it in the clips section of each spot!
-        `,
-        spots: require('data/history.json'),
-    },
     // IN TESTING ONLY
-    {
-        id: 'famous',
-        name: 'Famous Spots',
-        subtitle: 'Who did what?',
-        edito: '300 famous spots worldwide with decades of skateboard history...',
-        about: `
-We try to keep track of what's been done on these spots for a while now! Rewatch skateboarding history on all these familiar spots and add your knowledge or your own footage on the app!
-        `,
-        spots: require('data/famous.json'),
-        staging: true,
-    },
     {
         id: 'knobbuster',
         name: 'The Knobbuster',
@@ -96,21 +110,6 @@ Let History continue! The show must go on!
 Nobody can teach you frontside flips better than Andrew! It's been his signature trick for decades now and he brought it to quite a lot of iconic spots! 
         `,
         spots: require('data/andrew.json'),
-        staging: true,
-    },
-    {
-        id: 'nycsubway',
-        name: 'NYC Subway Spots',
-        subtitle: '100% Illegal',
-        edito: 'Your guide to skating the NYC subway system.',
-        about: `
-Our friends at Jenkem cooked us a brief map to some of the most skateable spots within the NYC subway system a while ago. 
-
-It's a non-exhaustive list so feel free to add your spots on the map with the app!
-        
-As they reminded in their article, don't forget skateboarding on MTA property is 100% illegal so watch out before you go for a trick!
-        `,
-        spots: require('data/nycsubway.json'),
         staging: true,
     },
     {
