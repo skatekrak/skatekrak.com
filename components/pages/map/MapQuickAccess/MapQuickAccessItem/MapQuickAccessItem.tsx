@@ -1,43 +1,20 @@
-import { useRouter } from 'next/router';
-import React, { useMemo } from 'react';
+import React from 'react';
 import classNames from 'classnames';
-import { useDispatch } from 'react-redux';
 
 import IconArrowHead from 'components/Ui/Icons/ArrowHead';
-import { SpinnerCircle } from 'components/Ui/Icons/Spinners';
 
-import type { CustomMap } from 'components/pages/map/MapQuickAccess/MapQuickAccess';
-import { toggleLegend, toggleSearchResult } from 'store/map/actions';
-import { updateUrlParams } from 'store/map/thunk';
+import type { QuickAccess, QuickAccessMap } from 'components/pages/map/MapQuickAccess/MapQuickAccess';
 
 type Props = {
-    map: CustomMap;
+    data: QuickAccessMap | QuickAccess;
+    selected?: boolean;
+    noMapSelected: boolean;
+    onClick: (e: React.SyntheticEvent) => void;
 };
 
-const MapQuickAccessItem = ({ map }: Props) => {
-    const router = useRouter();
-    const dispatch = useDispatch();
-    const isMapLoading = false;
-
-    const isMapNotSelected = useMemo(() => {
-        return router.query.id !== undefined && router.query.id !== map.id;
-    }, [router.query.id, map.id]);
-
-    const isMapSelected = useMemo(() => {
-        return router.query.id === map.id;
-    }, [router.query.id, map.id]);
-
-    const onClick = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
-        e.preventDefault();
-        dispatch(toggleLegend(false));
-        dispatch(toggleSearchResult(false));
-        dispatch(
-            updateUrlParams({
-                spotId: null,
-                modal: false,
-                customMapId: map.id,
-            }),
-        );
+const MapQuickAccessItem = ({ data, selected, noMapSelected, onClick }: Props) => {
+    const isQuickAccessMap = (data: unknown): data is QuickAccessMap => {
+        return data !== null && typeof (data as QuickAccessMap).numberOfSpots === 'string';
     };
 
     return (
@@ -45,34 +22,30 @@ const MapQuickAccessItem = ({ map }: Props) => {
             href="map"
             onClick={onClick}
             className={classNames('map-quick-access-item', {
-                'map-quick-access-item--selected': isMapSelected,
+                'map-quick-access-item--selected': selected,
             })}
         >
             <div className="map-quick-access-item-image-container">
-                {isMapLoading ? (
-                    <SpinnerCircle />
-                ) : (
-                    <img
-                        className={classNames('map-quick-access-item-image', {
-                            'map-quick-access-item-image--not-selected': isMapNotSelected,
-                        })}
-                        src={`/images/map/custom-maps/${map.id}.png`}
-                        srcSet={`
-                                /images/map/custom-maps/${map.id}.png 1x,
-                                /images/map/custom-maps/${map.id}@2x.png 2x,
-                                /images/map/custom-maps/${map.id}@3x.png 3x
-                            `}
-                        alt={`${map.name} map logo`}
-                    />
-                )}
+                <img
+                    className={classNames('map-quick-access-item-image', {
+                        'map-quick-access-item-image--not-selected': noMapSelected,
+                    })}
+                    src={`/images/map/custom-maps/${data.id}.png`}
+                    srcSet={`
+                            /images/map/custom-maps/${data.id}.png 1x,
+                            /images/map/custom-maps/${data.id}@2x.png 2x,
+                            /images/map/custom-maps/${data.id}@3x.png 3x
+                        `}
+                    alt={`${data.name} map logo`}
+                />
             </div>
             <div className="map-quick-access-item-description">
                 <div className="map-quick-access-item-header">
-                    <h4 className="map-quick-access-item-name">{map.name}</h4>
+                    <h4 className="map-quick-access-item-name">{data.name}</h4>
                     <IconArrowHead />
                 </div>
-                <p className="map-quick-access-item-body">{map.edito}</p>
-                <p className="map-quick-access-item-spots">{map.numberOfSpots} spots</p>
+                <p className="map-quick-access-item-body">{data.edito}</p>
+                {isQuickAccessMap(data) && <p className="map-quick-access-item-spots">{data.numberOfSpots} spots</p>}
             </div>
         </a>
     );

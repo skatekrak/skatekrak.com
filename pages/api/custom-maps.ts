@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import Cors from 'cors';
 
 import CustomMaps from '../../data/_spots';
-import { CustomMap } from 'components/pages/map/MapQuickAccess/MapQuickAccess';
+import { QuickAccessMap } from 'components/pages/map/MapQuickAccess/MapQuickAccess';
 import { Spot } from 'lib/carrelageClient';
 
 const cors = Cors({
@@ -38,7 +38,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     });
     const id = req.query.id;
     if (id === undefined) {
-        const maps: CustomMap[] = [];
+        const maps: QuickAccessMap[] = [];
 
         for (const map of customMaps) {
             maps.push({
