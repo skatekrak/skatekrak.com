@@ -1,6 +1,6 @@
 import axios from 'axios';
 import classNames from 'classnames';
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { InteractiveMap, FlyToInterpolator, ViewportProps } from 'react-map-gl';
 import { useSelector, useDispatch } from 'react-redux';
 import dynamic from 'next/dynamic';
@@ -13,7 +13,7 @@ import BannerTop from 'components/Ui/Banners/BannerTop';
 import { boxSpotsSearch, getSpotOverview } from 'lib/carrelageClient';
 import { mapRefreshEnd, setSpotOverview, setViewport } from 'store/map/actions';
 import { FilterStateUtil, FilterState } from 'lib/FilterState';
-import MapCustomNavigationTrail from './MapCustom/MapCustomNavigationTrail/MapCustomNavigationTrail';
+import MapQuickAccess from './MapQuickAccess';
 import MapCustomNavigation from './MapCustom/MapCustomNavigation';
 import MapNavigation from './MapNavigation';
 import MapGradients from './MapGradients';
@@ -192,6 +192,17 @@ const MapContainer = () => {
         }
     }, [customMapInfo, viewport.width, id, dispatch]);
 
+    /// HELPER TO GET CURRENT COUNDS OF MAP WHEN NECESSARY
+    // useEffect(() => {
+    //     if (mapRef.current != null) {
+    //         const map = mapRef.current.getMap();
+    //         const bounds = map.getBounds();
+    //         const sw = bounds.getSouthWest();
+    //         const ne = bounds.getNorthEast();
+    //         console.log(`${sw.lng} ${sw.lat} ; ${ne.lng} ${ne.lat}`);
+    //     }
+    // }, [mapRef, viewport]);
+
     return (
         <div
             id="map-container"
@@ -225,7 +236,7 @@ const MapContainer = () => {
                     ) : (
                         <MapNavigation />
                     )}
-                    <MapCustomNavigationTrail />
+                    <MapQuickAccess />
                     <Legend />
                     <MapFullSpot
                         open={modalVisible}
