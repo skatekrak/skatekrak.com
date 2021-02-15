@@ -10,8 +10,8 @@ const cities: City[] = [
 Paris is a paradise for skateboarders! From its concrete sidewalks perfect to go get your baguette in the morning to all these iconic spots still receiving their fair amount of destruction nowadays, Paris is the place to be!
         `,
         bounds: [
-            [2.1829226716452297, 48.79877662080054],
-            [2.507741290404226, 48.92296511195747],
+            [2.2548510078733557, 48.810511704540005],
+            [2.4308845217189514, 48.9121314930525],
         ],
     },
 ];

@@ -23,7 +23,7 @@ const MapQuickAccessCityItem: React.FC<MapQuickAccessCityItemProps> = ({ city })
                     customMapId: null,
                 }),
             );
-            dispatch(flyTo(city.bounds));
+            dispatch(flyTo(city.bounds, 0));
         },
         [dispatch, city],
     );

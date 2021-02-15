@@ -5,12 +5,15 @@ import { RootState } from 'store/reducers';
 import { setViewport, _updateUrlParams } from './actions';
 import { MapAction } from './reducers';
 
-const flyTo = (bounds: [[number, number], [number, number]]): ThunkAction<void, RootState, undefined, MapAction> => {
+const flyTo = (
+    bounds: [[number, number], [number, number]],
+    padding = 0.15,
+): ThunkAction<void, RootState, undefined, MapAction> => {
     return (dispatch, getState) => {
         const { viewport } = getState().map;
 
         const { longitude, latitude, zoom } = new WebMercatorViewport(viewport).fitBounds(bounds, {
-            padding: viewport.width * 0.15, // padding of 15%
+            padding: viewport.width * padding, // padding of 15%
         });
 
         return dispatch(
