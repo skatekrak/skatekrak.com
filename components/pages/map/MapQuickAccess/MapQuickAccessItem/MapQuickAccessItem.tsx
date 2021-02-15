@@ -14,7 +14,7 @@ type Props = {
 
 const MapQuickAccessItem = ({ data, selected, noMapSelected, onClick }: Props) => {
     const isQuickAccessMap = (data: unknown): data is QuickAccessMap => {
-        return data !== null && typeof (data as QuickAccessMap).numberOfSpots === 'string';
+        return data != null && (data as QuickAccessMap).numberOfSpots != null;
     };
 
     return (
@@ -31,11 +31,7 @@ const MapQuickAccessItem = ({ data, selected, noMapSelected, onClick }: Props) =
                         'map-quick-access-item-image--not-selected': noMapSelected,
                     })}
                     src={`/images/map/custom-maps/${data.id}.png`}
-                    srcSet={`
-                            /images/map/custom-maps/${data.id}.png 1x,
-                            /images/map/custom-maps/${data.id}@2x.png 2x,
-                            /images/map/custom-maps/${data.id}@3x.png 3x
-                        `}
+                    srcSet={getSrcSet(data.id, isQuickAccessMap(data))}
                     alt={`${data.name} map logo`}
                 />
             </div>
@@ -50,5 +46,19 @@ const MapQuickAccessItem = ({ data, selected, noMapSelected, onClick }: Props) =
         </a>
     );
 };
+
+function getSrcSet(id: string, isQuickAccessMap: boolean): string {
+    if (isQuickAccessMap) {
+        return `/images/map/custom-maps/${id}.png 1x,
+        /images/map/custom-maps/${id}@2x.png 2x,
+        /images/map/custom-maps/${id}@3x.png 3x`;
+    }
+
+    return `
+        /images/map/cities/${id}.png 1x,
+        /images/map/cities/${id}@2x.png 2x,
+        /images/map/cities/${id}@3x.png 3x
+    `;
+}
 
 export default React.memo(MapQuickAccessItem);

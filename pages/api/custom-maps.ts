@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import Cors from 'cors';
 
-import CustomMaps from '../../data/_spots';
+import CustomMaps from '../../data/customMaps/_spots';
 import { QuickAccessMap } from 'components/pages/map/MapQuickAccess/MapQuickAccess';
 import { Spot } from 'lib/carrelageClient';
 

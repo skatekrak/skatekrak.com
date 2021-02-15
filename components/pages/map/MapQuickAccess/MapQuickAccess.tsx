@@ -6,7 +6,7 @@ import MapQuickAccessMap from './MapQuickAccessMap';
 import MapQuickAccessCity from './MapQuickAccessCity';
 import MapQuickAccessCities from './MapQuickAccessCities';
 
-import spots from '../../../../data/_spots';
+import spots from '../../../../data/customMaps/_spots';
 
 export interface QuickAccess {
     id: string;
@@ -28,7 +28,7 @@ const MapQuickAccess = () => {
         setIsCitiesOpen(!isCitiesOpen);
     };
 
-    const { isLoading, error, data } = useQuery('custom-maps', () =>
+    const { isLoading, data } = useQuery('custom-maps', () =>
         axios.get<QuickAccessMap[]>('/api/custom-maps').then((res) => res.data),
     );
 
@@ -39,10 +39,10 @@ const MapQuickAccess = () => {
             <MapQuickAccessCities isOpen={isCitiesOpen} />
             <div className="map-quick-access-divider" />
             <p className="map-quick-access-section-title">Maps</p>
-            {/* {!isLoading && data && data.map((map) => <MapQuickAccessMap map={map} key={map.id} />)} */}
-            {spots.map((map) => (
+            {!isLoading && data && data.map((map) => <MapQuickAccessMap map={map} key={map.id} />)}
+            {/* {spots.map((map) => (
                 <MapQuickAccessMap map={map} key={map.id} />
-            ))}
+            ))} */}
         </div>
     );
 };

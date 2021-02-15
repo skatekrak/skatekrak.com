@@ -5,7 +5,7 @@ import type { QuickAccess } from 'components/pages/map/MapQuickAccess/MapQuickAc
 import MapQuickAccessItem from '../MapQuickAccessItem';
 
 const city: QuickAccess = {
-    id: 'id',
+    id: 'paris',
     name: 'Cities',
     edito: 'A portal to every major cities in skateboarding',
 };
@@ -15,21 +15,14 @@ type Props = {
     onCitiesClick: (e: React.SyntheticEvent) => void;
 };
 
-const MapQuickAccessCity = ({ isCitiesOpen, onCitiesClick }: Props) => {
+const MapQuickAccessCity = ({ onCitiesClick }: Props) => {
     const router = useRouter();
 
     const isNoMapSelected = useMemo(() => {
         return router.query.id !== undefined;
     }, [router.query.id]);
 
-    return (
-        <MapQuickAccessItem
-            // selected={isCitiesOpen}
-            noMapSelected={isNoMapSelected}
-            onClick={onCitiesClick}
-            data={city}
-        />
-    );
+    return <MapQuickAccessItem noMapSelected={isNoMapSelected} onClick={onCitiesClick} data={city} />;
 };
 
 export default MapQuickAccessCity;
