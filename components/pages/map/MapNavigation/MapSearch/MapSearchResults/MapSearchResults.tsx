@@ -17,9 +17,10 @@ type MapSearchResultsProps = {
     loading: boolean;
     places: Place[];
     spots: SpotHit[];
+    onClick: () => void;
 };
 
-const MapSearchResults: React.FC<MapSearchResultsProps> = ({ spots, loading, places }) => {
+const MapSearchResults: React.FC<MapSearchResultsProps> = ({ spots, loading, places, onClick }) => {
     const dispatch = useDispatch();
 
     const onSpotClick = useCallback(
@@ -32,8 +33,9 @@ const MapSearchResults: React.FC<MapSearchResultsProps> = ({ spots, loading, pla
             };
             dispatch(setViewport(newViewport));
             dispatch(selectSpot(spot.objectID));
+            onClick();
         },
-        [dispatch],
+        [dispatch, onClick],
     );
 
     const onPlaceClick = useCallback(
@@ -46,8 +48,9 @@ const MapSearchResults: React.FC<MapSearchResultsProps> = ({ spots, loading, pla
                     transitionInterpolator: new FlyToInterpolator(),
                 }),
             );
+            onClick();
         },
-        [dispatch],
+        [dispatch, onClick],
     );
 
     return (

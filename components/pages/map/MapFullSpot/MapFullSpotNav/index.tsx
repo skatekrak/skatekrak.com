@@ -1,8 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import Typings from 'Types';
-
 import IconStreet from 'components/pages/map/marker/icons/Street';
 import IconDiy from 'components/pages/map/marker/icons/Diy';
 import IconPark from 'components/pages/map/marker/icons/Park';
@@ -15,6 +13,9 @@ import { Spot, Status, Types } from 'lib/carrelageClient';
 import { FullSpotTab } from 'store/map/reducers';
 import { selectFullSpotTab } from 'store/map/actions';
 import MapFullSpotNavItem from './MapFullSpotNavItem';
+import { RootState } from 'store/reducers';
+import IconMedia from 'components/Ui/Icons/IconMedia';
+import IconClips from 'components/Ui/Icons/IconClips';
 
 const SpotIcon = ({ type, status }: { type: Types; status: Status }) => {
     if (status === Status.Rip) {
@@ -52,8 +53,8 @@ const displayAddress = (spot: Spot): string => {
 
 const MapFullSpotNav = () => {
     const dispatch = useDispatch();
-    const spotOverview = useSelector((state: Typings.RootState) => state.map.spotOverview);
-    const selectedTab = useSelector((state: Typings.RootState) => state.map.fullSpotSelectedTab);
+    const spotOverview = useSelector((state: RootState) => state.map.spotOverview);
+    const selectedTab = useSelector((state: RootState) => state.map.fullSpotSelectedTab);
 
     const onTabSelect = (tab: FullSpotTab) => {
         dispatch(selectFullSpotTab(tab));
@@ -77,11 +78,16 @@ const MapFullSpotNav = () => {
                     </div>
                     <nav id="map-full-spot-popup-nav-main">
                         <MapFullSpotNavItem
-                            text={`Clips${
-                                spotOverview.spot.clipsStat.all > 0 ? ` (${spotOverview.spot.clipsStat.all})` : ''
-                            }`}
+                            text={`Media(${spotOverview.spot.mediasStat.all})`}
+                            onClick={() => onTabSelect('media')}
+                            isActive={selectedTab === 'media'}
+                            icon={<IconMedia />}
+                        />
+                        <MapFullSpotNavItem
+                            text={`Clips(${spotOverview.spot.clipsStat.all})`}
                             onClick={() => onTabSelect('clips')}
                             isActive={selectedTab === 'clips'}
+                            icon={<IconClips />}
                         />
                     </nav>
                 </>

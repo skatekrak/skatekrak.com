@@ -10,12 +10,15 @@ import {
     SET_VIEWPORT,
     SET_SPOT_OVERVIEW,
     SELECT_FULL_SPOT_TAB,
-    FLY_TO_CUSTOM_MAP,
     SELECT_SPOT,
     TOGGLE_SPOT_MODAL,
     TOGGLE_CUSTOM_MAP,
-} from '../constants';
-import { ViewportProps } from 'react-map-gl';
+    SET_VIDEO_PLAYING,
+    TOGGLE_LEGEND,
+    UPDATE_URL_PARAM,
+    TOGGLE_SEARCH_RESULT,
+} from './constants';
+import type { ViewportProps } from 'react-map-gl';
 import { FullSpotTab } from './reducers';
 
 export const selectAllMapFilters = () => action(SELECT_ALL_MAP_FILTERS);
@@ -25,9 +28,25 @@ export const mapRefreshEnd = () => action(MAP_REFRESH_END);
 export const setSpotOverview = (overview?: SpotOverview) => action(SET_SPOT_OVERVIEW, overview);
 export const setViewport = (viewport: Partial<ViewportProps>) => action(SET_VIEWPORT, viewport);
 export const selectFullSpotTab = (tab?: FullSpotTab) => action(SELECT_FULL_SPOT_TAB, tab);
-export const flyToCustomMap = (bounds: [[number, number], [number, number]]) => action(FLY_TO_CUSTOM_MAP, bounds);
 export const selectSpot = (spotId?: string) => action(SELECT_SPOT, spotId, { pushToUrl: { spot: spotId } });
 export const toggleSpotModal = (open = true) =>
     action(TOGGLE_SPOT_MODAL, open, { pushToUrl: { modal: open ? '1' : null } });
 export const toggleCustomMap = (customMapId?: string) =>
     action(TOGGLE_CUSTOM_MAP, customMapId, { pushToUrl: { id: customMapId } });
+export const toggleLegend = (open: boolean) => action(TOGGLE_LEGEND, open);
+export const setVideoPlaying = (id?: string) => action(SET_VIDEO_PLAYING, id);
+export const toggleSearchResult = (open: boolean) => action(TOGGLE_SEARCH_RESULT, open);
+export const _updateUrlParams = ({
+    spotId,
+    modal,
+    customMapId,
+}: {
+    spotId: string | null;
+    modal: boolean;
+    customMapId: string | null;
+}) =>
+    action(
+        UPDATE_URL_PARAM,
+        { spotId, modal, customMapId },
+        { pushToUrl: { spot: spotId, modal: modal ? '1' : null, id: customMapId } },
+    );

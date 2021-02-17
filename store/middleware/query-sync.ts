@@ -13,7 +13,7 @@ const querySyncMiddleware: Middleware<unknown, Typings.RootState> = (store) => (
                 ...queryString.parse(state.router.location.search),
                 ...action.meta.pushToUrl,
             },
-            { skipNull: true },
+            { skipNull: true, skipEmptyString: true },
         );
         let url = state.router.location.pathname;
 

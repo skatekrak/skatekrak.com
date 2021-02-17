@@ -1,153 +1,65 @@
-import axios from 'axios';
 import classNames from 'classnames';
 import React from 'react';
 import InfiniteScroll from 'react-infinite-scroller';
-import { connect } from 'react-redux';
-
-import Types from 'Types';
+import { useSelector } from 'react-redux';
 
 import Card from 'components/pages/mag/Feed/Card';
 import TrackedPage from 'components/pages/TrackedPage';
 import NoContent from 'components/Ui/Feed/NoContent';
 import { KrakLoading } from 'components/Ui/Icons/Spinners';
-import { FilterState } from 'lib/FilterState';
-import { formatPost } from 'lib/mag/formattedPost';
 import ScrollHelper from 'lib/ScrollHelper';
-import { Source } from 'rss-feed';
-import { feedEndRefresh, setItems } from 'store/feed/actions';
-import { State as MagState } from 'store/feed/reducers';
+import { RootState } from 'store/reducers';
 
-export interface Post {
-    id?: number;
-    title?: { rendered?: string };
-    slug?: string;
-    link?: string;
-    date?: string;
-    date_gmt?: string;
-    modified_gmt?: string;
-    content?: { rendered?: string };
-    excerpt?: { rendered?: string };
-    featured_media?: number;
-    thumbnailImage?: string;
-    featuredImageFull?: string;
-    _format_video_embed?: string;
-    categories?: any[];
-    categoriesString?: string;
-    _embedded?: Record<string, any>;
-}
+import usePosts from 'lib/hook/mag/posts';
 
 type Props = {
-    mag: MagState;
-    dispatch: (fct: any) => void;
     sidebarNavIsOpen: boolean;
 };
 
-type State = {
-    isLoading: boolean;
-    hasMore: boolean;
-    posts: Post[];
+const Feed = ({ sidebarNavIsOpen }: Props) => {
+    const mag = useSelector((state: RootState) => state.mag);
+
+    const { data, isFetching, canFetchMore, fetchMore } = usePosts({
+        per_page: 20,
+        categories: mag.selectedCategories,
+        search: mag.search,
+    });
+
+    // Flatten the posts list
+    const posts = (data ?? []).reduce((acc, val) => acc.concat(val), []);
+
+    return (
+        <div id="mag-feed">
+            <TrackedPage name={`Mag/${Math.ceil(posts.length / 20)}`} initial={false} />
+            <InfiniteScroll
+                pageStart={1}
+                initialLoad={false}
+                loadMore={() => {
+                    if (canFetchMore) {
+                        fetchMore();
+                    }
+                }}
+                hasMore={canFetchMore}
+                getScrollParent={ScrollHelper.getScrollContainer}
+                useWindow={false}
+            >
+                <div className={classNames('row', { hide: sidebarNavIsOpen })}>
+                    {posts.map((post) => (
+                        <div key={post.id} className="mag-card-container col-xs-12 col-sm-6 col-lg-4">
+                            <Card post={post} />
+                        </div>
+                    ))}
+                    {isFetching && <KrakLoading />}
+                    {posts.length === 0 && !isFetching && (
+                        <NoContent title="No article to display" desc="Select some categories to be back in the loop" />
+                    )}
+                    {posts.length > 0 && !canFetchMore && (
+                        <NoContent title="No more article" desc="Add more categories" />
+                    )}
+                </div>
+            </InfiniteScroll>
+        </div>
+    );
 };
 
-class Feed extends React.Component<Props, State> {
-    private static getFilters(sources: Map<Source, FilterState>): string[] {
-        const arr: string[] = [];
-        for (const entry of sources.entries()) {
-            if (entry[1] === FilterState.LOADING_TO_SELECTED || entry[1] === FilterState.SELECTED) {
-                arr.push(entry[0].id);
-            }
-        }
-        return arr;
-    }
-
-    public state: State = {
-        isLoading: false,
-        hasMore: true,
-        posts: [],
-    };
-
-    public async componentDidUpdate() {
-        if (this.props.mag.feedNeedRefresh && !this.state.isLoading) {
-            this.setState({ posts: [], hasMore: false });
-            await this.loadMore(1);
-        }
-    }
-
-    public render() {
-        const { isLoading, hasMore, posts } = this.state;
-
-        return (
-            <div id="mag-feed">
-                <TrackedPage name={`Mag/${Math.ceil(posts.length / 20)}`} initial={false} />
-                <InfiniteScroll
-                    pageStart={1}
-                    initialLoad={false}
-                    loadMore={this.loadMore}
-                    hasMore={!isLoading && hasMore}
-                    getScrollParent={this.getScrollContainer}
-                    useWindow={false}
-                >
-                    <div className={classNames('row', { hide: this.props.sidebarNavIsOpen })}>
-                        {posts.map((post) => (
-                            <div key={post.id} className="mag-card-container col-xs-12 col-sm-6 col-lg-4">
-                                <Card post={post} />
-                            </div>
-                        ))}
-                        {isLoading && <KrakLoading />}
-                        {posts.length === 0 && !isLoading && (
-                            <NoContent
-                                title="No article to display"
-                                desc="Select some categories to be back in the loop"
-                            />
-                        )}
-                        {posts.length > 0 && !hasMore && (
-                            <NoContent title="No more article" desc="Add more categories" />
-                        )}
-                    </div>
-                </InfiniteScroll>
-            </div>
-        );
-    }
-
-    private getScrollContainer = () => {
-        return ScrollHelper.getScrollContainer();
-    };
-
-    private loadMore = async (page: number) => {
-        try {
-            this.setState({ isLoading: true });
-
-            const filters = Feed.getFilters(this.props.mag.sources);
-
-            if (filters.length === 0) {
-                return Promise.resolve();
-            }
-
-            const params = { per_page: 20, page, categories: filters, search: this.props.mag.search, _embed: 1 };
-            const res = await axios.get(`${process.env.NEXT_PUBLIC_KRAKMAG_URL}/wp-json/wp/v2/posts`, {
-                params: {
-                    ...params,
-                    search: this.props.mag.search,
-                },
-            });
-
-            if (res.data) {
-                const formattedPosts = res.data.map((post) => formatPost(post));
-                const posts = this.state.posts.concat(formattedPosts);
-                this.setState({
-                    posts,
-                    hasMore: formattedPosts.length >= 20,
-                });
-                this.props.dispatch(setItems(posts));
-            }
-        } catch (err) {
-            // console.log(err);
-        } finally {
-            this.props.dispatch(feedEndRefresh());
-            this.setState({ isLoading: false });
-        }
-    };
-}
-
-export default connect(({ mag }: Types.RootState) => ({
-    mag,
-}))(Feed);
+export default Feed;

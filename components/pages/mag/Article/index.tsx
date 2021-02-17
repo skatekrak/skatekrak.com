@@ -9,9 +9,9 @@ import decodeHTML from 'lib/decodeHTML';
 import createPropsGetter from 'lib/getProps';
 
 import Comment from 'components/pages/mag/Article/Comment';
-import { Post } from 'components/pages/mag/Feed';
 import ClipboardButton from 'components/Ui/Button/ClipboardButton';
 import { KrakLoading } from 'components/Ui/Icons/Spinners';
+import { Post } from 'wordpress-types';
 
 type Props = {
     post: Post;

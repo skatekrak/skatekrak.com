@@ -10,21 +10,23 @@ import {
     SET_VIEWPORT,
     SET_SPOT_OVERVIEW,
     SELECT_FULL_SPOT_TAB,
-    FLY_TO_CUSTOM_MAP,
     SELECT_SPOT,
     TOGGLE_SPOT_MODAL,
     TOGGLE_CUSTOM_MAP,
-} from '../constants';
+    SET_VIDEO_PLAYING,
+    TOGGLE_LEGEND,
+    UPDATE_URL_PARAM,
+    TOGGLE_SEARCH_RESULT,
+} from './constants';
 import * as mapActions from './actions';
-import { FlyToInterpolator, ViewportProps, WebMercatorViewport } from 'react-map-gl';
+import type { ViewportProps } from 'react-map-gl';
 
 export type FullSpotTab =
     | 'info'
     | 'clips'
     | 'tips'
     | 'edito'
-    | 'photos'
-    | 'videos'
+    | 'media'
     | 'contests'
     | 'events'
     | 'instagram'
@@ -40,7 +42,10 @@ export type MapState = {
     fullSpotSelectedTab: FullSpotTab;
     selectSpot?: string;
     modalVisible: boolean;
+    legendOpen: boolean;
+    searchResultOpen: boolean;
     customMapId?: string;
+    videoPlayingId?: string;
 };
 
 export const initialState: MapState = {
@@ -56,16 +61,19 @@ export const initialState: MapState = {
         [Status.Wip]: FilterState.SELECTED,
         [Status.Rip]: FilterState.SELECTED,
     },
-    spotOverview: undefined,
     viewport: {
         latitude: 48.860332,
         longitude: 2.345054,
         zoom: 12,
     },
-    fullSpotSelectedTab: 'clips',
+    spotOverview: undefined,
     selectSpot: undefined,
     modalVisible: false,
+    legendOpen: false,
+    searchResultOpen: false,
     customMapId: undefined,
+    fullSpotSelectedTab: 'media',
+    videoPlayingId: undefined,
 };
 
 const MapReducers = (state: MapState = initialState, action: MapAction): MapState => {
@@ -166,23 +174,7 @@ const MapReducers = (state: MapState = initialState, action: MapAction): MapStat
         case SELECT_FULL_SPOT_TAB:
             return {
                 ...state,
-                fullSpotSelectedTab: action.payload ?? 'clips',
-            };
-        case FLY_TO_CUSTOM_MAP:
-            const { longitude, latitude, zoom } = new WebMercatorViewport(state.viewport).fitBounds(action.payload, {
-                padding: state.viewport.width * 0.15, // padding of 15%
-            });
-
-            return {
-                ...state,
-                viewport: {
-                    ...state.viewport,
-                    latitude,
-                    longitude,
-                    zoom,
-                    transitionDuration: 1500,
-                    transitionInterpolator: new FlyToInterpolator(),
-                },
+                fullSpotSelectedTab: action.payload ?? initialState.fullSpotSelectedTab,
             };
         case SELECT_SPOT:
             return {
@@ -194,10 +186,32 @@ const MapReducers = (state: MapState = initialState, action: MapAction): MapStat
                 ...state,
                 modalVisible: action.payload,
             };
+        case TOGGLE_LEGEND:
+            return {
+                ...state,
+                legendOpen: action.payload,
+            };
         case TOGGLE_CUSTOM_MAP:
             return {
                 ...state,
                 customMapId: action.payload,
+            };
+        case SET_VIDEO_PLAYING:
+            return {
+                ...state,
+                videoPlayingId: action.payload,
+            };
+        case UPDATE_URL_PARAM:
+            return {
+                ...state,
+                selectSpot: action.payload.spotId,
+                modalVisible: action.payload.modal,
+                customMapId: action.payload.customMapId,
+            };
+        case TOGGLE_SEARCH_RESULT:
+            return {
+                ...state,
+                searchResultOpen: action.payload,
             };
         default:
             return state;

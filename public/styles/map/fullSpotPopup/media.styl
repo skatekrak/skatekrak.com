@@ -1,0 +1,63 @@
+@import "./stylus-mq"
+@import "./styleguide"
+
+/*
+ * Map full spot popup photos styles
+ */
+
+#map-full-spot-popup-main-media
+	display: block
+	padding: 3rem
+
+	& .icon-loading-krak
+		margin: 4rem auto 2rem
+
+.map-full-spot-popup-main-media
+	max-width: 100%
+
+	&-container
+		position: relative
+		overflow: hidden
+
+		&-photo
+			display: flex
+
+			& img
+				width: 100%
+				height: 100%
+
+		&:hover
+			& .map-full-spot-popup-main-media-overlay
+				display: block
+
+		& .video-player
+			border-radius: 0
+		
+		& .video-player .react-player__preview
+			border-radius: 0
+
+	&-overlay
+		display: none
+		position: absolute
+		bottom: 0
+		left: 0
+		right: 0
+		padding: 0.5rem 1rem
+		background-color: rgba(31, 31, 31, 0.6)
+		z-index: 1
+
+		&-author
+			font-family: $ff-roboto-condensed-bold
+			font-size: $fs-regular
+			color: $white
+			text-transform: uppercase
+
+		&-caption
+			margin-top: 0.25rem
+			font-size: $fs-small
+			color: $grey-100
+			/* Truncate line */
+			display: -webkit-box
+			-webkit-line-clamp: 3
+			-webkit-box-orient: vertical
+			overflow: hidden

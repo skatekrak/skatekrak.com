@@ -1,12 +1,19 @@
 import React, { useMemo } from 'react';
-import ReactMapGL, { Popup, NavigationControl, ContextViewportChangeHandler } from 'react-map-gl';
+import ReactMapGL, { NavigationControl, ContextViewportChangeHandler } from 'react-map-gl';
 import { useDispatch, useSelector } from 'react-redux';
-import classNames from 'classnames';
 
 import { Cluster } from 'lib/carrelageClient';
 import SpotCluster from 'components/pages/map/marker/SpotCluster';
 import SpotMarker from 'components/pages/map/marker/SpotMarker';
-import { selectSpot, setSpotOverview, setViewport, toggleSpotModal } from 'store/map/actions';
+import MapSpotOverview from './MapSpotOverview';
+import {
+    selectSpot,
+    setSpotOverview,
+    setViewport,
+    toggleLegend,
+    toggleSearchResult,
+    toggleSpotModal,
+} from 'store/map/actions';
 import type { RootState } from 'store/reducers';
 
 const MIN_ZOOM_LEVEL = 2;
@@ -15,10 +22,6 @@ const MAX_ZOOM_LEVEL = 18;
 type MapComponentProps = {
     mapRef?: React.RefObject<ReactMapGL>;
     clusters: Cluster[];
-};
-
-const generateCloudinaryURL = (publicId: string): string => {
-    return `https://res.cloudinary.com/krak/image/upload/w_275,ar_1.5,c_fill,dpr_auto/${publicId}.jpg`;
 };
 
 const MapComponent = ({ mapRef, clusters }: MapComponentProps) => {
@@ -53,6 +56,8 @@ const MapComponent = ({ mapRef, clusters }: MapComponentProps) => {
 
     const onPopupClick = () => {
         dispatch(toggleSpotModal(true));
+        dispatch(toggleLegend(false));
+        dispatch(toggleSearchResult(false));
     };
 
     const onPopupClose = () => {
@@ -80,37 +85,11 @@ const MapComponent = ({ mapRef, clusters }: MapComponentProps) => {
             >
                 {/* Popup */}
                 {spotId != null && selectedSpotOverview != null && (
-                    <Popup
-                        className="map-popup-spot"
-                        longitude={selectedSpotOverview.spot.location.longitude}
-                        latitude={selectedSpotOverview.spot.location.latitude}
-                        onClose={onPopupClose}
-                        tipSize={8}
-                        closeButton={false}
-                        closeOnClick={false}
-                    >
-                        <button className="map-popup-spot-container" onClick={onPopupClick}>
-                            <h4
-                                className={classNames('map-popup-spot-name', {
-                                    'map-popup-spot-name-center': !selectedSpotOverview.mostLikedMedia,
-                                })}
-                            >
-                                {selectedSpotOverview.spot.name}
-                            </h4>
-                            {selectedSpotOverview.mostLikedMedia && (
-                                <div className="map-popup-spot-cover-container">
-                                    <div
-                                        className="map-popup-spot-cover"
-                                        style={{
-                                            backgroundImage: `url("${generateCloudinaryURL(
-                                                selectedSpotOverview.mostLikedMedia.image.publicId,
-                                            )}")`,
-                                        }}
-                                    />
-                                </div>
-                            )}
-                        </button>
-                    </Popup>
+                    <MapSpotOverview
+                        spotOverview={selectedSpotOverview}
+                        onPopupClick={onPopupClick}
+                        onPopupClose={onPopupClose}
+                    />
                 )}
 
                 {/* Marker */}

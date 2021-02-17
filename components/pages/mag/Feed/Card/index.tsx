@@ -6,8 +6,8 @@ import { FacebookIcon, FacebookShareButton, TwitterIcon, TwitterShareButton } fr
 import createMarkup from 'lib/createMarkup';
 import decodeHTML from 'lib/decodeHTML';
 
-import { Post } from 'components/pages/mag/Feed';
 import ClipboardButton from 'components/Ui/Button/ClipboardButton';
+import { Post } from 'wordpress-types';
 
 type Props = {
     post: Post;
@@ -18,7 +18,7 @@ const Card = ({ post }: Props) => {
 
     return (
         <>
-            <Link href={`/mag?slug=${post.slug}`} as={`/mag/${post.slug}`}>
+            <Link href={`/mag/${post.slug}`}>
                 <a className="mag-card-link">
                     <div className="mag-card-cover-img-container">
                         <div

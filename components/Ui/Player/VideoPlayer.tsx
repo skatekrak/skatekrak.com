@@ -12,10 +12,22 @@ import ReactPlayer, { ReactPlayerProps } from 'react-player';
  * Code
  */
 
-const VideoPlayer = ({ url, ...props }: Partial<ReactPlayerProps>) => (
-    <div className="video-player-container">
+type VideoPlayerProps = {
+    ref: React.LegacyRef<ReactPlayer>;
+    videoSize?: {
+        width: number;
+        height: number;
+    };
+} & Partial<ReactPlayerProps>;
+
+const VideoPlayer = React.forwardRef<ReactPlayer, VideoPlayerProps>(({ url, videoSize, ...props }, ref) => (
+    <div
+        className="video-player-container"
+        style={videoSize ? { paddingTop: (videoSize.height / videoSize.width) * 100 + '%' } : {}}
+    >
         <div className="video-player">
             <ReactPlayer
+                ref={ref}
                 height="100%"
                 width="100%"
                 url={url}
@@ -24,7 +36,9 @@ const VideoPlayer = ({ url, ...props }: Partial<ReactPlayerProps>) => (
             />
         </div>
     </div>
-);
+));
+
+VideoPlayer.displayName = 'VideoPlayer';
 
 /*
  * Export Default

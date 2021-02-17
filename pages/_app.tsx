@@ -33,6 +33,8 @@ import '/public/styles/map/map.styl';
 
 import 'mapbox-gl/dist/mapbox-gl.css';
 
+import '/public/styles/masonry.css';
+
 const config: BrowserConfig = {
     apiKey: process.env.NEXT_PUBLIC_BUGSNAG_KEY,
     plugins: [new BugsnagPluginReact()],
@@ -53,7 +55,7 @@ const WrappedApp: React.FC<AppProps> = ({ Component, pageProps }) => (
     <ErrorBoundary>
         <Head>
             <meta charSet="utf-8" />
-            <meta name="viewport" content="with-device-with, initial-scale=1" />
+            <meta name="viewport" content="width=device-width, initial-scale=1" />
         </Head>
         <ConnectedRouter>
             <Component {...pageProps} />

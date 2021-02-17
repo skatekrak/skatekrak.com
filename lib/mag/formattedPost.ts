@@ -1,4 +1,4 @@
-import { Post } from 'components/pages/mag/Feed';
+import { Post } from 'wordpress-types';
 
 /**
  * Format the post data from Wordpress to a more readable format

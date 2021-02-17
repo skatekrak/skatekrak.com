@@ -7,7 +7,8 @@ import IconArrowHead from 'components/Ui/Icons/ArrowHead';
 import { SpinnerCircle } from 'components/Ui/Icons/Spinners';
 
 import type { CustomMap } from './MapCustomNavigationTrail';
-import { toggleCustomMap } from 'store/map/actions';
+import { toggleLegend, toggleSearchResult } from 'store/map/actions';
+import { updateUrlParams } from 'store/map/thunk';
 
 type Props = {
     map: CustomMap;
@@ -26,13 +27,23 @@ const MapCustomNavigationItem = ({ map }: Props) => {
         return router.query.id === map.id;
     }, [router.query.id, map.id]);
 
+    const onClick = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+        e.preventDefault();
+        dispatch(toggleLegend(false));
+        dispatch(toggleSearchResult(false));
+        dispatch(
+            updateUrlParams({
+                spotId: null,
+                modal: false,
+                customMapId: map.id,
+            }),
+        );
+    };
+
     return (
         <a
             href="map"
-            onClick={(e) => {
-                e.preventDefault();
-                dispatch(toggleCustomMap(map.id));
-            }}
+            onClick={onClick}
             className={classNames('custom-map-navigation-item', {
                 'custom-map-navigation-item--selected': isMapSelected,
             })}
@@ -48,8 +59,8 @@ const MapCustomNavigationItem = ({ map }: Props) => {
                         src={`/images/map/custom-maps/${map.id}.png`}
                         srcSet={`
                                 /images/map/custom-maps/${map.id}.png 1x,
-                                /images/map/custom-maps/${map.id}-@2x.png 2x,
-                                /images/map/custom-maps/${map.id}-@3x.png 3x
+                                /images/map/custom-maps/${map.id}@2x.png 2x,
+                                /images/map/custom-maps/${map.id}@3x.png 3x
                             `}
                         alt={`${map.name} map logo`}
                     />

@@ -22,7 +22,7 @@ const initialState: State = {
     feedLayout: null,
 };
 
-export default (state: State = initialState, action: SettingsAction): State => {
+const SettingsReducer = (state: State = initialState, action: SettingsAction): State => {
     switch (action.type) {
         case SET_DEVICE_SIZE:
             const res = { ...state, isMobile: action.payload < 1024 };
@@ -38,3 +38,5 @@ export default (state: State = initialState, action: SettingsAction): State => {
             return state;
     }
 };
+
+export default SettingsReducer;

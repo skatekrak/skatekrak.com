@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import SearchIcon from 'components/Ui/Icons/Search';
 import ClearIcon from 'components/Ui/Icons/Clear';
 
@@ -6,9 +6,10 @@ type Props = {
     searchValue: string;
     handleSearchChange: (evt: React.ChangeEvent<HTMLInputElement>) => void;
     clearSearchValue: () => void;
+    onFocus: () => void;
 };
 
-const MapSearchBar = ({ searchValue, handleSearchChange, clearSearchValue }: Props) => {
+const MapSearchBar = ({ searchValue, handleSearchChange, clearSearchValue, onFocus }: Props) => {
     return (
         <div id="map-navigation-search-bar">
             <input
@@ -18,6 +19,7 @@ const MapSearchBar = ({ searchValue, handleSearchChange, clearSearchValue }: Pro
                 value={searchValue}
                 onChange={handleSearchChange}
                 autoComplete="off"
+                onFocus={() => onFocus()}
             />
             {searchValue.length === 0 ? (
                 <SearchIcon />

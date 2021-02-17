@@ -11,13 +11,14 @@ import { Cluster, Spot, Status, Types } from 'lib/carrelageClient';
 import Legend from 'components/pages/map/Legend';
 import BannerTop from 'components/Ui/Banners/BannerTop';
 import { boxSpotsSearch, getSpotOverview } from 'lib/carrelageClient';
-import { flyToCustomMap, mapRefreshEnd, setSpotOverview, setViewport, toggleSpotModal } from 'store/map/actions';
+import { mapRefreshEnd, setSpotOverview, setViewport } from 'store/map/actions';
 import { FilterStateUtil, FilterState } from 'lib/FilterState';
 import MapCustomNavigationTrail from './MapCustom/MapCustomNavigationTrail/MapCustomNavigationTrail';
 import MapCustomNavigation from './MapCustom/MapCustomNavigation';
 import MapNavigation from './MapNavigation';
 import MapGradients from './MapGradients';
 import { RootState } from 'store/reducers';
+import { flyTo, updateUrlParams } from 'store/map/thunk';
 
 const DynamicMapComponent = dynamic(() => import('./MapComponent'), { ssr: false });
 const MapFullSpot = dynamic(() => import('./MapFullSpot'), { ssr: false });
@@ -172,7 +173,8 @@ const MapContainer = () => {
     }, [clusters, id, refreshMap]);
 
     const onFullSpotClose = () => {
-        dispatch(toggleSpotModal(false));
+        dispatch(setSpotOverview(undefined));
+        dispatch(updateUrlParams({ spotId: null, modal: false }));
     };
 
     useEffect(() => {
@@ -186,7 +188,7 @@ const MapContainer = () => {
             const bounds = findBoundsCoordinate(
                 customMapInfo.spots.map((spot) => [spot.location.longitude, spot.location.latitude]),
             );
-            dispatch(flyToCustomMap(bounds));
+            dispatch(flyTo(bounds));
         }
     }, [customMapInfo, viewport.width, id, dispatch]);
 

@@ -10,7 +10,6 @@ module.exports = (api) => {
                     hocs: './hocs',
                     lib: './lib',
                     pages: './pages',
-                    saga: './saga',
                     store: './store',
                     models: './models',
                 },
