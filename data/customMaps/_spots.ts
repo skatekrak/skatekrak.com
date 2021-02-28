@@ -3,7 +3,7 @@ export default [
         id: 'famous',
         name: 'Famous Spots',
         subtitle: 'Who did what?',
-        edito: 'Worldwide famous spots with decades of skateboard history..',
+        edito: 'Worldwide famous spots with decades of skateboarding history.',
         about: `
 We try to keep track of what's been done on these spots for a while now! Rewatch skateboarding history on all these familiar spots and add your knowledge or your own footage on the app!
         `,
@@ -13,7 +13,7 @@ We try to keep track of what's been done on these spots for a while now! Rewatch
         id: 'history',
         name: 'Krak History Clip',
         subtitle: 'Krak History Clip',
-        edito: 'Skateboarding History right there!',
+        edito: 'Skateboarding history right there!',
         about: `
 Decades of Skateboarding History on famous worldwide epic spots.
 

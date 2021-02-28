@@ -7,7 +7,7 @@ import MapQuickAccessItem from '../MapQuickAccessItem';
 const city: QuickAccess = {
     id: 'paris',
     name: 'Cities',
-    edito: 'A portal to every major cities in skateboarding',
+    edito: 'Fly directly to some major cities for skateboarding.',
 };
 
 type Props = {
