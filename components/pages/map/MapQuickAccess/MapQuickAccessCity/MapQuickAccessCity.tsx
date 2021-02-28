@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { Ref, useMemo } from 'react';
 import classNames from 'classnames';
 import { useRouter } from 'next/router';
 
@@ -14,9 +14,11 @@ const city: QuickAccess = {
 type Props = {
     isCitiesOpen: boolean;
     onCitiesClick: (e: React.SyntheticEvent) => void;
+    ref?: Ref<HTMLDivElement>;
 };
 
-const MapQuickAccessCity = ({ onCitiesClick, isCitiesOpen }: Props) => {
+const MapQuickAccessCity: React.FC<Props> = React.forwardRef((props, ref) => {
+    const { onCitiesClick, isCitiesOpen } = props;
     const router = useRouter();
 
     const isNoMapSelected = useMemo(() => {
@@ -24,10 +26,12 @@ const MapQuickAccessCity = ({ onCitiesClick, isCitiesOpen }: Props) => {
     }, [router.query.id]);
 
     return (
-        <div className={classNames('map-quick-access-city',{ 'map-quick-access-city--open': isCitiesOpen })}>
+        <div ref={ref} className={classNames('map-quick-access-city', { 'map-quick-access-city--open': isCitiesOpen })}>
             <MapQuickAccessItem noMapSelected={isNoMapSelected} onClick={onCitiesClick} data={city} />
         </div>
     );
-};
+});
+
+MapQuickAccessCity.displayName = 'MapQuickAccessCity';
 
 export default MapQuickAccessCity;

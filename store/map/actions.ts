@@ -5,18 +5,18 @@ import { Types, Status, SpotOverview } from 'lib/carrelageClient';
 import {
     SELECT_ALL_MAP_FILTERS,
     UNSELECT_ALL_MAP_FILTERS,
-    TOGGLE_MAP_FILTER,
     MAP_REFRESH_END,
     SET_VIEWPORT,
     SET_SPOT_OVERVIEW,
     SELECT_FULL_SPOT_TAB,
     SELECT_SPOT,
+    TOGGLE_MAP_FILTER,
     TOGGLE_SPOT_MODAL,
     TOGGLE_CUSTOM_MAP,
-    SET_VIDEO_PLAYING,
     TOGGLE_LEGEND,
-    UPDATE_URL_PARAM,
     TOGGLE_SEARCH_RESULT,
+    UPDATE_URL_PARAM,
+    SET_VIDEO_PLAYING,
 } from './constants';
 import type { ViewportProps } from 'react-map-gl';
 import { FullSpotTab } from './reducers';

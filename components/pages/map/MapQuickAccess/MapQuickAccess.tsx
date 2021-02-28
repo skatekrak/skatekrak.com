@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useQuery } from 'react-query';
+import Tippy from '@tippyjs/react/headless';
 
 import MapQuickAccessMap from './MapQuickAccessMap';
 import MapQuickAccessCity from './MapQuickAccessCity';
 import MapQuickAccessCities from './MapQuickAccessCities';
-
-import spots from '../../../../data/customMaps/_spots';
 
 export interface QuickAccess {
     id: string;
@@ -35,14 +34,19 @@ const MapQuickAccess = () => {
     return (
         <div id="map-quick-access">
             <p className="map-quick-access-section-title">Cities</p>
-            <MapQuickAccessCity isCitiesOpen={isCitiesOpen} onCitiesClick={onCitiesClick} />
-            <MapQuickAccessCities isOpen={isCitiesOpen} />
+            <Tippy
+                visible={isCitiesOpen}
+                onClickOutside={() => setIsCitiesOpen(!isCitiesOpen)}
+                interactive
+                placement="left-start"
+                offset={[-36, 24]}
+                render={() => <MapQuickAccessCities isOpen={isCitiesOpen} onCitiesClick={onCitiesClick} />}
+            >
+                <MapQuickAccessCity isCitiesOpen={isCitiesOpen} onCitiesClick={onCitiesClick} />
+            </Tippy>
             <div className="map-quick-access-divider" />
             <p className="map-quick-access-section-title">Maps</p>
             {!isLoading && data && data.map((map) => <MapQuickAccessMap map={map} key={map.id} />)}
-            {/* {spots.map((map) => (
-                <MapQuickAccessMap map={map} key={map.id} />
-            ))} */}
         </div>
     );
 };

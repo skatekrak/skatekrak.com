@@ -6,14 +6,16 @@ import { flyTo, updateUrlParams } from 'store/map/thunk';
 
 type MapQuickAccessCityItemProps = {
     city: City;
+    onCitiesClick: (e: React.SyntheticEvent) => void;
 };
 
-const MapQuickAccessCityItem: React.FC<MapQuickAccessCityItemProps> = ({ city }) => {
+const MapQuickAccessCityItem: React.FC<MapQuickAccessCityItemProps> = ({ city, onCitiesClick }) => {
     const dispatch = useDispatch();
 
     const onClick = useCallback(
         (e: React.SyntheticEvent) => {
             e.preventDefault();
+            onCitiesClick(e);
             dispatch(toggleLegend(false));
             dispatch(toggleSearchResult(false));
             dispatch(
@@ -25,7 +27,7 @@ const MapQuickAccessCityItem: React.FC<MapQuickAccessCityItemProps> = ({ city })
             );
             dispatch(flyTo(city.bounds, 0));
         },
-        [dispatch, city],
+        [onCitiesClick, dispatch, city.bounds],
     );
 
     return (
