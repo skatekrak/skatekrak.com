@@ -19,7 +19,7 @@
         "@next/bundle-analyzer": "^10.0.0",
         "@sendgrid/client": "^7.2.6",
         "@sendgrid/mail": "^7.2.6",
-        "@tippyjs/react": "^4.2.1",
+        "@tippyjs/react": "^4.2.3",
         "@zeit/next-css": "^1.0.1",
         "@zeit/next-source-maps": "^0.0.3",
         "@zeit/next-stylus": "^1.0.1",
