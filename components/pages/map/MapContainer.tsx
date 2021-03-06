@@ -192,16 +192,16 @@ const MapContainer = () => {
         }
     }, [customMapInfo, viewport.width, id, dispatch]);
 
-    /// HELPER TO GET CURRENT COUNDS OF MAP WHEN NECESSARY
-    // useEffect(() => {
-    //     if (mapRef.current != null) {
-    //         const map = mapRef.current.getMap();
-    //         const bounds = map.getBounds();
-    //         const sw = bounds.getSouthWest();
-    //         const ne = bounds.getNorthEast();
-    //         console.log(`${sw.lng} ${sw.lat} ; ${ne.lng} ${ne.lat}`);
-    //     }
-    // }, [mapRef, viewport]);
+    /// HELPER TO GET CURRENT BOUNDS OF MAP WHEN NECESSARY
+    useEffect(() => {
+        if (mapRef.current != null) {
+            const map = mapRef.current.getMap();
+            const bounds = map.getBounds();
+            const sw = bounds.getSouthWest();
+            const ne = bounds.getNorthEast();
+            console.log(`${sw.lng} ${sw.lat} ; ${ne.lng} ${ne.lat}`);
+        }
+    }, [mapRef, viewport]);
 
     return (
         <div
