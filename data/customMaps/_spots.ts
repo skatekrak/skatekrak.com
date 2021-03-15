@@ -121,7 +121,6 @@ Nobody can teach you frontside flips better than Andrew! It's been his signature
 Jake Keenan uses Google Earth to find unusual and virgin skate spots in the NYC landscape. Google Earth and Street View are used by several skaters/filmers across the globe!
         `,
         spots: require('data/customMaps/googleearthers.json'),
-        staging: true,
     },
     {
         id: 'thps',
