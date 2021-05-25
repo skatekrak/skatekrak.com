@@ -50,6 +50,50 @@ Paris is a paradise for skateboarders! From its concrete sidewalks perfect to go
             [-73.8844913479055, 40.80698836737918],
         ],
     },
+    {
+        id: 'berlin',
+        name: 'Berlin',
+        edito: '',
+        subtitle: '',
+        about: '',
+        bounds: [
+            [13.32656832456459, 52.48460557999883],
+            [13.479100661227648, 52.55162108387398],
+        ],
+    },
+    {
+        id: 'bxl',
+        name: 'Bruxelles',
+        edito: '',
+        subtitle: '',
+        about: '',
+        bounds: [
+            [4.277965327313439, 50.81331667594927],
+            [4.430497663976553, 50.882850657408625],
+        ],
+    },
+    {
+        id: 'la',
+        name: 'Los Angeles',
+        edito: '',
+        subtitle: '',
+        about: '',
+        bounds: [
+            [-118.52225298698305, 33.91312229261048],
+            [-118.09015125444574, 34.17163863207952],
+        ],
+    },
+    {
+        id: 'sf',
+        name: 'San Francisco',
+        edito: '',
+        subtitle: '',
+        about: '',
+        bounds: [
+            [-122.52026422301677, 37.73189107529478],
+            [-122.36978418038728, 37.817769558834755],
+        ],
+    },
 ];
 
 export default cities;
