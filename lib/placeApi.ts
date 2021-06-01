@@ -29,7 +29,7 @@ export const placeAutocomplete = async (query: string): Promise<{ name: string; 
     const res = await placeApiClient.get('/autocomplete/json', {
         params: {
             input: query,
-            types: '(cities)',
+            types: 'geocode',
             key: process.env.PLACE_API,
         },
     });
