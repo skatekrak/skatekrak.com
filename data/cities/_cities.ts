@@ -63,7 +63,7 @@ Paris is a paradise for skateboarders! From its concrete sidewalks perfect to go
     },
     {
         id: 'bxl',
-        name: 'Bruxelles',
+        name: 'Brussels',
         edito: '',
         subtitle: '',
         about: '',
