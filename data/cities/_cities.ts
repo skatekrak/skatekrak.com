@@ -94,6 +94,50 @@ Paris is a paradise for skateboarders! From its concrete sidewalks perfect to go
             [-122.36978418038728, 37.817769558834755],
         ],
     },
+    {
+        id: 'brooklyn',
+        name: 'Brooklyn',
+        edito: '',
+        subtitle: '',
+        about: '',
+        bounds: [
+            [-74.0619176038734, 40.617289129755534],
+            [-73.84356433239117, 40.73953236875826],
+        ],
+    },
+    {
+        id: 'london',
+        name: 'London',
+        edito: '',
+        subtitle: '',
+        about: '',
+        bounds: [
+            [-0.23693493552042355, 51.457159797428545],
+            [-0.018581664037128576, 51.557486774307336],
+        ],
+    },
+    {
+        id: 'shanghai',
+        name: 'Shanghai',
+        edito: '',
+        subtitle: '',
+        about: '',
+        bounds: [
+            [121.41132742324771, 31.179231619930576],
+            [121.56222044527658, 31.274483881128248],
+        ],
+    },
+    {
+        id: 'singapour',
+        name: 'Singapour',
+        edito: '',
+        subtitle: '',
+        about: '',
+        bounds: [
+            [103.79195666582484, 1.261332366626064],
+            [103.89591805260989, 1.3380576970246523],
+        ],
+    },
 ];
 
 export default cities;
