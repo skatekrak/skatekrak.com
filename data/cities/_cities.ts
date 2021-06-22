@@ -128,8 +128,8 @@ Paris is a paradise for skateboarders! From its concrete sidewalks perfect to go
         ],
     },
     {
-        id: 'singapour',
-        name: 'Singapour',
+        id: 'singapore',
+        name: 'Singapore',
         edito: '',
         subtitle: '',
         about: '',

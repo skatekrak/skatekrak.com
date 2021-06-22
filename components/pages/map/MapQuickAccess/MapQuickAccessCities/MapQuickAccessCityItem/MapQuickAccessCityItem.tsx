@@ -34,7 +34,7 @@ const MapQuickAccessCityItem: React.FC<MapQuickAccessCityItemProps> = ({ city, o
         <button className="map-quick-access-city-item" onClick={onClick}>
             <div
                 style={{
-                    backgroundImage: `url('/images/map/cities/${city.id}@3x.png')`,
+                    backgroundImage: `url('/images/map/cities/${city.id}@3x.jpg')`,
                 }}
                 className="map-quick-access-city-item-image"
             />
