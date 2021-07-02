@@ -12,6 +12,7 @@ import { FeedLayout } from 'store/settings/reducers';
 import ArticlesList from '../ArticlesList';
 import { RootState } from 'store/reducers';
 import useNewsContent from 'lib/hook/news/contents';
+import { flatten } from 'lib/helpers';
 
 type ArticlesProps = {
     sidebarNavIsOpen: boolean;
@@ -46,11 +47,11 @@ const Articles = ({ sidebarNavIsOpen }: ArticlesProps) => {
         setPromoCardIndexes(indexes);
     }, [setPromoCardIndexes, feedLayout]);
 
-    const { data, isFetching, canFetchMore, fetchMore } = useNewsContent({
+    const { data, isFetching, hasNextPage, fetchNextPage } = useNewsContent({
         filters: selectedSources,
         query: newsSearch,
     });
-    const contents = (data ?? []).reduce((acc, val) => acc.concat(val), []);
+    const contents = flatten(data.pages);
 
     useEffect(() => {
         if (feedLayout && promoCardIndexes.length === 0) {
@@ -66,11 +67,11 @@ const Articles = ({ sidebarNavIsOpen }: ArticlesProps) => {
                 pageStart={1}
                 initialLoad={false}
                 loadMore={() => {
-                    if (canFetchMore) {
-                        fetchMore();
+                    if (hasNextPage) {
+                        fetchNextPage();
                     }
                 }}
-                hasMore={canFetchMore}
+                hasMore={hasNextPage}
                 getScrollParent={ScrollHelper.getScrollContainer}
                 useWindow={false}
             >
@@ -82,7 +83,7 @@ const Articles = ({ sidebarNavIsOpen }: ArticlesProps) => {
                     <ArticlesList contents={contents} promoCardIndexes={promoCardIndexes} />
 
                     {isFetching && <KrakLoading />}
-                    {contents.length > 0 && !canFetchMore && (
+                    {contents.length > 0 && !hasNextPage && (
                         <NoContent title="No more news" desc="Add more mags or start your own ;)" />
                     )}
                 </div>

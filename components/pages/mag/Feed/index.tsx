@@ -11,6 +11,7 @@ import ScrollHelper from 'lib/ScrollHelper';
 import { RootState } from 'store/reducers';
 
 import usePosts from 'lib/hook/mag/posts';
+import { flatten } from 'lib/helpers';
 
 type Props = {
     sidebarNavIsOpen: boolean;
@@ -19,14 +20,14 @@ type Props = {
 const Feed = ({ sidebarNavIsOpen }: Props) => {
     const mag = useSelector((state: RootState) => state.mag);
 
-    const { data, isFetching, canFetchMore, fetchMore } = usePosts({
+    const { data, isFetching, hasNextPage, fetchNextPage } = usePosts({
         per_page: 20,
         categories: mag.selectedCategories,
         search: mag.search,
     });
 
     // Flatten the posts list
-    const posts = (data ?? []).reduce((acc, val) => acc.concat(val), []);
+    const posts = flatten(data.pages);
 
     return (
         <div id="mag-feed">
@@ -35,11 +36,11 @@ const Feed = ({ sidebarNavIsOpen }: Props) => {
                 pageStart={1}
                 initialLoad={false}
                 loadMore={() => {
-                    if (canFetchMore) {
-                        fetchMore();
+                    if (hasNextPage) {
+                        fetchNextPage();
                     }
                 }}
-                hasMore={canFetchMore}
+                hasMore={hasNextPage}
                 getScrollParent={ScrollHelper.getScrollContainer}
                 useWindow={false}
             >
@@ -53,7 +54,7 @@ const Feed = ({ sidebarNavIsOpen }: Props) => {
                     {posts.length === 0 && !isFetching && (
                         <NoContent title="No article to display" desc="Select some categories to be back in the loop" />
                     )}
-                    {posts.length > 0 && !canFetchMore && (
+                    {posts.length > 0 && !hasNextPage && (
                         <NoContent title="No more article" desc="Add more categories" />
                     )}
                 </div>

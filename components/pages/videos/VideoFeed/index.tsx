@@ -12,6 +12,7 @@ import ScrollHelper from 'lib/ScrollHelper';
 import { RootState } from 'store/reducers';
 import useVideos from 'lib/hook/videos/videos';
 import useFeaturedVideos from 'lib/hook/videos/featured';
+import { flatten } from 'lib/helpers';
 
 type VideoFeedProps = {
     sidebarNavIsOpen: boolean;
@@ -21,8 +22,8 @@ const VideoFeed = ({ sidebarNavIsOpen }: VideoFeedProps) => {
     const selectSources = useSelector((state: RootState) => state.video.selectSources);
     const search = useSelector((state: RootState) => state.video.search);
 
-    const { data, isFetching, canFetchMore, fetchMore } = useVideos({ filters: selectSources, query: search });
-    const displayedVideos = (data ?? []).reduce((acc, val) => acc.concat(val), []);
+    const { data, isFetching, hasNextPage, fetchNextPage } = useVideos({ filters: selectSources, query: search });
+    const displayedVideos = flatten(data.pages);
 
     const { data: featuredVideos, isLoading: loadingFeaturedVideos, error: featuredVideosError } = useFeaturedVideos();
 
@@ -41,11 +42,11 @@ const VideoFeed = ({ sidebarNavIsOpen }: VideoFeedProps) => {
                 pageStart={1}
                 initialLoad={false}
                 loadMore={() => {
-                    if (canFetchMore) {
-                        fetchMore();
+                    if (hasNextPage) {
+                        fetchNextPage();
                     }
                 }}
-                hasMore={!isFetching && canFetchMore}
+                hasMore={!isFetching && hasNextPage}
                 getScrollParent={ScrollHelper.getScrollContainer}
                 useWindow={false}
             >
@@ -59,7 +60,7 @@ const VideoFeed = ({ sidebarNavIsOpen }: VideoFeedProps) => {
                         <NoContent title="No video to display" desc="Select some channels to be back in the loop" />
                     )}
                     {isFetching && <KrakLoading />}
-                    {displayedVideos.length > 0 && !canFetchMore && (
+                    {displayedVideos.length > 0 && !hasNextPage && (
                         <NoContent title="No more video" desc="Select other channels if you're still hungry" />
                     )}
                 </div>
