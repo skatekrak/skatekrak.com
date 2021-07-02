@@ -1,11 +1,10 @@
-import queryString from 'query-string';
 import carrelage from 'lib/carrelageClient';
 import { useInfiniteQuery } from 'react-query';
 import { Media } from 'lib/carrelageClient';
+import { AxiosError } from 'axios';
 
-const fetchMedias = async (key: string, cursor: any = new Date()) => {
-    const params = queryString.parse(key);
-    const { data } = await carrelage.get<Media[]>(`/spots/${params.spotId}/medias`, {
+const fetchMedias = async (spotId: string, cursor: any = new Date()) => {
+    const { data } = await carrelage.get<Media[]>(`/spots/${spotId}/medias`, {
         params: {
             older: cursor,
             limit: 20,
@@ -16,17 +15,24 @@ const fetchMedias = async (key: string, cursor: any = new Date()) => {
 };
 
 const useSpotMedias = (spotId: string, initialMedias: Media[]) => {
-    return useInfiniteQuery(queryString.stringify({ spotId, key: 'fetch-spot-medias' }), fetchMedias, {
-        getFetchMore: (lastPage) => {
-            const lastElement = lastPage[lastPage.length - 1];
-            if (lastElement != null) {
-                return lastElement.createdAt;
-            }
-            return false;
+    return useInfiniteQuery<Media[], AxiosError<any>>(
+        ['fetch-spot-medias', spotId],
+        ({ pageParam }) => fetchMedias(spotId, pageParam),
+        {
+            getNextPageParam: (lastPage) => {
+                const lastElement = lastPage[lastPage.length - 1];
+                if (lastElement != null) {
+                    return lastElement.createdAt;
+                }
+                return false;
+            },
+            initialData: {
+                pages: [initialMedias],
+                pageParams: [initialMedias[initialMedias.length - 1].createdAt],
+            },
+            refetchOnWindowFocus: false,
         },
-        initialData: [initialMedias],
-        refetchOnWindowFocus: false,
-    });
+    );
 };
 
 export default useSpotMedias;

@@ -3,7 +3,7 @@ import { formatPost } from 'lib/mag/formattedPost';
 import { useQuery } from 'react-query';
 import { Post } from 'wordpress-types';
 
-const fetchRelatedPosts = async (key: string, post: Post) => {
+const fetchRelatedPosts = async (post: Post) => {
     const { data } = await krakmag.get<Post[]>('/wp-json/wp/v2/posts', {
         params: {
             per_page: 3,
@@ -29,7 +29,7 @@ const fetchRelatedPosts = async (key: string, post: Post) => {
 };
 
 const useRelatedPosts = (post: Post) => {
-    return useQuery(['mag-related-post', post], fetchRelatedPosts);
+    return useQuery(['mag-related-post', post], () => fetchRelatedPosts(post));
 };
 
 export default useRelatedPosts;

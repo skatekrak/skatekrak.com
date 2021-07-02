@@ -4,6 +4,7 @@ import Bugsnag, { BrowserConfig } from '@bugsnag/js';
 import BugsnagPluginReact from '@bugsnag/plugin-react';
 import Head from 'next/head';
 import { ConnectedRouter } from 'connected-next-router';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
 import { wrapper } from 'store';
 
@@ -35,6 +36,8 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 
 import '/public/styles/masonry.css';
 
+const queryClient = new QueryClient();
+
 const config: BrowserConfig = {
     apiKey: process.env.NEXT_PUBLIC_BUGSNAG_KEY,
     plugins: [new BugsnagPluginReact()],
@@ -53,13 +56,15 @@ const ErrorBoundary = Bugsnag.getPlugin('react').createErrorBoundary(React);
 
 const WrappedApp: React.FC<AppProps> = ({ Component, pageProps }) => (
     <ErrorBoundary>
-        <Head>
-            <meta charSet="utf-8" />
-            <meta name="viewport" content="width=device-width, initial-scale=1" />
-        </Head>
-        <ConnectedRouter>
-            <Component {...pageProps} />
-        </ConnectedRouter>
+        <QueryClientProvider client={queryClient}>
+            <Head>
+                <meta charSet="utf-8" />
+                <meta name="viewport" content="width=device-width, initial-scale=1" />
+            </Head>
+            <ConnectedRouter>
+                <Component {...pageProps} />
+            </ConnectedRouter>
+        </QueryClientProvider>
     </ErrorBoundary>
 );
 

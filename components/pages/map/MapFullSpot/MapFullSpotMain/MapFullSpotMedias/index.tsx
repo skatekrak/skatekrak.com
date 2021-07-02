@@ -17,8 +17,8 @@ export type MapFullSpotMediasProps = {
 };
 
 const MapFullSpotMedias: React.FC<MapFullSpotMediasProps> = ({ medias: firstMedias, spot }) => {
-    const { isFetching, data, canFetchMore, fetchMore } = useSpotMedias(spot.id, firstMedias);
-    const medias = flatten(data);
+    const { isFetching, data, hasNextPage, fetchNextPage } = useSpotMedias(spot.id, firstMedias);
+    const medias = flatten(data.pages);
 
     const getScrollParent = () => {
         const wrappers = document.getElementsByClassName('simplebar-content-wrapper');
@@ -31,11 +31,11 @@ const MapFullSpotMedias: React.FC<MapFullSpotMediasProps> = ({ medias: firstMedi
                 pageStart={1}
                 initialLoad={true}
                 loadMore={() => {
-                    if (canFetchMore) {
-                        fetchMore();
+                    if (hasNextPage) {
+                        fetchNextPage();
                     }
                 }}
-                hasMore={canFetchMore && !isFetching}
+                hasMore={hasNextPage && !isFetching}
                 getScrollParent={getScrollParent}
                 useWindow={false}
             >

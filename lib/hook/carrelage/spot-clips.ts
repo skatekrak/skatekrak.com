@@ -1,10 +1,9 @@
-import queryString from 'query-string';
 import carrelage, { Clip } from 'lib/carrelageClient';
 import { useInfiniteQuery } from 'react-query';
+import { AxiosError } from 'axios';
 
-const fetchClips = async (key: string, cursor: any = new Date()) => {
-    const params = queryString.parse(key);
-    const { data } = await carrelage.get<Clip[]>(`/spots/${params.spotId}/clips`, {
+const fetchClips = async (spotId: string, cursor: any = new Date()) => {
+    const { data } = await carrelage.get<Clip[]>(`/spots/${spotId}/clips`, {
         params: {
             older: cursor,
             limit: 20,
@@ -15,17 +14,24 @@ const fetchClips = async (key: string, cursor: any = new Date()) => {
 };
 
 const useSpotClips = (spotId: string, initialClips: Clip[]) => {
-    return useInfiniteQuery(queryString.stringify({ spotId, key: 'fetch-spot-clips' }), fetchClips, {
-        getFetchMore: (lastPage) => {
-            const lastElement = lastPage[lastPage.length - 1];
-            if (lastElement != null) {
-                return lastElement.createdAt;
-            }
-            return false;
+    return useInfiniteQuery<Clip[], AxiosError<any>>(
+        ['fetch-spot-clips', spotId],
+        ({ pageParam }) => fetchClips(spotId, pageParam),
+        {
+            getNextPageParam: (lastPage) => {
+                const lastElement = lastPage[lastPage.length - 1];
+                if (lastElement != null) {
+                    return lastElement.createdAt;
+                }
+                return false;
+            },
+            initialData: {
+                pages: [initialClips],
+                pageParams: [initialClips[initialClips.length - 1].createdAt],
+            },
+            refetchOnWindowFocus: false,
         },
-        initialData: [initialClips],
-        refetchOnWindowFocus: false,
-    });
+    );
 };
 
 export default useSpotClips;

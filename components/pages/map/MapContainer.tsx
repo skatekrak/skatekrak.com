@@ -65,7 +65,8 @@ const MapContainer = () => {
 
     const { data: customMapInfo, isLoading: customMapLoading } = useQuery(
         ['load-custom-map', id],
-        async (key, customMapId) => {
+        async ({ queryKey }) => {
+            const [, customMapId] = queryKey;
             if (customMapId == null) {
                 return null;
             }

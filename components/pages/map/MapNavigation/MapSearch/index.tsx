@@ -31,12 +31,12 @@ const MapNavigation = () => {
         AwesomeDebouncePromise((query: string) => Promise.all([fetchSpots(query), fetchPlaces(query)]), 200),
     );
     const { isLoading, data } = useQuery(
-        ['search-spots', { query: searchValue }],
-        (key, { query }) => {
-            if (!query) {
+        ['search-spots', searchValue],
+        () => {
+            if (!searchValue) {
                 return null;
             }
-            return debouncedSpotsSearch(query);
+            return debouncedSpotsSearch(searchValue);
         },
         { refetchOnWindowFocus: false },
     );
