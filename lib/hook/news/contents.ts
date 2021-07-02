@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { removeEmptyStringAndNull } from 'lib/helpers';
 
 import Content from 'models/Content';
 import { useInfiniteQuery } from 'react-query';
@@ -11,7 +12,7 @@ export type FetchNewsParams = {
 const fetchContents = async (params: FetchNewsParams, page: any = 1): Promise<Content[]> => {
     const { data } = await axios.get(`${process.env.NEXT_PUBLIC_RSS_BACKEND_URL}/contents`, {
         params: {
-            ...params,
+            ...removeEmptyStringAndNull(params),
             page,
         },
     });

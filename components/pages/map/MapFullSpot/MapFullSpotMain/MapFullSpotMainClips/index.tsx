@@ -16,7 +16,7 @@ export type MapFullSpotMainClipsProps = {
 
 const MapFullSpotMainClips = ({ clips: defaultClips, spot }: MapFullSpotMainClipsProps) => {
     const { isFetching, data, fetchNextPage, hasNextPage } = useSpotClips(spot.id, defaultClips);
-    const clips = flatten(data.pages);
+    const clips = flatten(data?.pages ?? []);
 
     const getScrollParent = () => {
         const wrappers = document.getElementsByClassName('simplebar-content-wrapper');

@@ -18,7 +18,7 @@ export type MapFullSpotMediasProps = {
 
 const MapFullSpotMedias: React.FC<MapFullSpotMediasProps> = ({ medias: firstMedias, spot }) => {
     const { isFetching, data, hasNextPage, fetchNextPage } = useSpotMedias(spot.id, firstMedias);
-    const medias = flatten(data.pages);
+    const medias = flatten(data?.pages ?? []);
 
     const getScrollParent = () => {
         const wrappers = document.getElementsByClassName('simplebar-content-wrapper');

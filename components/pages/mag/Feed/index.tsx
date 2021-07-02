@@ -27,7 +27,7 @@ const Feed = ({ sidebarNavIsOpen }: Props) => {
     });
 
     // Flatten the posts list
-    const posts = flatten(data.pages);
+    const posts = flatten(data?.pages ?? []);
 
     return (
         <div id="mag-feed">

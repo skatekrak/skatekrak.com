@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { removeEmptyStringAndNull } from 'lib/helpers';
 import { useInfiniteQuery } from 'react-query';
 import { Video } from 'rss-feed';
 
@@ -9,10 +10,10 @@ export type FetchVideoParams = {
 
 const fetchVideos = async (params: FetchVideoParams, page: unknown = 1) => {
     let data: Video[] = [];
-    if (params.query) {
+    if (params.query != null && params.query !== '') {
         const res = await axios.get<Video[]>(`${process.env.NEXT_PUBLIC_RSS_BACKEND_URL}/videos/search`, {
             params: {
-                ...params,
+                ...removeEmptyStringAndNull(params),
                 page,
             },
         });
@@ -21,7 +22,7 @@ const fetchVideos = async (params: FetchVideoParams, page: unknown = 1) => {
 
     const res = await axios.get<Video[]>(`${process.env.NEXT_PUBLIC_RSS_BACKEND_URL}/videos/`, {
         params: {
-            ...params,
+            ...removeEmptyStringAndNull(params),
             page,
         },
     });

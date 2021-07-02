@@ -23,7 +23,7 @@ const VideoFeed = ({ sidebarNavIsOpen }: VideoFeedProps) => {
     const search = useSelector((state: RootState) => state.video.search);
 
     const { data, isFetching, hasNextPage, fetchNextPage } = useVideos({ filters: selectSources, query: search });
-    const displayedVideos = flatten(data.pages);
+    const displayedVideos = flatten(data?.pages ?? []);
 
     const { data: featuredVideos, isLoading: loadingFeaturedVideos, error: featuredVideosError } = useFeaturedVideos();
 

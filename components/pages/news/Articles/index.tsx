@@ -51,7 +51,7 @@ const Articles = ({ sidebarNavIsOpen }: ArticlesProps) => {
         filters: selectedSources,
         query: newsSearch,
     });
-    const contents = flatten(data.pages);
+    const contents = flatten(data?.pages ?? []);
 
     useEffect(() => {
         if (feedLayout && promoCardIndexes.length === 0) {
