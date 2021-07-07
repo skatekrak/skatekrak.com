@@ -1,28 +1,28 @@
-version: "3"
+version: '3'
 services:
-  skatekrak:
-    image: node:lts
-    command: bash -c "yarn install && yarn start:cmd:dev"
-    networks:
-      - web
-    labels:
-      - traefik.enable=true
-      - traefik.docker.network=web
-      - traefik.backend=skatekrak
-      - traefik.frontend.rule=Host:dev.skatekrak.com
-      - traefik.port=3000
-    working_dir: /app
-    volumes:
-      - .:/app
-      - ~/.npmrc:/app/.npmrc:ro
-      - skatekrak-next:/app/.next
-      - skatekrak-node_modules:/app/node_modules
-    env_file: .env
+    skatekrak:
+        image: node:lts
+        command: bash -c "yarn install && yarn start:cmd:dev"
+        labels:
+            - traefik.enable=true
+            - traefik.http.routers.skatekrak.entrypoints=http,https
+            - traefik.http.routers.skatekrak.rule=Host(`dev.skatekrak.com`) # You can use any domain allowed by your TLS certificate
+            - traefik.http.routers.skatekrak.tls=true
+            - traefik.http.routers.skatekrak.service=skatekrak
+            - traefik.http.services.skatekrak.loadbalancer.server.port=3000 # Adapt to the exposed port in the service
+        working_dir: /app
+        volumes:
+            - .:/app
+            - ~/.npmrc:/app/.npmrc:ro
+            - skatekrak-next:/app/.next
+            - skatekrak-node_modules:/app/node_modules
+        env_file: .env
 
 volumes:
-  skatekrak-next: null
-  skatekrak-node_modules: null
+    skatekrak-next: null
+    skatekrak-node_modules: null
 
 networks:
-  web:
-    external: true
+    default:
+        external:
+            name: docker
