@@ -52,15 +52,15 @@ const ResetPassword: NextPage = () => {
             {query.token != null && query.token !== '' && (
                 <div style={{ display: 'flex', flexDirection: 'column', maxWidth: 250 }}>
                     <Formik initialValues={initialValues} validate={validate} onSubmit={onSubmit}>
-                        {({ errors, isSubmitting }) => (
-                            <>
+                        {({ errors, isSubmitting, handleSubmit }) => (
+                            <form onSubmit={handleSubmit}>
                                 <label>New password</label>
-                                <Field name="password" />
+                                <Field name="password" type="password" />
                                 <ButtonPrimary type="submit" disabled={isSubmitting}>
                                     Reset
                                 </ButtonPrimary>
                                 {errors.password != null && <h5 style={{ color: 'red' }}>{errors.password}</h5>}
-                            </>
+                            </form>
                         )}
                     </Formik>
                 </div>
