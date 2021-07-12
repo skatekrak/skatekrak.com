@@ -28,7 +28,7 @@ const useSpotMedias = (spotId: string, initialMedias: Media[]) => {
             },
             initialData: {
                 pages: [initialMedias],
-                pageParams: [initialMedias[initialMedias.length - 1].createdAt],
+                pageParams: initialMedias.length >= 20 ? [initialMedias[initialMedias.length - 1].createdAt] : [],
             },
             refetchOnWindowFocus: false,
         },
