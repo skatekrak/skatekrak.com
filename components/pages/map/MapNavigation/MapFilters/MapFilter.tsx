@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import React, { useState, useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import Typings from 'Types';
+import { RootState } from 'store/reducers';
 
 import { Types, Status } from 'lib/carrelageClient';
 import { SpinnerCircle } from 'components/Ui/Icons/Spinners';
@@ -17,7 +17,7 @@ type Props = {
 const MapFilter: React.FC<Props> = ({ filter, icon }) => {
     const [isActive, setIsActive] = useState(true);
     const [loading, setLoading] = useState(false);
-    const mapState = useSelector((state: Typings.RootState) => state.map);
+    const mapState = useSelector((state: RootState) => state.map);
     const dispatch = useDispatch();
 
     const handleOnClick = useCallback(() => {
