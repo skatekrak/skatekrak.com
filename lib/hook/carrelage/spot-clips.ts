@@ -27,7 +27,7 @@ const useSpotClips = (spotId: string, initialClips: Clip[]) => {
             },
             initialData: {
                 pages: [initialClips],
-                pageParams: [initialClips[initialClips.length - 1].createdAt],
+                pageParams: initialClips.length >= 20 ? [initialClips[initialClips.length - 1].createdAt] : [],
             },
             refetchOnWindowFocus: false,
         },
