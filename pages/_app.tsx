@@ -31,6 +31,7 @@ import '/public/styles/videos.styl';
 import '/public/styles/app.styl';
 import '/public/styles/feed.styl';
 import '/public/styles/map/map.styl';
+import '/public/styles/auth/auth.styl';
 
 import 'mapbox-gl/dist/mapbox-gl.css';
 

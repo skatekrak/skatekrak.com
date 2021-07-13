@@ -22,8 +22,8 @@ type Props = {
 
 const ButtonPrimary: React.SFC<Props> = ({ onClick, className, children, type, disabled, loading, loadingContent }) => (
     <button className={`button-primary ${className}`} onClick={onClick} type={type} disabled={disabled}>
-        {loading && <SpinnerCircle />}
-        {loading && (loadingContent ? loadingContent : children)}
+        {loading && loadingContent === undefined && <SpinnerCircle />}
+        {loading && loadingContent && loadingContent}
         {!loading && children}
     </button>
 );

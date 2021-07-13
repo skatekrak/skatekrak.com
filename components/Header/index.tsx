@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import Link from 'next/link';
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 
 import NavItem from 'components/Header/NavItem';
 import IconKrakenHead from 'components/Ui/Icons/Kraken/KrakenHead';
@@ -24,12 +24,16 @@ const Header = ({ pathname }: Props) => {
         });
     }, []);
 
+    const baseRoute = useMemo(() => {
+        return pathname.split('/')[1];
+    }, [pathname]);
+
     return (
         <header
             id="header"
             className={classNames({
-                'header-dark': pathname === '/app',
-                'header-white': pathname === '/map',
+                'header-dark': baseRoute === 'app' || baseRoute === 'auth',
+                'header-white': baseRoute === 'map',
             })}
         >
             <div id="header-top">

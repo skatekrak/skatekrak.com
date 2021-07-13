@@ -1,0 +1,108 @@
+@import "../stylus-mq"
+@import "../styleguide"
+
+#auth
+    &-container
+        flex-grow: 1
+        display: flex
+        flex-direction: column
+        text-align: center
+        color: $grey-100
+        background-color: $grey-900
+
+        +mq($from: "medium")
+            background-color: $grey-800
+
+    &-form
+        position: relative
+        flex-grow: 1
+        display: flex
+        flex-direction: column
+
+        &-container
+            flex-grow: 1
+            display: flex
+            flex-direction: column
+
+            +mq($from: "small")
+                flex-grow: 0
+                width: 100%
+                max-width: 22rem
+                margin: 8rem auto 0
+            
+            +mq($from: "medium")
+                margin: auto
+                transform: translateY(-3rem)
+
+        &-inner-container
+            display: flex
+            flex-direction: column
+            margin-bottom: auto
+
+            +mq($from: "small")
+                margin-bottom: 6rem
+
+        &-title
+            margin-bottom: 2rem
+            font-family: $ff-roboto-condensed-bold
+            font-size: $fs-larger
+
+        &-help-list
+            margin-top: 1rem
+            font-size: $fs-small
+            text-align: left
+            color: $grey-500
+
+            & li
+                list-style: inside
+
+            +mq($from: "medium")
+                color: $grey-400
+
+        & .button-primary
+            letter-spacing: 0.75px
+            text-transform: uppercase
+            color: $white
+            background-color: $primary
+
+            &-disabled
+                color: $grey-300
+                background-color: $grey-700
+
+        &-success
+            & h2
+                margin-bottom: 1rem
+                font-size: $fs-medium
+
+            & p
+                font-size: $fs-small
+                color: $grey-400
+
+.auth
+    &-form
+        &-input
+            padding: 1rem
+            font-size: $fs-regular
+            color: $grey-100
+            background-color: $grey-800
+            border-radius: 0.25rem
+
+            &::placeholder
+                color: $grey-500
+
+            +mq($from: "medium")
+                background-color: $grey-700
+
+                &::placeholder
+                    color: $grey-400
+
+        &-error
+            position: absolute
+            bottom: 6rem
+            left: 0
+            right: 0
+            text-align: left
+            color: $error
+
+            +mq($from: "small")
+                bottom: 5rem

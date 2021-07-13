@@ -37,34 +37,63 @@ const ResetPassword: NextPage = () => {
         }
     };
 
-    if (success) {
-        return (
-            <Layout>
-                <h1>Your password has been changed!</h1>
-                <p>You can connect to the app with your new password</p>
-            </Layout>
-        );
-    }
-
     return (
         <Layout>
-            {(query.token == null || query.token === '') && <h1>Token is missing</h1>}
-            {query.token != null && query.token !== '' && (
-                <div style={{ display: 'flex', flexDirection: 'column', maxWidth: 250 }}>
-                    <Formik initialValues={initialValues} validate={validate} onSubmit={onSubmit}>
-                        {({ errors, isSubmitting, handleSubmit }) => (
-                            <form onSubmit={handleSubmit}>
-                                <label>New password</label>
-                                <Field name="password" type="password" />
-                                <ButtonPrimary type="submit" disabled={isSubmitting}>
-                                    Reset
-                                </ButtonPrimary>
-                                {errors.password != null && <h5 style={{ color: 'red' }}>{errors.password}</h5>}
-                            </form>
-                        )}
-                    </Formik>
+            <div id="auth-container" className="inner-page-container container-fluid">
+                <div id="auth-form-container">
+                    <h1 id="auth-form-title">Reset password</h1>
+                    {(query.token == null || query.token === '') && (
+                        <p>Token is missing, open the link from the email we sent you</p>
+                    )}
+                    {query.token != null && query.token !== '' && (
+                        <>
+                            {success ? (
+                                <div id="auth-form-success">
+                                    <h2>Your password has been changed!</h2>
+                                    <p>You can connect to the app with your new password</p>
+                                </div>
+                            ) : (
+                                <Formik initialValues={initialValues} validate={validate} onSubmit={onSubmit}>
+                                    {({ errors, isSubmitting, handleSubmit, values }) => (
+                                        <form id="auth-form" onSubmit={handleSubmit}>
+                                            <div id="auth-form-inner-container">
+                                                <Field
+                                                    className="auth-form-input"
+                                                    name="password"
+                                                    type="password"
+                                                    placeholder="New password"
+                                                />
+                                                <ul id="auth-form-help-list">
+                                                    <li>must be at least 6 characters long</li>
+                                                </ul>
+                                            </div>
+                                            {errors.password != null && (
+                                                <p className="auth-form-error">{errors.password}</p>
+                                            )}
+                                            <ButtonPrimary
+                                                type="submit"
+                                                loading={isSubmitting}
+                                                className={
+                                                    (Object.keys(errors).length !== 0 ||
+                                                        values.password.length === 0) &&
+                                                    'button-primary-disabled'
+                                                }
+                                                disabled={
+                                                    isSubmitting ||
+                                                    Object.keys(errors).length !== 0 ||
+                                                    values.password.length === 0
+                                                }
+                                            >
+                                                Reset
+                                            </ButtonPrimary>
+                                        </form>
+                                    )}
+                                </Formik>
+                            )}
+                        </>
+                    )}
                 </div>
-            )}
+            </div>
         </Layout>
     );
 };
