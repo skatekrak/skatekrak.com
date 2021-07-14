@@ -29,7 +29,6 @@ const MapCustomNavigationSpots = ({ mapSpots }: Props) => {
     };
 
     const onSpotClick = (spot: Spot) => dispatch(selectSpot(spot.id));
-    const onPlaceClick = () => console.log('place clicked');
 
     return (
         <div id="custom-map-navigation-extension-spots">
