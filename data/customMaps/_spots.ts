@@ -85,6 +85,24 @@ As they reminded in their article, don't forget skateboarding on MTA property is
         `,
         spots: require('data/customMaps/nycsubway.json'),
     },
+    {
+        id: 'betty',
+        name: 'Betty',
+        subtitle: 'Betty',
+        edito: 'Vans Europe Present: Betty',
+        about: `
+After last winter when the pandemic came around, Harry Billiet started filming his homies. Turned out they all killed it non-stop for a whole year so the project naturally became a real team video with the support of Vans. Most of the scenes are in Belgium instead of some in Luxemburg and Marseille.
+The video speaks for itself. These three Betties battled together through lockdowns.
+
+Skaters
+Jonathan Vlerick
+Jeroen Bruggeman
+Arthur Buyltinck
+Timothy Deconinck
+        `,
+        spots: require('data/customMaps/betty.json'),
+        staging: false,
+    },
 
     // IN TESTING ONLY
     {
