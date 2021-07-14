@@ -5,6 +5,10 @@ import CustomMaps from '../../data/customMaps/_spots';
 import { QuickAccessMap } from 'components/pages/map/MapQuickAccess/MapQuickAccess';
 import { Spot } from 'lib/carrelageClient';
 
+const computeContentScore = (spot: Spot): number => {
+    return spot.mediasStat.all + spot.clipsStat.all;
+};
+
 const cors = Cors({
     methods: ['GET', 'HEAD'],
     origin: '/.skatekrak.com$/',
@@ -59,7 +63,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     }
 
     const customMap = CustomMaps.find((map) => map.id === id);
-    customMap.spots = customMap.spots.sort((a: Spot, b: Spot) => a.name.localeCompare(b.name));
+    customMap.spots = customMap.spots.sort((a: Spot, b: Spot) => computeContentScore(b) - computeContentScore(a));
     if (customMap === undefined) {
         return res.status(404).json({ message: 'Map not found' });
     }
