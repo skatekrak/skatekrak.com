@@ -54,7 +54,7 @@ const ResetPassword: NextPage = () => {
                                 </div>
                             ) : (
                                 <Formik initialValues={initialValues} validate={validate} onSubmit={onSubmit}>
-                                    {({ errors, isSubmitting, handleSubmit, values }) => (
+                                    {({ errors, isSubmitting, handleSubmit, isValid, dirty, touched }) => (
                                         <form id="auth-form" onSubmit={handleSubmit}>
                                             <div id="auth-form-inner-container">
                                                 <Field
@@ -67,22 +67,14 @@ const ResetPassword: NextPage = () => {
                                                     <li>must be at least 6 characters long</li>
                                                 </ul>
                                             </div>
-                                            {errors.password != null && (
+                                            {touched.password && errors.password != null && (
                                                 <p className="auth-form-error">{errors.password}</p>
                                             )}
                                             <ButtonPrimary
                                                 type="submit"
                                                 loading={isSubmitting}
-                                                className={
-                                                    (Object.keys(errors).length !== 0 ||
-                                                        values.password.length === 0) &&
-                                                    'button-primary-disabled'
-                                                }
-                                                disabled={
-                                                    isSubmitting ||
-                                                    Object.keys(errors).length !== 0 ||
-                                                    values.password.length === 0
-                                                }
+                                                className={(!dirty || !isValid) && 'button-primary-disabled'}
+                                                disabled={isSubmitting || !isValid}
                                             >
                                                 Reset
                                             </ButtonPrimary>
