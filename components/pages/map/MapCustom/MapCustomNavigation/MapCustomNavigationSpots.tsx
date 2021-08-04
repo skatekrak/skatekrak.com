@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { FlyToInterpolator, ViewportProps } from 'react-map-gl';
 
 import Scrollbar from 'components/Ui/Scrollbar';
 
@@ -9,7 +10,7 @@ import MapSearchResultPlace from '../../MapNavigation/MapSearch/MapSearchResults
 
 import { Spot } from 'lib/carrelageClient';
 import { useDispatch } from 'react-redux';
-import { selectSpot } from 'store/map/actions';
+import { selectSpot, setViewport } from 'store/map/actions';
 
 type Props = {
     mapSpots: any;
@@ -28,7 +29,17 @@ const MapCustomNavigationSpots = ({ mapSpots }: Props) => {
         setSearchValue('');
     };
 
-    const onSpotClick = (spot: Spot) => dispatch(selectSpot(spot.id));
+    const onSpotClick = (spot: Spot) => {
+        const viewport: Partial<ViewportProps> = {
+            latitude: spot.location.latitude,
+            longitude: spot.location.longitude,
+            transitionDuration: 1000,
+            transitionInterpolator: new FlyToInterpolator(),
+        };
+
+        dispatch(setViewport(viewport));
+        dispatch(selectSpot(spot.id));
+    };
 
     return (
         <div id="custom-map-navigation-extension-spots">
