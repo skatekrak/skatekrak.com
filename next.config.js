@@ -27,8 +27,8 @@ module.exports = withPlugins([withBundleAnalyzer({}), withCSS, withStylus, withC
     async redirects() {
         return [
             {
-                source: '/club',
-                destination: 'https://krakito.com',
+                source: '/join',
+                destination: 'https://buy.stripe.com/4gw02Tbao2Cna5O7ss',
                 permanent: true,
             },
             {
