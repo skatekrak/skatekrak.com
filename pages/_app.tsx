@@ -7,6 +7,7 @@ import { ConnectedRouter } from 'connected-next-router';
 import { QueryClient, QueryClientProvider } from 'react-query';
 
 import { wrapper } from 'store';
+import { ThemeStore } from 'styles/Theme/ThemeStore';
 
 import '/public/styles/reset.css';
 import '/public/styles/flexbox-grid.css';
@@ -63,7 +64,9 @@ const WrappedApp: React.FC<AppProps> = ({ Component, pageProps }) => (
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
             </Head>
             <ConnectedRouter>
-                <Component {...pageProps} />
+                <ThemeStore>
+                    <Component {...pageProps} />
+                </ThemeStore>
             </ConnectedRouter>
         </QueryClientProvider>
     </ErrorBoundary>
