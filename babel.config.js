@@ -16,6 +16,7 @@ module.exports = (api) => {
                 root: '.',
             },
         ],
+        ['styled-components', { ssr: true }],
     ];
 
     return {
