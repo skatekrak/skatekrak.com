@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 
 import decodeHTML from 'lib/decodeHTML';
 
-import Layout from 'components/Layout/Layout';
+import Layout from 'components/Layout';
 
 import BannerTop from 'components/Ui/Banners/BannerTop';
 import LayoutFeed from 'components/Ui/Feed/LayoutFeed';

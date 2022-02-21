@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import carrelage from 'lib/carrelageClient';
 import { Formik, Field, FormikErrors, FormikHelpers } from 'formik';
 
-import Layout from 'components/Layout/Layout';
+import Layout from 'components/Layout';
 import ButtonPrimary from 'components/Ui/Button/ButtonPrimary';
 
 type ResetPasswordFormValues = {

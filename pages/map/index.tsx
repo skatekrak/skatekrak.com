@@ -3,7 +3,7 @@ import Head from 'next/head';
 import React from 'react';
 import dynamic from 'next/dynamic';
 
-import Layout from 'components/Layout/Layout';
+import Layout from 'components/Layout';
 import TrackedPage from 'components/pages/TrackedPage';
 
 const DyamicMapContainer = dynamic(() => import('components/pages/map/MapContainer'), { ssr: false });

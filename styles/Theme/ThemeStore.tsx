@@ -14,10 +14,10 @@ const themeData: DefaultTheme = {
             20: '#CCE7FF',
         },
         tertiary: {
-            white: '#56AEFF',
-            dark: '#80C2FF',
-            medium: '#CCE7FF',
-            light: '#CCE7FF',
+            white: '#FFFFFF',
+            dark: '#1F1F1F',
+            medium: '#333333',
+            light: '#4D4D4D',
         },
         onLight: {
             highEmphasis: 'rgba(31, 31, 31, 0.9)',
@@ -51,6 +51,7 @@ const themeData: DefaultTheme = {
             low: '1px 3px 24px 1px rgba(0, 0, 0, 0.08)',
             medium: '1px 4px 24px 1px rgba(0, 0, 0, 0.14)',
             high: '1px 5px 24px 1px rgba(0, 0, 0, 0.24)',
+            highSharp: '0px 0px 4px 1px rgba(0, 0, 0, 0.2)',
             extreme: '1px 5px 24px 1px rgba(0, 0, 0, 0.4)',
         },
     },

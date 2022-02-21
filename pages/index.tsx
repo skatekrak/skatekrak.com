@@ -3,7 +3,7 @@ import validator from 'email-validator';
 import Head from 'next/head';
 import React from 'react';
 
-import Layout from 'components/Layout/Layout';
+import Layout from 'components/Layout';
 import TrackedPage from 'components/pages/TrackedPage';
 import KrakSymbole from 'components/Ui/branding/KrakSymbole';
 import LikeIcon from 'components/Ui/Icons/Like';

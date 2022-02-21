@@ -50,6 +50,7 @@ declare module 'styled-components' {
             onDark: {
                 low: string;
                 medium: string;
+                highSharp: string;
                 high: string;
                 extreme: string;
             };

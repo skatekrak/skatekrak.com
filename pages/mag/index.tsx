@@ -2,7 +2,7 @@ import { NextPage } from 'next';
 import Head from 'next/head';
 import React, { useState } from 'react';
 
-import Layout from 'components/Layout/Layout';
+import Layout from 'components/Layout';
 import BannerTop from 'components/Ui/Banners/BannerTop';
 import LayoutFeed from 'components/Ui/Feed/LayoutFeed';
 import RefreshScrollOnNewPage from 'components/Ui/Utils/RefreshScrollOnNewPage';
