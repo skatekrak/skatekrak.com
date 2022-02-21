@@ -1,6 +1,6 @@
 import axios from 'axios';
 import classNames from 'classnames';
-import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { InteractiveMap, FlyToInterpolator, ViewportProps } from 'react-map-gl';
 import { useSelector, useDispatch } from 'react-redux';
 import dynamic from 'next/dynamic';
@@ -9,7 +9,6 @@ import { useQuery } from 'react-query';
 import { Cluster, Spot, Status, Types } from 'lib/carrelageClient';
 
 import Legend from 'components/pages/map/Legend';
-import BannerTop from 'components/Ui/Banners/BannerTop';
 import { boxSpotsSearch, getSpotOverview } from 'lib/carrelageClient';
 import { mapRefreshEnd, setSpotOverview, setViewport } from 'store/map/actions';
 import { FilterStateUtil, FilterState } from 'lib/FilterState';
@@ -221,11 +220,6 @@ const MapContainer = () => {
                 </div>
             ) : (
                 <>
-                    <BannerTop
-                        offsetScroll={false}
-                        link="/app"
-                        text="The world is our playground. Download the app & help us enrich this map."
-                    />
                     {id !== undefined && customMapInfo !== undefined ? (
                         <MapCustomNavigation
                             id={customMapInfo.id}
