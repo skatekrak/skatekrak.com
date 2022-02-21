@@ -149,7 +149,6 @@ button {
 input,
 textarea,
 button {
-    outline: 0;
     border: 0;
 }
 button {
