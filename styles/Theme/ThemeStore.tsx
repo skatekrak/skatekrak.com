@@ -24,12 +24,14 @@ const themeData: DefaultTheme = {
             mediumEmphasis: 'rgba(31, 31, 31, 0.7)',
             lowEmphasis: 'rgba(31, 31, 31, 0.35)',
             placeholder: 'rgba(31, 31, 31, 0.17)',
+            divider: 'rgba(31, 31, 31, 0.05)',
         },
         onDark: {
             highEmphasis: 'rgba(255, 255, 255, 1)',
             mediumEmphasis: 'rgba(255, 255, 255, 0.7)',
             lowEmphasis: 'rgba(255, 255, 255, 0.4)',
             placeholder: 'rgba(255, 255, 255, 0.17)',
+            divider: 'rgba(255, 255, 255, 0.08)',
         },
         system: {
             error: '#FF0F0F',

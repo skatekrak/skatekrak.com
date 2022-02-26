@@ -24,12 +24,14 @@ declare module 'styled-components' {
                 mediumEmphasis: string;
                 lowEmphasis: string;
                 placeholder: string;
+                divider: string;
             };
             onDark: {
                 highEmphasis: string;
                 mediumEmphasis: string;
                 lowEmphasis: string;
                 placeholder: string;
+                divider: string;
             };
             system: {
                 error: string;
