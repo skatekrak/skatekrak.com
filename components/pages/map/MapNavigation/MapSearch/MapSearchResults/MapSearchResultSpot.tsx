@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
+import Typography from 'components/Ui/typography/Typography';
 import StreetIcon from 'components/pages/map/marker/icons/Street';
 import ParkIcon from 'components/pages/map/marker/icons/Park';
 import DiyIcon from 'components/pages/map/marker/icons/Diy';
@@ -10,6 +11,7 @@ import RipIcon from 'components/pages/map/marker/icons/Rip';
 import IconicBadge from 'components/pages/map/marker/badges/Iconic';
 import HistoryBadge from 'components/pages/map/marker/badges/History';
 import MinuteBadge from 'components/pages/map/marker/badges/Minute';
+import * as S from './MapSearchResults.styled';
 
 import { Spot, Status, Types } from 'lib/carrelageClient';
 import type { SpotHit } from 'lib/algolia';
@@ -22,17 +24,17 @@ type Props<T> = {
 export default function MapSearchResultSpot<T extends Spot | SpotHit>({ spot, onSpotClick }: Props<T>) {
     const [overBadgeCounter, setOverBadgeCounter] = useState<number | undefined>(undefined);
 
-    const renderedTags = spot.tags?.filter((tag, index: number, originaltags) => {
-        if (originaltags.length > 5 && index < 4) {
+    const renderedTags = spot.tags?.filter((tag) => {
+        if (tag === 'famous' || tag === 'history' || tag === 'minute') {
             return tag;
         }
     });
 
     useEffect(() => {
-        if (spot.tags?.length > 5) {
-            setOverBadgeCounter(spot.tags.length - 4);
+        if (renderedTags.length > 3) {
+            setOverBadgeCounter(renderedTags.length - 3);
         }
-    }, [spot.tags]);
+    }, [renderedTags]);
 
     const handleSpotClick = () => {
         onSpotClick(spot);
@@ -40,8 +42,8 @@ export default function MapSearchResultSpot<T extends Spot | SpotHit>({ spot, on
 
     return (
         <>
-            <button className="map-navigation-search-result-spot" onClick={handleSpotClick}>
-                <div className="map-navigation-search-result-spot-icon">
+            <S.MapSearchResultSpot onClick={handleSpotClick}>
+                <S.MapSearchResultSpotIcon>
                     {spot.status === Status.Active && (
                         <>
                             {spot.type === Types.Park && <ParkIcon />}
@@ -53,38 +55,44 @@ export default function MapSearchResultSpot<T extends Spot | SpotHit>({ spot, on
                     )}
                     {spot.status === Status.Wip && <WipIcon />}
                     {spot.status === Status.Rip && <RipIcon />}
-                </div>
-                <div className="map-navigation-search-result-spot-container-start">
-                    <p className="map-navigation-search-result-spot-name">{spot.name}</p>
+                </S.MapSearchResultSpotIcon>
+                <S.MapSearchResultSpotMain>
+                    <S.MapSearchResultSpotName component="subtitle1" truncateLines={1}>
+                        {spot.name}
+                    </S.MapSearchResultSpotName>
                     {spot.location && (
-                        <p className="map-navigation-search-result-spot-street">
+                        <S.MapSearchResultSpotStreet component="body2" truncateLines={1}>
                             {spot.location.streetNumber} {spot.location.streetName}
-                        </p>
+                        </S.MapSearchResultSpotStreet>
                     )}
-                </div>
-                <div className="map-navigation-search-result-spot-container-end">
+                </S.MapSearchResultSpotMain>
+                <S.MapSearchResultSpotDetails>
                     {renderedTags && (
-                        <div className="map-navigation-search-result-spot-badges">
+                        <S.MapSearchResultSpotBadges>
                             {renderedTags.map((tag) => (
                                 <React.Fragment key={tag}>
-                                    {tag === 'famous' && <IconicBadge />}
-                                    {tag === 'history' && <HistoryBadge />}
-                                    {tag === 'minute' && <MinuteBadge />}
+                                    {tag === 'famous' || tag === 'history' || tag === 'minute' ? (
+                                        <>
+                                            {tag === 'famous' && <IconicBadge />}
+                                            {tag === 'history' && <HistoryBadge />}
+                                            {tag === 'minute' && <MinuteBadge />}
+                                        </>
+                                    ) : (
+                                        <img src={`/images/map/custom-maps/${tag}`} />
+                                    )}
                                 </React.Fragment>
                             ))}
-                            {overBadgeCounter && (
-                                <div className="map-navigation-search-result-spot-badges-counter">
-                                    +{overBadgeCounter}
-                                </div>
-                            )}
-                        </div>
+                            {overBadgeCounter && <Typography component="body2">+{overBadgeCounter}</Typography>}
+                        </S.MapSearchResultSpotBadges>
                     )}
                     {spot.location && spot.location.city && (
-                        <p className="map-navigation-search-result-spot-city">{spot.location.city}</p>
+                        <S.MapSearchResultSpotCity component="body2" truncateLines={1}>
+                            {spot.location.city}
+                        </S.MapSearchResultSpotCity>
                     )}
-                </div>
-            </button>
-            <div className="map-navigation-search-result-spot-divider" />
+                </S.MapSearchResultSpotDetails>
+            </S.MapSearchResultSpot>
+            <S.MapSearchResultSpotDivider />
         </>
     );
 }

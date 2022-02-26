@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
+import * as S from './MapSearchResults.styled';
+
 import { toggleLegend } from 'store/map/actions';
 
 const MapSearchResultLoading = () => {
@@ -12,7 +14,7 @@ const MapSearchResultLoading = () => {
     }, []);
 
     return (
-        <div className="map-navigation-search-result-loading">
+        <S.MapSearchResultsLoading>
             <span className="skeleton-circle" />
             <div className="skeleton-container-start">
                 <span className="skeleton-box" />
@@ -22,7 +24,7 @@ const MapSearchResultLoading = () => {
                 <span className="skeleton-box" />
                 <span className="skeleton-box" />
             </div>
-        </div>
+        </S.MapSearchResultsLoading>
     );
 };
 

@@ -3,14 +3,17 @@ import useConstant from 'use-constant';
 import AwesomeDebouncePromise from 'awesome-debounce-promise';
 import { useQuery } from 'react-query';
 import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
 
-import MapSearchBar from './MapSearchBar';
+import SearchIcon from 'components/Ui/Icons/Search';
+import ClearIcon from 'components/Ui/Icons/Clear';
 import MapSearchResults from './MapSearchResults/MapSearchResults';
 import { SpotHit, spotIndex, SpotSearchResult } from 'lib/algolia';
 import { Place } from 'lib/placeApi';
-import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'store/reducers';
 import { toggleSearchResult } from 'store/map/actions';
+
+import * as S from './MapSearch.styled';
 
 const fetchPlaces = async (query: string): Promise<Place[]> => {
     const res = await axios.get('/api/place-search', { params: { input: query } });
@@ -59,13 +62,24 @@ const MapNavigation = () => {
     );
 
     return (
-        <div>
-            <MapSearchBar
-                searchValue={searchValue}
-                handleSearchChange={handleSearchChange}
-                clearSearchValue={clearSearchValue}
-                onFocus={() => updateSearchResultVisibility(true)}
-            />
+        <S.MapSearchContainer>
+            <S.MapSearchBar>
+                <input
+                    type="text"
+                    placeholder="Find a spot"
+                    value={searchValue}
+                    onChange={handleSearchChange}
+                    autoComplete="off"
+                    onFocus={() => updateSearchResultVisibility(true)}
+                />
+                {searchValue.length === 0 ? (
+                    <SearchIcon />
+                ) : (
+                    <button onClick={clearSearchValue}>
+                        <ClearIcon />
+                    </button>
+                )}
+            </S.MapSearchBar>
             {searchValue !== '' && searchResultOpen && (
                 <MapSearchResults
                     places={places ?? []}
@@ -74,7 +88,7 @@ const MapNavigation = () => {
                     onClick={() => updateSearchResultVisibility(false)}
                 />
             )}
-        </div>
+        </S.MapSearchContainer>
     );
 };
 

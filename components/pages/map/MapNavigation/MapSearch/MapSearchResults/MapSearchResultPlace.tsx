@@ -1,6 +1,8 @@
 import React from 'react';
 
 import PlaceIcon from 'components/pages/map/marker/icons/Place';
+import * as S from './MapSearchResults.styled';
+
 import { Place } from 'lib/placeApi';
 
 type Props = {
@@ -15,13 +17,15 @@ const MapSearchResultSpot = ({ place, onPlaceClick }: Props) => {
 
     return (
         <>
-            <button className="map-navigation-search-result-spot" onClick={handlePlaceClick}>
-                <PlaceIcon />
-                <div className="map-navigation-search-result-spot-container-start">
-                    <p className="map-navigation-search-result-place-name">{place.name}</p>
-                </div>
-            </button>
-            <div className="map-navigation-search-result-spot-divider" />
+            <S.MapSearchResultPlace onClick={handlePlaceClick}>
+                <S.MapSearchResultSpotIcon>
+                    <PlaceIcon />
+                </S.MapSearchResultSpotIcon>
+                <S.MapSearchResultSpotMain>
+                    <S.MapSearchResultSpotName truncateLines={1}>{place.name}</S.MapSearchResultSpotName>
+                </S.MapSearchResultSpotMain>
+            </S.MapSearchResultPlace>
+            <S.MapSearchResultSpotDivider />
         </>
     );
 };

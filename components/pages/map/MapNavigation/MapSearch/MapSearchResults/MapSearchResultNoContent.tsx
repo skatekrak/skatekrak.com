@@ -1,17 +1,14 @@
 import React from 'react';
-import Link from 'next/link';
+
+import Typography from 'components/Ui/typography/Typography';
+import * as S from './MapSearchResults.styled';
 
 const MapSearchResultNoContent = () => {
     return (
-        <div className="map-navigation-search-result-no-content">
-            <p>We can’t find this spot in our system</p>
-            <span>
-                You can create new spots by downloading{' '}
-                <Link href={'/app'}>
-                    <a>the app</a>
-                </Link>
-            </span>
-        </div>
+        <S.MapSearchResultsNoContent>
+            <Typography component="body1">We can’t find this spot in our system</Typography>
+            <Typography component="body2">Download the app to create new spots and add media.</Typography>
+        </S.MapSearchResultsNoContent>
     );
 };
 

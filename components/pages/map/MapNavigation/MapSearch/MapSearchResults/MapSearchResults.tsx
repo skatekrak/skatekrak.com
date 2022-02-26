@@ -9,6 +9,7 @@ import MapSearchResultLoading from './MapSearchResultLoading';
 import MapSearchResultNoContent from './MapSearchResultNoContent';
 import MapSearchResultSpot from './MapSearchResultSpot';
 import MapSearchResultPlace from './MapSearchResultPlace';
+import * as S from './MapSearchResults.styled';
 
 import { Place } from 'lib/placeApi';
 import { selectSpot, setViewport } from 'store/map/actions';
@@ -54,7 +55,7 @@ const MapSearchResults: React.FC<MapSearchResultsProps> = ({ spots, loading, pla
     );
 
     return (
-        <div id="map-navigation-search-results">
+        <S.MapSearchResultsContainer>
             <Scrollbar maxHeight="22.25rem">
                 {loading ? (
                     <MapSearchResultLoading />
@@ -75,7 +76,7 @@ const MapSearchResults: React.FC<MapSearchResultsProps> = ({ spots, loading, pla
                     </>
                 )}
             </Scrollbar>
-        </div>
+        </S.MapSearchResultsContainer>
     );
 };
 
