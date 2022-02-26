@@ -37,6 +37,37 @@ declare module 'styled-components' {
                 error: string;
                 success: string;
             };
+            map: {
+                street: {
+                    default: string;
+                    dark: string;
+                };
+                park: {
+                    default: string;
+                    dark: string;
+                };
+                shop: {
+                    default: string;
+                    dark: string;
+                };
+                private: {
+                    default: string;
+                    dark: string;
+                };
+                diy: {
+                    default: string;
+                    dark: string;
+                };
+                rip: {
+                    default: string;
+                    mid: string;
+                    dark: string;
+                };
+                wip: {
+                    default: string;
+                    dark: string;
+                };
+            };
         };
         shadow: {
             onText: {
