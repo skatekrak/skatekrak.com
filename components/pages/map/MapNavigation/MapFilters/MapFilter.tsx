@@ -1,4 +1,3 @@
-import classNames from 'classnames';
 import React, { useState, useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -8,6 +7,8 @@ import { Types, Status } from 'lib/carrelageClient';
 import { SpinnerCircle } from 'components/Ui/Icons/Spinners';
 import { toggleMapFilter } from 'store/map/actions';
 import { FilterStateUtil, FilterState } from 'lib/FilterState';
+
+import * as S from './MapFilters.styled';
 
 type Props = {
     filter: Types | Status;
@@ -22,7 +23,6 @@ const MapFilter: React.FC<Props> = ({ filter, icon }) => {
 
     const handleOnClick = useCallback(() => {
         dispatch(toggleMapFilter(filter));
-        // setIsActive(!isActive);
     }, [dispatch]);
 
     useEffect(() => {
@@ -52,15 +52,9 @@ const MapFilter: React.FC<Props> = ({ filter, icon }) => {
     }, [mapState]);
 
     return (
-        <button
-            className={classNames(`map-navigation-filter map-navigation-filter-${filter}`, {
-                'map-navigation-filter-inactive': !isActive,
-                'map-navigation-filter-loading': loading,
-            })}
-            onClick={handleOnClick}
-        >
+        <S.MapFilterContainer filter={filter} isActive={isActive} loading={loading} onClick={handleOnClick}>
             {loading ? <SpinnerCircle /> : icon}
-        </button>
+        </S.MapFilterContainer>
     );
 };
 
