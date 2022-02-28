@@ -18,13 +18,15 @@ const MapQuickAccessItem = ({ data, selected, noMapSelected, onClick }: Props) =
     };
 
     return (
-        <S.MapQuickAccessItem href="map" onClick={onClick} isSelected={selected}>
-            <S.MapQuickAccessItemImage
-                noMapSelected={noMapSelected}
-                src={`/images/map/custom-maps/${data.id}.png`}
-                srcSet={getSrcSet(data.id, isQuickAccessMap(data))}
-                alt={`${data.name} map logo`}
-            />
+        <S.MapQuickAccessItem href="map" onClick={onClick}>
+            <S.MapQuickAccessItemImageContainer isSelected={selected}>
+                <S.MapQuickAccessItemImage
+                    noMapSelected={noMapSelected}
+                    src={`/images/map/custom-maps/${data.id}.png`}
+                    srcSet={getSrcSet(data.id, isQuickAccessMap(data))}
+                    alt={`${data.name} map logo`}
+                />
+            </S.MapQuickAccessItemImageContainer>
             <S.MapQuickAccessItemDescription>
                 <S.MapQuickAccessItemHeader>
                     <Typography as="h4" component="condensedHeading6">

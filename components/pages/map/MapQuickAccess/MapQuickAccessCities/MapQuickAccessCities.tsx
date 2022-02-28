@@ -14,7 +14,7 @@ type MapQuickAccessCitiesProps = {
 const MapQuickAccessCities: React.FC<MapQuickAccessCitiesProps> = ({ isOpen, onCitiesClick }) => {
     return (
         <S.MapQuickAccessCities isOpen={isOpen}>
-            <ScrollBar maxHeight="calc(100vh - 6rem - 2px)">
+            <ScrollBar maxHeight="calc(100vh - 10rem)">
                 <S.MapQuickAccessCitiesGrid>
                     {cities.map((city) => (
                         <MapQuickAccessCityItem key={city.id} city={city} onCitiesClick={onCitiesClick} />

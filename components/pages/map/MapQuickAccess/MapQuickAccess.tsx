@@ -42,7 +42,7 @@ const MapQuickAccess = () => {
                     onClickOutside={() => setIsCitiesOpen(!isCitiesOpen)}
                     interactive
                     placement="left-start"
-                    offset={[-36, 24]}
+                    offset={[-36, 8]}
                     render={() => <MapQuickAccessCities isOpen={isCitiesOpen} onCitiesClick={onCitiesClick} />}
                 >
                     <MapQuickAccessCitiesToggleButton isCitiesOpen={isCitiesOpen} onCitiesClick={onCitiesClick} />
