@@ -22,6 +22,7 @@ type TypographyProps = {
         | 'overline'
         | 'condensedHeading3'
         | 'condensedHeading5'
+        | 'condensedHeading6'
         | 'condensedSubtitle1'
         | 'condensedButton'
         | 'condensedOverline';
@@ -113,6 +114,11 @@ const StyledTypography = styled.p<TruncateTextProps & TypographyProps>`
             fontFamily: theme.typography.fonts.roboto.condensed.bold,
             fontSize: '1.5rem',
             lineHeight: '1.8125rem',
+        }) ||
+        (component === 'condensedHeading6' && {
+            fontFamily: theme.typography.fonts.roboto.condensed.bold,
+            fontSize: '1.25rem',
+            lineHeight: '1.5rem',
         }) ||
         (component === 'condensedSubtitle1' && {
             fontFamily: theme.typography.fonts.roboto.condensed.bold,

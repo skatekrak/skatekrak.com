@@ -11,7 +11,7 @@ type Props = {
     map: QuickAccessMap;
 };
 
-const MapQuickAccessMap = ({ map }: Props) => {
+const MapQuickAccessCustom = ({ map }: Props) => {
     const router = useRouter();
     const dispatch = useDispatch();
 
@@ -39,4 +39,4 @@ const MapQuickAccessMap = ({ map }: Props) => {
     return <MapQuickAccessItem selected={isMapSelected} noMapSelected={isNoMapSelected} onClick={onClick} data={map} />;
 };
 
-export default MapQuickAccessMap;
+export default MapQuickAccessCustom;

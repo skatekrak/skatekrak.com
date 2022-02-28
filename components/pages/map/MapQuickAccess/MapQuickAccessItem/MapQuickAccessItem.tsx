@@ -1,9 +1,9 @@
 import React from 'react';
-import classNames from 'classnames';
 
 import IconArrowHead from 'components/Ui/Icons/ArrowHead';
-
 import type { QuickAccess, QuickAccessMap } from 'components/pages/map/MapQuickAccess/MapQuickAccess';
+import * as S from './MapQuickAccessItem.styled';
+import Typography from 'components/Ui/typography/Typography';
 
 type Props = {
     data: QuickAccessMap | QuickAccess;
@@ -18,32 +18,24 @@ const MapQuickAccessItem = ({ data, selected, noMapSelected, onClick }: Props) =
     };
 
     return (
-        <a
-            href="map"
-            onClick={onClick}
-            className={classNames('map-quick-access-item', {
-                'map-quick-access-item--selected': selected,
-            })}
-        >
-            <div className="map-quick-access-item-image-container">
-                <img
-                    className={classNames('map-quick-access-item-image', {
-                        'map-quick-access-item-image--not-selected': noMapSelected,
-                    })}
-                    src={`/images/map/custom-maps/${data.id}.png`}
-                    srcSet={getSrcSet(data.id, isQuickAccessMap(data))}
-                    alt={`${data.name} map logo`}
-                />
-            </div>
-            <div className="map-quick-access-item-description">
-                <div className="map-quick-access-item-header">
-                    <h4 className="map-quick-access-item-name">{data.name}</h4>
+        <S.MapQuickAccessItem href="map" onClick={onClick} isSelected={selected}>
+            <S.MapQuickAccessItemImage
+                noMapSelected={noMapSelected}
+                src={`/images/map/custom-maps/${data.id}.png`}
+                srcSet={getSrcSet(data.id, isQuickAccessMap(data))}
+                alt={`${data.name} map logo`}
+            />
+            <S.MapQuickAccessItemDescription>
+                <S.MapQuickAccessItemHeader>
+                    <Typography as="h4" component="condensedHeading6">
+                        {data.name}
+                    </Typography>
                     <IconArrowHead />
-                </div>
-                <p className="map-quick-access-item-body">{data.edito}</p>
-                {isQuickAccessMap(data) && <p className="map-quick-access-item-spots">{data.numberOfSpots} spots</p>}
-            </div>
-        </a>
+                </S.MapQuickAccessItemHeader>
+                <S.MapQuickAccessItemBody component="body2">{data.edito}</S.MapQuickAccessItemBody>
+                {isQuickAccessMap(data) && <Typography component="body2">{data.numberOfSpots} spots</Typography>}
+            </S.MapQuickAccessItemDescription>
+        </S.MapQuickAccessItem>
     );
 };
 

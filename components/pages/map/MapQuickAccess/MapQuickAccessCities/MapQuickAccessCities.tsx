@@ -1,8 +1,8 @@
 import React from 'react';
-import classNames from 'classnames';
 
-import MapQuickAccessCityItem from './MapQuickAccessCityItem';
 import ScrollBar from 'components/Ui/Scrollbar';
+import MapQuickAccessCityItem from './MapQuickAccessCityItem';
+import * as S from './MapQuickAccessCities.styled';
 
 import cities from 'data/cities/_cities';
 
@@ -13,15 +13,15 @@ type MapQuickAccessCitiesProps = {
 
 const MapQuickAccessCities: React.FC<MapQuickAccessCitiesProps> = ({ isOpen, onCitiesClick }) => {
     return (
-        <div id="map-quick-access-cities" className={classNames({ 'map-quick-access-cities--open': isOpen })}>
+        <S.MapQuickAccessCities isOpen={isOpen}>
             <ScrollBar maxHeight="calc(100vh - 6rem - 2px)">
-                <div id="map-quick-access-cities-grid">
+                <S.MapQuickAccessCitiesGrid>
                     {cities.map((city) => (
                         <MapQuickAccessCityItem key={city.id} city={city} onCitiesClick={onCitiesClick} />
                     ))}
-                </div>
+                </S.MapQuickAccessCitiesGrid>
             </ScrollBar>
-        </div>
+        </S.MapQuickAccessCities>
     );
 };
 

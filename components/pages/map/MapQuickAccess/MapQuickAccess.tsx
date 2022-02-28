@@ -3,9 +3,11 @@ import axios from 'axios';
 import { useQuery } from 'react-query';
 import Tippy from '@tippyjs/react/headless';
 
-import MapQuickAccessMap from './MapQuickAccessMap';
-import MapQuickAccessCity from './MapQuickAccessCity';
+import MapQuickAccessCustom from './MapQuickAccessCustom';
+import MapQuickAccessCitiesToggleButton from './MapQuickAccessCities/MapQuickAccessCitiesToggleButton';
 import MapQuickAccessCities from './MapQuickAccessCities';
+
+import * as S from './MapQuickAccess.styled';
 
 export interface QuickAccess {
     id: string;
@@ -32,22 +34,28 @@ const MapQuickAccess = () => {
     );
 
     return (
-        <div id="map-quick-access">
-            <p className="map-quick-access-section-title">Cities</p>
-            <Tippy
-                visible={isCitiesOpen}
-                onClickOutside={() => setIsCitiesOpen(!isCitiesOpen)}
-                interactive
-                placement="left-start"
-                offset={[-36, 24]}
-                render={() => <MapQuickAccessCities isOpen={isCitiesOpen} onCitiesClick={onCitiesClick} />}
-            >
-                <MapQuickAccessCity isCitiesOpen={isCitiesOpen} onCitiesClick={onCitiesClick} />
-            </Tippy>
-            <div className="map-quick-access-divider" />
-            <p className="map-quick-access-section-title">Maps</p>
-            {!isLoading && data && data.map((map) => <MapQuickAccessMap map={map} key={map.id} />)}
-        </div>
+        <S.MapQuickAccesscontainer>
+            <S.MapQuickAccessSectionTitle component="subtitle2">Cities</S.MapQuickAccessSectionTitle>
+            <div>
+                <Tippy
+                    visible={isCitiesOpen}
+                    onClickOutside={() => setIsCitiesOpen(!isCitiesOpen)}
+                    interactive
+                    placement="left-start"
+                    offset={[-36, 24]}
+                    render={() => <MapQuickAccessCities isOpen={isCitiesOpen} onCitiesClick={onCitiesClick} />}
+                >
+                    <MapQuickAccessCitiesToggleButton isCitiesOpen={isCitiesOpen} onCitiesClick={onCitiesClick} />
+                </Tippy>
+            </div>
+            <S.MapQuickAccessSectionDivider />
+            <S.MapQuickAccessSectionTitle component="subtitle2">Maps</S.MapQuickAccessSectionTitle>
+            <div style={{ position: 'relative' }}>
+                <S.MapQuickAccessCustomContainer>
+                    {!isLoading && data && data.map((map) => <MapQuickAccessCustom map={map} key={map.id} />)}
+                </S.MapQuickAccessCustomContainer>
+            </div>
+        </S.MapQuickAccesscontainer>
     );
 };
 

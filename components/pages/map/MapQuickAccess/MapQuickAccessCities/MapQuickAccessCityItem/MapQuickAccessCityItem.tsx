@@ -1,6 +1,9 @@
-import { City } from 'map';
 import React, { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
+
+import * as S from '../MapQuickAccessCities.styled';
+
+import { City } from 'map';
 import { toggleLegend, toggleSearchResult } from 'store/map/actions';
 import { flyTo, updateUrlParams } from 'store/map/thunk';
 
@@ -31,15 +34,16 @@ const MapQuickAccessCityItem: React.FC<MapQuickAccessCityItemProps> = ({ city, o
     );
 
     return (
-        <button className="map-quick-access-city-item" onClick={onClick}>
-            <div
+        <S.MapQuickAccessCityItem onClick={onClick}>
+            <S.MapQuickAccessCityItemImage
                 style={{
                     backgroundImage: `url('/images/map/cities/${city.id}@3x.jpg')`,
                 }}
-                className="map-quick-access-city-item-image"
             />
-            <p className="map-quick-access-city-item-name">{city.name}</p>
-        </button>
+            <S.MapQuickAccessCityItemName component="subtitle2" truncateLines={1}>
+                {city.name}
+            </S.MapQuickAccessCityItemName>
+        </S.MapQuickAccessCityItem>
     );
 };
 

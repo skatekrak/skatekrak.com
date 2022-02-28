@@ -199,7 +199,6 @@ const MapContainer = () => {
             const bounds = map.getBounds();
             const sw = bounds.getSouthWest();
             const ne = bounds.getNorthEast();
-            console.log(`${sw.lng} ${sw.lat} ; ${ne.lng} ${ne.lat}`);
         }
     }, [mapRef, viewport]);
 

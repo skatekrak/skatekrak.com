@@ -1,9 +1,10 @@
 import React, { Ref, useMemo } from 'react';
-import classNames from 'classnames';
 import { useRouter } from 'next/router';
 
+import MapQuickAccessItem from '../../MapQuickAccessItem';
+import * as S from '../MapQuickAccessCities.styled';
+
 import type { QuickAccess } from 'components/pages/map/MapQuickAccess/MapQuickAccess';
-import MapQuickAccessItem from '../MapQuickAccessItem';
 
 const city: QuickAccess = {
     id: 'paris',
@@ -17,7 +18,7 @@ type Props = {
     ref?: Ref<HTMLDivElement>;
 };
 
-const MapQuickAccessCity: React.FC<Props> = React.forwardRef((props, ref) => {
+const MapQuickAccessCitiesToggleButton: React.FC<Props> = React.forwardRef((props, ref) => {
     const { onCitiesClick, isCitiesOpen } = props;
     const router = useRouter();
 
@@ -26,12 +27,12 @@ const MapQuickAccessCity: React.FC<Props> = React.forwardRef((props, ref) => {
     }, [router.query.id]);
 
     return (
-        <div ref={ref} className={classNames('map-quick-access-city', { 'map-quick-access-city--open': isCitiesOpen })}>
+        <S.MapQuickAccessCitiesToggleButton ref={ref} isOpen={isCitiesOpen}>
             <MapQuickAccessItem noMapSelected={isNoMapSelected} onClick={onCitiesClick} data={city} />
-        </div>
+        </S.MapQuickAccessCitiesToggleButton>
     );
 });
 
-MapQuickAccessCity.displayName = 'MapQuickAccessCity';
+MapQuickAccessCitiesToggleButton.displayName = 'MapQuickAccessCitiesToggleButton';
 
-export default MapQuickAccessCity;
+export default MapQuickAccessCitiesToggleButton;
