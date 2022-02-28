@@ -11,7 +11,7 @@ export const MapFiltersContainer = styled.div`
 type MapFilterProps = {
     filter: Types | Status;
     isActive: boolean;
-    loading: boolean;
+    isLoading: boolean;
 };
 
 export const MapFilterContainer = styled.button<MapFilterProps>`
@@ -36,8 +36,8 @@ export const MapFilterContainer = styled.button<MapFilterProps>`
         margin: -1.5px;
         border-radius: inherit;
         z-index: -1;
-        ${({ theme, isActive, loading, filter }) =>
-            !isActive || loading
+        ${({ theme, isActive, isLoading, filter }) =>
+            !isActive || isLoading
                 ? `
             background: ${theme.color.tertiary.light}`
                 : (filter === 'street' &&
@@ -90,8 +90,8 @@ export const MapFilterContainer = styled.button<MapFilterProps>`
                 }
             `}
 
-        ${({ theme, loading }) =>
-            loading &&
+        ${({ theme, isLoading }) =>
+            isLoading &&
             css`
                 width: 1.25rem;
 

@@ -52,7 +52,7 @@ const MapFilter: React.FC<Props> = ({ filter, icon }) => {
     }, [mapState]);
 
     return (
-        <S.MapFilterContainer filter={filter} isActive={isActive} loading={loading} onClick={handleOnClick}>
+        <S.MapFilterContainer filter={filter} isActive={isActive} isLoading={loading} onClick={handleOnClick}>
             {loading ? <SpinnerCircle /> : icon}
         </S.MapFilterContainer>
     );
