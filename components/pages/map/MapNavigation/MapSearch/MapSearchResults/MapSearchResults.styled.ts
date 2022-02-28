@@ -96,6 +96,7 @@ export const MapSearchResultPlace = styled(MapSearchResultSpot)`
 
 export const MapSearchResultSpotIcon = styled.div`
     display: flex;
+    flex-direction: column;
 
     & svg {
         margin: auto 0.5rem auto 0;
