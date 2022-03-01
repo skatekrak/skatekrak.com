@@ -33,8 +33,13 @@ module.exports = withPlugins([withBundleAnalyzer({}), withCSS, withStylus, withC
             },
             {
                 source: '/map/:mapId',
-                destination: '/map?id=:mapId',
+                destination: '/?id=:mapId',
                 permanent: false,
+            },
+            {
+                source: '/map',
+                destination: '/',
+                permanent: true,
             },
         ];
     },
