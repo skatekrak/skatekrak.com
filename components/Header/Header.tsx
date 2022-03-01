@@ -44,15 +44,6 @@ const Header: React.FC = () => {
                                             iOS
                                         </Typography>
                                     </S.SecondaryNavItem>
-                                    <S.SecondaryNavItem
-                                        href="https://play.google.com/store/apps/details?id=com.krak"
-                                        target="_blank"
-                                        rel="noreferrer noopener"
-                                    >
-                                        <Typography as="span" component="subtitle2">
-                                            Android
-                                        </Typography>
-                                    </S.SecondaryNavItem>
 
                                     <S.SecondaryNavTitle component="subtitle2">Find us</S.SecondaryNavTitle>
                                     <S.SecondaryNavItem
