@@ -5,7 +5,7 @@ import carrelage from 'lib/carrelageClient';
 import { Formik, Field, FormikErrors, FormikHelpers } from 'formik';
 
 import Layout from 'components/Layout';
-import ButtonPrimary from 'components/Ui/Button/ButtonPrimary';
+import ButtonPrimary from 'components/Ui/Button/ButtonPrimary/ButtonPrimary';
 
 type ResetPasswordFormValues = {
     resetToken: string;
