@@ -8,6 +8,7 @@ export const Container = styled.header`
     flex-direction: column;
     padding: 0.625rem 2rem;
     background-color: ${({ theme }) => theme.color.tertiary.dark};
+    box-shadow: ${({ theme }) => theme.shadow.onDark.highSharp};
     z-index: 2;
 `;
 

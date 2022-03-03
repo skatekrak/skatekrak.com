@@ -12,6 +12,8 @@ const Header: React.FC = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const handleMenuOpen = () => setIsMenuOpen(!isMenuOpen);
 
+    const isConnected = false;
+
     return (
         <S.Container>
             <S.TopContainer>
@@ -96,9 +98,17 @@ const Header: React.FC = () => {
                         </Tippy>
                     </div>
 
-                    <S.NavItem as="button">
-                        <IconUserCircle />
-                    </S.NavItem>
+                    {isConnected ? (
+                        <S.NavItem as="button">
+                            <IconUserCircle />
+                        </S.NavItem>
+                    ) : (
+                        <Link href="/auth/login" passHref>
+                            <S.NavItem as="a">
+                                <IconUserCircle />
+                            </S.NavItem>
+                        </Link>
+                    )}
                 </S.Nav>
             </S.TopContainer>
         </S.Container>
