@@ -3,15 +3,6 @@ import styled from 'styled-components';
 import IconLike from 'components/Ui/Icons/IconLike';
 import ButtonPrimary from 'components/Ui/Button/ButtonPrimary';
 
-export const LoginContainer = styled.div`
-    width: 100%;
-    max-width: 20rem;
-    display: flex;
-    flex-direction: column;
-    margin: auto;
-    padding: 5rem 0;
-`;
-
 export const LoginKrakLikeIcon = styled(IconLike)`
     width: 3rem;
     margin: 0 auto 2rem;

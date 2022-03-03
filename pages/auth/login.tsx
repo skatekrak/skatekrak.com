@@ -33,7 +33,7 @@ const Login: NextPage = () => {
     return (
         <Layout>
             <S.AuthPageContainer>
-                <SL.LoginContainer>
+                <S.AuthUniqueColumnPage>
                     <SL.LoginKrakLikeIcon />
                     <Formik initialValues={initialValues} validate={validate} onSubmit={onSubmit}>
                         {({ errors, isSubmitting, handleSubmit, isValid, dirty, touched }) => (
@@ -115,7 +115,7 @@ const Login: NextPage = () => {
                             </form>
                         )}
                     </Formik>
-                </SL.LoginContainer>
+                </S.AuthUniqueColumnPage>
             </S.AuthPageContainer>
         </Layout>
     );

@@ -7,7 +7,17 @@ export const AuthPageContainer = styled.div`
     display: flex;
     flex-direction: column;
     width: 100%;
+    padding: 2rem 0;
+    color: ${({ theme }) => theme.color.onDark.highEmphasis};
     background-color: ${({ theme }) => theme.color.tertiary.dark};
+`;
+
+export const AuthUniqueColumnPage = styled.div`
+    width: 100%;
+    max-width: 20rem;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
 `;
 
 export const AuthInputField = styled.div`
