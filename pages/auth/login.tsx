@@ -1,7 +1,9 @@
 import React from 'react';
 import { NextPage } from 'next';
 import Link from 'next/link';
-import { Formik, Field, FormikErrors, FormikHelpers } from 'formik';
+import { Formik, Field, FormikHelpers } from 'formik';
+import * as Yup from 'yup';
+import _ from 'lodash';
 
 import Layout from 'components/Layout';
 import IconFacebook from 'components/Ui/Icons/Logos/IconFacebook';
@@ -19,13 +21,13 @@ type LoginFormValues = {
     remember: boolean;
 };
 
-const Login: NextPage = () => {
-    const initialValues: LoginFormValues = {
-        username: '',
-        password: '',
-        remember: false,
-    };
+const LoginFormSchema = Yup.object().shape({
+    username: Yup.string().required('Username cannot be empty').default(''),
+    password: Yup.string().required('Password cannot be empty').default(''),
+    remember: Yup.boolean().default(false),
+});
 
+const Login: NextPage = () => {
     const onSubmit = async (values: LoginFormValues, helpers: FormikHelpers<LoginFormValues>) => {
         console.log('value: ', values);
     };
@@ -35,8 +37,12 @@ const Login: NextPage = () => {
             <S.AuthPageContainer>
                 <S.AuthUniqueColumnPage>
                     <S.LoginKrakLikeIcon />
-                    <Formik initialValues={initialValues} validate={validate} onSubmit={onSubmit}>
-                        {({ errors, isSubmitting, handleSubmit, isValid, dirty, touched }) => (
+                    <Formik
+                        initialValues={LoginFormSchema.getDefault()}
+                        onSubmit={onSubmit}
+                        validationSchema={LoginFormSchema}
+                    >
+                        {({ errors, isSubmitting, handleSubmit, isValid, dirty }) => (
                             <form onSubmit={handleSubmit}>
                                 {/* Login inputs */}
                                 <S.AuthInputField>
@@ -65,21 +71,21 @@ const Login: NextPage = () => {
 
                                 {/* Submit */}
                                 <S.AuthSubmitContainer>
-                                    {(touched.username || touched.password) &&
-                                        (errors.password != null || errors.username != null) && (
-                                            <S.AuthSubmitErrorContainer>
-                                                {errors.username !== null && (
-                                                    <S.AuthSubmitError component="body2">
-                                                        {errors.username}
-                                                    </S.AuthSubmitError>
-                                                )}
-                                                {errors.password !== null && (
-                                                    <S.AuthSubmitError component="body2">
-                                                        {errors.password}
-                                                    </S.AuthSubmitError>
-                                                )}
-                                            </S.AuthSubmitErrorContainer>
-                                        )}
+                                    {/* First check if we have at least one error */}
+                                    {_.some(errors, (value) => !_.isNil(value)) && (
+                                        <S.AuthSubmitErrorContainer>
+                                            {/* Display the first error found which isn't nil */}
+                                            <S.AuthSubmitError component="body2">
+                                                {
+                                                    errors[
+                                                        _.first(
+                                                            Object.keys(errors).filter((key) => !_.isNil(errors[key])),
+                                                        )
+                                                    ]
+                                                }
+                                            </S.AuthSubmitError>
+                                        </S.AuthSubmitErrorContainer>
+                                    )}
                                     <ButtonPrimary
                                         type="submit"
                                         loading={isSubmitting}
@@ -119,20 +125,6 @@ const Login: NextPage = () => {
             </S.AuthPageContainer>
         </Layout>
     );
-};
-
-const validate = (values: LoginFormValues): FormikErrors<LoginFormValues> => {
-    const errors: FormikErrors<LoginFormValues> = {};
-
-    if (values.username === '') {
-        errors.username = 'Username cannot be empty';
-    }
-
-    if (values.password === '') {
-        errors.password = 'Password cannot be empty';
-    }
-
-    return errors;
 };
 
 export default Login;
