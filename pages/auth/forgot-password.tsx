@@ -13,7 +13,7 @@ type ForgotFormValues = {
     email: string;
 };
 
-const Login: NextPage = () => {
+const ForgotPassword: NextPage = () => {
     const initialValues: ForgotFormValues = {
         email: '',
     };
@@ -78,4 +78,4 @@ const validate = (values: ForgotFormValues): FormikErrors<ForgotFormValues> => {
     return errors;
 };
 
-export default Login;
+export default ForgotPassword;
