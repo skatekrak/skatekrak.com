@@ -1,33 +1,34 @@
 import React from 'react';
 import { NextPage } from 'next';
-import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { Formik, Field, FormikErrors, FormikHelpers } from 'formik';
 
 import Layout from 'components/Layout';
-import IconFacebook from 'components/Ui/Icons/Logos/IconFacebook';
-import IconApple from 'components/Ui/Icons/Logos/IconApple';
-import Typography from 'components/Ui/typography/Typography';
 import ButtonPrimary from 'components/Ui/Button/ButtonPrimary/ButtonPrimary';
 import Emoji from 'components/Ui/Icons/Emoji';
 
 import * as S from 'components/pages/auth/Auth.styled';
-import * as SL from 'components/pages/auth/Login.styled';
 
-type LoginFormValues = {
+type SignupFormValues = {
     username: string;
+    email: string;
     password: string;
-    remember: boolean;
+    confirmPassword: string;
 };
 
-const Login: NextPage = () => {
-    const initialValues: LoginFormValues = {
+const Signup: NextPage = () => {
+    const router = useRouter();
+
+    const initialValues: SignupFormValues = {
         username: '',
+        email: '',
         password: '',
-        remember: false,
+        confirmPassword: '',
     };
 
-    const onSubmit = async (values: LoginFormValues, helpers: FormikHelpers<LoginFormValues>) => {
+    const onSubmit = async (values: SignupFormValues, helpers: FormikHelpers<SignupFormValues>) => {
         console.log('value: ', values);
+        router.push('/auth/subscribe');
     };
 
     return (
@@ -35,33 +36,27 @@ const Login: NextPage = () => {
             <S.AuthPageContainer>
                 <S.AuthUniqueColumnPage>
                     <S.LoginKrakLikeIcon />
+                    <S.AuthFormTitle component="condensedHeading5">Join the family</S.AuthFormTitle>
                     <Formik initialValues={initialValues} validate={validate} onSubmit={onSubmit}>
                         {({ errors, isSubmitting, handleSubmit, isValid, dirty, touched }) => (
                             <form onSubmit={handleSubmit}>
-                                {/* Login inputs */}
+                                {/* Signup inputs */}
                                 <S.AuthInputField>
                                     <Emoji label="username" symbol="@" />
                                     <Field name="username" type="username" placeholder="Username" />
                                 </S.AuthInputField>
                                 <S.AuthInputField>
+                                    <Emoji label="email" symbol="📭" />
+                                    <Field name="email" type="email" placeholder="Email" />
+                                </S.AuthInputField>
+                                <S.AuthInputField>
                                     <Emoji label="password" symbol="🔒" />
                                     <Field name="password" type="password" placeholder="Password" />
                                 </S.AuthInputField>
-
-                                {/* Remember & Forgot */}
-                                <SL.LoginRememberForgotContainer>
-                                    <SL.LoginRememberMe>
-                                        <Field name="remember" type="checkbox" />
-                                        <Typography as="span" component="body2">
-                                            Remember me
-                                        </Typography>
-                                    </SL.LoginRememberMe>
-                                    <Link href="/auth/forgot-password">
-                                        <SL.LoginForgotLink>
-                                            <Typography component="body2">Forgot your password?</Typography>
-                                        </SL.LoginForgotLink>
-                                    </Link>
-                                </SL.LoginRememberForgotContainer>
+                                <S.AuthInputField>
+                                    <Emoji label="confirmPassword" symbol="🔒" />
+                                    <Field name="confirmPassword" type="password" placeholder="Confirm password" />
+                                </S.AuthInputField>
 
                                 {/* Submit */}
                                 <S.AuthSubmitContainer>
@@ -86,32 +81,9 @@ const Login: NextPage = () => {
                                         disabled={isSubmitting || !isValid || !dirty}
                                         fullWidth
                                     >
-                                        Login
+                                        Create my account
                                     </ButtonPrimary>
                                 </S.AuthSubmitContainer>
-
-                                {/* Social login */}
-                                <SL.LoginScoialAuth>
-                                    <SL.LoginFacebook onClick={null} icon={<IconFacebook />}>
-                                        Facebook
-                                    </SL.LoginFacebook>
-                                    <SL.LoginApple onClick={null} icon={<IconApple />}>
-                                        Apple
-                                    </SL.LoginApple>
-                                </SL.LoginScoialAuth>
-
-                                {/* Sign up */}
-                                <SL.LoginSignupContainer>
-                                    <Typography component="subtitle1">Don’t have an account yet?</Typography>
-                                    <Typography component="body2">
-                                        Sign up to access all map features, custom maps and private discord channels.
-                                    </Typography>
-                                    <Link href="/auth/signup" passHref>
-                                        <S.AuthButtonPrimaryLink>
-                                            <Typography component="button">Create my account</Typography>
-                                        </S.AuthButtonPrimaryLink>
-                                    </Link>
-                                </SL.LoginSignupContainer>
                             </form>
                         )}
                     </Formik>
@@ -121,18 +93,17 @@ const Login: NextPage = () => {
     );
 };
 
-const validate = (values: LoginFormValues): FormikErrors<LoginFormValues> => {
-    const errors: FormikErrors<LoginFormValues> = {};
+const validate = (values: SignupFormValues): FormikErrors<SignupFormValues> => {
+    const errors: FormikErrors<SignupFormValues> = {};
 
-    if (values.username === '') {
-        errors.username = 'Username cannot be empty';
+    if (values.username === '' || values.password === '' || values.email === '') {
+        errors.username = 'All the fields are required';
     }
-
-    if (values.password === '') {
-        errors.password = 'Password cannot be empty';
+    if (values.password !== values.confirmPassword) {
+        errors.password = 'Passwords must match';
     }
 
     return errors;
 };
 
-export default Login;
+export default Signup;

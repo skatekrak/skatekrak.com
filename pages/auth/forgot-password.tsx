@@ -26,7 +26,7 @@ const ForgotPassword: NextPage = () => {
         <Layout>
             <S.AuthPageContainer>
                 <S.AuthUniqueColumnPage>
-                    <SF.ForgotTitle component="condensedHeading5">Forgot your password?</SF.ForgotTitle>
+                    <S.AuthFormTitle component="condensedHeading5">Forgot your password?</S.AuthFormTitle>
                     <SF.ForgotDescription component="body1">
                         Give us your email and
                         <br />

@@ -1,13 +1,6 @@
 import styled from 'styled-components';
 
-import IconLike from 'components/Ui/Icons/IconLike';
 import ButtonPrimary from 'components/Ui/Button/ButtonPrimary';
-
-export const LoginKrakLikeIcon = styled(IconLike)`
-    width: 3rem;
-    margin: 0 auto 2rem;
-    fill: #a738ff;
-`;
 
 export const LoginRememberForgotContainer = styled.div`
     display: flex;
@@ -91,20 +84,5 @@ export const LoginSignupContainer = styled.div`
     & .ui-Typography:nth-child(0n + 2) {
         margin: 0.75rem 0 1.5rem;
         color: ${({ theme }) => theme.color.onDark.mediumEmphasis};
-    }
-`;
-
-export const LoginSignupLink = styled.a`
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0.75rem 2rem;
-    color: ${({ theme }) => theme.color.onDark.highEmphasis};
-    background-color: ${({ theme }) => theme.color.primary[80]};
-    border-radius: 0.25rem;
-    transition: 0.2s;
-
-    &:hover {
-        background-color: ${({ theme }) => theme.color.primary[100]};
     }
 `;
