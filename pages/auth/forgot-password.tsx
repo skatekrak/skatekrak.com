@@ -37,7 +37,7 @@ const Login: NextPage = () => {
                             <form onSubmit={handleSubmit}>
                                 {/* Email input */}
                                 <S.AuthInputField>
-                                    <Emoji label="email" symbol="@" />
+                                    <Emoji label="email" symbol="📭" />
                                     <Field name="email" type="email" placeholder="Email" />
                                 </S.AuthInputField>
 
