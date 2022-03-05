@@ -17,6 +17,7 @@ import * as S from 'components/pages/auth/Auth.styled';
 import * as SL from 'components/pages/auth/Login.styled';
 import { CarrelageAPIError } from 'shared/feudartifice/types';
 import { useRouter } from 'next/router';
+import useSession from 'lib/hook/carrelage/use-session';
 
 type LoginFormValues = {
     username: string;
@@ -40,6 +41,15 @@ const LoginFormSchema = Yup.object().shape({
 
 const Login: NextPage = () => {
     const router = useRouter();
+    const { isSuccess: gotSession, isLoading } = useSession();
+
+    if (gotSession) {
+        router.push('/');
+    }
+
+    if (isLoading) {
+        // TODO: Display loading page
+    }
 
     const onSubmit = async (values: LoginFormValues, helpers: FormikHelpers<LoginFormValues>) => {
         try {

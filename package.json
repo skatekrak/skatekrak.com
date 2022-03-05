@@ -24,6 +24,7 @@
         "@zeit/next-source-maps": "^0.0.3",
         "@zeit/next-stylus": "^1.0.1",
         "algoliasearch": "^4.5.1",
+        "await-to-js": "^3.0.0",
         "awesome-debounce-promise": "^2.1.0",
         "axios": "^0.21.0",
         "classnames": "^2.2.6",

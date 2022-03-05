@@ -11,6 +11,8 @@ import * as S from 'components/pages/auth/Auth.styled';
 import * as SF from 'components/pages/auth/Forgot.styled';
 import Feudartifice from 'shared/feudartifice';
 import { CarrelageAPIError } from 'shared/feudartifice/types';
+import useSession from 'lib/hook/carrelage/use-session';
+import { useRouter } from 'next/router';
 
 type ForgotFormValues = {
     email: string;
@@ -21,6 +23,17 @@ const ForgotFormSchema = Yup.object().shape({
 });
 
 const ForgotPassword: NextPage = () => {
+    const router = useRouter();
+    const { isSuccess: gotSession, isLoading } = useSession();
+
+    if (gotSession) {
+        router.push('/');
+    }
+
+    if (isLoading) {
+        // TODO: Display loading page
+    }
+
     const onSubmit = async (values: ForgotFormValues, helpers: FormikHelpers<ForgotFormValues>) => {
         try {
             await Feudartifice.auth.forgotPassword(values.email);

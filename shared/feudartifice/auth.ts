@@ -131,3 +131,13 @@ export const appleSignup = async ({ identifyToken, username }: AppleSignupParams
 
     return res.data;
 };
+
+export type SessionResponse = {
+    _id: string;
+    id: string;
+    role: 'user' | 'moderator' | 'admin';
+};
+export const getSession = async () => {
+    const res = await client.get<SessionResponse>('/auth/session');
+    return res.data;
+};
