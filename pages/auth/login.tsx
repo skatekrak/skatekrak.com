@@ -24,7 +24,15 @@ type LoginFormValues = {
 };
 
 const LoginFormSchema = Yup.object().shape({
-    username: Yup.string().required('Username cannot be empty').default(''),
+    username: Yup.string()
+        .min(1, 'Username must be more than one letter')
+        .max(15, 'Username cannot be more than 15 letters')
+        .matches(/^[a-z0-9_]+$/, {
+            message: "Username should only contains alphanumeric or '_' characters",
+            excludeEmptyString: true,
+        })
+        .required('Username cannot be empty')
+        .default(''),
     password: Yup.string().required('Password cannot be empty').default(''),
     remember: Yup.boolean().default(false),
 });
