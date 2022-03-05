@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { Formik, Field, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
 import _ from 'lodash';
+import Feudartifice from 'shared/feudartifice';
 
 import Layout from 'components/Layout';
 import IconFacebook from 'components/Ui/Icons/Logos/IconFacebook';
@@ -14,6 +15,7 @@ import Emoji from 'components/Ui/Icons/Emoji';
 
 import * as S from 'components/pages/auth/Auth.styled';
 import * as SL from 'components/pages/auth/Login.styled';
+import { CarrelageAPIError } from 'shared/feudartifice/types';
 
 type LoginFormValues = {
     username: string;
@@ -29,7 +31,20 @@ const LoginFormSchema = Yup.object().shape({
 
 const Login: NextPage = () => {
     const onSubmit = async (values: LoginFormValues, helpers: FormikHelpers<LoginFormValues>) => {
-        console.log('value: ', values);
+        try {
+            const res = await Feudartifice.auth.login({
+                username: values.username,
+                password: values.password,
+                mobile: values.remember,
+            });
+            console.log(res);
+        } catch (err) {
+            if (err.response) {
+                console.log(JSON.stringify(err.response, undefined, 2));
+                const error = err.response as CarrelageAPIError;
+                helpers.setFieldError('username', error.data.message);
+            }
+        }
     };
 
     return (
@@ -42,7 +57,7 @@ const Login: NextPage = () => {
                         onSubmit={onSubmit}
                         validationSchema={LoginFormSchema}
                     >
-                        {({ errors, isSubmitting, handleSubmit, isValid, dirty }) => (
+                        {({ errors, isSubmitting, handleSubmit, isValid, dirty, touched }) => (
                             <form onSubmit={handleSubmit}>
                                 {/* Login inputs */}
                                 <S.AuthInputField>
@@ -74,12 +89,15 @@ const Login: NextPage = () => {
                                     {/* First check if we have at least one error */}
                                     {_.some(errors, (value) => !_.isNil(value)) && (
                                         <S.AuthSubmitErrorContainer>
-                                            {/* Display the first error found which isn't nil */}
+                                            {/* Display the first error found which isn't nil and is touched */}
                                             <S.AuthSubmitError component="body2">
                                                 {
                                                     errors[
                                                         _.first(
-                                                            Object.keys(errors).filter((key) => !_.isNil(errors[key])),
+                                                            Object.keys(errors).filter(
+                                                                (key) =>
+                                                                    !_.isNil(errors[key]) && !_.isNil(touched[key]),
+                                                            ),
                                                         )
                                                     ]
                                                 }
