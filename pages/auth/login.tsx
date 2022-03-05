@@ -16,6 +16,7 @@ import Emoji from 'components/Ui/Icons/Emoji';
 import * as S from 'components/pages/auth/Auth.styled';
 import * as SL from 'components/pages/auth/Login.styled';
 import { CarrelageAPIError } from 'shared/feudartifice/types';
+import { useRouter } from 'next/router';
 
 type LoginFormValues = {
     username: string;
@@ -38,14 +39,16 @@ const LoginFormSchema = Yup.object().shape({
 });
 
 const Login: NextPage = () => {
+    const router = useRouter();
+
     const onSubmit = async (values: LoginFormValues, helpers: FormikHelpers<LoginFormValues>) => {
         try {
-            const res = await Feudartifice.auth.login({
+            await Feudartifice.auth.login({
                 username: values.username,
                 password: values.password,
                 mobile: values.remember,
             });
-            console.log(res);
+            router.push('/');
         } catch (err) {
             if (err.response) {
                 console.log(JSON.stringify(err.response, undefined, 2));
