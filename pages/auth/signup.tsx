@@ -46,9 +46,7 @@ const Signup: NextPage = () => {
                 password: values.password,
             });
 
-            // TODO: query to get currency of user
-            const { url } = await Feudartifice.payments.getCheckoutSession();
-            router.push(url);
+            router.push('/auth/subscribe');
         } catch (err) {
             if (err.response) {
                 const error = err.response as CarrelageAPIError;
