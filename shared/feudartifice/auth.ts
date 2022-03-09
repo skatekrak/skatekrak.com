@@ -101,6 +101,19 @@ export const forgotPassword = async (email: string) => {
     });
 };
 
+type ResetPasswordParams = {
+    resetToken: string;
+    password: string;
+};
+
+type ResetPasswordResponse = {
+    message: string;
+};
+export const resetPassword = async (params: ResetPasswordParams) => {
+    const res = await client.post<ResetPasswordResponse>('/auth/reset', params);
+    return res.data;
+};
+
 type AppleLoginParams = {
     identifyToken: string;
 };
