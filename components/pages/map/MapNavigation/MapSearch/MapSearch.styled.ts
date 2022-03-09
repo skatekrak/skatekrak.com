@@ -10,7 +10,6 @@ export const MapSearchContainer = styled.div`
 export const MapSearchBar = styled.div`
     display: flex;
     align-items: center;
-    min-width: 24rem;
     padding: 1rem 1rem 1rem 1rem;
     background-color: ${({ theme }) => theme.color.tertiary.dark};
     border: 1px solid ${({ theme }) => theme.color.tertiary.medium};
