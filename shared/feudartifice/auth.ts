@@ -21,6 +21,8 @@ export const signup = async ({ email, username, password }: SignupParams) => {
         mobile: true,
     });
 
+    setToken(res.data.token);
+
     return res.data;
 };
 
