@@ -203,44 +203,25 @@ const MapContainer = () => {
     }, [mapRef, viewport]);
 
     return (
-        <div
-            id="map-container"
-            ref={fullSpotContainerRef}
-            className={classNames({
-                'map-mobile': isMobile,
-            })}
-        >
-            {isMobile ? (
-                <div id="map-mobile-message">
-                    If you wanna enjoy our skatespots map and you're currently on your mobile, best way is to{' '}
-                    <a href="/app" id="map-mobile-message-link">
-                        download the app
-                    </a>
-                </div>
-            ) : (
-                <>
-                    {id !== undefined && customMapInfo !== undefined ? (
-                        <MapCustomNavigation
-                            id={customMapInfo.id}
-                            title={customMapInfo.name}
-                            about={customMapInfo.about}
-                            subtitle={customMapInfo.subtitle}
-                            spots={customMapInfo.spots}
-                        />
-                    ) : (
-                        <MapNavigation />
-                    )}
-                    <MapQuickAccess />
-                    <Legend />
-                    <MapFullSpot
-                        open={modalVisible}
-                        onClose={onFullSpotClose}
-                        container={fullSpotContainerRef.current}
+        <div id="map-container" ref={fullSpotContainerRef}>
+            <>
+                {id !== undefined && customMapInfo !== undefined ? (
+                    <MapCustomNavigation
+                        id={customMapInfo.id}
+                        title={customMapInfo.name}
+                        about={customMapInfo.about}
+                        subtitle={customMapInfo.subtitle}
+                        spots={customMapInfo.spots}
                     />
-                    <DynamicMapComponent mapRef={mapRef} clusters={customMapLoading ? [] : clusters} />
-                    <MapGradients />
-                </>
-            )}
+                ) : (
+                    <MapNavigation />
+                )}
+                {!isMobile && <MapQuickAccess />}
+                <Legend />
+                <MapFullSpot open={modalVisible} onClose={onFullSpotClose} container={fullSpotContainerRef.current} />
+                <DynamicMapComponent mapRef={mapRef} clusters={customMapLoading ? [] : clusters} />
+                <MapGradients />
+            </>
         </div>
     );
 };
