@@ -1,8 +1,7 @@
 @import "../stylus-mq"
 @import "../styleguide"
 @import "./map-styleguide"
-	
-@import "./map-legend"
+
 @import "./customMap"
 @import "./map-spot-overview"
 @import "./fullSpotPopup"
@@ -23,25 +22,6 @@
 
 		+mq($from: "medium")
 			margin-top: 0
-
-	&-mobile
-		&-message
-			margin: auto
-			padding: 6rem 2rem 0
-			text-align: center
-			line-height: 1.6
-			color: $grey-200
-
-			+mq($from: "small")
-				padding: 6rem 8rem 0
-
-			&-link
-				color: $primary
-				text-decoration: underline
-				transition: .2s
-
-				&:hover
-					color: $primaryDark
 
 	&-gradients
 		height: 0
@@ -98,10 +78,6 @@
 			z-index: 8
 
 .map
-	&-mobile
-		& #map
-			display: none !important
-
 	&-marker
 		position: relative
 
