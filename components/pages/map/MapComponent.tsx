@@ -1,11 +1,13 @@
 import React, { useMemo } from 'react';
-import ReactMapGL, { NavigationControl, ContextViewportChangeHandler } from 'react-map-gl';
 import { useDispatch, useSelector } from 'react-redux';
+import ReactMapGL, { NavigationControl, ContextViewportChangeHandler } from 'react-map-gl';
 
-import { Cluster } from 'lib/carrelageClient';
 import SpotCluster from 'components/pages/map/marker/SpotCluster';
 import SpotMarker from 'components/pages/map/marker/SpotMarker';
 import MapSpotOverview from './MapSpotOverview';
+import * as S from './Map.styled';
+
+import { Cluster } from 'lib/carrelageClient';
 import {
     selectSpot,
     setSpotOverview,
@@ -70,7 +72,7 @@ const MapComponent = ({ mapRef, clusters }: MapComponentProps) => {
     };
 
     return (
-        <div id="map">
+        <S.MapComponent>
             <ReactMapGL
                 ref={mapRef}
                 {...viewport}
@@ -95,11 +97,11 @@ const MapComponent = ({ mapRef, clusters }: MapComponentProps) => {
                 {/* Marker */}
                 {markers}
 
-                <div className="map-control-container">
+                <S.MapControlContainer>
                     <NavigationControl />
-                </div>
+                </S.MapControlContainer>
             </ReactMapGL>
-        </div>
+        </S.MapComponent>
     );
 };
 

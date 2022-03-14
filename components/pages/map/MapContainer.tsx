@@ -1,5 +1,4 @@
 import axios from 'axios';
-import classNames from 'classnames';
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { InteractiveMap, FlyToInterpolator, ViewportProps } from 'react-map-gl';
 import { useSelector, useDispatch } from 'react-redux';
@@ -7,17 +6,18 @@ import dynamic from 'next/dynamic';
 import { useQuery } from 'react-query';
 
 import { Cluster, Spot, Status, Types } from 'lib/carrelageClient';
-
-import Legend from 'components/pages/map/Legend';
 import { boxSpotsSearch, getSpotOverview } from 'lib/carrelageClient';
 import { mapRefreshEnd, setSpotOverview, setViewport } from 'store/map/actions';
 import { FilterStateUtil, FilterState } from 'lib/FilterState';
+import { RootState } from 'store/reducers';
+import { flyTo, updateUrlParams } from 'store/map/thunk';
+
+import Legend from 'components/pages/map/Legend';
 import MapQuickAccess from './MapQuickAccess';
 import MapCustomNavigation from './MapCustom/MapCustomNavigation';
 import MapNavigation from './MapNavigation';
 import MapGradients from './MapGradients';
-import { RootState } from 'store/reducers';
-import { flyTo, updateUrlParams } from 'store/map/thunk';
+import * as S from './Map.styled';
 
 const DynamicMapComponent = dynamic(() => import('./MapComponent'), { ssr: false });
 const MapFullSpot = dynamic(() => import('./MapFullSpot'), { ssr: false });
@@ -203,7 +203,7 @@ const MapContainer = () => {
     }, [mapRef, viewport]);
 
     return (
-        <div id="map-container" ref={fullSpotContainerRef}>
+        <S.MapContainer ref={fullSpotContainerRef}>
             <>
                 {id !== undefined && customMapInfo !== undefined ? (
                     <MapCustomNavigation
@@ -222,7 +222,7 @@ const MapContainer = () => {
                 <DynamicMapComponent mapRef={mapRef} clusters={customMapLoading ? [] : clusters} />
                 <MapGradients />
             </>
-        </div>
+        </S.MapContainer>
     );
 };
 
