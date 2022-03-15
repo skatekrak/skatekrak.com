@@ -7,7 +7,7 @@ import { render } from 'react-dom';
 /*
  * Local import
  */
-import ButtonPrimary from 'components/Ui/Button/ButtonPrimary';
+import ButtonPrimary from 'components/Ui/Button/ButtonPrimary/ButtonPrimary';
 import Modal from 'components/Ui/Modal';
 
 /*

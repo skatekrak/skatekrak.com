@@ -1,16 +1,24 @@
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
-import carrelage from 'lib/carrelageClient';
-import { Formik, Field, FormikErrors, FormikHelpers } from 'formik';
+import { Formik, Field, Form, FormikHelpers } from 'formik';
+import * as Yup from 'yup';
 
 import Layout from 'components/Layout';
-import ButtonPrimary from 'components/Ui/Button/ButtonPrimary';
+import ButtonPrimary from 'components/Ui/Button/ButtonPrimary/ButtonPrimary';
+import Feudartifice from 'shared/feudartifice';
 
 type ResetPasswordFormValues = {
     resetToken: string;
     password: string;
 };
+
+const ResetPasswordSchema = Yup.object().shape({
+    resetToken: Yup.string().required('Your reset token cannot be empty'),
+    password: Yup.string()
+        .min(6, 'Your password must be at least 6 characters long')
+        .required('A password must be filled'),
+});
 
 const ResetPassword: NextPage = () => {
     const { query } = useRouter();
@@ -23,17 +31,13 @@ const ResetPassword: NextPage = () => {
 
     const onSubmit = async (values: ResetPasswordFormValues, helpers: FormikHelpers<ResetPasswordFormValues>) => {
         try {
-            await carrelage.post('/auth/reset', {
-                ...values,
-            });
+            await Feudartifice.auth.resetPassword(values);
             setSuccess(true);
         } catch (err) {
             console.error(err);
             if (err.response) {
                 helpers.setFieldError('password', err.response.data.message);
             }
-        } finally {
-            helpers.setSubmitting(false);
         }
     };
 
@@ -53,9 +57,13 @@ const ResetPassword: NextPage = () => {
                                     <p>You can connect to the app with your new password</p>
                                 </div>
                             ) : (
-                                <Formik initialValues={initialValues} validate={validate} onSubmit={onSubmit}>
-                                    {({ errors, isSubmitting, handleSubmit, isValid, dirty, touched }) => (
-                                        <form id="auth-form" onSubmit={handleSubmit}>
+                                <Formik
+                                    initialValues={initialValues}
+                                    validationSchema={ResetPasswordSchema}
+                                    onSubmit={onSubmit}
+                                >
+                                    {({ errors, isSubmitting, isValid, dirty, touched }) => (
+                                        <Form id="auth-form">
                                             <div id="auth-form-inner-container">
                                                 <Field
                                                     className="auth-form-input"
@@ -78,7 +86,7 @@ const ResetPassword: NextPage = () => {
                                             >
                                                 Reset
                                             </ButtonPrimary>
-                                        </form>
+                                        </Form>
                                     )}
                                 </Formik>
                             )}
@@ -88,22 +96,6 @@ const ResetPassword: NextPage = () => {
             </div>
         </Layout>
     );
-};
-
-const validate = (values: ResetPasswordFormValues): FormikErrors<ResetPasswordFormValues> => {
-    const errors: FormikErrors<ResetPasswordFormValues> = {};
-
-    if (values.resetToken === '') {
-        errors.resetToken = 'Token cannot be empty';
-    }
-
-    if (values.password === '') {
-        errors.password = 'Password cannot be empty';
-    } else if (values.password.length < 6) {
-        errors.password = 'Password must be at least 6 characters long';
-    }
-
-    return errors;
 };
 
 export default ResetPassword;

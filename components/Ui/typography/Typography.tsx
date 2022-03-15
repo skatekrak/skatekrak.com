@@ -90,7 +90,8 @@ const StyledTypography = styled.p<TruncateTextProps & TypographyProps>`
         (component === 'button' && {
             fontFamily: theme.typography.fonts.roboto.bold,
             fontSize: '0.875rem',
-            letterSpacing: '1%',
+            lineHeight: '1.5rem',
+            letterSpacing: '0.03125rem',
             textTransform: 'uppercase',
         }) ||
         (component === 'caption' && {

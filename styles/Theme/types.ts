@@ -4,11 +4,13 @@ declare module 'styled-components' {
     export interface DefaultTheme {
         color: {
             primary: {
+                100: string;
                 80: string;
                 50: string;
                 20: string;
             };
             secondary: {
+                100: string;
                 80: string;
                 50: string;
                 20: string;
