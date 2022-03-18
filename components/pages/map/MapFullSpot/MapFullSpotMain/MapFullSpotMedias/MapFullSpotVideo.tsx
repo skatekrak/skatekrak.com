@@ -1,12 +1,14 @@
 import React, { useEffect, useMemo, useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import ReactPlayer from 'react-player';
 
-import { Media } from 'lib/carrelageClient';
 import VideoPlayer from 'components/Ui/Player/VideoPlayer';
 import MapFullSpotMediaOverlay from './MapFullSpotMediaOverlay';
-import { useDispatch, useSelector } from 'react-redux';
+import * as S from 'components/pages/map/MapFullSpot/MapFullSpotMain/MapFullSpotMain.styled';
+
 import { RootState } from 'store/reducers';
 import { setVideoPlaying } from 'store/map/actions';
-import ReactPlayer from 'react-player';
+import { Media } from 'lib/carrelageClient';
 
 export type MapFullSpotVideoProps = {
     media: Media;
@@ -29,7 +31,7 @@ const MapFullSpotVideo: React.FC<MapFullSpotVideoProps> = ({ media }) => {
     }, [isPlaying]);
 
     return (
-        <div key={media.id} className="map-full-spot-popup-main-media-container">
+        <S.MapFullSpotMainMediaContainer key={media.id}>
             {media.video && (
                 <VideoPlayer
                     ref={playerRef}
@@ -46,7 +48,7 @@ const MapFullSpotVideo: React.FC<MapFullSpotVideoProps> = ({ media }) => {
                 />
             )}
             {!isPlaying && <MapFullSpotMediaOverlay media={media} />}
-        </div>
+        </S.MapFullSpotMainMediaContainer>
     );
 };
 

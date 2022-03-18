@@ -8,14 +8,15 @@ import IconPrivate from 'components/pages/map/marker/icons/Private';
 import IconRip from 'components/pages/map/marker/icons/Rip';
 import IconShop from 'components/pages/map/marker/icons/Shop';
 import IconWip from 'components/pages/map/marker/icons/Wip';
+import IconMedia from 'components/Ui/Icons/IconMedia';
+import IconClips from 'components/Ui/Icons/IconClips';
+import MapFullSpotNavItem from './MapFullSpotNavItem';
+import * as S from './MapFullSpotNav.styled';
 
 import { Spot, Status, Types } from 'lib/carrelageClient';
 import { FullSpotTab } from 'store/map/reducers';
 import { selectFullSpotTab } from 'store/map/actions';
-import MapFullSpotNavItem from './MapFullSpotNavItem';
 import { RootState } from 'store/reducers';
-import IconMedia from 'components/Ui/Icons/IconMedia';
-import IconClips from 'components/Ui/Icons/IconClips';
 
 const SpotIcon = ({ type, status }: { type: Types; status: Status }) => {
     if (status === Status.Rip) {
@@ -61,22 +62,24 @@ const MapFullSpotNav = () => {
     };
 
     return (
-        <div id="map-full-spot-popup-nav">
+        <S.MapFullSpotNavContainer>
             {spotOverview != null && (
                 <>
-                    <div id="map-full-spot-popup-nav-header">
-                        <div id="map-full-spot-popup-nav-header-city">
-                            <p>
-                                <span>{spotOverview.spot.location.city}</span> | {spotOverview.spot.location.country}
-                            </p>
-                        </div>
-                        <h1 id="map-full-spot-popup-nav-header-name">{spotOverview.spot.name}</h1>
-                        <p id="map-full-spot-popup-nav-header-street">{displayAddress(spotOverview.spot)}</p>
-                        <div id="map-full-spot-popup-nav-header-extra">
+                    <S.MapFullSpotNavHeader>
+                        <S.MapFullSpotName forwardedAs="h1" component="heading5">
+                            {spotOverview.spot.name}
+                        </S.MapFullSpotName>
+                        <S.MapFullSpotCity component="caption">
+                            <span>{spotOverview.spot.location.city}</span> | {spotOverview.spot.location.country}
+                        </S.MapFullSpotCity>
+                        <S.MapFullSpotStreet component="caption">
+                            {displayAddress(spotOverview.spot)}
+                        </S.MapFullSpotStreet>
+                        <S.MapFullSpotExtra>
                             <SpotIcon type={spotOverview.spot.type} status={spotOverview.spot.status} />
-                        </div>
-                    </div>
-                    <nav id="map-full-spot-popup-nav-main">
+                        </S.MapFullSpotExtra>
+                    </S.MapFullSpotNavHeader>
+                    <S.MapFullSpotNavMain>
                         <MapFullSpotNavItem
                             text={`Media(${spotOverview.spot.mediasStat.all})`}
                             onClick={() => onTabSelect('media')}
@@ -89,10 +92,10 @@ const MapFullSpotNav = () => {
                             isActive={selectedTab === 'clips'}
                             icon={<IconClips />}
                         />
-                    </nav>
+                    </S.MapFullSpotNavMain>
                 </>
             )}
-        </div>
+        </S.MapFullSpotNavContainer>
     );
 };
 

@@ -1,11 +1,13 @@
 import React, { useEffect, useMemo, useRef } from 'react';
-
-import { Clip } from 'lib/carrelageClient';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from 'store/reducers';
-import VideoPlayer from 'components/Ui/Player/VideoPlayer';
 import ReactPlayer from 'react-player';
+
+import VideoPlayer from 'components/Ui/Player/VideoPlayer';
+import * as S from 'components/pages/map/MapFullSpot/MapFullSpotMain/MapFullSpotMain.styled';
+
 import { setVideoPlaying } from 'store/map/actions';
+import { Clip } from 'lib/carrelageClient';
+import { RootState } from 'store/reducers';
 
 type MapFullSpotMainClipProps = {
     clip: Clip;
@@ -28,8 +30,8 @@ const MapFullSpotMainClip = ({ clip }: MapFullSpotMainClipProps) => {
     }, [isPlaying]);
 
     return (
-        <div className="map-full-spot-popup-main-clip">
-            <h2 className="map-full-spot-popup-main-clip-title">{clip.title}</h2>
+        <S.MapFullSpotMainClip>
+            <S.MapFullSpotMainClipTitle component="heading6">{clip.title}</S.MapFullSpotMainClipTitle>
             <VideoPlayer
                 ref={playerRef}
                 playing={isPlaying}
@@ -39,7 +41,7 @@ const MapFullSpotMainClip = ({ clip }: MapFullSpotMainClipProps) => {
                 controls
                 playIcon={clip.provider === 'vimeo' ? () => <></> : undefined} // Remove play icon on Vimeo as there is already one in the thumbnail
             />
-        </div>
+        </S.MapFullSpotMainClip>
     );
 };
 

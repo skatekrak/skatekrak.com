@@ -1,15 +1,18 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import InfiniteScroll from 'react-infinite-scroller';
 
 import ScrollBar from 'components/Ui/Scrollbar';
+import { KrakLoading } from 'components/Ui/Icons/Spinners';
+import KrakMasonry from 'components/Ui/Masonry';
+import MapFullSpotVideo from './MapFullSpotVideo';
+import MapFullSpotPhoto from './MapFullSpotPhoto';
+import * as S from 'components/pages/map/MapFullSpot/MapFullSpotMain/MapFullSpotMain.styled';
 
 import { Spot, Media } from 'lib/carrelageClient';
 import useSpotMedias from 'lib/hook/carrelage/spot-medias';
 import { flatten } from 'lib/helpers';
-import { KrakLoading } from 'components/Ui/Icons/Spinners';
-import MapFullSpotVideo from './MapFullSpotVideo';
-import MapFullSpotPhoto from './MapFullSpotPhoto';
-import KrakMasonry from 'components/Ui/Masonry';
+import { RootState } from 'store/reducers';
 
 export type MapFullSpotMediasProps = {
     medias: Media[];
@@ -17,6 +20,8 @@ export type MapFullSpotMediasProps = {
 };
 
 const MapFullSpotMedias: React.FC<MapFullSpotMediasProps> = ({ medias: firstMedias, spot }) => {
+    const isMobile = useSelector((state: RootState) => state.settings.isMobile);
+
     const { isFetching, data, hasNextPage, fetchNextPage } = useSpotMedias(spot.id, firstMedias);
     const medias = flatten(data?.pages ?? []);
 
@@ -39,8 +44,8 @@ const MapFullSpotMedias: React.FC<MapFullSpotMediasProps> = ({ medias: firstMedi
                 getScrollParent={getScrollParent}
                 useWindow={false}
             >
-                <div id="map-full-spot-popup-main-media">
-                    <KrakMasonry breakpointCols={2}>
+                <S.MapFullSpotMainMediaGridContainer>
+                    <KrakMasonry breakpointCols={isMobile ? 1 : 2}>
                         {medias.map((media) => {
                             if (media.type === 'video') {
                                 return <MapFullSpotVideo key={media.id} media={media} />;
@@ -49,7 +54,7 @@ const MapFullSpotMedias: React.FC<MapFullSpotMediasProps> = ({ medias: firstMedi
                         })}
                     </KrakMasonry>
                     {isFetching && <KrakLoading />}
-                </div>
+                </S.MapFullSpotMainMediaGridContainer>
             </InfiniteScroll>
         </ScrollBar>
     );

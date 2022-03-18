@@ -3,6 +3,8 @@ import React, { useEffect } from 'react';
 import Modal from 'components/Ui/Modal';
 import MapFullSpotNav from './MapFullSpotNav';
 import MapFullSpotMain from './MapFullSpotMain';
+import * as S from './MapFullSpot.styled';
+
 import { useDispatch } from 'react-redux';
 import { selectFullSpotTab } from 'store/map/actions';
 
@@ -28,14 +30,14 @@ const MapFullSpot: React.FC<MapFullSpotProps> = ({ open, onClose, container }) =
 
     return (
         <Modal open={open} onClose={onClose} closable customClassNames={classNames} container={container}>
-            <div id="map-full-spot-popup">
-                <header id="map-full-spot-popup-nav-container">
+            <S.MapFullSpotContainer>
+                <S.MapFullSpotNavContainer>
                     <MapFullSpotNav />
-                </header>
-                <main id="map-full-spot-popup-main-container">
+                </S.MapFullSpotNavContainer>
+                <S.MapFullSpotMainContainer>
                     <MapFullSpotMain />
-                </main>
-            </div>
+                </S.MapFullSpotMainContainer>
+            </S.MapFullSpotContainer>
         </Modal>
     );
 };

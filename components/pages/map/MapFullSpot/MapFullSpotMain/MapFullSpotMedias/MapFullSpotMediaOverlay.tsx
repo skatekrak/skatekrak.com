@@ -1,11 +1,21 @@
 import React from 'react';
+
+import Typography from 'components/Ui/typography/Typography';
+import * as S from 'components/pages/map/MapFullSpot/MapFullSpotMain/MapFullSpotMain.styled';
+
 import { Media } from 'lib/carrelageClient';
 
 const MapFullSpotMediaOverlay = ({ media }: { media: Media }) => (
-    <div className="map-full-spot-popup-main-media-overlay">
-        <h5 className="map-full-spot-popup-main-media-overlay-author">{media.addedBy.username}</h5>
-        {media.caption != null && <p className="map-full-spot-popup-main-media-overlay-caption">{media.caption}</p>}
-    </div>
+    <S.MapFullSpotMainMediaOverlay>
+        <Typography as="h5" component="condensedSubtitle1">
+            {media.addedBy.username}
+        </Typography>
+        {media.caption != null && (
+            <S.MapFullSpotMainMediaOverlayCaption component="body2" truncateLines={3}>
+                {media.caption}
+            </S.MapFullSpotMainMediaOverlayCaption>
+        )}
+    </S.MapFullSpotMainMediaOverlay>
 );
 
 export default MapFullSpotMediaOverlay;

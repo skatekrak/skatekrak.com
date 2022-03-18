@@ -1,7 +1,6 @@
 import React from 'react';
-import classNames from 'classnames';
 
-import IconArrowHead from 'components/Ui/Icons/ArrowHead';
+import * as S from './MapFullSpotNav.styled';
 
 type MapFullSpotNavItemProps = {
     text: string;
@@ -12,16 +11,11 @@ type MapFullSpotNavItemProps = {
 
 const MapFullSpotNavItem: React.FC<MapFullSpotNavItemProps> = ({ text, onClick, isActive, icon }) => {
     return (
-        <button
-            className={classNames('map-full-spot-popup-nav-link', {
-                'map-full-spot-popup-nav-link--active': isActive,
-            })}
-            onClick={onClick}
-        >
-            {icon && <div className="map-full-spot-popup-nav-link-icon">{icon}</div>}
-            <p className="map-full-spot-popup-nav-link-text">{text}</p>
-            <IconArrowHead />
-        </button>
+        <S.MapFullSpotNavItem isActive={isActive} onClick={onClick}>
+            {icon && <S.MapFullSpotNavItemIcon>{icon}</S.MapFullSpotNavItemIcon>}
+            <S.MapFullSpotNavItemText component="condensedSubtitle1">{text}</S.MapFullSpotNavItemText>
+            <S.MapFullSpotNavItemArrow isActive={isActive} />
+        </S.MapFullSpotNavItem>
     );
 };
 
