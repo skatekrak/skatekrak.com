@@ -40,6 +40,7 @@ export const MapFullSpotCity = styled(Typography)`
 
 export const MapFullSpotStreet = styled(Typography)`
     font-style: italic;
+    font-family: ${({ theme }) => theme.typography.fonts.roboto.regular};
     color: ${({ theme }) => theme.color.onDark.mediumEmphasis};
 `;
 
