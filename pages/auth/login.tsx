@@ -141,7 +141,8 @@ const Login: NextPage = () => {
                                 <SL.LoginSignupContainer>
                                     <Typography component="subtitle1">Don’t have an account yet?</Typography>
                                     <Typography component="body2">
-                                        Sign up to access all map features, custom maps and private discord channels.
+                                        Sign up to access all the skatespot map features, some custom maps, and our
+                                        private discord server.
                                     </Typography>
                                     <Link href="/auth/signup" passHref>
                                         <S.AuthButtonPrimaryLink>

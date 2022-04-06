@@ -12,13 +12,16 @@ const MapHead = () => {
     const baseURL = process.env.NEXT_PUBLIC_WEBSITE_URL;
     return (
         <Head>
-            <title>Krak | Map</title>
-            <meta name="description" content="Krak Map. Discover new spots to skate in from a unique angle." />
-            <meta property="og:title" content="Krak Map" />
+            <title>Krak | skateboarding community and culture</title>
+            <meta
+                name="description"
+                content="The world's biggest collection of skate spots and skateboarding knowledge online."
+            />
+            <meta property="og:title" content="Krak | skateboarding community and culture" />
             <meta property="og:type" content="website" />
             <meta property="og:url" content={`${baseURL}`} />
             <meta property="og:image" content={`${baseURL}/images/og-map.png`} />
-            <meta property="og:description" content="Discover new spots to skate and explore out there." />
+            <meta property="og:description" content="Make more skateboarding happen in the world." />
         </Head>
     );
 };
