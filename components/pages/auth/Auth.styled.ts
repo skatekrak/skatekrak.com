@@ -55,7 +55,7 @@ export const AuthDoubleColumnPageColumn = styled.div`
 
 export const AuthDoubleColumnPageTightColumn = styled.div`
     width: 100%;
-    max-width: 22rem;
+    max-width: 26rem;
     display: flex;
     flex-direction: column;
     margin: auto;
