@@ -48,7 +48,7 @@ const Login: NextPage = () => {
             await Feudartifice.auth.login({
                 username: values.username,
                 password: values.password,
-                mobile: values.remember,
+                rememberMe: values.remember,
             });
             router.push('/');
         } catch (err) {

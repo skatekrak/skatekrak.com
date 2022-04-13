@@ -7,6 +7,7 @@ const client = axios.create({
     headers: {
         'User-Agent': `Feudartifice (${pkg.version})`,
     },
+    withCredentials: true,
 });
 
 export default client;

@@ -29,14 +29,16 @@ export const signup = async ({ email, username, password }: SignupParams) => {
 type LoginParams = {
     username: string;
     password: string;
-    mobile: boolean;
+    mobile?: boolean;
+    rememberMe?: boolean;
 };
 
-export const login = async ({ username, password, mobile }: LoginParams) => {
+export const login = async ({ username, password, mobile = false, rememberMe = false }: LoginParams) => {
     const res = await client.post<AuthenticationResponse>('/auth/login', {
         username,
         password,
         mobile,
+        rememberMe,
     });
 
     setToken(res.data.token);
