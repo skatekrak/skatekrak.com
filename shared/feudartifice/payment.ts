@@ -12,3 +12,11 @@ export const getCheckoutSession = async (currency: 'usd' | 'eur' = 'usd') => {
 
     return res.data;
 };
+export type GetPortalResponse = {
+    url: string;
+};
+export const getPortal = async () => {
+    const res = await client.get<GetPortalResponse>('/payments/portal');
+
+    return res.data;
+};
