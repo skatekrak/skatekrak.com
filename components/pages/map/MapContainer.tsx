@@ -158,13 +158,21 @@ const MapContainer = () => {
                     const northEast = bounds.getNorthEast();
                     const southWest = bounds.getSouthWest();
 
-                    const newClusters = await boxSpotsSearch({
-                        clustering: true,
+                    const newSpots = ((await boxSpotsSearch({
+                        clustering: false,
                         northEastLatitude: northEast.lat,
                         northEastLongitude: northEast.lng,
                         southWestLatitude: southWest.lat,
                         southWestLongitude: southWest.lng,
-                    });
+                    })) as any[]) as Spot[];
+
+                    const newClusters = newSpots.map((spot): any => ({
+                        id: spot.id,
+                        latitude: spot.location.latitude,
+                        longitude: spot.location.longitude,
+                        count: 1,
+                        spots: [spot],
+                    }));
 
                     refreshMap(mergeClusters(clusters, newClusters));
                 }
