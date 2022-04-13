@@ -7,12 +7,13 @@ import IconDotsThreeVertical from 'components/Ui/Icons/IconDotsThreeVertical';
 import IconUserCircle from 'components/Ui/Icons/IconUserCircle';
 import * as S from './Header.styled';
 import Typography from 'components/Ui/typography/Typography';
+import useSession from 'lib/hook/carrelage/use-session';
+import HeaderProfile from './HeaderProfile';
 
 const Header: React.FC = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const handleMenuOpen = () => setIsMenuOpen(!isMenuOpen);
-
-    const isConnected = false;
+    const { isSuccess: isConnected } = useSession();
 
     return (
         <S.Container>
@@ -99,9 +100,7 @@ const Header: React.FC = () => {
                     </div>
 
                     {isConnected ? (
-                        <S.NavItem as="button">
-                            <IconUserCircle />
-                        </S.NavItem>
+                        <HeaderProfile />
                     ) : (
                         <Link href="/auth/login" passHref>
                             <S.NavItem as="a">
