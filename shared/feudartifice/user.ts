@@ -13,3 +13,8 @@ export const editUser = async (id: string, changes: Partial<UserChanges>) => {
 
     return res.data;
 };
+
+export const getUserMe = async () => {
+    const res = await client.get<User>('/users/me');
+    return res.data;
+};

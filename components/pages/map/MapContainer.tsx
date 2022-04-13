@@ -7,6 +7,7 @@ import dynamic from 'next/dynamic';
 import { useQuery } from 'react-query';
 
 import { Cluster, Spot, Status, Types } from 'lib/carrelageClient';
+import { useUserMe } from 'shared/feudartifice/hooks/user';
 
 import Legend from 'components/pages/map/Legend';
 import { boxSpotsSearch, getSpotOverview } from 'lib/carrelageClient';
@@ -18,6 +19,7 @@ import MapNavigation from './MapNavigation';
 import MapGradients from './MapGradients';
 import { RootState } from 'store/reducers';
 import { flyTo, updateUrlParams } from 'store/map/thunk';
+import { SubscriptionStatus } from 'shared/feudartifice/types';
 
 const DynamicMapComponent = dynamic(() => import('./MapComponent'), { ssr: false });
 const MapFullSpot = dynamic(() => import('./MapFullSpot'), { ssr: false });
@@ -61,6 +63,7 @@ const MapContainer = () => {
 
     const [clusters, setClusters] = useState<Cluster[]>([]);
     const [, setFirstLoad] = useState(() => (spotId ? true : false));
+    const { data: userMe } = useUserMe({ retry: 0 });
 
     const { data: customMapInfo, isLoading: customMapLoading } = useQuery(
         ['load-custom-map', id],
@@ -236,7 +239,7 @@ const MapContainer = () => {
                             spots={customMapInfo.spots}
                         />
                     ) : (
-                        <MapNavigation />
+                        <>{userMe?.subscriptionStatus === SubscriptionStatus.Active && <MapNavigation />}</>
                     )}
                     <MapQuickAccess />
                     <Legend />
