@@ -21,6 +21,7 @@ type TypographyProps = {
         | 'caption'
         | 'overline'
         | 'condensedHeading3'
+        | 'condensedHeading4'
         | 'condensedHeading5'
         | 'condensedHeading6'
         | 'condensedSubtitle1'
@@ -110,6 +111,11 @@ const StyledTypography = styled.p<TruncateTextProps & TypographyProps>`
         (component === 'condensedHeading3' && {
             fontFamily: theme.typography.fonts.roboto.condensed.bold,
             fontSize: '3rem',
+        }) ||
+        (component === 'condensedHeading4' && {
+            fontFamily: theme.typography.fonts.roboto.condensed.bold,
+            fontSize: '2.125rem',
+            letterSpacing: '0.015625rem',
         }) ||
         (component === 'condensedHeading5' && {
             fontFamily: theme.typography.fonts.roboto.condensed.bold,

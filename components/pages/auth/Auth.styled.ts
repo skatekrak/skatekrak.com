@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 
+import media from 'styles/media';
 import Typography from 'components/Ui/typography/Typography';
 import IconLike from 'components/Ui/Icons/IconLike';
 
@@ -19,6 +20,46 @@ export const AuthUniqueColumnPage = styled.div`
     display: flex;
     flex-direction: column;
     margin: auto;
+`;
+
+export const AuthDoubleColumnPage = styled.div`
+    flex-grow: 1;
+    max-width: 72rem;
+    margin: auto;
+
+    ${media.laptopS} {
+        display: grid;
+        grid-template-columns: 1fr 1px 1fr;
+    }
+`;
+
+export const AuthDoubleColumnPageDivider = styled.div`
+    display: none;
+    height: 100%;
+    max-height: 32rem;
+    width: 100%;
+    margin: auto;
+    background-color: ${({ theme }) => theme.color.onDark.divider};
+
+    ${media.laptopS} {
+        display: block;
+    }
+`;
+
+export const AuthDoubleColumnPageColumn = styled.div`
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: auto;
+`;
+
+export const AuthDoubleColumnPageTightColumn = styled.div`
+    width: 100%;
+    max-width: 26rem;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    padding: 2rem;
 `;
 
 export const LoginKrakLikeIcon = styled(IconLike)`
