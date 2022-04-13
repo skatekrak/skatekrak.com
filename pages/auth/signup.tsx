@@ -45,6 +45,7 @@ const Signup: NextPage = () => {
                 username: values.username,
                 email: values.email,
                 password: values.password,
+                mobile: false,
             });
 
             router.push('/auth/subscribe');
