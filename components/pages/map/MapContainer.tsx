@@ -192,7 +192,7 @@ const MapContainer = () => {
         if (id === undefined) {
             load();
         }
-    }, [status, types, id, viewport]);
+    }, [status, types, id, viewport, load]);
 
     useEffect(() => {
         if (mapRef.current != null && id !== undefined && customMapInfo !== undefined) {
@@ -243,11 +243,13 @@ const MapContainer = () => {
                     )}
                     <MapQuickAccess />
                     <Legend />
-                    <MapFullSpot
-                        open={modalVisible}
-                        onClose={onFullSpotClose}
-                        container={fullSpotContainerRef.current}
-                    />
+                    {userMe?.subscriptionStatus === SubscriptionStatus.Active && (
+                        <MapFullSpot
+                            open={modalVisible}
+                            onClose={onFullSpotClose}
+                            container={fullSpotContainerRef.current}
+                        />
+                    )}
                     <DynamicMapComponent mapRef={mapRef} clusters={customMapLoading ? [] : clusters} />
                     <MapGradients />
                 </>
