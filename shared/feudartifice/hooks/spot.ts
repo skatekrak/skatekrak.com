@@ -1,5 +1,5 @@
-import Feudartifice from '@shared/feudartifice';
-import type { Spot } from '@shared/feudartifice/types';
+import Feudartifice from '..';
+import type { Spot } from '../types';
 import { useQuery } from 'react-query';
 
 const { client } = Feudartifice;
