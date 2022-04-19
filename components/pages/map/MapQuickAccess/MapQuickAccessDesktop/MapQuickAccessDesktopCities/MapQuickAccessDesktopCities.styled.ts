@@ -1,29 +1,29 @@
 import styled, { css } from 'styled-components';
 
 import Typography from 'components/Ui/typography/Typography';
-import { MapQuickAccessItemDescription } from '../MapQuickAccessItem/MapQuickAccessItem.styled';
+import { MapQuickAccessDesktopItemDescription } from '../MapQuickAccessDesktopItem/MapQuickAccessDesktopItem.styled';
 
-type MapQuickAccessCitiesToggleButtonProps = {
+type MapQuickAccessDesktopCitiesToggleButtonProps = {
     isOpen: boolean;
 };
 
-export const MapQuickAccessCitiesToggleButton = styled.div<MapQuickAccessCitiesToggleButtonProps>`
+export const MapQuickAccessDesktopCitiesToggleButton = styled.div<MapQuickAccessDesktopCitiesToggleButtonProps>`
     position: relative;
 
     ${({ isOpen }) =>
         isOpen &&
         css`
-            ${MapQuickAccessItemDescription} {
+            ${MapQuickAccessDesktopItemDescription} {
                 display: none !important;
             }
         `}
 `;
 
-type MapQuickAccessCitiesProps = {
+type MapQuickAccessDesktopCitiesProps = {
     isOpen: boolean;
 };
 
-export const MapQuickAccessCities = styled.div<MapQuickAccessCitiesProps>`
+export const MapQuickAccessDesktopCities = styled.div<MapQuickAccessDesktopCitiesProps>`
     display: none;
     width: 23rem;
     color: ${({ theme }) => theme.color.onDark.highEmphasis};
@@ -38,13 +38,13 @@ export const MapQuickAccessCities = styled.div<MapQuickAccessCitiesProps>`
         }}
 `;
 
-export const MapQuickAccessCitiesGrid = styled.div`
+export const MapQuickAccessDesktopCitiesGrid = styled.div`
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     padding: 1rem;
 `;
 
-export const MapQuickAccessCityItem = styled.button`
+export const MapQuickAccessDesktopCityItem = styled.button`
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -54,7 +54,7 @@ export const MapQuickAccessCityItem = styled.button`
     border: 0;
 `;
 
-export const MapQuickAccessCityItemImage = styled.div`
+export const MapQuickAccessDesktopCityItemImage = styled.div`
     width: 3.5rem;
     height: 3.5rem;
     background-color: ${({ theme }) => theme.color.tertiary.medium};
@@ -64,7 +64,7 @@ export const MapQuickAccessCityItemImage = styled.div`
     border-radius: 100%;
 `;
 
-export const MapQuickAccessCityItemName = styled(Typography)`
+export const MapQuickAccessDesktopCityItemName = styled(Typography)`
     width: 100%;
     margin-top: 0.25rem;
 `;

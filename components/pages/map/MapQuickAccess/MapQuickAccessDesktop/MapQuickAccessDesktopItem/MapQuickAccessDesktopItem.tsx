@@ -1,8 +1,11 @@
 import React from 'react';
 
 import IconArrowHead from 'components/Ui/Icons/ArrowHead';
-import type { QuickAccess, QuickAccessMap } from 'components/pages/map/MapQuickAccess/MapQuickAccess';
-import * as S from './MapQuickAccessItem.styled';
+import type {
+    QuickAccess,
+    QuickAccessMap,
+} from 'components/pages/map/mapQuickAccess/MapQuickAccessDesktop/MapQuickAccessDesktop';
+import * as S from './MapQuickAccessDesktopItem.styled';
 import Typography from 'components/Ui/typography/Typography';
 
 type Props = {
@@ -12,32 +15,32 @@ type Props = {
     onClick: (e: React.SyntheticEvent) => void;
 };
 
-const MapQuickAccessItem = ({ data, selected, noMapSelected, onClick }: Props) => {
+const MapQuickAccessDesktopItem = ({ data, selected, noMapSelected, onClick }: Props) => {
     const isQuickAccessMap = (data: unknown): data is QuickAccessMap => {
         return data != null && (data as QuickAccessMap).numberOfSpots != null;
     };
 
     return (
-        <S.MapQuickAccessItem href="map" onClick={onClick}>
-            <S.MapQuickAccessItemImageContainer isSelected={selected}>
-                <S.MapQuickAccessItemImage
+        <S.MapQuickAccessDesktopItem href="map" onClick={onClick}>
+            <S.MapQuickAccessDesktopItemImageContainer isSelected={selected}>
+                <S.MapQuickAccessDesktopItemImage
                     noMapSelected={noMapSelected}
                     src={`/images/map/custom-maps/${data.id}.png`}
                     srcSet={getSrcSet(data.id, isQuickAccessMap(data))}
                     alt={`${data.name} map logo`}
                 />
-            </S.MapQuickAccessItemImageContainer>
-            <S.MapQuickAccessItemDescription>
-                <S.MapQuickAccessItemHeader>
+            </S.MapQuickAccessDesktopItemImageContainer>
+            <S.MapQuickAccessDesktopItemDescription>
+                <S.MapQuickAccessDesktopItemHeader>
                     <Typography as="h4" component="condensedHeading6">
                         {data.name}
                     </Typography>
                     <IconArrowHead />
-                </S.MapQuickAccessItemHeader>
-                <S.MapQuickAccessItemBody component="body2">{data.edito}</S.MapQuickAccessItemBody>
+                </S.MapQuickAccessDesktopItemHeader>
+                <S.MapQuickAccessDesktopItemBody component="body2">{data.edito}</S.MapQuickAccessDesktopItemBody>
                 {isQuickAccessMap(data) && <Typography component="body2">{data.numberOfSpots} spots</Typography>}
-            </S.MapQuickAccessItemDescription>
-        </S.MapQuickAccessItem>
+            </S.MapQuickAccessDesktopItemDescription>
+        </S.MapQuickAccessDesktopItem>
     );
 };
 
@@ -55,4 +58,4 @@ function getSrcSet(id: string, isQuickAccessMap: boolean): string {
     `;
 }
 
-export default React.memo(MapQuickAccessItem);
+export default React.memo(MapQuickAccessDesktopItem);

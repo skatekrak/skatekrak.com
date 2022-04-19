@@ -2,16 +2,16 @@ import { useRouter } from 'next/router';
 import React, { useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 
-import type { QuickAccessMap } from 'components/pages/map/MapQuickAccess/MapQuickAccess';
+import type { QuickAccessMap } from 'components/pages/map/mapQuickAccess/MapQuickAccessDesktop/MapQuickAccessDesktop';
 import { toggleLegend, toggleSearchResult } from 'store/map/actions';
 import { updateUrlParams } from 'store/map/thunk';
-import MapQuickAccessItem from '../MapQuickAccessItem';
+import MapQuickAccessDesktopItem from '../MapQuickAccessDesktopItem';
 
 type Props = {
     map: QuickAccessMap;
 };
 
-const MapQuickAccessCustom = ({ map }: Props) => {
+const MapQuickAccessDesktopCustom = ({ map }: Props) => {
     const router = useRouter();
     const dispatch = useDispatch();
 
@@ -36,7 +36,14 @@ const MapQuickAccessCustom = ({ map }: Props) => {
         );
     };
 
-    return <MapQuickAccessItem selected={isMapSelected} noMapSelected={isNoMapSelected} onClick={onClick} data={map} />;
+    return (
+        <MapQuickAccessDesktopItem
+            selected={isMapSelected}
+            noMapSelected={isNoMapSelected}
+            onClick={onClick}
+            data={map}
+        />
+    );
 };
 
-export default MapQuickAccessCustom;
+export default MapQuickAccessDesktopCustom;

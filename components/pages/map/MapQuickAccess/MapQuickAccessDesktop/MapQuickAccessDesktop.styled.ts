@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 import Typography from 'components/Ui/typography/Typography';
 
-export const MapQuickAccesscontainer = styled.div`
+export const MapQuickAccessDesktopContainer = styled.div`
     position: absolute;
     top: 1.5rem;
     right: 1.5rem;
@@ -17,7 +17,7 @@ export const MapQuickAccesscontainer = styled.div`
     z-index: 1000;
 `;
 
-export const MapQuickAccessSectionTitle = styled(Typography)`
+export const MapQuickAccessDesktopSectionTitle = styled(Typography)`
     flex-shrink: 0;
     margin: 0 0.75rem;
     margin-bottom: 0.375rem;
@@ -25,7 +25,7 @@ export const MapQuickAccessSectionTitle = styled(Typography)`
     color: ${({ theme }) => theme.color.onDark.mediumEmphasis};
 `;
 
-export const MapQuickAccessSectionDivider = styled.div`
+export const MapQuickAccessDesktopSectionDivider = styled.div`
     flex-shrink: 0;
     height: 1px;
     width: calc(100% - 1.5rem);
@@ -33,7 +33,7 @@ export const MapQuickAccessSectionDivider = styled.div`
     background-color: ${({ theme }) => theme.color.onDark.divider};
 `;
 
-export const MapQuickAccessCustomContainer = styled.div`
+export const MapQuickAccessDesktopCustomContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;

@@ -3,11 +3,11 @@ import axios from 'axios';
 import { useQuery } from 'react-query';
 import Tippy from '@tippyjs/react/headless';
 
-import MapQuickAccessCustom from './MapQuickAccessCustom';
-import MapQuickAccessCitiesToggleButton from './MapQuickAccessCities/MapQuickAccessCitiesToggleButton';
-import MapQuickAccessCities from './MapQuickAccessCities';
+import MapQuickAccessCustom from './MapQuickAccessDesktopCustom';
+import MapQuickAccessCitiesToggleButton from './MapQuickAccessDesktopCities/MapQuickAccessDesktopCitiesToggleButton';
+import MapQuickAccessCities from './MapQuickAccessDesktopCities';
 
-import * as S from './MapQuickAccess.styled';
+import * as S from './MapQuickAccessDesktop.styled';
 
 export interface QuickAccess {
     id: string;
@@ -21,7 +21,7 @@ export interface QuickAccessMap extends QuickAccess {
     numberOfSpots?: number;
 }
 
-const MapQuickAccess = () => {
+const MapQuickAccessDesktop = () => {
     const [isCitiesOpen, setIsCitiesOpen] = useState(false);
 
     const onCitiesClick = (e: React.SyntheticEvent) => {
@@ -34,8 +34,8 @@ const MapQuickAccess = () => {
     );
 
     return (
-        <S.MapQuickAccesscontainer>
-            <S.MapQuickAccessSectionTitle component="subtitle2">Cities</S.MapQuickAccessSectionTitle>
+        <S.MapQuickAccessDesktopContainer>
+            <S.MapQuickAccessDesktopSectionTitle component="subtitle2">Cities</S.MapQuickAccessDesktopSectionTitle>
             <div>
                 <Tippy
                     visible={isCitiesOpen}
@@ -48,15 +48,15 @@ const MapQuickAccess = () => {
                     <MapQuickAccessCitiesToggleButton isCitiesOpen={isCitiesOpen} onCitiesClick={onCitiesClick} />
                 </Tippy>
             </div>
-            <S.MapQuickAccessSectionDivider />
-            <S.MapQuickAccessSectionTitle component="subtitle2">Maps</S.MapQuickAccessSectionTitle>
+            <S.MapQuickAccessDesktopSectionDivider />
+            <S.MapQuickAccessDesktopSectionTitle component="subtitle2">Maps</S.MapQuickAccessDesktopSectionTitle>
             <div style={{ position: 'relative' }}>
-                <S.MapQuickAccessCustomContainer>
+                <S.MapQuickAccessDesktopCustomContainer>
                     {!isLoading && data && data.map((map) => <MapQuickAccessCustom map={map} key={map.id} />)}
-                </S.MapQuickAccessCustomContainer>
+                </S.MapQuickAccessDesktopCustomContainer>
             </div>
-        </S.MapQuickAccesscontainer>
+        </S.MapQuickAccessDesktopContainer>
     );
 };
 
-export default React.memo(MapQuickAccess);
+export default React.memo(MapQuickAccessDesktop);

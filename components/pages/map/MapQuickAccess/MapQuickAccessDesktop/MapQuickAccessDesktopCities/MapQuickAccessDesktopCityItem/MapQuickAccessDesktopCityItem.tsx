@@ -1,18 +1,18 @@
 import React, { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 
-import * as S from '../MapQuickAccessCities.styled';
+import * as S from '../MapQuickAccessDesktopCities.styled';
 
 import { City } from 'map';
 import { toggleLegend, toggleSearchResult } from 'store/map/actions';
 import { flyTo, updateUrlParams } from 'store/map/thunk';
 
-type MapQuickAccessCityItemProps = {
+type MapQuickAccessDesktopCityItemProps = {
     city: City;
     onCitiesClick: (e: React.SyntheticEvent) => void;
 };
 
-const MapQuickAccessCityItem: React.FC<MapQuickAccessCityItemProps> = ({ city, onCitiesClick }) => {
+const MapQuickAccessDesktopCityItem: React.FC<MapQuickAccessDesktopCityItemProps> = ({ city, onCitiesClick }) => {
     const dispatch = useDispatch();
 
     const onClick = useCallback(
@@ -34,17 +34,17 @@ const MapQuickAccessCityItem: React.FC<MapQuickAccessCityItemProps> = ({ city, o
     );
 
     return (
-        <S.MapQuickAccessCityItem onClick={onClick}>
-            <S.MapQuickAccessCityItemImage
+        <S.MapQuickAccessDesktopCityItem onClick={onClick}>
+            <S.MapQuickAccessDesktopCityItemImage
                 style={{
                     backgroundImage: `url('/images/map/cities/${city.id}@3x.jpg')`,
                 }}
             />
-            <S.MapQuickAccessCityItemName component="subtitle2" truncateLines={1}>
+            <S.MapQuickAccessDesktopCityItemName component="subtitle2" truncateLines={1}>
                 {city.name}
-            </S.MapQuickAccessCityItemName>
-        </S.MapQuickAccessCityItem>
+            </S.MapQuickAccessDesktopCityItemName>
+        </S.MapQuickAccessDesktopCityItem>
     );
 };
 
-export default React.memo(MapQuickAccessCityItem);
+export default React.memo(MapQuickAccessDesktopCityItem);

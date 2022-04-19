@@ -2,11 +2,11 @@ import styled, { css } from 'styled-components';
 
 import Typography from 'components/Ui/typography/Typography';
 
-type MapQuickAccessItemImageContainerProps = {
+type MapQuickAccessDesktopItemImageContainerProps = {
     isSelected: boolean;
 };
 
-export const MapQuickAccessItemImageContainer = styled.div<MapQuickAccessItemImageContainerProps>`
+export const MapQuickAccessDesktopItemImageContainer = styled.div<MapQuickAccessDesktopItemImageContainerProps>`
     position: relative;
 
     ${({ theme, isSelected }) =>
@@ -25,11 +25,11 @@ export const MapQuickAccessItemImageContainer = styled.div<MapQuickAccessItemIma
         `}
 `;
 
-type MapQuickAccessItemImageProps = {
+type MapQuickAccessDesktopItemImageProps = {
     noMapSelected: boolean;
 };
 
-export const MapQuickAccessItemImage = styled.img<MapQuickAccessItemImageProps>`
+export const MapQuickAccessDesktopItemImage = styled.img<MapQuickAccessDesktopItemImageProps>`
     display: block;
     width: 2.5rem;
     height: 2.5rem;
@@ -43,7 +43,7 @@ export const MapQuickAccessItemImage = styled.img<MapQuickAccessItemImageProps>`
         }}
 `;
 
-export const MapQuickAccessItemDescription = styled.div`
+export const MapQuickAccessDesktopItemDescription = styled.div`
     display: none;
     position: absolute;
     top: 0rem;
@@ -57,7 +57,7 @@ export const MapQuickAccessItemDescription = styled.div`
     box-shadow: ${({ theme }) => theme.shadow.onDark.highSharp};
 `;
 
-export const MapQuickAccessItemHeader = styled.div`
+export const MapQuickAccessDesktopItemHeader = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -68,19 +68,19 @@ export const MapQuickAccessItemHeader = styled.div`
     }
 `;
 
-export const MapQuickAccessItemBody = styled(Typography)`
+export const MapQuickAccessDesktopItemBody = styled(Typography)`
     margin: 0.5rem 0;
     color: ${({ theme }) => theme.color.onDark.mediumEmphasis};
 `;
 
-export const MapQuickAccessItem = styled.a`
+export const MapQuickAccessDesktopItem = styled.a`
     position: static;
     display: flex;
     padding: 0.375rem 0.75rem;
     color: ${({ theme }) => theme.color.onDark.highEmphasis};
 
     &:hover {
-        ${MapQuickAccessItemDescription} {
+        ${MapQuickAccessDesktopItemDescription} {
             display: block;
         }
     }

@@ -13,7 +13,8 @@ import { RootState } from 'store/reducers';
 import { flyTo, updateUrlParams } from 'store/map/thunk';
 
 import Legend from 'components/pages/map/Legend';
-import MapQuickAccess from './MapQuickAccess';
+import MapQuickAccess from './mapQuickAccess/MapQuickAccessDesktop';
+import MapQuickAccessMobile from './mapQuickAccess/MapQuickAccessMobile';
 import MapCustomNavigation from './MapCustom/MapCustomNavigation';
 import MapNavigation from './MapNavigation';
 import MapGradients from './MapGradients';
@@ -216,7 +217,7 @@ const MapContainer = () => {
                 ) : (
                     <MapNavigation />
                 )}
-                {!isMobile && <MapQuickAccess />}
+                {isMobile ? <MapQuickAccessMobile container={fullSpotContainerRef.current} /> : <MapQuickAccess />}
                 <Legend />
                 <MapFullSpot open={modalVisible} onClose={onFullSpotClose} container={fullSpotContainerRef.current} />
                 <DynamicMapComponent mapRef={mapRef} clusters={customMapLoading ? [] : clusters} />
