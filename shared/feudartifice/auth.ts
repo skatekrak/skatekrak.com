@@ -57,12 +57,13 @@ export const login = async ({ username, password, mobile = false, rememberMe = f
 
 type FacebookLoginParams = {
     accessToken: string;
+    mobile?: boolean;
 };
 
-export const facebookLogin = async ({ accessToken }: FacebookLoginParams) => {
+export const facebookLogin = async ({ accessToken, mobile = false }: FacebookLoginParams) => {
     const res = await client.post<AuthenticationResponse>('/auth/facebook/login', {
         accessToken,
-        mobile: true,
+        mobile,
     });
 
     setToken(res.data.token);

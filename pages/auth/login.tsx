@@ -7,8 +7,6 @@ import _ from 'lodash';
 import Feudartifice from 'shared/feudartifice';
 
 import Layout from 'components/Layout';
-import IconFacebook from 'components/Ui/Icons/Logos/IconFacebook';
-import IconApple from 'components/Ui/Icons/Logos/IconApple';
 import Typography from 'components/Ui/typography/Typography';
 import ButtonPrimary from 'components/Ui/Button/ButtonPrimary/ButtonPrimary';
 import Emoji from 'components/Ui/Icons/Emoji';
@@ -33,15 +31,10 @@ const LoginFormSchema = Yup.object().shape({
 
 const Login: NextPage = () => {
     const router = useRouter();
-    const { isSuccess: gotSession, isLoading } = useSession();
+    const { isSuccess: gotSession } = useSession();
 
     if (gotSession) {
         router.push('/');
-    }
-
-    if (isLoading) {
-        // TODO: Display loading page
-        return <></>;
     }
 
     const onSubmit = async (values: LoginFormValues, helpers: FormikHelpers<LoginFormValues>) => {
@@ -127,16 +120,6 @@ const Login: NextPage = () => {
                                         Login
                                     </ButtonPrimary>
                                 </S.AuthSubmitContainer>
-
-                                {/* Social login */}
-                                <SL.LoginSocialAuth>
-                                    <SL.LoginFacebook onClick={null} icon={<IconFacebook />}>
-                                        Facebook
-                                    </SL.LoginFacebook>
-                                    <SL.LoginApple onClick={null} icon={<IconApple />}>
-                                        Apple
-                                    </SL.LoginApple>
-                                </SL.LoginSocialAuth>
 
                                 {/* Sign up */}
                                 <SL.LoginSignupContainer>
