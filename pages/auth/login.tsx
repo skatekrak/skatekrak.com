@@ -41,6 +41,7 @@ const Login: NextPage = () => {
 
     if (isLoading) {
         // TODO: Display loading page
+        return <></>;
     }
 
     const onSubmit = async (values: LoginFormValues, helpers: FormikHelpers<LoginFormValues>) => {
@@ -128,14 +129,14 @@ const Login: NextPage = () => {
                                 </S.AuthSubmitContainer>
 
                                 {/* Social login */}
-                                <SL.LoginScoialAuth>
+                                <SL.LoginSocialAuth>
                                     <SL.LoginFacebook onClick={null} icon={<IconFacebook />}>
                                         Facebook
                                     </SL.LoginFacebook>
                                     <SL.LoginApple onClick={null} icon={<IconApple />}>
                                         Apple
                                     </SL.LoginApple>
-                                </SL.LoginScoialAuth>
+                                </SL.LoginSocialAuth>
 
                                 {/* Sign up */}
                                 <SL.LoginSignupContainer>
