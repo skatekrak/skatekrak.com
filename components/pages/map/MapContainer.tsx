@@ -1,12 +1,11 @@
-import axios from 'axios';
 import classNames from 'classnames';
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { InteractiveMap, FlyToInterpolator, ViewportProps } from 'react-map-gl';
 import { useSelector, useDispatch } from 'react-redux';
 import dynamic from 'next/dynamic';
-import { useQuery } from 'react-query';
 
 import { Cluster, Spot, Status, Types } from 'lib/carrelageClient';
+import { useUserMe } from 'shared/feudartifice/hooks/user';
 
 import Legend from 'components/pages/map/Legend';
 import { boxSpotsSearch, getSpotOverview } from 'lib/carrelageClient';
@@ -18,6 +17,8 @@ import MapNavigation from './MapNavigation';
 import MapGradients from './MapGradients';
 import { RootState } from 'store/reducers';
 import { flyTo, updateUrlParams } from 'store/map/thunk';
+import { SubscriptionStatus } from 'shared/feudartifice/types';
+import useCustomMap from 'lib/hook/use-custom-map';
 
 const DynamicMapComponent = dynamic(() => import('./MapComponent'), { ssr: false });
 const MapFullSpot = dynamic(() => import('./MapFullSpot'), { ssr: false });
@@ -48,7 +49,6 @@ const filterClusters = (
 
 const MapContainer = () => {
     const isMobile = useSelector((state: RootState) => state.settings.isMobile);
-    // const map = useSelector((state: Typings.RootState) => state.map);
     const status = useSelector((state: RootState) => state.map.status);
     const types = useSelector((state: RootState) => state.map.types);
     const viewport = useSelector((state: RootState) => state.map.viewport);
@@ -61,28 +61,9 @@ const MapContainer = () => {
 
     const [clusters, setClusters] = useState<Cluster[]>([]);
     const [, setFirstLoad] = useState(() => (spotId ? true : false));
+    const { data: userMe } = useUserMe({ retry: 0 });
 
-    const { data: customMapInfo, isLoading: customMapLoading } = useQuery(
-        ['load-custom-map', id],
-        async ({ queryKey }) => {
-            const [, customMapId] = queryKey;
-            if (customMapId == null) {
-                return null;
-            }
-            const response = await axios.get('/api/custom-maps', { params: { id: customMapId } });
-            const customMap = response.data;
-            return {
-                ...customMap,
-                clusters: customMap.spots.map((spot) => ({
-                    id: spot.id,
-                    latitude: spot.location.latitude,
-                    longitude: spot.location.longitude,
-                    count: 1,
-                    spots: [spot],
-                })),
-            };
-        },
-    );
+    const { data: customMapInfo, isLoading: customMapLoading } = useCustomMap(id);
 
     // Full spot
     const fullSpotContainerRef = useRef<HTMLDivElement>();
@@ -106,8 +87,8 @@ const MapContainer = () => {
 
     const refreshMap = useCallback(
         (_clusters: Cluster[] | undefined = undefined) => {
-            setClusters((clusters) => {
-                const filteredClusters = filterClusters(_clusters ?? clusters, types, status);
+            setClusters(() => {
+                const filteredClusters = filterClusters(_clusters ?? [], types, status);
 
                 dispatch(mapRefreshEnd());
 
@@ -149,7 +130,7 @@ const MapContainer = () => {
     const load = useCallback(() => {
         clearTimeout(loadTimeout.current);
 
-        // We are in path `/map`
+        // We are in path `/`
         if (id === undefined) {
             loadTimeout.current = setTimeout(async () => {
                 if (mapRef.current) {
@@ -166,11 +147,11 @@ const MapContainer = () => {
                         southWestLongitude: southWest.lng,
                     });
 
-                    refreshMap(mergeClusters(clusters, newClusters));
+                    refreshMap(newClusters);
                 }
             }, 200);
         }
-    }, [clusters, id, refreshMap]);
+    }, [id, refreshMap]);
 
     const onFullSpotClose = () => {
         dispatch(setSpotOverview(undefined));
@@ -181,7 +162,7 @@ const MapContainer = () => {
         if (id === undefined) {
             load();
         }
-    }, [status, types, id, viewport]);
+    }, [status, types, id, viewport, load]);
 
     useEffect(() => {
         if (mapRef.current != null && id !== undefined && customMapInfo !== undefined) {
@@ -191,16 +172,6 @@ const MapContainer = () => {
             dispatch(flyTo(bounds));
         }
     }, [customMapInfo, viewport.width, id, dispatch]);
-
-    /// HELPER TO GET CURRENT BOUNDS OF MAP WHEN NECESSARY
-    useEffect(() => {
-        if (mapRef.current != null) {
-            const map = mapRef.current.getMap();
-            const bounds = map.getBounds();
-            const sw = bounds.getSouthWest();
-            const ne = bounds.getNorthEast();
-        }
-    }, [mapRef, viewport]);
 
     return (
         <div
@@ -228,15 +199,17 @@ const MapContainer = () => {
                             spots={customMapInfo.spots}
                         />
                     ) : (
-                        <MapNavigation />
+                        <>{userMe?.subscriptionStatus === SubscriptionStatus.Active && <MapNavigation />}</>
                     )}
                     <MapQuickAccess />
                     <Legend />
-                    <MapFullSpot
-                        open={modalVisible}
-                        onClose={onFullSpotClose}
-                        container={fullSpotContainerRef.current}
-                    />
+                    {userMe?.subscriptionStatus === SubscriptionStatus.Active && (
+                        <MapFullSpot
+                            open={modalVisible}
+                            onClose={onFullSpotClose}
+                            container={fullSpotContainerRef.current}
+                        />
+                    )}
                     <DynamicMapComponent mapRef={mapRef} clusters={customMapLoading ? [] : clusters} />
                     <MapGradients />
                 </>

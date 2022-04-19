@@ -1,8 +1,11 @@
 import React from 'react';
 
-const LikeIcon = () => (
-    <svg viewBox="0 0 48 48">
-        <title>Like</title>
+type Props = {
+    className?: string;
+};
+
+const IconLike: React.FC<Props> = ({ className }) => (
+    <svg viewBox="0 0 48 48" className={className}>
         <g className="icon-like">
             <path
                 className="icon-like-stroke"
@@ -59,4 +62,4 @@ const LikeIcon = () => (
     </svg>
 );
 
-export default LikeIcon;
+export default IconLike;

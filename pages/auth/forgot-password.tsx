@@ -1,12 +1,13 @@
-import { NextPage } from 'next';
-import { useRouter } from 'next/router';
 import React from 'react';
+import { NextPage } from 'next';
 
 import Layout from 'components/Layout';
-import ResetPasswordContainer from 'components/pages/auth/ResetPasswordContainer';
-import useSession from 'lib/hook/carrelage/use-session';
 
-const ResetPassword: NextPage = () => {
+import useSession from 'lib/hook/carrelage/use-session';
+import { useRouter } from 'next/router';
+import ForgotPasswordContainer from 'components/pages/auth/ForgotPasswordContainer';
+
+const ForgotPassword: NextPage = () => {
     const router = useRouter();
     const { isSuccess: gotSession, isLoading } = useSession();
 
@@ -20,9 +21,9 @@ const ResetPassword: NextPage = () => {
 
     return (
         <Layout>
-            <ResetPasswordContainer />
+            <ForgotPasswordContainer />
         </Layout>
     );
 };
 
-export default ResetPassword;
+export default ForgotPassword;

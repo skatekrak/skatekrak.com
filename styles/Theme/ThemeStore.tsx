@@ -4,11 +4,13 @@ import { DefaultTheme, ThemeProvider } from 'styled-components';
 const themeData: DefaultTheme = {
     color: {
         primary: {
+            100: '#BF2722',
             80: '#FF3D38',
             50: '#FF8380',
             20: '#FFCDCC',
         },
         secondary: {
+            100: '#006ACC',
             80: '#56AEFF',
             50: '#80C2FF',
             20: '#CCE7FF',
@@ -34,7 +36,7 @@ const themeData: DefaultTheme = {
             divider: 'rgba(255, 255, 255, 0.08)',
         },
         system: {
-            error: '#FF0F0F',
+            error: '#F64C4C',
             success: '#26D971',
         },
         map: {

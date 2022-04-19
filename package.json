@@ -24,6 +24,7 @@
         "@zeit/next-source-maps": "^0.0.3",
         "@zeit/next-stylus": "^1.0.1",
         "algoliasearch": "^4.5.1",
+        "await-to-js": "^3.0.0",
         "awesome-debounce-promise": "^2.1.0",
         "axios": "^0.21.0",
         "classnames": "^2.2.6",
@@ -63,7 +64,8 @@
         "trim-right": "^1.0.1",
         "typesafe-actions": "^5.1.0",
         "use-constant": "^1.0.0",
-        "viewport-mercator-project": "^7.0.1"
+        "viewport-mercator-project": "^7.0.1",
+        "yup": "^0.32.11"
     },
     "devDependencies": {
         "@babel/core": "^7.11.1",

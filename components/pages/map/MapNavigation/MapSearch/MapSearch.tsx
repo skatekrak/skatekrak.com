@@ -14,6 +14,7 @@ import { RootState } from 'store/reducers';
 import { toggleSearchResult } from 'store/map/actions';
 
 import * as S from './MapSearch.styled';
+import useSession from 'lib/hook/carrelage/use-session';
 
 const fetchPlaces = async (query: string): Promise<Place[]> => {
     const res = await axios.get('/api/place-search', { params: { input: query } });
@@ -29,6 +30,7 @@ const MapNavigation = () => {
     const [searchValue, setSearchValue] = useState('');
     const searchResultOpen = useSelector((state: RootState) => state.map.searchResultOpen);
     const dispatch = useDispatch();
+    const { isSuccess: isConnected } = useSession();
 
     const debouncedSpotsSearch = useConstant(() =>
         AwesomeDebouncePromise((query: string) => Promise.all([fetchSpots(query), fetchPlaces(query)]), 200),
