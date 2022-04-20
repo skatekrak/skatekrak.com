@@ -11,6 +11,7 @@ import BadgeMinute from 'components/pages/map/marker/badges/Minute';
 import Activity from 'components/pages/map/marker/Activity';
 import { useDispatch } from 'react-redux';
 import { selectSpot } from 'store/map/actions';
+import { useIsSubscriber } from 'shared/feudartifice/hooks/user';
 
 type SpotMarkerProps = {
     spot: Spot;
@@ -30,6 +31,7 @@ const SpotMarker = ({ spot, isSelected }: SpotMarkerProps) => {
     const dispatch = useDispatch();
     const active = spot.mediasStat.all > 3;
     const firing = spot.mediasStat.all >= 10;
+    const { data: isSubscriber } = useIsSubscriber();
 
     const onMarkerClick = () => {
         dispatch(selectSpot(spot.id));
@@ -49,7 +51,7 @@ const SpotMarker = ({ spot, isSelected }: SpotMarkerProps) => {
         >
             <button
                 className={classNames('map-marker', {
-                    'map-marker-firing': firing,
+                    'map-marker-firing': isSubscriber && firing,
                 })}
                 onClick={onMarkerClick}
             >

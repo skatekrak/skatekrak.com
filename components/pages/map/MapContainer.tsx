@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import dynamic from 'next/dynamic';
 
 import { Cluster, Spot, Status, Types } from 'lib/carrelageClient';
-import { useUserMe } from 'shared/feudartifice/hooks/user';
+import { useIsSubscriber } from 'shared/feudartifice/hooks/user';
 
 import Legend from 'components/pages/map/Legend';
 import { boxSpotsSearch, getSpotOverview } from 'lib/carrelageClient';
@@ -17,7 +17,6 @@ import MapNavigation from './MapNavigation';
 import MapGradients from './MapGradients';
 import { RootState } from 'store/reducers';
 import { flyTo, updateUrlParams } from 'store/map/thunk';
-import { SubscriptionStatus } from 'shared/feudartifice/types';
 import useCustomMap from 'lib/hook/use-custom-map';
 
 const DynamicMapComponent = dynamic(() => import('./MapComponent'), { ssr: false });
@@ -61,7 +60,7 @@ const MapContainer = () => {
 
     const [clusters, setClusters] = useState<Cluster[]>([]);
     const [, setFirstLoad] = useState(() => (spotId ? true : false));
-    const { data: userMe } = useUserMe({ retry: 0 });
+    const { data: isSubscriber } = useIsSubscriber();
 
     const { data: customMapInfo, isLoading: customMapLoading } = useCustomMap(id);
 
@@ -199,11 +198,11 @@ const MapContainer = () => {
                             spots={customMapInfo.spots}
                         />
                     ) : (
-                        <>{userMe?.subscriptionStatus === SubscriptionStatus.Active && <MapNavigation />}</>
+                        <>{isSubscriber && <MapNavigation />}</>
                     )}
-                    <MapQuickAccess />
+                    {isSubscriber && <MapQuickAccess />}
                     <Legend />
-                    {userMe?.subscriptionStatus === SubscriptionStatus.Active && (
+                    {isSubscriber && (
                         <MapFullSpot
                             open={modalVisible}
                             onClose={onFullSpotClose}
