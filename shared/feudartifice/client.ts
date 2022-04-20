@@ -3,7 +3,7 @@ import axios from 'axios';
 import pkg from './package.json';
 
 const client = axios.create({
-    baseURL: 'https://api.dev.skatekrak.com',
+    baseURL: process.env.NEXT_PUBLIC_CARRELAGE_URL,
     headers: {
         'User-Agent': `Feudartifice (${pkg.version})`,
     },
