@@ -59,7 +59,7 @@ const SpotMarker = ({ spot, isSelected }: SpotMarkerProps) => {
                     {(spot.status == 'rip' || spot.status === 'wip') && <Pin key={spot.id} imageName={spot.status} />}
                     {spot.status === 'active' && <Pin key={spot.id} imageName={spot.type} />}
                 </div>
-                {spot.tags.length !== 0 && (
+                {isSubscriber && spot.tags.length !== 0 && (
                     <div className="map-marker-badges">
                         {spot.tags.map((tag) => (
                             <React.Fragment key={tag}>
@@ -70,7 +70,7 @@ const SpotMarker = ({ spot, isSelected }: SpotMarkerProps) => {
                         ))}
                     </div>
                 )}
-                {active && <Activity firing={firing} />}
+                {isSubscriber && active && <Activity firing={firing} />}
             </button>
         </Marker>
     );
