@@ -24,7 +24,7 @@ const Header: React.FC = () => {
                     </S.LogoLink>
                 </Link>
                 <S.Nav>
-                    <S.NavItem as="a" href="#">
+                    <S.NavItem as="a" href="https://discord.gg/exMAqSuVfj">
                         <IconDiscord />
                     </S.NavItem>
 
