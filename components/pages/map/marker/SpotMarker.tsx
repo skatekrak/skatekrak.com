@@ -46,7 +46,7 @@ const SpotMarker = ({ spot, isSelected }: SpotMarkerProps) => {
             className={classNames({
                 'map-marker-clicked': isSelected,
                 'map-marker-active': active && !firing,
-                'map-marker-firing': firing,
+                'map-marker-firing': isSubscriber && firing,
             })}
         >
             <button
