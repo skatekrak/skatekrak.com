@@ -16,6 +16,8 @@
     "dependencies": {
         "@bugsnag/js": "^7.3.4",
         "@bugsnag/plugin-react": "^7.3.4",
+        "@floating-ui/react-dom": "^0.6.3",
+        "@floating-ui/react-dom-interactions": "^0.3.1",
         "@next/bundle-analyzer": "^10.0.0",
         "@sendgrid/client": "^7.2.6",
         "@sendgrid/mail": "^7.2.6",
