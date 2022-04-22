@@ -24,9 +24,14 @@ export const LegendSectionTitle = styled(Typography)`
     color: ${({ theme }) => theme.color.primary[80]};
 `;
 
-export const LegendSectionDivider = styled.div`
+type LegendSectionDividerProps = {
+    marginTop?: string;
+};
+
+export const LegendSectionDivider = styled.div<LegendSectionDividerProps>`
     height: 0.5px;
     margin: 1.5rem 0 1rem;
+    ${({ marginTop }) => marginTop && `margin-top: ${marginTop}`};
     background-color: ${({ theme }) => theme.color.onDark.divider};
 `;
 
@@ -55,6 +60,7 @@ export const LegendCategory = styled.li`
 export const LegendTag = styled.li`
     display: flex;
     align-items: center;
+    margin-bottom: 0.75rem;
     margin-right: 1rem;
 
     &:last-child {
@@ -130,6 +136,10 @@ export const LegendActivity = styled.li`
             transform: scale(1.7);
             opacity: 0.2;
         }
+    }
+
+    & .map-badge {
+        width: 100%;
     }
 `;
 

@@ -74,7 +74,7 @@ const Legend = () => {
                 </S.LegendTag>
             </S.LegendSectionContainer>
 
-            <S.LegendSectionDivider />
+            <S.LegendSectionDivider marginTop="0.75rem" />
 
             <S.LegendSectionTitle component="condensedSubtitle1">
                 Activity [amount of media uploaded]
