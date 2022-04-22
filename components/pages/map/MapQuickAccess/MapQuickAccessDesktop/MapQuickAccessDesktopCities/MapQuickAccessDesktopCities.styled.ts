@@ -49,6 +49,7 @@ export const MapQuickAccessDesktopCityItem = styled.button`
     flex-direction: column;
     align-items: center;
     width: 5rem;
+    margin: auto;
     padding: 0.5rem;
     color: ${({ theme }) => theme.color.onDark.highEmphasis};
     border: 0;

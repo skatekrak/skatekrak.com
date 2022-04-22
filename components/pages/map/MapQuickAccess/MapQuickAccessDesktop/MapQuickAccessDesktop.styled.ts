@@ -1,12 +1,13 @@
 import styled from 'styled-components';
 
 import Typography from 'components/Ui/typography/Typography';
+import media from 'styles/media';
 
 export const MapQuickAccessDesktopContainer = styled.div`
+    display: none;
     position: absolute;
     top: 1.5rem;
     right: 1.5rem;
-    display: flex;
     flex-direction: column;
     align-items: center;
     padding-top: 0.75rem;
@@ -15,6 +16,10 @@ export const MapQuickAccessDesktopContainer = styled.div`
     border-radius: 0.25rem;
     box-shadow: ${({ theme }) => theme.shadow.onDark.highSharp};
     z-index: 1000;
+
+    ${media.laptopS} {
+        display: flex;
+    }
 `;
 
 export const MapQuickAccessDesktopSectionTitle = styled(Typography)`

@@ -12,11 +12,10 @@ import { FilterStateUtil, FilterState } from 'lib/FilterState';
 import { RootState } from 'store/reducers';
 import { flyTo, updateUrlParams } from 'store/map/thunk';
 
-import Legend from 'components/pages/map/Legend';
-import MapQuickAccess from './mapQuickAccess/MapQuickAccessDesktop';
-import MapQuickAccessMobile from './mapQuickAccess/MapQuickAccessMobile';
+import MapQuickAccessDesktop from './mapQuickAccess/MapQuickAccessDesktop';
 import MapCustomNavigation from './MapCustom/MapCustomNavigation';
 import MapNavigation from './MapNavigation';
+import MapBottomNav from './MapBottomNav';
 import MapGradients from './MapGradients';
 import * as S from './Map.styled';
 
@@ -217,8 +216,8 @@ const MapContainer = () => {
                 ) : (
                     <MapNavigation />
                 )}
-                {isMobile ? <MapQuickAccessMobile container={fullSpotContainerRef.current} /> : <MapQuickAccess />}
-                <Legend />
+                {!isMobile && <MapQuickAccessDesktop />}
+                <MapBottomNav isMobile={isMobile} />
                 <MapFullSpot open={modalVisible} onClose={onFullSpotClose} container={fullSpotContainerRef.current} />
                 <DynamicMapComponent mapRef={mapRef} clusters={customMapLoading ? [] : clusters} />
                 <MapGradients />

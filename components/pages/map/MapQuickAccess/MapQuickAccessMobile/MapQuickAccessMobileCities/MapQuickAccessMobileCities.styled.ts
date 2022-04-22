@@ -1,18 +1,13 @@
 import styled from 'styled-components';
 
-type MapQuickAccessMobileCitiesContainerProps = {
-    isOpen: boolean;
-};
+import media from 'styles/media';
 
-export const MapQuickAccessMobileCitiesContainer = styled.div<MapQuickAccessMobileCitiesContainerProps>`
-    display: none;
-    width: 24rem;
-    padding: 1rem;
-    color: ${({ theme }) => theme.color.onDark.highEmphasis};
-    background-color: ${({ theme }) => theme.color.tertiary.dark};
+export const MapQuickAccessMobileCitiesGrid = styled.div`
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    padding: 0 1rem 1rem;
 
-    ${({ isOpen }) =>
-        isOpen && {
-            display: 'block !important',
-        }}
+    ${media.mobile} {
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
 `;

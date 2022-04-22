@@ -1,68 +1,11 @@
 import styled from 'styled-components';
 
-import media from 'styles/media';
 import Typography from 'components/Ui/typography/Typography';
 
 export const LegendContainer = styled.div`
-    position: absolute;
-    left: 1rem;
-    right: 1rem;
-    bottom: 1rem;
-    max-width: 27rem;
+    padding: 0.5rem 1.5rem 2rem;
     color: ${({ theme }) => theme.color.onDark.highEmphasis};
     background-color: ${({ theme }) => theme.color.tertiary.dark};
-    border-radius: 0.25rem;
-    border: 1.5px solid ${({ theme }) => theme.color.tertiary.medium};
-    box-shadow: ${({ theme }) => theme.shadow.onDark.highSharp};
-    z-index: 1000;
-
-    ${media.tablet} {
-        left: 1.5rem;
-        bottom: 1.5rem;
-    }
-
-    & .krak-close-button {
-        position: absolute;
-        top: 1.5rem;
-        right: 1.5rem;
-        z-index: 1;
-    }
-`;
-
-export const LegendTrigger = styled.button`
-    position: absolute;
-    left: 1rem;
-    bottom: 1rem;
-    display: flex;
-    align-items: center;
-    padding: 0.625rem 1rem;
-    color: ${({ theme }) => theme.color.onDark.highEmphasis};
-    background-color: ${({ theme }) => theme.color.tertiary.dark};
-    border: 1.5px solid ${({ theme }) => theme.color.tertiary.medium};
-    border-radius: 0.25rem;
-    box-shadow: ${({ theme }) => theme.shadow.onDark.highSharp};
-    z-index: 10;
-
-    ${media.tablet} {
-        left: 1.5rem;
-        bottom: 1.5rem;
-    }
-
-    & svg {
-        width: 1.75rem;
-        height: 1.75rem;
-        margin-right: 1rem;
-        box-shadow: none;
-    }
-`;
-
-export const LegendTitle = styled(Typography)`
-    margin: 1.5rem;
-    text-transform: uppercase;
-`;
-
-export const LegendScrollContainer = styled.div`
-    padding: 0 1.5rem 2rem;
 `;
 
 export const LegendDescription = styled(Typography)`
