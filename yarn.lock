@@ -3213,17 +3213,7 @@ can-use-dom@^0.1.0:
   resolved "https://registry.yarnpkg.com/can-use-dom/-/can-use-dom-0.1.0.tgz#22cc4a34a0abc43950f42c6411024a3f6366b45a"
   integrity sha1-IsxKNKCrxDlQ9CxkEQJKP2NmtFo=
 
-caniuse-lite@^1.0.30001043:
-  version "1.0.30001332"
-  resolved "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001332.tgz"
-  integrity sha512-10T30NYOEQtN6C11YGg411yebhvpnC6Z102+B95eAsN0oB6KUs01ivE8u+G6FMIRtIrVlYXhL+LUwQ3/hXwDWw==
-
-caniuse-lite@^1.0.30001093:
-  version "1.0.30001332"
-  resolved "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001332.tgz"
-  integrity sha512-10T30NYOEQtN6C11YGg411yebhvpnC6Z102+B95eAsN0oB6KUs01ivE8u+G6FMIRtIrVlYXhL+LUwQ3/hXwDWw==
-
-caniuse-lite@^1.0.30001113, caniuse-lite@^1.0.30001135:
+caniuse-lite@^1.0.30001043, caniuse-lite@^1.0.30001093, caniuse-lite@^1.0.30001113, caniuse-lite@^1.0.30001135:
   version "1.0.30001332"
   resolved "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001332.tgz"
   integrity sha512-10T30NYOEQtN6C11YGg411yebhvpnC6Z102+B95eAsN0oB6KUs01ivE8u+G6FMIRtIrVlYXhL+LUwQ3/hXwDWw==
@@ -8961,10 +8951,10 @@ typesafe-actions@^5.1.0:
   resolved "https://registry.yarnpkg.com/typesafe-actions/-/typesafe-actions-5.1.0.tgz#9afe8b1e6a323af1fd59e6a57b11b7dd6623d2f1"
   integrity sha512-bna6Yi1pRznoo6Bz1cE6btB/Yy8Xywytyfrzu/wc+NFW3ZF0I+2iCGImhBsoYYCOWuICtRO4yHcnDlzgo1AdNg==
 
-typescript@^4.0.3:
-  version "4.0.3"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.0.3.tgz#153bbd468ef07725c1df9c77e8b453f8d36abba5"
-  integrity sha512-tEu6DGxGgRJPb/mVPIZ48e69xCn2yRmCgYmDugAVwmJ6o+0u1RI18eO7E7WBTLYLaEVVOhwQmcdhQHweux/WPg==
+typescript@^4.6.3:
+  version "4.6.3"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.6.3.tgz#eefeafa6afdd31d725584c67a0eaba80f6fc6c6c"
+  integrity sha512-yNIatDa5iaofVozS/uQJEl3JRWLKKGJKh6Yaiv0GLGSuhpFJe7P3SbHZ8/yjAHRQwKRoA6YZqlfjXWmVzoVSMw==
 
 ua-parser-js@^0.7.18:
   version "0.7.21"
