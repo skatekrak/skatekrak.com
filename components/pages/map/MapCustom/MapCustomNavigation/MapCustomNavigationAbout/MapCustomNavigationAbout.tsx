@@ -10,7 +10,7 @@ type Props = {
 const MapCustomNavigationAbout = ({ subtitle, about }: Props) => {
     return (
         <S.MapCustomNavigationAboutContainer>
-            <S.MapCustomNavigationAboutTitle component="heading6">{subtitle}</S.MapCustomNavigationAboutTitle>
+            <S.MapCustomNavigationAboutTitle component="condensedHeading6">{subtitle}</S.MapCustomNavigationAboutTitle>
             <S.MapCustomNavigationAboutDesc>{about}</S.MapCustomNavigationAboutDesc>
         </S.MapCustomNavigationAboutContainer>
     );

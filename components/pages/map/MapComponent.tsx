@@ -17,6 +17,7 @@ import {
     toggleSpotModal,
 } from 'store/map/actions';
 import type { RootState } from 'store/reducers';
+import { useIsSubscriber } from 'shared/feudartifice/hooks/user';
 
 const MIN_ZOOM_LEVEL = 2;
 const MAX_ZOOM_LEVEL = 18;
@@ -33,6 +34,7 @@ const MapComponent = ({ mapRef, clusters }: MapComponentProps) => {
     const customMapId = useSelector((state: RootState) => state.map.customMapId);
     const selectedSpotOverview = useSelector((state: RootState) => state.map.spotOverview);
     const clustering = customMapId === undefined;
+    const { data: isSubscriber } = useIsSubscriber();
 
     const markers = useMemo(() => {
         const _markers: JSX.Element[] = [];
@@ -57,9 +59,11 @@ const MapComponent = ({ mapRef, clusters }: MapComponentProps) => {
     }, [clusters, selectedSpotOverview, clustering, viewport.zoom, viewport.maxZoom]);
 
     const onPopupClick = () => {
-        dispatch(toggleSpotModal(true));
-        dispatch(toggleLegend(false));
-        dispatch(toggleSearchResult(false));
+        if (isSubscriber) {
+            dispatch(toggleSpotModal(true));
+            dispatch(toggleLegend(false));
+            dispatch(toggleSearchResult(false));
+        }
     };
 
     const onPopupClose = () => {

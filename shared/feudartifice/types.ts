@@ -189,6 +189,13 @@ export interface UserAuthProvider {
     };
 }
 
+export enum SubscriptionStatus {
+    Active = 'active',
+    Expired = 'expired',
+    Cancelled = 'cancelled',
+    None = 'none',
+}
+
 export interface User {
     id: string;
     createdAt: Date;
@@ -197,6 +204,7 @@ export interface User {
     usernameValid: boolean;
     email: string;
     auth?: UserAuthProvider;
+    subscriptionStatus: SubscriptionStatus;
 }
 
 export interface VideoInformation {

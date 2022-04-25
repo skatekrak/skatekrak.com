@@ -1,14 +1,12 @@
-import Feudartifice from '@shared/feudartifice';
-import queryString from 'query-string';
+import Feudartifice from '..';
 import { useInfiniteQuery } from 'react-query';
 
 import { Clip } from '../types';
 
 const { client } = Feudartifice;
 
-const fetchClips = async (key: string, cursor: any = new Date()) => {
-    const params = queryString.parse('?' + key);
-    const { data } = await client.get<Clip[]>(`/spots/${params.spotId}/clips`, {
+const fetchClips = async (spotId: string, cursor: any = new Date()) => {
+    const { data } = await client.get<Clip[]>(`/spots/${spotId}/clips`, {
         params: {
             older: cursor,
             limit: 50,
@@ -19,20 +17,16 @@ const fetchClips = async (key: string, cursor: any = new Date()) => {
 };
 
 const useSpotClips = (spotId: string, initialClips: Clip[] = []) => {
-    return useInfiniteQuery<Clip[]>(
-        queryString.stringify({ spotId, key: 'fetch-spot-clips' }),
-        ({ queryKey, pageParam }) => fetchClips(queryKey, pageParam),
-        {
-            getNextPageParam: (lastPage, pages) => {
-                const lastElement = lastPage[lastPage.length - 1];
-                if (lastElement != null) {
-                    return lastElement.createdAt;
-                }
-                return false;
-            },
-            refetchOnWindowFocus: false,
+    return useInfiniteQuery<Clip[]>(['fetch-spot-clips', spotId], ({ pageParam }) => fetchClips(spotId, pageParam), {
+        getNextPageParam: (lastPage, pages) => {
+            const lastElement = lastPage[lastPage.length - 1];
+            if (lastElement != null) {
+                return lastElement.createdAt;
+            }
+            return false;
         },
-    );
+        refetchOnWindowFocus: false,
+    });
 };
 
 export default useSpotClips;

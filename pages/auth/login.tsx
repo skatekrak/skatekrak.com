@@ -7,8 +7,6 @@ import _ from 'lodash';
 import Feudartifice from 'shared/feudartifice';
 
 import Layout from 'components/Layout';
-import IconFacebook from 'components/Ui/Icons/Logos/IconFacebook';
-import IconApple from 'components/Ui/Icons/Logos/IconApple';
 import Typography from 'components/Ui/typography/Typography';
 import ButtonPrimary from 'components/Ui/Button/ButtonPrimary/ButtonPrimary';
 import Emoji from 'components/Ui/Icons/Emoji';
@@ -33,14 +31,10 @@ const LoginFormSchema = Yup.object().shape({
 
 const Login: NextPage = () => {
     const router = useRouter();
-    const { isSuccess: gotSession, isLoading } = useSession();
+    const { isSuccess: gotSession } = useSession();
 
     if (gotSession) {
         router.push('/');
-    }
-
-    if (isLoading) {
-        // TODO: Display loading page
     }
 
     const onSubmit = async (values: LoginFormValues, helpers: FormikHelpers<LoginFormValues>) => {
@@ -48,7 +42,7 @@ const Login: NextPage = () => {
             await Feudartifice.auth.login({
                 username: values.username,
                 password: values.password,
-                mobile: values.remember,
+                rememberMe: values.remember,
             });
             router.push('/');
         } catch (err) {
@@ -127,21 +121,12 @@ const Login: NextPage = () => {
                                     </ButtonPrimary>
                                 </S.AuthSubmitContainer>
 
-                                {/* Social login */}
-                                <SL.LoginScoialAuth>
-                                    <SL.LoginFacebook onClick={null} icon={<IconFacebook />}>
-                                        Facebook
-                                    </SL.LoginFacebook>
-                                    <SL.LoginApple onClick={null} icon={<IconApple />}>
-                                        Apple
-                                    </SL.LoginApple>
-                                </SL.LoginScoialAuth>
-
                                 {/* Sign up */}
                                 <SL.LoginSignupContainer>
                                     <Typography component="subtitle1">Don’t have an account yet?</Typography>
                                     <Typography component="body2">
-                                        Sign up to access all map features, custom maps and private discord channels.
+                                        Sign up to access all the skatespot map features, some custom maps, and our
+                                        private discord server.
                                     </Typography>
                                     <Link href="/auth/signup" passHref>
                                         <S.AuthButtonPrimaryLink>

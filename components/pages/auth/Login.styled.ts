@@ -52,7 +52,7 @@ export const LoginForgotLink = styled.a`
     cursor: pointer;
 `;
 
-export const LoginScoialAuth = styled.div`
+export const LoginSocialAuth = styled.div`
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 1rem;

@@ -10,5 +10,6 @@ export const MapCustomNavigationAboutTitle = styled(Typography)`
     margin-bottom: 1rem;
 `;
 export const MapCustomNavigationAboutDesc = styled(Typography)`
+    color: ${({ theme }) => theme.color.onDark.mediumEmphasis};
     white-space: pre-wrap;
 `;

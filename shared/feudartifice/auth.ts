@@ -1,6 +1,14 @@
 import client from './client';
 import { User } from './types';
 
+export const setToken = (token?: string) => {
+    if (token == null) {
+        delete client.defaults.headers.common['Authorization'];
+    } else {
+        client.defaults.headers.common['Authorization'] = `${token}`;
+    }
+};
+
 export type AuthenticationResponse = {
     message: 'authenticated';
     token: string;
@@ -11,14 +19,15 @@ type SignupParams = {
     email: string;
     username: string;
     password: string;
+    mobile: boolean;
 };
 
-export const signup = async ({ email, username, password }: SignupParams) => {
+export const signup = async ({ email, username, password, mobile }: SignupParams) => {
     const res = await client.post<AuthenticationResponse>('/auth/signup', {
         username,
         email,
         password,
-        mobile: true,
+        mobile,
     });
 
     setToken(res.data.token);
@@ -29,14 +38,16 @@ export const signup = async ({ email, username, password }: SignupParams) => {
 type LoginParams = {
     username: string;
     password: string;
-    mobile: boolean;
+    mobile?: boolean;
+    rememberMe?: boolean;
 };
 
-export const login = async ({ username, password, mobile }: LoginParams) => {
+export const login = async ({ username, password, mobile = false, rememberMe = false }: LoginParams) => {
     const res = await client.post<AuthenticationResponse>('/auth/login', {
         username,
         password,
         mobile,
+        rememberMe,
     });
 
     setToken(res.data.token);
@@ -46,12 +57,13 @@ export const login = async ({ username, password, mobile }: LoginParams) => {
 
 type FacebookLoginParams = {
     accessToken: string;
+    mobile?: boolean;
 };
 
-export const facebookLogin = async ({ accessToken }: FacebookLoginParams) => {
+export const facebookLogin = async ({ accessToken, mobile = false }: FacebookLoginParams) => {
     const res = await client.post<AuthenticationResponse>('/auth/facebook/login', {
         accessToken,
-        mobile: true,
+        mobile,
     });
 
     setToken(res.data.token);
@@ -74,14 +86,6 @@ export const facebookSignup = async ({ accessToken, username }: FacebookSignupPa
     setToken(res.data.token);
 
     return res.data;
-};
-
-export const setToken = (token?: string) => {
-    if (token == null) {
-        delete client.defaults.headers.common['Authorization'];
-    } else {
-        client.defaults.headers.common['Authorization'] = `${token}`;
-    }
 };
 
 export const logout = async () => {
