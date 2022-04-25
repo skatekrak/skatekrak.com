@@ -7,6 +7,7 @@ export const MapContainer = styled.div`
     flex-grow: 1;
     display: flex;
     background-color: ${({ theme }) => theme.color.tertiary.dark};
+    overflow: hidden;
 
     & .full-spot-overlay {
         position: absolute;
