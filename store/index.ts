@@ -1,6 +1,5 @@
 import { AnyAction, applyMiddleware, createStore, Reducer } from 'redux';
 import Router from 'next/router';
-import { format } from 'url';
 import { AppContext } from 'next/app';
 import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
 import { createWrapper, MakeStore } from 'next-redux-wrapper';
@@ -44,8 +43,7 @@ export const initializeStore: MakeStore<Typings.RootState> = (context) => {
 
     let initialState;
     if (asPath) {
-        const url = format({ pathname, query });
-        const initialRouter = initialRouterState(url, asPath);
+        const initialRouter = initialRouterState(asPath);
         const params = queryString.parse(initialRouter.location.search);
 
         const state = {
