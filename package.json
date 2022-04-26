@@ -22,7 +22,6 @@
         "@sendgrid/client": "^7.2.6",
         "@sendgrid/mail": "^7.2.6",
         "@tippyjs/react": "^4.2.6",
-        "@zeit/next-stylus": "^1.0.1",
         "algoliasearch": "^4.13.0",
         "await-to-js": "^3.0.0",
         "awesome-debounce-promise": "^2.1.0",
