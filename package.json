@@ -60,7 +60,7 @@
         "redux-thunk": "^2.3.0",
         "simplebar-react": "^2.3.0",
         "styled-components": "^5.3.3",
-        "stylus": "^0.54.8",
+        "stylus": "^0.57.0",
         "typesafe-actions": "^5.1.0",
         "use-constant": "^1.0.0",
         "viewport-mercator-project": "^7.0.1",
