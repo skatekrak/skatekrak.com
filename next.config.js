@@ -1,5 +1,3 @@
-const path = require('path');
-
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const withPlugins = require('next-compose-plugins');
 
@@ -7,9 +5,8 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
     enabled: process.env.ANALYZE === 'true',
 });
 
-module.exports = withPlugins([withBundleAnalyzer({})], {
+module.exports = withPlugins([withBundleAnalyzer()], {
     productionBrowserSourceMaps: true,
-    babelConfigFile: path.resolve('./babel.config.js'),
     webpack: (config, options) => {
         if (options.isServer) {
             config.plugins.push(

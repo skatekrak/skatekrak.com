@@ -11,25 +11,25 @@ import { ThemeStore } from 'styles/Theme/ThemeStore';
 
 import '/public/styles/reset.css';
 import '/public/styles/flexbox-grid.css';
-import '/public/styles/fonts.styl';
-import '/public/styles/helpers.styl';
+import '/public/dist/fonts.css';
+import '/public/dist/helpers.css';
 import 'simplebar/dist/simplebar.min.css';
-import '/public/styles/main.styl';
-import '/public/styles/styleguide.styl';
-import '/public/styles/stylus-mq.styl';
+import '/public/dist/main.css';
+import '/public/dist/styleguide.css';
+import '/public/dist/stylus-mq.css';
 import 'react-responsive-modal/styles.css';
-import '/public/styles/modal.styl';
-import '/public/styles/checkbox.styl';
-import '/public/styles/icons.styl';
-import '/public/styles/ui/ui.styl';
+import '/public/dist/modal.css';
+import '/public/dist/checkbox.css';
+import '/public/dist/icons.css';
+import '/public/dist/ui/ui.css';
 
-import '/public/styles/home.styl';
-import '/public/styles/mag.styl';
-import '/public/styles/news.styl';
-import '/public/styles/videos.styl';
-import '/public/styles/feed.styl';
-import '/public/styles/map/map.styl';
-import '/public/styles/auth/auth.styl';
+import '/public/dist/home.css';
+import '/public/dist/mag.css';
+import '/public/dist/news.css';
+import '/public/dist/videos.css';
+import '/public/dist/feed.css';
+import '/public/dist/map/map.css';
+import '/public/dist/auth/auth.css';
 
 import 'mapbox-gl/dist/mapbox-gl.css';
 
