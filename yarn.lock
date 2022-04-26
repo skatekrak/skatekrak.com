@@ -1574,6 +1574,18 @@
     lodash "^4.17.13"
     to-fast-properties "^2.0.0"
 
+"@bedrock-layout/use-forwarded-ref@^1.1.4":
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/@bedrock-layout/use-forwarded-ref/-/use-forwarded-ref-1.2.1.tgz#bc359f0c1416bc9a1ca3f30f5dcb313ad8134939"
+  integrity sha512-vRQztDhJHs8gfOpCLWtQrMllFsR175u1eVFVk8LtUsWDpzIeKj4Utbyd7X5H4ZtLei5DRbAl6N459SWC/ezxow==
+  dependencies:
+    "@bedrock-layout/use-stateful-ref" "^1.2.1"
+
+"@bedrock-layout/use-stateful-ref@^1.2.1":
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/@bedrock-layout/use-stateful-ref/-/use-stateful-ref-1.2.1.tgz#d6263771e5d64e54d8e3d052f042114bfa439636"
+  integrity sha512-FH9EX8Avxw46ty+BURyTpf7T3rad5faLg6iX1retSNRK/qmftoLSDIoTShJDxomnKgHz+9UNmQ4PQXhA0LeA9Q==
+
 "@bugsnag/browser@^7.16.2":
   version "7.16.2"
   resolved "https://registry.yarnpkg.com/@bugsnag/browser/-/browser-7.16.2.tgz#b6fc7ebaeae4800d195b660abc770caf33670e03"
@@ -3066,6 +3078,11 @@ body-parser@1.19.0:
     qs "6.7.0"
     raw-body "2.4.0"
     type-is "~1.6.17"
+
+body-scroll-lock@^3.1.5:
+  version "3.1.5"
+  resolved "https://registry.yarnpkg.com/body-scroll-lock/-/body-scroll-lock-3.1.5.tgz#c1392d9217ed2c3e237fee1e910f6cdd80b7aaec"
+  integrity sha512-Yi1Xaml0EvNA0OYWxXiYNqY24AfWkbA6w5vxE7GWxtKfzIbZM+Qw+aSmkgsbWzbHiy/RCSkUZBplVxTA+E4jJg==
 
 brace-expansion@^1.1.7:
   version "1.1.11"
@@ -6871,11 +6888,6 @@ next@^10.0.0:
   optionalDependencies:
     sharp "0.26.2"
 
-no-scroll@^2.1.1:
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/no-scroll/-/no-scroll-2.1.1.tgz#f37e08cb159b75a5bdbfc0a87cd9223e120e6e27"
-  integrity sha512-YTzGAJOo/B6hkodeT5SKKHpOhAzjMfkUCCXjLJwjWk2F4/InIg+HbdH9kmT7bKpleDuqLZDTRy2OdNtAj0IVyQ==
-
 node-abi@^2.7.0:
   version "2.19.1"
   resolved "https://registry.yarnpkg.com/node-abi/-/node-abi-2.19.1.tgz#6aa32561d0a5e2fdb6810d8c25641b657a8cea85"
@@ -7941,13 +7953,14 @@ react-refresh@0.8.3:
   resolved "https://registry.yarnpkg.com/react-refresh/-/react-refresh-0.8.3.tgz#721d4657672d400c5e3c75d063c4a85fb2d5d68f"
   integrity sha512-X8jZHc7nCMjaCqoU+V2I0cOhNW+QMBwSUkeXnTi8IPe6zaRWfn60ZzvFDZqWPfmSJfjub7dDW1SP0jaHWLu/hg==
 
-react-responsive-modal@^5.1.0:
-  version "5.1.0"
-  resolved "https://registry.yarnpkg.com/react-responsive-modal/-/react-responsive-modal-5.1.0.tgz#0f660cc004b7eb85bf16778ca84514576f9ee4af"
-  integrity sha512-LmjKsBH2r+mzweJeKtd42ZHjzjZIbmw/4hHIGbiHqFeFVZuOg34fgKSMyELwtv8QOWlX7/TuB/O2kmXMCnhJUw==
+react-responsive-modal@^6.2.0:
+  version "6.2.0"
+  resolved "https://registry.yarnpkg.com/react-responsive-modal/-/react-responsive-modal-6.2.0.tgz#339226b911d8ffaba4e0afce83387a65221b8e29"
+  integrity sha512-i3Or4ixdDnLOeZbOQltgayOj69zg6Pbd8IF+RMi6gG1hyZvXHL39QvMvXBuG7poEaBMHspXNDtCzbTBJpOmdfw==
   dependencies:
+    "@bedrock-layout/use-forwarded-ref" "^1.1.4"
+    body-scroll-lock "^3.1.5"
     classnames "^2.2.6"
-    no-scroll "^2.1.1"
 
 react-share@^4.2.1:
   version "4.2.1"
