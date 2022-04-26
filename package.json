@@ -34,7 +34,7 @@
         "cors": "^2.8.5",
         "date-fns": "^2.15.0",
         "deepmerge": "^4.2.2",
-        "fork-ts-checker-webpack-plugin": "^5.2.0",
+        "fork-ts-checker-webpack-plugin": "^7.2.7",
         "formik": "^2.2.9",
         "jump.js": "https://github.com/MilllerTime/jump.js.git#b95f9279a4c0f4ca942fd648a6b97094b53bcbab",
         "next": "^10.0.0",
