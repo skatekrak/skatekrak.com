@@ -2,14 +2,13 @@ const path = require('path');
 
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const withStylus = require('@zeit/next-stylus');
-const withCSS = require('@zeit/next-css');
 const withPlugins = require('next-compose-plugins');
 
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
     enabled: process.env.ANALYZE === 'true',
 });
 
-module.exports = withPlugins([withBundleAnalyzer({}), withCSS, withStylus], {
+module.exports = withPlugins([withBundleAnalyzer({}), withStylus], {
     productionBrowserSourceMaps: true,
     babelConfigFile: path.resolve('./babel.config.js'),
     webpack: (config, options) => {
