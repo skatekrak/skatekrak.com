@@ -6793,11 +6793,6 @@ next-compose-plugins@^2.2.1:
   resolved "https://registry.yarnpkg.com/next-compose-plugins/-/next-compose-plugins-2.2.1.tgz#020fc53f275a7e719d62521bef4300fbb6fde5ab"
   integrity sha512-OjJ+fV15FXO2uQXQagLD4C0abYErBjyjE0I0FHpOEIB8upw0hg1ldFP6cqHTJBH1cZqy96OeR3u1dJ+Ez2D4Bg==
 
-next-plugin-custom-babel-config@^1.0.4:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/next-plugin-custom-babel-config/-/next-plugin-custom-babel-config-1.0.4.tgz#b99d8b7cfafb141176b51d717491957ee19bc338"
-  integrity sha512-553Xu6qtPIv10TaP/KRtnOP97Xi4yGF1aAZTACQgLz/qJTOCVG4F25fm84uf1xZRdHlhOUEt9t86frolh4N0EA==
-
 next-redux-wrapper@^6.0.2:
   version "6.0.2"
   resolved "https://registry.yarnpkg.com/next-redux-wrapper/-/next-redux-wrapper-6.0.2.tgz#b8dcd214e7b5cedd7a2a611ddb60422384d24374"
