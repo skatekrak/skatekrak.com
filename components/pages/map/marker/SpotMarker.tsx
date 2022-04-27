@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import React from 'react';
 
-import { Marker } from 'react-map-gl';
+import { Marker, MapboxEvent } from 'react-map-gl';
 
 import { Spot } from 'lib/carrelageClient';
 
@@ -9,9 +9,9 @@ import BadgeHistory from 'components/pages/map/marker/badges/History';
 import BadgeIconic from 'components/pages/map/marker/badges/Iconic';
 import BadgeMinute from 'components/pages/map/marker/badges/Minute';
 import Activity from 'components/pages/map/marker/Activity';
-import { useDispatch } from 'react-redux';
 import { selectSpot } from 'store/map/slice';
 import { useIsSubscriber } from 'shared/feudartifice/hooks/user';
+import { useAppDispatch } from 'store/hook';
 
 type SpotMarkerProps = {
     spot: Spot;
@@ -28,17 +28,23 @@ const Pin = ({ imageName }: { imageName: string }) => {
 };
 
 const SpotMarker = ({ spot, isSelected }: SpotMarkerProps) => {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const active = spot.mediasStat.all > 3;
     const firing = spot.mediasStat.all >= 10;
     const { data: isSubscriber } = useIsSubscriber();
 
-    const onMarkerClick = () => {
+    const onMarkerClick = (event: MapboxEvent<Event>) => {
+        event.originalEvent?.stopPropagation();
         dispatch(selectSpot(spot.id));
     };
 
     return (
-        <Marker key={spot.id} latitude={spot.location.latitude} longitude={spot.location.longitude} offset={[-24, -24]}>
+        <Marker
+            key={spot.id}
+            latitude={spot.location.latitude}
+            longitude={spot.location.longitude}
+            onClick={onMarkerClick}
+        >
             <div
                 className={classNames({
                     'map-marker-clicked': isSelected,
@@ -46,11 +52,10 @@ const SpotMarker = ({ spot, isSelected }: SpotMarkerProps) => {
                     'map-marker-firing': isSubscriber && firing,
                 })}
             >
-                <button
+                <div
                     className={classNames('map-marker', {
                         'map-marker-firing': isSubscriber && firing,
                     })}
-                    onClick={onMarkerClick}
                 >
                     <div className="map-marker-icon">
                         {(spot.status == 'rip' || spot.status === 'wip') && (
@@ -70,7 +75,7 @@ const SpotMarker = ({ spot, isSelected }: SpotMarkerProps) => {
                         </div>
                     )}
                     {isSubscriber && active && <Activity firing={firing} />}
-                </button>
+                </div>
             </div>
         </Marker>
     );

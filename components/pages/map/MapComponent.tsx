@@ -1,6 +1,6 @@
-import React, { useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import ReactMapGL, { MapRef, NavigationControl, ViewStateChangeEvent } from 'react-map-gl';
+import ReactMapGL, { MapRef, NavigationControl, ViewStateChangeEvent, MapLayerMouseEvent } from 'react-map-gl';
 
 import SpotCluster from 'components/pages/map/marker/SpotCluster';
 import SpotMarker from 'components/pages/map/marker/SpotMarker';
@@ -18,6 +18,7 @@ import {
 } from 'store/map/slice';
 import type { RootState } from 'store';
 import { useIsSubscriber } from 'shared/feudartifice/hooks/user';
+import { useAppSelector } from 'store/hook';
 
 const MIN_ZOOM_LEVEL = 2;
 const MAX_ZOOM_LEVEL = 18;
@@ -30,10 +31,10 @@ type MapComponentProps = {
 
 const MapComponent = ({ mapRef, clusters, children }: MapComponentProps) => {
     const dispatch = useDispatch();
-    const viewport = useSelector((state: RootState) => state.map.viewport);
-    const spotId = useSelector((state: RootState) => state.map.selectSpot);
-    const customMapId = useSelector((state: RootState) => state.map.customMapId);
-    const selectedSpotOverview = useSelector((state: RootState) => state.map.spotOverview);
+    const viewport = useAppSelector((state) => state.map.viewport);
+    const spotId = useAppSelector((state) => state.map.selectSpot);
+    const customMapId = useAppSelector((state) => state.map.customMapId);
+    const selectedSpotOverview = useAppSelector((state) => state.map.spotOverview);
     const clustering = customMapId === undefined;
     const { data: isSubscriber } = useIsSubscriber();
 
@@ -67,10 +68,14 @@ const MapComponent = ({ mapRef, clusters, children }: MapComponentProps) => {
         }
     };
 
-    const onPopupClose = () => {
-        dispatch(selectSpot());
-        dispatch(setSpotOverview(undefined));
-    };
+    const onPopupClose = useCallback(() => {
+        if (spotId != null) {
+            dispatch(selectSpot());
+        }
+        if (selectedSpotOverview != null) {
+            dispatch(setSpotOverview(undefined));
+        }
+    }, [dispatch, spotId, selectedSpotOverview]);
 
     const onViewportChange = (viewState: ViewStateChangeEvent) => {
         dispatch(setViewport(viewState.viewState));
@@ -86,7 +91,7 @@ const MapComponent = ({ mapRef, clusters, children }: MapComponentProps) => {
                 maxZoom={MAX_ZOOM_LEVEL}
                 mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}
                 mapStyle="mapbox://styles/mapbox/dark-v9"
-                onMoveEnd={onViewportChange}
+                onMove={onViewportChange}
                 onClick={onPopupClose}
             >
                 {/* Popup */}
