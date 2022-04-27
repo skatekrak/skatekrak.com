@@ -24,7 +24,6 @@ const MapSpotOverview: React.FC<MapSpotOverviewProps> = ({ spotOverview, onPopup
             longitude={spotOverview.spot.location.longitude}
             latitude={spotOverview.spot.location.latitude}
             onClose={onPopupClose}
-            tipSize={8}
             closeButton={false}
             closeOnClick={false}
         >
