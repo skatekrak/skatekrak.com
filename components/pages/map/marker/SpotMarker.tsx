@@ -38,40 +38,40 @@ const SpotMarker = ({ spot, isSelected }: SpotMarkerProps) => {
     };
 
     return (
-        <Marker
-            latitude={spot.location.latitude}
-            longitude={spot.location.longitude}
-            offsetLeft={-24}
-            offsetTop={-24}
-            className={classNames({
-                'map-marker-clicked': isSelected,
-                'map-marker-active': active && !firing,
-                'map-marker-firing': isSubscriber && firing,
-            })}
-        >
-            <button
-                className={classNames('map-marker', {
+        <Marker key={spot.id} latitude={spot.location.latitude} longitude={spot.location.longitude} offset={[-24, -24]}>
+            <div
+                className={classNames({
+                    'map-marker-clicked': isSelected,
+                    'map-marker-active': active && !firing,
                     'map-marker-firing': isSubscriber && firing,
                 })}
-                onClick={onMarkerClick}
             >
-                <div className="map-marker-icon">
-                    {(spot.status == 'rip' || spot.status === 'wip') && <Pin key={spot.id} imageName={spot.status} />}
-                    {spot.status === 'active' && <Pin key={spot.id} imageName={spot.type} />}
-                </div>
-                {isSubscriber && spot.tags.length !== 0 && (
-                    <div className="map-marker-badges">
-                        {spot.tags.map((tag) => (
-                            <React.Fragment key={tag}>
-                                {tag === 'famous' && <BadgeIconic />}
-                                {tag === 'history' && <BadgeHistory />}
-                                {tag === 'minute' && <BadgeMinute />}
-                            </React.Fragment>
-                        ))}
+                <button
+                    className={classNames('map-marker', {
+                        'map-marker-firing': isSubscriber && firing,
+                    })}
+                    onClick={onMarkerClick}
+                >
+                    <div className="map-marker-icon">
+                        {(spot.status == 'rip' || spot.status === 'wip') && (
+                            <Pin key={spot.id} imageName={spot.status} />
+                        )}
+                        {spot.status === 'active' && <Pin key={spot.id} imageName={spot.type} />}
                     </div>
-                )}
-                {isSubscriber && active && <Activity firing={firing} />}
-            </button>
+                    {isSubscriber && spot.tags.length !== 0 && (
+                        <div className="map-marker-badges">
+                            {spot.tags.map((tag) => (
+                                <React.Fragment key={tag}>
+                                    {tag === 'famous' && <BadgeIconic />}
+                                    {tag === 'history' && <BadgeHistory />}
+                                    {tag === 'minute' && <BadgeMinute />}
+                                </React.Fragment>
+                            ))}
+                        </div>
+                    )}
+                    {isSubscriber && active && <Activity firing={firing} />}
+                </button>
+            </div>
         </Marker>
     );
 };

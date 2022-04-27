@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
-import { FlyToInterpolator, ViewportProps } from 'react-map-gl';
+import { useMap } from 'react-map-gl';
 
 import Scrollbar from 'components/Ui/Scrollbar';
 import type { SpotHit } from 'lib/algolia';
@@ -12,7 +12,7 @@ import MapSearchResultPlace from './MapSearchResultPlace';
 import * as S from './MapSearchResults.styled';
 
 import { Place } from 'lib/placeApi';
-import { selectSpot, setViewport } from 'store/map/slice';
+import { selectSpot } from 'store/map/slice';
 
 type MapSearchResultsProps = {
     loading: boolean;
@@ -23,16 +23,17 @@ type MapSearchResultsProps = {
 
 const MapSearchResults: React.FC<MapSearchResultsProps> = ({ spots, loading, places, onClick }) => {
     const dispatch = useDispatch();
+    const { current: map } = useMap();
 
     const onSpotClick = useCallback(
         (spot: SpotHit) => {
-            const newViewport: Partial<ViewportProps> = {
-                latitude: spot._geoloc.lat,
-                longitude: spot._geoloc.lng,
-                transitionDuration: 1000,
-                transitionInterpolator: new FlyToInterpolator(),
-            };
-            dispatch(setViewport(newViewport));
+            map.flyTo({
+                center: {
+                    lat: spot._geoloc.lat,
+                    lon: spot._geoloc.lng,
+                },
+                duration: 1000,
+            });
             dispatch(selectSpot(spot.objectID));
             onClick();
         },
@@ -41,14 +42,13 @@ const MapSearchResults: React.FC<MapSearchResultsProps> = ({ spots, loading, pla
 
     const onPlaceClick = useCallback(
         (place: Place) => {
-            dispatch(
-                setViewport({
-                    latitude: place.geometry.location.lat,
-                    longitude: place.geometry.location.lng,
-                    transitionDuration: 1000,
-                    transitionInterpolator: new FlyToInterpolator(),
-                }),
-            );
+            map.flyTo({
+                center: {
+                    lat: place.geometry.location.lat,
+                    lon: place.geometry.location.lng,
+                },
+                duration: 1000,
+            });
             onClick();
         },
         [dispatch, onClick],

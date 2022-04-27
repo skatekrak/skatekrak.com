@@ -5,7 +5,7 @@ import * as S from '../MapQuickAccessDesktopCities.styled';
 
 import { City } from 'map';
 import { toggleLegend, toggleSearchResult } from 'store/map/slice';
-import { flyTo, updateUrlParams } from 'store/map/slice';
+import { updateUrlParams } from 'store/map/slice';
 
 type MapQuickAccessDesktopCityItemProps = {
     city: City;
@@ -28,7 +28,7 @@ const MapQuickAccessDesktopCityItem: React.FC<MapQuickAccessDesktopCityItemProps
                     customMapId: null,
                 }),
             );
-            dispatch(flyTo({ bounds: city.bounds, padding: 0 }));
+            // dispatch(flyTo({ bounds: city.bounds, padding: 0 }));
         },
         [onCitiesClick, dispatch, city.bounds],
     );

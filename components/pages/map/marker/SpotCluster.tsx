@@ -70,10 +70,10 @@ const SpotCluster = ({ cluster, viewportZoom }: SpotClusterProps) => {
 
     return (
         <Marker
+            key={cluster.id}
             latitude={cluster.latitude}
             longitude={cluster.longitude}
-            offsetLeft={-(size / 2)}
-            offsetTop={-(size / 2)}
+            offset={[-(size / 2), -(size / 2)]}
         >
             <div
                 style={{

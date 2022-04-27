@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { InteractiveMap, FlyToInterpolator, ViewportProps } from 'react-map-gl';
+import { MapRef } from 'react-map-gl';
 import { useSelector } from 'react-redux';
 import dynamic from 'next/dynamic';
 
@@ -7,7 +7,7 @@ import { Cluster, Spot, Status, Types } from 'lib/carrelageClient';
 import { useIsSubscriber } from 'shared/feudartifice/hooks/user';
 
 import { boxSpotsSearch, getSpotOverview } from 'lib/carrelageClient';
-import { flyTo, mapRefreshEnd, setSpotOverview, setViewport, updateUrlParams } from 'store/map/slice';
+import { mapRefreshEnd, setSpotOverview, setViewport, updateUrlParams } from 'store/map/slice';
 import { FilterStateUtil, FilterState } from 'lib/FilterState';
 import { RootState } from 'store';
 import useCustomMap from 'lib/hook/use-custom-map';
@@ -68,19 +68,16 @@ const MapContainer = () => {
     // Full spot
     const fullSpotContainerRef = useRef<HTMLDivElement>();
 
-    const mapRef = useRef<InteractiveMap>();
+    const mapRef = useRef<MapRef>();
     const loadTimeout = useRef<NodeJS.Timeout>();
 
     const centerToSpot = useCallback(
         (spot: Spot) => {
-            const newViewport: Partial<ViewportProps> = {
-                longitude: spot.location.longitude,
-                latitude: spot.location.latitude,
+            mapRef.current?.flyTo({
+                center: { lat: spot.location.latitude, lon: spot.location.longitude },
                 zoom: 14,
-                transitionDuration: 1500,
-                transitionInterpolator: new FlyToInterpolator(),
-            };
-            dispatch(setViewport(newViewport));
+                duration: 1500,
+            });
         },
         [dispatch],
     );
@@ -169,25 +166,13 @@ const MapContainer = () => {
             const bounds = findBoundsCoordinate(
                 customMapInfo.spots.map((spot) => [spot.location.longitude, spot.location.latitude]),
             );
-            dispatch(flyTo({ bounds }));
+            mapRef.current?.fitBounds(bounds, { padding: 0.15, duration: 1500 });
         }
     }, [customMapInfo, viewport.width, id, dispatch]);
 
     return (
         <S.MapContainer ref={fullSpotContainerRef}>
             <>
-                {id !== undefined && customMapInfo !== undefined ? (
-                    <MapCustomNavigation
-                        id={customMapInfo.id}
-                        title={customMapInfo.name}
-                        about={customMapInfo.about}
-                        subtitle={customMapInfo.subtitle}
-                        spots={customMapInfo.spots}
-                    />
-                ) : (
-                    <>{isSubscriber && <MapNavigation />}</>
-                )}
-                {!isMobile && isSubscriber && <MapQuickAccessDesktop />}
                 <MapBottomNav isMobile={isMobile} isSubscriber={isSubscriber} />
                 {isSubscriber && (
                     <MapFullSpot
@@ -196,7 +181,20 @@ const MapContainer = () => {
                         container={fullSpotContainerRef.current}
                     />
                 )}
-                <DynamicMapComponent mapRef={mapRef} clusters={customMapLoading ? [] : clusters} />
+                <DynamicMapComponent mapRef={mapRef} clusters={customMapLoading ? [] : clusters}>
+                    {id !== undefined && customMapInfo !== undefined ? (
+                        <MapCustomNavigation
+                            id={customMapInfo.id}
+                            title={customMapInfo.name}
+                            about={customMapInfo.about}
+                            subtitle={customMapInfo.subtitle}
+                            spots={customMapInfo.spots}
+                        />
+                    ) : (
+                        <>{isSubscriber && <MapNavigation />}</>
+                    )}
+                    {!isMobile && isSubscriber && <MapQuickAccessDesktop />}
+                </DynamicMapComponent>
                 <MapGradients />
             </>
         </S.MapContainer>

@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Types, Status, SpotOverview } from 'lib/carrelageClient';
 import { FilterState } from 'lib/FilterState';
-import { FlyToInterpolator, ViewportProps, WebMercatorViewport } from 'react-map-gl';
+import { ViewState } from 'react-map-gl';
 
 export type FullSpotTab =
     | 'info'
@@ -18,7 +18,7 @@ export type MapState = {
     types: Record<Types, FilterState>;
     status: Record<Status, FilterState>;
     spotOverview?: SpotOverview;
-    viewport: Partial<ViewportProps>;
+    viewport: Partial<ViewState & { width: number; height: number }>;
     fullSpotSelectedTab: FullSpotTab;
     selectSpot?: string;
     modalVisible: boolean;
@@ -146,7 +146,7 @@ const mapSlice = createSlice({
                 spotOverview: action.payload,
             };
         },
-        setViewport: (state, action: PayloadAction<Partial<ViewportProps>>) => {
+        setViewport: (state, action: PayloadAction<Partial<ViewState & { width: number; height: number }>>) => {
             return {
                 ...state,
                 viewport: {
@@ -213,21 +213,6 @@ const mapSlice = createSlice({
                 customMapId: customMapId,
             };
         },
-        flyTo: (state, action: PayloadAction<{ bounds: [[number, number], [number, number]]; padding?: number }>) => {
-            const { bounds, padding = 0.15 } = action.payload;
-
-            const { longitude, latitude, zoom } = new WebMercatorViewport(state.viewport).fitBounds(bounds, {
-                padding: state.viewport.width * padding, // padding of 15%
-            });
-
-            state.viewport = {
-                latitude,
-                longitude,
-                zoom,
-                transitionDuration: 1500,
-                transitionInterpolator: new FlyToInterpolator(),
-            };
-        },
     },
 });
 
@@ -255,7 +240,6 @@ export const {
     setVideoPlaying,
     toggleSearchResult,
     updateUrlParams,
-    flyTo,
 } = mapSlice.actions;
 
 export default mapSlice.reducer;

@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import ReactMapGL, { NavigationControl, ContextViewportChangeHandler } from 'react-map-gl';
+import ReactMapGL, { MapRef, NavigationControl, ViewStateChangeEvent } from 'react-map-gl';
 
 import SpotCluster from 'components/pages/map/marker/SpotCluster';
 import SpotMarker from 'components/pages/map/marker/SpotMarker';
@@ -23,11 +23,12 @@ const MIN_ZOOM_LEVEL = 2;
 const MAX_ZOOM_LEVEL = 18;
 
 type MapComponentProps = {
-    mapRef?: React.RefObject<ReactMapGL>;
+    mapRef?: React.RefObject<MapRef>;
     clusters: Cluster[];
+    children?: React.ReactNode;
 };
 
-const MapComponent = ({ mapRef, clusters }: MapComponentProps) => {
+const MapComponent = ({ mapRef, clusters, children }: MapComponentProps) => {
     const dispatch = useDispatch();
     const viewport = useSelector((state: RootState) => state.map.viewport);
     const spotId = useSelector((state: RootState) => state.map.selectSpot);
@@ -39,7 +40,7 @@ const MapComponent = ({ mapRef, clusters }: MapComponentProps) => {
     const markers = useMemo(() => {
         const _markers: JSX.Element[] = [];
         for (const cluster of clusters) {
-            if (!clustering || (viewport.zoom > viewport.maxZoom - 5.5 && cluster.spots.length > 0)) {
+            if (!clustering || (viewport.zoom > MAX_ZOOM_LEVEL - 5.5 && cluster.spots.length > 0)) {
                 for (const spot of cluster.spots) {
                     if (_markers.findIndex((m) => m.key === spot.id) === -1) {
                         _markers.push(
@@ -56,7 +57,7 @@ const MapComponent = ({ mapRef, clusters }: MapComponentProps) => {
             }
         }
         return _markers;
-    }, [clusters, selectedSpotOverview, clustering, viewport.zoom, viewport.maxZoom]);
+    }, [clusters, selectedSpotOverview, clustering, viewport.zoom]);
 
     const onPopupClick = () => {
         if (isSubscriber) {
@@ -71,8 +72,8 @@ const MapComponent = ({ mapRef, clusters }: MapComponentProps) => {
         dispatch(setSpotOverview(undefined));
     };
 
-    const onViewportChange: ContextViewportChangeHandler = (viewState) => {
-        dispatch(setViewport(viewState));
+    const onViewportChange = (viewState: ViewStateChangeEvent) => {
+        dispatch(setViewport(viewState.viewState));
     };
 
     return (
@@ -80,13 +81,12 @@ const MapComponent = ({ mapRef, clusters }: MapComponentProps) => {
             <ReactMapGL
                 ref={mapRef}
                 {...viewport}
-                width="100%"
-                height="100%"
+                style={{ width: '100%', height: '100%' }}
                 minZoom={MIN_ZOOM_LEVEL}
                 maxZoom={MAX_ZOOM_LEVEL}
-                mapboxApiAccessToken={process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}
+                mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}
                 mapStyle="mapbox://styles/mapbox/dark-v9"
-                onViewportChange={onViewportChange}
+                onMove={onViewportChange}
                 onClick={onPopupClose}
             >
                 {/* Popup */}
@@ -97,13 +97,12 @@ const MapComponent = ({ mapRef, clusters }: MapComponentProps) => {
                         onPopupClose={onPopupClose}
                     />
                 )}
+                {children}
 
                 {/* Marker */}
                 {markers}
 
-                <S.MapControlContainer>
-                    <NavigationControl />
-                </S.MapControlContainer>
+                <NavigationControl position="bottom-right" />
             </ReactMapGL>
         </S.MapComponent>
     );
