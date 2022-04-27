@@ -5,9 +5,9 @@ import ReactPlayer from 'react-player';
 import VideoPlayer from 'components/Ui/Player/VideoPlayer';
 import * as S from 'components/pages/map/MapFullSpot/MapFullSpotMain/MapFullSpotMain.styled';
 
-import { setVideoPlaying } from 'store/map/actions';
+import { setVideoPlaying } from 'store/map/slice';
 import { Clip } from 'lib/carrelageClient';
-import { RootState } from 'store/reducers';
+import { RootState } from 'store';
 
 type MapFullSpotMainClipProps = {
     clip: Clip;

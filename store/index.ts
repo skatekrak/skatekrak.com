@@ -1,45 +1,47 @@
-import { AnyAction, applyMiddleware, createStore, Reducer } from 'redux';
 import Router from 'next/router';
 import { AppContext } from 'next/app';
-import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
-import { createWrapper, MakeStore } from 'next-redux-wrapper';
-import { createRouterMiddleware, initialRouterState } from 'connected-next-router';
+import { createWrapper, HYDRATE } from 'next-redux-wrapper';
+import { createRouterMiddleware, initialRouterState, routerReducer } from 'connected-next-router';
 import queryString from 'query-string';
-import thunk from 'redux-thunk';
+import { ThunkAction } from 'redux-thunk';
 import { save, load } from 'redux-localstorage-simple';
 import merge from 'deepmerge';
+import { Action } from 'redux';
 
-import Typings from 'Types';
-
-import reducers from './reducers';
 import querySyncMiddleware from './middleware/query-sync';
 
-import { initialState as mapInitialState } from './map/reducers';
-import { initialState as magInitialState } from './mag/reducers';
-import { initialState as newsInitialState } from './news/reducer';
-import { initialState as videosInitialState } from './news/reducer';
+import mapReducer, { initialState as mapInitialState } from './map/slice';
+import magReducer, { initialState as magInitialState } from './mag/slice';
+import newsReducer, { initialState as newsInitialState } from './news/slice';
+import videosReducer, { initialState as videosInitialState } from './videos/slice';
+import settingsReducer from './settings/slice';
+import { configureStore, createSlice } from '@reduxjs/toolkit';
 
-const reducer: Reducer<Typings.RootState, AnyAction> = (state, action) => {
-    if (action.type === 'HYDRATE') {
-        const nextState = {
-            ...state,
-            ...action.payload,
-        };
+const subjectSlice = createSlice({
+    name: 'subject',
+    initialState: {} as any,
 
-        if (typeof window !== undefined && state?.router) {
-            nextState.router = state.router;
-        }
+    reducers: {
+        setEnt: (state, action) => {
+            return action.payload;
+        },
+    },
 
-        return nextState;
-    } else {
-        return reducers(state, action);
-    }
-};
+    extraReducers: {
+        [HYDRATE]: (state, action) => {
+            console.log('HYDRATE', state, action.payload);
+            return {
+                ...state,
+                ...action.payload.subject,
+            };
+        },
+    },
+});
 
-export const initializeStore: MakeStore<Typings.RootState> = (context) => {
+export const initializeStore = (context) => {
     const routerMiddleware = createRouterMiddleware();
 
-    const { asPath, pathname, query } = (context as AppContext).ctx || Router.router || {};
+    const { asPath } = (context as AppContext).ctx || Router.router || {};
 
     let initialState;
     if (asPath) {
@@ -80,16 +82,30 @@ export const initializeStore: MakeStore<Typings.RootState> = (context) => {
     const middlewares = [
         routerMiddleware,
         querySyncMiddleware,
-        thunk,
         save({ states: ['news', 'mag', 'videos'], debounce: 500, namespace: 'skatekrak' }),
     ];
-    const middlewareEnhancer = applyMiddleware(...middlewares);
 
-    const composedEnhancers = composeWithDevTools(...[middlewareEnhancer]);
-
-    const store = createStore(reducer, initialState, composedEnhancers);
+    const store = configureStore({
+        reducer: {
+            router: routerReducer,
+            map: mapReducer,
+            mag: magReducer,
+            news: newsReducer,
+            video: videosReducer,
+            settings: settingsReducer,
+            [subjectSlice.name]: subjectSlice.reducer,
+        },
+        preloadedState: initialState,
+        devTools: true,
+        middleware: middlewares,
+    });
 
     return store;
 };
 
-export const wrapper = createWrapper<Typings.RootState>(initializeStore);
+export type RootStore = ReturnType<typeof initializeStore>;
+export type RootState = ReturnType<RootStore['getState']>;
+export type RootThunk<ReturnType = void> = ThunkAction<ReturnType, RootState, unknown, Action>;
+export type AppDispatch = RootStore['dispatch'];
+
+export const wrapper = createWrapper<RootStore>(initializeStore);

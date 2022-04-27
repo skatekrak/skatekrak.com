@@ -1,10 +1,4 @@
-import { ActionType } from 'typesafe-actions';
-
-import { SET_DEVICE_SIZE } from '../constants';
-
-import * as settings from './actions';
-
-export type SettingsAction = ActionType<typeof settings>;
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export enum FeedLayout {
     OneColumn = 768,
@@ -22,9 +16,11 @@ const initialState: State = {
     feedLayout: null,
 };
 
-const SettingsReducer = (state: State = initialState, action: SettingsAction): State => {
-    switch (action.type) {
-        case SET_DEVICE_SIZE:
+const settingsSlice = createSlice({
+    name: 'settings',
+    initialState,
+    reducers: {
+        setDeviceSize: (state, action: PayloadAction<number>) => {
             const res = { ...state, isMobile: action.payload < 1024 };
             if (action.payload < FeedLayout.OneColumn) {
                 res.feedLayout = FeedLayout.OneColumn;
@@ -34,9 +30,10 @@ const SettingsReducer = (state: State = initialState, action: SettingsAction): S
                 res.feedLayout = FeedLayout.FourColumns;
             }
             return res;
-        default:
-            return state;
-    }
-};
+        },
+    },
+});
 
-export default SettingsReducer;
+export const { setDeviceSize } = settingsSlice.actions;
+
+export default settingsSlice.reducer;

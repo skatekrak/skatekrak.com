@@ -6,7 +6,7 @@ import MapFullSpotMain from './MapFullSpotMain';
 import * as S from './MapFullSpot.styled';
 
 import { useDispatch } from 'react-redux';
-import { selectFullSpotTab } from 'store/map/actions';
+import { selectFullSpotTab } from 'store/map/slice';
 
 const classNames = {
     customOverlay: 'full-spot-overlay',

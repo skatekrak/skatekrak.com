@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 
 import * as S from './MapSearchResults.styled';
 
-import { toggleLegend } from 'store/map/actions';
+import { toggleLegend } from 'store/map/slice';
 
 const MapSearchResultLoading = () => {
     const dispatch = useDispatch();

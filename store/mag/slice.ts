@@ -1,12 +1,8 @@
-import { ActionType } from 'typesafe-actions';
-import { Reducer } from 'redux';
+import { Source } from 'rss-feed';
 
 import { push, remove } from 'lib/immutable';
 
-import { TOGGLE_CATEGORY, SET_MAG_SEARCH, RESET_CATEGORIES } from '../constants';
-import * as magActions from './actions';
-
-export type MagAction = ActionType<typeof magActions>;
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export type MagState = {
     selectedCategories: string[];
@@ -18,9 +14,11 @@ export const initialState: MagState = {
     search: '',
 };
 
-const MagReducer: Reducer<MagState, MagAction> = (state = initialState, action) => {
-    switch (action.type) {
-        case TOGGLE_CATEGORY:
+const magSlice = createSlice({
+    name: 'mag',
+    initialState,
+    reducers: {
+        toggleCategory: (state, action: PayloadAction<Source>) => {
             const index = state.selectedCategories.indexOf(action.payload.id);
 
             return {
@@ -30,19 +28,22 @@ const MagReducer: Reducer<MagState, MagAction> = (state = initialState, action) 
                         ? push(state.selectedCategories, action.payload.id)
                         : remove(state.selectedCategories, index),
             };
-        case SET_MAG_SEARCH:
+        },
+        setMagSearch: (state, action: PayloadAction<string>) => {
             return {
                 ...state,
                 search: action.payload,
             };
-        case RESET_CATEGORIES:
+        },
+        resetCategories: (state) => {
             return {
                 ...state,
                 selectedCategories: [],
             };
-        default:
-            return state;
-    }
-};
+        },
+    },
+});
 
-export default MagReducer;
+export const { toggleCategory, setMagSearch, resetCategories } = magSlice.actions;
+
+export default magSlice.reducer;

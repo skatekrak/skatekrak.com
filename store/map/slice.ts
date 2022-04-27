@@ -1,25 +1,7 @@
-import { ActionType } from 'typesafe-actions';
-
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Types, Status, SpotOverview } from 'lib/carrelageClient';
 import { FilterState } from 'lib/FilterState';
-import {
-    SELECT_ALL_MAP_FILTERS,
-    UNSELECT_ALL_MAP_FILTERS,
-    TOGGLE_MAP_FILTER,
-    MAP_REFRESH_END,
-    SET_VIEWPORT,
-    SET_SPOT_OVERVIEW,
-    SELECT_FULL_SPOT_TAB,
-    SELECT_SPOT,
-    TOGGLE_SPOT_MODAL,
-    TOGGLE_CUSTOM_MAP,
-    SET_VIDEO_PLAYING,
-    TOGGLE_LEGEND,
-    UPDATE_URL_PARAM,
-    TOGGLE_SEARCH_RESULT,
-} from './constants';
-import * as mapActions from './actions';
-import type { ViewportProps } from 'react-map-gl';
+import { FlyToInterpolator, ViewportProps, WebMercatorViewport } from 'react-map-gl';
 
 export type FullSpotTab =
     | 'info'
@@ -31,8 +13,6 @@ export type FullSpotTab =
     | 'events'
     | 'instagram'
     | 'contributors';
-
-export type MapAction = ActionType<typeof mapActions>;
 
 export type MapState = {
     types: Record<Types, FilterState>;
@@ -76,16 +56,18 @@ export const initialState: MapState = {
     videoPlayingId: undefined,
 };
 
-const MapReducers = (state: MapState = initialState, action: MapAction): MapState => {
-    switch (action.type) {
-        case SELECT_ALL_MAP_FILTERS: {
+const mapSlice = createSlice({
+    name: 'map',
+    initialState,
+    reducers: {
+        selectAllMapFilters: (state) => {
             return {
                 ...state,
                 status: initialState.status,
                 types: initialState.types,
             };
-        }
-        case UNSELECT_ALL_MAP_FILTERS: {
+        },
+        unselectAllMapFilters: (state) => {
             const types = {
                 [Types.Diy]: FilterState.UNSELECTED,
                 [Types.Park]: FilterState.UNSELECTED,
@@ -105,8 +87,8 @@ const MapReducers = (state: MapState = initialState, action: MapAction): MapStat
                 status,
                 types,
             };
-        }
-        case TOGGLE_MAP_FILTER: {
+        },
+        toggleMapFilter: (state, action: PayloadAction<Types | Status>) => {
             const newState = Object.assign({}, state);
 
             const filter = action.payload;
@@ -136,8 +118,8 @@ const MapReducers = (state: MapState = initialState, action: MapAction): MapStat
                 newState.status = map;
             }
             return newState;
-        }
-        case MAP_REFRESH_END: {
+        },
+        mapRefreshEnd: (state) => {
             const newState = Object.assign({}, state);
 
             for (const key in newState.status) {
@@ -157,13 +139,14 @@ const MapReducers = (state: MapState = initialState, action: MapAction): MapStat
             }
 
             return newState;
-        }
-        case SET_SPOT_OVERVIEW:
+        },
+        setSpotOverview: (state, action: PayloadAction<SpotOverview | undefined>) => {
             return {
                 ...state,
                 spotOverview: action.payload,
             };
-        case SET_VIEWPORT:
+        },
+        setViewport: (state, action: PayloadAction<Partial<ViewportProps>>) => {
             return {
                 ...state,
                 viewport: {
@@ -171,51 +154,108 @@ const MapReducers = (state: MapState = initialState, action: MapAction): MapStat
                     ...action.payload,
                 },
             };
-        case SELECT_FULL_SPOT_TAB:
+        },
+        selectFullSpotTab: (state, action: PayloadAction<FullSpotTab | undefined>) => {
             return {
                 ...state,
                 fullSpotSelectedTab: action.payload ?? initialState.fullSpotSelectedTab,
             };
-        case SELECT_SPOT:
+        },
+        selectSpot: (state, action: PayloadAction<string | undefined>) => {
             return {
                 ...state,
                 selectSpot: action.payload,
             };
-        case TOGGLE_SPOT_MODAL:
+        },
+        toggleSpotModal: (state, action: PayloadAction<boolean | undefined>) => {
+            const { payload = true } = action;
             return {
                 ...state,
-                modalVisible: action.payload,
+                modalVisible: payload,
             };
-        case TOGGLE_LEGEND:
-            return {
-                ...state,
-                legendOpen: action.payload,
-            };
-        case TOGGLE_CUSTOM_MAP:
+        },
+        toggleCustomMap: (state, action: PayloadAction<string | undefined>) => {
             return {
                 ...state,
                 customMapId: action.payload,
             };
-        case SET_VIDEO_PLAYING:
+        },
+        toggleLegend: (state, action: PayloadAction<boolean>) => {
+            return {
+                ...state,
+                legendOpen: action.payload,
+            };
+        },
+        setVideoPlaying: (state, action: PayloadAction<string | undefined>) => {
             return {
                 ...state,
                 videoPlayingId: action.payload,
             };
-        case UPDATE_URL_PARAM:
-            return {
-                ...state,
-                selectSpot: action.payload.spotId,
-                modalVisible: action.payload.modal,
-                customMapId: action.payload.customMapId,
-            };
-        case TOGGLE_SEARCH_RESULT:
+        },
+        toggleSearchResult: (state, action: PayloadAction<boolean>) => {
             return {
                 ...state,
                 searchResultOpen: action.payload,
             };
-        default:
-            return state;
+        },
+        updateUrlParams: (
+            state,
+            action: PayloadAction<{ spotId: string | null; modal: boolean; customMapId: string | null }>,
+        ) => {
+            const spotId = extractData(state.selectSpot, action.payload.spotId);
+            const modal = extractData(state.modalVisible, action.payload.modal);
+            const customMapId = extractData(state.customMapId, action.payload.customMapId);
+
+            return {
+                ...state,
+                selectSpot: spotId,
+                modalVisible: modal,
+                customMapId: customMapId,
+            };
+        },
+        flyTo: (state, action: PayloadAction<{ bounds: [[number, number], [number, number]]; padding?: number }>) => {
+            const { bounds, padding = 0.15 } = action.payload;
+
+            const { longitude, latitude, zoom } = new WebMercatorViewport(state.viewport).fitBounds(bounds, {
+                padding: state.viewport.width * padding, // padding of 15%
+            });
+
+            state.viewport = {
+                latitude,
+                longitude,
+                zoom,
+                transitionDuration: 1500,
+                transitionInterpolator: new FlyToInterpolator(),
+            };
+        },
+    },
+});
+
+const extractData = <T>(defaultValue: T, data?: T | null) => {
+    if (data === undefined) {
+        return defaultValue;
+    } else if (data === null) {
+        return undefined;
     }
+    return data;
 };
 
-export default MapReducers;
+export const {
+    selectAllMapFilters,
+    unselectAllMapFilters,
+    toggleMapFilter,
+    mapRefreshEnd,
+    setSpotOverview,
+    setViewport,
+    selectFullSpotTab,
+    selectSpot,
+    toggleSpotModal,
+    toggleCustomMap,
+    toggleLegend,
+    setVideoPlaying,
+    toggleSearchResult,
+    updateUrlParams,
+    flyTo,
+} = mapSlice.actions;
+
+export default mapSlice.reducer;

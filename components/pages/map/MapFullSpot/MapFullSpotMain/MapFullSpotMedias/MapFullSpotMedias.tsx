@@ -12,7 +12,7 @@ import * as S from 'components/pages/map/MapFullSpot/MapFullSpotMain/MapFullSpot
 import { Spot, Media } from 'lib/carrelageClient';
 import useSpotMedias from 'lib/hook/carrelage/spot-medias';
 import { flatten } from 'lib/helpers';
-import { RootState } from 'store/reducers';
+import { RootState } from 'store';
 
 export type MapFullSpotMediasProps = {
     medias: Media[];

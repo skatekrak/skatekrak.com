@@ -3,8 +3,8 @@ import React, { useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 
 import type { QuickAccessMap } from 'components/pages/map/mapQuickAccess/MapQuickAccessDesktop/MapQuickAccessDesktop';
-import { toggleLegend, toggleSearchResult } from 'store/map/actions';
-import { updateUrlParams } from 'store/map/thunk';
+import { toggleLegend, toggleSearchResult } from 'store/map/slice';
+import { updateUrlParams } from 'store/map/slice';
 import MapQuickAccessDesktopItem from '../MapQuickAccessDesktopItem';
 
 type Props = {

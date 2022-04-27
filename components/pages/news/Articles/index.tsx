@@ -7,10 +7,10 @@ import TrackedPage from 'components/pages/TrackedPage';
 import NoContent from 'components/Ui/Feed/NoContent';
 import { KrakLoading } from 'components/Ui/Icons/Spinners';
 import ScrollHelper from 'lib/ScrollHelper';
-import { FeedLayout } from 'store/settings/reducers';
+import { FeedLayout } from 'store/settings/slice';
 
 import ArticlesList from '../ArticlesList';
-import { RootState } from 'store/reducers';
+import { RootState } from 'store';
 import useNewsContent from 'lib/hook/news/contents';
 import { flatten } from 'lib/helpers';
 

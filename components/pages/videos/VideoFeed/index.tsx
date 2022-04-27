@@ -9,7 +9,7 @@ import VideoCard from 'components/pages/videos/VideoFeed/Video/VideoCard';
 import NoContent from 'components/Ui/Feed/NoContent';
 import { KrakLoading } from 'components/Ui/Icons/Spinners';
 import ScrollHelper from 'lib/ScrollHelper';
-import { RootState } from 'store/reducers';
+import { RootState } from 'store';
 import useVideos from 'lib/hook/videos/videos';
 import useFeaturedVideos from 'lib/hook/videos/featured';
 import { flatten } from 'lib/helpers';

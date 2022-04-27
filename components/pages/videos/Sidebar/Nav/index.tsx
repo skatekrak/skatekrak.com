@@ -9,9 +9,9 @@ import Analytics from 'lib/analytics';
 import { Language, Source } from 'rss-feed';
 import useLanguages from 'lib/hook/languages';
 import useVideosSources from 'lib/hook/videos/sources';
-import { resetVideos, selectVideosSources, setVideosSearch, toggleVideosSource } from 'store/videos/action';
+import { resetVideos, selectVideosSources, setVideosSearch, toggleVideosSource } from 'store/videos/slice';
 import SourceOption from 'components/Ui/Feed/Sidebar/SourceOption';
-import { RootState } from 'store/reducers';
+import { RootState } from 'store';
 import useVideos from 'lib/hook/videos/videos';
 
 type SourcesProps = {

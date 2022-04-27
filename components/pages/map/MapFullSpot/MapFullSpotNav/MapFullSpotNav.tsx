@@ -14,9 +14,8 @@ import MapFullSpotNavItem from './MapFullSpotNavItem';
 import * as S from './MapFullSpotNav.styled';
 
 import { Spot, Status, Types } from 'lib/carrelageClient';
-import { FullSpotTab } from 'store/map/reducers';
-import { selectFullSpotTab } from 'store/map/actions';
-import { RootState } from 'store/reducers';
+import { FullSpotTab, selectFullSpotTab } from 'store/map/slice';
+import { RootState } from 'store';
 
 const SpotIcon = ({ type, status }: { type: Types; status: Status }) => {
     if (status === Status.Rip) {
