@@ -86,7 +86,7 @@ const MapComponent = ({ mapRef, clusters, children }: MapComponentProps) => {
                 maxZoom={MAX_ZOOM_LEVEL}
                 mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}
                 mapStyle="mapbox://styles/mapbox/dark-v9"
-                onMove={onViewportChange}
+                onMoveEnd={onViewportChange}
                 onClick={onPopupClose}
             >
                 {/* Popup */}
