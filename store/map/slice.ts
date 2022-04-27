@@ -161,24 +161,42 @@ const mapSlice = createSlice({
                 fullSpotSelectedTab: action.payload ?? initialState.fullSpotSelectedTab,
             };
         },
-        selectSpot: (state, action: PayloadAction<string | undefined>) => {
-            return {
-                ...state,
-                selectSpot: action.payload,
-            };
+        selectSpot: {
+            reducer: (state, action: PayloadAction<string | undefined>) => {
+                return {
+                    ...state,
+                    selectSpot: action.payload,
+                };
+            },
+            prepare: (value?: string) => ({
+                payload: value,
+                meta: { pushToUrl: { spot: value } },
+            }),
         },
-        toggleSpotModal: (state, action: PayloadAction<boolean | undefined>) => {
-            const { payload = true } = action;
-            return {
-                ...state,
-                modalVisible: payload,
-            };
+        toggleSpotModal: {
+            reducer: (state, action: PayloadAction<boolean | undefined>) => {
+                const { payload = true } = action;
+                return {
+                    ...state,
+                    modalVisible: payload,
+                };
+            },
+            prepare: (value?: boolean) => ({
+                payload: value,
+                meta: { pushToUrl: { modal: value ? '1' : null } },
+            }),
         },
-        toggleCustomMap: (state, action: PayloadAction<string | undefined>) => {
-            return {
-                ...state,
-                customMapId: action.payload,
-            };
+        toggleCustomMap: {
+            reducer: (state, action: PayloadAction<string | undefined>) => {
+                return {
+                    ...state,
+                    customMapId: action.payload,
+                };
+            },
+            prepare: (value?: string) => ({
+                payload: value,
+                meta: { pushToUrl: { id: value } },
+            }),
         },
         toggleLegend: (state, action: PayloadAction<boolean>) => {
             return {
@@ -198,20 +216,34 @@ const mapSlice = createSlice({
                 searchResultOpen: action.payload,
             };
         },
-        updateUrlParams: (
-            state,
-            action: PayloadAction<{ spotId: string | null; modal: boolean; customMapId: string | null }>,
-        ) => {
-            const spotId = extractData(state.selectSpot, action.payload.spotId);
-            const modal = extractData(state.modalVisible, action.payload.modal);
-            const customMapId = extractData(state.customMapId, action.payload.customMapId);
+        updateUrlParams: {
+            reducer: (
+                state,
+                action: PayloadAction<{ spotId: string | null; modal: boolean; customMapId: string | null }>,
+            ) => {
+                const spotId = extractData(state.selectSpot, action.payload.spotId);
+                const modal = extractData(state.modalVisible, action.payload.modal);
+                const customMapId = extractData(state.customMapId, action.payload.customMapId);
 
-            return {
-                ...state,
-                selectSpot: spotId,
-                modalVisible: modal,
-                customMapId: customMapId,
-            };
+                return {
+                    ...state,
+                    selectSpot: spotId,
+                    modalVisible: modal,
+                    customMapId: customMapId,
+                };
+            },
+            prepare: ({
+                spotId,
+                modal,
+                customMapId,
+            }: {
+                spotId: string | null;
+                modal: boolean;
+                customMapId: string | null;
+            }) => ({
+                payload: { spotId, modal, customMapId },
+                meta: { pushToUrl: { spot: spotId, modal: modal ? '1' : null, id: customMapId } },
+            }),
         },
     },
 });

@@ -30,10 +30,16 @@ const subjectSlice = createSlice({
     extraReducers: {
         [HYDRATE]: (state, action) => {
             console.log('HYDRATE', state, action.payload);
-            return {
+            const nextState = {
                 ...state,
                 ...action.payload.subject,
             };
+
+            if (typeof window !== undefined && state?.router) {
+                nextState.router = state.router;
+            }
+
+            return nextState;
         },
     },
 });
