@@ -10,7 +10,7 @@ import BadgeIconic from 'components/pages/map/marker/badges/Iconic';
 import BadgeMinute from 'components/pages/map/marker/badges/Minute';
 import Activity from 'components/pages/map/marker/Activity';
 import { useDispatch } from 'react-redux';
-import { selectSpot } from 'store/map/actions';
+import { selectSpot } from 'store/map/slice';
 import { useIsSubscriber } from 'shared/feudartifice/hooks/user';
 
 type SpotMarkerProps = {

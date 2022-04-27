@@ -6,7 +6,7 @@ import MapSearchResultSpot from '../../../MapNavigation/MapSearch/MapSearchResul
 
 import { Spot } from 'lib/carrelageClient';
 import { useDispatch } from 'react-redux';
-import { selectSpot, setViewport } from 'store/map/actions';
+import { selectSpot, setViewport } from 'store/map/slice';
 
 type Props = {
     mapSpots: any;

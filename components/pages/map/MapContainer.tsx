@@ -1,16 +1,15 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { InteractiveMap, FlyToInterpolator, ViewportProps } from 'react-map-gl';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import dynamic from 'next/dynamic';
 
 import { Cluster, Spot, Status, Types } from 'lib/carrelageClient';
 import { useIsSubscriber } from 'shared/feudartifice/hooks/user';
 
 import { boxSpotsSearch, getSpotOverview } from 'lib/carrelageClient';
-import { mapRefreshEnd, setSpotOverview, setViewport } from 'store/map/actions';
+import { flyTo, mapRefreshEnd, setSpotOverview, setViewport, updateUrlParams } from 'store/map/slice';
 import { FilterStateUtil, FilterState } from 'lib/FilterState';
-import { RootState } from 'store/reducers';
-import { flyTo, updateUrlParams } from 'store/map/thunk';
+import { RootState } from 'store';
 import useCustomMap from 'lib/hook/use-custom-map';
 
 import MapQuickAccessDesktop from './mapQuickAccess/MapQuickAccessDesktop';
@@ -19,6 +18,7 @@ import MapNavigation from './MapNavigation';
 import MapBottomNav from './MapBottomNav';
 import MapGradients from './MapGradients';
 import * as S from './Map.styled';
+import { useAppDispatch } from 'store/hook';
 
 const DynamicMapComponent = dynamic(() => import('./MapComponent'), { ssr: false });
 const MapFullSpot = dynamic(() => import('./MapFullSpot'), { ssr: false });
@@ -52,7 +52,7 @@ const MapContainer = () => {
     const status = useSelector((state: RootState) => state.map.status);
     const types = useSelector((state: RootState) => state.map.types);
     const viewport = useSelector((state: RootState) => state.map.viewport);
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
     /** Spot ID in the query */
     const id = useSelector((state: RootState) => state.map.customMapId);
@@ -155,7 +155,7 @@ const MapContainer = () => {
 
     const onFullSpotClose = () => {
         dispatch(setSpotOverview(undefined));
-        dispatch(updateUrlParams({ spotId: null, modal: false }));
+        dispatch(updateUrlParams({ spotId: null, modal: false, customMapId: null }));
     };
 
     useEffect(() => {
@@ -169,7 +169,7 @@ const MapContainer = () => {
             const bounds = findBoundsCoordinate(
                 customMapInfo.spots.map((spot) => [spot.location.longitude, spot.location.latitude]),
             );
-            dispatch(flyTo(bounds));
+            dispatch(flyTo({ bounds }));
         }
     }, [customMapInfo, viewport.width, id, dispatch]);
 

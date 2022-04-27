@@ -1,18 +1,18 @@
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 import Head from 'next/head';
 
 import Header from 'components/Header';
 import * as S from './Layout.styled';
 
-import { setDeviceSize } from 'store/settings/actions';
+import { setDeviceSize } from 'store/settings/slice';
+import { useAppDispatch } from 'store/hook';
 
 export type LayoutProps = {
     head?: React.ReactElement;
 };
 
 const Layout: React.FC<LayoutProps> = ({ head, children }) => {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
     useEffect(() => {
         const setWindowsDimensions = () => {

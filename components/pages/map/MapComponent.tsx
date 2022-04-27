@@ -15,8 +15,8 @@ import {
     toggleLegend,
     toggleSearchResult,
     toggleSpotModal,
-} from 'store/map/actions';
-import type { RootState } from 'store/reducers';
+} from 'store/map/slice';
+import type { RootState } from 'store';
 import { useIsSubscriber } from 'shared/feudartifice/hooks/user';
 
 const MIN_ZOOM_LEVEL = 2;

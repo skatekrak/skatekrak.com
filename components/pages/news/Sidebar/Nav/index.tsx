@@ -7,10 +7,10 @@ import SearchBar from 'components/Ui/Feed/Sidebar/SearchBar';
 import SourceOption from 'components/Ui/Feed/Sidebar/SourceOption';
 import { SpinnerCircle } from 'components/Ui/Icons/Spinners';
 import Analytics from 'lib/analytics';
-import { RootState } from 'store/reducers';
+import { RootState } from 'store';
 import useNewsSources from 'lib/hook/news/sources';
 import useNewsLanguages from 'lib/hook/news/languages';
-import { resetNews, selectNewsSources, setNewsSearch, toggleNewsSource } from 'store/news/actions';
+import { resetNews, selectNewsSources, setNewsSearch, toggleNewsSource } from 'store/news/slice';
 import { Language, Source } from 'rss-feed';
 import useNewsContent from 'lib/hook/news/contents';
 

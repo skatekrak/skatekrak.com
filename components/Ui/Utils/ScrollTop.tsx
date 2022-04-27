@@ -6,13 +6,12 @@ import jump from 'jump.js';
 import React from 'react';
 import { connect } from 'react-redux';
 
-import Types from 'Types';
-
 /*
  * Local import
  */
 import ScrollHelper from 'lib/ScrollHelper';
-import { State as SettingState } from 'store/settings/reducers';
+import { State as SettingState } from 'store/settings/slice';
+import { RootState } from 'store';
 
 /*
  * Code
@@ -96,7 +95,7 @@ class ScrollTop extends React.PureComponent<Props> {
     };
 }
 
-const mapStateToProps = ({ settings }: Types.RootState): StateProps => {
+const mapStateToProps = ({ settings }: RootState): StateProps => {
     return { settings };
 };
 

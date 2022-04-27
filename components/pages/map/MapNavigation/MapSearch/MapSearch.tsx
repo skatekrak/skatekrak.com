@@ -10,8 +10,8 @@ import ClearIcon from 'components/Ui/Icons/Clear';
 import MapSearchResults from './MapSearchResults/MapSearchResults';
 import { SpotHit, spotIndex, SpotSearchResult } from 'lib/algolia';
 import { Place } from 'lib/placeApi';
-import { RootState } from 'store/reducers';
-import { toggleSearchResult } from 'store/map/actions';
+import { RootState } from 'store';
+import { toggleSearchResult } from 'store/map/slice';
 
 import * as S from './MapSearch.styled';
 import useSession from 'lib/hook/carrelage/use-session';

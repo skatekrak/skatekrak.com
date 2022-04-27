@@ -1,11 +1,11 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { RootState } from 'store/reducers';
+import { RootState } from 'store';
 
 import { Types, Status } from 'lib/carrelageClient';
 import { SpinnerCircle } from 'components/Ui/Icons/Spinners';
-import { toggleMapFilter } from 'store/map/actions';
+import { toggleMapFilter } from 'store/map/slice';
 import { FilterStateUtil, FilterState } from 'lib/FilterState';
 
 import * as S from './MapFilters.styled';

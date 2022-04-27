@@ -6,9 +6,9 @@ import SearchBar from 'components/Ui/Feed/Sidebar/SearchBar';
 import SourceOption from 'components/Ui/Feed/Sidebar/SourceOption';
 import { SpinnerCircle } from 'components/Ui/Icons/Spinners';
 import Analytics from 'lib/analytics';
-import { RootState } from 'store/reducers';
+import { RootState } from 'store';
 import useMagCategories from 'lib/hook/mag/categories';
-import { resetCategories, setMagSearch, toggleCategory } from 'store/mag/actions';
+import { resetCategories, setMagSearch, toggleCategory } from 'store/mag/slice';
 import usePosts from 'lib/hook/mag/posts';
 import { Source } from 'rss-feed';
 

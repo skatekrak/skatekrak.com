@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import * as S from './MapQuickAccessMobileCustomItem.styled';
 
 import { QuickAccessMap } from '../../../MapQuickAccessDesktop/MapQuickAccessDesktop';
-import { updateUrlParams } from 'store/map/thunk';
+import { updateUrlParams } from 'store/map/slice';
 import Typography from 'components/Ui/typography/Typography';
 
 type Props = {

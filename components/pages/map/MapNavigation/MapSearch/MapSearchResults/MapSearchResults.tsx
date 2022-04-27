@@ -12,7 +12,7 @@ import MapSearchResultPlace from './MapSearchResultPlace';
 import * as S from './MapSearchResults.styled';
 
 import { Place } from 'lib/placeApi';
-import { selectSpot, setViewport } from 'store/map/actions';
+import { selectSpot, setViewport } from 'store/map/slice';
 
 type MapSearchResultsProps = {
     loading: boolean;

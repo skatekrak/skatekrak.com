@@ -11,7 +11,7 @@ import * as S from './MapCustomNavigation.styled';
 
 import { Spot } from 'lib/carrelageClient';
 import { useDispatch } from 'react-redux';
-import { selectSpot, toggleCustomMap, toggleSpotModal } from 'store/map/actions';
+import { selectSpot, toggleCustomMap, toggleSpotModal } from 'store/map/slice';
 import MapCustomNavigationExtension from './MapCustomNavigationExtension';
 
 type MapCustomNavigationProps = {

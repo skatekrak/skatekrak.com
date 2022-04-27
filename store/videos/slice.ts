@@ -1,25 +1,22 @@
-import { ActionType, Reducer } from 'typesafe-actions';
-
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { push, remove } from 'lib/immutable';
+import { Source } from 'rss-feed';
 
-import { SELECT_NEWS_SOURCES, TOGGLE_NEWS_SOURCE, SET_NEWS_SEARCH, RESET_NEWS } from '../constants';
-
-import * as news from './actions';
-export type NewsAction = ActionType<typeof news>;
-
-export type NewsState = {
+export type VideosState = {
     selectSources: string[];
     search: string;
 };
 
-export const initialState: NewsState = {
+export const initialState: VideosState = {
     selectSources: [],
     search: '',
 };
 
-const NewsReducer: Reducer<NewsState, NewsAction> = (state = initialState, action) => {
-    switch (action.type) {
-        case TOGGLE_NEWS_SOURCE: {
+const videosSlice = createSlice({
+    name: 'videos',
+    initialState,
+    reducers: {
+        toggleVideosSource: (state, action: PayloadAction<Source>) => {
             const index = state.selectSources.indexOf(action.payload.id);
 
             return {
@@ -27,26 +24,28 @@ const NewsReducer: Reducer<NewsState, NewsAction> = (state = initialState, actio
                 selectSources:
                     index === -1 ? push(state.selectSources, action.payload.id) : remove(state.selectSources, index),
             };
-        }
-        case SELECT_NEWS_SOURCES: {
+        },
+        selectVideosSources: (state, action: PayloadAction<Source[]>) => {
             return {
                 ...state,
                 selectSources: action.payload.map((source) => source.id),
             };
-        }
-        case SET_NEWS_SEARCH:
+        },
+        setVideosSearch: (state, action: PayloadAction<string>) => {
             return {
                 ...state,
                 search: action.payload,
             };
-        case RESET_NEWS:
+        },
+        resetVideos: (state) => {
             return {
                 ...state,
                 selectSources: [],
             };
-        default:
-            return state;
-    }
-};
+        },
+    },
+});
 
-export default NewsReducer;
+export const { toggleVideosSource, selectVideosSources, setVideosSearch, resetVideos } = videosSlice.actions;
+
+export default videosSlice.reducer;

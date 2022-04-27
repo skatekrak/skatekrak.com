@@ -5,13 +5,12 @@ import Link from 'next/link';
 import React from 'react';
 import { connect } from 'react-redux';
 
-import Types from 'Types';
-
 /*
  * Local import
  */
 import ScrollHelper from 'lib/ScrollHelper';
-import { State as SettingState } from 'store/settings/reducers';
+import { State as SettingState } from 'store/settings/slice';
+import { RootState } from 'store';
 
 /*
  * Code
@@ -82,4 +81,4 @@ class BannerTop extends React.Component<Props> {
     };
 }
 
-export default connect((state: Types.RootState) => ({ settings: state.settings }))(BannerTop);
+export default connect((state: RootState) => ({ settings: state.settings }))(BannerTop);

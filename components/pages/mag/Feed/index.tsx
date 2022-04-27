@@ -8,7 +8,7 @@ import TrackedPage from 'components/pages/TrackedPage';
 import NoContent from 'components/Ui/Feed/NoContent';
 import { KrakLoading } from 'components/Ui/Icons/Spinners';
 import ScrollHelper from 'lib/ScrollHelper';
-import { RootState } from 'store/reducers';
+import { RootState } from 'store';
 
 import usePosts from 'lib/hook/mag/posts';
 import { flatten } from 'lib/helpers';

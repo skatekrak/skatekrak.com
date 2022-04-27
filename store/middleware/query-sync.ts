@@ -2,9 +2,7 @@ import { replace } from 'connected-next-router';
 import { Middleware } from 'redux';
 import queryString from 'query-string';
 
-import Typings from 'Types';
-
-const querySyncMiddleware: Middleware<unknown, Typings.RootState> = (store) => (next) => (action) => {
+const querySyncMiddleware: Middleware = (store) => (next) => (action) => {
     if (action.meta != null && action.meta.pushToUrl) {
         const state = store.getState();
 
