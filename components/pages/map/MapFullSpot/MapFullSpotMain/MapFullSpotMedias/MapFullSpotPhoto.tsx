@@ -2,6 +2,7 @@ import React from 'react';
 
 import { Media } from 'lib/carrelageClient';
 import MapFullSpotMediaOverlay from './MapFullSpotMediaOverlay';
+import * as S from 'components/pages/map/MapFullSpot/MapFullSpotMain/MapFullSpotMain.styled';
 
 export type MapFullSpotPhotoProps = {
     media: Media;
@@ -9,10 +10,7 @@ export type MapFullSpotPhotoProps = {
 
 const MapFullSpotPhoto: React.FC<MapFullSpotPhotoProps> = ({ media }) => {
     return (
-        <div
-            key={media.id}
-            className="map-full-spot-popup-main-media-container  map-full-spot-popup-main-media-container-photo"
-        >
+        <S.MapFullSpotMainMediaContainerPhoto key={media.id}>
             <img
                 key={media.id}
                 className="map-full-spot-popup-main-media"
@@ -20,7 +18,7 @@ const MapFullSpotPhoto: React.FC<MapFullSpotPhotoProps> = ({ media }) => {
                 alt={media.addedBy.username}
             />
             <MapFullSpotMediaOverlay media={media} />
-        </div>
+        </S.MapFullSpotMainMediaContainerPhoto>
     );
 };
 
