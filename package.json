@@ -8,7 +8,7 @@
         "dev": "docker-compose up skatekrak",
         "start:cmd:dev": "next dev",
         "start:cmd:debug": "NODE_OPTIONS='--inspect' next dev",
-        "build": "next build",
+        "build": "yarn build:style && next build",
         "start": "next start",
         "analyze": "ANALYZE=true next build",
         "lint": "eslint '*/**/*.{js,ts,tsx}' --quiet --fix",
