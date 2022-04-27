@@ -29,7 +29,6 @@ const subjectSlice = createSlice({
 
     extraReducers: {
         [HYDRATE]: (state, action) => {
-            console.log('HYDRATE', state, action.payload);
             const nextState = {
                 ...state,
                 ...action.payload.subject,

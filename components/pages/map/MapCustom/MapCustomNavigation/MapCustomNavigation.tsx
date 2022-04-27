@@ -10,9 +10,9 @@ import MapCustomNavigationSpots from './MapCustomNavigationSpots/MapCustomNaviga
 import * as S from './MapCustomNavigation.styled';
 
 import { Spot } from 'lib/carrelageClient';
-import { useDispatch } from 'react-redux';
-import { selectSpot, toggleCustomMap, toggleSpotModal } from 'store/map/slice';
+import { updateUrlParams } from 'store/map/slice';
 import MapCustomNavigationExtension from './MapCustomNavigationExtension';
+import { useAppDispatch } from 'store/hook';
 
 type MapCustomNavigationProps = {
     id: string;
@@ -23,13 +23,17 @@ type MapCustomNavigationProps = {
 };
 
 const MapCustomNavigation = ({ id, title, about, subtitle, spots }: MapCustomNavigationProps) => {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
     const goBack = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
         e.preventDefault();
-        dispatch(toggleCustomMap());
-        dispatch(selectSpot());
-        dispatch(toggleSpotModal(false));
+        dispatch(
+            updateUrlParams({
+                customMapId: null,
+                modal: false,
+                spotId: null,
+            }),
+        );
     };
 
     return (
