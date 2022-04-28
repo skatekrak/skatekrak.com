@@ -814,29 +814,28 @@
     redux-thunk "^2.4.1"
     reselect "^4.1.5"
 
-"@sendgrid/client@^7.2.6":
-  version "7.2.6"
-  resolved "https://registry.yarnpkg.com/@sendgrid/client/-/client-7.2.6.tgz#28374927b5d9b3b351b9426f4a218d23d590c958"
-  integrity sha512-AOB3IVlB76SMYdaLEtWGm6/GwrOv0xlAOkyCqk5+XifJRqL2pl8a9lfxFZ9BEnWrdqPJPJ1/omopj0P7d5ZPmw==
+"@sendgrid/client@^7.6.2":
+  version "7.6.2"
+  resolved "https://registry.yarnpkg.com/@sendgrid/client/-/client-7.6.2.tgz#5d08949120dad679f34260f1b875b4f57a8d688e"
+  integrity sha512-Yw3i3vPBBwfiIi+4i7+1f1rwQoLlLsu3qW16d1UuRp6RgX6H6yHYb2/PfqwNyCC0qzqIWGUKPWwYe5ggcr5Guw==
   dependencies:
-    "@sendgrid/helpers" "^7.2.6"
-    axios "^0.19.2"
+    "@sendgrid/helpers" "^7.6.2"
+    axios "^0.26.0"
 
-"@sendgrid/helpers@^7.2.6":
-  version "7.2.6"
-  resolved "https://registry.yarnpkg.com/@sendgrid/helpers/-/helpers-7.2.6.tgz#5d15b8914940147c0635c9a3d2a93fed8c73dc71"
-  integrity sha512-J2xniPBOVo4ASzx+xc735OovHGj/v9oNrDo1Bb5fwTg/kmUxWxeoKZRkB+KLdciwmTtVrZjYLdQB3pMFIe9lAw==
+"@sendgrid/helpers@^7.6.2":
+  version "7.6.2"
+  resolved "https://registry.yarnpkg.com/@sendgrid/helpers/-/helpers-7.6.2.tgz#e4abdd4e259611ed549ae8e0f4a46cd4f587e5d1"
+  integrity sha512-kGW0kM2AOHfXjcvB6Lgwa/nMv8IALu0KyNY9X4HSa3MtLohymuhbG9HgjrOh66+BkbsfA03H3bcT0+sPVJ0GKQ==
   dependencies:
-    chalk "^2.0.1"
     deepmerge "^4.2.2"
 
-"@sendgrid/mail@^7.2.6":
-  version "7.2.6"
-  resolved "https://registry.yarnpkg.com/@sendgrid/mail/-/mail-7.2.6.tgz#8f6a398ad75fb1ed7a35a9bb18cbdac111637ef6"
-  integrity sha512-eP9MuqEZIgt4bHaoufWqKGUY4Bo7FUgST3WGNYIDXIe1rP2dV6/JR7Ac2Dl9iW22gy15nc58fLGIGa41XbwtuA==
+"@sendgrid/mail@^7.6.2":
+  version "7.6.2"
+  resolved "https://registry.yarnpkg.com/@sendgrid/mail/-/mail-7.6.2.tgz#118650afbb58be82e3178fa172869d929d937118"
+  integrity sha512-IHHZFvgU95aqb11AevQvAfautj2pb8iW8UCiUJ2ae9pRF37e6EkBmU9NgdFjbQ/8Xhhm+KDVDzn/JLxDN/GiBw==
   dependencies:
-    "@sendgrid/client" "^7.2.6"
-    "@sendgrid/helpers" "^7.2.6"
+    "@sendgrid/client" "^7.6.2"
+    "@sendgrid/helpers" "^7.6.2"
 
 "@tippyjs/react@^4.2.6":
   version "4.2.6"
@@ -1507,12 +1506,19 @@ awesome-only-resolves-last-promise@^1.0.3:
   dependencies:
     awesome-imperative-promise "^1.0.1"
 
-axios@*, axios@^0.19.2:
+axios@*:
   version "0.19.2"
   resolved "https://registry.yarnpkg.com/axios/-/axios-0.19.2.tgz#3ea36c5d8818d0d5f8a8a97a6d36b86cdc00cb27"
   integrity sha512-fjgm5MvRHLhx+osE2xoekY70AhARk3a6hkN+3Io1jc00jtquGvxYlKlsFUhmUET0V5te6CcZI7lcv2Ym61mjHA==
   dependencies:
     follow-redirects "1.5.10"
+
+axios@^0.26.0:
+  version "0.26.1"
+  resolved "https://registry.yarnpkg.com/axios/-/axios-0.26.1.tgz#1ede41c51fcf51bbbd6fd43669caaa4f0495aaa9"
+  integrity sha512-fPwcX4EvnSHuInCMItEhAGnaSEXRBjtzh9fOtsE6E1G6p7vl7edEeZe11QHf18+6+9gR5PbKV/sGKNaD8YaMeA==
+  dependencies:
+    follow-redirects "^1.14.8"
 
 axios@^0.27.2:
   version "0.27.2"
@@ -1814,7 +1820,7 @@ caniuse-lite@^1.0.30001202, caniuse-lite@^1.0.30001219, caniuse-lite@^1.0.300012
   resolved "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001332.tgz"
   integrity sha512-10T30NYOEQtN6C11YGg411yebhvpnC6Z102+B95eAsN0oB6KUs01ivE8u+G6FMIRtIrVlYXhL+LUwQ3/hXwDWw==
 
-chalk@2.4.2, chalk@^2.0.0, chalk@^2.0.1:
+chalk@2.4.2, chalk@^2.0.0:
   version "2.4.2"
   resolved "https://registry.yarnpkg.com/chalk/-/chalk-2.4.2.tgz#cd42541677a54333cf541a49108c1432b44c9424"
   integrity sha512-Mti+f9lpJNcwF4tWV8/OrTTtF1gZi+f8FqlyAdouralcFWFQWF2+NgCHShjkCb+IFBLq9buZwE1xckQU4peSuQ==
@@ -2774,7 +2780,7 @@ follow-redirects@1.5.10:
   dependencies:
     debug "=3.1.0"
 
-follow-redirects@^1.14.9:
+follow-redirects@^1.14.8, follow-redirects@^1.14.9:
   version "1.14.9"
   resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.14.9.tgz#dd4ea157de7bfaf9ea9b3fbd85aa16951f78d8d7"
   integrity sha512-MQDfihBQYMcyy5dhRDJUHcw7lb2Pv/TuE6xP1vyraLukNDHKbDxDNaOE3NbCAdKQApno+GPRyo1YAp89yCjK4w==
