@@ -101,7 +101,7 @@ export const initializeStore = (context) => {
             [subjectSlice.name]: subjectSlice.reducer,
         },
         preloadedState: initialState,
-        devTools: true,
+        devTools: process.env.NEXT_PUBLIC_STAGE === 'development',
         middleware: middlewares,
     });
 
