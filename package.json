@@ -55,7 +55,7 @@
         "react-truncate": "^2.4.0",
         "redux-localstorage-simple": "^2.5.1",
         "redux-thunk": "^2.4.1",
-        "simplebar-react": "^2.3.0",
+        "simplebar-react": "^2.3.7",
         "styled-components": "^5.3.5",
         "typesafe-actions": "^5.1.0",
         "use-constant": "^1.0.0",

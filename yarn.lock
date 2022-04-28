@@ -647,6 +647,11 @@
   resolved "https://registry.yarnpkg.com/@humanwhocodes/object-schema/-/object-schema-1.2.1.tgz#b520529ec21d8e5945a1851dfd1c32e94e39ff45"
   integrity sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==
 
+"@juggle/resize-observer@^3.3.1":
+  version "3.3.1"
+  resolved "https://registry.yarnpkg.com/@juggle/resize-observer/-/resize-observer-3.3.1.tgz#b50a781709c81e10701004214340f25475a171a0"
+  integrity sha512-zMM9Ds+SawiUkakS7y94Ymqx+S0ORzpG3frZirN3l+UlXUmSUR7hF4wxCVqW+ei94JzV5kt0uXBcoOEAuiydrw==
+
 "@mapbox/geojson-rewind@^0.5.1":
   version "0.5.1"
   resolved "https://registry.yarnpkg.com/@mapbox/geojson-rewind/-/geojson-rewind-0.5.1.tgz#adbe16dc683eb40e90934c51a5e28c7bbf44f4e1"
@@ -4832,11 +4837,6 @@ reselect@^4.1.5:
   resolved "https://registry.yarnpkg.com/reselect/-/reselect-4.1.5.tgz#852c361247198da6756d07d9296c2b51eddb79f6"
   integrity sha512-uVdlz8J7OO+ASpBYoz1Zypgx0KasCY20H+N8JD13oUMtPvSHQuscrHop4KbXrbsBcdB9Ds7lVK7eRkBIfO43vQ==
 
-resize-observer-polyfill@^1.5.1:
-  version "1.5.1"
-  resolved "https://registry.yarnpkg.com/resize-observer-polyfill/-/resize-observer-polyfill-1.5.1.tgz#0e9020dd3d21024458d4ebd27e23e40269810464"
-  integrity sha512-LwZrotdHOo12nQuZlHEmtuXdqGoOD0OhaxopaNFxWzInpEgaLWoVuAMbTzixuosCx2nEG58ngzW3vxdWoxIgdg==
-
 resolve-from@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/resolve-from/-/resolve-from-4.0.0.tgz#4abcd852ad32dd7baabfe9b40e00a36db5f392e6"
@@ -5014,25 +5014,25 @@ signal-exit@^3.0.0:
   resolved "https://registry.yarnpkg.com/signal-exit/-/signal-exit-3.0.3.tgz#a1410c2edd8f077b08b4e253c8eacfcaf057461c"
   integrity sha512-VUJ49FC8U1OxwZLxIbTTrDvLnf/6TDgxZcK8wxR8zs13xpx7xbG60ndBlhNrFi2EMuFRoeDoJO7wthSLq42EjA==
 
-simplebar-react@^2.3.0:
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/simplebar-react/-/simplebar-react-2.3.0.tgz#c5fdd4042a7c603687684407fa7b20e9dc1f8fab"
-  integrity sha512-ZhWEe4UkshSJ9xPG1F/W58UMJdA3fzgtXGrYsya3hxdMbIYoKUKEhdBsqdMoeaLGyn/5dbMPqDLinkLeg0W0cQ==
+simplebar-react@^2.3.7:
+  version "2.3.7"
+  resolved "https://registry.yarnpkg.com/simplebar-react/-/simplebar-react-2.3.7.tgz#238f12f06b8c4bbb1eb48d878f1c887052405859"
+  integrity sha512-C+yPcLq6W/Sqiexx89Jw0Z4RrWtjqXsWh/OHhZv7893HMZ96c32JZWWu8mfVlZxZaZ/8u9h66FzWCs3atzeu7g==
   dependencies:
     prop-types "^15.6.1"
-    simplebar "^5.3.0"
+    simplebar "^5.3.6"
 
-simplebar@^5.3.0:
-  version "5.3.0"
-  resolved "https://registry.yarnpkg.com/simplebar/-/simplebar-5.3.0.tgz#857de63296401ed0c3026845514fe5db69795be5"
-  integrity sha512-LgrGdIWpwHLLlI9HqfnGql62H/iZlF0KDZ7w3ZNbd2ZLwh9NKsODLHPzQgUlqQ8aZe7Y6/1xJMXK1PU5e810+w==
+simplebar@^5.3.6:
+  version "5.3.6"
+  resolved "https://registry.yarnpkg.com/simplebar/-/simplebar-5.3.6.tgz#d9383576a09a6fd09e19543f8e9906a3e87c3896"
+  integrity sha512-FJUMbV+hNDd/m+1/fvD41TXKd5mSdlI5zgBygkaQIV3SffNbcLhSbJT6ufTs8ZNRLJ6i+qc/KCFMqWmvlGWMhA==
   dependencies:
+    "@juggle/resize-observer" "^3.3.1"
     can-use-dom "^0.1.0"
     core-js "^3.0.1"
     lodash.debounce "^4.0.8"
     lodash.memoize "^4.1.2"
     lodash.throttle "^4.1.1"
-    resize-observer-polyfill "^1.5.1"
 
 sirv@^1.0.7:
   version "1.0.19"
