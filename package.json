@@ -51,7 +51,7 @@
         "react-query": "^3.38.0",
         "react-redux": "^8.0.1",
         "react-responsive-modal": "^6.2.0",
-        "react-share": "^4.2.1",
+        "react-share": "^4.4.0",
         "react-truncate": "^2.4.0",
         "redux-localstorage-simple": "^2.5.1",
         "redux-thunk": "^2.4.1",
