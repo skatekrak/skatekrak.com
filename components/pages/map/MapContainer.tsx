@@ -146,8 +146,7 @@ const MapContainer = () => {
     }, [id, refreshMap]);
 
     const onFullSpotClose = () => {
-        dispatch(setSpotOverview(undefined));
-        dispatch(updateUrlParams({ spotId: null, modal: false, customMapId: null }));
+        dispatch(updateUrlParams({ modal: false }));
     };
 
     useEffect(() => {
