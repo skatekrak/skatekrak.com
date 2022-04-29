@@ -6,6 +6,7 @@ import * as S from '../MapQuickAccessDesktopCities.styled';
 import { City } from 'map';
 import { toggleLegend, toggleSearchResult } from 'store/map/slice';
 import { updateUrlParams } from 'store/map/slice';
+import { useMap } from 'react-map-gl';
 
 type MapQuickAccessDesktopCityItemProps = {
     city: City;
@@ -14,6 +15,7 @@ type MapQuickAccessDesktopCityItemProps = {
 
 const MapQuickAccessDesktopCityItem: React.FC<MapQuickAccessDesktopCityItemProps> = ({ city, onCitiesClick }) => {
     const dispatch = useDispatch();
+    const { current: map } = useMap();
 
     const onClick = useCallback(
         (e: React.SyntheticEvent) => {
@@ -28,9 +30,9 @@ const MapQuickAccessDesktopCityItem: React.FC<MapQuickAccessDesktopCityItemProps
                     customMapId: null,
                 }),
             );
-            // dispatch(flyTo({ bounds: city.bounds, padding: 0 }));
+            map.fitBounds(city.bounds, { padding: 0, duration: 1500 });
         },
-        [onCitiesClick, dispatch, city.bounds],
+        [onCitiesClick, dispatch, city.bounds, map],
     );
 
     return (
