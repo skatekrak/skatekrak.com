@@ -44,7 +44,7 @@ export const initialState: MapState = {
     viewport: {
         latitude: 48.860332,
         longitude: 2.345054,
-        zoom: 12,
+        zoom: 12.6,
     },
     spotOverview: undefined,
     selectSpot: undefined,
