@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import ReactMapGL, { MapRef, NavigationControl, ViewStateChangeEvent, MapLayerMouseEvent } from 'react-map-gl';
+import { useDispatch } from 'react-redux';
+import ReactMapGL, { MapRef, NavigationControl, ViewStateChangeEvent } from 'react-map-gl';
 
 import SpotCluster from 'components/pages/map/marker/SpotCluster';
 import SpotMarker from 'components/pages/map/marker/SpotMarker';
@@ -16,8 +16,6 @@ import {
     toggleSearchResult,
     toggleSpotModal,
 } from 'store/map/slice';
-import type { RootState } from 'store';
-import { useIsSubscriber } from 'shared/feudartifice/hooks/user';
 import { useAppSelector } from 'store/hook';
 
 const MIN_ZOOM_LEVEL = 2;
@@ -36,7 +34,6 @@ const MapComponent = ({ mapRef, clusters, children }: MapComponentProps) => {
     const customMapId = useAppSelector((state) => state.map.customMapId);
     const selectedSpotOverview = useAppSelector((state) => state.map.spotOverview);
     const clustering = customMapId === undefined;
-    const { data: isSubscriber } = useIsSubscriber();
 
     const markers = useMemo(() => {
         const _markers: JSX.Element[] = [];
@@ -61,11 +58,9 @@ const MapComponent = ({ mapRef, clusters, children }: MapComponentProps) => {
     }, [clusters, selectedSpotOverview, clustering, viewport.zoom]);
 
     const onPopupClick = () => {
-        if (isSubscriber) {
-            dispatch(toggleSpotModal(true));
-            dispatch(toggleLegend(false));
-            dispatch(toggleSearchResult(false));
-        }
+        dispatch(toggleSpotModal(true));
+        dispatch(toggleLegend(false));
+        dispatch(toggleSearchResult(false));
     };
 
     const onPopupClose = useCallback(() => {

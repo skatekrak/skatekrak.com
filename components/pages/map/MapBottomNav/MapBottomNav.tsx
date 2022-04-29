@@ -10,10 +10,9 @@ import * as S from './MapBottomNav.styled';
 
 type Props = {
     isMobile: boolean;
-    isSubscriber: boolean;
 };
 
-const MapBottomNav: React.FC<Props> = ({ isMobile, isSubscriber }) => {
+const MapBottomNav: React.FC<Props> = ({ isMobile }) => {
     return (
         <S.MapBottomNavContainer>
             {/* Legend */}
@@ -25,7 +24,7 @@ const MapBottomNav: React.FC<Props> = ({ isMobile, isSubscriber }) => {
                     </S.MapBottomNavQuickAccessTrigger>
                 </S.MapBottomNavTriggerContainer>
             </MapBottomNavSheet>
-            {isMobile && isSubscriber && (
+            {isMobile && (
                 <>
                     {/* Cities */}
                     <MapBottomNavSheet

@@ -4,10 +4,9 @@ import { useSelector } from 'react-redux';
 import dynamic from 'next/dynamic';
 
 import { Cluster, Spot, Status, Types } from 'lib/carrelageClient';
-import { useIsSubscriber } from 'shared/feudartifice/hooks/user';
 
 import { boxSpotsSearch, getSpotOverview } from 'lib/carrelageClient';
-import { mapRefreshEnd, setSpotOverview, setViewport, updateUrlParams } from 'store/map/slice';
+import { mapRefreshEnd, setSpotOverview, updateUrlParams } from 'store/map/slice';
 import { FilterStateUtil, FilterState } from 'lib/FilterState';
 import { RootState } from 'store';
 import useCustomMap from 'lib/hook/use-custom-map';
@@ -61,7 +60,6 @@ const MapContainer = () => {
 
     const [clusters, setClusters] = useState<Cluster[]>([]);
     const [, setFirstLoad] = useState(() => (spotId ? true : false));
-    const { data: isSubscriber } = useIsSubscriber();
 
     const { data: customMapInfo, isLoading: customMapLoading } = useCustomMap(id);
 
@@ -71,16 +69,13 @@ const MapContainer = () => {
     const mapRef = useRef<MapRef>();
     const loadTimeout = useRef<NodeJS.Timeout>();
 
-    const centerToSpot = useCallback(
-        (spot: Spot) => {
-            mapRef.current?.flyTo({
-                center: { lat: spot.location.latitude, lon: spot.location.longitude },
-                zoom: 14,
-                duration: 1500,
-            });
-        },
-        [dispatch],
-    );
+    const centerToSpot = useCallback((spot: Spot) => {
+        mapRef.current?.flyTo({
+            center: { lat: spot.location.latitude, lon: spot.location.longitude },
+            zoom: 14,
+            duration: 1500,
+        });
+    }, []);
 
     const refreshMap = useCallback(
         (_clusters: Cluster[] | undefined = undefined) => {
@@ -173,14 +168,8 @@ const MapContainer = () => {
     return (
         <S.MapContainer ref={fullSpotContainerRef}>
             <>
-                <MapBottomNav isMobile={isMobile} isSubscriber={isSubscriber} />
-                {isSubscriber && (
-                    <MapFullSpot
-                        open={modalVisible}
-                        onClose={onFullSpotClose}
-                        container={fullSpotContainerRef.current}
-                    />
-                )}
+                <MapBottomNav isMobile={isMobile} />
+                <MapFullSpot open={modalVisible} onClose={onFullSpotClose} container={fullSpotContainerRef.current} />
                 <DynamicMapComponent mapRef={mapRef} clusters={customMapLoading ? [] : clusters}>
                     {id !== undefined && customMapInfo !== undefined ? (
                         <MapCustomNavigation
@@ -191,9 +180,9 @@ const MapContainer = () => {
                             spots={customMapInfo.spots}
                         />
                     ) : (
-                        <>{isSubscriber && <MapNavigation />}</>
+                        <MapNavigation />
                     )}
-                    {!isMobile && isSubscriber && <MapQuickAccessDesktop />}
+                    {!isMobile && <MapQuickAccessDesktop />}
                 </DynamicMapComponent>
                 <MapGradients />
             </>
