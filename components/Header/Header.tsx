@@ -5,10 +5,11 @@ import Tippy from '@tippyjs/react/headless';
 import IconDiscord from 'components/Ui/Icons/Logos/IconDiscord';
 import IconDotsThreeVertical from 'components/Ui/Icons/IconDotsThreeVertical';
 import IconUserCircle from 'components/Ui/Icons/IconUserCircle';
-import * as S from './Header.styled';
 import Typography from 'components/Ui/typography/Typography';
+import HeaderProfile from './HeaderProfile/HeaderProfile';
+import * as S from './Header.styled';
+
 import useSession from 'lib/hook/carrelage/use-session';
-import HeaderProfile from './HeaderProfile';
 
 const Header: React.FC = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
