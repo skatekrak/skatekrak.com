@@ -2,6 +2,8 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Types, Status, SpotOverview } from 'lib/carrelageClient';
 import { FilterState } from 'lib/FilterState';
 import { ViewState } from 'react-map-gl';
+import merge from 'deepmerge';
+import { HYDRATE } from 'next-redux-wrapper';
 
 export type FullSpotTab =
     | 'info'
@@ -44,16 +46,12 @@ export const initialState: MapState = {
     viewport: {
         latitude: 48.860332,
         longitude: 2.345054,
-        zoom: 12,
+        zoom: 12.6,
     },
-    spotOverview: undefined,
-    selectSpot: undefined,
     modalVisible: false,
     legendOpen: false,
     searchResultOpen: false,
-    customMapId: undefined,
     fullSpotSelectedTab: 'media',
-    videoPlayingId: undefined,
 };
 
 const mapSlice = createSlice({
@@ -170,7 +168,7 @@ const mapSlice = createSlice({
             },
             prepare: (value?: string) => ({
                 payload: value,
-                meta: { pushToUrl: { spot: value } },
+                meta: { pushToUrl: { spot: value ?? null } },
             }),
         },
         toggleSpotModal: {
@@ -190,7 +188,7 @@ const mapSlice = createSlice({
             reducer: (state, action: PayloadAction<string | undefined>) => {
                 return {
                     ...state,
-                    customMapId: action.payload,
+                    customMapId: action.payload ?? null,
                 };
             },
             prepare: (value?: string) => ({
@@ -219,11 +217,14 @@ const mapSlice = createSlice({
         updateUrlParams: {
             reducer: (
                 state,
-                action: PayloadAction<{ spotId: string | null; modal: boolean; customMapId: string | null }>,
+                action: PayloadAction<{ spotId?: string | null; modal?: boolean; customMapId?: string | null }>,
             ) => {
+                console.log('payload', action.payload);
                 const spotId = extractData(state.selectSpot, action.payload.spotId);
                 const modal = extractData(state.modalVisible, action.payload.modal);
                 const customMapId = extractData(state.customMapId, action.payload.customMapId);
+
+                console.log('new payload', { spotId, modal, customMapId });
 
                 return {
                     ...state,
@@ -237,13 +238,26 @@ const mapSlice = createSlice({
                 modal,
                 customMapId,
             }: {
-                spotId: string | null;
-                modal: boolean;
-                customMapId: string | null;
+                spotId?: string | null;
+                modal?: boolean;
+                customMapId?: string | null;
             }) => ({
                 payload: { spotId, modal, customMapId },
-                meta: { pushToUrl: { spot: spotId, modal: modal ? '1' : null, id: customMapId } },
+                meta: {
+                    pushToUrl: {
+                        spot: spotId,
+                        modal: modal ? '1' : null,
+                        id: customMapId,
+                    },
+                },
             }),
+        },
+    },
+    extraReducers: {
+        [HYDRATE]: (state, action) => {
+            const nextState: any = merge(state, action.payload.map);
+
+            return nextState;
         },
     },
 });

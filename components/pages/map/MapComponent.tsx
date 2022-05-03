@@ -64,6 +64,7 @@ const MapComponent = ({ mapRef, clusters, children }: MapComponentProps) => {
     };
 
     const onPopupClose = useCallback(() => {
+        console.log('map popupOnClose');
         if (spotId != null) {
             dispatch(selectSpot());
         }
