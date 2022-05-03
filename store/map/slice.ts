@@ -2,6 +2,8 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Types, Status, SpotOverview } from 'lib/carrelageClient';
 import { FilterState } from 'lib/FilterState';
 import { ViewState } from 'react-map-gl';
+import merge from 'deepmerge';
+import { HYDRATE } from 'next-redux-wrapper';
 
 export type FullSpotTab =
     | 'info'
@@ -46,14 +48,10 @@ export const initialState: MapState = {
         longitude: 2.345054,
         zoom: 12.6,
     },
-    spotOverview: undefined,
-    selectSpot: undefined,
     modalVisible: false,
     legendOpen: false,
     searchResultOpen: false,
-    customMapId: undefined,
     fullSpotSelectedTab: 'media',
-    videoPlayingId: undefined,
 };
 
 const mapSlice = createSlice({
@@ -253,6 +251,13 @@ const mapSlice = createSlice({
                     },
                 },
             }),
+        },
+    },
+    extraReducers: {
+        [HYDRATE]: (state, action) => {
+            const nextState: any = merge(state, action.payload.map);
+
+            return nextState;
         },
     },
 });
