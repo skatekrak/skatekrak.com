@@ -42,16 +42,14 @@ Check it in the clips section of each spot!
         name: 'Spohn Ranch',
         subtitle: 'Spohn Ranch Skateparks',
         edito: 'Designing and building skateparks with the relentless dedication to detail and architectural finesse.',
-        about:
-            'Spohn Ranch began as a community, anchored by Aaron Spohn’s backyard half-pipe, and grew into an award-winning skatepark design-build firm.\nA cornerstone of wheel sports progression for over 30 years, Spohn Ranch’s Los Angeles backyard roots have spread globally, culminating in hundreds of cutting-edge creations.',
+        about: 'Spohn Ranch began as a community, anchored by Aaron Spohn’s backyard half-pipe, and grew into an award-winning skatepark design-build firm.\nA cornerstone of wheel sports progression for over 30 years, Spohn Ranch’s Los Angeles backyard roots have spread globally, culminating in hundreds of cutting-edge creations.',
         spots: require('data/customMaps/spohn.json'),
     },
     {
         id: 'theboardr',
         name: 'The Boardr Events',
         subtitle: 'The Boardr Events Map',
-        edito:
-            'The Boardr hosts and organizes skateboardings big events like Vans Park Series and small ones like the Grind for Life series.',
+        edito: 'The Boardr hosts and organizes skateboardings big events like Vans Park Series and small ones like the Grind for Life series.',
         about: `
 We host and organize skateboarding's top events like Vans Park Series.
 The Boardr also owns and operates grassroots series such as The Boardr Am and Grind for Life. These 15 annual events target younger, newer participants and cover the United States.
@@ -65,10 +63,8 @@ If you want your event and all the details to be professionally executed by prov
         id: 'theblacklist',
         name: 'The Black List',
         subtitle: 'Black-owned biz to support',
-        edito:
-            'We believe that getting eyeballs on a list of Black-owned brands is a humble, yet necessary offering to building whatever lies ahead.',
-        about:
-            '"Over the last decade, skating has diversified and globalized tremendously. Despite this progress, however, “The Industry” remains very white, very Californian, and it retains hegemonic control over the direction of skateboarding."\nSpecial thanks to Patrick Kigongo.',
+        edito: 'We believe that getting eyeballs on a list of Black-owned brands is a humble, yet necessary offering to building whatever lies ahead.',
+        about: '"Over the last decade, skating has diversified and globalized tremendously. Despite this progress, however, “The Industry” remains very white, very Californian, and it retains hegemonic control over the direction of skateboarding."\nSpecial thanks to Patrick Kigongo.',
         spots: require('data/customMaps/theblacklist.json'),
     },
     {
@@ -109,8 +105,7 @@ Timothy Deconinck
         id: 'knobbuster',
         name: 'The Knobbuster',
         subtitle: 'Who you gonna call?',
-        edito:
-            'He is a hero for the community! Delivering iconic spots from those horrible skatestoppers popping out everywhere in the Los Angeles area!',
+        edito: 'He is a hero for the community! Delivering iconic spots from those horrible skatestoppers popping out everywhere in the Los Angeles area!',
         about: `
 This guy is keeping the magic alive! How cool it is to see pros skating these iconic spots today!
 
