@@ -5,8 +5,9 @@ import IconArrowHead from 'components/Ui/Icons/ArrowHead';
 import Typography from 'components/Ui/typography/Typography';
 import DividerVertical from 'components/Ui/dividers/DividerVertical';
 
-import MapCustomNavigationAbout from './MapCustomNavigationAbout/MapCustomNavigationAbout';
-import MapCustomNavigationSpots from './MapCustomNavigationSpots/MapCustomNavigationSpots';
+import MapCustomNavigationAbout from './MapCustomNavigationAbout';
+import MapCustomNavigationSpots from './MapCustomNavigationSpots';
+import MapCustomNavigationVideos from './MapCustomNavigationVideos';
 import * as S from './MapCustomNavigation.styled';
 
 import { Spot } from 'lib/carrelageClient';
@@ -35,6 +36,17 @@ const MapCustomNavigation = ({ id, title, about, subtitle, spots }: MapCustomNav
             }),
         );
     };
+
+    const videos = [
+        {
+            name: 'lola',
+            url: 'https://www.youtube.com/watch?v=Uew3nw0h7gs',
+        },
+        {
+            name: 'lalki',
+            url: 'https://vimeo.com/307561720',
+        },
+    ];
 
     return (
         <S.MapCustomNavigation>
@@ -78,6 +90,14 @@ const MapCustomNavigation = ({ id, title, about, subtitle, spots }: MapCustomNav
                         <IconArrowHead />
                     </S.MapCustomNavigationLink>
                 </MapCustomNavigationExtension>
+                {videos.length !== 0 && (
+                    <MapCustomNavigationExtension render={() => <MapCustomNavigationVideos videos={videos} />}>
+                        <S.MapCustomNavigationLink>
+                            <Typography component="body1">Video</Typography>
+                            <IconArrowHead />
+                        </S.MapCustomNavigationLink>
+                    </MapCustomNavigationExtension>
+                )}
             </S.MapCustomNavigationLinksContainer>
         </S.MapCustomNavigation>
     );
