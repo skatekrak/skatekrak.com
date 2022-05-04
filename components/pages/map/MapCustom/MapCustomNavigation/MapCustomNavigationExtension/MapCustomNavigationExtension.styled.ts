@@ -12,9 +12,9 @@ export const MapCustomNavigationExtensionContainer = styled.div`
     box-shadow: ${({ theme }) => theme.shadow.onDark.highSharp};
 
     ${media.tablet} {
-        left: 6.5rem !important;
+        left: inherit !important;
         right: 0;
-        width: auto;
+        max-width: 28rem;
         margin-top: 0.625rem;
     }
 `;

@@ -99,7 +99,6 @@ export const MapCustomNavigationMainName = styled(Typography)`
     margin-right: auto;
 
     ${media.mobile} {
-        min-width: 12rem;
         max-width: 16rem;
     }
 `;
@@ -123,7 +122,7 @@ export const MapCustomNavigationLink = styled.button<MapCustomNavigationLinkProp
     position: relative;
     display: flex;
     align-items: center;
-    padding: 0.5rem 1rem 1rem;
+    padding: 0.5rem 0.5rem 1rem;
     color: ${({ theme, isOpen }) => (isOpen ? theme.color.onDark.highEmphasis : theme.color.onDark.mediumEmphasis)};
 
     & svg {
