@@ -44,10 +44,6 @@ export const MapQuickAccessDesktopItemImage = styled.img<MapQuickAccessDesktopIt
 `;
 
 export const MapQuickAccessDesktopItemDescription = styled.div`
-    display: none;
-    position: absolute;
-    top: 0rem;
-    left: -18rem;
     width: 17.5rem;
     padding: 1rem;
     text-align: left;
@@ -55,6 +51,8 @@ export const MapQuickAccessDesktopItemDescription = styled.div`
     border: 1px solid ${({ theme }) => theme.color.tertiary.medium};
     border-radius: 0.25rem;
     box-shadow: ${({ theme }) => theme.shadow.onDark.highSharp};
+    color: ${({ theme }) => theme.color.onDark.highEmphasis};
+    cursor: pointer;
 `;
 
 export const MapQuickAccessDesktopItemHeader = styled.div`
@@ -73,15 +71,10 @@ export const MapQuickAccessDesktopItemBody = styled(Typography)`
     color: ${({ theme }) => theme.color.onDark.mediumEmphasis};
 `;
 
-export const MapQuickAccessDesktopItem = styled.a`
+export const MapQuickAccessDesktopItem = styled.div`
     position: static;
     display: flex;
     padding: 0.375rem 0.75rem;
     color: ${({ theme }) => theme.color.onDark.highEmphasis};
-
-    &:hover {
-        ${MapQuickAccessDesktopItemDescription} {
-            display: block;
-        }
-    }
+    cursor: pointer;
 `;

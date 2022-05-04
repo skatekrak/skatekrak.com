@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 
 import IconArrowHead from 'components/Ui/Icons/ArrowHead';
 import type {
@@ -7,6 +7,7 @@ import type {
 } from 'components/pages/map/mapQuickAccess/MapQuickAccessDesktop/MapQuickAccessDesktop';
 import * as S from './MapQuickAccessDesktopItem.styled';
 import Typography from 'components/Ui/typography/Typography';
+import MapQuickAccessDesktopItemDescriptionTooltip from './MapQuickAccessDesktopItemDescriptionTooltip';
 
 type Props = {
     data: QuickAccessMap | QuickAccess;
@@ -20,27 +21,37 @@ const MapQuickAccessDesktopItem = ({ data, selected, noMapSelected, onClick }: P
         return data != null && (data as QuickAccessMap).numberOfSpots != null;
     };
 
+    const renderTooltip = useCallback(
+        (props) => {
+            return (
+                <S.MapQuickAccessDesktopItemDescription {...props} onClick={onClick}>
+                    <S.MapQuickAccessDesktopItemHeader>
+                        <Typography as="h4" component="condensedHeading6">
+                            {data.name}
+                        </Typography>
+                        <IconArrowHead />
+                    </S.MapQuickAccessDesktopItemHeader>
+                    <S.MapQuickAccessDesktopItemBody component="body2">{data.edito}</S.MapQuickAccessDesktopItemBody>
+                    {isQuickAccessMap(data) && <Typography component="body2">{data.numberOfSpots} spots</Typography>}
+                </S.MapQuickAccessDesktopItemDescription>
+            );
+        },
+        [data, onClick],
+    );
+
     return (
-        <S.MapQuickAccessDesktopItem href="map" onClick={onClick}>
-            <S.MapQuickAccessDesktopItemImageContainer isSelected={selected}>
-                <S.MapQuickAccessDesktopItemImage
-                    noMapSelected={noMapSelected}
-                    src={`/images/map/custom-maps/${data.id}.png`}
-                    srcSet={getSrcSet(data.id, isQuickAccessMap(data))}
-                    alt={`${data.name} map logo`}
-                />
-            </S.MapQuickAccessDesktopItemImageContainer>
-            <S.MapQuickAccessDesktopItemDescription>
-                <S.MapQuickAccessDesktopItemHeader>
-                    <Typography as="h4" component="condensedHeading6">
-                        {data.name}
-                    </Typography>
-                    <IconArrowHead />
-                </S.MapQuickAccessDesktopItemHeader>
-                <S.MapQuickAccessDesktopItemBody component="body2">{data.edito}</S.MapQuickAccessDesktopItemBody>
-                {isQuickAccessMap(data) && <Typography component="body2">{data.numberOfSpots} spots</Typography>}
-            </S.MapQuickAccessDesktopItemDescription>
-        </S.MapQuickAccessDesktopItem>
+        <MapQuickAccessDesktopItemDescriptionTooltip render={renderTooltip}>
+            <S.MapQuickAccessDesktopItem onClick={onClick}>
+                <S.MapQuickAccessDesktopItemImageContainer isSelected={selected}>
+                    <S.MapQuickAccessDesktopItemImage
+                        noMapSelected={noMapSelected}
+                        src={`/images/map/custom-maps/${data.id}.png`}
+                        srcSet={getSrcSet(data.id, isQuickAccessMap(data))}
+                        alt={`${data.name} map logo`}
+                    />
+                </S.MapQuickAccessDesktopItemImageContainer>
+            </S.MapQuickAccessDesktopItem>
+        </MapQuickAccessDesktopItemDescriptionTooltip>
     );
 };
 
