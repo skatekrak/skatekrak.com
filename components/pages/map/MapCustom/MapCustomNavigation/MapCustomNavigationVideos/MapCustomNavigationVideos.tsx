@@ -4,16 +4,15 @@ import React from 'react';
 import * as S from './MapCustomNavigationVideos.styled';
 
 type Props = {
-    videos: any[];
+    videos: string[];
 };
 
 const MapCustomNavigationVideos = ({ videos }: Props) => {
     return (
         <S.MapCustomNavigationVideosContainer>
             {videos.map((video) => (
-                <S.MapCustomNavigationVideo key={video.name}>
-                    <S.MapCustomNavigationVideoTitle component="heading6">{video.name}</S.MapCustomNavigationVideoTitle>
-                    <VideoPlayer url={video.url} controls />
+                <S.MapCustomNavigationVideo key={video}>
+                    <VideoPlayer url={video} controls />
                 </S.MapCustomNavigationVideo>
             ))}
         </S.MapCustomNavigationVideosContainer>

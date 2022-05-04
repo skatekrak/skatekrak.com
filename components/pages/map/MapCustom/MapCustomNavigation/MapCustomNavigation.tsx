@@ -21,9 +21,10 @@ type MapCustomNavigationProps = {
     about: string;
     subtitle: string;
     spots: Spot[];
+    videos: string[];
 };
 
-const MapCustomNavigation = ({ id, title, about, subtitle, spots }: MapCustomNavigationProps) => {
+const MapCustomNavigation = ({ id, title, about, subtitle, spots, videos }: MapCustomNavigationProps) => {
     const dispatch = useAppDispatch();
 
     const goBack = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
@@ -36,17 +37,6 @@ const MapCustomNavigation = ({ id, title, about, subtitle, spots }: MapCustomNav
             }),
         );
     };
-
-    const videos = [
-        {
-            name: 'lola',
-            url: 'https://www.youtube.com/watch?v=Uew3nw0h7gs',
-        },
-        {
-            name: 'lalki',
-            url: 'https://vimeo.com/307561720',
-        },
-    ];
 
     return (
         <S.MapCustomNavigation>
@@ -90,7 +80,7 @@ const MapCustomNavigation = ({ id, title, about, subtitle, spots }: MapCustomNav
                         <IconArrowHead />
                     </S.MapCustomNavigationLink>
                 </MapCustomNavigationExtension>
-                {videos.length !== 0 && (
+                {videos?.length > 0 && (
                     <MapCustomNavigationExtension render={() => <MapCustomNavigationVideos videos={videos} />}>
                         <S.MapCustomNavigationLink>
                             <Typography component="body1">Video</Typography>

@@ -22,6 +22,7 @@ We tried to compile every tricks we had in mind landed on these spots and we upd
 Check it in the clips section of each spot!
         `,
         spots: require('data/customMaps/history.json'),
+        videos: ['https://youtu.be/wHhMC5sWqdc'],
     },
     {
         id: 'minute',
@@ -36,6 +37,7 @@ Krak Minute is one minute of tricks from the best footage uploaded on the app.
 Check it in the clips section of each spot!
         `,
         spots: require('data/customMaps/minute.json'),
+        videos: ['https://www.youtube.com/watch?v=ODidvGV7bUA&list=PL2q6XHjX4Ujd3_6mUWQQe02cFvGg1ILNX'],
     },
     {
         id: 'spohnranch',
@@ -44,6 +46,7 @@ Check it in the clips section of each spot!
         edito: 'Designing and building skateparks with the relentless dedication to detail and architectural finesse.',
         about: 'Spohn Ranch began as a community, anchored by Aaron Spohn’s backyard half-pipe, and grew into an award-winning skatepark design-build firm.\nA cornerstone of wheel sports progression for over 30 years, Spohn Ranch’s Los Angeles backyard roots have spread globally, culminating in hundreds of cutting-edge creations.',
         spots: require('data/customMaps/spohn.json'),
+        staging: true,
     },
     {
         id: 'theboardr',
@@ -58,6 +61,7 @@ Our software, The Boardr Live™, powers several top events in skateboarding, f
 If you want your event and all the details to be professionally executed by proven experts who live and breate this industry, The Boardr is who you hire.
         `,
         spots: require('data/customMaps/theboardr.json'),
+        staging: true,
     },
     {
         id: 'theblacklist',
@@ -66,6 +70,7 @@ If you want your event and all the details to be professionally executed by prov
         edito: 'We believe that getting eyeballs on a list of Black-owned brands is a humble, yet necessary offering to building whatever lies ahead.',
         about: '"Over the last decade, skating has diversified and globalized tremendously. Despite this progress, however, “The Industry” remains very white, very Californian, and it retains hegemonic control over the direction of skateboarding."\nSpecial thanks to Patrick Kigongo.',
         spots: require('data/customMaps/theblacklist.json'),
+        staging: true,
     },
     {
         id: 'nycsubway',
@@ -80,6 +85,7 @@ It's a non-exhaustive list so feel free to add your spots on the map with the ap
 As they reminded in their article, don't forget skateboarding on MTA property is 100% illegal so watch out before you go for a trick!
         `,
         spots: require('data/customMaps/nycsubway.json'),
+        videos: ['https://www.youtube.com/watch?v=uNkFTKsYqiY'],
     },
     {
         id: 'betty',
@@ -98,9 +104,8 @@ Timothy Deconinck
         `,
         spots: require('data/customMaps/betty.json'),
         staging: false,
+        videos: ['https://www.youtube.com/watch?v=vc1XPamfLUY'],
     },
-
-    // IN TESTING ONLY
     {
         id: 'knobbuster',
         name: 'The Knobbuster',
@@ -134,6 +139,7 @@ Nobody can teach you frontside flips better than Andrew! It's been his signature
 Jake Keenan uses Google Earth to find unusual and virgin skate spots in the NYC landscape. Google Earth and Street View are used by several skaters/filmers across the globe!
         `,
         spots: require('data/customMaps/googleearthers.json'),
+        videos: ['https://www.youtube.com/watch?v=JEd_YeihXnI&list=PLu4RiFW9tsSnAzCkMFvG0sfSzST642zgg'],
     },
     {
         id: 'thps',

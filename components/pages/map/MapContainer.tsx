@@ -177,6 +177,7 @@ const MapContainer = () => {
                             about={customMapInfo.about}
                             subtitle={customMapInfo.subtitle}
                             spots={customMapInfo.spots}
+                            videos={customMapInfo.videos}
                         />
                     ) : (
                         <MapNavigation />
