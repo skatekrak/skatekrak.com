@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import KrakLogoHand from 'components/Ui/branding/KrakLogoHand';
 import Typography from 'components/Ui/typography/Typography';
 
+import media from 'styles/media';
+
 export const Container = styled.header`
     display: flex;
     flex-direction: column;
@@ -40,8 +42,13 @@ export const Nav = styled.nav`
 
 export const NavItem = styled.div`
     display: flex;
+    flex-shrink: 0;
     padding: 0.5rem;
     margin-left: 0.5rem;
+
+    ${media.laptopS} {
+        margin-left: 1rem;
+    }
 `;
 
 /* Secondary Nav */
