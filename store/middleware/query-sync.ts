@@ -7,8 +7,6 @@ const querySyncMiddleware: Middleware = (store) => (next) => (action) => {
     if (action.meta != null && action.meta.pushToUrl) {
         const state = store.getState();
 
-        console.log(action.meta.pushToUrl);
-
         const search = queryString.stringify(
             {
                 ...queryString.parse(state.router.location.search),

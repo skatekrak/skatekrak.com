@@ -7,6 +7,7 @@ import { ThunkAction } from 'redux-thunk';
 import { save, load } from 'redux-localstorage-simple';
 import merge from 'deepmerge';
 import { Action } from 'redux';
+import { combineReducers, Reducer, AnyAction } from '@reduxjs/toolkit';
 
 import querySyncMiddleware from './middleware/query-sync';
 
@@ -15,33 +16,31 @@ import magReducer, { initialState as magInitialState } from './mag/slice';
 import newsReducer, { initialState as newsInitialState } from './news/slice';
 import videosReducer, { initialState as videosInitialState } from './videos/slice';
 import settingsReducer from './settings/slice';
-import { configureStore, createSlice } from '@reduxjs/toolkit';
+import { configureStore } from '@reduxjs/toolkit';
 
-const subjectSlice = createSlice({
-    name: 'subject',
-    initialState: {} as any,
+const reducer: Reducer<any, AnyAction> = (state, action) => {
+    if (action.type === HYDRATE) {
+        const nextState = {
+            ...state,
+            ...action.payload,
+        };
 
-    reducers: {
-        setEnt: (state, action) => {
-            return action.payload;
-        },
-    },
+        if (typeof window !== undefined && state?.router) {
+            nextState.router = state.router;
+        }
 
-    extraReducers: {
-        [HYDRATE]: (state, action) => {
-            const nextState = {
-                ...state,
-                ...action.payload.subject,
-            };
-
-            if (typeof window !== undefined && state?.router) {
-                nextState.router = state.router;
-            }
-
-            return nextState;
-        },
-    },
-});
+        return nextState;
+    } else {
+        return combineReducers({
+            router: routerReducer,
+            map: mapReducer,
+            mag: magReducer,
+            news: newsReducer,
+            video: videosReducer,
+            settings: settingsReducer,
+        })(state, action);
+    }
+};
 
 export const initializeStore = (context) => {
     const routerMiddleware = createRouterMiddleware();
@@ -91,15 +90,7 @@ export const initializeStore = (context) => {
     ];
 
     const store = configureStore({
-        reducer: {
-            router: routerReducer,
-            map: mapReducer,
-            mag: magReducer,
-            news: newsReducer,
-            video: videosReducer,
-            settings: settingsReducer,
-            [subjectSlice.name]: subjectSlice.reducer,
-        },
+        reducer,
         preloadedState: initialState,
         devTools: process.env.NEXT_PUBLIC_STAGE === 'development',
         middleware: middlewares,
@@ -113,4 +104,6 @@ export type RootState = ReturnType<RootStore['getState']>;
 export type RootThunk<ReturnType = void> = ThunkAction<ReturnType, RootState, unknown, Action>;
 export type AppDispatch = RootStore['dispatch'];
 
-export const wrapper = createWrapper<RootStore>(initializeStore);
+export const wrapper = createWrapper<RootStore>(initializeStore, {
+    debug: process.env.NEXT_PUBLIC_STAGE === 'development',
+});
