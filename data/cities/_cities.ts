@@ -50,8 +50,7 @@ const cities: City[] = [
         name: 'Lyon',
         edito: 'Where this whole Krak idea started!',
         subtitle: 'HDV everyday, all day!',
-        about:
-            "Lyon is one of the major city in the french skate scene. Lots of legends came to film with Mr Fred Mortagne 20 years ago and made all these spots worldwide famous! You can still frequently meet pros passing by on the spots. Add to that the skateparks, the incredible and recently renewed HDV Plaza spot! You can't ask any better than this to have fun on your board!",
+        about: "Lyon is one of the major city in the french skate scene. Lots of legends came to film with Mr Fred Mortagne 20 years ago and made all these spots worldwide famous! You can still frequently meet pros passing by on the spots. Add to that the skateparks, the incredible and recently renewed HDV Plaza spot! You can't ask any better than this to have fun on your board!",
         bounds: [
             [4.787438796352205, 45.738004310175],
             [4.883625037813516, 45.78802185177571],
@@ -86,8 +85,7 @@ Paris is a paradise for skateboarders! From its concrete sidewalks perfect to go
         name: 'Barcelona',
         edito: 'Euro skate capital',
         subtitle: 'Macbalife!',
-        about:
-            "You can netflix n chill at Macba all day or you can go discover the crazy amount of piece of art the architectures have created in this spanish playground! It's also a wild place for the party night life..",
+        about: "You can netflix n chill at Macba all day or you can go discover the crazy amount of piece of art the architectures have created in this spanish playground! It's also a wild place for the party night life..",
         bounds: [
             [2.0576750759531706, 41.32263417922036],
             [2.279536643486864, 41.4467123861632],
@@ -109,8 +107,7 @@ Paris is a paradise for skateboarders! From its concrete sidewalks perfect to go
         name: 'New York',
         edito: 'The Big Apple',
         subtitle: 'The City of Lights!',
-        about:
-            "New York City has always been a huge part of the american and worldwide history! With so many typical spots you can tell it's New York, it has a charme you can't deny if you like urban street skating! Thank you Bobby Puelo, Tyshawn Jones, and all those in between! ",
+        about: "New York City has always been a huge part of the american and worldwide history! With so many typical spots you can tell it's New York, it has a charme you can't deny if you like urban street skating! Thank you Bobby Puelo, Tyshawn Jones, and all those in between! ",
         bounds: [
             [-74.07686383082431, 40.69836309341969],
             [-73.8844913479055, 40.80698836737918],
@@ -139,5 +136,17 @@ Paris is a paradise for skateboarders! From its concrete sidewalks perfect to go
         ],
     },
 ];
+
+export const centerFromBounds = (
+    bounds: [[number, number], [number, number]],
+): { latitude: number; longitude: number } => {
+    const centerLongitude = (bounds[1][0] + bounds[0][0]) / 2;
+    const centerLatitude = (bounds[1][1] + bounds[0][1]) / 2;
+
+    return {
+        latitude: centerLatitude,
+        longitude: centerLongitude,
+    };
+};
 
 export default cities;

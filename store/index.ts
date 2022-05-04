@@ -8,6 +8,7 @@ import { save, load } from 'redux-localstorage-simple';
 import merge from 'deepmerge';
 import { Action } from 'redux';
 import { combineReducers, Reducer, AnyAction } from '@reduxjs/toolkit';
+import { random } from 'lodash';
 
 import querySyncMiddleware from './middleware/query-sync';
 
@@ -17,6 +18,7 @@ import newsReducer, { initialState as newsInitialState } from './news/slice';
 import videosReducer, { initialState as videosInitialState } from './videos/slice';
 import settingsReducer from './settings/slice';
 import { configureStore } from '@reduxjs/toolkit';
+import cities, { centerFromBounds } from 'data/cities/_cities';
 
 const reducer: Reducer<any, AnyAction> = (state, action) => {
     if (action.type === HYDRATE) {
@@ -52,6 +54,8 @@ export const initializeStore = (context) => {
         const initialRouter = initialRouterState(asPath);
         const params = queryString.parse(initialRouter.location.search);
 
+        const randomCity = cities[random(cities.length - 1)];
+
         const state = {
             router: initialRouter,
             map: {
@@ -59,6 +63,10 @@ export const initializeStore = (context) => {
                 selectSpot: params.spot,
                 modalVisible: params.modal === '1',
                 customMapId: params.id,
+                viewport: {
+                    ...mapInitialState.viewport,
+                    ...centerFromBounds(randomCity.bounds),
+                },
             },
             mag: {
                 ...magInitialState,
