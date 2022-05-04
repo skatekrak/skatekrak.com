@@ -5,6 +5,7 @@ import BugsnagPluginReact from '@bugsnag/plugin-react';
 import Head from 'next/head';
 import { ConnectedRouter } from 'connected-next-router';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import { ReactQueryDevtools } from 'react-query/devtools';
 
 import { wrapper } from 'store';
 import { ThemeStore } from 'styles/Theme/ThemeStore';
@@ -65,6 +66,7 @@ const WrappedApp: React.FC<AppProps> = ({ Component, pageProps }) => (
                     <Component {...pageProps} />
                 </ThemeStore>
             </ConnectedRouter>
+            {process.env.NEXT_PUBLIC_STAGE === 'development' && <ReactQueryDevtools initialIsOpen={false} />}
         </QueryClientProvider>
     </ErrorBoundary>
 );
