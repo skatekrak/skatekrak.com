@@ -13,13 +13,7 @@ type Props = {
 const UserProfilePic: React.FC<Props> = ({ className, src, size }) => {
     return (
         <S.UserProfilePictureContainer className={className} size={size}>
-            <S.UserProfilePicture
-                src={
-                    src
-                        ? src
-                        : 'https://res.cloudinary.com/krak-dev/image/upload/v1651408716/assets/user-placeholder.png'
-                }
-            />
+            <S.UserProfilePicture src={src ? src : '/images/user-placeholder.png'} />
         </S.UserProfilePictureContainer>
     );
 };
