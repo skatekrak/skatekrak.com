@@ -14,7 +14,8 @@ import useSession from 'lib/hook/carrelage/use-session';
 const Header: React.FC = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const handleMenuOpen = () => setIsMenuOpen(!isMenuOpen);
-    const { isSuccess: isConnected } = useSession();
+    const { data: sessionData } = useSession();
+    const isConnected = sessionData != null;
 
     return (
         <S.Container>
