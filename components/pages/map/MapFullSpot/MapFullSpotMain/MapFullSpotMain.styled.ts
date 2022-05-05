@@ -128,7 +128,14 @@ export const MapFullSpotMainMediaContainer = styled.div`
 `;
 
 export const MapFullSpotMainMediaContainerPhoto = styled.div`
+    position: relative;
     display: flex;
+
+    &:hover {
+        ${MapFullSpotMainMediaOverlay} {
+            display: block;
+        }
+    }
 
     & img {
         width: 100%;
