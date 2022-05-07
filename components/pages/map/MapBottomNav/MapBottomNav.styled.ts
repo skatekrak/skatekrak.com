@@ -5,7 +5,6 @@ import media from 'styles/media';
 export const MapBottomNavContainer = styled.div`
     position: absolute;
     left: 1rem;
-    right: 1rem;
     bottom: 1rem;
     display: flex;
     align-items: center;
