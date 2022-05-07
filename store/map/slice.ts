@@ -87,8 +87,6 @@ const mapSlice = createSlice({
             };
         },
         toggleMapFilter: (state, action: PayloadAction<Types | Status>) => {
-            const newState = Object.assign({}, state);
-
             const filter = action.payload;
 
             // Has to cast to an any, otherwise an error is trigger even though it's completely valid
@@ -102,7 +100,7 @@ const mapSlice = createSlice({
                     map[filter as Types] = FilterState.LOADING_TO_SELECTED;
                 }
 
-                newState.types = map;
+                state.types = map;
             } else if (Object.values(Status).includes(filter as any)) {
                 const map = Object.assign({}, state.status);
                 const filterState = state.status[filter as Status];
@@ -113,30 +111,25 @@ const mapSlice = createSlice({
                     map[filter as Status] = FilterState.LOADING_TO_SELECTED;
                 }
 
-                newState.status = map;
+                state.status = map;
             }
-            return newState;
         },
         mapRefreshEnd: (state) => {
-            const newState = Object.assign({}, state);
-
-            for (const key in newState.status) {
-                if (newState.status[key] === FilterState.LOADING_TO_SELECTED) {
-                    newState.status[key] = FilterState.SELECTED;
-                } else if (newState.status[key] === FilterState.LOADING_TO_UNSELECTED) {
-                    newState.status[key] = FilterState.UNSELECTED;
+            for (const key in state.status) {
+                if (state.status[key] === FilterState.LOADING_TO_SELECTED) {
+                    state.status[key] = FilterState.SELECTED;
+                } else if (state.status[key] === FilterState.LOADING_TO_UNSELECTED) {
+                    state.status[key] = FilterState.UNSELECTED;
                 }
             }
 
-            for (const key in newState.types) {
-                if (newState.types[key] === FilterState.LOADING_TO_SELECTED) {
-                    newState.types[key] = FilterState.SELECTED;
-                } else if (newState.types[key] === FilterState.LOADING_TO_UNSELECTED) {
-                    newState.types[key] = FilterState.UNSELECTED;
+            for (const key in state.types) {
+                if (state.types[key] === FilterState.LOADING_TO_SELECTED) {
+                    state.types[key] = FilterState.SELECTED;
+                } else if (state.types[key] === FilterState.LOADING_TO_UNSELECTED) {
+                    state.types[key] = FilterState.UNSELECTED;
                 }
             }
-
-            return newState;
         },
         setSpotOverview: (state, action: PayloadAction<SpotOverview | undefined>) => {
             return {

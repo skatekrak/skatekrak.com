@@ -1,7 +1,5 @@
-import React, { useState, useCallback, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-
-import { RootState } from 'store';
+import React, { useState, useCallback, useEffect, useMemo } from 'react';
+import { useDispatch } from 'react-redux';
 
 import { Types, Status } from 'lib/carrelageClient';
 import { SpinnerCircle } from 'components/Ui/Icons/Spinners';
@@ -9,6 +7,7 @@ import { toggleMapFilter } from 'store/map/slice';
 import { FilterStateUtil, FilterState } from 'lib/FilterState';
 
 import * as S from './MapFilters.styled';
+import { useAppSelector } from 'store/hook';
 
 type Props = {
     filter: Types | Status;
@@ -16,40 +15,40 @@ type Props = {
 };
 
 const MapFilter: React.FC<Props> = ({ filter, icon }) => {
-    const [isActive, setIsActive] = useState(true);
     const [loading, setLoading] = useState(false);
-    const mapState = useSelector((state: RootState) => state.map);
+    const [status, types] = useAppSelector((state) => [state.map.status, state.map.types]);
+
     const dispatch = useDispatch();
 
     const handleOnClick = useCallback(() => {
         dispatch(toggleMapFilter(filter));
     }, [dispatch]);
 
-    useEffect(() => {
+    const isActive = useMemo(() => {
         if (Object.values(Types).includes(filter as any)) {
-            setIsActive(FilterStateUtil.isSelected(mapState.types[filter as Types]));
+            return FilterStateUtil.isSelected(types[filter as Types]);
         } else if (Object.values(Status).includes(filter as any)) {
-            setIsActive(FilterStateUtil.isSelected(mapState.status[filter as Status]));
+            return FilterStateUtil.isSelected(status[filter as Status]);
         }
-    }, [mapState]);
+    }, [status, types]);
 
     useEffect(() => {
         if (Object.values(Types).includes(filter as any)) {
-            const filterState = mapState.types[filter as Types];
+            const filterState = types[filter as Types];
             if (filterState === FilterState.LOADING_TO_SELECTED || filterState === FilterState.LOADING_TO_UNSELECTED) {
                 setLoading(true);
             } else {
                 setLoading(false);
             }
         } else if (Object.values(Status).includes(filter as any)) {
-            const filterState = mapState.status[filter as Status];
+            const filterState = status[filter as Status];
             if (filterState === FilterState.LOADING_TO_SELECTED || filterState === FilterState.LOADING_TO_UNSELECTED) {
                 setLoading(true);
             } else {
                 setLoading(false);
             }
         }
-    }, [mapState]);
+    }, [status, types]);
 
     return (
         <S.MapFilterContainer filter={filter} isActive={isActive} isLoading={loading} onClick={handleOnClick}>

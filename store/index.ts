@@ -20,7 +20,16 @@ import settingsReducer from './settings/slice';
 import { configureStore } from '@reduxjs/toolkit';
 import cities, { centerFromBounds } from 'data/cities/_cities';
 
-const reducer: Reducer<any, AnyAction> = (state, action) => {
+const reducers = combineReducers({
+    router: routerReducer,
+    map: mapReducer,
+    mag: magReducer,
+    news: newsReducer,
+    video: videosReducer,
+    settings: settingsReducer,
+});
+
+const reducer = (state, action) => {
     if (action.type === HYDRATE) {
         const nextState = {
             ...state,
@@ -33,14 +42,7 @@ const reducer: Reducer<any, AnyAction> = (state, action) => {
 
         return nextState;
     } else {
-        return combineReducers({
-            router: routerReducer,
-            map: mapReducer,
-            mag: magReducer,
-            news: newsReducer,
-            video: videosReducer,
-            settings: settingsReducer,
-        })(state, action);
+        return reducers(state, action);
     }
 };
 
@@ -108,7 +110,7 @@ export const initializeStore = (context) => {
 };
 
 export type RootStore = ReturnType<typeof initializeStore>;
-export type RootState = ReturnType<RootStore['getState']>;
+export type RootState = Pick<ReturnType<typeof reducers>, 'mag' | 'map' | 'news' | 'router' | 'settings' | 'video'>;
 export type RootThunk<ReturnType = void> = ThunkAction<ReturnType, RootState, unknown, Action>;
 export type AppDispatch = RootStore['dispatch'];
 
