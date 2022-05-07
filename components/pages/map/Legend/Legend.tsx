@@ -23,7 +23,7 @@ const Legend = () => {
                 Skateboarding isn't easy. It takes time, passion, effort & learning. But when you're in the flow,
                 starting to see things all around you differently, it's incredibly thrilling & addictive. That's why
                 we're making this map. There's so much more to come. If you want to be a part of it, please{' '}
-                <Link href="/">join us.</Link>
+                <Link href="/auth/subscribe">join us.</Link>
             </S.LegendDescription>
 
             <S.LegendSectionTitle component="condensedSubtitle1">Categories & status</S.LegendSectionTitle>
