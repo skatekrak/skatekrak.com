@@ -3,7 +3,6 @@ import Head from 'next/head';
 import React, { useState } from 'react';
 
 import Layout from 'components/Layout';
-import BannerTop from 'components/Ui/Banners/BannerTop';
 import LayoutFeed from 'components/Ui/Feed/LayoutFeed';
 import RefreshScrollOnNewPage from 'components/Ui/Utils/RefreshScrollOnNewPage';
 
@@ -41,7 +40,6 @@ const Mag: NextPage = () => {
     return (
         <RefreshScrollOnNewPage>
             <Layout head={<MagHead />}>
-                <BannerTop offsetScroll link="/" text="Become a co-owner" />
                 <div id="mag-container" className="inner-page-container">
                     <LayoutFeed
                         mainView={<Feed sidebarNavIsOpen={sidebarNavIsOpen} />}

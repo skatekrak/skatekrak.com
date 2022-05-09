@@ -5,7 +5,6 @@ import Head from 'next/head';
 import React, { useState } from 'react';
 
 import Layout from 'components/Layout';
-import BannerTop from 'components/Ui/Banners/BannerTop';
 import LayoutFeed from 'components/Ui/Feed/LayoutFeed';
 
 import Sidebar from 'components/pages/videos/Sidebar';
@@ -59,7 +58,6 @@ const Videos: NextPage<Props> = ({ video, gotId }) => {
 
     return (
         <Layout head={<VideoHead video={video} />}>
-            <BannerTop offsetScroll link="/" text="Become a co-owner" />
             <div id="videos-container" className="inner-page-container">
                 {gotId && <VideoModal video={video} open={gotId} />}
                 <LayoutFeed

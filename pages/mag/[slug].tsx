@@ -1,4 +1,4 @@
-import { GetServerSideProps, GetStaticPaths, GetStaticProps, NextPage } from 'next';
+import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import Head from 'next/head';
 import React, { useState } from 'react';
 
@@ -6,7 +6,6 @@ import decodeHTML from 'lib/decodeHTML';
 
 import Layout from 'components/Layout';
 
-import BannerTop from 'components/Ui/Banners/BannerTop';
 import LayoutFeed from 'components/Ui/Feed/LayoutFeed';
 
 import Article from 'components/pages/mag/Article';
@@ -96,7 +95,6 @@ const ArticlePage: NextPage<Props> = ({ post }) => {
     return (
         <TrackedPage name={`Mag/${post.slug!}`}>
             <Layout head={<MagArticleHead post={post} />}>
-                <BannerTop offsetScroll link="/" text="Become a co-owner" />
                 <div id="mag-article-container" className="inner-page-container">
                     <LayoutFeed
                         mainView={<Article post={post} sidebarNavIsOpen={sidebarNavIsOpen} />}

@@ -5,7 +5,6 @@ import Head from 'next/head';
 import React, { useState } from 'react';
 
 import Layout from 'components/Layout';
-import BannerTop from 'components/Ui/Banners/BannerTop';
 import LayoutFeed from 'components/Ui/Feed/LayoutFeed';
 
 import Articles from 'components/pages/news/Articles';
@@ -77,7 +76,6 @@ const News: NextPage<Props> = ({ contentData, gotId }) => {
 
     return (
         <Layout head={<NewsHead content={content} />}>
-            <BannerTop link="/" offsetScroll text="Become a co-owner" />
             <div id="news-container" className="inner-page-container">
                 {gotId && <DynamicArticleModal show={gotId} content={content} />}
                 <LayoutFeed
