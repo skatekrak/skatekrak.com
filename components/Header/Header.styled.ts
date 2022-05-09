@@ -6,6 +6,7 @@ import Typography from 'components/Ui/typography/Typography';
 import media from 'styles/media';
 
 export const Container = styled.header`
+    flex-shrink: 0;
     display: flex;
     flex-direction: column;
     padding: 0.625rem 2rem;
@@ -15,6 +16,7 @@ export const Container = styled.header`
 `;
 
 export const TopContainer = styled.div`
+    flex-shrink: 0;
     display: flex;
     align-items: center;
     justify-content: space-between;
