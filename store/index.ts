@@ -56,8 +56,6 @@ export const initializeStore = (context) => {
         const initialRouter = initialRouterState(asPath);
         const params = queryString.parse(initialRouter.location.search);
 
-        const randomCity = cities[random(cities.length - 1)];
-
         const state = {
             router: initialRouter,
             map: {
@@ -65,10 +63,6 @@ export const initializeStore = (context) => {
                 selectSpot: params.spot,
                 modalVisible: params.modal === '1',
                 customMapId: params.id,
-                viewport: {
-                    ...mapInitialState.viewport,
-                    ...centerFromBounds(randomCity.bounds),
-                },
             },
             mag: {
                 ...magInitialState,
@@ -83,6 +77,16 @@ export const initializeStore = (context) => {
                 search: params.query ?? '',
             },
         };
+
+        // We don't go to a random city if a spot is selected, as well as a custom map
+        if (params.spot == null && params.id == null) {
+            const randomCity = cities[random(cities.length - 1)];
+
+            state.map.viewport = {
+                ...state.map.viewport,
+                ...centerFromBounds(randomCity.bounds),
+            };
+        }
 
         initialState = merge(
             state,

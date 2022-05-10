@@ -2,12 +2,11 @@ import React, { useCallback, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 import ReactMapGL, { MapRef, NavigationControl, ViewStateChangeEvent } from 'react-map-gl';
 
-import SpotCluster from 'components/pages/map/marker/SpotCluster';
 import SpotMarker from 'components/pages/map/marker/SpotMarker';
 import MapSpotOverview from './MapSpotOverview';
 import * as S from './Map.styled';
 
-import { Cluster, Spot } from 'lib/carrelageClient';
+import { Spot } from 'lib/carrelageClient';
 import {
     selectSpot,
     setSpotOverview,
