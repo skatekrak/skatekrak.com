@@ -21,6 +21,8 @@ import { useAppDispatch } from 'store/hook';
 const DynamicMapComponent = dynamic(() => import('./MapComponent'), { ssr: false });
 const MapFullSpot = dynamic(() => import('./MapFullSpot'), { ssr: false });
 
+const MAX_ZOOM_DISPLAY_SPOT = 11.6;
+
 const MapContainer = () => {
     const isMobile = useSelector((state: RootState) => state.settings.isMobile);
     const status = useSelector((state: RootState) => state.map.status);
@@ -103,19 +105,24 @@ const MapContainer = () => {
                     const bounds = map.getBounds();
                     const northEast = bounds.getNorthEast();
                     const southWest = bounds.getSouthWest();
+                    const zoom = map.getZoom();
 
-                    const newClusters = await boxSpotsSearch({
-                        northEastLatitude: northEast.lat,
-                        northEastLongitude: northEast.lng,
-                        southWestLatitude: southWest.lat,
-                        southWestLongitude: southWest.lng,
-                        filters: {
-                            status: getSelectedFilterState(status),
-                            type: getSelectedFilterState(types),
-                        },
-                    });
+                    if (zoom > MAX_ZOOM_DISPLAY_SPOT) {
+                        const newClusters = await boxSpotsSearch({
+                            northEastLatitude: northEast.lat,
+                            northEastLongitude: northEast.lng,
+                            southWestLatitude: southWest.lat,
+                            southWestLongitude: southWest.lng,
+                            filters: {
+                                status: getSelectedFilterState(status),
+                                type: getSelectedFilterState(types),
+                            },
+                        });
 
-                    refreshMap(newClusters);
+                        refreshMap(newClusters);
+                    } else {
+                        refreshMap([]);
+                    }
                 }
             }, 200);
         }
@@ -149,7 +156,10 @@ const MapContainer = () => {
                     onClose={onFullSpotClose}
                     container={!isMobile && fullSpotContainerRef.current}
                 />
-                <DynamicMapComponent mapRef={mapRef} spots={customMapLoading ? [] : spots}>
+                <DynamicMapComponent
+                    mapRef={mapRef}
+                    spots={viewport.zoom <= MAX_ZOOM_DISPLAY_SPOT || customMapLoading ? [] : spots}
+                >
                     {id !== undefined && customMapInfo !== undefined ? (
                         <MapCustomNavigation
                             id={customMapInfo.id}
@@ -163,6 +173,12 @@ const MapContainer = () => {
                         <MapNavigation />
                     )}
                     {!isMobile && <MapQuickAccessDesktop />}
+                    {viewport.zoom <= MAX_ZOOM_DISPLAY_SPOT && (
+                        /* TODO */
+                        <div style={{ position: 'absolute', background: 'red', top: 50, left: '50%' }}>
+                            Ground control to major tom, come back to earth
+                        </div>
+                    )}
                 </DynamicMapComponent>
                 <MapGradients />
             </>
