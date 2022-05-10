@@ -1,13 +1,45 @@
+import React from 'react';
 import styled from 'styled-components';
 
 import media from 'styles/media';
+import { themeData } from 'styles/Theme/ThemeStore';
+
+export const MapFullSpotModalOverlayStyles: React.CSSProperties = {
+    position: 'absolute',
+    background: 'rgba(31, 31, 31, 0.5)',
+};
+
+export const MapFullSpotModalStyles: React.CSSProperties = {
+    padding: '0',
+    color: `${themeData.color.onDark.highEmphasis}`,
+    background: `${themeData.color.tertiary.dark}`,
+    border: `1px solid ${themeData.color.tertiary.medium}`,
+    borderRadius: '0.25rem',
+    boxShadow: '0px 0px 16px rgba(0, 0, 0, 0.25)',
+    overflow: 'hidden',
+};
+
+export const MapFullSpotModalCloseButtonStyles: React.CSSProperties = {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '1.75rem',
+    height: '1.75rem',
+    backgroundColor: `${themeData.color.onDark.divider}`,
+    borderRadius: '50%',
+};
+
+export const MapFullSpotModalCloseIconStyles: React.CSSProperties = {
+    width: '1.5rem',
+    height: '1.25rem',
+    fill: `${themeData.color.onDark.mediumEmphasis}`,
+};
 
 export const MapFullSpotContainer = styled.div`
     position: relative;
     display: flex;
     flex-direction: column;
     min-height: 85vh;
-    color: ${({ theme }) => theme.color.onDark.highEmphasis};
 
     ${media.tablet} {
         display: grid;

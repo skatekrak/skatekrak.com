@@ -1,7 +1,7 @@
 import React from 'react';
 import { DefaultTheme, ThemeProvider } from 'styled-components';
 
-const themeData: DefaultTheme = {
+export const themeData: DefaultTheme = {
     color: {
         primary: {
             100: '#BF2722',

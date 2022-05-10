@@ -168,7 +168,11 @@ const MapContainer = () => {
         <S.MapContainer ref={fullSpotContainerRef}>
             <>
                 <MapBottomNav isMobile={isMobile} />
-                <MapFullSpot open={modalVisible} onClose={onFullSpotClose} container={fullSpotContainerRef.current} />
+                <MapFullSpot
+                    open={modalVisible}
+                    onClose={onFullSpotClose}
+                    container={!isMobile && fullSpotContainerRef.current}
+                />
                 <DynamicMapComponent mapRef={mapRef} clusters={customMapLoading ? [] : clusters}>
                     {id !== undefined && customMapInfo !== undefined ? (
                         <MapCustomNavigation

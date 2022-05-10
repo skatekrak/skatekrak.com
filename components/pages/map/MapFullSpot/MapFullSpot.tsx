@@ -8,16 +8,17 @@ import * as S from './MapFullSpot.styled';
 import { useDispatch } from 'react-redux';
 import { selectFullSpotTab } from 'store/map/slice';
 
-const classNames = {
-    customOverlay: 'full-spot-overlay',
-    customModal: 'full-spot-container',
-    customCloseButton: 'full-spot-close-button',
+const modalStyles = {
+    overlay: S.MapFullSpotModalOverlayStyles,
+    modal: S.MapFullSpotModalStyles,
+    closeButton: S.MapFullSpotModalCloseButtonStyles,
+    closeIcon: S.MapFullSpotModalCloseIconStyles,
 };
 
 type MapFullSpotProps = {
     open: boolean;
     onClose: () => void;
-    container: Element | undefined;
+    container?: Element;
 };
 
 const MapFullSpot: React.FC<MapFullSpotProps> = ({ open, onClose, container }) => {
@@ -29,7 +30,7 @@ const MapFullSpot: React.FC<MapFullSpotProps> = ({ open, onClose, container }) =
     }, [open]);
 
     return (
-        <Modal open={open} onClose={onClose} closable customClassNames={classNames} container={container}>
+        <Modal styles={modalStyles} open={open} container={container} onClose={onClose} closable closeIcon={undefined}>
             <S.MapFullSpotContainer>
                 <S.MapFullSpotNavContainer>
                     <MapFullSpotNav />
