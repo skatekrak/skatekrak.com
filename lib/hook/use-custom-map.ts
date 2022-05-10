@@ -8,16 +8,7 @@ const useCustomMap = (id: string) => {
         }
         const response = await axios.get('/api/custom-maps', { params: { id: id } });
         const customMap = response.data;
-        return {
-            ...customMap,
-            clusters: customMap.spots.map((spot) => ({
-                id: spot.id,
-                latitude: spot.location.latitude,
-                longitude: spot.location.longitude,
-                count: 1,
-                spots: [spot],
-            })),
-        };
+        return customMap;
     });
 };
 

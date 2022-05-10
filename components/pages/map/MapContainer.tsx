@@ -58,7 +58,7 @@ const MapContainer = () => {
     const spotId = useSelector((state: RootState) => state.map.selectSpot);
     const modalVisible = useSelector((state: RootState) => state.map.modalVisible);
 
-    const [clusters, setClusters] = useState<Cluster[]>([]);
+    const [spots, setSpots] = useState<Spot[]>([]);
     const [, setFirstLoad] = useState(() => (spotId ? true : false));
 
     const { data: customMapInfo, isLoading: customMapLoading } = useCustomMap(id);
@@ -78,21 +78,21 @@ const MapContainer = () => {
     }, []);
 
     const refreshMap = useCallback(
-        (_clusters: Cluster[] | undefined = undefined) => {
-            setClusters(() => {
-                const filteredClusters = filterClusters(_clusters ?? [], types, status);
+        (_spots: Spot[] | undefined = undefined) => {
+            setSpots(() => {
+                // const filteredClusters = filterClusters(_spots ?? [], types, status);
 
                 dispatch(mapRefreshEnd());
 
-                return filteredClusters;
+                return _spots;
             });
         },
         [dispatch, types, status],
     );
 
     useEffect(() => {
-        if (customMapInfo && customMapInfo.clusters) {
-            refreshMap(customMapInfo.clusters);
+        if (customMapInfo && customMapInfo.spots) {
+            refreshMap(customMapInfo.spots);
         }
     }, [customMapInfo, refreshMap]);
 
@@ -132,7 +132,6 @@ const MapContainer = () => {
                     const southWest = bounds.getSouthWest();
 
                     const newClusters = await boxSpotsSearch({
-                        clustering: true,
                         northEastLatitude: northEast.lat,
                         northEastLongitude: northEast.lng,
                         southWestLatitude: southWest.lat,
@@ -156,7 +155,7 @@ const MapContainer = () => {
     }, [status, types, id, viewport, load]);
 
     useEffect(() => {
-        if (mapRef.current != null && id !== undefined && customMapInfo !== undefined) {
+        if (mapRef.current != null && id != null && customMapInfo != null) {
             const bounds = findBoundsCoordinate(
                 customMapInfo.spots.map((spot) => [spot.location.longitude, spot.location.latitude]),
             );
@@ -173,7 +172,7 @@ const MapContainer = () => {
                     onClose={onFullSpotClose}
                     container={!isMobile && fullSpotContainerRef.current}
                 />
-                <DynamicMapComponent mapRef={mapRef} clusters={customMapLoading ? [] : clusters}>
+                <DynamicMapComponent mapRef={mapRef} spots={customMapLoading ? [] : spots}>
                     {id !== undefined && customMapInfo !== undefined ? (
                         <MapCustomNavigation
                             id={customMapInfo.id}
@@ -193,18 +192,6 @@ const MapContainer = () => {
         </S.MapContainer>
     );
 };
-
-function mergeClusters(array1: Cluster[], array2: Cluster[]): Cluster[] {
-    const array: Cluster[] = array1;
-
-    for (const cluster of array2) {
-        if (array.findIndex((c) => c.id === cluster.id) === -1) {
-            array.push(cluster);
-        }
-    }
-
-    return array;
-}
 
 function findBoundsCoordinate(coordinates: [[number, number]]): [[number, number], [number, number]] {
     const northEastLatitude = Math.max(...coordinates.map((c) => c[1]));
