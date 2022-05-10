@@ -19,8 +19,12 @@ const ArticleModal = ({ content, show }: Props) => {
         router.replace('/news');
     };
 
+    const customClassNames = {
+        customModal: 'news-article-modal-container',
+    };
+
     return (
-        <Modal open={show} onClose={onClose} closable={true}>
+        <Modal open={show} onClose={onClose} customClassNames={customClassNames} closable={true}>
             {content ? (
                 <div className="news-article-modal">
                     <Card content={content} />
