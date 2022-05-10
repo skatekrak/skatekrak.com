@@ -3,11 +3,10 @@ import { MapRef } from 'react-map-gl';
 import { useSelector } from 'react-redux';
 import dynamic from 'next/dynamic';
 
-import { Cluster, Spot, Status, Types } from 'lib/carrelageClient';
+import { Spot } from 'lib/carrelageClient';
 
 import { boxSpotsSearch, getSpotOverview } from 'lib/carrelageClient';
-import { mapRefreshEnd, setSpotOverview, updateUrlParams } from 'store/map/slice';
-import { FilterStateUtil, FilterState } from 'lib/FilterState';
+import { getSelectedFilterState, mapRefreshEnd, setSpotOverview, updateUrlParams } from 'store/map/slice';
 import { RootState } from 'store';
 import useCustomMap from 'lib/hook/use-custom-map';
 
@@ -21,30 +20,6 @@ import { useAppDispatch } from 'store/hook';
 
 const DynamicMapComponent = dynamic(() => import('./MapComponent'), { ssr: false });
 const MapFullSpot = dynamic(() => import('./MapFullSpot'), { ssr: false });
-
-const filterClusters = (
-    clusters: Cluster[],
-    types: Record<Types, FilterState>,
-    status: Record<Status, FilterState>,
-): Cluster[] => {
-    const selectedTypes = FilterStateUtil.getSelected(types);
-    const selectedStatus = FilterStateUtil.getSelected(status);
-
-    return clusters
-        .map((cluster) => {
-            return {
-                ...cluster,
-                spots: cluster.spots.filter((spot) => {
-                    if (spot.status === Status.Active) {
-                        return selectedTypes.indexOf(spot.type) !== -1;
-                    } else {
-                        return selectedStatus.indexOf(spot.status) !== -1;
-                    }
-                }),
-            };
-        })
-        .filter((cluster) => cluster.spots.length > 0);
-};
 
 const MapContainer = () => {
     const isMobile = useSelector((state: RootState) => state.settings.isMobile);
@@ -80,8 +55,6 @@ const MapContainer = () => {
     const refreshMap = useCallback(
         (_spots: Spot[] | undefined = undefined) => {
             setSpots(() => {
-                // const filteredClusters = filterClusters(_spots ?? [], types, status);
-
                 dispatch(mapRefreshEnd());
 
                 return _spots;
@@ -136,6 +109,10 @@ const MapContainer = () => {
                         northEastLongitude: northEast.lng,
                         southWestLatitude: southWest.lat,
                         southWestLongitude: southWest.lng,
+                        filters: {
+                            status: getSelectedFilterState(status),
+                            type: getSelectedFilterState(types),
+                        },
                     });
 
                     refreshMap(newClusters);
