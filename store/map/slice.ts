@@ -264,6 +264,11 @@ const extractData = <T>(defaultValue: T, data?: T | null) => {
     return data;
 };
 
+export function getSelectedFilterState<T extends string>(filterState: Record<T, FilterState>): T[] {
+    const keys = Object.keys(filterState) as T[];
+    return keys.filter((key) => filterState[key] === FilterState.SELECTED);
+}
+
 export const {
     selectAllMapFilters,
     unselectAllMapFilters,

@@ -3,11 +3,10 @@ import { MapRef } from 'react-map-gl';
 import { useSelector } from 'react-redux';
 import dynamic from 'next/dynamic';
 
-import { Cluster, Spot, Status, Types } from 'lib/carrelageClient';
+import { Spot } from 'lib/carrelageClient';
 
 import { boxSpotsSearch, getSpotOverview } from 'lib/carrelageClient';
-import { mapRefreshEnd, setSpotOverview, updateUrlParams } from 'store/map/slice';
-import { FilterStateUtil, FilterState } from 'lib/FilterState';
+import { getSelectedFilterState, mapRefreshEnd, setSpotOverview, updateUrlParams } from 'store/map/slice';
 import { RootState } from 'store';
 import useCustomMap from 'lib/hook/use-custom-map';
 
@@ -22,29 +21,7 @@ import { useAppDispatch } from 'store/hook';
 const DynamicMapComponent = dynamic(() => import('./MapComponent'), { ssr: false });
 const MapFullSpot = dynamic(() => import('./MapFullSpot'), { ssr: false });
 
-const filterClusters = (
-    clusters: Cluster[],
-    types: Record<Types, FilterState>,
-    status: Record<Status, FilterState>,
-): Cluster[] => {
-    const selectedTypes = FilterStateUtil.getSelected(types);
-    const selectedStatus = FilterStateUtil.getSelected(status);
-
-    return clusters
-        .map((cluster) => {
-            return {
-                ...cluster,
-                spots: cluster.spots.filter((spot) => {
-                    if (spot.status === Status.Active) {
-                        return selectedTypes.indexOf(spot.type) !== -1;
-                    } else {
-                        return selectedStatus.indexOf(spot.status) !== -1;
-                    }
-                }),
-            };
-        })
-        .filter((cluster) => cluster.spots.length > 0);
-};
+const MAX_ZOOM_DISPLAY_SPOT = 11.6;
 
 const MapContainer = () => {
     const isMobile = useSelector((state: RootState) => state.settings.isMobile);
@@ -58,7 +35,7 @@ const MapContainer = () => {
     const spotId = useSelector((state: RootState) => state.map.selectSpot);
     const modalVisible = useSelector((state: RootState) => state.map.modalVisible);
 
-    const [clusters, setClusters] = useState<Cluster[]>([]);
+    const [spots, setSpots] = useState<Spot[]>([]);
     const [, setFirstLoad] = useState(() => (spotId ? true : false));
 
     const { data: customMapInfo, isLoading: customMapLoading } = useCustomMap(id);
@@ -78,21 +55,19 @@ const MapContainer = () => {
     }, []);
 
     const refreshMap = useCallback(
-        (_clusters: Cluster[] | undefined = undefined) => {
-            setClusters(() => {
-                const filteredClusters = filterClusters(_clusters ?? [], types, status);
-
+        (_spots: Spot[] | undefined = undefined) => {
+            setSpots(() => {
                 dispatch(mapRefreshEnd());
 
-                return filteredClusters;
+                return _spots;
             });
         },
         [dispatch, types, status],
     );
 
     useEffect(() => {
-        if (customMapInfo && customMapInfo.clusters) {
-            refreshMap(customMapInfo.clusters);
+        if (customMapInfo && customMapInfo.spots) {
+            refreshMap(customMapInfo.spots);
         }
     }, [customMapInfo, refreshMap]);
 
@@ -130,16 +105,24 @@ const MapContainer = () => {
                     const bounds = map.getBounds();
                     const northEast = bounds.getNorthEast();
                     const southWest = bounds.getSouthWest();
+                    const zoom = map.getZoom();
 
-                    const newClusters = await boxSpotsSearch({
-                        clustering: true,
-                        northEastLatitude: northEast.lat,
-                        northEastLongitude: northEast.lng,
-                        southWestLatitude: southWest.lat,
-                        southWestLongitude: southWest.lng,
-                    });
+                    if (zoom > MAX_ZOOM_DISPLAY_SPOT) {
+                        const newClusters = await boxSpotsSearch({
+                            northEastLatitude: northEast.lat,
+                            northEastLongitude: northEast.lng,
+                            southWestLatitude: southWest.lat,
+                            southWestLongitude: southWest.lng,
+                            filters: {
+                                status: getSelectedFilterState(status),
+                                type: getSelectedFilterState(types),
+                            },
+                        });
 
-                    refreshMap(newClusters);
+                        refreshMap(newClusters);
+                    } else {
+                        refreshMap([]);
+                    }
                 }
             }, 200);
         }
@@ -156,7 +139,7 @@ const MapContainer = () => {
     }, [status, types, id, viewport, load]);
 
     useEffect(() => {
-        if (mapRef.current != null && id !== undefined && customMapInfo !== undefined) {
+        if (mapRef.current != null && id != null && customMapInfo != null) {
             const bounds = findBoundsCoordinate(
                 customMapInfo.spots.map((spot) => [spot.location.longitude, spot.location.latitude]),
             );
@@ -173,7 +156,10 @@ const MapContainer = () => {
                     onClose={onFullSpotClose}
                     container={!isMobile && fullSpotContainerRef.current}
                 />
-                <DynamicMapComponent mapRef={mapRef} clusters={customMapLoading ? [] : clusters}>
+                <DynamicMapComponent
+                    mapRef={mapRef}
+                    spots={viewport.zoom <= MAX_ZOOM_DISPLAY_SPOT || customMapLoading ? [] : spots}
+                >
                     {id !== undefined && customMapInfo !== undefined ? (
                         <MapCustomNavigation
                             id={customMapInfo.id}
@@ -187,24 +173,18 @@ const MapContainer = () => {
                         <MapNavigation />
                     )}
                     {!isMobile && <MapQuickAccessDesktop />}
+                    {viewport.zoom <= MAX_ZOOM_DISPLAY_SPOT && (
+                        /* TODO */
+                        <div style={{ position: 'absolute', background: 'red', top: 50, left: '50%' }}>
+                            Ground control to major tom, come back to earth
+                        </div>
+                    )}
                 </DynamicMapComponent>
                 <MapGradients />
             </>
         </S.MapContainer>
     );
 };
-
-function mergeClusters(array1: Cluster[], array2: Cluster[]): Cluster[] {
-    const array: Cluster[] = array1;
-
-    for (const cluster of array2) {
-        if (array.findIndex((c) => c.id === cluster.id) === -1) {
-            array.push(cluster);
-        }
-    }
-
-    return array;
-}
 
 function findBoundsCoordinate(coordinates: [[number, number]]): [[number, number], [number, number]] {
     const northEastLatitude = Math.max(...coordinates.map((c) => c[1]));

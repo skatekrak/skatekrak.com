@@ -197,7 +197,6 @@ export type QuerySearchSpotsParam = {
 };
 
 export type BoxSearchSpotsParams = {
-    clustering: boolean;
     northEastLatitude?: number;
     northEastLongitude?: number;
     southWestLatitude?: number;
@@ -212,7 +211,7 @@ export type SearchSpotsParams = QuerySearchSpotsParam & BoxSearchSpotsParams;
  * @param params
  */
 export const boxSpotsSearch = async (params: BoxSearchSpotsParams) => {
-    const res = await carrelage.get<Cluster[]>('/spots/search', { params });
+    const res = await carrelage.get<Spot[]>('/spots/search', { params });
     return res.data;
 };
 

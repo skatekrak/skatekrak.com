@@ -2,12 +2,11 @@ import React, { useCallback, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 import ReactMapGL, { MapRef, NavigationControl, ViewStateChangeEvent } from 'react-map-gl';
 
-import SpotCluster from 'components/pages/map/marker/SpotCluster';
 import SpotMarker from 'components/pages/map/marker/SpotMarker';
 import MapSpotOverview from './MapSpotOverview';
 import * as S from './Map.styled';
 
-import { Cluster } from 'lib/carrelageClient';
+import { Spot } from 'lib/carrelageClient';
 import {
     selectSpot,
     setSpotOverview,
@@ -23,11 +22,11 @@ const MAX_ZOOM_LEVEL = 18;
 
 type MapComponentProps = {
     mapRef?: React.RefObject<MapRef>;
-    clusters: Cluster[];
+    spots: Spot[];
     children?: React.ReactNode;
 };
 
-const MapComponent = ({ mapRef, clusters, children }: MapComponentProps) => {
+const MapComponent = ({ mapRef, spots, children }: MapComponentProps) => {
     const dispatch = useDispatch();
     const viewport = useAppSelector((state) => state.map.viewport);
     const spotId = useAppSelector((state) => state.map.selectSpot);
@@ -36,26 +35,15 @@ const MapComponent = ({ mapRef, clusters, children }: MapComponentProps) => {
     const clustering = customMapId === undefined;
 
     const markers = useMemo(() => {
-        const _markers: JSX.Element[] = [];
-        for (const cluster of clusters) {
-            if (!clustering || (viewport.zoom > MAX_ZOOM_LEVEL - 5.5 && cluster.spots.length > 0)) {
-                for (const spot of cluster.spots) {
-                    if (_markers.findIndex((m) => m.key === spot.id) === -1) {
-                        _markers.push(
-                            <SpotMarker
-                                key={spot.id}
-                                spot={spot}
-                                isSelected={selectedSpotOverview ? selectedSpotOverview.spot.id === spot.id : false}
-                            />,
-                        );
-                    }
-                }
-            } else {
-                _markers.push(<SpotCluster key={cluster.id} cluster={cluster} viewportZoom={viewport.zoom} />);
-            }
-        }
-        return _markers;
-    }, [clusters, selectedSpotOverview, clustering, viewport.zoom]);
+        return spots.map((spot) => (
+            <SpotMarker
+                key={spot.id}
+                spot={spot}
+                isSelected={selectedSpotOverview ? selectedSpotOverview.spot.id === spot.id : false}
+                small={viewport.zoom <= MAX_ZOOM_LEVEL - 5.5}
+            />
+        ));
+    }, [spots, selectedSpotOverview, clustering, viewport.zoom]);
 
     const onPopupClick = () => {
         dispatch(toggleSpotModal(true));
