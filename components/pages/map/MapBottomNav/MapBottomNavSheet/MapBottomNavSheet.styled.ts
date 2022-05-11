@@ -5,14 +5,15 @@ import Typography from 'components/Ui/typography/Typography';
 import media from 'styles/media';
 
 export const MapBottomNavSheetContainer = styled.div`
-    display: block;
     position: absolute;
+    display: block;
     bottom: 0;
     left: 0;
     min-height: 20vh;
-    width: 100%;
+    width: calc(100vw - 2rem);
     color: ${({ theme }) => theme.color.onDark.highEmphasis};
     background-color: ${({ theme }) => theme.color.tertiary.dark};
+    border: 1px solid ${({ theme }) => theme.color.tertiary.medium};
     border-radius: 0.25rem;
     box-shadow: ${({ theme }) => theme.shadow.onDark.highSharp};
     z-index: 1000;
@@ -25,9 +26,7 @@ export const MapBottomNavSheetContainer = styled.div`
     }
 
     ${media.mobile} {
-        left: 0;
-        bottom: 0;
-        border: 1px solid ${({ theme }) => theme.color.tertiary.medium};
+        width: calc(100vw - 3rem);
     }
 `;
 
