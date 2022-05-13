@@ -7,6 +7,7 @@ type SpotMarkSmallProps = {
 export const SpotMarkSmall = styled.div<SpotMarkSmallProps>`
     width: 0.625rem;
     height: 0.625rem;
+    border: 1px solid ${({ theme }) => theme.color.onDark.highEmphasis};
     border-radius: 0.625rem;
 
     background-color: ${({ theme, filter }) => {
