@@ -15,6 +15,7 @@ import MapCustomNavigation from './MapCustom/MapCustomNavigation';
 import MapNavigation from './MapNavigation';
 import MapBottomNav from './MapBottomNav';
 import MapGradients from './MapGradients';
+import MapZoomAlert from './MapZoomAlert';
 import * as S from './Map.styled';
 import { useAppDispatch } from 'store/hook';
 
@@ -173,12 +174,7 @@ const MapContainer = () => {
                         <MapNavigation />
                     )}
                     {!isMobile && <MapQuickAccessDesktop />}
-                    {viewport.zoom <= MAX_ZOOM_DISPLAY_SPOT && (
-                        /* TODO */
-                        <div style={{ position: 'absolute', background: 'red', top: 50, left: '50%' }}>
-                            Ground control to major tom, come back to earth
-                        </div>
-                    )}
+                    {viewport.zoom <= MAX_ZOOM_DISPLAY_SPOT && <MapZoomAlert />}
                 </DynamicMapComponent>
                 <MapGradients />
             </>
