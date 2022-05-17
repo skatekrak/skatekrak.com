@@ -16,9 +16,7 @@ import {
     toggleSpotModal,
 } from 'store/map/slice';
 import { useAppSelector } from 'store/hook';
-
-const MIN_ZOOM_LEVEL = 2;
-const MAX_ZOOM_LEVEL = 18;
+import { MAX_ZOOM_DISPLAY_SPOT, MAX_ZOOM_LEVEL, MIN_ZOOM_LEVEL } from './Map.constant';
 
 type MapComponentProps = {
     mapRef?: React.RefObject<MapRef>;
@@ -40,7 +38,7 @@ const MapComponent = ({ mapRef, spots, children }: MapComponentProps) => {
                 key={spot.id}
                 spot={spot}
                 isSelected={selectedSpotOverview ? selectedSpotOverview.spot.id === spot.id : false}
-                small={viewport.zoom <= MAX_ZOOM_LEVEL - 5.5}
+                small={viewport.zoom <= MAX_ZOOM_DISPLAY_SPOT}
             />
         ));
     }, [spots, selectedSpotOverview, clustering, viewport.zoom]);

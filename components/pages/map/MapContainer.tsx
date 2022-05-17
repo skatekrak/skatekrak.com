@@ -19,11 +19,10 @@ import MapZoomAlert from './MapZoomAlert';
 import * as S from './Map.styled';
 import { useAppDispatch } from 'store/hook';
 import { findBoundsCoordinate } from 'lib/map/helpers';
+import { MAX_ZOOM_DISPLAY_SPOT } from './Map.constant';
 
 const DynamicMapComponent = dynamic(() => import('./MapComponent'), { ssr: false });
 const MapFullSpot = dynamic(() => import('./MapFullSpot'), { ssr: false });
-
-const MAX_ZOOM_DISPLAY_SPOT = 11.6;
 
 const MapContainer = () => {
     const isMobile = useSelector((state: RootState) => state.settings.isMobile);
