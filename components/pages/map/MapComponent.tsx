@@ -17,7 +17,7 @@ import {
     toggleSpotModal,
 } from 'store/map/slice';
 import { useAppSelector } from 'store/hook';
-import { MAX_ZOOM_DISPLAY_SPOT, MAX_ZOOM_LEVEL, MIN_ZOOM_LEVEL } from './Map.constant';
+import { MAX_ZOOM_LEVEL, MIN_ZOOM_DISPLAY_SPOT, MIN_ZOOM_LEVEL } from './Map.constant';
 import { Status, Types } from 'shared/feudartifice/types';
 import { useTheme } from 'styled-components';
 
@@ -35,7 +35,7 @@ const MapComponent = ({ mapRef, spots, children }: MapComponentProps) => {
     const theme = useTheme();
 
     const markers = useMemo(() => {
-        if (viewport.zoom > MAX_ZOOM_DISPLAY_SPOT) {
+        if (viewport.zoom > MIN_ZOOM_DISPLAY_SPOT) {
             return spots.map((spot) => (
                 <SpotMarker
                     key={spot.id}
@@ -102,7 +102,7 @@ const MapComponent = ({ mapRef, spots, children }: MapComponentProps) => {
                     <Layer
                         id="spot-point"
                         type="circle"
-                        maxzoom={MAX_ZOOM_DISPLAY_SPOT}
+                        maxzoom={MIN_ZOOM_DISPLAY_SPOT}
                         paint={{
                             'circle-radius': 4,
                             'circle-stroke-width': 1,
