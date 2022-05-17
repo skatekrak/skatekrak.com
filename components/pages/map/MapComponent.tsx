@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
-import ReactMapGL, { Layer, MapRef, NavigationControl, Source, ViewStateChangeEvent } from 'react-map-gl';
+import ReactMapGL, { MapRef, NavigationControl, Source, ViewStateChangeEvent } from 'react-map-gl';
 import type { FeatureCollection, Geometry } from 'geojson';
 
 import SpotMarker from 'components/pages/map/marker/SpotMarker';
@@ -18,8 +18,8 @@ import {
 } from 'store/map/slice';
 import { useAppSelector } from 'store/hook';
 import { MAX_ZOOM_LEVEL, MIN_ZOOM_DISPLAY_SPOT, MIN_ZOOM_LEVEL } from './Map.constant';
-import { Status, Types } from 'shared/feudartifice/types';
-import { useTheme } from 'styled-components';
+import { Status } from 'shared/feudartifice/types';
+import SmallLayer from './layers/SmallLayer';
 
 type MapComponentProps = {
     mapRef?: React.RefObject<MapRef>;
@@ -32,7 +32,6 @@ const MapComponent = ({ mapRef, spots, children }: MapComponentProps) => {
     const viewport = useAppSelector((state) => state.map.viewport);
     const spotId = useAppSelector((state) => state.map.selectSpot);
     const selectedSpotOverview = useAppSelector((state) => state.map.spotOverview);
-    const theme = useTheme();
 
     const markers = useMemo(() => {
         if (viewport.zoom > MIN_ZOOM_DISPLAY_SPOT) {
@@ -48,7 +47,7 @@ const MapComponent = ({ mapRef, spots, children }: MapComponentProps) => {
         return [];
     }, [spots, selectedSpotOverview, viewport.zoom]);
 
-    const sources: FeatureCollection<Geometry> = useMemo(() => {
+    const spotSourceData: FeatureCollection<Geometry> = useMemo(() => {
         return {
             type: 'FeatureCollection',
             features: spots.map((spot) => ({
@@ -98,36 +97,8 @@ const MapComponent = ({ mapRef, spots, children }: MapComponentProps) => {
                 onMove={onViewportChange}
                 onClick={onPopupClose}
             >
-                <Source id="spots" type="geojson" data={sources}>
-                    <Layer
-                        id="spot-point"
-                        type="circle"
-                        maxzoom={MIN_ZOOM_DISPLAY_SPOT}
-                        paint={{
-                            'circle-radius': 4,
-                            'circle-stroke-width': 1,
-                            'circle-stroke-color': '#FFF',
-                            'circle-color': [
-                                'match',
-                                ['get', 'type'],
-                                Status.Rip,
-                                theme.color.map.rip.default,
-                                Status.Wip,
-                                theme.color.map.wip.default,
-                                Types.Street,
-                                theme.color.map.street.default,
-                                Types.Park,
-                                theme.color.map.park.default,
-                                Types.Diy,
-                                theme.color.map.diy.default,
-                                Types.Private,
-                                theme.color.map.private.default,
-                                Types.Shop,
-                                theme.color.map.shop.default,
-                                '#000',
-                            ],
-                        }}
-                    />
+                <Source id="spots" type="geojson" data={spotSourceData}>
+                    <SmallLayer />
                 </Source>
                 {/* Popup */}
                 {spotId != null && selectedSpotOverview != null && (
