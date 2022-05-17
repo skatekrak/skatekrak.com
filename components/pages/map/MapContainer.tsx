@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { MapRef } from 'react-map-gl';
 import { useSelector } from 'react-redux';
 import dynamic from 'next/dynamic';
@@ -148,6 +148,22 @@ const MapContainer = () => {
         }
     }, [customMapInfo, viewport.width, id, dispatch]);
 
+    const displayedSpots = useMemo(() => {
+        // It's a custom map, we can return the spots if not loading
+        if (id != null) {
+            if (customMapLoading) {
+                return [];
+            }
+            return spots;
+        }
+
+        if (viewport.zoom <= MAX_ZOOM_DISPLAY_SPOT) {
+            return [];
+        }
+
+        return spots;
+    }, [spots, id, customMapLoading, viewport.zoom]);
+
     return (
         <S.MapContainer ref={fullSpotContainerRef}>
             <>
@@ -157,10 +173,7 @@ const MapContainer = () => {
                     onClose={onFullSpotClose}
                     container={!isMobile && fullSpotContainerRef.current}
                 />
-                <DynamicMapComponent
-                    mapRef={mapRef}
-                    spots={viewport.zoom <= MAX_ZOOM_DISPLAY_SPOT || customMapLoading ? [] : spots}
-                >
+                <DynamicMapComponent mapRef={mapRef} spots={displayedSpots}>
                     {id !== undefined && customMapInfo !== undefined ? (
                         <MapCustomNavigation
                             id={customMapInfo.id}
@@ -174,7 +187,7 @@ const MapContainer = () => {
                         <MapNavigation />
                     )}
                     {!isMobile && <MapQuickAccessDesktop />}
-                    {viewport.zoom <= MAX_ZOOM_DISPLAY_SPOT && <MapZoomAlert />}
+                    {viewport.zoom <= MAX_ZOOM_DISPLAY_SPOT && id == null && <MapZoomAlert />}
                 </DynamicMapComponent>
                 <MapGradients />
             </>
