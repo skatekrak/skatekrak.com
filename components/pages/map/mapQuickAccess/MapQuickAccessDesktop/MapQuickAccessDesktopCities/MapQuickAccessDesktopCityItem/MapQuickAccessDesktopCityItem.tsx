@@ -30,7 +30,7 @@ const MapQuickAccessDesktopCityItem: React.FC<MapQuickAccessDesktopCityItemProps
                     customMapId: null,
                 }),
             );
-            map.fitBounds(city.bounds, { padding: 0, duration: 1500 });
+            map?.fitBounds(city.bounds, { padding: 0, duration: 1500 });
         },
         [onCitiesClick, dispatch, city.bounds, map],
     );
