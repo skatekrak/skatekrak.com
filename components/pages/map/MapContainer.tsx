@@ -18,6 +18,7 @@ import MapGradients from './MapGradients';
 import MapZoomAlert from './MapZoomAlert';
 import * as S from './Map.styled';
 import { useAppDispatch } from 'store/hook';
+import { findBoundsCoordinate } from 'lib/map/helpers';
 
 const DynamicMapComponent = dynamic(() => import('./MapComponent'), { ssr: false });
 const MapFullSpot = dynamic(() => import('./MapFullSpot'), { ssr: false });
@@ -167,13 +168,13 @@ const MapContainer = () => {
     return (
         <S.MapContainer ref={fullSpotContainerRef}>
             <>
-                <MapBottomNav isMobile={isMobile} />
                 <MapFullSpot
                     open={modalVisible}
                     onClose={onFullSpotClose}
                     container={!isMobile && fullSpotContainerRef.current}
                 />
                 <DynamicMapComponent mapRef={mapRef} spots={displayedSpots}>
+                    <MapBottomNav isMobile={isMobile} />
                     {id !== undefined && customMapInfo !== undefined ? (
                         <MapCustomNavigation
                             id={customMapInfo.id}
@@ -194,17 +195,5 @@ const MapContainer = () => {
         </S.MapContainer>
     );
 };
-
-function findBoundsCoordinate(coordinates: [[number, number]]): [[number, number], [number, number]] {
-    const northEastLatitude = Math.max(...coordinates.map((c) => c[1]));
-    const northEastLongitude = Math.max(...coordinates.map((c) => c[0]));
-    const southWestLatitude = Math.min(...coordinates.map((c) => c[1]));
-    const southWestLongitude = Math.min(...coordinates.map((c) => c[0]));
-
-    return [
-        [northEastLongitude, northEastLatitude],
-        [southWestLongitude, southWestLatitude],
-    ];
-}
 
 export default MapContainer;
