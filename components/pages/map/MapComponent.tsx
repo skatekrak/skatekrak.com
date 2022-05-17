@@ -1,6 +1,7 @@
 import React, { useCallback, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
-import ReactMapGL, { MapRef, NavigationControl, ViewStateChangeEvent } from 'react-map-gl';
+import ReactMapGL, { Layer, MapRef, NavigationControl, Source, ViewStateChangeEvent } from 'react-map-gl';
+import type { FeatureCollection, Geometry } from 'geojson';
 
 import SpotMarker from 'components/pages/map/marker/SpotMarker';
 import MapSpotOverview from './MapSpotOverview';
@@ -17,6 +18,8 @@ import {
 } from 'store/map/slice';
 import { useAppSelector } from 'store/hook';
 import { MAX_ZOOM_DISPLAY_SPOT, MAX_ZOOM_LEVEL, MIN_ZOOM_LEVEL } from './Map.constant';
+import { Status, Types } from 'shared/feudartifice/types';
+import { useTheme } from 'styled-components';
 
 type MapComponentProps = {
     mapRef?: React.RefObject<MapRef>;
@@ -28,20 +31,39 @@ const MapComponent = ({ mapRef, spots, children }: MapComponentProps) => {
     const dispatch = useDispatch();
     const viewport = useAppSelector((state) => state.map.viewport);
     const spotId = useAppSelector((state) => state.map.selectSpot);
-    const customMapId = useAppSelector((state) => state.map.customMapId);
     const selectedSpotOverview = useAppSelector((state) => state.map.spotOverview);
-    const clustering = customMapId === undefined;
+    const theme = useTheme();
 
     const markers = useMemo(() => {
-        return spots.map((spot) => (
-            <SpotMarker
-                key={spot.id}
-                spot={spot}
-                isSelected={selectedSpotOverview ? selectedSpotOverview.spot.id === spot.id : false}
-                small={viewport.zoom <= MAX_ZOOM_DISPLAY_SPOT}
-            />
-        ));
-    }, [spots, selectedSpotOverview, clustering, viewport.zoom]);
+        if (viewport.zoom > MAX_ZOOM_DISPLAY_SPOT) {
+            return spots.map((spot) => (
+                <SpotMarker
+                    key={spot.id}
+                    spot={spot}
+                    isSelected={selectedSpotOverview ? selectedSpotOverview.spot.id === spot.id : false}
+                />
+            ));
+        }
+
+        return [];
+    }, [spots, selectedSpotOverview, viewport.zoom]);
+
+    const sources: FeatureCollection<Geometry> = useMemo(() => {
+        return {
+            type: 'FeatureCollection',
+            features: spots.map((spot) => ({
+                id: spot.id,
+                type: 'Feature',
+                geometry: {
+                    type: 'Point',
+                    coordinates: spot.geo,
+                },
+                properties: {
+                    type: spot.status === Status.Active ? spot.type : spot.status,
+                },
+            })),
+        };
+    }, [spots]);
 
     const onPopupClick = () => {
         dispatch(toggleSpotModal(true));
@@ -76,6 +98,37 @@ const MapComponent = ({ mapRef, spots, children }: MapComponentProps) => {
                 onMove={onViewportChange}
                 onClick={onPopupClose}
             >
+                <Source id="spots" type="geojson" data={sources}>
+                    <Layer
+                        id="spot-point"
+                        type="circle"
+                        maxzoom={MAX_ZOOM_DISPLAY_SPOT}
+                        paint={{
+                            'circle-radius': 4,
+                            'circle-stroke-width': 1,
+                            'circle-stroke-color': '#FFF',
+                            'circle-color': [
+                                'match',
+                                ['get', 'type'],
+                                Status.Rip,
+                                theme.color.map.rip.default,
+                                Status.Wip,
+                                theme.color.map.wip.default,
+                                Types.Street,
+                                theme.color.map.street.default,
+                                Types.Park,
+                                theme.color.map.park.default,
+                                Types.Diy,
+                                theme.color.map.diy.default,
+                                Types.Private,
+                                theme.color.map.private.default,
+                                Types.Shop,
+                                theme.color.map.shop.default,
+                                '#000',
+                            ],
+                        }}
+                    />
+                </Source>
                 {/* Popup */}
                 {spotId != null && selectedSpotOverview != null && (
                     <MapSpotOverview

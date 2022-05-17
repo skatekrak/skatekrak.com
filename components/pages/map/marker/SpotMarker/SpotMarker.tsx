@@ -12,8 +12,6 @@ import Activity from 'components/pages/map/marker/Activity';
 import { selectSpot } from 'store/map/slice';
 import { useAppDispatch } from 'store/hook';
 
-import * as S from './SpotMarker.styled';
-
 type SpotMarkerProps = {
     spot: Spot;
     isSelected: boolean;
@@ -46,40 +44,36 @@ const SpotMarker = ({ spot, isSelected, small = false }: SpotMarkerProps) => {
             longitude={spot.location.longitude}
             onClick={small ? undefined : onMarkerClick}
         >
-            {small ? (
-                <S.SpotMarkSmall filter={spot.status !== Status.Active ? spot.status : spot.type} />
-            ) : (
+            <div
+                className={classNames({
+                    'map-marker-clicked': isSelected,
+                    'map-marker-active': active && !firing,
+                    'map-marker-firing': firing,
+                })}
+            >
                 <div
-                    className={classNames({
-                        'map-marker-clicked': isSelected,
-                        'map-marker-active': active && !firing,
+                    className={classNames('map-marker', {
                         'map-marker-firing': firing,
                     })}
                 >
-                    <div
-                        className={classNames('map-marker', {
-                            'map-marker-firing': firing,
-                        })}
-                    >
-                        <div className="map-marker-icon">
-                            {(spot.status == 'rip' || spot.status === 'wip') && (
-                                <Pin key={spot.id} imageName={spot.status} />
-                            )}
-                            {spot.status === 'active' && <Pin key={spot.id} imageName={spot.type} />}
-                        </div>
-                        <div className="map-marker-badges">
-                            {spot.tags.map((tag) => (
-                                <React.Fragment key={tag}>
-                                    {tag === 'famous' && <BadgeIconic />}
-                                    {tag === 'history' && <BadgeHistory />}
-                                    {tag === 'minute' && <BadgeMinute />}
-                                </React.Fragment>
-                            ))}
-                        </div>
-                        {active && <Activity firing={firing} />}
+                    <div className="map-marker-icon">
+                        {(spot.status == 'rip' || spot.status === 'wip') && (
+                            <Pin key={spot.id} imageName={spot.status} />
+                        )}
+                        {spot.status === 'active' && <Pin key={spot.id} imageName={spot.type} />}
                     </div>
+                    <div className="map-marker-badges">
+                        {spot.tags.map((tag) => (
+                            <React.Fragment key={tag}>
+                                {tag === 'famous' && <BadgeIconic />}
+                                {tag === 'history' && <BadgeHistory />}
+                                {tag === 'minute' && <BadgeMinute />}
+                            </React.Fragment>
+                        ))}
+                    </div>
+                    {active && <Activity firing={firing} />}
                 </div>
-            )}
+            </div>
         </Marker>
     );
 };
