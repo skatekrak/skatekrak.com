@@ -13,6 +13,7 @@ const SmallLayer = () => {
     return (
         <Layer
             id="spot-small-point"
+            source="spots"
             type="circle"
             maxzoom={MIN_ZOOM_DISPLAY_SPOT}
             paint={{
