@@ -1,7 +1,11 @@
 import React from 'react';
 
-const ClearIcon = () => (
-    <svg className="icon-clear" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+type Props = {
+    className?: string;
+};
+
+const ClearIcon = ({ className }: Props) => (
+    <svg className={`icon icon-clear ${className}`} viewBox="0 0 24 24">
         <path
             fillRule="evenodd"
             clipRule="evenodd"

@@ -6,7 +6,7 @@ import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 
 import SearchIcon from 'components/Ui/Icons/Search';
-import ClearIcon from 'components/Ui/Icons/Clear';
+import IconClear from 'components/Ui/Icons/IconClear';
 import MapSearchResults from './MapSearchResults/MapSearchResults';
 import { SpotHit, spotIndex, SpotSearchResult } from 'lib/algolia';
 import { Place } from 'lib/placeApi';
@@ -76,7 +76,7 @@ const MapNavigation = () => {
                     <SearchIcon />
                 ) : (
                     <button onClick={clearSearchValue}>
-                        <ClearIcon />
+                        <IconClear />
                     </button>
                 )}
             </S.MapSearchBar>
