@@ -57,7 +57,7 @@ export async function querySearchSpots(params: QuerySearchSpotsParams): Promise<
     return res.data;
 }
 
-type AddSpotParam = {
+export type AddSpotParam = {
     name: string;
     type: Types;
     latitude: number;
