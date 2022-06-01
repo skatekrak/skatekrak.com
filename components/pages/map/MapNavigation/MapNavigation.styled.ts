@@ -19,3 +19,8 @@ export const MapNavigation = styled.div`
         left: 1.5rem;
     }
 `;
+
+export const MapNavigationMain = styled.div`
+    display: flex;
+    align-items: center;
+`;

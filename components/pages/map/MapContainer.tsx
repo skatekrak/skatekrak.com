@@ -18,6 +18,7 @@ import MapGradients from './MapGradients';
 import MapZoomAlert from './MapZoomAlert';
 import * as S from './Map.styled';
 import { useAppDispatch } from 'store/hook';
+import MapCreateSpot from './MapCreateSpot';
 
 const DynamicMapComponent = dynamic(() => import('./MapComponent'), { ssr: false });
 const MapFullSpot = dynamic(() => import('./MapFullSpot'), { ssr: false });
@@ -30,6 +31,9 @@ const MapContainer = () => {
     const types = useSelector((state: RootState) => state.map.types);
     const viewport = useSelector((state: RootState) => state.map.viewport);
     const dispatch = useAppDispatch();
+
+    const [isCreateSpotOpen, setIsCreateSpotOpen] = useState(false);
+    const toggleCreateSpot = () => setIsCreateSpotOpen(!isCreateSpotOpen);
 
     /** Spot ID in the query */
     const id = useSelector((state: RootState) => state.map.customMapId);
@@ -166,31 +170,35 @@ const MapContainer = () => {
 
     return (
         <S.MapContainer ref={fullSpotContainerRef}>
-            <>
-                <MapBottomNav isMobile={isMobile} />
-                <MapFullSpot
-                    open={modalVisible}
-                    onClose={onFullSpotClose}
-                    container={!isMobile && fullSpotContainerRef.current}
-                />
-                <DynamicMapComponent mapRef={mapRef} spots={displayedSpots}>
-                    {id !== undefined && customMapInfo !== undefined ? (
-                        <MapCustomNavigation
-                            id={customMapInfo.id}
-                            title={customMapInfo.name}
-                            about={customMapInfo.about}
-                            subtitle={customMapInfo.subtitle}
-                            spots={customMapInfo.spots}
-                            videos={customMapInfo.videos}
+            <DynamicMapComponent mapRef={mapRef} spots={displayedSpots}>
+                {isCreateSpotOpen ? (
+                    <MapCreateSpot onBackClick={toggleCreateSpot} isMobile={isMobile} />
+                ) : (
+                    <>
+                        {id !== undefined && customMapInfo !== undefined ? (
+                            <MapCustomNavigation
+                                id={customMapInfo.id}
+                                title={customMapInfo.name}
+                                about={customMapInfo.about}
+                                subtitle={customMapInfo.subtitle}
+                                spots={customMapInfo.spots}
+                                videos={customMapInfo.videos}
+                            />
+                        ) : (
+                            <MapNavigation handleCreateSpotClick={toggleCreateSpot} />
+                        )}
+                        {!isMobile && <MapQuickAccessDesktop />}
+                        {viewport.zoom <= MAX_ZOOM_DISPLAY_SPOT && id == null && <MapZoomAlert />}
+                        <MapBottomNav isMobile={isMobile} />
+                        <MapFullSpot
+                            open={modalVisible}
+                            onClose={onFullSpotClose}
+                            container={!isMobile && fullSpotContainerRef.current}
                         />
-                    ) : (
-                        <MapNavigation />
-                    )}
-                    {!isMobile && <MapQuickAccessDesktop />}
-                    {viewport.zoom <= MAX_ZOOM_DISPLAY_SPOT && id == null && <MapZoomAlert />}
-                </DynamicMapComponent>
-                <MapGradients />
-            </>
+                    </>
+                )}
+            </DynamicMapComponent>
+            <MapGradients />
         </S.MapContainer>
     );
 };
