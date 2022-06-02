@@ -50,10 +50,12 @@ const MapCreateSpotMedia = ({ media, handleAddMedia, handleRemoveMedia }: Props)
                 </S.MapCreateSpotMediaItemContainer>
                 {media.map((image) => (
                     <S.MapCreateSpotMediaItemContainer key={image}>
-                        <S.MapCreateSpotMediaRemoveButton onClick={() => handleRemoveMedia(image)}>
-                            <IconClear />
-                        </S.MapCreateSpotMediaRemoveButton>
-                        <S.MapCreateSpotMediaItem image={image} />
+                        <S.MapCreateSpotMediaItem>
+                            <S.MapCreateSpotMediaRemoveButton onClick={() => handleRemoveMedia(image)}>
+                                <IconClear />
+                            </S.MapCreateSpotMediaRemoveButton>
+                            <S.MapCreateSpotMediaItemImage src={image} />
+                        </S.MapCreateSpotMediaItem>
                     </S.MapCreateSpotMediaItemContainer>
                 ))}
             </S.MapCreateSpotMediaGrid>

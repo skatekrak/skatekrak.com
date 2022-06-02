@@ -21,25 +21,24 @@ export const MapCreateSpotMediaItemContainer = styled.div`
     position: relative;
     padding-top: 100%;
     border-radius: 0.25rem;
+    background-color: ${({ theme }) => theme.color.tertiary.light};
     overflow: hidden;
 `;
 
-type MapCreateSpotMediaItemProps = {
-    image?: string;
-};
-
-export const MapCreateSpotMediaItem = styled.div<MapCreateSpotMediaItemProps>`
+export const MapCreateSpotMediaItem = styled.div`
     position: absolute;
     top: 0;
     right: 0;
     bottom: 0;
     left: 0;
-    background-color: ${({ theme }) => theme.color.tertiary.light};
+`;
 
-    ${({ image }) =>
-        image !== undefined && {
-            background: image,
-        }}
+export const MapCreateSpotMediaItemImage = styled.img`
+    position: relative;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    background-color: ${({ theme }) => theme.color.tertiary.light};
 `;
 
 export const MapCreateSpotMediaAdd = styled.button`
@@ -64,6 +63,9 @@ export const MapCreateSpotMediaRemoveButton = styled.button`
     position: absolute;
     top: 0.5rem;
     right: 0.5rem;
+    display: flex;
+    background-color: ${({ theme }) => theme.color.tertiary.light};
+    border-radius: 100%;
     z-index: 1;
 
     & svg {
