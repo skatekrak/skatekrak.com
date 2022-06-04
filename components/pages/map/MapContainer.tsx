@@ -6,7 +6,13 @@ import dynamic from 'next/dynamic';
 import { Spot } from 'lib/carrelageClient';
 
 import { boxSpotsSearch, getSpotOverview } from 'lib/carrelageClient';
-import { getSelectedFilterState, mapRefreshEnd, setSpotOverview, updateUrlParams } from 'store/map/slice';
+import {
+    getSelectedFilterState,
+    mapRefreshEnd,
+    setSpotOverview,
+    toggleCreateSpot,
+    updateUrlParams,
+} from 'store/map/slice';
 import { RootState } from 'store';
 import useCustomMap from 'lib/hook/use-custom-map';
 
@@ -30,10 +36,8 @@ const MapContainer = () => {
     const status = useSelector((state: RootState) => state.map.status);
     const types = useSelector((state: RootState) => state.map.types);
     const viewport = useSelector((state: RootState) => state.map.viewport);
+    const isCreateSpotOpen = useSelector((state: RootState) => state.map.isCreateSpotOpen);
     const dispatch = useAppDispatch();
-
-    const [isCreateSpotOpen, setIsCreateSpotOpen] = useState(false);
-    const toggleCreateSpot = () => setIsCreateSpotOpen(!isCreateSpotOpen);
 
     /** Spot ID in the query */
     const id = useSelector((state: RootState) => state.map.customMapId);
@@ -58,6 +62,10 @@ const MapContainer = () => {
             duration: 1500,
         });
     }, []);
+
+    const onToggleSpotCreation = () => {
+        dispatch(toggleCreateSpot());
+    };
 
     const refreshMap = useCallback(
         (_spots: Spot[] | undefined = undefined) => {
@@ -172,7 +180,7 @@ const MapContainer = () => {
         <S.MapContainer ref={fullSpotContainerRef}>
             <DynamicMapComponent mapRef={mapRef} spots={displayedSpots}>
                 {isCreateSpotOpen ? (
-                    <MapCreateSpot onBackClick={toggleCreateSpot} isMobile={isMobile} />
+                    <MapCreateSpot onBackClick={onToggleSpotCreation} isMobile={isMobile} />
                 ) : (
                     <>
                         {id !== undefined && customMapInfo !== undefined ? (
@@ -185,7 +193,7 @@ const MapContainer = () => {
                                 videos={customMapInfo.videos}
                             />
                         ) : (
-                            <MapNavigation handleCreateSpotClick={toggleCreateSpot} />
+                            <MapNavigation handleCreateSpotClick={onToggleSpotCreation} />
                         )}
                         {!isMobile && <MapQuickAccessDesktop />}
                         {viewport.zoom <= MAX_ZOOM_DISPLAY_SPOT && id == null && <MapZoomAlert />}

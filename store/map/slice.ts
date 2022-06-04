@@ -28,6 +28,7 @@ export type MapState = {
     searchResultOpen: boolean;
     customMapId?: string;
     videoPlayingId?: string;
+    isCreateSpotOpen: boolean;
 };
 
 export const initialState: MapState = {
@@ -52,6 +53,7 @@ export const initialState: MapState = {
     legendOpen: false,
     searchResultOpen: false,
     fullSpotSelectedTab: 'media',
+    isCreateSpotOpen: false,
 };
 
 const mapSlice = createSlice({
@@ -245,6 +247,10 @@ const mapSlice = createSlice({
                 },
             }),
         },
+        toggleCreateSpot: (state) => {
+            state.isCreateSpotOpen = !state.isCreateSpotOpen;
+            return state;
+        },
     },
     extraReducers: {
         [HYDRATE]: (state, action) => {
@@ -284,6 +290,7 @@ export const {
     setVideoPlaying,
     toggleSearchResult,
     updateUrlParams,
+    toggleCreateSpot,
 } = mapSlice.actions;
 
 export default mapSlice.reducer;
