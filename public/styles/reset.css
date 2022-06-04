@@ -155,3 +155,8 @@ button {
     padding: 0;
     background-color: inherit;
 }
+
+html,
+body {
+    height: 100%;
+}

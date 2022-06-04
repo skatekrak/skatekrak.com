@@ -1,6 +1,7 @@
 import React, { useCallback, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
-import ReactMapGL, { MapRef, NavigationControl, ViewStateChangeEvent } from 'react-map-gl';
+import ReactMapGL, { MapRef, NavigationControl, Source, ViewStateChangeEvent } from 'react-map-gl';
+import type { FeatureCollection, Geometry } from 'geojson';
 
 import SpotMarker from 'components/pages/map/marker/SpotMarker';
 import MapSpotOverview from './MapSpotOverview';
@@ -16,9 +17,9 @@ import {
     toggleSpotModal,
 } from 'store/map/slice';
 import { useAppSelector } from 'store/hook';
-
-const MIN_ZOOM_LEVEL = 2;
-const MAX_ZOOM_LEVEL = 18;
+import { MAX_ZOOM_LEVEL, MIN_ZOOM_DISPLAY_SPOT, MIN_ZOOM_LEVEL } from './Map.constant';
+import { Status } from 'shared/feudartifice/types';
+import SmallLayer from './layers/SmallLayer';
 
 type MapComponentProps = {
     mapRef?: React.RefObject<MapRef>;
@@ -30,20 +31,38 @@ const MapComponent = ({ mapRef, spots, children }: MapComponentProps) => {
     const dispatch = useDispatch();
     const viewport = useAppSelector((state) => state.map.viewport);
     const spotId = useAppSelector((state) => state.map.selectSpot);
-    const customMapId = useAppSelector((state) => state.map.customMapId);
     const selectedSpotOverview = useAppSelector((state) => state.map.spotOverview);
-    const clustering = customMapId === undefined;
 
     const markers = useMemo(() => {
-        return spots.map((spot) => (
-            <SpotMarker
-                key={spot.id}
-                spot={spot}
-                isSelected={selectedSpotOverview ? selectedSpotOverview.spot.id === spot.id : false}
-                small={viewport.zoom <= MAX_ZOOM_LEVEL - 5.5}
-            />
-        ));
-    }, [spots, selectedSpotOverview, clustering, viewport.zoom]);
+        if (viewport.zoom > MIN_ZOOM_DISPLAY_SPOT) {
+            return spots.map((spot) => (
+                <SpotMarker
+                    key={spot.id}
+                    spot={spot}
+                    isSelected={selectedSpotOverview ? selectedSpotOverview.spot.id === spot.id : false}
+                />
+            ));
+        }
+
+        return [];
+    }, [spots, selectedSpotOverview, viewport.zoom]);
+
+    const spotSourceData: FeatureCollection<Geometry> = useMemo(() => {
+        return {
+            type: 'FeatureCollection',
+            features: spots.map((spot) => ({
+                id: spot.id,
+                type: 'Feature',
+                geometry: {
+                    type: 'Point',
+                    coordinates: spot.geo,
+                },
+                properties: {
+                    type: spot.status === Status.Active ? spot.type : spot.status,
+                },
+            })),
+        };
+    }, [spots]);
 
     const onPopupClick = () => {
         dispatch(toggleSpotModal(true));
@@ -78,6 +97,9 @@ const MapComponent = ({ mapRef, spots, children }: MapComponentProps) => {
                 onMove={onViewportChange}
                 onClick={onPopupClose}
             >
+                <Source id="spots" type="geojson" data={spotSourceData}>
+                    <SmallLayer />
+                </Source>
                 {/* Popup */}
                 {spotId != null && selectedSpotOverview != null && (
                     <MapSpotOverview

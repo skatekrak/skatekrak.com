@@ -7,6 +7,7 @@ import { City } from 'map';
 import { toggleLegend, toggleSearchResult } from 'store/map/slice';
 import { updateUrlParams } from 'store/map/slice';
 import { useMap } from 'react-map-gl';
+import { centerFromBounds } from 'lib/map/helpers';
 
 type MapQuickAccessDesktopCityItemProps = {
     city: City;
@@ -30,7 +31,17 @@ const MapQuickAccessDesktopCityItem: React.FC<MapQuickAccessDesktopCityItemProps
                     customMapId: null,
                 }),
             );
-            map.fitBounds(city.bounds, { padding: 0, duration: 1500 });
+
+            const cityCenter = centerFromBounds(city.bounds);
+            map?.flyTo({
+                center: {
+                    lat: cityCenter.latitude,
+                    lng: cityCenter.longitude,
+                },
+                padding: 0,
+                duration: 1500,
+                zoom: 11.7,
+            });
         },
         [onCitiesClick, dispatch, city.bounds, map],
     );

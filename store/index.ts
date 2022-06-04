@@ -18,7 +18,8 @@ import newsReducer, { initialState as newsInitialState } from './news/slice';
 import videosReducer, { initialState as videosInitialState } from './videos/slice';
 import settingsReducer from './settings/slice';
 import { configureStore } from '@reduxjs/toolkit';
-import cities, { centerFromBounds } from 'data/cities/_cities';
+import cities from 'data/cities/_cities';
+import { centerFromBounds } from 'lib/map/helpers';
 
 const reducers = combineReducers({
     router: routerReducer,

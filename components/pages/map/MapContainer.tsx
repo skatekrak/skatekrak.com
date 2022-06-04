@@ -18,12 +18,12 @@ import MapGradients from './MapGradients';
 import MapZoomAlert from './MapZoomAlert';
 import * as S from './Map.styled';
 import { useAppDispatch } from 'store/hook';
+import { findBoundsCoordinate } from 'lib/map/helpers';
+import { MAX_ZOOM_DISPLAY_SPOT } from './Map.constant';
 import MapCreateSpot from './MapCreateSpot';
 
 const DynamicMapComponent = dynamic(() => import('./MapComponent'), { ssr: false });
 const MapFullSpot = dynamic(() => import('./MapFullSpot'), { ssr: false });
-
-const MAX_ZOOM_DISPLAY_SPOT = 11.6;
 
 const MapContainer = () => {
     const isMobile = useSelector((state: RootState) => state.settings.isMobile);
@@ -202,17 +202,5 @@ const MapContainer = () => {
         </S.MapContainer>
     );
 };
-
-function findBoundsCoordinate(coordinates: [[number, number]]): [[number, number], [number, number]] {
-    const northEastLatitude = Math.max(...coordinates.map((c) => c[1]));
-    const northEastLongitude = Math.max(...coordinates.map((c) => c[0]));
-    const southWestLatitude = Math.min(...coordinates.map((c) => c[1]));
-    const southWestLongitude = Math.min(...coordinates.map((c) => c[0]));
-
-    return [
-        [northEastLongitude, northEastLatitude],
-        [southWestLongitude, southWestLatitude],
-    ];
-}
 
 export default MapContainer;

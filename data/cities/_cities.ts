@@ -137,16 +137,4 @@ Paris is a paradise for skateboarders! From its concrete sidewalks perfect to go
     },
 ];
 
-export const centerFromBounds = (
-    bounds: [[number, number], [number, number]],
-): { latitude: number; longitude: number } => {
-    const centerLongitude = (bounds[1][0] + bounds[0][0]) / 2;
-    const centerLatitude = (bounds[1][1] + bounds[0][1]) / 2;
-
-    return {
-        latitude: centerLatitude,
-        longitude: centerLongitude,
-    };
-};
-
 export default cities;
