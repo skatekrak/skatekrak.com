@@ -3,16 +3,20 @@ import * as Yup from 'yup';
 import { Types, Location } from 'shared/feudartifice/types';
 import { Formik } from 'formik';
 import MapCreateSpotForm from './MapCreateSpotForm';
+import Feudartifice from 'shared/feudartifice';
+import to from 'await-to-js';
+import { useAppDispatch } from 'store/hook';
+import { selectSpot, toggleCreateSpot } from 'store/map/slice';
 
 export type MapCreateSpotFormValues = {
     name: string;
     type?: Types;
-    location?: {
+    location: {
         latitude: number;
         longitude: number;
     };
     indoor: 'true' | 'false'; // Forms with radio only handle string value
-    images: string[];
+    images: File[];
 };
 
 const mapCreateSpotSchema = Yup.object().shape({
@@ -26,15 +30,46 @@ const mapCreateSpotSchema = Yup.object().shape({
         .required(),
     indoor: Yup.mixed().oneOf(['true', 'false']).default('false'),
     images: Yup.array()
-        .of(Yup.string())
+        .of(Yup.mixed())
         .min(1, 'You must add at least 1 media')
         .default([])
         .required('You must add at least 1 media'),
 });
 
 const MapCreateSpot = () => {
+    const dispatch = useAppDispatch();
+
     const onSubmit = async (values: MapCreateSpotFormValues) => {
-        //
+        const [errorAddingSpot, spot] = await to(
+            Feudartifice.spots.addSpot({
+                name: values.name,
+                type: values.type,
+                ...values.location,
+                indoor: values.indoor === 'true',
+            }),
+        );
+
+        if (errorAddingSpot) {
+            console.error('Error adding spot', errorAddingSpot);
+            return;
+        }
+
+        if (spot == null) {
+            console.error('Empty spot');
+            return;
+        }
+
+        const [errorAddMedia, medias] = await to(
+            Promise.all(
+                values.images.map(async (imageURL) => {
+                    const media = await Feudartifice.media.createMedia({ spot: spot.id });
+                    return Feudartifice.media.uploadMedia(media.id, imageURL);
+                }),
+            ),
+        );
+
+        dispatch(toggleCreateSpot());
+        dispatch(selectSpot(spot.id));
     };
 
     return (

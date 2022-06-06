@@ -2,12 +2,12 @@ import React from 'react';
 
 import Typography from 'components/Ui/typography/Typography';
 import IconPlus from 'components/Ui/Icons/IconPlus';
-import IconClear from 'components/Ui/Icons/IconClear';
 import * as S from './MapCreateSpotMedia.styled';
 import { useField } from 'formik';
+import MapCreateSpotMediaItem from './MapCreateSpotMediaItem';
 
 const MapCreateSpotMedia = () => {
-    const [{ value }, , helpers] = useField<string[]>('images');
+    const [{ value }, , helpers] = useField<File[]>('images');
     const hiddenMediaInput = React.useRef(null);
 
     const handleAddMediaClick = () => {
@@ -19,15 +19,14 @@ const MapCreateSpotMedia = () => {
         const idxDot = fileName.lastIndexOf('.') + 1;
         const extFile = fileName.substring(idxDot, fileName.length).toLowerCase();
         if (extFile === 'jpg' || extFile === 'jpeg' || extFile === 'png') {
-            helpers.setValue(value.concat(URL.createObjectURL(evt.target.files[0])));
+            helpers.setValue(value.concat(evt.target.files.item(0)));
         } else {
             alert('Only jpg/jpeg and png files are allowed!');
         }
     };
 
-    const handleRemoveMedia = (image: string) => {
-        helpers.setValue(value.filter((url) => url !== image));
-        URL.revokeObjectURL(image);
+    const handleRemoveMedia = (image: File) => {
+        helpers.setValue(value.filter((file) => file !== image));
     };
 
     return (
@@ -48,15 +47,12 @@ const MapCreateSpotMedia = () => {
                         </S.MapCreateSpotMediaAdd>
                     </S.MapCreateSpotMediaItem>
                 </S.MapCreateSpotMediaItemContainer>
-                {value.map((image) => (
-                    <S.MapCreateSpotMediaItemContainer key={image}>
-                        <S.MapCreateSpotMediaItem>
-                            <S.MapCreateSpotMediaRemoveButton onClick={() => handleRemoveMedia(image)}>
-                                <IconClear />
-                            </S.MapCreateSpotMediaRemoveButton>
-                            <S.MapCreateSpotMediaItemImage src={image} />
-                        </S.MapCreateSpotMediaItem>
-                    </S.MapCreateSpotMediaItemContainer>
+                {value.map((image, index) => (
+                    <MapCreateSpotMediaItem
+                        key={`map-create-media-${index}`}
+                        file={image}
+                        onRemove={handleRemoveMedia}
+                    />
                 ))}
             </S.MapCreateSpotMediaGrid>
         </S.MapCreateSpotMediaContainer>
