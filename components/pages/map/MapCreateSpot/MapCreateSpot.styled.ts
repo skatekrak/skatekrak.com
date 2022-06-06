@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Field } from 'formik';
 
 import media from 'styles/media';
 
@@ -103,7 +104,7 @@ export const MapCreateSpotName = styled.div`
     }
 `;
 
-export const MapCreateSpotInput = styled.input`
+export const MapCreateSpotInput = styled(Field)`
     width: 100%;
     font-family: ${({ theme }) => theme.typography.fonts.roboto.bold};
     font-size: 1.25rem;

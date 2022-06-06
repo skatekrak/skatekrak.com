@@ -7,17 +7,18 @@ import * as S from './MapCreateSpotLocation.styled';
 import * as SM from '../MapCreateSpot.styled';
 
 import { Location } from 'shared/feudartifice/types';
+import { useField } from 'formik';
 
 type Props = {
-    location?: Location;
-    handleSetLocation: () => void;
     handleToggleMapVisible: () => void;
 };
 
-const MapCreateSpotLocation = ({ handleSetLocation, location, handleToggleMapVisible }: Props) => {
+const MapCreateSpotLocation = ({ handleToggleMapVisible }: Props) => {
+    const [{ value }] = useField('location');
+
     return (
         <S.MapCreateSpotLocationContainer onClick={handleToggleMapVisible}>
-            {location ? (
+            {value.latitude != null && value.longitude != null ? (
                 <S.MapCreateSpotLocationAddressContainer>
                     <S.MapCreateSpotLocationAddress>
                         <Typography>9999 Passeig de Lluís Companys</Typography>

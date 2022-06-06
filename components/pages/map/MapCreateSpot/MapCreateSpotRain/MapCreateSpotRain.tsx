@@ -1,24 +1,20 @@
 import React from 'react';
+import { Field } from 'formik';
 
 import Typography from 'components/Ui/typography/Typography';
 import * as S from './MapCreateSpotRain.styled';
 
-type Props = {
-    isRainSafe: boolean;
-    handleRainChange: (evt: React.ChangeEvent<HTMLInputElement>) => void;
-};
-
-const MapCreateSpotRain = ({ isRainSafe, handleRainChange }: Props) => {
+const MapCreateSpotRain = () => {
     return (
         <S.MapCreateSpotRainContainer>
             <Typography component="subtitle1">Rain safe?</Typography>
             <S.MapCreateSpotRainButtons>
                 <S.MapCreateSpotRainCheckbox>
-                    <input type="radio" name="rain" value="outdoor" checked={!isRainSafe} onChange={handleRainChange} />
+                    <Field type="radio" name="indoor" value="false" />
                     <Typography>Outdoor</Typography>
                 </S.MapCreateSpotRainCheckbox>
                 <S.MapCreateSpotRainCheckbox>
-                    <input type="radio" name="rain" value="indoor" checked={isRainSafe} onChange={handleRainChange} />
+                    <Field type="radio" name="indoor" value="true" />
                     <Typography>Indoor</Typography>
                 </S.MapCreateSpotRainCheckbox>
             </S.MapCreateSpotRainButtons>

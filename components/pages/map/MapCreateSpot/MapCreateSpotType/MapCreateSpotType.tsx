@@ -11,26 +11,23 @@ import Diy from 'components/pages/map/marker/icons/Diy';
 import Typography from 'components/Ui/typography/Typography';
 import * as S from './MapCreateSpotType.styled';
 import * as SM from '../MapCreateSpot.styled';
+import { useField } from 'formik';
 
-type Props = {
-    type: Types;
-    handleTypeClick: (type: Types) => void;
-};
-
-const MapCreateSpotType = ({ type, handleTypeClick }: Props) => {
+const MapCreateSpotType = () => {
+    const [{ value: type }, , helpers] = useField<Types>('type');
     const [isSelectTypeOpen, setIsSelectTypeOpen] = useState(false);
 
     const handleTypeBarClick = () => setIsSelectTypeOpen(!isSelectTypeOpen);
 
     const onTypeClick = (type: Types) => {
-        handleTypeClick(type);
+        helpers.setValue(type);
         setIsSelectTypeOpen(false);
     };
 
     return (
         <>
             <S.MapCreateSpotTypeMain onClick={handleTypeBarClick}>
-                {type !== undefined ? (
+                {type != null ? (
                     <>
                         <S.MapCreateSpotTypeSelected>
                             {type === 'street' && <Street />}

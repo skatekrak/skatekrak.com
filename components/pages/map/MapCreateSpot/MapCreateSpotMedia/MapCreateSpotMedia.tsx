@@ -4,14 +4,10 @@ import Typography from 'components/Ui/typography/Typography';
 import IconPlus from 'components/Ui/Icons/IconPlus';
 import IconClear from 'components/Ui/Icons/IconClear';
 import * as S from './MapCreateSpotMedia.styled';
+import { useField } from 'formik';
 
-type Props = {
-    media: string[];
-    handleAddMedia: (image: string) => void;
-    handleRemoveMedia: (image: string) => void;
-};
-
-const MapCreateSpotMedia = ({ media, handleAddMedia, handleRemoveMedia }: Props) => {
+const MapCreateSpotMedia = () => {
+    const [{ value }, , helpers] = useField<string[]>('images');
     const hiddenMediaInput = React.useRef(null);
 
     const handleAddMediaClick = () => {
@@ -23,11 +19,15 @@ const MapCreateSpotMedia = ({ media, handleAddMedia, handleRemoveMedia }: Props)
         const idxDot = fileName.lastIndexOf('.') + 1;
         const extFile = fileName.substring(idxDot, fileName.length).toLowerCase();
         if (extFile === 'jpg' || extFile === 'jpeg' || extFile === 'png') {
-            // TODO: how we temporaly store imgage to display in the media grid bellow?
-            handleAddMedia(URL.createObjectURL(evt.target.files[0]));
+            helpers.setValue(value.concat(URL.createObjectURL(evt.target.files[0])));
         } else {
             alert('Only jpg/jpeg and png files are allowed!');
         }
+    };
+
+    const handleRemoveMedia = (image: string) => {
+        helpers.setValue(value.filter((url) => url !== image));
+        URL.revokeObjectURL(image);
     };
 
     return (
@@ -48,7 +48,7 @@ const MapCreateSpotMedia = ({ media, handleAddMedia, handleRemoveMedia }: Props)
                         </S.MapCreateSpotMediaAdd>
                     </S.MapCreateSpotMediaItem>
                 </S.MapCreateSpotMediaItemContainer>
-                {media.map((image) => (
+                {value.map((image) => (
                     <S.MapCreateSpotMediaItemContainer key={image}>
                         <S.MapCreateSpotMediaItem>
                             <S.MapCreateSpotMediaRemoveButton onClick={() => handleRemoveMedia(image)}>

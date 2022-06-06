@@ -180,7 +180,7 @@ const MapContainer = () => {
         <S.MapContainer ref={fullSpotContainerRef}>
             <DynamicMapComponent mapRef={mapRef} spots={displayedSpots}>
                 {isCreateSpotOpen ? (
-                    <MapCreateSpot onBackClick={onToggleSpotCreation} isMobile={isMobile} />
+                    <MapCreateSpot />
                 ) : (
                     <>
                         {id !== undefined && customMapInfo !== undefined ? (
