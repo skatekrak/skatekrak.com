@@ -27,6 +27,8 @@ import { useAppDispatch } from 'store/hook';
 import { findBoundsCoordinate } from 'lib/map/helpers';
 import { MAX_ZOOM_DISPLAY_SPOT } from './Map.constant';
 import MapCreateSpot from './MapCreateSpot';
+import useSession from 'lib/hook/carrelage/use-session';
+import { useRouter } from 'next/router';
 
 const DynamicMapComponent = dynamic(() => import('./MapComponent'), { ssr: false });
 const MapFullSpot = dynamic(() => import('./MapFullSpot'), { ssr: false });
@@ -38,6 +40,8 @@ const MapContainer = () => {
     const viewport = useSelector((state: RootState) => state.map.viewport);
     const isCreateSpotOpen = useSelector((state: RootState) => state.map.isCreateSpotOpen);
     const dispatch = useAppDispatch();
+    const session = useSession();
+    const router = useRouter();
 
     /** Spot ID in the query */
     const id = useSelector((state: RootState) => state.map.customMapId);
@@ -64,7 +68,11 @@ const MapContainer = () => {
     }, []);
 
     const onToggleSpotCreation = () => {
-        dispatch(toggleCreateSpot());
+        if (session.data == null) {
+            router.push('/auth/login');
+        } else {
+            dispatch(toggleCreateSpot());
+        }
     };
 
     const refreshMap = useCallback(
