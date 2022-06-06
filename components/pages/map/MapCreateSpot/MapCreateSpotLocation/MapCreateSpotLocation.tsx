@@ -6,23 +6,38 @@ import IconEdit from 'components/Ui/Icons/IconEdit';
 import * as S from './MapCreateSpotLocation.styled';
 import * as SM from '../MapCreateSpot.styled';
 
-import { Location } from 'shared/feudartifice/types';
 import { useField } from 'formik';
+import { useQuery } from 'react-query';
+import Feudartifice from 'shared/feudartifice';
 
 type Props = {
     handleToggleMapVisible: () => void;
 };
 
 const MapCreateSpotLocation = ({ handleToggleMapVisible }: Props) => {
-    const [{ value }] = useField('location');
+    const [{ value }] = useField<{ latitude: number | undefined; longitude: number | undefined }>('location');
+
+    const { data } = useQuery(
+        ['fetch-reverser-geocoder', value],
+        async () => {
+            return Feudartifice.spots.reverseGeocoder({ latitude: value.latitude, longitude: value.longitude });
+        },
+        {
+            enabled: value.latitude != null && value.longitude != null,
+        },
+    );
 
     return (
         <S.MapCreateSpotLocationContainer onClick={handleToggleMapVisible}>
-            {value.latitude != null && value.longitude != null ? (
+            {value.latitude != null && value.longitude != null && data != null ? (
                 <S.MapCreateSpotLocationAddressContainer>
                     <S.MapCreateSpotLocationAddress>
-                        <Typography>9999 Passeig de Lluís Companys</Typography>
-                        <Typography>Barcelona, Spain</Typography>
+                        <Typography>
+                            {data.streetNumber} {data.streetName}
+                        </Typography>
+                        <Typography>
+                            {data.city}, {data.country}
+                        </Typography>
                     </S.MapCreateSpotLocationAddress>
                     <S.MapCreateSpotEditLocation>
                         <SM.MapCreateSpotIconButton as="div">
