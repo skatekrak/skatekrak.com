@@ -30,6 +30,7 @@ type MapComponentProps = {
 const MapComponent = ({ mapRef, spots, children }: MapComponentProps) => {
     const dispatch = useDispatch();
     const viewport = useAppSelector((state) => state.map.viewport);
+    const isCreateSpotOpen = useAppSelector((state) => state.map.isCreateSpotOpen);
     const spotId = useAppSelector((state) => state.map.selectSpot);
     const selectedSpotOverview = useAppSelector((state) => state.map.spotOverview);
 
@@ -80,6 +81,12 @@ const MapComponent = ({ mapRef, spots, children }: MapComponentProps) => {
         }
     }, [dispatch, spotId, selectedSpotOverview]);
 
+    const onMapClick = useCallback(() => {
+        if (!isCreateSpotOpen) {
+            onPopupClose();
+        }
+    }, [isCreateSpotOpen, onPopupClose]);
+
     const onViewportChange = (viewState: ViewStateChangeEvent) => {
         dispatch(setViewport(viewState.viewState));
     };
@@ -95,7 +102,7 @@ const MapComponent = ({ mapRef, spots, children }: MapComponentProps) => {
                 mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}
                 mapStyle="mapbox://styles/mapbox/dark-v9"
                 onMove={onViewportChange}
-                onClick={onPopupClose}
+                onClick={onMapClick}
             >
                 <Source id="spots" type="geojson" data={spotSourceData}>
                     <SmallLayer />

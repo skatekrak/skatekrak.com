@@ -1,5 +1,3 @@
-import FormData from 'form-data';
-
 import client from './client';
 import type { Media } from './types';
 
@@ -26,20 +24,11 @@ export const createMedia = async ({ caption, spot }: CreateMediaParams) => {
 
 export const uploadMedia = async (
     mediaId: string,
-    uri: string,
+    uri: File,
     onUploadProgress?: (progressEvent: ProgressEvent) => void,
 ) => {
-    const filename = uri.split('/').pop();
-
-    if (filename == null) {
-        throw new Error('empty filename');
-    }
-
-    const match = /\.(\w+)$/.exec(filename);
-    const type = match ? `image/${match[1]}` : `image`;
-
     const formData = new FormData();
-    formData.append('file', { uri, name: filename, type });
+    formData.append('file', uri);
 
     const res = await client.put<Media>(`/medias/${mediaId}/upload`, formData, {
         headers: {

@@ -1,14 +1,22 @@
 import React from 'react';
 
-import MapFilters from './MapFilters';
+import MapCreateSpotButton from '../MapCreateSpot/MapCreateSpotButton';
 import MapSearch from './MapSearch';
+import MapFilters from './MapFilters';
 
 import * as S from './MapNavigation.styled';
 
-const MapNavigation = () => {
+type Props = {
+    handleCreateSpotClick: () => void;
+};
+
+const MapNavigation = ({ handleCreateSpotClick }: Props) => {
     return (
         <S.MapNavigation>
-            <MapSearch />
+            <S.MapNavigationMain>
+                <MapSearch />
+                <MapCreateSpotButton onClick={handleCreateSpotClick} />
+            </S.MapNavigationMain>
             <MapFilters />
         </S.MapNavigation>
     );

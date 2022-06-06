@@ -10,7 +10,7 @@ import BadgeIconic from 'components/pages/map/marker/badges/Iconic';
 import BadgeMinute from 'components/pages/map/marker/badges/Minute';
 import Activity from 'components/pages/map/marker/Activity';
 import { selectSpot } from 'store/map/slice';
-import { useAppDispatch } from 'store/hook';
+import { useAppDispatch, useAppSelector } from 'store/hook';
 
 type SpotMarkerProps = {
     spot: Spot;
@@ -28,6 +28,7 @@ const Pin = ({ imageName }: { imageName: string }) => {
 };
 
 const SpotMarker = ({ spot, isSelected, small = false }: SpotMarkerProps) => {
+    const isCreateSpotOpen = useAppSelector((state) => state.map.isCreateSpotOpen);
     const dispatch = useAppDispatch();
     const active = spot.mediasStat.all > 3;
     const firing = spot.mediasStat.all >= 10;
@@ -45,6 +46,7 @@ const SpotMarker = ({ spot, isSelected, small = false }: SpotMarkerProps) => {
             onClick={small ? undefined : onMarkerClick}
         >
             <div
+                style={{ opacity: isCreateSpotOpen ? 0.5 : 1 }}
                 className={classNames({
                     'map-marker-clicked': isSelected,
                     'map-marker-active': active && !firing,

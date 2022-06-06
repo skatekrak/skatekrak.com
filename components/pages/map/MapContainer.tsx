@@ -6,7 +6,13 @@ import dynamic from 'next/dynamic';
 import { Spot } from 'lib/carrelageClient';
 
 import { boxSpotsSearch, getSpotOverview } from 'lib/carrelageClient';
-import { getSelectedFilterState, mapRefreshEnd, setSpotOverview, updateUrlParams } from 'store/map/slice';
+import {
+    getSelectedFilterState,
+    mapRefreshEnd,
+    setSpotOverview,
+    toggleCreateSpot,
+    updateUrlParams,
+} from 'store/map/slice';
 import { RootState } from 'store';
 import useCustomMap from 'lib/hook/use-custom-map';
 
@@ -20,6 +26,9 @@ import * as S from './Map.styled';
 import { useAppDispatch } from 'store/hook';
 import { findBoundsCoordinate } from 'lib/map/helpers';
 import { MAX_ZOOM_DISPLAY_SPOT } from './Map.constant';
+import MapCreateSpot from './MapCreateSpot';
+import useSession from 'lib/hook/carrelage/use-session';
+import { useRouter } from 'next/router';
 
 const DynamicMapComponent = dynamic(() => import('./MapComponent'), { ssr: false });
 const MapFullSpot = dynamic(() => import('./MapFullSpot'), { ssr: false });
@@ -29,7 +38,10 @@ const MapContainer = () => {
     const status = useSelector((state: RootState) => state.map.status);
     const types = useSelector((state: RootState) => state.map.types);
     const viewport = useSelector((state: RootState) => state.map.viewport);
+    const isCreateSpotOpen = useSelector((state: RootState) => state.map.isCreateSpotOpen);
     const dispatch = useAppDispatch();
+    const session = useSession();
+    const router = useRouter();
 
     /** Spot ID in the query */
     const id = useSelector((state: RootState) => state.map.customMapId);
@@ -54,6 +66,14 @@ const MapContainer = () => {
             duration: 1500,
         });
     }, []);
+
+    const onToggleSpotCreation = () => {
+        if (session.data == null) {
+            router.push('/auth/login');
+        } else {
+            dispatch(toggleCreateSpot());
+        }
+    };
 
     const refreshMap = useCallback(
         (_spots: Spot[] | undefined = undefined) => {
@@ -166,31 +186,35 @@ const MapContainer = () => {
 
     return (
         <S.MapContainer ref={fullSpotContainerRef}>
-            <>
-                <MapFullSpot
-                    open={modalVisible}
-                    onClose={onFullSpotClose}
-                    container={!isMobile && fullSpotContainerRef.current}
-                />
-                <DynamicMapComponent mapRef={mapRef} spots={displayedSpots}>
-                    <MapBottomNav isMobile={isMobile} />
-                    {id !== undefined && customMapInfo !== undefined ? (
-                        <MapCustomNavigation
-                            id={customMapInfo.id}
-                            title={customMapInfo.name}
-                            about={customMapInfo.about}
-                            subtitle={customMapInfo.subtitle}
-                            spots={customMapInfo.spots}
-                            videos={customMapInfo.videos}
+            <DynamicMapComponent mapRef={mapRef} spots={displayedSpots}>
+                {isCreateSpotOpen ? (
+                    <MapCreateSpot />
+                ) : (
+                    <>
+                        {id !== undefined && customMapInfo !== undefined ? (
+                            <MapCustomNavigation
+                                id={customMapInfo.id}
+                                title={customMapInfo.name}
+                                about={customMapInfo.about}
+                                subtitle={customMapInfo.subtitle}
+                                spots={customMapInfo.spots}
+                                videos={customMapInfo.videos}
+                            />
+                        ) : (
+                            <MapNavigation handleCreateSpotClick={onToggleSpotCreation} />
+                        )}
+                        {!isMobile && <MapQuickAccessDesktop />}
+                        {viewport.zoom <= MAX_ZOOM_DISPLAY_SPOT && id == null && <MapZoomAlert />}
+                        <MapBottomNav isMobile={isMobile} />
+                        <MapFullSpot
+                            open={modalVisible}
+                            onClose={onFullSpotClose}
+                            container={!isMobile && fullSpotContainerRef.current}
                         />
-                    ) : (
-                        <MapNavigation />
-                    )}
-                    {!isMobile && <MapQuickAccessDesktop />}
-                    {viewport.zoom <= MAX_ZOOM_DISPLAY_SPOT && id == null && <MapZoomAlert />}
-                </DynamicMapComponent>
-                <MapGradients />
-            </>
+                    </>
+                )}
+            </DynamicMapComponent>
+            <MapGradients />
         </S.MapContainer>
     );
 };

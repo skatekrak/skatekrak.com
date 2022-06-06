@@ -1,5 +1,6 @@
 import { Layer } from 'react-map-gl';
 import { Status, Types } from 'shared/feudartifice/types';
+import { useAppSelector } from 'store/hook';
 import { useTheme } from 'styled-components';
 import { MIN_ZOOM_DISPLAY_SPOT } from '../Map.constant';
 
@@ -9,6 +10,7 @@ import { MIN_ZOOM_DISPLAY_SPOT } from '../Map.constant';
  */
 const SmallLayer = () => {
     const theme = useTheme();
+    const isCreateSpotOpen = useAppSelector((state) => state.map.isCreateSpotOpen);
 
     return (
         <Layer
@@ -17,6 +19,7 @@ const SmallLayer = () => {
             type="circle"
             maxzoom={MIN_ZOOM_DISPLAY_SPOT}
             paint={{
+                'circle-opacity': isCreateSpotOpen ? 0.5 : 1,
                 'circle-radius': 4,
                 'circle-stroke-width': 1,
                 'circle-stroke-color': '#FFF',

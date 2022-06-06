@@ -57,7 +57,7 @@ export async function querySearchSpots(params: QuerySearchSpotsParams): Promise<
     return res.data;
 }
 
-type AddSpotParam = {
+export type AddSpotParam = {
     name: string;
     type: Types;
     latitude: number;
@@ -67,5 +67,17 @@ type AddSpotParam = {
 
 export async function addSpot(body: AddSpotParam) {
     const res = await client.post<Spot>('/spots', body);
+    return res.data;
+}
+
+export type ReverseGeocoderParam = {
+    latitude: number;
+    longitude: number;
+};
+export async function reverseGeocoder(params: ReverseGeocoderParam) {
+    const res = await client.get<Omit<Spot['location'], 'latitude' | 'longitude'>>('/spots/reverse', {
+        params,
+    });
+
     return res.data;
 }

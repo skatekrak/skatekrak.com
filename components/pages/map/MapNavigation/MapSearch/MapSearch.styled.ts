@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const MapSearchContainer = styled.div`
+    flex-grow: 1;
     position: relative;
     display: flex;
     flex-direction: column;
