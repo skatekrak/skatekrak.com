@@ -202,6 +202,7 @@ export type BoxSearchSpotsParams = {
     southWestLatitude?: number;
     southWestLongitude?: number;
     filters?: FiltersParams;
+    limit?: number;
 };
 
 export type SearchSpotsParams = QuerySearchSpotsParam & BoxSearchSpotsParams;

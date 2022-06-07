@@ -123,6 +123,7 @@ const MapContainer = () => {
                         status: getSelectedFilterState(status),
                         type: getSelectedFilterState(types),
                     },
+                    limit: 200,
                 });
 
                 return spots;
