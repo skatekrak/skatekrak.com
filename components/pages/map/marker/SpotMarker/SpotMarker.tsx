@@ -35,7 +35,9 @@ const SpotMarker = ({ spot, isSelected, small = false }: SpotMarkerProps) => {
 
     const onMarkerClick = (event: MapboxEvent<Event>) => {
         event.originalEvent?.stopPropagation();
-        dispatch(selectSpot(spot.id));
+        if (!isCreateSpotOpen) {
+            dispatch(selectSpot(spot.id));
+        }
     };
 
     return (
