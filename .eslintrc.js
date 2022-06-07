@@ -22,6 +22,7 @@ module.exports = {
         'react/prop-types': 'off',
         'react/display-name': 'warn',
         'react/no-unescaped-entities': ['error', { forbid: ['>', '}'] }],
+        'react/react-in-jsx-scope': 'off',
     },
     settings: {
         react: {
