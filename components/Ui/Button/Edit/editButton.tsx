@@ -6,18 +6,18 @@ import * as React from 'react';
 /*
  * Local import
  */
-import IconEdit from 'components/Ui/Icons/Edit';
+import IconEdit from 'components/Ui/Icons/IconEdit';
 
 /*
  * Code
  */
-type Props = {
-    onClick: (fct: any) => void;
+type EditButtonProps = {
+    onClick: () => void;
     content: string;
     name: string;
 };
 
-const EditButton: React.SFC<Props> = ({ name, onClick, content }) => (
+const EditButton = ({ name, onClick, content }: EditButtonProps) => (
     <button data-name={name} className="edit-button button-primary" onClick={onClick}>
         <span className="edit-button-icon">
             <IconEdit />
