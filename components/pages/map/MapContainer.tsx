@@ -29,6 +29,8 @@ import { MAX_ZOOM_DISPLAY_SPOT } from './Map.constant';
 import MapCreateSpot from './MapCreateSpot';
 import useSession from 'lib/hook/carrelage/use-session';
 import { useRouter } from 'next/router';
+import { useQuery } from 'react-query';
+import useDebounce from 'lib/hook/useDebounce';
 
 const DynamicMapComponent = dynamic(() => import('./MapComponent'), { ssr: false });
 const MapFullSpot = dynamic(() => import('./MapFullSpot'), { ssr: false });
@@ -48,7 +50,6 @@ const MapContainer = () => {
     const spotId = useSelector((state: RootState) => state.map.selectSpot);
     const modalVisible = useSelector((state: RootState) => state.map.modalVisible);
 
-    const [spots, setSpots] = useState<Spot[]>([]);
     const [, setFirstLoad] = useState(() => (spotId ? true : false));
 
     const { data: customMapInfo, isLoading: customMapLoading } = useCustomMap(id);
@@ -75,23 +76,6 @@ const MapContainer = () => {
         }
     };
 
-    const refreshMap = useCallback(
-        (_spots: Spot[] | undefined = undefined) => {
-            setSpots(() => {
-                dispatch(mapRefreshEnd());
-
-                return _spots;
-            });
-        },
-        [dispatch, types, status],
-    );
-
-    useEffect(() => {
-        if (customMapInfo && customMapInfo.spots) {
-            refreshMap(customMapInfo.spots);
-        }
-    }, [customMapInfo, refreshMap]);
-
     useEffect(() => {
         const loadOverview = async () => {
             if (spotId != null) {
@@ -115,49 +99,48 @@ const MapContainer = () => {
         loadOverview();
     }, [spotId, dispatch, centerToSpot]);
 
-    const load = useCallback(() => {
-        clearTimeout(loadTimeout.current);
+    const debounceViewport = useDebounce(viewport, 200);
+    const { data: spots = [] } = useQuery(
+        ['fetch-spots-on-map', debounceViewport, status, types, customMapInfo],
+        async () => {
+            if (customMapInfo && customMapInfo.spots) {
+                return customMapInfo.spots as Spot[];
+            }
 
-        // We are in path `/`
-        if (id === undefined) {
-            loadTimeout.current = setTimeout(async () => {
-                if (mapRef.current) {
-                    const map = mapRef.current.getMap();
-                    const bounds = map.getBounds();
-                    const northEast = bounds.getNorthEast();
-                    const southWest = bounds.getSouthWest();
-                    const zoom = map.getZoom();
+            const map = mapRef.current.getMap();
+            const bounds = map.getBounds();
+            const northEast = bounds.getNorthEast();
+            const southWest = bounds.getSouthWest();
+            const zoom = map.getZoom();
 
-                    if (zoom > MAX_ZOOM_DISPLAY_SPOT) {
-                        const newClusters = await boxSpotsSearch({
-                            northEastLatitude: northEast.lat,
-                            northEastLongitude: northEast.lng,
-                            southWestLatitude: southWest.lat,
-                            southWestLongitude: southWest.lng,
-                            filters: {
-                                status: getSelectedFilterState(status),
-                                type: getSelectedFilterState(types),
-                            },
-                        });
+            if (zoom > MAX_ZOOM_DISPLAY_SPOT) {
+                const spots = await boxSpotsSearch({
+                    northEastLatitude: northEast.lat,
+                    northEastLongitude: northEast.lng,
+                    southWestLatitude: southWest.lat,
+                    southWestLongitude: southWest.lng,
+                    filters: {
+                        status: getSelectedFilterState(status),
+                        type: getSelectedFilterState(types),
+                    },
+                });
 
-                        refreshMap(newClusters);
-                    } else {
-                        refreshMap([]);
-                    }
-                }
-            }, 200);
-        }
-    }, [id, refreshMap]);
+                return spots;
+            }
+            return [];
+        },
+        {
+            enabled: mapRef.current != null,
+            onSettled: () => {
+                dispatch(mapRefreshEnd());
+            },
+            keepPreviousData: true,
+        },
+    );
 
     const onFullSpotClose = () => {
         dispatch(updateUrlParams({ modal: false }));
     };
-
-    useEffect(() => {
-        if (id === undefined) {
-            load();
-        }
-    }, [status, types, id, viewport, load]);
 
     useEffect(() => {
         if (mapRef.current != null && id != null && customMapInfo != null) {
