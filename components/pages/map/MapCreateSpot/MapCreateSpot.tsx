@@ -7,6 +7,7 @@ import Feudartifice from 'shared/feudartifice';
 import to from 'await-to-js';
 import { useAppDispatch } from 'store/hook';
 import { selectSpot, toggleCreateSpot } from 'store/map/slice';
+import { useQueryClient } from 'react-query';
 
 export type MapCreateSpotFormValues = {
     name: string;
@@ -38,6 +39,7 @@ const mapCreateSpotSchema = Yup.object().shape({
 
 const MapCreateSpot = () => {
     const dispatch = useAppDispatch();
+    const queryClient = useQueryClient();
 
     const onSubmit = async (values: MapCreateSpotFormValues) => {
         const [errorAddingSpot, spot] = await to(
@@ -70,6 +72,7 @@ const MapCreateSpot = () => {
 
         dispatch(toggleCreateSpot());
         dispatch(selectSpot(spot.id));
+        queryClient.invalidateQueries(['fetch-spots-on-map']);
     };
 
     return (
