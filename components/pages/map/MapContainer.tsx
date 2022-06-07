@@ -72,6 +72,12 @@ const MapContainer = () => {
         if (session.data == null) {
             router.push('/auth/login');
         } else {
+            dispatch(
+                updateUrlParams({
+                    spotId: null,
+                    modal: null,
+                }),
+            );
             dispatch(toggleCreateSpot());
         }
     };
