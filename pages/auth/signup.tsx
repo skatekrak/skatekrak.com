@@ -3,7 +3,7 @@ import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { Formik, Field, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
-import * as _ from 'lodash';
+import { some, isNil, first } from 'lodash-es';
 
 import Layout from 'components/Layout';
 import ButtonPrimary from 'components/Ui/Button/ButtonPrimary/ButtonPrimary';
@@ -96,16 +96,16 @@ const Signup: NextPage = () => {
                                     {/* Submit */}
                                     <S.AuthSubmitContainer>
                                         {/* First check if we have at least one error */}
-                                        {_.some(errors, (value) => !_.isNil(value)) && (
+                                        {some(errors, (value) => !isNil(value)) && (
                                             <S.AuthSubmitErrorContainer>
                                                 {/* Display the first error found which isn't nil and is touched */}
                                                 <S.AuthSubmitError component="body2">
                                                     {
                                                         errors[
-                                                            _.first(
+                                                            first(
                                                                 Object.keys(errors).filter(
                                                                     (key) =>
-                                                                        !_.isNil(errors[key]) && !_.isNil(touched[key]),
+                                                                        !isNil(errors[key]) && !isNil(touched[key]),
                                                                 ),
                                                             )
                                                         ]

@@ -18,8 +18,10 @@ import {
 } from 'store/map/slice';
 import { useAppSelector } from 'store/hook';
 import { MAX_ZOOM_LEVEL, MIN_ZOOM_DISPLAY_SPOT, MIN_ZOOM_LEVEL } from './Map.constant';
-import { Status } from 'shared/feudartifice/types';
+import { Status, Types } from 'shared/feudartifice/types';
 import SmallLayer from './layers/SmallLayer';
+import SpotPinLayer from './layers/SpotPinLayer';
+import { intersection } from 'lodash-es';
 
 type MapComponentProps = {
     mapRef?: React.RefObject<MapRef>;
@@ -30,19 +32,20 @@ type MapComponentProps = {
 const MapComponent = ({ mapRef, spots, children }: MapComponentProps) => {
     const dispatch = useDispatch();
     const viewport = useAppSelector((state) => state.map.viewport);
-    const isCreateSpotOpen = useAppSelector((state) => state.map.isCreateSpotOpen);
     const spotId = useAppSelector((state) => state.map.selectSpot);
     const selectedSpotOverview = useAppSelector((state) => state.map.spotOverview);
 
     const markers = useMemo(() => {
         if (viewport.zoom > MIN_ZOOM_DISPLAY_SPOT) {
-            return spots.map((spot) => (
-                <SpotMarker
-                    key={spot.id}
-                    spot={spot}
-                    isSelected={selectedSpotOverview ? selectedSpotOverview.spot.id === spot.id : false}
-                />
-            ));
+            return spots
+                .filter(isSpotMarker)
+                .map((spot) => (
+                    <SpotMarker
+                        key={spot.id}
+                        spot={spot}
+                        isSelected={selectedSpotOverview ? selectedSpotOverview.spot.id === spot.id : false}
+                    />
+                ));
         }
 
         return [];
@@ -51,17 +54,20 @@ const MapComponent = ({ mapRef, spots, children }: MapComponentProps) => {
     const spotSourceData: FeatureCollection<Geometry> = useMemo(() => {
         return {
             type: 'FeatureCollection',
-            features: spots.map((spot) => ({
-                id: spot.id,
-                type: 'Feature',
-                geometry: {
-                    type: 'Point',
-                    coordinates: spot.geo,
-                },
-                properties: {
-                    type: spot.status === Status.Active ? spot.type : spot.status,
-                },
-            })),
+            features: spots
+                .filter((spot) => !isSpotMarker(spot))
+                .map((spot) => ({
+                    id: spot.id,
+                    type: 'Feature',
+                    geometry: {
+                        type: 'Point',
+                        coordinates: spot.geo,
+                    },
+                    properties: {
+                        spotId: spot.id,
+                        type: spot.status === Status.Active ? spot.type : spot.status,
+                    },
+                })),
         };
     }, [spots]);
 
@@ -81,12 +87,6 @@ const MapComponent = ({ mapRef, spots, children }: MapComponentProps) => {
         }
     }, [dispatch, spotId, selectedSpotOverview]);
 
-    const onMapClick = useCallback(() => {
-        if (!isCreateSpotOpen) {
-            onPopupClose();
-        }
-    }, [isCreateSpotOpen, onPopupClose]);
-
     const onViewportChange = (viewState: ViewStateChangeEvent) => {
         dispatch(setViewport(viewState.viewState));
     };
@@ -102,10 +102,14 @@ const MapComponent = ({ mapRef, spots, children }: MapComponentProps) => {
                 mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}
                 mapStyle="mapbox://styles/mapbox/dark-v9"
                 onMove={onViewportChange}
-                onClick={onMapClick}
             >
                 <Source id="spots" type="geojson" data={spotSourceData}>
                     <SmallLayer />
+                    <SpotPinLayer type={Types.Street} />
+                    <SpotPinLayer type={Types.Shop} />
+                    <SpotPinLayer type={Types.Park} />
+                    <SpotPinLayer type={Types.Diy} />
+                    <SpotPinLayer type={Types.Private} />
                 </Source>
                 {/* Popup */}
                 {spotId != null && selectedSpotOverview != null && (
@@ -124,6 +128,10 @@ const MapComponent = ({ mapRef, spots, children }: MapComponentProps) => {
             </ReactMapGL>
         </S.MapComponent>
     );
+};
+
+const isSpotMarker = (spot: Spot): boolean => {
+    return spot.mediasStat.all > 3 && intersection(spot.tags, ['history', 'famous', 'minute']).length > 0;
 };
 
 export default MapComponent;

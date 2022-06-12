@@ -25,7 +25,6 @@ const MapSpotOverview: React.FC<MapSpotOverviewProps> = ({ spotOverview, onPopup
             latitude={spotOverview.spot.location.latitude}
             onClose={onPopupClose}
             closeButton={false}
-            closeOnClick={false}
         >
             <button className="map-spot-overview-container" onClick={onPopupClick}>
                 <h4

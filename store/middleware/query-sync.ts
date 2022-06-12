@@ -1,6 +1,6 @@
 import { replace } from 'connected-next-router';
 import { Middleware } from 'redux';
-import { omitBy, isUndefined } from 'lodash';
+import { omitBy, isUndefined } from 'lodash-es';
 import queryString from 'query-string';
 
 const querySyncMiddleware: Middleware = (store) => (next) => (action) => {

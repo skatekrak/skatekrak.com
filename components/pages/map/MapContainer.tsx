@@ -58,7 +58,6 @@ const MapContainer = () => {
     const fullSpotContainerRef = useRef<HTMLDivElement>();
 
     const mapRef = useRef<MapRef>();
-    const loadTimeout = useRef<NodeJS.Timeout>();
 
     const centerToSpot = useCallback((spot: Spot) => {
         mapRef.current?.flyTo({

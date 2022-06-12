@@ -7,8 +7,8 @@ import { ThunkAction } from 'redux-thunk';
 import { save, load } from 'redux-localstorage-simple';
 import merge from 'deepmerge';
 import { Action } from 'redux';
-import { combineReducers, Reducer, AnyAction } from '@reduxjs/toolkit';
-import { random } from 'lodash';
+import { combineReducers } from '@reduxjs/toolkit';
+import { random } from 'lodash-es';
 
 import querySyncMiddleware from './middleware/query-sync';
 
