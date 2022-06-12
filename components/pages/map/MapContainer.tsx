@@ -105,7 +105,7 @@ const MapContainer = () => {
     }, [spotId, dispatch, centerToSpot]);
 
     const debounceViewport = useDebounce(viewport, 200);
-    const { data: spots = [] } = useQuery(
+    const { data: spots = [], refetch } = useQuery(
         ['fetch-spots-on-map', debounceViewport, status, types, customMapInfo],
         async () => {
             if (customMapInfo && customMapInfo.spots) {
@@ -175,7 +175,7 @@ const MapContainer = () => {
 
     return (
         <S.MapContainer ref={fullSpotContainerRef}>
-            <DynamicMapComponent mapRef={mapRef} spots={displayedSpots}>
+            <DynamicMapComponent mapRef={mapRef} spots={displayedSpots} onLoad={refetch}>
                 {isCreateSpotOpen ? (
                     <MapCreateSpot />
                 ) : (

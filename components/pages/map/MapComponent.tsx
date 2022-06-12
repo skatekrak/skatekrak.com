@@ -25,11 +25,12 @@ import { intersection } from 'lodash-es';
 
 type MapComponentProps = {
     mapRef?: React.RefObject<MapRef>;
+    onLoad?: () => void;
     spots: Spot[];
     children?: React.ReactNode;
 };
 
-const MapComponent = ({ mapRef, spots, children }: MapComponentProps) => {
+const MapComponent = ({ mapRef, spots, children, onLoad }: MapComponentProps) => {
     const dispatch = useDispatch();
     const viewport = useAppSelector((state) => state.map.viewport);
     const spotId = useAppSelector((state) => state.map.selectSpot);
@@ -101,6 +102,7 @@ const MapComponent = ({ mapRef, spots, children }: MapComponentProps) => {
                 mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}
                 mapStyle="mapbox://styles/mapbox/dark-v9"
                 onMove={onViewportChange}
+                onLoad={onLoad}
             >
                 <Source id="spots" type="geojson" data={spotSourceData}>
                     <SmallLayer />
