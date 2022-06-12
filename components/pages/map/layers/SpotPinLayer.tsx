@@ -62,6 +62,7 @@ const SpotPinLayer = ({ type }: SpotPinLayerProps) => {
             layout={{
                 'icon-image': `spot-${type}`,
                 'icon-size': 0.5,
+                'icon-allow-overlap': true,
             }}
             paint={{
                 'icon-opacity': isCreateSpotOpen ? 0.5 : 1,
