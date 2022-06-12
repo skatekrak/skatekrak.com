@@ -36,7 +36,6 @@ const SpotPinLayer = ({ type }: SpotPinLayerProps) => {
 
     useEffect(() => {
         const onMapLayerClick = (event: MapLayerMouseEvent) => {
-            console.log('layer click', event.features[0].properties);
             if (event.features.length > 0) {
                 dispatch(selectSpot(event.features[0].properties.spotId));
             }

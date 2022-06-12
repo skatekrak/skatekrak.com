@@ -78,7 +78,6 @@ const MapComponent = ({ mapRef, spots, children }: MapComponentProps) => {
     };
 
     const onPopupClose = useCallback(() => {
-        console.log('map popupOnClose');
         if (spotId != null) {
             dispatch(selectSpot());
         }
