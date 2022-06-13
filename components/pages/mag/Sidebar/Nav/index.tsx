@@ -1,16 +1,15 @@
 import classNames from 'classnames';
 import React, { useMemo } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 
 import SearchBar from 'components/Ui/Feed/Sidebar/SearchBar';
 import SourceOption from 'components/Ui/Feed/Sidebar/SourceOption';
 import { SpinnerCircle } from 'components/Ui/Icons/Spinners';
 import Analytics from 'lib/analytics';
-import { RootState } from 'store';
 import useMagCategories from 'lib/hook/mag/categories';
 import { resetCategories, setMagSearch, toggleCategory } from 'store/mag/slice';
 import usePosts from 'lib/hook/mag/posts';
 import { Source } from 'rss-feed';
+import { useAppDispatch, useAppSelector } from 'store/hook';
 
 type NavProps = {
     sidebarNavIsOpen: boolean;
@@ -18,9 +17,9 @@ type NavProps = {
 };
 
 const Nav = ({ sidebarNavIsOpen, handleOpenSidebarNav }: NavProps) => {
-    const dispatch = useDispatch();
-    const sources = useSelector((state: RootState) => state.mag.selectedCategories);
-    const query = useSelector((state: RootState) => state.mag.search);
+    const dispatch = useAppDispatch();
+    const sources = useAppSelector((state) => state.mag.selectedCategories);
+    const query = useAppSelector((state) => state.mag.search);
 
     const { data: categories, isLoading } = useMagCategories();
 
