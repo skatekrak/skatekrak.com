@@ -8,6 +8,9 @@ import RefreshScrollOnNewPage from 'components/Ui/Utils/RefreshScrollOnNewPage';
 
 import Feed from 'components/pages/mag/Feed';
 import Sidebar from 'components/pages/mag/Sidebar';
+import { wrapper } from 'store';
+import { getPostBySlug, getPostSlugs } from 'lib/mag/generate';
+import { setArticles } from 'store/mag/slice';
 
 const MagHead = () => {
     const baseURL = process.env.NEXT_PUBLIC_WEBSITE_URL;
@@ -52,5 +55,25 @@ const Mag: NextPage = () => {
         </RefreshScrollOnNewPage>
     );
 };
+
+export const getStaticProps = wrapper.getStaticProps((store) => () => {
+    const slugs = getPostSlugs();
+    const posts = slugs.map((slug) => getPostBySlug(slug));
+
+    store.dispatch(
+        setArticles(
+            posts.map((post) => ({
+                categories: post.categories,
+                featuredImages: post.featuredImages,
+                id: post.id,
+                slug: post.slug,
+                title: post.title,
+            })),
+        ),
+    );
+    return {
+        props: {},
+    };
+});
 
 export default Mag;

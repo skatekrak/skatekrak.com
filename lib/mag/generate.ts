@@ -4,7 +4,7 @@ import { Post } from 'wordpress-types';
 
 const magDirectory = join(process.cwd(), '_mag');
 
-export const getPostSlugs = () => {
+export const getPostSlugs = (): string[] => {
     return JSON.parse(fs.readFileSync(join(magDirectory, '_index.json'), 'utf-8'));
 };
 

@@ -3,15 +3,20 @@ import { Source } from 'rss-feed';
 import { push, remove } from 'lib/immutable';
 
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { Post } from 'wordpress-types';
+
+export type SlicePost = Pick<Post, 'categories' | 'slug' | 'title' | 'featuredImages' | 'id'>;
 
 export type MagState = {
     selectedCategories: string[];
     search: string;
+    articles: SlicePost[];
 };
 
 export const initialState: MagState = {
     selectedCategories: [],
     search: '',
+    articles: [],
 };
 
 const magSlice = createSlice({
@@ -30,20 +35,20 @@ const magSlice = createSlice({
             };
         },
         setMagSearch: (state, action: PayloadAction<string>) => {
-            return {
-                ...state,
-                search: action.payload,
-            };
+            state.search = action.payload;
+            return state;
+        },
+        setArticles: (state, action: PayloadAction<SlicePost[]>) => {
+            state.articles = action.payload;
+            return state;
         },
         resetCategories: (state) => {
-            return {
-                ...state,
-                selectedCategories: [],
-            };
+            state.selectedCategories = [];
+            return state;
         },
     },
 });
 
-export const { toggleCategory, setMagSearch, resetCategories } = magSlice.actions;
+export const { toggleCategory, setMagSearch, resetCategories, setArticles } = magSlice.actions;
 
 export default magSlice.reducer;
