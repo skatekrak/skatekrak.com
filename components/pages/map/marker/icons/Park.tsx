@@ -1,7 +1,7 @@
 import React from 'react';
 
 const ParkIcon = () => (
-    <svg className="map-icon-park" viewBox="0 0 48 48">
+    <svg className="map-icon map-icon-park" viewBox="0 0 48 48">
         <path
             className="map-icon-stroke-outter"
             d="M16.84,7.11H8.64A2.94,2.94,0,0,0,5.69,10v27.5a2.94,2.94,0,0,0,2.95,2.92H38.92a2.94,2.94,0,0,0,2.95-2.89l0-3.58a2.88,2.88,0,0,0-.84-2.07A2.94,2.94,0,0,0,39,31h-.47C19.38,31,18.84,9.33,18.84,9.11a2,2,0,0,0-2-2Z"
