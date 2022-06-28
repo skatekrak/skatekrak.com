@@ -49,7 +49,7 @@ export const MapFullSpotExtra = styled.div`
     align-items: center;
     margin-top: 1rem;
 
-    & svg {
+    & .map-icon {
         width: 3rem;
         margin-right: 1.5rem;
     }

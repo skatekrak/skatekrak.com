@@ -8,9 +8,11 @@ import { HYDRATE } from 'next-redux-wrapper';
 export type FullSpotTab =
     | 'info'
     | 'clips'
+    | 'addClip'
     | 'tips'
     | 'edito'
     | 'media'
+    | 'addMedia'
     | 'contests'
     | 'events'
     | 'instagram'

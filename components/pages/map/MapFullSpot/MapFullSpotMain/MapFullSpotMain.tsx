@@ -8,6 +8,8 @@ import MapFullSpotInfo from './Info';
 import MapFullSpotTips from './Tips';
 import MapFullSpotMainClips from './MapFullSpotMainClips';
 import MapFullSpotMedias from './MapFullSpotMedias';
+import MapFullSpotAddMedia from './MapFullSpotAdd/MapFullSpotAddMedia';
+import MapFullSpotAddClip from './MapFullSpotAdd/MapFullSpotAddClip';
 
 const MapFullSpotMain = () => {
     const selectedTab = useSelector((state: RootState) => state.map.fullSpotSelectedTab);
@@ -19,7 +21,9 @@ const MapFullSpotMain = () => {
                 {selectedTab === 'clips' && (
                     <MapFullSpotMainClips clips={spotOverview.clips} spot={spotOverview.spot} />
                 )}
+                {selectedTab === 'addClip' && <MapFullSpotAddClip />}
                 {selectedTab === 'media' && <MapFullSpotMedias medias={spotOverview.medias} spot={spotOverview.spot} />}
+                {selectedTab === 'addMedia' && <MapFullSpotAddMedia />}
                 {selectedTab === 'info' && <MapFullSpotInfo />}
                 {selectedTab === 'tips' && <MapFullSpotTips />}
                 {selectedTab === 'edito' && <MapFullSpotEdito />}
