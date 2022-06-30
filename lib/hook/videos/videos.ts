@@ -39,6 +39,8 @@ const useVideos = (params: FetchVideoParams) => {
             }
             return allPages.length + 1;
         },
+        refetchOnMount: false,
+        refetchOnWindowFocus: false,
     });
 };
 
