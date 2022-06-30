@@ -5,9 +5,6 @@ import media from 'styles/media';
 import ButtonPrimary from 'components/Ui/Button/ButtonPrimary';
 
 export const MapFullSpotAddClipContainer = styled.div`
-    position: relative;
-    display: flex;
-    flex-direction: column;
     height: 100%;
     padding: 2rem 1rem;
     overflow-y: auto;
@@ -36,6 +33,8 @@ export const MapFullSpotAddClipInput = styled.input`
     ${media.laptopS} {
         width: 50%;
         min-width: 25rem;
+        margin-bottom: 1rem;
+        margin-right: 1rem;
     }
 `;
 
@@ -43,4 +42,8 @@ export const MapFullSpotAddClipSubmit = styled(ButtonPrimary)`
     ${media.tablet} {
         width: max-content;
     }
+`;
+
+export const MapFullSpotAddClipPreviewTitle = styled(Typography)`
+    margin: 2rem 0 1rem;
 `;
