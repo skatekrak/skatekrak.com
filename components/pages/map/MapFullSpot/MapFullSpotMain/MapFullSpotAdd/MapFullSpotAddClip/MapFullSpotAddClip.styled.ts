@@ -19,7 +19,8 @@ export const MapFullSpotAddClipTitle = styled(Typography)`
 `;
 
 export const MapFullSpotAddClipInput = styled.input`
-    margin: 1.5rem 0 2rem;
+    width: 100%;
+    margin: 1.5rem 0;
     padding: 1rem;
     font-size: 1rem;
     color: ${({ theme }) => theme.color.onDark.highEmphasis};
