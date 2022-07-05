@@ -25,17 +25,8 @@ const VideoFeed = ({ sidebarNavIsOpen }: VideoFeedProps) => {
     const { data, isFetching, hasNextPage, fetchNextPage } = useVideos({ filters: selectSources, query: search });
     const displayedVideos = flatten(data?.pages ?? []);
 
-    const { data: featuredVideos, isLoading: loadingFeaturedVideos, error: featuredVideosError } = useFeaturedVideos();
-
     return (
         <div id="videos-feed-container">
-            {!loadingFeaturedVideos && !featuredVideosError && featuredVideos.length > 0 && (
-                <div id="videos-feed-header" className="row">
-                    <div className="col-xs-12">
-                        <FeaturedVideo video={featuredVideos[0]} />
-                    </div>
-                </div>
-            )}
             <TrackedPage name={`Videos/${Math.ceil(displayedVideos.length / 20)}`} initial={false} />
             <InfiniteScroll
                 key={`infinite-need-refresh`}

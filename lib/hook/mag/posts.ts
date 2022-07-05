@@ -1,39 +1,42 @@
-import krakmag from 'lib/clients/krakmag';
-import { formatPost } from 'lib/mag/formattedPost';
+import { intersection } from 'lodash-es';
 import { useInfiniteQuery } from 'react-query';
-import { Post } from 'wordpress-types';
+import { useAppSelector } from 'store/hook';
 
 export type PostsFetchParam = {
     per_page: number;
     categories: string[];
-    search?: string;
-};
-
-// Disable the warning for any, so the infinitQuery is happy
-/* eslint @typescript-eslint/no-explicit-any: "off" */
-const fetchPosts = async (params: PostsFetchParam, page: any = 1) => {
-    const { data } = await krakmag.get<Post[]>(`/wp-json/wp/v2/posts`, {
-        params: {
-            ...params,
-            page,
-            _embed: 1,
-        },
-    });
-
-    const posts = data.map((post) => formatPost(post));
-    return posts;
 };
 
 const usePosts = (params: PostsFetchParam) => {
-    return useInfiniteQuery<Post[]>(['mag-feed', params], ({ pageParam }) => fetchPosts(params, pageParam), {
-        getNextPageParam: (lastPages, allPages) => {
-            if (lastPages.length < params.per_page) {
-                return false;
+    const articles = useAppSelector((state) => state.mag.articles);
+
+    return useInfiniteQuery(
+        ['mag-feed', params, articles],
+        ({ pageParam }) => {
+            console.log('articles', articles.length, params, pageParam);
+            const page = pageParam ?? 0;
+
+            if (params.categories.length > 0) {
+                return articles
+                    .filter((article) => intersection(article.categories, params.categories).length > 0)
+                    .slice(params.per_page * page, params.per_page + params.per_page * page);
             }
-            return allPages.length + 1;
+            return articles.slice(params.per_page * page, params.per_page + params.per_page * page);
         },
-        refetchOnWindowFocus: false,
-    });
+        {
+            getNextPageParam: (lastPages, allPages) => {
+                console.log(lastPages.length);
+                if (lastPages.length < params.per_page) {
+                    return false;
+                }
+                return allPages.length + 1;
+            },
+            refetchOnWindowFocus: false,
+            refetchOnMount: false,
+            refetchOnReconnect: false,
+            enabled: articles.length > 0,
+        },
+    );
 };
 
 export default usePosts;

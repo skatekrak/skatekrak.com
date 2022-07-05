@@ -7,10 +7,10 @@ import createMarkup from 'lib/createMarkup';
 import decodeHTML from 'lib/decodeHTML';
 
 import ClipboardButton from 'components/Ui/Button/ClipboardButton';
-import { Post } from 'wordpress-types';
+import { SlicePost } from 'store/mag/slice';
 
 type Props = {
-    post: Post;
+    post: SlicePost;
 };
 
 const Card = ({ post }: Props) => {
@@ -23,7 +23,12 @@ const Card = ({ post }: Props) => {
                     <div className="mag-card-cover-img-container">
                         <div
                             className="mag-card-cover-img"
-                            style={{ backgroundImage: `url("${post.thumbnailImage}")` }}
+                            style={{
+                                backgroundImage: `url("${post.featuredImages[0].source_url.replace(
+                                    'upload/mag',
+                                    '/upload/w_800/mag',
+                                )}")`,
+                            }}
                         />
                     </div>
                 </a>
@@ -31,32 +36,22 @@ const Card = ({ post }: Props) => {
             <div className="mag-card-share">
                 <FacebookShareButton
                     url={`${baseURL}/mag/${post.slug}`}
-                    quote={`${decodeHTML(post.title.rendered)} - shared via skatekrak.com`}
+                    quote={`${decodeHTML(post.title)} - shared via skatekrak.com`}
                 >
                     <FacebookIcon size={24} round />
                 </FacebookShareButton>
-                <TwitterShareButton
-                    url={`${baseURL}/mag/${post.slug}`}
-                    title={decodeHTML(post.title.rendered)}
-                    via="skatekrak"
-                >
+                <TwitterShareButton url={`${baseURL}/mag/${post.slug}`} title={decodeHTML(post.title)} via="skatekrak">
                     <TwitterIcon size={24} round />
                 </TwitterShareButton>
                 <ClipboardButton value={`${baseURL}/mag/${post.slug}`} />
             </div>
             <div className="mag-card-details">
-                <p className="mag-card-details-category">{post.categoriesString}</p>
+                <p className="mag-card-details-category">{post.categories.join(', ')}</p>
                 <Link href={`/mag?slug=${post.slug}`} as={`/mag/${post.slug}`}>
                     <a className="mag-card-details-link">
-                        <h2
-                            className="mag-card-details-title"
-                            dangerouslySetInnerHTML={createMarkup(post.title.rendered)}
-                        />
+                        <h2 className="mag-card-details-title" dangerouslySetInnerHTML={createMarkup(post.title)} />
                     </a>
                 </Link>
-                <span className="mag-card-details-date">
-                    {format(parseISO(post.date), 'MMMM d')}, {format(parseISO(post.date), 'yyyy')}
-                </span>
             </div>
         </>
     );
