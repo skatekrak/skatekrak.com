@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Field, Form } from 'formik';
 
 import Typography from 'components/Ui/typography/Typography';
 import media from 'styles/media';
@@ -17,7 +18,7 @@ export const MapFullSpotAddMediaTabContainer = styled.div`
     }
 `;
 
-export const MapFullSpotAddMediaGrid = styled.div`
+export const MapFullSpotAddMediaGrid = styled(Form)`
     ${media.laptopS} {
         display: grid;
         grid-template-columns: 2fr 1.25fr;
@@ -91,6 +92,15 @@ export const MapFullSpotAddMediaImage = styled.img`
     background-color: ${({ theme }) => theme.color.tertiary.dark};
 `;
 
+export const MapFullSpotAddMediaVideo = styled.video`
+    position: relative;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    margin: auto;
+    background-color: ${({ theme }) => theme.color.tertiary.dark};
+`;
+
 export const MapFullSpotAddMediaRemoveButton = styled.button`
     position: absolute;
     top: 0.5rem;
@@ -110,7 +120,7 @@ export const MapFullSpotAddMediaRemoveButton = styled.button`
     }
 `;
 
-export const MapFullSpotAddMediaCaption = styled.textarea`
+export const MapFullSpotAddMediaCaption = styled(Field)`
     width: 100%;
     margin-top: 1rem;
     margin-bottom: 2rem;

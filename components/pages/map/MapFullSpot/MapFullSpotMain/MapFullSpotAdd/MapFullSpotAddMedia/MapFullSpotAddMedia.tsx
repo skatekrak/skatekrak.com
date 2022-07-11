@@ -1,46 +1,51 @@
-import React, { useState } from 'react';
-import Image from 'next/image';
+import React from 'react';
+import * as Yup from 'yup';
+import { FileWithPath } from 'react-dropzone';
 
 import Typography from 'components/Ui/typography/Typography';
-import IconPlus from 'components/Ui/Icons/IconPlus';
-import IconClear from 'components/Ui/Icons/IconClear';
 import * as S from './MapFullSpotAddMedia.styled';
+import { Formik } from 'formik';
+import MapFullSpotAddMediaInput from './MapFullSpotAddMediaInput';
+import Feudartifice from 'shared/feudartifice';
+import { useAppDispatch, useAppSelector } from 'store/hook';
+import Bugsnag from '@bugsnag/js';
+import { selectFullSpotTab } from 'store/map/slice';
+
+type AddMediaFormValues = {
+    file: FileWithPath | null;
+    caption: string;
+};
+
+const addMediaFormSchema = Yup.object().shape({
+    file: Yup.mixed().nullable().required(),
+    caption: Yup.string(),
+});
 
 const MapFullSpotAddMedia = () => {
-    // const [{ value }, , helpers] = useField<File>('media');
+    const spotOverview = useAppSelector((state) => state.map.spotOverview);
+    const dispatch = useAppDispatch();
 
-    const [media, setMedia] = useState<string | undefined>(undefined);
+    const onSubmit = async (values: AddMediaFormValues) => {
+        try {
+            let media = await Feudartifice.media.createMedia({
+                caption: values.caption,
+                spot: spotOverview.spot.id,
+            });
 
-    const handleAddMedia = (media: string) => {
-        setMedia(media);
-    };
-
-    const handleRemoveMedia = () => {
-        setMedia(undefined);
-    };
-
-    const hiddenMediaInput = React.useRef(null);
-
-    const handleAddMediaClick = () => {
-        hiddenMediaInput.current.click();
-    };
-
-    const handleMediaChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
-        const fileName = evt.target.value;
-        const idxDot = fileName.lastIndexOf('.') + 1;
-        const extFile = fileName.substring(idxDot, fileName.length).toLowerCase();
-        if (extFile === 'jpg' || extFile === 'jpeg' || extFile === 'png') {
-            console.log(URL.createObjectURL(evt.target.files[0]));
-            handleAddMedia(URL.createObjectURL(evt.target.files[0]));
-        } else {
-            alert('Only jpg/jpeg and png files are allowed!');
+            media = await Feudartifice.media.uploadMedia(media.id, values.file);
+            dispatch(selectFullSpotTab('media'));
+        } catch (err) {
+            console.error(err);
+            Bugsnag.leaveBreadcrumb('media upload failed', {
+                spotId: spotOverview.spot.id,
+            });
+            Bugsnag.notify(err);
         }
     };
 
-    const isLoading = false;
-
-    const onSubmit = () => {
-        console.log('submit');
+    const initialValues: AddMediaFormValues = {
+        file: null,
+        caption: '',
     };
 
     return (
@@ -51,42 +56,30 @@ const MapFullSpotAddMedia = () => {
             <S.MapFullSpotAddMediaSubtitle component="body2">
                 Image: jpeg, png, webP / Video: mp4
             </S.MapFullSpotAddMediaSubtitle>
-            <S.MapFullSpotAddMediaGrid>
-                {media ? (
-                    <S.MapFullSpotAddMediaAddContainer>
-                        <S.MapFullSpotAddMediaAdd as="div">
-                            <S.MapFullSpotAddMediaRemoveButton onClick={handleRemoveMedia}>
-                                <IconClear />
-                            </S.MapFullSpotAddMediaRemoveButton>
-                            <S.MapFullSpotAddMediaImage src={media} />
-                        </S.MapFullSpotAddMediaAdd>
-                    </S.MapFullSpotAddMediaAddContainer>
-                ) : (
-                    <S.MapFullSpotAddMediaAddContainer>
-                        <S.MapFullSpotAddMediaAdd onClick={handleAddMediaClick}>
-                            <IconPlus />
-                            <input
-                                type="file"
-                                accept=".jpg,.jpeg,.png"
-                                ref={hiddenMediaInput}
-                                onChange={handleMediaChange}
-                                style={{ display: 'none' }}
+            <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={addMediaFormSchema}>
+                {({ isSubmitting, isValid }) => (
+                    <S.MapFullSpotAddMediaGrid>
+                        <MapFullSpotAddMediaInput />
+                        <S.MapFullSpotAddMediaSecondaryColumn>
+                            <Typography component="subtitle1">Add a caption</Typography>
+                            <S.MapFullSpotAddMediaCaption
+                                as="textarea"
+                                id="caption"
+                                name="caption"
+                                placeholder="Your caption here"
+                                rows={6}
                             />
-                        </S.MapFullSpotAddMediaAdd>
-                    </S.MapFullSpotAddMediaAddContainer>
+                            <S.MapFullSpotAddMediaSubmitButton
+                                onClick={onSubmit}
+                                loading={isSubmitting}
+                                disabled={isSubmitting || !isValid}
+                            >
+                                Add media
+                            </S.MapFullSpotAddMediaSubmitButton>
+                        </S.MapFullSpotAddMediaSecondaryColumn>
+                    </S.MapFullSpotAddMediaGrid>
                 )}
-                <S.MapFullSpotAddMediaSecondaryColumn>
-                    <Typography component="subtitle1">Add a caption</Typography>
-                    <S.MapFullSpotAddMediaCaption placeholder="Your caption here" rows={6} />
-                    <S.MapFullSpotAddMediaSubmitButton
-                        onClick={onSubmit}
-                        loading={isLoading}
-                        disabled={media === undefined}
-                    >
-                        Add media
-                    </S.MapFullSpotAddMediaSubmitButton>
-                </S.MapFullSpotAddMediaSecondaryColumn>
-            </S.MapFullSpotAddMediaGrid>
+            </Formik>
         </S.MapFullSpotAddMediaTabContainer>
     );
 };
