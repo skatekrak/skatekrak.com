@@ -120,7 +120,7 @@ export const MapFullSpotAddMediaRemoveButton = styled.button`
     }
 `;
 
-export const MapFullSpotAddMediaCaption = styled(Field)`
+export const MapFullSpotAddMediaCaption = styled.textarea`
     width: 100%;
     margin-top: 1rem;
     margin-bottom: 2rem;

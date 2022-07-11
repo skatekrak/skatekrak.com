@@ -4,7 +4,7 @@ import { FileWithPath } from 'react-dropzone';
 
 import Typography from 'components/Ui/typography/Typography';
 import * as S from './MapFullSpotAddMedia.styled';
-import { Formik } from 'formik';
+import { Field, Formik } from 'formik';
 import MapFullSpotAddMediaInput from './MapFullSpotAddMediaInput';
 import Feudartifice from 'shared/feudartifice';
 import { useAppDispatch, useAppSelector } from 'store/hook';
@@ -27,12 +27,12 @@ const MapFullSpotAddMedia = () => {
 
     const onSubmit = async (values: AddMediaFormValues) => {
         try {
-            let media = await Feudartifice.media.createMedia({
+            const media = await Feudartifice.media.createMedia({
                 caption: values.caption,
                 spot: spotOverview.spot.id,
             });
 
-            media = await Feudartifice.media.uploadMedia(media.id, values.file);
+            await Feudartifice.media.uploadMedia(media.id, values.file);
             dispatch(selectFullSpotTab('media'));
         } catch (err) {
             console.error(err);
@@ -62,15 +62,19 @@ const MapFullSpotAddMedia = () => {
                         <MapFullSpotAddMediaInput />
                         <S.MapFullSpotAddMediaSecondaryColumn>
                             <Typography component="subtitle1">Add a caption</Typography>
-                            <S.MapFullSpotAddMediaCaption
-                                as="textarea"
-                                id="caption"
-                                name="caption"
-                                placeholder="Your caption here"
-                                rows={6}
-                            />
+                            <Field name="caption">
+                                {({ field }) => (
+                                    <S.MapFullSpotAddMediaCaption
+                                        id="caption"
+                                        name="caption"
+                                        placeholder="Your caption here"
+                                        rows={6}
+                                        {...field}
+                                    />
+                                )}
+                            </Field>
                             <S.MapFullSpotAddMediaSubmitButton
-                                onClick={onSubmit}
+                                type="submit"
                                 loading={isSubmitting}
                                 disabled={isSubmitting || !isValid}
                             >
