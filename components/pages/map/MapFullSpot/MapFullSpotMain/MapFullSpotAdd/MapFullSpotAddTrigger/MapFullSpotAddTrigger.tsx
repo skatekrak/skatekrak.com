@@ -9,21 +9,34 @@ import MapFullSpotAddTriggerTooltip from './MapFullSpotAddTriggerTooltip';
 import * as S from './MapFullSpotAddTrigger.styled';
 
 import { FullSpotTab, selectFullSpotTab } from 'store/map/slice';
+import useSession from 'lib/hook/carrelage/use-session';
+import { useRouter } from 'next/router';
 
 const MapFullSpotAddTrigger = () => {
     const dispatch = useDispatch();
+    const router = useRouter();
+    const { data: sessionData } = useSession();
+    const isConnected = sessionData != null;
 
     const onTabSelect = (tab: FullSpotTab) => {
         dispatch(selectFullSpotTab(tab));
     };
 
     const handleAddMediaClick = (close: () => void) => {
-        onTabSelect('addMedia');
+        if (isConnected) {
+            onTabSelect('addMedia');
+        } else {
+            router.push('/auth/login');
+        }
         close();
     };
 
     const handleAddClipClick = (close: () => void) => {
-        onTabSelect('addClip');
+        if (isConnected) {
+            onTabSelect('addClip');
+        } else {
+            router.push('/auth/login');
+        }
         close();
     };
 
