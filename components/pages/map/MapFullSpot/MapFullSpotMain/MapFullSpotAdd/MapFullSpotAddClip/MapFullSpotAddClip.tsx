@@ -43,10 +43,12 @@ const MapFullSpotAddClip = () => {
             <S.MapFullSpotAddClipTitle component="heading6">
                 Attach a Youtube video or Vimeo to this spot
             </S.MapFullSpotAddClipTitle>
-            <S.MapFullSpotAddClipInput placeholder="Paste link here" onBlur={onBlur} />
-            <S.MapFullSpotAddClipSubmit disabled={isError || !isFetched} loading={isSubmitting} onClick={onSubmit}>
-                Add clip
-            </S.MapFullSpotAddClipSubmit>
+            <S.MapFullSpotAddClipInputRow>
+                <S.MapFullSpotAddClipInput placeholder="Paste link here" onBlur={onBlur} />
+                <S.MapFullSpotAddClipSubmit disabled={isError || !isFetched} loading={false} onClick={onSubmit}>
+                    Add clip
+                </S.MapFullSpotAddClipSubmit>
+            </S.MapFullSpotAddClipInputRow>
             <S.MapFullSpotAddClipPreviewTitle component="heading6">
                 {data != null ? data.title : 'Static title'}
             </S.MapFullSpotAddClipPreviewTitle>
