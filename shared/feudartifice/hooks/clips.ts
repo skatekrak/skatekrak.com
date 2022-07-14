@@ -11,6 +11,7 @@ export const useVideoInformation = (url: string) => {
             refetchOnMount: false,
             refetchOnReconnect: false,
             refetchOnWindowFocus: false,
+            retry: false,
             enabled: url !== '',
         },
     );

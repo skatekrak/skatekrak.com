@@ -30,6 +30,10 @@ export const MapFullSpotAddClipInputRow = styled.div`
     }
 `;
 
+export const MapFullSpotAddClipInputContainer = styled.div`
+    position: relative;
+`;
+
 export const MapFullSpotAddClipInput = styled.input`
     width: 100%;
     padding: 1rem;
@@ -59,4 +63,9 @@ export const MapFullSpotAddClipSubmit = styled(ButtonPrimary)`
 
 export const MapFullSpotAddClipPreviewTitle = styled(Typography)`
     margin: 2rem 0 1rem;
+`;
+
+export const MapFullSpotAddClipError = styled(Typography)`
+    color: ${({ theme }) => theme.color.system.error};
+    position: absolute;
 `;

@@ -44,8 +44,15 @@ const MapFullSpotAddClip = () => {
                 Attach a Youtube video or Vimeo to this spot
             </S.MapFullSpotAddClipTitle>
             <S.MapFullSpotAddClipInputRow>
-                <S.MapFullSpotAddClipInput placeholder="Paste link here" onBlur={onBlur} />
-                <S.MapFullSpotAddClipSubmit disabled={isError || !isFetched} loading={false} onClick={onSubmit}>
+                <S.MapFullSpotAddClipInputContainer>
+                    <S.MapFullSpotAddClipInput placeholder="Paste link here" onBlur={onBlur} />
+                    {isError && (
+                        <S.MapFullSpotAddClipError>
+                            URL not valid, we only support youtube of vimeo video
+                        </S.MapFullSpotAddClipError>
+                    )}
+                </S.MapFullSpotAddClipInputContainer>
+                <S.MapFullSpotAddClipSubmit disabled={isError || !isFetched} loading={isSubmitting} onClick={onSubmit}>
                     Add clip
                 </S.MapFullSpotAddClipSubmit>
             </S.MapFullSpotAddClipInputRow>
