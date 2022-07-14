@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Field, Form } from 'formik';
+import { Form } from 'formik';
 
 import Typography from 'components/Ui/typography/Typography';
 import media from 'styles/media';
