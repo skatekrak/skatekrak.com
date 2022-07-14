@@ -10,6 +10,7 @@ import Feudartifice from 'shared/feudartifice';
 import { useAppDispatch, useAppSelector } from 'store/hook';
 import Bugsnag from '@bugsnag/js';
 import { selectFullSpotTab } from 'store/map/slice';
+import { useQueryClient } from 'react-query';
 
 type AddMediaFormValues = {
     file: FileWithPath | null;
@@ -24,6 +25,7 @@ const addMediaFormSchema = Yup.object().shape({
 const MapFullSpotAddMedia = () => {
     const spotOverview = useAppSelector((state) => state.map.spotOverview);
     const dispatch = useAppDispatch();
+    const queryClient = useQueryClient();
 
     const onSubmit = async (values: AddMediaFormValues) => {
         try {
@@ -34,6 +36,7 @@ const MapFullSpotAddMedia = () => {
 
             await Feudartifice.media.uploadMedia(media.id, values.file);
             dispatch(selectFullSpotTab('media'));
+            queryClient.invalidateQueries(['load-overview', spotOverview.spot.id]);
         } catch (err) {
             console.error(err);
             Bugsnag.leaveBreadcrumb('media upload failed', {

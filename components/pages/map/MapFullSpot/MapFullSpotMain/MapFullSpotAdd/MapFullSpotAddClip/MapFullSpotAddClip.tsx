@@ -1,6 +1,7 @@
 import Bugsnag from '@bugsnag/js';
 import VideoPlayer from 'components/Ui/Player/VideoPlayer';
 import React, { FocusEventHandler, useState } from 'react';
+import { useQueryClient } from 'react-query';
 import Feudartifice from 'shared/feudartifice';
 import { useVideoInformation } from 'shared/feudartifice/hooks/clips';
 import { useAppDispatch, useAppSelector } from 'store/hook';
@@ -13,6 +14,7 @@ const MapFullSpotAddClip = () => {
     const dispatch = useAppDispatch();
     const [url, setURL] = useState('');
     const [isSubmitting, setSubmitting] = useState(false);
+    const queryClient = useQueryClient();
 
     const { data, isError, isFetched } = useVideoInformation(url);
 
@@ -26,6 +28,7 @@ const MapFullSpotAddClip = () => {
         try {
             await Feudartifice.clips.addClip(spotOverview.spot.id, url);
             dispatch(selectFullSpotTab('clips'));
+            queryClient.invalidateQueries(['load-overview', spotOverview.spot.id]);
         } catch (err) {
             console.error(err);
             Bugsnag.leaveBreadcrumb('Error submitting clip', {
