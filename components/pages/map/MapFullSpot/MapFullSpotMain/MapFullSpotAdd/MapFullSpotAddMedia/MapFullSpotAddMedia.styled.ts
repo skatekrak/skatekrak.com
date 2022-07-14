@@ -49,9 +49,6 @@ export const MapFullSpotAddMediaSubtitle = styled(Typography)`
 
 export const MapFullSpotAddMediaAddContainer = styled.div`
     position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center
     max-width: 100%;
     padding-top: 100%;
     margin: 2rem 0;
@@ -66,9 +63,11 @@ export const MapFullSpotAddMediaAddContainer = styled.div`
 `;
 
 export const MapFullSpotAddMediaAdd = styled.button`
+    position: absolute;
     width: 100%;
-    height: 100%;
-    display: flex;
+    top: 0;
+    bottom: 0;
+    left: 0;
 
     &:hover {
         & svg {
