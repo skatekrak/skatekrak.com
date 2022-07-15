@@ -1,7 +1,7 @@
 import React from 'react';
 
 const ShopIcon = () => (
-    <svg className="map-icon-shop" viewBox="0 0 48 48">
+    <svg className="map-icon map-icon-shop" viewBox="0 0 48 48">
         <path
             className="map-icon-stroke-outter"
             d="M28,5.9H20.71a2,2,0,0,0-2,2V9.65a10,10,0,0,0-6.24,8.87A8.76,8.76,0,0,0,16,25.78l-3.25.89a2,2,0,0,0-1.36,2.58l.28.82a13,13,0,0,0,7,8.06V39.9a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V38.2a9.9,9.9,0,0,0,6.34-9.29,9.26,9.26,0,0,0-4.21-7.7l2.74-.76A2,2,0,0,0,36.21,18L36,17.17a12,12,0,0,0-6-7.26v-2a2,2,0,0,0-2-2Z"

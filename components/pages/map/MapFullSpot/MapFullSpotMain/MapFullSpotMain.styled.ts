@@ -79,8 +79,6 @@ export const MapFullSpotMainClip = styled.div`
 
 export const MapFullSpotMainClipTitle = styled(Typography)`
     margin-bottom: 1rem;
-    font-family: $ff-roboto-bold;
-    font-size: $fs-large;
 `;
 
 /* MEDIA */

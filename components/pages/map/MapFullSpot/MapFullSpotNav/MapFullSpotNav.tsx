@@ -11,6 +11,7 @@ import IconWip from 'components/pages/map/marker/icons/Wip';
 import IconMedia from 'components/Ui/Icons/IconMedia';
 import IconClips from 'components/Ui/Icons/IconClips';
 import MapFullSpotNavItem from './MapFullSpotNavItem';
+import MapFullSpotAddTrigger from '../MapFullSpotMain/MapFullSpotAdd/MapFullSpotAddTrigger';
 import * as S from './MapFullSpotNav.styled';
 
 import { Spot, Status, Types } from 'lib/carrelageClient';
@@ -76,6 +77,7 @@ const MapFullSpotNav = () => {
                         </S.MapFullSpotStreet>
                         <S.MapFullSpotExtra>
                             <SpotIcon type={spotOverview.spot.type} status={spotOverview.spot.status} />
+                            <MapFullSpotAddTrigger />
                         </S.MapFullSpotExtra>
                     </S.MapFullSpotNavHeader>
                     <S.MapFullSpotNavMain>

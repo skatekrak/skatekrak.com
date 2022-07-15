@@ -1,7 +1,7 @@
 import React from 'react';
 
 const WipIcon = () => (
-    <svg className="map-icon-wip" viewBox="0 0 48 48">
+    <svg className="map-icon map-icon-wip" viewBox="0 0 48 48">
         <path
             className="map-icon-stroke-outter"
             d="M36.05,40.79H11.55a3,3,0,0,1-3-3V36.07a3,3,0,0,1,3-3h1.3L19.79,9a3,3,0,0,1,2.88-2.17h2.25A3,3,0,0,1,27.81,9l6.94,24.11h1.3a3,3,0,0,1,3,3v1.72A3,3,0,0,1,36.05,40.79Z"

@@ -1,7 +1,7 @@
 import React from 'react';
 
 const RipIcon = () => (
-    <svg className="map-icon-rip" viewBox="0 0 48 48">
+    <svg className="map-icon map-icon-rip" viewBox="0 0 48 48">
         <path
             className="map-icon-stroke-outter"
             d="M24.1,6A12.89,12.89,0,0,0,11.22,18.89V33.38a2.44,2.44,0,0,0-1.7,1.34l-.06.12-1,3.07a2.43,2.43,0,0,0,2.27,3.29H37.43a2.43,2.43,0,0,0,2.27-3.29l-1-3.07-.06-.12A2.44,2.44,0,0,0,37,33.38V18.89A12.89,12.89,0,0,0,24.1,6Z"

@@ -81,28 +81,28 @@ const MapContainer = () => {
         }
     };
 
-    useEffect(() => {
-        const loadOverview = async () => {
-            if (spotId != null) {
-                try {
-                    const overview = await getSpotOverview(spotId);
-                    dispatch(setSpotOverview(overview));
+    useQuery(
+        ['load-overview', spotId],
+        async () => {
+            const overview = await getSpotOverview(spotId);
+            return overview;
+        },
+        {
+            enabled: spotId != null,
+            retry: false,
+            onSuccess(data) {
+                dispatch(setSpotOverview(data));
 
-                    setFirstLoad((value) => {
-                        if (value) {
-                            centerToSpot(overview.spot);
-                            return !value;
-                        }
-                        return value;
-                    });
-                } catch (err) {
-                    console.error(err);
-                }
-            }
-        };
-
-        loadOverview();
-    }, [spotId, dispatch, centerToSpot]);
+                setFirstLoad((value) => {
+                    if (value) {
+                        centerToSpot(data.spot);
+                        return !value;
+                    }
+                    return value;
+                });
+            },
+        },
+    );
 
     const debounceViewport = useDebounce(viewport, 200);
     const { data: spots = [], refetch } = useQuery(

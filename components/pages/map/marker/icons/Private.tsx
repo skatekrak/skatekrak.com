@@ -1,7 +1,7 @@
 import React from 'react';
 
 const PrivateIcon = () => (
-    <svg className="map-icon-private" viewBox="0 0 48 48">
+    <svg className="map-icon map-icon-private" viewBox="0 0 48 48">
         <path
             className="map-icon-stroke-outter"
             d="M23.64,6.12h0A10.74,10.74,0,0,0,12.9,16.86V18.7a5.52,5.52,0,0,0-1.4,1,5.47,5.47,0,0,0-1.61,3.9v12a5.52,5.52,0,0,0,5.52,5.51h17a5.51,5.51,0,0,0,5.51-5.52v-12a5.52,5.52,0,0,0-3.53-5.14l0-1.64A10.74,10.74,0,0,0,23.64,6.12Zm-3.8,13.54V16.85a3.8,3.8,0,0,1,7.61,0v2.81Z"
