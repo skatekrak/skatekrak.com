@@ -15,9 +15,9 @@ type SourceOptionProps = {
 const SourceOption = ({ source, loading, isActive, toggle }: SourceOptionProps) => {
     const handleSourceOptionClick = () => {
         if (isActive) {
-            Analytics.trackEvent('Click', 'Filter_Unselect', { name: source.label, value: 1 });
+            Analytics.trackEvent('Click', 'Filter_Unselect', { name: source.shortTitle, value: 1 });
         } else {
-            Analytics.trackEvent('Click', 'Filter_Select', { name: source.label, value: 1 });
+            Analytics.trackEvent('Click', 'Filter_Select', { name: source.shortTitle, value: 1 });
         }
         toggle(source);
     };
@@ -43,7 +43,7 @@ const SourceOption = ({ source, loading, isActive, toggle }: SourceOptionProps) 
                         )}
                     </span>
                 )}
-                <span className="feed-sidebar-nav-option-name">{source.label}</span>
+                <span className="feed-sidebar-nav-option-name">{source.shortTitle}</span>
                 {!source.iconUrl && isActive && loading && <SpinnerCircle />}
             </label>
         </li>

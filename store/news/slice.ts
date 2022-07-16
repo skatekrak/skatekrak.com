@@ -3,7 +3,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { push, remove } from 'lib/immutable';
 
 export type NewsState = {
-    selectSources: string[];
+    selectSources: number[];
     search: string;
 };
 

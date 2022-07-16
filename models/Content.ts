@@ -7,7 +7,7 @@ export default class Content implements IContent {
     public source: Source;
     public contentId: string;
     public title: string;
-    public webUrl: string;
+    public websiteURL: string;
     public media: Media;
     public rawSummary: string;
     public summary: string;
@@ -23,7 +23,7 @@ export default class Content implements IContent {
         this.source = object.source as Source;
         this.contentId = object.contentId;
         this.title = object.title;
-        this.webUrl = object.webUrl;
+        this.websiteURL = object.webUrl;
 
         if (object.media) {
             this.media = object.media as Media;
@@ -48,7 +48,7 @@ export default class Content implements IContent {
     }
 
     public getArticleUrl(): string {
-        return this.webUrl;
+        return this.websiteURL;
     }
 
     public getArticlePopupUrl(): string {

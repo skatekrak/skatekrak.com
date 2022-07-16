@@ -26,7 +26,7 @@ const Sources = ({ navIsOpen, handleOpenSourcesMenu }: SourcesProps) => {
     const selectedSources = useSelector((state: RootState) => state.video.selectSources);
     const query = useSelector((state: RootState) => state.video.search);
 
-    const { isFetching } = useVideos({ filters: selectedSources, query });
+    const { isFetching } = useVideos({ sources: selectedSources, query });
 
     const onSelectAllClick = () => {
         if (sources.length > 0) {
@@ -80,7 +80,7 @@ const Sources = ({ navIsOpen, handleOpenSourcesMenu }: SourcesProps) => {
                         {!navIsOpen ? 'Filters' : 'Close'}
                     </button>
                 </div>
-                <SearchBar value={query} onValueChange={onQueryChange} />
+                {/* <SearchBar value={query} onValueChange={onQueryChange} /> */}
             </div>
             <div
                 className={classNames('feed-sidebar-nav-main', {

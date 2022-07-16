@@ -5,8 +5,7 @@ import Content from 'models/Content';
 import { useInfiniteQuery } from 'react-query';
 
 export type FetchNewsParams = {
-    filters: string[];
-    query?: string;
+    sourceTypes: number[];
 };
 
 const fetchContents = async (params: FetchNewsParams, page: any = 1): Promise<Content[]> => {

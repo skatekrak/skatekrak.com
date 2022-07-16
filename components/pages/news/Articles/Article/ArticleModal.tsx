@@ -29,7 +29,7 @@ const ArticleModal = ({ content, show }: Props) => {
                 <div className="news-article-modal">
                     <Card content={content} />
                     <a
-                        href={content.webUrl}
+                        href={content.websiteURL}
                         className="news-article-modal-read-more button-primary"
                         target="_blank"
                         rel="noreferrer"
