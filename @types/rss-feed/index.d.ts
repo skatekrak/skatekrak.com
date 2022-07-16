@@ -13,7 +13,7 @@ declare module 'rss-feed' {
         iconUrl: string;
         coverUrl: string;
         lang: Language;
-        website: string;
+        websiteUrl: string;
         sourceId: string;
     }
 
@@ -45,6 +45,7 @@ declare module 'rss-feed' {
         content: string;
 
         author: string;
+        contentUrl: string;
     }
 
     export interface Video {

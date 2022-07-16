@@ -14,6 +14,7 @@ export default class Content implements IContent {
     public rawContent: string;
     public content: string;
     public author: string;
+    public contentUrl: string;
 
     constructor(object: any) {
         this.id = object.id;
@@ -22,13 +23,13 @@ export default class Content implements IContent {
         this.source = object.source as Source;
         this.contentId = object.contentId;
         this.title = object.title;
-        this.websiteURL = object.webUrl;
         this.thumbnailUrl = object.thumbnailUrl;
         this.rawSummary = object.rawSummary;
         this.summary = object.summary;
         this.rawContent = object.rawContent;
         this.content = object.content;
         this.author = object.author;
+        this.contentUrl = object.contentUrl;
     }
 
     public getImage(): string | null {
@@ -43,7 +44,7 @@ export default class Content implements IContent {
     }
 
     public getArticleUrl(): string {
-        return this.websiteURL;
+        return this.contentUrl;
     }
 
     public getArticlePopupUrl(): string {
@@ -51,7 +52,7 @@ export default class Content implements IContent {
     }
 
     public getWebsiteUrl(): string {
-        return this.source.website;
+        return this.source.websiteUrl;
     }
 
     public getContent() {
