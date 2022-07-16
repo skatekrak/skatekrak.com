@@ -59,10 +59,14 @@ const MapFullSpotAddClip = () => {
                     Add clip
                 </S.MapFullSpotAddClipSubmit>
             </S.MapFullSpotAddClipInputRow>
-            <S.MapFullSpotAddClipPreviewTitle component="heading6">
-                {data != null ? data.title : 'Static title'}
-            </S.MapFullSpotAddClipPreviewTitle>
-            <VideoPlayer url={data != null ? url : ''} />
+            {data !== null && data !== undefined && (
+                <>
+                    <S.MapFullSpotAddClipPreviewTitle component="heading6">
+                        {data.title}
+                    </S.MapFullSpotAddClipPreviewTitle>
+                    <VideoPlayer url={url} />
+                </>
+            )}
         </S.MapFullSpotAddClipContainer>
     );
 };
