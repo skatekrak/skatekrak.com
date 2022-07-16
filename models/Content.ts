@@ -8,13 +8,12 @@ export default class Content implements IContent {
     public contentId: string;
     public title: string;
     public websiteURL: string;
-    public media: Media;
+    public thumbnailUrl: string;
     public rawSummary: string;
     public summary: string;
     public rawContent: string;
     public content: string;
     public author: string;
-    public keywords: string[];
 
     constructor(object: any) {
         this.id = object.id;
@@ -24,21 +23,17 @@ export default class Content implements IContent {
         this.contentId = object.contentId;
         this.title = object.title;
         this.websiteURL = object.webUrl;
-
-        if (object.media) {
-            this.media = object.media as Media;
-        }
+        this.thumbnailUrl = object.thumbnailUrl;
         this.rawSummary = object.rawSummary;
         this.summary = object.summary;
         this.rawContent = object.rawContent;
         this.content = object.content;
         this.author = object.author;
-        this.keywords = object.keywords;
     }
 
     public getImage(): string | null {
-        if (this.media && this.media.url) {
-            return this.media.url;
+        if (this.thumbnailUrl) {
+            return this.thumbnailUrl;
         }
         return null;
     }

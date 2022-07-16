@@ -27,7 +27,7 @@ const Sources = ({ navIsOpen, handleOpenSourcesMenu }: NewsSourcesProps) => {
     const { data: languages } = useNewsLanguages();
 
     const { isFetching } = useNewsContent({
-        sourceTypes: selectedSources,
+        sources: selectedSources,
     });
 
     const onSelectAllClick = () => {

@@ -3,7 +3,11 @@ import { useQuery } from 'react-query';
 import { Source } from 'rss-feed';
 
 const fetchNewsSources = async () => {
-    const { data } = await axios.get<Source[]>(`${process.env.NEXT_PUBLIC_RSS_BACKEND_URL}/sources`);
+    const { data } = await axios.get<Source[]>(`${process.env.NEXT_PUBLIC_RSS_BACKEND_URL}/sources`, {
+        params: {
+            types: ['rss'],
+        },
+    });
     return data;
 };
 

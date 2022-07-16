@@ -3,20 +3,22 @@ import { removeEmptyStringAndNull } from 'lib/helpers';
 
 import Content from 'models/Content';
 import { useInfiniteQuery } from 'react-query';
+import { IContent, Pagination } from 'rss-feed';
 
 export type FetchNewsParams = {
-    sourceTypes: number[];
+    sources: number[];
 };
 
 const fetchContents = async (params: FetchNewsParams, page: any = 1): Promise<Content[]> => {
-    const { data } = await axios.get(`${process.env.NEXT_PUBLIC_RSS_BACKEND_URL}/contents`, {
+    const { data } = await axios.get<Pagination<IContent>>(`${process.env.NEXT_PUBLIC_RSS_BACKEND_URL}/contents`, {
         params: {
+            sourceTypes: ['rss'],
             ...removeEmptyStringAndNull(params),
             page,
         },
     });
 
-    return data.map((content) => new Content(content));
+    return data.items.map((content) => new Content(content));
 };
 
 const useNewsContent = (params: FetchNewsParams) => {
