@@ -37,7 +37,12 @@ const VideoModal = ({ video, open }: Props) => {
                         <VideoPlayer url={`https://www.youtube.com/watch?v=${video.contentId}`} playing controls pip />
                     )}
                     {video.source.sourceType === SourceType.VIMEO && (
-                        <VideoPlayer url={`https://vimeo.com/${video.contentId}`} playing controls pip />
+                        <VideoPlayer
+                            url={`https://vimeo.com/${video.contentId.replace('/videos/', '')}`}
+                            playing
+                            controls
+                            pip
+                        />
                     )}
                     <h2 className="video-modal-title">{video.title}</h2>
                     <div className="video-modal-details">
