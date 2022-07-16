@@ -50,7 +50,7 @@ const MapFullSpotAddClip = () => {
                 <S.MapFullSpotAddClipInputContainer>
                     <S.MapFullSpotAddClipInput placeholder="Paste link here" onBlur={onBlur} />
                     {isError && (
-                        <S.MapFullSpotAddClipError>
+                        <S.MapFullSpotAddClipError component="body2">
                             URL not valid, we only support youtube of vimeo video
                         </S.MapFullSpotAddClipError>
                     )}

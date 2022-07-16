@@ -32,6 +32,21 @@ export const MapFullSpotAddClipInputRow = styled.div`
 
 export const MapFullSpotAddClipInputContainer = styled.div`
     position: relative;
+    margin-bottom: 1rem;
+
+    ${media.tablet} {
+        flex-grow: 1;
+        margin-right: 1rem;
+        margin-bottom: 0;
+    }
+
+    ${media.laptopS} {
+        flex-grow: initial;
+        width: 50%;
+        min-width: 25rem;
+        margin-right: 1rem;
+        margin-bottom: 0;
+    }
 `;
 
 export const MapFullSpotAddClipInput = styled.input`
@@ -41,17 +56,20 @@ export const MapFullSpotAddClipInput = styled.input`
     color: ${({ theme }) => theme.color.onDark.highEmphasis};
     background-color: ${({ theme }) => theme.color.tertiary.light};
     border-radius: 0.25rem;
-    margin-bottom: 1rem;
 
     &::placeholder {
         color: ${({ theme }) => theme.color.onDark.lowEmphasis};
     }
+`;
+
+export const MapFullSpotAddClipError = styled(Typography)`
+    margin-top: 0.5rem;
+    color: ${({ theme }) => theme.color.system.error};
 
     ${media.tablet} {
-        width: 50%;
-        min-width: 25rem;
-        margin-right: 1rem;
-        margin-bottom: 0;
+        position: absolute;
+        top: calc(100% + 0.5rem);
+        margin-top: 0;
     }
 `;
 
@@ -63,9 +81,8 @@ export const MapFullSpotAddClipSubmit = styled(ButtonPrimary)`
 
 export const MapFullSpotAddClipPreviewTitle = styled(Typography)`
     margin: 2rem 0 1rem;
-`;
 
-export const MapFullSpotAddClipError = styled(Typography)`
-    color: ${({ theme }) => theme.color.system.error};
-    position: absolute;
+    ${media.tablet} {
+        margin-top: 3rem;
+    }
 `;
