@@ -2,10 +2,10 @@ import React from 'react';
 import { FacebookIcon, FacebookShareButton, TwitterIcon, TwitterShareButton } from 'react-share';
 
 import ClipboardButton from 'components/Ui/Button/ClipboardButton';
-import { Video } from 'rss-feed';
+import { IContent } from 'rss-feed';
 
 type Props = {
-    video: Video;
+    video: IContent;
 };
 
 class VideoCardShare extends React.PureComponent<Props> {
@@ -28,7 +28,7 @@ class VideoCardShare extends React.PureComponent<Props> {
         );
     }
 
-    private getVideoPopupUrl(video: Video): string {
+    private getVideoPopupUrl(video: IContent): string {
         return `${window.location.origin}/video?id=${video.id}`;
     }
 }

@@ -22,14 +22,12 @@ type NewsSourcesProps = {
 const Sources = ({ navIsOpen, handleOpenSourcesMenu }: NewsSourcesProps) => {
     const dispatch = useDispatch();
     const selectedSources = useSelector((state: RootState) => state.news.selectSources);
-    const query = useSelector((state: RootState) => state.news.search);
 
     const { data: sources, isLoading } = useNewsSources();
     const { data: languages } = useNewsLanguages();
 
     const { isFetching } = useNewsContent({
-        filters: selectedSources,
-        query,
+        sources: selectedSources,
     });
 
     const onSelectAllClick = () => {
@@ -84,7 +82,7 @@ const Sources = ({ navIsOpen, handleOpenSourcesMenu }: NewsSourcesProps) => {
                         {!navIsOpen ? 'Filters' : 'Close'}
                     </button>
                 </div>
-                <SearchBar value={query} onValueChange={onQueryChange} />
+                {/* <SearchBar value={query} onValueChange={onQueryChange} /> */}
             </div>
             <div
                 className={classNames('feed-sidebar-nav-main', {

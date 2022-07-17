@@ -7,14 +7,14 @@ export default class Content implements IContent {
     public source: Source;
     public contentId: string;
     public title: string;
-    public webUrl: string;
-    public media: Media;
+    public websiteURL: string;
+    public thumbnailUrl: string;
     public rawSummary: string;
     public summary: string;
     public rawContent: string;
     public content: string;
     public author: string;
-    public keywords: string[];
+    public contentUrl: string;
 
     constructor(object: any) {
         this.id = object.id;
@@ -23,22 +23,18 @@ export default class Content implements IContent {
         this.source = object.source as Source;
         this.contentId = object.contentId;
         this.title = object.title;
-        this.webUrl = object.webUrl;
-
-        if (object.media) {
-            this.media = object.media as Media;
-        }
+        this.thumbnailUrl = object.thumbnailUrl;
         this.rawSummary = object.rawSummary;
         this.summary = object.summary;
         this.rawContent = object.rawContent;
         this.content = object.content;
         this.author = object.author;
-        this.keywords = object.keywords;
+        this.contentUrl = object.contentUrl;
     }
 
     public getImage(): string | null {
-        if (this.media && this.media.url) {
-            return this.media.url;
+        if (this.thumbnailUrl) {
+            return this.thumbnailUrl;
         }
         return null;
     }
@@ -48,7 +44,7 @@ export default class Content implements IContent {
     }
 
     public getArticleUrl(): string {
-        return this.webUrl;
+        return this.contentUrl;
     }
 
     public getArticlePopupUrl(): string {
@@ -56,7 +52,7 @@ export default class Content implements IContent {
     }
 
     public getWebsiteUrl(): string {
-        return this.source.website;
+        return this.source.websiteUrl;
     }
 
     public getContent() {

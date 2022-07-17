@@ -1,32 +1,23 @@
 import axios from 'axios';
 import { removeEmptyStringAndNull } from 'lib/helpers';
 import { useInfiniteQuery } from 'react-query';
-import { Video } from 'rss-feed';
+import { Pagination, IContent } from 'rss-feed';
 
 export type FetchVideoParams = {
-    filters: string[];
+    sources: number[];
     query?: string;
 };
 
 const fetchVideos = async (params: FetchVideoParams, page: unknown = 1) => {
-    let data: Video[] = [];
-    if (params.query != null && params.query !== '') {
-        const res = await axios.get<Video[]>(`${process.env.NEXT_PUBLIC_RSS_BACKEND_URL}/videos/search`, {
-            params: {
-                ...removeEmptyStringAndNull(params),
-                page,
-            },
-        });
-        data = res.data;
-    }
-
-    const res = await axios.get<Video[]>(`${process.env.NEXT_PUBLIC_RSS_BACKEND_URL}/videos/`, {
+    let data: IContent[] = [];
+    const res = await axios.get<Pagination<IContent>>(`${process.env.NEXT_PUBLIC_RSS_BACKEND_URL}/contents`, {
         params: {
             ...removeEmptyStringAndNull(params),
+            sourceTypes: ['youtube', 'vimeo'],
             page,
         },
     });
-    data = res.data;
+    data = res.data.items;
 
     return data;
 };

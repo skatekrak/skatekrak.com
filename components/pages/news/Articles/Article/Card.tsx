@@ -44,7 +44,7 @@ const Card = ({ content }: Props) => (
                     rel="noreferrer"
                 >
                     &nbsp;
-                    <span className="news-article-details-source-name">{content.source.label}</span>
+                    <span className="news-article-details-source-name">{content.source.shortTitle}</span>
                 </a>
             </div>
             <span className="news-article-details-date">

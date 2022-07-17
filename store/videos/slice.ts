@@ -3,7 +3,7 @@ import { push, remove } from 'lib/immutable';
 import { Source } from 'rss-feed';
 
 export type VideosState = {
-    selectSources: string[];
+    selectSources: number[];
     search: string;
 };
 

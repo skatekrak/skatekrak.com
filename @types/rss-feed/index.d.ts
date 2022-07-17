@@ -2,25 +2,19 @@ declare module 'rss-feed' {
     import { SourceType, Order } from 'lib/constants';
 
     export interface Source {
-        id: string;
-
+        id: number;
         createdAt: Date;
         updatedAt: Date;
-        type: SourceType;
+        sourceType: SourceType;
         order: number;
-        label: string;
+        shortTitle: string;
         title: string;
         description: string;
         iconUrl: string;
         coverUrl: string;
-        topics: string[];
         lang: Language;
-
-        feedId: string;
-        visualUrl: string;
-        website: string;
-
-        youtube: Youtube;
+        websiteUrl: string;
+        sourceId: string;
     }
 
     export interface Media {
@@ -28,30 +22,34 @@ declare module 'rss-feed' {
         contentType: string;
     }
 
+    export interface Pagination<T> {
+        perPage: number;
+        page: number;
+        totalResults: number;
+        totalPages: number;
+        items: T[];
+    }
+
     export interface IContent {
         id: string;
-
         createdAt: string;
         updatedAt: string;
         source: Source;
         contentId: string;
         title: string;
-        webUrl: string;
-
-        media: Media;
-
+        websiteURL: string;
+        thumbnailUrl: string;
         rawSummary: string;
         summary: string;
         rawContent: string;
         content: string;
 
         author: string;
-        keywords: string[];
+        contentUrl: string;
     }
 
     export interface Video {
         id: string;
-
         createdAt: string;
         updatedAt: string;
         order: Order;
@@ -65,7 +63,7 @@ declare module 'rss-feed' {
     export interface Language {
         name: string;
         isoCode: string;
-        image: string;
+        imageUrl: string;
     }
 
     export interface Youtube {
