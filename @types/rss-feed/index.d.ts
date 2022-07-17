@@ -63,7 +63,7 @@ declare module 'rss-feed' {
     export interface Language {
         name: string;
         isoCode: string;
-        image: string;
+        imageUrl: string;
     }
 
     export interface Youtube {
