@@ -49,11 +49,11 @@ const Sources = ({ navIsOpen, handleOpenSourcesMenu }: SourcesProps) => {
         return (sources ?? []).length;
     }, [sources, selectedSources]);
 
-    const isActive = (source: Source): boolean => {
+    const isActive = (id: number): boolean => {
         if (selectedSources.length <= 0) {
             return true;
         }
-        return selectedSources.indexOf(source.id) !== -1;
+        return selectedSources.indexOf(id) !== -1;
     };
 
     const toggleLanguage = (language: Language) => {
@@ -61,8 +61,8 @@ const Sources = ({ navIsOpen, handleOpenSourcesMenu }: SourcesProps) => {
         dispatch(selectVideosSources(sourcesToSelect));
     };
 
-    const toggleSource = (source: Source) => {
-        dispatch(toggleVideosSource(source));
+    const toggleSource = (id: number) => {
+        dispatch(toggleVideosSource(id));
     };
 
     const onQueryChange = (value: string) => {
@@ -114,8 +114,10 @@ const Sources = ({ navIsOpen, handleOpenSourcesMenu }: SourcesProps) => {
                             sources.map((source) => (
                                 <SourceOption
                                     key={source.id}
-                                    source={source}
-                                    isActive={isActive(source)}
+                                    id={source.id}
+                                    title={source.shortTitle}
+                                    iconUrl={source.iconUrl}
+                                    isActive={isActive(source.id)}
                                     loading={isFetching}
                                     toggle={toggleSource}
                                 />

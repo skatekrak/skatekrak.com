@@ -4,10 +4,10 @@ import React from 'react';
 
 import VideoCardShare from 'components/pages/videos/VideoFeed/Video/VideoCardShare';
 import VideoPlayerCaption from 'components/pages/videos/VideoFeed/Video/VideoPlayerCaption';
-import { Video } from 'rss-feed';
+import { IContent } from 'rss-feed';
 
 type Props = {
-    video: Video;
+    video: IContent;
 };
 
 class FeaturedVideo extends React.PureComponent<Props> {

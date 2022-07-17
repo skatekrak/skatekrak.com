@@ -55,15 +55,15 @@ const Nav = ({ sidebarNavIsOpen, handleOpenSidebarNav }: NavProps) => {
         dispatch(resetCategories());
     };
 
-    const isActive = (source: Source): boolean => {
+    const isActive = (id: string): boolean => {
         if (sources.length <= 0) {
             return true;
         }
-        return sources.indexOf(source.id) !== -1;
+        return sources.indexOf(id) !== -1;
     };
 
-    const toggleSource = (source: Source) => {
-        dispatch(toggleCategory(source));
+    const toggleSource = (id: string) => {
+        dispatch(toggleCategory(id));
     };
 
     return (
@@ -100,8 +100,9 @@ const Nav = ({ sidebarNavIsOpen, handleOpenSidebarNav }: NavProps) => {
                             categories.map((category) => (
                                 <SourceOption
                                     key={category.id}
-                                    source={category as Source}
-                                    isActive={isActive(category as Source)}
+                                    id={category.id}
+                                    title={category.label}
+                                    isActive={isActive(category.id)}
                                     loading={isFetching}
                                     toggle={toggleSource}
                                 />

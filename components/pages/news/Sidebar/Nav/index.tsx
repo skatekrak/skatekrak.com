@@ -44,11 +44,11 @@ const Sources = ({ navIsOpen, handleOpenSourcesMenu }: NewsSourcesProps) => {
         dispatch(resetNews());
     };
 
-    const isActive = (source: Source): boolean => {
+    const isActive = (id: number): boolean => {
         if (selectedSources.length <= 0) {
             return true;
         }
-        return selectedSources.indexOf(source.id) !== -1;
+        return selectedSources.indexOf(id) !== -1;
     };
 
     const length = useMemo(() => {
@@ -63,8 +63,8 @@ const Sources = ({ navIsOpen, handleOpenSourcesMenu }: NewsSourcesProps) => {
         dispatch(selectNewsSources(sourcesToSelect));
     };
 
-    const toggleSource = (source: Source) => {
-        dispatch(toggleNewsSource(source));
+    const toggleSource = (id: number) => {
+        dispatch(toggleNewsSource(id));
     };
 
     const onQueryChange = (value: string) => {
@@ -116,9 +116,11 @@ const Sources = ({ navIsOpen, handleOpenSourcesMenu }: NewsSourcesProps) => {
                             sources.map((source) => (
                                 <SourceOption
                                     key={source.id}
-                                    source={source}
+                                    id={source.id}
+                                    title={source.shortTitle}
+                                    iconUrl={source.iconUrl}
                                     loading={isFetching}
-                                    isActive={isActive(source)}
+                                    isActive={isActive(source.id)}
                                     toggle={toggleSource}
                                 />
                             ))}

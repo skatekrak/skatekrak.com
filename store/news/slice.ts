@@ -22,13 +22,13 @@ const newsSlice = createSlice({
                 selectSources: action.payload.map((source) => source.id),
             };
         },
-        toggleNewsSource: (state, action: PayloadAction<Source>) => {
-            const index = state.selectSources.indexOf(action.payload.id);
+        toggleNewsSource: (state, action: PayloadAction<number>) => {
+            const index = state.selectSources.indexOf(action.payload);
 
             return {
                 ...state,
                 selectSources:
-                    index === -1 ? push(state.selectSources, action.payload.id) : remove(state.selectSources, index),
+                    index === -1 ? push(state.selectSources, action.payload) : remove(state.selectSources, index),
             };
         },
         setNewsSearch: (state, action: PayloadAction<string>) => {
