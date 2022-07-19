@@ -9,11 +9,11 @@ import LayoutFeed from 'components/Ui/Feed/LayoutFeed';
 
 import Sidebar from 'components/pages/videos/Sidebar';
 import VideoFeed from 'components/pages/videos/VideoFeed';
-import { Video } from 'rss-feed';
+import { IContent } from 'rss-feed';
 
 const VideoModal = dynamic(() => import('components/pages/videos/VideoFeed/Video/VideoModal'), { ssr: false });
 
-const VideoHead = ({ video }: { video: Video }) => {
+const VideoHead = ({ video }: { video: IContent }) => {
     const baseURL = process.env.NEXT_PUBLIC_WEBSITE_URL;
 
     const title = (() => {
@@ -22,8 +22,8 @@ const VideoHead = ({ video }: { video: Video }) => {
         }
         return 'Krak | Videos';
     })();
-    const description = video ? video.description : "Don't miss anything in the skateboarding world";
-    const image = video ? video.thumbnail : `${baseURL}/images/og-news.jpg`;
+    const description = video ? video.summary : "Don't miss anything in the skateboarding world";
+    const image = video ? video.thumbnailUrl : `${baseURL}/images/og-news.jpg`;
     let url = `${baseURL}/video`;
     if (video) {
         url += `?id=${video.id}`;
@@ -45,7 +45,7 @@ const VideoHead = ({ video }: { video: Video }) => {
 };
 
 type Props = {
-    video?: Video;
+    video?: IContent;
     gotId: boolean;
 };
 
@@ -74,7 +74,7 @@ const Videos: NextPage<Props> = ({ video, gotId }) => {
 Videos.getInitialProps = async ({ query }: NextPageContext) => {
     if (query.id) {
         try {
-            const res = await axios.get(`${process.env.NEXT_PUBLIC_RSS_BACKEND_URL}/videos/${query.id}`);
+            const res = await axios.get(`${process.env.NEXT_PUBLIC_RSS_BACKEND_URL}/contents/${query.id}`);
             return { video: res.data, gotId: true };
         } catch {
             return { gotId: true };

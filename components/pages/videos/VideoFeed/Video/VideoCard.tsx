@@ -4,10 +4,10 @@ import React from 'react';
 
 import VideoCardShare from 'components/pages/videos/VideoFeed/Video/VideoCardShare';
 import VideoPlayerCaption from 'components/pages/videos/VideoFeed/Video/VideoPlayerCaption';
-import { Video } from 'rss-feed';
+import { IContent, Video } from 'rss-feed';
 
 type Props = {
-    video: Video;
+    video: IContent;
 };
 
 const VideoCard = ({ video }: Props) => (

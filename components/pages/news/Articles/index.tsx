@@ -48,8 +48,8 @@ const Articles = ({ sidebarNavIsOpen }: ArticlesProps) => {
     }, [setPromoCardIndexes, feedLayout]);
 
     const { data, isFetching, hasNextPage, fetchNextPage } = useNewsContent({
-        filters: selectedSources,
-        query: newsSearch,
+        sources: selectedSources,
+        // query: newsSearch,
     });
     const contents = flatten(data?.pages ?? []);
 

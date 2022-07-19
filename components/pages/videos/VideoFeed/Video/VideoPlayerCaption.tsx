@@ -3,13 +3,13 @@
  */
 import { useRouter } from 'next/router';
 import React from 'react';
-import { Video } from 'rss-feed';
+import { IContent } from 'rss-feed';
 
 /*
  * Code
  */
 type Props = {
-    video: Video;
+    video: IContent;
 };
 
 const VideoPlayerCaption = ({ video }: Props) => {
@@ -22,7 +22,7 @@ const VideoPlayerCaption = ({ video }: Props) => {
     return (
         <div className="video-player-container">
             <button className="video-player" onClick={onVideoClick}>
-                <div className="react-player__preview" style={{ backgroundImage: `url(${video.thumbnail})` }}>
+                <div className="react-player__preview" style={{ backgroundImage: `url(${video.thumbnailUrl})` }}>
                     <div className="react-player__shadow">
                         <div className="react-player__play-icon" />
                     </div>

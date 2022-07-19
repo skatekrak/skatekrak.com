@@ -23,14 +23,14 @@ const magSlice = createSlice({
     name: 'mag',
     initialState,
     reducers: {
-        toggleCategory: (state, action: PayloadAction<Source>) => {
-            const index = state.selectedCategories.indexOf(action.payload.id);
+        toggleCategory: (state, action: PayloadAction<string>) => {
+            const index = state.selectedCategories.indexOf(action.payload);
 
             return {
                 ...state,
                 selectedCategories:
                     index === -1
-                        ? push(state.selectedCategories, action.payload.id)
+                        ? push(state.selectedCategories, action.payload)
                         : remove(state.selectedCategories, index),
             };
         },

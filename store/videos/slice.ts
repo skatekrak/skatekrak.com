@@ -3,7 +3,7 @@ import { push, remove } from 'lib/immutable';
 import { Source } from 'rss-feed';
 
 export type VideosState = {
-    selectSources: string[];
+    selectSources: number[];
     search: string;
 };
 
@@ -16,13 +16,13 @@ const videosSlice = createSlice({
     name: 'videos',
     initialState,
     reducers: {
-        toggleVideosSource: (state, action: PayloadAction<Source>) => {
-            const index = state.selectSources.indexOf(action.payload.id);
+        toggleVideosSource: (state, action: PayloadAction<number>) => {
+            const index = state.selectSources.indexOf(action.payload);
 
             return {
                 ...state,
                 selectSources:
-                    index === -1 ? push(state.selectSources, action.payload.id) : remove(state.selectSources, index),
+                    index === -1 ? push(state.selectSources, action.payload) : remove(state.selectSources, index),
             };
         },
         selectVideosSources: (state, action: PayloadAction<Source[]>) => {

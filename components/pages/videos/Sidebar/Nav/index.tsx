@@ -26,7 +26,7 @@ const Sources = ({ navIsOpen, handleOpenSourcesMenu }: SourcesProps) => {
     const selectedSources = useSelector((state: RootState) => state.video.selectSources);
     const query = useSelector((state: RootState) => state.video.search);
 
-    const { isFetching } = useVideos({ filters: selectedSources, query });
+    const { isFetching } = useVideos({ sources: selectedSources, query });
 
     const onSelectAllClick = () => {
         if (sources.length > 0) {
@@ -49,11 +49,11 @@ const Sources = ({ navIsOpen, handleOpenSourcesMenu }: SourcesProps) => {
         return (sources ?? []).length;
     }, [sources, selectedSources]);
 
-    const isActive = (source: Source): boolean => {
+    const isActive = (id: number): boolean => {
         if (selectedSources.length <= 0) {
             return true;
         }
-        return selectedSources.indexOf(source.id) !== -1;
+        return selectedSources.indexOf(id) !== -1;
     };
 
     const toggleLanguage = (language: Language) => {
@@ -61,8 +61,8 @@ const Sources = ({ navIsOpen, handleOpenSourcesMenu }: SourcesProps) => {
         dispatch(selectVideosSources(sourcesToSelect));
     };
 
-    const toggleSource = (source: Source) => {
-        dispatch(toggleVideosSource(source));
+    const toggleSource = (id: number) => {
+        dispatch(toggleVideosSource(id));
     };
 
     const onQueryChange = (value: string) => {
@@ -80,7 +80,7 @@ const Sources = ({ navIsOpen, handleOpenSourcesMenu }: SourcesProps) => {
                         {!navIsOpen ? 'Filters' : 'Close'}
                     </button>
                 </div>
-                <SearchBar value={query} onValueChange={onQueryChange} />
+                {/* <SearchBar value={query} onValueChange={onQueryChange} /> */}
             </div>
             <div
                 className={classNames('feed-sidebar-nav-main', {
@@ -114,8 +114,10 @@ const Sources = ({ navIsOpen, handleOpenSourcesMenu }: SourcesProps) => {
                             sources.map((source) => (
                                 <SourceOption
                                     key={source.id}
-                                    source={source}
-                                    isActive={isActive(source)}
+                                    id={source.id}
+                                    title={source.shortTitle}
+                                    iconUrl={source.iconUrl}
+                                    isActive={isActive(source.id)}
                                     loading={isFetching}
                                     toggle={toggleSource}
                                 />

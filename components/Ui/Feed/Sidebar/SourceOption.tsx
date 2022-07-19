@@ -3,48 +3,45 @@ import React from 'react';
 
 import { SpinnerCircle } from 'components/Ui/Icons/Spinners';
 import Analytics from 'lib/analytics';
-import { Source } from 'rss-feed';
 
 type SourceOptionProps = {
-    source: Source;
+    id: number | string;
+    title: string;
+    iconUrl?: string;
     isActive: boolean;
     loading: boolean;
-    toggle: (source: Source) => void;
+    toggle: (id: number | string) => void;
 };
 
-const SourceOption = ({ source, loading, isActive, toggle }: SourceOptionProps) => {
+const SourceOption = ({ id, title, iconUrl, loading, isActive, toggle }: SourceOptionProps) => {
     const handleSourceOptionClick = () => {
         if (isActive) {
-            Analytics.trackEvent('Click', 'Filter_Unselect', { name: source.label, value: 1 });
+            Analytics.trackEvent('Click', 'Filter_Unselect', { name: title, value: 1 });
         } else {
-            Analytics.trackEvent('Click', 'Filter_Select', { name: source.label, value: 1 });
+            Analytics.trackEvent('Click', 'Filter_Select', { name: title, value: 1 });
         }
-        toggle(source);
+        toggle(id);
     };
 
     return (
         <li
             className={classNames('feed-sidebar-nav-option', {
-                'feed-sidebar-nav-option-without-logo': source.iconUrl == null,
+                'feed-sidebar-nav-option-without-logo': iconUrl == null,
                 'feed-sidebar-nav-option--active': isActive,
             })}
         >
-            <label
-                htmlFor={`input-${source.id}`}
-                className="feed-sidebar-nav-option-label"
-                onClick={handleSourceOptionClick}
-            >
-                {source.iconUrl && (
+            <label htmlFor={`input-${id}`} className="feed-sidebar-nav-option-label" onClick={handleSourceOptionClick}>
+                {iconUrl && (
                     <span className="feed-sidebar-nav-option-logo-container">
                         {isActive && loading ? (
                             <SpinnerCircle />
                         ) : (
-                            <img src={source.iconUrl} alt="" className="feed-sidebar-nav-option-logo" />
+                            <img src={iconUrl} alt="" className="feed-sidebar-nav-option-logo" />
                         )}
                     </span>
                 )}
-                <span className="feed-sidebar-nav-option-name">{source.label}</span>
-                {!source.iconUrl && isActive && loading && <SpinnerCircle />}
+                <span className="feed-sidebar-nav-option-name">{title}</span>
+                {iconUrl && isActive && loading && <SpinnerCircle />}
             </label>
         </li>
     );

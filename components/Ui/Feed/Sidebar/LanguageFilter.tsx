@@ -12,7 +12,7 @@ const LanguageFilter = ({ language, toggle }: LanguageFilterProps) => {
         <li className="feed-sidebar-nav-main-controls-languages-item-container">
             <button className="feed-sidebar-nav-main-controls-languages-item" onClick={() => toggle(language)}>
                 <img
-                    src={language.image}
+                    src={language.imageUrl}
                     alt={language.isoCode}
                     className="feed-sidebar-nav-main-controls-languages-item-flag"
                 />
