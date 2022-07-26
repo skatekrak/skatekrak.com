@@ -37,13 +37,6 @@ const Sources = ({ navIsOpen, handleOpenSourcesMenu }: NewsSourcesProps) => {
         dispatch(resetNews());
     };
 
-    const onDeselectAllClick = () => {
-        if (sources.length > 0) {
-            Analytics.trackEvent('Click', 'Filter_Unselect_All', { value: 1 });
-        }
-        dispatch(resetNews());
-    };
-
     const isActive = (id: number): boolean => {
         if (selectedSources.length <= 0) {
             return true;
@@ -99,9 +92,6 @@ const Sources = ({ navIsOpen, handleOpenSourcesMenu }: NewsSourcesProps) => {
                     <div className="feed-sidebar-nav-main-controls-select">
                         <button className="feed-sidebar-nav-main-controls-select-item" onClick={onSelectAllClick}>
                             Select all
-                        </button>
-                        <button className="feed-sidebar-nav-main-controls-select-item" onClick={onDeselectAllClick}>
-                            Deselect all
                         </button>
                     </div>
                 </div>

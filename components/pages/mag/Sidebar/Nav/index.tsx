@@ -48,13 +48,6 @@ const Nav = ({ sidebarNavIsOpen, handleOpenSidebarNav }: NavProps) => {
         dispatch(resetCategories());
     };
 
-    const onDeselectAllClick = () => {
-        if (categories.length > 0) {
-            Analytics.trackEvent('Click', 'Filter_Unselect_All');
-        }
-        dispatch(resetCategories());
-    };
-
     const isActive = (id: string): boolean => {
         if (sources.length <= 0) {
             return true;
@@ -87,9 +80,6 @@ const Nav = ({ sidebarNavIsOpen, handleOpenSidebarNav }: NavProps) => {
                     <div className="feed-sidebar-nav-main-controls-select">
                         <button className="feed-sidebar-nav-main-controls-select-item" onClick={onSelectAllClick}>
                             Select all
-                        </button>
-                        <button className="feed-sidebar-nav-main-controls-select-item" onClick={onDeselectAllClick}>
-                            Deselect all
                         </button>
                     </div>
                 </div>

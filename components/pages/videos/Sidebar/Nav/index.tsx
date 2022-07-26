@@ -35,13 +35,6 @@ const Sources = ({ navIsOpen, handleOpenSourcesMenu }: SourcesProps) => {
         dispatch(resetVideos());
     };
 
-    const onDeselectAllClick = () => {
-        if (sources.length > 0) {
-            Analytics.trackEvent('Click', 'Filter_Unselect_All', { value: 1 });
-        }
-        dispatch(resetVideos());
-    };
-
     const length = useMemo(() => {
         if (selectedSources.length > 0) {
             return selectedSources.length;
@@ -97,9 +90,6 @@ const Sources = ({ navIsOpen, handleOpenSourcesMenu }: SourcesProps) => {
                     <div className="feed-sidebar-nav-main-controls-select">
                         <button className="feed-sidebar-nav-main-controls-select-item" onClick={onSelectAllClick}>
                             Select all
-                        </button>
-                        <button className="feed-sidebar-nav-main-controls-select-item" onClick={onDeselectAllClick}>
-                            Deselect all
                         </button>
                     </div>
                 </div>
