@@ -1,7 +1,6 @@
 import React from 'react';
-import { FacebookIcon, FacebookShareButton, TwitterIcon, TwitterShareButton } from 'react-share';
 
-import ClipboardButton from 'components/Ui/Button/ClipboardButton';
+import SocialShare from 'components/Ui/share/SocialShare';
 import { IContent } from 'rss-feed';
 
 type Props = {
@@ -14,16 +13,11 @@ class VideoCardShare extends React.PureComponent<Props> {
 
         return (
             <div className="video-card-share">
-                <FacebookShareButton
+                <SocialShare
                     url={this.getVideoPopupUrl(video)}
-                    quote={`${video.title} shared via skatekrak.com`}
-                >
-                    <FacebookIcon size={24} round />
-                </FacebookShareButton>
-                <TwitterShareButton url={this.getVideoPopupUrl(video)} title={video.title} via="skatekrak">
-                    <TwitterIcon size={24} round />
-                </TwitterShareButton>
-                <ClipboardButton value={this.getVideoPopupUrl(video)} />
+                    facebookQuote={`${video.title} shared via skatekrak.com`}
+                    twitterTitle={video.title}
+                />
             </div>
         );
     }

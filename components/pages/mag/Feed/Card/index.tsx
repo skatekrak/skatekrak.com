@@ -1,12 +1,10 @@
-import { format, parseISO } from 'date-fns';
 import Link from 'next/link';
 import React from 'react';
-import { FacebookIcon, FacebookShareButton, TwitterIcon, TwitterShareButton } from 'react-share';
 
 import createMarkup from 'lib/createMarkup';
 import decodeHTML from 'lib/decodeHTML';
 
-import ClipboardButton from 'components/Ui/Button/ClipboardButton';
+import SocialShare from 'components/Ui/share/SocialShare';
 import { SlicePost } from 'store/mag/slice';
 
 type Props = {
@@ -34,16 +32,11 @@ const Card = ({ post }: Props) => {
                 </a>
             </Link>
             <div className="mag-card-share">
-                <FacebookShareButton
+                <SocialShare
                     url={`${baseURL}/mag/${post.slug}`}
-                    quote={`${decodeHTML(post.title)} - shared via skatekrak.com`}
-                >
-                    <FacebookIcon size={24} round />
-                </FacebookShareButton>
-                <TwitterShareButton url={`${baseURL}/mag/${post.slug}`} title={decodeHTML(post.title)} via="skatekrak">
-                    <TwitterIcon size={24} round />
-                </TwitterShareButton>
-                <ClipboardButton value={`${baseURL}/mag/${post.slug}`} />
+                    facebookQuote={`${decodeHTML(post.title)} - shared via skatekrak.com`}
+                    twitterTitle={decodeHTML(post.title)}
+                />
             </div>
             <div className="mag-card-details">
                 <p className="mag-card-details-category">{post.categories.join(', ')}</p>
