@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import ReactPlayer from 'react-player';
 
+import SocialShare from 'components/Ui/share/SocialShare';
 import VideoPlayer from 'components/Ui/Player/VideoPlayer';
 import MapFullSpotMediaOverlay from './MapFullSpotMediaOverlay';
 import * as S from 'components/pages/map/MapFullSpot/MapFullSpotMain/MapFullSpotMain.styled';
@@ -9,12 +10,14 @@ import * as S from 'components/pages/map/MapFullSpot/MapFullSpotMain/MapFullSpot
 import { RootState } from 'store';
 import { setVideoPlaying } from 'store/map/slice';
 import { Media } from 'lib/carrelageClient';
+import MapFullSpotMediaShare from './MapFullSpotMediaShare';
 
 export type MapFullSpotVideoProps = {
+    spotId: string;
     media: Media;
 };
 
-const MapFullSpotVideo: React.FC<MapFullSpotVideoProps> = ({ media }) => {
+const MapFullSpotVideo: React.FC<MapFullSpotVideoProps> = ({ spotId, media }) => {
     const dispatch = useDispatch();
     const videoPlayingId = useSelector((state: RootState) => state.map.videoPlayingId);
     const isPlaying = useMemo(() => videoPlayingId === media.id, [videoPlayingId, media.id]);
@@ -31,7 +34,8 @@ const MapFullSpotVideo: React.FC<MapFullSpotVideoProps> = ({ media }) => {
     }, [isPlaying]);
 
     return (
-        <S.MapFullSpotMainMediaContainer key={media.id}>
+        <S.MapFullSpotMainMediaContainerVideo key={media.id}>
+            <MapFullSpotMediaShare spotId={spotId} media={media} />
             {media.video && (
                 <VideoPlayer
                     ref={playerRef}
@@ -48,7 +52,7 @@ const MapFullSpotVideo: React.FC<MapFullSpotVideoProps> = ({ media }) => {
                 />
             )}
             {!isPlaying && <MapFullSpotMediaOverlay media={media} />}
-        </S.MapFullSpotMainMediaContainer>
+        </S.MapFullSpotMainMediaContainerVideo>
     );
 };
 

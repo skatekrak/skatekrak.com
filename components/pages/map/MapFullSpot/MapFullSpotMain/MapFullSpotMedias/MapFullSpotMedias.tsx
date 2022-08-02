@@ -48,9 +48,9 @@ const MapFullSpotMedias: React.FC<MapFullSpotMediasProps> = ({ medias: firstMedi
                     <KrakMasonry breakpointCols={isMobile ? 1 : 2}>
                         {medias.map((media) => {
                             if (media.type === 'video') {
-                                return <MapFullSpotVideo key={media.id} media={media} />;
+                                return <MapFullSpotVideo key={media.id} spotId={spot.id} media={media} />;
                             }
-                            return <MapFullSpotPhoto key={media.id} media={media} />;
+                            return <MapFullSpotPhoto key={media.id} spotId={spot.id} media={media} />;
                         })}
                     </KrakMasonry>
                     {isFetching && <KrakLoading />}

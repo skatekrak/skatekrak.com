@@ -106,13 +106,25 @@ export const MapFullSpotMainMediaOverlay = styled.div`
     z-index: 1;
 `;
 
-export const MapFullSpotMainMediaContainer = styled.div`
+export const MapFullSpotMainMediaShare = styled.div`
+    position: absolute;
+    top: 0.5rem;
+    left: 0.75rem;
+    display: none;
+    z-index: 10;
+`;
+
+export const MapFullSpotMainMediaContainerVideo = styled.div`
     position: relative;
     overflow: hidden;
 
     &:hover {
         ${MapFullSpotMainMediaOverlay} {
             display: block;
+        }
+
+        ${MapFullSpotMainMediaShare} {
+            display: flex;
         }
     }
 
@@ -132,6 +144,10 @@ export const MapFullSpotMainMediaContainerPhoto = styled.div`
     &:hover {
         ${MapFullSpotMainMediaOverlay} {
             display: block;
+        }
+
+        ${MapFullSpotMainMediaShare} {
+            display: flex;
         }
     }
 
