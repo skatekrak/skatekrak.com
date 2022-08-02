@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { useRouter } from 'next/router';
 import InfiniteScroll from 'react-infinite-scroller';
 
 import ScrollBar from 'components/Ui/Scrollbar';
@@ -13,6 +14,7 @@ import { Spot, Media } from 'lib/carrelageClient';
 import useSpotMedias from 'lib/hook/carrelage/spot-medias';
 import { flatten } from 'lib/helpers';
 import { RootState } from 'store';
+import MapFullSpotSingleMediaPreview from '../MapFullSpotSingleMediaPreview';
 
 export type MapFullSpotMediasProps = {
     medias: Media[];
@@ -30,32 +32,39 @@ const MapFullSpotMedias: React.FC<MapFullSpotMediasProps> = ({ medias: firstMedi
         return wrappers[wrappers.length - 1] as HTMLElement;
     };
 
+    const router = useRouter();
+    const mediaParam = router.query.media as string;
+
     return (
         <ScrollBar maxHeight="100%">
-            <InfiniteScroll
-                pageStart={1}
-                initialLoad={true}
-                loadMore={() => {
-                    if (hasNextPage) {
-                        fetchNextPage();
-                    }
-                }}
-                hasMore={hasNextPage && !isFetching}
-                getScrollParent={getScrollParent}
-                useWindow={false}
-            >
-                <S.MapFullSpotMainMediaGridContainer>
-                    <KrakMasonry breakpointCols={isMobile ? 1 : 2}>
-                        {medias.map((media) => {
-                            if (media.type === 'video') {
-                                return <MapFullSpotVideo key={media.id} spotId={spot.id} media={media} />;
-                            }
-                            return <MapFullSpotPhoto key={media.id} spotId={spot.id} media={media} />;
-                        })}
-                    </KrakMasonry>
-                    {isFetching && <KrakLoading />}
-                </S.MapFullSpotMainMediaGridContainer>
-            </InfiniteScroll>
+            {mediaParam ? (
+                <MapFullSpotSingleMediaPreview mediaId={mediaParam} />
+            ) : (
+                <InfiniteScroll
+                    pageStart={1}
+                    initialLoad={true}
+                    loadMore={() => {
+                        if (hasNextPage) {
+                            fetchNextPage();
+                        }
+                    }}
+                    hasMore={hasNextPage && !isFetching}
+                    getScrollParent={getScrollParent}
+                    useWindow={false}
+                >
+                    <S.MapFullSpotMainMediaGridContainer>
+                        <KrakMasonry breakpointCols={isMobile ? 1 : 2}>
+                            {medias.map((media) => {
+                                if (media.type === 'video') {
+                                    return <MapFullSpotVideo key={media.id} spotId={spot.id} media={media} />;
+                                }
+                                return <MapFullSpotPhoto key={media.id} spotId={spot.id} media={media} />;
+                            })}
+                        </KrakMasonry>
+                        {isFetching && <KrakLoading />}
+                    </S.MapFullSpotMainMediaGridContainer>
+                </InfiniteScroll>
+            )}
         </ScrollBar>
     );
 };
