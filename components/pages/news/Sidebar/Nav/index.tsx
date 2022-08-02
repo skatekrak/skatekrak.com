@@ -9,7 +9,7 @@ import Analytics from 'lib/analytics';
 import { RootState } from 'store';
 import useNewsSources from 'lib/hook/news/sources';
 import useNewsLanguages from 'lib/hook/news/languages';
-import { resetNews, selectNewsSources, setNewsSearch, toggleNewsSource } from 'store/news/slice';
+import { resetNews, selectNewsSources, toggleNewsSource } from 'store/news/slice';
 import { Language } from 'rss-feed';
 import useNewsContent from 'lib/hook/news/contents';
 
