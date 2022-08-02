@@ -1,13 +1,9 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
 
 import ArrowHead from 'components/Ui/Icons/ArrowHead';
 import Typography from 'components/Ui/typography/Typography';
 import * as S from './MapFullSpotSingleMediaPreview.styled';
 import VideoPlayer from 'components/Ui/Player/VideoPlayer';
-
-import { FullSpotTab, selectFullSpotTab } from 'store/map/slice';
-import { useRouter } from 'next/router';
 
 type Props = {
     mediaId: string;
