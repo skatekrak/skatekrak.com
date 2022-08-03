@@ -35,9 +35,10 @@ const MapFullSpotMedias: React.FC<MapFullSpotMediasProps> = ({ medias: firstMedi
 
     const router = useRouter();
     useEffect(() => {
-        console.log(router.query, typeof router.query.media === 'string', router.query.media != null);
         if (router.query.media != null && typeof router.query.media === 'string') {
             setMediaID(router.query.media);
+        } else {
+            setMediaID(null);
         }
     }, [router.query]);
 
