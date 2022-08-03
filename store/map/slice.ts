@@ -25,6 +25,8 @@ export type MapState = {
     viewport: Partial<ViewState & { width: number; height: number }>;
     fullSpotSelectedTab: FullSpotTab;
     selectSpot?: string;
+    /// ID of the media in full in spot modal
+    media?: string;
     modalVisible: boolean;
     legendOpen: boolean;
     searchResultOpen: boolean;
@@ -214,40 +216,59 @@ const mapSlice = createSlice({
         updateUrlParams: {
             reducer: (
                 state,
-                action: PayloadAction<{ spotId?: string | null; modal?: boolean; customMapId?: string | null }>,
+                action: PayloadAction<{
+                    spotId?: string | null;
+                    modal?: boolean;
+                    customMapId?: string | null;
+                    mediaId?: string | null;
+                }>,
             ) => {
                 console.log('payload', action.payload);
                 const spotId = extractData(state.selectSpot, action.payload.spotId);
                 const modal = extractData(state.modalVisible, action.payload.modal);
                 const customMapId = extractData(state.customMapId, action.payload.customMapId);
+                const mediaId = extractData(state.media, action.payload.mediaId);
 
-                console.log('new payload', { spotId, modal, customMapId });
+                console.log('new payload', { spotId, modal, customMapId, mediaId });
 
                 return {
                     ...state,
                     selectSpot: spotId,
                     modalVisible: modal,
                     customMapId: customMapId,
+                    media: mediaId,
                 };
             },
             prepare: ({
                 spotId,
                 modal,
                 customMapId,
+                mediaId,
             }: {
                 spotId?: string | null;
                 modal?: boolean;
                 customMapId?: string | null;
-            }) => ({
-                payload: { spotId, modal, customMapId },
-                meta: {
-                    pushToUrl: {
-                        spot: spotId,
-                        modal: modal ? '1' : null,
-                        id: customMapId,
+                mediaId?: string | null;
+            }) => {
+                let newModalUrl = undefined;
+                if (newModalUrl === null || newModalUrl === false) {
+                    newModalUrl = null;
+                } else if (newModalUrl === true) {
+                    newModalUrl = '1';
+                }
+
+                return {
+                    payload: { spotId, modal, customMapId, mediaId },
+                    meta: {
+                        pushToUrl: {
+                            spot: spotId,
+                            modal: newModalUrl,
+                            id: customMapId,
+                            media: mediaId,
+                        },
                     },
-                },
-            }),
+                };
+            },
         },
         toggleCreateSpot: (state) => {
             state.isCreateSpotOpen = !state.isCreateSpotOpen;

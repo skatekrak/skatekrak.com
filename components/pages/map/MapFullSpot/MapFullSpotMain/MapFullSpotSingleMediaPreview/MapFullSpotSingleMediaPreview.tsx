@@ -4,12 +4,20 @@ import ArrowHead from 'components/Ui/Icons/ArrowHead';
 import Typography from 'components/Ui/typography/Typography';
 import * as S from './MapFullSpotSingleMediaPreview.styled';
 import VideoPlayer from 'components/Ui/Player/VideoPlayer';
+import { useAppDispatch } from 'store/hook';
+import { updateUrlParams } from 'store/map/slice';
 
 type Props = {
     mediaId: string;
 };
 
 const MapFullSpotSingleMediaPreview = ({ mediaId }: Props) => {
+    const dispatch = useAppDispatch();
+
+    const goBackToMediaGallery = () => {
+        dispatch(updateUrlParams({ mediaId: null }));
+    };
+
     const fakeImage = {
         id: mediaId,
         url: 'https://www.evo-spirit.com/wp-content/uploads/2021/02/Quel-skate-electrique-choisir-Guide-Evo-spiri-tout-terrain-longboard-street-cross-scaled.jpg',
@@ -34,7 +42,7 @@ const MapFullSpotSingleMediaPreview = ({ mediaId }: Props) => {
     return (
         <S.MapFullSpotSingleMediaPreview>
             <S.MapFullSpotSingleMediaNav>
-                <S.MapFullSpotSingleMediaNavBackButton onClick={null}>
+                <S.MapFullSpotSingleMediaNavBackButton onClick={goBackToMediaGallery}>
                     <ArrowHead />
                     <Typography>Media Gallery</Typography>
                 </S.MapFullSpotSingleMediaNavBackButton>
