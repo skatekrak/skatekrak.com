@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 import InfiniteScroll from 'react-infinite-scroller';
@@ -23,6 +23,7 @@ export type MapFullSpotMediasProps = {
 
 const MapFullSpotMedias: React.FC<MapFullSpotMediasProps> = ({ medias: firstMedias, spot }) => {
     const isMobile = useSelector((state: RootState) => state.settings.isMobile);
+    const [mediaID, setMediaID] = useState<string | null>(null);
 
     const { isFetching, data, hasNextPage, fetchNextPage } = useSpotMedias(spot.id, firstMedias);
     const medias = flatten(data?.pages ?? []);
@@ -33,17 +34,17 @@ const MapFullSpotMedias: React.FC<MapFullSpotMediasProps> = ({ medias: firstMedi
     };
 
     const router = useRouter();
-    let mediaParam: string | null = null;
     useEffect(() => {
+        console.log(router.query, typeof router.query.media === 'string', router.query.media != null);
         if (router.query.media != null && typeof router.query.media === 'string') {
-            mediaParam = router.query.media;
+            setMediaID(router.query.media);
         }
-    }, [router.query.media]);
+    }, [router.query]);
 
     return (
         <ScrollBar maxHeight="100%">
-            {mediaParam ? (
-                <MapFullSpotSingleMediaPreview mediaId={mediaParam} />
+            {mediaID ? (
+                <MapFullSpotSingleMediaPreview mediaId={mediaID} />
             ) : (
                 <InfiniteScroll
                     pageStart={1}
