@@ -24,6 +24,7 @@ const MapQuickAccessMobileCustomItem: React.FC<Props> = ({ map, closeSheet }) =>
                 spotId: null,
                 modal: false,
                 customMapId: map.id,
+                mediaId: null,
             }),
         );
     };

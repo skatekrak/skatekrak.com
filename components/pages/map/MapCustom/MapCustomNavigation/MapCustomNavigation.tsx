@@ -34,6 +34,7 @@ const MapCustomNavigation = ({ id, title, about, subtitle, spots, videos }: MapC
                 customMapId: null,
                 modal: false,
                 spotId: null,
+                mediaId: null,
             }),
         );
     };

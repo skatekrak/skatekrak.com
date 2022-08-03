@@ -218,7 +218,7 @@ const mapSlice = createSlice({
                 state,
                 action: PayloadAction<{
                     spotId?: string | null;
-                    modal?: boolean;
+                    modal?: boolean | null;
                     customMapId?: string | null;
                     mediaId?: string | null;
                 }>,
@@ -246,14 +246,15 @@ const mapSlice = createSlice({
                 mediaId,
             }: {
                 spotId?: string | null;
-                modal?: boolean;
+                modal?: boolean | null;
                 customMapId?: string | null;
                 mediaId?: string | null;
             }) => {
                 let newModalUrl = undefined;
-                if (newModalUrl === null || newModalUrl === false) {
+                if (modal === null || modal === false) {
+                    console.log('modal will be removed from url');
                     newModalUrl = null;
-                } else if (newModalUrl === true) {
+                } else if (modal === true) {
                     newModalUrl = '1';
                 }
 

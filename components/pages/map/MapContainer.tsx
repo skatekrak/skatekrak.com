@@ -75,6 +75,7 @@ const MapContainer = () => {
                 updateUrlParams({
                     spotId: null,
                     modal: null,
+                    mediaId: null,
                 }),
             );
             dispatch(toggleCreateSpot());
@@ -145,7 +146,7 @@ const MapContainer = () => {
     );
 
     const onFullSpotClose = () => {
-        dispatch(updateUrlParams({ modal: false }));
+        dispatch(updateUrlParams({ modal: false, mediaId: null }));
     };
 
     useEffect(() => {

@@ -32,6 +32,7 @@ const MapQuickAccessDesktopCustom = ({ map }: Props) => {
                 spotId: null,
                 modal: false,
                 customMapId: map.id,
+                mediaId: null,
             }),
         );
     };
