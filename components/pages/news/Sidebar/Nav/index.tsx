@@ -3,15 +3,14 @@ import React, { useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import LanguageFilter from 'components/Ui/Feed/Sidebar/LanguageFilter';
-import SearchBar from 'components/Ui/Feed/Sidebar/SearchBar';
 import SourceOption from 'components/Ui/Feed/Sidebar/SourceOption';
 import { SpinnerCircle } from 'components/Ui/Icons/Spinners';
 import Analytics from 'lib/analytics';
 import { RootState } from 'store';
 import useNewsSources from 'lib/hook/news/sources';
 import useNewsLanguages from 'lib/hook/news/languages';
-import { resetNews, selectNewsSources, setNewsSearch, toggleNewsSource } from 'store/news/slice';
-import { Language, Source } from 'rss-feed';
+import { resetNews, selectNewsSources, toggleNewsSource } from 'store/news/slice';
+import { Language } from 'rss-feed';
 import useNewsContent from 'lib/hook/news/contents';
 
 type NewsSourcesProps = {
@@ -33,13 +32,6 @@ const Sources = ({ navIsOpen, handleOpenSourcesMenu }: NewsSourcesProps) => {
     const onSelectAllClick = () => {
         if (sources.length > 0) {
             Analytics.trackEvent('Click', 'Filter_Select_All', { value: 1 });
-        }
-        dispatch(resetNews());
-    };
-
-    const onDeselectAllClick = () => {
-        if (sources.length > 0) {
-            Analytics.trackEvent('Click', 'Filter_Unselect_All', { value: 1 });
         }
         dispatch(resetNews());
     };
@@ -67,10 +59,6 @@ const Sources = ({ navIsOpen, handleOpenSourcesMenu }: NewsSourcesProps) => {
         dispatch(toggleNewsSource(id));
     };
 
-    const onQueryChange = (value: string) => {
-        dispatch(setNewsSearch(value));
-    };
-
     return (
         <>
             <div className="feed-sidebar-nav-container">
@@ -82,7 +70,6 @@ const Sources = ({ navIsOpen, handleOpenSourcesMenu }: NewsSourcesProps) => {
                         {!navIsOpen ? 'Filters' : 'Close'}
                     </button>
                 </div>
-                {/* <SearchBar value={query} onValueChange={onQueryChange} /> */}
             </div>
             <div
                 className={classNames('feed-sidebar-nav-main', {
@@ -99,9 +86,6 @@ const Sources = ({ navIsOpen, handleOpenSourcesMenu }: NewsSourcesProps) => {
                     <div className="feed-sidebar-nav-main-controls-select">
                         <button className="feed-sidebar-nav-main-controls-select-item" onClick={onSelectAllClick}>
                             Select all
-                        </button>
-                        <button className="feed-sidebar-nav-main-controls-select-item" onClick={onDeselectAllClick}>
-                            Deselect all
                         </button>
                     </div>
                 </div>

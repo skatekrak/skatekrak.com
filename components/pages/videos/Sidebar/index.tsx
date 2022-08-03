@@ -20,10 +20,6 @@ const Sidebar: React.SFC<Props> = ({ sidebarNavIsOpen, handleOpenSidebarNav }: P
                     [at least] <Emoji symbol="🐙" label="Kraken" /> <Emoji symbol="📺" label="television" />
                 </span>
             </h1>
-            <p className="feed-sidebar-header-text">
-                We love filming skateboarding. Period. We make things for skateboarders and with these products, our
-                community of riders is exploring the world out there.
-            </p>
             <YoutubeSubscribe />
         </div>
         <Nav navIsOpen={sidebarNavIsOpen} handleOpenSourcesMenu={handleOpenSidebarNav} />
