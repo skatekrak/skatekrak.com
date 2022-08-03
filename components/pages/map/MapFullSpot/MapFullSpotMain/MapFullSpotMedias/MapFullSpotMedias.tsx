@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 import InfiniteScroll from 'react-infinite-scroller';
@@ -33,7 +33,12 @@ const MapFullSpotMedias: React.FC<MapFullSpotMediasProps> = ({ medias: firstMedi
     };
 
     const router = useRouter();
-    const mediaParam = router.query.media as string;
+    let mediaParam: string | null = null;
+    useEffect(() => {
+        if (router.query.media != null && typeof router.query.media === 'string') {
+            mediaParam = router.query.media;
+        }
+    }, [router.query.media]);
 
     return (
         <ScrollBar maxHeight="100%">
