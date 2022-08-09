@@ -78,15 +78,19 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
     if (query.spot != null && typeof query.spot === 'string') {
         // const response = await axios.get<SpotOverview>(`${process.env.CARRELAGE_URL}spots/${query.spot}/overview`);
         // const overview = response.data;
-        const overview = await getSpotOverview(query.spot);
+        try {
+            const overview = await getSpotOverview(query.spot);
 
-        ogData = {
-            title: overview.spot.name,
-            description: `${overview.spot.location.streetNumber} ${overview.spot.location.streetName}, ${overview.spot.location.city} ${overview.spot.location.country}`,
-            imageUrl: `https://res.cloudinary.com/krak/image/upload/c_fill,w_1200,h_630/${overview.mostLikedMedia.image.publicId}.jpg`,
-            url: `${baseURL}?spot=${query.spot}`,
-        };
-        await queryClient.prefetchQuery<SpotOverview>(['load-overview', query.spot], () => overview);
+            ogData = {
+                title: overview.spot.name,
+                description: `${overview.spot.location.streetNumber} ${overview.spot.location.streetName}, ${overview.spot.location.city} ${overview.spot.location.country}`,
+                imageUrl: `https://res.cloudinary.com/krak/image/upload/c_fill,w_1200,h_630/${overview.mostLikedMedia.image.publicId}.jpg`,
+                url: `${baseURL}?spot=${query.spot}`,
+            };
+            await queryClient.prefetchQuery<SpotOverview>(['load-overview', query.spot], () => overview);
+        } catch (err) {
+            console.error(err);
+        }
     }
 
     return {
