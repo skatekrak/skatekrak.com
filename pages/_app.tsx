@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { AppProps } from 'next/app';
 import Bugsnag, { BrowserConfig } from '@bugsnag/js';
 import BugsnagPluginReact from '@bugsnag/plugin-react';
 import Head from 'next/head';
 import { ConnectedRouter } from 'connected-next-router';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { QueryClient, QueryClientProvider, Hydrate } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 import { wrapper } from 'store';
@@ -36,8 +36,6 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 
 import '/public/styles/masonry.css';
 
-const queryClient = new QueryClient();
-
 const config: BrowserConfig = {
     apiKey: process.env.NEXT_PUBLIC_BUGSNAG_KEY,
     plugins: [new BugsnagPluginReact()],
@@ -54,21 +52,27 @@ Bugsnag.start(config);
 
 const ErrorBoundary = Bugsnag.getPlugin('react').createErrorBoundary(React);
 
-const WrappedApp: React.FC<AppProps> = ({ Component, pageProps }) => (
-    <ErrorBoundary>
-        <QueryClientProvider client={queryClient}>
-            <Head>
-                <meta charSet="utf-8" />
-                <meta name="viewport" content="width=device-width, initial-scale=1" />
-            </Head>
-            <ConnectedRouter>
-                <ThemeStore>
-                    <Component {...pageProps} />
-                </ThemeStore>
-            </ConnectedRouter>
-            {process.env.NEXT_PUBLIC_STAGE === 'development' && <ReactQueryDevtools initialIsOpen={false} />}
-        </QueryClientProvider>
-    </ErrorBoundary>
-);
+const WrappedApp: React.FC<AppProps> = ({ Component, pageProps }) => {
+    const [queryClient] = useState(() => new QueryClient());
+
+    return (
+        <ErrorBoundary>
+            <QueryClientProvider client={queryClient}>
+                <Hydrate state={pageProps.dehydratedState}>
+                    <Head>
+                        <meta charSet="utf-8" />
+                        <meta name="viewport" content="width=device-width, initial-scale=1" />
+                    </Head>
+                    <ConnectedRouter>
+                        <ThemeStore>
+                            <Component {...pageProps} />
+                        </ThemeStore>
+                    </ConnectedRouter>
+                    {process.env.NEXT_PUBLIC_STAGE === 'development' && <ReactQueryDevtools initialIsOpen={false} />}
+                </Hydrate>
+            </QueryClientProvider>
+        </ErrorBoundary>
+    );
+};
 
 export default wrapper.withRedux(WrappedApp);
