@@ -7,7 +7,7 @@ import Layout from 'components/Layout';
 import TrackedPage from 'components/pages/TrackedPage';
 import { dehydrate, QueryClient } from '@tanstack/react-query';
 import { getSpotOverview } from 'lib/carrelageClient';
-import { SpotOverview } from 'shared/feudartifice/types';
+import { CloudinaryFile, SpotOverview } from 'shared/feudartifice/types';
 import Feudartifice from 'shared/feudartifice';
 import axios from 'axios';
 
@@ -15,7 +15,7 @@ const DyamicMapContainer = dynamic(() => import('components/pages/map/MapContain
 
 type OGData = {
     title: string;
-    imageUrl?: string;
+    image?: CloudinaryFile;
     description: string;
     url: string;
 };
@@ -38,8 +38,18 @@ const MapHead = ({ ogData }: MapHeadProps) => {
             />
             <meta property="og:type" content="website" />
             <meta property="og:url" content={ogData.url ?? baseURL} />
-            {ogData.imageUrl != null && <meta property="og:image" content={ogData.imageUrl} />}
-            <meta property="og:image" content={`${baseURL}/images/og-map.png`} />
+            <meta property="twitter:card" content="summarr_large_card" />
+            <meta property="twitter:site" content="@skatekrak" />
+            {ogData.image != null ? (
+                <>
+                    <meta property="og:image" content={ogData.image.jpg} />
+                    <meta property="og:image:width" content={String(ogData.image.width)} />
+                    <meta property="og:image:height" content={String(ogData.image.height)} />
+                    <meta property="og:image:type" content="image/jpeg" />
+                </>
+            ) : (
+                <meta property="og:image" content={`${baseURL}/images/og-map.png`} />
+            )}
             <meta
                 property="og:description"
                 content={ogData.description ?? 'Make more skateboarding happen in the world.'}
@@ -73,7 +83,7 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
         ogData = {
             title: overview.spot.name,
             description: `${overview.spot.location.streetNumber} ${overview.spot.location.streetName}, ${overview.spot.location.city} ${overview.spot.location.country}`,
-            imageUrl: overview.mostLikedMedia.image.jpg,
+            image: overview.mostLikedMedia.image,
             url: `${baseURL}?spot=${query.spot}`,
         };
         await queryClient.prefetchQuery<SpotOverview>(['load-overview', query.spot], () => overview);
