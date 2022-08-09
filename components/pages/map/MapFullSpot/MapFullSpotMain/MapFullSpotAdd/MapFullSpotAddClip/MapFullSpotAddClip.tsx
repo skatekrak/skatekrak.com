@@ -1,7 +1,7 @@
 import Bugsnag from '@bugsnag/js';
 import VideoPlayer from 'components/Ui/Player/VideoPlayer';
 import React, { FocusEventHandler, useState } from 'react';
-import { useQueryClient } from 'react-query';
+import { useQueryClient } from '@tanstack/react-query';
 import Feudartifice from 'shared/feudartifice';
 import { useVideoInformation } from 'shared/feudartifice/hooks/clips';
 import { useAppDispatch, useAppSelector } from 'store/hook';

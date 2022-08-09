@@ -1,5 +1,5 @@
 import carrelage from 'lib/carrelageClient';
-import { useInfiniteQuery } from 'react-query';
+import { useInfiniteQuery } from '@tanstack/react-query';
 import { Media } from 'lib/carrelageClient';
 import { AxiosError } from 'axios';
 

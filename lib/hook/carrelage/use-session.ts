@@ -1,7 +1,7 @@
 import to from 'await-to-js';
 import { AxiosError } from 'axios';
 import { useRouter } from 'next/router';
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 import Feudartifice from 'shared/feudartifice';
 import { SessionResponse } from 'shared/feudartifice/auth';
 import { CarrelageAPIError } from 'shared/feudartifice/types';

@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 
 import MapQuickAccessMobileCustomItem from './MapQuickAccessMobileCustomItem';
 import * as S from './MapQuickAccessMobileCustom.styled';
@@ -12,7 +12,7 @@ type Props = {
 };
 
 const MapQuickAccessMobileCustom: React.FC<Props> = ({ closeSheet }) => {
-    const { isLoading, data } = useQuery('custom-maps', () =>
+    const { isLoading, data } = useQuery(['custom-maps'], () =>
         axios.get<QuickAccessMap[]>('/api/custom-maps').then((res) => res.data),
     );
 

@@ -29,7 +29,7 @@ import { MAX_ZOOM_DISPLAY_SPOT } from './Map.constant';
 import MapCreateSpot from './MapCreateSpot';
 import useSession from 'lib/hook/carrelage/use-session';
 import { useRouter } from 'next/router';
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 import useDebounce from 'lib/hook/useDebounce';
 
 const DynamicMapComponent = dynamic(() => import('./MapComponent'), { ssr: false });

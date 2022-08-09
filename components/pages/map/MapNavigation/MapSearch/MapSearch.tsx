@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import useConstant from 'use-constant';
 import AwesomeDebouncePromise from 'awesome-debounce-promise';
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 

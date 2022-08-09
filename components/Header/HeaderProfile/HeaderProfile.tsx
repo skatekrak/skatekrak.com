@@ -7,7 +7,7 @@ import * as S from './HeaderProfile.styled';
 
 import useProfileMe from 'shared/feudartifice/hooks/use-profile-me';
 import { logout } from 'shared/feudartifice/auth';
-import { useQueryClient } from 'react-query';
+import { useQueryClient } from '@tanstack/react-query';
 
 const HeaderProfile = () => {
     const queryClient = useQueryClient();

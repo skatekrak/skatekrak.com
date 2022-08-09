@@ -1,6 +1,6 @@
 import Feudartifice from '..';
 import type { Spot } from '../types';
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 
 const { client } = Feudartifice;
 

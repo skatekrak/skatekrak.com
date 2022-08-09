@@ -7,7 +7,7 @@ import Feudartifice from 'shared/feudartifice';
 import to from 'await-to-js';
 import { useAppDispatch } from 'store/hook';
 import { selectSpot, toggleCreateSpot } from 'store/map/slice';
-import { useQueryClient } from 'react-query';
+import { useQueryClient } from '@tanstack/react-query';
 
 export type MapCreateSpotFormValues = {
     name: string;

@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { Layer, MapLayerMouseEvent, useMap } from 'react-map-gl';
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 import { Status, Types } from 'shared/feudartifice/types';
 import { useAppDispatch, useAppSelector } from 'store/hook';
 import { selectSpot } from 'store/map/slice';

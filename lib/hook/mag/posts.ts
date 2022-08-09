@@ -1,5 +1,5 @@
 import { intersection } from 'lodash-es';
-import { useInfiniteQuery } from 'react-query';
+import { useInfiniteQuery } from '@tanstack/react-query';
 import { useAppSelector } from 'store/hook';
 
 export type PostsFetchParam = {

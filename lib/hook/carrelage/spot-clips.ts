@@ -1,5 +1,5 @@
 import carrelage, { Clip } from 'lib/carrelageClient';
-import { useInfiniteQuery } from 'react-query';
+import { useInfiniteQuery } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 
 const fetchClips = async (spotId: string, cursor: any = new Date()) => {

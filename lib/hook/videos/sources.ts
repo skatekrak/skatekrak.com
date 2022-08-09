@@ -1,5 +1,5 @@
 import rssClient from 'lib/clients/rss';
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 import { Source } from 'rss-feed';
 
 const fetchSources = async () => {
@@ -13,7 +13,7 @@ const fetchSources = async () => {
 };
 
 const useVideosSources = () => {
-    return useQuery('fetch-videos-sources', fetchSources, {
+    return useQuery(['fetch-videos-sources'], fetchSources, {
         refetchOnWindowFocus: false,
         refetchOnMount: false,
         refetchOnReconnect: false,

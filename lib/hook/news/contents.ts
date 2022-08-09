@@ -2,7 +2,7 @@ import axios from 'axios';
 import { removeEmptyStringAndNull } from 'lib/helpers';
 
 import Content from 'models/Content';
-import { useInfiniteQuery } from 'react-query';
+import { useInfiniteQuery } from '@tanstack/react-query';
 import { IContent, Pagination } from 'rss-feed';
 
 export type FetchNewsParams = {

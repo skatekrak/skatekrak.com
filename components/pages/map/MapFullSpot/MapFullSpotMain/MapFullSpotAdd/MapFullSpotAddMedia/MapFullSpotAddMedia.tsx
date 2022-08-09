@@ -10,7 +10,7 @@ import Feudartifice from 'shared/feudartifice';
 import { useAppDispatch, useAppSelector } from 'store/hook';
 import Bugsnag from '@bugsnag/js';
 import { selectFullSpotTab } from 'store/map/slice';
-import { useQueryClient } from 'react-query';
+import { useQueryClient } from '@tanstack/react-query';
 
 type AddMediaFormValues = {
     file: FileWithPath | null;

@@ -7,7 +7,7 @@ import * as S from './MapCreateSpotLocation.styled';
 import * as SM from '../MapCreateSpot.styled';
 
 import { useField } from 'formik';
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 import Feudartifice from 'shared/feudartifice';
 
 type Props = {

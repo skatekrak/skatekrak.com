@@ -1,6 +1,6 @@
 import type { SearchOptions } from '@algolia/client-search';
 import type { RequestOptions } from '@algolia/transporter';
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 
 import type { SpotHit, SpotSearchResult } from '../algolia';
 import { spotIndex } from '../client';

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 import { Source } from 'rss-feed';
 
 const fetchNewsSources = async () => {
@@ -12,7 +12,7 @@ const fetchNewsSources = async () => {
 };
 
 const useNewsSources = () => {
-    return useQuery('news-sources', fetchNewsSources, {
+    return useQuery(['news-sources'], fetchNewsSources, {
         refetchOnWindowFocus: false,
     });
 };
