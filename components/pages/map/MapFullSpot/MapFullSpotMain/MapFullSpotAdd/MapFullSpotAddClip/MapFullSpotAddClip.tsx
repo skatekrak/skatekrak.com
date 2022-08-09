@@ -59,7 +59,7 @@ const MapFullSpotAddClip = () => {
                     Add clip
                 </S.MapFullSpotAddClipSubmit>
             </S.MapFullSpotAddClipInputRow>
-            {data !== null && data !== undefined && (
+            {data != null && (
                 <>
                     <S.MapFullSpotAddClipPreviewTitle component="heading6">
                         {data.title}
