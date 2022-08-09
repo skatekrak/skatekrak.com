@@ -79,9 +79,9 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
 
     if (query.spot != null && typeof query.spot === 'string') {
         try {
-            const response = await axios.get<SpotOverview>(`${process.env.CARRELAGE_URL}spots/${query.spot}/overview`);
-            const overview = response.data;
-            // const overview = await getSpotOverview(query.spot);
+            // const response = await axios.get<SpotOverview>(`${process.env.CARRELAGE_URL}spots/${query.spot}/overview`);
+            // const overview = response.data;
+            const overview = await getSpotOverview(query.spot);
 
             ogData = {
                 title: overview.spot.name,
