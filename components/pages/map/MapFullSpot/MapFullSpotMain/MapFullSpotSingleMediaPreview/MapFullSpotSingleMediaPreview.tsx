@@ -34,7 +34,9 @@ const MapFullSpotSingleMediaPreview = ({ mediaId }: Props) => {
                         </S.MapFullSpotSingleMediaNavBackButton>
                     </S.MapFullSpotSingleMediaNav>
                     <S.MapFullSpotSingleMediaContainer>
-                        {media.type === 'video' && <VideoPlayer url={media.video.url} loop controls />}
+                        {media.type === 'video' && (
+                            <VideoPlayer style={{ paddingTop: 'inherit' }} url={media.video.url} loop controls />
+                        )}
                         {media.type === 'image' && (
                             <S.MapFullSpotSingleMediaImage src={media.image.url} alt={media.caption} />
                         )}

@@ -1,7 +1,7 @@
 /*
  * Npm import
  */
-import React from 'react';
+import React, { CSSProperties } from 'react';
 import ReactPlayer, { ReactPlayerProps } from 'react-player';
 
 /*
@@ -18,12 +18,13 @@ type VideoPlayerProps = {
         width: number;
         height: number;
     };
+    style?: CSSProperties;
 } & Partial<ReactPlayerProps>;
 
-const VideoPlayer = React.forwardRef<ReactPlayer, VideoPlayerProps>(({ url, videoSize, ...props }, ref) => (
+const VideoPlayer = React.forwardRef<ReactPlayer, VideoPlayerProps>(({ url, videoSize, style, ...props }, ref) => (
     <div
         className="video-player-container"
-        style={videoSize ? { paddingTop: (videoSize.height / videoSize.width) * 100 + '%' } : {}}
+        style={{ ...(videoSize ? { paddingTop: (videoSize.height / videoSize.width) * 100 + '%' } : {}), ...style }}
     >
         <div className="video-player">
             <ReactPlayer
