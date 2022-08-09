@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 
 const { client } = Feudartifice;
 
-const fetchSpotOverview = async (id: string): Promise<SpotOverview> => {
+export const fetchSpotOverview = async (id: string): Promise<SpotOverview> => {
     const res = await client.get<SpotOverview>(`/spots/${id}/overview`);
     return res.data;
 };

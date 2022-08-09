@@ -1,15 +1,30 @@
-import { NextPage } from 'next';
+import { GetServerSideProps, GetStaticProps, NextPage } from 'next';
 import Head from 'next/head';
 import React from 'react';
 import dynamic from 'next/dynamic';
 
 import Layout from 'components/Layout';
 import TrackedPage from 'components/pages/TrackedPage';
+import { dehydrate, QueryClient } from '@tanstack/react-query';
+import { getSpotOverview } from 'lib/carrelageClient';
+import { SpotOverview } from 'shared/feudartifice/types';
+import Feudartifice from 'shared/feudartifice';
+import axios from 'axios';
 
 const DyamicMapContainer = dynamic(() => import('components/pages/map/MapContainer'), { ssr: false });
 
-const MapHead = () => {
-    const baseURL = process.env.NEXT_PUBLIC_WEBSITE_URL;
+type OGData = {
+    title: string;
+    imageUrl?: string;
+    description: string;
+    url: string;
+};
+
+const baseURL = process.env.NEXT_PUBLIC_WEBSITE_URL;
+type MapHeadProps = {
+    ogData?: OGData;
+};
+const MapHead = ({ ogData }: MapHeadProps) => {
     return (
         <Head>
             <title>Krak | skateboarding community and culture</title>
@@ -17,21 +32,59 @@ const MapHead = () => {
                 name="description"
                 content="The world's biggest collection of skate spots and skateboarding knowledge online."
             />
-            <meta property="og:title" content="Krak | skateboarding community and culture" />
+            <meta
+                property="og:title"
+                content={ogData.title != null ? `${ogData.title} | Krak` : 'Krak | skateboarding community and culture'}
+            />
             <meta property="og:type" content="website" />
-            <meta property="og:url" content={`${baseURL}`} />
+            <meta property="og:url" content={ogData.url ?? baseURL} />
+            {ogData.imageUrl != null && <meta property="og:image" content={ogData.imageUrl} />}
             <meta property="og:image" content={`${baseURL}/images/og-map.png`} />
-            <meta property="og:description" content="Make more skateboarding happen in the world." />
+            <meta
+                property="og:description"
+                content={ogData.description ?? 'Make more skateboarding happen in the world.'}
+            />
         </Head>
     );
 };
 
-const Index: NextPage = () => (
+type MapPageProps = {
+    ogData?: OGData;
+};
+
+const Index: NextPage<MapPageProps> = ({ ogData }) => (
     <TrackedPage name="Map">
-        <Layout head={<MapHead />}>
+        <Layout head={<MapHead ogData={ogData} />}>
             <DyamicMapContainer />
         </Layout>
     </TrackedPage>
 );
+
+export const getServerSideProps: GetServerSideProps = async ({ query }) => {
+    const queryClient = new QueryClient();
+
+    let ogData: OGData | undefined = undefined;
+
+    if (query.spot != null && typeof query.spot === 'string') {
+        // const response = await axios.get<SpotOverview>(`${process.env.CARRELAGE_URL}spots/${query.spot}/overview`);
+        // const overview = response.data;
+        const overview = await getSpotOverview(query.spot);
+
+        ogData = {
+            title: overview.spot.name,
+            description: `${overview.spot.location.streetNumber} ${overview.spot.location.streetName}, ${overview.spot.location.city} ${overview.spot.location.country}`,
+            imageUrl: overview.mostLikedMedia.image.jpg,
+            url: `${baseURL}?spot=${query.spot}`,
+        };
+        await queryClient.prefetchQuery<SpotOverview>(['load-overview', query.spot], () => overview);
+    }
+
+    return {
+        props: {
+            dehydratedState: dehydrate(queryClient),
+            ogData: ogData,
+        },
+    };
+};
 
 export default Index;
