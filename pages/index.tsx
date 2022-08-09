@@ -15,7 +15,7 @@ const DyamicMapContainer = dynamic(() => import('components/pages/map/MapContain
 
 type OGData = {
     title: string;
-    image?: CloudinaryFile;
+    imageUrl?: string;
     description: string;
     url: string;
 };
@@ -40,11 +40,11 @@ const MapHead = ({ ogData }: MapHeadProps) => {
             <meta property="og:url" content={ogData.url ?? baseURL} />
             <meta property="twitter:card" content="summarr_large_card" />
             <meta property="twitter:site" content="@skatekrak" />
-            {ogData.image != null ? (
+            {ogData.imageUrl != null ? (
                 <>
-                    <meta property="og:image" content={ogData.image.jpg} />
-                    <meta property="og:image:width" content={String(ogData.image.width)} />
-                    <meta property="og:image:height" content={String(ogData.image.height)} />
+                    <meta property="og:image" content={ogData.imageUrl} />
+                    <meta property="og:image:width" content="1200" />
+                    <meta property="og:image:height" content="630" />
                     <meta property="og:image:type" content="image/jpeg" />
                 </>
             ) : (
@@ -83,7 +83,7 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
         ogData = {
             title: overview.spot.name,
             description: `${overview.spot.location.streetNumber} ${overview.spot.location.streetName}, ${overview.spot.location.city} ${overview.spot.location.country}`,
-            image: overview.mostLikedMedia.image,
+            imageUrl: `https://res.cloudinary.com/krak/image/upload/c_fill,w_1200,h_630/${overview.mostLikedMedia.image.publicId}.jpg`,
             url: `${baseURL}?spot=${query.spot}`,
         };
         await queryClient.prefetchQuery<SpotOverview>(['load-overview', query.spot], () => overview);
