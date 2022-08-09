@@ -23,7 +23,7 @@ type VideoPlayerProps = {
 const VideoPlayer = React.forwardRef<ReactPlayer, VideoPlayerProps>(({ url, videoSize, ...props }, ref) => (
     <div
         className="video-player-container"
-        style={videoSize ? { paddingTop: (videoSize.height / videoSize.width) * 100 + '%' } : { paddingTop: 'inherit' }}
+        style={videoSize ? { paddingTop: (videoSize.height / videoSize.width) * 100 + '%' } : {}}
     >
         <div className="video-player">
             <ReactPlayer
