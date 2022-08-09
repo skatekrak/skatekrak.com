@@ -28,7 +28,6 @@ const SpotPinLayer = ({ type }: SpotPinLayerProps) => {
             }
         },
         {
-            refetchOnMount: false,
             refetchOnReconnect: false,
             refetchOnWindowFocus: false,
         },
