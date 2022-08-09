@@ -1,6 +1,5 @@
-import { useEffect } from 'react';
+import { memo, useEffect } from 'react';
 import { Layer, MapLayerMouseEvent, useMap } from 'react-map-gl';
-import { useQuery } from '@tanstack/react-query';
 import { Status, Types } from 'shared/feudartifice/types';
 import { useAppDispatch, useAppSelector } from 'store/hook';
 import { selectSpot } from 'store/map/slice';
@@ -15,23 +14,17 @@ const SpotPinLayer = ({ type }: SpotPinLayerProps) => {
     const isCreateSpotOpen = useAppSelector((state) => state.map.isCreateSpotOpen);
     const dispatch = useAppDispatch();
 
-    const { isLoading, isSuccess } = useQuery(
-        ['map-load-image', type, map],
-        async () => {
-            if (!map.hasImage(`/images/map/icons/${type}@2x.png`)) {
-                map.loadImage(`/images/map/icons/${type}@2x.png`, (error, image) => {
-                    if (error) {
-                        throw error;
-                    }
+    useEffect(() => {
+        if (!map.hasImage(`/images/map/icons/${type}@2x.png`)) {
+            map.loadImage(`/images/map/icons/${type}@2x.png`, (error, image) => {
+                if (error) {
+                    console.error(error);
+                } else {
                     map.addImage(`spot-${type}`, image);
-                });
-            }
-        },
-        {
-            refetchOnReconnect: false,
-            refetchOnWindowFocus: false,
-        },
-    );
+                }
+            });
+        }
+    }, [type]);
 
     useEffect(() => {
         const onMapLayerClick = (event: MapLayerMouseEvent) => {
@@ -46,10 +39,6 @@ const SpotPinLayer = ({ type }: SpotPinLayerProps) => {
             map.off('click', `spot-layer-${type}`, onMapLayerClick);
         };
     });
-
-    if (isLoading || !isSuccess) {
-        return <></>;
-    }
 
     return (
         <Layer
@@ -70,4 +59,4 @@ const SpotPinLayer = ({ type }: SpotPinLayerProps) => {
     );
 };
 
-export default SpotPinLayer;
+export default memo(SpotPinLayer);
