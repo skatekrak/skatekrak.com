@@ -22,7 +22,7 @@ type OGData = {
 
 const baseURL = process.env.NEXT_PUBLIC_WEBSITE_URL;
 type MapHeadProps = {
-    ogData?: OGData;
+    ogData: OGData | null;
 };
 const MapHead = ({ ogData }: MapHeadProps) => {
     return (
@@ -34,13 +34,15 @@ const MapHead = ({ ogData }: MapHeadProps) => {
             />
             <meta
                 property="og:title"
-                content={ogData.title != null ? `${ogData.title} | Krak` : 'Krak | skateboarding community and culture'}
+                content={
+                    ogData?.title != null ? `${ogData.title} | Krak` : 'Krak | skateboarding community and culture'
+                }
             />
             <meta property="og:type" content="website" />
-            <meta property="og:url" content={ogData.url ?? baseURL} />
+            <meta property="og:url" content={ogData?.url ?? baseURL} />
             <meta property="twitter:card" content="summarr_large_card" />
             <meta property="twitter:site" content="@skatekrak" />
-            {ogData.imageUrl != null ? (
+            {ogData?.imageUrl != null ? (
                 <>
                     <meta property="og:image" content={ogData.imageUrl} />
                     <meta property="og:image:width" content="1200" />
@@ -52,7 +54,7 @@ const MapHead = ({ ogData }: MapHeadProps) => {
             )}
             <meta
                 property="og:description"
-                content={ogData.description ?? 'Make more skateboarding happen in the world.'}
+                content={ogData?.description ?? 'Make more skateboarding happen in the world.'}
             />
         </Head>
     );
@@ -73,13 +75,13 @@ const Index: NextPage<MapPageProps> = ({ ogData }) => (
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
     const queryClient = new QueryClient();
 
-    let ogData: OGData | undefined = undefined;
+    let ogData: OGData | null = null;
 
     if (query.spot != null && typeof query.spot === 'string') {
-        // const response = await axios.get<SpotOverview>(`${process.env.CARRELAGE_URL}spots/${query.spot}/overview`);
-        // const overview = response.data;
         try {
-            const overview = await getSpotOverview(query.spot);
+            const response = await axios.get<SpotOverview>(`${process.env.CARRELAGE_URL}spots/${query.spot}/overview`);
+            const overview = response.data;
+            // const overview = await getSpotOverview(query.spot);
 
             ogData = {
                 title: overview.spot.name,
