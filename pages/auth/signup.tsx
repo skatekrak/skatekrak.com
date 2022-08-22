@@ -8,7 +8,6 @@ import { some, isNil, first } from 'lodash-es';
 import Layout from 'components/Layout';
 import ButtonPrimary from 'components/Ui/Button/ButtonPrimary/ButtonPrimary';
 import Emoji from 'components/Ui/Icons/Emoji';
-import AuthProjectDescription from 'components/pages/auth/AuthProjectDescription';
 import * as S from 'components/pages/auth/Auth.styled';
 
 import Feudartifice from 'shared/feudartifice';
@@ -60,73 +59,66 @@ const Signup: NextPage = () => {
     return (
         <Layout>
             <S.AuthPageContainer>
-                <S.AuthDoubleColumnPage>
-                    <S.AuthDoubleColumnPageColumn>
-                        <AuthProjectDescription />
-                    </S.AuthDoubleColumnPageColumn>
-                    <S.AuthDoubleColumnPageDivider />
-                    <S.AuthDoubleColumnPageTightColumn>
-                        <S.LoginKrakLikeIcon />
-                        <S.AuthFormTitle component="condensedHeading5">Join the family</S.AuthFormTitle>
-                        <Formik
-                            initialValues={SignupFormSchema.getDefault()}
-                            validationSchema={SignupFormSchema}
-                            onSubmit={onSubmit}
-                        >
-                            {({ errors, isSubmitting, handleSubmit, isValid, dirty, touched }) => (
-                                <form onSubmit={handleSubmit}>
-                                    {/* Signup inputs */}
-                                    <S.AuthInputField>
-                                        <Emoji label="username" symbol="@" />
-                                        <Field name="username" type="username" placeholder="Username" />
-                                    </S.AuthInputField>
-                                    <S.AuthInputField>
-                                        <Emoji label="email" symbol="📭" />
-                                        <Field name="email" type="email" placeholder="Email" />
-                                    </S.AuthInputField>
-                                    <S.AuthInputField>
-                                        <Emoji label="password" symbol="🔒" />
-                                        <Field name="password" type="password" placeholder="Password" />
-                                    </S.AuthInputField>
-                                    <S.AuthInputField>
-                                        <Emoji label="confirmPassword" symbol="🔒" />
-                                        <Field name="confirmPassword" type="password" placeholder="Confirm password" />
-                                    </S.AuthInputField>
+                <S.AuthUniqueColumnPage>
+                    <S.LoginKrakLikeIcon />
+                    <S.AuthFormTitle component="condensedHeading5">Join the family</S.AuthFormTitle>
+                    <Formik
+                        initialValues={SignupFormSchema.getDefault()}
+                        validationSchema={SignupFormSchema}
+                        onSubmit={onSubmit}
+                    >
+                        {({ errors, isSubmitting, handleSubmit, isValid, dirty, touched }) => (
+                            <form onSubmit={handleSubmit}>
+                                {/* Signup inputs */}
+                                <S.AuthInputField>
+                                    <Emoji label="username" symbol="@" />
+                                    <Field name="username" type="username" placeholder="Username" />
+                                </S.AuthInputField>
+                                <S.AuthInputField>
+                                    <Emoji label="email" symbol="📭" />
+                                    <Field name="email" type="email" placeholder="Email" />
+                                </S.AuthInputField>
+                                <S.AuthInputField>
+                                    <Emoji label="password" symbol="🔒" />
+                                    <Field name="password" type="password" placeholder="Password" />
+                                </S.AuthInputField>
+                                <S.AuthInputField>
+                                    <Emoji label="confirmPassword" symbol="🔒" />
+                                    <Field name="confirmPassword" type="password" placeholder="Confirm password" />
+                                </S.AuthInputField>
 
-                                    {/* Submit */}
-                                    <S.AuthSubmitContainer>
-                                        {/* First check if we have at least one error */}
-                                        {some(errors, (value) => !isNil(value)) && (
-                                            <S.AuthSubmitErrorContainer>
-                                                {/* Display the first error found which isn't nil and is touched */}
-                                                <S.AuthSubmitError component="body2">
-                                                    {
-                                                        errors[
-                                                            first(
-                                                                Object.keys(errors).filter(
-                                                                    (key) =>
-                                                                        !isNil(errors[key]) && !isNil(touched[key]),
-                                                                ),
-                                                            )
-                                                        ]
-                                                    }
-                                                </S.AuthSubmitError>
-                                            </S.AuthSubmitErrorContainer>
-                                        )}
-                                        <ButtonPrimary
-                                            type="submit"
-                                            loading={isSubmitting}
-                                            disabled={isSubmitting || !isValid || !dirty}
-                                            fullWidth
-                                        >
-                                            Create my account
-                                        </ButtonPrimary>
-                                    </S.AuthSubmitContainer>
-                                </form>
-                            )}
-                        </Formik>
-                    </S.AuthDoubleColumnPageTightColumn>
-                </S.AuthDoubleColumnPage>
+                                {/* Submit */}
+                                <S.AuthSubmitContainer>
+                                    {/* First check if we have at least one error */}
+                                    {some(errors, (value) => !isNil(value)) && (
+                                        <S.AuthSubmitErrorContainer>
+                                            {/* Display the first error found which isn't nil and is touched */}
+                                            <S.AuthSubmitError component="body2">
+                                                {
+                                                    errors[
+                                                        first(
+                                                            Object.keys(errors).filter(
+                                                                (key) => !isNil(errors[key]) && !isNil(touched[key]),
+                                                            ),
+                                                        )
+                                                    ]
+                                                }
+                                            </S.AuthSubmitError>
+                                        </S.AuthSubmitErrorContainer>
+                                    )}
+                                    <ButtonPrimary
+                                        type="submit"
+                                        loading={isSubmitting}
+                                        disabled={isSubmitting || !isValid || !dirty}
+                                        fullWidth
+                                    >
+                                        Create my account
+                                    </ButtonPrimary>
+                                </S.AuthSubmitContainer>
+                            </form>
+                        )}
+                    </Formik>
+                </S.AuthUniqueColumnPage>
             </S.AuthPageContainer>
         </Layout>
     );
