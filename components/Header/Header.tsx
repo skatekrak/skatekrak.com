@@ -10,6 +10,7 @@ import Typography from 'components/Ui/typography/Typography';
 import HeaderProfile from './HeaderProfile/HeaderProfile';
 import * as S from './Header.styled';
 
+import { PATH_CALL_TO_ADVENTURE } from 'pages/call-to-adventure';
 import useSession from 'lib/hook/carrelage/use-session';
 import { RootState } from 'store';
 
@@ -19,8 +20,6 @@ const Header: React.FC = () => {
     const handleMenuOpen = () => setIsMenuOpen(!isMenuOpen);
     const { data: sessionData } = useSession();
     const isConnected = sessionData != null;
-
-    const PATH_CALL_TO_ADVENTURE = '/call-to-adventure';
 
     return (
         <S.Container>
