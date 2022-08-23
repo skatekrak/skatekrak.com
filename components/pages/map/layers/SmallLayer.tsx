@@ -2,7 +2,7 @@ import { Layer } from 'react-map-gl';
 import { Status, Types } from 'shared/feudartifice/types';
 import { useAppSelector } from 'store/hook';
 import { useTheme } from 'styled-components';
-import { MIN_ZOOM_DISPLAY_SPOT } from '../Map.constant';
+import { ZOOM_DISPLAY_DOTS } from '../Map.constant';
 
 /**
  * mapgl layer to display small pin representing the spot
@@ -17,7 +17,7 @@ const SmallLayer = () => {
             id="spot-small-point"
             source="spots"
             type="circle"
-            maxzoom={MIN_ZOOM_DISPLAY_SPOT}
+            maxzoom={ZOOM_DISPLAY_DOTS}
             paint={{
                 'circle-opacity': isCreateSpotOpen ? 0.5 : 1,
                 'circle-radius': 4,

@@ -17,7 +17,7 @@ import {
     toggleSpotModal,
 } from 'store/map/slice';
 import { useAppSelector } from 'store/hook';
-import { MAX_ZOOM_LEVEL, MIN_ZOOM_DISPLAY_SPOT, MIN_ZOOM_LEVEL } from './Map.constant';
+import { MAX_ZOOM_LEVEL, ZOOM_DISPLAY_DOTS, MIN_ZOOM_LEVEL } from './Map.constant';
 import { Status, Types } from 'shared/feudartifice/types';
 import SmallLayer from './layers/SmallLayer';
 import SpotPinLayer from './layers/SpotPinLayer';
@@ -38,7 +38,7 @@ const MapComponent = ({ mapRef, spots, children, onLoad }: MapComponentProps) =>
     const [displayedSpots, setDisplayedSpots] = useState<Spot[]>([]);
 
     const markers = useMemo(() => {
-        if (viewport.zoom > MIN_ZOOM_DISPLAY_SPOT) {
+        if (viewport.zoom > ZOOM_DISPLAY_DOTS) {
             return displayedSpots
                 .filter(isSpotMarker)
                 .map((spot) => (
