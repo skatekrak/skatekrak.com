@@ -170,7 +170,7 @@ const MapContainer = () => {
             return spots;
         }
 
-        if (viewport.zoom > ZOOM_DISPLAY_DOTS) {
+        if (viewport.zoom <= ZOOM_DISPLAY_WARNING) {
             return [];
         }
 
