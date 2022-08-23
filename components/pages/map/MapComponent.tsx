@@ -49,7 +49,7 @@ const MapComponent = ({ mapRef, spots, children, onLoad }: MapComponentProps) =>
         };
 
         for (const spot of displayedSpots) {
-            if (isSpotMarker(spot)) {
+            if (isSpotMarker(spot) && viewport.zoom > ZOOM_DISPLAY_DOTS) {
                 markers.push(
                     <SpotMarker
                         key={spot.id}
