@@ -129,7 +129,7 @@ const MapContainer = () => {
                         status: getSelectedFilterState(status),
                         type: getSelectedFilterState(types),
                     },
-                    limit: 200,
+                    limit: 250,
                 });
 
                 return spots;
