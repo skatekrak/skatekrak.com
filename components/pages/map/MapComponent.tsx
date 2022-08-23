@@ -116,6 +116,8 @@ const MapComponent = ({ mapRef, spots, children, onLoad }: MapComponentProps) =>
                     <SpotPinLayer type={Types.Park} />
                     <SpotPinLayer type={Types.Diy} />
                     <SpotPinLayer type={Types.Private} />
+                    <SpotPinLayer type={Status.Rip} />
+                    <SpotPinLayer type={Status.Wip} />
                 </Source>
                 {/* Popup */}
                 {spotId != null && selectedSpotOverview != null && (
