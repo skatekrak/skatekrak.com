@@ -39,7 +39,6 @@ const SmallLayer = () => {
             id="spot-small-point"
             source="spots"
             type="circle"
-            minzoom={ZOOM_DISPLAY_WARNING}
             maxzoom={ZOOM_DISPLAY_DOTS}
             paint={{
                 'circle-opacity': isCreateSpotOpen ? 0.5 : 1,

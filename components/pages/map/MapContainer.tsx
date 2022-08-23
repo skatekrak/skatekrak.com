@@ -142,7 +142,6 @@ const MapContainer = () => {
             onSettled: () => {
                 dispatch(mapRefreshEnd());
             },
-            keepPreviousData: true,
             refetchOnWindowFocus: false,
             refetchOnMount: false,
         },
@@ -157,7 +156,7 @@ const MapContainer = () => {
             const bounds = findBoundsCoordinate(
                 customMapInfo.spots.map((spot) => [spot.location.longitude, spot.location.latitude]),
             );
-            mapRef.current?.fitBounds(bounds, { padding: 0.5, duration: 1500 });
+            mapRef.current?.fitBounds(bounds, { padding: 128, duration: 1500 });
         }
     }, [customMapInfo, viewport.width, id, dispatch]);
 
