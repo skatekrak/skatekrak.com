@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import ReactMapGL, { MapRef, NavigationControl, Source, ViewStateChangeEvent } from 'react-map-gl';
 import type { FeatureCollection, Geometry } from 'geojson';
@@ -21,7 +21,7 @@ import { MAX_ZOOM_LEVEL, MIN_ZOOM_DISPLAY_SPOT, MIN_ZOOM_LEVEL } from './Map.con
 import { Status, Types } from 'shared/feudartifice/types';
 import SmallLayer from './layers/SmallLayer';
 import SpotPinLayer from './layers/SpotPinLayer';
-import { intersection } from 'lodash-es';
+import { intersection, uniqWith } from 'lodash-es';
 
 type MapComponentProps = {
     mapRef?: React.RefObject<MapRef>;
@@ -35,10 +35,11 @@ const MapComponent = ({ mapRef, spots, children, onLoad }: MapComponentProps) =>
     const viewport = useAppSelector((state) => state.map.viewport);
     const spotId = useAppSelector((state) => state.map.selectSpot);
     const selectedSpotOverview = useAppSelector((state) => state.map.spotOverview);
+    const [displayedSpots, setDisplayedSpots] = useState<Spot[]>([]);
 
     const markers = useMemo(() => {
         if (viewport.zoom > MIN_ZOOM_DISPLAY_SPOT) {
-            return spots
+            return displayedSpots
                 .filter(isSpotMarker)
                 .map((spot) => (
                     <SpotMarker
@@ -50,12 +51,16 @@ const MapComponent = ({ mapRef, spots, children, onLoad }: MapComponentProps) =>
         }
 
         return [];
+    }, [displayedSpots, selectedSpotOverview, viewport.zoom]);
+
+    useEffect(() => {
+        setDisplayedSpots((_spots) => uniqWith(_spots.concat(spots), (a, b) => a.id === b.id));
     }, [spots, selectedSpotOverview, viewport.zoom]);
 
     const spotSourceData: FeatureCollection<Geometry> = useMemo(() => {
         return {
             type: 'FeatureCollection',
-            features: spots
+            features: displayedSpots
                 .filter((spot) => !isSpotMarker(spot))
                 .map((spot) => ({
                     id: spot.id,
