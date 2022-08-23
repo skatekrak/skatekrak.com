@@ -1,5 +1,5 @@
 import Typography from 'components/Ui/typography/Typography';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
 export const CallToAdventurePageContainer = styled.div`
     flex-grow: 1;
@@ -42,8 +42,36 @@ export const CallToAdventureBody = styled(Typography)`
     color: ${({ theme }) => theme.color.onDark.mediumEmphasis};
 `;
 
-export const CallToAdventureIsTyping = styled(Typography)`
+export const CallToAdventureIsTyping = styled.div`
+    display: flex;
     margin-top: 4rem;
-    /* color: ${({ theme }) => theme.color.onDark.mediumEmphasis}; */
     font-style: italic;
+`;
+
+export const CallToAdventureIsTypingKrak = styled(Typography)`
+    margin-right: 0.375rem;
+    font-style: normal;
+`;
+
+type CallToAdventureIsTypingAnimationProps = {
+    delay?: number;
+};
+
+const typingAnimation = keyframes`
+    0%, 60% { transform: translateY(0) }
+    30% { transform: translateY(-0.1875rem) }
+`;
+
+export const CallToAdventureIsTypingAnimation = styled.div<CallToAdventureIsTypingAnimationProps>`
+    animation: ${typingAnimation} 1s ease-in-out infinite;
+    margin-right: 0.0625rem;
+
+    &:first-of-type {
+        margin-left: 0.25rem;
+    }
+
+    ${({ delay }) =>
+        delay && {
+            animationDelay: `${delay}s`,
+        }};
 `;

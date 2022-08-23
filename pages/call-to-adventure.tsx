@@ -25,16 +25,17 @@ const CallToAdventure = () => {
                         within the community.
                         <br />
                         <br />
-                        Think an open, decentralized, collective Wikipedia focus on skateboarding.
+                        Think an open, decentralized, collective Wikipedia focused on skateboarding.
                         <br />
                         <br />
                         And 100% owned by skateboarders.
                     </S.CallToAdventureBody>
                     <S.CallToAdventureIsTyping>
-                        <Typography as="span" component="subtitle1">
-                            Krak{' '}
-                        </Typography>
-                        <Typography as="span">is typing...</Typography>
+                        <S.CallToAdventureIsTypingKrak component="subtitle1">Krak</S.CallToAdventureIsTypingKrak>
+                        <Typography as="span">is typing</Typography>
+                        <S.CallToAdventureIsTypingAnimation delay={-0.2}>.</S.CallToAdventureIsTypingAnimation>
+                        <S.CallToAdventureIsTypingAnimation delay={-0.1}>.</S.CallToAdventureIsTypingAnimation>
+                        <S.CallToAdventureIsTypingAnimation>.</S.CallToAdventureIsTypingAnimation>
                     </S.CallToAdventureIsTyping>
                 </S.CallToAdventureContent>
             </S.CallToAdventurePageContainer>
