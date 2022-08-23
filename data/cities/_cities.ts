@@ -137,7 +137,7 @@ Paris is a paradise for skateboarders! From its concrete sidewalks perfect to go
     },
     {
         id: 'la',
-        name: 'Los Angeles',
+        name: 'L.A',
         edito: '',
         subtitle: '',
         about: '',
@@ -148,7 +148,7 @@ Paris is a paradise for skateboarders! From its concrete sidewalks perfect to go
     },
     {
         id: 'sf',
-        name: 'San Francisco',
+        name: 'S.F',
         edito: '',
         subtitle: '',
         about: '',
