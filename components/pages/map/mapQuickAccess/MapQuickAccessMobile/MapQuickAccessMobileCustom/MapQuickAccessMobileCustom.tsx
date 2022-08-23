@@ -1,20 +1,16 @@
 import React from 'react';
-import axios from 'axios';
-import { useQuery } from '@tanstack/react-query';
 
 import MapQuickAccessMobileCustomItem from './MapQuickAccessMobileCustomItem';
 import * as S from './MapQuickAccessMobileCustom.styled';
 
-import { QuickAccessMap } from '../../MapQuickAccessDesktop/MapQuickAccessDesktop';
+import { useCustomMaps } from 'lib/hook/use-custom-map';
 
 type Props = {
     closeSheet: () => void;
 };
 
 const MapQuickAccessMobileCustom: React.FC<Props> = ({ closeSheet }) => {
-    const { isLoading, data } = useQuery(['custom-maps'], () =>
-        axios.get<QuickAccessMap[]>('/api/custom-maps').then((res) => res.data),
-    );
+    const { isLoading, data } = useCustomMaps();
 
     return (
         <S.MapQuickAccessMobileCustomContainer>
