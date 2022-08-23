@@ -75,7 +75,7 @@ const MapComponent = ({ mapRef, spots, children, onLoad }: MapComponentProps) =>
                     },
                 })),
         };
-    }, [spots]);
+    }, [displayedSpots]);
 
     const onPopupClick = () => {
         dispatch(toggleSpotModal(true));
