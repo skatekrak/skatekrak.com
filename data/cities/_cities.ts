@@ -12,17 +12,17 @@ const cities: City[] = [
             [121.56222044527658, 31.274483881128248],
         ],
     },
-    {
-        id: 'singapore',
-        name: 'Singapore',
-        edito: '',
-        subtitle: '',
-        about: '',
-        bounds: [
-            [103.79195666582484, 1.261332366626064],
-            [103.89591805260989, 1.3380576970246523],
-        ],
-    },
+    // {
+    //     id: 'singapore',
+    //     name: 'Singapore',
+    //     edito: '',
+    //     subtitle: '',
+    //     about: '',
+    //     bounds: [
+    //         [103.79195666582484, 1.261332366626064],
+    //         [103.89591805260989, 1.3380576970246523],
+    //     ],
+    // },
     {
         id: 'berlin',
         name: 'Berlin',
@@ -92,16 +92,38 @@ Paris is a paradise for skateboarders! From its concrete sidewalks perfect to go
         ],
     },
     {
-        id: 'brooklyn',
-        name: 'Brooklyn',
+        id: 'saopaulo',
+        name: 'São Paulo',
         edito: '',
         subtitle: '',
         about: '',
         bounds: [
-            [-74.0619176038734, 40.617289129755534],
-            [-73.84356433239117, 40.73953236875826],
+            [-46.52233501688306, -23.465244811663993],
+            [-46.75621642127189, -23.630010501861648],
         ],
     },
+    {
+        id: 'hongkong',
+        name: 'Hong Kong',
+        edito: '',
+        subtitle: '',
+        about: '',
+        bounds: [
+            [114.30947948368129, 22.418878996495977],
+            [114.02924271631633, 22.219657710521872],
+        ],
+    },
+    // {
+    //     id: 'brooklyn',
+    //     name: 'Brooklyn',
+    //     edito: '',
+    //     subtitle: '',
+    //     about: '',
+    //     bounds: [
+    //         [-74.0619176038734, 40.617289129755534],
+    //         [-73.84356433239117, 40.73953236875826],
+    //     ],
+    // },
     {
         id: 'nyc',
         name: 'New York',
