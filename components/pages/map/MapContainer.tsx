@@ -155,7 +155,7 @@ const MapContainer = () => {
             const bounds = findBoundsCoordinate(
                 customMapInfo.spots.map((spot) => [spot.location.longitude, spot.location.latitude]),
             );
-            mapRef.current?.fitBounds(bounds, { padding: 0.15, duration: 1500 });
+            mapRef.current?.fitBounds(bounds, { padding: 0.5, duration: 1500 });
         }
     }, [customMapInfo, viewport.width, id, dispatch]);
 
