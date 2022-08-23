@@ -177,8 +177,6 @@ const MapContainer = () => {
         return spots;
     }, [spots, id, customMapLoading, viewport.zoom]);
 
-    console.log(spots, displayedSpots);
-
     return (
         <S.MapContainer ref={fullSpotContainerRef}>
             <DynamicMapComponent mapRef={mapRef} spots={displayedSpots} onLoad={refetch}>
