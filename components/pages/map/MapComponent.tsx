@@ -37,32 +37,28 @@ const MapComponent = ({ mapRef, spots, children, onLoad }: MapComponentProps) =>
     const selectedSpotOverview = useAppSelector((state) => state.map.spotOverview);
     const [displayedSpots, setDisplayedSpots] = useState<Spot[]>([]);
 
-    const markers = useMemo(() => {
-        if (viewport.zoom > ZOOM_DISPLAY_DOTS) {
-            return displayedSpots
-                .filter(isSpotMarker)
-                .map((spot) => (
-                    <SpotMarker
-                        key={spot.id}
-                        spot={spot}
-                        isSelected={selectedSpotOverview ? selectedSpotOverview.spot.id === spot.id : false}
-                    />
-                ));
-        }
-
-        return [];
-    }, [displayedSpots, selectedSpotOverview, viewport.zoom]);
-
     useEffect(() => {
         setDisplayedSpots((_spots) => uniqWith(_spots.concat(spots), (a, b) => a.id === b.id));
     }, [spots, selectedSpotOverview, viewport.zoom]);
 
-    const spotSourceData: FeatureCollection<Geometry> = useMemo(() => {
-        return {
+    const [markers, spotSourceData]: [JSX.Element[], FeatureCollection<Geometry>] = useMemo(() => {
+        const markers: JSX.Element[] = [];
+        const spotSourceData: FeatureCollection<Geometry> = {
             type: 'FeatureCollection',
-            features: displayedSpots
-                .filter((spot) => !isSpotMarker(spot))
-                .map((spot) => ({
+            features: [],
+        };
+
+        for (const spot of displayedSpots) {
+            if (isSpotMarker(spot)) {
+                markers.push(
+                    <SpotMarker
+                        key={spot.id}
+                        spot={spot}
+                        isSelected={selectedSpotOverview ? selectedSpotOverview.spot.id === spot.id : false}
+                    />,
+                );
+            } else {
+                spotSourceData.features.push({
                     id: spot.id,
                     type: 'Feature',
                     geometry: {
@@ -73,9 +69,12 @@ const MapComponent = ({ mapRef, spots, children, onLoad }: MapComponentProps) =>
                         spotId: spot.id,
                         type: spot.status === Status.Active ? spot.type : spot.status,
                     },
-                })),
-        };
-    }, [displayedSpots]);
+                });
+            }
+        }
+
+        return [markers, spotSourceData];
+    }, [displayedSpots, selectedSpotOverview, viewport.zoom]);
 
     const onPopupClick = () => {
         dispatch(toggleSpotModal(true));
