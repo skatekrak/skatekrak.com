@@ -143,6 +143,8 @@ const MapContainer = () => {
                 dispatch(mapRefreshEnd());
             },
             keepPreviousData: true,
+            refetchOnWindowFocus: false,
+            refetchOnMount: false,
         },
     );
 
@@ -168,12 +170,14 @@ const MapContainer = () => {
             return spots;
         }
 
-        if (viewport.zoom <= ZOOM_DISPLAY_DOTS) {
+        if (viewport.zoom > ZOOM_DISPLAY_DOTS) {
             return [];
         }
 
         return spots;
     }, [spots, id, customMapLoading, viewport.zoom]);
+
+    console.log(spots, displayedSpots);
 
     return (
         <S.MapContainer ref={fullSpotContainerRef}>
