@@ -36,13 +36,32 @@ export const KrakLogo = styled(KrakLogoHand)`
     }
 `;
 
-export const Nav = styled.nav`
+/** Primary nav */
+
+export const PrimaryNav = styled.nav`
+    display: flex;
+    align-items: center;
+    margin-left: 2.25rem;
+    column-gap: 0.5rem;
+`;
+
+export const PrimaryNavItem = styled.a`
+    padding: 0.75rem;
+    font-family: ${({ theme }) => theme.typography.fonts.roboto.condensed.bold};
+    font-size: 1.125rem;
+    text-transform: uppercase;
+    cursor: pointer;
+`;
+
+/** Sedondary nav */
+
+export const SecondaryNav = styled.nav`
     display: flex;
     align-items: center;
     margin-left: auto;
 `;
 
-export const NavItem = styled.div`
+export const SecondaryNavItem = styled.div`
     display: flex;
     flex-shrink: 0;
     padding: 0.5rem;
@@ -53,8 +72,8 @@ export const NavItem = styled.div`
     }
 `;
 
-/* Secondary Nav */
-export const SecondaryNav = styled.div`
+/** Three dot menu */
+export const ThreeDotMenu = styled.div`
     min-width: 10rem;
     padding: 0.375rem 0;
     border-radius: 0.25rem;
@@ -63,12 +82,12 @@ export const SecondaryNav = styled.div`
     box-shadow: ${({ theme }) => theme.shadow.onDark.highSharp};
 `;
 
-export const SecondaryNavTitle = styled(Typography)`
+export const ThreeDotMenuTitle = styled(Typography)`
     padding: 0.375rem 1rem;
     color: ${({ theme }) => theme.color.onDark.lowEmphasis};
 `;
 
-export const SecondaryNavItem = styled.a`
+export const ThreeDotMenuItem = styled.a`
     display: block;
     padding: 0.375rem 1rem;
 

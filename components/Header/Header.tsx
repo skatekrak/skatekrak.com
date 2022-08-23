@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import Link from 'next/link';
 import Tippy from '@tippyjs/react/headless';
 
@@ -10,12 +11,16 @@ import HeaderProfile from './HeaderProfile/HeaderProfile';
 import * as S from './Header.styled';
 
 import useSession from 'lib/hook/carrelage/use-session';
+import { RootState } from 'store';
 
 const Header: React.FC = () => {
+    const isMobile = useSelector((state: RootState) => state.settings.isMobile);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const handleMenuOpen = () => setIsMenuOpen(!isMenuOpen);
     const { data: sessionData } = useSession();
     const isConnected = sessionData != null;
+
+    const PATH_CALL_TO_ADVENTURE = '/call-to-adventure';
 
     return (
         <S.Container>
@@ -25,12 +30,22 @@ const Header: React.FC = () => {
                         <S.KrakLogo title="Home page" />
                     </S.LogoLink>
                 </Link>
-                <S.Nav>
-                    <S.NavItem as="a" target="_blank" href="https://discord.gg/exMAqSuVfj" rel="noreferrer">
+                {!isMobile && (
+                    <S.PrimaryNav>
+                        <Link href="/">
+                            <S.PrimaryNavItem>Map</S.PrimaryNavItem>
+                        </Link>
+                        <Link href={PATH_CALL_TO_ADVENTURE}>
+                            <S.PrimaryNavItem>Call To Adventure</S.PrimaryNavItem>
+                        </Link>
+                    </S.PrimaryNav>
+                )}
+                <S.SecondaryNav>
+                    <S.SecondaryNavItem as="a" target="_blank" href="https://discord.gg/exMAqSuVfj" rel="noreferrer">
                         <IconDiscord />
-                    </S.NavItem>
+                    </S.SecondaryNavItem>
 
-                    {/* Secondary nav */}
+                    {/* Three dot menu */}
                     <div>
                         <Tippy
                             visible={isMenuOpen}
@@ -38,9 +53,27 @@ const Header: React.FC = () => {
                             interactive
                             placement="bottom"
                             render={() => (
-                                <S.SecondaryNav>
-                                    <S.SecondaryNavTitle component="subtitle2">Download the app</S.SecondaryNavTitle>
-                                    <S.SecondaryNavItem
+                                <S.ThreeDotMenu>
+                                    {isMobile && (
+                                        <>
+                                            <Link href="/" passHref>
+                                                <S.ThreeDotMenuItem>
+                                                    <Typography as="span" component="subtitle1">
+                                                        Map
+                                                    </Typography>
+                                                </S.ThreeDotMenuItem>
+                                            </Link>
+                                            <Link href={PATH_CALL_TO_ADVENTURE} passHref>
+                                                <S.ThreeDotMenuItem>
+                                                    <Typography as="span" component="subtitle1">
+                                                        Call To Adventure
+                                                    </Typography>
+                                                </S.ThreeDotMenuItem>
+                                            </Link>
+                                        </>
+                                    )}
+                                    <S.ThreeDotMenuTitle component="subtitle2">Download the app</S.ThreeDotMenuTitle>
+                                    <S.ThreeDotMenuItem
                                         href="https://itunes.apple.com/us/app/krak/id916474561"
                                         target="_blank"
                                         rel="noreferrer noopener"
@@ -48,10 +81,10 @@ const Header: React.FC = () => {
                                         <Typography as="span" component="subtitle2">
                                             iOS
                                         </Typography>
-                                    </S.SecondaryNavItem>
+                                    </S.ThreeDotMenuItem>
 
-                                    <S.SecondaryNavTitle component="subtitle2">Find us</S.SecondaryNavTitle>
-                                    <S.SecondaryNavItem
+                                    <S.ThreeDotMenuTitle component="subtitle2">Find us</S.ThreeDotMenuTitle>
+                                    <S.ThreeDotMenuItem
                                         href="https://www.instagram.com/skate_krak/"
                                         target="_blank"
                                         rel="noreferrer"
@@ -59,8 +92,8 @@ const Header: React.FC = () => {
                                         <Typography as="span" component="subtitle2">
                                             Instagram
                                         </Typography>
-                                    </S.SecondaryNavItem>
-                                    <S.SecondaryNavItem
+                                    </S.ThreeDotMenuItem>
+                                    <S.ThreeDotMenuItem
                                         href="https://www.youtube.com/krakskate"
                                         target="_blank"
                                         rel="noreferrer"
@@ -68,36 +101,36 @@ const Header: React.FC = () => {
                                         <Typography as="span" component="subtitle2">
                                             Youtube
                                         </Typography>
-                                    </S.SecondaryNavItem>
+                                    </S.ThreeDotMenuItem>
 
-                                    <S.SecondaryNavTitle component="subtitle2">Others</S.SecondaryNavTitle>
+                                    <S.ThreeDotMenuTitle component="subtitle2">Others</S.ThreeDotMenuTitle>
                                     <Link href="/mag" passHref>
-                                        <S.SecondaryNavItem>
+                                        <S.ThreeDotMenuItem>
                                             <Typography as="span" component="body2">
                                                 Mag
                                             </Typography>
-                                        </S.SecondaryNavItem>
+                                        </S.ThreeDotMenuItem>
                                     </Link>
                                     <Link href="/video" passHref>
-                                        <S.SecondaryNavItem>
+                                        <S.ThreeDotMenuItem>
                                             <Typography as="span" component="body2">
                                                 Video
                                             </Typography>
-                                        </S.SecondaryNavItem>
+                                        </S.ThreeDotMenuItem>
                                     </Link>
                                     <Link href="/news" passHref>
-                                        <S.SecondaryNavItem href="#">
+                                        <S.ThreeDotMenuItem href="#">
                                             <Typography as="span" component="body2">
                                                 News
                                             </Typography>
-                                        </S.SecondaryNavItem>
+                                        </S.ThreeDotMenuItem>
                                     </Link>
-                                </S.SecondaryNav>
+                                </S.ThreeDotMenu>
                             )}
                         >
-                            <S.NavItem as="button" onClick={handleMenuOpen}>
+                            <S.SecondaryNavItem as="button" onClick={handleMenuOpen}>
                                 <IconDotsThreeVertical />
-                            </S.NavItem>
+                            </S.SecondaryNavItem>
                         </Tippy>
                     </div>
 
@@ -105,12 +138,12 @@ const Header: React.FC = () => {
                         <HeaderProfile />
                     ) : (
                         <Link href="/auth/login" passHref>
-                            <S.NavItem as="a">
+                            <S.SecondaryNavItem as="a">
                                 <IconUserCircle />
-                            </S.NavItem>
+                            </S.SecondaryNavItem>
                         </Link>
                     )}
-                </S.Nav>
+                </S.SecondaryNav>
             </S.TopContainer>
         </S.Container>
     );

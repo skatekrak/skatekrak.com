@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 
 import Typography from 'components/Ui/typography/Typography';
-import { NavItem } from '../Header.styled';
+import { SecondaryNavItem } from '../Header.styled';
 
-export const HeaderProfileButton = styled(NavItem)`
+export const HeaderProfileButton = styled(SecondaryNavItem)`
     padding: 0.25rem;
 `;
 
