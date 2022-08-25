@@ -4,14 +4,8 @@ import dynamic from 'next/dynamic';
 
 import { Spot } from 'lib/carrelageClient';
 
-import { boxSpotsSearch, getSpotOverview } from 'lib/carrelageClient';
-import {
-    getSelectedFilterState,
-    mapRefreshEnd,
-    setSpotOverview,
-    toggleCreateSpot,
-    updateUrlParams,
-} from 'store/map/slice';
+import { getSpotOverview } from 'lib/carrelageClient';
+import { setSpotOverview, toggleCreateSpot, updateUrlParams } from 'store/map/slice';
 import { RootState } from 'store';
 import useCustomMap from 'lib/hook/use-custom-map';
 
@@ -28,19 +22,16 @@ import { ZOOM_DISPLAY_WARNING } from './Map.constant';
 import MapCreateSpot from './MapCreateSpot';
 import useSession from 'lib/hook/carrelage/use-session';
 import { useRouter } from 'next/router';
-import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
-import useDebounce from 'lib/hook/useDebounce';
-import { flatten, uniqWith } from 'lodash-es';
+import { useQuery } from '@tanstack/react-query';
+import { useSpotsSearch } from 'shared/feudartifice/hooks/spot';
 
 const DynamicMapComponent = dynamic(() => import('./MapComponent'), { ssr: false });
 const MapFullSpot = dynamic(() => import('./MapFullSpot'), { ssr: false });
 
 const MapContainer = () => {
     const isMobile = useAppSelector((state: RootState) => state.settings.isMobile);
-    const status = useAppSelector((state: RootState) => state.map.status);
-    const types = useAppSelector((state: RootState) => state.map.types);
-    const viewport = useAppSelector((state: RootState) => state.map.viewport);
     const isCreateSpotOpen = useAppSelector((state: RootState) => state.map.isCreateSpotOpen);
+    const viewport = useAppSelector((state) => state.map.viewport);
     const dispatch = useAppDispatch();
     const session = useSession();
     const router = useRouter();
@@ -105,8 +96,6 @@ const MapContainer = () => {
         },
     );
 
-    const debounceViewport = useDebounce(viewport, 200);
-
     const enableSpotQuery = useMemo(() => {
         if (mapRef.current == null) {
             return false;
@@ -123,39 +112,7 @@ const MapContainer = () => {
         return true;
     }, [id, viewport.zoom]);
 
-    const { data, refetch } = useInfiniteQuery(
-        ['fetch-spots-on-map', debounceViewport, status, types],
-        async () => {
-            const map = mapRef.current.getMap();
-            const bounds = map.getBounds();
-            const northEast = bounds.getNorthEast();
-            const southWest = bounds.getSouthWest();
-
-            const spots = await boxSpotsSearch({
-                northEastLatitude: northEast.lat,
-                northEastLongitude: northEast.lng,
-                southWestLatitude: southWest.lat,
-                southWestLongitude: southWest.lng,
-                filters: {
-                    status: getSelectedFilterState(status),
-                    type: getSelectedFilterState(types),
-                },
-                limit: 150,
-            });
-
-            return spots;
-        },
-        {
-            enabled: enableSpotQuery,
-            onSettled: () => {
-                dispatch(mapRefreshEnd());
-            },
-            refetchOnWindowFocus: false,
-            refetchOnMount: false,
-            keepPreviousData: true,
-        },
-    );
-    const spots = useMemo(() => uniqWith(flatten(data?.pages ?? []), (a, b) => a.id === b.id), [data]);
+    const { data: spots, refetch } = useSpotsSearch(mapRef, enableSpotQuery);
 
     const onFullSpotClose = () => {
         dispatch(updateUrlParams({ modal: false, mediaId: null }));
