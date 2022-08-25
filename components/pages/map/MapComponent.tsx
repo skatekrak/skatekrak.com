@@ -21,7 +21,7 @@ import { MAX_ZOOM_LEVEL, ZOOM_DISPLAY_DOTS, MIN_ZOOM_LEVEL } from './Map.constan
 import { Status, Types } from 'shared/feudartifice/types';
 import SmallLayer from './layers/SmallLayer';
 import SpotPinLayer from './layers/SpotPinLayer';
-import { intersection, uniqWith } from 'lodash-es';
+import { intersection } from 'lodash-es';
 
 type MapComponentProps = {
     mapRef?: React.RefObject<MapRef>;
@@ -35,11 +35,6 @@ const MapComponent = ({ mapRef, spots, children, onLoad }: MapComponentProps) =>
     const viewport = useAppSelector((state) => state.map.viewport);
     const spotId = useAppSelector((state) => state.map.selectSpot);
     const selectedSpotOverview = useAppSelector((state) => state.map.spotOverview);
-    const [displayedSpots, setDisplayedSpots] = useState<Spot[]>([]);
-
-    useEffect(() => {
-        setDisplayedSpots((_spots) => uniqWith(_spots.concat(spots), (a, b) => a.id === b.id));
-    }, [spots, selectedSpotOverview, viewport.zoom]);
 
     const [markers, spotSourceData]: [JSX.Element[], FeatureCollection<Geometry>] = useMemo(() => {
         const markers: JSX.Element[] = [];
@@ -48,7 +43,7 @@ const MapComponent = ({ mapRef, spots, children, onLoad }: MapComponentProps) =>
             features: [],
         };
 
-        for (const spot of displayedSpots) {
+        for (const spot of spots) {
             if (isSpotMarker(spot) && viewport.zoom > ZOOM_DISPLAY_DOTS) {
                 markers.push(
                     <SpotMarker
@@ -74,7 +69,7 @@ const MapComponent = ({ mapRef, spots, children, onLoad }: MapComponentProps) =>
         }
 
         return [markers, spotSourceData];
-    }, [displayedSpots, selectedSpotOverview, viewport.zoom]);
+    }, [spots, selectedSpotOverview, viewport.zoom]);
 
     const onPopupClick = () => {
         dispatch(toggleSpotModal(true));

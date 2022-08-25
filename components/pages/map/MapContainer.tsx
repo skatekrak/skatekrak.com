@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { MapRef } from 'react-map-gl';
-import { useSelector } from 'react-redux';
 import dynamic from 'next/dynamic';
 
 import { Spot } from 'lib/carrelageClient';
@@ -23,34 +22,37 @@ import MapBottomNav from './MapBottomNav';
 import MapGradients from './MapGradients';
 import MapZoomAlert from './MapZoomAlert';
 import * as S from './Map.styled';
-import { useAppDispatch } from 'store/hook';
+import { useAppDispatch, useAppSelector } from 'store/hook';
 import { findBoundsCoordinate } from 'lib/map/helpers';
-import { ZOOM_DISPLAY_DOTS, ZOOM_DISPLAY_WARNING } from './Map.constant';
+import { ZOOM_DISPLAY_WARNING } from './Map.constant';
 import MapCreateSpot from './MapCreateSpot';
 import useSession from 'lib/hook/carrelage/use-session';
 import { useRouter } from 'next/router';
 import { useQuery } from '@tanstack/react-query';
 import useDebounce from 'lib/hook/useDebounce';
+import { uniqWith } from 'lodash-es';
 
 const DynamicMapComponent = dynamic(() => import('./MapComponent'), { ssr: false });
 const MapFullSpot = dynamic(() => import('./MapFullSpot'), { ssr: false });
 
 const MapContainer = () => {
-    const isMobile = useSelector((state: RootState) => state.settings.isMobile);
-    const status = useSelector((state: RootState) => state.map.status);
-    const types = useSelector((state: RootState) => state.map.types);
-    const viewport = useSelector((state: RootState) => state.map.viewport);
-    const isCreateSpotOpen = useSelector((state: RootState) => state.map.isCreateSpotOpen);
+    const isMobile = useAppSelector((state: RootState) => state.settings.isMobile);
+    const status = useAppSelector((state: RootState) => state.map.status);
+    const types = useAppSelector((state: RootState) => state.map.types);
+    const viewport = useAppSelector((state: RootState) => state.map.viewport);
+    const isCreateSpotOpen = useAppSelector((state: RootState) => state.map.isCreateSpotOpen);
+    const selectedSpotOverview = useAppSelector((state) => state.map.spotOverview);
     const dispatch = useAppDispatch();
     const session = useSession();
     const router = useRouter();
 
     /** Spot ID in the query */
-    const id = useSelector((state: RootState) => state.map.customMapId);
-    const spotId = useSelector((state: RootState) => state.map.selectSpot);
-    const modalVisible = useSelector((state: RootState) => state.map.modalVisible);
+    const id = useAppSelector((state: RootState) => state.map.customMapId);
+    const spotId = useAppSelector((state: RootState) => state.map.selectSpot);
+    const modalVisible = useAppSelector((state: RootState) => state.map.modalVisible);
 
     const [, setFirstLoad] = useState(() => (spotId ? true : false));
+    const [loadedSpots, setLoadedSpots] = useState<Spot[]>([]);
 
     const { data: customMapInfo, isLoading: customMapLoading } = useCustomMap(id);
 
@@ -109,36 +111,27 @@ const MapContainer = () => {
     const { data: spots = [], refetch } = useQuery(
         ['fetch-spots-on-map', debounceViewport, status, types, customMapInfo],
         async () => {
-            if (customMapInfo && customMapInfo.spots) {
-                return customMapInfo.spots as Spot[];
-            }
-
             const map = mapRef.current.getMap();
             const bounds = map.getBounds();
             const northEast = bounds.getNorthEast();
             const southWest = bounds.getSouthWest();
-            const zoom = map.getZoom();
 
-            // Only search if spots are displayed
-            if (zoom > ZOOM_DISPLAY_WARNING) {
-                const spots = await boxSpotsSearch({
-                    northEastLatitude: northEast.lat,
-                    northEastLongitude: northEast.lng,
-                    southWestLatitude: southWest.lat,
-                    southWestLongitude: southWest.lng,
-                    filters: {
-                        status: getSelectedFilterState(status),
-                        type: getSelectedFilterState(types),
-                    },
-                    limit: 150,
-                });
+            const spots = await boxSpotsSearch({
+                northEastLatitude: northEast.lat,
+                northEastLongitude: northEast.lng,
+                southWestLatitude: southWest.lat,
+                southWestLongitude: southWest.lng,
+                filters: {
+                    status: getSelectedFilterState(status),
+                    type: getSelectedFilterState(types),
+                },
+                limit: 150,
+            });
 
-                return spots;
-            }
-            return [];
+            return spots;
         },
         {
-            enabled: mapRef.current != null,
+            enabled: mapRef.current != null && (id == null || id == '') && viewport.zoom <= ZOOM_DISPLAY_WARNING,
             onSettled: () => {
                 dispatch(mapRefreshEnd());
             },
@@ -160,21 +153,28 @@ const MapContainer = () => {
         }
     }, [customMapInfo, viewport.width, id, dispatch]);
 
+    useEffect(() => {
+        setLoadedSpots((_spots) => uniqWith(_spots.concat(spots), (a, b) => a.id === b.id));
+    }, [spots, selectedSpotOverview]);
+
     const displayedSpots = useMemo(() => {
         // It's a custom map, we can return the spots if not loading
         if (id != null) {
             if (customMapLoading) {
                 return [];
             }
-            return spots;
+            if (customMapInfo && customMapInfo.spots) {
+                return customMapInfo.spots;
+            }
+            return [];
         }
 
         if (viewport.zoom <= ZOOM_DISPLAY_WARNING) {
             return [];
         }
 
-        return spots;
-    }, [spots, id, customMapLoading, viewport.zoom]);
+        return loadedSpots;
+    }, [loadedSpots, id, customMapLoading, viewport.zoom]);
 
     return (
         <S.MapContainer ref={fullSpotContainerRef}>
