@@ -152,6 +152,7 @@ const MapContainer = () => {
             },
             refetchOnWindowFocus: false,
             refetchOnMount: false,
+            keepPreviousData: true,
         },
     );
     const spots = useMemo(() => uniqWith(flatten(data?.pages ?? []), (a, b) => a.id === b.id), [data]);
