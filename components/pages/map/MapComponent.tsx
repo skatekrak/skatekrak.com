@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import ReactMapGL, { MapRef, NavigationControl, Source, ViewStateChangeEvent } from 'react-map-gl';
 import type { FeatureCollection, Geometry } from 'geojson';
@@ -17,11 +17,11 @@ import {
     toggleSpotModal,
 } from 'store/map/slice';
 import { useAppSelector } from 'store/hook';
-import { MAX_ZOOM_LEVEL, MIN_ZOOM_DISPLAY_SPOT, MIN_ZOOM_LEVEL } from './Map.constant';
+import { MAX_ZOOM_LEVEL, ZOOM_DISPLAY_DOTS, MIN_ZOOM_LEVEL } from './Map.constant';
 import { Status, Types } from 'shared/feudartifice/types';
 import SmallLayer from './layers/SmallLayer';
 import SpotPinLayer from './layers/SpotPinLayer';
-import { intersection } from 'lodash-es';
+import { intersection, uniqWith } from 'lodash-es';
 
 type MapComponentProps = {
     mapRef?: React.RefObject<MapRef>;
@@ -35,29 +35,30 @@ const MapComponent = ({ mapRef, spots, children, onLoad }: MapComponentProps) =>
     const viewport = useAppSelector((state) => state.map.viewport);
     const spotId = useAppSelector((state) => state.map.selectSpot);
     const selectedSpotOverview = useAppSelector((state) => state.map.spotOverview);
+    const [displayedSpots, setDisplayedSpots] = useState<Spot[]>([]);
 
-    const markers = useMemo(() => {
-        if (viewport.zoom > MIN_ZOOM_DISPLAY_SPOT) {
-            return spots
-                .filter(isSpotMarker)
-                .map((spot) => (
+    useEffect(() => {
+        setDisplayedSpots((_spots) => uniqWith(_spots.concat(spots), (a, b) => a.id === b.id));
+    }, [spots, selectedSpotOverview, viewport.zoom]);
+
+    const [markers, spotSourceData]: [JSX.Element[], FeatureCollection<Geometry>] = useMemo(() => {
+        const markers: JSX.Element[] = [];
+        const spotSourceData: FeatureCollection<Geometry> = {
+            type: 'FeatureCollection',
+            features: [],
+        };
+
+        for (const spot of displayedSpots) {
+            if (isSpotMarker(spot) && viewport.zoom > ZOOM_DISPLAY_DOTS) {
+                markers.push(
                     <SpotMarker
                         key={spot.id}
                         spot={spot}
                         isSelected={selectedSpotOverview ? selectedSpotOverview.spot.id === spot.id : false}
-                    />
-                ));
-        }
-
-        return [];
-    }, [spots, selectedSpotOverview, viewport.zoom]);
-
-    const spotSourceData: FeatureCollection<Geometry> = useMemo(() => {
-        return {
-            type: 'FeatureCollection',
-            features: spots
-                .filter((spot) => !isSpotMarker(spot))
-                .map((spot) => ({
+                    />,
+                );
+            } else {
+                spotSourceData.features.push({
                     id: spot.id,
                     type: 'Feature',
                     geometry: {
@@ -68,9 +69,12 @@ const MapComponent = ({ mapRef, spots, children, onLoad }: MapComponentProps) =>
                         spotId: spot.id,
                         type: spot.status === Status.Active ? spot.type : spot.status,
                     },
-                })),
-        };
-    }, [spots]);
+                });
+            }
+        }
+
+        return [markers, spotSourceData];
+    }, [displayedSpots, selectedSpotOverview, viewport.zoom]);
 
     const onPopupClick = () => {
         dispatch(toggleSpotModal(true));
@@ -111,6 +115,8 @@ const MapComponent = ({ mapRef, spots, children, onLoad }: MapComponentProps) =>
                     <SpotPinLayer type={Types.Park} />
                     <SpotPinLayer type={Types.Diy} />
                     <SpotPinLayer type={Types.Private} />
+                    <SpotPinLayer type={Status.Rip} />
+                    <SpotPinLayer type={Status.Wip} />
                 </Source>
                 {/* Popup */}
                 {spotId != null && selectedSpotOverview != null && (

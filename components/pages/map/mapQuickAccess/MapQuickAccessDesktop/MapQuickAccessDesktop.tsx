@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-import axios from 'axios';
-import { useQuery } from '@tanstack/react-query';
 import Tippy from '@tippyjs/react/headless';
 
 import MapQuickAccessCustom from './MapQuickAccessDesktopCustom';
@@ -8,6 +6,7 @@ import MapQuickAccessCitiesToggleButton from './MapQuickAccessDesktopCities/MapQ
 import MapQuickAccessCities from './MapQuickAccessDesktopCities';
 
 import * as S from './MapQuickAccessDesktop.styled';
+import { useCustomMaps } from 'lib/hook/use-custom-map';
 
 export interface QuickAccess {
     id: string;
@@ -29,9 +28,7 @@ const MapQuickAccessDesktop = () => {
         setIsCitiesOpen(!isCitiesOpen);
     };
 
-    const { isLoading, data } = useQuery(['custom-maps'], () =>
-        axios.get<QuickAccessMap[]>('/api/custom-maps').then((res) => res.data),
-    );
+    const { isLoading, data } = useCustomMaps();
 
     return (
         <S.MapQuickAccessDesktopContainer>

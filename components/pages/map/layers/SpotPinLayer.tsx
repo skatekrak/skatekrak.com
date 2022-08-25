@@ -3,7 +3,7 @@ import { Layer, MapLayerMouseEvent, useMap } from 'react-map-gl';
 import { Status, Types } from 'shared/feudartifice/types';
 import { useAppDispatch, useAppSelector } from 'store/hook';
 import { selectSpot } from 'store/map/slice';
-import { MIN_ZOOM_DISPLAY_SPOT } from '../Map.constant';
+import { ZOOM_DISPLAY_DOTS } from '../Map.constant';
 
 type SpotPinLayerProps = {
     type: Types | Status;
@@ -45,7 +45,7 @@ const SpotPinLayer = ({ type }: SpotPinLayerProps) => {
             id={`spot-layer-${type}`}
             source="spots"
             type="symbol"
-            minzoom={MIN_ZOOM_DISPLAY_SPOT}
+            minzoom={ZOOM_DISPLAY_DOTS}
             layout={{
                 'icon-image': `spot-${type}`,
                 'icon-size': 0.5,

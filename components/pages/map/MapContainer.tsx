@@ -25,7 +25,7 @@ import MapZoomAlert from './MapZoomAlert';
 import * as S from './Map.styled';
 import { useAppDispatch } from 'store/hook';
 import { findBoundsCoordinate } from 'lib/map/helpers';
-import { MAX_ZOOM_DISPLAY_SPOT } from './Map.constant';
+import { ZOOM_DISPLAY_DOTS, ZOOM_DISPLAY_WARNING } from './Map.constant';
 import MapCreateSpot from './MapCreateSpot';
 import useSession from 'lib/hook/carrelage/use-session';
 import { useRouter } from 'next/router';
@@ -119,7 +119,8 @@ const MapContainer = () => {
             const southWest = bounds.getSouthWest();
             const zoom = map.getZoom();
 
-            if (zoom > MAX_ZOOM_DISPLAY_SPOT) {
+            // Only search if spots are displayed
+            if (zoom > ZOOM_DISPLAY_WARNING) {
                 const spots = await boxSpotsSearch({
                     northEastLatitude: northEast.lat,
                     northEastLongitude: northEast.lng,
@@ -129,7 +130,7 @@ const MapContainer = () => {
                         status: getSelectedFilterState(status),
                         type: getSelectedFilterState(types),
                     },
-                    limit: 200,
+                    limit: 150,
                 });
 
                 return spots;
@@ -141,7 +142,8 @@ const MapContainer = () => {
             onSettled: () => {
                 dispatch(mapRefreshEnd());
             },
-            keepPreviousData: true,
+            refetchOnWindowFocus: false,
+            refetchOnMount: false,
         },
     );
 
@@ -154,7 +156,7 @@ const MapContainer = () => {
             const bounds = findBoundsCoordinate(
                 customMapInfo.spots.map((spot) => [spot.location.longitude, spot.location.latitude]),
             );
-            mapRef.current?.fitBounds(bounds, { padding: 0.15, duration: 1500 });
+            mapRef.current?.fitBounds(bounds, { padding: 128, duration: 1500 });
         }
     }, [customMapInfo, viewport.width, id, dispatch]);
 
@@ -167,7 +169,7 @@ const MapContainer = () => {
             return spots;
         }
 
-        if (viewport.zoom <= MAX_ZOOM_DISPLAY_SPOT) {
+        if (viewport.zoom <= ZOOM_DISPLAY_WARNING) {
             return [];
         }
 
@@ -194,7 +196,7 @@ const MapContainer = () => {
                             <MapNavigation handleCreateSpotClick={onToggleSpotCreation} />
                         )}
                         {!isMobile && <MapQuickAccessDesktop />}
-                        {viewport.zoom <= MAX_ZOOM_DISPLAY_SPOT && id == null && <MapZoomAlert />}
+                        {viewport.zoom <= ZOOM_DISPLAY_WARNING && id == null && <MapZoomAlert />}
                         <MapBottomNav isMobile={isMobile} />
                         <MapFullSpot
                             open={modalVisible}

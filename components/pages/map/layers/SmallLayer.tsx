@@ -1,8 +1,9 @@
-import { Layer } from 'react-map-gl';
+import { useEffect } from 'react';
+import { Layer, MapLayerMouseEvent, useMap } from 'react-map-gl';
 import { Status, Types } from 'shared/feudartifice/types';
 import { useAppSelector } from 'store/hook';
 import { useTheme } from 'styled-components';
-import { MIN_ZOOM_DISPLAY_SPOT } from '../Map.constant';
+import { ZOOM_DISPLAY_DOTS, ZOOM_DISPLAY_WARNING } from '../Map.constant';
 
 /**
  * mapgl layer to display small pin representing the spot
@@ -11,13 +12,34 @@ import { MIN_ZOOM_DISPLAY_SPOT } from '../Map.constant';
 const SmallLayer = () => {
     const theme = useTheme();
     const isCreateSpotOpen = useAppSelector((state) => state.map.isCreateSpotOpen);
+    const { current: map } = useMap();
+
+    useEffect(() => {
+        const onMapLayerClick = (event: MapLayerMouseEvent) => {
+            if (event.features.length > 0) {
+                map.flyTo({
+                    zoom: ZOOM_DISPLAY_DOTS + 1,
+                    center: {
+                        lat: event.lngLat.lat,
+                        lng: event.lngLat.lng,
+                    },
+                });
+            }
+        };
+
+        map.on('click', 'spot-small-point', onMapLayerClick);
+
+        return () => {
+            map.off('click', 'spot-small-point', onMapLayerClick);
+        };
+    }, []);
 
     return (
         <Layer
             id="spot-small-point"
             source="spots"
             type="circle"
-            maxzoom={MIN_ZOOM_DISPLAY_SPOT}
+            maxzoom={ZOOM_DISPLAY_DOTS}
             paint={{
                 'circle-opacity': isCreateSpotOpen ? 0.5 : 1,
                 'circle-radius': 4,
