@@ -29,6 +29,7 @@ export const useSpotsSearch = (mapRef: MutableRefObject<MapRef>, enabled = true)
     const debouncedViewport = useDebounce(viewport, 200);
     const [loadedSpots, setLoadedSpots] = useState<Spot[]>([]);
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { data, ...queryRes } = useQuery(
         ['fetch-spots-on-map', debouncedViewport, status, types],
         async () => {
@@ -55,7 +56,11 @@ export const useSpotsSearch = (mapRef: MutableRefObject<MapRef>, enabled = true)
             enabled,
             onSettled: () => {
                 dispatch(mapRefreshEnd());
-                setLoadedSpots((previousSpots) => uniqWith(previousSpots.concat(data ?? []), (a, b) => a.id === b.id));
+            },
+            onSuccess: (newSpots) => {
+                setLoadedSpots((previousSpots) =>
+                    uniqWith(previousSpots.concat(newSpots ?? []), (a, b) => a.id === b.id),
+                );
             },
             refetchOnWindowFocus: false,
             refetchOnMount: false,
