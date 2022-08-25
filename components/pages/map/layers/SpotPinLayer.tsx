@@ -24,7 +24,7 @@ const SpotPinLayer = ({ type }: SpotPinLayerProps) => {
                 }
             });
         }
-    }, [type]);
+    }, [type, map]);
 
     useEffect(() => {
         const onMapLayerClick = (event: MapLayerMouseEvent) => {

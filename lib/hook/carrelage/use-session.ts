@@ -21,11 +21,11 @@ const useSession = ({ redirectTo }: UseSessionOptions = {}) => {
             );
 
             if (errorGetSession != null) {
-                if (errorGetSession.response?.status === 401) {
-                    if (redirectTo != null) {
-                        router.push(redirectTo);
-                    }
-                }
+                // if (errorGetSession.response?.status === 401) {
+                //     if (redirectTo != null) {
+                //         router.push(redirectTo);
+                //     }
+                // }
 
                 throw errorGetSession;
             }

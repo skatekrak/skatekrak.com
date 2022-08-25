@@ -28,9 +28,9 @@ import { ZOOM_DISPLAY_WARNING } from './Map.constant';
 import MapCreateSpot from './MapCreateSpot';
 import useSession from 'lib/hook/carrelage/use-session';
 import { useRouter } from 'next/router';
-import { useQuery } from '@tanstack/react-query';
+import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import useDebounce from 'lib/hook/useDebounce';
-import { uniqWith } from 'lodash-es';
+import { flatten, uniqWith } from 'lodash-es';
 
 const DynamicMapComponent = dynamic(() => import('./MapComponent'), { ssr: false });
 const MapFullSpot = dynamic(() => import('./MapFullSpot'), { ssr: false });
@@ -41,7 +41,6 @@ const MapContainer = () => {
     const types = useAppSelector((state: RootState) => state.map.types);
     const viewport = useAppSelector((state: RootState) => state.map.viewport);
     const isCreateSpotOpen = useAppSelector((state: RootState) => state.map.isCreateSpotOpen);
-    const selectedSpotOverview = useAppSelector((state) => state.map.spotOverview);
     const dispatch = useAppDispatch();
     const session = useSession();
     const router = useRouter();
@@ -52,9 +51,8 @@ const MapContainer = () => {
     const modalVisible = useAppSelector((state: RootState) => state.map.modalVisible);
 
     const [, setFirstLoad] = useState(() => (spotId ? true : false));
-    const [loadedSpots, setLoadedSpots] = useState<Spot[]>([]);
 
-    const { data: customMapInfo, isLoading: customMapLoading } = useCustomMap(id);
+    const { data: customMapInfo } = useCustomMap(id);
 
     // Full spot
     const fullSpotContainerRef = useRef<HTMLDivElement>();
@@ -108,8 +106,25 @@ const MapContainer = () => {
     );
 
     const debounceViewport = useDebounce(viewport, 200);
-    const { data: spots = [], refetch } = useQuery(
-        ['fetch-spots-on-map', debounceViewport, status, types, customMapInfo],
+
+    const enableSpotQuery = useMemo(() => {
+        if (mapRef.current == null) {
+            return false;
+        }
+
+        if (id != null || id === '') {
+            return false;
+        }
+
+        if (viewport.zoom <= ZOOM_DISPLAY_WARNING) {
+            return false;
+        }
+
+        return true;
+    }, [id, viewport.zoom]);
+
+    const { data, refetch } = useInfiniteQuery(
+        ['fetch-spots-on-map', debounceViewport, status, types],
         async () => {
             const map = mapRef.current.getMap();
             const bounds = map.getBounds();
@@ -131,7 +146,7 @@ const MapContainer = () => {
             return spots;
         },
         {
-            enabled: mapRef.current != null && (id == null || id == '') && viewport.zoom <= ZOOM_DISPLAY_WARNING,
+            enabled: enableSpotQuery,
             onSettled: () => {
                 dispatch(mapRefreshEnd());
             },
@@ -139,6 +154,7 @@ const MapContainer = () => {
             refetchOnMount: false,
         },
     );
+    const spots = useMemo(() => uniqWith(flatten(data?.pages ?? []), (a, b) => a.id === b.id), [data]);
 
     const onFullSpotClose = () => {
         dispatch(updateUrlParams({ modal: false, mediaId: null }));
@@ -153,16 +169,9 @@ const MapContainer = () => {
         }
     }, [customMapInfo, viewport.width, id, dispatch]);
 
-    useEffect(() => {
-        setLoadedSpots((_spots) => uniqWith(_spots.concat(spots), (a, b) => a.id === b.id));
-    }, [spots, selectedSpotOverview]);
-
     const displayedSpots = useMemo(() => {
         // It's a custom map, we can return the spots if not loading
         if (id != null) {
-            if (customMapLoading) {
-                return [];
-            }
             if (customMapInfo && customMapInfo.spots) {
                 return customMapInfo.spots;
             }
@@ -173,8 +182,8 @@ const MapContainer = () => {
             return [];
         }
 
-        return loadedSpots;
-    }, [loadedSpots, id, customMapLoading, viewport.zoom]);
+        return spots;
+    }, [spots, id, viewport.zoom, customMapInfo]);
 
     return (
         <S.MapContainer ref={fullSpotContainerRef}>
