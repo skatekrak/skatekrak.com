@@ -64,16 +64,6 @@ const Header: React.FC = () => {
                                             </Link>
                                         </>
                                     )}
-                                    <S.ThreeDotMenuTitle component="subtitle2">Download the app</S.ThreeDotMenuTitle>
-                                    <S.ThreeDotMenuItem
-                                        href="https://itunes.apple.com/us/app/krak/id916474561"
-                                        target="_blank"
-                                        rel="noreferrer noopener"
-                                    >
-                                        <Typography as="span" component="subtitle2">
-                                            iOS
-                                        </Typography>
-                                    </S.ThreeDotMenuItem>
 
                                     <S.ThreeDotMenuTitle component="subtitle2">Find us</S.ThreeDotMenuTitle>
                                     <S.ThreeDotMenuItem
