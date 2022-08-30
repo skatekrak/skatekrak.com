@@ -54,16 +54,24 @@ const Header: React.FC = () => {
                             render={() => (
                                 <S.ThreeDotMenu>
                                     {isMobile && (
-                                        <>
-                                            <Link href={PATH_CALL_TO_ADVENTURE} passHref>
-                                                <S.ThreeDotMenuItem>
-                                                    <Typography as="span" component="subtitle1">
-                                                        Call To Adventure
-                                                    </Typography>
-                                                </S.ThreeDotMenuItem>
-                                            </Link>
-                                        </>
+                                        <Link href={PATH_CALL_TO_ADVENTURE} passHref>
+                                            <S.ThreeDotMenuItem large>
+                                                <Typography as="span" component="subtitle1">
+                                                    Call To Adventure
+                                                </Typography>
+                                            </S.ThreeDotMenuItem>
+                                        </Link>
                                     )}
+                                    <Link href="" passHref>
+                                        <S.ThreeDotMenuItem large disabled>
+                                            <Typography as="span" component="subtitle1">
+                                                Roadmap
+                                            </Typography>
+                                            <S.ThreeDotMenuItemComingSoon component="caption">
+                                                Coming Soon
+                                            </S.ThreeDotMenuItemComingSoon>
+                                        </S.ThreeDotMenuItem>
+                                    </Link>
 
                                     <S.ThreeDotMenuTitle component="subtitle2">Find us</S.ThreeDotMenuTitle>
                                     <S.ThreeDotMenuItem
