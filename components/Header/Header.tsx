@@ -67,6 +67,15 @@ const Header: React.FC = () => {
 
                                     <S.ThreeDotMenuTitle component="subtitle2">Find us</S.ThreeDotMenuTitle>
                                     <S.ThreeDotMenuItem
+                                        href="https://www.twitter.com/skatekrak"
+                                        target="_blank"
+                                        rel="noreferrer"
+                                    >
+                                        <Typography as="span" component="subtitle2">
+                                            Twitter
+                                        </Typography>
+                                    </S.ThreeDotMenuItem>
+                                    <S.ThreeDotMenuItem
                                         href="https://www.instagram.com/skate_krak/"
                                         target="_blank"
                                         rel="noreferrer"
