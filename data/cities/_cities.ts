@@ -12,6 +12,17 @@ const cities: City[] = [
             [121.56222044527658, 31.274483881128248],
         ],
     },
+    {
+        id: 'hongkong',
+        name: 'HK',
+        edito: '',
+        subtitle: '',
+        about: '',
+        bounds: [
+            [114.30947948368129, 22.418878996495977],
+            [114.02924271631633, 22.219657710521872],
+        ],
+    },
     // {
     //     id: 'singapore',
     //     name: 'Singapore',
@@ -102,17 +113,6 @@ Paris is a paradise for skateboarders! From its concrete sidewalks perfect to go
             [-46.75621642127189, -23.630010501861648],
         ],
     },
-    {
-        id: 'hongkong',
-        name: 'Hong Kong',
-        edito: '',
-        subtitle: '',
-        about: '',
-        bounds: [
-            [114.30947948368129, 22.418878996495977],
-            [114.02924271631633, 22.219657710521872],
-        ],
-    },
     // {
     //     id: 'brooklyn',
     //     name: 'Brooklyn',
@@ -137,7 +137,7 @@ Paris is a paradise for skateboarders! From its concrete sidewalks perfect to go
     },
     {
         id: 'la',
-        name: 'L.A',
+        name: 'LA',
         edito: '',
         subtitle: '',
         about: '',
@@ -148,7 +148,7 @@ Paris is a paradise for skateboarders! From its concrete sidewalks perfect to go
     },
     {
         id: 'sf',
-        name: 'S.F',
+        name: 'SF',
         edito: '',
         subtitle: '',
         about: '',
