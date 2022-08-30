@@ -55,13 +55,6 @@ const Header: React.FC = () => {
                                 <S.ThreeDotMenu>
                                     {isMobile && (
                                         <>
-                                            <Link href="/" passHref>
-                                                <S.ThreeDotMenuItem>
-                                                    <Typography as="span" component="subtitle1">
-                                                        Map
-                                                    </Typography>
-                                                </S.ThreeDotMenuItem>
-                                            </Link>
                                             <Link href={PATH_CALL_TO_ADVENTURE} passHref>
                                                 <S.ThreeDotMenuItem>
                                                     <Typography as="span" component="subtitle1">
