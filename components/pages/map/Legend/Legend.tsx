@@ -87,16 +87,6 @@ const Legend = () => {
                             <BadgeIconic />
                         </S.LegendActivityBadge>
                     </S.LegendActivityMarker>
-                    {'< 3'}
-                </S.LegendActivity>
-                <S.LegendActivity>
-                    <S.LegendActivityMarker>
-                        <IconStreet />
-                        <S.LegendActivityBadge>
-                            <BadgeIconic />
-                        </S.LegendActivityBadge>
-                        <Activity firing />
-                    </S.LegendActivityMarker>
                     {'< 10'}
                 </S.LegendActivity>
                 <S.LegendActivity>
@@ -107,7 +97,17 @@ const Legend = () => {
                         </S.LegendActivityBadge>
                         <Activity firing />
                     </S.LegendActivityMarker>
-                    {'> 10'}
+                    {'< 30'}
+                </S.LegendActivity>
+                <S.LegendActivity>
+                    <S.LegendActivityMarker>
+                        <IconStreet />
+                        <S.LegendActivityBadge>
+                            <BadgeIconic />
+                        </S.LegendActivityBadge>
+                        <Activity firing />
+                    </S.LegendActivityMarker>
+                    {'> 30'}
                 </S.LegendActivity>
             </S.LegendActivitiesContainer>
         </S.LegendContainer>
