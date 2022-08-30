@@ -3,7 +3,7 @@ import React from 'react';
 
 import { Marker, MapboxEvent } from 'react-map-gl';
 
-import { Spot, Status } from 'lib/carrelageClient';
+import { Spot } from 'lib/carrelageClient';
 
 import BadgeHistory from 'components/pages/map/marker/badges/History';
 import BadgeIconic from 'components/pages/map/marker/badges/Iconic';
@@ -30,8 +30,8 @@ const Pin = ({ imageName }: { imageName: string }) => {
 const SpotMarker = ({ spot, isSelected, small = false }: SpotMarkerProps) => {
     const isCreateSpotOpen = useAppSelector((state) => state.map.isCreateSpotOpen);
     const dispatch = useAppDispatch();
-    const active = spot.mediasStat.all > 3;
-    const firing = spot.mediasStat.all >= 10;
+    const active = spot.mediasStat.all >= 10;
+    const firing = spot.mediasStat.all >= 30;
 
     const onMarkerClick = (event: MapboxEvent<Event>) => {
         event.originalEvent?.stopPropagation();

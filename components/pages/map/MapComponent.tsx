@@ -133,7 +133,7 @@ const MapComponent = ({ mapRef, spots, children, onLoad }: MapComponentProps) =>
 };
 
 const isSpotMarker = (spot: Spot): boolean => {
-    return spot.mediasStat.all > 3 && intersection(spot.tags, ['history', 'famous', 'minute']).length > 0;
+    return spot.mediasStat.all >= 10 || intersection(spot.tags, ['history', 'famous', 'minute']).length > 0;
 };
 
 export default MapComponent;
