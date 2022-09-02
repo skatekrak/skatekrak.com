@@ -7,7 +7,7 @@ import useDebounce from 'lib/hook/useDebounce';
 import { useAppDispatch, useAppSelector } from 'store/hook';
 import { getSelectedFilterState, mapRefreshEnd } from 'store/map/slice';
 import { boxSpotsSearch } from 'lib/carrelageClient';
-import { uniqWith } from 'lodash-es';
+import { unique } from 'radash';
 
 const { client } = Feudartifice;
 
@@ -58,9 +58,7 @@ export const useSpotsSearch = (mapRef: MutableRefObject<MapRef>, enabled = true)
                 dispatch(mapRefreshEnd());
             },
             onSuccess: (newSpots) => {
-                setLoadedSpots((previousSpots) =>
-                    uniqWith(previousSpots.concat(newSpots ?? []), (a, b) => a.id === b.id),
-                );
+                setLoadedSpots((previousSpots) => unique(previousSpots.concat(newSpots ?? []), (a) => a.id));
             },
             refetchOnWindowFocus: false,
             refetchOnMount: false,

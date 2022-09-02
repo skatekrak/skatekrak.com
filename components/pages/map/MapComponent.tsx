@@ -21,7 +21,7 @@ import { MAX_ZOOM_LEVEL, ZOOM_DISPLAY_DOTS, MIN_ZOOM_LEVEL } from './Map.constan
 import { Status, Types } from 'shared/feudartifice/types';
 import SmallLayer from './layers/SmallLayer';
 import SpotPinLayer from './layers/SpotPinLayer';
-import { intersection } from 'lodash-es';
+import { intersects } from 'radash';
 
 type MapComponentProps = {
     mapRef?: React.RefObject<MapRef>;
@@ -133,7 +133,7 @@ const MapComponent = ({ mapRef, spots, children, onLoad }: MapComponentProps) =>
 };
 
 const isSpotMarker = (spot: Spot): boolean => {
-    return spot.mediasStat.all >= 10 || intersection(spot.tags, ['history', 'famous', 'minute']).length > 0;
+    return spot.mediasStat.all >= 10 || intersects(spot.tags, ['history', 'famous', 'minute']);
 };
 
 export default MapComponent;

@@ -8,7 +8,7 @@ import { save, load } from 'redux-localstorage-simple';
 import merge from 'deepmerge';
 import { Action } from 'redux';
 import { combineReducers } from '@reduxjs/toolkit';
-import { random } from 'lodash-es';
+import { draw } from 'radash';
 
 import querySyncMiddleware from './middleware/query-sync';
 
@@ -81,7 +81,7 @@ export const initializeStore = (context) => {
 
         // We don't go to a random city if a spot is selected, as well as a custom map
         if (params.spot == null && params.id == null) {
-            const randomCity = cities[random(cities.length - 1)];
+            const randomCity = draw(cities);
 
             state.map.viewport = {
                 ...state.map.viewport,

@@ -1,13 +1,14 @@
-import React, { useState, memo } from 'react';
+import React, { memo } from 'react';
 import * as Yup from 'yup';
-import { Types, Location } from 'shared/feudartifice/types';
+import { Types } from 'shared/feudartifice/types';
 import { Formik } from 'formik';
 import MapCreateSpotForm from './MapCreateSpotForm';
 import Feudartifice from 'shared/feudartifice';
-import to from 'await-to-js';
+import * as _ from 'radash';
 import { useAppDispatch } from 'store/hook';
 import { selectSpot, toggleCreateSpot } from 'store/map/slice';
 import { useQueryClient } from '@tanstack/react-query';
+import Bugsnag from '@bugsnag/browser';
 
 export type MapCreateSpotFormValues = {
     name: string;
@@ -42,14 +43,12 @@ const MapCreateSpot = () => {
     const queryClient = useQueryClient();
 
     const onSubmit = async (values: MapCreateSpotFormValues) => {
-        const [errorAddingSpot, spot] = await to(
-            Feudartifice.spots.addSpot({
-                name: values.name,
-                type: values.type,
-                ...values.location,
-                indoor: values.indoor === 'true',
-            }),
-        );
+        const [errorAddingSpot, spot] = await _.try(Feudartifice.spots.addSpot)({
+            name: values.name,
+            type: values.type,
+            ...values.location,
+            indoor: values.indoor === 'true',
+        });
 
         if (errorAddingSpot) {
             console.error('Error adding spot', errorAddingSpot);
@@ -61,14 +60,14 @@ const MapCreateSpot = () => {
             return;
         }
 
-        const [errorAddMedia, medias] = await to(
-            Promise.all(
-                values.images.map(async (imageURL) => {
-                    const media = await Feudartifice.media.createMedia({ spot: spot.id });
-                    return Feudartifice.media.uploadMedia(media.id, imageURL);
-                }),
-            ),
-        );
+        const [errorAddMedia] = await _.try(_.parallel)(2, values.images, async (imageURL: File) => {
+            const media = await Feudartifice.media.createMedia({ spot: spot.id });
+            return Feudartifice.media.uploadMedia(media.id, imageURL);
+        });
+
+        if (errorAddMedia) {
+            Bugsnag.notify(errorAddMedia);
+        }
 
         dispatch(toggleCreateSpot());
         dispatch(selectSpot(spot.id));

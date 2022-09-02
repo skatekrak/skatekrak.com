@@ -3,7 +3,7 @@ import { NextPage } from 'next';
 import Link from 'next/link';
 import { Formik, Field, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
-import { some, isNil, first } from 'lodash-es';
+import { isEmpty, first, shake } from 'radash';
 import Feudartifice from 'shared/feudartifice';
 
 import Layout from 'components/Layout';
@@ -94,7 +94,7 @@ const Login: NextPage = () => {
                                 {/* Submit */}
                                 <S.AuthSubmitContainer>
                                     {/* First check if we have at least one error */}
-                                    {some(errors, (value) => !isNil(value)) && (
+                                    {Object.keys(shake(errors)).length > 0 && (
                                         <S.AuthSubmitErrorContainer>
                                             {/* Display the first error found which isn't nil and is touched */}
                                             <S.AuthSubmitError component="body2">
@@ -102,7 +102,7 @@ const Login: NextPage = () => {
                                                     errors[
                                                         first(
                                                             Object.keys(errors).filter(
-                                                                (key) => !isNil(errors[key]) && !isNil(touched[key]),
+                                                                (key) => !isEmpty(errors[key]) && touched[key],
                                                             ),
                                                         )
                                                     ]
