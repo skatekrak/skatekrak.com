@@ -51,7 +51,6 @@ export const PrimaryNavItem = styled.a`
     font-size: 1.125rem;
     letter-spacing: 0.25px;
     font-style: italic;
-    text-transform: capitalize;
     cursor: pointer;
 `;
 

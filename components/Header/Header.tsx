@@ -35,7 +35,7 @@ const Header: React.FC = () => {
                             <S.PrimaryNavItem>Map</S.PrimaryNavItem>
                         </Link>
                         <Link href={PATH_CALL_TO_ADVENTURE}>
-                            <S.PrimaryNavItem>Call To Adventure</S.PrimaryNavItem>
+                            <S.PrimaryNavItem>Call to Adventure</S.PrimaryNavItem>
                         </Link>
                     </S.PrimaryNav>
                 )}
