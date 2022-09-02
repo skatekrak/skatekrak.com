@@ -75,6 +75,10 @@ export const SecondaryNavItem = styled.div`
     ${media.laptopS} {
         margin-left: 1rem;
     }
+
+    &:first-child {
+        margin-left: 0;
+    }
 `;
 
 /** Three dot menu */

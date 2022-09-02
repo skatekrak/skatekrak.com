@@ -63,7 +63,6 @@ const Header: React.FC = () => {
                     </S.SecondaryNavItem>
 
                     {/* Three dot menu */}
-                    <div>
                         <Tippy
                             visible={isMenuOpen}
                             onClickOutside={handleMenuOpen}
@@ -119,7 +118,6 @@ const Header: React.FC = () => {
                                 <IconDotsThreeVertical />
                             </S.SecondaryNavItem>
                         </Tippy>
-                    </div>
 
                     {isConnected ? (
                         <HeaderProfile />
