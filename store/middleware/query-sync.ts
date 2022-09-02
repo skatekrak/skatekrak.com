@@ -1,6 +1,6 @@
 import { replace } from 'connected-next-router';
 import { Middleware } from 'redux';
-import { omitBy, isUndefined } from 'lodash-es';
+import { shake } from 'radash';
 import queryString from 'query-string';
 
 const querySyncMiddleware: Middleware = (store) => (next) => (action) => {
@@ -10,7 +10,7 @@ const querySyncMiddleware: Middleware = (store) => (next) => (action) => {
         const search = queryString.stringify(
             {
                 ...queryString.parse(state.router.location.search),
-                ...omitBy(action.meta.pushToUrl, isUndefined),
+                ...shake(action.meta.pushToUrl, (value) => value !== undefined),
             },
             { skipNull: true, skipEmptyString: true },
         );

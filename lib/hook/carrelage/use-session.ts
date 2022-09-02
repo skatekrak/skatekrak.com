@@ -1,10 +1,7 @@
-import to from 'await-to-js';
-import { AxiosError } from 'axios';
+import { tryit } from 'radash';
 import { useRouter } from 'next/router';
 import { useQuery } from '@tanstack/react-query';
 import Feudartifice from 'shared/feudartifice';
-import { SessionResponse } from 'shared/feudartifice/auth';
-import { CarrelageAPIError } from 'shared/feudartifice/types';
 
 type UseSessionOptions = {
     redirectTo?: string;
@@ -16,9 +13,7 @@ const useSession = ({ redirectTo }: UseSessionOptions = {}) => {
     return useQuery(
         ['fetch-session'],
         async () => {
-            const [errorGetSession, sessionRes] = await to<SessionResponse, AxiosError<CarrelageAPIError>>(
-                Feudartifice.auth.getSession(),
-            );
+            const [errorGetSession, sessionRes] = await tryit(Feudartifice.auth.getSession)();
 
             if (errorGetSession != null) {
                 // if (errorGetSession.response?.status === 401) {

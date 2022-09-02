@@ -1,4 +1,4 @@
-import { intersection } from 'lodash-es';
+import { intersects } from 'radash';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { useAppSelector } from 'store/hook';
 
@@ -18,7 +18,7 @@ const usePosts = (params: PostsFetchParam) => {
 
             if (params.categories.length > 0) {
                 return articles
-                    .filter((article) => intersection(article.categories, params.categories).length > 0)
+                    .filter((article) => intersects(article.categories, params.categories))
                     .slice(params.per_page * page, params.per_page + params.per_page * page);
             }
             return articles.slice(params.per_page * page, params.per_page + params.per_page * page);

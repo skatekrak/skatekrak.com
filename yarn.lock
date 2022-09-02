@@ -897,18 +897,6 @@
   resolved "https://registry.yarnpkg.com/@types/jump.js/-/jump.js-1.0.3.tgz#fa146aea4cbfdbe01bfc79f1d5c5d153459540e4"
   integrity sha512-PPBrbkTL2Dfb7DWazS31wGJ9vYRvl6/FLYVQPZUO1DhWXA9AdulMPoWc2LAZdCdTLEGn+vFMYEHHUgXYzeQBXA==
 
-"@types/lodash-es@^4.17.6":
-  version "4.17.6"
-  resolved "https://registry.yarnpkg.com/@types/lodash-es/-/lodash-es-4.17.6.tgz#c2ed4c8320ffa6f11b43eb89e9eaeec65966a0a0"
-  integrity sha512-R+zTeVUKDdfoRxpAryaQNRKk3105Rrgx2CFRClIgRGaqDTdjsm8h6IYA8ir584W3ePzkZfst5xIgDwYrlh9HLg==
-  dependencies:
-    "@types/lodash" "*"
-
-"@types/lodash@*":
-  version "4.14.182"
-  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.182.tgz#05301a4d5e62963227eaafe0ce04dd77c54ea5c2"
-  integrity sha512-/THyiqyQAP9AfARo4pF+aCGcyiQ94tX/Is2I7HofNRqoYLgN1PBoOWu2/zTA5zMxzP5EFutMtWtGAFRKUe961Q==
-
 "@types/lodash@^4.14.175":
   version "4.14.179"
   resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.179.tgz#490ec3288088c91295780237d2497a3aa9dfb5c5"
@@ -1413,11 +1401,6 @@ attr-accept@^2.2.2:
   version "2.2.2"
   resolved "https://registry.yarnpkg.com/attr-accept/-/attr-accept-2.2.2.tgz#646613809660110749e92f2c10833b70968d929b"
   integrity sha512-7prDjvt9HmqiZ0cl5CRjtS84sEyhsHP2coDkaZKRKVfCDo9s7iw7ChVmar78Gu9pC4SoR/28wFu/G5JJhTnqEg==
-
-await-to-js@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/await-to-js/-/await-to-js-3.0.0.tgz#70929994185616f4675a91af6167eb61cc92868f"
-  integrity sha512-zJAaP9zxTcvTHRlejau3ZOY4V7SRpiByf3/dxx2uyKxxor19tpmpV2QRsTKikckwhaPmr2dVpxxMr7jOCYVp5g==
 
 awesome-debounce-promise@^2.1.0:
   version "2.1.0"
@@ -4041,6 +4024,11 @@ quickselect@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/quickselect/-/quickselect-2.0.0.tgz#f19680a486a5eefb581303e023e98faaf25dd018"
   integrity sha512-RKJ22hX8mHe3Y6wH/N3wCM6BWtjaxIyyUIkpHOvfFnxdI4yD4tBXEBKSbriGujF6jnSVkJrffuo6vxACiSSxIw==
+
+radash@^7.1.0:
+  version "7.1.0"
+  resolved "https://registry.yarnpkg.com/radash/-/radash-7.1.0.tgz#b6da541c678368ab3a1f3702057342e944599e92"
+  integrity sha512-NOWTaF5YMY3mCgrNq9Fw9fK8yvJv92uqRb2StcVq5W8kcJ6949EbV2vk6nLJKAocYs29rzJafZZP1lFkEkoVGw==
 
 randombytes@^2.1.0:
   version "2.1.0"

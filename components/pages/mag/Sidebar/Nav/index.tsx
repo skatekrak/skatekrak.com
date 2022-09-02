@@ -5,9 +5,8 @@ import SourceOption from 'components/Ui/Feed/Sidebar/SourceOption';
 import Analytics from 'lib/analytics';
 import { resetCategories, toggleCategory } from 'store/mag/slice';
 import usePosts from 'lib/hook/mag/posts';
-import { Source } from 'rss-feed';
 import { useAppDispatch, useAppSelector } from 'store/hook';
-import { flatten, uniq } from 'lodash-es';
+import { unique, flat } from 'radash';
 
 type NavProps = {
     sidebarNavIsOpen: boolean;
@@ -20,7 +19,7 @@ const Nav = ({ sidebarNavIsOpen, handleOpenSidebarNav }: NavProps) => {
 
     const articles = useAppSelector((state) => state.mag.articles);
     const categories = useMemo(() => {
-        const _categories = uniq(flatten(articles.map((article) => article.categories)));
+        const _categories = unique(flat(articles.map((article) => article.categories)));
         return _categories.map((category) => ({
             id: category,
             label: category,
