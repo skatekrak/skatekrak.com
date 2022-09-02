@@ -84,15 +84,6 @@ const Header: React.FC = () => {
                                         </Typography>
                                     </S.ThreeDotMenuItem>
                                     <S.ThreeDotMenuItem
-                                        href="https://www.instagram.com/skate_krak/"
-                                        target="_blank"
-                                        rel="noreferrer"
-                                    >
-                                        <Typography as="span" component="subtitle2">
-                                            Instagram
-                                        </Typography>
-                                    </S.ThreeDotMenuItem>
-                                    <S.ThreeDotMenuItem
                                         href="https://www.youtube.com/krakskate"
                                         target="_blank"
                                         rel="noreferrer"
