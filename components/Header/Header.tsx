@@ -54,35 +54,35 @@ const Header: React.FC = () => {
                             render={() => (
                                 <S.ThreeDotMenu>
                                     {isMobile && (
-                                        <>
-                                            <Link href="/" passHref>
-                                                <S.ThreeDotMenuItem>
-                                                    <Typography as="span" component="subtitle1">
-                                                        Map
-                                                    </Typography>
-                                                </S.ThreeDotMenuItem>
-                                            </Link>
-                                            <Link href={PATH_CALL_TO_ADVENTURE} passHref>
-                                                <S.ThreeDotMenuItem>
-                                                    <Typography as="span" component="subtitle1">
-                                                        Call To Adventure
-                                                    </Typography>
-                                                </S.ThreeDotMenuItem>
-                                            </Link>
-                                        </>
+                                        <Link href={PATH_CALL_TO_ADVENTURE} passHref>
+                                            <S.ThreeDotMenuItem large>
+                                                <Typography as="span" component="subtitle1">
+                                                    Call To Adventure
+                                                </Typography>
+                                            </S.ThreeDotMenuItem>
+                                        </Link>
                                     )}
-                                    <S.ThreeDotMenuTitle component="subtitle2">Download the app</S.ThreeDotMenuTitle>
-                                    <S.ThreeDotMenuItem
-                                        href="https://itunes.apple.com/us/app/krak/id916474561"
-                                        target="_blank"
-                                        rel="noreferrer noopener"
-                                    >
-                                        <Typography as="span" component="subtitle2">
-                                            iOS
-                                        </Typography>
-                                    </S.ThreeDotMenuItem>
+                                    <Link href="" passHref>
+                                        <S.ThreeDotMenuItem large disabled>
+                                            <Typography as="span" component="subtitle1">
+                                                Roadmap
+                                            </Typography>
+                                            <S.ThreeDotMenuItemComingSoon component="caption">
+                                                Coming Soon
+                                            </S.ThreeDotMenuItemComingSoon>
+                                        </S.ThreeDotMenuItem>
+                                    </Link>
 
                                     <S.ThreeDotMenuTitle component="subtitle2">Find us</S.ThreeDotMenuTitle>
+                                    <S.ThreeDotMenuItem
+                                        href="https://www.twitter.com/skatekrak"
+                                        target="_blank"
+                                        rel="noreferrer"
+                                    >
+                                        <Typography as="span" component="subtitle2">
+                                            Twitter
+                                        </Typography>
+                                    </S.ThreeDotMenuItem>
                                     <S.ThreeDotMenuItem
                                         href="https://www.instagram.com/skate_krak/"
                                         target="_blank"

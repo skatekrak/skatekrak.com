@@ -49,7 +49,9 @@ export const PrimaryNavItem = styled.a`
     padding: 0.75rem;
     font-family: ${({ theme }) => theme.typography.fonts.roboto.condensed.bold};
     font-size: 1.125rem;
-    text-transform: uppercase;
+    letter-spacing: 0.25px;
+    font-style: italic;
+    text-transform: capitalize;
     cursor: pointer;
 `;
 
@@ -87,11 +89,28 @@ export const ThreeDotMenuTitle = styled(Typography)`
     color: ${({ theme }) => theme.color.onDark.lowEmphasis};
 `;
 
-export const ThreeDotMenuItem = styled.a`
+type ThreeDotMenuItemProps = {
+    large?: boolean;
+    disabled?: boolean;
+};
+
+export const ThreeDotMenuItem = styled.a<ThreeDotMenuItemProps>`
     display: block;
-    padding: 0.375rem 1rem;
+    padding: ${({ large }) => (large ? '0.5rem 1rem' : '0.375rem 1rem')};
+    ${({ theme, disabled }) =>
+        disabled && {
+            color: theme.color.onDark.mediumEmphasis,
+            cursor: 'default',
+        }}
 
     &:hover {
-        background-color: ${({ theme }) => theme.color.tertiary.medium};
+        ${({ theme, disabled }) =>
+            !disabled && {
+                backgroundColor: theme.color.tertiary.medium,
+            }}
     }
+`;
+
+export const ThreeDotMenuItemComingSoon = styled(Typography)`
+    color: ${({ theme }) => theme.color.onDark.lowEmphasis};
 `;
