@@ -9,10 +9,14 @@ export const Container = styled.header`
     flex-shrink: 0;
     display: flex;
     flex-direction: column;
-    padding: 0.625rem 2rem;
+    padding: 0.625rem 1.25rem;
     background-color: ${({ theme }) => theme.color.tertiary.dark};
     box-shadow: ${({ theme }) => theme.shadow.onDark.highSharp};
     z-index: 2;
+
+    ${media.mobile} {
+        padding: 0.625rem 2rem;
+    }
 `;
 
 export const TopContainer = styled.div`
@@ -89,13 +93,12 @@ export const ThreeDotMenuTitle = styled(Typography)`
 `;
 
 type ThreeDotMenuItemProps = {
-    large?: boolean;
     disabled?: boolean;
 };
 
 export const ThreeDotMenuItem = styled.a<ThreeDotMenuItemProps>`
     display: block;
-    padding: ${({ large }) => (large ? '0.5rem 1rem' : '0.375rem 1rem')};
+    padding: 0.5rem 1rem;
     ${({ theme, disabled }) =>
         disabled && {
             color: theme.color.onDark.mediumEmphasis,

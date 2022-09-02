@@ -4,6 +4,8 @@ import Link from 'next/link';
 import Tippy from '@tippyjs/react/headless';
 
 import IconDiscord from 'components/Ui/Icons/Logos/IconDiscord';
+import IconTwitter from 'components/Ui/Icons/Logos/IconTwitter';
+import IconYoutubeMonochrome from 'components/Ui/Icons/Logos/IconYoutubeMonochrome';
 import IconDotsThreeVertical from 'components/Ui/Icons/IconDotsThreeVertical';
 import IconUserCircle from 'components/Ui/Icons/IconUserCircle';
 import Typography from 'components/Ui/typography/Typography';
@@ -43,6 +45,22 @@ const Header: React.FC = () => {
                     <S.SecondaryNavItem as="a" target="_blank" href="https://discord.gg/exMAqSuVfj" rel="noreferrer">
                         <IconDiscord />
                     </S.SecondaryNavItem>
+                    <S.SecondaryNavItem
+                        as="a"
+                        target="_blank"
+                        href="https://www.twitter.com/skatekrak"
+                        rel="noreferrer"
+                    >
+                        <IconTwitter />
+                    </S.SecondaryNavItem>
+                    <S.SecondaryNavItem
+                        as="a"
+                        target="_blank"
+                        href="https://www.youtube.com/krakskate"
+                        rel="noreferrer"
+                    >
+                        <IconYoutubeMonochrome />
+                    </S.SecondaryNavItem>
 
                     {/* Three dot menu */}
                     <div>
@@ -55,16 +73,16 @@ const Header: React.FC = () => {
                                 <S.ThreeDotMenu>
                                     {isMobile && (
                                         <Link href={PATH_CALL_TO_ADVENTURE} passHref>
-                                            <S.ThreeDotMenuItem large>
-                                                <Typography as="span" component="subtitle1">
+                                            <S.ThreeDotMenuItem>
+                                                <Typography as="span" component="body1">
                                                     Call To Adventure
                                                 </Typography>
                                             </S.ThreeDotMenuItem>
                                         </Link>
                                     )}
                                     <Link href="" passHref>
-                                        <S.ThreeDotMenuItem large disabled>
-                                            <Typography as="span" component="subtitle1">
+                                        <S.ThreeDotMenuItem disabled>
+                                            <Typography as="span" component="body1">
                                                 Roadmap
                                             </Typography>
                                             <S.ThreeDotMenuItemComingSoon component="caption">
@@ -73,44 +91,23 @@ const Header: React.FC = () => {
                                         </S.ThreeDotMenuItem>
                                     </Link>
 
-                                    <S.ThreeDotMenuTitle component="subtitle2">Find us</S.ThreeDotMenuTitle>
-                                    <S.ThreeDotMenuItem
-                                        href="https://www.twitter.com/skatekrak"
-                                        target="_blank"
-                                        rel="noreferrer"
-                                    >
-                                        <Typography as="span" component="subtitle2">
-                                            Twitter
-                                        </Typography>
-                                    </S.ThreeDotMenuItem>
-                                    <S.ThreeDotMenuItem
-                                        href="https://www.youtube.com/krakskate"
-                                        target="_blank"
-                                        rel="noreferrer"
-                                    >
-                                        <Typography as="span" component="subtitle2">
-                                            Youtube
-                                        </Typography>
-                                    </S.ThreeDotMenuItem>
-
-                                    <S.ThreeDotMenuTitle component="subtitle2">Others</S.ThreeDotMenuTitle>
                                     <Link href="/mag" passHref>
                                         <S.ThreeDotMenuItem>
-                                            <Typography as="span" component="body2">
+                                            <Typography as="span" component="body1">
                                                 Mag
                                             </Typography>
                                         </S.ThreeDotMenuItem>
                                     </Link>
                                     <Link href="/video" passHref>
                                         <S.ThreeDotMenuItem>
-                                            <Typography as="span" component="body2">
+                                            <Typography as="span" component="body1">
                                                 Video
                                             </Typography>
                                         </S.ThreeDotMenuItem>
                                     </Link>
                                     <Link href="/news" passHref>
                                         <S.ThreeDotMenuItem href="#">
-                                            <Typography as="span" component="body2">
+                                            <Typography as="span" component="body1">
                                                 News
                                             </Typography>
                                         </S.ThreeDotMenuItem>
