@@ -58,6 +58,24 @@ export const PrimaryNavItem = styled.a`
     cursor: pointer;
 `;
 
+/** Middle sentence */
+export const HeaderSentence = styled(Typography)`
+    display: none;
+    flex-grow: 1;
+    margin: auto;
+    padding: 0 2rem;
+    font-style: italic;
+    text-align: center;
+    letter-spacing: 0.03rem;
+    color: ${({ theme }) => theme.color.map.shop.default};
+    text-shadow: 1px 1px 2px ${({ theme }) => theme.color.map.shop.dark};
+    opacity: 0.85;
+
+    ${media.laptop} {
+        display: block;
+    }
+`;
+
 /** Sedondary nav */
 
 export const SecondaryNav = styled.nav`

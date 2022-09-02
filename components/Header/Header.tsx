@@ -32,14 +32,19 @@ const Header: React.FC = () => {
                     </S.LogoLink>
                 </Link>
                 {!isMobile && (
-                    <S.PrimaryNav>
-                        <Link href="/">
-                            <S.PrimaryNavItem>Map</S.PrimaryNavItem>
-                        </Link>
-                        <Link href={PATH_CALL_TO_ADVENTURE}>
-                            <S.PrimaryNavItem>Call to Adventure</S.PrimaryNavItem>
-                        </Link>
-                    </S.PrimaryNav>
+                    <>
+                        <S.PrimaryNav>
+                            <Link href="/">
+                                <S.PrimaryNavItem>Map</S.PrimaryNavItem>
+                            </Link>
+                            <Link href={PATH_CALL_TO_ADVENTURE}>
+                                <S.PrimaryNavItem>Call to Adventure</S.PrimaryNavItem>
+                            </Link>
+                        </S.PrimaryNav>
+                        <S.HeaderSentence component="subtitle1">
+                            The first open, decentralized, collective skateboarding city
+                        </S.HeaderSentence>
+                    </>
                 )}
                 <S.SecondaryNav>
                     <S.SecondaryNavItem as="a" target="_blank" href="https://discord.gg/exMAqSuVfj" rel="noreferrer">
@@ -63,61 +68,61 @@ const Header: React.FC = () => {
                     </S.SecondaryNavItem>
 
                     {/* Three dot menu */}
-                        <Tippy
-                            visible={isMenuOpen}
-                            onClickOutside={handleMenuOpen}
-                            interactive
-                            placement="bottom"
-                            render={() => (
-                                <S.ThreeDotMenu>
-                                    {isMobile && (
-                                        <Link href={PATH_CALL_TO_ADVENTURE} passHref>
-                                            <S.ThreeDotMenuItem>
-                                                <Typography as="span" component="body1">
-                                                    Call To Adventure
-                                                </Typography>
-                                            </S.ThreeDotMenuItem>
-                                        </Link>
-                                    )}
-                                    <Link href="" passHref>
-                                        <S.ThreeDotMenuItem disabled>
+                    <Tippy
+                        visible={isMenuOpen}
+                        onClickOutside={handleMenuOpen}
+                        interactive
+                        placement="bottom"
+                        render={() => (
+                            <S.ThreeDotMenu>
+                                {isMobile && (
+                                    <Link href={PATH_CALL_TO_ADVENTURE} passHref>
+                                        <S.ThreeDotMenuItem>
                                             <Typography as="span" component="body1">
-                                                Roadmap
+                                                Call To Adventure
                                             </Typography>
-                                            <S.ThreeDotMenuItemComingSoon component="caption">
-                                                Coming Soon
-                                            </S.ThreeDotMenuItemComingSoon>
                                         </S.ThreeDotMenuItem>
                                     </Link>
+                                )}
+                                <Link href="" passHref>
+                                    <S.ThreeDotMenuItem disabled>
+                                        <Typography as="span" component="body1">
+                                            Roadmap
+                                        </Typography>
+                                        <S.ThreeDotMenuItemComingSoon component="caption">
+                                            Coming Soon
+                                        </S.ThreeDotMenuItemComingSoon>
+                                    </S.ThreeDotMenuItem>
+                                </Link>
 
-                                    <Link href="/mag" passHref>
-                                        <S.ThreeDotMenuItem>
-                                            <Typography as="span" component="body1">
-                                                Mag
-                                            </Typography>
-                                        </S.ThreeDotMenuItem>
-                                    </Link>
-                                    <Link href="/video" passHref>
-                                        <S.ThreeDotMenuItem>
-                                            <Typography as="span" component="body1">
-                                                Video
-                                            </Typography>
-                                        </S.ThreeDotMenuItem>
-                                    </Link>
-                                    <Link href="/news" passHref>
-                                        <S.ThreeDotMenuItem href="#">
-                                            <Typography as="span" component="body1">
-                                                News
-                                            </Typography>
-                                        </S.ThreeDotMenuItem>
-                                    </Link>
-                                </S.ThreeDotMenu>
-                            )}
-                        >
-                            <S.SecondaryNavItem as="button" onClick={handleMenuOpen}>
-                                <IconDotsThreeVertical />
-                            </S.SecondaryNavItem>
-                        </Tippy>
+                                <Link href="/mag" passHref>
+                                    <S.ThreeDotMenuItem>
+                                        <Typography as="span" component="body1">
+                                            Mag
+                                        </Typography>
+                                    </S.ThreeDotMenuItem>
+                                </Link>
+                                <Link href="/video" passHref>
+                                    <S.ThreeDotMenuItem>
+                                        <Typography as="span" component="body1">
+                                            Video
+                                        </Typography>
+                                    </S.ThreeDotMenuItem>
+                                </Link>
+                                <Link href="/news" passHref>
+                                    <S.ThreeDotMenuItem href="#">
+                                        <Typography as="span" component="body1">
+                                            News
+                                        </Typography>
+                                    </S.ThreeDotMenuItem>
+                                </Link>
+                            </S.ThreeDotMenu>
+                        )}
+                    >
+                        <S.SecondaryNavItem as="button" onClick={handleMenuOpen}>
+                            <IconDotsThreeVertical />
+                        </S.SecondaryNavItem>
+                    </Tippy>
 
                     {isConnected ? (
                         <HeaderProfile />
