@@ -15,7 +15,7 @@ export const CallToAdventureContent = styled.div`
     display: flex;
     flex-direction: column;
     width: 100%;
-    max-width: 40rem;
+    max-width: 48rem;
     margin: 0 auto;
     padding: 4rem 1.5rem;
 `;
@@ -38,8 +38,12 @@ export const CallToAdventureIntro = styled(Typography)`
 
 export const CallToAdventureBody = styled(Typography)`
     font-size: 1.25rem;
-    line-height: 1.625rem;
+    line-height: 1.75rem;
     color: ${({ theme }) => theme.color.onDark.mediumEmphasis};
+
+    & a {
+        text-decoration: underline;
+    }
 `;
 
 export const CallToAdventureIsTyping = styled.div`

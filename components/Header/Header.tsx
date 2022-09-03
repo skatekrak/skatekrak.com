@@ -13,6 +13,7 @@ import HeaderProfile from './HeaderProfile/HeaderProfile';
 import * as S from './Header.styled';
 
 import { PATH_CALL_TO_ADVENTURE } from 'pages/call-to-adventure';
+import { PATH_ROADMAP } from 'pages/roadmap';
 import useSession from 'lib/hook/carrelage/use-session';
 import { RootState } from 'store';
 
@@ -84,14 +85,11 @@ const Header: React.FC = () => {
                                         </S.ThreeDotMenuItem>
                                     </Link>
                                 )}
-                                <Link href="" passHref>
-                                    <S.ThreeDotMenuItem disabled>
+                                <Link href={PATH_ROADMAP} passHref>
+                                    <S.ThreeDotMenuItem>
                                         <Typography as="span" component="body1">
                                             Roadmap
                                         </Typography>
-                                        <S.ThreeDotMenuItemComingSoon component="caption">
-                                            Coming Soon
-                                        </S.ThreeDotMenuItemComingSoon>
                                     </S.ThreeDotMenuItem>
                                 </Link>
 

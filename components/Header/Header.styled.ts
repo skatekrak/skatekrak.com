@@ -134,7 +134,3 @@ export const ThreeDotMenuItem = styled.a<ThreeDotMenuItemProps>`
             }}
     }
 `;
-
-export const ThreeDotMenuItemComingSoon = styled(Typography)`
-    color: ${({ theme }) => theme.color.onDark.lowEmphasis};
-`;
