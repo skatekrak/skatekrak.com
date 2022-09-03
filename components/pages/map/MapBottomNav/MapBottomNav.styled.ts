@@ -8,7 +8,7 @@ export const MapBottomNavContainer = styled.div`
     bottom: 1rem;
     display: flex;
     align-items: center;
-    z-index: 20;
+    z-index: 1000;
 
     ${media.tablet} {
         left: 1.5rem;
