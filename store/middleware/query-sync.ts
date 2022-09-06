@@ -10,7 +10,7 @@ const querySyncMiddleware: Middleware = (store) => (next) => (action) => {
         const search = queryString.stringify(
             {
                 ...queryString.parse(state.router.location.search),
-                ...shake(action.meta.pushToUrl, (value) => value !== undefined),
+                ...shake(action.meta.pushToUrl),
             },
             { skipNull: true, skipEmptyString: true },
         );
