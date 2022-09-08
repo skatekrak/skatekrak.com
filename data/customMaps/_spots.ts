@@ -154,4 +154,17 @@ Rediscover the first 2 games remastered in HD out now!
         spots: require('data/customMaps/thps.json'),
         staging: true,
     },
+    {
+        id: 'onespotpart',
+        name: 'One spot video-parts',
+        subtitle: 'They own the spot!',
+        edit: 'Video-parts filmed intentionally at one spot.',
+        about: `
+        From the good people at *Quartersnacks*, a map for all these local legends killing their plaza like no one else.
+        Here is the original article :
+        [https://quartersnacks.com/2021/07/introducing-the-quartersnacks-one-spot-part-map/](https://quartersnacks.com/2021/07/introducing-the-quartersnacks-one-spot-part-map/)
+        `,
+        spots: require('data/customMaps/onespotpart.json'),
+        staging: true,
+    },
 ];
