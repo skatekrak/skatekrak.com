@@ -165,6 +165,7 @@ Here is the original article :
 https://quartersnacks.com/2021/07/introducing-the-quartersnacks-one-spot-part-map
         `,
         spots: require('data/customMaps/onespotpart.json'),
-        staging: true,
+        staging: false,
+        videos: ['https://www.youtube.com/playlist?list=PL2q6XHjX4Ujex44kmAFk0XL33MFCYSU57'],
     },
 ];
