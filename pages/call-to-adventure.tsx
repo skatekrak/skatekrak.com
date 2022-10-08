@@ -55,19 +55,15 @@ const CallToAdventure = () => {
                 </S.CallToAdventureGrid>
                 <S.CallToAdventureGrid>
                     <CallToAdventureSideNav bodyContentRef={bodyContentRef} />
-                    <S.CallToAdventureContent>
-                        <div ref={bodyContentRef}>
-                            {bodyContent.map((c) => (
-                                <div key={c.id} id={c.id}>
-                                    {c.type === 'title' && (
-                                        <S.CallToAdventureTitle component="heading5">
-                                            {c.content}
-                                        </S.CallToAdventureTitle>
-                                    )}
-                                    {c.type === 'body' && <S.CallToAdventureBody>{c.content}</S.CallToAdventureBody>}
-                                </div>
-                            ))}
-                        </div>
+                    <S.CallToAdventureContent ref={bodyContentRef}>
+                        {bodyContent.map((c) => (
+                            <div key={c.id} id={c.id}>
+                                {c.type === 'title' && (
+                                    <S.CallToAdventureTitle component="heading5">{c.content}</S.CallToAdventureTitle>
+                                )}
+                                {c.type === 'body' && <S.CallToAdventureBody>{c.content}</S.CallToAdventureBody>}
+                            </div>
+                        ))}
                     </S.CallToAdventureContent>
                 </S.CallToAdventureGrid>
             </S.CallToAdventurePageContainer>
