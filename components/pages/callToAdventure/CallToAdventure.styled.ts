@@ -16,6 +16,10 @@ export const CallToAdventureGrid = styled.div`
     margin: 0 auto;
     padding: 0 1.5rem;
 
+    ${media.tablet} {
+        padding: 0 8rem;
+    }
+
     ${media.laptopS} {
         display: grid;
         grid-template-columns: 1fr 3fr 1fr;
