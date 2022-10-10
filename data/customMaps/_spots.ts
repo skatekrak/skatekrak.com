@@ -128,7 +128,6 @@ Let History continue! The show must go on!
 Nobody can teach you frontside flips better than Andrew! It's been his signature trick for decades now and he brought it to quite a lot of iconic spots! 
         `,
         spots: require('data/customMaps/andrew.json'),
-        staging: true,
     },
     {
         id: 'googleearthers',
