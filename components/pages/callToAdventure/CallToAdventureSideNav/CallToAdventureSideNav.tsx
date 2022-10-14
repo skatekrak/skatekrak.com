@@ -1,7 +1,7 @@
 import Typography from 'components/Ui/typography/Typography';
-import { bodyContent } from 'data/callToAdventure';
 import ScrollHelper from 'lib/ScrollHelper';
 import React, { useEffect, useRef } from 'react';
+import { ctaSections } from '../constants';
 
 import * as S from './CallToAdventureSideNav.styled';
 
@@ -44,15 +44,21 @@ const CallToAdventureSideNav = ({ bodyContentRef }: Props) => {
 
     return (
         <S.CallToAdventureSideNav ref={sideNavRef}>
-            <S.CallToAdventureSideNavTitle component="subtitle1">Content</S.CallToAdventureSideNavTitle>
-            {bodyContent.map(
-                (c) =>
-                    c.type === 'title' && (
-                        <S.CallToAdventureSideNavLink key={c.id} href={`#${c.id}`} isActive={false}>
-                            {c.content}
-                        </S.CallToAdventureSideNavLink>
-                    ),
-            )}
+            <S.CallToAdventureSideNavLink href={`#${ctaSections.TLDR}`} isActive={false}>
+                tl;dr
+            </S.CallToAdventureSideNavLink>
+            <S.CallToAdventureSideNavLink href={`#${ctaSections.EVOLUTION}`} isActive={false}>
+                skateboarding evolution
+            </S.CallToAdventureSideNavLink>
+            <S.CallToAdventureSideNavLink href={`#${ctaSections.ARCHIVING}`} isActive={false}>
+                why archiving is important
+            </S.CallToAdventureSideNavLink>
+            <S.CallToAdventureSideNavLink href={`#${ctaSections.ABOUT}`} isActive={false}>
+                who we are
+            </S.CallToAdventureSideNavLink>
+            <S.CallToAdventureSideNavLink href={`#${ctaSections.DONE}`} isActive={false}>
+                what we’ve done
+            </S.CallToAdventureSideNavLink>
             <S.CallToAdventureIsTyping>
                 <S.CallToAdventureIsTypingKrak component="subtitle2">Krak</S.CallToAdventureIsTypingKrak>
                 <Typography as="span" component="body2">

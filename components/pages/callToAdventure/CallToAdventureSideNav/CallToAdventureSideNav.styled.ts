@@ -18,12 +18,6 @@ export const CallToAdventureSideNav = styled.div`
     }
 `;
 
-export const CallToAdventureSideNavTitle = styled(Typography)`
-    padding-bottom: 1rem;
-    margin-bottom: 1.5rem;
-    border-bottom: 1px solid ${({ theme }) => theme.color.onDark.placeholder};
-`;
-
 type CallToAdventureSideNavLinkProps = {
     isActive: boolean;
 };

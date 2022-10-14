@@ -2,11 +2,10 @@ import React, { useRef } from 'react';
 import Head from 'next/head';
 
 import Layout from 'components/Layout';
-import Typography from 'components/Ui/typography/Typography';
 import CallToAdventureSideNav from 'components/pages/callToAdventure/CallToAdventureSideNav';
+import CallToAdventureContent from 'components/pages/callToAdventure/CallToAdventureContent';
 import * as S from 'components/pages/callToAdventure/CallToAdventure.styled';
 
-import { bodyContent } from 'data/callToAdventure';
 export const PATH_CALL_TO_ADVENTURE = '/call-to-adventure';
 
 const CallToAdventureHead = () => {
@@ -55,16 +54,9 @@ const CallToAdventure = () => {
                 </S.CallToAdventureGrid>
                 <S.CallToAdventureGrid>
                     <CallToAdventureSideNav bodyContentRef={bodyContentRef} />
-                    <S.CallToAdventureContent ref={bodyContentRef}>
-                        {bodyContent.map((c) => (
-                            <div key={c.id} id={c.id}>
-                                {c.type === 'title' && (
-                                    <S.CallToAdventureTitle component="heading5">{c.content}</S.CallToAdventureTitle>
-                                )}
-                                {c.type === 'body' && <S.CallToAdventureBody>{c.content}</S.CallToAdventureBody>}
-                            </div>
-                        ))}
-                    </S.CallToAdventureContent>
+                    <S.CallToAdventureContentContainer ref={bodyContentRef}>
+                        <CallToAdventureContent />
+                    </S.CallToAdventureContentContainer>
                 </S.CallToAdventureGrid>
             </S.CallToAdventurePageContainer>
         </Layout>
