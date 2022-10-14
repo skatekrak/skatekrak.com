@@ -35,7 +35,7 @@ const Roadmap = () => {
     return (
         <Layout head={<RoadmapHead />}>
             <S.CallToAdventurePageContainer>
-                <S.CallToAdventureContent>
+                {/* <S.CallToAdventureContent>
                     <S.CallToAdventureH1 as="h1">Roadmap</S.CallToAdventureH1>
                     <S.CallToAdventureBody>
                         We’re currently re-writing the whole back-end. Hence you might experience few glitch here &
@@ -50,7 +50,7 @@ const Roadmap = () => {
                             </Typography>
                         </a>
                     </S.CallToAdventureBody>
-                </S.CallToAdventureContent>
+                </S.CallToAdventureContent> */}
             </S.CallToAdventurePageContainer>
         </Layout>
     );
