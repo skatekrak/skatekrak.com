@@ -18,5 +18,6 @@ export const LayoutMainContainer = styled.div`
     flex-direction: column;
     color: ${({ theme }) => theme.color.onLight.highEmphasis};
     overflow-y: auto;
+    scroll-behavior: smooth;
     z-index: 1;
 `;
