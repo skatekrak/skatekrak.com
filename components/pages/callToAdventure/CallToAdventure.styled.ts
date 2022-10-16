@@ -54,5 +54,6 @@ export const CallToAdventureContentContainer = styled.div`
     grid-column-start: 2;
     width: 100%;
     max-width: 48rem;
+    margin: auto;
     white-space: pre-line;
 `;
