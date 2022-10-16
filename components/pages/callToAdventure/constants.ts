@@ -4,4 +4,7 @@ export enum ctaSections {
     ARCHIVING = 'archiving',
     ABOUT = 'about-us',
     DONE = 'done',
+    VISION = 'vision',
+    DAO = 'dao',
+    FINAL = 'final',
 }

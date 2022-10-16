@@ -2,12 +2,13 @@ import VideoPlayer from 'components/Ui/Player/VideoPlayer';
 import React from 'react';
 import { ctaSections } from '../constants';
 
+import krakBasquiat from 'public/images/call-to-adventure/krak-basquiat.jpg';
 import * as S from './CallToAdventureContent.styled';
 
 const CallToAdventureContent = () => {
     return (
         <>
-            <div id={ctaSections.TLDR}>
+            <div id={ctaSections.TLDR} data-spy>
                 <S.CallToAdventureTitle component="heading5">tl;dr</S.CallToAdventureTitle>
                 <S.CallToAdventureBody>
                     We’re a bunch of skateboarders. Hungry to make sure skateboarding keeps its roots deep in
@@ -39,19 +40,24 @@ const CallToAdventureContent = () => {
                     <br />
                     Krak is 100% owned by skateboarders and the community.
                 </S.CallToAdventureBody>
+                <S.CallTiAdventureImage src="/images/call-to-adventure/krak-basquiat.jpg" alt="basquiat krak canvas" />
             </div>
-            <div id={ctaSections.EVOLUTION}>
+            <div id={ctaSections.EVOLUTION} data-spy>
                 <S.CallToAdventureTitle component="heading5">skateboarding evolution</S.CallToAdventureTitle>
                 <S.CallToAdventureBody>
                     Everyone reading this should know what we’re talking about but still, highlighting a bit more
                     context around skateboarding might be useful.
                     <br />
                     <br />
-                    The best definition ever for us came from Ian MacKaye: “Skateboarding is not a hobby. And it’s not a
-                    sport. Skateboarding is a way of learning how to redefine the world around you. It’s a way of
-                    getting out of house, connecting with other people, and looking at the world through different sets
-                    of eyes.” Every word feels equally important in these sentences. As long as skateboarding stayed a
-                    kind of underground culture, this was the way everyone experienced it.
+                    The best definition ever for us came from{' '}
+                    <a href="https://en.wikipedia.org/wiki/Ian_MacKaye" target="_blank" rel="noopener noreferrer">
+                        Ian MacKaye
+                    </a>
+                    : “Skateboarding is not a hobby. And it’s not a sport. Skateboarding is a way of learning how to
+                    redefine the world around you. It’s a way of getting out of house, connecting with other people, and
+                    looking at the world through different sets of eyes.” Every word feels equally important in these
+                    sentences. As long as skateboarding stayed a kind of underground culture, this was the way everyone
+                    experienced it.
                     <br />
                     <br />
                     If you haven’t watched this documentary, Dogtown and Z-Boys is certainly the perfect dive into the
@@ -88,9 +94,11 @@ const CallToAdventureContent = () => {
                     lot of his inspiration from the community.
                     <br />
                     - In culture, Tony Hawk Pro Skater is still one of the most sold ever video-game serie in sports.
-                    <br />
-                    - In art, look at what [The Skate Room](https://theskateroom.com) is doing: selling $500 decks with
-                    paintings from Basquiat on them.
+                    <br />- In art, look at what{' '}
+                    <a href="https://theskateroom.com" target="_blank" rel="noopener noreferrer">
+                        The Skate Room{' '}
+                    </a>
+                    is doing: selling $500 decks with paintings from Basquiat on them.
                     <br />
                     <br />
                     All of this new acquired fame and influence attracted the biggest corporations of our world - Nike,
@@ -119,7 +127,7 @@ const CallToAdventureContent = () => {
                     endless.
                 </S.CallToAdventureBody>
             </div>
-            <div id={ctaSections.ARCHIVING}>
+            <div id={ctaSections.ARCHIVING} data-spy>
                 <S.CallToAdventureTitle component="heading5">why archiving is important</S.CallToAdventureTitle>
                 <S.CallToAdventureBody>
                     When you ride somewhere, you leave an imprint. But at the speed things are now going, how can we
@@ -143,7 +151,7 @@ const CallToAdventureContent = () => {
                     forever
                 </S.CallToAdventureBody>
             </div>
-            <div id={ctaSections.ABOUT}>
+            <div id={ctaSections.ABOUT} data-spy>
                 <S.CallToAdventureTitle component="heading5">who we are</S.CallToAdventureTitle>
                 <S.CallToAdventureBody>
                     Krak has been managed by a core team of 5 people since 2014. We received tons of help along the way
@@ -175,7 +183,7 @@ const CallToAdventureContent = () => {
                     could have, 250, 500, a thousand, ten thousands.
                 </S.CallToAdventureBody>
             </div>
-            <div id={ctaSections.DONE}>
+            <div id={ctaSections.DONE} data-spy>
                 <S.CallToAdventureTitle component="heading5">what we’ve done</S.CallToAdventureTitle>
                 <S.CallToAdventureBody>
                     While the project itself took many forms along all these years, the passion and mission always
@@ -184,7 +192,53 @@ const CallToAdventureContent = () => {
                     <br />
                     And because we’ve decided quite early on to build for this community, we now enjoy a kinda nice
                     track-record. Let’s dive into it - and brag a bit while we’re at it 😈
+                    <br />
+                    <br />
+                    In no particular order, here are what we built and launched so far 👇
+                    <br />
+                    <br />
+                    - the hardware device
+                    <br />
+                    This feels like ages ago. We’re late 2013 / early 2014 and we built a 3D printed prototype of a
+                    hardware device that we attach to our board - right under the truck axle - that tracks every motion
+                    of the board to recognize which tricks we’ve just landed.
+                    <br />
+                    We went through many names at that time as well: trcksy, indy trackers, wodd, krack, krak. That name
+                    - with the final orthograph and logo - only came up late 2014.
+                    <br />
+                    <br />- Krak app and its skatespots database
+                    <br />I realised we called our very first app: iOS Summer 😎 This one is so close to our hearts. We
+                    now count more than 25,000 skatespots added to the database by the community.
+                    <br />
+                    And if I look in the past 6 months, we get between +10 and +800 new spots added per week.
+                    <br />
+                    <br />- KrakBox
+                    <br />
+                    We launched mid-2015 the very first subscription box for skateboarders. For $39, people would
+                    receive every 2 month a mistery package - full of skateboarding paraphernalia. Think components,
+                    accessories, cultural stuff, apparel, electronics, art and more. In 2018, we were sending 2,000
+                    boxes around the world: US, Canada, across 12 countries in Europe and in Australia.
+                    <br />
+                    <br />
+                    - KrakMag
+                    <br />- Krak History Clip and our Youtube channel
+                    <br />- some collabs and our own merch
+                    <br />- some physical events and many sessions
+                    <br />- the Krak Session app
+                    <br />- the news feed
+                    <br />- the video feed
+                    <br />- the map on the web
+                    <br />- the discord community
                 </S.CallToAdventureBody>
+                <div id={ctaSections.VISION} data-spy>
+                    <S.CallToAdventureTitle component="heading5">where we’re heading to</S.CallToAdventureTitle>
+                </div>
+                <div id={ctaSections.DAO} data-spy>
+                    <S.CallToAdventureTitle component="heading5">why a DAO + coop</S.CallToAdventureTitle>
+                </div>
+                <div id={ctaSections.FINAL} data-spy>
+                    <S.CallToAdventureTitle component="heading5">final words - worldbuilding</S.CallToAdventureTitle>
+                </div>
             </div>
         </>
     );

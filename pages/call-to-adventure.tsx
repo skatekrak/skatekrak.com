@@ -4,6 +4,7 @@ import Head from 'next/head';
 import Layout from 'components/Layout';
 import CallToAdventureSideNav from 'components/pages/callToAdventure/CallToAdventureSideNav';
 import CallToAdventureContent from 'components/pages/callToAdventure/CallToAdventureContent';
+import CallToAdventureCTA from 'components/pages/callToAdventure/CallToAdventureCTA/CallToAdventureCTA';
 import * as S from 'components/pages/callToAdventure/CallToAdventure.styled';
 
 export const PATH_CALL_TO_ADVENTURE = '/call-to-adventure';
@@ -40,16 +41,10 @@ const CallToAdventure = () => {
                 <S.CallToAdventureGrid>
                     <S.CallToAdventureHeader>
                         <S.CallToAdventureH1 as="h1">
-                            The first
+                            Building a common good
                             <br />
-                            skateboarding
-                            <br />
-                            DAO <span>x</span> Co-op
+                            for skateboaders
                         </S.CallToAdventureH1>
-                        <S.CallToAdventureIntro component="heading5">
-                            Let's make sure skateboarding keeps its roots deep in creativity, openness, rebellion &
-                            freedom.
-                        </S.CallToAdventureIntro>
                     </S.CallToAdventureHeader>
                 </S.CallToAdventureGrid>
                 <S.CallToAdventureGrid>
@@ -57,6 +52,7 @@ const CallToAdventure = () => {
                     <S.CallToAdventureContentContainer ref={bodyContentRef}>
                         <CallToAdventureContent />
                     </S.CallToAdventureContentContainer>
+                    <CallToAdventureCTA />
                 </S.CallToAdventureGrid>
             </S.CallToAdventurePageContainer>
         </Layout>

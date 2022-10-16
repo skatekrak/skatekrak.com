@@ -12,6 +12,12 @@ export const CallToAdventureBody = styled(Typography)`
     color: ${({ theme }) => theme.color.onDark.mediumEmphasis};
 
     & a {
+        color: ${({ theme }) => theme.color.onDark.highEmphasis};
         text-decoration: underline;
     }
+`;
+
+export const CallTiAdventureImage = styled.img`
+    max-width: 100%;
+    margin-bottom: 2rem;
 `;

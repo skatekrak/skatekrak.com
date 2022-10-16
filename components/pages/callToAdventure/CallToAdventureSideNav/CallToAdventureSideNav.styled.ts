@@ -33,6 +33,7 @@ export const CallToAdventureSideNavLink = styled.a<CallToAdventureSideNavLinkPro
     ${({ isActive, theme }) =>
         isActive && {
             fontFamily: theme.typography.fonts.roboto.bold,
+            color: theme.color.onDark.highEmphasis,
         }}
 `;
 
