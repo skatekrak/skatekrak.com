@@ -110,23 +110,14 @@ const CallToAdventureSideNav = ({ bodyContentRef }: Props) => {
                 href={`#${ctaSections.DAO}`}
                 isActive={currentSectionInView === ctaSections.DAO}
             >
-                why a DAO + coop
+                why a DAO + co-op
             </S.CallToAdventureSideNavLink>
             <S.CallToAdventureSideNavLink
                 href={`#${ctaSections.FINAL}`}
                 isActive={currentSectionInView === ctaSections.FINAL}
             >
-                final words - worldbuilding
+                final words - world-building
             </S.CallToAdventureSideNavLink>
-            <S.CallToAdventureIsTyping>
-                <S.CallToAdventureIsTypingKrak component="subtitle2">Krak</S.CallToAdventureIsTypingKrak>
-                <Typography as="span" component="body2">
-                    is typing
-                </Typography>
-                <S.CallToAdventureIsTypingAnimation delay={-0.2}>.</S.CallToAdventureIsTypingAnimation>
-                <S.CallToAdventureIsTypingAnimation delay={-0.1}>.</S.CallToAdventureIsTypingAnimation>
-                <S.CallToAdventureIsTypingAnimation>.</S.CallToAdventureIsTypingAnimation>
-            </S.CallToAdventureIsTyping>
         </S.CallToAdventureSideNav>
     );
 };
