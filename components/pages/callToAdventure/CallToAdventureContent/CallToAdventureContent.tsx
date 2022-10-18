@@ -107,7 +107,7 @@ const CallToAdventureContent = () => {
                     - In luxury, Virgil Abloh - RIP - ex Louis Vuitton creative director, used to be a skater and got a
                     lot of his inspiration from the community.
                     <br />
-                    - In culture, Tony Hawk Pro Skater is still one of the most sold ever video-game serie in sports.
+                    - In culture, Tony Hawk Pro Skater is still one of the most sold ever video-game series in sports.
                     <br />- In art, look at what{' '}
                     <a href="https://theskateroom.com" target="_blank" rel="noopener noreferrer">
                         The Skate Room{' '}
@@ -324,7 +324,7 @@ const CallToAdventureContent = () => {
                         our channel{' '}
                     </a>
                     years ago. Our videos have been viewed more than one million times in total. We used it for many
-                    things but our most popular serie has always been our history clips. The idea is to dig into an
+                    things but our most popular series has always been our history clips. The idea is to dig into an
                     iconic spot history of NBDs.
                 </S.CallToAdventureBody>
                 <VideoPlayer
