@@ -4,6 +4,7 @@ import Head from 'next/head';
 import Layout from 'components/Layout';
 import Typography from 'components/Ui/typography/Typography';
 import * as S from 'components/pages/callToAdventure/CallToAdventure.styled';
+import * as SContent from 'components/pages/callToAdventure/CallToAdventureContent/CallToAdventureContent.styled';
 
 export const PATH_ROADMAP = '/roadmap';
 
@@ -35,9 +36,9 @@ const Roadmap = () => {
     return (
         <Layout head={<RoadmapHead />}>
             <S.CallToAdventurePageContainer>
-                <S.CallToAdventureContent>
+                <S.CallToAdventureContentContainer>
                     <S.CallToAdventureH1 as="h1">Roadmap</S.CallToAdventureH1>
-                    <S.CallToAdventureBody>
+                    <SContent.CallToAdventureBody>
                         We’re currently re-writing the whole back-end. Hence you might experience few glitch here &
                         there. Or the experience on the map itself might not be perfect. In this case, please, feel free
                         to reach out. Either on discord directly, on twitter or by email.
@@ -49,8 +50,8 @@ const Roadmap = () => {
                                 https://github.com/skatekrak/backends
                             </Typography>
                         </a>
-                    </S.CallToAdventureBody>
-                </S.CallToAdventureContent>
+                    </SContent.CallToAdventureBody>
+                </S.CallToAdventureContentContainer>
             </S.CallToAdventurePageContainer>
         </Layout>
     );

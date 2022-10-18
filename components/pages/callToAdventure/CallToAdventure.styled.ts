@@ -1,23 +1,35 @@
 import Typography from 'components/Ui/typography/Typography';
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
+import media from 'styles/media';
 
 export const CallToAdventurePageContainer = styled.div`
     flex-grow: 1;
-    display: flex;
-    flex-direction: column;
     width: 100%;
-    padding: 2rem 0;
+    padding: 6rem 0;
     color: ${({ theme }) => theme.color.onDark.highEmphasis};
     background-color: ${({ theme }) => theme.color.tertiary.dark};
 `;
 
-export const CallToAdventureContent = styled.div`
-    display: flex;
-    flex-direction: column;
+export const CallToAdventureGrid = styled.div`
     width: 100%;
-    max-width: 48rem;
+    max-width: 96rem;
     margin: 0 auto;
-    padding: 4rem 1.5rem;
+    padding: 0 1.5rem;
+
+    ${media.tablet} {
+        padding: 0 8rem;
+    }
+
+    ${media.laptopS} {
+        display: grid;
+        grid-template-columns: 1fr 3fr 1fr;
+        gap: 4rem;
+        padding: 0 3rem;
+    }
+`;
+
+export const CallToAdventureHeader = styled.div`
+    grid-column-start: 2;
 `;
 
 export const CallToAdventureH1 = styled(Typography)`
@@ -36,46 +48,12 @@ export const CallToAdventureIntro = styled(Typography)`
     margin-bottom: 2rem;
 `;
 
-export const CallToAdventureBody = styled(Typography)`
-    font-size: 1.25rem;
-    line-height: 1.75rem;
-    color: ${({ theme }) => theme.color.onDark.mediumEmphasis};
-
-    & a {
-        text-decoration: underline;
-    }
-`;
-
-export const CallToAdventureIsTyping = styled.div`
+export const CallToAdventureContentContainer = styled.div`
     display: flex;
-    margin-top: 4rem;
-    font-style: italic;
-`;
-
-export const CallToAdventureIsTypingKrak = styled(Typography)`
-    margin-right: 0.375rem;
-    font-style: normal;
-`;
-
-type CallToAdventureIsTypingAnimationProps = {
-    delay?: number;
-};
-
-const typingAnimation = keyframes`
-    0%, 60% { transform: translateY(0) }
-    30% { transform: translateY(-0.1875rem) }
-`;
-
-export const CallToAdventureIsTypingAnimation = styled.div<CallToAdventureIsTypingAnimationProps>`
-    animation: ${typingAnimation} 1s ease-in-out infinite;
-    margin-right: 0.0625rem;
-
-    &:first-of-type {
-        margin-left: 0.25rem;
-    }
-
-    ${({ delay }) =>
-        delay && {
-            animationDelay: `${delay}s`,
-        }};
+    flex-direction: column;
+    grid-column-start: 2;
+    width: 100%;
+    max-width: 48rem;
+    margin: auto;
+    white-space: pre-line;
 `;
