@@ -15,6 +15,14 @@ export const CallToAdventureBody = styled(Typography)`
         color: ${({ theme }) => theme.color.onDark.highEmphasis};
         text-decoration: underline;
     }
+
+    & i {
+        font-style: italic;
+    }
+
+    & .line-through {
+        text-decoration: line-through;
+    }
 `;
 
 export const CallTiAdventureQuote = styled(CallToAdventureBody)`
@@ -38,4 +46,13 @@ export const CallToAdventureImageLegend = styled(Typography)`
     margin-top: -1rem;
     font-style: italic;
     color: ${({ theme }) => theme.color.onDark.mediumEmphasis};
+
+    & a {
+        color: ${({ theme }) => theme.color.onDark.highEmphasis};
+        text-decoration: underline;
+    }
+
+    & strong {
+        font-family: ${({ theme }) => theme.typography.fonts.roboto.bold};
+    }
 `;

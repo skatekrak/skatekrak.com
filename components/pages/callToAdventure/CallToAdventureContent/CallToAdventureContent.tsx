@@ -34,14 +34,23 @@ const CallToAdventureContent = () => {
                     <br />
                     - Thrasher? yep! We are building a full skateboarding centric publication.
                     <br />
-                    - DAO? yep! We are building a decentralized autonomous organization (DAO).
+                    - DAO? yep! We are building a Decentralized Autonomous Organization.
                     <br />
                     <br />
-                    Krak is 100% owned by skateboarders, workers and the community.
+                    Our forever promise? To make Krak a community asset, 100% owned by skateboarders, workers and the
+                    community.
                 </S.CallToAdventureBody>
                 <S.CallTiAdventureImage src="/images/call-to-adventure/krak-basquiat.jpg" alt="basquiat krak canvas" />
                 <S.CallToAdventureImageLegend>
-                    A Panel of Experts is a painting created by American artist Jean-Michel Basquiat in 1982.
+                    <strong>A Panel of Experts</strong> is a painting created by American artist{' '}
+                    <a
+                        href="https://en.wikipedia.org/wiki/Jean-Michel_Basquiat"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        Jean-Michel Basquiat{' '}
+                    </a>
+                    in 1982.
                     <br />
                     <br />
                 </S.CallToAdventureImageLegend>
@@ -64,8 +73,9 @@ const CallToAdventureContent = () => {
                     experienced it.
                     <br />
                     <br />
-                    If you haven’t watched this documentary, Dogtown and Z-Boys is certainly the perfect dive into the
-                    70’s surfer culture turned sidewalk surfers skateboarders.
+                    If you haven’t watched this documentary, <i>Dogtown and Z-Boys</i> is certainly the perfect dive
+                    into the 70’s surfer culture turned <span className="line-through">sidewalk surfers</span>
+                    {'  '} skateboarders.
                 </S.CallToAdventureBody>
                 <VideoPlayer
                     style={{ marginBottom: '2rem' }}
@@ -118,10 +128,10 @@ const CallToAdventureContent = () => {
                     treated though; even fewer filmers and photographers — more poorly treated]; which parks to build,
                     where etc.
                     <br />
-                    On the other side, we get tons of DIY [Do It Yourself] initiatives, locally rooted, lead by
-                    extremely ressourceful people, who spend all their energy for free because they do all this just for
-                    the passion. They have no economical power. No political influence. While they’re the ones cementing
-                    the community.
+                    On the other side, we get tons of DIY [Do It Yourself] initiatives, locally rooted, led by extremely
+                    ressourceful people, who spend all their energy for free because they do all this just for the
+                    passion. They have no economical power. No political influence. While they’re the ones cementing the
+                    community.
                     <br />
                     <br />
                     Krak aspires to unite all of these passionate people. Collectively, we could have more economical
@@ -129,6 +139,9 @@ const CallToAdventureContent = () => {
                     offering them a way to make a life out of it. We could create physical spaces [plaza, parks, rooms
                     etc] around the world and offer them as safe and thriving hubs for the people. Possibilities are
                     endless.
+                    <br />
+                    <br />
+                    Krak is a labour of love. It’s about passion. It’s about time.
                 </S.CallToAdventureBody>
             </div>
             <div id={ctaSections.ARCHIVING} data-spy>
@@ -144,6 +157,33 @@ const CallToAdventureContent = () => {
                     Krak is about annotating the streets somehow.
                     <br />
                     <br />
+                    There is something very special that resonates with us re:{' '}
+                    <a
+                        href="https://www.placesconsulting.com/content/Character-Spirit-of-Place.html"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        the Spirit of place
+                    </a>
+                    :
+                </S.CallToAdventureBody>
+                <S.CallTiAdventureQuote>
+                    Places are like people: they have personality and character. They are complicated and endlessly
+                    interesting; we can and do fall in love with places just as we do with people.
+                    <br />
+                    When people feel richly connected to the places where they live, work, and play they will invest
+                    more of themselves in those places. They will participate in civic life, engage in the issues that
+                    shape the future. The connection of people to a place—again, to the land itself, to the cultures
+                    people have created there, and to the buildings people have built there—is a form of social capital,
+                    perhaps the single most important factor in whether a real community exists in a place.
+                    <br />
+                    To have healthy places, we must find ways to keep alive what is distinctive and emotionally
+                    compelling there, which begins in understanding what those things are.
+                </S.CallTiAdventureQuote>
+                <S.CallToAdventureBody>
+                    The map is such a beautiful medium to imbue our ‘skateboarding places’ with the sublime.
+                    <br />
+                    <br />
                     Old videos can be hard to find online and quality can be heartbreaking. Sometimes video parts get
                     deleted when pro’s switch sponsors. We’ve been dreaming of such a wiki-ABD kind of map and it will
                     surely help the younger generations to be aware of the past and add their own local scene videos and
@@ -154,7 +194,7 @@ const CallToAdventureContent = () => {
                     our culture survives centuries? milleniums?
                     <br />
                     So at some point, we’ve been like ‘sure, why not’. Let’s archive the culture and try to make it last
-                    forever
+                    forever.
                 </S.CallToAdventureBody>
             </div>
             <div id={ctaSections.ABOUT} data-spy>
@@ -220,7 +260,7 @@ const CallToAdventureContent = () => {
                     I realised we called our very first app: iOS Summer 😎 This one is so close to our hearts. We now
                     count more than 25,000 skatespots added to the database by the community.
                     <br />
-                    And if I look in the past 6 months, we get between +10 and +800 new spots added per week. But the
+                    And if I look in the past 6 months, we got between +10 and +800 new spots added per week. But the
                     database isn’t spots only. It’s also countless footages uploaded by skateboarders and specifically
                     attached to the spots. That’s how we know who ride where, landed what exactly and much more.
                     <br />
@@ -256,9 +296,9 @@ const CallToAdventureContent = () => {
                     <br />
                     <br />
                     <S.CallTiAdventureImage src="/images/call-to-adventure/krakmag-preview.jpg" alt="krak mag" />
-                    It’s funny because we always heard things like ‘kids nowadays don’t read. And worst, they’d never
-                    read on papers.’ so we tried once: we didn’t print the zine and didn’t include it in a mix. We got
-                    overwhelmed by messages everywhere asking us ‘where’s the zine’. 😎
+                    It’s funny because we always heard things like "kids nowadays don’t read. And worst, they’d never
+                    read on papers." so we tried once: we didn’t print the zine and didn’t include it in a mix. We got
+                    overwhelmed by messages everywhere asking us "where’s the zine?". We knew it 😎
                     <br />
                     <br />
                     Then later on, we{' '}
@@ -283,9 +323,9 @@ const CallToAdventureContent = () => {
                     <a href="https://www.youtube.com/krakskate" target="_blank" rel="noopener noreferrer">
                         our channel{' '}
                     </a>
-                    years ago. Our videos have been viewed more than 1million times in total. We used it for many things
-                    but our most popular serie has always been our history clips. The idea is to dig into an iconic spot
-                    history of NBDs.
+                    years ago. Our videos have been viewed more than one million times in total. We used it for many
+                    things but our most popular serie has always been our history clips. The idea is to dig into an
+                    iconic spot history of NBDs.
                 </S.CallToAdventureBody>
                 <VideoPlayer
                     style={{ marginBottom: '2rem' }}
@@ -293,8 +333,11 @@ const CallToAdventureContent = () => {
                     controls
                 />
                 <S.CallToAdventureBody>
-                    We tried making video interviews once, thanks Hugo. That time when we welcomed Chris Chann, his
-                    brother and filmer in Lyon was quite special.
+                    We tried making video interviews once, thanks{' '}
+                    <a href="https://hugobernatas.com" target="_blank" rel="noopener noreferrer">
+                        Hugo
+                    </a>
+                    . That time when we welcomed Chris Chann, his brother and filmer in Lyon was quite special.
                 </S.CallToAdventureBody>
                 <VideoPlayer
                     style={{ marginBottom: '2rem' }}
@@ -308,7 +351,7 @@ const CallToAdventureContent = () => {
                     all here but let’s randomly cherry-pick few examples.
                     <br />
                     <br />
-                    As someone who grew up in Lyon and started skateboarding in 2001, Cliché always had a special place
+                    As someone who grew up in Lyon and started skateboarding in 1999, Cliché always had a special place
                     in my heart. Interviewing{' '}
                     <a href="https://skatekrak.com/mag/daclin" target="_blank" rel="noopener noreferrer">
                         Jeremie, the founder{' '}
@@ -349,8 +392,12 @@ const CallToAdventureContent = () => {
                     alt="presentaition Lucas Beaufort - French artist"
                 />
                 <S.CallToAdventureBody>
-                    Anthony Pappalardo’s newsletter - and writings in general - is one of the best. We’re still
-                    diligently reading every issue. Partnering with him and his brand{' '}
+                    Anthony Pappalardo’s{' '}
+                    <a href="https://anthonypappalardo.substack.com" target="_blank" rel="noopener noreferrer">
+                        newsletter{' '}
+                    </a>
+                    - and writings in general - is one of the best. We’re still diligently reading every issue.
+                    Partnering with him and his brand{' '}
                     <a
                         href="https://skatekrak.com/mag/anthony-pappalardo-adult-inc"
                         target="_blank"
@@ -395,7 +442,7 @@ const CallToAdventureContent = () => {
                     url="https://www.youtube.com/watch?v=h-sMv-9zQj8"
                     controls
                 />
-                <S.CallToAdventureBody>Made few trips in the woods.</S.CallToAdventureBody>
+                <S.CallToAdventureBody>We made few trips in the woods.</S.CallToAdventureBody>
                 <VideoPlayer
                     style={{ marginBottom: '2rem' }}
                     url="https://www.youtube.com/watch?v=tNdIQMK-CZ8"
@@ -491,6 +538,8 @@ const CallToAdventureContent = () => {
                     </a>
                     is an interesting documentary in that regard but I digress.
                     <br />
+                    At the end of the day we want to deliver value to people, not to platforms or companies.
+                    <br />
                     <br />
                     We’re still dreaming of a space to welcome everyone, a safe environment where we all just feel to
                     hang out, discuss, learn, progress, explore, have fun. We want to nurture relationships, create
@@ -511,7 +560,10 @@ const CallToAdventureContent = () => {
                     <br />
                     In 2020, we decided to embrace a 100% communal move. We’ve done everything for the love of the
                     culture and community so we started to wonder: what more could we do to definitely turn this journey
-                    into a proper collective one? I joined the{' '}
+                    into a proper collective one? After all, our only 'raison d’etre' is to add value to the community,
+                    not extracting some from it. So the main question became: what can we give to the skateboarding
+                    community? and not: what can we get?
+                    <br />I joined the{' '}
                     <a href="https://e2c.how" target="_blank" rel="noopener noreferrer">
                         E2C initiative{' '}
                     </a>
@@ -586,18 +638,24 @@ const CallToAdventureContent = () => {
                     see a playground.
                     <br />
                     <br />
-                    Our next steps will be detailed our{' '}
+                    Our next steps will be detailed on our{' '}
                     <a href="https://skatekrak.com/roadmap" target="_blank" rel="noopener noreferrer">
                         roadmap page
                     </a>
                     . Meanwhile, here’s the path forward:
                     <br />
-                    <br />- welcome our first 100 members - you should see a ‘Support’ button on the right side of the
+                    <br />- welcoming our founding community. We’re in search of 1,000 members eager to co-author this
+                    next chapter of skateboarding history. You should see a ‘Support’ button on the right side of this
                     page [otherwise, ‘Houston, we have a problem’] - for $50 a year, we will all make this project
-                    durable
+                    durable and sustainable for life - and afterlife
                     <br />
-                    <br />- start practicing collective decision making like: which feature to build next on the map,
-                    what will be our next public release, design the landing pad for new community members etc.
+                    <br />- finally removing gatekeepers and relying on our newly earned common treasury to co-create -
+                    as a community - the longer-term roadmap
+                    <br />
+                    <br />- starting to practice collective decision making
+                    <br />
+                    <br />
+                    We invite you to join and own Krak as a member owner 👉
                 </S.CallToAdventureBody>
             </div>
             <div id={ctaSections.DAO} data-spy>
@@ -620,10 +678,31 @@ const CallToAdventureContent = () => {
                     to then be shut down or acquired by yet another big corp.
                     <br />
                     <br />
-                    We love the culture too much so we say ‘stop’. Some things shouldn’t be built and managed by a
-                    ‘startup’ or another classic company. So rather than being a corporation that exists to maximize
-                    shareholder value, Krak becomes a cooperative owned by its members for the benefit of the members
-                    and the whole community.
+                    We’re also aligned with Ben Horowitz when he talked about joy and happiness:
+                </S.CallToAdventureBody>
+                <S.CallTiAdventureQuote>
+                    In my experience there are really two things that lead to happiness and everything else is mostly
+                    noise. The two things are contribution and abundance.
+                    <br />
+                    Contribution is basically exactly as it sounds. If you can align your life with where you have the
+                    talent to make a large, meaningful, and real contribution to the world, your circle, or your family,
+                    then you can be very happy.
+                    <br />
+                    <br />
+                    An easy way to think of abundance is that it’s the anti-hater/anti-jealous mindset. If you believe
+                    there is plenty in the world for everyone and you are always happy to see people who contribute
+                    succeed, then you become part of “team contribution.” You don’t worry that someone is getting ahead
+                    of you at work or that someone made a lot of money or that someone is better looking than you,
+                    because you believe in abundance over scarcity and you can focus on maximizing your contribution. In
+                    fact, their joy can become your joy (then you have an abundance of joy :-)). The good news is that
+                    abundance is actually true. There is plenty in the world for everyone and once you see that, there
+                    are so many ways to contribute.
+                </S.CallTiAdventureQuote>
+                <S.CallToAdventureBody>
+                    We are definitely team contribution. We love the culture too much. Some things shouldn’t be built
+                    and managed by a ‘startup’ or another classic company. So rather than being a corporation that
+                    exists to maximize shareholder value, Krak becomes a cooperative owned by its members for the
+                    benefit of the members and the whole community.
                     <br />
                     <br />
                     If you’re curious to know how we plan to organize Krak, the co-op, don’t look further than the{' '}
@@ -753,6 +832,19 @@ const CallToAdventureContent = () => {
                     <br />
                     <br />
                     We play the long game and we’re thinking about Krak in a 100 years lifetime.
+                </S.CallToAdventureBody>
+                <S.CallTiAdventureImage
+                    src="/images/call-to-adventure/zeb-weisman.jpeg"
+                    alt="skateboarder trick over stairs"
+                />
+                <S.CallToAdventureImageLegend>Zeb Weisman- sw flip, Lisbon; photo © Ando</S.CallToAdventureImageLegend>
+                <S.CallToAdventureBody>
+                    <br />
+                    This collage comes from Ando and features in{' '}
+                    <a href="https://pushperiodical.com" target="_blank" rel="noopener noreferrer">
+                        PP19
+                    </a>
+                    ’s extended FOTO section.
                 </S.CallToAdventureBody>
             </div>
         </>
