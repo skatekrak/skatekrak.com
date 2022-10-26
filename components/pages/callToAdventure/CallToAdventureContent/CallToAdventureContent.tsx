@@ -633,9 +633,9 @@ const CallToAdventureContent = () => {
                     Culture labels reflect and project a desired reality onto the world.
                 </S.CallTiAdventureQuote>
                 <S.CallToAdventureBody>
-                    Krak evolves into a skateboarding metalabel. Skateboarders always wore a special kind of lens. We
-                    don’t see the world around us like regular people. While they see sidewalks, handrails, stairs, we
-                    see a playground.
+                    Krak is evolving into a skateboarding metalabel. Skateboarders always wore a special kind of lens.
+                    We don’t see the world around us like regular people. While they see sidewalks, handrails, stairs,
+                    we see a playground.
                     <br />
                     <br />
                     Our next steps will be detailed on our{' '}

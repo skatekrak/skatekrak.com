@@ -43,7 +43,7 @@ const CallToAdventure = () => {
                         <S.CallToAdventureH1 as="h1">
                             Building a common good
                             <br />
-                            for skateboaders
+                            for skateboarders
                         </S.CallToAdventureH1>
                     </S.CallToAdventureHeader>
                 </S.CallToAdventureGrid>
