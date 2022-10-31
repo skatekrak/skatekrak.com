@@ -11,7 +11,7 @@ const CallToAdventureContent = () => {
                 <S.CallToAdventureTitle component="heading5">tl;dr</S.CallToAdventureTitle>
                 <S.CallToAdventureBody>
                     We’re a bunch of skateboarders. Hungry to make sure skateboarding keeps its roots deep in
-                    creativity, openness, rebellion and freedom. Foolish to believe we can build and own this
+                    creativity, openness, rebellion and freedom. Foolish enough to believe we can build and own this
                     altogether, independantly, collectively.
                     <br />
                     <br />
@@ -107,12 +107,10 @@ const CallToAdventureContent = () => {
                     - In luxury, Virgil Abloh - RIP - ex Louis Vuitton creative director, used to be a skater and got a
                     lot of his inspiration from the community.
                     <br />
-                    - In culture, Tony Hawk Pro Skater is still one of the most sold ever video-game series in sports.
-                    <br />- In art, look at what{' '}
-                    <a href="https://theskateroom.com" target="_blank" rel="noopener noreferrer">
-                        The Skate Room{' '}
-                    </a>
-                    is doing: selling $500 decks with paintings from Basquiat on them.
+                    - In culture, Tony Hawk Pro Skater is still one of the most sold video-game series in sports, ever.
+                    <br />
+                    - In art, The Skate Room is printing some one-of-a-kind pieces on decks and already hit one-million
+                    in funding for social impact projects.
                     <br />
                     <br />
                     All of this new acquired fame and influence attracted the biggest corporations of our world - Nike,
@@ -185,9 +183,9 @@ const CallToAdventureContent = () => {
                     <br />
                     <br />
                     Old videos can be hard to find online and quality can be heartbreaking. Sometimes video parts get
-                    deleted when pro’s switch sponsors. We’ve been dreaming of such a wiki-ABD kind of map and it will
-                    surely help the younger generations to be aware of the past and add their own local scene videos and
-                    write history themselves.
+                    deleted. We’ve been dreaming of such a wiki-ABD kind of map and it will surely help the younger
+                    generations to be aware of the past and add their own local scene videos and write history
+                    themselves.
                     <br />
                     <br />
                     On a larger scale, archiving skatespots worldwide has always felt important to us. How to make sure
@@ -205,7 +203,7 @@ const CallToAdventureContent = () => {
                     <br />
                     <br />
                     Kev dreamt about Krak for the past 20+ years, literally. He grew up between Lyon and Paris and got
-                    lost during every school holidays whith his board under his arm because his mother brought him and
+                    lost during every school holidays with his board under his arm because his mother brought him and
                     his brothers in a new little town, somewhere in the french countryside. Where were the other
                     skaters? Where are the spots?
                     <br />
@@ -235,12 +233,16 @@ const CallToAdventureContent = () => {
                     While the project itself took many forms along all these years, the passion and mission always
                     stayed the same.
                     <br />
+                    And because we’ve decided quite early on to build for this community, we now enjoy a kinda
+                    track-record.
                     <br />
-                    And because we’ve decided quite early on to build for this community, we now enjoy a kinda nice
-                    track-record. Let’s dive into it - and brag a bit while we’re at it 😈
+                    Let’s first re-emphasize something important here: nothing below would have been possible without
+                    the passion, sweat, love, dedication, devotion really, of the many people who spent days - and
+                    nights - shaping and crafting all these products and experiences. Thank you all. You know who you
+                    are.
                     <br />
                     <br />
-                    In no particular order, here are what we built and launched so far 👇
+                    Let’s dive into our past. In no particular order, here are what we built and launched so far 👇
                 </S.CallToAdventureBody>
                 <div id={ctaSections.HARDWARE} data-spy>
                     <S.CallTiAdventureBullet as="li">the hardware device</S.CallTiAdventureBullet>
@@ -335,7 +337,7 @@ const CallToAdventureContent = () => {
                         </a>
                         years ago. Our videos have been viewed more than one million times in total. We used it for many
                         things but our most popular series has always been our history clips. The idea is to dig into an
-                        iconic spot history of NBDs.
+                        iconic spot history of best tricks landed.
                     </S.CallToAdventureBody>
                     <VideoPlayer
                         style={{ marginBottom: '2rem' }}
@@ -490,7 +492,7 @@ const CallToAdventureContent = () => {
                     <br />
                 </div>
                 <div id={ctaSections.FEED} data-spy>
-                    <S.CallTiAdventureBullet as="li">the news & video feed</S.CallTiAdventureBullet>
+                    <S.CallTiAdventureBullet as="li">the video & news feed</S.CallTiAdventureBullet>
                     <S.CallToAdventureBody>
                         One day we were wondering which kind of digital tools we could add to the suite to empower
                         skateboarders or just enhance their own experience of the culture. Like too many times we landed
@@ -503,15 +505,15 @@ const CallToAdventureContent = () => {
                         </a>
                         was born. Including channels from Youtube & Vimeo.
                         <br />
-                        <br />I always read many people amd media from skateboarding [hence Devoted felt special to us].
+                        <br />I always read many people and media from skateboarding [hence Devoted felt special to us].
                         I’m a heavy user of Feedly for more than 10 years; Google Reader before that [and before they
-                        just killed it]. So offering a{' '}
+                        killed it]. So offering a{' '}
                         <a href="https://skatekrak.com/news" target="_blank" rel="noopener noreferrer">
                             clean feed of skateboarding news{' '}
                         </a>
                         made total sense as well. Moreover, it was also a way to promote the voices and work of many
-                        passionate folks. Again: no reco, just the titles and articles by order of release date. You can
-                        select the media by language too.
+                        passionate folks. Again: no recommendation, no noise, just the titles and articles by order of
+                        release date. You can select the media by language too.
                         <br />
                         <br />
                     </S.CallToAdventureBody>
@@ -856,6 +858,12 @@ const CallToAdventureContent = () => {
                     <br />
                     <br />
                     We play the long game and we’re thinking about Krak in a 100 years lifetime.
+                    <br />
+                    <br />
+                    Now we - skateboarders - have a choice: do we want to give this future a try? Do we feel ready to
+                    take the matter on our own hands, and shape the future the way we want it?
+                    <br />
+                    It is on us to decide.
                 </S.CallToAdventureBody>
                 <S.CallTiAdventureImage
                     src="/images/call-to-adventure/zeb-weisman.jpeg"
