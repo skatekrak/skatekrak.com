@@ -23,8 +23,10 @@ type CallToAdventureSideNavLinkProps = {
 };
 
 export const CallToAdventureSideNavLink = styled.a<CallToAdventureSideNavLinkProps>`
+    display: block;
     padding: 0.75rem 0;
     color: ${({ theme }) => theme.color.onDark.mediumEmphasis};
+    cursor: pointer;
 
     &:hover {
         color: ${({ theme }) => theme.color.onDark.highEmphasis};
@@ -37,6 +39,7 @@ export const CallToAdventureSideNavLink = styled.a<CallToAdventureSideNavLinkPro
         }}
 `;
 
+/** Not in the app anymore but could be still useful in the future */
 export const CallToAdventureIsTyping = styled.div`
     display: flex;
     margin-top: 1.5rem;

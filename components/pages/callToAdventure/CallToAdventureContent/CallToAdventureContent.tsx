@@ -11,7 +11,7 @@ const CallToAdventureContent = () => {
                 <S.CallToAdventureTitle component="heading5">tl;dr</S.CallToAdventureTitle>
                 <S.CallToAdventureBody>
                     We’re a bunch of skateboarders. Hungry to make sure skateboarding keeps its roots deep in
-                    creativity, openness, rebellion and freedom. Foolish to believe we can build and own this
+                    creativity, openness, rebellion and freedom. Foolish enough to believe we can build and own this
                     altogether, independantly, collectively.
                     <br />
                     <br />
@@ -107,12 +107,10 @@ const CallToAdventureContent = () => {
                     - In luxury, Virgil Abloh - RIP - ex Louis Vuitton creative director, used to be a skater and got a
                     lot of his inspiration from the community.
                     <br />
-                    - In culture, Tony Hawk Pro Skater is still one of the most sold ever video-game series in sports.
-                    <br />- In art, look at what{' '}
-                    <a href="https://theskateroom.com" target="_blank" rel="noopener noreferrer">
-                        The Skate Room{' '}
-                    </a>
-                    is doing: selling $500 decks with paintings from Basquiat on them.
+                    - In culture, Tony Hawk Pro Skater is still one of the most sold video-game series in sports, ever.
+                    <br />
+                    - In art, The Skate Room is printing some one-of-a-kind pieces on decks and already hit one-million
+                    in funding for social impact projects.
                     <br />
                     <br />
                     All of this new acquired fame and influence attracted the biggest corporations of our world - Nike,
@@ -185,9 +183,9 @@ const CallToAdventureContent = () => {
                     <br />
                     <br />
                     Old videos can be hard to find online and quality can be heartbreaking. Sometimes video parts get
-                    deleted when pro’s switch sponsors. We’ve been dreaming of such a wiki-ABD kind of map and it will
-                    surely help the younger generations to be aware of the past and add their own local scene videos and
-                    write history themselves.
+                    deleted. We’ve been dreaming of such a wiki-ABD kind of map and it will surely help the younger
+                    generations to be aware of the past and add their own local scene videos and write history
+                    themselves.
                     <br />
                     <br />
                     On a larger scale, archiving skatespots worldwide has always felt important to us. How to make sure
@@ -205,7 +203,7 @@ const CallToAdventureContent = () => {
                     <br />
                     <br />
                     Kev dreamt about Krak for the past 20+ years, literally. He grew up between Lyon and Paris and got
-                    lost during every school holidays whith his board under his arm because his mother brought him and
+                    lost during every school holidays with his board under his arm because his mother brought him and
                     his brothers in a new little town, somewhere in the french countryside. Where were the other
                     skaters? Where are the spots?
                     <br />
@@ -235,320 +233,348 @@ const CallToAdventureContent = () => {
                     While the project itself took many forms along all these years, the passion and mission always
                     stayed the same.
                     <br />
+                    And because we’ve decided quite early on to build for this community, we now enjoy a kinda
+                    track-record.
                     <br />
-                    And because we’ve decided quite early on to build for this community, we now enjoy a kinda nice
-                    track-record. Let’s dive into it - and brag a bit while we’re at it 😈
+                    Let’s first re-emphasize something important here: nothing below would have been possible without
+                    the passion, sweat, love, dedication, devotion really, of the many people who spent days - and
+                    nights - shaping and crafting all these products and experiences. Thank you all. You know who you
+                    are.
                     <br />
                     <br />
-                    In no particular order, here are what we built and launched so far 👇
+                    Let’s dive into our past. In no particular order, here are what we built and launched so far 👇
                 </S.CallToAdventureBody>
-                <S.CallTiAdventureBullet as="li">the hardware device</S.CallTiAdventureBullet>
-                <S.CallToAdventureBody>
-                    This feels like ages ago. We’re late 2013 / early 2014 and we built a 3D printed prototype of a
-                    hardware device that we attached to our board - right under the truck axle - that tracked every
-                    motion of the board to recognize which tricks we had just landed.
-                    <br />
-                    We went through many names at that time as well: trcksy, indy trackers, wodd, krack, krak. That name
-                    - with the final orthograph and logo [made by{' '}
-                    <a href="https://www.paradestud.io/" target="_blank" rel="noopener noreferrer">
-                        Parade Studio
-                    </a>
-                    ] - only came up late 2014.
-                </S.CallToAdventureBody>
-                <S.CallTiAdventureBullet as="li">Krak app and its skatespots database</S.CallTiAdventureBullet>
-                <S.CallToAdventureBody>
-                    I realised we called our very first app: iOS Summer 😎 This one is so close to our hearts. We now
-                    count more than 25,000 skatespots added to the database by the community.
-                    <br />
-                    And if I look in the past 6 months, we got between +10 and +800 new spots added per week. But the
-                    database isn’t spots only. It’s also countless footages uploaded by skateboarders and specifically
-                    attached to the spots. That’s how we know who ride where, landed what exactly and much more.
-                    <br />
-                    And if “a picture is worth a thousand words” imagine what pictures-in-motion is worth exactly. Enjoy
-                    some footages uploaded into the app.
-                </S.CallToAdventureBody>
-                <VideoPlayer
-                    style={{ marginBottom: '2rem' }}
-                    url="https://www.youtube.com/watch?v=2O-aURqmDJY"
-                    controls
-                />
-                <br />
-                <S.CallTiAdventureBullet as="li">KrakBox</S.CallTiAdventureBullet>
-                <S.CallToAdventureBody>
-                    We launched mid-2015 the very first subscription box for skateboarders. For $39, people would
-                    receive every 2 month a mistery package - full of skateboarding paraphernalia. Think components,
-                    accessories, cultural stuff, apparel, electronics, art and more. In 2018, we were sending 2,000
-                    boxes around the world: US, Canada, across 12 countries in Europe and in Australia.
-                    <br />
-                    Again, if “a picture is worth a thousand…”, okay jokes aside. Introducing KrakBox [again].
-                </S.CallToAdventureBody>
-                <VideoPlayer
-                    style={{ marginBottom: '2rem' }}
-                    url="https://www.youtube.com/watch?v=BvdDTThUzME"
-                    controls
-                />
-                <br />
-                <S.CallTiAdventureBullet as="li">KrakMag</S.CallTiAdventureBullet>
-                <S.CallToAdventureBody>
-                    We designed and wrote our own skate zine. We always included a printed version into every KrakBox
-                    mix we shipped. The content itself revolved around the stuff in the mix, the brands and the people
-                    behind the brands.
-                    <br />
-                    <br />
-                    <S.CallTiAdventureImage src="/images/call-to-adventure/krakmag-preview.jpg" alt="krak mag" />
-                    It’s funny because we always heard things like "kids nowadays don’t read. And worst, they’d never
-                    read on papers." so we tried once: we didn’t print the zine and didn’t include it in a mix. We got
-                    overwhelmed by messages everywhere asking us "where’s the zine?". We knew it 😎
-                    <br />
-                    <br />
-                    Then later on, we{' '}
-                    <a href="https://skatekrak.com/mag" target="_blank" rel="noopener noreferrer">
-                        published online{' '}
-                    </a>
-                    some of the content. Especially some interviews in longer form; including more pictures and videos.
-                    Here’s an example with{' '}
-                    <a
-                        href="https://skatekrak.com/mag/amrit-jain-skate-sauce"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        Amrit Jain of Skate Sauce.
-                    </a>
-                    <br />
-                    <br />
-                </S.CallToAdventureBody>
-                <S.CallTiAdventureBullet as="li">Krak History Clip and our Youtube channel</S.CallTiAdventureBullet>
-                <S.CallToAdventureBody>
-                    We opened{' '}
-                    <a href="https://www.youtube.com/krakskate" target="_blank" rel="noopener noreferrer">
-                        our channel{' '}
-                    </a>
-                    years ago. Our videos have been viewed more than one million times in total. We used it for many
-                    things but our most popular series has always been our history clips. The idea is to dig into an
-                    iconic spot history of NBDs.
-                </S.CallToAdventureBody>
-                <VideoPlayer
-                    style={{ marginBottom: '2rem' }}
-                    url="https://www.youtube.com/watch?v=InueCj-iQfY"
-                    controls
-                />
-                <S.CallToAdventureBody>
-                    We tried making video interviews once, thanks{' '}
-                    <a href="https://hugobernatas.com" target="_blank" rel="noopener noreferrer">
-                        Hugo
-                    </a>
-                    . That time when we welcomed Chris Chann, his brother and filmer in Lyon was quite special.
-                </S.CallToAdventureBody>
-                <VideoPlayer
-                    style={{ marginBottom: '2rem' }}
-                    url="https://www.youtube.com/watch?v=N7ufHikT4Os"
-                    controls
-                />
-                <br />
-                <S.CallTiAdventureBullet as="li">some collabs and our own merch</S.CallTiAdventureBullet>
-                <S.CallToAdventureBody>
-                    We’ve been extremely lucky to work with so many talented and passionate people. We can’t list them
-                    all here but let’s randomly cherry-pick few examples.
-                    <br />
-                    <br />
-                    As someone who grew up in Lyon and started skateboarding in 1999, Cliché always had a special place
-                    in my heart. Interviewing{' '}
-                    <a href="https://skatekrak.com/mag/daclin" target="_blank" rel="noopener noreferrer">
-                        Jeremie, the founder{' '}
-                    </a>{' '}
-                    — and coming up with a special exclusive deck with them felt very special.
-                    <br />
-                    <br />
-                    <S.CallTiAdventureImage
-                        src="/images/call-to-adventure/KrakxCliche.png"
-                        alt="krak x cliche skateboard deck"
+                <div id={ctaSections.HARDWARE} data-spy>
+                    <S.CallTiAdventureBullet as="li">the hardware device</S.CallTiAdventureBullet>
+                    <S.CallToAdventureBody>
+                        This feels like ages ago. We’re late 2013 / early 2014 and we built a 3D printed prototype of a
+                        hardware device that we attached to our board - right under the truck axle - that tracked every
+                        motion of the board to recognize which tricks we had just landed.
+                        <br />
+                        We went through many names at that time as well: trcksy, indy trackers, wodd, krack, krak. That
+                        name - with the final orthograph and logo [made by{' '}
+                        <a href="https://www.paradestud.io/" target="_blank" rel="noopener noreferrer">
+                            Parade Studio
+                        </a>
+                        ] - only came up late 2014.
+                    </S.CallToAdventureBody>
+                </div>
+                <div id={ctaSections.KRAKAPP} data-spy>
+                    <S.CallTiAdventureBullet as="li">Krak app and its skatespots database</S.CallTiAdventureBullet>
+                    <S.CallToAdventureBody>
+                        I realised we called our very first app: iOS Summer 😎 This one is so close to our hearts. We
+                        now count more than 25,000 skatespots added to the database by the community.
+                        <br />
+                        And if I look in the past 6 months, we got between +10 and +800 new spots added per week. But
+                        the database isn’t spots only. It’s also countless footages uploaded by skateboarders and
+                        specifically attached to the spots. That’s how we know who ride where, landed what exactly and
+                        much more.
+                        <br />
+                        And if “a picture is worth a thousand words” imagine what pictures-in-motion is worth exactly.
+                        Enjoy some footages uploaded into the app.
+                    </S.CallToAdventureBody>
+                    <VideoPlayer
+                        style={{ marginBottom: '2rem' }}
+                        url="https://www.youtube.com/watch?v=2O-aURqmDJY"
+                        controls
                     />
-                    Our very own{' '}
-                    <a href="https://skatekrak.com/mag/the-krak-tee" target="_blank" rel="noopener noreferrer">
-                        Krak Tee{' '}
-                    </a>
-                    was another proud moment.
                     <br />
-                    <br />
-                    We worked many times with the artist Lucas Beaufort. This{' '}
-                    <a
-                        href="https://skatekrak.com/mag/pindejo-lucas-beaufort-krak"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        exclusive pin with Pindejo{' '}
-                    </a>
-                    is one of kind. But more importantly, we proudly supported Lucas for his Devoted documentary on
-                    skateboard media. We spent some time in Tampa, FL with him, we met few times around the world like
-                    in LA, Berlin and Denver.
-                </S.CallToAdventureBody>
-                <VideoPlayer style={{ marginBottom: '2rem' }} url="https://vimeo.com/207691184" controls />
-                <S.CallToAdventureBody>
-                    We also published the one and only Devoted magazine. I still open it to this day to read few
-                    interviews here and there.
-                </S.CallToAdventureBody>
-                <S.CallTiAdventureImage
-                    src="/images/call-to-adventure/lucas-beaufort.png"
-                    alt="presentaition Lucas Beaufort - French artist"
-                />
-                <S.CallToAdventureBody>
-                    Anthony Pappalardo’s{' '}
-                    <a href="https://anthonypappalardo.substack.com" target="_blank" rel="noopener noreferrer">
-                        newsletter{' '}
-                    </a>
-                    - and writings in general - is one of the best. We’re still diligently reading every issue.
-                    Partnering with him and his brand{' '}
-                    <a
-                        href="https://skatekrak.com/mag/anthony-pappalardo-adult-inc"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        Adult, Inc. for an exclusive tee{' '}
-                    </a>
-                    was special.
-                    <br />
-                    <br />
-                    The Yeah Girl capsule box is most probably one of our best work, ever.{' '}
-                    <a href="https://skatekrak.com/mag/yeah-girl-krakbox" target="_blank" rel="noopener noreferrer">
-                        Few words here{' '}
-                    </a>
-                    . Picture below.
-                    <br />
-                    <br />
-                    <S.CallTiAdventureImage
-                        src="/images/call-to-adventure/krak-yeah-girl.jpg"
-                        alt="krak x cliche skateboard deck"
+                </div>
+                <div id={ctaSections.KRAKBOX} data-spy>
+                    <S.CallTiAdventureBullet as="li">KrakBox</S.CallTiAdventureBullet>
+                    <S.CallToAdventureBody>
+                        We launched mid-2015 the very first subscription box for skateboarders. For $39, people would
+                        receive every 2 month a mistery package - full of skateboarding paraphernalia. Think components,
+                        accessories, cultural stuff, apparel, electronics, art and more. In 2018, we were sending 2,000
+                        boxes around the world: US, Canada, across 12 countries in Europe and in Australia.
+                        <br />
+                        Again, if “a picture is worth a thousand…”, okay jokes aside. Introducing KrakBox [again].
+                    </S.CallToAdventureBody>
+                    <VideoPlayer
+                        style={{ marginBottom: '2rem' }}
+                        url="https://www.youtube.com/watch?v=BvdDTThUzME"
+                        controls
                     />
-                    We always enjoyed teaming up with Getta Grip. Work-in-action.
-                </S.CallToAdventureBody>
-                <VideoPlayer
-                    style={{ marginBottom: '2rem' }}
-                    url="https://www.youtube.com/watch?v=NqYSTk1iBUI4"
-                    controls
-                />
-                <br />
-                <S.CallTiAdventureBullet as="li">some physical events and many sessions</S.CallTiAdventureBullet>
-                <S.CallToAdventureBody>Remember the “a picture is worth a thousand words” 😎</S.CallToAdventureBody>
-                <VideoPlayer
-                    style={{ marginBottom: '2rem' }}
-                    url="https://www.youtube.com/watch?v=_GNho4pIsx0"
-                    controls
-                />
-                <S.CallToAdventureBody>
-                    We also took part of the Nuits Sonores; an electro music festival happening every year in Lyon.
-                </S.CallToAdventureBody>
-                <VideoPlayer
-                    style={{ marginBottom: '2rem' }}
-                    url="https://www.youtube.com/watch?v=h-sMv-9zQj8"
-                    controls
-                />
-                <S.CallToAdventureBody>We made few trips in the woods.</S.CallToAdventureBody>
-                <VideoPlayer
-                    style={{ marginBottom: '2rem' }}
-                    url="https://www.youtube.com/watch?v=tNdIQMK-CZ8"
-                    controls
-                />
-                <S.CallToAdventureBody>Or some event reports.</S.CallToAdventureBody>
-                <VideoPlayer
-                    style={{ marginBottom: '2rem' }}
-                    url="https://www.youtube.com/watch?v=i8NhD70aLvA"
-                    controls
-                />
-                <br />
-                <S.CallTiAdventureBullet as="li">the Krak Session app</S.CallTiAdventureBullet>
-                <S.CallToAdventureBody>
-                    That app was very different than what we used to develop. You can think of it as a friendly
-                    skateboarding journal. We heard many people express their need for a digital journal - literally -
-                    to record their session, what they’ve landed, how they felt and much more.
+                    <br />
+                </div>
+                <div id={ctaSections.KRAKMAG} data-spy>
+                    <S.CallTiAdventureBullet as="li">KrakMag</S.CallTiAdventureBullet>
+                    <S.CallToAdventureBody>
+                        We designed and wrote our own skate zine. We always included a printed version into every
+                        KrakBox mix we shipped. The content itself revolved around the stuff in the mix, the brands and
+                        the people behind the brands.
+                        <br />
+                        <br />
+                        <S.CallTiAdventureImage src="/images/call-to-adventure/krakmag-preview.jpg" alt="krak mag" />
+                        It’s funny because we always heard things like "kids nowadays don’t read. And worst, they’d
+                        never read on papers." so we tried once: we didn’t print the zine and didn’t include it in a
+                        mix. We got overwhelmed by messages everywhere asking us "where’s the zine?". We knew it 😎
+                        <br />
+                        <br />
+                        Then later on, we{' '}
+                        <a href="https://skatekrak.com/mag" target="_blank" rel="noopener noreferrer">
+                            published online{' '}
+                        </a>
+                        some of the content. Especially some interviews in longer form; including more pictures and
+                        videos. Here’s an example with{' '}
+                        <a
+                            href="https://skatekrak.com/mag/amrit-jain-skate-sauce"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            Amrit Jain of Skate Sauce.
+                        </a>
+                        <br />
+                        <br />
+                    </S.CallToAdventureBody>
+                </div>
+                <div id={ctaSections.YOUTUBE} data-spy>
+                    <S.CallTiAdventureBullet as="li">Krak History Clip and our Youtube channel</S.CallTiAdventureBullet>
+                    <S.CallToAdventureBody>
+                        We opened{' '}
+                        <a href="https://www.youtube.com/krakskate" target="_blank" rel="noopener noreferrer">
+                            our channel{' '}
+                        </a>
+                        years ago. Our videos have been viewed more than one million times in total. We used it for many
+                        things but our most popular series has always been our history clips. The idea is to dig into an
+                        iconic spot history of best tricks landed.
+                    </S.CallToAdventureBody>
+                    <VideoPlayer
+                        style={{ marginBottom: '2rem' }}
+                        url="https://www.youtube.com/watch?v=InueCj-iQfY"
+                        controls
+                    />
+                    <S.CallToAdventureBody>
+                        We tried making video interviews once, thanks{' '}
+                        <a href="https://hugobernatas.com" target="_blank" rel="noopener noreferrer">
+                            Hugo
+                        </a>
+                        . That time when we welcomed Chris Chann, his brother and filmer in Lyon was quite special.
+                    </S.CallToAdventureBody>
+                    <VideoPlayer
+                        style={{ marginBottom: '2rem' }}
+                        url="https://www.youtube.com/watch?v=N7ufHikT4Os"
+                        controls
+                    />
+                    <br />
+                </div>
+                <div id={ctaSections.COLLABS} data-spy>
+                    <S.CallTiAdventureBullet as="li">some collabs and our own merch</S.CallTiAdventureBullet>
+                    <S.CallToAdventureBody>
+                        We’ve been extremely lucky to work with so many talented and passionate people. We can’t list
+                        them all here but let’s randomly cherry-pick few examples.
+                        <br />
+                        <br />
+                        As someone who grew up in Lyon and started skateboarding in 1999, Cliché always had a special
+                        place in my heart. Interviewing{' '}
+                        <a href="https://skatekrak.com/mag/daclin" target="_blank" rel="noopener noreferrer">
+                            Jeremie, the founder{' '}
+                        </a>{' '}
+                        — and coming up with a special exclusive deck with them felt very special.
+                        <br />
+                        <br />
+                        <S.CallTiAdventureImage
+                            src="/images/call-to-adventure/KrakxCliche.png"
+                            alt="krak x cliche skateboard deck"
+                        />
+                        Our very own{' '}
+                        <a href="https://skatekrak.com/mag/the-krak-tee" target="_blank" rel="noopener noreferrer">
+                            Krak Tee{' '}
+                        </a>
+                        was another proud moment.
+                        <br />
+                        <br />
+                        We worked many times with the artist Lucas Beaufort. This{' '}
+                        <a
+                            href="https://skatekrak.com/mag/pindejo-lucas-beaufort-krak"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            exclusive pin with Pindejo{' '}
+                        </a>
+                        is one of kind. But more importantly, we proudly supported Lucas for his Devoted documentary on
+                        skateboard media. We spent some time in Tampa, FL with him, we met few times around the world
+                        like in LA, Berlin and Denver.
+                    </S.CallToAdventureBody>
+                    <VideoPlayer style={{ marginBottom: '2rem' }} url="https://vimeo.com/207691184" controls />
+                    <S.CallToAdventureBody>
+                        We also published the one and only Devoted magazine. I still open it to this day to read few
+                        interviews here and there.
+                    </S.CallToAdventureBody>
+                    <S.CallTiAdventureImage
+                        src="/images/call-to-adventure/lucas-beaufort.png"
+                        alt="presentaition Lucas Beaufort - French artist"
+                    />
+                    <S.CallToAdventureBody>
+                        Anthony Pappalardo’s{' '}
+                        <a href="https://anthonypappalardo.substack.com" target="_blank" rel="noopener noreferrer">
+                            newsletter{' '}
+                        </a>
+                        - and writings in general - is one of the best. We’re still diligently reading every issue.
+                        Partnering with him and his brand{' '}
+                        <a
+                            href="https://skatekrak.com/mag/anthony-pappalardo-adult-inc"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            Adult, Inc. for an exclusive tee{' '}
+                        </a>
+                        was special.
+                        <br />
+                        <br />
+                        The Yeah Girl capsule box is most probably one of our best work, ever.{' '}
+                        <a href="https://skatekrak.com/mag/yeah-girl-krakbox" target="_blank" rel="noopener noreferrer">
+                            Few words here{' '}
+                        </a>
+                        . Picture below.
+                        <br />
+                        <br />
+                        <S.CallTiAdventureImage
+                            src="/images/call-to-adventure/krak-yeah-girl.jpg"
+                            alt="krak x cliche skateboard deck"
+                        />
+                        We always enjoyed teaming up with Getta Grip. Work-in-action.
+                    </S.CallToAdventureBody>
+                    <VideoPlayer
+                        style={{ marginBottom: '2rem' }}
+                        url="https://www.youtube.com/watch?v=NqYSTk1iBUI4"
+                        controls
+                    />
+                    <br />
+                </div>
+                <div id={ctaSections.EVENTS} data-spy>
+                    <S.CallTiAdventureBullet as="li">some physical events and many sessions</S.CallTiAdventureBullet>
+                    <S.CallToAdventureBody>Remember the “a picture is worth a thousand words” 😎</S.CallToAdventureBody>
+                    <VideoPlayer
+                        style={{ marginBottom: '2rem' }}
+                        url="https://www.youtube.com/watch?v=_GNho4pIsx0"
+                        controls
+                    />
+                    <S.CallToAdventureBody>
+                        We also took part of the Nuits Sonores; an electro music festival happening every year in Lyon.
+                    </S.CallToAdventureBody>
+                    <VideoPlayer
+                        style={{ marginBottom: '2rem' }}
+                        url="https://www.youtube.com/watch?v=h-sMv-9zQj8"
+                        controls
+                    />
+                    <S.CallToAdventureBody>We made few trips in the woods.</S.CallToAdventureBody>
+                    <VideoPlayer
+                        style={{ marginBottom: '2rem' }}
+                        url="https://www.youtube.com/watch?v=tNdIQMK-CZ8"
+                        controls
+                    />
+                    <S.CallToAdventureBody>Or some event reports.</S.CallToAdventureBody>
+                    <VideoPlayer
+                        style={{ marginBottom: '2rem' }}
+                        url="https://www.youtube.com/watch?v=i8NhD70aLvA"
+                        controls
+                    />
+                    <br />
+                </div>
+                <div id={ctaSections.KRAKSESSION} data-spy>
+                    <S.CallTiAdventureBullet as="li">the Krak Session app</S.CallTiAdventureBullet>
+                    <S.CallToAdventureBody>
+                        That app was very different than what we used to develop. You can think of it as a friendly
+                        skateboarding journal. We heard many people express their need for a digital journal - literally
+                        - to record their session, what they’ve landed, how they felt and much more.
+                        <br />
+                        <br />
+                        It’s been very fun to make and truth be told, I think they’re still a hundreds nice features to
+                        add. Like launching your THPS playlist when you start riding, automatically ping your crew when
+                        you reach a specific spot etc.
+                    </S.CallToAdventureBody>
+                    <S.CallTiAdventureImage
+                        src="/images/call-to-adventure/krak-session.jpg"
+                        alt="krak session app screenshots"
+                    />
                     <br />
                     <br />
-                    It’s been very fun to make and truth be told, I think they’re still a hundreds nice features to add.
-                    Like launching your THPS playlist when you start riding, automatically ping your crew when you reach
-                    a specific spot etc.
-                </S.CallToAdventureBody>
-                <S.CallTiAdventureImage
-                    src="/images/call-to-adventure/krak-session.jpg"
-                    alt="krak session app screenshots"
-                />
-                <br />
-                <br />
-                <S.CallTiAdventureBullet as="li">the news & video feed</S.CallTiAdventureBullet>
-                <S.CallToAdventureBody>
-                    One day we were wondering which kind of digital tools we could add to the suite to empower
-                    skateboarders or just enhance their own experience of the culture. Like too many times we landed on
-                    Youtube and started watching few videos. And as always, we started complaining about the algorithm
-                    and the overcrowded interface that just wants to make you stick in there forever. That’s when it
-                    clicked. What about a feed of skateboarding video, introduced chronologically, and that’s it.
-                    Nothing more. That’s how{' '}
-                    <a href="https://skatekrak.com/video" target="_blank" rel="noopener noreferrer">
-                        the video feed{' '}
-                    </a>
-                    was born. Including channels from Youtube & Vimeo.
-                    <br />
-                    <br />I always read many people amd media from skateboarding [hence Devoted felt special to us]. I’m
-                    a heavy user of Feedly for more than 10 years; Google Reader before that [and before they just
-                    killed it]. So offering a{' '}
-                    <a href="https://skatekrak.com/news" target="_blank" rel="noopener noreferrer">
-                        clean feed of skateboarding news{' '}
-                    </a>
-                    made total sense as well. Moreover, it was also a way to promote the voices and work of many
-                    passionate folks. Again: no reco, just the titles and articles by order of release date. You can
-                    select the media by language too.
-                    <br />
-                    <br />
-                </S.CallToAdventureBody>
-                <S.CallTiAdventureBullet as="li">the map on the web & the custom ones</S.CallTiAdventureBullet>
-                <S.CallToAdventureBody>
-                    While we’ve always been true fans of our phones as medium to both consume and create some
-                    skateboarding content, we also enjoy the size and comfort of our laptops. That’s why we released the{' '}
-                    <a href="https://skatekrak.com" target="_blank" rel="noopener noreferrer">
-                        skatespots map on the web
-                    </a>
-                    ; and made it the homepage of our website.
-                    <br />
-                    <br />
-                    And since we are heavy believers of the map as the perfect medium to explore skateboarding, we
-                    started playing with what we call ‘custom maps’ — or specific theme-based maps. Here’s one of our
-                    latest example:{' '}
-                    <a href="https://skatekrak.com/?id=onespotpart" target="_blank" rel="noopener noreferrer">
-                        spots worldwide that received their own dedicated video part
-                    </a>
-                    . Possibilities are endless with this tool.
-                    <br />
-                    <br />
-                </S.CallToAdventureBody>
-                <S.CallTiAdventureBullet as="li">the discord community</S.CallTiAdventureBullet>
-                <S.CallToAdventureBody>
-                    We’ve played with many tools over the years to keep a direct channel of communication with everyone.
-                    At the end of the day, emails have been our best friends. For some obvious reasons, we also launched
-                    some channels on the ‘usual suspects’ of social media.{' '}
-                    <a href="https://www.instagram.com/skate_krak/" target="_blank" rel="noopener noreferrer">
-                        Instagram
-                    </a>
-                    .{' '}
-                    <a href="https://twitter.com/skatekrak" target="_blank" rel="noopener noreferrer">
-                        Twitter
-                    </a>
-                    . Facebook page. Snapchat. Tiktok came later on but we resisted. The thing is we grew worried about
-                    social media impact on everyone’s mental health and addiction at the same time. After all, the only
-                    winner of this ‘rat race’ are the companies behind and their only one incentive is to show us always
-                    more ads, and retain always more of our attention.{' '}
-                    <a href="https://www.youtube.com/watch?v=uaaC57tcci0" target="_blank" rel="noopener noreferrer">
-                        The Social Dilemma{' '}
-                    </a>
-                    is an interesting documentary in that regard but I digress.
-                    <br />
-                    At the end of the day we want to deliver value to people, not to platforms or companies.
-                    <br />
-                    <br />
-                    We’re still dreaming of a space to welcome everyone, a safe environment where we all just feel to
-                    hang out, discuss, learn, progress, explore, have fun. We want to nurture relationships, create
-                    magic. And that’s why we launched our own space on Discord.{' '}
-                    <a href="https://discord.gg/exMAqSuVfj" target="_blank" rel="noopener noreferrer">
-                        You’re invited
-                    </a>
-                    . We’re a group of people who care for each other. And we share the same passion: skateboarding.
-                </S.CallToAdventureBody>
+                </div>
+                <div id={ctaSections.FEED} data-spy>
+                    <S.CallTiAdventureBullet as="li">the video & news feed</S.CallTiAdventureBullet>
+                    <S.CallToAdventureBody>
+                        One day we were wondering which kind of digital tools we could add to the suite to empower
+                        skateboarders or just enhance their own experience of the culture. Like too many times we landed
+                        on Youtube and started watching few videos. And as always, we started complaining about the
+                        algorithm and the overcrowded interface that just wants to make you stick in there forever.
+                        That’s when it clicked. What about a feed of skateboarding video, introduced chronologically,
+                        and that’s it. Nothing more. That’s how{' '}
+                        <a href="https://skatekrak.com/video" target="_blank" rel="noopener noreferrer">
+                            the video feed{' '}
+                        </a>
+                        was born. Including channels from Youtube & Vimeo.
+                        <br />
+                        <br />I always read many people and media from skateboarding [hence Devoted felt special to us].
+                        I’m a heavy user of Feedly for more than 10 years; Google Reader before that [and before they
+                        killed it]. So offering a{' '}
+                        <a href="https://skatekrak.com/news" target="_blank" rel="noopener noreferrer">
+                            clean feed of skateboarding news{' '}
+                        </a>
+                        made total sense as well. Moreover, it was also a way to promote the voices and work of many
+                        passionate folks. Again: no recommendation, no noise, just the titles and articles by order of
+                        release date. You can select the media by language too.
+                        <br />
+                        <br />
+                    </S.CallToAdventureBody>
+                </div>
+                <div id={ctaSections.MAP} data-spy>
+                    <S.CallTiAdventureBullet as="li">the map on the web & the custom ones</S.CallTiAdventureBullet>
+                    <S.CallToAdventureBody>
+                        While we’ve always been true fans of our phones as medium to both consume and create some
+                        skateboarding content, we also enjoy the size and comfort of our laptops. That’s why we released
+                        the{' '}
+                        <a href="https://skatekrak.com" target="_blank" rel="noopener noreferrer">
+                            skatespots map on the web
+                        </a>
+                        ; and made it the homepage of our website.
+                        <br />
+                        <br />
+                        And since we are heavy believers of the map as the perfect medium to explore skateboarding, we
+                        started playing with what we call ‘custom maps’ — or specific theme-based maps. Here’s one of
+                        our latest example:{' '}
+                        <a href="https://skatekrak.com/?id=onespotpart" target="_blank" rel="noopener noreferrer">
+                            spots worldwide that received their own dedicated video part
+                        </a>
+                        . Possibilities are endless with this tool.
+                        <br />
+                        <br />
+                    </S.CallToAdventureBody>
+                </div>
+                <div id={ctaSections.DISCORD} data-spy>
+                    <S.CallTiAdventureBullet as="li">the discord community</S.CallTiAdventureBullet>
+                    <S.CallToAdventureBody>
+                        We’ve played with many tools over the years to keep a direct channel of communication with
+                        everyone. At the end of the day, emails have been our best friends. For some obvious reasons, we
+                        also launched some channels on the ‘usual suspects’ of social media.{' '}
+                        <a href="https://www.instagram.com/skate_krak/" target="_blank" rel="noopener noreferrer">
+                            Instagram
+                        </a>
+                        .{' '}
+                        <a href="https://twitter.com/skatekrak" target="_blank" rel="noopener noreferrer">
+                            Twitter
+                        </a>
+                        . Facebook page. Snapchat. Tiktok came later on but we resisted. The thing is we grew worried
+                        about social media impact on everyone’s mental health and addiction at the same time. After all,
+                        the only winner of this ‘rat race’ are the companies behind and their only one incentive is to
+                        show us always more ads, and retain always more of our attention.{' '}
+                        <a href="https://www.youtube.com/watch?v=uaaC57tcci0" target="_blank" rel="noopener noreferrer">
+                            The Social Dilemma{' '}
+                        </a>
+                        is an interesting documentary in that regard but I digress.
+                        <br />
+                        At the end of the day we want to deliver value to people, not to platforms or companies.
+                        <br />
+                        <br />
+                        We’re still dreaming of a space to welcome everyone, a safe environment where we all just feel
+                        to hang out, discuss, learn, progress, explore, have fun. We want to nurture relationships,
+                        create magic. And that’s why we launched our own space on Discord.{' '}
+                        <a href="https://discord.gg/exMAqSuVfj" target="_blank" rel="noopener noreferrer">
+                            You’re invited
+                        </a>
+                        . We’re a group of people who care for each other. And we share the same passion: skateboarding.
+                    </S.CallToAdventureBody>
+                </div>
             </div>
             <div id={ctaSections.VISION} data-spy>
                 <S.CallToAdventureTitle component="heading5">where we’re heading to</S.CallToAdventureTitle>
@@ -832,6 +858,12 @@ const CallToAdventureContent = () => {
                     <br />
                     <br />
                     We play the long game and we’re thinking about Krak in a 100 years lifetime.
+                    <br />
+                    <br />
+                    Now we - skateboarders - have a choice: do we want to give this future a try? Do we feel ready to
+                    take the matter on our own hands, and shape the future the way we want it?
+                    <br />
+                    It is on us to decide.
                 </S.CallToAdventureBody>
                 <S.CallTiAdventureImage
                     src="/images/call-to-adventure/zeb-weisman.jpeg"

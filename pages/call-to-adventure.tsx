@@ -19,7 +19,7 @@ const CallToAdventureHead = () => {
                 name="description"
                 content="Our mission is to make more skateboarding happen in this world. We build knowledge, ressources and tools for skateboarders, to inspire creative collaboration, cooperation and mutual support within the community."
             />
-            <meta property="og:title" content="Krak | The first skateboarding DAO x co-op" />
+            <meta property="og:title" content="krak | a common good for skateboarders" />
             <meta property="og:type" content="website" />
             <meta property="og:url" content={`${baseURL}${PATH_CALL_TO_ADVENTURE}`} />
             <meta property="og:image" content={`${baseURL}/images/og-home.jpg`} />

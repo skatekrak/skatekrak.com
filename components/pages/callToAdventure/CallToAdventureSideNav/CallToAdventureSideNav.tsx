@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { ctaSections } from '../constants';
 
 import * as S from './CallToAdventureSideNav.styled';
+import CallToAdventureSubNav from './CallToAdventureSubNav';
 
 type Props = {
     bodyContentRef: React.MutableRefObject<HTMLDivElement>;
@@ -26,15 +27,15 @@ const CallToAdventureSideNav = ({ bodyContentRef }: Props) => {
         // website navigation height
         const websiteNavHeight = 66;
         // Offset the moment the nav got fixed
-        const fixedNavTop = websiteNavHeight + 48;
+        // const fixedNavTop = websiteNavHeight + 48;
 
         if (sideNavRef && sideNavRef.current) {
             const nav = sideNavRef.current as HTMLElement;
             const bodyContentTop = bodyContentRef.current.getBoundingClientRect().top;
 
-            if (bodyContentTop < fixedNavTop) {
+            if (bodyContentTop < websiteNavHeight) {
                 nav.style.position = 'fixed';
-                nav.style.top = `${fixedNavTop}px`;
+                nav.style.top = `${websiteNavHeight}px`;
             } else {
                 nav.style.position = 'relative';
                 nav.style.top = 'inherit';
@@ -94,12 +95,21 @@ const CallToAdventureSideNav = ({ bodyContentRef }: Props) => {
             >
                 who we are
             </S.CallToAdventureSideNavLink>
-            <S.CallToAdventureSideNavLink
+            <CallToAdventureSubNav currentSectionInView={currentSectionInView} />
+            {/* <S.CallToAdventureSideNavLink
                 href={`#${ctaSections.DONE}`}
                 isActive={currentSectionInView === ctaSections.DONE}
             >
                 what we’ve done
             </S.CallToAdventureSideNavLink>
+            <S.CallToAdventureSideNavSubNav>
+                <S.CallToAdventureSideNavLink
+                    href={`#${ctaSections.DONE}`}
+                    isActive={currentSectionInView === ctaSections.DONE}
+                >
+                    hardware device
+                </S.CallToAdventureSideNavLink>
+            </S.CallToAdventureSideNavSubNav> */}
             <S.CallToAdventureSideNavLink
                 href={`#${ctaSections.VISION}`}
                 isActive={currentSectionInView === ctaSections.VISION}

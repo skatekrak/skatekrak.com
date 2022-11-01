@@ -35,16 +35,13 @@ const Header: React.FC = () => {
                 {!isMobile && (
                     <>
                         <S.PrimaryNav>
-                            <Link href="/">
-                                <S.PrimaryNavItem>Map</S.PrimaryNavItem>
-                            </Link>
                             <Link href={PATH_CALL_TO_ADVENTURE}>
                                 <S.PrimaryNavItem>Call to Adventure</S.PrimaryNavItem>
                             </Link>
                         </S.PrimaryNav>
-                        <S.HeaderSentence component="subtitle1">
+                        {/* <S.HeaderSentence component="subtitle1">
                             The first open, decentralized, collective skateboarding city
-                        </S.HeaderSentence>
+                        </S.HeaderSentence> */}
                     </>
                 )}
                 <S.SecondaryNav>
