@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import * as S from './CallToAdventureSubNav.styled';
 import * as SS from '../CallToAdventureSideNav.styled';
 import { ctaSections } from '../../constants';
+import ArrowHead from 'components/Ui/Icons/ArrowHead';
 
 type Props = {
     currentSectionInView: ctaSections;
@@ -35,13 +36,14 @@ const CallToAdventureSubNav = ({ currentSectionInView }: Props) => {
 
     return (
         <S.CallToAdventureSubNav>
-            <SS.CallToAdventureSideNavLink
+            <S.CallToAdventureSubNavToggle
                 // href={`#${ctaSections.DONE}`}
-                isActive={isActive}
+                isActive={isOpen}
                 onClick={() => setIsOpen(!isOpen)}
             >
                 what we’ve done
-            </SS.CallToAdventureSideNavLink>
+                <ArrowHead />
+            </S.CallToAdventureSubNavToggle>
             {isOpen && (
                 <S.CallToAdventureSubNavOptions>
                     <SS.CallToAdventureSideNavLink
