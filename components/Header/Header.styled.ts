@@ -40,36 +40,13 @@ export const KrakLogo = styled(KrakLogoHand)`
     }
 `;
 
-/** Primary nav */
-
-export const PrimaryNav = styled.nav`
-    display: flex;
-    align-items: center;
-    margin-left: 2.25rem;
-    column-gap: 0.5rem;
-`;
-
-export const PrimaryNavItem = styled.a`
-    padding: 0.75rem;
-    font-family: ${({ theme }) => theme.typography.fonts.roboto.condensed.bold};
-    font-size: 1.125rem;
-    letter-spacing: 0.25px;
-    font-style: italic;
-    cursor: pointer;
-`;
-
 /** Middle sentence */
 export const HeaderSentence = styled(Typography)`
     display: none;
-    flex-grow: 1;
-    margin: auto;
     padding: 0 2rem;
     font-style: italic;
     text-align: center;
     letter-spacing: 0.03rem;
-    color: ${({ theme }) => theme.color.map.shop.default};
-    text-shadow: 1px 1px 2px ${({ theme }) => theme.color.map.shop.dark};
-    opacity: 0.85;
 
     ${media.laptop} {
         display: block;
@@ -84,7 +61,20 @@ export const SecondaryNav = styled.nav`
     margin-left: auto;
 `;
 
-export const SecondaryNavItem = styled.div`
+export const SecondaryNavItem = styled.a`
+    margin-right: 1rem;
+    padding: 0.75rem;
+    font-family: ${({ theme }) => theme.typography.fonts.roboto.condensed.bold};
+    font-size: 1.125rem;
+    letter-spacing: 0.25px;
+    cursor: pointer;
+
+    &:last-of-type {
+        margin-right: 0;
+    }
+`;
+
+export const SecondaryNavIcon = styled.div`
     display: flex;
     flex-shrink: 0;
     padding: 0.5rem;

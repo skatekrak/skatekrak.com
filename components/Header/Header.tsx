@@ -16,6 +16,7 @@ import { PATH_CALL_TO_ADVENTURE } from 'pages/call-to-adventure';
 import { PATH_ROADMAP } from 'pages/roadmap';
 import useSession from 'lib/hook/carrelage/use-session';
 import { RootState } from 'store';
+import IconInstagram from 'components/Ui/Icons/Logos/IconInstagram';
 
 const Header: React.FC = () => {
     const isMobile = useSelector((state: RootState) => state.settings.isMobile);
@@ -33,37 +34,52 @@ const Header: React.FC = () => {
                     </S.LogoLink>
                 </Link>
                 {!isMobile && (
-                    <>
-                        <S.PrimaryNav>
-                            <Link href={PATH_CALL_TO_ADVENTURE}>
-                                <S.PrimaryNavItem>Call to Adventure</S.PrimaryNavItem>
-                            </Link>
-                        </S.PrimaryNav>
-                        {/* <S.HeaderSentence component="subtitle1">
-                            The first open, decentralized, collective skateboarding city
-                        </S.HeaderSentence> */}
-                    </>
+                    <S.HeaderSentence component="condensedBody1">The first skateboarding metalabel</S.HeaderSentence>
                 )}
                 <S.SecondaryNav>
-                    <S.SecondaryNavItem as="a" target="_blank" href="https://discord.gg/exMAqSuVfj" rel="noreferrer">
+                    {!isMobile && (
+                        <div>
+                            <Link href={PATH_CALL_TO_ADVENTURE}>
+                                <S.SecondaryNavItem>Call to Adventure</S.SecondaryNavItem>
+                            </Link>
+                            <S.SecondaryNavItem
+                                href="https://skatekrak.com/join"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                Membership
+                            </S.SecondaryNavItem>
+                        </div>
+                    )}
+                    <S.SecondaryNavIcon as="a" target="_blank" href="https://discord.gg/exMAqSuVfj" rel="noreferrer">
                         <IconDiscord />
-                    </S.SecondaryNavItem>
-                    <S.SecondaryNavItem
+                    </S.SecondaryNavIcon>
+                    <S.SecondaryNavIcon
                         as="a"
                         target="_blank"
                         href="https://www.twitter.com/skatekrak"
                         rel="noreferrer"
                     >
                         <IconTwitter />
-                    </S.SecondaryNavItem>
-                    <S.SecondaryNavItem
+                    </S.SecondaryNavIcon>
+                    <S.SecondaryNavIcon
                         as="a"
                         target="_blank"
                         href="https://www.youtube.com/krakskate"
                         rel="noreferrer"
                     >
                         <IconYoutubeMonochrome />
-                    </S.SecondaryNavItem>
+                    </S.SecondaryNavIcon>
+                    {!isMobile && (
+                        <S.SecondaryNavIcon
+                            as="a"
+                            target="_blank"
+                            href="https://www.instagram.com/skate_krak"
+                            rel="noreferrer"
+                        >
+                            <IconInstagram />
+                        </S.SecondaryNavIcon>
+                    )}
 
                     {/* Three dot menu */}
                     <Tippy
@@ -74,13 +90,22 @@ const Header: React.FC = () => {
                         render={() => (
                             <S.ThreeDotMenu>
                                 {isMobile && (
-                                    <Link href={PATH_CALL_TO_ADVENTURE} passHref>
-                                        <S.ThreeDotMenuItem>
-                                            <Typography as="span" component="body1">
-                                                Call To Adventure
-                                            </Typography>
-                                        </S.ThreeDotMenuItem>
-                                    </Link>
+                                    <>
+                                        <Link href="https://skatekrak.com/join" passHref>
+                                            <S.ThreeDotMenuItem target="_blank" rel="noopener noreferrer">
+                                                <Typography as="span" component="body1">
+                                                    Membership
+                                                </Typography>
+                                            </S.ThreeDotMenuItem>
+                                        </Link>
+                                        <Link href={PATH_CALL_TO_ADVENTURE} passHref>
+                                            <S.ThreeDotMenuItem>
+                                                <Typography as="span" component="body1">
+                                                    Call To Adventure
+                                                </Typography>
+                                            </S.ThreeDotMenuItem>
+                                        </Link>
+                                    </>
                                 )}
                                 <Link href={PATH_ROADMAP} passHref>
                                     <S.ThreeDotMenuItem>
@@ -114,18 +139,18 @@ const Header: React.FC = () => {
                             </S.ThreeDotMenu>
                         )}
                     >
-                        <S.SecondaryNavItem as="button" onClick={handleMenuOpen}>
+                        <S.SecondaryNavIcon as="button" onClick={handleMenuOpen}>
                             <IconDotsThreeVertical />
-                        </S.SecondaryNavItem>
+                        </S.SecondaryNavIcon>
                     </Tippy>
 
                     {isConnected ? (
                         <HeaderProfile />
                     ) : (
                         <Link href="/auth/login" passHref>
-                            <S.SecondaryNavItem as="a">
+                            <S.SecondaryNavIcon as="a">
                                 <IconUserCircle />
-                            </S.SecondaryNavItem>
+                            </S.SecondaryNavIcon>
                         </Link>
                     )}
                 </S.SecondaryNav>
