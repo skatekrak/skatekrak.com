@@ -14,7 +14,7 @@ const CallToAdventureHead = () => {
 
     return (
         <Head>
-            <title>Krak | The first skateboarding DAO x co-op</title>
+            <title>krak | a common good for skateboarders</title>
             <meta
                 name="description"
                 content="Our mission is to make more skateboarding happen in this world. We build knowledge, ressources and tools for skateboarders, to inspire creative collaboration, cooperation and mutual support within the community."
