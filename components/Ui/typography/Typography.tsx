@@ -25,6 +25,7 @@ type TypographyProps = {
         | 'condensedHeading5'
         | 'condensedHeading6'
         | 'condensedSubtitle1'
+        | 'condensedBody1'
         | 'condensedButton'
         | 'condensedOverline';
 };
@@ -129,6 +130,10 @@ const StyledTypography = styled.p<TruncateTextProps & TypographyProps>`
         }) ||
         (component === 'condensedSubtitle1' && {
             fontFamily: theme.typography.fonts.roboto.condensed.bold,
+            fontSize: '1rem',
+        }) ||
+        (component === 'condensedBody1' && {
+            fontFamily: theme.typography.fonts.roboto.condensed.regular,
             fontSize: '1rem',
         }) ||
         (component === 'condensedButton' && {
