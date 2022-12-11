@@ -70,7 +70,7 @@ export const SecondaryNavItem = styled.a`
     cursor: pointer;
 
     &:last-of-type {
-        margin-right: 0;
+        margin-right: 1.5rem;
     }
 `;
 
@@ -87,6 +87,30 @@ export const SecondaryNavIcon = styled.div`
     &:first-child {
         margin-left: 0;
     }
+`;
+
+export const SecondaryNavSocialIcon = styled.div`
+    display: flex;
+    flex-shrink: 0;
+    padding: 0.25rem;
+    border-radius: 100%;
+
+    &:hover {
+        background-color: ${({ theme }) => theme.color.onDark.divider};
+    }
+
+    & svg {
+        width: 1.25rem;
+        height: 1.25rem;
+    }
+`;
+
+export const SecondaryNavIconSeparator = styled.div`
+    height: 1rem;
+    width: 1px;
+    margin: 0 0.625rem;
+    background-color: ${({ theme }) => theme.color.onDark.lowEmphasis};
+    transform: rotate(33deg);
 `;
 
 /** Three dot menu */
@@ -123,4 +147,11 @@ export const ThreeDotMenuItem = styled.a<ThreeDotMenuItemProps>`
                 backgroundColor: theme.color.tertiary.medium,
             }}
     }
+`;
+
+export const ThreeDotMenuSocialContainer = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem 0.75rem 0.25rem;
 `;
