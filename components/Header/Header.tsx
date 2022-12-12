@@ -51,34 +51,54 @@ const Header: React.FC = () => {
                             </S.SecondaryNavItem>
                         </div>
                     )}
-                    <S.SecondaryNavIcon as="a" target="_blank" href="https://discord.gg/exMAqSuVfj" rel="noreferrer">
-                        <IconDiscord />
-                    </S.SecondaryNavIcon>
-                    <S.SecondaryNavIcon
-                        as="a"
-                        target="_blank"
-                        href="https://www.twitter.com/skatekrak"
-                        rel="noreferrer"
-                    >
-                        <IconTwitter />
-                    </S.SecondaryNavIcon>
-                    <S.SecondaryNavIcon
-                        as="a"
-                        target="_blank"
-                        href="https://www.youtube.com/krakskate"
-                        rel="noreferrer"
-                    >
-                        <IconYoutubeMonochrome />
-                    </S.SecondaryNavIcon>
-                    {!isMobile && (
+                    {isMobile && (
                         <S.SecondaryNavIcon
                             as="a"
                             target="_blank"
-                            href="https://www.instagram.com/skate_krak"
+                            href="https://discord.gg/exMAqSuVfj"
                             rel="noreferrer"
                         >
-                            <IconInstagram />
+                            <IconDiscord />
                         </S.SecondaryNavIcon>
+                    )}
+                    {!isMobile && (
+                        <>
+                            <S.SecondaryNavSocialIcon
+                                as="a"
+                                target="_blank"
+                                href="https://discord.gg/exMAqSuVfj"
+                                rel="noreferrer"
+                            >
+                                <IconDiscord />
+                            </S.SecondaryNavSocialIcon>
+                            <S.SecondaryNavIconSeparator />
+                            <S.SecondaryNavSocialIcon
+                                as="a"
+                                target="_blank"
+                                href="https://www.twitter.com/skatekrak"
+                                rel="noreferrer"
+                            >
+                                <IconTwitter />
+                            </S.SecondaryNavSocialIcon>
+                            <S.SecondaryNavIconSeparator />
+                            <S.SecondaryNavSocialIcon
+                                as="a"
+                                target="_blank"
+                                href="https://www.youtube.com/krakskate"
+                                rel="noreferrer"
+                            >
+                                <IconYoutubeMonochrome />
+                            </S.SecondaryNavSocialIcon>
+                            <S.SecondaryNavIconSeparator />
+                            <S.SecondaryNavSocialIcon
+                                as="a"
+                                target="_blank"
+                                href="https://www.instagram.com/skate_krak"
+                                rel="noreferrer"
+                            >
+                                <IconInstagram />
+                            </S.SecondaryNavSocialIcon>
+                        </>
                     )}
 
                     {/* Three dot menu */}
@@ -101,7 +121,7 @@ const Header: React.FC = () => {
                                         <Link href={PATH_CALL_TO_ADVENTURE} passHref>
                                             <S.ThreeDotMenuItem>
                                                 <Typography as="span" component="body1">
-                                                    Call To Adventure
+                                                    Call to Adventure
                                                 </Typography>
                                             </S.ThreeDotMenuItem>
                                         </Link>
@@ -136,6 +156,27 @@ const Header: React.FC = () => {
                                         </Typography>
                                     </S.ThreeDotMenuItem>
                                 </Link>
+                                {isMobile && (
+                                    <S.ThreeDotMenuSocialContainer>
+                                        <Link href="https://www.twitter.com/skatekrak" passHref>
+                                            <S.SecondaryNavSocialIcon as="a" target="_blank" rel="noopener noreferrer">
+                                                <IconTwitter />
+                                            </S.SecondaryNavSocialIcon>
+                                        </Link>
+                                        <S.SecondaryNavIconSeparator />
+                                        <Link href="https://www.youtube.com/krakskate" passHref>
+                                            <S.SecondaryNavSocialIcon as="a" target="_blank" rel="noopener noreferrer">
+                                                <IconYoutubeMonochrome />
+                                            </S.SecondaryNavSocialIcon>
+                                        </Link>
+                                        <S.SecondaryNavIconSeparator />
+                                        <Link href="https://www.instagram.com/skate_krak" passHref>
+                                            <S.SecondaryNavSocialIcon as="a" target="_blank" rel="noopener noreferrer">
+                                                <IconInstagram />
+                                            </S.SecondaryNavSocialIcon>
+                                        </Link>
+                                    </S.ThreeDotMenuSocialContainer>
+                                )}
                             </S.ThreeDotMenu>
                         )}
                     >
