@@ -176,6 +176,5 @@ Back to that era he was the one who could spin with his board more than anyone e
 Rediscover the first 2 games remastered in HD out now!
         `,
         spots: require('data/customMaps/thps.json'),
-        staging: true,
     },
 ];
