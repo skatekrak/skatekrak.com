@@ -177,4 +177,12 @@ Rediscover the first 2 games remastered in HD out now!
         `,
         spots: require('data/customMaps/thps.json'),
     },
+    {
+        id: 'tinderskatespots',
+        name: 'Tinderskatespots',
+        subtitle: 'It’s such a small world !',
+        edito: 'Tinder girls posing on skate spots..',
+        about: 'I don’t know how these guys find all these Tinder pics but maybe it’s a women trend to pose in front of famous skate spots! Big up to the guy(s) behind the @tinderskatespots insta account for the good laughs !',
+        spots: require('data/customMaps/tinderskatespots.json'),
+    },
 ];
