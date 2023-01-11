@@ -162,9 +162,7 @@ This guy is keeping the magic alive! How cool it is to see pros skating these ic
 Let History continue! The show must go on!
         `,
         spots: require('data/customMaps/knobbuster.json'),
-        staging: true,
     },
-    ,
     {
         id: 'thps',
         name: "Tony Hawk Pro Skater's Spots",
