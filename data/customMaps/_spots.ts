@@ -183,4 +183,12 @@ Rediscover the first 2 games remastered in HD out now!
         about: 'I don’t know how these guys find all these Tinder pics but maybe it’s a women trend to pose in front of famous skate spots! Big up to the guy(s) behind the @tinderskatespots insta account for the good laughs !',
         spots: require('data/customMaps/tinderskatespots.json'),
     },
+    {
+        id: 'samespotsametrick',
+        name: 'Same Spot Same Trick',
+        subtitle: 'Already Been Done !',
+        edito: 'Spots that have seen different people doing the same trick',
+        about: 'Inspired by the @samespotsameangle insta account, this map highlight a list of ABD tricks in Skateboarding History !',
+        spots: require('data/customMaps/samespotsametrick.json'),
+    },
 ];
