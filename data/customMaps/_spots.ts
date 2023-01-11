@@ -30,6 +30,46 @@ Nobody can teach you frontside flips better than Andrew! It's been his signature
         spots: require('data/customMaps/andrew.json'),
     },
     {
+        id: 'tinderskatespots',
+        name: 'Tinderskatespots',
+        subtitle: 'It’s such a small world !',
+        edito: 'Tinder girls posing on skate spots..',
+        about: 'I don’t know how these guys find all these Tinder pics but maybe it’s a women trend to pose in front of famous skate spots! Big up to the guy(s) behind the @tinderskatespots insta account for the good laughs !',
+        spots: require('data/customMaps/tinderskatespots.json'),
+    },
+    {
+        id: 'thps',
+        name: "Tony Hawk Pro Skater's Spots",
+        subtitle: 'Nine Hundred!',
+        edito: 'All the spots and inspirations from the famous game series in real life!',
+        about: `
+Back to that era he was the one who could spin with his board more than anyone else and he is still rippin today in his fifty's! Tony Hawk is a legend and his game rocked our teenage years! 
+
+Rediscover the first 2 games remastered in HD out now!
+        `,
+        spots: require('data/customMaps/thps.json'),
+    },
+    {
+        id: 'samespotsametrick',
+        name: 'Same Spot Same Trick',
+        subtitle: 'Already Been Done !',
+        edito: 'Spots that have seen different people doing the same trick',
+        about: 'Inspired by the @samespotsameangle insta account, this map highlight a list of ABD tricks in Skateboarding History !',
+        spots: require('data/customMaps/samespotsametrick.json'),
+    },
+    {
+        id: 'knobbuster',
+        name: 'The Knobbuster',
+        subtitle: 'Who you gonna call?',
+        edito: 'He is a hero for the community! Delivering iconic spots from those horrible skatestoppers popping out everywhere in the Los Angeles area!',
+        about: `
+This guy is keeping the magic alive! How cool it is to see pros skating these iconic spots today!
+
+Let History continue! The show must go on!
+        `,
+        spots: require('data/customMaps/knobbuster.json'),
+    },
+    {
         id: 'onespotpart',
         name: 'One spot video-parts',
         subtitle: 'They own the spot!',
@@ -150,45 +190,5 @@ If you want your event and all the details to be professionally executed by prov
         about: '"Over the last decade, skating has diversified and globalized tremendously. Despite this progress, however, “The Industry” remains very white, very Californian, and it retains hegemonic control over the direction of skateboarding."\nSpecial thanks to Patrick Kigongo.',
         spots: require('data/customMaps/theblacklist.json'),
         staging: true,
-    },
-    {
-        id: 'knobbuster',
-        name: 'The Knobbuster',
-        subtitle: 'Who you gonna call?',
-        edito: 'He is a hero for the community! Delivering iconic spots from those horrible skatestoppers popping out everywhere in the Los Angeles area!',
-        about: `
-This guy is keeping the magic alive! How cool it is to see pros skating these iconic spots today!
-
-Let History continue! The show must go on!
-        `,
-        spots: require('data/customMaps/knobbuster.json'),
-    },
-    {
-        id: 'thps',
-        name: "Tony Hawk Pro Skater's Spots",
-        subtitle: 'Nine Hundred!',
-        edito: 'All the spots and inspirations from the famous game series in real life!',
-        about: `
-Back to that era he was the one who could spin with his board more than anyone else and he is still rippin today in his fifty's! Tony Hawk is a legend and his game rocked our teenage years! 
-
-Rediscover the first 2 games remastered in HD out now!
-        `,
-        spots: require('data/customMaps/thps.json'),
-    },
-    {
-        id: 'tinderskatespots',
-        name: 'Tinderskatespots',
-        subtitle: 'It’s such a small world !',
-        edito: 'Tinder girls posing on skate spots..',
-        about: 'I don’t know how these guys find all these Tinder pics but maybe it’s a women trend to pose in front of famous skate spots! Big up to the guy(s) behind the @tinderskatespots insta account for the good laughs !',
-        spots: require('data/customMaps/tinderskatespots.json'),
-    },
-    {
-        id: 'samespotsametrick',
-        name: 'Same Spot Same Trick',
-        subtitle: 'Already Been Done !',
-        edito: 'Spots that have seen different people doing the same trick',
-        about: 'Inspired by the @samespotsameangle insta account, this map highlight a list of ABD tricks in Skateboarding History !',
-        spots: require('data/customMaps/samespotsametrick.json'),
     },
 ];
