@@ -33,8 +33,8 @@ Nobody can teach you frontside flips better than Andrew! It's been his signature
         id: 'tinderskatespots',
         name: 'Tinderskatespots',
         subtitle: 'It’s such a small world !',
-        edito: 'Tinder girls posing on skate spots..',
-        about: 'I don’t know how these guys find all these Tinder pics but maybe it’s a women trend to pose in front of famous skate spots! Big up to the guy(s) behind the @tinderskatespots insta account for the good laughs !',
+        edito: 'Tinder spotfinder..',
+        about: 'Have you ever thought of using Tinder as a spotfinder? I thought chances to recognize some worldwide famous skate spots would be small but the people behind the @tinderskatespots insta account proved me wrong!',
         spots: require('data/customMaps/tinderskatespots.json'),
     },
     {
@@ -141,7 +141,7 @@ We tried to compile every tricks we had in mind landed on these spots and we upd
 Check it in the clips section of each spot!
         `,
         spots: require('data/customMaps/history.json'),
-        videos: ['https://youtu.be/wHhMC5sWqdc'],
+        videos: ['https://www.youtube.com/watch?v=wHhMC5sWqdc&list=PL2q6XHjX4UjdzIEzATa1k6F_QuZ3wnm84'],
     },
     {
         id: 'minute',
