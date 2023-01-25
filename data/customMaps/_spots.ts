@@ -58,6 +58,14 @@ Rediscover the first 2 games remastered in HD out now!
         spots: require('data/customMaps/samespotsametrick.json'),
     },
     {
+        id: 'sls',
+        name: 'Street League',
+        subtitle: 'Niiiiinneee  Cluuub !',
+        edito: 'All the SLS contest serie locations',
+        about: 'If you have ever been to a Street League contest, it was at one of these places. Rediscover all the events since the Street League was created in 2010.',
+        spots: require('data/customMaps/sls.json'),
+    },
+    {
         id: 'knobbuster',
         name: 'The Knobbuster',
         subtitle: 'Who you gonna call?',
