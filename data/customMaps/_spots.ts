@@ -149,7 +149,7 @@ We tried to compile every tricks we had in mind landed on these spots and we upd
 Check it in the clips section of each spot!
         `,
         spots: require('data/customMaps/history.json'),
-        videos: ['https://www.youtube.com/watch?v=wHhMC5sWqdc&list=PL2q6XHjX4UjdzIEzATa1k6F_QuZ3wnm84'],
+        videos: ['https://www.youtube.com/embed/videoseries?list=PL2q6XHjX4Ujex44kmAFk0XL33MFCYSU57'],
     },
     {
         id: 'minute',
