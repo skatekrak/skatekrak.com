@@ -41,16 +41,42 @@ export const KrakLogo = styled(KrakLogoHand)`
 `;
 
 /** Middle sentence */
-export const HeaderSentence = styled(Typography)`
+export const HeaderSentenceDetails = styled.div`
     display: none;
-    padding: 0 2rem;
-    font-style: italic;
-    text-align: center;
-    letter-spacing: 0.03rem;
+    position: absolute;
+    top: 2rem;
+    left: 0rem;
+    width: 150%;
+    padding: 0.75rem 1rem;
+    color: ${({ theme }) => theme.color.onDark.mediumEmphasis};
+    background-color: ${({ theme }) => theme.color.tertiary.dark};
+    border: 1px solid ${({ theme }) => theme.color.tertiary.medium};
+    border-radius: 0.25rem;
+    box-shadow: ${({ theme }) => theme.shadow.onDark.highSharp};
+    z-index: 100;
+`;
+
+export const HeaderSentenceContainer = styled.div`
+    display: none;
+    position: relative;
+    margin: 0 2rem;
+
+    &:hover {
+        ${HeaderSentenceDetails} {
+            display: block;
+        }
+    }
 
     ${media.laptop} {
         display: block;
     }
+`;
+
+export const HeaderSentence = styled(Typography)`
+    font-style: italic;
+    text-align: center;
+    letter-spacing: 0.03rem;
+    overflow: visible;
 `;
 
 /** Sedondary nav */

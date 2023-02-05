@@ -34,7 +34,17 @@ const Header: React.FC = () => {
                     </S.LogoLink>
                 </Link>
                 {!isMobile && (
-                    <S.HeaderSentence component="condensedBody1">The first skateboarding metalabel</S.HeaderSentence>
+                    <S.HeaderSentenceContainer>
+                        <S.HeaderSentence component="condensedBody1">
+                            The first skateboarding metalabel*
+                        </S.HeaderSentence>
+                        <S.HeaderSentenceDetails>
+                            <Typography component="body2">
+                                A metalabel is a release club where groups of people who share the same interests
+                                collaborate to drop and support work together.
+                            </Typography>
+                        </S.HeaderSentenceDetails>
+                    </S.HeaderSentenceContainer>
                 )}
                 <S.SecondaryNav>
                     {!isMobile && (
