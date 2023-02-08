@@ -17,6 +17,7 @@ import { PATH_ROADMAP } from 'pages/roadmap';
 import useSession from 'lib/hook/carrelage/use-session';
 import { RootState } from 'store';
 import IconInstagram from 'components/Ui/Icons/Logos/IconInstagram';
+import { PATH_MEMBERSHIP } from 'pages/membership';
 
 const Header: React.FC = () => {
     const isMobile = useSelector((state: RootState) => state.settings.isMobile);
@@ -52,13 +53,9 @@ const Header: React.FC = () => {
                             <Link href={PATH_CALL_TO_ADVENTURE}>
                                 <S.SecondaryNavItem>Call to Adventure</S.SecondaryNavItem>
                             </Link>
-                            <S.SecondaryNavItem
-                                href="https://skatekrak.com/join"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                            >
-                                Membership
-                            </S.SecondaryNavItem>
+                            <Link href={PATH_MEMBERSHIP}>
+                                <S.SecondaryNavItem>Membership</S.SecondaryNavItem>
+                            </Link>
                         </div>
                     )}
                     {isMobile && (
@@ -121,8 +118,8 @@ const Header: React.FC = () => {
                             <S.ThreeDotMenu>
                                 {isMobile && (
                                     <>
-                                        <Link href="https://skatekrak.com/join" passHref>
-                                            <S.ThreeDotMenuItem target="_blank" rel="noopener noreferrer">
+                                        <Link href={PATH_MEMBERSHIP} passHref>
+                                            <S.ThreeDotMenuItem>
                                                 <Typography as="span" component="body1">
                                                     Membership
                                                 </Typography>
