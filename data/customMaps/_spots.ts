@@ -181,10 +181,10 @@ Check it in the clips section of each spot!
         subtitle: 'The Boardr Events Map',
         edito: 'The Boardr hosts and organizes skateboardings big events like Vans Park Series and small ones like the Grind for Life series.',
         about: `
-We host and organize skateboarding's top events like Vans Park Series.
-The Boardr also owns and operates grassroots series such as The Boardr Am and Grind for Life. These 15 annual events target younger, newer participants and cover the United States.
-We want to grow skateboarding and help you also do what we do, so we made an in depth roadmap on how to run your own skateboarding event you can find on our site at [TheBoardr.com](http://theboardr.com/)
-Our software, The Boardr Live™, powers several top events in skateboarding, from payment transactions to live scoring and broadcast data integration. Check it out at [SkateScores.com](http://skatescores.com/)
+We host and organize skateboarding's top events like Vans Park Series.
+The Boardr also owns and operates grassroots series such as The Boardr Am and Grind for Life. These 15 annual events target younger, newer participants and cover the United States.
+We want to grow skateboarding and help you also do what we do, so we made an in depth roadmap on how to run your own skateboarding event you can find on our site at [TheBoardr.com](http://theboardr.com/)
+Our software, The Boardr Live™, powers several top events in skateboarding, from payment transactions to live scoring and broadcast data integration. Check it out at [SkateScores.com](http://skatescores.com/)
 If you want your event and all the details to be professionally executed by proven experts who live and breate this industry, The Boardr is who you hire.
         `,
         spots: require('data/customMaps/theboardr.json'),
