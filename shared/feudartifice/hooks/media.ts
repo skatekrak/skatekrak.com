@@ -22,6 +22,7 @@ type BaseFetchMediasOptions = {
     /// Default to 20
     limit?: number;
     hashtag?: string;
+    older?: Date;
 };
 
 type FetchMediaOptions = BaseFetchMediasOptions & ({ older?: Date } | { newer?: Date });
