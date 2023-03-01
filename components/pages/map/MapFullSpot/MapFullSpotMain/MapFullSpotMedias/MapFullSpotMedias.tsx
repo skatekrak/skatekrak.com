@@ -64,21 +64,9 @@ const MapFullSpotMedias: React.FC<MapFullSpotMediasProps> = ({ medias: firstMedi
                 >
                     <S.MapFullSpotMainMediaGridContainer>
                         <KrakMasonry breakpointCols={isMobile ? 1 : 2}>
-                            {medias.map((media) =>
-                                media.type === 'video' ? (
-                                    <MapMediaVideo
-                                        key={media.id}
-                                        media={media}
-                                        shareURL={generateShareURL(spot.id, media.id)}
-                                    />
-                                ) : (
-                                    <MapMedia
-                                        key={media.id}
-                                        media={media}
-                                        shareURL={generateShareURL(spot.id, media.id)}
-                                    />
-                                ),
-                            )}
+                            {medias.map((media) => (
+                                <MapMedia key={media.id} media={media} shareURL={generateShareURL(spot.id, media.id)} />
+                            ))}
                         </KrakMasonry>
                         {isFetching && <KrakLoading />}
                     </S.MapFullSpotMainMediaGridContainer>
