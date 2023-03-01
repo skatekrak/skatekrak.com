@@ -75,8 +75,7 @@ const Subscribe: NextPage = () => {
                             </Typography>
                             <Typography component="subtitle1">Subscribe to activate your account</Typography>
                             <ul>
-                                <li>{monthlyPrice} a month</li>
-                                <li>{yearlyPrice} a year [i.e 2 months free]</li>
+                                <li>{yearlyPrice} a year</li>
                             </ul>
                         </SS.SubscribeDescription>
                         <SS.SubscribeQuote>
@@ -85,7 +84,7 @@ const Subscribe: NextPage = () => {
                                 how to redefine the world around you.” Ian Mackaye -
                             </Typography>
                         </SS.SubscribeQuote>
-                        <S.AuthButtonPrimaryLink href={checkoutSession?.url ?? '#'}>
+                        <S.AuthButtonPrimaryLink href="https://skatekrak.com/join">
                             <Typography component="button">Subscribe</Typography>
                         </S.AuthButtonPrimaryLink>
                     </S.AuthDoubleColumnPageTightColumn>
