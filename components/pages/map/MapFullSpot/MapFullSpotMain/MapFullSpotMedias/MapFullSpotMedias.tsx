@@ -14,7 +14,6 @@ import { Spot, Media } from 'lib/carrelageClient';
 import useSpotMedias from 'lib/hook/carrelage/spot-medias';
 import { flatten } from 'lib/helpers';
 import { RootState } from 'store';
-import MapMediaVideo from 'components/pages/map/media/MapMediaVideo';
 
 export type MapFullSpotMediasProps = {
     medias: Media[];
