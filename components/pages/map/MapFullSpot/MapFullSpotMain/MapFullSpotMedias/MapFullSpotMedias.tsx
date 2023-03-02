@@ -3,18 +3,18 @@ import { useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 import InfiniteScroll from 'react-infinite-scroller';
 
-import ScrollBar from 'components/Ui/Scrollbar';
 import { KrakLoading } from 'components/Ui/Icons/Spinners';
+import ScrollBar from 'components/Ui/Scrollbar';
 import KrakMasonry from 'components/Ui/Masonry';
-import MapFullSpotVideo from './MapFullSpotVideo';
-import MapFullSpotPhoto from './MapFullSpotPhoto';
+import MapFullSpotSingleMediaPreview from '../MapFullSpotSingleMediaPreview';
+import MapMedia from 'components/pages/map/media/MapMedia';
 import * as S from 'components/pages/map/MapFullSpot/MapFullSpotMain/MapFullSpotMain.styled';
 
 import { Spot, Media } from 'lib/carrelageClient';
 import useSpotMedias from 'lib/hook/carrelage/spot-medias';
 import { flatten } from 'lib/helpers';
 import { RootState } from 'store';
-import MapFullSpotSingleMediaPreview from '../MapFullSpotSingleMediaPreview';
+import MapMediaVideo from 'components/pages/map/media/MapMediaVideo';
 
 export type MapFullSpotMediasProps = {
     medias: Media[];
@@ -42,6 +42,9 @@ const MapFullSpotMedias: React.FC<MapFullSpotMediasProps> = ({ medias: firstMedi
         }
     }, [router.query]);
 
+    const generateShareURL = (spotId: string, mediaId: string) =>
+        `${window.location.origin}?modal=1&spot=${spotId}&media=${mediaId}`;
+
     return (
         <ScrollBar maxHeight="100%">
             {mediaID ? (
@@ -61,12 +64,9 @@ const MapFullSpotMedias: React.FC<MapFullSpotMediasProps> = ({ medias: firstMedi
                 >
                     <S.MapFullSpotMainMediaGridContainer>
                         <KrakMasonry breakpointCols={isMobile ? 1 : 2}>
-                            {medias.map((media) => {
-                                if (media.type === 'video') {
-                                    return <MapFullSpotVideo key={media.id} spotId={spot.id} media={media} />;
-                                }
-                                return <MapFullSpotPhoto key={media.id} spotId={spot.id} media={media} />;
-                            })}
+                            {medias.map((media) => (
+                                <MapMedia key={media.id} media={media} shareURL={generateShareURL(spot.id, media.id)} />
+                            ))}
                         </KrakMasonry>
                         {isFetching && <KrakLoading />}
                     </S.MapFullSpotMainMediaGridContainer>

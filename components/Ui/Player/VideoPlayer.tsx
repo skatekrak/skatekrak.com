@@ -12,7 +12,7 @@ import ReactPlayer, { ReactPlayerProps } from 'react-player';
  * Code
  */
 
-type VideoPlayerProps = {
+export type VideoPlayerProps = {
     ref: React.LegacyRef<ReactPlayer>;
     videoSize?: {
         width: number;

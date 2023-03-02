@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 
 import IconArrow from 'components/Ui/Icons/Arrow';
 import IconArrowHead from 'components/Ui/Icons/ArrowHead';
@@ -14,6 +14,8 @@ import { Spot } from 'lib/carrelageClient';
 import { updateUrlParams } from 'store/map/slice';
 import MapCustomNavigationExtension from './MapCustomNavigationExtension';
 import { useAppDispatch } from 'store/hook';
+import MapCustomNavigationMediaFeed from './MapCustomNavigationMediaFeed';
+import { useMedias } from 'shared/feudartifice/hooks/media';
 
 type MapCustomNavigationProps = {
     id: string;
@@ -26,6 +28,16 @@ type MapCustomNavigationProps = {
 
 const MapCustomNavigation = ({ id, title, about, subtitle, spots, videos }: MapCustomNavigationProps) => {
     const dispatch = useAppDispatch();
+
+    const today = useMemo(() => {
+        return new Date();
+    }, []);
+
+    const { isLoading, data: medias } = useMedias({
+        older: today,
+        limit: 10,
+        hashtag: id,
+    });
 
     const goBack = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
         e.preventDefault();
@@ -69,7 +81,7 @@ const MapCustomNavigation = ({ id, title, about, subtitle, spots, videos }: MapC
                     render={() => <MapCustomNavigationAbout subtitle={subtitle} about={about} />}
                 >
                     <S.MapCustomNavigationLink>
-                        <Typography component="body1">About</Typography>
+                        <Typography component="body1">about</Typography>
                         <IconArrowHead />
                     </S.MapCustomNavigationLink>
                 </MapCustomNavigationExtension>
@@ -84,7 +96,17 @@ const MapCustomNavigation = ({ id, title, about, subtitle, spots, videos }: MapC
                 {videos?.length > 0 && (
                     <MapCustomNavigationExtension render={() => <MapCustomNavigationVideos videos={videos} />}>
                         <S.MapCustomNavigationLink>
-                            <Typography component="body1">Video</Typography>
+                            <Typography component="body1">video</Typography>
+                            <IconArrowHead />
+                        </S.MapCustomNavigationLink>
+                    </MapCustomNavigationExtension>
+                )}
+                {medias?.length > 0 && (
+                    <MapCustomNavigationExtension
+                        render={() => <MapCustomNavigationMediaFeed medias={medias} isLoading={isLoading} />}
+                    >
+                        <S.MapCustomNavigationLink>
+                            <Typography component="body1">{medias.length} media</Typography>
                             <IconArrowHead />
                         </S.MapCustomNavigationLink>
                     </MapCustomNavigationExtension>
