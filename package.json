@@ -11,7 +11,8 @@
         "build": "yarn build:style && next build",
         "start": "next start",
         "analyze": "ANALYZE=true next build",
-        "lint": "eslint '*/**/*.{js,ts,tsx}' --quiet --fix",
+        "style": "eslint '*/**/*.{js,ts,tsx}' --quiet --fix",
+        "lint": "eslint '*/**/*.{js,ts,tsx}'",
         "build:style": "stylus -c public/styles -o public/dist && stylus -c public/styles/auth -o public/dist/auth && stylus -c public/styles/ui -o public/dist/ui && stylus -c public/styles/map -o public/dist/map"
     },
     "dependencies": {
