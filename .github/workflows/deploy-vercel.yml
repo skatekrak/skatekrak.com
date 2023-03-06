@@ -2,6 +2,8 @@ name: Deploy to Vercel
 on:
   push:
     branches: [main]
+env:
+  NEXT_PUBLIC_BUGSNAG_KEY: ${{ secrets.NEXT_PUBLIC_BUGSNAG_KEY }}
 jobs:
   deploy:
     runs-on: ubuntu-latest
