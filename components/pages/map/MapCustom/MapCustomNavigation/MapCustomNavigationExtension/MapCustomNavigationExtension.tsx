@@ -5,12 +5,13 @@ import Scrollbar from 'components/Ui/Scrollbar';
 import * as S from './MapCustomNavigationExtension.styled';
 
 type Props = {
+    id?: string;
     maxWidth?: string;
     render: (data?: { close: () => void }) => React.ReactNode;
     children: JSX.Element;
 };
 
-const MapCustomNavigationExtension: React.FC<Props> = ({ maxWidth, render, children }) => {
+const MapCustomNavigationExtension: React.FC<Props> = ({ id, maxWidth, render, children }) => {
     const [isExtensionOpen, setIsExtensionOpen] = useState(false);
 
     const { y, strategy, reference, floating, context } = useFloating({
@@ -28,6 +29,7 @@ const MapCustomNavigationExtension: React.FC<Props> = ({ maxWidth, render, child
                 <S.MapCustomNavigationExtensionContainer
                     {...getFloatingProps({
                         ref: floating,
+                        id,
                         style: { maxWidth: maxWidth, position: strategy, top: y ?? '', left: '0' },
                     })}
                 >

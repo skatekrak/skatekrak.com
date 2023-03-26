@@ -1,21 +1,59 @@
+import React, { useMemo } from 'react';
+import InfiniteScroll from 'react-infinite-scroller';
+
 import MapMedia from 'components/pages/map/media/MapMedia';
 import { KrakLoading } from 'components/Ui/Icons/Spinners';
-import React from 'react';
-import { Media } from 'shared/feudartifice/types';
+
+import { flatten } from 'lib/helpers';
+import { useInfiniteMedias } from 'shared/feudartifice/hooks/media';
 
 import * as S from './MapCustomNavigationMediaFeed.styled';
 
 type Props = {
-    medias: Media[];
-    isLoading: boolean;
+    mapId: string;
 };
 
-const MapCustomNavigationMediaFeed = ({ medias, isLoading }: Props) => {
+const MapCustomNavigationMediaFeed = ({ mapId }: Props) => {
+    const today = useMemo(() => {
+        return new Date();
+    }, []);
+
+    const { isFetching, data, hasNextPage, fetchNextPage } = useInfiniteMedias({
+        older: today,
+        limit: 10,
+        hashtag: mapId,
+    });
+
+    const infiniteMedias = flatten(data?.pages ?? []);
+
+    const getScrollParent = () => {
+        const wrappers = document.getElementsByClassName('simplebar-content-wrapper');
+        return wrappers[wrappers.length - 1] as HTMLElement;
+    };
+
     return (
-        <S.MapCustomNavigationMediaFeedContainer>
-            {medias && medias.map((media) => <MapMedia key={media.id} media={media} />)}
-            {isLoading && <KrakLoading />}
-        </S.MapCustomNavigationMediaFeedContainer>
+        <div>
+            <InfiniteScroll
+                pageStart={1}
+                initialLoad={true}
+                loadMore={() => {
+                    console.log(hasNextPage);
+                    if (hasNextPage) {
+                        fetchNextPage();
+                    }
+                }}
+                hasMore={hasNextPage && !isFetching}
+                getScrollParent={getScrollParent}
+                useWindow={false}
+            >
+                <S.MapCustomNavigationMediaFeedContainer>
+                    {infiniteMedias.map((media) => (
+                        <MapMedia key={media.id} media={media} />
+                    ))}
+                    {isFetching && <KrakLoading />}
+                </S.MapCustomNavigationMediaFeedContainer>
+            </InfiniteScroll>
+        </div>
     );
 };
 

@@ -33,9 +33,9 @@ const MapCustomNavigation = ({ id, title, about, subtitle, spots, videos }: MapC
         return new Date();
     }, []);
 
-    const { isLoading, data: medias } = useMedias({
+    const { data: medias } = useMedias({
         older: today,
-        limit: 10,
+        limit: 1,
         hashtag: id,
     });
 
@@ -103,10 +103,11 @@ const MapCustomNavigation = ({ id, title, about, subtitle, spots, videos }: MapC
                 )}
                 {medias?.length > 0 && (
                     <MapCustomNavigationExtension
-                        render={() => <MapCustomNavigationMediaFeed medias={medias} isLoading={isLoading} />}
+                        id="feed-container"
+                        render={() => <MapCustomNavigationMediaFeed mapId={id} />}
                     >
                         <S.MapCustomNavigationLink>
-                            <Typography component="body1">{medias.length} media</Typography>
+                            <Typography component="body1">media</Typography>
                             <IconArrowHead />
                         </S.MapCustomNavigationLink>
                     </MapCustomNavigationExtension>
