@@ -150,6 +150,14 @@ As they reminded in their article, don't forget skateboarding on MTA property is
         spots: require('data/customMaps/spohn.json'),
     },
     {
+        id: 'concreteflow',
+        name: 'Concrete Flow',
+        subtitle: 'Concrete Flow Skateparks',
+        edito: 'Mike Van der Ouderaa and his crew pouring concrete around Europe and beyond..',
+        abount: 'Concrete Flow is undoubtedly purist at its core; their designers and builders are all pro level skaters. Skateability and exhilaration are thus paramount to everything they do.',
+        spots: require('data/customMaps/concreteflow.json'),
+    },
+    {
         id: 'googleearthers',
         name: 'Google Earthers',
         subtitle: "'Mankind's biggest tool/enemy'",
