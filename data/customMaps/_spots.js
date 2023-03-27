@@ -78,6 +78,14 @@ Let History continue! The show must go on!
         spots: require('data/customMaps/knobbuster.json'),
     },
     {
+        id: 'theskateboardmagcover',
+        name: 'The Skateboard Mag Covers',
+        subtitle: 'Cover baby! Cover!',
+        edito: 'All The Skateboard Mag covers we could map!',
+        about: 'Definitively not an exhaustive list but it’s a start. Let’s see if we can get to map the 162 covers!',
+        spots: require('data/customMaps/theskateboardmagcover.json'),
+    },
+    {
         id: 'onespotpart',
         name: 'One spot video-parts',
         subtitle: 'They own the spot!',
