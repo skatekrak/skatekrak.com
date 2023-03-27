@@ -86,6 +86,14 @@ Let History continue! The show must go on!
         spots: require('data/customMaps/theskateboardmagcover.json'),
     },
     {
+        id: 'thrashercover',
+        name: 'Thrasher Covers',
+        subtitle: 'Cover baby! Cover!',
+        edito: 'All the Thrasher Magazine covers we could map!',
+        about: 'Definitively not an exhaustive list but it’s a start. Let’s see if we can get to map the 500+ covers!',
+        spots: require('data/customMaps/thrashercover.json'),
+    },
+    {
         id: 'onespotpart',
         name: 'One spot video-parts',
         subtitle: 'They own the spot!',
