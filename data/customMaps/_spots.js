@@ -142,6 +142,14 @@ As they reminded in their article, don't forget skateboarding on MTA property is
         videos: ['https://www.youtube.com/watch?v=uNkFTKsYqiY'],
     },
     {
+        id: 'spohnranch',
+        name: 'Spohn Ranch',
+        subtitle: 'Spohn Ranch Skateparks',
+        edito: 'Designing and building skateparks with the relentless dedication to detail and architectural finesse.',
+        about: 'Spohn Ranch began as a community, anchored by Aaron Spohn’s backyard half-pipe, and grew into an award-winning skatepark design-build firm.\nA cornerstone of wheel sports progression for over 30 years, Spohn Ranch’s Los Angeles backyard roots have spread globally, culminating in hundreds of cutting-edge creations.',
+        spots: require('data/customMaps/spohn.json'),
+    },
+    {
         id: 'googleearthers',
         name: 'Google Earthers',
         subtitle: "'Mankind's biggest tool/enemy'",
@@ -181,15 +189,6 @@ Check it in the clips section of each spot!
         `,
         spots: require('data/customMaps/minute.json'),
         videos: ['https://www.youtube.com/watch?v=ODidvGV7bUA&list=PL2q6XHjX4Ujd3_6mUWQQe02cFvGg1ILNX'],
-    },
-    {
-        id: 'spohnranch',
-        name: 'Spohn Ranch',
-        subtitle: 'Spohn Ranch Skateparks',
-        edito: 'Designing and building skateparks with the relentless dedication to detail and architectural finesse.',
-        about: 'Spohn Ranch began as a community, anchored by Aaron Spohn’s backyard half-pipe, and grew into an award-winning skatepark design-build firm.\nA cornerstone of wheel sports progression for over 30 years, Spohn Ranch’s Los Angeles backyard roots have spread globally, culminating in hundreds of cutting-edge creations.',
-        spots: require('data/customMaps/spohn.json'),
-        staging: true,
     },
     {
         id: 'theboardr',
