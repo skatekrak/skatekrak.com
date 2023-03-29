@@ -94,6 +94,14 @@ Let History continue! The show must go on!
         spots: require('data/customMaps/thrashercover.json'),
     },
     {
+        id: 'twscover',
+        name: 'Transworld Covers',
+        subtitle: 'Cover baby! Cover!',
+        edito: 'All the Transworld Skateboarding Magazine covers we could map!',
+        about: 'Definitively not an exhaustive list but it’s a start. Let’s see if we can get to map the 397 covers! ',
+        spots: require('data/customMaps/twscover.json'),
+    },
+    {
         id: 'onespotpart',
         name: 'One spot video-parts',
         subtitle: 'They own the spot!',
