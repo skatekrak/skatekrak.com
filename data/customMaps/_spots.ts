@@ -207,6 +207,14 @@ Check it in the clips section of each spot!
         videos: ['https://www.youtube.com/watch?v=ODidvGV7bUA&list=PL2q6XHjX4Ujd3_6mUWQQe02cFvGg1ILNX'],
     },
     {
+        id: 'dvl',
+        name: 'Davy Van Laere',
+        subtitle: 'DVL',
+        edito: '',
+        about: 'Former pro for Deathbox Skateboards, the Belgian Davy van Laere reconverted into music and photography and made it up to Europe’s Skateboard Photographer of the Year!',
+        spots: require('data/customMaps/dvl.json'),
+    },
+    {
         id: 'theboardr',
         name: 'The Boardr Events',
         subtitle: 'The Boardr Events Map',
