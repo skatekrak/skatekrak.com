@@ -238,4 +238,20 @@ If you want your event and all the details to be professionally executed by prov
         spots: require('data/customMaps/theblacklist.json'),
         staging: true,
     },
+    {
+        id: 'fredmortagne',
+        name: 'Fred Mortagne',
+        subtitle: 'French Fred',
+        edito: '',
+        about: 'One of the most talented skateboard videographers and photographers!',
+        spots: require('data/customMaps/fredmortagne.json'),
+    },
+    {
+        id: 'erickoston',
+        name: 'Eric Koston',
+        subtitle: 'Froston',
+        about: 'The legend! He’s still there having fun! He definitely left his marks on Skateboarding History!',
+        spots: require('data/customMaps/erickoston.json'),
+        videos: ['https://www.youtube.com/playlist?list=PLAngPGm2UkQ520AO6Pp1Ae4Zz_xCvyhw-'],
+    },
 ];
