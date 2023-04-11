@@ -52,9 +52,13 @@ type FacebookLoginRenderProps = {
     isSdkLoaded: boolean;
 };
 
+type FacebookLoginCallbackParams = {
+    status: string;
+};
+
 type FacebookLoginProps = {
     isDisabled?: boolean;
-    callback: ({ status: string }) => void;
+    callback: (callback: FacebookLoginCallbackParams) => void;
     appId: string;
     xfbml?: boolean;
     cookie?: boolean;
@@ -71,7 +75,7 @@ type FacebookLoginProps = {
     version?: string;
     language?: string;
     onClick?: (e: any) => void;
-    onFailure?: ({ status: string }) => void | null;
+    onFailure?: (callback: FacebookLoginCallbackParams) => void | null;
     render: (props: FacebookLoginRenderProps) => JSX.Element;
 };
 
