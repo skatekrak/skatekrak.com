@@ -1,12 +1,20 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import { QuickAccessMap } from 'components/pages/map/mapQuickAccess/MapQuickAccessDesktop/MapQuickAccessDesktop';
+import { QuickAccessMap } from 'components/pages/map/mapQuickAccess/types';
 
 export const useCustomMaps = () => {
-    return useQuery(['custom-maps'], () => axios.get<QuickAccessMap[]>('/api/custom-maps').then((res) => res.data), {
-        refetchOnWindowFocus: false,
-        refetchOnMount: false,
-    });
+    return useQuery(
+        ['custom-maps'],
+        () =>
+            axios.get<QuickAccessMap[]>('/api/custom-maps').then((res) => {
+                const mapsOrderedBySpotNumber = res.data.sort((a, b) => a.numberOfSpots > b.numberOfSpots && -1);
+                return mapsOrderedBySpotNumber;
+            }),
+        {
+            refetchOnWindowFocus: false,
+            refetchOnMount: false,
+        },
+    );
 };
 
 const useCustomMap = (id: string) => {

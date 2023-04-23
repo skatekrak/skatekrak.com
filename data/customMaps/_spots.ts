@@ -1,6 +1,7 @@
 export default [
     {
         id: 'famous',
+        categories: ['maps'],
         name: 'Famous Spots',
         subtitle: 'Who did what?',
         edito: 'Worldwide famous spots with decades of skateboarding history.',
@@ -11,6 +12,7 @@ We try to keep track of what's been done on these spots for a while now! Rewatch
     },
     {
         id: 'webcam',
+        categories: ['maps'],
         name: 'Webcams',
         subtitle: 'Big Brother is watching you!',
         edito: 'A hundred spots with 24/7 live webcams!',
@@ -21,6 +23,7 @@ It all started with one live webcam in Brussels I used to check to see if the fl
     },
     {
         id: 'andrew',
+        categories: ['maps'],
         name: 'Andrew Reynolds Frontside Flips',
         subtitle: 'The perfect flick!',
         edito: 'The Boss signature trick!',
@@ -31,6 +34,7 @@ Nobody can teach you frontside flips better than Andrew! It's been his signature
     },
     {
         id: 'tinderskatespots',
+        categories: ['maps'],
         name: 'Tinderskatespots',
         subtitle: 'It’s such a small world !',
         edito: 'Tinder spotfinder..',
@@ -39,6 +43,7 @@ Nobody can teach you frontside flips better than Andrew! It's been his signature
     },
     {
         id: 'thps',
+        categories: ['maps'],
         name: "Tony Hawk Pro Skater's Spots",
         subtitle: 'Nine Hundred!',
         edito: 'All the spots and inspirations from the famous game series in real life!',
@@ -51,6 +56,7 @@ Rediscover the first 2 games remastered in HD out now!
     },
     {
         id: 'samespotsametrick',
+        categories: ['maps'],
         name: 'Same Spot Same Trick',
         subtitle: 'Already Been Done !',
         edito: 'Spots that have seen different people doing the same trick',
@@ -59,6 +65,7 @@ Rediscover the first 2 games remastered in HD out now!
     },
     {
         id: 'sls',
+        categories: ['maps'],
         name: 'Street League',
         subtitle: 'Niiiiinneee  Cluuub !',
         edito: 'All the SLS contest serie locations',
@@ -67,6 +74,7 @@ Rediscover the first 2 games remastered in HD out now!
     },
     {
         id: 'knobbuster',
+        categories: ['maps'],
         name: 'The Knobbuster',
         subtitle: 'Who you gonna call?',
         edito: 'He is a hero for the community! Delivering iconic spots from those horrible skatestoppers popping out everywhere in the Los Angeles area!',
@@ -79,6 +87,7 @@ Let History continue! The show must go on!
     },
     {
         id: 'theskateboardmagcover',
+        categories: ['magazine'],
         name: 'The Skateboard Mag Covers',
         subtitle: 'Cover baby! Cover!',
         edito: 'All The Skateboard Mag covers we could map!',
@@ -87,6 +96,7 @@ Let History continue! The show must go on!
     },
     {
         id: 'thrashercover',
+        categories: ['magazine'],
         name: 'Thrasher Covers',
         subtitle: 'Cover baby! Cover!',
         edito: 'All the Thrasher Magazine covers we could map!',
@@ -95,6 +105,7 @@ Let History continue! The show must go on!
     },
     {
         id: 'twscover',
+        categories: ['magazine'],
         name: 'Transworld Covers',
         subtitle: 'Cover baby! Cover!',
         edito: 'All the Transworld Skateboarding Magazine covers we could map!',
@@ -103,6 +114,7 @@ Let History continue! The show must go on!
     },
     {
         id: 'onespotpart',
+        categories: ['maps'],
         name: 'One spot video-parts',
         subtitle: 'They own the spot!',
         edito: 'Video-parts filmed intentionally at one spot.',
@@ -117,6 +129,7 @@ https://quartersnacks.com/2021/07/introducing-the-quartersnacks-one-spot-part-ma
     },
     {
         id: 'betty',
+        categories: ['video'],
         name: 'Betty',
         subtitle: 'Betty',
         edito: 'Vans Europe Present: Betty',
@@ -136,6 +149,7 @@ Timothy Deconinck
     },
     {
         id: 'nycsubway',
+        categories: ['maps'],
         name: 'NYC Subway Spots',
         subtitle: '100% Illegal',
         edito: 'Your guide to skating the NYC subway system.',
@@ -151,6 +165,7 @@ As they reminded in their article, don't forget skateboarding on MTA property is
     },
     {
         id: 'spohnranch',
+        categories: ['skatepark'],
         name: 'Spohn Ranch',
         subtitle: 'Spohn Ranch Skateparks',
         edito: 'Designing and building skateparks with the relentless dedication to detail and architectural finesse.',
@@ -159,6 +174,7 @@ As they reminded in their article, don't forget skateboarding on MTA property is
     },
     {
         id: 'concreteflow',
+        categories: ['skatepark'],
         name: 'Concrete Flow',
         subtitle: 'Concrete Flow Skateparks',
         edito: 'Mike Van der Ouderaa and his crew pouring concrete around Europe and beyond..',
@@ -167,6 +183,7 @@ As they reminded in their article, don't forget skateboarding on MTA property is
     },
     {
         id: 'googleearthers',
+        categories: ['maps'],
         name: 'Google Earthers',
         subtitle: "'Mankind's biggest tool/enemy'",
         edito: "Jake Keenan's spots as seen in his Google Earthers episodes playing on jenkemmag.com",
@@ -178,6 +195,7 @@ Jake Keenan uses Google Earth to find unusual and virgin skate spots in the NYC 
     },
     {
         id: 'history',
+        categories: ['maps'],
         name: 'Krak History Clip',
         subtitle: 'Krak History Clip',
         edito: 'Skateboarding history right there!',
@@ -193,6 +211,7 @@ Check it in the clips section of each spot!
     },
     {
         id: 'minute',
+        categories: ['maps'],
         name: 'Krak Minute',
         subtitle: 'Krak Minute',
         edito: 'One minute of tricks on worldwide famous spots.',
@@ -208,6 +227,7 @@ Check it in the clips section of each spot!
     },
     {
         id: 'dvl',
+        categories: ['photographer'],
         name: 'Davy Van Laere',
         subtitle: 'DVL',
         edito: '',
@@ -216,6 +236,7 @@ Check it in the clips section of each spot!
     },
     {
         id: 'theboardr',
+        categories: ['maps'],
         name: 'The Boardr Events',
         subtitle: 'The Boardr Events Map',
         edito: 'The Boardr hosts and organizes skateboardings big events like Vans Park Series and small ones like the Grind for Life series.',
@@ -231,6 +252,7 @@ If you want your event and all the details to be professionally executed by prov
     },
     {
         id: 'theblacklist',
+        categories: ['maps'],
         name: 'The Black List',
         subtitle: 'Black-owned biz to support',
         edito: 'We believe that getting eyeballs on a list of Black-owned brands is a humble, yet necessary offering to building whatever lies ahead.',
@@ -240,6 +262,7 @@ If you want your event and all the details to be professionally executed by prov
     },
     {
         id: 'fredmortagne',
+        categories: ['filmer'],
         name: 'Fred Mortagne',
         subtitle: 'French Fred',
         edito: '',
@@ -248,6 +271,7 @@ If you want your event and all the details to be professionally executed by prov
     },
     {
         id: 'erickoston',
+        categories: ['skater'],
         name: 'Eric Koston',
         subtitle: 'Froston',
         about: 'The legend! He’s still there having fun! He definitely left his marks on Skateboarding History!',

@@ -1,9 +1,10 @@
 import React from 'react';
 
-import MapQuickAccessMobileCustomItem from './MapQuickAccessMobileCustomItem';
 import * as S from './MapQuickAccessMobileCustom.styled';
 
 import { useCustomMaps } from 'lib/hook/use-custom-map';
+import { generateCategories } from '../../MapQuickAccessDesktop/Maps/Maps';
+import Category from './Category';
 
 type Props = {
     closeSheet: () => void;
@@ -16,7 +17,9 @@ const MapQuickAccessMobileCustom: React.FC<Props> = ({ closeSheet }) => {
         <S.MapQuickAccessMobileCustomContainer>
             {!isLoading &&
                 data &&
-                data.map((map) => <MapQuickAccessMobileCustomItem key={map.id} map={map} closeSheet={closeSheet} />)}
+                generateCategories(data).map((category) => (
+                    <Category key={category.id} category={category} onMapClick={closeSheet} />
+                ))}
         </S.MapQuickAccessMobileCustomContainer>
     );
 };

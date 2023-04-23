@@ -10,7 +10,7 @@ export const MapQuickAccessDesktopContainer = styled.div`
     right: 1.5rem;
     flex-direction: column;
     align-items: center;
-    padding-top: 0.75rem;
+    padding: 0.5rem 0;
     background-color: ${({ theme }) => theme.color.tertiary.dark};
     border: 1px solid ${({ theme }) => theme.color.tertiary.medium};
     border-radius: 0.25rem;
@@ -19,6 +19,13 @@ export const MapQuickAccessDesktopContainer = styled.div`
 
     ${media.laptopS} {
         display: flex;
+    }
+
+    & > div[data-tippy-root] {
+        transform: none !important;
+        inset: inherit !important;
+        top: 0 !important;
+        right: 4.5rem !important;
     }
 `;
 
@@ -36,14 +43,4 @@ export const MapQuickAccessDesktopSectionDivider = styled.div`
     width: calc(100% - 1.5rem);
     margin: 0.75rem;
     background-color: ${({ theme }) => theme.color.onDark.divider};
-`;
-
-export const MapQuickAccessDesktopCustomContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    max-height: calc(100vh - 24rem);
-    overflow-y: auto;
-    overflow-x: hidden;
 `;

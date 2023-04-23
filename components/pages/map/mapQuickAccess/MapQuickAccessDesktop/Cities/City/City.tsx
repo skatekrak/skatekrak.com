@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 
-import * as S from '../MapQuickAccessDesktopCities.styled';
+import * as S from './City.styled';
 
 import { City } from 'map';
 import { toggleLegend, toggleSearchResult } from 'store/map/slice';
@@ -9,19 +9,19 @@ import { updateUrlParams } from 'store/map/slice';
 import { useMap } from 'react-map-gl';
 import { centerFromBounds } from 'lib/map/helpers';
 
-type MapQuickAccessDesktopCityItemProps = {
+type CityProps = {
     city: City;
-    onCitiesClick: (e: React.SyntheticEvent) => void;
+    onCityClick: () => void;
 };
 
-const MapQuickAccessDesktopCityItem: React.FC<MapQuickAccessDesktopCityItemProps> = ({ city, onCitiesClick }) => {
+const CityComponent: React.FC<CityProps> = ({ city, onCityClick }) => {
     const dispatch = useDispatch();
     const { current: map } = useMap();
 
     const onClick = useCallback(
         (e: React.SyntheticEvent) => {
             e.preventDefault();
-            onCitiesClick(e);
+            onCityClick();
             dispatch(toggleLegend(false));
             dispatch(toggleSearchResult(false));
             dispatch(
@@ -43,21 +43,21 @@ const MapQuickAccessDesktopCityItem: React.FC<MapQuickAccessDesktopCityItemProps
                 zoom: 11.7,
             });
         },
-        [onCitiesClick, dispatch, city.bounds, map],
+        [onCityClick, dispatch, city.bounds, map],
     );
 
     return (
-        <S.MapQuickAccessDesktopCityItem onClick={onClick}>
-            <S.MapQuickAccessDesktopCityItemImage
+        <S.City onClick={onClick}>
+            <S.CityImage
                 style={{
                     backgroundImage: `url('/images/map/cities/${city.id}@3x.jpg')`,
                 }}
             />
-            <S.MapQuickAccessDesktopCityItemName component="subtitle2" truncateLines={1}>
+            <S.CityName component="subtitle2" truncateLines={1}>
                 {city.name}
-            </S.MapQuickAccessDesktopCityItemName>
-        </S.MapQuickAccessDesktopCityItem>
+            </S.CityName>
+        </S.City>
     );
 };
 
-export default React.memo(MapQuickAccessDesktopCityItem);
+export default React.memo(CityComponent);

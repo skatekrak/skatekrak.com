@@ -1,6 +1,6 @@
 import React from 'react';
 
-import MapQuickAccessDesktopCityItem from '../../MapQuickAccessDesktop/MapQuickAccessDesktopCities/MapQuickAccessDesktopCityItem';
+import City from '../../MapQuickAccessDesktop/Cities/City';
 import * as S from './MapQuickAccessMobileCities.styled';
 
 import cities from 'data/cities/_cities';
@@ -13,7 +13,7 @@ const MapQuickAccessMobileCities: React.FC<Props> = ({ closeSheet }) => {
     return (
         <S.MapQuickAccessMobileCitiesGrid>
             {cities.map((city) => (
-                <MapQuickAccessDesktopCityItem key={city.id} city={city} onCitiesClick={closeSheet} />
+                <City key={city.id} city={city} onCityClick={closeSheet} />
             ))}
         </S.MapQuickAccessMobileCitiesGrid>
     );

@@ -7,20 +7,16 @@ import {
     useRole,
     useDismiss,
     autoUpdate,
-    safePolygon,
     shift,
 } from '@floating-ui/react-dom-interactions';
 import React, { cloneElement, useEffect, useState } from 'react';
 
-type MapQuickAccessDesktopItemDescriptionTooltipProps = {
+type TooltipProps = {
     render: (props: any) => React.ReactNode;
     children: JSX.Element;
 };
 
-const MapQuickAccessDesktopItemDescriptionTooltip = ({
-    render,
-    children,
-}: MapQuickAccessDesktopItemDescriptionTooltipProps) => {
+const Tooltip = ({ render, children }: TooltipProps) => {
     const [open, setOpen] = useState(false);
 
     const { x, y, reference, floating, strategy, context, refs, update } = useFloating({
@@ -61,4 +57,4 @@ const MapQuickAccessDesktopItemDescriptionTooltip = ({
     );
 };
 
-export default MapQuickAccessDesktopItemDescriptionTooltip;
+export default Tooltip;

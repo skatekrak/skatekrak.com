@@ -3,7 +3,7 @@ import Cors from 'cors';
 
 import CustomMaps from '../../data/customMaps/_spots';
 import { Spot } from 'lib/carrelageClient';
-import { QuickAccessMap } from 'components/pages/map/mapQuickAccess/MapQuickAccessDesktop/MapQuickAccessDesktop';
+import { CustomMapCategory, QuickAccessMap } from 'components/pages/map/mapQuickAccess/types';
 
 const computeContentScore = (spot: Spot): number => {
     return spot.mediasStat.all + spot.clipsStat.all;
@@ -51,6 +51,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
                 subtitle: map.subtitle,
                 about: map.about,
                 edito: map.edito,
+                categories: map.categories as CustomMapCategory[],
                 numberOfSpots: map.spots.length,
             });
         }
