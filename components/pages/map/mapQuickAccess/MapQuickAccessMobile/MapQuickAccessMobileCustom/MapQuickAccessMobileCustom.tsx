@@ -3,8 +3,8 @@ import React from 'react';
 import * as S from './MapQuickAccessMobileCustom.styled';
 
 import { useCustomMaps } from 'lib/hook/use-custom-map';
-import { generateCategories } from '../../MapQuickAccessDesktop/Maps/Maps';
 import Category from './Category';
+import { generateCategories } from '../../utils';
 
 type Props = {
     closeSheet: () => void;

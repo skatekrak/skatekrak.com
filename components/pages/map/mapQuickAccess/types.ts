@@ -17,7 +17,6 @@ export type Category = {
     maps: QuickAccessMap[];
 };
 
-// export type CustomMapCategory = 'maps' | 'video' | 'skater' | 'filmer' | 'photographer' | 'magazine' | 'skatepark';
 export enum CustomMapCategory {
     maps = 'Maps',
     video = 'Video',

@@ -5,24 +5,11 @@ import Category from '../components/Category';
 import Map from './Map';
 import * as S from './Maps.styled';
 
-import { CustomMapCategory, QuickAccessMap, Category as TCategory } from '../../types';
+import { Category as TCategory } from '../../types';
 import { useCustomMaps } from 'lib/hook/use-custom-map';
-import { generateCustomMapSrcSet } from '../../utils';
+import { generateCategories, generateCustomMapSrcSet } from '../../utils';
 
-export const generateCategories = (data: QuickAccessMap[]): TCategory[] => {
-    const categories: CustomMapCategory[] = data.reduce((acc, value) => acc.concat(value.categories), []);
-    const uniqueCategories: CustomMapCategory[] = categories.filter(
-        (category, i, a) => a.findIndex((v) => v === category) === i,
-    );
-
-    return uniqueCategories.map((category) => ({
-        id: category,
-        name: CustomMapCategory[category],
-        maps: data.filter((map) => map.categories.some((cat) => cat === category)),
-    }));
-};
-
-export const isCategorySelected = (category: TCategory, mapId: string | string[]) =>
+const isCategorySelected = (category: TCategory, mapId: string | string[]) =>
     category.maps.some((map) => map.id === mapId);
 
 const Maps = () => {
