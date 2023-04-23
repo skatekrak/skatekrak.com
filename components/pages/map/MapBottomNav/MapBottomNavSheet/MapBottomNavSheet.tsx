@@ -10,9 +10,10 @@ type Props = {
     maxWidth?: string;
     render: (data?: { close: () => void }) => React.ReactNode;
     children: JSX.Element;
+    displayCloseButton?: boolean;
 };
 
-const MapBottomNavSheet: React.FC<Props> = ({ title, maxWidth, render, children }) => {
+const MapBottomNavSheet: React.FC<Props> = ({ title, maxWidth, render, children, displayCloseButton = true }) => {
     const [isSheetOpen, setIsSheetOpen] = useState(false);
 
     const { reference, floating, context } = useFloating({
@@ -27,7 +28,7 @@ const MapBottomNavSheet: React.FC<Props> = ({ title, maxWidth, render, children 
             {cloneElement(children, getReferenceProps({ ref: reference, ...children.props }))}
             {isSheetOpen && (
                 <S.MapBottomNavSheetContainer {...getFloatingProps({ ref: floating, style: { maxWidth: maxWidth } })}>
-                    <CloseButton onClick={() => setIsSheetOpen(false)} />
+                    {displayCloseButton && <CloseButton onClick={() => setIsSheetOpen(false)} />}
                     {title && (
                         <S.MapBottomNavSheetTitle component="condensedHeading6">{title}</S.MapBottomNavSheetTitle>
                     )}

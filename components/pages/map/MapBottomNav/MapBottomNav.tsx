@@ -40,7 +40,7 @@ const MapBottomNav: React.FC<Props> = ({ isMobile }) => {
                     </MapBottomNavSheet>
                     {/* Maps */}
                     <MapBottomNavSheet
-                        title="Maps"
+                        displayCloseButton={false}
                         maxWidth="24rem"
                         render={({ close }) => <MapQuickAccessMobileCustom closeSheet={close} />}
                     >
