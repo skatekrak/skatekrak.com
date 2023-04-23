@@ -20,9 +20,9 @@ export type Category = {
 export enum CustomMapCategory {
     maps = 'Maps',
     video = 'Video',
-    skater = 'Skater',
-    filmer = 'Filmer',
-    photographer = 'Photographer',
-    magazine = 'Magazine',
-    skatepark = 'Skatepark',
+    skater = 'Skaters',
+    filmer = 'Filmers',
+    photographer = 'Photographers',
+    magazine = 'Magazines',
+    skatepark = 'Skateparks',
 }
