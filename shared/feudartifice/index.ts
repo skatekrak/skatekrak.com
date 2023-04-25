@@ -6,6 +6,7 @@ import * as profile from './profile';
 import * as spots from './spots';
 import * as user from './user';
 import * as payments from './payment';
+import * as admin from './admin';
 
 const Feudartifice = {
     spots,
@@ -16,6 +17,7 @@ const Feudartifice = {
     clips,
     media,
     payments,
+    admin,
 };
 
 export default Feudartifice;
