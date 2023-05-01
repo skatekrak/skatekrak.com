@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import axios from 'axios';
-import { startOfWeek, endOfWeek } from 'date-fns';
+import { startOfWeek, endOfWeek, sub } from 'date-fns';
 import Feudartifice from 'shared/feudartifice';
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
@@ -12,13 +12,14 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         return res.status(401).json({ message: 'Unauthorized' });
     }
 
+    const lastWeekDay = sub(new Date(), { weeks: 1 });
     const stats = await Feudartifice.admin.getStats(
-        { from: startOfWeek(new Date()), to: endOfWeek(new Date()) },
+        { from: startOfWeek(lastWeekDay), to: endOfWeek(lastWeekDay) },
         process.env.ADMIN_TOKEN,
     );
 
     await axios.post(process.env.DISCORD_HOOK_URL, {
-        content: `**Weekly stats**\nspot: ${stats.spots}\nmedia: ${stats.media}`,
+        content: `**Last week stats**\nspot: ${stats.spots}\nmedia: ${stats.media}`,
     });
 
     res.status(200).json({ message: 'sent' });
