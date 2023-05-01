@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import axios from 'axios';
-import { startOfWeek, endOfWeek } from 'date-fns/esm';
+import { startOfWeek, endOfWeek } from 'date-fns';
 import Feudartifice from 'shared/feudartifice';
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
