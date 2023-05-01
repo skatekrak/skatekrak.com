@@ -1,7 +1,7 @@
 {
     "crons": [
         {
-            "path": "/api/weekly-stats",
+            "path": "/api/weekly-stats?key=clh4xjuai0000yn9mdd1n4jvc",
             "schedule": "0 8 * * 1"
         }
     ]

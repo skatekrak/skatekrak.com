@@ -8,7 +8,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         return res.status(400).json({ message: 'Must be a POST' });
     }
 
-    if (req.headers['Authorizaion'] != `Bearer ${process.env.ADMIN_TOKEN}`) {
+    if (req.query['key'] != 'clh4xjuai0000yn9mdd1n4jvc') {
         return res.status(401).json({ message: 'Unauthorized' });
     }
 
