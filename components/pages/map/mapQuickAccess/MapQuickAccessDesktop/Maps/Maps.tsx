@@ -5,12 +5,14 @@ import Category from '../components/Category';
 import Map from './Map';
 import * as S from './Maps.styled';
 
-import { Category as TCategory } from '../../types';
+import { QuickAccessMap, Category as TCategory } from '../../types';
 import { useCustomMaps } from 'lib/hook/use-custom-map';
 import { generateCategories, generateCustomMapSrcSet } from '../../utils';
 
 const isCategorySelected = (category: TCategory, mapId: string | string[]) =>
     category.maps.some((map) => map.id === mapId);
+
+const sortMaps = (maps: QuickAccessMap[]) => maps.sort((a, b) => b.numberOfSpots - a.numberOfSpots);
 
 const Maps = () => {
     const router = useRouter();
@@ -26,14 +28,14 @@ const Maps = () => {
                         key={category.id}
                         isSelected={isCategorySelected(category, router.query.id)}
                         faded={false}
-                        src={`/images/map/custom-maps${category.maps[0].id}.png`}
-                        srcSet={generateCustomMapSrcSet(category.maps[0].id)}
+                        src={`/images/map/custom-maps${sortMaps(category.maps)[0].id}.png`}
+                        srcSet={generateCustomMapSrcSet(sortMaps(category.maps)[0].id)}
                         tooltipText={category.name}
                         panelContent={(closePanel) => (
                             <S.MapsContainer>
                                 <S.MapsCategoryTitle component="condensedHeading5">{category.name}</S.MapsCategoryTitle>
                                 <S.Maps>
-                                    {category.maps.map((map) => (
+                                    {sortMaps(category.maps).map((map) => (
                                         <Map key={map.id} map={map} onClick={closePanel} />
                                     ))}
                                 </S.Maps>
