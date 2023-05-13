@@ -1,3 +1,4 @@
+import ButtonPrimary from 'components/Ui/Button/ButtonPrimary/ButtonPrimary';
 import styled from 'styled-components';
 
 import media from 'styles/media';
@@ -69,4 +70,10 @@ export const MapCreateSpotLocationHelperContainer = styled.div<MapCreateSpotLoca
         right: calc((100% - 24rem - 1.5rem) / 2 - 9.5rem);
         margin-top: 4rem;
     }
+`;
+
+export const MapCreateSpotLocationSaveButton = styled(ButtonPrimary)`
+    position: absolute;
+    bottom: 2rem;
+    right: calc(50% - 5.5rem);
 `;

@@ -81,7 +81,12 @@ const MapCreateSpotForm = () => {
     return (
         <form onSubmit={handleSubmit}>
             {(isMapVisible || (!isMobile && values.type !== undefined)) && (
-                <MapCreateSpotLocationHelper isFlashing={isLocationHelperFlashing} />
+                <MapCreateSpotLocationHelper
+                    isMobile={isMobile}
+                    isPinPlaced={values.location.latitude !== undefined || values.location.longitude !== undefined}
+                    handleToggleMapVisible={handleToggleMapVisible}
+                    isFlashing={isLocationHelperFlashing}
+                />
             )}
             <S.MapCreateSpotContainer isMapVisible={isMapVisible && isMobile}>
                 <S.MapCreateSpotHeader>
