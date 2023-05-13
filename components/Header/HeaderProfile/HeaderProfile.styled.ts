@@ -5,6 +5,8 @@ import { SecondaryNavItem } from '../Header.styled';
 
 export const HeaderProfileButton = styled(SecondaryNavItem)`
     padding: 0.25rem;
+    margin-left: 0.5rem;
+    margin-right: 0 !important;
 `;
 
 export const HeaderProfileContainer = styled.div`
