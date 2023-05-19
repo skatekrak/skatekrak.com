@@ -41,33 +41,12 @@ export const KrakLogo = styled(KrakLogoHand)`
 `;
 
 /** Middle sentence */
-export const HeaderSentenceDetails = styled.div`
-    display: none;
-    position: absolute;
-    top: 2rem;
-    left: 0rem;
-    width: 150%;
-    padding: 0.75rem 1rem;
-    color: ${({ theme }) => theme.color.onDark.mediumEmphasis};
-    background-color: ${({ theme }) => theme.color.tertiary.dark};
-    border: 1px solid ${({ theme }) => theme.color.tertiary.medium};
-    border-radius: 0.25rem;
-    box-shadow: ${({ theme }) => theme.shadow.onDark.highSharp};
-    z-index: 100;
-`;
-
 export const HeaderSentenceContainer = styled.div`
     display: none;
     position: relative;
-    margin: 0 2rem;
+    margin: 0 1.5rem;
 
-    &:hover {
-        ${HeaderSentenceDetails} {
-            display: block;
-        }
-    }
-
-    ${media.laptop} {
+    ${media.laptopS} {
         display: block;
     }
 `;
@@ -77,6 +56,10 @@ export const HeaderSentence = styled(Typography)`
     text-align: center;
     letter-spacing: 0.03rem;
     overflow: visible;
+
+    & a {
+        text-decoration: underline;
+    }
 `;
 
 /** Sedondary nav */

@@ -37,14 +37,11 @@ const Header: React.FC = () => {
                 {!isMobile && (
                     <S.HeaderSentenceContainer>
                         <S.HeaderSentence component="condensedBody1">
-                            The first skateboarding metalabel*
+                            powered by{' '}
+                            <a href="https://www.opensb.org/" target="_blank" rel="noopener noreferrer">
+                                OpenSB
+                            </a>
                         </S.HeaderSentence>
-                        <S.HeaderSentenceDetails>
-                            <Typography component="body2">
-                                A metalabel is a release club where groups of people who share the same interests
-                                collaborate to drop and support work together.
-                            </Typography>
-                        </S.HeaderSentenceDetails>
                     </S.HeaderSentenceContainer>
                 )}
                 <S.SecondaryNav>
