@@ -664,11 +664,7 @@ const CallToAdventureContent = () => {
                     we see a playground.
                     <br />
                     <br />
-                    Our next steps will be detailed on our{' '}
-                    <a href="https://skatekrak.com/roadmap" target="_blank" rel="noopener noreferrer">
-                        roadmap page
-                    </a>
-                    . Meanwhile, here’s the path forward:
+                    Our next steps will be detailed on our roadmap page. Meanwhile, here’s the path forward:
                     <br />
                     <br />- welcoming our founding community. We’re in search of 1,000 members eager to co-author this
                     next chapter of skateboarding history. You should see a ‘Support’ button on the right side of this

@@ -13,7 +13,6 @@ import HeaderProfile from './HeaderProfile/HeaderProfile';
 import * as S from './Header.styled';
 
 import { PATH_CALL_TO_ADVENTURE } from 'pages/call-to-adventure';
-import { PATH_ROADMAP } from 'pages/roadmap';
 import useSession from 'lib/hook/carrelage/use-session';
 import { RootState } from 'store';
 import IconInstagram from 'components/Ui/Icons/Logos/IconInstagram';
@@ -131,14 +130,6 @@ const Header: React.FC = () => {
                                         </Link>
                                     </>
                                 )}
-                                <Link href={PATH_ROADMAP} passHref>
-                                    <S.ThreeDotMenuItem>
-                                        <Typography as="span" component="body1">
-                                            Roadmap
-                                        </Typography>
-                                    </S.ThreeDotMenuItem>
-                                </Link>
-
                                 <Link href="/mag" passHref>
                                     <S.ThreeDotMenuItem>
                                         <Typography as="span" component="body1">
