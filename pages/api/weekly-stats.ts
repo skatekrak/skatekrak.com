@@ -19,7 +19,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     );
 
     await axios.post(process.env.DISCORD_HOOK_URL, {
-        content: `**Last week stats**\nspot: ${stats.spots}\nmedia: ${stats.media}`,
+        content: `**Last week stats 📈**\nspot: ${stats.spots}\nmedia: ${stats.media}`,
     });
 
     res.status(200).json({ message: 'sent' });
