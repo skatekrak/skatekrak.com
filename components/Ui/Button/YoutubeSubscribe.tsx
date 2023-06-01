@@ -1,6 +1,6 @@
 import React from 'react';
 
-const YoutubeSubscribe: React.SFC = () => (
+const YoutubeSubscribe: React.FC = () => (
     <a
         href="https://www.youtube.com/krakskate?sub_confirmation=1"
         target="_blank"

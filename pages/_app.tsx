@@ -14,7 +14,7 @@ import '/public/styles/reset.css';
 import '/public/styles/flexbox-grid.css';
 import '/public/dist/fonts.css';
 import '/public/dist/helpers.css';
-import 'simplebar/dist/simplebar.min.css';
+import 'simplebar-react/dist/simplebar.min.css';
 import '/public/dist/main.css';
 import '/public/dist/styleguide.css';
 import '/public/dist/stylus-mq.css';

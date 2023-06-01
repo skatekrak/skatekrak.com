@@ -8,7 +8,7 @@ import {
     useDismiss,
     autoUpdate,
     shift,
-} from '@floating-ui/react-dom-interactions';
+} from '@floating-ui/react';
 import React, { cloneElement, useEffect, useState } from 'react';
 
 type TooltipProps = {
@@ -19,7 +19,7 @@ type TooltipProps = {
 const Tooltip = ({ render, children }: TooltipProps) => {
     const [open, setOpen] = useState(false);
 
-    const { x, y, reference, floating, strategy, context, refs, update } = useFloating({
+    const { x, y, strategy, context, refs, update } = useFloating({
         placement: 'left-start',
         open,
         onOpenChange: setOpen,
@@ -41,11 +41,11 @@ const Tooltip = ({ render, children }: TooltipProps) => {
 
     return (
         <>
-            {cloneElement(children, getReferenceProps({ ref: reference, ...children.props }))}
+            {cloneElement(children, getReferenceProps({ ...children.props }))}
             {open &&
                 render(
                     getFloatingProps({
-                        ref: floating,
+                        ref: refs.floating,
                         style: {
                             position: strategy,
                             top: y ?? '',

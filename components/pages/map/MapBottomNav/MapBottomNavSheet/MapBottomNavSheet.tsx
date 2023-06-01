@@ -1,5 +1,5 @@
 import React, { cloneElement, useState } from 'react';
-import { useFloating, useInteractions, useDismiss, useClick } from '@floating-ui/react-dom-interactions';
+import { useFloating, useInteractions, useDismiss, useClick } from '@floating-ui/react';
 
 import Scrollbar from 'components/Ui/Scrollbar';
 import CloseButton from 'components/Ui/Button/CloseButton';
@@ -16,7 +16,7 @@ type Props = {
 const MapBottomNavSheet: React.FC<Props> = ({ title, maxWidth, render, children, displayCloseButton = true }) => {
     const [isSheetOpen, setIsSheetOpen] = useState(false);
 
-    const { reference, floating, context } = useFloating({
+    const { refs, context } = useFloating({
         open: isSheetOpen,
         onOpenChange: setIsSheetOpen,
     });
@@ -25,9 +25,11 @@ const MapBottomNavSheet: React.FC<Props> = ({ title, maxWidth, render, children,
 
     return (
         <>
-            {cloneElement(children, getReferenceProps({ ref: reference, ...children.props }))}
+            {cloneElement(children, getReferenceProps({ ref: refs.setReference, ...children.props }))}
             {isSheetOpen && (
-                <S.MapBottomNavSheetContainer {...getFloatingProps({ ref: floating, style: { maxWidth: maxWidth } })}>
+                <S.MapBottomNavSheetContainer
+                    {...getFloatingProps({ ref: refs.setFloating, style: { maxWidth: maxWidth } })}
+                >
                     {displayCloseButton && <CloseButton onClick={() => setIsSheetOpen(false)} />}
                     {title && (
                         <S.MapBottomNavSheetTitle component="condensedHeading6">{title}</S.MapBottomNavSheetTitle>

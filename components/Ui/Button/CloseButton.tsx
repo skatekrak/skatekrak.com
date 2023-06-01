@@ -15,7 +15,7 @@ type Props = {
     onClick: (fct: any) => void;
 };
 
-const CloseButton: React.SFC<Props> = ({ onClick }) => (
+const CloseButton: React.FC<Props> = ({ onClick }) => (
     <button className="krak-close-button" onClick={onClick}>
         <IconCross />
     </button>

@@ -1,12 +1,6 @@
+import { AxiosProgressEvent } from 'axios';
 import client from './client';
 import type { Media } from './types';
-
-type ProgressEvent = {
-    loaded: number;
-    total: number;
-    isTrusted: boolean;
-    lengthComputable: boolean;
-};
 
 type CreateMediaParams = {
     caption?: string;
@@ -25,7 +19,7 @@ export const createMedia = async ({ caption, spot }: CreateMediaParams) => {
 export const uploadMedia = async (
     mediaId: string,
     uri: File,
-    onUploadProgress?: (progressEvent: ProgressEvent) => void,
+    onUploadProgress?: (progressEvent: AxiosProgressEvent) => void,
 ) => {
     const formData = new FormData();
     formData.append('file', uri);

@@ -1,5 +1,5 @@
 import React, { cloneElement, useState } from 'react';
-import { offset, shift, useClick, useDismiss, useFloating, useInteractions } from '@floating-ui/react-dom-interactions';
+import { offset, shift, useClick, useDismiss, useFloating, useInteractions } from '@floating-ui/react';
 
 import * as S from './HeaderProfileMenu.styled';
 
@@ -11,7 +11,7 @@ type Props = {
 const HeaderProfileMenu: React.FC<Props> = ({ render, children }) => {
     const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
 
-    const { x, y, strategy, reference, floating, context } = useFloating({
+    const { x, y, strategy, context, refs } = useFloating({
         open: isProfileMenuOpen,
         onOpenChange: setIsProfileMenuOpen,
         placement: 'bottom',
@@ -22,11 +22,11 @@ const HeaderProfileMenu: React.FC<Props> = ({ render, children }) => {
 
     return (
         <>
-            {cloneElement(children, getReferenceProps({ ref: reference, ...children.props }))}
+            {cloneElement(children, getReferenceProps({ ref: refs.setReference, ...children.props }))}
             {isProfileMenuOpen && (
                 <S.HeaderProfileMenuContainer
                     {...getFloatingProps({
-                        ref: floating,
+                        ref: refs.setFloating,
                         style: {
                             position: strategy,
                             top: y ?? '',

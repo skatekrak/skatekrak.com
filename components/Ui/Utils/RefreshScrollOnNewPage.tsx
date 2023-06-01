@@ -5,6 +5,7 @@ import ScrollHelper from 'lib/ScrollHelper';
 
 type Props = {
     router: Router;
+    children?: React.ReactNode;
 };
 
 class RefreshScrollOnNewPage extends React.Component<Props> {

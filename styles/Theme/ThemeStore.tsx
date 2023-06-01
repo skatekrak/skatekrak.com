@@ -108,6 +108,8 @@ export const themeData: DefaultTheme = {
     },
 };
 
-const ThemeStore: React.FC = ({ children }) => <ThemeProvider theme={themeData}>{children}</ThemeProvider>;
+const ThemeStore: React.FC<{ children?: React.ReactNode }> = ({ children }) => (
+    <ThemeProvider theme={themeData}>{children}</ThemeProvider>
+);
 
 export { ThemeStore };

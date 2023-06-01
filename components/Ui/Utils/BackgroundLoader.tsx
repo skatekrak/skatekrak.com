@@ -4,6 +4,7 @@ type Props = {
     src: string;
     placeholder: string;
     className?: string;
+    children?: React.ReactNode;
 };
 
 type State = {

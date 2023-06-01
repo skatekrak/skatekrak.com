@@ -1,4 +1,3 @@
-import React from 'react';
 import SimpleBar, { Props as SimpleBarProps } from 'simplebar-react';
 
 type Props = {
@@ -7,20 +6,17 @@ type Props = {
     children: React.ReactNode;
 } & SimpleBarProps;
 
-const ScrollBar = React.forwardRef<SimpleBar, Props>(function FowardSimpleBar(
-    { children, maxHeight, width, ...props },
-    ref,
-) {
+const ScrollBar = ({ maxHeight, width, children, ...props }: Props) => {
     const styles = {
         maxHeight,
         width,
     };
 
     return (
-        <SimpleBar style={styles} ref={ref} {...props}>
+        <SimpleBar style={styles} {...props}>
             {children}
         </SimpleBar>
     );
-});
+};
 
 export default ScrollBar;

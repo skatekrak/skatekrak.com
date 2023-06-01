@@ -9,7 +9,7 @@ type Props = {
     sidebarNavIsOpen: boolean;
     handleOpenSidebarNav: () => void;
 };
-const Sidebar: React.SFC<Props> = ({ sidebarNavIsOpen, handleOpenSidebarNav }: Props) => (
+const Sidebar: React.FC<Props> = ({ sidebarNavIsOpen, handleOpenSidebarNav }: Props) => (
     <div id="feed-scrolltop-hook" className="feed-sidebar-container">
         <div className="feed-sidebar-header">
             <h1 className="feed-sidebar-header-title">

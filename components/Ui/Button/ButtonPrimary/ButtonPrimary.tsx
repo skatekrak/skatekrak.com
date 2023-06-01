@@ -24,7 +24,7 @@ type Props = {
     fullWidth?: boolean;
 };
 
-const ButtonPrimary: React.FC<Props> = ({
+const ButtonPrimary: React.FC<Props & { children: React.ReactNode }> = ({
     onClick,
     className,
     children,

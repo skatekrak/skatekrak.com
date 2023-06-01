@@ -5,6 +5,7 @@ import Analytics from 'lib/analytics';
 type Props = {
     name: string;
     initial: boolean;
+    children?: React.ReactNode;
 };
 
 class TrackedPage extends React.Component<Props> {

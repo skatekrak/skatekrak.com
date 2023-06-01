@@ -3,7 +3,7 @@ import Masonry, { MasonryProps } from 'react-masonry-css';
 
 type KrakMasonryProps = Partial<MasonryProps>;
 
-const KrakMasonry: React.FC<KrakMasonryProps> = ({ children, ...props }) => (
+const KrakMasonry: React.FC<KrakMasonryProps & { children: React.ReactNode }> = ({ children, ...props }) => (
     <Masonry className="masonry-grid" columnClassName="masonry-grid_column" {...props}>
         {children}
     </Masonry>

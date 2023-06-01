@@ -1,5 +1,5 @@
 import React, { cloneElement, useState } from 'react';
-import { useFloating, useInteractions, useDismiss, useClick } from '@floating-ui/react-dom-interactions';
+import { useFloating, useInteractions, useDismiss, useClick } from '@floating-ui/react';
 
 import Scrollbar from 'components/Ui/Scrollbar';
 import * as S from './MapCustomNavigationExtension.styled';
@@ -14,7 +14,7 @@ type Props = {
 const MapCustomNavigationExtension: React.FC<Props> = ({ id, maxWidth, render, children }) => {
     const [isExtensionOpen, setIsExtensionOpen] = useState(false);
 
-    const { y, strategy, reference, floating, context } = useFloating({
+    const { y, strategy, context, refs } = useFloating({
         open: isExtensionOpen,
         onOpenChange: setIsExtensionOpen,
         placement: 'bottom',
@@ -24,11 +24,14 @@ const MapCustomNavigationExtension: React.FC<Props> = ({ id, maxWidth, render, c
 
     return (
         <>
-            {cloneElement(children, getReferenceProps({ ref: reference, isOpen: isExtensionOpen, ...children.props }))}
+            {cloneElement(
+                children,
+                getReferenceProps({ ref: refs.setReference, isOpen: isExtensionOpen, ...children.props }),
+            )}
             {isExtensionOpen && (
                 <S.MapCustomNavigationExtensionContainer
                     {...getFloatingProps({
-                        ref: floating,
+                        ref: refs.setFloating,
                         id,
                         style: { maxWidth: maxWidth, position: strategy, top: y ?? '', left: '0' },
                     })}

@@ -76,7 +76,7 @@ const MapCreateSpot = () => {
 
     return (
         <Formik
-            initialValues={mapCreateSpotSchema.getDefault()}
+            initialValues={mapCreateSpotSchema.getDefault() as MapCreateSpotFormValues}
             onSubmit={onSubmit}
             validationSchema={mapCreateSpotSchema}
         >

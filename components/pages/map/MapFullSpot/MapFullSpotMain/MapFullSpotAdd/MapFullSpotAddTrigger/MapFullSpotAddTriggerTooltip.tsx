@@ -1,13 +1,5 @@
 import React, { cloneElement, useState } from 'react';
-import {
-    useFloating,
-    offset,
-    useInteractions,
-    useRole,
-    useDismiss,
-    shift,
-    useClick,
-} from '@floating-ui/react-dom-interactions';
+import { useFloating, offset, useInteractions, useRole, useDismiss, shift, useClick } from '@floating-ui/react';
 
 import * as S from './MapFullSpotAddTrigger.styled';
 
@@ -19,7 +11,7 @@ type MapFullSpotAddTriggerTooltipProps = {
 const MapFullSpotAddTriggerTooltip = ({ render, children }: MapFullSpotAddTriggerTooltipProps) => {
     const [open, setOpen] = useState(false);
 
-    const { x, y, reference, floating, strategy, context } = useFloating({
+    const { x, y, strategy, context, refs } = useFloating({
         placement: 'bottom-end',
         open,
         onOpenChange: setOpen,
@@ -35,11 +27,11 @@ const MapFullSpotAddTriggerTooltip = ({ render, children }: MapFullSpotAddTrigge
 
     return (
         <>
-            {cloneElement(children, getReferenceProps({ ref: reference, ...children.props }))}
+            {cloneElement(children, getReferenceProps({ ref: refs.setReference, ...children.props }))}
             {open && (
                 <S.MapFullSpotAddTriggerTooltipContainer
                     {...getFloatingProps({
-                        ref: floating,
+                        ref: refs.setFloating,
                         style: {
                             position: strategy,
                             top: y ?? '',

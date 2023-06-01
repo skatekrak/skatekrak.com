@@ -153,7 +153,7 @@ const StyledTypography = styled.p<TruncateTextProps & TypographyProps>`
     ${({ truncateLines }) => (truncateLines === 1 ? truncateOneLineStyles : truncateMultipleLinesStyles(truncateLines))}
 `;
 
-const Typography: React.FC<TruncateTextProps & TypographyProps> = ({
+const Typography: React.FC<TruncateTextProps & TypographyProps & { children: React.ReactNode }> = ({
     className,
     truncateLines,
     as,

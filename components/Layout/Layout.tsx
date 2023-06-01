@@ -11,7 +11,7 @@ export type LayoutProps = {
     head?: React.ReactElement;
 };
 
-const Layout: React.FC<LayoutProps> = ({ head, children }) => {
+const Layout: React.FC<LayoutProps & { children: React.ReactNode }> = ({ head, children }) => {
     const dispatch = useAppDispatch();
 
     useEffect(() => {

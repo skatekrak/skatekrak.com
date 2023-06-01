@@ -1,4 +1,3 @@
-const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const withPlugins = require('next-compose-plugins');
 
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
@@ -7,17 +6,6 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 
 module.exports = withPlugins([withBundleAnalyzer()], {
     productionBrowserSourceMaps: true,
-    webpack: (config, options) => {
-        if (options.isServer) {
-            config.plugins.push(
-                new ForkTsCheckerWebpackPlugin({
-                    tsconfig: './tsconfig.json',
-                    eslint: { files: './**/*.{ts,tsx,js,jsx}' },
-                }),
-            );
-        }
-        return config;
-    },
     async redirects() {
         return [
             {
