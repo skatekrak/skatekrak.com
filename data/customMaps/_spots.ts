@@ -104,6 +104,15 @@ Let History continue! The show must go on!
         spots: require('data/customMaps/thrashercover.json'),
     },
     {
+        id: 'thrashermag',
+        categories: ['magazine'],
+        name: 'Thrasher Magazine',
+        subtitle: '',
+        edito: '',
+        about: '',
+        spots: require('data/customMaps/thrashermag.json'),
+    },
+    {
         id: 'twscover',
         categories: ['magazine'],
         name: 'Transworld Covers',
