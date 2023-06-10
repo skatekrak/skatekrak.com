@@ -287,4 +287,24 @@ If you want your event and all the details to be professionally executed by prov
         spots: require('data/customMaps/erickoston.json'),
         videos: ['https://www.youtube.com/playlist?list=PLAngPGm2UkQ520AO6Pp1Ae4Zz_xCvyhw-'],
     },
+    {
+        id: 'sugarcover',
+        categories: ['magazine'],
+        name: 'Sugar Covers',
+        subtitle: 'Cover baby! Cover!',
+        edito: '',
+        about: `
+All the Sugar Skateboard Magazine covers we could map!
+Definitively not an exhaustive list but it’s a start. Let’s see if we can get to map the 200+ covers!`,
+        spots: require('data/customMaps/sugarcover.json'),
+    },
+    {
+        id: 'sugarskatemag',
+        categories: ['magazine'],
+        name: 'Sugar Skate Mag',
+        subtitle: '',
+        edito: '',
+        about: '',
+        spots: require('data/customMaps/sugarskatemag.json'),
+    },
 ];
