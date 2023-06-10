@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import { AppProps } from 'next/app';
-import Bugsnag, { BrowserConfig } from '@bugsnag/js';
-import BugsnagPluginReact from '@bugsnag/plugin-react';
 import Head from 'next/head';
 import { ConnectedRouter } from 'connected-next-router';
 import { QueryClient, QueryClientProvider, Hydrate } from '@tanstack/react-query';
@@ -36,42 +34,24 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 
 import '/public/styles/masonry.css';
 
-const config: BrowserConfig = {
-    apiKey: process.env.NEXT_PUBLIC_BUGSNAG_KEY,
-    plugins: [new BugsnagPluginReact()],
-    enabledReleaseStages: ['production', 'staging'],
-    releaseStage: process.env.NEXT_PUBLIC_STAGE,
-    collectUserIp: false,
-};
-
-if (process.env.NEXT_PUBLIC_STAGE === 'development') {
-    config.logger = null;
-}
-
-Bugsnag.start(config);
-
-const ErrorBoundary = Bugsnag.getPlugin('react').createErrorBoundary(React);
-
 const WrappedApp: React.FC<AppProps> = ({ Component, pageProps }) => {
     const [queryClient] = useState(() => new QueryClient());
 
     return (
-        <ErrorBoundary>
-            <QueryClientProvider client={queryClient}>
-                <Hydrate state={pageProps.dehydratedState}>
-                    <Head>
-                        <meta charSet="utf-8" />
-                        <meta name="viewport" content="width=device-width, initial-scale=1" />
-                    </Head>
-                    <ConnectedRouter>
-                        <ThemeStore>
-                            <Component {...pageProps} />
-                        </ThemeStore>
-                    </ConnectedRouter>
-                    {process.env.NEXT_PUBLIC_STAGE === 'development' && <ReactQueryDevtools initialIsOpen={false} />}
-                </Hydrate>
-            </QueryClientProvider>
-        </ErrorBoundary>
+        <QueryClientProvider client={queryClient}>
+            <Hydrate state={pageProps.dehydratedState}>
+                <Head>
+                    <meta charSet="utf-8" />
+                    <meta name="viewport" content="width=device-width, initial-scale=1" />
+                </Head>
+                <ConnectedRouter>
+                    <ThemeStore>
+                        <Component {...pageProps} />
+                    </ThemeStore>
+                </ConnectedRouter>
+                {process.env.NEXT_PUBLIC_STAGE === 'development' && <ReactQueryDevtools initialIsOpen={false} />}
+            </Hydrate>
+        </QueryClientProvider>
     );
 };
 
