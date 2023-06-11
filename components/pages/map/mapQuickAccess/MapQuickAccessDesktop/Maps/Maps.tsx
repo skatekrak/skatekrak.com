@@ -7,7 +7,7 @@ import * as S from './Maps.styled';
 
 import { QuickAccessMap, Category as TCategory } from '../../types';
 import { useCustomMaps } from 'lib/hook/use-custom-map';
-import { generateCategories, generateCustomMapSrcSet } from '../../utils';
+import { generateCategories } from '../../utils';
 
 const isCategorySelected = (category: TCategory, mapId: string | string[]) =>
     category.maps.some((map) => map.id === mapId);
@@ -28,8 +28,7 @@ const Maps = () => {
                         key={category.id}
                         isSelected={isCategorySelected(category, router.query.id)}
                         faded={false}
-                        src={`/images/map/custom-maps${sortMaps(category.maps)[0].id}.png`}
-                        srcSet={generateCustomMapSrcSet(sortMaps(category.maps)[0].id)}
+                        src={`/images/map/custom-maps/${sortMaps(category.maps)[0].id}.png`}
                         tooltipText={category.name}
                         panelContent={(closePanel) => (
                             <S.MapsContainer>

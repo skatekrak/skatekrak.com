@@ -6,6 +6,14 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 
 module.exports = withPlugins([withBundleAnalyzer()], {
     productionBrowserSourceMaps: true,
+    images: {
+        remotePatterns: [
+            {
+                protocol: 'https',
+                hostname: 'dev.skatekrak.com',
+            },
+        ],
+    },
     async redirects() {
         return [
             {

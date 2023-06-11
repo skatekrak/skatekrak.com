@@ -7,12 +7,11 @@ type Props = {
     isSelected: boolean;
     faded: boolean;
     src: string;
-    srcSet: string;
     tooltipText: string;
     panelContent: (closePanel: () => void) => JSX.Element;
 };
 
-const Category = ({ isSelected, faded, src, srcSet, tooltipText, panelContent }: Props) => {
+const Category = ({ isSelected, faded, src, tooltipText, panelContent }: Props) => {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
@@ -29,7 +28,6 @@ const Category = ({ isSelected, faded, src, srcSet, tooltipText, panelContent }:
                     selected={isSelected}
                     faded={faded}
                     src={src}
-                    srcSet={srcSet}
                     tooltipText={tooltipText}
                 />
             </Tippy>

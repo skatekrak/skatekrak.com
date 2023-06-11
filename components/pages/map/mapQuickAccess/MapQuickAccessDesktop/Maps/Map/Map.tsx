@@ -8,7 +8,6 @@ import { updateUrlParams } from 'store/map/slice';
 import { QuickAccessMap } from '../../../types';
 import { useRouter } from 'next/router';
 import RoundedImage from '../../components/RoundedImage';
-import { generateCustomMapSrcSet } from '../../../utils';
 
 type MapProps = {
     map: QuickAccessMap;
@@ -46,7 +45,6 @@ const Map: React.FC<MapProps> = ({ map, onClick }) => {
                     faded={false}
                     size="3rem"
                     src={`/images/map/custom-maps/${map.id}.png`}
-                    srcSet={generateCustomMapSrcSet(map.id)}
                 />
                 <S.MapName component="condensedSubtitle1" truncateLines={1}>
                     {map.name}
