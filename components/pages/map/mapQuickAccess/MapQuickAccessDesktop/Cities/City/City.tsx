@@ -50,7 +50,7 @@ const CityComponent: React.FC<CityProps> = ({ city, onCityClick }) => {
         <S.City onClick={onClick}>
             <S.CityImage
                 style={{
-                    backgroundImage: `url('/images/map/cities/${city.id}@3x.jpg')`,
+                    backgroundImage: `url('/images/map/cities/${city.id}.jpg')`,
                 }}
             />
             <S.CityName component="subtitle2" truncateLines={1}>

@@ -5,7 +5,6 @@ import City from './City';
 import * as S from './Cities.styled';
 
 import cities from 'data/cities/_cities';
-import { generateCitySrcSet } from '../../utils';
 
 const category = {
     name: 'Cities',
@@ -19,7 +18,6 @@ const Cities = () => {
             isSelected={false}
             faded={false}
             src={`/images/map/cities/${category.displayedCityImage}.jpg`}
-            srcSet={generateCitySrcSet(category.displayedCityImage)}
             tooltipText={category.name}
             panelContent={(closePanel) => (
                 <S.CitiesGrid>
