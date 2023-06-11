@@ -8,7 +8,6 @@ import { Field, Formik } from 'formik';
 import MapFullSpotAddMediaInput from './MapFullSpotAddMediaInput';
 import Feudartifice from 'shared/feudartifice';
 import { useAppDispatch, useAppSelector } from 'store/hook';
-import Bugsnag from '@bugsnag/js';
 import { selectFullSpotTab } from 'store/map/slice';
 import { useQueryClient } from '@tanstack/react-query';
 
@@ -39,10 +38,6 @@ const MapFullSpotAddMedia = () => {
             queryClient.invalidateQueries(['load-overview', spotOverview.spot.id]);
         } catch (err) {
             console.error(err);
-            Bugsnag.leaveBreadcrumb('media upload failed', {
-                spotId: spotOverview.spot.id,
-            });
-            Bugsnag.notify(err);
         }
     };
 

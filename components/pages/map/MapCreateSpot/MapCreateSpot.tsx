@@ -8,7 +8,6 @@ import * as _ from 'radash';
 import { useAppDispatch } from 'store/hook';
 import { selectSpot, toggleCreateSpot } from 'store/map/slice';
 import { useQueryClient } from '@tanstack/react-query';
-import Bugsnag from '@bugsnag/browser';
 
 export type MapCreateSpotFormValues = {
     name: string;
@@ -60,14 +59,10 @@ const MapCreateSpot = () => {
             return;
         }
 
-        const [errorAddMedia] = await _.try(_.parallel)(2, values.images, async (imageURL: File) => {
+        await _.try(_.parallel)(2, values.images, async (imageURL: File) => {
             const media = await Feudartifice.media.createMedia({ spot: spot.id });
             return Feudartifice.media.uploadMedia(media.id, imageURL);
         });
-
-        if (errorAddMedia) {
-            Bugsnag.notify(errorAddMedia);
-        }
 
         dispatch(toggleCreateSpot());
         dispatch(selectSpot(spot.id));

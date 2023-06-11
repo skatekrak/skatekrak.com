@@ -1,4 +1,3 @@
-import Bugsnag from '@bugsnag/js';
 import VideoPlayer from 'components/Ui/Player/VideoPlayer';
 import React, { FocusEventHandler, useState } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
@@ -31,11 +30,6 @@ const MapFullSpotAddClip = () => {
             queryClient.invalidateQueries(['load-overview', spotOverview.spot.id]);
         } catch (err) {
             console.error(err);
-            Bugsnag.leaveBreadcrumb('Error submitting clip', {
-                spotId: spotOverview.spot.id,
-                clipUrl: url,
-            });
-            Bugsnag.notify(err);
         } finally {
             setSubmitting(false);
         }
