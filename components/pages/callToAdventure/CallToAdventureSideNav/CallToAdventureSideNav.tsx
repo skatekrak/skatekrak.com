@@ -1,4 +1,3 @@
-import Typography from 'components/Ui/typography/Typography';
 import ScrollHelper from 'lib/ScrollHelper';
 import React, { useEffect, useRef, useState } from 'react';
 import { ctaSections } from '../constants';
