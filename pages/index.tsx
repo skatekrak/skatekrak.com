@@ -1,4 +1,4 @@
-import { GetServerSideProps, GetStaticProps, NextPage } from 'next';
+import { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
 import React from 'react';
 import dynamic from 'next/dynamic';
@@ -6,9 +6,7 @@ import dynamic from 'next/dynamic';
 import Layout from 'components/Layout';
 import { dehydrate, QueryClient } from '@tanstack/react-query';
 import { getSpotOverview } from 'lib/carrelageClient';
-import { CloudinaryFile, SpotOverview } from 'shared/feudartifice/types';
-import Feudartifice from 'shared/feudartifice';
-import axios from 'axios';
+import { SpotOverview } from 'shared/feudartifice/types';
 
 const DyamicMapContainer = dynamic(() => import('components/pages/map/MapContainer'), { ssr: false });
 
@@ -76,8 +74,6 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
 
     if (query.spot != null && typeof query.spot === 'string') {
         try {
-            // const response = await axios.get<SpotOverview>(`${process.env.CARRELAGE_URL}spots/${query.spot}/overview`);
-            // const overview = response.data;
             const overview = await getSpotOverview(query.spot);
 
             ogData = {

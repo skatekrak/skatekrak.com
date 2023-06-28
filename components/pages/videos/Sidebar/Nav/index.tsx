@@ -3,13 +3,12 @@ import React, { useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import LanguageFilter from 'components/Ui/Feed/Sidebar/LanguageFilter';
-import SearchBar from 'components/Ui/Feed/Sidebar/SearchBar';
 import { SpinnerCircle } from 'components/Ui/Icons/Spinners';
 import Analytics from 'lib/analytics';
-import { Language, Source } from 'rss-feed';
+import { Language } from 'rss-feed';
 import useLanguages from 'lib/hook/languages';
 import useVideosSources from 'lib/hook/videos/sources';
-import { resetVideos, selectVideosSources, setVideosSearch, toggleVideosSource } from 'store/videos/slice';
+import { resetVideos, selectVideosSources, toggleVideosSource } from 'store/videos/slice';
 import SourceOption from 'components/Ui/Feed/Sidebar/SourceOption';
 import { RootState } from 'store';
 import useVideos from 'lib/hook/videos/videos';
@@ -56,10 +55,6 @@ const Sources = ({ navIsOpen, handleOpenSourcesMenu }: SourcesProps) => {
 
     const toggleSource = (id: number) => {
         dispatch(toggleVideosSource(id));
-    };
-
-    const onQueryChange = (value: string) => {
-        dispatch(setVideosSearch(value));
     };
 
     return (

@@ -18,7 +18,6 @@ type ArticlesProps = {
 };
 
 const Articles = ({ sidebarNavIsOpen }: ArticlesProps) => {
-    const newsSearch = useSelector((state: RootState) => state.news.search);
     const selectedSources = useSelector((state: RootState) => state.news.selectSources);
     const feedLayout = useSelector((state: RootState) => state.settings.feedLayout);
 
@@ -48,7 +47,6 @@ const Articles = ({ sidebarNavIsOpen }: ArticlesProps) => {
 
     const { data, isFetching, hasNextPage, fetchNextPage } = useNewsContent({
         sources: selectedSources,
-        // query: newsSearch,
     });
     const contents = flatten(data?.pages ?? []);
 
