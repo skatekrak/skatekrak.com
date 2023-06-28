@@ -4,7 +4,6 @@ module.exports = {
         'plugin:react/recommended',
         'plugin:@typescript-eslint/recommended', // Uses the recommended rules from the @typescript-eslint/eslint-plugin
         'prettier',
-        'plugin:prettier/recommended',
         'plugin:react-hooks/recommended',
     ],
     parserOptions: {
