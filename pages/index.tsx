@@ -4,7 +4,6 @@ import React from 'react';
 import dynamic from 'next/dynamic';
 
 import Layout from 'components/Layout';
-import TrackedPage from 'components/pages/TrackedPage';
 import { dehydrate, QueryClient } from '@tanstack/react-query';
 import { getSpotOverview } from 'lib/carrelageClient';
 import { CloudinaryFile, SpotOverview } from 'shared/feudartifice/types';
@@ -65,11 +64,9 @@ type MapPageProps = {
 };
 
 const Index: NextPage<MapPageProps> = ({ ogData }) => (
-    <TrackedPage name="Map">
-        <Layout head={<MapHead ogData={ogData} />}>
-            <DyamicMapContainer />
-        </Layout>
-    </TrackedPage>
+    <Layout head={<MapHead ogData={ogData} />}>
+        <DyamicMapContainer />
+    </Layout>
 );
 
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {

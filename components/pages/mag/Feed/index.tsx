@@ -4,7 +4,6 @@ import InfiniteScroll from 'react-infinite-scroller';
 import { useSelector } from 'react-redux';
 
 import Card from 'components/pages/mag/Feed/Card';
-import TrackedPage from 'components/pages/TrackedPage';
 import NoContent from 'components/Ui/Feed/NoContent';
 import { KrakLoading } from 'components/Ui/Icons/Spinners';
 import ScrollHelper from 'lib/ScrollHelper';
@@ -30,7 +29,6 @@ const Feed = ({ sidebarNavIsOpen }: Props) => {
 
     return (
         <div id="mag-feed">
-            <TrackedPage name={`Mag/${Math.ceil(posts.length / 20)}`} initial={false} />
             <InfiniteScroll
                 pageStart={1}
                 initialLoad={false}

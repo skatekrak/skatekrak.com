@@ -9,7 +9,6 @@ import Layout from 'components/Layout';
 import LayoutFeed from 'components/Ui/Feed/LayoutFeed';
 
 import Article from 'components/pages/mag/Article';
-import TrackedPage from 'components/pages/TrackedPage';
 
 import { Post } from 'wordpress-types';
 import { getPostBySlug, getPostSlugs } from 'lib/mag/generate';
@@ -70,13 +69,11 @@ type Props = {
 
 const ArticlePage: NextPage<Props> = ({ post }) => {
     return (
-        <TrackedPage name={`Mag/${post.slug!}`}>
-            <Layout head={<MagArticleHead post={post} />}>
-                <div id="mag-article-container" className="inner-page-container">
-                    <LayoutFeed mainView={<Article post={post} />} />
-                </div>
-            </Layout>
-        </TrackedPage>
+        <Layout head={<MagArticleHead post={post} />}>
+            <div id="mag-article-container" className="inner-page-container">
+                <LayoutFeed mainView={<Article post={post} />} />
+            </div>
+        </Layout>
     );
 };
 

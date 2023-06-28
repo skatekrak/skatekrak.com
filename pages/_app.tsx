@@ -4,6 +4,7 @@ import Head from 'next/head';
 import { ConnectedRouter } from 'connected-next-router';
 import { QueryClient, QueryClientProvider, Hydrate } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { Analytics } from '@vercel/analytics/react';
 
 import { wrapper } from 'store';
 import { ThemeStore } from 'styles/Theme/ThemeStore';
@@ -38,20 +39,23 @@ const WrappedApp: React.FC<AppProps> = ({ Component, pageProps }) => {
     const [queryClient] = useState(() => new QueryClient());
 
     return (
-        <QueryClientProvider client={queryClient}>
-            <Hydrate state={pageProps.dehydratedState}>
-                <Head>
-                    <meta charSet="utf-8" />
-                    <meta name="viewport" content="width=device-width, initial-scale=1" />
-                </Head>
-                <ConnectedRouter>
-                    <ThemeStore>
-                        <Component {...pageProps} />
-                    </ThemeStore>
-                </ConnectedRouter>
-                {process.env.NEXT_PUBLIC_STAGE === 'development' && <ReactQueryDevtools initialIsOpen={false} />}
-            </Hydrate>
-        </QueryClientProvider>
+        <>
+            <QueryClientProvider client={queryClient}>
+                <Hydrate state={pageProps.dehydratedState}>
+                    <Head>
+                        <meta charSet="utf-8" />
+                        <meta name="viewport" content="width=device-width, initial-scale=1" />
+                    </Head>
+                    <ConnectedRouter>
+                        <ThemeStore>
+                            <Component {...pageProps} />
+                        </ThemeStore>
+                    </ConnectedRouter>
+                    {process.env.NEXT_PUBLIC_STAGE === 'development' && <ReactQueryDevtools initialIsOpen={false} />}
+                </Hydrate>
+            </QueryClientProvider>
+            <Analytics />
+        </>
     );
 };
 

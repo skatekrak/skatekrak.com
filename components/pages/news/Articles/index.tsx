@@ -3,7 +3,6 @@ import React, { useCallback, useEffect, useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroller';
 import { useSelector } from 'react-redux';
 
-import TrackedPage from 'components/pages/TrackedPage';
 import NoContent from 'components/Ui/Feed/NoContent';
 import { KrakLoading } from 'components/Ui/Icons/Spinners';
 import ScrollHelper from 'lib/ScrollHelper';
@@ -61,7 +60,6 @@ const Articles = ({ sidebarNavIsOpen }: ArticlesProps) => {
 
     return (
         <div id="news-articles-container">
-            <TrackedPage name={`News/${Math.ceil(contents.length / 20)}`} initial={false} />
             <InfiniteScroll
                 key={`infinite-need-refresh`}
                 pageStart={1}

@@ -3,7 +3,6 @@ import React from 'react';
 import InfiniteScroll from 'react-infinite-scroller';
 import { useSelector } from 'react-redux';
 
-import TrackedPage from 'components/pages/TrackedPage';
 import VideoCard from 'components/pages/videos/VideoFeed/Video/VideoCard';
 import NoContent from 'components/Ui/Feed/NoContent';
 import { KrakLoading } from 'components/Ui/Icons/Spinners';
@@ -25,7 +24,6 @@ const VideoFeed = ({ sidebarNavIsOpen }: VideoFeedProps) => {
 
     return (
         <div id="videos-feed-container">
-            <TrackedPage name={`Videos/${Math.ceil(displayedVideos.length / 20)}`} initial={false} />
             <InfiniteScroll
                 key={`infinite-need-refresh`}
                 pageStart={1}
