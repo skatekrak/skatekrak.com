@@ -64,6 +64,7 @@ const MapCustomNavigation = ({ id, title, about, subtitle, spots, videos }: MapC
                         <S.MapCustomNavigationMainLogo
                             src={`/images/map/custom-maps/${id}.png`}
                             id="custom-map-navigation-main-logo"
+                            alt={`${title} logo`}
                             fill
                         />
                     </S.MapCustomNavigationMainLogoContainer>
