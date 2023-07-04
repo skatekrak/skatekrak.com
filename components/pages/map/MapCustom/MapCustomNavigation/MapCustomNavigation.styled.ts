@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import Image from 'next/image';
 
 import Typography from 'components/Ui/typography/Typography';
 
@@ -88,9 +89,10 @@ export const MapCustomNavigationMainLogoContainer = styled.div`
     margin-right: 1rem;
     border-radius: 100%;
     overflow: hidden;
+    position: relative;
 `;
 
-export const MapCustomNavigationMainLogo = styled.img`
+export const MapCustomNavigationMainLogo = styled(Image)`
     max-width: 100%;
     margin: auto;
 `;
