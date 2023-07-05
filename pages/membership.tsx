@@ -13,7 +13,11 @@ const Membership = () => {
         <Layout>
             <S.OneColumnPage>
                 <S.OneColumnPageInnerContainer>
-                    <S.CTA href="https://skatekrak.com/join" target="_blank" rel="noopener noreferrer">
+                    <S.CTA
+                        href="https://opencollective.com/opensb/projects/krakmap"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
                         <Typography component="button">
                             Support Krak
                             <br />

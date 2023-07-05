@@ -84,7 +84,7 @@ const Subscribe: NextPage = () => {
                                 how to redefine the world around you.” Ian Mackaye -
                             </Typography>
                         </SS.SubscribeQuote>
-                        <S.AuthButtonPrimaryLink href="https://skatekrak.com/join">
+                        <S.AuthButtonPrimaryLink href="https://opencollective.com/opensb/projects/krakmap">
                             <Typography component="button">Subscribe</Typography>
                         </S.AuthButtonPrimaryLink>
                     </S.AuthDoubleColumnPageTightColumn>

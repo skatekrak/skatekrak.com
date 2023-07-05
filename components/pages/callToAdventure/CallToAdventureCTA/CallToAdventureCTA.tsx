@@ -6,7 +6,7 @@ import * as S from './CallToAdventureCTA.styled';
 const CallToAdventureCTA = () => {
     return (
         <S.CallToAdventureCTAContainer>
-            <S.CallToAdventureLink href="https://skatekrak.com/join" target="_blank" rel="noopener noreferrer">
+            <S.CallToAdventureLink href="https://opencollective.com/opensb/projects/krakmap" target="_blank" rel="noopener noreferrer">
                 <Typography component="button">
                     Support Krak
                     <br />
