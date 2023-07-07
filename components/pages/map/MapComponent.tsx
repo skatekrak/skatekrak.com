@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
-import ReactMapGL, { MapRef, NavigationControl, Source, ViewStateChangeEvent } from 'react-map-gl';
+import ReactMapGL, { GeolocateControl, MapRef, NavigationControl, Source, ViewStateChangeEvent } from 'react-map-gl';
 import type { FeatureCollection, Geometry } from 'geojson';
 
 import SpotMarker from 'components/pages/map/marker/SpotMarker';
@@ -126,7 +126,9 @@ const MapComponent = ({ mapRef, spots, children, onLoad }: MapComponentProps) =>
                 {/* Marker */}
                 {markers}
 
+                {/* Controls */}
                 <NavigationControl position="bottom-right" />
+                <GeolocateControl position="bottom-right" showAccuracyCircle={false} />
             </ReactMapGL>
         </S.MapComponent>
     );
