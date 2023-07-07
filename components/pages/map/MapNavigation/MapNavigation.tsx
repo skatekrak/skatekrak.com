@@ -2,7 +2,6 @@ import React from 'react';
 
 import MapCreateSpotButton from '../MapCreateSpot/MapCreateSpotButton';
 import MapSearch from './MapSearch';
-import MapFilters from './MapFilters';
 
 import * as S from './MapNavigation.styled';
 
@@ -17,7 +16,7 @@ const MapNavigation = ({ handleCreateSpotClick }: Props) => {
                 <MapSearch />
                 <MapCreateSpotButton onClick={handleCreateSpotClick} />
             </S.MapNavigationMain>
-            <MapFilters />
+            {/* <MapFilters /> */}
         </S.MapNavigation>
     );
 };
