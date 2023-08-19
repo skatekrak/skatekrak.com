@@ -60,7 +60,7 @@ jobs:
                   node ./scripts/create_map.js \
                     --tag ${{ inputs.tag }} \
                     --name "${{ inputs.name }}" \
-                    --category "${{ inputs.category }}" \
+                    --category "${{ inputs.categories }}" \
                     --subtitle "${{ inputs.subtitle }}" \
                     --edito "${{ inputs.edito }}" \
                     --about "${{ inputs.about }}" \
