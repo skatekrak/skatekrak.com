@@ -52,14 +52,14 @@ const main = () => {
 
     const map = `
     {
-        id: '${tag},
+        id: '${tag}',
         categories: ['${category}'],
         name: '${name}',
         subtitle: '${subtitle}',
         edito: '${edito}',
         about: '${about}',
         videos: [${videosString}],
-        spots: required('data/customMaps/${tag}.json'),
+        spots: require('data/customMaps/${tag}.json'),
     }`;
 
     const maps = file.readFileSync('data/customMaps/_spots.ts', 'utf8');
