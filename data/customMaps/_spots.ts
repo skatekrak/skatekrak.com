@@ -307,4 +307,15 @@ Definitively not an exhaustive list but it’s a start. Let’s see if we can ge
         about: '',
         spots: require('data/customMaps/sugarskatemag.json'),
     },
+
+    {
+        id: 'demo_map,
+        categories: [''],
+        name: 'Demo Map',
+        subtitle: 'Subtitle map',
+        edito: 'Edito Map',
+        about: 'Super about',
+        videos: [],
+        spots: required('data/customMaps/demo_map.json'),
+    }
 ];
