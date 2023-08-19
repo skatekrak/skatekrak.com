@@ -1,4 +1,4 @@
-name: Create Custom Map
+name: Update Custom Map
 on:
     workflow_dispatch:
         inputs:
@@ -6,22 +6,9 @@ on:
                 description: Tag used to fetch spots
                 required: true
                 type: string
-            categories:
-                description: Map categories
-                type: choice
-                required: true
-                default: 'maps'
-                options:
-                    - maps
-                    - magazine
-                    - filmer
-                    - skater
-                    - photographer
-                    - video
-                    - skatepark
             name:
                 type: string
-                required: true
+                required: false
             subtitle:
                 type: string
                 required: false
@@ -57,7 +44,7 @@ jobs:
                     --fail-with-body
             - name: Write map data
               run: |
-                  node ./scripts/create_map.js \
+                  node ./scripts/update_map.js \
                     --tag ${{ inputs.tag }} \
                     --name "${{ inputs.name }}" \
                     --category "${{ inputs.categories }}" \
@@ -70,7 +57,7 @@ jobs:
               with:
                   add: "['./data/customMaps/${{ inputs.tag }}.json', './data/customMaps/_spots.json']"
                   default_author: user_info
-                  message: 'feat: Add new map'
+                  message: 'feat: Map updated'
             - run: yarn install
             - run: yarn lint
             - name: Deploying to Vercel
