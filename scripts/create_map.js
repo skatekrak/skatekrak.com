@@ -48,31 +48,28 @@ const main = () => {
         videos = [];
     }
 
-    const videosString = videos.map((video) => `'${video}'`).join(',');
+    const newMap = {
+        id: tag,
+        categories: [category],
+        name,
+        subtitle,
+        edito,
+        about,
+        videos,
+    };
 
-    const map = `
-    {
-        id: '${tag}',
-        categories: ['${category}'],
-        name: '${name}',
-        subtitle: '${subtitle}',
-        edito: '${edito}',
-        about: '${about}',
-        videos: [${videosString}],
-        spots: require('data/customMaps/${tag}.json'),
-    }`;
+    const maps = JSON.parse(file.readFileSync('data/customMaps/_spots.json', 'utf8'));
 
-    const maps = file.readFileSync('data/customMaps/_spots.ts', 'utf8');
-    if (maps.indexOf(`id: '${tag}'`) !== -1) {
-        console.log(`Map with tag ${tag} already exists`);
-        return;
+    for (const map of maps) {
+        if (map.id === tag) {
+            console.log(`Map with tag ${tag} already exists`);
+            return;
+        }
     }
 
-    // Insert new map
-    let lines = maps.split('\n');
-    lines.splice(lines.length - 2, 0, map);
+    maps.push(newMap);
 
-    file.writeFileSync('data/customMaps/_spots.ts', lines.join('\n'), 'utf8');
+    file.writeFileSync('data/customMaps/_spots.json', JSON.stringify(maps, undefined, 2), 'utf8');
     console.log(`Map ${tag} created`);
 };
 

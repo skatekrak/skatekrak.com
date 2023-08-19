@@ -1,9 +1,10 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import Cors from 'cors';
+import fs from 'fs';
 
-import CustomMaps from '../../data/customMaps/_spots';
 import { Spot } from 'lib/carrelageClient';
 import { CustomMapCategory, QuickAccessMap } from 'components/pages/map/mapQuickAccess/types';
+import { CustomMap } from 'map';
 
 const computeContentScore = (spot: Spot): number => {
     return spot.mediasStat.all + spot.clipsStat.all;
@@ -34,12 +35,19 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     if (req.method !== 'GET') {
         return res.status(400).json({ message: 'Must be a GET' });
     }
+    const CustomMaps: CustomMap[] = JSON.parse(fs.readFileSync('./data/customMaps/spots.json', 'utf8'));
     const customMaps = CustomMaps.filter((map) => {
         if (process.env.NEXT_PUBLIC_STAGE === 'production') {
             return !map.staging;
         }
         return true;
+    }).map((map) => {
+        return {
+            ...map,
+            spots: JSON.parse(fs.readFileSync(`./data/customMaps/${map.id}.json`, 'utf8')),
+        };
     });
+
     const id = req.query.id;
     if (id === undefined) {
         const maps: QuickAccessMap[] = [];

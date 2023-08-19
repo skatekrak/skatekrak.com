@@ -7,4 +7,16 @@ declare module 'map' {
         subtitle: string;
         bounds: [[number, number], [number, number]];
     }
+
+    interface CustomMap {
+        id: string;
+        name: string;
+        categories: string[];
+        subtitle: string;
+        edito: string;
+        about: string;
+        spots: Spot[];
+        videos: string[];
+        staging: boolean;
+    }
 }

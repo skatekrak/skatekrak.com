@@ -1,0 +1,296 @@
+[
+  {
+    "id": "famous",
+    "categories": [
+      "maps"
+    ],
+    "name": "Famous Spots",
+    "subtitle": "Who did what?",
+    "edito": "Worldwide famous spots with decades of skateboarding history.",
+    "about": "\nWe try to keep track of what's been done on these spots for a while now! Rewatch skateboarding history on all these familiar spots and add your knowledge or your own footage on the app!\n        "
+  },
+  {
+    "id": "webcam",
+    "categories": [
+      "maps"
+    ],
+    "name": "Webcams",
+    "subtitle": "Big Brother is watching you!",
+    "edito": "A hundred spots with 24/7 live webcams!",
+    "about": "\nIt all started with one live webcam in Brussels I used to check to see if the floor was dry downtown after it rained. It’s on a spot that is really crowdy all the time so you can actually see if it’s the right time to skate. I found out there was some other plazas, skateparks, or smaller spots worldwide with webcams. Imagine if you could film a part using them!\n        "
+  },
+  {
+    "id": "andrew",
+    "categories": [
+      "maps"
+    ],
+    "name": "Andrew Reynolds Frontside Flips",
+    "subtitle": "The perfect flick!",
+    "edito": "The Boss signature trick!",
+    "about": "\nNobody can teach you frontside flips better than Andrew! It's been his signature trick for decades now and he brought it to quite a lot of iconic spots! \n        "
+  },
+  {
+    "id": "tinderskatespots",
+    "categories": [
+      "maps"
+    ],
+    "name": "Tinderskatespots",
+    "subtitle": "It’s such a small world !",
+    "edito": "Tinder spotfinder..",
+    "about": "Have you ever thought of using Tinder as a spotfinder? I thought chances to recognize some worldwide famous skate spots would be small but the people behind the @tinderskatespots insta account proved me wrong!"
+  },
+  {
+    "id": "thps",
+    "categories": [
+      "maps"
+    ],
+    "name": "Tony Hawk Pro Skater's Spots",
+    "subtitle": "Nine Hundred!",
+    "edito": "All the spots and inspirations from the famous game series in real life!",
+    "about": "\nBack to that era he was the one who could spin with his board more than anyone else and he is still rippin today in his fifty's! Tony Hawk is a legend and his game rocked our teenage years! \n\nRediscover the first 2 games remastered in HD out now!\n        "
+  },
+  {
+    "id": "samespotsametrick",
+    "categories": [
+      "maps"
+    ],
+    "name": "Same Spot Same Trick",
+    "subtitle": "Already Been Done !",
+    "edito": "Spots that have seen different people doing the same trick",
+    "about": "Inspired by the @samespotsameangle insta account, this map highlight a list of ABD tricks in Skateboarding History !"
+  },
+  {
+    "id": "sls",
+    "categories": [
+      "maps"
+    ],
+    "name": "Street League",
+    "subtitle": "Niiiiinneee  Cluuub !",
+    "edito": "All the SLS contest serie locations",
+    "about": "If you have ever been to a Street League contest, it was at one of these places. Rediscover all the events since the Street League was created in 2010."
+  },
+  {
+    "id": "knobbuster",
+    "categories": [
+      "maps"
+    ],
+    "name": "The Knobbuster",
+    "subtitle": "Who you gonna call?",
+    "edito": "He is a hero for the community! Delivering iconic spots from those horrible skatestoppers popping out everywhere in the Los Angeles area!",
+    "about": "\nThis guy is keeping the magic alive! How cool it is to see pros skating these iconic spots today!\n\nLet History continue! The show must go on!\n        "
+  },
+  {
+    "id": "theskateboardmagcover",
+    "categories": [
+      "magazine"
+    ],
+    "name": "The Skateboard Mag Covers",
+    "subtitle": "Cover baby! Cover!",
+    "edito": "All The Skateboard Mag covers we could map!",
+    "about": "Definitively not an exhaustive list but it’s a start. Let’s see if we can get to map the 162 covers!"
+  },
+  {
+    "id": "thrashercover",
+    "categories": [
+      "magazine"
+    ],
+    "name": "Thrasher Covers",
+    "subtitle": "Cover baby! Cover!",
+    "edito": "All the Thrasher Magazine covers we could map!",
+    "about": "Definitively not an exhaustive list but it’s a start. Let’s see if we can get to map the 500+ covers!"
+  },
+  {
+    "id": "thrashermag",
+    "categories": [
+      "magazine"
+    ],
+    "name": "Thrasher Magazine",
+    "subtitle": "",
+    "edito": "",
+    "about": ""
+  },
+  {
+    "id": "twscover",
+    "categories": [
+      "magazine"
+    ],
+    "name": "Transworld Covers",
+    "subtitle": "Cover baby! Cover!",
+    "edito": "All the Transworld Skateboarding Magazine covers we could map!",
+    "about": "Definitively not an exhaustive list but it’s a start. Let’s see if we can get to map the 397 covers! "
+  },
+  {
+    "id": "onespotpart",
+    "categories": [
+      "maps"
+    ],
+    "name": "One spot video-parts",
+    "subtitle": "They own the spot!",
+    "edito": "Video-parts filmed intentionally at one spot.",
+    "about": "\nFrom the good people at *Quartersnacks*, a map for all these local legends killing their plaza like no one else.\nHere is the original article :\nhttps://quartersnacks.com/2021/07/introducing-the-quartersnacks-one-spot-part-map\n        ",
+    "staging": false,
+    "videos": [
+      "https://www.youtube.com/playlist?list=PL2q6XHjX4Ujex44kmAFk0XL33MFCYSU57"
+    ]
+  },
+  {
+    "id": "betty",
+    "categories": [
+      "video"
+    ],
+    "name": "Betty",
+    "subtitle": "Betty",
+    "edito": "Vans Europe Present: Betty",
+    "about": "\nAfter last winter when the pandemic came around, Harry Billiet started filming his homies. Turned out they all killed it non-stop for a whole year so the project naturally became a real team video with the support of Vans. Most of the scenes are in Belgium instead of some in Luxemburg and Marseille.\nThe video speaks for itself. These three Betties battled together through lockdowns.\n\nSkaters\nJonathan Vlerick\nJeroen Bruggeman\nArthur Buyltinck\nTimothy Deconinck\n        ",
+    "staging": false,
+    "videos": [
+      "https://www.youtube.com/watch?v=vc1XPamfLUY"
+    ]
+  },
+  {
+    "id": "nycsubway",
+    "categories": [
+      "maps"
+    ],
+    "name": "NYC Subway Spots",
+    "subtitle": "100% Illegal",
+    "edito": "Your guide to skating the NYC subway system.",
+    "about": "\nOur friends at Jenkem cooked us a brief map to some of the most skateable spots within the NYC subway system a while ago. \n\nIt's a non-exhaustive list so feel free to add your spots on the map with the app!\n        \nAs they reminded in their article, don't forget skateboarding on MTA property is 100% illegal so watch out before you go for a trick!\n        ",
+    "videos": [
+      "https://www.youtube.com/watch?v=uNkFTKsYqiY"
+    ]
+  },
+  {
+    "id": "spohnranch",
+    "categories": [
+      "skatepark"
+    ],
+    "name": "Spohn Ranch",
+    "subtitle": "Spohn Ranch Skateparks",
+    "edito": "Designing and building skateparks with the relentless dedication to detail and architectural finesse.",
+    "about": "Spohn Ranch began as a community, anchored by Aaron Spohn’s backyard half-pipe, and grew into an award-winning skatepark design-build firm.\nA cornerstone of wheel sports progression for over 30 years, Spohn Ranch’s Los Angeles backyard roots have spread globally, culminating in hundreds of cutting-edge creations."
+  },
+  {
+    "id": "concreteflow",
+    "categories": [
+      "skatepark"
+    ],
+    "name": "Concrete Flow",
+    "subtitle": "Concrete Flow Skateparks",
+    "edito": "Mike Van der Ouderaa and his crew pouring concrete around Europe and beyond..",
+    "abount": "Concrete Flow is undoubtedly purist at its core; their designers and builders are all pro level skaters. Skateability and exhilaration are thus paramount to everything they do."
+  },
+  {
+    "id": "googleearthers",
+    "categories": [
+      "maps"
+    ],
+    "name": "Google Earthers",
+    "subtitle": "'Mankind's biggest tool/enemy'",
+    "edito": "Jake Keenan's spots as seen in his Google Earthers episodes playing on jenkemmag.com",
+    "about": "\nJake Keenan uses Google Earth to find unusual and virgin skate spots in the NYC landscape. Google Earth and Street View are used by several skaters/filmers across the globe!\n        ",
+    "videos": [
+      "https://www.youtube.com/watch?v=JEd_YeihXnI&list=PLu4RiFW9tsSnAzCkMFvG0sfSzST642zgg"
+    ]
+  },
+  {
+    "id": "history",
+    "categories": [
+      "maps"
+    ],
+    "name": "Krak History Clip",
+    "subtitle": "Krak History Clip",
+    "edito": "Skateboarding history right there!",
+    "about": "\nDecades of Skateboarding History on famous worldwide epic spots.\n\nWe tried to compile every tricks we had in mind landed on these spots and we update the list on our mag when we think of something we forgot or everytime someone lands a new trick!\n\nCheck it in the clips section of each spot!\n        ",
+    "videos": [
+      "https://www.youtube.com/watch?v=wHhMC5sWqdc&list=PL2q6XHjX4UjdzIEzATa1k6F_QuZ3wnm84"
+    ]
+  },
+  {
+    "id": "minute",
+    "categories": [
+      "maps"
+    ],
+    "name": "Krak Minute",
+    "subtitle": "Krak Minute",
+    "edito": "One minute of tricks on worldwide famous spots.",
+    "about": "\nAfter the History Clip serie, we kept going with this new format that enabled us to highlight less legendary but still amazing spots. \n\nKrak Minute is one minute of tricks from the best footage uploaded on the app. \n\nCheck it in the clips section of each spot!\n        ",
+    "videos": [
+      "https://www.youtube.com/watch?v=ODidvGV7bUA&list=PL2q6XHjX4Ujd3_6mUWQQe02cFvGg1ILNX"
+    ]
+  },
+  {
+    "id": "dvl",
+    "categories": [
+      "photographer"
+    ],
+    "name": "Davy Van Laere",
+    "subtitle": "DVL",
+    "edito": "",
+    "about": "Former pro for Deathbox Skateboards, the Belgian Davy van Laere reconverted into music and photography and made it up to Europe’s Skateboard Photographer of the Year!"
+  },
+  {
+    "id": "theboardr",
+    "categories": [
+      "maps"
+    ],
+    "name": "The Boardr Events",
+    "subtitle": "The Boardr Events Map",
+    "edito": "The Boardr hosts and organizes skateboardings big events like Vans Park Series and small ones like the Grind for Life series.",
+    "about": "\nWe host and organize skateboarding's top events like Vans Park Series.\nThe Boardr also owns and operates grassroots series such as The Boardr Am and Grind for Life. These 15 annual events target younger, newer participants and cover the United States.\nWe want to grow skateboarding and help you also do what we do, so we made an in depth roadmap on how to run your own skateboarding event you can find on our site at [TheBoardr.com](http://theboardr.com/)\nOur software, The Boardr Live™, powers several top events in skateboarding, from payment transactions to live scoring and broadcast data integration. Check it out at [SkateScores.com](http://skatescores.com/)\nIf you want your event and all the details to be professionally executed by proven experts who live and breate this industry, The Boardr is who you hire.\n        ",
+    "staging": true
+  },
+  {
+    "id": "theblacklist",
+    "categories": [
+      "maps"
+    ],
+    "name": "The Black List",
+    "subtitle": "Black-owned biz to support",
+    "edito": "We believe that getting eyeballs on a list of Black-owned brands is a humble, yet necessary offering to building whatever lies ahead.",
+    "about": "\"Over the last decade, skating has diversified and globalized tremendously. Despite this progress, however, “The Industry” remains very white, very Californian, and it retains hegemonic control over the direction of skateboarding.\"\nSpecial thanks to Patrick Kigongo.",
+    "staging": true
+  },
+  {
+    "id": "fredmortagne",
+    "categories": [
+      "filmer"
+    ],
+    "name": "Fred Mortagne",
+    "subtitle": "French Fred",
+    "edito": "",
+    "about": "One of the most talented skateboard videographers and photographers!"
+  },
+  {
+    "id": "erickoston",
+    "categories": [
+      "skater"
+    ],
+    "name": "Eric Koston",
+    "subtitle": "Froston",
+    "about": "The legend! He’s still there having fun! He definitely left his marks on Skateboarding History!",
+    "videos": [
+      "https://www.youtube.com/playlist?list=PLAngPGm2UkQ520AO6Pp1Ae4Zz_xCvyhw-"
+    ]
+  },
+  {
+    "id": "sugarcover",
+    "categories": [
+      "magazine"
+    ],
+    "name": "Sugar Covers",
+    "subtitle": "Cover baby! Cover!",
+    "edito": "",
+    "about": "\nAll the Sugar Skateboard Magazine covers we could map!\nDefinitively not an exhaustive list but it’s a start. Let’s see if we can get to map the 200+ covers!"
+  },
+  {
+    "id": "sugarskatemag",
+    "categories": [
+      "magazine"
+    ],
+    "name": "Sugar Skate Mag",
+    "subtitle": "",
+    "edito": "",
+    "about": ""
+  }
+]
