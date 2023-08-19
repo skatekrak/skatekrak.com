@@ -64,6 +64,6 @@ jobs:
             - name: Write commit
               uses: EndBug/add-and-commit@v9
               with:
-                  add: ['./data/customMaps/${{ inputs.tag }}.json', './data/customMaps/_spots.json']
+                  add: "['./data/customMaps/${{ inputs.tag }}.json', './data/customMaps/_spots.json']"
                   default_author: user_info
                   message: 'feat: Add new map'
