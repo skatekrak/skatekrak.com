@@ -36,6 +36,9 @@ on:
                 type: string
                 required: false
 
+env:
+    NEXT_PUBLIC_BUGSNAG_KEY: ${{ secrets.NEXT_PUBLIC_BUGSNAG_KEY }}
+
 jobs:
     create_map:
         runs-on: ubuntu-latest
@@ -68,3 +71,12 @@ jobs:
                   add: "['./data/customMaps/${{ inputs.tag }}.json', './data/customMaps/_spots.ts']"
                   default_author: user_info
                   message: 'feat: Add new map'
+            - run: yarn install
+            - run: yarn lint
+            - name: Deploying to Vercel
+              uses: amondnet/vercel-action@v25
+              with:
+                  vercel-token: ${{ secrets.VERCEL_TOKEN }}
+                  vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+                  vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+                  vercel-args: --prod
