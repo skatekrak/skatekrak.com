@@ -1,0 +1,71 @@
+name: Create Custom Map
+on:
+    workflow_dispatch:
+        inputs:
+            tag:
+                description: Tag used to fetch spots
+                required: true
+                type: string
+            categories:
+                description: Map categories
+                type: choice
+                required: true
+                default: 'maps'
+                options:
+                    - maps
+                    - magazine
+                    - filmer
+                    - skater
+                    - photographer
+                    - video
+                    - skatepark
+            name:
+                type: string
+                required: true
+            subtitle:
+                type: string
+                required: false
+            edito:
+                type: string
+                required: false
+            about:
+                type: string
+                required: false
+            videos:
+                description: "URLs of videos (if multiple, separate them by commas: ',')"
+                type: string
+                required: false
+
+jobs:
+    create_map:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
+            - uses: actions/setup-node@v2
+              with:
+                  node-version: 18
+                  cache: yarn
+            - name: Fetch spots
+              run: |
+                  today_date=$(date -u +"%FT%TZ")
+                  curl 'https://carrelage.api.skatekrak.com/spots?limit=2000&older=${today_date}&tags%5B%5D=${{ inputs.tag }}' \
+                    -o ./data/customMaps/${{ inputs.tag }}.json \
+                    -H 'Authorization: Bearer ${{ secrets.CARRELAGE_TOKEN }}'
+            - name: Write map data
+              run: |
+                  node ./scripts/create_map.js \
+                    --tag ${{ inputs.tag }} \
+                    --name "${{ inputs.name }}" \
+                    --category "${{ inputs.category }}" \
+                    --subtitle "${{ inputs.subtitle }}" \
+                    --edito "${{ inputs.edito }}" \
+                    --about "${{ inputs.about }}" \
+                    --videos "${{ inputs.videos }}"
+            - name: Write commit
+              uses: EndBug/add-and-commit@v9
+              with:
+                  add:
+                      - './data/customMaps/${{ inputs.tag }}.json'
+                      - './data/customMaps/_spots.json'
+                  default_author: user_info
+                  message: 'feat: Add new map'

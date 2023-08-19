@@ -1,23 +1,23 @@
 name: Deploy to Vercel
 on:
-  push:
-    branches: [main]
+    push:
+        branches: [main]
 env:
-  NEXT_PUBLIC_BUGSNAG_KEY: ${{ secrets.NEXT_PUBLIC_BUGSNAG_KEY }}
+    NEXT_PUBLIC_BUGSNAG_KEY: ${{ secrets.NEXT_PUBLIC_BUGSNAG_KEY }}
 jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v2
-        with:
-          node-version: 18
-          cache: yarn
-      - run: yarn install
-      - run: yarn lint
-      - uses: amondnet/vercel-action@v25
-        with:
-          vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
-          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-          vercel-args: --prod
+    deploy:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
+            - uses: actions/setup-node@v2
+              with:
+                  node-version: 18
+                  cache: yarn
+            - run: yarn install
+            - run: yarn lint
+            - uses: amondnet/vercel-action@v25
+              with:
+                  vercel-token: ${{ secrets.VERCEL_TOKEN }}
+                  vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+                  vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+                  vercel-args: --prod
