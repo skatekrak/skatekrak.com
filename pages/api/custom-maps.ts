@@ -5,6 +5,7 @@ import fs from 'fs';
 import { Spot } from 'lib/carrelageClient';
 import { CustomMapCategory, QuickAccessMap } from 'components/pages/map/mapQuickAccess/types';
 import { CustomMap } from 'map';
+import path from 'path';
 
 const computeContentScore = (spot: Spot): number => {
     return spot.mediasStat.all + spot.clipsStat.all;
@@ -35,7 +36,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     if (req.method !== 'GET') {
         return res.status(400).json({ message: 'Must be a GET' });
     }
-    const CustomMaps: CustomMap[] = JSON.parse(fs.readFileSync('./data/customMaps/_spots.json', 'utf8'));
+    const directory = path.join(process.cwd(), 'data', 'customMaps');
+    const CustomMaps: CustomMap[] = JSON.parse(fs.readFileSync(directory + '/_spots.json', 'utf8'));
     const customMaps = CustomMaps.filter((map) => {
         if (process.env.NEXT_PUBLIC_STAGE === 'production') {
             return !map.staging;
