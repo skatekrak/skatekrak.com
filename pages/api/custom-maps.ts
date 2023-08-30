@@ -46,7 +46,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     }).map((map) => {
         return {
             ...map,
-            spots: JSON.parse(fs.readFileSync(`./data/customMaps/${map.id}.json`, 'utf8')),
+            spots: JSON.parse(fs.readFileSync(directory + `/${map.id}.json`, 'utf8')),
         };
     });
 
@@ -74,10 +74,11 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     }
 
     const customMap = CustomMaps.find((map) => map.id === id);
-    customMap.spots = customMap.spots.sort((a: Spot, b: Spot) => computeContentScore(b) - computeContentScore(a));
-    if (customMap === undefined) {
+    customMap.spots = JSON.parse(fs.readFileSync(directory + `/${id}.json`, 'utf8'));
+    if (customMap === undefined || customMap.spots === undefined) {
         return res.status(404).json({ message: 'Map not found' });
     }
+    customMap.spots = customMap.spots.sort((a: Spot, b: Spot) => computeContentScore(b) - computeContentScore(a));
 
     res.status(200).json(customMap);
 };
