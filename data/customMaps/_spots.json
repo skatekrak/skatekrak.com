@@ -391,5 +391,16 @@
     "edito": "",
     "about": "",
     "videos": []
+  },
+  {
+    "id": "theskateboardmag",
+    "categories": [
+      "magazine"
+    ],
+    "name": "The Skateboard Mag",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": []
   }
 ]
