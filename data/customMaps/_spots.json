@@ -336,5 +336,16 @@
     "edito": "",
     "about": "",
     "videos": []
+  },
+  {
+    "id": "free02",
+    "categories": [
+      "magazine"
+    ],
+    "name": "Free 02",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": []
   }
 ]
