@@ -380,5 +380,16 @@
     "edito": "",
     "about": "",
     "videos": []
+  },
+  {
+    "id": "somaskatemag",
+    "categories": [
+      "magazine"
+    ],
+    "name": "Soma Skate Mag",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": []
   }
 ]
