@@ -369,5 +369,16 @@
     "edito": "",
     "about": "",
     "videos": []
+  },
+  {
+    "id": "free05",
+    "categories": [
+      "magazine"
+    ],
+    "name": "Free 05",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": []
   }
 ]
