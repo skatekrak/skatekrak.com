@@ -42,21 +42,21 @@ const main = () => {
     const about = getParam('--about');
     let videos = getParam('--videos');
 
-    if (videos !== '') {
-        videos = videos.split(',');
-    } else {
-        videos = [];
-    }
-
     const newMap = {
         id: tag,
-        categories: [category],
         name,
         subtitle,
         edito,
         about,
-        videos,
     };
+
+    if (videos !== '') {
+        newMap.videos = videos.split(',');
+    }
+
+    if (category != '') {
+        newMap.categories = [category];
+    }
 
     // Delete keys
     for (const key in newMap) {
