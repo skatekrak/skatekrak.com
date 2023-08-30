@@ -292,5 +292,16 @@
     "subtitle": "",
     "edito": "",
     "about": ""
+  },
+  {
+    "id": "skateinmovies",
+    "categories": [
+      "maps"
+    ],
+    "name": "Skateboarding In Movies / TV",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": []
   }
 ]
