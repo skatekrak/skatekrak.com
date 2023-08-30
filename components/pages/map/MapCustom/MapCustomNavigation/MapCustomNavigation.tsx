@@ -74,14 +74,16 @@ const MapCustomNavigation = ({ id, title, about, subtitle, spots, videos }: MapC
                 </S.MapCustomNavigationMain>
             </S.MapCustomNavigationMainContainer>
             <S.MapCustomNavigationLinksContainer>
-                <MapCustomNavigationExtension
-                    render={() => <MapCustomNavigationAbout subtitle={subtitle} about={about} />}
-                >
-                    <S.MapCustomNavigationLink>
-                        <Typography component="body1">about</Typography>
-                        <IconArrowHead />
-                    </S.MapCustomNavigationLink>
-                </MapCustomNavigationExtension>
+                {about === '' && (
+                    <MapCustomNavigationExtension
+                        render={() => <MapCustomNavigationAbout subtitle={subtitle} about={about} />}
+                    >
+                        <S.MapCustomNavigationLink>
+                            <Typography component="body1">about</Typography>
+                            <IconArrowHead />
+                        </S.MapCustomNavigationLink>
+                    </MapCustomNavigationExtension>
+                )}
                 <MapCustomNavigationExtension
                     render={({ close }) => <MapCustomNavigationSpots mapSpots={spots} closeExtension={close} />}
                 >
