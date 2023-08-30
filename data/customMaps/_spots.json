@@ -424,5 +424,16 @@
     "edito": "",
     "about": "",
     "videos": []
+  },
+  {
+    "id": "skateistan",
+    "categories": [
+      "maps"
+    ],
+    "name": "Skateistan",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": []
   }
 ]
