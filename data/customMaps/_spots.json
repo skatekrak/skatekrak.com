@@ -325,5 +325,16 @@
     "edito": "",
     "about": "",
     "videos": []
+  },
+  {
+    "id": "free01",
+    "categories": [
+      "magazine"
+    ],
+    "name": "Free 01",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": []
   }
 ]
