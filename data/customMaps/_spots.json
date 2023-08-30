@@ -402,5 +402,16 @@
     "edito": "",
     "about": "",
     "videos": []
+  },
+  {
+    "id": "soma01",
+    "categories": [
+      "magazine"
+    ],
+    "name": "Soma 01",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": []
   }
 ]
