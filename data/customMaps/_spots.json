@@ -358,5 +358,16 @@
     "edito": "",
     "about": "",
     "videos": []
+  },
+  {
+    "id": "free04",
+    "categories": [
+      "magazine"
+    ],
+    "name": "Free 04",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": []
   }
 ]
