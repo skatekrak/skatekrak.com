@@ -538,5 +538,18 @@
     "videos": [
       "https://www.youtube.com/playlist?list=PL7V-xVyJYY3fCEf5hj0520eKBEplyy6jZ"
     ]
+  },
+  {
+    "id": "plazacation",
+    "categories": [
+      "maps"
+    ],
+    "name": "Plazacation",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/playlist?list=PL7V-xVyJYY3fqeprvstiWGpZmR3yoig5t"
+    ]
   }
 ]
