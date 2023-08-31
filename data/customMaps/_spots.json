@@ -512,5 +512,18 @@
     "edito": "",
     "about": "",
     "videos": []
+  },
+  {
+    "id": "hotspot",
+    "categories": [
+      "maps"
+    ],
+    "name": "Hot Spot",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://youtube.com/playlist?list=PL7V-xVyJYY3cwyS0ZVAafGAAnNAtav4IF"
+    ]
   }
 ]
