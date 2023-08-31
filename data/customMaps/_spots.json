@@ -525,5 +525,18 @@
     "videos": [
       "https://youtube.com/playlist?list=PL7V-xVyJYY3cwyS0ZVAafGAAnNAtav4IF"
     ]
+  },
+  {
+    "id": "thisoldledge",
+    "categories": [
+      "maps"
+    ],
+    "name": "This Old Ledge",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/playlist?list=PL7V-xVyJYY3fCEf5hj0520eKBEplyy6jZ"
+    ]
   }
 ]
