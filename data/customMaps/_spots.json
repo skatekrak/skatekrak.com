@@ -551,5 +551,16 @@
     "videos": [
       "https://www.youtube.com/playlist?list=PL7V-xVyJYY3fqeprvstiWGpZmR3yoig5t"
     ]
+  },
+  {
+    "id": "atibajefferson",
+    "categories": [
+      "photographer"
+    ],
+    "name": "Atiba Jefferson",
+    "subtitle": "",
+    "edito": "",
+    "about": "Atiba has photographed skateboarding extensively for over 20 years, working for skate magazines such as Slap, Thrasher or Transworld, and many others. he is one of the most respected and talented photographers in skateboarding and beyond. ",
+    "videos": []
   }
 ]
