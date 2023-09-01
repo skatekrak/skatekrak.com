@@ -628,5 +628,16 @@
     "edito": "",
     "about": "",
     "videos": []
+  },
+  {
+    "id": "classiccovers",
+    "categories": [
+      "maps"
+    ],
+    "name": "Classic Covers",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": []
   }
 ]
