@@ -606,5 +606,16 @@
     "edito": "",
     "about": "",
     "videos": []
+  },
+  {
+    "id": "hallofmeat",
+    "categories": [
+      "maps"
+    ],
+    "name": "Hall Of Meat",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": []
   }
 ]
