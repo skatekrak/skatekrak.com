@@ -617,5 +617,16 @@
     "edito": "",
     "about": "",
     "videos": []
+  },
+  {
+    "id": "firingline",
+    "categories": [
+      "maps"
+    ],
+    "name": "Firing Line",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": []
   }
 ]
