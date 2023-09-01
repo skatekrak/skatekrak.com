@@ -661,5 +661,16 @@
     "edito": "",
     "about": "",
     "videos": []
+  },
+  {
+    "id": "simoncroonenberg",
+    "categories": [
+      "filmer"
+    ],
+    "name": "Simon Croonenberg",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": []
   }
 ]
