@@ -639,5 +639,16 @@
     "edito": "",
     "about": "",
     "videos": []
+  },
+  {
+    "id": "megaramps",
+    "categories": [
+      "maps"
+    ],
+    "name": "Megaramps",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": []
   }
 ]
