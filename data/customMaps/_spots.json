@@ -595,5 +595,16 @@
     "edito": "",
     "about": "",
     "videos": []
+  },
+  {
+    "id": "magnified",
+    "categories": [
+      "maps"
+    ],
+    "name": "Magnified",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": []
   }
 ]
