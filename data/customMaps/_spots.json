@@ -562,5 +562,16 @@
     "edito": "",
     "about": "Atiba has photographed skateboarding extensively for over 20 years, working for skate magazines such as Slap, Thrasher or Transworld, and many others. he is one of the most respected and talented photographers in skateboarding and beyond. ",
     "videos": []
+  },
+  {
+    "id": "mywar",
+    "categories": [
+      "maps"
+    ],
+    "name": "My War",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": []
   }
 ]
