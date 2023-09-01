@@ -573,5 +573,16 @@
     "edito": "",
     "about": "",
     "videos": []
+  },
+  {
+    "id": "dernhistory",
+    "categories": [
+      "maps"
+    ],
+    "name": "Dern Brothers Spot History",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": []
   }
 ]
