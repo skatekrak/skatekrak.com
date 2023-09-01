@@ -584,5 +584,16 @@
     "edito": "",
     "about": "",
     "videos": []
+  },
+  {
+    "id": "spotguidela",
+    "categories": [
+      "maps"
+    ],
+    "name": "Spot Guide Los Angeles",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": []
   }
 ]
