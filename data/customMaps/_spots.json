@@ -650,5 +650,16 @@
     "edito": "",
     "about": "",
     "videos": []
+  },
+  {
+    "id": "lucmazieres",
+    "categories": [
+      "filmer"
+    ],
+    "name": "Luc Mazieres",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": []
   }
 ]
