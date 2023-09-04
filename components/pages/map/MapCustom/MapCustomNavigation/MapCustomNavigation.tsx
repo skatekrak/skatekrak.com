@@ -74,7 +74,7 @@ const MapCustomNavigation = ({ id, title, about, subtitle, spots, videos }: MapC
                 </S.MapCustomNavigationMain>
             </S.MapCustomNavigationMainContainer>
             <S.MapCustomNavigationLinksContainer>
-                {about === '' && (
+                {about !== '' && (
                     <MapCustomNavigationExtension
                         render={() => <MapCustomNavigationAbout subtitle={subtitle} about={about} />}
                     >
