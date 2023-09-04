@@ -634,8 +634,10 @@
     "name": "Hall Of Meat",
     "subtitle": "",
     "edito": "",
-    "about": "",
-    "videos": []
+    "about": "hallofmeat",
+    "videos": [
+      "https://www.youtube.com/playlist?list=PLA741124267D57350"
+    ]
   },
   {
     "id": "firingline",
