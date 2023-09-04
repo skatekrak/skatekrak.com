@@ -312,8 +312,11 @@
     "name": "Skate Register",
     "subtitle": "",
     "edito": "",
-    "about": "",
-    "videos": []
+    "about": "In this Berrics new series, 'Skate Register,' you can explore the history of iconic spots with the legendary pros that helped put them on the map.",
+    "videos": [
+      "https://www.youtube.com/watch?v=pB9phdKKDn4",
+      "https://www.youtube.com/watch?v=fqP9WjamrZU"
+    ]
   },
   {
     "id": "freeskatemag",
