@@ -585,8 +585,10 @@
     "name": "Dern Brothers Spot History",
     "subtitle": "",
     "edito": "",
-    "about": "",
-    "videos": []
+    "about": "Dern",
+    "videos": [
+      "https://www.youtube.com/playlist?list=PLfYbJqbZjm0PTphF2foiPpdb5gtlPpRLH"
+    ]
   },
   {
     "id": "spotguidela",
