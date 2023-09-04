@@ -736,5 +736,18 @@
     "videos": [
       "https://www.youtube.com/playlist?list=PLsJk0OwIUVKJuuJ6YlRL6o1m7amN4Oe0n"
     ]
+  },
+  {
+    "id": "scoreback",
+    "categories": [
+      "maps"
+    ],
+    "name": "Scoreback Iconic Skate Spots",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/playlist?list=PLRltx01aI7KPYb0TKHAZKhMgQL7FG_UzP"
+    ]
   }
 ]
