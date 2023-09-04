@@ -582,8 +582,10 @@
     "name": "My War",
     "subtitle": "",
     "edito": "",
-    "about": "",
-    "videos": []
+    "about": "mywar",
+    "videos": [
+      "https://www.youtube.com/playlist?list=PL7V-xVyJYY3fpbJOOkEluWeKBRmz9EA-8"
+    ]
   },
   {
     "id": "dernhistory",
