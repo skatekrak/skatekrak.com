@@ -645,10 +645,12 @@
       "maps"
     ],
     "name": "Firing Line",
-    "subtitle": "",
+    "subtitle": "Thrasher Magazine presents 'Firing Line'",
     "edito": "",
-    "about": "",
-    "videos": []
+    "about": "One dude. One line.",
+    "videos": [
+      "https://www.youtube.com/playlist?list=PL0BD8F33C0D73FB9E"
+    ]
   },
   {
     "id": "classiccovers",
