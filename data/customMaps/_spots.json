@@ -697,5 +697,16 @@
     "edito": "",
     "about": "",
     "videos": []
+  },
+  {
+    "id": "evolutionof",
+    "categories": [
+      "maps"
+    ],
+    "name": "Evolution of...",
+    "subtitle": "",
+    "edito": "",
+    "about": "The Jenkem series on the “Evolution” of New York City’s skate spots.",
+    "videos": []
   }
 ]
