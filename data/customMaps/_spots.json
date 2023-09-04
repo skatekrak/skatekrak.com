@@ -710,5 +710,18 @@
     "videos": [
       "https://www.youtube.com/playlist?list=PLu4RiFW9tsSngBGkiDgNiIaH7rb4n-HIa"
     ]
+  },
+  {
+    "id": "joeybrezinskiparkreview",
+    "categories": [
+      "maps"
+    ],
+    "name": "Joey Brezinski Park Review",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/playlist?list=PLC36SNUcTH5TggG0P7k03APNfee2FTTYE"
+    ]
   }
 ]
