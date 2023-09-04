@@ -598,8 +598,10 @@
     "name": "Spot Guide Los Angeles",
     "subtitle": "",
     "edito": "",
-    "about": "",
-    "videos": []
+    "about": "spotguidela",
+    "videos": [
+      "https://www.youtube.com/playlist?list=PLjtYQGITW_Dm6CsCAPFSZj0ZpnNtHiEwu"
+    ]
   },
   {
     "id": "magnified",
