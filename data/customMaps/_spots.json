@@ -749,5 +749,18 @@
     "videos": [
       "https://www.youtube.com/playlist?list=PLRltx01aI7KPYb0TKHAZKhMgQL7FG_UzP"
     ]
+  },
+  {
+    "id": "lapins",
+    "categories": [
+      "maps"
+    ],
+    "name": "Los Angeles Pins",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/playlist?list=PLmxvVi4Ors7bOFYcFM4UUajhkShnhiFZ-"
+    ]
   }
 ]
