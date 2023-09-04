@@ -723,5 +723,18 @@
     "videos": [
       "https://www.youtube.com/playlist?list=PLC36SNUcTH5TggG0P7k03APNfee2FTTYE"
     ]
+  },
+  {
+    "id": "flatspotparkreview",
+    "categories": [
+      "maps"
+    ],
+    "name": "Flatspot Park Review",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/playlist?list=PLsJk0OwIUVKJuuJ6YlRL6o1m7amN4Oe0n"
+    ]
   }
 ]
