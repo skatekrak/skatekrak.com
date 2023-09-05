@@ -762,5 +762,18 @@
     "videos": [
       "https://www.youtube.com/playlist?list=PLmxvVi4Ors7bOFYcFM4UUajhkShnhiFZ-"
     ]
+  },
+  {
+    "id": "ericjkuhns",
+    "categories": [
+      "maps"
+    ],
+    "name": "Eric J. Kuhns Urban Skate Spots Series",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/playlist?list=PLC_X1O0yNkfTvuRY_WO8d8bVpM4DspZHl"
+    ]
   }
 ]
