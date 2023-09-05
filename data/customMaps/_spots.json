@@ -799,5 +799,18 @@
     "videos": [
       "https://www.youtube.com/playlist?list=PLjpsoptsN4KAhvdh7jDDkhFjdRTwpKAlw"
     ]
+  },
+  {
+    "id": "elwoodskateboardingspotcheck",
+    "categories": [
+      "maps"
+    ],
+    "name": "Elwood Skateboarding Spot Check",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/playlist?list=PLo0YGGC3VjVPW8x8HJjecwx8PVh270Ng8"
+    ]
   }
 ]
