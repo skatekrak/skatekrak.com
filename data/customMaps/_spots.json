@@ -838,5 +838,18 @@
     "videos": [
       "https://www.youtube.com/playlist?list=PLCkNBfRI5W_MQoLeLz9av-WVDx_QihYDW"
     ]
+  },
+  {
+    "id": "danklebes3parkreview",
+    "categories": [
+      "maps"
+    ],
+    "name": "Dan Klebes III Park Review",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/playlist?list=PLZ-3Z-hghDuB0ku0KyZWF-4ic5nJoyCr5"
+    ]
   }
 ]
