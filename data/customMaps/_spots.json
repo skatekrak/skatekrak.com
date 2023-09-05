@@ -812,5 +812,18 @@
     "videos": [
       "https://www.youtube.com/playlist?list=PLo0YGGC3VjVPW8x8HJjecwx8PVh270Ng8"
     ]
+  },
+  {
+    "id": "offthegrid",
+    "categories": [
+      "maps"
+    ],
+    "name": "Off The Grid",
+    "subtitle": "Thrasher Magazine presents 'Off The Grid'",
+    "edito": "",
+    "about": "For a pro skateboarder whose life can be stressed out due to filming for videos, shooting photos and skating in contests, sometimes he has to go off the grid just to have a little fun!",
+    "videos": [
+      "https://www.youtube.com/playlist?list=PLmxvVi4Ors7ZBlFufe01O3TSAQOCMWMLh"
+    ]
   }
 ]
