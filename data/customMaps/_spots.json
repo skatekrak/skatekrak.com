@@ -862,5 +862,18 @@
     "edito": "",
     "about": "",
     "videos": []
+  },
+  {
+    "id": "theskateparkproject",
+    "categories": [
+      "maps"
+    ],
+    "name": "The Skatepark Project",
+    "subtitle": "Thank You Tony Hawk!",
+    "edito": "",
+    "about": "The Skatepark Project, formerly the Tony Hawk Foundation, is a skateboarding organization that helps communities build public skate parks for youth in underserved communities.",
+    "videos": [
+      "https://www.youtube.com/watch?v=qpFyVG2EPQQ"
+    ]
   }
 ]
