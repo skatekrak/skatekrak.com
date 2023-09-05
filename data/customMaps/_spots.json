@@ -825,5 +825,18 @@
     "videos": [
       "https://www.youtube.com/playlist?list=PLmxvVi4Ors7ZBlFufe01O3TSAQOCMWMLh"
     ]
+  },
+  {
+    "id": "arjunshahparkreview",
+    "categories": [
+      "maps"
+    ],
+    "name": "Arjun Shah Park Review",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/playlist?list=PLCkNBfRI5W_MQoLeLz9av-WVDx_QihYDW"
+    ]
   }
 ]
