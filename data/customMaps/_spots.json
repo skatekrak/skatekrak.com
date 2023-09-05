@@ -851,5 +851,16 @@
     "videos": [
       "https://www.youtube.com/playlist?list=PLZ-3Z-hghDuB0ku0KyZWF-4ic5nJoyCr5"
     ]
+  },
+  {
+    "id": "theskateboardmag012012",
+    "categories": [
+      "magazine"
+    ],
+    "name": "The Skateboard Mag January 2012",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": []
   }
 ]
