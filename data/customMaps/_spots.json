@@ -775,5 +775,16 @@
     "videos": [
       "https://www.youtube.com/playlist?list=PLC_X1O0yNkfTvuRY_WO8d8bVpM4DspZHl"
     ]
+  },
+  {
+    "id": "skateschools",
+    "categories": [
+      "maps"
+    ],
+    "name": "Skate Schools",
+    "subtitle": "",
+    "edito": "",
+    "about": "Skate schools, teachers, public, private.. Let's get every places where you can get skate lessons!",
+    "videos": []
   }
 ]
