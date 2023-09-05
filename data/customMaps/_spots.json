@@ -786,5 +786,18 @@
     "edito": "",
     "about": "Skate schools, teachers, public, private.. Let's get every places where you can get skate lessons!",
     "videos": []
+  },
+  {
+    "id": "brailleparktour",
+    "categories": [
+      "maps"
+    ],
+    "name": "Braille Park Tour",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/playlist?list=PLjpsoptsN4KAhvdh7jDDkhFjdRTwpKAlw"
+    ]
   }
 ]
