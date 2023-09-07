@@ -875,5 +875,16 @@
     "videos": [
       "https://www.youtube.com/watch?v=qpFyVG2EPQQ"
     ]
+  },
+  {
+    "id": "theskateboardmag012013",
+    "categories": [
+      "magazine"
+    ],
+    "name": "The Skateboard Mag January 2013",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": []
   }
 ]
