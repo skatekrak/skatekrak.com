@@ -6,6 +6,18 @@ on:
                 description: Tag used to fetch spots
                 required: true
                 type: string
+            categories:
+                description: Map categories
+                type: choice
+                required: false
+                options:
+                    - maps
+                    - magazine
+                    - filmer
+                    - skater
+                    - photographer
+                    - video
+                    - skatepark
             name:
                 type: string
                 required: false
