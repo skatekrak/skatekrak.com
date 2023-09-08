@@ -1,21 +1,21 @@
 import { useFormikContext } from 'formik';
-import { memo, useCallback, useEffect, useState } from 'react';
-import { useAppDispatch, useAppSelector } from 'store/hook';
-import { MapCreateSpotFormValues } from './MapCreateSpot';
-import MapCreateSpotLocationHelper from './MapCreateSpotLocation/MapCreateSpotLocationHelper';
 import mapboxgl, { MapLayerMouseEvent } from 'mapbox-gl';
+import { memo, useCallback, useEffect, useState } from 'react';
+import { useMap } from 'react-map-gl';
+import { useAppDispatch, useAppSelector } from 'store/hook';
 
 import ButtonPrimary from 'components/Ui/Button/ButtonPrimary';
-import * as S from './MapCreateSpot.styled';
 import Arrow from 'components/Ui/Icons/Arrow';
 import ScrollBar from 'components/Ui/Scrollbar';
-import MapCreateSpotMedia from './MapCreateSpotMedia';
-import MapCreateSpotType from './MapCreateSpotType';
-import MapCreateSpotLocation from './MapCreateSpotLocation';
-import MapCreateSpotRain from './MapCreateSpotRain';
 import Typography from 'components/Ui/typography/Typography';
 import { toggleCreateSpot } from 'store/map/slice';
-import { useMap } from 'react-map-gl';
+import { MapCreateSpotFormValues } from './MapCreateSpot';
+import * as S from './MapCreateSpot.styled';
+import MapCreateSpotLocation from './MapCreateSpotLocation';
+import MapCreateSpotLocationHelper from './MapCreateSpotLocation/MapCreateSpotLocationHelper';
+import MapCreateSpotMedia from './MapCreateSpotMedia';
+import MapCreateSpotRain from './MapCreateSpotRain';
+import MapCreateSpotType from './MapCreateSpotType';
 
 const MapCreateSpotForm = () => {
     const { handleSubmit, values, isSubmitting, isValid, dirty, setFieldValue } =
@@ -40,7 +40,7 @@ const MapCreateSpotForm = () => {
         return () => {
             map.off('click', onClick);
         };
-    }, [map, values.type]);
+    }, [map, values.type, setFieldValue]);
 
     useEffect(() => {
         let newSpotMaker: mapboxgl.Marker | null = null;
