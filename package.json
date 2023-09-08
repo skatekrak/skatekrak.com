@@ -62,7 +62,6 @@
     },
     "devDependencies": {
         "@babel/core": "^7.22.1",
-        "@types/axios": "^0.14.0",
         "@types/cors": "^2.8.13",
         "@types/jump.js": "^1.0.2",
         "@types/node": "^20.2.5",
