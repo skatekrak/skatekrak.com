@@ -184,7 +184,7 @@ const Header: React.FC = () => {
                         <HeaderProfile />
                     ) : (
                         <Link href="/auth/login" passHref>
-                            <S.SecondaryNavIcon as="a">
+                            <S.SecondaryNavIcon>
                                 <IconUserCircle />
                             </S.SecondaryNavIcon>
                         </Link>

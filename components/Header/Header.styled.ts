@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import Link from 'next/link';
 
 import KrakLogoHand from 'components/Ui/branding/KrakLogoHand';
 import Typography from 'components/Ui/typography/Typography';
@@ -26,7 +27,7 @@ export const TopContainer = styled.div`
     justify-content: space-between;
 `;
 
-export const LogoLink = styled.a`
+export const LogoLink = styled.span`
     display: flex;
 `;
 
@@ -70,7 +71,7 @@ export const SecondaryNav = styled.nav`
     margin-left: auto;
 `;
 
-export const SecondaryNavItem = styled.a`
+export const SecondaryNavItem = styled.span`
     margin-right: 1rem;
     padding: 0.75rem;
     font-family: ${({ theme }) => theme.typography.fonts.roboto.condensed.bold};
