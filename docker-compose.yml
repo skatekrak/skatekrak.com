@@ -1,8 +1,8 @@
 version: '3'
 services:
     skatekrak:
-        image: node:lts
-        command: bash -c "yarn install && yarn start:cmd:dev"
+        image: gplane/pnpm:8-node18
+        command: bash -c "pnpm install && pnpm start:cmd:dev"
         labels:
             - traefik.enable=true
             - traefik.http.routers.skatekrak.entrypoints=http,https
@@ -27,5 +27,5 @@ volumes:
 
 networks:
     default:
-        external:
-            name: docker
+        name: docker
+        external: true
