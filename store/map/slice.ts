@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { AnyAction } from 'redux';
 import { Types, Status, SpotOverview } from 'lib/carrelageClient';
 import { FilterState } from 'lib/FilterState';
 import { ViewState } from 'react-map-gl';
@@ -276,12 +277,11 @@ const mapSlice = createSlice({
             return state;
         },
     },
-    extraReducers: {
-        [HYDRATE]: (state, action) => {
-            const nextState: any = merge(state, action.payload.map);
-
+    extraReducers: (builder) => {
+        builder.addCase(HYDRATE, (state, action: AnyAction) => {
+            const nextState = merge(state, action.payload.map);
             return nextState;
-        },
+        });
     },
 });
 
