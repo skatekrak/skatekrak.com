@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import React from 'react';
 
-import { Marker, MapboxEvent } from 'react-map-gl';
+import { Marker, MarkerProps } from 'react-map-gl';
 
 import { Spot } from 'lib/carrelageClient';
 
@@ -33,7 +33,7 @@ const SpotMarker = ({ spot, isSelected, small = false }: SpotMarkerProps) => {
     const active = spot.mediasStat.all >= 10;
     const firing = spot.mediasStat.all >= 30;
 
-    const onMarkerClick = (event: MapboxEvent<Event>) => {
+    const onMarkerClick: MarkerProps['onClick'] = (event) => {
         event.originalEvent?.stopPropagation();
         if (!isCreateSpotOpen) {
             dispatch(selectSpot(spot.id));
