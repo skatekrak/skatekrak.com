@@ -16,7 +16,7 @@
         "build:style": "stylus -c public/styles -o public/dist && stylus -c public/styles/auth -o public/dist/auth && stylus -c public/styles/ui -o public/dist/ui && stylus -c public/styles/map -o public/dist/map"
     },
     "dependencies": {
-        "@floating-ui/react": "^0.24.2",
+        "@floating-ui/react": "^0.25.4",
         "@next/bundle-analyzer": "^13.4.4",
         "@reduxjs/toolkit": "^1.9.5",
         "@tanstack/react-query": "^4.29.12",
@@ -38,7 +38,7 @@
         "next-compose-plugins": "^2.2.1",
         "next-redux-wrapper": "^8.1.0",
         "query-string": "^8.1.0",
-        "radash": "^10.8.1",
+        "radash": "^11.0.0",
         "react": "18.2.0",
         "react-dom": "18.2.0",
         "react-dropzone": "^14.2.3",
@@ -55,7 +55,7 @@
         "remark": "^14.0.3",
         "remark-html": "^15.0.2",
         "simplebar-react": "^3.2.4",
-        "styled-components": "^5.3.11",
+        "styled-components": "^6.0.7",
         "typesafe-actions": "^5.1.0",
         "use-constant": "^1.1.1",
         "yup": "^1.2.0"
@@ -78,7 +78,7 @@
         "eslint-plugin-react": "^7.32.2",
         "eslint-plugin-react-hooks": "^4.6.0",
         "prettier": "^2.8.8",
-        "stylus": "^0.59.0",
+        "stylus": "^0.60.0",
         "typescript": "^5.0.4",
         "webpack": "^5.85.0"
     },
