@@ -2,7 +2,7 @@
  * Npm import
  */
 import React, { useState } from 'react';
-import { render } from 'react-dom';
+import { createRoot } from 'react-dom/client';
 
 /*
  * Local import
@@ -64,5 +64,6 @@ export function showConfirmation(props: Props) {
     const divTarget = document.createElement('div');
     divTarget.id = 'modal-confirmation';
     document.body.appendChild(divTarget);
-    render(<ModalConfirmation {...props} />, divTarget);
+    const modalRoot = createRoot(divTarget);
+    modalRoot.render(<ModalConfirmation {...props} />);
 }
