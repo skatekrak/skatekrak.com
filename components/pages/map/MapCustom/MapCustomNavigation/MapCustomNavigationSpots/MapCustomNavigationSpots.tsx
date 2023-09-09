@@ -33,7 +33,7 @@ const MapCustomNavigationSpots = ({ mapSpots, closeExtension }: Props) => {
         <Scrollbar maxHeight="22.25rem">
             <>
                 {mapSpots.map((spot: Spot) => (
-                    <MapSearchResultSpot<Spot> key={spot.id} spot={spot} onSpotClick={onSpotClick} />
+                    <MapSearchResultSpot key={spot.id} spot={spot} onSpotClick={onSpotClick} />
                 ))}
             </>
         </Scrollbar>

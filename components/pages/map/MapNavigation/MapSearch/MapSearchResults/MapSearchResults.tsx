@@ -37,7 +37,7 @@ const MapSearchResults: React.FC<MapSearchResultsProps> = ({ spots, loading, pla
             dispatch(selectSpot(spot.objectID));
             onClick();
         },
-        [dispatch, onClick],
+        [dispatch, onClick, map],
     );
 
     const onPlaceClick = useCallback(
@@ -51,7 +51,7 @@ const MapSearchResults: React.FC<MapSearchResultsProps> = ({ spots, loading, pla
             });
             onClick();
         },
-        [dispatch, onClick],
+        [onClick, map],
     );
 
     return (

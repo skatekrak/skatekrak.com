@@ -5,6 +5,15 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@algolia/client-common':
+    specifier: ^4.19.1
+    version: 4.19.1
+  '@algolia/client-search':
+    specifier: ^4.19.1
+    version: 4.19.1
+  '@algolia/transporter':
+    specifier: ^4.19.1
+    version: 4.19.1
   '@floating-ui/react':
     specifier: ^0.25.4
     version: 0.25.4(react-dom@18.2.0)(react@18.2.0)
@@ -110,6 +119,9 @@ dependencies:
   react-truncate:
     specifier: ^2.4.0
     version: 2.4.0(prop-types@15.8.1)(react@18.2.0)
+  redux:
+    specifier: ^4.2.1
+    version: 4.2.1
   redux-localstorage-simple:
     specifier: ^2.5.1
     version: 2.5.1
