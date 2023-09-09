@@ -46,7 +46,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     const places: Place[] = [];
 
     for (let i = 0; i < results.length; i++) {
-        const { geometry, place_id } = results[i].result;
+        const { geometry } = results[i].result;
         const placeName = placesName[i];
         places.push({
             ...placeName,

@@ -25,18 +25,6 @@ const Subscribe: NextPage = () => {
         refetchOnReconnect: false,
     });
 
-    const monthlyPrice = useMemo(() => {
-        if (checkoutSession == null) {
-            return '';
-        }
-
-        return new Intl.NumberFormat(undefined, {
-            style: 'currency',
-            currency: checkoutSession.currency,
-            minimumFractionDigits: 0,
-        }).format(5);
-    }, [checkoutSession]);
-
     const yearlyPrice = useMemo(() => {
         if (checkoutSession == null) {
             return '';

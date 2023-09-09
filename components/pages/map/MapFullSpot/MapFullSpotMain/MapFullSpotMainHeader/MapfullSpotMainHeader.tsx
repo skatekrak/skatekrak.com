@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 const MapfullSpotMainHeader = () => {
     const [isScrolled, setIsScrolled] = useState(false);
-    const [scrollBarMaxHeight, setScrollBarMaxHeight] = useState('100%');
+    const [, setScrollBarMaxHeight] = useState('100%');
     const scrollContainer = document.getElementsByClassName('simplebar-content-wrapper')[0];
     const headerElement = document.getElementById('map-full-spot-popup-main-header');
 

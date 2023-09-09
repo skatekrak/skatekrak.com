@@ -118,12 +118,6 @@ export default function FacebookLogin({
         };
     }
 
-    function componentWillReceiveProps(nextProps) {
-        if (isSdkLoaded && nextProps.autoLoad && !autoLoad) {
-            (window as any).FB.getLoginStatus(checkLoginAfterRefresh);
-        }
-    }
-
     function responseApi(authResponse) {
         (window as any).FB.api('/me', { locale: language, fields: fields }, (me) => {
             Object.assign(me, authResponse);

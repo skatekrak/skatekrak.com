@@ -34,7 +34,7 @@ export const uploadMedia = async (
     return res.data;
 };
 
-const uriToBlob = (uri: string): Promise<Blob> => {
+export const uriToBlob = (uri: string): Promise<Blob> => {
     return new Promise((resolve, reject) => {
         const xhr = new XMLHttpRequest();
         xhr.onerror = reject;

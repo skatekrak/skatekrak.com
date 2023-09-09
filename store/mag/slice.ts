@@ -1,5 +1,3 @@
-import { Source } from 'rss-feed';
-
 import { push, remove } from 'lib/immutable';
 
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';

@@ -1,5 +1,5 @@
 import { AxiosError } from 'axios';
-import { QueryFunctionContext, useQuery } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 
 import { boxSearchSpots, BoxSearchResult, BoxSearchType } from '../spots';
 

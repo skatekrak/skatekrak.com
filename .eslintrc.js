@@ -22,6 +22,7 @@ module.exports = {
         'react/display-name': 'warn',
         'react/no-unescaped-entities': ['error', { forbid: ['>', '}'] }],
         'react/react-in-jsx-scope': 'off',
+        '@typescript-eslint/no-explicit-any': 'warn',
     },
     settings: {
         react: {

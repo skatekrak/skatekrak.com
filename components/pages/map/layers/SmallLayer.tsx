@@ -3,7 +3,7 @@ import { Layer, MapLayerMouseEvent, useMap } from 'react-map-gl';
 import { Status, Types } from 'shared/feudartifice/types';
 import { useAppSelector } from 'store/hook';
 import { useTheme } from 'styled-components';
-import { ZOOM_DISPLAY_DOTS, ZOOM_DISPLAY_WARNING } from '../Map.constant';
+import { ZOOM_DISPLAY_DOTS } from '../Map.constant';
 
 /**
  * mapgl layer to display small pin representing the spot

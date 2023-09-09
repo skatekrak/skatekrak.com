@@ -1,4 +1,4 @@
-import { IContent, Media, Source } from 'rss-feed';
+import { IContent, Source } from 'rss-feed';
 
 export default class Content implements IContent {
     public id: string;
