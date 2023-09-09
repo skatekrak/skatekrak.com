@@ -9,11 +9,14 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v3
+            - uses: pnpm/action-setup@v2
+              with:
+                  version: latest
             - uses: actions/setup-node@v2
               with:
                   node-version: 18
                   cache: pnpm
-            - run: pnpm install
+            - run: pnpm install --frozen-lockfile
             - run: pnpm lint
             - uses: amondnet/vercel-action@v25
               with:
