@@ -28,7 +28,7 @@ const Header: React.FC = () => {
     return (
         <S.Container>
             <S.TopContainer>
-                <Link href="/" passHref>
+                <Link href="/">
                     <S.LogoLink>
                         <S.KrakLogo title="Home page" />
                     </S.LogoLink>
@@ -114,59 +114,66 @@ const Header: React.FC = () => {
                             <S.ThreeDotMenu>
                                 {isMobile && (
                                     <>
-                                        <Link href={PATH_MEMBERSHIP} passHref>
-                                            <S.ThreeDotMenuItem>
-                                                <Typography as="span" component="body1">
-                                                    Membership
-                                                </Typography>
-                                            </S.ThreeDotMenuItem>
-                                        </Link>
-                                        <Link href={PATH_CALL_TO_ADVENTURE} passHref>
-                                            <S.ThreeDotMenuItem>
-                                                <Typography as="span" component="body1">
-                                                    Call to Adventure
-                                                </Typography>
-                                            </S.ThreeDotMenuItem>
-                                        </Link>
+                                        <S.ThreeDotMenuItem href={PATH_MEMBERSHIP}>
+                                            <Typography as="span" component="body1">
+                                                Membership
+                                            </Typography>
+                                        </S.ThreeDotMenuItem>
+
+                                        <S.ThreeDotMenuItem href={PATH_CALL_TO_ADVENTURE}>
+                                            <Typography as="span" component="body1">
+                                                Call to Adventure
+                                            </Typography>
+                                        </S.ThreeDotMenuItem>
                                     </>
                                 )}
-                                <Link href="/mag" passHref>
-                                    <S.ThreeDotMenuItem>
-                                        <Typography as="span" component="body1">
-                                            Mag
-                                        </Typography>
-                                    </S.ThreeDotMenuItem>
-                                </Link>
-                                <Link href="/video" passHref>
-                                    <S.ThreeDotMenuItem>
-                                        <Typography as="span" component="body1">
-                                            Video
-                                        </Typography>
-                                    </S.ThreeDotMenuItem>
-                                </Link>
-                                <Link href="/news" passHref>
-                                    <S.ThreeDotMenuItem href="#">
-                                        <Typography as="span" component="body1">
-                                            News
-                                        </Typography>
-                                    </S.ThreeDotMenuItem>
-                                </Link>
+
+                                <S.ThreeDotMenuItem href="/mag">
+                                    <Typography as="span" component="body1">
+                                        Mag
+                                    </Typography>
+                                </S.ThreeDotMenuItem>
+
+                                <S.ThreeDotMenuItem href="/video">
+                                    <Typography as="span" component="body1">
+                                        Video
+                                    </Typography>
+                                </S.ThreeDotMenuItem>
+
+                                <S.ThreeDotMenuItem href="/news">
+                                    <Typography as="span" component="body1">
+                                        News
+                                    </Typography>
+                                </S.ThreeDotMenuItem>
+
                                 {isMobile && (
                                     <S.ThreeDotMenuSocialContainer>
-                                        <Link href="https://www.twitter.com/skatekrak" passHref>
-                                            <S.SecondaryNavSocialIcon as="a" target="_blank" rel="noopener noreferrer">
+                                        <Link
+                                            href="https://www.twitter.com/skatekrak"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            <S.SecondaryNavSocialIcon>
                                                 <IconTwitter />
                                             </S.SecondaryNavSocialIcon>
                                         </Link>
                                         <S.SecondaryNavIconSeparator />
-                                        <Link href="https://www.youtube.com/krakskate" passHref>
-                                            <S.SecondaryNavSocialIcon as="a" target="_blank" rel="noopener noreferrer">
+                                        <Link
+                                            href="https://www.youtube.com/krakskate"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            <S.SecondaryNavSocialIcon>
                                                 <IconYoutubeMonochrome />
                                             </S.SecondaryNavSocialIcon>
                                         </Link>
                                         <S.SecondaryNavIconSeparator />
-                                        <Link href="https://www.instagram.com/skate_krak" passHref>
-                                            <S.SecondaryNavSocialIcon as="a" target="_blank" rel="noopener noreferrer">
+                                        <Link
+                                            href="https://www.instagram.com/skate_krak"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            <S.SecondaryNavSocialIcon>
                                                 <IconInstagram />
                                             </S.SecondaryNavSocialIcon>
                                         </Link>
@@ -183,7 +190,7 @@ const Header: React.FC = () => {
                     {isConnected ? (
                         <HeaderProfile />
                     ) : (
-                        <Link href="/auth/login" passHref>
+                        <Link href="/auth/login">
                             <S.SecondaryNavIcon>
                                 <IconUserCircle />
                             </S.SecondaryNavIcon>

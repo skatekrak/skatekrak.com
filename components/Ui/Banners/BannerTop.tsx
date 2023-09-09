@@ -53,8 +53,8 @@ class BannerTop extends React.Component<Props> {
 
     public render() {
         return (
-            <Link href={this.props.link}>
-                <a id="banner-top">{this.props.text}</a>
+            <Link id="banner-top" href={this.props.link}>
+                {this.props.text}
             </Link>
         );
     }

@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import media from 'styles/media';
 import Typography from 'components/Ui/typography/Typography';
 import IconLike from 'components/Ui/Icons/IconLike';
+import Link from 'next/link';
 
 export const AuthPageContainer = styled.div`
     flex-grow: 1;
@@ -124,7 +125,7 @@ export const AuthSubmitError = styled(Typography)`
     color: ${({ theme }) => theme.color.system.error};
 `;
 
-export const AuthButtonPrimaryLink = styled.a`
+export const AuthButtonPrimaryLink = styled(Link)`
     display: inline-flex;
     align-items: center;
     justify-content: center;

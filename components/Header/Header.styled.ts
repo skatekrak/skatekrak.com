@@ -142,7 +142,7 @@ type ThreeDotMenuItemProps = {
     disabled?: boolean;
 };
 
-export const ThreeDotMenuItem = styled.a<ThreeDotMenuItemProps>`
+export const ThreeDotMenuItem = styled(Link)<ThreeDotMenuItemProps>`
     display: block;
     padding: 0.5rem 1rem;
     ${({ theme, disabled }) =>

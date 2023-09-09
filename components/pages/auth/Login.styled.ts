@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 import ButtonPrimary from 'components/Ui/Button/ButtonPrimary';
+import Link from 'next/link';
 
 export const LoginRememberForgotContainer = styled.div`
     display: flex;
@@ -47,7 +48,7 @@ export const LoginRememberMe = styled.label`
     }
 `;
 
-export const LoginForgotLink = styled.a`
+export const LoginForgotLink = styled(Link)`
     text-decoration: underline;
     cursor: pointer;
 `;

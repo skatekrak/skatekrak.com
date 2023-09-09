@@ -84,11 +84,10 @@ const Login: NextPage = () => {
                                             Remember me
                                         </Typography>
                                     </SL.LoginRememberMe>
-                                    <Link href="/auth/forgot-password">
-                                        <SL.LoginForgotLink>
-                                            <Typography component="body2">Forgot your password?</Typography>
-                                        </SL.LoginForgotLink>
-                                    </Link>
+
+                                    <SL.LoginForgotLink href="/auth/forgot-password">
+                                        <Typography component="body2">Forgot your password?</Typography>
+                                    </SL.LoginForgotLink>
                                 </SL.LoginRememberForgotContainer>
 
                                 {/* Submit */}
@@ -127,11 +126,10 @@ const Login: NextPage = () => {
                                         Sign up to access all the skatespot map features, some custom maps, and our
                                         private discord server.
                                     </Typography>
-                                    <Link href="/auth/signup" passHref>
-                                        <S.AuthButtonPrimaryLink>
-                                            <Typography component="button">Create my account</Typography>
-                                        </S.AuthButtonPrimaryLink>
-                                    </Link>
+
+                                    <S.AuthButtonPrimaryLink href="/auth/signup">
+                                        <Typography component="button">Create my account</Typography>
+                                    </S.AuthButtonPrimaryLink>
                                 </SL.LoginSignupContainer>
                             </form>
                         )}

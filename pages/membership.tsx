@@ -56,9 +56,7 @@ const Membership = () => {
                         <Typography>
                             Still have some doubts and questions? If you need to dig more into what this is all about,
                             pour you a drink, sit down, and enjoy our{' '}
-                            <Link href={PATH_CALL_TO_ADVENTURE}>
-                                <a>Call-to-Adventure</a>
-                            </Link>
+                            <Link href={PATH_CALL_TO_ADVENTURE}>Call-to-Adventure</Link>
                             .
                             <br />
                             <br />

@@ -25,10 +25,8 @@ const Membership = () => {
                             <br />
                             <br />
                             We’ll contact you on the email you used for the checkout. Meanwhile, feel free to jump on{' '}
-                            <Link href="https://discord.gg/exMAqSuVfj">
-                                <a target="_blank" rel="noopener noreferrer">
-                                    Discord{' '}
-                                </a>
+                            <Link href="https://discord.gg/exMAqSuVfj" target="_blank" rel="noopener noreferrer">
+                                Discord{' '}
                             </Link>
                             and say hi.
                             <br />

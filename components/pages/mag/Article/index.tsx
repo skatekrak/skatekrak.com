@@ -32,17 +32,11 @@ const Article = (rawProps: Props) => {
     return (
         <article id="mag-article">
             <Link href="/mag">
-                <a>
-                    <img
-                        src="https://res.skatekrak.com/static/krakmag_logo.png"
-                        alt="Krak mag"
-                        className="krakmag-logo"
-                    />
-                </a>
+                <img src="https://res.skatekrak.com/static/krakmag_logo.png" alt="Krak mag" className="krakmag-logo" />
             </Link>
             <div id="mag-article-actions">
-                <Link href="/mag">
-                    <a id="mag-article-back">Back to the mag</a>
+                <Link id="mag-article-back" href="/mag">
+                    Back to the mag
                 </Link>
                 <div id="mag-article-share">
                     <span id="mag-article-share-text">Share on:</span>

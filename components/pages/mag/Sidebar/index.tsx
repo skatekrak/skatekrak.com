@@ -13,13 +13,7 @@ const Sidebar = ({ sidebarNavIsOpen, handleOpenSidebarNav }: Props) => (
         <div className="feed-sidebar-header">
             <h2 className="feed-sidebar-header-title">Krak mag</h2>
             <Link href="/mag">
-                <a>
-                    <img
-                        src="https://res.skatekrak.com/static/krakmag_logo.png"
-                        alt="Krak mag"
-                        className="krakmag-logo"
-                    />
-                </a>
+                <img src="https://res.skatekrak.com/static/krakmag_logo.png" alt="Krak mag" className="krakmag-logo" />
             </Link>
         </div>
         <Nav sidebarNavIsOpen={sidebarNavIsOpen} handleOpenSidebarNav={handleOpenSidebarNav} />

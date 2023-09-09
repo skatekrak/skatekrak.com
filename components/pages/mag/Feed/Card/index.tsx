@@ -16,20 +16,18 @@ const Card = ({ post }: Props) => {
 
     return (
         <>
-            <Link href={`/mag/${post.slug}`}>
-                <a className="mag-card-link">
-                    <div className="mag-card-cover-img-container">
-                        <div
-                            className="mag-card-cover-img"
-                            style={{
-                                backgroundImage: `url("${post.featuredImages[0].source_url.replace(
-                                    'upload/mag',
-                                    '/upload/w_800/mag',
-                                )}")`,
-                            }}
-                        />
-                    </div>
-                </a>
+            <Link href={`/mag/${post.slug}`} className="mag-card-link">
+                <div className="mag-card-cover-img-container">
+                    <div
+                        className="mag-card-cover-img"
+                        style={{
+                            backgroundImage: `url("${post.featuredImages[0].source_url.replace(
+                                'upload/mag',
+                                '/upload/w_800/mag',
+                            )}")`,
+                        }}
+                    />
+                </div>
             </Link>
             <div className="mag-card-share">
                 <SocialShare
@@ -40,10 +38,8 @@ const Card = ({ post }: Props) => {
             </div>
             <div className="mag-card-details">
                 <p className="mag-card-details-category">{post.categories.join(', ')}</p>
-                <Link href={`/mag?slug=${post.slug}`} as={`/mag/${post.slug}`}>
-                    <a className="mag-card-details-link">
-                        <h2 className="mag-card-details-title" dangerouslySetInnerHTML={createMarkup(post.title)} />
-                    </a>
+                <Link href={`/mag?slug=${post.slug}`} as={`/mag/${post.slug}`} className="mag-card-details-link">
+                    <h2 className="mag-card-details-title" dangerouslySetInnerHTML={createMarkup(post.title)} />
                 </Link>
             </div>
         </>
