@@ -15,23 +15,21 @@ const Category = ({ isSelected, faded, src, tooltipText, panelContent }: Props) 
     const [isOpen, setIsOpen] = useState(false);
 
     return (
-        <>
-            <Tippy
-                visible={isOpen}
-                onClickOutside={() => setIsOpen(!isOpen)}
-                interactive
-                render={() => <Panel isOpen={isOpen}>{panelContent(() => setIsOpen(false))}</Panel>}
-            >
-                <ToggleButton
-                    isOpen={isOpen}
-                    onClick={() => setIsOpen(!isOpen)}
-                    selected={isSelected}
-                    faded={faded}
-                    src={src}
-                    tooltipText={tooltipText}
-                />
-            </Tippy>
-        </>
+        <Tippy
+            visible={isOpen}
+            onClickOutside={() => setIsOpen(!isOpen)}
+            interactive
+            render={() => <Panel isOpen={isOpen}>{panelContent(() => setIsOpen(false))}</Panel>}
+        >
+            <ToggleButton
+                isOpen={isOpen}
+                onClick={() => setIsOpen(!isOpen)}
+                selected={isSelected}
+                faded={faded}
+                src={src}
+                tooltipText={tooltipText}
+            />
+        </Tippy>
     );
 };
 
