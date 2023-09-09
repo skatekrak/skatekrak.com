@@ -45,6 +45,7 @@ const Map: React.FC<MapProps> = ({ map, onClick }) => {
                     faded={false}
                     size="3rem"
                     src={`/images/map/custom-maps/${map.id}.png`}
+                    alt={map.name}
                 />
                 <S.MapName component="condensedSubtitle1" truncateLines={1}>
                     {map.name}

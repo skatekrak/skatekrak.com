@@ -23,6 +23,7 @@ const Pin = ({ imageName }: { imageName: string }) => {
         <img
             src={`/images/map/icons/${imageName}.png`}
             srcSet={`/images/map/icons/${imageName}@2x.png 2x,/images/map/icons/${imageName}.png 1x`}
+            alt={`${imageName} pin`}
         />
     );
 };
