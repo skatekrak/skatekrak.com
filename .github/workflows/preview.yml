@@ -2,19 +2,19 @@
 name: Deploy preview
 on: [pull_request, workflow_dispatch]
 env:
-  NEXT_PUBLIC_BUGSNAG_KEY: ${{ secrets.NEXT_PUBLIC_BUGSNAG_KEY }}
+    NEXT_PUBLIC_BUGSNAG_KEY: ${{ secrets.NEXT_PUBLIC_BUGSNAG_KEY }}
 jobs:
-  preview:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 18
-          cache: yarn
-      - run: yarn install
-      - uses: amondnet/vercel-action@v25
-        with:
-          vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
-          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+    preview:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
+            - uses: actions/setup-node@v3
+              with:
+                  node-version: 18
+                  cache: pnpm
+            - run: pnpm install
+            - uses: amondnet/vercel-action@v25
+              with:
+                  vercel-token: ${{ secrets.VERCEL_TOKEN }}
+                  vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+                  vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}

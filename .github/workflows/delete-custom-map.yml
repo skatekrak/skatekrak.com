@@ -18,7 +18,7 @@ jobs:
             - uses: actions/setup-node@v2
               with:
                   node-version: 18
-                  cache: yarn
+                  cache: pnpm
             - name: Delete spots
               run: rm ./data/customMaps/${{ inputs.tag }}.json
             - name: Delete map data
@@ -31,8 +31,8 @@ jobs:
                   add: "['./data/customMaps/${{ inputs.tag }}.json', './data/customMaps/_spots.json']"
                   default_author: user_info
                   message: 'feat: Map deleted'
-            - run: yarn install
-            - run: yarn lint
+            - run: pnpm install
+            - run: pnpm lint
             - name: Deploying to Vercel
               uses: amondnet/vercel-action@v25
               with:

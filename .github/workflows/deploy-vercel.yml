@@ -12,9 +12,9 @@ jobs:
             - uses: actions/setup-node@v2
               with:
                   node-version: 18
-                  cache: yarn
-            - run: yarn install
-            - run: yarn lint
+                  cache: pnpm
+            - run: pnpm install
+            - run: pnpm lint
             - uses: amondnet/vercel-action@v25
               with:
                   vercel-token: ${{ secrets.VERCEL_TOKEN }}
