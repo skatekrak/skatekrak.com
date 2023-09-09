@@ -866,7 +866,7 @@
   {
     "id": "theskateparkproject",
     "categories": [
-      "maps"
+      "skatepark"
     ],
     "name": "The Skatepark Project",
     "subtitle": "Thank You Tony Hawk!",
@@ -970,6 +970,17 @@
       "magazine"
     ],
     "name": "The Skateboard Mag March 2014",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": []
+  },
+  {
+    "id": "andrewreynolds",
+    "categories": [
+      "skater"
+    ],
+    "name": "Andrew Reynolds",
     "subtitle": "",
     "edito": "",
     "about": "",
