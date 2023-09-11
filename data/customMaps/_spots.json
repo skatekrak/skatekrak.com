@@ -1073,5 +1073,16 @@
     "edito": "",
     "about": "",
     "videos": []
+  },
+  {
+    "id": "soma02",
+    "categories": [
+      "magazine"
+    ],
+    "name": "Soma 02",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": []
   }
 ]
