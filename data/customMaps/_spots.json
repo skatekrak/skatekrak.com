@@ -1018,5 +1018,16 @@
     "edito": "",
     "about": "",
     "videos": []
+  },
+  {
+    "id": "twsmag",
+    "categories": [
+      "magazine"
+    ],
+    "name": "Transworld Magazine",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": []
   }
 ]
