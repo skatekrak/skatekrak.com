@@ -1161,5 +1161,16 @@
     "edito": "",
     "about": "",
     "videos": []
+  },
+  {
+    "id": "daveswift",
+    "categories": [
+      "filmer"
+    ],
+    "name": "Dave Swift",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": []
   }
 ]
