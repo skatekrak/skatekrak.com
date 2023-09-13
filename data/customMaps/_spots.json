@@ -1172,5 +1172,16 @@
     "edito": "",
     "about": "",
     "videos": []
+  },
+  {
+    "id": "danwolfe",
+    "categories": [
+      "filmer"
+    ],
+    "name": "Dan Wolfe",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": []
   }
 ]
