@@ -1194,5 +1194,16 @@
     "edito": "",
     "about": "",
     "videos": []
+  },
+  {
+    "id": "tyevans",
+    "categories": [
+      "filmer"
+    ],
+    "name": "Ty Evans",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": []
   }
 ]
