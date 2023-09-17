@@ -1205,5 +1205,16 @@
     "edito": "",
     "about": "",
     "videos": []
+  },
+  {
+    "id": "williamstrobeck",
+    "categories": [
+      "filmer"
+    ],
+    "name": "William Strobeck",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": []
   }
 ]
