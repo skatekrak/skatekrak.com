@@ -1227,5 +1227,16 @@
     "edito": "",
     "about": "",
     "videos": []
+  },
+  {
+    "id": "benchadourne",
+    "categories": [
+      "filmer"
+    ],
+    "name": "Ben Chadourne",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": []
   }
 ]
