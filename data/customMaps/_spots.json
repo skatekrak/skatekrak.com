@@ -1216,5 +1216,16 @@
     "edito": "",
     "about": "",
     "videos": []
+  },
+  {
+    "id": "torstenfrank",
+    "categories": [
+      "filmer"
+    ],
+    "name": "Torsten Frank",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": []
   }
 ]
