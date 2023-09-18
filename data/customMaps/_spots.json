@@ -1249,5 +1249,16 @@
     "edito": "",
     "about": "A video by William Strobeck for Supreme",
     "videos": []
+  },
+  {
+    "id": "harrybilliet",
+    "categories": [
+      "filmer"
+    ],
+    "name": "Harry Billiet",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": []
   }
 ]
