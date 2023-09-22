@@ -1295,5 +1295,16 @@
     "videos": [
       "https://www.youtube.com/watch?v=VR5ubkLezwU"
     ]
+  },
+  {
+    "id": "giovannireda",
+    "categories": [
+      "photographer"
+    ],
+    "name": "Giovanni Reda",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": []
   }
 ]
