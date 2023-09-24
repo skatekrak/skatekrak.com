@@ -1306,5 +1306,16 @@
     "edito": "",
     "about": "",
     "videos": []
+  },
+  {
+    "id": "beagle",
+    "categories": [
+      "filmer"
+    ],
+    "name": "Ryan 'Beagle' Ewing",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": []
   }
 ]
