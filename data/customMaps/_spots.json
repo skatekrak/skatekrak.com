@@ -1361,5 +1361,16 @@
     "edito": "",
     "about": "",
     "videos": []
+  },
+  {
+    "id": "olympicgames",
+    "categories": [
+      "maps"
+    ],
+    "name": "Olympic Games",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": []
   }
 ]
