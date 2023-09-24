@@ -1350,5 +1350,16 @@
     "edito": "",
     "about": "",
     "videos": []
+  },
+  {
+    "id": "xgames",
+    "categories": [
+      "maps"
+    ],
+    "name": "X Games",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": []
   }
 ]
