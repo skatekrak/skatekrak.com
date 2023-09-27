@@ -1387,5 +1387,18 @@
       "https://www.youtube.com/watch?v=dl4AHRx-tFI",
       "https://www.youtube.com/watch?v=tjMA3bBMUFA"
     ]
+  },
+  {
+    "id": "kenparkskateboardingparkreview",
+    "categories": [
+      "skatepark"
+    ],
+    "name": "Ken Park Skateboarding Park Review",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/playlist?list=PLpLXPv49JbzPtKOu3OAJsjdVj4-_ria34"
+    ]
   }
 ]
