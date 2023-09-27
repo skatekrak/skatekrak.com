@@ -1372,5 +1372,20 @@
     "edito": "",
     "about": "",
     "videos": []
+  },
+  {
+    "id": "briannybergparkreview",
+    "categories": [
+      "skatepark"
+    ],
+    "name": "Brian Nyberg Park Review",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=VS6RwJGEf30",
+      "https://www.youtube.com/watch?v=dl4AHRx-tFI",
+      "https://www.youtube.com/watch?v=tjMA3bBMUFA"
+    ]
   }
 ]
