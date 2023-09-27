@@ -1414,5 +1414,19 @@
       "https://www.youtube.com/watch?v=AaohPLjd9eM",
       "https://www.youtube.com/watch?v=VYskHE-Obtw"
     ]
+  },
+  {
+    "id": "sk8r4tparkreview",
+    "categories": [
+      "skatepark"
+    ],
+    "name": "SK8R4T Park Review",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=OWLf6KdkpUM",
+      "https://www.youtube.com/watch?v=vr2nMx9prow"
+    ]
   }
 ]
