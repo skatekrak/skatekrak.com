@@ -1428,5 +1428,18 @@
       "https://www.youtube.com/watch?v=OWLf6KdkpUM",
       "https://www.youtube.com/watch?v=vr2nMx9prow"
     ]
+  },
+  {
+    "id": "sensenvideosparkreview",
+    "categories": [
+      "skatepark"
+    ],
+    "name": "SenSenVideos Park Review",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/playlist?list=PLYRxmuQMJbtsViJNw6YqUZqO3TdmYsO5i"
+    ]
   }
 ]
