@@ -1441,5 +1441,18 @@
     "videos": [
       "https://www.youtube.com/playlist?list=PLYRxmuQMJbtsViJNw6YqUZqO3TdmYsO5i"
     ]
+  },
+  {
+    "id": "skatevibesparkreview",
+    "categories": [
+      "skatepark"
+    ],
+    "name": "Skate Vibes Park Review",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/playlist?list=PLPVYT8GIq-RSfGOytCIRTad3UDAV41nKd"
+    ]
   }
 ]
