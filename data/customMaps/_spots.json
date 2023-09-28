@@ -1454,5 +1454,16 @@
     "videos": [
       "https://www.youtube.com/playlist?list=PLPVYT8GIq-RSfGOytCIRTad3UDAV41nKd"
     ]
+  },
+  {
+    "id": "skateboardermag",
+    "categories": [
+      "magazine"
+    ],
+    "name": "Skateboarder Magazine",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": []
   }
 ]
