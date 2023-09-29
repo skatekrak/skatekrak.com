@@ -1517,5 +1517,18 @@
     "videos": [
       "https://www.youtube.com/playlist?list=PLp0mqZ_10rUvaXBEjy_XaCPYGL3nyEaU6"
     ]
+  },
+  {
+    "id": "parksharksparkreview",
+    "categories": [
+      "skatepark"
+    ],
+    "name": "Park Sharks Park Review",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/playlist?list=PLSi_BbhGF2DofvrY6gzrt4FsLOQUfpkV0"
+    ]
   }
 ]
