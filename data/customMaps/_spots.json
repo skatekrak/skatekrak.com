@@ -1504,5 +1504,18 @@
     "videos": [
       "https://www.youtube.com/playlist?list=PLJ0OeefADN3Pe-VasFYBx3uDDnW4QCZbz"
     ]
+  },
+  {
+    "id": "leonpaxtonparkreview",
+    "categories": [
+      "skatepark"
+    ],
+    "name": "Leon Paxton Park Review",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/playlist?list=PLp0mqZ_10rUvaXBEjy_XaCPYGL3nyEaU6"
+    ]
   }
 ]
