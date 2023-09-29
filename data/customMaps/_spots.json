@@ -1530,5 +1530,18 @@
     "videos": [
       "https://www.youtube.com/playlist?list=PLSi_BbhGF2DofvrY6gzrt4FsLOQUfpkV0"
     ]
+  },
+  {
+    "id": "mikeduffygangparkreview",
+    "categories": [
+      "skatepark"
+    ],
+    "name": "Mike Duffy Gang Park Review",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/playlist?list=PLoko6KbAajkFYOZkHXM0Mr-NFHm5YRsEd"
+    ]
   }
 ]
