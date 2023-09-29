@@ -1478,5 +1478,18 @@
     "videos": [
       "https://www.youtube.com/playlist?list=PL0rY3LCxt21EaGb2CbJkWw8zjTLmB0IIa"
     ]
+  },
+  {
+    "id": "skateintelparkreview",
+    "categories": [
+      "skatepark"
+    ],
+    "name": "SkateIntel Park Review",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/playlist?list=PL0rY3LCxt21HBleLyJ508cF9Wg94t3clS"
+    ]
   }
 ]
