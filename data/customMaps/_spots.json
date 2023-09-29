@@ -1465,5 +1465,18 @@
     "edito": "",
     "about": "",
     "videos": []
+  },
+  {
+    "id": "skateintel",
+    "categories": [
+      "maps"
+    ],
+    "name": "SkateIntel Street Spot Locations",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/playlist?list=PL0rY3LCxt21EaGb2CbJkWw8zjTLmB0IIa"
+    ]
   }
 ]
