@@ -1572,5 +1572,25 @@
     "videos": [
       "https://www.youtube.com/watch?v=i0GXj5pFpLU"
     ]
+  },
+  {
+    "id": "marcjohnson",
+    "categories": [
+      "skater"
+    ],
+    "name": "Marc Johnson",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=ElSnZIN9xDM",
+      "https://www.youtube.com/watch?v=cyn0DVSn96I",
+      "https://www.youtube.com/watch?v=HfQbG4GUQFs",
+      "https://www.youtube.com/watch?v=n3f3BQLpnwU",
+      "https://www.youtube.com/watch?v=FrfN4IQdy6o",
+      "https://www.youtube.com/watch?v=AIj8NoLIYlQ",
+      "https://www.youtube.com/watch?v=nc0UKS8vrDQ",
+      ""
+    ]
   }
 ]
