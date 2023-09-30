@@ -1608,5 +1608,18 @@
       "https://www.youtube.com/watch?v=4FihxpxYJVs",
       "https://www.youtube.com/watch?v=chPz0alsicY"
     ]
+  },
+  {
+    "id": "skatemore",
+    "categories": [
+      "video"
+    ],
+    "name": "DVS 'Skate More'",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=XAcH6nxgfrk"
+    ]
   }
 ]
