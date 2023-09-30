@@ -1592,5 +1592,21 @@
       "https://www.youtube.com/watch?v=nc0UKS8vrDQ",
       ""
     ]
+  },
+  {
+    "id": "brianwenning",
+    "categories": [
+      "skater"
+    ],
+    "name": "Brian Wenning",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=9qGiOrOLmPI",
+      "https://www.youtube.com/watch?v=Z3g8_jtH610",
+      "https://www.youtube.com/watch?v=4FihxpxYJVs",
+      "https://www.youtube.com/watch?v=chPz0alsicY"
+    ]
   }
 ]
