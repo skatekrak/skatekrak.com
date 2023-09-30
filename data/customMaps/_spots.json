@@ -1621,5 +1621,18 @@
     "videos": [
       "https://www.youtube.com/watch?v=XAcH6nxgfrk"
     ]
+  },
+  {
+    "id": "yeahright",
+    "categories": [
+      "video"
+    ],
+    "name": "Girl 'Yeah Right'",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=iXxbaM-uPSw"
+    ]
   }
 ]
