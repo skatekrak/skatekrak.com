@@ -1673,5 +1673,18 @@
     "videos": [
       "https://www.youtube.com/watch?v=pV98sz8px8I"
     ]
+  },
+  {
+    "id": "mindfield",
+    "categories": [
+      "video"
+    ],
+    "name": "Alien Workshop 'Mind Field'",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=05CUa22lBts"
+    ]
   }
 ]
