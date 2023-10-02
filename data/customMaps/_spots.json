@@ -1686,5 +1686,18 @@
     "videos": [
       "https://www.youtube.com/watch?v=05CUa22lBts"
     ]
+  },
+  {
+    "id": "staygold",
+    "categories": [
+      "video"
+    ],
+    "name": "Emerica 'Stay Gold'",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=e_fKdC9l15g"
+    ]
   }
 ]
