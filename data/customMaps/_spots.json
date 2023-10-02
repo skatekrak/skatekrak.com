@@ -1634,5 +1634,18 @@
     "videos": [
       "https://www.youtube.com/watch?v=iXxbaM-uPSw"
     ]
+  },
+  {
+    "id": "thedcvideo",
+    "categories": [
+      "video"
+    ],
+    "name": "DC Shoes 'The DC Video'",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=KZMkUMqDEyU"
+    ]
   }
 ]
