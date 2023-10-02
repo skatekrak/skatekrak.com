@@ -1699,5 +1699,18 @@
     "videos": [
       "https://www.youtube.com/watch?v=e_fKdC9l15g"
     ]
+  },
+  {
+    "id": "baker3",
+    "categories": [
+      "video"
+    ],
+    "name": "Baker 3",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=cNuz7R5Ag4o"
+    ]
   }
 ]
