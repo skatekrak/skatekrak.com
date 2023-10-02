@@ -1647,5 +1647,18 @@
     "videos": [
       "https://www.youtube.com/watch?v=KZMkUMqDEyU"
     ]
+  },
+  {
+    "id": "sorry",
+    "categories": [
+      "video"
+    ],
+    "name": "Flip 'Sorry'",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=6JrRJ4ZCdLQ"
+    ]
   }
 ]
