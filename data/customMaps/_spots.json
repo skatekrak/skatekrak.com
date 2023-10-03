@@ -1850,5 +1850,18 @@
     "videos": [
       "https://www.youtube.com/watch?v=aI2-_k3nTUM"
     ]
+  },
+  {
+    "id": "menikmati",
+    "categories": [
+      "video"
+    ],
+    "name": "és 'Menikmati'",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=xzZz-qdT_7E"
+    ]
   }
 ]
