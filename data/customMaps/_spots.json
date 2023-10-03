@@ -1837,5 +1837,18 @@
       "https://www.youtube.com/watch?v=05gZufEpvG0",
       "https://www.youtube.com/watch?v=0zIVTDbve7k"
     ]
+  },
+  {
+    "id": "inbloom",
+    "categories": [
+      "video"
+    ],
+    "name": "Transworld 'In Bloom'",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=aI2-_k3nTUM"
+    ]
   }
 ]
