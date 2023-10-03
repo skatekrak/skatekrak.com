@@ -1863,5 +1863,16 @@
     "videos": [
       "https://www.youtube.com/watch?v=xzZz-qdT_7E"
     ]
+  },
+  {
+    "id": "vertramps",
+    "categories": [
+      "skatepark"
+    ],
+    "name": "Vert Ramps",
+    "subtitle": "",
+    "edito": "",
+    "about": "We are here trying to gather all the vert ramps in one map!",
+    "videos": []
   }
 ]
