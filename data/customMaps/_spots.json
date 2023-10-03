@@ -1725,5 +1725,18 @@
     "videos": [
       "https://www.youtube.com/watch?v=mY7KcLGD2PY"
     ]
+  },
+  {
+    "id": "thatslife",
+    "categories": [
+      "video"
+    ],
+    "name": "Foundation 'That's Life'",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=Xxt2LNTAUhk"
+    ]
   }
 ]
