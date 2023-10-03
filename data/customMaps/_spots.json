@@ -1795,5 +1795,20 @@
       "https://www.youtube.com/watch?v=YfMpqDUAOZA",
       ""
     ]
+  },
+  {
+    "id": "stoempskateshop",
+    "categories": [
+      "maps"
+    ],
+    "name": "Stoemp Skateshop",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=77AYDmnhCAA",
+      "https://www.youtube.com/watch?v=oo2-oA1z1x0",
+      "https://www.youtube.com/watch?v=-whktNCI1J0"
+    ]
   }
 ]
