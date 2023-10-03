@@ -1874,5 +1874,18 @@
     "edito": "",
     "about": "We are here trying to gather all the vert ramps in one map!",
     "videos": []
+  },
+  {
+    "id": "photosynthesis",
+    "categories": [
+      "video"
+    ],
+    "name": "Alien Workshop 'Photosynthesis'",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=JuvffUx4os4"
+    ]
   }
 ]
