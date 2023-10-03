@@ -1777,5 +1777,23 @@
       "https://www.youtube.com/watch?v=Kxjc-_7yQTI",
       "https://www.youtube.com/watch?v=-v5MGiUTDSo"
     ]
+  },
+  {
+    "id": "bluetomato",
+    "categories": [
+      "maps"
+    ],
+    "name": "Blue Tomato Skateshop",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=KJTJFtCGfPI",
+      "https://www.youtube.com/watch?v=lx-BC_E2MlU",
+      "https://www.youtube.com/watch?v=a_qXmq9I0ms",
+      "https://www.youtube.com/watch?v=yrPqwCcrjQc",
+      "https://www.youtube.com/watch?v=YfMpqDUAOZA",
+      ""
+    ]
   }
 ]
