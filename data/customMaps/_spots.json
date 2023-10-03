@@ -1738,5 +1738,24 @@
     "videos": [
       "https://www.youtube.com/watch?v=Xxt2LNTAUhk"
     ]
+  },
+  {
+    "id": "budskateshop",
+    "categories": [
+      "maps"
+    ],
+    "name": "Bud Skateshop",
+    "subtitle": "",
+    "edito": "",
+    "about": "L'histoire commence en 1997, lorsque Florian Rivières, activiste du skateboard associatif du Sud de la France décide d'ouvrir un shop à Rouen afin de vivre de sa passion. Dès le début, des riders, qui se déplacent sur tous les spots de la région, sont intégrés dans le team. Il a toujours été dans la logique du shop de soutenir le skateboard local, avec des skaters qui véhiculent une image qui correspond à leur vision du skate : la créativité, la technique, le style et avant tout se faire plaisir.  Certains sont assez réputés pour s'être trouvé des sponsors supplémentaires, tandis que Flo en aide d'autres à en obtenir de nouveaux.",
+    "videos": [
+      "https://www.youtube.com/watch?v=H0dJn_XUR0o",
+      "https://www.youtube.com/watch?v=3PwtfX-KLh0",
+      "https://www.youtube.com/watch?v=UO9VAUCMNO0",
+      "https://www.youtube.com/watch?v=e7arFJWqwgA",
+      "https://www.youtube.com/watch?v=TBBdapKj6aE",
+      "https://www.youtube.com/watch?v=hhiOmzb2haU",
+      "https://www.youtube.com/watch?v=EjxlQSALvwE"
+    ]
   }
 ]
