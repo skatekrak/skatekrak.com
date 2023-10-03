@@ -1757,5 +1757,25 @@
       "https://www.youtube.com/watch?v=hhiOmzb2haU",
       "https://www.youtube.com/watch?v=EjxlQSALvwE"
     ]
+  },
+  {
+    "id": "curbskateshop",
+    "categories": [
+      "maps"
+    ],
+    "name": "Curb Skateshop",
+    "subtitle": "",
+    "edito": "",
+    "about": "The passionated and talented skateboarder Mohamed Saouti is spreading his love for skateboarding through his Curb skateshops!",
+    "videos": [
+      "https://www.youtube.com/watch?v=AHHLkMJ7XwE",
+      "https://www.youtube.com/watch?v=mMUPQOQQLYs",
+      "https://www.youtube.com/watch?v=olcqNUeK7AY",
+      "https://www.youtube.com/watch?v=B-bF7oVdyv0",
+      "https://www.youtube.com/watch?v=hnjluneEBVA",
+      "https://www.youtube.com/watch?v=IXgCaQ-Wyrw",
+      "https://www.youtube.com/watch?v=Kxjc-_7yQTI",
+      "https://www.youtube.com/watch?v=-v5MGiUTDSo"
+    ]
   }
 ]
