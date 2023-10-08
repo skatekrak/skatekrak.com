@@ -1902,5 +1902,16 @@
       "https://www.youtube.com/watch?v=lBOuuNWKI0A",
       "https://www.youtube.com/watch?v=ltRF301b3SU"
     ]
+  },
+  {
+    "id": "unknownlocations",
+    "categories": [
+      "maps"
+    ],
+    "name": "Unknown Locations",
+    "subtitle": "",
+    "edito": "",
+    "about": "This map is for all these famous spots we weren't able to locate!",
+    "videos": []
   }
 ]
