@@ -1887,5 +1887,20 @@
     "videos": [
       "https://www.youtube.com/watch?v=JuvffUx4os4"
     ]
+  },
+  {
+    "id": "facemelters",
+    "categories": [
+      "maps"
+    ],
+    "name": "Face Melters",
+    "subtitle": "",
+    "edito": "",
+    "about": "Etn made a small serie of live events on huge spots!",
+    "videos": [
+      "https://www.youtube.com/watch?v=oaJD6yLD-8I",
+      "https://www.youtube.com/watch?v=lBOuuNWKI0A",
+      "https://www.youtube.com/watch?v=ltRF301b3SU"
+    ]
   }
 ]
