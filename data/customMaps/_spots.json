@@ -1977,5 +1977,24 @@
       "https://www.youtube.com/watch?v=psfEQgoldqI",
       "https://www.youtube.com/watch?v=RN-LKGBIH7M"
     ]
+  },
+  {
+    "id": "robingimarsson",
+    "categories": [
+      "skater"
+    ],
+    "name": "Rob Ingimarsson",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=d2C9DaiFxHY",
+      "https://www.youtube.com/watch?v=vmdtgr2KcXo",
+      "https://www.youtube.com/watch?v=DuNojqVc4sE",
+      "https://www.youtube.com/watch?v=zj-ptshAW64",
+      "https://www.youtube.com/watch?v=ojx8-AV-IAA",
+      "https://www.youtube.com/watch?v=7cSM8hwD5Yo",
+      "https://www.youtube.com/watch?v=ctoUdqxpGuE"
+    ]
   }
 ]
