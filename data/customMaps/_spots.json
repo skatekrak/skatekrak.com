@@ -1913,5 +1913,19 @@
     "edito": "",
     "about": "This map is for all these famous spots we weren't able to locate!",
     "videos": []
+  },
+  {
+    "id": "damiendelsaux",
+    "categories": [
+      "maps"
+    ],
+    "name": "Damien Delsaux",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=wRtIYwnV-pE",
+      "https://www.youtube.com/watch?v=TfxL37OTbOQ"
+    ]
   }
 ]
