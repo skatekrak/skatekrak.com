@@ -1927,5 +1927,21 @@
       "https://www.youtube.com/watch?v=wRtIYwnV-pE",
       "https://www.youtube.com/watch?v=TfxL37OTbOQ"
     ]
+  },
+  {
+    "id": "maxsterno",
+    "categories": [
+      "skater"
+    ],
+    "name": "Max Sterno",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=ayzP6QgGD0E",
+      "https://www.youtube.com/watch?v=98krbyZnYrQ",
+      "https://www.youtube.com/watch?v=JHPr09WndhU",
+      "https://www.youtube.com/watch?v=0L1On_nCpUY"
+    ]
   }
 ]
