@@ -2256,5 +2256,18 @@
     "videos": [
       "https://www.youtube.com/watch?v=L4SLLF1Jdlg"
     ]
+  },
+  {
+    "id": "howtogopro",
+    "categories": [
+      "video"
+    ],
+    "name": "Shorty's 'How to go pro'",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=-5FAQ-iTtM8"
+    ]
   }
 ]
