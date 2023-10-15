@@ -2308,5 +2308,18 @@
     "videos": [
       "https://www.youtube.com/watch?v=0g-ZNugwRgo"
     ]
+  },
+  {
+    "id": "riseandshine",
+    "categories": [
+      "video"
+    ],
+    "name": "Element 'Rise & Shine'",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=q3_R3MWmVXA"
+    ]
   }
 ]
