@@ -2386,5 +2386,18 @@
     "videos": [
       "https://www.youtube.com/playlist?list=PLR6aqLDnnHHpYtqKvyD1AtUsfWHfJl4-9"
     ]
+  },
+  {
+    "id": "bryanherman",
+    "categories": [
+      "skater"
+    ],
+    "name": "Bryan Herman",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/playlist?list=PL6KE4dsNxc1rdbO_44eNUFG9pCW1K3cIp"
+    ]
   }
 ]
