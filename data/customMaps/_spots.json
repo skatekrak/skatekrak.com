@@ -2165,5 +2165,18 @@
     "videos": [
       "https://www.youtube.com/watch?v=qk68G4GXN-k"
     ]
+  },
+  {
+    "id": "inhabitants",
+    "categories": [
+      "video"
+    ],
+    "name": "Habitat 'Inhabitants'",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=QfK2y1MOqZw"
+    ]
   }
 ]
