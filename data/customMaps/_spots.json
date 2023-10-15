@@ -2113,5 +2113,18 @@
     "videos": [
       "https://www.youtube.com/watch?v=hcTMMIt_rHs"
     ]
+  },
+  {
+    "id": "artosaari",
+    "categories": [
+      "skater"
+    ],
+    "name": "Arto Saari",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/playlist?list=PL0FA688104E6C8F83"
+    ]
   }
 ]
