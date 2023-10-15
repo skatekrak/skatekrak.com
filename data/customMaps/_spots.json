@@ -2100,5 +2100,18 @@
     "videos": [
       "https://www.youtube.com/playlist?list=PL4BA5DD718CAD0495"
     ]
+  },
+  {
+    "id": "tompenny",
+    "categories": [
+      "skater"
+    ],
+    "name": "Tom Penny",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=hcTMMIt_rHs"
+    ]
   }
 ]
