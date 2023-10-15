@@ -2243,5 +2243,18 @@
     "videos": [
       "https://www.youtube.com/watch?v=eY33prz3jiY"
     ]
+  },
+  {
+    "id": "baker2g",
+    "categories": [
+      "video"
+    ],
+    "name": "Baker2G",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=L4SLLF1Jdlg"
+    ]
   }
 ]
