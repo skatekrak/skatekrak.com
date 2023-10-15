@@ -2087,5 +2087,18 @@
     "videos": [
       "https://www.youtube.com/playlist?list=PL72EACB5D06F6710A"
     ]
+  },
+  {
+    "id": "rodrigotx",
+    "categories": [
+      "skater"
+    ],
+    "name": "Rodrigo TX",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/playlist?list=PL4BA5DD718CAD0495"
+    ]
   }
 ]
