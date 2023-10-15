@@ -2295,5 +2295,18 @@
     "videos": [
       "https://www.youtube.com/watch?v=zaDec-atOHE"
     ]
+  },
+  {
+    "id": "bakerhasadeathwish",
+    "categories": [
+      "video"
+    ],
+    "name": "Baker has a Deathwish",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=0g-ZNugwRgo"
+    ]
   }
 ]
