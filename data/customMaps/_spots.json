@@ -2347,5 +2347,18 @@
     "videos": [
       "https://www.youtube.com/watch?v=wkvwxVt3jI0"
     ]
+  },
+  {
+    "id": "bakeanddestroy",
+    "categories": [
+      "video"
+    ],
+    "name": "Baker 'Bake & Destroy'",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=Ybo4VQxqsJ8"
+    ]
   }
 ]
