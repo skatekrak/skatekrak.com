@@ -2204,5 +2204,18 @@
     "videos": [
       "https://www.youtube.com/watch?v=MwGSRlZDmMg"
     ]
+  },
+  {
+    "id": "thesoursolution",
+    "categories": [
+      "video"
+    ],
+    "name": "Sour 'The Sour Solution'",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=OHj5OUopTpw"
+    ]
   }
 ]
