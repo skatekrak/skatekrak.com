@@ -2048,5 +2048,18 @@
     "videos": [
       "https://www.youtube.com/playlist?list=PL1IdB4ESzaUITAHAI608LGoW7MMygbjpY"
     ]
+  },
+  {
+    "id": "markappleyard",
+    "categories": [
+      "skater"
+    ],
+    "name": "Mark Appleyard",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/playlist?list=PLq5-GuIkQyntvfgWAV0yRXPBa425BU4P5"
+    ]
   }
 ]
