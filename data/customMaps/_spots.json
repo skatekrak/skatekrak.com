@@ -1996,5 +1996,18 @@
       "https://www.youtube.com/watch?v=7cSM8hwD5Yo",
       "https://www.youtube.com/watch?v=ctoUdqxpGuE"
     ]
+  },
+  {
+    "id": "itsofficial",
+    "categories": [
+      "video"
+    ],
+    "name": "Kayo 'It's Official'",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=bfdb9l_T9dQ"
+    ]
   }
 ]
