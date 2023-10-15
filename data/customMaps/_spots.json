@@ -2035,5 +2035,18 @@
     "videos": [
       "https://www.youtube.com/watch?v=U8qH4y0PPCM"
     ]
+  },
+  {
+    "id": "aliboulala",
+    "categories": [
+      "skater"
+    ],
+    "name": "Ali Boulala",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/playlist?list=PL1IdB4ESzaUITAHAI608LGoW7MMygbjpY"
+    ]
   }
 ]
