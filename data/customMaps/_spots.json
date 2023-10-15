@@ -2282,5 +2282,18 @@
     "videos": [
       "https://www.youtube.com/watch?v=1jwZgrknONc"
     ]
+  },
+  {
+    "id": "newblood",
+    "categories": [
+      "video"
+    ],
+    "name": "Zero 'New Blood'",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=zaDec-atOHE"
+    ]
   }
 ]
