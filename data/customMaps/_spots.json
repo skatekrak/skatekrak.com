@@ -2074,5 +2074,18 @@
     "videos": [
       "https://www.youtube.com/playlist?list=PLsmEF7QWIRT1gbb7Pn6Sx5V-hPOltA2dm"
     ]
+  },
+  {
+    "id": "chrishaslam",
+    "categories": [
+      "skater"
+    ],
+    "name": "Chris Haslam",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/playlist?list=PL72EACB5D06F6710A"
+    ]
   }
 ]
