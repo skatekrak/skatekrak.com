@@ -2152,5 +2152,18 @@
     "videos": [
       "https://www.youtube.com/watch?v=LsbuLf0Z5pw"
     ]
+  },
+  {
+    "id": "bigbang",
+    "categories": [
+      "video"
+    ],
+    "name": "Plan B 'Big Bang'",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=qk68G4GXN-k"
+    ]
   }
 ]
