@@ -2061,5 +2061,18 @@
     "videos": [
       "https://www.youtube.com/playlist?list=PLq5-GuIkQyntvfgWAV0yRXPBa425BU4P5"
     ]
+  },
+  {
+    "id": "lewismarnell",
+    "categories": [
+      "skater"
+    ],
+    "name": "Lewis Marnell",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/playlist?list=PLsmEF7QWIRT1gbb7Pn6Sx5V-hPOltA2dm"
+    ]
   }
 ]
