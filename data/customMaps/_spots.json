@@ -2191,5 +2191,18 @@
     "videos": [
       "https://www.youtube.com/watch?v=vUJxDB3GPoM"
     ]
+  },
+  {
+    "id": "bonvoyage",
+    "categories": [
+      "video"
+    ],
+    "name": "Cliché 'Bon Voyage'",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=MwGSRlZDmMg"
+    ]
   }
 ]
