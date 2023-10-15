@@ -2373,5 +2373,18 @@
     "videos": [
       "https://www.youtube.com/playlist?list=PL3Lm-aQ2_ETHTMvQBJcFD1jIXOqngyF36"
     ]
+  },
+  {
+    "id": "jimgreco",
+    "categories": [
+      "skater"
+    ],
+    "name": "Jim Greco",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/playlist?list=PLR6aqLDnnHHpYtqKvyD1AtUsfWHfJl4-9"
+    ]
   }
 ]
