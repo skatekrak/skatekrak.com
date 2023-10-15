@@ -2334,5 +2334,18 @@
     "videos": [
       "https://www.youtube.com/watch?v=-JcrdOOTZqo"
     ]
+  },
+  {
+    "id": "thisisskateboarding",
+    "categories": [
+      "video"
+    ],
+    "name": "Emerica 'This is skateboarding'",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=wkvwxVt3jI0"
+    ]
   }
 ]
