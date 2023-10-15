@@ -2360,5 +2360,18 @@
     "videos": [
       "https://www.youtube.com/watch?v=Ybo4VQxqsJ8"
     ]
+  },
+  {
+    "id": "chadmuska",
+    "categories": [
+      "skater"
+    ],
+    "name": "Chad Muska",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/playlist?list=PL3Lm-aQ2_ETHTMvQBJcFD1jIXOqngyF36"
+    ]
   }
 ]
