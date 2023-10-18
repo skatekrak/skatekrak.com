@@ -2399,5 +2399,23 @@
     "videos": [
       "https://www.youtube.com/playlist?list=PL6KE4dsNxc1rdbO_44eNUFG9pCW1K3cIp"
     ]
+  },
+  {
+    "id": "bustorbail",
+    "categories": [
+      "maps"
+    ],
+    "name": "Bust or Bail",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=L3Dla9Ug0SA",
+      "https://www.youtube.com/watch?v=URzAkL6m1lQ",
+      "https://www.youtube.com/watch?v=rHoGc3lrLU0",
+      "https://www.youtube.com/watch?v=-1Z80uuOK8M",
+      "https://www.youtube.com/watch?v=9AAxXQq4Y9A",
+      "https://www.youtube.com/watch?v=6V1bdqavNnY"
+    ]
   }
 ]
