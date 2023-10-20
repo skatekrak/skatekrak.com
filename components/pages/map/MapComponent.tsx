@@ -22,6 +22,7 @@ import { Status, Types } from 'shared/feudartifice/types';
 import SmallLayer from './layers/SmallLayer';
 import SpotPinLayer from './layers/SpotPinLayer';
 import { intersects } from 'radash';
+import { RootState } from 'store';
 
 type MapComponentProps = {
     mapRef?: React.RefObject<MapRef>;
@@ -35,6 +36,7 @@ const MapComponent = ({ mapRef, spots, children, onLoad }: MapComponentProps) =>
     const viewport = useAppSelector((state) => state.map.viewport);
     const spotId = useAppSelector((state) => state.map.selectSpot);
     const selectedSpotOverview = useAppSelector((state) => state.map.spotOverview);
+    const isCreateSpotOpen = useAppSelector((state: RootState) => state.map.isCreateSpotOpen);
 
     const [markers, spotSourceData]: [JSX.Element[], FeatureCollection<Geometry>] = useMemo(() => {
         const markers: JSX.Element[] = [];
@@ -99,7 +101,7 @@ const MapComponent = ({ mapRef, spots, children, onLoad }: MapComponentProps) =>
                 minZoom={MIN_ZOOM_LEVEL}
                 maxZoom={MAX_ZOOM_LEVEL}
                 mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}
-                mapStyle="mapbox://styles/mapbox/dark-v9"
+                mapStyle={isCreateSpotOpen ? 'mapbox://styles/mapbox/satellite-v9' : 'mapbox://styles/mapbox/dark-v9'}
                 onMove={onViewportChange}
                 onLoad={onLoad}
             >
