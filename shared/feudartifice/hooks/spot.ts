@@ -5,7 +5,7 @@ import { MapRef } from 'react-map-gl';
 import { MutableRefObject, useState } from 'react';
 import useDebounce from 'lib/hook/useDebounce';
 import { useAppDispatch, useAppSelector } from 'store/hook';
-import { getSelectedFilterState, mapRefreshEnd } from 'store/map/slice';
+import { mapRefreshEnd } from 'store/map/slice';
 import { boxSpotsSearch } from 'lib/carrelageClient';
 import { unique } from 'radash';
 
@@ -21,8 +21,6 @@ const useSpot = (id: string) => {
 };
 
 export const useSpotsSearch = (mapRef: MutableRefObject<MapRef>, enabled = true) => {
-    const status = useAppSelector((state) => state.map.status);
-    const types = useAppSelector((state) => state.map.types);
     const viewport = useAppSelector((state) => state.map.viewport);
     const dispatch = useAppDispatch();
 
@@ -31,7 +29,7 @@ export const useSpotsSearch = (mapRef: MutableRefObject<MapRef>, enabled = true)
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { data, ...queryRes } = useQuery(
-        ['fetch-spots-on-map', debouncedViewport, status, types],
+        ['fetch-spots-on-map', debouncedViewport],
         async () => {
             const map = mapRef.current.getMap();
             const bounds = map.getBounds();
@@ -43,10 +41,6 @@ export const useSpotsSearch = (mapRef: MutableRefObject<MapRef>, enabled = true)
                 northEastLongitude: northEast.lng,
                 southWestLatitude: southWest.lat,
                 southWestLongitude: southWest.lng,
-                filters: {
-                    status: getSelectedFilterState(status),
-                    type: getSelectedFilterState(types),
-                },
                 limit: 150,
             });
 
