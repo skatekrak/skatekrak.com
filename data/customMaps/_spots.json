@@ -2435,5 +2435,18 @@
       "https://www.youtube.com/watch?v=AaUf27YUcDM",
       "https://www.youtube.com/watch?v=CK1Qh9sPu3I"
     ]
+  },
+  {
+    "id": "legendareskatespots",
+    "categories": [
+      "maps"
+    ],
+    "name": "Legendäre Skate Spots",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/playlist?list=PLLzO14SwEqSEhqTZ4PGb3kJjqD4gx1kk7"
+    ]
   }
 ]
