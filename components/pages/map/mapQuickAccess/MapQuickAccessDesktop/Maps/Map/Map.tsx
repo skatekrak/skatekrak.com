@@ -50,9 +50,6 @@ const Map: React.FC<MapProps> = ({ map, onClick }) => {
                 <S.MapName component="condensedSubtitle1" truncateLines={1}>
                     {map.name}
                 </S.MapName>
-                <S.MapSpots component="caption" truncateLines={1}>
-                    {map.numberOfSpots} spot{map.numberOfSpots > 1 && 's'}
-                </S.MapSpots>
             </S.MapButton>
         </S.MapCard>
     );
