@@ -2417,5 +2417,23 @@
       "https://www.youtube.com/watch?v=9AAxXQq4Y9A",
       "https://www.youtube.com/watch?v=6V1bdqavNnY"
     ]
+  },
+  {
+    "id": "reesganimator",
+    "categories": [
+      "maps"
+    ],
+    "name": "ReesGAnimator",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=PYK2woBOdyk",
+      "https://www.youtube.com/watch?v=ZxossIyrzvs",
+      "https://www.youtube.com/watch?v=4yf5_IOiVPM",
+      "https://www.youtube.com/watch?v=yScVQGEOmEs",
+      "https://www.youtube.com/watch?v=AaUf27YUcDM",
+      "https://www.youtube.com/watch?v=CK1Qh9sPu3I"
+    ]
   }
 ]
