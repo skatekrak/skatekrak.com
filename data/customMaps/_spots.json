@@ -2448,5 +2448,18 @@
     "videos": [
       "https://www.youtube.com/playlist?list=PLLzO14SwEqSEhqTZ4PGb3kJjqD4gx1kk7"
     ]
+  },
+  {
+    "id": "darua",
+    "categories": [
+      "maps"
+    ],
+    "name": "DC Shoes 'Da Rua'",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=082rhgMDz2g"
+    ]
   }
 ]
