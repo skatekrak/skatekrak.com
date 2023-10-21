@@ -2513,5 +2513,18 @@
     "videos": [
       "https://www.youtube.com/watch?v=kGyrx551LX0"
     ]
+  },
+  {
+    "id": "fyi",
+    "categories": [
+      "video"
+    ],
+    "name": "Digital 'FYI'",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=A50hf_blWTU"
+    ]
   }
 ]
