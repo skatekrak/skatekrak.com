@@ -2500,5 +2500,18 @@
     "videos": [
       "https://www.youtube.com/watch?v=Jp9ioAABrrw"
     ]
+  },
+  {
+    "id": "goons",
+    "categories": [
+      "video"
+    ],
+    "name": "Gold 'Goons'",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=kGyrx551LX0"
+    ]
   }
 ]
