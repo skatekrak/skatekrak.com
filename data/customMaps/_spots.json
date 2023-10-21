@@ -2578,5 +2578,24 @@
     "videos": [
       "https://www.youtube.com/playlist?list=PLn9GJ27o1133DAdyImEBSL5bO_gcnCK2d"
     ]
+  },
+  {
+    "id": "cairofoster",
+    "categories": [
+      "skater"
+    ],
+    "name": "Cairo Foster",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=pmWssczD-3U",
+      "https://www.youtube.com/watch?v=mNGZiw6Oh1E",
+      "https://www.youtube.com/watch?v=CLvfxXJj8eo",
+      "https://www.youtube.com/watch?v=8uuu22cJFo4",
+      "https://www.youtube.com/watch?v=8tN8fB5QR-I",
+      "https://www.youtube.com/watch?v=Vt1dgfGCmEk",
+      "https://www.youtube.com/watch?v=WAjO5ST-dEs"
+    ]
   }
 ]
