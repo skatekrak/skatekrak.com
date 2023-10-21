@@ -2552,5 +2552,18 @@
     "videos": [
       "https://www.youtube.com/watch?v=z6jolFwgFyo"
     ]
+  },
+  {
+    "id": "gershonmosley",
+    "categories": [
+      "skater"
+    ],
+    "name": "Gershon Mosley",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/playlist?list=PLaZk_-qbK_1h5-MFMauG02edpSuQzLSt2"
+    ]
   }
 ]
