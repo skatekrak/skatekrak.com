@@ -2597,5 +2597,18 @@
       "https://www.youtube.com/watch?v=Vt1dgfGCmEk",
       "https://www.youtube.com/watch?v=WAjO5ST-dEs"
     ]
+  },
+  {
+    "id": "briananderson",
+    "categories": [
+      "skater"
+    ],
+    "name": "Brian Anderson",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/playlist?list=PL1IdB4ESzaUJaK1JQI5dRvV1D8xhMgq9F"
+    ]
   }
 ]
