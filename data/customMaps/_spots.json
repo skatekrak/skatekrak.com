@@ -2487,5 +2487,18 @@
     "videos": [
       "https://www.youtube.com/watch?v=ILN9Tc3GT7c"
     ]
+  },
+  {
+    "id": "bloodmoney",
+    "categories": [
+      "video"
+    ],
+    "name": "DGK 'Blood Money'",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=Jp9ioAABrrw"
+    ]
   }
 ]
