@@ -2474,5 +2474,18 @@
     "videos": [
       "https://www.youtube.com/watch?v=B-n91MrKzR8"
     ]
+  },
+  {
+    "id": "coldwar",
+    "categories": [
+      "video"
+    ],
+    "name": "Zero 'Cold War'",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=ILN9Tc3GT7c"
+    ]
   }
 ]
