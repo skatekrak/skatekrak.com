@@ -2539,5 +2539,18 @@
     "videos": [
       "https://www.youtube.com/watch?v=bGkAENsLH0I"
     ]
+  },
+  {
+    "id": "businessasusual",
+    "categories": [
+      "video"
+    ],
+    "name": "Think 'Business As Usual'",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=z6jolFwgFyo"
+    ]
   }
 ]
