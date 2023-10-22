@@ -2610,5 +2610,16 @@
     "videos": [
       "https://www.youtube.com/playlist?list=PL1IdB4ESzaUJaK1JQI5dRvV1D8xhMgq9F"
     ]
+  },
+  {
+    "id": "titus",
+    "categories": [
+      "maps"
+    ],
+    "name": "Titus Skateshop",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": []
   }
 ]
