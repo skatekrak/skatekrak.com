@@ -3,7 +3,7 @@
  * @param coordinates Array of coordinates
  * @returns
  */
-export const findBoundsCoordinate = (coordinates: [[number, number]]): [[number, number], [number, number]] => {
+export const findBoundsCoordinate = (coordinates: [number, number][]): [[number, number], [number, number]] => {
     const northEastLatitude = Math.max(...coordinates.map((c) => c[1]));
     const northEastLongitude = Math.max(...coordinates.map((c) => c[0]));
     const southWestLatitude = Math.min(...coordinates.map((c) => c[1]));

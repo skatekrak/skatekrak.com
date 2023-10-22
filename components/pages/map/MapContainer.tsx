@@ -23,7 +23,8 @@ import MapCreateSpot from './MapCreateSpot';
 import useSession from 'lib/hook/carrelage/use-session';
 import { useRouter } from 'next/router';
 import { useQuery } from '@tanstack/react-query';
-import { useSpotsSearch } from 'shared/feudartifice/hooks/spot';
+import { useSpotsByTags, useSpotsSearch } from 'shared/feudartifice/hooks/spot';
+import { isEmpty } from 'radash';
 
 const DynamicMapComponent = dynamic(() => import('./MapComponent'), { ssr: false });
 const MapFullSpot = dynamic(() => import('./MapFullSpot'), { ssr: false });
@@ -113,25 +114,26 @@ const MapContainer = () => {
     }, [id, viewport.zoom]);
 
     const { data: spots, refetch } = useSpotsSearch(mapRef, enableSpotQuery);
+    const { data: spotsByTags } = useSpotsByTags(isEmpty(id) ? null : [id]);
 
     const onFullSpotClose = () => {
         dispatch(updateUrlParams({ modal: false, mediaId: null }));
     };
 
     useEffect(() => {
-        if (mapRef.current != null && id != null && customMapInfo != null) {
+        if (mapRef.current != null && id != null && spotsByTags != null) {
             const bounds = findBoundsCoordinate(
-                customMapInfo.spots.map((spot) => [spot.location.longitude, spot.location.latitude]),
+                spotsByTags.map((spot) => [spot.location.longitude, spot.location.latitude]),
             );
             mapRef.current?.fitBounds(bounds, { padding: 128, duration: 1500 });
         }
-    }, [customMapInfo, viewport.width, id, dispatch]);
+    }, [spotsByTags, viewport.width, id, dispatch]);
 
     const displayedSpots = useMemo(() => {
         // It's a custom map, we can return the spots if not loading
         if (id != null) {
-            if (customMapInfo && customMapInfo.spots) {
-                return customMapInfo.spots;
+            if (customMapInfo) {
+                return spotsByTags ?? [];
             }
             return [];
         }
@@ -141,7 +143,7 @@ const MapContainer = () => {
         }
 
         return spots;
-    }, [spots, id, viewport.zoom, customMapInfo]);
+    }, [spots, id, viewport.zoom, customMapInfo, spotsByTags]);
 
     return (
         <S.MapContainer ref={fullSpotContainerRef}>
@@ -156,7 +158,7 @@ const MapContainer = () => {
                                 title={customMapInfo.name}
                                 about={customMapInfo.about}
                                 subtitle={customMapInfo.subtitle}
-                                spots={customMapInfo.spots}
+                                spots={spotsByTags ?? []}
                                 videos={customMapInfo.videos}
                             />
                         ) : (

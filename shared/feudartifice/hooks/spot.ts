@@ -6,7 +6,7 @@ import { MutableRefObject, useState } from 'react';
 import useDebounce from 'lib/hook/useDebounce';
 import { useAppDispatch, useAppSelector } from 'store/hook';
 import { mapRefreshEnd } from 'store/map/slice';
-import { boxSpotsSearch } from 'lib/carrelageClient';
+import { boxSpotsSearch, getSpotsByTags } from 'lib/carrelageClient';
 import { unique } from 'radash';
 
 const { client } = Feudartifice;
@@ -64,6 +64,19 @@ export const useSpotsSearch = (mapRef: MutableRefObject<MapRef>, enabled = true)
         data: loadedSpots,
         ...queryRes,
     };
+};
+
+export const useSpotsByTags = (tags: string[] | undefined) => {
+    return useQuery(
+        ['fetch-spots-by-tags', tags],
+        async () => {
+            if (tags != null) {
+                return getSpotsByTags(tags);
+            }
+            return;
+        },
+        { enabled: !!tags, refetchOnMount: false, refetchOnReconnect: false, refetchOnWindowFocus: false },
+    );
 };
 
 export default useSpot;
