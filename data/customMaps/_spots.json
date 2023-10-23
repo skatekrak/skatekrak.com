@@ -2636,5 +2636,16 @@
       "https://www.youtube.com/watch?v=tXzSj2jmL2Y",
       "https://www.youtube.com/watch?v=ytmCuZIIbpM"
     ]
+  },
+  {
+    "id": "routeone",
+    "categories": [
+      "maps"
+    ],
+    "name": "Route One Skateshop",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": []
   }
 ]
