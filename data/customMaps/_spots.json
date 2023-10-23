@@ -2647,5 +2647,16 @@
     "edito": "",
     "about": "",
     "videos": []
+  },
+  {
+    "id": "skatestore",
+    "categories": [
+      "maps"
+    ],
+    "name": "Skatestore ",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": []
   }
 ]
