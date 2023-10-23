@@ -2621,5 +2621,20 @@
     "edito": "",
     "about": "",
     "videos": []
+  },
+  {
+    "id": "ftc",
+    "categories": [
+      "maps"
+    ],
+    "name": "FTC Skateshop",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=yxBQz7JJVUc",
+      "https://www.youtube.com/watch?v=tXzSj2jmL2Y",
+      "https://www.youtube.com/watch?v=ytmCuZIIbpM"
+    ]
   }
 ]
