@@ -2658,5 +2658,16 @@
     "edito": "",
     "about": "",
     "videos": []
+  },
+  {
+    "id": "abs",
+    "categories": [
+      "maps"
+    ],
+    "name": "ABS Skateshop",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": []
   }
 ]
