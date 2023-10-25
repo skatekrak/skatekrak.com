@@ -2669,5 +2669,18 @@
     "edito": "",
     "about": "",
     "videos": []
+  },
+  {
+    "id": "ridechanneluncut",
+    "categories": [
+      "maps"
+    ],
+    "name": "Ride Channel Uncut",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/playlist?list=PL1C63421664F02058"
+    ]
   }
 ]
