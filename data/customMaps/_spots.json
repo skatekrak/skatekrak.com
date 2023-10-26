@@ -2768,5 +2768,18 @@
     "videos": [
       "https://www.youtube.com/playlist?list=PLDjU3ru2Cj-fZkBcwkCAfjgQhQtNL6ty9"
     ]
+  },
+  {
+    "id": "elementshop",
+    "categories": [
+      "maps"
+    ],
+    "name": "Element Store",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/playlist?list=PLw6RfTj6bDsmwMmNS9ubvmNygrohIkjHG"
+    ]
   }
 ]
