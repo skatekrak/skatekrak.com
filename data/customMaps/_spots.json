@@ -2731,5 +2731,18 @@
       "https://www.youtube.com/watch?v=Bsx4rexh7DQ",
       "https://www.youtube.com/watch?v=H_SJ89WfqqA"
     ]
+  },
+  {
+    "id": "pharmacy",
+    "categories": [
+      "maps"
+    ],
+    "name": "Pharmacy Boardshop",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=tz5JPI-Pyx0"
+    ]
   }
 ]
