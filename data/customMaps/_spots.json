@@ -2744,5 +2744,16 @@
     "videos": [
       "https://www.youtube.com/watch?v=tz5JPI-Pyx0"
     ]
+  },
+  {
+    "id": "activerideshop",
+    "categories": [
+      "maps"
+    ],
+    "name": "Active Ride Shop",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": []
   }
 ]
