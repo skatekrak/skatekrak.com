@@ -2695,5 +2695,27 @@
     "videos": [
       "https://www.youtube.com/playlist?list=PL-D_v5A9d9-GR8p4qNLSMrI9H4_HxvyUv"
     ]
+  },
+  {
+    "id": "dimeglorychallenge",
+    "categories": [
+      "maps"
+    ],
+    "name": "Dime Glory Challenge",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://vimeo.com/136461396",
+      "https://vimeo.com/178953049",
+      "https://www.youtube.com/watch?v=FUmtG0Bo99k",
+      "https://www.youtube.com/watch?v=p3sq2LNfbxw",
+      "https://www.youtube.com/watch?v=eQMb1PB_kn0",
+      "https://www.youtube.com/watch?v=7Z3m9mAGp0c",
+      "https://www.youtube.com/watch?v=ajVQkbllem8",
+      "https://www.youtube.com/watch?v=ayULzo_JguI",
+      "https://www.youtube.com/watch?v=je3N1W71PPw",
+      "https://www.youtube.com/watch?v=R4vr3pK24Ss"
+    ]
   }
 ]
