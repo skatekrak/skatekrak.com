@@ -2682,5 +2682,18 @@
     "videos": [
       "https://www.youtube.com/playlist?list=PL1C63421664F02058"
     ]
+  },
+  {
+    "id": "behindthead",
+    "categories": [
+      "maps"
+    ],
+    "name": "Behind The Ad",
+    "subtitle": "",
+    "edito": "",
+    "about": "'Behind The Ad' video serie brought to you by Independent Trucks",
+    "videos": [
+      "https://www.youtube.com/playlist?list=PL-D_v5A9d9-GR8p4qNLSMrI9H4_HxvyUv"
+    ]
   }
 ]
