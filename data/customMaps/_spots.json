@@ -2717,5 +2717,19 @@
       "https://www.youtube.com/watch?v=je3N1W71PPw",
       "https://www.youtube.com/watch?v=R4vr3pK24Ss"
     ]
+  },
+  {
+    "id": "valsurf",
+    "categories": [
+      "maps"
+    ],
+    "name": "Val Surf Skateshop",
+    "subtitle": "",
+    "edito": "",
+    "about": "Val Surf is the oldest family-owned and still-operated skate shop in the world. Crazy, right? They've been a staple in LA since they opened their first store in North Hollywood way back in 1962. Guy Mariano, Cyril Jackson, Tristan Funkhouser, Justin Schulte, and tons more have held them down since day one. Support your local skate shop!",
+    "videos": [
+      "https://www.youtube.com/watch?v=Bsx4rexh7DQ",
+      "https://www.youtube.com/watch?v=H_SJ89WfqqA"
+    ]
   }
 ]
