@@ -2755,5 +2755,18 @@
     "edito": "",
     "about": "",
     "videos": []
+  },
+  {
+    "id": "palaceshop",
+    "categories": [
+      "maps"
+    ],
+    "name": "Palace Store",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/playlist?list=PLDjU3ru2Cj-fZkBcwkCAfjgQhQtNL6ty9"
+    ]
   }
 ]
