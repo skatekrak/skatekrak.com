@@ -77,7 +77,7 @@ export const useSpotsByTags = (tags: string[] | undefined, tagsFromMedia?: boole
             return;
         },
         {
-            enabled: !!tags && !!tagsFromMedia,
+            enabled: !!tags && tagsFromMedia != null,
             refetchOnMount: false,
             refetchOnReconnect: false,
             refetchOnWindowFocus: false,
