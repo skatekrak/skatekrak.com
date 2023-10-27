@@ -11,7 +11,6 @@ import BadgeMinute from 'components/pages/map/marker/badges/Minute';
 import Activity from 'components/pages/map/marker/Activity';
 import { selectSpot } from 'store/map/slice';
 import { useAppDispatch, useAppSelector } from 'store/hook';
-import { intersects } from 'radash';
 
 type SpotMarkerProps = {
     spot: Spot;
