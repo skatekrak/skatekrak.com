@@ -7,7 +7,7 @@ import useDebounce from 'lib/hook/useDebounce';
 import { useAppDispatch, useAppSelector } from 'store/hook';
 import { mapRefreshEnd } from 'store/map/slice';
 import { boxSpotsSearch, getSpotsByTags } from 'lib/carrelageClient';
-import { unique } from 'radash';
+import { sort, unique } from 'radash';
 
 const { client } = Feudartifice;
 
@@ -66,16 +66,22 @@ export const useSpotsSearch = (mapRef: MutableRefObject<MapRef>, enabled = true)
     };
 };
 
-export const useSpotsByTags = (tags: string[] | undefined) => {
+export const useSpotsByTags = (tags: string[] | undefined, tagsFromMedia?: boolean) => {
     return useQuery(
-        ['fetch-spots-by-tags', tags],
+        ['fetch-spots-by-tags', tags, tagsFromMedia],
         async () => {
-            if (tags != null) {
-                return getSpotsByTags(tags);
+            if (tags != null && tagsFromMedia != null) {
+                const spots = await getSpotsByTags(tags, tagsFromMedia);
+                return sort(spots, (s) => s.mediasStat.all);
             }
             return;
         },
-        { enabled: !!tags, refetchOnMount: false, refetchOnReconnect: false, refetchOnWindowFocus: false },
+        {
+            enabled: !!tags && !!tagsFromMedia,
+            refetchOnMount: false,
+            refetchOnReconnect: false,
+            refetchOnWindowFocus: false,
+        },
     );
 };
 
