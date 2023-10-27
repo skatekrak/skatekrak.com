@@ -2794,5 +2794,18 @@
     "videos": [
       "https://www.youtube.com/playlist?list=PLMhruXMG1K2VyXQoA3UkX8CYGlZ7eGaJa"
     ]
+  },
+  {
+    "id": "hufshop",
+    "categories": [
+      "maps"
+    ],
+    "name": "Huf Stores",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/playlist?list=PLWLLBpKz2uExQSbeiqsdCDqTPnc3e-lcq"
+    ]
   }
 ]
