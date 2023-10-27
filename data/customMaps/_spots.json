@@ -2807,5 +2807,18 @@
     "videos": [
       "https://www.youtube.com/playlist?list=PLWLLBpKz2uExQSbeiqsdCDqTPnc3e-lcq"
     ]
+  },
+  {
+    "id": "vansshop",
+    "categories": [
+      "maps"
+    ],
+    "name": "Vans Stores",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/playlist?list=PLEfn8qMSGQa-dxBAlT0WBjo4834rsk9iT"
+    ]
   }
 ]
