@@ -24,7 +24,7 @@ import useSession from 'lib/hook/carrelage/use-session';
 import { useRouter } from 'next/router';
 import { useQuery } from '@tanstack/react-query';
 import { useSpotsByTags, useSpotsSearch } from 'shared/feudartifice/hooks/spot';
-import { isEmpty } from 'radash';
+import { isEmpty, intersects } from 'radash';
 
 const DynamicMapComponent = dynamic(() => import('./MapComponent'), { ssr: false });
 const MapFullSpot = dynamic(() => import('./MapFullSpot'), { ssr: false });
@@ -114,7 +114,12 @@ const MapContainer = () => {
     }, [id, viewport.zoom]);
 
     const { data: spots, refetch } = useSpotsSearch(mapRef, enableSpotQuery);
-    const { data: spotsByTags } = useSpotsByTags(isEmpty(id) ? null : [id]);
+    const shouldFetchWithMedia = useMemo(() => {
+        if (isEmpty(customMapInfo)) return undefined;
+        return !intersects(['maps', 'skatepark'], customMapInfo.categories);
+    }, [customMapInfo]);
+
+    const { data: spotsByTags } = useSpotsByTags(isEmpty(id) ? null : [id], shouldFetchWithMedia);
 
     const onFullSpotClose = () => {
         dispatch(updateUrlParams({ modal: false, mediaId: null }));
