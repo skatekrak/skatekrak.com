@@ -2820,5 +2820,28 @@
     "videos": [
       "https://www.youtube.com/playlist?list=PLEfn8qMSGQa-dxBAlT0WBjo4834rsk9iT"
     ]
+  },
+  {
+    "id": "volcomshop",
+    "categories": [
+      "maps"
+    ],
+    "name": "Volcom Stores",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=HLnt2CwF5tU",
+      "https://www.youtube.com/watch?v=XurvpvXNMV0",
+      "https://www.youtube.com/watch?v=7-60KVqf8Io",
+      "https://www.youtube.com/watch?v=ijNYf4vT0lc",
+      "https://www.youtube.com/watch?v=zyZRU_IOgyk",
+      "https://www.youtube.com/watch?v=BEEytTjkdg4",
+      "https://www.youtube.com/watch?v=F5_1pwjKZcU",
+      "https://www.youtube.com/watch?v=jPGAb61tNTM",
+      "https://www.youtube.com/watch?v=GWjqwsNlilI",
+      "https://www.youtube.com/watch?v=zUVR0n6mr6E",
+      "https://www.youtube.com/watch?v=HjK7gwylHJM"
+    ]
   }
 ]
