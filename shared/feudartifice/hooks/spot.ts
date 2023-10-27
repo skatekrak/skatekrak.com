@@ -72,7 +72,7 @@ export const useSpotsByTags = (tags: string[] | undefined, tagsFromMedia?: boole
         async () => {
             if (tags != null && tagsFromMedia != null) {
                 const spots = await getSpotsByTags(tags, tagsFromMedia);
-                return sort(spots, (s) => s.mediasStat.all);
+                return sort(spots, (s) => s.mediasStat.all, true);
             }
             return;
         },
