@@ -3397,5 +3397,22 @@
       "https://www.youtube.com/watch?v=FPlEiwJozw8",
       "https://www.youtube.com/watch?v=sS1A1riFL2M"
     ]
+  },
+  {
+    "id": "2012",
+    "categories": [
+      "video"
+    ],
+    "name": "2012",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=Ybo4VQxqsJ8",
+      "https://www.youtube.com/watch?v=z6jolFwgFyo",
+      "https://www.youtube.com/watch?v=_dykP5os_dM",
+      "https://www.youtube.com/watch?v=M9ZzbstBnWo",
+      "https://www.youtube.com/watch?v=YdrId8AVCjY"
+    ]
   }
 ]
