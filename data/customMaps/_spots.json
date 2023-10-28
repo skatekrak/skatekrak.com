@@ -3318,5 +3318,25 @@
       "https://www.youtube.com/watch?v=sy4yUtBBUtc",
       "https://www.youtube.com/watch?v=eIGHdBr6MoA"
     ]
+  },
+  {
+    "id": "2008",
+    "categories": [
+      "video"
+    ],
+    "name": "2008",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=e4MLF0QkRJ8",
+      "https://www.youtube.com/watch?v=cMhxMnVTA6o",
+      "https://www.youtube.com/watch?v=0g-ZNugwRgo",
+      "https://www.youtube.com/watch?v=_zSwvYOd8RU",
+      "https://www.youtube.com/watch?v=t3whHl35nOI",
+      "https://www.youtube.com/watch?v=HNJL-FKGrro",
+      "https://www.youtube.com/watch?v=hyQHyJXHMro",
+      "https://www.youtube.com/watch?v=7-60KVqf8Io"
+    ]
   }
 ]
