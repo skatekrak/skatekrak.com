@@ -126,7 +126,7 @@ const MapContainer = () => {
     };
 
     useEffect(() => {
-        if (mapRef.current != null && id != null && spotsByTags != null) {
+        if (mapRef.current != null && id != null && !isEmpty(spotsByTags)) {
             const bounds = findBoundsCoordinate(
                 spotsByTags.map((spot) => [spot.location.longitude, spot.location.latitude]),
             );
