@@ -50,13 +50,6 @@ jobs:
               with:
                   node-version: 18
                   cache: pnpm
-            - name: Fetch spots
-              run: |
-                  today_date=$(date -u +"%FT%TZ")
-                  curl 'https://carrelage.api.skatekrak.com/spots?limit=2000&older='$today_date'&tags%5B%5D=${{ inputs.tag }}' \
-                    -o ./data/customMaps/${{ inputs.tag }}.json \
-                    -H 'Authorization: Bearer ${{ secrets.CARRELAGE_TOKEN }}' \
-                    --fail-with-body
             - name: Write map data
               run: |
                   node ./scripts/update_map.js \
@@ -70,7 +63,7 @@ jobs:
             - name: Write commit
               uses: EndBug/add-and-commit@v9
               with:
-                  add: "['./data/customMaps/${{ inputs.tag }}.json', './data/customMaps/_spots.json']"
+                  add: "['./data/customMaps/_spots.json']"
                   default_author: user_info
                   message: 'feat: Map updated'
             - run: pnpm install --frozen-lockfile
