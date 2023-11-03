@@ -12,18 +12,23 @@ import { RootState } from 'store';
 export type MapMediaProps = {
     shareURL?: string;
     media: Media;
+    isFromCustomMapFeed?: boolean;
 };
 
-const MapMedia = ({ shareURL, media }: MapMediaProps) => {
+const MapMedia = ({ shareURL, media, isFromCustomMapFeed = false }: MapMediaProps) => {
     const videoPlayingId = useSelector((state: RootState) => state.map.videoPlayingId);
     const isPlaying = useMemo(() => videoPlayingId === media.id, [videoPlayingId, media.id]);
+
+    console.log(media);
 
     return (
         <S.MapMediaContainer key={media.id}>
             {shareURL && <MapMediaShare url={shareURL} media={media} />}
             {media.type === 'video' && <MapMediaVideoPlayer media={media} isPlaying={isPlaying} />}
             {media.type === 'image' && <img key={media.id} src={media.image.jpg} alt={media.addedBy.username} />}
-            {(media.type === 'image' || (media.type === 'video' && !isPlaying)) && <MapMediaOverlay media={media} />}
+            {(media.type === 'image' || (media.type === 'video' && !isPlaying)) && (
+                <MapMediaOverlay media={media} isFromCustomMapFeed={isFromCustomMapFeed} />
+            )}
         </S.MapMediaContainer>
     );
 };

@@ -12,6 +12,18 @@ export const MapMediaOverlay = styled.div`
     padding: 0.5rem 1rem;
     background-color: rgba(31, 31, 31, 0.6);
     z-index: 1;
+
+    & .media-overlay-spot {
+        & span {
+            display: inline;
+        }
+
+        & button {
+            text-decoration: underline;
+            color: ${({ theme }) => theme.color.onDark.highEmphasis};
+            background-color: initial;
+        }
+    }
 `;
 
 export const MapMediaOverlayCaption = styled(Typography)`

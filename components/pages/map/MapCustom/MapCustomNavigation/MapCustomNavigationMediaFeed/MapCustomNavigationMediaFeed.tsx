@@ -48,7 +48,7 @@ const MapCustomNavigationMediaFeed = ({ mapId }: Props) => {
             >
                 <S.MapCustomNavigationMediaFeedContainer>
                     {infiniteMedias.map((media) => (
-                        <MapMedia key={media.id} media={media} />
+                        <MapMedia key={media.id} media={media} isFromCustomMapFeed />
                     ))}
                     {isFetching && <KrakLoading />}
                 </S.MapCustomNavigationMediaFeedContainer>
