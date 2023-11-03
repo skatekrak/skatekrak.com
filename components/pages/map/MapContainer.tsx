@@ -102,7 +102,7 @@ const MapContainer = () => {
             return false;
         }
 
-        if (id != null || id === '') {
+        if (!isEmpty(id)) {
             return false;
         }
 
