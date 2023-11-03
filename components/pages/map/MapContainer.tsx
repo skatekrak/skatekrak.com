@@ -102,7 +102,7 @@ const MapContainer = () => {
             return false;
         }
 
-        if (id != null || id === '') {
+        if (!isEmpty(id)) {
             return false;
         }
 
@@ -116,7 +116,7 @@ const MapContainer = () => {
     const { data: spots, refetch } = useSpotsSearch(mapRef, enableSpotQuery);
     const shouldFetchWithMedia = useMemo(() => {
         if (isEmpty(customMapInfo)) return undefined;
-        return !intersects(['maps', 'skatepark'], customMapInfo.categories);
+        return !intersects(['maps', 'skatepark', 'shop'], customMapInfo.categories);
     }, [customMapInfo]);
 
     const { data: spotsByTags } = useSpotsByTags(isEmpty(id) ? null : [id], shouldFetchWithMedia);
@@ -126,7 +126,7 @@ const MapContainer = () => {
     };
 
     useEffect(() => {
-        if (mapRef.current != null && id != null && !isEmpty(spotsByTags)) {
+        if (mapRef.current != null && id != null && spotsByTags != null && !isEmpty(spotsByTags)) {
             const bounds = findBoundsCoordinate(
                 spotsByTags.map((spot) => [spot.location.longitude, spot.location.latitude]),
             );

@@ -1,5 +1,6 @@
 import React from 'react';
 import { useRouter } from 'next/router';
+import { alphabetical } from 'radash';
 
 import Category from '../components/Category';
 import Map from './Map';
@@ -12,9 +13,9 @@ import { generateCategories } from '../../utils';
 const isCategorySelected = (category: TCategory, mapId: string | string[]) =>
     category.maps.some((map) => map.id === mapId);
 
-const sortMaps = (maps: QuickAccessMap[]) => maps.sort((a, b) => b.numberOfSpots - a.numberOfSpots);
+const sortMaps = (maps: QuickAccessMap[]) => alphabetical(maps, (map) => map.name);
 
-const Maps = () => {
+const CustomMapsSide = () => {
     const router = useRouter();
 
     const { isLoading, data } = useCustomMaps();
@@ -46,4 +47,4 @@ const Maps = () => {
     );
 };
 
-export default Maps;
+export default CustomMapsSide;

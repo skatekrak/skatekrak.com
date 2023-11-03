@@ -63,7 +63,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     }
 
     const customMap = CustomMaps.find((map) => map.id === id);
-    console.log(customMap);
     if (customMap === undefined) {
         return res.status(404).json({ message: 'Map not found' });
     }

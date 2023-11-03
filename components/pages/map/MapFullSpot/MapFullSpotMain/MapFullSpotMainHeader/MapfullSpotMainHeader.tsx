@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 
 const MapfullSpotMainHeader = () => {
     const [isScrolled, setIsScrolled] = useState(false);
@@ -6,21 +6,24 @@ const MapfullSpotMainHeader = () => {
     const scrollContainer = document.getElementsByClassName('simplebar-content-wrapper')[0];
     const headerElement = document.getElementById('map-full-spot-popup-main-header');
 
-    const handleContainerScroll = (evt) => {
-        if (evt.target.scrollTop > 40) {
-            setScrollBarMaxHeight('calc(100% - 53px)');
-            setIsScrolled(true);
-        } else {
-            setScrollBarMaxHeight('calc(100% - 117px)');
-            setIsScrolled(false);
-        }
+    const handleContainerScroll = useCallback(
+        (evt) => {
+            if (evt.target.scrollTop > 40) {
+                setScrollBarMaxHeight('calc(100% - 53px)');
+                setIsScrolled(true);
+            } else {
+                setScrollBarMaxHeight('calc(100% - 117px)');
+                setIsScrolled(false);
+            }
 
-        if (isScrolled) {
-            headerElement.classList.add('map-full-spot-popup-main-header--fixed');
-        } else {
-            headerElement.classList.remove('map-full-spot-popup-main-header--fixed');
-        }
-    };
+            if (isScrolled) {
+                headerElement.classList.add('map-full-spot-popup-main-header--fixed');
+            } else {
+                headerElement.classList.remove('map-full-spot-popup-main-header--fixed');
+            }
+        },
+        [headerElement.classList, isScrolled],
+    );
 
     useEffect(() => {
         if (scrollContainer) {
@@ -32,7 +35,7 @@ const MapfullSpotMainHeader = () => {
                 scrollContainer.removeEventListener('scroll', handleContainerScroll);
             }
         };
-    });
+    }, [handleContainerScroll, scrollContainer]);
 
     return (
         <div id="map-full-spot-popup-main-header">

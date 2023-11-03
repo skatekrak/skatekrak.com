@@ -20,7 +20,7 @@
         "@algolia/client-search": "^4.19.1",
         "@algolia/transporter": "^4.19.1",
         "@floating-ui/react": "^0.25.4",
-        "@next/bundle-analyzer": "^13.4.4",
+        "@next/bundle-analyzer": "^14.0.1",
         "@reduxjs/toolkit": "^1.9.5",
         "@tanstack/react-query": "^4.29.12",
         "@tanstack/react-query-devtools": "^4.29.12",
@@ -38,7 +38,7 @@
         "geojson": "^0.5.0",
         "jump.js": "https://github.com/MilllerTime/jump.js.git#b95f9279a4c0f4ca942fd648a6b97094b53bcbab",
         "mapbox-gl": "^2.15.0",
-        "next": "^13.4.4",
+        "next": "^14.0.1",
         "next-compose-plugins": "^2.2.1",
         "next-redux-wrapper": "^8.1.0",
         "query-string": "^8.1.0",
@@ -73,7 +73,6 @@
         "@types/node": "^20.6.0",
         "@types/react": "18.2.21",
         "@types/react-dom": "18.2.7",
-        "@types/styled-components": "^5.1.26",
         "@typescript-eslint/eslint-plugin": "^6.6.0",
         "@typescript-eslint/parser": "^6.6.0",
         "babel-plugin-module-resolver": "^5.0.0",
@@ -88,6 +87,6 @@
         "webpack": "^5.85.0"
     },
     "engines": {
-        "node": "18"
+        "node": "20"
     }
 }
