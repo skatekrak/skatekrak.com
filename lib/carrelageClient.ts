@@ -234,6 +234,11 @@ export const getSpotOverview = async (spotId: string): Promise<SpotOverview> => 
     return res.data;
 };
 
+export const getSpotsByTags = async (tags: string[], tagsFromMedia = false): Promise<Spot[]> => {
+    const res = await carrelage.get<Spot[]>(`/spots/by-tags`, { params: { tags, tagsFromMedia } });
+    return res.data;
+};
+
 export const getClips = async (spotId: string, older: Date = new Date(), limit = 10) => {
     const res = await carrelage.get<Clip[]>(`/spots/${spotId}/clips`, {
         params: {

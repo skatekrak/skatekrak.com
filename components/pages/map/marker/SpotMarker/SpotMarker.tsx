@@ -43,7 +43,7 @@ const SpotMarker = ({ spot, isSelected, small = false }: SpotMarkerProps) => {
 
     return (
         <Marker
-            key={spot.id}
+            key={`marker-${spot.id}`}
             latitude={spot.location.latitude}
             longitude={spot.location.longitude}
             onClick={small ? undefined : onMarkerClick}
@@ -62,19 +62,22 @@ const SpotMarker = ({ spot, isSelected, small = false }: SpotMarkerProps) => {
                     })}
                 >
                     <div className="map-marker-icon">
-                        {(spot.status == 'rip' || spot.status === 'wip') && (
-                            <Pin key={spot.id} imageName={spot.status} />
+                        {spot.status == 'rip' || spot.status === 'wip' ? (
+                            <Pin key={`marker-pin-${spot.id}`} imageName={spot.status} />
+                        ) : (
+                            <Pin key={`marker-pin-${spot.id}`} imageName={spot.type} />
                         )}
-                        {spot.status === 'active' && <Pin key={spot.id} imageName={spot.type} />}
                     </div>
                     <div className="map-marker-badges">
-                        {spot.tags.map((tag) => (
-                            <React.Fragment key={tag}>
-                                {tag === 'famous' && <BadgeIconic />}
-                                {tag === 'history' && <BadgeHistory />}
-                                {tag === 'minute' && <BadgeMinute />}
-                            </React.Fragment>
-                        ))}
+                        {spot.tags
+                            .filter((tag) => ['famous', 'history', 'minute'].includes(tag))
+                            .map((tag) => (
+                                <React.Fragment key={`marker-${spot.id}-badge-${tag}`}>
+                                    {tag === 'famous' && <BadgeIconic />}
+                                    {tag === 'history' && <BadgeHistory />}
+                                    {tag === 'minute' && <BadgeMinute />}
+                                </React.Fragment>
+                            ))}
                     </div>
                     {active && <Activity firing={firing} />}
                 </div>

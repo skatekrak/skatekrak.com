@@ -5,9 +5,9 @@ import { MapRef } from 'react-map-gl';
 import { MutableRefObject, useState } from 'react';
 import useDebounce from 'lib/hook/useDebounce';
 import { useAppDispatch, useAppSelector } from 'store/hook';
-import { getSelectedFilterState, mapRefreshEnd } from 'store/map/slice';
-import { boxSpotsSearch } from 'lib/carrelageClient';
-import { unique } from 'radash';
+import { mapRefreshEnd } from 'store/map/slice';
+import { boxSpotsSearch, getSpotsByTags } from 'lib/carrelageClient';
+import { sort, unique } from 'radash';
 
 const { client } = Feudartifice;
 
@@ -21,8 +21,6 @@ const useSpot = (id: string) => {
 };
 
 export const useSpotsSearch = (mapRef: MutableRefObject<MapRef>, enabled = true) => {
-    const status = useAppSelector((state) => state.map.status);
-    const types = useAppSelector((state) => state.map.types);
     const viewport = useAppSelector((state) => state.map.viewport);
     const dispatch = useAppDispatch();
 
@@ -31,7 +29,7 @@ export const useSpotsSearch = (mapRef: MutableRefObject<MapRef>, enabled = true)
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { data, ...queryRes } = useQuery(
-        ['fetch-spots-on-map', debouncedViewport, status, types],
+        ['fetch-spots-on-map', debouncedViewport],
         async () => {
             const map = mapRef.current.getMap();
             const bounds = map.getBounds();
@@ -43,10 +41,6 @@ export const useSpotsSearch = (mapRef: MutableRefObject<MapRef>, enabled = true)
                 northEastLongitude: northEast.lng,
                 southWestLatitude: southWest.lat,
                 southWestLongitude: southWest.lng,
-                filters: {
-                    status: getSelectedFilterState(status),
-                    type: getSelectedFilterState(types),
-                },
                 limit: 150,
             });
 
@@ -70,6 +64,25 @@ export const useSpotsSearch = (mapRef: MutableRefObject<MapRef>, enabled = true)
         data: loadedSpots,
         ...queryRes,
     };
+};
+
+export const useSpotsByTags = (tags: string[] | undefined, tagsFromMedia?: boolean) => {
+    return useQuery(
+        ['fetch-spots-by-tags', tags, tagsFromMedia],
+        async () => {
+            if (tags != null && tagsFromMedia != null) {
+                const spots = await getSpotsByTags(tags, tagsFromMedia);
+                return sort(spots, (s) => s.mediasStat.all, true);
+            }
+            return;
+        },
+        {
+            enabled: !!tags && tagsFromMedia != null,
+            refetchOnMount: false,
+            refetchOnReconnect: false,
+            refetchOnWindowFocus: false,
+        },
+    );
 };
 
 export default useSpot;

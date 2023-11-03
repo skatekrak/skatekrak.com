@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { QuickAccessMap } from 'components/pages/map/mapQuickAccess/types';
+import { CustomMap } from 'map';
 
 export const useCustomMaps = () => {
     return useQuery(
@@ -24,7 +25,7 @@ const useCustomMap = (id: string) => {
             if (id == null) {
                 return null;
             }
-            const response = await axios.get('/api/custom-maps', { params: { id: id } });
+            const response = await axios.get<CustomMap>('/api/custom-maps', { params: { id: id } });
             const customMap = response.data;
             return customMap;
         },

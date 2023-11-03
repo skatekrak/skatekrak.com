@@ -2,14 +2,9 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import Cors from 'cors';
 import fs from 'fs';
 
-import { Spot } from 'lib/carrelageClient';
 import { CustomMapCategory, QuickAccessMap } from 'components/pages/map/mapQuickAccess/types';
 import { CustomMap } from 'map';
 import path from 'path';
-
-const computeContentScore = (spot: Spot): number => {
-    return spot.mediasStat.all + spot.clipsStat.all;
-};
 
 const cors = Cors({
     methods: ['GET', 'HEAD'],
@@ -43,11 +38,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             return !map.staging;
         }
         return true;
-    }).map((map) => {
-        return {
-            ...map,
-            spots: JSON.parse(fs.readFileSync(directory + `/${map.id}.json`, 'utf8')),
-        };
     });
 
     const id = req.query.id;
@@ -62,7 +52,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
                 about: map.about,
                 edito: map.edito,
                 categories: map.categories as CustomMapCategory[],
-                numberOfSpots: map.spots.length,
             });
         }
 
@@ -74,11 +63,10 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     }
 
     const customMap = CustomMaps.find((map) => map.id === id);
-    customMap.spots = JSON.parse(fs.readFileSync(directory + `/${id}.json`, 'utf8'));
-    if (customMap === undefined || customMap.spots === undefined) {
+    console.log(customMap);
+    if (customMap === undefined) {
         return res.status(404).json({ message: 'Map not found' });
     }
-    customMap.spots = customMap.spots.sort((a: Spot, b: Spot) => computeContentScore(b) - computeContentScore(a));
 
     res.status(200).json(customMap);
 };

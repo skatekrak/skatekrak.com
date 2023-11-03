@@ -15,7 +15,6 @@ declare module 'map' {
         subtitle: string;
         edito: string;
         about: string;
-        spots: Spot[];
         videos: string[];
         staging: boolean;
     }

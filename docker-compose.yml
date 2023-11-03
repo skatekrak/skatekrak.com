@@ -10,10 +10,10 @@ services:
             - traefik.http.routers.skatekrak.tls=true
             - traefik.http.routers.skatekrak.service=skatekrak
             - traefik.http.services.skatekrak.loadbalancer.server.port=3000 # Adapt to the exposed port in the service
-            - traefik.http.routers.skatekrak.middlewares=carrelage-redir
 
-            - traefik.http.middlewares.carrelage-redir.redirectregex.regex=ˆhttps://api.dev.skatekrak.com/(.*)
-            - traefik.http.middlewares.carrelage-redir.redirectregex.replacement=http://carrelage-carrelage-1:3636/$$1
+        # - traefik.http.routers.skatekrak.middlewares=carrelage-redir
+        # - traefik.http.middlewares.carrelage-redir.redirectregex.regex=ˆhttps://api.dev.skatekrak.com/(.*)
+        # - traefik.http.middlewares.carrelage-redir.redirectregex.replacement=http://carrelage-carrelage-1:3636/$$1
         working_dir: /app
         volumes:
             - .:/app
