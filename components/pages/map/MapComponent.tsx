@@ -101,7 +101,9 @@ const MapComponent = ({ mapRef, spots, children, onLoad }: MapComponentProps) =>
                 minZoom={MIN_ZOOM_LEVEL}
                 maxZoom={MAX_ZOOM_LEVEL}
                 mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}
-                mapStyle={isCreateSpotOpen ? 'mapbox://styles/mapbox/satellite-v9' : 'mapbox://styles/mapbox/dark-v9'}
+                mapStyle={
+                    isCreateSpotOpen ? 'mapbox://styles/mapbox/satellite-streets-v12' : 'mapbox://styles/mapbox/dark-v9'
+                }
                 onMove={onViewportChange}
                 onLoad={onLoad}
             >
