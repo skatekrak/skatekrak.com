@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 
 import MapMediaOverlay from './MapMediaOverlay';
 import MapMediaShare from './MapMediaShare';
@@ -17,9 +17,7 @@ export type MapMediaProps = {
 
 const MapMedia = ({ shareURL, media, isFromCustomMapFeed = false }: MapMediaProps) => {
     const videoPlayingId = useSelector((state: RootState) => state.map.videoPlayingId);
-    const isPlaying = useMemo(() => videoPlayingId === media.id, [videoPlayingId, media.id]);
-
-    console.log(media);
+    const isPlaying = videoPlayingId === media.id;
 
     return (
         <S.MapMediaContainer key={media.id}>
