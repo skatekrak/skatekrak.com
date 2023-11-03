@@ -25,5 +25,6 @@ export enum CustomMapCategory {
     photographer = 'Photographers',
     magazine = 'Magazines',
     skatepark = 'Skateparks',
+    shop = 'Shops',
     years = 'Years',
 }

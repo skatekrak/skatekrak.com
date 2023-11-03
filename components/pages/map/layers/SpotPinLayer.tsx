@@ -38,7 +38,7 @@ const SpotPinLayer = ({ type }: SpotPinLayerProps) => {
         return () => {
             map.off('click', `spot-layer-${type}`, onMapLayerClick);
         };
-    });
+    }, [dispatch, map, type]);
 
     return (
         <Layer
