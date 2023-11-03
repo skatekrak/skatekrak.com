@@ -87,6 +87,6 @@
         "webpack": "^5.85.0"
     },
     "engines": {
-        "node": "20"
+        "node": "18"
     }
 }
