@@ -18,6 +18,8 @@ on:
                     - photographer
                     - video
                     - skatepark
+                    - years
+                    - shop
             name:
                 type: string
                 required: false
