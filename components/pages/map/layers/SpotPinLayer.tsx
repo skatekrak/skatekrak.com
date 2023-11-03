@@ -1,4 +1,4 @@
-import { memo, useEffect } from 'react';
+import { memo, useCallback, useEffect } from 'react';
 import { Layer, MapLayerMouseEvent, useMap } from 'react-map-gl';
 import { Status, Types } from 'shared/feudartifice/types';
 import { useAppDispatch, useAppSelector } from 'store/hook';
@@ -26,19 +26,22 @@ const SpotPinLayer = ({ type }: SpotPinLayerProps) => {
         }
     }, [type, map]);
 
-    useEffect(() => {
-        const onMapLayerClick = (event: MapLayerMouseEvent) => {
+    const onMapLayerClick = useCallback(
+        (event: MapLayerMouseEvent) => {
             if (event.features.length > 0) {
                 dispatch(selectSpot(event.features[0].properties.spotId));
             }
-        };
+        },
+        [dispatch],
+    );
 
+    useEffect(() => {
         map.on('click', `spot-layer-${type}`, onMapLayerClick);
 
         return () => {
             map.off('click', `spot-layer-${type}`, onMapLayerClick);
         };
-    }, [dispatch, map, type]);
+    }, [map, type, onMapLayerClick]);
 
     return (
         <Layer
