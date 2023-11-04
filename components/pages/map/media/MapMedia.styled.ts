@@ -74,3 +74,19 @@ export const MapMediaContainer = styled.div`
         height: 100%;
     }
 `;
+
+export const MapMediaSpotButton = styled.button`
+    color: ${({ theme }) => theme.color.onDark.highEmphasis};
+    background-color: initial;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    &:hover {
+        text-decoration: underline;
+    }
+
+    & svg {
+        width: 1.75rem;
+    }
+`;
