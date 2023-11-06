@@ -14,7 +14,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
     const lastWeekDay = sub(new Date(), { weeks: 1 });
     const stats = await Feudartifice.admin.getStats(
-        { from: startOfWeek(lastWeekDay), to: endOfWeek(lastWeekDay) },
+        { from: startOfWeek(lastWeekDay, { weekStartsOn: 1 }), to: endOfWeek(lastWeekDay, { weekStartsOn: 1 }) },
         process.env.ADMIN_TOKEN,
     );
 
