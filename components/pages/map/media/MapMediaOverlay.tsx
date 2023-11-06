@@ -14,13 +14,13 @@ type Props = {
     isFromCustomMapFeed: boolean;
 };
 
-const MapMediaOverlay = ({ media, isFromCustomMapFeed }: Props) => {
+const MapMediaOverlaySpotOrUsername = ({ media, isFromCustomMapFeed }: Props) => {
     const { current: map } = useMap();
     const dispatch = useAppDispatch();
 
-    return (
-        <S.MapMediaOverlay>
-            {isFromCustomMapFeed ? (
+    if (isFromCustomMapFeed) {
+        if (media.spot != null) {
+            return (
                 <S.MapMediaSpotButton
                     onClick={() => {
                         if (media.spot.location.latitude && media.spot.location.longitude) {
@@ -40,11 +40,23 @@ const MapMediaOverlay = ({ media, isFromCustomMapFeed }: Props) => {
                         {media.spot.name}
                     </Typography>
                 </S.MapMediaSpotButton>
-            ) : (
-                <Typography as="h5" component="condensedSubtitle1">
-                    {media.addedBy.username}
-                </Typography>
-            )}
+            );
+        }
+        // Don't show anything if the media is not from a spot and we are on the custom map feed
+        return <> </>;
+    }
+
+    return (
+        <Typography as="h5" component="condensedSubtitle1">
+            {media.addedBy.username}
+        </Typography>
+    );
+};
+
+const MapMediaOverlay = ({ media, isFromCustomMapFeed }: Props) => {
+    return (
+        <S.MapMediaOverlay>
+            <MapMediaOverlaySpotOrUsername media={media} isFromCustomMapFeed={isFromCustomMapFeed} />
             {media.caption != null && (
                 <S.MapMediaOverlayCaption component="body2" truncateLines={3}>
                     {media.caption}
