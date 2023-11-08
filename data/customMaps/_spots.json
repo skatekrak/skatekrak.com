@@ -4161,5 +4161,24 @@
       "https://www.youtube.com/watch?v=Jq6XYKEE3Bk",
       "https://www.youtube.com/watch?v=1ZCB9wCRTv4"
     ]
+  },
+  {
+    "id": "brandonturner",
+    "categories": [
+      "skater"
+    ],
+    "name": "Brandon Turner",
+    "subtitle": "",
+    "edito": "",
+    "about": "Brandon Turner was born 28 December 1981 in San Diego, California.",
+    "videos": [
+      "https://www.youtube.com/watch?v=bLg-MTDbtnY",
+      "https://www.youtube.com/watch?v=a_gwMl5jnxc",
+      "https://www.youtube.com/watch?v=3b71mWTcQlY",
+      "https://www.youtube.com/watch?v=hQZc69mRg4U",
+      "https://www.youtube.com/watch?v=Lm-EUfpXiFA",
+      "https://www.youtube.com/watch?v=-9fMcPyP-lQ",
+      "https://www.youtube.com/watch?v=DZA1DiFMeFA"
+    ]
   }
 ]
