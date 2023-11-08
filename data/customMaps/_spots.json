@@ -4219,5 +4219,18 @@
     "videos": [
       "https://www.youtube.com/watch?v=Xbaa_8J21Ps"
     ]
+  },
+  {
+    "id": "duets",
+    "categories": [
+      "video"
+    ],
+    "name": "Transworld 'Duets'",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/playlist?list=PLeDPwuVJ0A5JiUV4IJsxYXEqozd-nbgXF"
+    ]
   }
 ]
