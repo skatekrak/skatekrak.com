@@ -4096,5 +4096,21 @@
       "https://www.youtube.com/watch?v=xaPSPn_nWpo",
       "https://www.youtube.com/watch?v=olVsRvSQdjI"
     ]
+  },
+  {
+    "id": "joshkasper",
+    "categories": [
+      "skater"
+    ],
+    "name": "Josh Kasper",
+    "subtitle": "",
+    "edito": "",
+    "about": "Josh Kasper is from San Diego, California, United State of America. He was born June 4, 1976.",
+    "videos": [
+      "https://www.youtube.com/watch?v=4Q53WBmwHzo",
+      "https://www.youtube.com/watch?v=FtZZoG_RwcY",
+      "https://www.youtube.com/watch?v=IvtgRSNJZqw",
+      "https://www.youtube.com/watch?v=ezj05xJ6pJk"
+    ]
   }
 ]
