@@ -4123,5 +4123,21 @@
     "edito": "",
     "about": "Chris Joslin is from Cerritos, California, USA. He was born on March 10, 1996.",
     "videos": []
+  },
+  {
+    "id": "chrisdobstaff",
+    "categories": [
+      "skater"
+    ],
+    "name": "Chris Dobstaff",
+    "subtitle": "",
+    "edito": "",
+    "about": "Chris Dobstaff is from San Diego, California, United States of America. He was born December 19, 1981.",
+    "videos": [
+      "https://www.youtube.com/watch?v=ZnsGq7v_T5c",
+      "https://www.youtube.com/watch?v=V11kS22ozs8",
+      "https://www.youtube.com/watch?v=1jBPgAKS2jM",
+      "https://www.youtube.com/watch?v=BHgt8l7vqmY"
+    ]
   }
 ]
