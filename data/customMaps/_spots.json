@@ -4180,5 +4180,18 @@
       "https://www.youtube.com/watch?v=-9fMcPyP-lQ",
       "https://www.youtube.com/watch?v=DZA1DiFMeFA"
     ]
+  },
+  {
+    "id": "dennisbusenitz",
+    "categories": [
+      "skater"
+    ],
+    "name": "Dennis Busenitz",
+    "subtitle": "",
+    "edito": "",
+    "about": "Dennis Busenitz was born Sep 29, 1981 in Newton, Kansas, but lived with his parents in Germany for 13 years. He has since moved to San Francisco, California.",
+    "videos": [
+      "https://www.youtube.com/playlist?list=PLZD7e5Dj66McbxSHJAdp0s1litW2wPgTY"
+    ]
   }
 ]
