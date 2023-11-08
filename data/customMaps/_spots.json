@@ -4232,5 +4232,18 @@
     "videos": [
       "https://www.youtube.com/playlist?list=PLeDPwuVJ0A5JiUV4IJsxYXEqozd-nbgXF"
     ]
+  },
+  {
+    "id": "doll",
+    "categories": [
+      "video"
+    ],
+    "name": "Girl 'Doll'",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=xjmyx1eH2w4"
+    ]
   }
 ]
