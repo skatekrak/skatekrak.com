@@ -4193,5 +4193,18 @@
     "videos": [
       "https://www.youtube.com/playlist?list=PLZD7e5Dj66McbxSHJAdp0s1litW2wPgTY"
     ]
+  },
+  {
+    "id": "diagonal",
+    "categories": [
+      "video"
+    ],
+    "name": "Adidas 'Diagonal'",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=RAeygLDR2GY"
+    ]
   }
 ]
