@@ -4362,5 +4362,18 @@
     "videos": [
       "https://www.youtube.com/watch?v=9nC7ANG22MM"
     ]
+  },
+  {
+    "id": "mosaic",
+    "categories": [
+      "video"
+    ],
+    "name": "Habitat 'Mosaic'",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=5C3av3rDTVM"
+    ]
   }
 ]
