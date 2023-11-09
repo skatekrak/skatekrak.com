@@ -4375,5 +4375,18 @@
     "videos": [
       "https://www.youtube.com/watch?v=5C3av3rDTVM"
     ]
+  },
+  {
+    "id": "bonappetit",
+    "categories": [
+      "video"
+    ],
+    "name": "Cliché 'Bon Appétit'",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=4hczFjartD0"
+    ]
   }
 ]
