@@ -4465,5 +4465,18 @@
       "https://www.youtube.com/watch?v=Z1qSvb3vpwE",
       "https://www.youtube.com/watch?v=sIAJtpiF-84"
     ]
+  },
+  {
+    "id": "brainwash",
+    "categories": [
+      "video"
+    ],
+    "name": "Toy Machine 'Brainwash'",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=C6I1p3GuDKI"
+    ]
   }
 ]
