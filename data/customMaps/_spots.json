@@ -4388,5 +4388,18 @@
     "videos": [
       "https://www.youtube.com/watch?v=4hczFjartD0"
     ]
+  },
+  {
+    "id": "europa",
+    "categories": [
+      "video"
+    ],
+    "name": "Cliché 'Europa'",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=jsLjdkn-eNA"
+    ]
   }
 ]
