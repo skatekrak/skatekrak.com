@@ -4478,5 +4478,18 @@
     "videos": [
       "https://www.youtube.com/watch?v=C6I1p3GuDKI"
     ]
+  },
+  {
+    "id": "strangeworld",
+    "categories": [
+      "video"
+    ],
+    "name": "Zero 'Strange World'",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=WrhK8AWuLcc"
+    ]
   }
 ]
