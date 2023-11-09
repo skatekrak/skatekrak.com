@@ -4297,5 +4297,18 @@
     "videos": [
       "https://www.youtube.com/watch?v=H3ocHKwy-zI"
     ]
+  },
+  {
+    "id": "awaydays",
+    "categories": [
+      "video"
+    ],
+    "name": "Adidas 'Away Days'",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=DD0hl4zX6dE"
+    ]
   }
 ]
