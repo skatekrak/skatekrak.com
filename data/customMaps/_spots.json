@@ -4310,5 +4310,18 @@
     "videos": [
       "https://www.youtube.com/watch?v=DD0hl4zX6dE"
     ]
+  },
+  {
+    "id": "wtf",
+    "categories": [
+      "video"
+    ],
+    "name": "Foundation 'WTF'",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=FPlEiwJozw8"
+    ]
   }
 ]
