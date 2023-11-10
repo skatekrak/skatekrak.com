@@ -4523,5 +4523,23 @@
     "videos": [
       "https://www.youtube.com/watch?v=JyC_fgjo7Oc"
     ]
+  },
+  {
+    "id": "juliandykmans",
+    "categories": [
+      "skater"
+    ],
+    "name": "Julian Dykmans",
+    "subtitle": "",
+    "edito": "",
+    "about": "Julian Dykmans was born 3 June 1976, in Ottignies, Belgium.",
+    "videos": [
+      "https://www.youtube.com/watch?v=Qp_srxo0fAE",
+      "https://www.youtube.com/watch?v=ji-picgT9yU",
+      "https://www.youtube.com/watch?v=oCFlw0lLerM",
+      "https://www.youtube.com/watch?v=YmrCW8alcp4",
+      "https://www.youtube.com/watch?v=mvpJRxWxfHg",
+      "https://www.youtube.com/watch?v=_SWcRAbg648"
+    ]
   }
 ]
