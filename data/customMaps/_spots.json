@@ -4510,5 +4510,18 @@
       "https://www.youtube.com/watch?v=MGsLOtyr0U0",
       "https://www.youtube.com/watch?v=YJZNNHJPmCM"
     ]
+  },
+  {
+    "id": "prettysweet",
+    "categories": [
+      "video"
+    ],
+    "name": "Girl 'Pretty Sweet'",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=JyC_fgjo7Oc"
+    ]
   }
 ]
