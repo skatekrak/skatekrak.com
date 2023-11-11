@@ -4598,5 +4598,18 @@
       "https://www.youtube.com/watch?v=FxBoiSyojsU",
       "https://www.youtube.com/watch?v=4DejKa70pFA"
     ]
+  },
+  {
+    "id": "searchthehorizon",
+    "categories": [
+      "video"
+    ],
+    "name": "Habitat 'Search The Horizon'",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=yGd6unBhJ5I"
+    ]
   }
 ]
