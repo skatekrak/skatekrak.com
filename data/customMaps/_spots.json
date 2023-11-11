@@ -4689,5 +4689,29 @@
     "videos": [
       "https://www.youtube.com/watch?v=UHEbfLMJR10"
     ]
+  },
+  {
+    "id": "philmottet",
+    "categories": [
+      "filmer"
+    ],
+    "name": "Philippe Mottet",
+    "subtitle": "",
+    "edito": "",
+    "about": "Philippe Mottet lives in Brussels, Belgium. He is the lens master behind the Kaaf Movies projects. ",
+    "videos": [
+      "https://www.youtube.com/watch?v=b4ZIxiiF4zE",
+      "https://www.youtube.com/watch?v=zEH6nB_U7d4",
+      "https://www.youtube.com/watch?v=dVnEjmC1zg0",
+      "https://www.youtube.com/watch?v=burLeSAFNQs",
+      "https://www.youtube.com/watch?v=psfEQgoldqI",
+      "https://www.youtube.com/watch?v=zsydTjOYGJ8",
+      "https://www.youtube.com/watch?v=H1Ma-4YdZTs",
+      "https://www.youtube.com/watch?v=9LZZTiGfJsA",
+      "https://www.youtube.com/watch?v=6VDeusRlOEc",
+      "https://www.youtube.com/watch?v=DVGkegFD5Is",
+      "https://www.youtube.com/watch?v=8kCfOHaYYcg",
+      "https://www.youtube.com/watch?v=3vktyp081oQ"
+    ]
   }
 ]
