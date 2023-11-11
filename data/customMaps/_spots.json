@@ -4724,5 +4724,32 @@
     "edito": "",
     "about": "Gustav Tønnesen was born in 1991, in Egersund, Norway.",
     "videos": []
+  },
+  {
+    "id": "olivierente",
+    "categories": [
+      "skater"
+    ],
+    "name": "Olivier Ente",
+    "subtitle": "",
+    "edito": "",
+    "about": "Olivier Ente est un skateur, mais aussi un artiste-illustrateur, qui a commencé sur un lopin de bitume à Armentières, dans le Nord.",
+    "videos": [
+      "https://www.youtube.com/watch?v=wIIKLxDNlmM",
+      "https://www.youtube.com/watch?v=S8nKN_X55TY",
+      "https://www.youtube.com/watch?v=3to5m9Kp2fc",
+      "https://www.youtube.com/watch?v=hDv4oWbLUIs",
+      "https://www.youtube.com/watch?v=n30CrvtKG-E",
+      "https://www.youtube.com/watch?v=ylbI42mfLWc",
+      "https://www.youtube.com/watch?v=5sKUk3OgFxw",
+      "https://www.youtube.com/watch?v=CIxA5pRsMOY",
+      "https://www.youtube.com/watch?v=sPFz99tJkU0",
+      "https://www.youtube.com/watch?v=x7ZGodgjsL4",
+      "https://www.youtube.com/watch?v=a5w2Vb0B8N4",
+      "https://www.youtube.com/watch?v=8hMCaHtFdic",
+      "https://www.youtube.com/watch?v=QBO4fUBm7vE",
+      "https://www.youtube.com/watch?v=I0BQX2wm-iI",
+      "https://www.youtube.com/watch?v=obPwb9jijAc"
+    ]
   }
 ]
