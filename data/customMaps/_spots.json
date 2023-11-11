@@ -4663,5 +4663,18 @@
     "videos": [
       "https://www.youtube.com/watch?v=ZYAzo5OdqHM"
     ]
+  },
+  {
+    "id": "weareblood",
+    "categories": [
+      "video"
+    ],
+    "name": "We Are Blood",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=j5uc5PEs-DA"
+    ]
   }
 ]
