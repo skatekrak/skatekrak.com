@@ -4881,5 +4881,18 @@
     "videos": [
       "https://www.youtube.com/watch?v=pJE3_CJiRLg"
     ]
+  },
+  {
+    "id": "parentaladvisory",
+    "categories": [
+      "video"
+    ],
+    "name": "DGK 'Parental Advisory'",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=w6G1qqMKDaA"
+    ]
   }
 ]
