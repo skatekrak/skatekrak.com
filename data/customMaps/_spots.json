@@ -4868,5 +4868,18 @@
     "videos": [
       "https://www.youtube.com/watch?v=lh-Y6EohIhk"
     ]
+  },
+  {
+    "id": "freedomfries",
+    "categories": [
+      "video"
+    ],
+    "name": "Cliché 'Freedom Fries'",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=pJE3_CJiRLg"
+    ]
   }
 ]
