@@ -4816,5 +4816,18 @@
     "videos": [
       "https://www.youtube.com/watch?v=6kSklbnfT8U"
     ]
+  },
+  {
+    "id": "welcometohell",
+    "categories": [
+      "video"
+    ],
+    "name": "Toy Machine 'Welcome to Hell'",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=4tx2Q9pNxPc"
+    ]
   }
 ]
