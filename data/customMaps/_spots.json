@@ -4972,5 +4972,18 @@
     "videos": [
       "https://www.youtube.com/watch?v=Z_V9XnRFzd4"
     ]
+  },
+  {
+    "id": "crosscontinental",
+    "categories": [
+      "video"
+    ],
+    "name": "Atlas x Habitat 'Cross Continental'",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=SG3BYLv403k"
+    ]
   }
 ]
