@@ -4855,5 +4855,18 @@
     "videos": [
       "https://www.youtube.com/watch?v=oSTZpEN3A2k"
     ]
+  },
+  {
+    "id": "baker4",
+    "categories": [
+      "video"
+    ],
+    "name": "Baker 'Baker 4'",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=lh-Y6EohIhk"
+    ]
   }
 ]
