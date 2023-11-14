@@ -4829,5 +4829,18 @@
     "videos": [
       "https://www.youtube.com/watch?v=4tx2Q9pNxPc"
     ]
+  },
+  {
+    "id": "divercity",
+    "categories": [
+      "video"
+    ],
+    "name": "Digital 'Divercity'",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=hXVN4PoUaGk"
+    ]
   }
 ]
