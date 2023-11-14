@@ -4790,5 +4790,18 @@
     "edito": "",
     "about": "",
     "videos": []
+  },
+  {
+    "id": "thisismyelement",
+    "categories": [
+      "maps"
+    ],
+    "name": "Element 'This is my element'",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=NwocykcSK1U"
+    ]
   }
 ]
