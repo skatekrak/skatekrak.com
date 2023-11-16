@@ -5051,5 +5051,16 @@
     "edito": "",
     "about": "This is SLS Resurrection; where street spots of the past are brought back to life.",
     "videos": []
+  },
+  {
+    "id": "slstrickoftheyear",
+    "categories": [
+      "maps"
+    ],
+    "name": "SLS Trick Of The Year",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": []
   }
 ]
