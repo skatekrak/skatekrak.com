@@ -5037,5 +5037,19 @@
     "edito": "",
     "about": "This is SLS Resurrection; where street spots of the past are brought back to life.",
     "videos": []
+  },
+  {
+    "id": "zackdowdy",
+    "categories": [
+      "maps"
+    ],
+    "name": "Zack Dowdy Famous Skate Spots",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=Es7ERESoHxk",
+      "https://www.youtube.com/watch?v=sUNewn0_djQ"
+    ]
   }
 ]
