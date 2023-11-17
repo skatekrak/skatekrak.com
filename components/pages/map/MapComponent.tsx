@@ -100,6 +100,7 @@ const MapComponent = ({ mapRef, spots, children, onLoad }: MapComponentProps) =>
                 maxZoom={MAX_ZOOM_LEVEL}
                 mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}
                 mapStyle={'mapbox://styles/mapbox/dark-v11'}
+                projection={{ name: 'mercator' }}
                 onMove={onViewportChange}
                 onLoad={onLoad}
             >
