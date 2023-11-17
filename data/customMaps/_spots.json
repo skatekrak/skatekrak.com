@@ -5283,5 +5283,18 @@
     "videos": [
       "https://www.youtube.com/watch?v=rxQ4aFiEPZA"
     ]
+  },
+  {
+    "id": "album",
+    "categories": [
+      "video"
+    ],
+    "name": "Etnies 'Album'",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=XIfE2k4Lkrg"
+    ]
   }
 ]
