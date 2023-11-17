@@ -126,7 +126,7 @@ export interface Spot {
     className: string;
     name: string;
     location: Location;
-    geo: number[];
+    geo: [number, number];
     geoHash: string;
     type: Types;
     status: Status;

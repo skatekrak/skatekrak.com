@@ -17,7 +17,7 @@ import MapGradients from './MapGradients';
 import MapZoomAlert from './MapZoomAlert';
 import * as S from './Map.styled';
 import { useAppDispatch, useAppSelector } from 'store/hook';
-import { findBoundsCoordinate } from 'lib/map/helpers';
+import { findSpotsBoundsCoordinate } from 'lib/map/helpers';
 import { ZOOM_DISPLAY_WARNING } from './Map.constant';
 import MapCreateSpot from './MapCreateSpot';
 import useSession from 'lib/hook/carrelage/use-session';
@@ -127,10 +127,9 @@ const MapContainer = () => {
 
     useEffect(() => {
         if (mapRef.current != null && id != null && spotsByTags != null && !isEmpty(spotsByTags)) {
-            const bounds = findBoundsCoordinate(
-                spotsByTags.map((spot) => [spot.location.longitude, spot.location.latitude]),
-            );
-            mapRef.current?.fitBounds(bounds, { padding: 128, duration: 1500 });
+            const bounds = findSpotsBoundsCoordinate(spotsByTags);
+            console.log('bounds', bounds);
+            mapRef.current?.fitBounds(bounds, { padding: 254, duration: 1500 });
         }
     }, [spotsByTags, viewport.width, id, dispatch]);
 

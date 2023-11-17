@@ -1,3 +1,5 @@
+import { Spot } from 'lib/carrelageClient';
+
 /**
  *
  * @param coordinates Array of coordinates
@@ -10,8 +12,20 @@ export const findBoundsCoordinate = (coordinates: [number, number][]): [[number,
     const southWestLongitude = Math.min(...coordinates.map((c) => c[0]));
 
     return [
-        [northEastLongitude, northEastLatitude],
         [southWestLongitude, southWestLatitude],
+        [northEastLongitude, northEastLatitude],
+    ];
+};
+
+export const findSpotsBoundsCoordinate = (spots: Spot[]): [[number, number], [number, number]] => {
+    const northEastLatitude = Math.max(...spots.map((s) => s.location.latitude));
+    const northEastLongitude = Math.max(...spots.map((s) => s.location.longitude));
+    const southWestLatitude = Math.min(...spots.map((s) => s.location.latitude));
+    const southWestLongitude = Math.min(...spots.map((s) => s.location.longitude));
+
+    return [
+        [southWestLongitude, southWestLatitude],
+        [northEastLongitude, northEastLatitude],
     ];
 };
 
