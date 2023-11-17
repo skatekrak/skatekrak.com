@@ -5166,5 +5166,18 @@
     "videos": [
       "https://www.youtube.com/watch?v=A-xxdtZcXeE"
     ]
+  },
+  {
+    "id": "dyingtolive",
+    "categories": [
+      "video"
+    ],
+    "name": "Zero 'Dying To Live'",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=iB2RT-hyD58"
+    ]
   }
 ]
