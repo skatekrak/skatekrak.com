@@ -5075,5 +5075,18 @@
     "videos": [
       "https://www.youtube.com/watch?v=GvdFN-3vkTg"
     ]
+  },
+  {
+    "id": "soursolution3",
+    "categories": [
+      "video"
+    ],
+    "name": "Sour 'The Sour Solution III' ",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=CcW-w0xZqbs"
+    ]
   }
 ]
