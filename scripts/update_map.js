@@ -51,7 +51,7 @@ const main = () => {
     };
 
     if (videos !== '') {
-        newMap.videos = videos.split(',');
+        newMap.videos = videos.split(',').map((url) => url.trim());
     }
 
     if (category != '') {

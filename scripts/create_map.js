@@ -43,7 +43,7 @@ const main = () => {
     let videos = getParam('--videos');
 
     if (videos !== '') {
-        videos = videos.split(',');
+        videos = videos.split(',').map((url) => url.trim());
     } else {
         videos = [];
     }
