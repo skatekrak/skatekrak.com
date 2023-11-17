@@ -5179,5 +5179,18 @@
     "videos": [
       "https://www.youtube.com/watch?v=iB2RT-hyD58"
     ]
+  },
+  {
+    "id": "lovechild",
+    "categories": [
+      "video"
+    ],
+    "name": "World Industries 'Love Child'",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=PKkZc8ZDEa4"
+    ]
   }
 ]
