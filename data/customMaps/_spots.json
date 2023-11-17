@@ -5127,5 +5127,18 @@
     "videos": [
       "https://www.youtube.com/watch?v=XIRk-h0sW7A"
     ]
+  },
+  {
+    "id": "blessed",
+    "categories": [
+      "video"
+    ],
+    "name": "Supreme 'Blessed'",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=1nErHUooC1E"
+    ]
   }
 ]
