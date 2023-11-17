@@ -67,7 +67,7 @@ jobs:
               with:
                   add: "['./data/customMaps/_spots.json']"
                   default_author: user_info
-                  message: 'feat: Map updated'
+                  message: 'feat: Map ${{inputs.tag}} updated'
             - run: pnpm install --frozen-lockfile
             - run: pnpm lint
             - name: Deploying to Vercel
