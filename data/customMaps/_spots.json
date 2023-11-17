@@ -5153,5 +5153,18 @@
     "videos": [
       "https://www.youtube.com/watch?v=E32pKg-GFHs"
     ]
+  },
+  {
+    "id": "nootherway",
+    "categories": [
+      "video"
+    ],
+    "name": "Vans 'No Other Way'",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=A-xxdtZcXeE"
+    ]
   }
 ]
