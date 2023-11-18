@@ -5426,5 +5426,18 @@
     "videos": [
       "https://www.youtube.com/watch?v=XccMFqjHfG8"
     ]
+  },
+  {
+    "id": "stateofmind",
+    "categories": [
+      "video"
+    ],
+    "name": "Zoo York 'State Of Mind'",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=S6snwVy7x-4"
+    ]
   }
 ]
