@@ -5374,5 +5374,18 @@
     "videos": [
       "https://www.youtube.com/watch?v=9Fn5TEvPxfo"
     ]
+  },
+  {
+    "id": "letslive",
+    "categories": [
+      "video"
+    ],
+    "name": "Volcom 'Let's Live'",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=XurvpvXNMV0"
+    ]
   }
 ]
