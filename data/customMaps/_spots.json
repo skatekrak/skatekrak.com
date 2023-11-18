@@ -5322,5 +5322,18 @@
     "videos": [
       "https://www.youtube.com/watch?v=dbpNSfdVk_4"
     ]
+  },
+  {
+    "id": "hotchocolate",
+    "categories": [
+      "video"
+    ],
+    "name": "Chocolate 'Hot Chocolate'",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=9Nn55OwvcSE"
+    ]
   }
 ]
