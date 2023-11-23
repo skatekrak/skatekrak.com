@@ -5453,5 +5453,16 @@
     "videos": [
       "https://www.youtube.com/watch?v=Uh2X5uxi7no"
     ]
+  },
+  {
+    "id": "enders",
+    "categories": [
+      "maps"
+    ],
+    "name": "Enders",
+    "subtitle": "",
+    "edito": "",
+    "about": "The last trick of a video part is always something special!",
+    "videos": []
   }
 ]
