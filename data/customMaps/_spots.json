@@ -5494,5 +5494,18 @@
     "videos": [
       "https://www.youtube.com/watch?v=E1ATeGCecWI"
     ]
+  },
+  {
+    "id": "viajeroslocos",
+    "categories": [
+      "video"
+    ],
+    "name": "Listen 'Viajeros Locos'",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=QruBVPU4vOs"
+    ]
   }
 ]
