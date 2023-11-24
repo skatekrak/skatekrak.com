@@ -5624,5 +5624,18 @@
     "videos": [
       "https://www.youtube.com/watch?v=-h3SgstP84c"
     ]
+  },
+  {
+    "id": "allyouneed",
+    "categories": [
+      "video"
+    ],
+    "name": "Jart 'All You Need'",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=Z6yH6WcFNXc"
+    ]
   }
 ]
