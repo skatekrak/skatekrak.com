@@ -5533,5 +5533,18 @@
     "videos": [
       "https://www.youtube.com/watch?v=DO0bxZydsIs"
     ]
+  },
+  {
+    "id": "define",
+    "categories": [
+      "video"
+    ],
+    "name": "Primitive 'Define'",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=Y_KaZQwCOyY"
+    ]
   }
 ]
