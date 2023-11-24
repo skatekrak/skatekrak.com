@@ -5598,5 +5598,18 @@
     "videos": [
       "https://www.youtube.com/watch?v=m1PRtO6dCgE"
     ]
+  },
+  {
+    "id": "lsd",
+    "categories": [
+      "video"
+    ],
+    "name": "Krooked 'LSD'",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=PffQbvwOK7o"
+    ]
   }
 ]
