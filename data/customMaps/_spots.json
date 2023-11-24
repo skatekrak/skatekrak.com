@@ -5637,5 +5637,18 @@
     "videos": [
       "https://www.youtube.com/watch?v=Z6yH6WcFNXc"
     ]
+  },
+  {
+    "id": "palasonic",
+    "categories": [
+      "video"
+    ],
+    "name": "Palace 'Palasonic'",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=F2Ew-i8a7cg"
+    ]
   }
 ]
