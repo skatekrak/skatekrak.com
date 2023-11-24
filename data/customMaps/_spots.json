@@ -5468,5 +5468,18 @@
       "https://www.youtube.com/watch?v=LpbESj8_tUI",
       "https://www.youtube.com/watch?v=TRNP9Tx-uOA"
     ]
+  },
+  {
+    "id": "peace",
+    "categories": [
+      "video"
+    ],
+    "name": "Element 'Peace'",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=LiEgXwAD8TQ"
+    ]
   }
 ]
