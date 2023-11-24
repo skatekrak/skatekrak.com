@@ -5546,5 +5546,18 @@
     "videos": [
       "https://www.youtube.com/watch?v=Y_KaZQwCOyY"
     ]
+  },
+  {
+    "id": "opinion",
+    "categories": [
+      "video"
+    ],
+    "name": "Globe 'Opinion'",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=bItAiteviF0"
+    ]
   }
 ]
