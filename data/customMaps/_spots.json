@@ -5585,5 +5585,18 @@
     "videos": [
       "https://www.youtube.com/playlist?list=PLaalS2TgT-nGoVAsVG2LHNRo2RXo6gYp3"
     ]
+  },
+  {
+    "id": "forecast",
+    "categories": [
+      "video"
+    ],
+    "name": "Forecast",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=m1PRtO6dCgE"
+    ]
   }
 ]
