@@ -5923,5 +5923,18 @@
     "videos": [
       "https://www.youtube.com/watch?v=Ikk0EPK-e_0"
     ]
+  },
+  {
+    "id": "yougood",
+    "categories": [
+      "video"
+    ],
+    "name": "RedBull 'You Good?'",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=V8h7sOUDklg"
+    ]
   }
 ]
