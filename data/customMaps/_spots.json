@@ -5988,5 +5988,20 @@
     "videos": [
       "https://www.youtube.com/watch?v=NmLDcfUeaqg"
     ]
+  },
+  {
+    "id": "simongrassart",
+    "categories": [
+      "skater"
+    ],
+    "name": "Simon Grassart",
+    "subtitle": "",
+    "edito": "",
+    "about": "Born May the 4th, 1987 in Cambrai, North of France. He is the archievist-in-chief on this Krak map project. He spent half of his life in Brussels, Belgium where he developped his skills as a filmer. He created Silence skateboards, a way for him to keep filming, promote the local scene and collaborate with subversive artists worldwide. He just started a new project called 'Teenage Terror' that aims to support the youngests.",
+    "videos": [
+      "https://www.youtube.com/watch?v=M2myYB0h3z0",
+      "https://www.youtube.com/watch?v=GEP2MOEKMec",
+      "https://www.youtube.com/watch?v=TOXbA3iEPXo"
+    ]
   }
 ]
