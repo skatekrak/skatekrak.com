@@ -5949,5 +5949,18 @@
     "videos": [
       "https://www.youtube.com/watch?v=jxndVxM9BxE"
     ]
+  },
+  {
+    "id": "oscarandfriends",
+    "categories": [
+      "video"
+    ],
+    "name": "Supra 'Oscar & Friends'",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=Jx9lo5Skk5k"
+    ]
   }
 ]
