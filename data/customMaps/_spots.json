@@ -5858,5 +5858,18 @@
     "videos": [
       "https://www.youtube.com/watch?v=BN5JPOMS69g"
     ]
+  },
+  {
+    "id": "settingup",
+    "categories": [
+      "video"
+    ],
+    "name": "Pyramid Country 'Setting Up'",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=aNYeVZVzwMc"
+    ]
   }
 ]
