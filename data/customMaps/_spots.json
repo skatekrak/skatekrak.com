@@ -5884,5 +5884,18 @@
     "videos": [
       "https://www.youtube.com/watch?v=gYpZGRwYhV8"
     ]
+  },
+  {
+    "id": "exeter",
+    "categories": [
+      "video"
+    ],
+    "name": "Pyramid Country 'Exeter'",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=XTz-rvYWlmI"
+    ]
   }
 ]
