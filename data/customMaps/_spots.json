@@ -5793,5 +5793,18 @@
     "videos": [
       "https://www.youtube.com/watch?v=SC1d9fSFPbM"
     ]
+  },
+  {
+    "id": "cherry",
+    "categories": [
+      "video"
+    ],
+    "name": "Supreme 'Cherry'",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=0zIVTDbve7k"
+    ]
   }
 ]
