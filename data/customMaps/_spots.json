@@ -5741,5 +5741,18 @@
     "videos": [
       "https://www.youtube.com/watch?v=M_HSpgLtwPU"
     ]
+  },
+  {
+    "id": "sardinasalaplancha",
+    "categories": [
+      "video"
+    ],
+    "name": "Independent 'Sardinas A La Plancha'",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=7UH94_5919s"
+    ]
   }
 ]
