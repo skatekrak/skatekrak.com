@@ -5715,5 +5715,18 @@
     "videos": [
       "https://www.youtube.com/watch?v=55C5KYGafRo"
     ]
+  },
+  {
+    "id": "kronichles",
+    "categories": [
+      "video"
+    ],
+    "name": "Krooked 'Kronichles'",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=q_dN30E359w"
+    ]
   }
 ]
