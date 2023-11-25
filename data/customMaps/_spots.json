@@ -5975,5 +5975,18 @@
     "videos": [
       "https://www.youtube.com/watch?v=WIfrqRvbBFM"
     ]
+  },
+  {
+    "id": "fadetoblack",
+    "categories": [
+      "video"
+    ],
+    "name": "DC Shoes 'Nyjah Fade To Black'",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=NmLDcfUeaqg"
+    ]
   }
 ]
