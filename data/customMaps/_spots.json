@@ -5936,5 +5936,18 @@
     "videos": [
       "https://www.youtube.com/watch?v=V8h7sOUDklg"
     ]
+  },
+  {
+    "id": "vaccine",
+    "categories": [
+      "video"
+    ],
+    "name": "Toy Machine 'Vaccine'",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=jxndVxM9BxE"
+    ]
   }
 ]
