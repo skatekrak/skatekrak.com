@@ -5702,5 +5702,18 @@
     "videos": [
       "https://www.youtube.com/watch?v=CN8UBbJql7Y"
     ]
+  },
+  {
+    "id": "rollup",
+    "categories": [
+      "video"
+    ],
+    "name": "GX1000 'Roll Up'",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=55C5KYGafRo"
+    ]
   }
 ]
