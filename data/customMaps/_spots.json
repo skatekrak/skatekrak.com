@@ -5871,5 +5871,18 @@
     "videos": [
       "https://www.youtube.com/watch?v=aNYeVZVzwMc"
     ]
+  },
+  {
+    "id": "vesselinpassing",
+    "categories": [
+      "video"
+    ],
+    "name": "Pyramid Country 'Vessel In Passing'",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=gYpZGRwYhV8"
+    ]
   }
 ]
