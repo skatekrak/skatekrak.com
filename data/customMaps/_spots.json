@@ -5663,5 +5663,18 @@
     "videos": [
       "https://www.youtube.com/watch?v=XAkbeseFCcM"
     ]
+  },
+  {
+    "id": "oddity",
+    "categories": [
+      "video"
+    ],
+    "name": "Foundation 'Oddity'",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=9sSei5o2Kcs"
+    ]
   }
 ]
