@@ -5910,5 +5910,18 @@
     "videos": [
       "https://www.youtube.com/watch?v=e4MLF0QkRJ8"
     ]
+  },
+  {
+    "id": "newground",
+    "categories": [
+      "video"
+    ],
+    "name": "Bones 'New Ground'",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=Ikk0EPK-e_0"
+    ]
   }
 ]
