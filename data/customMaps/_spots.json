@@ -5689,5 +5689,18 @@
     "videos": [
       "https://www.youtube.com/watch?v=f81YkQwNtCo"
     ]
+  },
+  {
+    "id": "abba",
+    "categories": [
+      "video"
+    ],
+    "name": "Etnies 'AB&A'",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=CN8UBbJql7Y"
+    ]
   }
 ]
