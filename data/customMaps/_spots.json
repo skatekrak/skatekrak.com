@@ -5728,5 +5728,18 @@
     "videos": [
       "https://www.youtube.com/watch?v=q_dN30E359w"
     ]
+  },
+  {
+    "id": "thegeneral",
+    "categories": [
+      "video"
+    ],
+    "name": "Hardies 'The General'",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=M_HSpgLtwPU"
+    ]
   }
 ]
