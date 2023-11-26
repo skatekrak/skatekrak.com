@@ -6003,5 +6003,24 @@
       "https://www.youtube.com/watch?v=GEP2MOEKMec",
       "https://www.youtube.com/watch?v=TOXbA3iEPXo"
     ]
+  },
+  {
+    "id": "womenskate",
+    "categories": [
+      "maps"
+    ],
+    "name": "Women Skateboarding",
+    "subtitle": "Girls just wanna have fun!",
+    "edito": "",
+    "about": "This map is for all the ladies out there!",
+    "videos": [
+      "https://www.youtube.com/watch?v=aqdzySYTtj8",
+      "https://www.youtube.com/watch?v=5fZWCxPevHU",
+      "https://www.youtube.com/watch?v=EPP45MdUe6g",
+      "https://www.youtube.com/watch?v=phoxuTVZ8gc",
+      "https://www.youtube.com/watch?v=5XwlBI2W-7g",
+      "https://www.youtube.com/watch?v=z9tD1R5wp0E",
+      "https://www.youtube.com/watch?v=p5V-sD0Eu9k"
+    ]
   }
 ]
