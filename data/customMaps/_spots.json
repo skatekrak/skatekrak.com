@@ -6105,5 +6105,18 @@
       "https://www.youtube.com/watch?v=tdp4Yl2Y0wg",
       "https://www.youtube.com/watch?v=jHFTkAjQHQM"
     ]
+  },
+  {
+    "id": "miniramps",
+    "categories": [
+      "skatepark"
+    ],
+    "name": "Miniramps",
+    "subtitle": "",
+    "edito": "The retirement plan",
+    "about": "A map for the elders who are tired of taking impacts (and for the young rippers too)",
+    "videos": [
+      "https://www.youtube.com/watch?v=ukqBz4CjPu0"
+    ]
   }
 ]
