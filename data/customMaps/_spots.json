@@ -6090,5 +6090,20 @@
     "videos": [
       "https://www.youtube.com/watch?v=UjHVwEqb0Gk"
     ]
+  },
+  {
+    "id": "storied",
+    "categories": [
+      "maps"
+    ],
+    "name": "Storied",
+    "subtitle": "",
+    "edito": "",
+    "about": "STORIED is dedicated to telling Skateboarding's greatest stories.   www.storiedskateboarding.com",
+    "videos": [
+      "https://www.youtube.com/watch?v=x_WuUUIM5IA",
+      "https://www.youtube.com/watch?v=tdp4Yl2Y0wg",
+      "https://www.youtube.com/watch?v=jHFTkAjQHQM"
+    ]
   }
 ]
