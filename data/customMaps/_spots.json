@@ -6222,5 +6222,18 @@
     "videos": [
       "https://www.youtube.com/watch?v=umSSiCpb-vs"
     ]
+  },
+  {
+    "id": "labelkills",
+    "categories": [
+      "video"
+    ],
+    "name": "Black Label 'Label Kills'",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=jPyUUaE3BPo"
+    ]
   }
 ]
