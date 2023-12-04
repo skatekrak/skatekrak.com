@@ -6274,5 +6274,18 @@
     "videos": [
       "https://www.youtube.com/watch?v=6yDSHC0EPyc"
     ]
+  },
+  {
+    "id": "battalion",
+    "categories": [
+      "video"
+    ],
+    "name": "Darkstar 'Battalion'",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=ZB7S83MV2rI"
+    ]
   }
 ]
