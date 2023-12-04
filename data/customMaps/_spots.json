@@ -6170,5 +6170,18 @@
     "videos": [
       "https://www.youtube.com/watch?v=fZiS1sIt_HA"
     ]
+  },
+  {
+    "id": "videodays",
+    "categories": [
+      "video"
+    ],
+    "name": "Blind 'Video Days'",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=7MtaYISJQHg"
+    ]
   }
 ]
