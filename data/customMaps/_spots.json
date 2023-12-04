@@ -6235,5 +6235,18 @@
     "videos": [
       "https://www.youtube.com/watch?v=jPyUUaE3BPo"
     ]
+  },
+  {
+    "id": "thebeginning",
+    "categories": [
+      "video"
+    ],
+    "name": "Birdhouse 'The Beginning'",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=kDqbmG3nPHw"
+    ]
   }
 ]
