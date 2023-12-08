@@ -6300,5 +6300,18 @@
     "videos": [
       "https://www.youtube.com/watch?v=I5fk_tASEMM"
     ]
+  },
+  {
+    "id": "slaughterhouse",
+    "categories": [
+      "video"
+    ],
+    "name": "Pig Wood 'Slaughterhouse'",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=vm-H_86XQnU"
+    ]
   }
 ]
