@@ -6287,5 +6287,18 @@
     "videos": [
       "https://www.youtube.com/watch?v=ZB7S83MV2rI"
     ]
+  },
+  {
+    "id": "ethereum",
+    "categories": [
+      "video"
+    ],
+    "name": "Pizza 'Ethereum'",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=I5fk_tASEMM"
+    ]
   }
 ]
