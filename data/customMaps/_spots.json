@@ -6365,5 +6365,18 @@
     "videos": [
       "https://www.youtube.com/watch?v=cC9FKibVqIQ"
     ]
+  },
+  {
+    "id": "virtualreality",
+    "categories": [
+      "video"
+    ],
+    "name": "Plan B 'Virtual Reality'",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=naPw0FdxLQ8"
+    ]
   }
 ]
