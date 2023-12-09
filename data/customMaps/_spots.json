@@ -6417,5 +6417,18 @@
     "videos": [
       "https://www.youtube.com/watch?v=whJks3m1FcQ"
     ]
+  },
+  {
+    "id": "befree",
+    "categories": [
+      "video"
+    ],
+    "name": "Real 'Be Free'",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=sWtdFlTq4Bo"
+    ]
   }
 ]
