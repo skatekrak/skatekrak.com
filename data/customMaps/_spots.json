@@ -6473,5 +6473,18 @@
       "https://www.youtube.com/watch?v=bZ5Gzx7KKqg",
       "https://www.youtube.com/watch?v=_TYmI_4OaEI"
     ]
+  },
+  {
+    "id": "smokeandmirrors",
+    "categories": [
+      "video"
+    ],
+    "name": "Digital 'Smoke And Mirrors'",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=t3whHl35nOI"
+    ]
   }
 ]
