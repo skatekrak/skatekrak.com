@@ -6443,5 +6443,18 @@
     "videos": [
       "https://www.youtube.com/watch?v=CxMEFFevFTw"
     ]
+  },
+  {
+    "id": "outliers",
+    "categories": [
+      "video"
+    ],
+    "name": "Transworld 'Outliers'",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=XIBVRCwesSo"
+    ]
   }
 ]
