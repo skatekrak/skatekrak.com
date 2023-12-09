@@ -6326,5 +6326,18 @@
     "videos": [
       "https://www.youtube.com/watch?v=L6gnTTDpfzQ"
     ]
+  },
+  {
+    "id": "dudesdudesdudes",
+    "categories": [
+      "video"
+    ],
+    "name": "DVS 'Dudes Dudes Dudes'",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=_zSwvYOd8RU"
+    ]
   }
 ]
