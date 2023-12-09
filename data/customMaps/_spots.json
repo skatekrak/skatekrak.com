@@ -6352,5 +6352,18 @@
     "videos": [
       "https://www.youtube.com/watch?v=Kgr48SPEyS4"
     ]
+  },
+  {
+    "id": "secondhandsmoke",
+    "categories": [
+      "video"
+    ],
+    "name": "Plan B 'Second Hand Smoke'",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=cC9FKibVqIQ"
+    ]
   }
 ]
