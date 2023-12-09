@@ -6391,5 +6391,18 @@
     "videos": [
       "https://www.youtube.com/watch?v=srw4W-7B8dQ"
     ]
+  },
+  {
+    "id": "hallelujah",
+    "categories": [
+      "video"
+    ],
+    "name": "Transworld 'Hallelujah'",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=f1jgis7f1v4"
+    ]
   }
 ]
