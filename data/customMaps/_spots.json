@@ -6456,5 +6456,22 @@
     "videos": [
       "https://www.youtube.com/watch?v=XIBVRCwesSo"
     ]
+  },
+  {
+    "id": "riddlesinmathematics",
+    "categories": [
+      "video"
+    ],
+    "name": "Transworld 'Riddles In Mathematics'",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=u-9qYcDt3VA",
+      "https://www.youtube.com/watch?v=tF_w1DiOMwo",
+      "https://www.youtube.com/watch?v=tEIU-d7BTdY",
+      "https://www.youtube.com/watch?v=bZ5Gzx7KKqg",
+      "https://www.youtube.com/watch?v=_TYmI_4OaEI"
+    ]
   }
 ]
