@@ -6622,5 +6622,18 @@
     "videos": [
       "https://www.youtube.com/watch?v=5NTdMwqmVL8"
     ]
+  },
+  {
+    "id": "gonefishin",
+    "categories": [
+      "video"
+    ],
+    "name": "Expedition One 'Gone Fishin'",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=-V5E3drDnRs"
+    ]
   }
 ]
