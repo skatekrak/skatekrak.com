@@ -6514,5 +6514,18 @@
     "videos": [
       "https://www.youtube.com/watch?v=Ive7WBib1jI"
     ]
+  },
+  {
+    "id": "thechocolatetour",
+    "categories": [
+      "video"
+    ],
+    "name": "Chocolate 'The Chocolate Tour'",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=NwF2R51ao2I"
+    ]
   }
 ]
