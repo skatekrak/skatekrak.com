@@ -6592,5 +6592,22 @@
     "videos": [
       "https://www.youtube.com/watch?v=pfGr_4b_WRM"
     ]
+  },
+  {
+    "id": "colortheory",
+    "categories": [
+      "video"
+    ],
+    "name": "Mystery 'Color Theory'",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=flN9y22e4X8",
+      "https://www.youtube.com/watch?v=ALBE_EicW04",
+      "https://www.youtube.com/watch?v=EM1FU6NbsJA",
+      "https://www.youtube.com/watch?v=UWq05N7zBW0",
+      "https://www.youtube.com/watch?v=pTzM5geiZkE"
+    ]
   }
 ]
