@@ -6635,5 +6635,18 @@
     "videos": [
       "https://www.youtube.com/watch?v=-V5E3drDnRs"
     ]
+  },
+  {
+    "id": "made2",
+    "categories": [
+      "video"
+    ],
+    "name": "Emerica 'Made 2'",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://vimeo.com/196894241"
+    ]
   }
 ]
