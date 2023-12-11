@@ -6579,5 +6579,18 @@
     "videos": [
       "https://www.youtube.com/watch?v=KfIdN5d-1Qc"
     ]
+  },
+  {
+    "id": "godsavethelabel",
+    "categories": [
+      "video"
+    ],
+    "name": "Black Label 'God Save The Label'",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=pfGr_4b_WRM"
+    ]
   }
 ]
