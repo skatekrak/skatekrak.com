@@ -6553,5 +6553,18 @@
     "videos": [
       "https://www.youtube.com/watch?v=wel7MA_Da7Y"
     ]
+  },
+  {
+    "id": "especial",
+    "categories": [
+      "video"
+    ],
+    "name": "és 'Especial'",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=6zf4CBUgXig"
+    ]
   }
 ]
