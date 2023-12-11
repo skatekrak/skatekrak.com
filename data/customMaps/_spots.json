@@ -6501,5 +6501,18 @@
       "https://www.youtube.com/watch?v=FwoNJ37YUEA",
       "https://www.youtube.com/watch?v=iQMYybnWecU"
     ]
+  },
+  {
+    "id": "forwardslash",
+    "categories": [
+      "video"
+    ],
+    "name": "Darkstar 'Forward Slash'",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=Ive7WBib1jI"
+    ]
   }
 ]
