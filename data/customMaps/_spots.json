@@ -6527,5 +6527,18 @@
     "videos": [
       "https://www.youtube.com/watch?v=NwF2R51ao2I"
     ]
+  },
+  {
+    "id": "geneticdiversity",
+    "categories": [
+      "video"
+    ],
+    "name": "Bones 'Genetic Diversity'",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=JipNZ1pIMnI"
+    ]
   }
 ]
