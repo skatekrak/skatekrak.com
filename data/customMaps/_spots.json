@@ -6648,5 +6648,24 @@
     "videos": [
       "https://vimeo.com/196894241"
     ]
+  },
+  {
+    "id": "theatrix",
+    "categories": [
+      "video"
+    ],
+    "name": "Life Extension 'Theatrix'",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=yKLb1ApAO5g",
+      "https://www.youtube.com/watch?v=IFIT3-8lDlY",
+      "https://www.youtube.com/watch?v=tU-0BJs8ySI",
+      "https://www.youtube.com/watch?v=2fyF6P3TKcI",
+      "https://www.youtube.com/watch?v=i3RWMyui4L4",
+      "https://www.youtube.com/watch?v=qV2oI8z76uk",
+      "https://www.youtube.com/watch?v=l1J3oCdAnFY"
+    ]
   }
 ]
