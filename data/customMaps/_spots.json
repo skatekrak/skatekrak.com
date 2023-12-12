@@ -6719,5 +6719,18 @@
     "videos": [
       "https://www.youtube.com/watch?v=9dKOl9xX0lA"
     ]
+  },
+  {
+    "id": "streetsonfire",
+    "categories": [
+      "video"
+    ],
+    "name": "Santa Cruz 'Streets On Fire'",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=bal21rPEt2E"
+    ]
   }
 ]
