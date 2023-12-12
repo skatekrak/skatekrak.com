@@ -6680,5 +6680,18 @@
     "videos": [
       "https://www.youtube.com/watch?v=l1X-gefChpA"
     ]
+  },
+  {
+    "id": "nwo",
+    "categories": [
+      "video"
+    ],
+    "name": "World Industries 'New World Order'",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=uqM8IjfK-pk"
+    ]
   }
 ]
