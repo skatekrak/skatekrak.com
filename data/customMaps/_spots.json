@@ -6732,5 +6732,22 @@
     "videos": [
       "https://www.youtube.com/watch?v=bal21rPEt2E"
     ]
+  },
+  {
+    "id": "iamblind",
+    "categories": [
+      "video"
+    ],
+    "name": "Blind 'I AM Blind'",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=Aj6O4az32WA",
+      "https://www.youtube.com/watch?v=SC-PrC3fIT8",
+      "https://www.youtube.com/watch?v=6Q4ZSIREJpo",
+      "https://www.youtube.com/watch?v=Y1RbhcekYIU",
+      "https://www.youtube.com/watch?v=VyjAr-9dqd8"
+    ]
   }
 ]
