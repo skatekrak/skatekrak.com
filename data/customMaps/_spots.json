@@ -6693,5 +6693,18 @@
     "videos": [
       "https://www.youtube.com/watch?v=uqM8IjfK-pk"
     ]
+  },
+  {
+    "id": "streetsweeper",
+    "categories": [
+      "video"
+    ],
+    "name": "DC Shoes 'Street Sweeper'",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=Ew184QCVPD4"
+    ]
   }
 ]
