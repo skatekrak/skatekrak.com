@@ -6706,5 +6706,18 @@
     "videos": [
       "https://www.youtube.com/watch?v=Ew184QCVPD4"
     ]
+  },
+  {
+    "id": "trust",
+    "categories": [
+      "video"
+    ],
+    "name": "Bronze 56K 'Trust'",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=9dKOl9xX0lA"
+    ]
   }
 ]
