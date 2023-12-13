@@ -6799,5 +6799,18 @@
     "videos": [
       "https://www.youtube.com/playlist?list=PL5CBFD5AF140018B3"
     ]
+  },
+  {
+    "id": "doodahskateshop",
+    "categories": [
+      "shop"
+    ],
+    "name": "Doodah Skateshop",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/playlist?list=PLiCrtfCNbZAc2C_Jo7LkCvCFRy7bquZ4z"
+    ]
   }
 ]
