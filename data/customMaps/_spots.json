@@ -6825,5 +6825,18 @@
     "videos": [
       "https://www.youtube.com/watch?v=WoX3Yy-ou2E"
     ]
+  },
+  {
+    "id": "1999cult",
+    "categories": [
+      "maps"
+    ],
+    "name": "1999 Cult",
+    "subtitle": "Archives of Jay Strickland!",
+    "edito": "",
+    "about": "1999cult.com",
+    "videos": [
+      "https://www.youtube.com/playlist?list=PL4jmzOC0x8WT6-sEYbarrtc_1MSlK5I4d"
+    ]
   }
 ]
