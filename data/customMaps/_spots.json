@@ -6812,5 +6812,18 @@
     "videos": [
       "https://www.youtube.com/playlist?list=PLiCrtfCNbZAc2C_Jo7LkCvCFRy7bquZ4z"
     ]
+  },
+  {
+    "id": "jaystrickland",
+    "categories": [
+      "filmer"
+    ],
+    "name": "Jay Strickland",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=WoX3Yy-ou2E"
+    ]
   }
 ]
