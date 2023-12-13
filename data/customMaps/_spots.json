@@ -6838,5 +6838,18 @@
     "videos": [
       "https://www.youtube.com/playlist?list=PL4jmzOC0x8WT6-sEYbarrtc_1MSlK5I4d"
     ]
+  },
+  {
+    "id": "twofortuesday",
+    "categories": [
+      "maps"
+    ],
+    "name": "Two For Tuesday",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/playlist?list=PL5dohQ5aLsdOnAHJVweU6SP3ABFVEJqQ1"
+    ]
   }
 ]
