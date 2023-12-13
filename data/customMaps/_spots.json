@@ -6786,5 +6786,18 @@
     "edito": "",
     "about": "",
     "videos": []
+  },
+  {
+    "id": "dcshop",
+    "categories": [
+      "shop"
+    ],
+    "name": "DC Stores",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/playlist?list=PL5CBFD5AF140018B3"
+    ]
   }
 ]
