@@ -6775,5 +6775,16 @@
     "videos": [
       "https://www.youtube.com/watch?v=wNmILG5DJhk"
     ]
+  },
+  {
+    "id": "zumiez",
+    "categories": [
+      "shop"
+    ],
+    "name": "Zumiez",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": []
   }
 ]
