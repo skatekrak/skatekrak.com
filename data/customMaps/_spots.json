@@ -6852,5 +6852,18 @@
     "videos": [
       "https://www.youtube.com/playlist?list=PL5dohQ5aLsdOnAHJVweU6SP3ABFVEJqQ1"
     ]
+  },
+  {
+    "id": "dylanrieder",
+    "categories": [
+      "skater"
+    ],
+    "name": "Dylan Rieder",
+    "subtitle": "RIP",
+    "edito": "",
+    "about": "Dylan Joseph Rieder (May 26, 1988 – October 12, 2016) was an American professional skateboarder, artist, and model.",
+    "videos": [
+      "https://www.youtube.com/watch?v=3buJpIT4haM"
+    ]
   }
 ]
