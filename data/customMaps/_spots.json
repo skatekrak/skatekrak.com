@@ -6883,5 +6883,19 @@
       "https://www.youtube.com/watch?v=rwwTnXjEwLg",
       "https://www.youtube.com/watch?v=hc5AlRTTNx0"
     ]
+  },
+  {
+    "id": "elissasteamer",
+    "categories": [
+      "skater"
+    ],
+    "name": "Elissa Steamer",
+    "subtitle": "",
+    "edito": "",
+    "about": "Elissa Steamer (born July 31, 1975) is an American professional skateboarder.",
+    "videos": [
+      "https://www.youtube.com/watch?v=7alKmLJ8110",
+      ""
+    ]
   }
 ]
