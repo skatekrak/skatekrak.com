@@ -6968,5 +6968,22 @@
     "videos": [
       "https://www.youtube.com/playlist?list=PLaalS2TgT-nFP5_TAd-BX8cX1Gk5nwZU_"
     ]
+  },
+  {
+    "id": "justinfigueroa",
+    "categories": [
+      "skater"
+    ],
+    "name": "Justin Figueroa",
+    "subtitle": "",
+    "edito": "",
+    "about": "Justin “Figgy” Figueroa was born in Riverside California April 20, 1990.",
+    "videos": [
+      "https://www.youtube.com/watch?v=pOtKEI9E1dI",
+      "https://www.youtube.com/watch?v=KU_piPMe9L8",
+      "https://www.youtube.com/watch?v=9aXgIUQ-Cw8",
+      "https://www.youtube.com/watch?v=X6vdIOnWy38",
+      "https://www.youtube.com/watch?v=DV-PNSuvNjk"
+    ]
   }
 ]
