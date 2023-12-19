@@ -6985,5 +6985,20 @@
       "https://www.youtube.com/watch?v=X6vdIOnWy38",
       "https://www.youtube.com/watch?v=DV-PNSuvNjk"
     ]
+  },
+  {
+    "id": "clintwalker",
+    "categories": [
+      "skater"
+    ],
+    "name": "Clint Walker",
+    "subtitle": "",
+    "edito": "",
+    "about": "Walker hails from Oklahoma, a breeding ground for some of the toughest and most dedicated skateboarders of all time, and he is no exception.",
+    "videos": [
+      "https://www.youtube.com/watch?v=TSmMKJs2lkg",
+      "https://www.youtube.com/watch?v=B2OsGEq31dY",
+      "https://www.youtube.com/watch?v=j-cEO8xNlf4"
+    ]
   }
 ]
