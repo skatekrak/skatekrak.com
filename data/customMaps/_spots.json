@@ -7088,5 +7088,23 @@
     "videos": [
       "https://www.youtube.com/playlist?list=PLhi0sc-OuVpUHGdkCwGCZ5YMbjXbUUNSr"
     ]
+  },
+  {
+    "id": "sierrafellers",
+    "categories": [
+      "skater"
+    ],
+    "name": "Sierra Fellers",
+    "subtitle": "",
+    "edito": "",
+    "about": "Sierra Fellers was born December 30, 1986, in Whitefish, Montana.",
+    "videos": [
+      "https://www.youtube.com/watch?v=66eZ4A7EJUo",
+      "https://www.youtube.com/watch?v=jiNEBXk1mk4",
+      "https://www.youtube.com/watch?v=ZJwY3oagN90",
+      "https://www.youtube.com/watch?v=hUFeyXjVUe4",
+      "https://www.youtube.com/watch?v=wLEShaohowk",
+      "https://www.youtube.com/watch?v=wbj9U8xctAc"
+    ]
   }
 ]
