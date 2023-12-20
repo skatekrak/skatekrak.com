@@ -7106,5 +7106,23 @@
       "https://www.youtube.com/watch?v=wLEShaohowk",
       "https://www.youtube.com/watch?v=wbj9U8xctAc"
     ]
+  },
+  {
+    "id": "felipegustavo",
+    "categories": [
+      "skater"
+    ],
+    "name": "Felipe Gustavo",
+    "subtitle": "",
+    "edito": "",
+    "about": "Felipe Gustavo (born 22 February 1991) is a Brazilian professional skateboarder.",
+    "videos": [
+      "https://www.youtube.com/watch?v=jBg9CfzJH_s",
+      "https://www.youtube.com/watch?v=KuF8hZzylrc",
+      "https://www.youtube.com/watch?v=6ouTEFyEII0",
+      "https://www.youtube.com/watch?v=F0g5BPhWdOc",
+      "https://www.youtube.com/watch?v=RFouAuMsVfI",
+      "https://www.youtube.com/watch?v=Ep_tWdA6NwU"
+    ]
   }
 ]
