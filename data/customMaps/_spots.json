@@ -7141,5 +7141,22 @@
       "https://www.youtube.com/watch?v=mLl3HwACK3o",
       "https://www.youtube.com/watch?v=zF3Uf482G7E"
     ]
+  },
+  {
+    "id": "johnnylayton",
+    "categories": [
+      "skater"
+    ],
+    "name": "Johnny Layton",
+    "subtitle": "",
+    "edito": "",
+    "about": "Johnny Layton is from Murrieta, CA USA.",
+    "videos": [
+      "https://www.youtube.com/watch?v=CEleNFpSgig",
+      "https://www.youtube.com/watch?v=auARKlFTR3Y",
+      "https://www.youtube.com/watch?v=K3hbvrb9gtY",
+      "https://www.youtube.com/watch?v=VBI_odJiU_s",
+      "https://www.youtube.com/watch?v=FGtYRkd2r0k"
+    ]
   }
 ]
