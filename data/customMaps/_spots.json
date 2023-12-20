@@ -7075,5 +7075,18 @@
     "videos": [
       "https://www.youtube.com/playlist?list=PL9VLIqmyCef3kYmwawXZbV9ITfJFqlaSD"
     ]
+  },
+  {
+    "id": "marksuciu",
+    "categories": [
+      "skater"
+    ],
+    "name": "Mark Suciu",
+    "subtitle": "",
+    "edito": "",
+    "about": "Mark Suciu (pronounced Soo-Choo) (Born August 3, 1992) is an American professional skateboarder from Saratoga, CA, based out of New York City. In 2021, Suciu was named Thrasher's Skater of the Year.",
+    "videos": [
+      "https://www.youtube.com/playlist?list=PLhi0sc-OuVpUHGdkCwGCZ5YMbjXbUUNSr"
+    ]
   }
 ]
