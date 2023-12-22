@@ -7244,5 +7244,23 @@
       "https://www.youtube.com/watch?v=nEpWPW1Ktu8",
       "https://www.youtube.com/watch?v=U8z69-Kn8lw"
     ]
+  },
+  {
+    "id": "dannymontoya",
+    "categories": [
+      "skater"
+    ],
+    "name": "Danny Montoya",
+    "subtitle": "",
+    "edito": "",
+    "about": "Danny Montoya was born on june 1st, 1977 in Garden Grove, California.",
+    "videos": [
+      "https://www.youtube.com/watch?v=Gpv7_UxQQ1w",
+      "https://www.youtube.com/watch?v=UjiQvJKeH2s",
+      "https://www.youtube.com/watch?v=NlmIDW9ADIk",
+      "https://www.youtube.com/watch?v=4Cyf2OnFSBQ",
+      "https://www.youtube.com/watch?v=qOJNlaUZfhM",
+      "https://www.youtube.com/watch?v=Sz0EdXe3s9k"
+    ]
   }
 ]
