@@ -7178,5 +7178,18 @@
       "https://www.youtube.com/watch?v=38rlyQecvQQ",
       "https://vimeo.com/5015869"
     ]
+  },
+  {
+    "id": "robwelsh",
+    "categories": [
+      "skater"
+    ],
+    "name": "Rob Welsh",
+    "subtitle": "",
+    "edito": "",
+    "about": "Rob Welsh is from San Francisco, CA USA.",
+    "videos": [
+      "https://www.youtube.com/playlist?list=PLTe8z8CZOUA79K6uwNNWFoTNJ3lEyAo3L"
+    ]
   }
 ]
