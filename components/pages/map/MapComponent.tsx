@@ -7,7 +7,7 @@ import SpotMarker from 'components/pages/map/marker/SpotMarker';
 import MapSpotOverview from './MapSpotOverview';
 import * as S from './Map.styled';
 
-import { Spot, SpotGeoJSON } from 'lib/carrelageClient';
+import { SpotGeoJSON } from 'lib/carrelageClient';
 import {
     selectSpot,
     setSpotOverview,

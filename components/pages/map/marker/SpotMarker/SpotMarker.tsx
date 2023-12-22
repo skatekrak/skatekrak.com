@@ -3,7 +3,7 @@ import React from 'react';
 
 import { Marker, MarkerProps } from 'react-map-gl';
 
-import { Spot, SpotGeoJSON } from 'lib/carrelageClient';
+import { SpotGeoJSON } from 'lib/carrelageClient';
 
 import BadgeHistory from 'components/pages/map/marker/badges/History';
 import BadgeIconic from 'components/pages/map/marker/badges/Iconic';
