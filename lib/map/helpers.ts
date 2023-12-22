@@ -1,4 +1,4 @@
-import { Spot } from 'lib/carrelageClient';
+import { Spot, SpotGeoJSON } from 'lib/carrelageClient';
 
 /**
  *
@@ -38,5 +38,24 @@ export const centerFromBounds = (
     return {
         latitude: centerLatitude,
         longitude: centerLongitude,
+    };
+};
+
+export const spotToGeoJSON = (spot: Spot): SpotGeoJSON => {
+    return {
+        type: 'Feature',
+        geometry: {
+            type: 'Point',
+            coordinates: [spot.location.longitude, spot.location.latitude],
+        },
+        properties: {
+            id: spot.id,
+            name: spot.name,
+            type: spot.type,
+            status: spot.status,
+            indoor: spot.indoor,
+            tags: spot.tags,
+            mediasStat: spot.mediasStat,
+        },
     };
 };

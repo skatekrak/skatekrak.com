@@ -29,7 +29,7 @@ const SpotPinLayer = ({ type }: SpotPinLayerProps) => {
     const onMapLayerClick = useCallback(
         (event: MapLayerMouseEvent) => {
             if (event.features.length > 0) {
-                dispatch(selectSpot(event.features[0].properties.spotId));
+                dispatch(selectSpot(event.features[0].properties.id));
             }
         },
         [dispatch],

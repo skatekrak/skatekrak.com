@@ -216,6 +216,16 @@ export const boxSpotsSearch = async (params: BoxSearchSpotsParams) => {
     return res.data;
 };
 
+export type SpotGeoJSON = GeoJSON.Feature<
+    GeoJSON.Point,
+    Pick<Spot, 'id' | 'name' | 'type' | 'status' | 'indoor' | 'tags' | 'mediasStat'>
+>;
+
+export const spotsSearchGeoJSON = async (params: BoxSearchSpotsParams) => {
+    const res = await carrelage.get<SpotGeoJSON[]>('/spots/geojson', { params });
+    return res.data;
+};
+
 /**
  * Search and returns spots with query search (on name, description and address)
  * @param params

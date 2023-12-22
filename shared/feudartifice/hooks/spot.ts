@@ -6,7 +6,7 @@ import { MutableRefObject, useState } from 'react';
 import useDebounce from 'lib/hook/useDebounce';
 import { useAppDispatch, useAppSelector } from 'store/hook';
 import { mapRefreshEnd } from 'store/map/slice';
-import { boxSpotsSearch, getSpotsByTags } from 'lib/carrelageClient';
+import { SpotGeoJSON, boxSpotsSearch, getSpotsByTags, spotsSearchGeoJSON } from 'lib/carrelageClient';
 import { sort, unique } from 'radash';
 
 const { client } = Feudartifice;
@@ -33,6 +33,7 @@ export const useSpotsSearch = (mapRef: MutableRefObject<MapRef>, enabled = true)
         async () => {
             const map = mapRef.current.getMap();
             const bounds = map.getBounds();
+            console.log(bounds);
             const northEast = bounds.getNorthEast();
             const southWest = bounds.getSouthWest();
 
@@ -83,6 +84,53 @@ export const useSpotsByTags = (tags: string[] | undefined, tagsFromMedia?: boole
             refetchOnWindowFocus: false,
         },
     );
+};
+
+export const useSpotsGeoJSON = (mapRef: MutableRefObject<MapRef>, enabled = true) => {
+    const viewport = useAppSelector((state) => state.map.viewport);
+    const dispatch = useAppDispatch();
+
+    const debouncedViewport = useDebounce(viewport, 200);
+    const [loadedSpots, setLoadedSpots] = useState<SpotGeoJSON[]>([]);
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { data, ...queryRes } = useQuery(
+        ['fetch-spots-geojson', debouncedViewport],
+        async () => {
+            const map = mapRef.current.getMap();
+            const bounds = map.getBounds();
+            const northEast = bounds.getNorthEast();
+            const southWest = bounds.getSouthWest();
+
+            const spots = await spotsSearchGeoJSON({
+                northEastLatitude: northEast.lat,
+                northEastLongitude: northEast.lng,
+                southWestLatitude: southWest.lat,
+                southWestLongitude: southWest.lng,
+            });
+
+            console.log('SPOTS', spots.length);
+
+            return spots;
+        },
+        {
+            enabled,
+            onSettled: () => {
+                dispatch(mapRefreshEnd());
+            },
+            onSuccess: (newSpots) => {
+                setLoadedSpots((previousSpots) => unique(previousSpots.concat(newSpots ?? []), (a) => a.properties.id));
+            },
+            refetchOnWindowFocus: false,
+            refetchOnMount: false,
+            keepPreviousData: true,
+        },
+    );
+
+    return {
+        data: loadedSpots,
+        ...queryRes,
+    };
 };
 
 export default useSpot;

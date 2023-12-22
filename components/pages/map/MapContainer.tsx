@@ -17,13 +17,13 @@ import MapGradients from './MapGradients';
 import MapZoomAlert from './MapZoomAlert';
 import * as S from './Map.styled';
 import { useAppDispatch, useAppSelector } from 'store/hook';
-import { findSpotsBoundsCoordinate } from 'lib/map/helpers';
+import { findSpotsBoundsCoordinate, spotToGeoJSON } from 'lib/map/helpers';
 import { ZOOM_DISPLAY_WARNING } from './Map.constant';
 import MapCreateSpot from './MapCreateSpot';
 import useSession from 'lib/hook/carrelage/use-session';
 import { useRouter } from 'next/router';
 import { useQuery } from '@tanstack/react-query';
-import { useSpotsByTags, useSpotsSearch } from 'shared/feudartifice/hooks/spot';
+import { useSpotsByTags, useSpotsGeoJSON } from 'shared/feudartifice/hooks/spot';
 import { isEmpty, intersects } from 'radash';
 
 const DynamicMapComponent = dynamic(() => import('./MapComponent'), { ssr: false });
@@ -113,7 +113,7 @@ const MapContainer = () => {
         return true;
     }, [id, viewport.zoom]);
 
-    const { data: spots, refetch } = useSpotsSearch(mapRef, enableSpotQuery);
+    const { data: spots, refetch } = useSpotsGeoJSON(mapRef, enableSpotQuery);
     const shouldFetchWithMedia = useMemo(() => {
         if (isEmpty(customMapInfo)) return undefined;
         return !intersects(['maps', 'skatepark', 'shop'], customMapInfo.categories);
@@ -137,7 +137,7 @@ const MapContainer = () => {
         // It's a custom map, we can return the spots if not loading
         if (id != null) {
             if (customMapInfo) {
-                return spotsByTags ?? [];
+                return (spotsByTags ?? []).map((spot) => spotToGeoJSON(spot));
             }
             return [];
         }

@@ -3,7 +3,7 @@ import React from 'react';
 
 import { Marker, MarkerProps } from 'react-map-gl';
 
-import { Spot } from 'lib/carrelageClient';
+import { Spot, SpotGeoJSON } from 'lib/carrelageClient';
 
 import BadgeHistory from 'components/pages/map/marker/badges/History';
 import BadgeIconic from 'components/pages/map/marker/badges/Iconic';
@@ -13,7 +13,7 @@ import { selectSpot } from 'store/map/slice';
 import { useAppDispatch, useAppSelector } from 'store/hook';
 
 type SpotMarkerProps = {
-    spot: Spot;
+    spot: SpotGeoJSON;
     isSelected: boolean;
     small?: boolean;
 };
@@ -31,21 +31,21 @@ const Pin = ({ imageName }: { imageName: string }) => {
 const SpotMarker = ({ spot, isSelected, small = false }: SpotMarkerProps) => {
     const isCreateSpotOpen = useAppSelector((state) => state.map.isCreateSpotOpen);
     const dispatch = useAppDispatch();
-    const active = spot.mediasStat.all >= 10;
-    const firing = spot.mediasStat.all >= 30;
+    const active = spot.properties.mediasStat.all >= 10;
+    const firing = spot.properties.mediasStat.all >= 30;
 
     const onMarkerClick: MarkerProps['onClick'] = (event) => {
         event.originalEvent?.stopPropagation();
         if (!isCreateSpotOpen) {
-            dispatch(selectSpot(spot.id));
+            dispatch(selectSpot(spot.properties.id));
         }
     };
 
     return (
         <Marker
             key={`marker-${spot.id}`}
-            latitude={spot.location.latitude}
-            longitude={spot.location.longitude}
+            latitude={spot.geometry.coordinates[1]}
+            longitude={spot.geometry.coordinates[0]}
             onClick={small ? undefined : onMarkerClick}
         >
             <div
@@ -62,14 +62,14 @@ const SpotMarker = ({ spot, isSelected, small = false }: SpotMarkerProps) => {
                     })}
                 >
                     <div className="map-marker-icon">
-                        {spot.status == 'rip' || spot.status === 'wip' ? (
-                            <Pin key={`marker-pin-${spot.id}`} imageName={spot.status} />
+                        {spot.properties.status == 'rip' || spot.properties.status === 'wip' ? (
+                            <Pin key={`marker-pin-${spot.properties.id}`} imageName={spot.properties.status} />
                         ) : (
-                            <Pin key={`marker-pin-${spot.id}`} imageName={spot.type} />
+                            <Pin key={`marker-pin-${spot.properties.id}`} imageName={spot.properties.type} />
                         )}
                     </div>
                     <div className="map-marker-badges">
-                        {spot.tags
+                        {spot.properties.tags
                             .filter((tag) => ['famous', 'history', 'minute'].includes(tag))
                             .map((tag) => (
                                 <React.Fragment key={`marker-${spot.id}-badge-${tag}`}>

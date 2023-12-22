@@ -7,7 +7,7 @@ import SpotMarker from 'components/pages/map/marker/SpotMarker';
 import MapSpotOverview from './MapSpotOverview';
 import * as S from './Map.styled';
 
-import { Spot } from 'lib/carrelageClient';
+import { Spot, SpotGeoJSON } from 'lib/carrelageClient';
 import {
     selectSpot,
     setSpotOverview,
@@ -26,7 +26,7 @@ import { intersects } from 'radash';
 type MapComponentProps = {
     mapRef?: React.RefObject<MapRef>;
     onLoad?: () => void;
-    spots: Spot[];
+    spots: SpotGeoJSON[];
     children?: React.ReactNode;
 };
 
@@ -43,6 +43,8 @@ const MapComponent = ({ mapRef, spots, children, onLoad }: MapComponentProps) =>
             features: [],
         };
 
+        console.log(spots.length);
+
         for (const spot of spots) {
             if (isSpotMarker(spot) && viewport.zoom > ZOOM_DISPLAY_DOTS) {
                 markers.push(
@@ -53,20 +55,23 @@ const MapComponent = ({ mapRef, spots, children, onLoad }: MapComponentProps) =>
                     />,
                 );
             } else {
-                spotSourceData.features.push({
-                    id: spot.id,
-                    type: 'Feature',
-                    geometry: {
-                        type: 'Point',
-                        coordinates: spot.geo,
-                    },
-                    properties: {
-                        spotId: spot.id,
-                        type: spot.status === Status.Active ? spot.type : spot.status,
-                    },
-                });
+                spotSourceData.features.push(spot);
+                // spotSourceData.features.push({
+                //     id: spot.id,
+                //     type: 'Feature',
+                //     geometry: {
+                //         type: 'Point',
+                //         coordinates: spot.geo,
+                //     },
+                //     properties: {
+                //         spotId: spot.id,
+                //         type: spot.status === Status.Active ? spot.type : spot.status,
+                //     },
+                // });
             }
         }
+
+        console.log(markers.length, spotSourceData.features.length);
 
         return [markers, spotSourceData];
     }, [spots, selectedSpotOverview, viewport.zoom]);
@@ -135,8 +140,8 @@ const MapComponent = ({ mapRef, spots, children, onLoad }: MapComponentProps) =>
     );
 };
 
-const isSpotMarker = (spot: Spot): boolean => {
-    return spot.mediasStat.all >= 10 || intersects(spot.tags, ['history', 'famous', 'minute']);
+const isSpotMarker = (spot: SpotGeoJSON): boolean => {
+    return spot.properties.mediasStat.all >= 10 || intersects(spot.properties.tags, ['history', 'famous', 'minute']);
 };
 
 export default MapComponent;
