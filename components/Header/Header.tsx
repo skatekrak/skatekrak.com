@@ -46,6 +46,9 @@ const Header: React.FC = () => {
                 <S.SecondaryNav>
                     {!isMobile && (
                         <div>
+                            <Link href="https://shop.opensb.org/" target="_blank" rel="noopener noreferrer">
+                                <S.SecondaryNavItem>Shop</S.SecondaryNavItem>
+                            </Link>
                             <Link href={PATH_CALL_TO_ADVENTURE}>
                                 <S.SecondaryNavItem>Call to Adventure</S.SecondaryNavItem>
                             </Link>
@@ -114,6 +117,16 @@ const Header: React.FC = () => {
                             <S.ThreeDotMenu>
                                 {isMobile && (
                                     <>
+                                        <S.ThreeDotMenuItem
+                                            href="https://shop.opensb.org/"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            <Typography as="span" component="body1">
+                                                Shop
+                                            </Typography>
+                                        </S.ThreeDotMenuItem>
+
                                         <S.ThreeDotMenuItem href={PATH_MEMBERSHIP}>
                                             <Typography as="span" component="body1">
                                                 Membership
