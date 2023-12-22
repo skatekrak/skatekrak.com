@@ -7227,5 +7227,22 @@
       "https://www.youtube.com/watch?v=eeaPFXvVSGM",
       "https://www.youtube.com/watch?v=wWJDXhPxvTQ"
     ]
+  },
+  {
+    "id": "morgansmith",
+    "categories": [
+      "skater"
+    ],
+    "name": "Morgan Smith",
+    "subtitle": "",
+    "edito": "",
+    "about": "Morgan Smith (born December 30, 1986 in Unionville, Ontario) is a professional skateboarder.",
+    "videos": [
+      "https://www.youtube.com/watch?v=T_sow2FnomY",
+      "https://www.youtube.com/watch?v=pDy9OHUAA0w",
+      "https://www.youtube.com/watch?v=UsAK7RJUa3g",
+      "https://www.youtube.com/watch?v=nEpWPW1Ktu8",
+      "https://www.youtube.com/watch?v=U8z69-Kn8lw"
+    ]
   }
 ]
