@@ -7191,5 +7191,24 @@
     "videos": [
       "https://www.youtube.com/playlist?list=PLTe8z8CZOUA79K6uwNNWFoTNJ3lEyAo3L"
     ]
+  },
+  {
+    "id": "tonyhawk",
+    "categories": [
+      "skater"
+    ],
+    "name": "Tony Hawk",
+    "subtitle": "",
+    "edito": "",
+    "about": "Anthony Frank Hawk (born May 12, 1968), nicknamed Birdman, is an American professional skateboarder, entrepreneur and the owner of the skateboard company Birdhouse. A pioneer of modern vertical skateboarding, Hawk completed the first documented 900 skateboarding trick in 1999. He also licensed a skateboarding video game series named after him, published by Activision that same year. He retired from competing professionally in 2003 and is regarded as one of the most influential skateboarders of all time.[6]  Hawk has been involved in various philanthropic activities throughout his career. He founded The Skatepark Project, which helps to build skateparks in underprivileged areas around the world.",
+    "videos": [
+      "https://www.youtube.com/watch?v=hdlcFg4-6sM",
+      "https://www.youtube.com/watch?v=3KZm_F8l0L0",
+      "https://www.youtube.com/watch?v=k_3RnrJQwh8",
+      "https://www.youtube.com/watch?v=w9JzsNghpqU",
+      "https://www.youtube.com/watch?v=gO07tMtmByg",
+      "https://www.youtube.com/watch?v=l3Oa0M08Src",
+      "https://www.youtube.com/watch?v=ePrmrQNWdSE"
+    ]
   }
 ]
