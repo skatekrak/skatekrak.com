@@ -7299,5 +7299,18 @@
       "https://www.youtube.com/watch?v=BZ79UfqR-bk",
       "https://www.youtube.com/watch?v=-Vl-gfwnN3o"
     ]
+  },
+  {
+    "id": "evansmith",
+    "categories": [
+      "skater"
+    ],
+    "name": "Evan Smith",
+    "subtitle": "",
+    "edito": "",
+    "about": "Evan Smith (born February 04, 1991) is from Orlando, FL.",
+    "videos": [
+      "https://www.youtube.com/playlist?list=PLNH1scd6-M5pw15ZTVYs5fBsYJTHb6uje"
+    ]
   }
 ]
