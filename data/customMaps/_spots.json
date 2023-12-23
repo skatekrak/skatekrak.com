@@ -7312,5 +7312,18 @@
     "videos": [
       "https://www.youtube.com/playlist?list=PLNH1scd6-M5pw15ZTVYs5fBsYJTHb6uje"
     ]
+  },
+  {
+    "id": "jasondill",
+    "categories": [
+      "skater"
+    ],
+    "name": "Jason Dill",
+    "subtitle": "",
+    "edito": "",
+    "about": "Jason Dill (born November 21, 1976) is an American professional skateboarder, photographer, and co-founder of Fucking Awesome, an American skate company.",
+    "videos": [
+      "https://www.youtube.com/playlist?list=PLKsJQVchEr54CLJehFpZxGbEv6Tfr8vid"
+    ]
   }
 ]
