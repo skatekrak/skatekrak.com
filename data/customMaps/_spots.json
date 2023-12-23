@@ -7262,5 +7262,22 @@
       "https://www.youtube.com/watch?v=qOJNlaUZfhM",
       "https://www.youtube.com/watch?v=Sz0EdXe3s9k"
     ]
+  },
+  {
+    "id": "legless",
+    "categories": [
+      "maps"
+    ],
+    "name": "Legless",
+    "subtitle": "",
+    "edito": "",
+    "about": "This map was created to celebrate the skateboarding of the few brave ones who were not as lucky as most of us having 2 fonctional legs.",
+    "videos": [
+      "https://www.youtube.com/watch?v=wRXktD5GOSo",
+      "https://www.youtube.com/watch?v=5BzGf8eUCtk",
+      "https://www.youtube.com/watch?v=mnqBXSjNtE8",
+      "https://www.youtube.com/watch?v=UYUQ8BFV1SI",
+      "https://www.youtube.com/watch?v=UQbB8ayMlAs"
+    ]
   }
 ]
