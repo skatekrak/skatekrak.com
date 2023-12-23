@@ -7338,5 +7338,22 @@
     "videos": [
       "https://www.youtube.com/playlist?list=PL9VLIqmyCef3giQ-tboZb6ezWBzKotff2"
     ]
+  },
+  {
+    "id": "carlosiqui",
+    "categories": [
+      "skater"
+    ],
+    "name": "Carlos Iqui",
+    "subtitle": "",
+    "edito": "",
+    "about": "Carlos Iqui is from Porto Alegre, Brazil.",
+    "videos": [
+      "https://www.youtube.com/watch?v=7PbeWvJ10AU",
+      "https://www.youtube.com/watch?v=bU4QUCOWB28",
+      "https://www.youtube.com/watch?v=z4BJNQe-LyQ",
+      "https://www.youtube.com/watch?v=UQqAw8OUg0c",
+      "https://www.youtube.com/watch?v=CCTNfAAH0EE"
+    ]
   }
 ]
