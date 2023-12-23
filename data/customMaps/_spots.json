@@ -7325,5 +7325,18 @@
     "videos": [
       "https://www.youtube.com/playlist?list=PLKsJQVchEr54CLJehFpZxGbEv6Tfr8vid"
     ]
+  },
+  {
+    "id": "louielopez",
+    "categories": [
+      "skater"
+    ],
+    "name": "Louie Lopez",
+    "subtitle": "",
+    "edito": "",
+    "about": "Louie Lopez (born November 26, 1994) is a regular-footed American skateboarder from Los Angeles, CA. He is of Mexican and Guatemalan descent.",
+    "videos": [
+      "https://www.youtube.com/playlist?list=PL9VLIqmyCef3giQ-tboZb6ezWBzKotff2"
+    ]
   }
 ]
