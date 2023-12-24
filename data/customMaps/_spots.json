@@ -7484,5 +7484,18 @@
     "videos": [
       "https://www.youtube.com/playlist?list=PLIAMyNWAXH1UCKDq8UnWp7SlAf2OMdoiE"
     ]
+  },
+  {
+    "id": "hermannstene",
+    "categories": [
+      "skater"
+    ],
+    "name": "Hermann Stene",
+    "subtitle": "",
+    "edito": "",
+    "about": "Hermann Stene (born April 27, 1993) is from Larvik, Norway.",
+    "videos": [
+      "https://www.youtube.com/playlist?list=PLaalS2TgT-nHR5twYkqHLPxa1XUGbLBZx"
+    ]
   }
 ]
