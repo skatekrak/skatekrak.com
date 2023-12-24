@@ -7408,5 +7408,18 @@
       "https://www.youtube.com/watch?v=J59svhLjiTo",
       "https://www.youtube.com/watch?v=tjaD0wwyDwc"
     ]
+  },
+  {
+    "id": "chadtimtim",
+    "categories": [
+      "skater"
+    ],
+    "name": "Chad Tim Tim",
+    "subtitle": "",
+    "edito": "",
+    "about": "Chad Tim Tim is from Newport Beach, CA.",
+    "videos": [
+      "https://www.youtube.com/playlist?list=PL77968933C15C1B67"
+    ]
   }
 ]
