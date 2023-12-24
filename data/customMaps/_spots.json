@@ -7390,5 +7390,23 @@
       "https://www.youtube.com/watch?v=EHIBfPeAW9w",
       "https://www.youtube.com/watch?v=ARnopJxNnxw"
     ]
+  },
+  {
+    "id": "chasewebb",
+    "categories": [
+      "skater"
+    ],
+    "name": "Chase Webb",
+    "subtitle": "",
+    "edito": "",
+    "about": "Chase Webb (born February 14, 1995) is from Murrieta, CA.",
+    "videos": [
+      "https://www.youtube.com/watch?v=KoLL-7clO4g",
+      "https://www.youtube.com/watch?v=4Su_gLLeTok",
+      "https://www.youtube.com/watch?v=CuIB74Z_QGs",
+      "https://www.youtube.com/watch?v=D6cZJ7oSTQw",
+      "https://www.youtube.com/watch?v=J59svhLjiTo",
+      "https://www.youtube.com/watch?v=tjaD0wwyDwc"
+    ]
   }
 ]
