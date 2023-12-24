@@ -7497,5 +7497,18 @@
     "videos": [
       "https://www.youtube.com/playlist?list=PLaalS2TgT-nHR5twYkqHLPxa1XUGbLBZx"
     ]
+  },
+  {
+    "id": "harrylintell",
+    "categories": [
+      "skater"
+    ],
+    "name": "Harry Lintell",
+    "subtitle": "",
+    "edito": "",
+    "about": "Harry Lintell is from London, UK.",
+    "videos": [
+      "https://www.youtube.com/playlist?list=PLRZZ6agLzqpYyIJvVk9UZsTKhrnSJlvBu"
+    ]
   }
 ]
