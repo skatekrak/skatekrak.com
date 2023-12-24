@@ -7453,5 +7453,23 @@
       "https://www.youtube.com/watch?v=e0V8k8WPeUU",
       "https://www.youtube.com/watch?v=JdUkMcSO5Ds"
     ]
+  },
+  {
+    "id": "rileyhawk",
+    "categories": [
+      "skater"
+    ],
+    "name": "Riley Hawk",
+    "subtitle": "",
+    "edito": "",
+    "about": "Hudson Riley Hawk (born December 6, 1992) is an American professional skateboarder. He is the son of Tony Hawk. Unlike his father, who is known for his vert style, Riley is better known as a street skater.",
+    "videos": [
+      "https://www.youtube.com/watch?v=GcJs2E9hBX8",
+      "https://www.youtube.com/watch?v=i35asdDwJjM",
+      "https://www.youtube.com/watch?v=ayiJiZ3Ruek",
+      "https://www.youtube.com/watch?v=WpJBvCuyfl0",
+      "https://www.youtube.com/watch?v=jh-WjOL42ig",
+      "https://www.youtube.com/watch?v=xS4ef9Rno_c"
+    ]
   }
 ]
