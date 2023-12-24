@@ -7510,5 +7510,23 @@
     "videos": [
       "https://www.youtube.com/playlist?list=PLRZZ6agLzqpYyIJvVk9UZsTKhrnSJlvBu"
     ]
+  },
+  {
+    "id": "ryansheckler",
+    "categories": [
+      "skater"
+    ],
+    "name": "Ryan Sheckler",
+    "subtitle": "",
+    "edito": "",
+    "about": "Ryan Allen Sheckler (born December 30, 1989) is an American professional skateboarder and entrepreneur.",
+    "videos": [
+      "https://www.youtube.com/watch?v=avhShpnOOvg",
+      "https://www.youtube.com/watch?v=_UmdXDLDXxM",
+      "https://www.youtube.com/watch?v=RqEBzWqJ47c",
+      "https://www.youtube.com/watch?v=YRr1g1w2IsQ",
+      "https://www.youtube.com/watch?v=-7K9jGmL2Gs",
+      "https://www.youtube.com/watch?v=9IZxDp517KA"
+    ]
   }
 ]
