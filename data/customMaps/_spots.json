@@ -7471,5 +7471,18 @@
       "https://www.youtube.com/watch?v=jh-WjOL42ig",
       "https://www.youtube.com/watch?v=xS4ef9Rno_c"
     ]
+  },
+  {
+    "id": "taylorkirby",
+    "categories": [
+      "skater"
+    ],
+    "name": "Taylor Kirby",
+    "subtitle": "",
+    "edito": "",
+    "about": "Taylor Kirby (born 01 January 1993) is from San Clemente, CA.",
+    "videos": [
+      "https://www.youtube.com/playlist?list=PLIAMyNWAXH1UCKDq8UnWp7SlAf2OMdoiE"
+    ]
   }
 ]
