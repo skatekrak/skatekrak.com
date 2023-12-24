@@ -7372,5 +7372,23 @@
       "https://www.youtube.com/watch?v=WGe368yIgJE",
       "https://www.youtube.com/watch?v=flN9y22e4X8"
     ]
+  },
+  {
+    "id": "pedrodelfino",
+    "categories": [
+      "skater"
+    ],
+    "name": "Pedro Delfino",
+    "subtitle": "",
+    "edito": "",
+    "about": "Pedro Delfino (born January 01, 1995) is from Boca Raton, FL.",
+    "videos": [
+      "https://www.youtube.com/watch?v=r_DUUV2QVAU",
+      "https://www.youtube.com/watch?v=d-8VZByuWeY",
+      "https://www.youtube.com/watch?v=0TR6ndj4ugk",
+      "https://www.youtube.com/watch?v=AkvxmHGFCgk",
+      "https://www.youtube.com/watch?v=EHIBfPeAW9w",
+      "https://www.youtube.com/watch?v=ARnopJxNnxw"
+    ]
   }
 ]
