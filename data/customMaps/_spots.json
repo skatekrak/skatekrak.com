@@ -7421,5 +7421,22 @@
     "videos": [
       "https://www.youtube.com/playlist?list=PL77968933C15C1B67"
     ]
+  },
+  {
+    "id": "jeronwilson",
+    "categories": [
+      "skater"
+    ],
+    "name": "Jeron Wilson",
+    "subtitle": "",
+    "edito": "",
+    "about": "Jeron Wilson (born February 1, 1977) is an American professional skateboarder.",
+    "videos": [
+      "https://www.youtube.com/watch?v=BlTydZ-r4NA",
+      "https://www.youtube.com/watch?v=-GgfY1KaOCA",
+      "https://www.youtube.com/watch?v=ic3fa3DcVRo",
+      "https://www.youtube.com/watch?v=cYgq4SaaNvc",
+      "https://www.youtube.com/watch?v=KCfvR4jf1dE"
+    ]
   }
 ]
