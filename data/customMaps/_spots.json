@@ -7438,5 +7438,20 @@
       "https://www.youtube.com/watch?v=cYgq4SaaNvc",
       "https://www.youtube.com/watch?v=KCfvR4jf1dE"
     ]
+  },
+  {
+    "id": "davidloy",
+    "categories": [
+      "skater"
+    ],
+    "name": "David Loy",
+    "subtitle": "",
+    "edito": "",
+    "about": "David Loy is an american skateboarder who has ridden for Birdhouse since 2004. He is the longest lasting member other than a rider named Tony.",
+    "videos": [
+      "https://www.youtube.com/watch?v=6HbrSDI1k54",
+      "https://www.youtube.com/watch?v=e0V8k8WPeUU",
+      "https://www.youtube.com/watch?v=JdUkMcSO5Ds"
+    ]
   }
 ]
