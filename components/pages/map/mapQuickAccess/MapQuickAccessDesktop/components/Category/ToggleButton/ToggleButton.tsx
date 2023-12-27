@@ -9,18 +9,17 @@ type Props = {
     isOpen: boolean;
     onClick: () => void;
     selected: boolean;
-    faded: boolean;
     src: string;
     tooltipText: string;
 };
 
 const ToggleButton: React.FC<Props> = React.forwardRef((props, ref) => {
-    const { onClick, isOpen, src, tooltipText, selected, faded } = props;
+    const { onClick, isOpen, src, tooltipText, selected } = props;
     return (
         <div ref={ref}>
             <ToggleButtonTooltip text={tooltipText}>
                 <S.ToggleButton onClick={onClick} isOpen={isOpen}>
-                    <RoundedImage selected={selected} faded={faded} src={src} alt={tooltipText} />
+                    <RoundedImage selected={selected} src={src} alt={tooltipText} />
                 </S.ToggleButton>
             </ToggleButtonTooltip>
         </div>

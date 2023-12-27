@@ -16,7 +16,6 @@ const Cities = () => {
     return (
         <Category
             isSelected={false}
-            faded={false}
             src={`/images/map/cities/${category.displayedCityImage}.jpg`}
             tooltipText={category.name}
             panelContent={(closePanel) => (

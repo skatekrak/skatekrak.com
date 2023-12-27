@@ -5,13 +5,12 @@ import Panel from './Panel';
 
 type Props = {
     isSelected: boolean;
-    faded: boolean;
     src: string;
     tooltipText: string;
     panelContent: (closePanel: () => void) => JSX.Element;
 };
 
-const Category = ({ isSelected, faded, src, tooltipText, panelContent }: Props) => {
+const Category = ({ isSelected, src, tooltipText, panelContent }: Props) => {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
@@ -25,7 +24,6 @@ const Category = ({ isSelected, faded, src, tooltipText, panelContent }: Props) 
                 isOpen={isOpen}
                 onClick={() => setIsOpen(!isOpen)}
                 selected={isSelected}
-                faded={faded}
                 src={src}
                 tooltipText={tooltipText}
             />

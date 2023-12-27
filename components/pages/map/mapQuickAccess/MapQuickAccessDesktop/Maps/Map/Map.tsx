@@ -42,7 +42,6 @@ const Map: React.FC<MapProps> = ({ map, onClick }) => {
             <S.MapButton>
                 <RoundedImage
                     selected={isMapSelected}
-                    faded={false}
                     size="3rem"
                     src={`/images/map/custom-maps/${map.id}.png`}
                     alt={map.name}
