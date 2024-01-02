@@ -7552,5 +7552,16 @@
     "edito": "",
     "about": "",
     "videos": []
+  },
+  {
+    "id": "lookbacklibrary",
+    "categories": [
+      "maps"
+    ],
+    "name": "Look Back Library",
+    "subtitle": "",
+    "edito": "",
+    "about": "Origins: 'this journey began in September 1986 when I bought a thrasher magazine with Mark Gonzales on the cover. I’ve been collecting magazines ever since & over the years have developed a deep sense of wanting to preserve this form of communication. In 2015 I took on a pet project to improve the skate magazine library at launch – community through skateboarding. That process led to multiple partnerships with other magazine libraries & collectors around the world. I was quickly swimming in doubles & the idea occurred to me that I should create a platform to build a myriad of other libraries from those duplicates.'",
+    "videos": []
   }
 ]
