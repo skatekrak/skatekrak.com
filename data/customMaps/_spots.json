@@ -7541,5 +7541,16 @@
     "videos": [
       "https://www.youtube.com/playlist?list=PLaalS2TgT-nHChZFF1pSRuYWWBGEnj99H"
     ]
+  },
+  {
+    "id": "skatemuseum",
+    "categories": [
+      "maps"
+    ],
+    "name": "Skate Museums",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": []
   }
 ]
