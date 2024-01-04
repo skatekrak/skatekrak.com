@@ -7563,5 +7563,22 @@
     "edito": "",
     "about": "Origins: 'this journey began in September 1986 when I bought a thrasher magazine with Mark Gonzales on the cover. I’ve been collecting magazines ever since & over the years have developed a deep sense of wanting to preserve this form of communication. In 2015 I took on a pet project to improve the skate magazine library at launch – community through skateboarding. That process led to multiple partnerships with other magazine libraries & collectors around the world. I was quickly swimming in doubles & the idea occurred to me that I should create a platform to build a myriad of other libraries from those duplicates.'",
     "videos": []
+  },
+  {
+    "id": "joehiddlesontapes",
+    "categories": [
+      "maps"
+    ],
+    "name": "Joe Hiddleson Tapes",
+    "subtitle": "",
+    "edito": "",
+    "about": "Raw Footage of classic clips filmed by Joe Hiddleson that were featured in various skate videos that came out in the 1990s. ",
+    "videos": [
+      "https://www.youtube.com/watch?v=yvh7Jycr0Dg",
+      "https://www.youtube.com/watch?v=ktZ1cZTr7AU",
+      "https://www.youtube.com/watch?v=LfAd5D7M3GU",
+      "https://www.youtube.com/watch?v=FFVfvK6-FKc",
+      "https://www.youtube.com/watch?v=cL8seG0oxCo"
+    ]
   }
 ]
