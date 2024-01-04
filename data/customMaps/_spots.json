@@ -7591,5 +7591,16 @@
     "edito": "",
     "about": "Four wheels down! Walls, steep banks, jersey barriers!",
     "videos": []
+  },
+  {
+    "id": "nopushlines",
+    "categories": [
+      "maps"
+    ],
+    "name": "No Push Lines",
+    "subtitle": "",
+    "edito": "",
+    "about": "Lines with no push in between tricks.",
+    "videos": []
   }
 ]
