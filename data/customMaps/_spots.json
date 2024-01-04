@@ -7602,5 +7602,18 @@
     "edito": "",
     "about": "Lines with no push in between tricks.",
     "videos": []
+  },
+  {
+    "id": "winkletv",
+    "categories": [
+      "maps"
+    ],
+    "name": "Winkle TV",
+    "subtitle": "",
+    "edito": "",
+    "about": "'The world's worst filmer with the best hair.' Winkle TV live from Barcelona!",
+    "videos": [
+      "https://www.youtube.com/playlist?list=PL2okEvH55yeDxui1CTaJt3DPmU5ZXJ1ht"
+    ]
   }
 ]
