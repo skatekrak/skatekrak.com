@@ -7615,5 +7615,25 @@
     "videos": [
       "https://www.youtube.com/playlist?list=PL2okEvH55yeDxui1CTaJt3DPmU5ZXJ1ht"
     ]
+  },
+  {
+    "id": "daneburman",
+    "categories": [
+      "skater"
+    ],
+    "name": "Dane Burman",
+    "subtitle": "",
+    "edito": "",
+    "about": "Dane Burman (born March 17, 1987) is from Sydney, Australia.",
+    "videos": [
+      "https://www.youtube.com/watch?v=R1W5-6dOgbI",
+      "https://www.youtube.com/watch?v=0g3Hyy1W6OQ",
+      "https://www.youtube.com/watch?v=v4bsr92V870",
+      "https://www.youtube.com/watch?v=eUberiBMpyA",
+      "https://www.youtube.com/watch?v=GU_YbrrLzoY",
+      "https://www.youtube.com/watch?v=fCrVySEeN70",
+      "https://www.youtube.com/watch?v=Gppxw_rw2M4",
+      "https://www.youtube.com/watch?v=rISdc-h278I"
+    ]
   }
 ]
