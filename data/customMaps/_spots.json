@@ -7715,5 +7715,24 @@
       "https://www.youtube.com/watch?v=iecYuZbhaxM",
       "https://www.youtube.com/watch?v=7Mvtn62S_m0"
     ]
+  },
+  {
+    "id": "rickhoward",
+    "categories": [
+      "skater"
+    ],
+    "name": "Rick Howard",
+    "subtitle": "",
+    "edito": "",
+    "about": "Rick Howard is a professional skateboarder who became a part-owner of Girl Skateboards and cofounded the Lakai Limited Footwear.",
+    "videos": [
+      "https://www.youtube.com/watch?v=5uFhsn9OcBY",
+      "https://www.youtube.com/watch?v=Xv5rLI5NnIg",
+      "https://www.youtube.com/watch?v=RJXsyUX7IQs",
+      "https://www.youtube.com/watch?v=BFIvoGr5als",
+      "https://www.youtube.com/watch?v=ehZBdh-1rzQ",
+      "https://www.youtube.com/watch?v=jMXv-f1anl8",
+      "https://www.youtube.com/watch?v=pNrwhVmhcLo"
+    ]
   }
 ]
