@@ -7882,5 +7882,20 @@
       "https://www.youtube.com/watch?v=-PS_De84xoA",
       "https://www.youtube.com/watch?v=dFlp8VyAiwQ"
     ]
+  },
+  {
+    "id": "alexhermann",
+    "categories": [
+      "skater"
+    ],
+    "name": "Alex Hermann",
+    "subtitle": "",
+    "edito": "",
+    "about": "Alex Hermann is a french skateboarder who grew up skating in Paris. He now lives in Canada with his family.",
+    "videos": [
+      "https://www.youtube.com/watch?v=ErB2KFyu__I",
+      "https://www.youtube.com/watch?v=Kw78GjHFd1U",
+      "https://www.youtube.com/watch?v=5mVv-32BUJY"
+    ]
   }
 ]
