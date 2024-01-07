@@ -7952,5 +7952,18 @@
     "videos": [
       "https://www.youtube.com/playlist?list=PL3Lm-aQ2_ETG6Ef2c1K1Kyw_Gl7Ghxvu6"
     ]
+  },
+  {
+    "id": "leoromero",
+    "categories": [
+      "skater"
+    ],
+    "name": "Leo Romero",
+    "subtitle": "",
+    "edito": "",
+    "about": "Leo Romero (born November 28, 1986) is a professional skateboarder from Fontana, CA.",
+    "videos": [
+      "https://www.youtube.com/playlist?list=PL3Lm-aQ2_ETE0Vz8oj52A7oflfwb2M-mM"
+    ]
   }
 ]
