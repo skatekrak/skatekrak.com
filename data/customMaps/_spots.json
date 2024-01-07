@@ -7965,5 +7965,18 @@
     "videos": [
       "https://www.youtube.com/playlist?list=PL3Lm-aQ2_ETE0Vz8oj52A7oflfwb2M-mM"
     ]
+  },
+  {
+    "id": "dustindollin",
+    "categories": [
+      "skater"
+    ],
+    "name": "Dustin Dollin",
+    "subtitle": "",
+    "edito": "",
+    "about": "Dustin Dollin was born june 26th, 1980 in Ballina, New South Wales, Australia, and raised in Katoomba, New South Wales.",
+    "videos": [
+      "https://www.youtube.com/playlist?list=PL3Lm-aQ2_ETGhhYj02gHrqxKkJ-841TGz"
+    ]
   }
 ]
