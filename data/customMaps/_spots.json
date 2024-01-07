@@ -7747,5 +7747,23 @@
     "videos": [
       "https://www.youtube.com/playlist?list=PL3Lm-aQ2_ETF0YZgQWw2HHXoD7RERax5t"
     ]
+  },
+  {
+    "id": "alexolson",
+    "categories": [
+      "skater"
+    ],
+    "name": "Alex Olson",
+    "subtitle": "",
+    "edito": "",
+    "about": "Alex Olson (born 1986) is a goofy-footed American professional skateboarder, company owner, and entrepreneur. He runs the companies Call Me 917 and Bianca Chandon.",
+    "videos": [
+      "https://www.youtube.com/watch?v=DseYgTdG3d4",
+      "https://www.youtube.com/watch?v=11IJU8k3Rr4",
+      "https://www.youtube.com/watch?v=9Ijpv6e57a4",
+      "https://www.youtube.com/watch?v=1R3-3rSOIcM",
+      "https://www.youtube.com/watch?v=_5ru5Np6nGk",
+      "https://www.youtube.com/watch?v=GJgYwmCfoVs"
+    ]
   }
 ]
