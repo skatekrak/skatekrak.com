@@ -7695,5 +7695,25 @@
       "https://www.youtube.com/watch?v=hXZH90EIC30",
       "https://www.youtube.com/watch?v=xwY063PJHu4"
     ]
+  },
+  {
+    "id": "carlosribeiro",
+    "categories": [
+      "skater"
+    ],
+    "name": "Carlos Ribeiro",
+    "subtitle": "",
+    "edito": "",
+    "about": "Carlos Ribeiro is from Novo Hamburgo, Brazil.",
+    "videos": [
+      "https://www.youtube.com/watch?v=UqkTO0SBsC4",
+      "https://www.youtube.com/watch?v=pXNyeO-AEn8",
+      "https://www.youtube.com/watch?v=Ye8vtIN0VJA",
+      "https://www.youtube.com/watch?v=0OEqpKQuwoY",
+      "https://www.youtube.com/watch?v=z7vc_d7088M",
+      "https://www.youtube.com/watch?v=UcF6c4G32FY",
+      "https://www.youtube.com/watch?v=iecYuZbhaxM",
+      "https://www.youtube.com/watch?v=7Mvtn62S_m0"
+    ]
   }
 ]
