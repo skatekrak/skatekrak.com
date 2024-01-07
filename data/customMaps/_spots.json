@@ -7897,5 +7897,21 @@
       "https://www.youtube.com/watch?v=Kw78GjHFd1U",
       "https://www.youtube.com/watch?v=5mVv-32BUJY"
     ]
+  },
+  {
+    "id": "fabianverhaeghe",
+    "categories": [
+      "skater"
+    ],
+    "name": "Fabian Verhaeghe",
+    "subtitle": "",
+    "edito": "",
+    "about": "Fabian Verhaeghe is from Gent, Belgium.",
+    "videos": [
+      "https://www.youtube.com/watch?v=WIeh6eg16Zo",
+      "https://www.youtube.com/watch?v=79jtXbJ0jQA",
+      "https://www.youtube.com/watch?v=yaNA2cZ0JZ0",
+      "https://www.youtube.com/watch?v=FXFB3ZklLhc"
+    ]
   }
 ]
