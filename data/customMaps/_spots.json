@@ -7978,5 +7978,27 @@
     "videos": [
       "https://www.youtube.com/playlist?list=PL3Lm-aQ2_ETGhhYj02gHrqxKkJ-841TGz"
     ]
+  },
+  {
+    "id": "oscarcandon",
+    "categories": [
+      "skater"
+    ],
+    "name": "Oscar Candon",
+    "subtitle": "",
+    "edito": "",
+    "about": "Oscar Candon was born in Montpellier and grew up in Meudon in the parisian suburbs.",
+    "videos": [
+      "https://www.youtube.com/watch?v=23UEZ6ALFjM",
+      "https://www.youtube.com/watch?v=zRqDrxtAbN4",
+      "https://www.youtube.com/watch?v=Jx9lo5Skk5k",
+      "https://www.youtube.com/watch?v=12d28zMRIYs",
+      "https://www.youtube.com/watch?v=Qiwin1Udj9Q",
+      "https://www.youtube.com/watch?v=R6odPsGbd4I",
+      "https://www.youtube.com/watch?v=pD9ZRR9-kK4",
+      "https://www.youtube.com/watch?v=T1i8CIxGZ9Y",
+      "https://www.youtube.com/watch?v=EPmG2AU1TXI",
+      "https://www.youtube.com/watch?v=Mh0KH5nZ1no"
+    ]
   }
 ]
