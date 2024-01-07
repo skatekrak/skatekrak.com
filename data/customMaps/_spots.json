@@ -7913,5 +7913,18 @@
       "https://www.youtube.com/watch?v=yaNA2cZ0JZ0",
       "https://www.youtube.com/watch?v=FXFB3ZklLhc"
     ]
+  },
+  {
+    "id": "chriscole",
+    "categories": [
+      "skater"
+    ],
+    "name": "Chris Cole",
+    "subtitle": "",
+    "edito": "",
+    "about": "James Chris Cole (born March 10, 1982 in Statesville, North Carolina) is an American professional skateboarder.",
+    "videos": [
+      "https://www.youtube.com/playlist?list=PL3Lm-aQ2_ETFfOrcf5jnI93rALATbIbWs"
+    ]
   }
 ]
