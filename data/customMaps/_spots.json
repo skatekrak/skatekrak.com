@@ -7939,5 +7939,18 @@
     "videos": [
       "https://www.youtube.com/playlist?list=PL3Lm-aQ2_ETFqqMntbnJQrt38plu9Gu7u"
     ]
+  },
+  {
+    "id": "bobbyworrest",
+    "categories": [
+      "skater"
+    ],
+    "name": "Bobby Worrest",
+    "subtitle": "",
+    "edito": "",
+    "about": "Bobby Worrest (born May 16th, 1986) is from Washington DC, USA.",
+    "videos": [
+      "https://www.youtube.com/playlist?list=PL3Lm-aQ2_ETG6Ef2c1K1Kyw_Gl7Ghxvu6"
+    ]
   }
 ]
