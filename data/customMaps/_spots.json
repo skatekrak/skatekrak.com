@@ -7734,5 +7734,18 @@
       "https://www.youtube.com/watch?v=jMXv-f1anl8",
       "https://www.youtube.com/watch?v=pNrwhVmhcLo"
     ]
+  },
+  {
+    "id": "jerryhsu",
+    "categories": [
+      "skater"
+    ],
+    "name": "Jerry Hsu",
+    "subtitle": "",
+    "edito": "",
+    "about": "Jerry Hsu (born December 17, 1981) is a Taiwanese-American skateboarder, photographer and owner/operator of the skate company 'Sci-Fi Fantasy'.",
+    "videos": [
+      "https://www.youtube.com/playlist?list=PL3Lm-aQ2_ETF0YZgQWw2HHXoD7RERax5t"
+    ]
   }
 ]
