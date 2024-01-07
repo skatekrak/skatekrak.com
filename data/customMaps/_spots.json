@@ -7926,5 +7926,18 @@
     "videos": [
       "https://www.youtube.com/playlist?list=PL3Lm-aQ2_ETFfOrcf5jnI93rALATbIbWs"
     ]
+  },
+  {
+    "id": "stefanjanoski",
+    "categories": [
+      "skater"
+    ],
+    "name": "Stefan Janoski",
+    "subtitle": "",
+    "edito": "",
+    "about": "Stefan Janoski (born July 18, 1979) is an American professional skateboarder, artist, writer and musician of Macedonian descent, who is well known for his signature Nike SB shoe model, the Nike",
+    "videos": [
+      "https://www.youtube.com/playlist?list=PL3Lm-aQ2_ETFqqMntbnJQrt38plu9Gu7u"
+    ]
   }
 ]
