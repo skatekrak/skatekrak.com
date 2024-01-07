@@ -7785,5 +7785,22 @@
       "https://www.youtube.com/watch?v=kpN6reNTBwc",
       "https://www.youtube.com/watch?v=imYfKSuRlRU"
     ]
+  },
+  {
+    "id": "wiegervanwageningen",
+    "categories": [
+      "skater"
+    ],
+    "name": "Wieger Van Wageningen",
+    "subtitle": "",
+    "edito": "",
+    "about": "Wieger Van Wageningen is from Eindhoven, Netherlands.",
+    "videos": [
+      "https://www.youtube.com/watch?v=lEe_4xHSm5k",
+      "https://www.youtube.com/watch?v=Yi72YF5wkac",
+      "https://www.youtube.com/watch?v=iNbTA9Y-MxI",
+      "https://www.youtube.com/watch?v=x_HYvbO5D1s",
+      "https://www.youtube.com/watch?v=O2OWV4Ypcj4"
+    ]
   }
 ]
