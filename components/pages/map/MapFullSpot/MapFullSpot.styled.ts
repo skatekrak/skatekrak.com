@@ -39,7 +39,7 @@ export const MapFullSpotContainer = styled.div`
     position: relative;
     display: flex;
     flex-direction: column;
-    min-height: 85vh;
+    min-height: 100vh;
 
     ${media.tablet} {
         display: grid;

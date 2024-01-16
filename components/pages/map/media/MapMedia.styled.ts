@@ -39,6 +39,30 @@ export const MapMediaShare = styled.div`
     z-index: 10;
 `;
 
+/** Open Carousel */
+export const OpenCarouselButton = styled.button`
+    position: absolute;
+    top: 0.625rem;
+    right: 0.625rem;
+    display: none;
+    padding: 0.25rem;
+    color: ${({ theme }) => theme.color.onDark.highEmphasis};
+    background-color: ${({ theme }) => theme.color.tertiary.medium};
+    border-radius: 0.25rem;
+    z-index: 10;
+
+    &:hover {
+        & svg {
+            fill: ${({ theme }) => theme.color.onDark.highEmphasis};
+        }
+    }
+
+    & svg {
+        width: 1.5rem;
+        fill: ${({ theme }) => theme.color.onDark.mediumEmphasis};
+    }
+`;
+
 /** Media container */
 export const MapMediaContainer = styled.div`
     position: relative;
@@ -53,6 +77,10 @@ export const MapMediaContainer = styled.div`
         }
 
         ${MapMediaShare} {
+            display: flex;
+        }
+
+        ${OpenCarouselButton} {
             display: flex;
         }
     }
