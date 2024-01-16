@@ -31,7 +31,7 @@ const MapFullSpot: React.FC<MapFullSpotProps> = ({ open, onClose, container }) =
         if (!open) {
             dispatch(selectFullSpotTab());
         }
-    }, [open]);
+    }, [open, dispatch]);
 
     return (
         <Modal styles={modalStyles} open={open} container={container} onClose={onClose} closable closeIcon={undefined}>

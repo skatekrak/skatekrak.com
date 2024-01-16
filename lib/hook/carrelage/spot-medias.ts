@@ -1,5 +1,5 @@
 import carrelage from 'lib/carrelageClient';
-import { useInfiniteQuery } from '@tanstack/react-query';
+import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import { Media } from 'lib/carrelageClient';
 import { AxiosError } from 'axios';
 import { sub } from 'date-fns';
@@ -21,6 +21,17 @@ const fetchMedias = async (
     });
 
     return data;
+};
+
+export const useSpotMediasAround = (spotId: string, media: Media) => {
+    return useQuery(['fetch-spots-medias-around', spotId, media.id], async () => {
+        const [prevRes, nextRes] = await Promise.all([
+            carrelage.get<Media[]>(`/spots/${spotId}/medias`, { params: { newer: media.createdAt, limit: 1 } }),
+            carrelage.get<Media[]>(`/spots/${spotId}/medias`, { params: { older: media.createdAt, limit: 1 } }),
+        ]);
+
+        return { prevMedia: first(prevRes.data), nextMedia: first(nextRes.data) };
+    });
 };
 
 const useSpotMedias = (spotId: string, initialMedias: Media[], key?: string) => {
