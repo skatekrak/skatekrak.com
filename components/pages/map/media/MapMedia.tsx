@@ -9,7 +9,7 @@ import MapMediaVideoPlayer from './MapMediaVideoPlayer';
 import { useSelector } from 'react-redux';
 import { RootState } from 'store';
 import { useAppDispatch } from 'store/hook';
-import { updateUrlParams } from 'store/map/slice';
+import { setVideoPlaying, updateUrlParams } from 'store/map/slice';
 import IconFullScreen from 'components/Ui/Icons/IconFullScreen';
 
 export type MapMediaProps = {
@@ -25,6 +25,8 @@ const MapMedia = ({ shareURL, media, isFromCustomMapFeed = false }: MapMediaProp
     const isPlaying = videoPlayingId === media.id;
 
     const openCarousel = (mediaId: string) => {
+        // Close video if opened
+        dispatch(setVideoPlaying(null));
         dispatch(updateUrlParams({ mediaId }));
     };
 
