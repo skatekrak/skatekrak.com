@@ -129,9 +129,12 @@ const MapContainer = () => {
         if (mapRef.current != null && id != null && spotsByTags != null && !isEmpty(spotsByTags)) {
             const bounds = findSpotsBoundsCoordinate(spotsByTags);
             console.log('bounds', bounds);
-            mapRef.current?.fitBounds(bounds, { padding: 254, duration: 1500 });
+            mapRef.current?.fitBounds(bounds, {
+                padding: isMobile ? { bottom: 100, left: 20, right: 20, top: 200 } : 254,
+                duration: 1500,
+            });
         }
-    }, [spotsByTags, viewport.width, id, dispatch]);
+    }, [spotsByTags, viewport.width, id, dispatch, isMobile]);
 
     const displayedSpots = useMemo(() => {
         // It's a custom map, we can return the spots if not loading
