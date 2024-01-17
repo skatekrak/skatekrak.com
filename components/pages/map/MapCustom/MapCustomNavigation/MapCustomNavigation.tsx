@@ -84,14 +84,16 @@ const MapCustomNavigation = ({ id, title, about, subtitle, spots, videos }: MapC
                         </S.MapCustomNavigationLink>
                     </MapCustomNavigationExtension>
                 )}
-                <MapCustomNavigationExtension
-                    render={({ close }) => <MapCustomNavigationSpots mapSpots={spots} closeExtension={close} />}
-                >
-                    <S.MapCustomNavigationLink>
-                        <Typography component="body1">{spots.length} spots</Typography>
-                        <IconArrowHead />
-                    </S.MapCustomNavigationLink>
-                </MapCustomNavigationExtension>
+                {spots.length > 0 && (
+                    <MapCustomNavigationExtension
+                        render={({ close }) => <MapCustomNavigationSpots mapSpots={spots} closeExtension={close} />}
+                    >
+                        <S.MapCustomNavigationLink>
+                            <Typography component="body1">{spots.length} spots</Typography>
+                            <IconArrowHead />
+                        </S.MapCustomNavigationLink>
+                    </MapCustomNavigationExtension>
+                )}
                 {videos?.length > 0 && (
                     <MapCustomNavigationExtension render={() => <MapCustomNavigationVideos videos={videos} />}>
                         <S.MapCustomNavigationLink>
