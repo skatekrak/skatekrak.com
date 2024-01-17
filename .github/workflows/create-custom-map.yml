@@ -21,6 +21,7 @@ on:
                     - skatepark
                     - years
                     - shop
+                    - greatest
             name:
                 type: string
                 required: true

@@ -27,4 +27,5 @@ export enum CustomMapCategory {
     skatepark = 'Skateparks',
     shop = 'Shops',
     years = 'Years',
+    greatest = 'Greatest',
 }
