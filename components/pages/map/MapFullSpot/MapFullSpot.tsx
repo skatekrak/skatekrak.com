@@ -36,7 +36,7 @@ const MapFullSpot: React.FC<MapFullSpotProps> = ({ open, onClose, container }) =
     return (
         <Modal styles={modalStyles} open={open} container={container} onClose={onClose} closable closeIcon={undefined}>
             {spotOverview && (
-                <S.MapFullSpotContainer>
+                <S.MapFullSpotContainer isCarouselOpen={!!mediaId}>
                     {mediaId && <MapFullSpotCarousel initialMediaId={mediaId} spot={spotOverview.spot} />}
                     <S.MapFullSpotNavContainer>
                         <MapFullSpotNav />
