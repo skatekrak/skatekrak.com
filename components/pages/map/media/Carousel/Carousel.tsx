@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 import VideoPlayer from 'components/Ui/Player/VideoPlayer';
 import IconArrowHead from 'components/Ui/Icons/ArrowHead';
@@ -55,18 +55,18 @@ export const CarouselNav = () => {
     };
 
     /** handle with arrow keys down */
-    const handleKeydown = (e: KeyboardEvent) => {
-        e.key === 'ArrowLeft' && onPrevious();
-        e.key === 'ArrowRight' && onNext();
-    };
+    // const handleKeydown = (e: KeyboardEvent) => {
+    //     e.key === 'ArrowLeft' && onPrevious();
+    //     e.key === 'ArrowRight' && onNext();
+    // };
 
-    useEffect(() => {
-        document.addEventListener('keydown', handleKeydown);
-        return () => {
-            document.removeEventListener('keydown', handleKeydown);
-        };
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    // useEffect(() => {
+    //     document.addEventListener('keydown', handleKeydown);
+    //     return () => {
+    //         document.removeEventListener('keydown', handleKeydown);
+    //     };
+    //     // eslint-disable-next-line react-hooks/exhaustive-deps
+    // }, []);
 
     return (
         <S.MenuContainer>
