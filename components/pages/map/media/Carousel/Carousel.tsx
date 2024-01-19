@@ -104,7 +104,7 @@ export const CarouselNav = () => {
 export const CarouselContent = () => {
     const { media } = useCarouselContext();
     if (media.type === 'video') {
-        return <VideoPlayer style={{ paddingTop: 'inherit' }} url={media.video.url} loop controls playing={false} />;
+        return <VideoPlayer style={{ paddingTop: 'inherit' }} url={media.video.url} loop controls playing />;
     }
 
     return <S.Image src={media.image.url} alt={media.caption} />;
