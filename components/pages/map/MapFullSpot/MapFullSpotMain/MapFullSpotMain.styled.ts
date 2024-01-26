@@ -82,6 +82,41 @@ export const MapFullSpotMainClipTitle = styled(Typography)`
 `;
 
 /* MEDIA */
+export const MapFullSpotCarousel = styled.div`
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+`;
+
+export const MapFullSpotCarouselNav = styled.div`
+    display: flex;
+    padding: 1rem;
+    background-color: ${({ theme }) => theme.color.tertiary.dark};
+    border-top: 1px solid ${({ theme }) => theme.color.onDark.divider};
+    border-bottom: 1px solid ${({ theme }) => theme.color.onDark.divider};
+`;
+
+export const MapFullSpotCarouselNavBackButton = styled.button`
+    display: flex;
+    align-items: center;
+    color: ${({ theme }) => theme.color.onDark.mediumEmphasis};
+
+    & svg {
+        width: 1.5rem;
+        margin-right: 0.5rem;
+        fill: ${({ theme }) => theme.color.onDark.mediumEmphasis};
+        transform: rotate(180deg);
+    }
+
+    &:hover {
+        color: ${({ theme }) => theme.color.onDark.highEmphasis};
+
+        & svg {
+            fill: ${({ theme }) => theme.color.onDark.highEmphasis};
+        }
+    }
+`;
+
 export const MapFullSpotMainMediaGridContainer = styled.div`
     display: block;
     padding: 1.5rem;

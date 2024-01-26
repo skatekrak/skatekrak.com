@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useMemo, memo } from 'react';
 import { useDispatch } from 'react-redux';
 import ReactMapGL, { GeolocateControl, MapRef, NavigationControl, Source, ViewStateChangeEvent } from 'react-map-gl';
 import type { FeatureCollection, Geometry } from 'geojson';
@@ -144,4 +144,4 @@ const isSpotMarker = (spot: SpotGeoJSON): boolean => {
     return spot.properties.mediasStat.all >= 10 || intersects(spot.properties.tags, ['history', 'famous', 'minute']);
 };
 
-export default MapComponent;
+export default memo(MapComponent);

@@ -108,6 +108,7 @@ export const MapCustomNavigationMainName = styled(Typography)`
 export const MapCustomNavigationLinksContainer = styled.div`
     display: flex;
     align-items: center;
+    margin-left: auto;
     padding-right: 0.5rem;
     padding-left: 1rem;
 

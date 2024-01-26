@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import classNames from 'classnames';
 import { Popup } from 'react-map-gl';
 
@@ -65,4 +65,4 @@ const MapSpotOverview: React.FC<MapSpotOverviewProps> = ({ spotOverview, onPopup
     );
 };
 
-export default MapSpotOverview;
+export default memo(MapSpotOverview);

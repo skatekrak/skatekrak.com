@@ -28,7 +28,6 @@ const CustomMapsSide = () => {
                     <Category
                         key={category.id}
                         isSelected={isCategorySelected(category, router.query.id)}
-                        faded={false}
                         src={`/images/map/custom-maps/${sortMaps(category.maps)[0].id}.png`}
                         tooltipText={category.name}
                         panelContent={(closePanel) => (

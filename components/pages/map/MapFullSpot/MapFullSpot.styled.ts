@@ -35,11 +35,17 @@ export const MapFullSpotModalCloseIconStyles: React.CSSProperties = {
     fill: `${themeData.color.onDark.mediumEmphasis}`,
 };
 
-export const MapFullSpotContainer = styled.div`
+type MapFullSpotContainerProps = {
+    isCarouselOpen: boolean;
+};
+
+export const MapFullSpotContainer = styled.div<MapFullSpotContainerProps>`
     position: relative;
     display: flex;
     flex-direction: column;
-    min-height: 85vh;
+    min-height: 100vh;
+    height: ${({ isCarouselOpen }) => (isCarouselOpen ? '100vh' : 'auto')};
+    overflow: hidden;
 
     ${media.tablet} {
         display: grid;

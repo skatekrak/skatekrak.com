@@ -1,12 +1,14 @@
 import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 
 import Modal from 'components/Ui/Modal';
 import MapFullSpotNav from './MapFullSpotNav';
 import MapFullSpotMain from './MapFullSpotMain';
+import MapFullSpotCarousel from './MapFullSpotCarousel';
 import * as S from './MapFullSpot.styled';
 
-import { useDispatch } from 'react-redux';
 import { selectFullSpotTab } from 'store/map/slice';
+import { useAppSelector } from 'store/hook';
 
 const modalStyles = {
     overlay: S.MapFullSpotModalOverlayStyles,
@@ -23,22 +25,27 @@ type MapFullSpotProps = {
 
 const MapFullSpot: React.FC<MapFullSpotProps> = ({ open, onClose, container }) => {
     const dispatch = useDispatch();
+    const [mediaId, spotOverview] = useAppSelector((state) => [state.map.media, state.map.spotOverview]);
+
     useEffect(() => {
         if (!open) {
             dispatch(selectFullSpotTab());
         }
-    }, [open]);
+    }, [open, dispatch]);
 
     return (
         <Modal styles={modalStyles} open={open} container={container} onClose={onClose} closable closeIcon={undefined}>
-            <S.MapFullSpotContainer>
-                <S.MapFullSpotNavContainer>
-                    <MapFullSpotNav />
-                </S.MapFullSpotNavContainer>
-                <S.MapFullSpotMainContainer>
-                    <MapFullSpotMain />
-                </S.MapFullSpotMainContainer>
-            </S.MapFullSpotContainer>
+            {spotOverview && (
+                <S.MapFullSpotContainer isCarouselOpen={!!mediaId}>
+                    {mediaId && <MapFullSpotCarousel initialMediaId={mediaId} spot={spotOverview.spot} />}
+                    <S.MapFullSpotNavContainer>
+                        <MapFullSpotNav />
+                    </S.MapFullSpotNavContainer>
+                    <S.MapFullSpotMainContainer>
+                        <MapFullSpotMain />
+                    </S.MapFullSpotMainContainer>
+                </S.MapFullSpotContainer>
+            )}
         </Modal>
     );
 };

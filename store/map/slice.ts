@@ -171,6 +171,18 @@ const mapSlice = createSlice({
                 meta: { pushToUrl: { spot: value ?? null } },
             }),
         },
+        setMedia: {
+            reducer: (state, action: PayloadAction<string | undefined>) => {
+                return {
+                    ...state,
+                    media: action.payload,
+                };
+            },
+            prepare: (value?: string) => ({
+                payload: value,
+                meta: { pushToUrl: { media: value ?? null } },
+            }),
+        },
         toggleSpotModal: {
             reducer: (state, action: PayloadAction<boolean | undefined>) => {
                 const { payload = true } = action;
@@ -308,6 +320,7 @@ export const {
     setViewport,
     selectFullSpotTab,
     selectSpot,
+    setMedia,
     toggleSpotModal,
     toggleCustomMap,
     toggleLegend,

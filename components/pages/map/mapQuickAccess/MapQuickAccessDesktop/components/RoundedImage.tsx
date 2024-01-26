@@ -6,7 +6,6 @@ import useRemPX from 'lib/useRemPX';
 
 type Props = {
     selected: boolean;
-    faded: boolean;
     src: string;
     alt?: string;
     /** width and height unit */
@@ -14,11 +13,11 @@ type Props = {
 };
 
 /** Used to display a rounded image for QuickAccess maps */
-const RoundedImage = ({ selected, faded, src, alt, size = '2.5rem' }: Props) => {
+const RoundedImage = ({ selected, src, alt, size = '2.5rem' }: Props) => {
     const px = useRemPX(size);
     return (
         <ImageContainer selected={selected}>
-            <Image faded={faded} width={px} height={px} src={src} alt={alt} />
+            <Image width={px} height={px} src={src} alt={alt} />
         </ImageContainer>
     );
 };
@@ -51,18 +50,9 @@ const ImageContainer = styled.div<ImageContainerProps>`
         `}
 `;
 
-type ImageProps = {
-    faded: boolean;
-};
-
-const Image = styled(NextImage)<ImageProps>`
+const Image = styled(NextImage)`
     display: block;
     background-color: ${({ theme }) => theme.color.tertiary.medium};
     border: 1px solid ${({ theme }) => theme.color.tertiary.light};
     border-radius: 100%;
-
-    ${({ faded }) =>
-        faded && {
-            opacity: 0.5,
-        }}
 `;

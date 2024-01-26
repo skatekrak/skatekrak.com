@@ -64,6 +64,7 @@ export const initializeStore = (context) => {
                 selectSpot: params.spot,
                 modalVisible: params.modal === '1',
                 customMapId: params.id,
+                media: params.media,
             },
             mag: {
                 ...magInitialState,
