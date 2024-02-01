@@ -28,7 +28,6 @@ const VideoPlayer = React.forwardRef<ReactPlayer, VideoPlayerProps>(({ url, vide
     >
         <div className="video-player">
             <ReactPlayer
-                playing
                 ref={ref}
                 height="100%"
                 width="100%"
