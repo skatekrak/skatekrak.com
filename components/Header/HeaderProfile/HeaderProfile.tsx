@@ -17,7 +17,7 @@ const HeaderProfile = () => {
         await logout();
         close();
         queryClient.setQueryData(['fetch-session'], () => undefined);
-        queryClient.invalidateQueries(['fetch-profile']);
+        queryClient.invalidateQueries({ queryKey: ['fetch-profile'] });
     };
 
     if (isLoading || profile == null) {

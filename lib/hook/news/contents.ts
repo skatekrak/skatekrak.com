@@ -9,7 +9,7 @@ export type FetchNewsParams = {
     sources: number[];
 };
 
-const fetchContents = async (params: FetchNewsParams, page: any = 1): Promise<Content[]> => {
+const fetchContents = async (params: FetchNewsParams, page: number): Promise<Content[]> => {
     const { data } = await axios.get<Pagination<IContent>>(`${process.env.NEXT_PUBLIC_RSS_BACKEND_URL}/contents`, {
         params: {
             sourceTypes: ['rss'],
@@ -22,7 +22,10 @@ const fetchContents = async (params: FetchNewsParams, page: any = 1): Promise<Co
 };
 
 const useNewsContent = (params: FetchNewsParams) => {
-    return useInfiniteQuery(['news-feed', params], ({ pageParam }) => fetchContents(params, pageParam), {
+    return useInfiniteQuery({
+        queryKey: ['news-feed', params],
+        queryFn: ({ pageParam }) => fetchContents(params, pageParam),
+        initialPageParam: 1,
         getNextPageParam: (lastPages, allPages) => {
             if (lastPages.length < 20) {
                 return false;

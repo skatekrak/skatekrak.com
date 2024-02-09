@@ -26,16 +26,16 @@ const MapNavigation = () => {
     const debouncedSpotsSearch = useConstant(() =>
         AwesomeDebouncePromise((query: string) => Promise.all([fetchSpots(query)]), 200),
     );
-    const { isLoading, data } = useQuery(
-        ['search-spots', searchValue],
-        () => {
+    const { isLoading, data } = useQuery({
+        queryKey: ['search-spots', searchValue],
+        queryFn: () => {
             if (!searchValue) {
                 return null;
             }
             return debouncedSpotsSearch(searchValue);
         },
-        { refetchOnWindowFocus: false },
-    );
+        refetchOnWindowFocus: false,
+    });
 
     const [spots, places] = data ?? [[], []];
 

@@ -82,7 +82,10 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
                 imageUrl: `https://res.cloudinary.com/krak/image/upload/c_fill,w_1200,h_630/${overview.mostLikedMedia.image.publicId}.jpg`,
                 url: `${baseURL}?spot=${query.spot}`,
             };
-            await queryClient.prefetchQuery<SpotOverview>(['load-overview', query.spot], () => overview);
+            await queryClient.prefetchQuery<SpotOverview>({
+                queryKey: ['load-overview', query.spot],
+                queryFn: () => overview,
+            });
         } catch (err) {
             console.error(err);
         }

@@ -10,8 +10,9 @@ export const fetchSpotOverview = async (id: string): Promise<SpotOverview> => {
 };
 
 const useSpotOverview = (id?: string) => {
-    return useQuery(['fetch-spot-overview', id], () => fetchSpotOverview(id!), {
-        // keepPreviousData: true,
+    return useQuery({
+        queryKey: ['fetch-spot-overview', id],
+        queryFn: () => fetchSpotOverview(id!),
         enabled: id != null,
     });
 };

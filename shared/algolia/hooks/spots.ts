@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { keepPreviousData, useQuery } from '@tanstack/react-query';
 
 import type { SpotHit, SpotSearchResult } from '../algolia';
 import { spotIndex } from '../client';
@@ -24,13 +24,11 @@ export const fetchSpots = async (query: string, options?: AlgoliaSearchOptions):
 export const useAlgoliaSearchSpots = (query: string, options?: AlgoliaSearchOptions) => {
     const queryKey = ['algolia-spots-search', query, options];
 
-    return useQuery<SpotHit[]>(
+    return useQuery<SpotHit[]>({
         queryKey,
-        () => {
+        queryFn: () => {
             return fetchSpots(query, options);
         },
-        {
-            keepPreviousData: true,
-        },
-    );
+        placeholderData: keepPreviousData,
+    });
 };

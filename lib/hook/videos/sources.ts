@@ -13,7 +13,9 @@ const fetchSources = async () => {
 };
 
 const useVideosSources = () => {
-    return useQuery(['fetch-videos-sources'], fetchSources, {
+    return useQuery({
+        queryKey: ['fetch-videos-sources'],
+        queryFn: fetchSources,
         refetchOnWindowFocus: false,
         refetchOnMount: false,
         refetchOnReconnect: false,

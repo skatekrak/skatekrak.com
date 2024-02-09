@@ -1,8 +1,8 @@
 import Feudartifice from '..';
 import type { Spot } from '../types';
-import { useQuery } from '@tanstack/react-query';
+import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import { MapRef } from 'react-map-gl';
-import { MutableRefObject, useState } from 'react';
+import { MutableRefObject, useEffect, useState } from 'react';
 import useDebounce from 'lib/hook/useDebounce';
 import { useAppDispatch, useAppSelector } from 'store/hook';
 import { mapRefreshEnd } from 'store/map/slice';
@@ -17,7 +17,7 @@ export const fetchSpot = async (id: string): Promise<Spot> => {
 };
 
 const useSpot = (id: string) => {
-    return useQuery(['fetch-spot', id], () => fetchSpot(id), { keepPreviousData: true });
+    return useQuery({ queryKey: ['fetch-spot', id], queryFn: () => fetchSpot(id), placeholderData: keepPreviousData });
 };
 
 export const useSpotsSearch = (mapRef: MutableRefObject<MapRef>, enabled = true) => {
@@ -28,9 +28,9 @@ export const useSpotsSearch = (mapRef: MutableRefObject<MapRef>, enabled = true)
     const [loadedSpots, setLoadedSpots] = useState<Spot[]>([]);
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { data, ...queryRes } = useQuery(
-        ['fetch-spots-on-map', debouncedViewport],
-        async () => {
+    const { data, ...queryRes } = useQuery({
+        queryKey: ['fetch-spots-on-map', debouncedViewport],
+        queryFn: async () => {
             const map = mapRef.current.getMap();
             const bounds = map.getBounds();
             console.log(bounds);
@@ -47,19 +47,19 @@ export const useSpotsSearch = (mapRef: MutableRefObject<MapRef>, enabled = true)
 
             return spots;
         },
-        {
-            enabled,
-            onSettled: () => {
-                dispatch(mapRefreshEnd());
-            },
-            onSuccess: (newSpots) => {
-                setLoadedSpots((previousSpots) => unique(previousSpots.concat(newSpots ?? []), (a) => a.id));
-            },
-            refetchOnWindowFocus: false,
-            refetchOnMount: false,
-            keepPreviousData: true,
-        },
-    );
+
+        enabled,
+        refetchOnWindowFocus: false,
+        refetchOnMount: false,
+        placeholderData: keepPreviousData,
+    });
+
+    useEffect(() => {
+        if (data != null) {
+            dispatch(mapRefreshEnd());
+            setLoadedSpots((previousSpots) => unique(previousSpots.concat(data ?? []), (a) => a.id));
+        }
+    }, [data, dispatch, setLoadedSpots]);
 
     return {
         data: loadedSpots,
@@ -68,22 +68,20 @@ export const useSpotsSearch = (mapRef: MutableRefObject<MapRef>, enabled = true)
 };
 
 export const useSpotsByTags = (tags: string[] | undefined, tagsFromMedia?: boolean) => {
-    return useQuery(
-        ['fetch-spots-by-tags', tags, tagsFromMedia],
-        async () => {
+    return useQuery({
+        queryKey: ['fetch-spots-by-tags', tags, tagsFromMedia],
+        queryFn: async () => {
             if (tags != null && tagsFromMedia != null) {
                 const spots = await getSpotsByTags(tags, tagsFromMedia);
                 return sort(spots, (s) => s.mediasStat.all, true);
             }
             return;
         },
-        {
-            enabled: !!tags && tagsFromMedia != null,
-            refetchOnMount: false,
-            refetchOnReconnect: false,
-            refetchOnWindowFocus: false,
-        },
-    );
+        enabled: !!tags && tagsFromMedia != null,
+        refetchOnMount: false,
+        refetchOnReconnect: false,
+        refetchOnWindowFocus: false,
+    });
 };
 
 export const useSpotsGeoJSON = (mapRef: MutableRefObject<MapRef>, enabled = true) => {
@@ -94,9 +92,9 @@ export const useSpotsGeoJSON = (mapRef: MutableRefObject<MapRef>, enabled = true
     const [loadedSpots, setLoadedSpots] = useState<SpotGeoJSON[]>([]);
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { data, ...queryRes } = useQuery(
-        ['fetch-spots-geojson', debouncedViewport],
-        async () => {
+    const { data, ...queryRes } = useQuery({
+        queryKey: ['fetch-spots-geojson', debouncedViewport],
+        queryFn: async () => {
             const map = mapRef.current.getMap();
             const bounds = map.getBounds();
             const northEast = bounds.getNorthEast();
@@ -113,20 +111,18 @@ export const useSpotsGeoJSON = (mapRef: MutableRefObject<MapRef>, enabled = true
 
             return spots;
         },
-        {
-            enabled,
-            onSettled: () => {
-                dispatch(mapRefreshEnd());
-            },
-            onSuccess: (newSpots) => {
-                setLoadedSpots((previousSpots) => unique(previousSpots.concat(newSpots ?? []), (a) => a.properties.id));
-            },
-            refetchOnWindowFocus: false,
-            refetchOnMount: false,
-            keepPreviousData: true,
-        },
-    );
+        enabled,
+        refetchOnWindowFocus: false,
+        refetchOnMount: false,
+        placeholderData: keepPreviousData,
+    });
 
+    useEffect(() => {
+        if (data != null) {
+            dispatch(mapRefreshEnd());
+            setLoadedSpots((previousSpots) => unique(previousSpots.concat(data ?? []), (a) => a.id));
+        }
+    }, [data, dispatch, setLoadedSpots]);
     return {
         data: loadedSpots,
         ...queryRes,

@@ -12,9 +12,7 @@ const fetchNewsSources = async () => {
 };
 
 const useNewsSources = () => {
-    return useQuery(['news-sources'], fetchNewsSources, {
-        refetchOnWindowFocus: false,
-    });
+    return useQuery({ queryKey: ['news-sources'], queryFn: fetchNewsSources, refetchOnWindowFocus: false });
 };
 
 export default useNewsSources;

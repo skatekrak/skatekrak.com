@@ -17,15 +17,13 @@ type Props = {
 const MapCreateSpotLocation = ({ handleToggleMapVisible }: Props) => {
     const [{ value }] = useField<{ latitude: number | undefined; longitude: number | undefined }>('location');
 
-    const { data } = useQuery(
-        ['fetch-reverser-geocoder', value],
-        async () => {
+    const { data } = useQuery({
+        queryKey: ['fetch-reverser-geocoder', value],
+        queryFn: async () => {
             return Feudartifice.spots.reverseGeocoder({ latitude: value.latitude, longitude: value.longitude });
         },
-        {
-            enabled: value.latitude != null && value.longitude != null,
-        },
-    );
+        enabled: value.latitude != null && value.longitude != null,
+    });
 
     return (
         <S.MapCreateSpotLocationContainer onClick={handleToggleMapVisible}>

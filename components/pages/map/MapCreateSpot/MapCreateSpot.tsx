@@ -66,7 +66,7 @@ const MapCreateSpot = () => {
 
         dispatch(toggleCreateSpot());
         dispatch(selectSpot(spot.id));
-        queryClient.invalidateQueries(['fetch-spots-on-map']);
+        queryClient.invalidateQueries({ queryKey: ['fetch-spots-on-map'] });
     };
 
     return (

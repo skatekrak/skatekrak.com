@@ -35,7 +35,7 @@ const MapFullSpotAddMedia = () => {
 
             await Feudartifice.media.uploadMedia(media.id, values.file);
             dispatch(selectFullSpotTab('media'));
-            queryClient.invalidateQueries(['load-overview', spotOverview.spot.id]);
+            queryClient.invalidateQueries({ queryKey: ['load-overview', spotOverview.spot.id] });
         } catch (err) {
             console.error(err);
         }

@@ -3,7 +3,7 @@ import { AppProps } from 'next/app';
 import Head from 'next/head';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'connected-next-router';
-import { QueryClient, QueryClientProvider, Hydrate } from '@tanstack/react-query';
+import { QueryClient, QueryClientProvider, HydrationBoundary } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { Analytics } from '@vercel/analytics/react';
 
@@ -43,7 +43,7 @@ const WrappedApp: React.FC<AppProps> = ({ Component, ...rest }) => {
     return (
         <Provider store={store}>
             <QueryClientProvider client={queryClient}>
-                <Hydrate state={props.pageProps.dehydratedState}>
+                <HydrationBoundary state={props.pageProps.dehydratedState}>
                     <Head>
                         <meta charSet="utf-8" />
                         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -54,7 +54,7 @@ const WrappedApp: React.FC<AppProps> = ({ Component, ...rest }) => {
                         </ThemeStore>
                     </ConnectedRouter>
                     {process.env.NEXT_PUBLIC_STAGE === 'development' && <ReactQueryDevtools initialIsOpen={false} />}
-                </Hydrate>
+                </HydrationBoundary>
             </QueryClientProvider>
             <Analytics />
         </Provider>

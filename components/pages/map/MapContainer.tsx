@@ -74,28 +74,28 @@ const MapContainer = () => {
         }
     };
 
-    useQuery(
-        ['load-overview', spotId],
-        async () => {
+    const { data: overview } = useQuery({
+        queryKey: ['load-overview', spotId],
+        queryFn: async () => {
             const overview = await getSpotOverview(spotId);
             return overview;
         },
-        {
-            enabled: spotId != null,
-            retry: false,
-            onSuccess(data) {
-                dispatch(setSpotOverview(data));
+        enabled: spotId != null,
+        retry: false,
+    });
 
-                setFirstLoad((value) => {
-                    if (value) {
-                        centerToSpot(data.spot);
-                        return !value;
-                    }
-                    return value;
-                });
-            },
-        },
-    );
+    useEffect(() => {
+        if (overview != null) {
+            dispatch(setSpotOverview(overview));
+            setFirstLoad((value) => {
+                if (value) {
+                    centerToSpot(overview.spot);
+                    return !value;
+                }
+                return value;
+            });
+        }
+    }, [overview, dispatch, centerToSpot]);
 
     const enableSpotQuery = useMemo(() => {
         if (mapRef.current == null) {

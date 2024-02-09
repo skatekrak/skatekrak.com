@@ -12,7 +12,7 @@ export const fetchPlaces = async (query: string) => {
 };
 
 const usePlaceSearch = (query: string) => {
-    return useQuery(['fetch-places', query], () => fetchPlaces(query));
+    return useQuery({ queryKey: ['fetch-places', query], queryFn: () => fetchPlaces(query) });
 };
 
 export default usePlaceSearch;
