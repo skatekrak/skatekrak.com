@@ -47,6 +47,8 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v3
+              with:
+                  token: ${{ secrets.REPO_PAT }}
             - uses: pnpm/action-setup@v2
               with:
                   version: latest
