@@ -1,6 +1,8 @@
+import carrelage from 'lib/carrelageClient';
 import Feudartifice from '..';
 import type { Media } from '../types';
 import { useQuery, useInfiniteQuery } from '@tanstack/react-query';
+import { first } from 'radash';
 
 const { client } = Feudartifice;
 
@@ -56,6 +58,17 @@ export const useInfiniteMedias = (options: BaseFetchMediasOptions = {}) => {
         refetchOnMount: false,
         refetchOnReconnect: false,
         refetchOnWindowFocus: false,
+    });
+};
+
+export const useHashtagMediasAround = (hashtag: string, media: Media) => {
+    return useQuery(['fetch-hashtag-medias-around', hashtag, media.id], async () => {
+        const [prevRes, nextRes] = await Promise.all([
+            carrelage.get<Media[]>(`/medias`, { params: { hashtag, newer: media.createdAt, limit: 1 } }),
+            carrelage.get<Media[]>(`/medias`, { params: { hashtag, older: media.createdAt, limit: 1 } }),
+        ]);
+
+        return { prevMedia: first(prevRes.data), nextMedia: first(nextRes.data) };
     });
 };
 

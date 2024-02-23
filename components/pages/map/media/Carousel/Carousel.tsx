@@ -4,27 +4,32 @@ import VideoPlayer from 'components/Ui/Player/VideoPlayer';
 import IconArrowHead from 'components/Ui/Icons/ArrowHead';
 import * as S from './Carousel.styled';
 
-import { useSpotMediasAround } from 'lib/hook/carrelage/spot-medias';
 import Typography from 'components/Ui/typography/Typography';
 import SpotIcon from 'components/Ui/Utils/SpotIcon';
 import IconInfo from 'components/Ui/Icons/IconInfo';
 import { useAppDispatch } from 'store/hook';
 import { setMedia } from 'store/map/slice';
-import { useCarouselContext } from './CarouselContext';
+import { Media } from 'lib/carrelageClient';
 
-type Props = {
+type CarouselMediaProps = {
+    media: Media;
+    prevMedia: Media | null;
+    nextMedia: Media | null;
+};
+
+export type CarouselProps = CarouselMediaProps & {
     additionalActions?: React.ReactNode;
 };
 
-const Carousel = ({ additionalActions }: Props) => {
+const Carousel = ({ media, nextMedia, prevMedia, additionalActions }: CarouselProps) => {
     return (
         <S.Carousel>
-            <CarouselContent />
+            <CarouselContent media={media} />
             <S.Nav>
                 {additionalActions && (
                     <S.NavAdditionalActionsContainer>{additionalActions}</S.NavAdditionalActionsContainer>
                 )}
-                <CarouselNav />
+                <CarouselNav media={media} nextMedia={nextMedia} prevMedia={prevMedia} />
             </S.Nav>
         </S.Carousel>
     );
@@ -32,25 +37,23 @@ const Carousel = ({ additionalActions }: Props) => {
 
 export default Carousel;
 
-export const CarouselNav = () => {
-    const { media, spot } = useCarouselContext();
+export const CarouselNav = ({ media, prevMedia, nextMedia }: CarouselMediaProps) => {
     const dispatch = useAppDispatch();
-    const { data } = useSpotMediasAround(spot.id, media);
-    const isFirst = data?.prevMedia == null;
-    const isLast = data?.nextMedia == null;
+    const isFirst = prevMedia == null;
+    const isLast = nextMedia == null;
 
     /** Description */
     const [isDescOpen, setIsDescOpen] = useState(false);
 
     const onPrevious = () => {
-        if (data.prevMedia != null) {
-            dispatch(setMedia(data.prevMedia.id));
+        if (prevMedia != null) {
+            dispatch(setMedia(prevMedia.id));
         }
     };
 
     const onNext = () => {
-        if (data.nextMedia != null) {
-            dispatch(setMedia(data.nextMedia.id));
+        if (nextMedia != null) {
+            dispatch(setMedia(nextMedia.id));
         }
     };
 
@@ -90,7 +93,7 @@ export const CarouselNav = () => {
                     <S.MediaDescriptionDivider />
                     <S.MediaDescriptionSpot>
                         <SpotIcon spot={media.spot} />
-                        <Typography component="body2">{media.spot.name}</Typography>
+                        {media.spot.name && <Typography component="body2">{media.spot.name}</Typography>}
                     </S.MediaDescriptionSpot>
                     {media.caption && (
                         <S.MediaDescriptionCaption component="body1">{media.caption}</S.MediaDescriptionCaption>
@@ -101,8 +104,7 @@ export const CarouselNav = () => {
     );
 };
 
-export const CarouselContent = () => {
-    const { media } = useCarouselContext();
+const CarouselContent = ({ media }: { media: Media }) => {
     if (media.type === 'video') {
         return <VideoPlayer style={{ paddingTop: 'inherit' }} url={media.video.url} loop controls playing />;
     }

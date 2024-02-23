@@ -33,11 +33,10 @@ const MapMedia = ({ shareURL, media, isFromCustomMapFeed = false }: MapMediaProp
     return (
         <S.MapMediaContainer key={media.id}>
             {shareURL && <MapMediaShare url={shareURL} media={media} />}
-            {!isFromCustomMapFeed && (
-                <S.OpenCarouselButton onClick={() => openCarousel(media.id)}>
-                    <IconFullScreen />
-                </S.OpenCarouselButton>
-            )}
+
+            <S.OpenCarouselButton onClick={() => openCarousel(media.id)}>
+                <IconFullScreen />
+            </S.OpenCarouselButton>
             {media.type === 'video' && <MapMediaVideoPlayer media={media} isPlaying={isPlaying} />}
             {media.type === 'image' && <img key={media.id} src={media.image.jpg} alt={media.addedBy.username} />}
             {(media.type === 'image' || (media.type === 'video' && !isPlaying)) && (
