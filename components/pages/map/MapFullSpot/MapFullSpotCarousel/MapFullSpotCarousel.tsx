@@ -9,7 +9,7 @@ import { KrakLoading } from 'components/Ui/Icons/Spinners';
 import { useAppDispatch } from 'store/hook';
 import { updateUrlParams } from 'store/map/slice';
 import { Spot, Media } from 'lib/carrelageClient';
-import { CarouselProvider } from '../../media/Carousel/CarouselContext';
+import { useSpotMediasAround } from 'lib/hook/carrelage/spot-medias';
 
 type Props = {
     initialMediaId: string;
@@ -29,21 +29,24 @@ const MapFullSpotCarousel = ({ initialMediaId, spot }: Props) => {
 const MapFullSpotCarouselContent = ({ spot, media }: { spot: Spot; media: Media }) => {
     const dispatch = useAppDispatch();
 
+    const { data } = useSpotMediasAround(spot.id, media);
+
     const goBackToSpot = () => {
         dispatch(updateUrlParams({ mediaId: null }));
     };
 
     return (
-        <CarouselProvider media={media} spot={spot}>
-            <Carousel
-                additionalActions={
-                    <S.AdditionalActions onClick={goBackToSpot}>
-                        <IconArrowHead />
-                        <span>{spot.name}</span>
-                    </S.AdditionalActions>
-                }
-            />
-        </CarouselProvider>
+        <Carousel
+            media={media}
+            prevMedia={data?.prevMedia}
+            nextMedia={data?.nextMedia}
+            additionalActions={
+                <S.AdditionalActions onClick={goBackToSpot}>
+                    <IconArrowHead />
+                    <span>{spot.name}</span>
+                </S.AdditionalActions>
+            }
+        />
     );
 };
 
