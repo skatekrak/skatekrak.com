@@ -9,13 +9,7 @@ import * as S from './MapFullSpot.styled';
 
 import { selectFullSpotTab } from 'store/map/slice';
 import { useAppSelector } from 'store/hook';
-
-const modalStyles = {
-    overlay: S.MapFullSpotModalOverlayStyles,
-    modal: S.MapFullSpotModalStyles,
-    closeButton: S.MapFullSpotModalCloseButtonStyles,
-    closeIcon: S.MapFullSpotModalCloseIconStyles,
-};
+import { modalThemeStyles } from 'components/Ui/Modal/styles';
 
 type MapFullSpotProps = {
     open: boolean;
@@ -34,7 +28,14 @@ const MapFullSpot: React.FC<MapFullSpotProps> = ({ open, onClose, container }) =
     }, [open, dispatch]);
 
     return (
-        <Modal styles={modalStyles} open={open} container={container} onClose={onClose} closable closeIcon={undefined}>
+        <Modal
+            styles={modalThemeStyles}
+            open={open}
+            container={container}
+            onClose={onClose}
+            closable
+            closeIcon={undefined}
+        >
             {spotOverview && (
                 <S.MapFullSpotContainer isCarouselOpen={!!mediaId}>
                     {mediaId && <MapFullSpotCarousel initialMediaId={mediaId} spot={spotOverview.spot} />}
