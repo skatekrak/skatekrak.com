@@ -5,7 +5,6 @@ import InfiniteScroll from 'react-infinite-scroller';
 import { KrakLoading } from 'components/Ui/Icons/Spinners';
 import ScrollBar from 'components/Ui/Scrollbar';
 import KrakMasonry from 'components/Ui/Masonry';
-// import MapFullSpotSingleMediaPreview from '../MapFullSpotSingleMediaPreview';
 import MapMedia from 'components/pages/map/media/MapMedia';
 import * as S from 'components/pages/map/MapFullSpot/MapFullSpotMain/MapFullSpotMain.styled';
 
