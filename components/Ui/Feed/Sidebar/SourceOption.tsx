@@ -5,12 +5,12 @@ import { SpinnerCircle } from 'components/Ui/Icons/Spinners';
 import Analytics from 'lib/analytics';
 
 type SourceOptionProps = {
-    id: number | string;
+    id: string;
     title: string;
     iconUrl?: string;
     isActive: boolean;
     loading: boolean;
-    toggle: (id: number | string) => void;
+    toggle: (id: string) => void;
 };
 
 const SourceOption = ({ id, title, iconUrl, loading, isActive, toggle }: SourceOptionProps) => {

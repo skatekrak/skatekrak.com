@@ -8,20 +8,19 @@ export const useCustomMaps = () => {
         queryKey: ['custom-maps'],
         queryFn: () =>
             axios.get<QuickAccessMap[]>('/api/custom-maps').then((res) => {
-                const mapsOrderedBySpotNumber = res.data.sort((a, b) => a.numberOfSpots > b.numberOfSpots && -1);
-                return mapsOrderedBySpotNumber;
+                return res.data;
             }),
         refetchOnWindowFocus: false,
         refetchOnMount: false,
     });
 };
 
-const useCustomMap = (id: string) => {
+const useCustomMap = (id: string | undefined) => {
     return useQuery({
         queryKey: ['load-custom-map', id],
         queryFn: async () => {
             if (id == null) {
-                return null;
+                return undefined;
             }
             const response = await axios.get<CustomMap>('/api/custom-maps', { params: { id: id } });
             const customMap = response.data;

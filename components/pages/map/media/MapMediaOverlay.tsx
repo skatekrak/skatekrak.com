@@ -19,25 +19,26 @@ const MapMediaOverlaySpotOrUsername = ({ media, isFromCustomMapFeed }: Props) =>
     const dispatch = useAppDispatch();
 
     if (isFromCustomMapFeed) {
-        if (media.spot != null) {
+        const { spot } = media;
+        if (spot != null) {
             return (
                 <S.MapMediaSpotButton
                     onClick={() => {
-                        if (media.spot.location.latitude && media.spot.location.longitude) {
-                            map.flyTo({
+                        if (spot.location.latitude && spot.location.longitude) {
+                            map?.flyTo({
                                 center: {
-                                    lat: media.spot.location.latitude,
-                                    lon: media.spot.location.longitude,
+                                    lat: spot.location.latitude,
+                                    lon: spot.location.longitude,
                                 },
                                 duration: 1000,
                             });
                         }
-                        dispatch(selectSpot(media.spot.id));
+                        dispatch(selectSpot(spot.id));
                     }}
                 >
-                    <SpotIcon spot={media.spot} />
+                    <SpotIcon spot={spot} />
                     <Typography as="h5" component="condensedSubtitle1">
-                        {media.spot.name}
+                        {spot.name}
                     </Typography>
                 </S.MapMediaSpotButton>
             );

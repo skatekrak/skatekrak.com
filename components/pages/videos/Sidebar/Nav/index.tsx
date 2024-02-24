@@ -28,7 +28,7 @@ const Sources = ({ navIsOpen, handleOpenSourcesMenu }: SourcesProps) => {
     const { isFetching } = useVideos({ sources: selectedSources, query });
 
     const onSelectAllClick = () => {
-        if (sources.length > 0) {
+        if (sources != null && sources.length > 0) {
             Analytics.trackEvent('Click', 'Filter_Select_All', { value: 1 });
         }
         dispatch(resetVideos());
@@ -41,7 +41,7 @@ const Sources = ({ navIsOpen, handleOpenSourcesMenu }: SourcesProps) => {
         return (sources ?? []).length;
     }, [sources, selectedSources]);
 
-    const isActive = (id: number): boolean => {
+    const isActive = (id: string): boolean => {
         if (selectedSources.length <= 0) {
             return true;
         }
@@ -49,11 +49,13 @@ const Sources = ({ navIsOpen, handleOpenSourcesMenu }: SourcesProps) => {
     };
 
     const toggleLanguage = (language: Language) => {
-        const sourcesToSelect = sources.filter((source) => source.lang.isoCode === language.isoCode);
-        dispatch(selectVideosSources(sourcesToSelect));
+        const sourcesToSelect = sources?.filter((source) => source.lang.isoCode === language.isoCode);
+        if (sourcesToSelect) {
+            dispatch(selectVideosSources(sourcesToSelect));
+        }
     };
 
-    const toggleSource = (id: number) => {
+    const toggleSource = (id: string) => {
         dispatch(toggleVideosSource(id));
     };
 
@@ -99,10 +101,10 @@ const Sources = ({ navIsOpen, handleOpenSourcesMenu }: SourcesProps) => {
                             sources.map((source) => (
                                 <SourceOption
                                     key={source.id}
-                                    id={source.id}
+                                    id={String(source.id)}
                                     title={source.shortTitle}
                                     iconUrl={source.iconUrl}
-                                    isActive={isActive(source.id)}
+                                    isActive={isActive(String(source.id))}
                                     loading={isFetching}
                                     toggle={toggleSource}
                                 />

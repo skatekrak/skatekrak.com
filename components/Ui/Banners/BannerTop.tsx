@@ -31,7 +31,7 @@ class BannerTop extends React.Component<Props> {
 
         const banner = document.getElementById('banner-top');
         if (!this.props.offsetScroll) {
-            banner.classList.add('banner-top-show');
+            banner?.classList.add('banner-top-show');
         }
     }
 
@@ -73,9 +73,9 @@ class BannerTop extends React.Component<Props> {
 
             const banner = document.getElementById('banner-top');
             if (scrollContainer.scrollTop >= showFrom) {
-                banner.classList.add('banner-top-show');
+                banner?.classList.add('banner-top-show');
             } else {
-                banner.classList.remove('banner-top-show');
+                banner?.classList.remove('banner-top-show');
             }
         }
     };

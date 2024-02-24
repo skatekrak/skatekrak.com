@@ -1,16 +1,16 @@
 import ScrollHelper from 'lib/ScrollHelper';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { ElementRef, useEffect, useRef, useState } from 'react';
 import { ctaSections } from '../constants';
 
 import * as S from './CallToAdventureSideNav.styled';
 import CallToAdventureSubNav from './CallToAdventureSubNav';
 
 type Props = {
-    bodyContentRef: React.MutableRefObject<HTMLDivElement>;
+    bodyContentRef: React.MutableRefObject<HTMLDivElement | null>;
 };
 
 const CallToAdventureSideNav = ({ bodyContentRef }: Props) => {
-    const sideNavRef = useRef();
+    const sideNavRef = useRef<ElementRef<'div'> | null>(null);
 
     useEffect(() => {
         const scrollContainer = ScrollHelper.getScrollContainer();
@@ -30,9 +30,9 @@ const CallToAdventureSideNav = ({ bodyContentRef }: Props) => {
 
         if (sideNavRef && sideNavRef.current) {
             const nav = sideNavRef.current as HTMLElement;
-            const bodyContentTop = bodyContentRef.current.getBoundingClientRect().top;
+            const bodyContentTop = bodyContentRef.current?.getBoundingClientRect().top;
 
-            if (bodyContentTop < websiteNavHeight) {
+            if (bodyContentTop != null && bodyContentTop < websiteNavHeight) {
                 nav.style.position = 'fixed';
                 nav.style.top = `${websiteNavHeight}px`;
             } else {
@@ -45,11 +45,11 @@ const CallToAdventureSideNav = ({ bodyContentRef }: Props) => {
     const [currentSectionInView, setCurrentSectionInView] = useState<ctaSections>();
 
     useEffect(() => {
-        const callback = function (entries) {
+        const callback: IntersectionObserverCallback = function (entries) {
             entries.forEach(function (entry) {
                 if (entry.isIntersecting) {
                     const id = entry.target.getAttribute('id');
-                    setCurrentSectionInView(id);
+                    if (id != null) setCurrentSectionInView(id as ctaSections);
                 }
             });
         };

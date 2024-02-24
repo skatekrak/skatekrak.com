@@ -91,10 +91,12 @@ export const CarouselNav = ({ media, prevMedia, nextMedia }: CarouselMediaProps)
                     <S.MediaDescriptionUploadedBy component="body2">Uploaded by</S.MediaDescriptionUploadedBy>
                     <Typography component="body1">{media.addedBy.username}</Typography>
                     <S.MediaDescriptionDivider />
-                    <S.MediaDescriptionSpot>
-                        <SpotIcon spot={media.spot} />
-                        {media.spot.name && <Typography component="body2">{media.spot.name}</Typography>}
-                    </S.MediaDescriptionSpot>
+                    {media.spot != null && (
+                        <S.MediaDescriptionSpot>
+                            <SpotIcon spot={media.spot} />
+                            {media.spot.name && <Typography component="body2">{media.spot.name}</Typography>}
+                        </S.MediaDescriptionSpot>
+                    )}
                     {media.caption && (
                         <S.MediaDescriptionCaption component="body1">{media.caption}</S.MediaDescriptionCaption>
                     )}
@@ -105,7 +107,7 @@ export const CarouselNav = ({ media, prevMedia, nextMedia }: CarouselMediaProps)
 };
 
 const CarouselContent = ({ media }: { media: Media }) => {
-    if (media.type === 'video') {
+    if (media.type === 'video' && media.video != null) {
         return <VideoPlayer style={{ paddingTop: 'inherit' }} url={media.video.url} loop controls playing />;
     }
 

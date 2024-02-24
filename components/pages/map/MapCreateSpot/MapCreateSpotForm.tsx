@@ -34,17 +34,17 @@ const MapCreateSpotForm = () => {
         };
 
         if (values.type != null) {
-            map.on('click', onClick);
+            map?.on('click', onClick);
         }
 
         return () => {
-            map.off('click', onClick);
+            map?.off('click', onClick);
         };
     }, [map, values.type, setFieldValue]);
 
     useEffect(() => {
         let newSpotMaker: mapboxgl.Marker | null = null;
-        if (values.location.latitude != null && values.location.longitude != null) {
+        if (values.location?.latitude != null && values.location.longitude != null) {
             const el = document.createElement('div');
             el.className = 'marker';
             el.style.backgroundImage = `url(/images/map/icons/${values.type}@2x.png)`;
@@ -52,9 +52,11 @@ const MapCreateSpotForm = () => {
             el.style.height = `48px`;
             el.style.backgroundSize = '100%';
 
-            newSpotMaker = new mapboxgl.Marker(el)
-                .setLngLat([values.location.longitude, values.location.latitude])
-                .addTo(map.getMap());
+            if (map != null) {
+                newSpotMaker = new mapboxgl.Marker(el)
+                    .setLngLat([values.location.longitude, values.location.latitude])
+                    .addTo(map.getMap());
+            }
         }
 
         return () => {
@@ -83,7 +85,7 @@ const MapCreateSpotForm = () => {
             {(isMapVisible || (!isMobile && values.type !== undefined)) && (
                 <MapCreateSpotLocationHelper
                     isMobile={isMobile}
-                    isPinPlaced={values.location.latitude !== undefined || values.location.longitude !== undefined}
+                    isPinPlaced={values.location?.latitude !== undefined || values.location?.longitude !== undefined}
                     handleToggleMapVisible={handleToggleMapVisible}
                     isFlashing={isLocationHelperFlashing}
                 />

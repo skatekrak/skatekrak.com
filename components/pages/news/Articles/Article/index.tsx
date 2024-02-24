@@ -25,7 +25,7 @@ const Article = (rawProps: Props) => {
 
     return (
         <div className="news-article col-xs-12 col-sm-6 col-lg-3">
-            {!isClubPromotion ? <Card content={content} /> : <Ad />}
+            {!isClubPromotion && content != null ? <Card content={content} /> : <Ad />}
         </div>
     );
 };

@@ -57,7 +57,7 @@ const Videos: NextPage<Props> = ({ video, gotId }) => {
     };
 
     return (
-        <Layout head={<VideoHead video={video} />}>
+        <Layout head={video != null ? <VideoHead video={video} /> : undefined}>
             <div id="videos-container" className="inner-page-container">
                 {gotId && <VideoModal video={video} open={gotId} />}
                 <LayoutFeed

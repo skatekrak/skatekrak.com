@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { ElementRef, useRef } from 'react';
 import Head from 'next/head';
 
 import Layout from 'components/Layout';
@@ -34,7 +34,7 @@ const CallToAdventureHead = () => {
 };
 
 const CallToAdventure = () => {
-    const bodyContentRef = useRef();
+    const bodyContentRef = useRef<ElementRef<'div'> | null>(null);
     return (
         <Layout head={<CallToAdventureHead />}>
             <S.CallToAdventurePageContainer>

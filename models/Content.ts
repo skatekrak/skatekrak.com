@@ -23,6 +23,7 @@ export default class Content implements IContent {
         this.source = object.source as Source;
         this.contentId = object.contentId;
         this.title = object.title;
+        this.websiteURL = object.websiteURL;
         this.thumbnailUrl = object.thumbnailUrl;
         this.rawSummary = object.rawSummary;
         this.summary = object.summary;

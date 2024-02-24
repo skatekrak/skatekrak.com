@@ -4,7 +4,7 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 import { Pagination, IContent } from 'rss-feed';
 
 export type FetchVideoParams = {
-    sources: number[];
+    sources: string[];
     query?: string;
 };
 

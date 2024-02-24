@@ -2,7 +2,7 @@ import Feudartifice from '..';
 import type { Spot } from '../types';
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import { MapRef } from 'react-map-gl';
-import { MutableRefObject, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import useDebounce from 'lib/hook/useDebounce';
 import { useAppDispatch, useAppSelector } from 'store/hook';
 import { mapRefreshEnd } from 'store/map/slice';
@@ -20,7 +20,7 @@ const useSpot = (id: string) => {
     return useQuery({ queryKey: ['fetch-spot', id], queryFn: () => fetchSpot(id), placeholderData: keepPreviousData });
 };
 
-export const useSpotsSearch = (mapRef: MutableRefObject<MapRef>, enabled = true) => {
+export const useSpotsSearch = (mapRef: MapRef | undefined, enabled = true) => {
     const viewport = useAppSelector((state) => state.map.viewport);
     const dispatch = useAppDispatch();
 
@@ -31,7 +31,8 @@ export const useSpotsSearch = (mapRef: MutableRefObject<MapRef>, enabled = true)
     const { data, ...queryRes } = useQuery({
         queryKey: ['fetch-spots-on-map', debouncedViewport],
         queryFn: async () => {
-            const map = mapRef.current.getMap();
+            if (mapRef == null) return [];
+            const map = mapRef.getMap();
             const bounds = map.getBounds();
             console.log(bounds);
             const northEast = bounds.getNorthEast();
@@ -84,7 +85,7 @@ export const useSpotsByTags = (tags: string[] | undefined, tagsFromMedia?: boole
     });
 };
 
-export const useSpotsGeoJSON = (mapRef: MutableRefObject<MapRef>, enabled = true) => {
+export const useSpotsGeoJSON = (mapRef: MapRef | undefined, enabled = true) => {
     const viewport = useAppSelector((state) => state.map.viewport);
     const dispatch = useAppDispatch();
 
@@ -94,7 +95,8 @@ export const useSpotsGeoJSON = (mapRef: MutableRefObject<MapRef>, enabled = true
     const { data, ...queryRes } = useQuery({
         queryKey: ['fetch-spots-geojson', debouncedViewport],
         queryFn: async () => {
-            const map = mapRef.current.getMap();
+            if (mapRef == null) return [];
+            const map = mapRef.getMap();
             const bounds = map.getBounds();
             const northEast = bounds.getNorthEast();
             const southWest = bounds.getSouthWest();

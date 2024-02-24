@@ -14,7 +14,7 @@ import { modalThemeStyles } from 'components/Ui/Modal/styles';
 type MapFullSpotProps = {
     open: boolean;
     onClose: () => void;
-    container?: Element;
+    container?: Element | null;
 };
 
 const MapFullSpot: React.FC<MapFullSpotProps> = ({ open, onClose, container }) => {

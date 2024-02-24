@@ -27,6 +27,16 @@ const MapFullSpotAddMedia = () => {
     const queryClient = useQueryClient();
 
     const onSubmit = async (values: AddMediaFormValues) => {
+        if (spotOverview == null) {
+            alert('spot undefined');
+            return;
+        }
+
+        if (values.file == null) {
+            alert('file undefined');
+            return;
+        }
+
         try {
             const media = await Feudartifice.media.createMedia({
                 caption: values.caption,

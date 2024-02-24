@@ -30,6 +30,7 @@ const MapFilter: React.FC<Props> = ({ filter, icon }) => {
         } else if (Object.values(Status).includes(filter as any)) {
             return FilterStateUtil.isSelected(status[filter as Status]);
         }
+        return false;
     }, [status, types]);
 
     useEffect(() => {

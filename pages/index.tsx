@@ -58,7 +58,7 @@ const MapHead = ({ ogData }: MapHeadProps) => {
 };
 
 type MapPageProps = {
-    ogData?: OGData;
+    ogData: OGData | null;
 };
 
 const Index: NextPage<MapPageProps> = ({ ogData }) => (
@@ -79,7 +79,10 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
             ogData = {
                 title: overview.spot.name,
                 description: `${overview.spot.location.streetNumber} ${overview.spot.location.streetName}, ${overview.spot.location.city} ${overview.spot.location.country}`,
-                imageUrl: `https://res.cloudinary.com/krak/image/upload/c_fill,w_1200,h_630/${overview.mostLikedMedia.image.publicId}.jpg`,
+                imageUrl:
+                    overview.mostLikedMedia != null
+                        ? `https://res.cloudinary.com/krak/image/upload/c_fill,w_1200,h_630/${overview.mostLikedMedia.image.publicId}.jpg`
+                        : undefined,
                 url: `${baseURL}?spot=${query.spot}`,
             };
             await queryClient.prefetchQuery<SpotOverview>({

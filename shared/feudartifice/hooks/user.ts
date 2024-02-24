@@ -17,7 +17,7 @@ export const useIsSubscriber = () => {
     const { data: user } = useUserMe();
     return useQuery({
         queryKey: ['check-if-subscriber', user],
-        queryFn: () => user.subscriptionStatus === SubscriptionStatus.Active,
+        queryFn: () => user?.subscriptionStatus === SubscriptionStatus.Active,
         enabled: !!user,
         retry: false,
         refetchOnMount: false,

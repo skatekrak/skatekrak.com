@@ -17,7 +17,7 @@ const RoundedImage = ({ selected, src, alt, size = '2.5rem' }: Props) => {
     const px = useRemPX(size);
     return (
         <ImageContainer selected={selected}>
-            <Image width={px} height={px} src={src} alt={alt} />
+            <Image width={px} height={px} src={src} alt={alt ?? ''} />
         </ImageContainer>
     );
 };

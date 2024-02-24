@@ -54,7 +54,13 @@ type MagPostStaticProps = {
 };
 
 export const getStaticProps: GetStaticProps<MagPostStaticProps> = async ({ params }) => {
-    const post: any = getPostBySlug(params.slug as string);
+    if (params == null) {
+        return {
+            notFound: true,
+        };
+    }
+
+    const post = getPostBySlug(params.slug as string);
 
     return {
         props: {
@@ -64,7 +70,7 @@ export const getStaticProps: GetStaticProps<MagPostStaticProps> = async ({ param
 };
 
 type Props = {
-    post?: Post;
+    post: Post;
 };
 
 const ArticlePage: NextPage<Props> = ({ post }) => {

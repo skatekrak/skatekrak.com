@@ -4,7 +4,7 @@
  */
 import jump from 'jump.js';
 import React from 'react';
-import { connect } from 'react-redux';
+import { MapStateToPropsParam, connect } from 'react-redux';
 
 /*
  * Local import
@@ -72,14 +72,16 @@ class ScrollTop extends React.PureComponent<Props> {
         if (scrollContainer) {
             const { elementId } = this.props;
             const element = document.getElementById(elementId);
+            if (element == null) return;
+
             const elementBottomPos = element.offsetHeight + element.offsetTop;
 
             const scrollTopButton = document.getElementById('scroll-top');
 
             if (scrollContainer.scrollTop > elementBottomPos) {
-                scrollTopButton.classList.add('show');
+                scrollTopButton?.classList.add('show');
             } else {
-                scrollTopButton.classList.remove('show');
+                scrollTopButton?.classList.remove('show');
             }
         }
     };
@@ -95,8 +97,8 @@ class ScrollTop extends React.PureComponent<Props> {
     };
 }
 
-const mapStateToProps = ({ settings }: RootState): StateProps => {
+const mapStateToProps: MapStateToPropsParam<StateProps, OwnProps, RootState> = ({ settings }) => {
     return { settings };
 };
 
-export default connect<StateProps, Record<string, unknown>, OwnProps>(mapStateToProps)(ScrollTop);
+export default connect<StateProps, Record<string, unknown>, OwnProps, RootState>(mapStateToProps)(ScrollTop);

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ElementRef, useRef } from 'react';
 
 import Typography from 'components/Ui/typography/Typography';
 import IconPlus from 'components/Ui/Icons/IconPlus';
@@ -8,10 +8,10 @@ import MapCreateSpotMediaItem from './MapCreateSpotMediaItem';
 
 const MapCreateSpotMedia = () => {
     const [{ value }, , helpers] = useField<File[]>('images');
-    const hiddenMediaInput = React.useRef(null);
+    const hiddenMediaInput = useRef<ElementRef<'input'> | null>(null);
 
     const handleAddMediaClick = () => {
-        hiddenMediaInput.current.click();
+        hiddenMediaInput.current?.click();
     };
 
     const handleMediaChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
@@ -19,7 +19,9 @@ const MapCreateSpotMedia = () => {
         const idxDot = fileName.lastIndexOf('.') + 1;
         const extFile = fileName.substring(idxDot, fileName.length).toLowerCase();
         if (extFile === 'jpg' || extFile === 'jpeg' || extFile === 'png') {
-            helpers.setValue(value.concat(evt.target.files.item(0)));
+            const item = evt.target.files?.item(0);
+            if (item == null) return;
+            helpers.setValue(value.concat(item));
         } else {
             alert('Only jpg/jpeg and png files are allowed!');
         }

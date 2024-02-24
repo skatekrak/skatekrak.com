@@ -4,6 +4,7 @@ import { Status, Types } from 'shared/feudartifice/types';
 import { useAppDispatch, useAppSelector } from 'store/hook';
 import { selectSpot } from 'store/map/slice';
 import { ZOOM_DISPLAY_DOTS } from '../Map.constant';
+import { first } from 'radash';
 
 type SpotPinLayerProps = {
     type: Types | Status;
@@ -15,12 +16,12 @@ const SpotPinLayer = ({ type }: SpotPinLayerProps) => {
     const dispatch = useAppDispatch();
 
     useEffect(() => {
-        if (!map.hasImage(`/images/map/icons/${type}@2x.png`)) {
-            map.loadImage(`/images/map/icons/${type}@2x.png`, (error, image) => {
+        if (!map?.hasImage(`/images/map/icons/${type}@2x.png`)) {
+            map?.loadImage(`/images/map/icons/${type}@2x.png`, (error, image) => {
                 if (error) {
                     console.error(error);
-                } else {
-                    map.addImage(`spot-${type}`, image);
+                } else if (image != null) {
+                    map?.addImage(`spot-${type}`, image);
                 }
             });
         }
@@ -28,18 +29,21 @@ const SpotPinLayer = ({ type }: SpotPinLayerProps) => {
 
     const onMapLayerClick = useCallback(
         (event: MapLayerMouseEvent) => {
-            if (event.features.length > 0) {
-                dispatch(selectSpot(event.features[0].properties.id));
+            if (event.features != null) {
+                const feature = first(event.features);
+                if (feature != null) {
+                    dispatch(selectSpot(feature.properties?.id));
+                }
             }
         },
         [dispatch],
     );
 
     useEffect(() => {
-        map.on('click', `spot-layer-${type}`, onMapLayerClick);
+        map?.on('click', `spot-layer-${type}`, onMapLayerClick);
 
         return () => {
-            map.off('click', `spot-layer-${type}`, onMapLayerClick);
+            map?.off('click', `spot-layer-${type}`, onMapLayerClick);
         };
     }, [map, type, onMapLayerClick]);
 

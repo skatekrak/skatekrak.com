@@ -31,8 +31,8 @@ const MapCustomNavigationMediaCarouselContent = ({ hashtag, media }: { hashtag: 
             isLoading={isLoading}
             carouselProps={{
                 media,
-                prevMedia: data?.prevMedia,
-                nextMedia: data?.nextMedia,
+                prevMedia: data?.prevMedia ?? null,
+                nextMedia: data?.nextMedia ?? null,
             }}
         />
     );

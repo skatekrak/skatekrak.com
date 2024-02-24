@@ -24,7 +24,7 @@ import SpotPinLayer from './layers/SpotPinLayer';
 import { intersects } from 'radash';
 
 type MapComponentProps = {
-    mapRef?: React.RefObject<MapRef>;
+    mapRef: React.RefObject<MapRef>;
     onLoad?: () => void;
     spots: SpotGeoJSON[];
     children?: React.ReactNode;

@@ -6,7 +6,7 @@ interface EmojiProps {
 }
 
 const Emoji: React.FC<EmojiProps> = ({ label, symbol }) => (
-    <span className="emoji" aria-hidden={label ? null : 'true'} aria-label={label ? label : null} role="img">
+    <span className="emoji" aria-hidden={label ? undefined : 'true'} aria-label={label ? label : undefined} role="img">
         {symbol}
     </span>
 );

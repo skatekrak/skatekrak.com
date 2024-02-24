@@ -15,10 +15,10 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     const lastWeekDay = sub(new Date(), { weeks: 1 });
     const stats = await Feudartifice.admin.getStats(
         { from: startOfWeek(lastWeekDay, { weekStartsOn: 1 }), to: endOfWeek(lastWeekDay, { weekStartsOn: 1 }) },
-        process.env.ADMIN_TOKEN,
+        process.env.ADMIN_TOKEN!,
     );
 
-    await axios.post(process.env.DISCORD_HOOK_URL, {
+    await axios.post(process.env.DISCORD_HOOK_URL!, {
         content: `**Last week stats 📈**\nspot: ${stats.spots}\nmedia: ${stats.media}`,
     });
 

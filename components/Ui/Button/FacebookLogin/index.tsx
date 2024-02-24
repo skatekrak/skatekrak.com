@@ -33,7 +33,7 @@ function loadSdkAsynchronously(language) {
         js = d.createElement(s);
         js.id = id;
         js.src = `https://connect.facebook.net/${language}/sdk.js`;
-        fjs.parentNode.insertBefore(js, fjs);
+        fjs.parentNode?.insertBefore(js, fjs);
     })(document, 'script', 'facebook-jssdk');
 }
 
@@ -56,7 +56,7 @@ type FacebookLoginCallbackParams = {
 };
 
 type FacebookLoginProps = {
-    isDisabled?: boolean;
+    isDisabled: boolean;
     callback: (callback: FacebookLoginCallbackParams) => void;
     appId: string;
     xfbml?: boolean;
@@ -97,7 +97,7 @@ export default function FacebookLogin({
     version = '3.1',
     language = 'en_US',
     onClick,
-    onFailure = null,
+    onFailure,
     render,
 }: FacebookLoginProps) {
     const [isSdkLoaded, setIsSdkLoaded] = useState(false);

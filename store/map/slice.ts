@@ -23,7 +23,7 @@ export type MapState = {
     types: Record<Types, FilterState>;
     status: Record<Status, FilterState>;
     spotOverview?: SpotOverview;
-    viewport: Partial<ViewState & { width: number; height: number }>;
+    viewport: Partial<Omit<ViewState, 'zoom'> & { width: number; height: number }> & { zoom: number };
     fullSpotSelectedTab: FullSpotTab;
     selectSpot?: string;
     /// ID of the media in full in spot modal
@@ -121,22 +121,23 @@ const mapSlice = createSlice({
                 state.status = map;
             }
         },
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         mapRefreshEnd: (state) => {
-            for (const key in state.status) {
-                if (state.status[key] === FilterState.LOADING_TO_SELECTED) {
-                    state.status[key] = FilterState.SELECTED;
-                } else if (state.status[key] === FilterState.LOADING_TO_UNSELECTED) {
-                    state.status[key] = FilterState.UNSELECTED;
-                }
-            }
-
-            for (const key in state.types) {
-                if (state.types[key] === FilterState.LOADING_TO_SELECTED) {
-                    state.types[key] = FilterState.SELECTED;
-                } else if (state.types[key] === FilterState.LOADING_TO_UNSELECTED) {
-                    state.types[key] = FilterState.UNSELECTED;
-                }
-            }
+            // for (const key in state.status) {
+            //     if (state.status[key] === FilterState.LOADING_TO_SELECTED) {
+            //         state.status[key] = FilterState.SELECTED;
+            //     } else if (state.status[key] === FilterState.LOADING_TO_UNSELECTED) {
+            //         state.status[key] = FilterState.UNSELECTED;
+            //     }
+            // }
+            //
+            // for (const key in state.types) {
+            //     if (state.types[key] === FilterState.LOADING_TO_SELECTED) {
+            //         state.types[key] = FilterState.SELECTED;
+            //     } else if (state.types[key] === FilterState.LOADING_TO_UNSELECTED) {
+            //         state.types[key] = FilterState.UNSELECTED;
+            //     }
+            // }
         },
         setSpotOverview: (state, action: PayloadAction<SpotOverview | undefined>) => {
             return {
@@ -200,7 +201,7 @@ const mapSlice = createSlice({
             reducer: (state, action: PayloadAction<string | undefined>) => {
                 return {
                     ...state,
-                    customMapId: action.payload ?? null,
+                    customMapId: action.payload ?? undefined,
                 };
             },
             prepare: (value?: string) => ({
@@ -247,7 +248,7 @@ const mapSlice = createSlice({
                 return {
                     ...state,
                     selectSpot: spotId,
-                    modalVisible: modal,
+                    modalVisible: modal ?? false,
                     customMapId: customMapId,
                     media: mediaId,
                 };
@@ -263,10 +264,10 @@ const mapSlice = createSlice({
                 customMapId?: string | null;
                 mediaId?: string | null;
             }) => {
-                let newModalUrl = undefined;
+                let newModalUrl: string | undefined = undefined;
                 if (modal === null || modal === false) {
                     console.log('modal will be removed from url');
-                    newModalUrl = null;
+                    newModalUrl = undefined;
                 } else if (modal === true) {
                     newModalUrl = '1';
                 }

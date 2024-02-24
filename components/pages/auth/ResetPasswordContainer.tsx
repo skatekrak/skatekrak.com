@@ -5,6 +5,8 @@ import * as Yup from 'yup';
 
 import ButtonPrimary from 'components/Ui/Button/ButtonPrimary/ButtonPrimary';
 import Feudartifice from 'shared/feudartifice';
+import { AxiosError } from 'axios';
+import { CarrelageAPIError } from 'shared/feudartifice/types';
 
 type ResetPasswordFormValues = {
     resetToken: string;
@@ -33,8 +35,9 @@ const ResetPasswordContainer = () => {
             setSuccess(true);
         } catch (err) {
             console.error(err);
-            if (err.response) {
-                helpers.setFieldError('password', err.response.data.message);
+            if (err instanceof AxiosError) {
+                const error = err.response as CarrelageAPIError;
+                helpers.setFieldError('password', error.data.message);
             }
         }
     };
@@ -78,7 +81,7 @@ const ResetPasswordContainer = () => {
                                         <ButtonPrimary
                                             type="submit"
                                             loading={isSubmitting}
-                                            className={(!dirty || !isValid) && 'button-primary-disabled'}
+                                            className={!dirty || !isValid ? 'button-primary-disabled' : undefined}
                                             disabled={isSubmitting || !isValid}
                                         >
                                             Reset

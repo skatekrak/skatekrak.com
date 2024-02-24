@@ -20,7 +20,9 @@ const MapCreateSpotLocation = ({ handleToggleMapVisible }: Props) => {
     const { data } = useQuery({
         queryKey: ['fetch-reverser-geocoder', value],
         queryFn: async () => {
-            return Feudartifice.spots.reverseGeocoder({ latitude: value.latitude, longitude: value.longitude });
+            if (value.latitude != null && value.longitude != null) {
+                return Feudartifice.spots.reverseGeocoder({ latitude: value.latitude, longitude: value.longitude });
+            }
         },
         enabled: value.latitude != null && value.longitude != null,
     });

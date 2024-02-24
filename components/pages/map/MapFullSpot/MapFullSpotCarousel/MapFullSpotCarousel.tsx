@@ -21,7 +21,8 @@ const MapFullSpotCarousel = ({ initialMediaId, spot }: Props) => {
 
     return (
         <S.CarouselContainer>
-            {mediaLoading ? <KrakLoading /> : <MapFullSpotCarouselContent spot={spot} media={media} />}
+            {mediaLoading && <KrakLoading />}
+            {!mediaLoading && media != null && <MapFullSpotCarouselContent spot={spot} media={media} />}
         </S.CarouselContainer>
     );
 };
@@ -38,8 +39,8 @@ const MapFullSpotCarouselContent = ({ spot, media }: { spot: Spot; media: Media 
     return (
         <Carousel
             media={media}
-            prevMedia={data?.prevMedia}
-            nextMedia={data?.nextMedia}
+            prevMedia={data?.prevMedia ?? null}
+            nextMedia={data?.nextMedia ?? null}
             additionalActions={
                 <S.AdditionalActions onClick={goBackToSpot}>
                     <IconArrowHead />

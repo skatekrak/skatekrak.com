@@ -4,7 +4,7 @@ import { offset, shift, useClick, useDismiss, useFloating, useInteractions } fro
 import * as S from './HeaderProfileMenu.styled';
 
 type Props = {
-    render: (data?: { close: () => void }) => React.ReactNode;
+    render: (data: { close: () => void }) => React.ReactNode;
     children: JSX.Element;
 };
 

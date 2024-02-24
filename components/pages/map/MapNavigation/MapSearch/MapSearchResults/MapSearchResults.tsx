@@ -27,7 +27,7 @@ const MapSearchResults: React.FC<MapSearchResultsProps> = ({ spots, loading, pla
 
     const onSpotClick = useCallback(
         (spot: SpotHit) => {
-            map.flyTo({
+            map?.flyTo({
                 center: {
                     lat: spot._geoloc.lat,
                     lon: spot._geoloc.lng,
@@ -42,7 +42,7 @@ const MapSearchResults: React.FC<MapSearchResultsProps> = ({ spots, loading, pla
 
     const onPlaceClick = useCallback(
         (place: Place) => {
-            map.flyTo({
+            map?.flyTo({
                 center: {
                     lat: place.geometry.location.lat,
                     lon: place.geometry.location.lng,

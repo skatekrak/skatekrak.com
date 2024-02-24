@@ -6,7 +6,7 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 import { IContent, Pagination } from 'rss-feed';
 
 export type FetchNewsParams = {
-    sources: number[];
+    sources: string[];
 };
 
 const fetchContents = async (params: FetchNewsParams, page: number): Promise<Content[]> => {
@@ -28,7 +28,7 @@ const useNewsContent = (params: FetchNewsParams) => {
         initialPageParam: 1,
         getNextPageParam: (lastPages, allPages) => {
             if (lastPages.length < 20) {
-                return false;
+                return null;
             }
             return allPages.length + 1;
         },

@@ -7,7 +7,7 @@ import * as S from './MapCustomNavigationExtension.styled';
 type Props = {
     id?: string;
     maxWidth?: string;
-    render: (data?: { close: () => void }) => React.ReactNode;
+    render: (data: { close: () => void }) => React.ReactNode;
     children: JSX.Element;
 };
 

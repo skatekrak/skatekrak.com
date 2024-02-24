@@ -30,13 +30,13 @@ const Sources = ({ navIsOpen, handleOpenSourcesMenu }: NewsSourcesProps) => {
     });
 
     const onSelectAllClick = () => {
-        if (sources.length > 0) {
+        if (sources != null && sources.length > 0) {
             Analytics.trackEvent('Click', 'Filter_Select_All', { value: 1 });
         }
-        dispatch(resetNews());
+        dispatch(resetNews(undefined));
     };
 
-    const isActive = (id: number): boolean => {
+    const isActive = (id: string): boolean => {
         if (selectedSources.length <= 0) {
             return true;
         }
@@ -51,11 +51,13 @@ const Sources = ({ navIsOpen, handleOpenSourcesMenu }: NewsSourcesProps) => {
     }, [sources, selectedSources]);
 
     const toggleLanguage = (language: Language) => {
-        const sourcesToSelect = sources.filter((source) => source.lang.isoCode === language.isoCode);
-        dispatch(selectNewsSources(sourcesToSelect));
+        const sourcesToSelect = sources?.filter((source) => source.lang.isoCode === language.isoCode);
+        if (sourcesToSelect != null) {
+            dispatch(selectNewsSources(sourcesToSelect));
+        }
     };
 
-    const toggleSource = (id: number) => {
+    const toggleSource = (id: string) => {
         dispatch(toggleNewsSource(id));
     };
 
@@ -100,11 +102,11 @@ const Sources = ({ navIsOpen, handleOpenSourcesMenu }: NewsSourcesProps) => {
                             sources.map((source) => (
                                 <SourceOption
                                     key={source.id}
-                                    id={source.id}
+                                    id={`${source.id}`}
                                     title={source.shortTitle}
                                     iconUrl={source.iconUrl}
                                     loading={isFetching}
-                                    isActive={isActive(source.id)}
+                                    isActive={isActive(`${source.id}`)}
                                     toggle={toggleSource}
                                 />
                             ))}

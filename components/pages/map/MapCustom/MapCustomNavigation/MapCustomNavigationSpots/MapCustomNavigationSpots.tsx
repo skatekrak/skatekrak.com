@@ -19,7 +19,7 @@ const MapCustomNavigationSpots = ({ mapSpots, closeExtension }: Props) => {
 
     const onSpotClick = (spot: Spot) => {
         closeExtension();
-        map.flyTo({
+        map?.flyTo({
             center: {
                 lat: spot.location.latitude,
                 lon: spot.location.longitude,

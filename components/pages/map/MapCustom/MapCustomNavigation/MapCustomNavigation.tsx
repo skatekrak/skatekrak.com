@@ -102,7 +102,7 @@ const MapCustomNavigation = ({ id, title, about, subtitle, spots, videos }: MapC
                         </S.MapCustomNavigationLink>
                     </MapCustomNavigationExtension>
                 )}
-                {medias?.length > 0 && (
+                {medias != null && medias.length > 0 && (
                     <MapCustomNavigationExtension
                         id="feed-container"
                         render={() => <MapCustomNavigationMediaFeed mapId={id} />}

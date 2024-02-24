@@ -7,12 +7,12 @@ export enum FeedLayout {
 }
 
 export type State = {
-    isMobile: boolean | null;
+    isMobile: boolean;
     feedLayout: FeedLayout | null;
 };
 
 const initialState: State = {
-    isMobile: null,
+    isMobile: false,
     feedLayout: null,
 };
 

@@ -12,6 +12,7 @@ import * as S from 'components/pages/auth/Auth.styled';
 
 import Feudartifice from 'shared/feudartifice';
 import { CarrelageAPIError } from 'shared/feudartifice/types';
+import { AxiosError } from 'axios';
 
 type SignupFormValues = {
     username: string;
@@ -49,7 +50,7 @@ const Signup: NextPage = () => {
 
             router.push('/auth/subscribe');
         } catch (err) {
-            if (err.response) {
+            if (err instanceof AxiosError) {
                 const error = err.response as CarrelageAPIError;
                 helpers.setFieldError('username', error.data.message);
             }
@@ -63,7 +64,7 @@ const Signup: NextPage = () => {
                     <S.LoginKrakLikeIcon />
                     <S.AuthFormTitle component="condensedHeading5">Join the family</S.AuthFormTitle>
                     <Formik
-                        initialValues={SignupFormSchema.getDefault()}
+                        initialValues={{ username: '', email: '', password: '', confirmPassword: '' }}
                         validationSchema={SignupFormSchema}
                         onSubmit={onSubmit}
                     >
@@ -100,7 +101,7 @@ const Signup: NextPage = () => {
                                                             Object.keys(errors).filter(
                                                                 (key) => !isEmpty(errors[key]) && touched[key],
                                                             ),
-                                                        )
+                                                        ) as string
                                                     ]
                                                 }
                                             </S.AuthSubmitError>

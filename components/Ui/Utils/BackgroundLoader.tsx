@@ -1,7 +1,7 @@
 import React from 'react';
 
 type Props = {
-    src: string;
+    src: string | null;
     placeholder: string;
     className?: string;
     children?: React.ReactNode;
@@ -18,7 +18,7 @@ class BackgroundLoader extends React.Component<Props, State> {
         error: false,
     };
 
-    private image: HTMLImageElement;
+    private image: HTMLImageElement | null = null;
 
     public componentDidMount() {
         if (this.props.src) {

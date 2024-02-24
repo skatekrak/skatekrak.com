@@ -26,7 +26,7 @@ const MapMedia = ({ shareURL, media, isFromCustomMapFeed = false }: MapMediaProp
 
     const openCarousel = (mediaId: string) => {
         // Close video if opened
-        dispatch(setVideoPlaying(null));
+        dispatch(setVideoPlaying());
         dispatch(updateUrlParams({ mediaId }));
     };
 

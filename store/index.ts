@@ -86,7 +86,7 @@ export const initializeStore = (context) => {
 
             state.map.viewport = {
                 ...state.map.viewport,
-                ...centerFromBounds(randomCity.bounds),
+                ...centerFromBounds(randomCity!.bounds),
             };
         }
 

@@ -12,7 +12,7 @@ import { useQueryClient } from '@tanstack/react-query';
 export type MapCreateSpotFormValues = {
     name: string;
     type?: Types;
-    location: {
+    location?: {
         latitude: number;
         longitude: number;
     };
@@ -44,8 +44,8 @@ const MapCreateSpot = () => {
     const onSubmit = async (values: MapCreateSpotFormValues) => {
         const [errorAddingSpot, spot] = await _.try(Feudartifice.spots.addSpot)({
             name: values.name,
-            type: values.type,
-            ...values.location,
+            type: values.type!,
+            ...values.location!,
             indoor: values.indoor === 'true',
         });
 
@@ -71,7 +71,13 @@ const MapCreateSpot = () => {
 
     return (
         <Formik
-            initialValues={mapCreateSpotSchema.getDefault() as MapCreateSpotFormValues}
+            initialValues={{
+                name: '',
+                type: undefined,
+                location: undefined,
+                indoor: 'false',
+                images: [],
+            }}
             onSubmit={onSubmit}
             validationSchema={mapCreateSpotSchema}
         >

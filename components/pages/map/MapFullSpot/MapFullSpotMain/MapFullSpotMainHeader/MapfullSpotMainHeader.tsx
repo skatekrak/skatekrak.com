@@ -17,12 +17,12 @@ const MapfullSpotMainHeader = () => {
             }
 
             if (isScrolled) {
-                headerElement.classList.add('map-full-spot-popup-main-header--fixed');
+                headerElement?.classList.add('map-full-spot-popup-main-header--fixed');
             } else {
-                headerElement.classList.remove('map-full-spot-popup-main-header--fixed');
+                headerElement?.classList.remove('map-full-spot-popup-main-header--fixed');
             }
         },
-        [headerElement.classList, isScrolled],
+        [headerElement?.classList, isScrolled],
     );
 
     useEffect(() => {

@@ -54,7 +54,7 @@ const NewsHead = ({ content }: { content: Content }) => {
             <meta property="og:title" content={title} />
             <meta property="og:type" content="website" />
             <meta property="og:url" content={url} />
-            <meta property="og:image" content={image} />
+            {image != null && <meta property="og:image" content={image} />}
             <meta property="og:description" key="og:description" content={description} />
         </Head>
     );
@@ -75,7 +75,7 @@ const News: NextPage<Props> = ({ contentData, gotId }) => {
     const content = contentData ? new Content(contentData) : undefined;
 
     return (
-        <Layout head={<NewsHead content={content} />}>
+        <Layout head={content != null ? <NewsHead content={content} /> : undefined}>
             <div id="news-container" className="inner-page-container">
                 {gotId && <DynamicArticleModal show={gotId} content={content} />}
                 <LayoutFeed

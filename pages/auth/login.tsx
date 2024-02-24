@@ -15,6 +15,7 @@ import * as SL from 'components/pages/auth/Login.styled';
 import { CarrelageAPIError } from 'shared/feudartifice/types';
 import { useRouter } from 'next/router';
 import useSession from 'lib/hook/carrelage/use-session';
+import { AxiosError } from 'axios';
 
 type LoginFormValues = {
     username: string;
@@ -45,7 +46,7 @@ const Login: NextPage = () => {
             });
             router.push('/');
         } catch (err) {
-            if (err.response) {
+            if (err instanceof AxiosError) {
                 console.log(JSON.stringify(err.response, undefined, 2));
                 const error = err.response as CarrelageAPIError;
                 helpers.setFieldError('username', error.data.message);
@@ -59,7 +60,7 @@ const Login: NextPage = () => {
                 <S.AuthUniqueColumnPage>
                     <S.LoginKrakLikeIcon />
                     <Formik
-                        initialValues={LoginFormSchema.getDefault()}
+                        initialValues={{ username: '', password: '', remember: false }}
                         onSubmit={onSubmit}
                         validationSchema={LoginFormSchema}
                     >
@@ -102,7 +103,7 @@ const Login: NextPage = () => {
                                                             Object.keys(errors).filter(
                                                                 (key) => !isEmpty(errors[key]) && touched[key],
                                                             ),
-                                                        )
+                                                        ) as string
                                                     ]
                                                 }
                                             </S.AuthSubmitError>

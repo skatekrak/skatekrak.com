@@ -5,7 +5,7 @@ import type { RequestOptions } from '@algolia/transporter';
 
 import { Types, Status } from 'lib/carrelageClient';
 
-const client = algoliasearch(process.env.NEXT_PUBLIC_ALGOLIA_APP_ID, process.env.NEXT_PUBLIC_ALGOLIA_API_KEY);
+const client = algoliasearch(process.env.NEXT_PUBLIC_ALGOLIA_APP_ID!, process.env.NEXT_PUBLIC_ALGOLIA_API_KEY!);
 
 export function places<T>(appId = '', apiKey = '', options: any = {}) {
     const placesClient = algoliasearch(appId, apiKey, {

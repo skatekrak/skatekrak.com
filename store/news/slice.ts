@@ -3,7 +3,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { push, remove } from 'lib/immutable';
 
 export type NewsState = {
-    selectSources: number[];
+    selectSources: string[];
     search: string;
 };
 
@@ -19,10 +19,10 @@ const newsSlice = createSlice({
         selectNewsSources: (state, action: PayloadAction<Source[]>) => {
             return {
                 ...state,
-                selectSources: action.payload.map((source) => source.id),
+                selectSources: action.payload.map((source) => `${source.id}`),
             };
         },
-        toggleNewsSource: (state, action: PayloadAction<number>) => {
+        toggleNewsSource: (state, action: PayloadAction<string>) => {
             const index = state.selectSources.indexOf(action.payload);
 
             return {

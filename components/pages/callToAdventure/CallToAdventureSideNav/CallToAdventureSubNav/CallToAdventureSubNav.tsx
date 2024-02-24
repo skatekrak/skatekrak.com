@@ -6,7 +6,7 @@ import { ctaSections } from '../../constants';
 import ArrowHead from 'components/Ui/Icons/ArrowHead';
 
 type Props = {
-    currentSectionInView: ctaSections;
+    currentSectionInView: ctaSections | undefined;
 };
 
 const CallToAdventureSubNav = ({ currentSectionInView }: Props) => {
@@ -32,7 +32,7 @@ const CallToAdventureSubNav = ({ currentSectionInView }: Props) => {
         } else {
             setIsOpen(false);
         }
-    }, [currentSectionInView]);
+    }, [currentSectionInView, isActive]);
 
     return (
         <S.CallToAdventureSubNav>

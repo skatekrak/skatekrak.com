@@ -9,13 +9,14 @@ import * as S from 'components/pages/auth/Auth.styled';
 import * as SF from 'components/pages/auth/Forgot.styled';
 import Feudartifice from 'shared/feudartifice';
 import { CarrelageAPIError } from 'shared/feudartifice/types';
+import { AxiosError } from 'axios';
 
 type ForgotFormValues = {
     email: string;
 };
 
 const ForgotFormSchema = Yup.object().shape({
-    email: Yup.string().email().required().default(''),
+    email: Yup.string().email().required(),
 });
 
 const ForgotPasswordContainer = () => {
@@ -27,7 +28,7 @@ const ForgotPasswordContainer = () => {
             // TODO: Display success notification for user to check their email
             setSuccess(true);
         } catch (err) {
-            if (err.response) {
+            if (err instanceof AxiosError) {
                 const error = err.response as CarrelageAPIError;
                 helpers.setFieldError('email', error.data.message);
             }
@@ -49,11 +50,7 @@ const ForgotPasswordContainer = () => {
                         <p>An email has been sent with further instructions</p>
                     </div>
                 ) : (
-                    <Formik
-                        initialValues={ForgotFormSchema.getDefault()}
-                        validationSchema={ForgotFormSchema}
-                        onSubmit={onSubmit}
-                    >
+                    <Formik initialValues={{ email: '' }} validationSchema={ForgotFormSchema} onSubmit={onSubmit}>
                         {({ errors, isSubmitting, isValid, dirty, touched }) => (
                             <Form>
                                 {/* Email input */}

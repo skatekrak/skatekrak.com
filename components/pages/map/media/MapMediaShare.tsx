@@ -16,7 +16,7 @@ const MapMediaShare = ({ media, url }: Props) => {
             <SocialShare
                 url={url}
                 facebookQuote={`${media.caption} shared via skatekrak.com`}
-                twitterTitle={media.caption}
+                twitterTitle={media.caption ?? ''}
             />
         </S.MapMediaShare>
     );

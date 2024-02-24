@@ -24,6 +24,11 @@ const MapFullSpotAddClip = () => {
     const onSubmit = async () => {
         setSubmitting(true);
 
+        if (spotOverview == null) {
+            alert('spot undefined');
+            return;
+        }
+
         try {
             await Feudartifice.clips.addClip(spotOverview.spot.id, url);
             dispatch(selectFullSpotTab('clips'));

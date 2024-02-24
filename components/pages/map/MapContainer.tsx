@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
+import React, { useState, useEffect, useRef, useCallback, useMemo, ElementRef } from 'react';
 import { MapRef } from 'react-map-gl';
 import dynamic from 'next/dynamic';
 
@@ -47,9 +47,9 @@ const MapContainer = () => {
     const { data: customMapInfo } = useCustomMap(id);
 
     // Full spot
-    const fullSpotContainerRef = useRef<HTMLDivElement>();
+    const fullSpotContainerRef = useRef<ElementRef<'div'> | null>(null);
 
-    const mapRef = useRef<MapRef>();
+    const mapRef = useRef<MapRef | null>(null);
 
     const centerToSpot = useCallback((spot: Spot) => {
         mapRef.current?.flyTo({
@@ -77,6 +77,7 @@ const MapContainer = () => {
     const { data: overview } = useQuery({
         queryKey: ['load-overview', spotId],
         queryFn: async () => {
+            if (spotId == null) return undefined;
             const overview = await getSpotOverview(spotId);
             return overview;
         },
@@ -113,13 +114,15 @@ const MapContainer = () => {
         return true;
     }, [id, viewport.zoom]);
 
-    const { data: spots, refetch } = useSpotsGeoJSON(mapRef, enableSpotQuery);
+    const { data: spots, refetch } = useSpotsGeoJSON(mapRef?.current ?? undefined, enableSpotQuery);
     const shouldFetchWithMedia = useMemo(() => {
         if (isEmpty(customMapInfo)) return undefined;
-        return !intersects(['maps', 'skatepark', 'shop'], customMapInfo.categories);
+        if (isEmpty(customMapInfo?.categories)) return true;
+
+        return !intersects(['maps', 'skatepark', 'shop'], customMapInfo!.categories);
     }, [customMapInfo]);
 
-    const { data: spotsByTags } = useSpotsByTags(isEmpty(id) ? null : [id], shouldFetchWithMedia);
+    const { data: spotsByTags } = useSpotsByTags(isEmpty(id) ? undefined : [id!], shouldFetchWithMedia);
 
     const onFullSpotClose = () => {
         dispatch(updateUrlParams({ modal: false, mediaId: null }));
@@ -173,11 +176,11 @@ const MapContainer = () => {
                         )}
                         {!isMobile && <MapQuickAccessDesktop />}
                         {viewport.zoom <= ZOOM_DISPLAY_WARNING && id == null && <MapZoomAlert />}
-                        <MapBottomNav isMobile={isMobile} />
+                        <MapBottomNav isMobile={isMobile ?? false} />
                         <MapFullSpot
                             open={modalVisible}
                             onClose={onFullSpotClose}
-                            container={!isMobile && fullSpotContainerRef.current}
+                            container={!isMobile ? fullSpotContainerRef.current : null}
                         />
                     </>
                 )}

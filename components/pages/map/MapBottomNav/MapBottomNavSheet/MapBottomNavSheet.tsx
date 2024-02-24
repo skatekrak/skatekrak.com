@@ -8,7 +8,7 @@ import * as S from './MapBottomNavSheet.styled';
 type Props = {
     title?: string;
     maxWidth?: string;
-    render: (data?: { close: () => void }) => React.ReactNode;
+    render: (data: { close: () => void }) => React.ReactNode;
     children: JSX.Element;
     displayCloseButton?: boolean;
 };

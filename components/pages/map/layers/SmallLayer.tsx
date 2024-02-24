@@ -16,8 +16,8 @@ const SmallLayer = () => {
 
     useEffect(() => {
         const onMapLayerClick = (event: MapLayerMouseEvent) => {
-            if (event.features.length > 0) {
-                map.flyTo({
+            if (event.features != null && event.features.length > 0) {
+                map?.flyTo({
                     zoom: ZOOM_DISPLAY_DOTS + 1,
                     center: {
                         lat: event.lngLat.lat,
@@ -27,12 +27,12 @@ const SmallLayer = () => {
             }
         };
 
-        map.on('click', 'spot-small-point', onMapLayerClick);
+        map?.on('click', 'spot-small-point', onMapLayerClick);
 
         return () => {
-            map.off('click', 'spot-small-point', onMapLayerClick);
+            map?.off('click', 'spot-small-point', onMapLayerClick);
         };
-    }, []);
+    }, [map]);
 
     return (
         <Layer
