@@ -36,7 +36,11 @@ const MagArticleHead = ({ post }: HeadProps) => {
     );
 };
 
-export const getStaticPaths: GetStaticPaths = async () => {
+type MapPostParams = {
+    slug: string;
+};
+
+export const getStaticPaths: GetStaticPaths<MapPostParams> = async () => {
     const slugs = getPostSlugs();
 
     return {
@@ -45,35 +49,29 @@ export const getStaticPaths: GetStaticPaths = async () => {
                 slug,
             },
         })),
+
         fallback: false,
     };
 };
 
-type MagPostStaticProps = {
+type ArticlePageProps = {
     post: Post;
 };
 
-export const getStaticProps: GetStaticProps<MagPostStaticProps> = async ({ params }) => {
-    if (params == null) {
-        return {
-            notFound: true,
-        };
-    }
-
-    const post = getPostBySlug(params.slug as string);
+export const getStaticProps: GetStaticProps<ArticlePageProps, MapPostParams> = async ({ params }) => {
+    const post = getPostBySlug(params!.slug);
 
     return {
         props: {
-            post,
+            post: {
+                ...post,
+                title: 'hello',
+            },
         },
     };
 };
 
-type Props = {
-    post: Post;
-};
-
-const ArticlePage: NextPage<Props> = ({ post }) => {
+const ArticlePage: NextPage<ArticlePageProps> = ({ post }) => {
     return (
         <Layout head={<MagArticleHead post={post} />}>
             <div id="mag-article-container" className="inner-page-container">

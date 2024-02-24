@@ -59,6 +59,7 @@ const Mag: NextPage = () => {
 export const getStaticProps = wrapper.getStaticProps((store) => () => {
     const slugs = getPostSlugs();
     const posts = slugs.map((slug) => getPostBySlug(slug));
+    console.log(`got ${posts.length} posts`);
 
     store.dispatch(
         setArticles(

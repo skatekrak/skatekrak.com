@@ -6,8 +6,9 @@ import { useEffect, useState } from 'react';
 import useDebounce from 'lib/hook/useDebounce';
 import { useAppDispatch, useAppSelector } from 'store/hook';
 import { mapRefreshEnd } from 'store/map/slice';
-import { boxSpotsSearch, getSpotsByTags, spotsSearchGeoJSON } from 'lib/carrelageClient';
+import { SpotGeoJSON, boxSpotsSearch, getSpotsByTags } from 'lib/carrelageClient';
 import { sort, unique } from 'radash';
+import { trpc } from 'server/trpc/utils';
 
 const { client } = Feudartifice;
 
@@ -88,6 +89,7 @@ export const useSpotsByTags = (tags: string[] | undefined, tagsFromMedia?: boole
 export const useSpotsGeoJSON = (mapRef: MapRef | undefined, enabled = true) => {
     const viewport = useAppSelector((state) => state.map.viewport);
     const dispatch = useAppDispatch();
+    const utils = trpc.useUtils();
 
     const debouncedViewport = useDebounce(viewport, 200);
 
@@ -100,17 +102,11 @@ export const useSpotsGeoJSON = (mapRef: MapRef | undefined, enabled = true) => {
             const bounds = map.getBounds();
             const northEast = bounds.getNorthEast();
             const southWest = bounds.getSouthWest();
-
-            const spots = await spotsSearchGeoJSON({
-                northEastLatitude: northEast.lat,
-                northEastLongitude: northEast.lng,
-                southWestLatitude: southWest.lat,
-                southWestLongitude: southWest.lng,
+            const spots = await utils.spots.getSpotsGeoJSON.fetch({
+                northEast: { latitude: northEast.lat, longitude: northEast.lng },
+                southWest: { latitude: southWest.lat, longitude: southWest.lng },
             });
-
-            console.log('SPOTS', spots.length);
-
-            return spots;
+            return spots as unknown as SpotGeoJSON[];
         },
         enabled,
         refetchOnWindowFocus: false,

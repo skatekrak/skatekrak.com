@@ -35,6 +35,7 @@ import '/public/dist/auth/auth.css';
 import 'mapbox-gl/dist/mapbox-gl.css';
 
 import '/public/styles/masonry.css';
+import { trpc } from 'server/trpc/utils';
 
 const WrappedApp: React.FC<AppProps> = ({ Component, ...rest }) => {
     const { store, props } = wrapper.useWrappedStore(rest);
@@ -61,4 +62,4 @@ const WrappedApp: React.FC<AppProps> = ({ Component, ...rest }) => {
     );
 };
 
-export default WrappedApp;
+export default trpc.withTRPC(WrappedApp);
