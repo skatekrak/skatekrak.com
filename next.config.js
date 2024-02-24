@@ -6,6 +6,9 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 
 module.exports = withPlugins([withBundleAnalyzer()], {
     productionBrowserSourceMaps: true,
+    compiler: {
+        removeConsole: process.env.NODE_ENV === 'production',
+    },
     images: {
         unoptimized: true,
         remotePatterns: [
