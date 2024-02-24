@@ -23,13 +23,16 @@ const fetchVideos = async (params: FetchVideoParams, page: unknown = 1) => {
 };
 
 const useVideos = (params: FetchVideoParams) => {
-    return useInfiniteQuery(['videos-feed', params], ({ pageParam }) => fetchVideos(params, pageParam), {
+    return useInfiniteQuery({
+        queryKey: ['videos-feed', params],
+        queryFn: ({ pageParam }) => fetchVideos(params, pageParam),
         getNextPageParam: (lastPages, allPages) => {
             if (lastPages.length < 20) {
                 return false;
             }
             return allPages.length + 1;
         },
+        initialPageParam: 0,
         refetchOnMount: false,
         refetchOnWindowFocus: false,
     });
