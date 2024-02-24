@@ -6,7 +6,7 @@ import { MutableRefObject, useEffect, useState } from 'react';
 import useDebounce from 'lib/hook/useDebounce';
 import { useAppDispatch, useAppSelector } from 'store/hook';
 import { mapRefreshEnd } from 'store/map/slice';
-import { SpotGeoJSON, boxSpotsSearch, getSpotsByTags, spotsSearchGeoJSON } from 'lib/carrelageClient';
+import { boxSpotsSearch, getSpotsByTags, spotsSearchGeoJSON } from 'lib/carrelageClient';
 import { sort, unique } from 'radash';
 
 const { client } = Feudartifice;
@@ -89,7 +89,6 @@ export const useSpotsGeoJSON = (mapRef: MutableRefObject<MapRef>, enabled = true
     const dispatch = useAppDispatch();
 
     const debouncedViewport = useDebounce(viewport, 200);
-    const [loadedSpots, setLoadedSpots] = useState<SpotGeoJSON[]>([]);
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { data, ...queryRes } = useQuery({
@@ -118,13 +117,13 @@ export const useSpotsGeoJSON = (mapRef: MutableRefObject<MapRef>, enabled = true
     });
 
     useEffect(() => {
-        if (data != null) {
+        if (queryRes.isLoading) {
             dispatch(mapRefreshEnd());
-            setLoadedSpots((previousSpots) => unique(previousSpots.concat(data ?? []), (a) => a.id));
         }
-    }, [data, dispatch, setLoadedSpots]);
+    }, [queryRes.isLoading, dispatch]);
+
     return {
-        data: loadedSpots,
+        data: data ?? [],
         ...queryRes,
     };
 };

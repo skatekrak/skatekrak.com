@@ -43,7 +43,7 @@ const MapComponent = ({ mapRef, spots, children, onLoad }: MapComponentProps) =>
             features: [],
         };
 
-        console.log(spots.length);
+        console.log('spots in map component', spots.length);
 
         for (const spot of spots) {
             if (isSpotMarker(spot) && viewport.zoom > ZOOM_DISPLAY_DOTS) {
@@ -56,22 +56,8 @@ const MapComponent = ({ mapRef, spots, children, onLoad }: MapComponentProps) =>
                 );
             } else {
                 spotSourceData.features.push(spot);
-                // spotSourceData.features.push({
-                //     id: spot.id,
-                //     type: 'Feature',
-                //     geometry: {
-                //         type: 'Point',
-                //         coordinates: spot.geo,
-                //     },
-                //     properties: {
-                //         spotId: spot.id,
-                //         type: spot.status === Status.Active ? spot.type : spot.status,
-                //     },
-                // });
             }
         }
-
-        console.log(markers.length, spotSourceData.features.length);
 
         return [markers, spotSourceData];
     }, [spots, selectedSpotOverview, viewport.zoom]);
