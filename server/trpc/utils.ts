@@ -20,29 +20,29 @@ function getBaseUrl() {
 }
 
 export const trpc = createTRPCNext<AppRouter>({
-    config: () => {
-        // if (typeof window !== 'undefined') {
-        //     return {
-        //         links: [
-        //             httpBatchLink({
-        //                 url: '/api/trpc',
-        //                 transformer,
-        //             }),
-        //         ],
-        //     };
-        // }
+    config: ({ ctx }) => {
+        if (typeof window !== 'undefined') {
+            return {
+                links: [
+                    httpBatchLink({
+                        url: '/api/trpc',
+                        transformer,
+                    }),
+                ],
+            };
+        }
 
         return {
             links: [
                 httpBatchLink({
                     url: getBaseUrl() + '/api/trpc',
                     transformer,
-                    // headers() {
-                    //     if (!ctx?.req?.headers) return {};
-                    //     return {
-                    //         cookie: ctx.req.headers.cookie,
-                    //     };
-                    // },
+                    headers() {
+                        if (!ctx?.req?.headers) return {};
+                        return {
+                            cookie: ctx.req.headers.cookie,
+                        };
+                    },
                 }),
             ],
         };
