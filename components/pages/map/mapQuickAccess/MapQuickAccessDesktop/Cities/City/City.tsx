@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 
 import * as S from './City.styled';
 
-import { City } from 'map';
+import { City } from 'lib/map/types';
 import { toggleLegend, toggleSearchResult } from 'store/map/slice';
 import { updateUrlParams } from 'store/map/slice';
 import { useMap } from 'react-map-gl';

@@ -1,4 +1,4 @@
-import { City } from 'map';
+import { City } from 'lib/map/types';
 
 const cities: City[] = [
     {

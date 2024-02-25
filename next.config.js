@@ -8,6 +8,7 @@ module.exports = withPlugins([withBundleAnalyzer()], {
     productionBrowserSourceMaps: true,
     compiler: {
         removeConsole: process.env.NODE_ENV === 'production',
+        styledComponents: true,
     },
     images: {
         unoptimized: true,

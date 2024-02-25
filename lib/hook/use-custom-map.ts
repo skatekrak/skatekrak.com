@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { QuickAccessMap } from 'components/pages/map/mapQuickAccess/types';
-import { CustomMap } from 'map';
+import { CustomMap } from 'lib/map/types';
 
 export const useCustomMaps = () => {
     return useQuery({

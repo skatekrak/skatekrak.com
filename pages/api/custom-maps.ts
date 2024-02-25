@@ -3,7 +3,7 @@ import Cors from 'cors';
 import fs from 'fs';
 
 import { CustomMapCategory, QuickAccessMap } from 'components/pages/map/mapQuickAccess/types';
-import { CustomMap } from 'map';
+import { CustomMap } from 'lib/map/types';
 import path from 'path';
 
 const cors = Cors({
