@@ -14,7 +14,6 @@ function formatSpotsToGEOJson(spots: Spot[]) {
             properties: {
                 id: spot.id,
                 name: spot.name,
-                // type: spot.status === Status.Active ? spot.type : spot.status,
                 type: spot.type,
                 status: spot.status,
                 indoor: spot.indoor,
@@ -43,9 +42,9 @@ export const spotsRouter = router({
             const topRight = [input.northEast.longitude, input.northEast.latitude];
             const spots = await ctx.db
                 .collection('spots')
-                .find<Spot>({ geoLoc: { $geoWithin: { $box: [bottomLeft, topRight] } } })
+                .find({ geoLoc: { $geoWithin: { $box: [bottomLeft, topRight] } } })
                 .toArray();
 
-            return formatSpotsToGEOJson(spots);
+            return formatSpotsToGEOJson(spots.map((spot) => ({ id: spot._id, ...spot }) as unknown as Spot));
         }),
 });
