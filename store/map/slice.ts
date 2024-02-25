@@ -265,10 +265,10 @@ const mapSlice = createSlice({
                 mediaId?: string | null;
             }) => {
                 let newModalUrl: string | undefined = undefined;
-                if (modal === null || modal === false) {
+                if (modal == null || !modal) {
                     console.log('modal will be removed from url');
                     newModalUrl = undefined;
-                } else if (modal === true) {
+                } else if (modal) {
                     newModalUrl = '1';
                 }
 

@@ -40,6 +40,7 @@ const MapContainer = () => {
     /** Spot ID in the query */
     const id = useAppSelector((state: RootState) => state.map.customMapId);
     const spotId = useAppSelector((state: RootState) => state.map.selectSpot);
+    const customMapId = useAppSelector((state: RootState) => state.map.customMapId);
     const modalVisible = useAppSelector((state: RootState) => state.map.modalVisible);
 
     const [, setFirstLoad] = useState(() => (spotId ? true : false));
@@ -125,7 +126,7 @@ const MapContainer = () => {
     const { data: spotsByTags } = useSpotsByTags(isEmpty(id) ? undefined : [id!], shouldFetchWithMedia);
 
     const onFullSpotClose = () => {
-        dispatch(updateUrlParams({ modal: false, mediaId: null }));
+        dispatch(updateUrlParams({ spotId, customMapId, modal: false, mediaId: null }));
     };
 
     useEffect(() => {
