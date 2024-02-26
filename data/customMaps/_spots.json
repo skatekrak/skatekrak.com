@@ -8040,5 +8040,18 @@
       "https://www.youtube.com/watch?v=pdNCW8ejgL4",
       "https://www.youtube.com/watch?v=w7EfZHyTjIA"
     ]
+  },
+  {
+    "id": "411vmcover",
+    "categories": [
+      "maps"
+    ],
+    "name": "411VM Covers",
+    "subtitle": "",
+    "edito": "",
+    "about": "All the 411VM covers we could map!",
+    "videos": [
+      "https://www.youtube.com/playlist?list=PLaZk_-qbK_1iKAtOwJeALna3IZVJsN5zN"
+    ]
   }
 ]
