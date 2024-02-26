@@ -8026,5 +8026,19 @@
     "edito": "",
     "about": "Antonin is our first member to join us on our OpenSB collective. He is from Brussels, Belgium and originally part of the Wiener Crew. WC Represent!",
     "videos": []
+  },
+  {
+    "id": "olivierdehemptinne",
+    "categories": [
+      "skater"
+    ],
+    "name": "Olivier de Hemptinne",
+    "subtitle": "",
+    "edito": "",
+    "about": "Olivier de Hemptinne, AKA Ptit Oli, is a local hero from Brussels, Belgium. He was sponsored by the local skateshop Ride All Day and by the belgian distributor Transind for years before focusing on his career and family. ",
+    "videos": [
+      "https://www.youtube.com/watch?v=pdNCW8ejgL4",
+      "https://www.youtube.com/watch?v=w7EfZHyTjIA"
+    ]
   }
 ]
