@@ -113,7 +113,7 @@ const MapContainer = () => {
         }
 
         return true;
-    }, [id, viewport.zoom]);
+    }, [id, viewport.zoom, mapRef]);
 
     const { data: spots, refetch } = useSpotsGeoJSON(mapRef?.current ?? undefined, enableSpotQuery);
     const shouldFetchWithMedia = useMemo(() => {
