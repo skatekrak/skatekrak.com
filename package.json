@@ -61,7 +61,6 @@
         "react-truncate": "^2.4.0",
         "redux": "^4.2.1",
         "redux-localstorage-simple": "^2.5.1",
-        "redux-thunk": "^2.4.2",
         "remark": "^14.0.3",
         "remark-html": "^15.0.2",
         "simplebar-react": "^3.2.4",

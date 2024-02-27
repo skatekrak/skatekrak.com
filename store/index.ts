@@ -3,10 +3,8 @@ import { AppContext } from 'next/app';
 import { createWrapper, HYDRATE } from 'next-redux-wrapper';
 import { createRouterMiddleware, initialRouterState, routerReducer } from 'connected-next-router';
 import queryString from 'query-string';
-import { ThunkAction } from 'redux-thunk';
 import { save, load } from 'redux-localstorage-simple';
 import merge from 'deepmerge';
-import { Action } from 'redux';
 import { combineReducers } from '@reduxjs/toolkit';
 import { draw } from 'radash';
 
@@ -117,7 +115,6 @@ export const initializeStore = (context) => {
 
 export type RootStore = ReturnType<typeof initializeStore>;
 export type RootState = Pick<ReturnType<typeof reducers>, 'mag' | 'map' | 'news' | 'router' | 'settings' | 'video'>;
-export type RootThunk<ReturnType = void> = ThunkAction<ReturnType, RootState, unknown, Action>;
 export type AppDispatch = RootStore['dispatch'];
 
 export const wrapper = createWrapper<RootStore>(initializeStore, {
