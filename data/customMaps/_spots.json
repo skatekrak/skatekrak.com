@@ -8053,5 +8053,19 @@
     "videos": [
       "https://www.youtube.com/playlist?list=PLaZk_-qbK_1iKAtOwJeALna3IZVJsN5zN"
     ]
+  },
+  {
+    "id": "davidsalaun",
+    "categories": [
+      "skater"
+    ],
+    "name": "David Salaün",
+    "subtitle": "",
+    "edito": "",
+    "about": "David is from french Brittany but now lives in Brussels, Belgium for more than a decade. ",
+    "videos": [
+      "https://www.youtube.com/watch?v=wzZrEDgIJLs",
+      "https://www.youtube.com/watch?v=ucNWO62PULk"
+    ]
   }
 ]
