@@ -21,6 +21,7 @@ on:
                     - years
                     - shop
                     - greatest
+                    - members
             name:
                 type: string
                 required: false

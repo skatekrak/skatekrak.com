@@ -28,4 +28,5 @@ export enum CustomMapCategory {
     shop = 'Shops',
     years = 'Years',
     greatest = 'Greatest',
+    members = 'Members',
 }
