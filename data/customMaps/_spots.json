@@ -8053,5 +8053,30 @@
     "videos": [
       "https://www.youtube.com/playlist?list=PLaZk_-qbK_1iKAtOwJeALna3IZVJsN5zN"
     ]
+  },
+  {
+    "id": "davidsalaun",
+    "categories": [
+      "skater"
+    ],
+    "name": "David Salaün",
+    "subtitle": "",
+    "edito": "",
+    "about": "David is from french Brittany but now lives in Brussels, Belgium for more than a decade. ",
+    "videos": [
+      "https://www.youtube.com/watch?v=wzZrEDgIJLs",
+      "https://www.youtube.com/watch?v=ucNWO62PULk"
+    ]
+  },
+  {
+    "id": "johnthrasher",
+    "categories": [
+      "skater"
+    ],
+    "name": "John Van Eerdewegh",
+    "subtitle": "",
+    "edito": "",
+    "about": "John Van Eerdewegh AKA John Thrasher is from Brussels, Belgium. He spends most of his time at the Ursulines skatepark and he's really good in transitions. ",
+    "videos": []
   }
 ]
