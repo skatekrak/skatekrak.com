@@ -8078,5 +8078,18 @@
     "edito": "",
     "about": "John Van Eerdewegh AKA John Thrasher is from Brussels, Belgium. He spends most of his time at the Ursulines skatepark and he's really good in transitions. ",
     "videos": []
+  },
+  {
+    "id": "metteingvartsen",
+    "categories": [
+      "maps"
+    ],
+    "name": "SKATEPARK",
+    "subtitle": "SKATEPARK by Mette Ingvartsen",
+    "edito": "",
+    "about": "Legend has it that skateboarding was born one day when low waves forced surfers onto the Los Angeles asphalt. Gliding through the streets, conquering every new obstacle, skateboarding has become a peculiar choreography. It plays over the surface of our cities, reclaiming public space in fierce movements that cut across curves and boundaries. And it holds the thrill of several dreams.  Together with a group of skaters and dancers, Mette Ingvartsen explores the speed and energy of movement on wheels – a physical memory from her own youth. More than a smooth spectacle of virtuoso feats, Skatepark marks the emergence of a community – one defined by persistence and hard work within the ongoing practice of individuals who try, fall, and push the limits of the possible, alone but together. On this journey, theatre provides a fluid framework for an encounter between a group of skaters and dancers across generations. Their repeated efforts at balancing and jumping, their boisterous interaction and clashes in shared space, form something more – an entire society we can learn from.",
+    "videos": [
+      "https://www.youtube.com/watch?v=tUhJUQHniAk"
+    ]
   }
 ]
