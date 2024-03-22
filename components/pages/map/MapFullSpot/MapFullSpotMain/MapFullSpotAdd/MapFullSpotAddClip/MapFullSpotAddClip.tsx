@@ -33,6 +33,7 @@ const MapFullSpotAddClip = () => {
             await Feudartifice.clips.addClip(spotOverview.spot.id, url);
             dispatch(selectFullSpotTab('clips'));
             queryClient.invalidateQueries({ queryKey: ['load-overview', spotOverview.spot.id] });
+            queryClient.invalidateQueries({ queryKey: ['fetch-spot-clips', spotOverview.spot.id] });
         } catch (err) {
             console.error(err);
         } finally {
