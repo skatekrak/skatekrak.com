@@ -12,7 +12,7 @@ const DyamicMapContainer = dynamic(() => import('components/pages/map/MapContain
 
 type OGData = {
     title: string;
-    imageUrl?: string;
+    imageUrl: string | null;
     description: string;
     url: string;
 };
@@ -82,7 +82,7 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
                 imageUrl:
                     overview.mostLikedMedia != null
                         ? `https://res.cloudinary.com/krak/image/upload/c_fill,w_1200,h_630/${overview.mostLikedMedia.image.publicId}.jpg`
-                        : undefined,
+                        : null,
                 url: `${baseURL}?spot=${query.spot}`,
             };
             await queryClient.prefetchQuery<SpotOverview>({

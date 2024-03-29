@@ -44,6 +44,7 @@ const MapContainer = () => {
     const modalVisible = useAppSelector((state: RootState) => state.map.modalVisible);
 
     const [, setFirstLoad] = useState(() => (spotId ? true : false));
+    const [mapLoaded, setMapLoaded] = useState(false);
 
     const { data: customMapInfo } = useCustomMap(id);
 
@@ -53,6 +54,8 @@ const MapContainer = () => {
     const mapRef = useRef<MapRef | null>(null);
 
     const centerToSpot = useCallback((spot: Spot) => {
+        console.log('center to spot', spot, mapRef.current);
+
         mapRef.current?.flyTo({
             center: { lat: spot.location.latitude, lon: spot.location.longitude },
             zoom: 14,
@@ -87,7 +90,7 @@ const MapContainer = () => {
     });
 
     useEffect(() => {
-        if (overview != null) {
+        if (overview != null && mapLoaded) {
             dispatch(setSpotOverview(overview));
             setFirstLoad((value) => {
                 if (value) {
@@ -97,7 +100,7 @@ const MapContainer = () => {
                 return value;
             });
         }
-    }, [overview, dispatch, centerToSpot]);
+    }, [overview, dispatch, centerToSpot, mapLoaded]);
 
     const enableSpotQuery = useMemo(() => {
         if (mapRef.current == null) {
@@ -138,7 +141,7 @@ const MapContainer = () => {
                 duration: 1500,
             });
         }
-    }, [spotsByTags, viewport.width, id, dispatch, isMobile]);
+    }, [spotsByTags, viewport.width, id, isMobile]);
 
     const displayedSpots = useMemo(() => {
         // It's a custom map, we can return the spots if not loading
@@ -158,7 +161,14 @@ const MapContainer = () => {
 
     return (
         <S.MapContainer ref={fullSpotContainerRef}>
-            <DynamicMapComponent mapRef={mapRef} spots={displayedSpots} onLoad={refetch}>
+            <DynamicMapComponent
+                mapRef={mapRef}
+                spots={displayedSpots}
+                onLoad={() => {
+                    setMapLoaded(true);
+                    refetch();
+                }}
+            >
                 {isCreateSpotOpen ? (
                     <MapCreateSpot />
                 ) : (
