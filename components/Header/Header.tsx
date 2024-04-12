@@ -108,97 +108,97 @@ const Header: React.FC = () => {
                     )}
 
                     {/* Three dot menu */}
-                    <Tippy
-                        visible={isMenuOpen}
-                        onClickOutside={handleMenuOpen}
-                        interactive
-                        placement="bottom"
-                        render={() => (
-                            <S.ThreeDotMenu>
-                                {isMobile && (
-                                    <>
-                                        <S.ThreeDotMenuItem
-                                            href="https://shop.opensb.org/"
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                        >
-                                            <Typography as="span" component="body1">
-                                                Shop
-                                            </Typography>
-                                        </S.ThreeDotMenuItem>
-
-                                        <S.ThreeDotMenuItem href={PATH_MEMBERSHIP}>
-                                            <Typography as="span" component="body1">
-                                                Membership
-                                            </Typography>
-                                        </S.ThreeDotMenuItem>
-
-                                        <S.ThreeDotMenuItem href={PATH_CALL_TO_ADVENTURE}>
-                                            <Typography as="span" component="body1">
-                                                Call to Adventure
-                                            </Typography>
-                                        </S.ThreeDotMenuItem>
-                                    </>
-                                )}
-
-                                <S.ThreeDotMenuItem href="/mag">
-                                    <Typography as="span" component="body1">
-                                        Mag
-                                    </Typography>
-                                </S.ThreeDotMenuItem>
-
-                                <S.ThreeDotMenuItem href="/video">
-                                    <Typography as="span" component="body1">
-                                        Video
-                                    </Typography>
-                                </S.ThreeDotMenuItem>
-
-                                <S.ThreeDotMenuItem href="/news">
-                                    <Typography as="span" component="body1">
-                                        News
-                                    </Typography>
-                                </S.ThreeDotMenuItem>
-
-                                {isMobile && (
-                                    <S.ThreeDotMenuSocialContainer>
-                                        <Link
-                                            href="https://www.twitter.com/skatekrak"
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                        >
-                                            <S.SecondaryNavSocialIcon>
-                                                <IconTwitter />
-                                            </S.SecondaryNavSocialIcon>
-                                        </Link>
-                                        <S.SecondaryNavIconSeparator />
-                                        <Link
-                                            href="https://www.youtube.com/krakskate"
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                        >
-                                            <S.SecondaryNavSocialIcon>
-                                                <IconYoutubeMonochrome />
-                                            </S.SecondaryNavSocialIcon>
-                                        </Link>
-                                        <S.SecondaryNavIconSeparator />
-                                        <Link
-                                            href="https://www.instagram.com/skate_krak"
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                        >
-                                            <S.SecondaryNavSocialIcon>
-                                                <IconInstagram />
-                                            </S.SecondaryNavSocialIcon>
-                                        </Link>
-                                    </S.ThreeDotMenuSocialContainer>
-                                )}
-                            </S.ThreeDotMenu>
-                        )}
-                    >
-                        <S.SecondaryNavIcon as="button" onClick={handleMenuOpen}>
-                            <IconDotsThreeVertical />
-                        </S.SecondaryNavIcon>
-                    </Tippy>
+                    {/* <Tippy */}
+                    {/*     visible={isMenuOpen} */}
+                    {/*     onClickOutside={handleMenuOpen} */}
+                    {/*     interactive */}
+                    {/*     placement="bottom" */}
+                    {/*     render={() => ( */}
+                    {/*         <S.ThreeDotMenu> */}
+                    {/*             {isMobile && ( */}
+                    {/*                 <> */}
+                    {/*                     <S.ThreeDotMenuItem */}
+                    {/*                         href="https://shop.opensb.org/" */}
+                    {/*                         target="_blank" */}
+                    {/*                         rel="noopener noreferrer" */}
+                    {/*                     > */}
+                    {/*                         <Typography as="span" component="body1"> */}
+                    {/*                             Shop */}
+                    {/*                         </Typography> */}
+                    {/*                     </S.ThreeDotMenuItem> */}
+                    {/**/}
+                    {/*                     <S.ThreeDotMenuItem href={PATH_MEMBERSHIP}> */}
+                    {/*                         <Typography as="span" component="body1"> */}
+                    {/*                             Membership */}
+                    {/*                         </Typography> */}
+                    {/*                     </S.ThreeDotMenuItem> */}
+                    {/**/}
+                    {/*                     <S.ThreeDotMenuItem href={PATH_CALL_TO_ADVENTURE}> */}
+                    {/*                         <Typography as="span" component="body1"> */}
+                    {/*                             Call to Adventure */}
+                    {/*                         </Typography> */}
+                    {/*                     </S.ThreeDotMenuItem> */}
+                    {/*                 </> */}
+                    {/*             )} */}
+                    {/**/}
+                    {/*             <S.ThreeDotMenuItem href="/mag"> */}
+                    {/*                 <Typography as="span" component="body1"> */}
+                    {/*                     Mag */}
+                    {/*                 </Typography> */}
+                    {/*             </S.ThreeDotMenuItem> */}
+                    {/**/}
+                    {/*             <S.ThreeDotMenuItem href="/video"> */}
+                    {/*                 <Typography as="span" component="body1"> */}
+                    {/*                     Video */}
+                    {/*                 </Typography> */}
+                    {/*             </S.ThreeDotMenuItem> */}
+                    {/**/}
+                    {/*             <S.ThreeDotMenuItem href="/news"> */}
+                    {/*                 <Typography as="span" component="body1"> */}
+                    {/*                     News */}
+                    {/*                 </Typography> */}
+                    {/*             </S.ThreeDotMenuItem> */}
+                    {/**/}
+                    {/*             {isMobile && ( */}
+                    {/*                 <S.ThreeDotMenuSocialContainer> */}
+                    {/*                     <Link */}
+                    {/*                         href="https://www.twitter.com/skatekrak" */}
+                    {/*                         target="_blank" */}
+                    {/*                         rel="noopener noreferrer" */}
+                    {/*                     > */}
+                    {/*                         <S.SecondaryNavSocialIcon> */}
+                    {/*                             <IconTwitter /> */}
+                    {/*                         </S.SecondaryNavSocialIcon> */}
+                    {/*                     </Link> */}
+                    {/*                     <S.SecondaryNavIconSeparator /> */}
+                    {/*                     <Link */}
+                    {/*                         href="https://www.youtube.com/krakskate" */}
+                    {/*                         target="_blank" */}
+                    {/*                         rel="noopener noreferrer" */}
+                    {/*                     > */}
+                    {/*                         <S.SecondaryNavSocialIcon> */}
+                    {/*                             <IconYoutubeMonochrome /> */}
+                    {/*                         </S.SecondaryNavSocialIcon> */}
+                    {/*                     </Link> */}
+                    {/*                     <S.SecondaryNavIconSeparator /> */}
+                    {/*                     <Link */}
+                    {/*                         href="https://www.instagram.com/skate_krak" */}
+                    {/*                         target="_blank" */}
+                    {/*                         rel="noopener noreferrer" */}
+                    {/*                     > */}
+                    {/*                         <S.SecondaryNavSocialIcon> */}
+                    {/*                             <IconInstagram /> */}
+                    {/*                         </S.SecondaryNavSocialIcon> */}
+                    {/*                     </Link> */}
+                    {/*                 </S.ThreeDotMenuSocialContainer> */}
+                    {/*             )} */}
+                    {/*         </S.ThreeDotMenu> */}
+                    {/*     )} */}
+                    {/* > */}
+                    {/*     <S.SecondaryNavIcon as="button" onClick={handleMenuOpen}> */}
+                    {/*         <IconDotsThreeVertical /> */}
+                    {/*     </S.SecondaryNavIcon> */}
+                    {/* </Tippy> */}
 
                     {isConnected ? (
                         <HeaderProfile />
