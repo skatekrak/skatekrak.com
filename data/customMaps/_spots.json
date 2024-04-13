@@ -8113,5 +8113,18 @@
     "edito": "",
     "about": "",
     "videos": []
+  },
+  {
+    "id": "favoritespot",
+    "categories": [
+      "maps"
+    ],
+    "name": "Quartersnacks Favorite Spot",
+    "subtitle": "",
+    "edito": "",
+    "about": "Quartersnacks presents the 'Favorite Spot' video serie where skaters talk about their favorite place to skate..",
+    "videos": [
+      "https://www.youtube.com/playlist?list=PLQtxi2geqsjDGaEf7LdItGVUawM52h01A"
+    ]
   }
 ]
