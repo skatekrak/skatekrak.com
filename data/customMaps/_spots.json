@@ -8163,5 +8163,30 @@
     "edito": "",
     "about": "This map was inspired by a few instagram posts from the good people at Free Skate Mag. Happy accidents, some legendary, some more obscure, some still contentious… Always extremely entertaining.",
     "videos": []
+  },
+  {
+    "id": "foundthatfooty",
+    "categories": [
+      "maps"
+    ],
+    "name": "Found That Footy",
+    "subtitle": "",
+    "edito": "",
+    "about": "Skateboard Footage from the @FoundThatFooty Youtube channel.  San Diego and beyond 1993-2012, curated by Jim Kappel. Footage by Kappel, Marc Shockus Delellis R.I.P, Dave Schlossbach, and many more. Enjoi!",
+    "videos": [
+      "https://www.youtube.com/watch?v=XoukO5lryeA",
+      "https://www.youtube.com/watch?v=YvLSESKqQvs",
+      "https://www.youtube.com/watch?v=Rq5E-BHvOVs",
+      "https://www.youtube.com/watch?v=8sLG2fgt1PA",
+      "https://www.youtube.com/watch?v=D3XL5pjLTwY",
+      "https://www.youtube.com/watch?v=dEsJHat50i4",
+      "https://www.youtube.com/watch?v=DQU2dkot0SY",
+      "https://www.youtube.com/watch?v=ZPT4dkWzFyY",
+      "https://www.youtube.com/watch?v=iAu28QYCehQ",
+      "https://www.youtube.com/watch?v=EnA6dOhQU5A",
+      "https://www.youtube.com/watch?v=vxSZxiFPAjM",
+      "https://www.youtube.com/watch?v=UN0KqIgIw_o",
+      "https://www.youtube.com/watch?v=ff_8tOPT_kM"
+    ]
   }
 ]
