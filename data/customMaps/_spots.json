@@ -8188,5 +8188,16 @@
       "https://www.youtube.com/watch?v=UN0KqIgIw_o",
       "https://www.youtube.com/watch?v=ff_8tOPT_kM"
     ]
+  },
+  {
+    "id": "nobodyskating",
+    "categories": [
+      "maps"
+    ],
+    "name": "Nobody Skating",
+    "subtitle": "",
+    "edito": "",
+    "about": "This map was inspired by the @nobodyskating Instagram account showing off magic boards and great editing skills!",
+    "videos": []
   }
 ]
