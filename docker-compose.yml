@@ -2,7 +2,7 @@ version: '3'
 services:
     skatekrak:
         image: gplane/pnpm:latest
-        command: bash -c "pnpm install && pnpm start:cmd:dev"
+        command: bash -c "pnpm start:cmd:dev"
         labels:
             - traefik.enable=true
             - traefik.http.routers.skatekrak.entrypoints=http,https
@@ -18,8 +18,8 @@ services:
         volumes:
             - .:/app
             - ~/.npmrc:/app/.npmrc:ro
-            - skatekrak-next:/app/.next
-            - skatekrak-node_modules:/app/node_modules
+            # - skatekrak-next:/app/.next
+            # - skatekrak-node_modules:/app/node_modules
         env_file: .env
 
 volumes:

@@ -10,6 +10,7 @@ import { Analytics } from '@vercel/analytics/react';
 import { wrapper } from 'store';
 import { ThemeStore } from 'styles/Theme/ThemeStore';
 
+import '/public/styles/tailwind.css';
 import '/public/styles/reset.css';
 import '/public/styles/flexbox-grid.css';
 import '/public/dist/fonts.css';
