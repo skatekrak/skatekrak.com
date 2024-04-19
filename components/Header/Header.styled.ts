@@ -88,15 +88,6 @@ export const SecondaryNavIcon = styled.div`
     display: flex;
     flex-shrink: 0;
     padding: 0.5rem;
-    margin-left: 0.5rem;
-
-    ${media.laptopS} {
-        margin-left: 1rem;
-    }
-
-    &:first-child {
-        margin-left: 0;
-    }
 `;
 
 export const SecondaryNavSocialIcon = styled.div`

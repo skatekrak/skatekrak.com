@@ -51,24 +51,24 @@ export const HeaderThreeDotsMenu = () => {
                         </>
                     )}
 
-                    <S.ThreeDotMenuItem href="/mag">
-                        <Typography as="span" component="body1">
-                            Mag
-                        </Typography>
-                    </S.ThreeDotMenuItem>
-
-                    <S.ThreeDotMenuItem href="/video">
-                        <Typography as="span" component="body1">
-                            Video
-                        </Typography>
-                    </S.ThreeDotMenuItem>
-
-                    <S.ThreeDotMenuItem href="/news">
-                        <Typography as="span" component="body1">
-                            News
-                        </Typography>
-                    </S.ThreeDotMenuItem>
-
+                    {/* <S.ThreeDotMenuItem href="/mag"> */}
+                    {/*     <Typography as="span" component="body1"> */}
+                    {/*         Mag */}
+                    {/*     </Typography> */}
+                    {/* </S.ThreeDotMenuItem> */}
+                    {/**/}
+                    {/* <S.ThreeDotMenuItem href="/video"> */}
+                    {/*     <Typography as="span" component="body1"> */}
+                    {/*         Video */}
+                    {/*     </Typography> */}
+                    {/* </S.ThreeDotMenuItem> */}
+                    {/**/}
+                    {/* <S.ThreeDotMenuItem href="/news"> */}
+                    {/*     <Typography as="span" component="body1"> */}
+                    {/*         News */}
+                    {/*     </Typography> */}
+                    {/* </S.ThreeDotMenuItem> */}
+                    {/**/}
                     {isMobile && (
                         <S.ThreeDotMenuSocialContainer>
                             <Link href="https://www.twitter.com/skatekrak" target="_blank" rel="noopener noreferrer">

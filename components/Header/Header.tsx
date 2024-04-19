@@ -14,6 +14,7 @@ import useSession from 'lib/hook/carrelage/use-session';
 import { RootState } from 'store';
 import IconInstagram from 'components/Ui/Icons/Logos/IconInstagram';
 import { PATH_MEMBERSHIP } from 'pages/membership';
+import { HeaderThreeDotsMenu } from './HeaderThreeDotsMenu';
 
 const Header: React.FC = () => {
     const isMobile = useSelector((state: RootState) => state.settings.isMobile);
@@ -52,6 +53,7 @@ const Header: React.FC = () => {
                             </Link>
                         </div>
                     )}
+
                     {isMobile && (
                         <S.SecondaryNavIcon
                             as="a"
@@ -102,15 +104,19 @@ const Header: React.FC = () => {
                         </>
                     )}
 
-                    {isConnected ? (
-                        <HeaderProfile />
-                    ) : (
-                        <Link href="/auth/login">
-                            <S.SecondaryNavIcon>
-                                <IconUserCircle />
-                            </S.SecondaryNavIcon>
-                        </Link>
-                    )}
+                    {isMobile && <HeaderThreeDotsMenu />}
+
+                    <div className="ml-0 md:ml-3">
+                        {isConnected ? (
+                            <HeaderProfile />
+                        ) : (
+                            <Link href="/auth/login">
+                                <S.SecondaryNavIcon>
+                                    <IconUserCircle />
+                                </S.SecondaryNavIcon>
+                            </Link>
+                        )}
+                    </div>
                 </S.SecondaryNav>
             </S.TopContainer>
         </S.Container>
