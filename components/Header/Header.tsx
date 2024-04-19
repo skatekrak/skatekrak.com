@@ -13,7 +13,6 @@ import { PATH_CALL_TO_ADVENTURE } from 'pages/call-to-adventure';
 import useSession from 'lib/hook/carrelage/use-session';
 import { RootState } from 'store';
 import IconInstagram from 'components/Ui/Icons/Logos/IconInstagram';
-import { PATH_MEMBERSHIP } from 'pages/membership';
 import { HeaderThreeDotsMenu } from './HeaderThreeDotsMenu';
 
 const Header: React.FC = () => {
@@ -48,8 +47,12 @@ const Header: React.FC = () => {
                             <Link href={PATH_CALL_TO_ADVENTURE}>
                                 <S.SecondaryNavItem>Call to Adventure</S.SecondaryNavItem>
                             </Link>
-                            <Link href={PATH_MEMBERSHIP}>
-                                <S.SecondaryNavItem>Membership</S.SecondaryNavItem>
+                            <Link
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                href="https://opencollective.com/opensb/projects/krakmap"
+                            >
+                                <S.SecondaryNavItem>Support</S.SecondaryNavItem>
                             </Link>
                         </div>
                     )}

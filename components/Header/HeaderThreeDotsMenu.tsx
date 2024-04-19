@@ -6,7 +6,6 @@ import * as S from './Header.styled';
 import { useAppSelector } from 'store/hook';
 import IconDotsThreeVertical from 'components/Ui/Icons/IconDotsThreeVertical';
 import Typography from 'components/Ui/typography/Typography';
-import { PATH_MEMBERSHIP } from 'pages/membership';
 import { PATH_CALL_TO_ADVENTURE } from 'pages/call-to-adventure';
 import IconTwitter from 'components/Ui/Icons/Logos/IconTwitter';
 import IconInstagram from 'components/Ui/Icons/Logos/IconInstagram';
@@ -37,9 +36,13 @@ export const HeaderThreeDotsMenu = () => {
                                 </Typography>
                             </S.ThreeDotMenuItem>
 
-                            <S.ThreeDotMenuItem href={PATH_MEMBERSHIP}>
+                            <S.ThreeDotMenuItem
+                                target="_bank"
+                                rel="noopener noreferrer"
+                                href="https://opencollective.com/opensb/projects/krakmap"
+                            >
                                 <Typography as="span" component="body1">
-                                    Membership
+                                    Support
                                 </Typography>
                             </S.ThreeDotMenuItem>
 
