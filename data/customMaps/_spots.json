@@ -8199,5 +8199,18 @@
     "edito": "",
     "about": "This map was inspired by the @nobodyskating Instagram account showing off magic boards and great editing skills!",
     "videos": []
+  },
+  {
+    "id": "bmx",
+    "categories": [
+      "maps"
+    ],
+    "name": "BMX",
+    "subtitle": "",
+    "edito": "",
+    "about": "A map for all of our BMX friends out there!",
+    "videos": [
+      "https://www.youtube.com/playlist?list=PLEfn8qMSGQa9tGFReA6gve4hK2a9cMf5G"
+    ]
   }
 ]
