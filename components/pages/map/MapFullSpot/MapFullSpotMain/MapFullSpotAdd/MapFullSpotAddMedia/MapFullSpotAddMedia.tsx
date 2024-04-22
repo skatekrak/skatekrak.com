@@ -46,6 +46,13 @@ const MapFullSpotAddMedia = () => {
             await Feudartifice.media.uploadMedia(media.id, values.file);
             dispatch(selectFullSpotTab('media'));
             queryClient.invalidateQueries({ queryKey: ['load-overview', spotOverview.spot.id] });
+            queryClient.setQueryData(['fetch-spot-medias', spotOverview.spot.id, null], (prevData: any) => {
+                if (prevData == null) return prevData;
+                return {
+                    pages: [[media], ...prevData.pages],
+                    pageParams: prevData.pageParams,
+                };
+            });
         } catch (err) {
             console.error(err);
         }

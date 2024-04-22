@@ -34,16 +34,13 @@ const useSpotMedias = (spotId: string, initialMedias: Media[], key?: string) => 
         queryFn: ({ pageParam }) => fetchMedias(spotId, pageParam),
         initialPageParam: new Date(),
         getNextPageParam: (lastPage) => {
+            if (lastPage.length < 20) {
+                return null;
+            }
+
             const lastElement = lastPage[lastPage.length - 1];
             if (lastElement != null) {
                 return lastElement.createdAt;
-            }
-            return null;
-        },
-        getPreviousPageParam: (firstPage) => {
-            const firstElement = firstPage[0];
-            if (firstElement != null) {
-                return firstElement.createdAt;
             }
             return null;
         },
