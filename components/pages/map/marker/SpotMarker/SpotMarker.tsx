@@ -62,7 +62,7 @@ const SpotMarker = ({ spot, isSelected, small = false }: SpotMarkerProps) => {
                     })}
                 >
                     <div className="map-marker-icon">
-                        {spot.properties.status == 'rip' || spot.properties.status === 'wip' ? (
+                        {spot.properties.status === 'rip' || spot.properties.status === 'wip' ? (
                             <Pin key={`marker-pin-${spot.properties.id}`} imageName={spot.properties.status} />
                         ) : (
                             <Pin key={`marker-pin-${spot.properties.id}`} imageName={spot.properties.type} />

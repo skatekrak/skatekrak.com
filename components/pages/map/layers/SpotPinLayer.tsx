@@ -61,7 +61,7 @@ const SpotPinLayer = ({ type }: SpotPinLayerProps) => {
             paint={{
                 'icon-opacity': isCreateSpotOpen ? 0.5 : 1,
             }}
-            filter={['==', 'type', type]}
+            filter={type === Status.Active ? ['==', 'type', type] : ['==', 'status', type]}
         />
     );
 };
