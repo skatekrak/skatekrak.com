@@ -7,16 +7,15 @@ import MapFullSpotMainClip from './MapFullSpotMainClip';
 import * as S from 'components/pages/map/MapFullSpot/MapFullSpotMain/MapFullSpotMain.styled';
 
 import { flatten } from 'lib/helpers';
-import { Clip, Spot } from 'lib/carrelageClient';
+import { Spot } from 'lib/carrelageClient';
 import useSpotClips from 'lib/hook/carrelage/spot-clips';
 
 export type MapFullSpotMainClipsProps = {
-    clips: Clip[];
     spot: Spot;
 };
 
-const MapFullSpotMainClips = ({ clips: defaultClips, spot }: MapFullSpotMainClipsProps) => {
-    const { isFetching, data, fetchNextPage, hasNextPage } = useSpotClips(spot.id, defaultClips);
+const MapFullSpotMainClips = ({ spot }: MapFullSpotMainClipsProps) => {
+    const { isFetching, data, fetchNextPage, hasNextPage } = useSpotClips(spot.id);
     const clips = flatten(data?.pages ?? []);
 
     const getScrollParent = () => {

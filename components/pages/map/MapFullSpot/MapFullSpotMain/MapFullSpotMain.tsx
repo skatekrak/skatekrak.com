@@ -18,9 +18,7 @@ const MapFullSpotMain = () => {
     if (spotOverview) {
         return (
             <>
-                {selectedTab === 'clips' && (
-                    <MapFullSpotMainClips clips={spotOverview.clips} spot={spotOverview.spot} />
-                )}
+                {selectedTab === 'clips' && <MapFullSpotMainClips spot={spotOverview.spot} />}
                 {selectedTab === 'addClip' && <MapFullSpotAddClip />}
                 {selectedTab === 'media' && <MapFullSpotMedias medias={spotOverview.medias} spot={spotOverview.spot} />}
                 {selectedTab === 'addMedia' && <MapFullSpotAddMedia />}

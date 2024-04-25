@@ -12,11 +12,15 @@ const fetchClips = async (spotId: string, cursor: Date) => {
     return data;
 };
 
-const useSpotClips = (spotId: string, initialClips: Clip[]) => {
+const useSpotClips = (spotId: string) => {
     return useInfiniteQuery({
         queryKey: ['fetch-spot-clips', spotId],
         queryFn: ({ pageParam }) => fetchClips(spotId, pageParam),
         getNextPageParam: (lastPage) => {
+            if (lastPage.length < 20) {
+                return null;
+            }
+
             const lastElement = lastPage[lastPage.length - 1];
             if (lastElement != null) {
                 return lastElement.createdAt;
@@ -24,10 +28,6 @@ const useSpotClips = (spotId: string, initialClips: Clip[]) => {
             return null;
         },
         initialPageParam: new Date(),
-        initialData: {
-            pages: [initialClips],
-            pageParams: initialClips.length >= 20 ? [initialClips[initialClips.length - 1].createdAt] : [],
-        },
         refetchOnWindowFocus: false,
     });
 };
