@@ -43,8 +43,6 @@ const MapComponent = ({ mapRef, spots, children, onLoad }: MapComponentProps) =>
             features: [],
         };
 
-        console.log('spots in map component', spots.length);
-
         for (const spot of spots) {
             if (isSpotMarker(spot) && viewport.zoom > ZOOM_DISPLAY_DOTS) {
                 markers.push(
