@@ -8244,5 +8244,16 @@
     "edito": "",
     "about": "Alexis is a skateboarder and photographer from Brussels, Belgium. He was the owner of Alfonce skateshop and creator of Flatspot magazine from 2002 to 2007.",
     "videos": []
+  },
+  {
+    "id": "apropos14",
+    "categories": [
+      "magazine"
+    ],
+    "name": "A Propos 14",
+    "subtitle": "",
+    "edito": "",
+    "about": "The Belgian issue !",
+    "videos": []
   }
 ]
