@@ -1,8 +1,8 @@
 version: '3'
 services:
     skatekrak:
-        image: gplane/pnpm:latest
-        command: bash -c "pnpm start:cmd:dev"
+        image: oven/bun:1.1.6
+        command: bash -c "bun install && bun dev:web"
         labels:
             - traefik.enable=true
             - traefik.http.routers.skatekrak.entrypoints=http,https
@@ -18,13 +18,33 @@ services:
         volumes:
             - .:/app
             - ~/.npmrc:/app/.npmrc:ro
-            # - skatekrak-next:/app/.next
-            # - skatekrak-node_modules:/app/node_modules
-        env_file: .env
+            - skatekrak-next:/app/.next
+            - skatekrak-node_modules:/app/node_modules
+        env_file: apps/web/.env
+
+    api:
+        image: oven/bun:1.1.6
+        command: bash -c "bun install && bun dev:api"
+        labels:
+            - traefik.enable=true
+            - traefik.http.routers.krak-api.entrypoints=http,https
+            - traefik.http.routers.krak-api.rule=Host(`api.dev.skatekrak.com`) # You can use any domain allowed by your TLS certificate
+            - traefik.http.routers.krak-api.tls=true
+            - traefik.http.routers.krak-api.service=krak-api
+            - traefik.http.services.krak-api.loadbalancer.server.port=3000 # Adapt to the exposed port in the service
+        working_dir: /app
+        volumes:
+            - .:/app
+            - ~/.npmrc:/app/.npmrc:ro
+            - skatekrak-api-next:/app/.next
+            - skatekrak-api-node_modules:/app/node_modules
+        env_file: apps/api/.env
 
 volumes:
     skatekrak-next: null
     skatekrak-node_modules: null
+    skatekrak-api-next: null
+    skatekrak-api-node_modules: null
 
 networks:
     default:

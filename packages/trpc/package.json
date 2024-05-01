@@ -1,0 +1,15 @@
+{
+  "name": "@krak/trpc",
+  "version": "1.0.0",
+  "description": "tRPC router",
+  "main": "src/index.ts",
+  "dependencies": {
+    "@krak/carrelage-client": "workspace:*",
+    "@trpc/client": "^11.0.0-rc.364",
+    "@trpc/next": "^11.0.0-rc.364",
+    "@trpc/server": "^11.0.0-rc.364",
+    "mongodb": "^6.5.0",
+    "superjson": "^2.2.1",
+    "zod": "^3.23.5"
+  }
+}

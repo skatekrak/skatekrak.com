@@ -1,0 +1,15 @@
+{
+  "name": "@krak/api",
+  "version": "1.0.0",
+  "description": "Krak API",
+  "scripts": {
+    "dev": "bun --watch run src/index.ts"
+  },
+  "dependencies": {
+    "@elysiajs/cors": "^1.0.2",
+    "@elysiajs/trpc": "^1.0.2",
+    "@elysiajs/websocket": "^0.2.8",
+    "@krak/trpc": "workspace:*",
+    "elysia": "^1.0.15"
+  }
+}
