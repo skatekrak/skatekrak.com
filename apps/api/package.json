@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "Krak API",
   "scripts": {
-    "dev": "bun --watch run src/index.ts"
+    "dev": "bun --watch run src/index.ts",
+    "build": "bun build src/index.ts --target bun --outdir ./dist"
   },
   "dependencies": {
     "@elysiajs/cors": "^1.0.2",

@@ -10,7 +10,8 @@
     "build": "turbo build",
     "dev": "turbo dev --parallel",
     "dev:web": "turbo dev --filter=@krak/web",
-    "dev:api": "turbo dev --filter=@krak/api"
+    "dev:api": "turbo dev --filter=@krak/api",
+    "build:api": "turbo build --filter=@krak/api"
   },
   "dependencies": {
     "@manypkg/cli": "^0.21.4",
