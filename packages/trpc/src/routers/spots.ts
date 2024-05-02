@@ -1,4 +1,4 @@
-import { Document, Filter, ObjectId } from 'mongodb';
+import { ObjectId } from 'mongodb';
 import { publicProcedure, router } from '../trpc';
 import { z } from 'zod';
 import { SpotGeoJSON, Spot } from '@krak/carrelage-client';
@@ -24,11 +24,25 @@ function formatSpotsToGEOJson(spots: Spot[]) {
     );
 }
 
-export const spotsRouter = router({
-    demo: publicProcedure.query(() => {
-        return { message: 'Hello World' };
-    }),
+function formatSpot(spot: any): Spot {
+    const { _id, location, ...spotRes } = spot;
 
+    return {
+        ...spotRes,
+        id: _id,
+        location: {
+            ...(location ?? {}),
+            latitude: spotRes.geo ? spotRes.geo[1] : null,
+            longitude: spotRes.geo ? spotRes.geo[0] : null,
+        },
+    } as Spot;
+}
+
+function addHashtagIfNeeded(tag: string) {
+    return tag[0] !== '#' ? `#${tag}` : tag;
+}
+
+export const spotsRouter = router({
     getSpot: publicProcedure.input(z.object({ id: z.string() })).query(async ({ ctx, input }) => {
         const spot = await ctx.db.collection('spots').findOne<Spot>({ _id: new ObjectId(input.id) });
         return spot;
@@ -52,15 +66,57 @@ export const spotsRouter = router({
             return formatSpotsToGEOJson(spots.map((spot) => ({ id: spot._id, ...spot }) as unknown as Spot));
         }),
 
-    getSpots: publicProcedure
-        .input(z.object({ tags: z.array(z.string()).default([]) }))
+    listByTags: publicProcedure
+        .input(
+            z.object({
+                tags: z.array(z.string()).min(1, 'You must give at least one tag'),
+                tagsFromMedia: z.boolean().default(false),
+                limit: z.number().default(2000),
+            }),
+        )
         .query(async ({ ctx, input }) => {
-            const filter: Filter<Document> = {};
+            if (input.tagsFromMedia) {
+                const spots = await ctx.db
+                    .collection('medias')
+                    .aggregate([
+                        {
+                            $match: {
+                                hashtags: { $in: input.tags.map(addHashtagIfNeeded) },
+                            },
+                        },
+                        {
+                            $lookup: {
+                                from: 'spots',
+                                localField: 'spot',
+                                foreignField: '_id',
+                                as: 'spot_data',
+                            },
+                        },
+                        {
+                            $unwind: '$spot_data',
+                        },
+                        {
+                            $group: {
+                                _id: '$spot_data._id',
+                                spot: { $first: '$spot_data' },
+                            },
+                        },
+                        {
+                            $replaceRoot: { newRoot: '$spot' },
+                        },
+                    ])
+                    .toArray();
 
-            if (input.tags.length > 0) {
-                filter.tags = { $in: input.tags };
+                return spots.map(formatSpot);
             }
 
-            return await ctx.db.collection('spots').find<Spot>(filter).toArray();
+            const spots = await ctx.db
+                .collection('spots')
+                .find<Spot>({
+                    tags: { $in: input.tags },
+                })
+                .toArray();
+
+            return spots.map(formatSpot);
         }),
 });

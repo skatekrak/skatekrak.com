@@ -23,8 +23,9 @@ import MapCreateSpot from './MapCreateSpot';
 import useSession from '@/lib/hook/carrelage/use-session';
 import { useRouter } from 'next/router';
 import { useQuery } from '@tanstack/react-query';
-import { useSpotsByTags, useSpotsGeoJSON } from '@/shared/feudartifice/hooks/spot';
+import { useSpotsGeoJSON } from '@/shared/feudartifice/hooks/spot';
 import { isEmpty, intersects } from 'radash';
+import { trpc } from '@/server/trpc/utils';
 
 const DynamicMapComponent = dynamic(() => import('./MapComponent'), { ssr: false });
 const MapFullSpot = dynamic(() => import('./MapFullSpot'), { ssr: false });
@@ -126,7 +127,14 @@ const MapContainer = () => {
         return !intersects(['maps', 'skatepark', 'shop'], customMapInfo!.categories);
     }, [customMapInfo]);
 
-    const { data: spotsByTags } = useSpotsByTags(isEmpty(id) ? undefined : [id!], shouldFetchWithMedia);
+    // const { data: spotsByTags } = useSpotsByTags(isEmpty(id) ? undefined : [id!], shouldFetchWithMedia);
+    const { data: spotsByTags } = trpc.spots.listByTags.useQuery(
+        {
+            tags: isEmpty(id) ? [] : [id!],
+            tagsFromMedia: shouldFetchWithMedia,
+        },
+        { enabled: !isEmpty(id) },
+    );
 
     const onFullSpotClose = () => {
         dispatch(updateUrlParams({ spotId, customMapId, modal: false, mediaId: null }));
