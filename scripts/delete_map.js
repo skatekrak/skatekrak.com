@@ -30,9 +30,9 @@ const getParam = (param, required = false) => {
 const main = () => {
     const tag = getParam('--tag');
 
-    let maps = JSON.parse(file.readFileSync('data/customMaps/_spots.json', 'utf8'));
+    let maps = JSON.parse(file.readFileSync('apps/api/src/data/customMaps/_spots.json', 'utf8'));
     maps = maps.filter((map) => map.id !== tag);
-    file.writeFileSync('data/customMaps/_spots.json', JSON.stringify(maps, undefined, 2), 'utf8');
+    file.writeFileSync('apps/api/src/data/customMaps/_spots.json', JSON.stringify(maps, undefined, 2), 'utf8');
     console.log(`Map ${tag} deleted`);
 };
 

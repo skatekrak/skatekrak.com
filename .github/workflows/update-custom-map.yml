@@ -69,7 +69,7 @@ jobs:
             - name: Write commit
               uses: EndBug/add-and-commit@v9
               with:
-                  add: "['./data/customMaps/_spots.json']"
+                  add: "['./apps/api/src/data/customMaps/_spots.json']"
                   default_author: user_info
                   message: 'feat: Map ${{inputs.tag}} updated'
             - run: pnpm install --frozen-lockfile

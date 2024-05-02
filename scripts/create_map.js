@@ -58,7 +58,7 @@ const main = () => {
         videos,
     };
 
-    const maps = JSON.parse(file.readFileSync('data/customMaps/_spots.json', 'utf8'));
+    const maps = JSON.parse(file.readFileSync('apps/api/src/data/customMaps/_spots.json', 'utf8'));
 
     for (const map of maps) {
         if (map.id === tag) {
@@ -69,7 +69,7 @@ const main = () => {
 
     maps.push(newMap);
 
-    file.writeFileSync('data/customMaps/_spots.json', JSON.stringify(maps, undefined, 2), 'utf8');
+    file.writeFileSync('apps/api/src/data/customMaps/_spots.json', JSON.stringify(maps, undefined, 2), 'utf8');
     console.log(`Map ${tag} created`);
 };
 
