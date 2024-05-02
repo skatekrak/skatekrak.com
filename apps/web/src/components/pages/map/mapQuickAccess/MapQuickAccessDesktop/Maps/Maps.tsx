@@ -7,8 +7,8 @@ import Map from './Map';
 import * as S from './Maps.styled';
 
 import { QuickAccessMap, Category as TCategory } from '../../types';
-import { useCustomMaps } from '@/lib/hook/use-custom-map';
 import { generateCategories } from '../../utils';
+import { trpc } from '@/server/trpc/utils';
 
 const isCategorySelected = (category: TCategory, mapId: string | string[]) =>
     category.maps.some((map) => map.id === mapId);
@@ -18,7 +18,7 @@ const sortMaps = (maps: QuickAccessMap[]) => alphabetical(maps, (map) => map.nam
 const CustomMapsSide = () => {
     const router = useRouter();
 
-    const { isLoading, data } = useCustomMaps();
+    const { isLoading, data } = trpc.maps.list.useQuery();
 
     return (
         <>

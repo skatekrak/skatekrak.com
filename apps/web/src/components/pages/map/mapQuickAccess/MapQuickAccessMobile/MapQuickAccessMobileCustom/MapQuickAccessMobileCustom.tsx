@@ -2,16 +2,16 @@ import React from 'react';
 
 import * as S from './MapQuickAccessMobileCustom.styled';
 
-import { useCustomMaps } from '@/lib/hook/use-custom-map';
 import Category from './Category';
 import { generateCategories } from '../../utils';
+import { trpc } from '@/server/trpc/utils';
 
 type Props = {
     closeSheet: () => void;
 };
 
 const MapQuickAccessMobileCustom: React.FC<Props> = ({ closeSheet }) => {
-    const { isLoading, data } = useCustomMaps();
+    const { isLoading, data } = trpc.maps.list.useQuery();
 
     return (
         <S.MapQuickAccessMobileCustomContainer>

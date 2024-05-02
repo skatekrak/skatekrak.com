@@ -3,6 +3,11 @@
   "include": [
     "src"
   ],
+  "compilerOptions": {
+    "types": [
+      "bun-types"
+    ]
+  },
   "exclude": [
     "node_modules"
   ]

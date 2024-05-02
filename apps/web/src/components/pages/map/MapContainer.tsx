@@ -7,7 +7,6 @@ import { Spot } from '@krak/carrelage-client';
 import { getSpotOverview } from '@krak/carrelage-client';
 import { setSpotOverview, toggleCreateSpot, updateUrlParams } from '@/store/map/slice';
 import { RootState } from '@/store';
-import useCustomMap from '@/lib/hook/use-custom-map';
 
 import MapQuickAccessDesktop from './mapQuickAccess/MapQuickAccessDesktop';
 import MapCustomNavigation from './MapCustom/MapCustomNavigation';
@@ -47,7 +46,7 @@ const MapContainer = () => {
     const [, setFirstLoad] = useState(() => (spotId ? true : false));
     const [mapLoaded, setMapLoaded] = useState(false);
 
-    const { data: customMapInfo } = useCustomMap(id);
+    const { data: customMapInfo } = trpc.maps.fetch.useQuery({ id: id ?? '' }, { enabled: !!id });
 
     // Full spot
     const fullSpotContainerRef = useRef<ElementRef<'div'> | null>(null);
