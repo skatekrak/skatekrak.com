@@ -118,7 +118,11 @@ const MapContainer = () => {
         return true;
     }, [id, viewport.zoom, mapRef]);
 
-    const { data: spots, refetch } = useSpotsGeoJSON(mapRef?.current ?? undefined, enableSpotQuery);
+    const {
+        data: spots,
+        refetch,
+        isFetching: spotsGeoJSONLoading,
+    } = useSpotsGeoJSON(mapRef?.current ?? undefined, enableSpotQuery);
     const shouldFetchWithMedia = useMemo(() => {
         if (isEmpty(customMapInfo)) return undefined;
         if (isEmpty(customMapInfo?.categories)) return true;
@@ -126,8 +130,7 @@ const MapContainer = () => {
         return !intersects(['maps', 'skatepark', 'shop'], customMapInfo!.categories);
     }, [customMapInfo]);
 
-    // const { data: spotsByTags } = useSpotsByTags(isEmpty(id) ? undefined : [id!], shouldFetchWithMedia);
-    const { data: spotsByTags } = trpc.spots.listByTags.useQuery(
+    const { data: spotsByTags, isFetching: spotsTagsLoading } = trpc.spots.listByTags.useQuery(
         {
             tags: isEmpty(id) ? [] : [id!],
             tagsFromMedia: shouldFetchWithMedia,
