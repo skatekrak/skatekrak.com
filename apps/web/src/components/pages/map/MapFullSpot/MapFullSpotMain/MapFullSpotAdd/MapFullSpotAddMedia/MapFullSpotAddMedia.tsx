@@ -38,16 +38,20 @@ const MapFullSpotAddMedia = () => {
         }
 
         try {
-            const media = await Feudartifice.media.createMedia({
+            let media = await Feudartifice.media.createMedia({
                 caption: values.caption,
                 spot: spotOverview.spot.id,
             });
 
-            await Feudartifice.media.uploadMedia(media.id, values.file);
+            media = await Feudartifice.media.uploadMedia(media.id, values.file);
             dispatch(selectFullSpotTab('media'));
+
             queryClient.invalidateQueries({ queryKey: ['load-overview', spotOverview.spot.id] });
             queryClient.setQueryData(['fetch-spot-medias', spotOverview.spot.id, null], (prevData: any) => {
                 if (prevData == null) return prevData;
+
+                console.log('new media', media);
+
                 return {
                     pages: [[media], ...prevData.pages],
                     pageParams: prevData.pageParams,
