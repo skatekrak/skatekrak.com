@@ -2,8 +2,10 @@ import { ObjectId } from 'mongodb';
 import { publicProcedure, router } from '../trpc';
 import { z } from 'zod';
 import { SpotGeoJSON, Spot } from '@krak/carrelage-client';
+import { TRPCError } from '@trpc/server';
+import { differenceInMinutes, isAfter } from 'date-fns';
 
-function formatSpotsToGEOJson(spots: Spot[]) {
+const formatSpotsToGEOJson = (spots: Spot[]) => {
     return spots.map(
         (spot): SpotGeoJSON => ({
             type: 'Feature',
@@ -22,7 +24,7 @@ function formatSpotsToGEOJson(spots: Spot[]) {
             },
         }),
     );
-}
+};
 
 function formatSpot(spot: any): Spot {
     const { _id, location, ...spotRes } = spot;
@@ -42,6 +44,25 @@ function addHashtagIfNeeded(tag: string) {
     return tag[0] !== '#' ? `#${tag}` : tag;
 }
 
+const isSpotInBound = (bounds: [[number, number], [number, number]]): ((spot: SpotGeoJSON) => boolean) => {
+    return (spot) => {
+        if (
+            spot.geometry.coordinates[0] >= bounds[0][0] &&
+            spot.geometry.coordinates[0] <= bounds[1][0] &&
+            spot.geometry.coordinates[1] >= bounds[0][1] &&
+            spot.geometry.coordinates[1] <= bounds[1][1]
+        ) {
+            return true;
+        } else {
+            return false;
+        }
+    };
+};
+
+/// In Memory cache
+let _allGeoJSONSpots: SpotGeoJSON[] | null = null;
+let lastCacheUpdate = Date.now();
+
 export const spotsRouter = router({
     getSpot: publicProcedure.input(z.object({ id: z.string() })).query(async ({ ctx, input }) => {
         const spot = await ctx.db.collection('spots').findOne<Spot>({ _id: new ObjectId(input.id) });
@@ -56,14 +77,32 @@ export const spotsRouter = router({
             }),
         )
         .query(async ({ ctx, input }) => {
-            const bottomLeft = [input.southWest.longitude, input.southWest.latitude];
-            const topRight = [input.northEast.longitude, input.northEast.latitude];
-            const spots = await ctx.db
-                .collection('spots')
-                .find({ geoLoc: { $geoWithin: { $box: [bottomLeft, topRight] } } })
-                .toArray();
+            if (_allGeoJSONSpots == null || differenceInMinutes(lastCacheUpdate, Date.now())) {
+                try {
+                    console.time('fetching spots');
+                    const spots = await ctx.db.collection('spots').find().toArray();
+                    console.timeEnd('fetching spots');
 
-            return formatSpotsToGEOJson(spots.map((spot) => ({ id: spot._id, ...spot }) as unknown as Spot));
+                    lastCacheUpdate = Date.now();
+
+                    _allGeoJSONSpots = formatSpotsToGEOJson(
+                        spots.map((spot) => ({ id: spot._id, ...spot }) as unknown as Spot),
+                    );
+                } catch (err) {
+                    console.error(err);
+                    throw new TRPCError({
+                        code: 'INTERNAL_SERVER_ERROR',
+                        message: "We messed something up while retrieving the spots. We've been notices, we're on it.",
+                    });
+                }
+            } else {
+                console.log('Using cache');
+            }
+
+            const bottomLeft: [number, number] = [input.southWest.longitude, input.southWest.latitude];
+            const topRight: [number, number] = [input.northEast.longitude, input.northEast.latitude];
+
+            return _allGeoJSONSpots.filter(isSpotInBound([bottomLeft, topRight]));
         }),
 
     listByTags: publicProcedure
