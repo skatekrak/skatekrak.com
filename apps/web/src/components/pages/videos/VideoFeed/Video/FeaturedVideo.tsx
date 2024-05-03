@@ -1,5 +1,4 @@
-import formatDistanceToNow from 'date-fns/formatDistanceToNow';
-import parseISO from 'date-fns/parseISO';
+import { formatDistanceToNow, parseISO } from 'date-fns';
 import React from 'react';
 
 import VideoCardShare from '@/components/pages/videos/VideoFeed/Video/VideoCardShare';

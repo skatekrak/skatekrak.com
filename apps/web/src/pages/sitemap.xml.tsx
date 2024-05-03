@@ -1,4 +1,4 @@
-import format from 'date-fns/format';
+import { format } from 'date-fns';
 import React from 'react';
 
 const lastMod = format(new Date(), 'yyyy-MM-dd');

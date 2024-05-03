@@ -1,5 +1,4 @@
-import formatDistanceToNow from 'date-fns/formatDistanceToNow';
-import parseISO from 'date-fns/parseISO';
+import { formatDistanceToNow, parseISO } from 'date-fns';
 import { useRouter } from 'next/router';
 import React from 'react';
 
