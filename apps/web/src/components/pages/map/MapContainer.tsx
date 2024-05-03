@@ -25,6 +25,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useSpotsGeoJSON } from '@/shared/feudartifice/hooks/spot';
 import { isEmpty, intersects } from 'radash';
 import { trpc } from '@/server/trpc/utils';
+import { SpinnerCircle } from '@/components/Ui/Icons/Spinners';
 
 const DynamicMapComponent = dynamic(() => import('./MapComponent'), { ssr: false });
 const MapFullSpot = dynamic(() => import('./MapFullSpot'), { ssr: false });
@@ -169,6 +170,8 @@ const MapContainer = () => {
         return spots;
     }, [spots, id, viewport.zoom, customMapInfo, spotsByTags]);
 
+    const isLoading = spotsGeoJSONLoading || spotsTagsLoading;
+
     return (
         <S.MapContainer ref={fullSpotContainerRef}>
             <DynamicMapComponent
@@ -197,6 +200,12 @@ const MapContainer = () => {
                         )}
                         {!isMobile && <MapQuickAccessDesktop />}
                         {viewport.zoom <= ZOOM_DISPLAY_WARNING && id == null && <MapZoomAlert />}
+                        {isLoading && (
+                            <div className="absolute bottom-24 left-6 md:left-8 md:bottom-28 flex items-center gap-2 text-gray-400 text-sm">
+                                <SpinnerCircle className="stroke-gray-400 w-3.5" />
+                                <span>loading spots</span>
+                            </div>
+                        )}
                         <MapBottomNav isMobile={isMobile ?? false} />
                         <MapFullSpot
                             open={modalVisible}
