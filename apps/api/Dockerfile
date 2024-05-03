@@ -24,9 +24,6 @@ RUN apt-get update -qq && \
 COPY . .
 RUN bun install
 
-# Build application
-RUN bun run build:api
-
 # Final stage for app image
 FROM base
 
@@ -34,4 +31,4 @@ FROM base
 COPY --from=build /app /app
 
 # Start the server by default, this can be overwritten at runtime
-CMD [ "bun", "run", "apps/api/dist/index.js" ]
+CMD [ "bun", "start:api"]
