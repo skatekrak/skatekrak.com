@@ -72,16 +72,11 @@ export const SecondaryNav = styled.nav`
 `;
 
 export const SecondaryNavItem = styled.span`
-    margin-right: 1rem;
     padding: 0.75rem;
     font-family: ${({ theme }) => theme.typography.fonts.roboto.condensed.bold};
     font-size: 1.125rem;
     letter-spacing: 0.25px;
     cursor: pointer;
-
-    &:last-of-type {
-        margin-right: 1.5rem;
-    }
 `;
 
 export const SecondaryNavIcon = styled.div`

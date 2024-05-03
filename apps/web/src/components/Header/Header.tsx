@@ -38,9 +38,21 @@ const Header: React.FC = () => {
                         </S.HeaderSentence>
                     </S.HeaderSentenceContainer>
                 )}
-                <S.SecondaryNav>
-                    {!isMobile && (
-                        <div>
+                <S.SecondaryNav className="gap-6">
+                    {isMobile ? (
+                        <>
+                            <S.SecondaryNavIcon
+                                as="a"
+                                target="_blank"
+                                href="https://discord.gg/exMAqSuVfj"
+                                rel="noreferrer"
+                            >
+                                <IconDiscord />
+                            </S.SecondaryNavIcon>
+                            <HeaderThreeDotsMenu />
+                        </>
+                    ) : (
+                        <>
                             <Link href="https://shop.opensb.org/" target="_blank" rel="noopener noreferrer">
                                 <S.SecondaryNavItem>Shop</S.SecondaryNavItem>
                             </Link>
@@ -54,72 +66,55 @@ const Header: React.FC = () => {
                             >
                                 <S.SecondaryNavItem>Support</S.SecondaryNavItem>
                             </Link>
-                        </div>
-                    )}
-
-                    {isMobile && (
-                        <S.SecondaryNavIcon
-                            as="a"
-                            target="_blank"
-                            href="https://discord.gg/exMAqSuVfj"
-                            rel="noreferrer"
-                        >
-                            <IconDiscord />
-                        </S.SecondaryNavIcon>
-                    )}
-                    {!isMobile && (
-                        <>
-                            <S.SecondaryNavSocialIcon
-                                as="a"
-                                target="_blank"
-                                href="https://discord.gg/exMAqSuVfj"
-                                rel="noreferrer"
-                            >
-                                <IconDiscord />
-                            </S.SecondaryNavSocialIcon>
-                            <S.SecondaryNavIconSeparator />
-                            <S.SecondaryNavSocialIcon
-                                as="a"
-                                target="_blank"
-                                href="https://www.twitter.com/skatekrak"
-                                rel="noreferrer"
-                            >
-                                <IconTwitter />
-                            </S.SecondaryNavSocialIcon>
-                            <S.SecondaryNavIconSeparator />
-                            <S.SecondaryNavSocialIcon
-                                as="a"
-                                target="_blank"
-                                href="https://www.youtube.com/krakskate"
-                                rel="noreferrer"
-                            >
-                                <IconYoutubeMonochrome />
-                            </S.SecondaryNavSocialIcon>
-                            <S.SecondaryNavIconSeparator />
-                            <S.SecondaryNavSocialIcon
-                                as="a"
-                                target="_blank"
-                                href="https://www.instagram.com/skate_krak"
-                                rel="noreferrer"
-                            >
-                                <IconInstagram />
-                            </S.SecondaryNavSocialIcon>
+                            <div className="flex items-center">
+                                <S.SecondaryNavSocialIcon
+                                    as="a"
+                                    target="_blank"
+                                    href="https://discord.gg/exMAqSuVfj"
+                                    rel="noreferrer"
+                                >
+                                    <IconDiscord />
+                                </S.SecondaryNavSocialIcon>
+                                <S.SecondaryNavIconSeparator />
+                                <S.SecondaryNavSocialIcon
+                                    as="a"
+                                    target="_blank"
+                                    href="https://www.twitter.com/skatekrak"
+                                    rel="noreferrer"
+                                >
+                                    <IconTwitter />
+                                </S.SecondaryNavSocialIcon>
+                                <S.SecondaryNavIconSeparator />
+                                <S.SecondaryNavSocialIcon
+                                    as="a"
+                                    target="_blank"
+                                    href="https://www.youtube.com/krakskate"
+                                    rel="noreferrer"
+                                >
+                                    <IconYoutubeMonochrome />
+                                </S.SecondaryNavSocialIcon>
+                                <S.SecondaryNavIconSeparator />
+                                <S.SecondaryNavSocialIcon
+                                    as="a"
+                                    target="_blank"
+                                    href="https://www.instagram.com/skate_krak"
+                                    rel="noreferrer"
+                                >
+                                    <IconInstagram />
+                                </S.SecondaryNavSocialIcon>
+                            </div>
                         </>
                     )}
 
-                    {isMobile && <HeaderThreeDotsMenu />}
-
-                    <div className="ml-0 md:ml-3">
-                        {isConnected ? (
-                            <HeaderProfile />
-                        ) : (
-                            <Link href="/auth/login">
-                                <S.SecondaryNavIcon>
-                                    <IconUserCircle />
-                                </S.SecondaryNavIcon>
-                            </Link>
-                        )}
-                    </div>
+                    {isConnected ? (
+                        <HeaderProfile />
+                    ) : (
+                        <Link href="/auth/login">
+                            <S.SecondaryNavIcon>
+                                <IconUserCircle />
+                            </S.SecondaryNavIcon>
+                        </Link>
+                    )}
                 </S.SecondaryNav>
             </S.TopContainer>
         </S.Container>
