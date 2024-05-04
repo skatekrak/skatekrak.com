@@ -5,7 +5,6 @@ const client = new MongoClient(process.env.MONGODB_URI!);
 client.connect();
 
 export const createContext = async ({ req }: FetchCreateContextFnOptions) => {
-    console.log('createContext');
     return {
         headers: req.headers,
         db: client.db('carrelage'),
