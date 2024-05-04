@@ -4,11 +4,12 @@ import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import { MapRef } from 'react-map-gl';
 import { useEffect, useState } from 'react';
 import useDebounce from '@/lib/hook/useDebounce';
-import { useAppDispatch, useAppSelector } from '@/store/hook';
+import { useAppDispatch } from '@/store/hook';
 import { mapRefreshEnd } from '@/store/map/slice';
 import { SpotGeoJSON, boxSpotsSearch, getSpotsByTags } from '@krak/carrelage-client';
 import { sort, unique } from 'radash';
 import { trpc } from '@/server/trpc/utils';
+import { useViewport } from '@/lib/hook/useViewport';
 
 const { client } = Feudartifice;
 
@@ -22,7 +23,7 @@ const useSpot = (id: string) => {
 };
 
 export const useSpotsSearch = (mapRef: MapRef | undefined, enabled = true) => {
-    const viewport = useAppSelector((state) => state.map.viewport);
+    const [viewport] = useViewport();
     const dispatch = useAppDispatch();
 
     const debouncedViewport = useDebounce(viewport, 200);
@@ -87,7 +88,7 @@ export const useSpotsByTags = (tags: string[] | undefined, tagsFromMedia?: boole
 };
 
 export const useSpotsGeoJSON = (mapRef: MapRef | undefined, enabled = true) => {
-    const viewport = useAppSelector((state) => state.map.viewport);
+    const [viewport] = useViewport();
     const dispatch = useAppDispatch();
     const utils = trpc.useUtils();
 

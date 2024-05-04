@@ -26,6 +26,7 @@ import { useSpotsGeoJSON } from '@/shared/feudartifice/hooks/spot';
 import { isEmpty, intersects } from 'radash';
 import { trpc } from '@/server/trpc/utils';
 import { SpinnerCircle } from '@/components/Ui/Icons/Spinners';
+import { useViewport } from '@/lib/hook/useViewport';
 
 const DynamicMapComponent = dynamic(() => import('./MapComponent'), { ssr: false });
 const MapFullSpot = dynamic(() => import('./MapFullSpot'), { ssr: false });
@@ -33,7 +34,7 @@ const MapFullSpot = dynamic(() => import('./MapFullSpot'), { ssr: false });
 const MapContainer = () => {
     const isMobile = useAppSelector((state: RootState) => state.settings.isMobile);
     const isCreateSpotOpen = useAppSelector((state: RootState) => state.map.isCreateSpotOpen);
-    const viewport = useAppSelector((state) => state.map.viewport);
+    const [viewport] = useViewport();
     const dispatch = useAppDispatch();
     const session = useSession();
     const router = useRouter();
@@ -117,7 +118,7 @@ const MapContainer = () => {
         }
 
         return true;
-    }, [id, viewport.zoom, mapLoaded]);
+    }, [id, viewport?.zoom, mapLoaded]);
 
     const {
         data: spots,
@@ -153,7 +154,7 @@ const MapContainer = () => {
                 duration: 1500,
             });
         }
-    }, [spotsByTags, viewport.width, id, isMobile]);
+    }, [spotsByTags, id, isMobile]);
 
     const displayedSpots = useMemo(() => {
         // It's a custom map, we can return the spots if not loading

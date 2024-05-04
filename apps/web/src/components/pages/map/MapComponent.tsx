@@ -8,20 +8,14 @@ import MapSpotOverview from './MapSpotOverview';
 import * as S from './Map.styled';
 
 import { SpotGeoJSON } from '@krak/carrelage-client';
-import {
-    selectSpot,
-    setSpotOverview,
-    setViewport,
-    toggleLegend,
-    toggleSearchResult,
-    toggleSpotModal,
-} from '@/store/map/slice';
+import { selectSpot, setSpotOverview, toggleLegend, toggleSearchResult, toggleSpotModal } from '@/store/map/slice';
 import { useAppSelector } from '@/store/hook';
 import { MAX_ZOOM_LEVEL, ZOOM_DISPLAY_DOTS, MIN_ZOOM_LEVEL } from './Map.constant';
 import { Status, Types } from '@/shared/feudartifice/types';
 import SmallLayer from './layers/SmallLayer';
 import SpotPinLayer from './layers/SpotPinLayer';
 import { intersects } from 'radash';
+import { useViewport } from '@/lib/hook/useViewport';
 
 type MapComponentProps = {
     mapRef: React.RefObject<MapRef>;
@@ -32,7 +26,7 @@ type MapComponentProps = {
 
 const MapComponent = ({ mapRef, spots, children, onLoad }: MapComponentProps) => {
     const dispatch = useDispatch();
-    const viewport = useAppSelector((state) => state.map.viewport);
+    const [viewport, setViewport] = useViewport();
     const spotId = useAppSelector((state) => state.map.selectSpot);
     const selectedSpotOverview = useAppSelector((state) => state.map.spotOverview);
 
@@ -75,8 +69,8 @@ const MapComponent = ({ mapRef, spots, children, onLoad }: MapComponentProps) =>
         }
     }, [dispatch, spotId, selectedSpotOverview]);
 
-    const onViewportChange = (viewState: ViewStateChangeEvent) => {
-        dispatch(setViewport(viewState.viewState));
+    const onViewportChange = async (viewState: ViewStateChangeEvent) => {
+        await setViewport(viewState.viewState);
     };
 
     return (

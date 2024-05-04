@@ -2,7 +2,6 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AnyAction } from 'redux';
 import { Types, Status, SpotOverview } from '@krak/carrelage-client';
 import { FilterState } from '@/lib/FilterState';
-import { ViewState } from 'react-map-gl';
 import merge from 'deepmerge';
 import { HYDRATE } from 'next-redux-wrapper';
 
@@ -23,7 +22,6 @@ export type MapState = {
     types: Record<Types, FilterState>;
     status: Record<Status, FilterState>;
     spotOverview?: SpotOverview;
-    viewport: Partial<Omit<ViewState, 'zoom'> & { width: number; height: number }> & { zoom: number };
     fullSpotSelectedTab: FullSpotTab;
     selectSpot?: string;
     /// ID of the media in full in spot modal
@@ -48,11 +46,6 @@ export const initialState: MapState = {
         [Status.Active]: FilterState.SELECTED,
         [Status.Wip]: FilterState.SELECTED,
         [Status.Rip]: FilterState.SELECTED,
-    },
-    viewport: {
-        latitude: 48.860332,
-        longitude: 2.345054,
-        zoom: 12.6,
     },
     modalVisible: false,
     legendOpen: false,
@@ -143,15 +136,6 @@ const mapSlice = createSlice({
             return {
                 ...state,
                 spotOverview: action.payload,
-            };
-        },
-        setViewport: (state, action: PayloadAction<Partial<ViewState & { width: number; height: number }>>) => {
-            return {
-                ...state,
-                viewport: {
-                    ...state.viewport,
-                    ...action.payload,
-                },
             };
         },
         selectFullSpotTab: (state, action: PayloadAction<FullSpotTab | undefined>) => {
@@ -318,7 +302,6 @@ export const {
     toggleMapFilter,
     mapRefreshEnd,
     setSpotOverview,
-    setViewport,
     selectFullSpotTab,
     selectSpot,
     setMedia,
