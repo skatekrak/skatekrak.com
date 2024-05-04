@@ -1,6 +1,6 @@
 import { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
-import React, { useEffect } from 'react';
+import React from 'react';
 import dynamic from 'next/dynamic';
 
 import Layout from '@/components/Layout';
@@ -10,7 +10,6 @@ import { SpotOverview } from '@/shared/feudartifice/types';
 import { draw } from 'radash';
 import cities from '@/data/cities/_cities';
 import { centerFromBounds } from '@/lib/map/helpers';
-import { useViewport } from '@/lib/hook/queryState';
 
 const DyamicMapContainer = dynamic(() => import('@/components/pages/map/MapContainer'), { ssr: false });
 
@@ -63,22 +62,9 @@ const MapHead = ({ ogData }: MapHeadProps) => {
 
 type MapPageProps = {
     ogData: OGData | null;
-    defaultViewport: { latitude: number; longitude: number } | null;
 };
 
-const Index: NextPage<MapPageProps> = ({ ogData, defaultViewport }) => {
-    const [, setViewport] = useViewport();
-
-    useEffect(() => {
-        if (defaultViewport != null) {
-            (async () => {
-                await setViewport({
-                    ...defaultViewport,
-                });
-            })();
-        }
-    }, [setViewport, defaultViewport]);
-
+const Index: NextPage<MapPageProps> = ({ ogData }) => {
     return (
         <Layout head={<MapHead ogData={ogData} />}>
             <DyamicMapContainer />
@@ -90,7 +76,6 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
     const queryClient = new QueryClient();
 
     let ogData: OGData | null = null;
-    let viewport: MapPageProps['defaultViewport'] = null;
 
     if (query.spot != null && typeof query.spot === 'string') {
         try {
@@ -117,7 +102,14 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
         const randomCity = draw(cities);
         if (randomCity != null) {
             console.log('randomCity', randomCity);
-            viewport = centerFromBounds(randomCity.bounds);
+            const viewport = centerFromBounds(randomCity.bounds);
+
+            return {
+                redirect: {
+                    destination: `/?latitude=${viewport.latitude}&longitude=${viewport.longitude}&zoom=12.6`,
+                    statusCode: 302,
+                },
+            };
         }
     }
 
@@ -125,7 +117,6 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
         props: {
             dehydratedState: dehydrate(queryClient),
             ogData: ogData,
-            defaultViewport: viewport,
         },
     };
 };
