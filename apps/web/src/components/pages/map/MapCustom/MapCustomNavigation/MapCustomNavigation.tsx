@@ -14,6 +14,7 @@ import { Spot } from '@krak/carrelage-client';
 import MapCustomNavigationExtension from './MapCustomNavigationExtension';
 import MapCustomNavigationMediaFeed from './MapCustomNavigationMediaFeed';
 import { useMedias } from '@/shared/feudartifice/hooks/media';
+import { useCustomMapID, useSpotID, useSpotModal } from '@/lib/hook/queryState';
 
 type MapCustomNavigationProps = {
     id: string;
@@ -25,6 +26,10 @@ type MapCustomNavigationProps = {
 };
 
 const MapCustomNavigation = ({ id, title, about, subtitle, spots, videos }: MapCustomNavigationProps) => {
+    const [, setCustomMapID] = useCustomMapID();
+    const [, setSpotID] = useSpotID();
+    const [, setModalVisible] = useSpotModal();
+
     const today = useMemo(() => {
         return new Date();
     }, []);
@@ -37,6 +42,9 @@ const MapCustomNavigation = ({ id, title, about, subtitle, spots, videos }: MapC
 
     const goBack = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
         e.preventDefault();
+        setCustomMapID(null);
+        setSpotID(null);
+        setModalVisible(null);
     };
 
     return (
