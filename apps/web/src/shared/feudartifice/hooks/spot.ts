@@ -8,7 +8,7 @@ import { useAppDispatch } from '@/store/hook';
 import { SpotGeoJSON, boxSpotsSearch, getSpotsByTags } from '@krak/carrelage-client';
 import { sort, unique } from 'radash';
 import { trpc } from '@/server/trpc/utils';
-import { useViewport } from '@/lib/hook/useViewport';
+import { useViewport } from '@/lib/hook/queryState';
 
 const { client } = Feudartifice;
 

@@ -1,5 +1,4 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
 
 import Typography from '@/components/Ui/typography/Typography';
 import IconPlus from '@/components/Ui/Icons/IconPlus';
@@ -8,18 +7,19 @@ import IconMedia from '@/components/Ui/Icons/IconMedia';
 import MapFullSpotAddTriggerTooltip from './MapFullSpotAddTriggerTooltip';
 import * as S from './MapFullSpotAddTrigger.styled';
 
-import { FullSpotTab, selectFullSpotTab } from '@/store/map/slice';
+import { FullSpotTab } from '@/store/map/slice';
 import useSession from '@/lib/hook/carrelage/use-session';
 import { useRouter } from 'next/router';
+import { useFullSpotSelectedTab } from '@/lib/hook/queryState';
 
 const MapFullSpotAddTrigger = () => {
-    const dispatch = useDispatch();
     const router = useRouter();
     const { data: sessionData } = useSession();
+    const [, selectFullSpotTab] = useFullSpotSelectedTab();
     const isConnected = sessionData != null;
 
     const onTabSelect = (tab: FullSpotTab) => {
-        dispatch(selectFullSpotTab(tab));
+        selectFullSpotTab(tab);
     };
 
     const handleAddMediaClick = (close: () => void) => {

@@ -1,12 +1,16 @@
 import { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
-import React from 'react';
+import React, { useEffect } from 'react';
 import dynamic from 'next/dynamic';
 
 import Layout from '@/components/Layout';
 import { dehydrate, QueryClient } from '@tanstack/react-query';
 import { getSpotOverview } from '@krak/carrelage-client';
 import { SpotOverview } from '@/shared/feudartifice/types';
+import { draw } from 'radash';
+import cities from '@/data/cities/_cities';
+import { centerFromBounds } from '@/lib/map/helpers';
+import { useViewport } from '@/lib/hook/queryState';
 
 const DyamicMapContainer = dynamic(() => import('@/components/pages/map/MapContainer'), { ssr: false });
 
@@ -59,18 +63,34 @@ const MapHead = ({ ogData }: MapHeadProps) => {
 
 type MapPageProps = {
     ogData: OGData | null;
+    defaultViewport: { latitude: number; longitude: number } | null;
 };
 
-const Index: NextPage<MapPageProps> = ({ ogData }) => (
-    <Layout head={<MapHead ogData={ogData} />}>
-        <DyamicMapContainer />
-    </Layout>
-);
+const Index: NextPage<MapPageProps> = ({ ogData, defaultViewport }) => {
+    const [, setViewport] = useViewport();
+
+    useEffect(() => {
+        if (defaultViewport != null) {
+            (async () => {
+                await setViewport({
+                    ...defaultViewport,
+                });
+            })();
+        }
+    }, [setViewport, defaultViewport]);
+
+    return (
+        <Layout head={<MapHead ogData={ogData} />}>
+            <DyamicMapContainer />
+        </Layout>
+    );
+};
 
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
     const queryClient = new QueryClient();
 
     let ogData: OGData | null = null;
+    let viewport: MapPageProps['defaultViewport'] = null;
 
     if (query.spot != null && typeof query.spot === 'string') {
         try {
@@ -92,12 +112,20 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
         } catch (err) {
             console.error(err);
         }
+    } else if (query.latitude == null || query.longitude == null) {
+        // choose random city to land to
+        const randomCity = draw(cities);
+        if (randomCity != null) {
+            console.log('randomCity', randomCity);
+            viewport = centerFromBounds(randomCity.bounds);
+        }
     }
 
     return {
         props: {
             dehydratedState: dehydrate(queryClient),
             ogData: ogData,
+            defaultViewport: viewport,
         },
     };
 };

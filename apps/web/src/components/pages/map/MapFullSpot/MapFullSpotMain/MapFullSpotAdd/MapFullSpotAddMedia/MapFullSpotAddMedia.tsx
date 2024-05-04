@@ -7,9 +7,9 @@ import * as S from './MapFullSpotAddMedia.styled';
 import { Field, Formik } from 'formik';
 import MapFullSpotAddMediaInput from './MapFullSpotAddMediaInput';
 import Feudartifice from '@/shared/feudartifice';
-import { useAppDispatch, useAppSelector } from '@/store/hook';
-import { selectFullSpotTab } from '@/store/map/slice';
+import { useAppSelector } from '@/store/hook';
 import { useQueryClient } from '@tanstack/react-query';
+import { useFullSpotSelectedTab } from '@/lib/hook/queryState';
 
 type AddMediaFormValues = {
     file: FileWithPath | null;
@@ -23,8 +23,8 @@ const addMediaFormSchema = Yup.object().shape({
 
 const MapFullSpotAddMedia = () => {
     const spotOverview = useAppSelector((state) => state.map.spotOverview);
-    const dispatch = useAppDispatch();
     const queryClient = useQueryClient();
+    const [, selectFullSpotTab] = useFullSpotSelectedTab();
 
     const onSubmit = async (values: AddMediaFormValues) => {
         if (spotOverview == null) {
@@ -44,7 +44,7 @@ const MapFullSpotAddMedia = () => {
             });
 
             media = await Feudartifice.media.uploadMedia(media.id, values.file);
-            dispatch(selectFullSpotTab('media'));
+            selectFullSpotTab('media');
 
             queryClient.invalidateQueries({ queryKey: ['load-overview', spotOverview.spot.id] });
             queryClient.setQueryData(['fetch-spot-medias', spotOverview.spot.id, null], (prevData: any) => {

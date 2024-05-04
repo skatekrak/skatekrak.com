@@ -5,8 +5,7 @@ import Scrollbar from '@/components/Ui/Scrollbar';
 import MapSearchResultSpot from '../../../MapNavigation/MapSearch/MapSearchResults/MapSearchResultSpot';
 
 import { Spot } from '@krak/carrelage-client';
-import { useDispatch } from 'react-redux';
-import { selectSpot } from '@/store/map/slice';
+import { useSpotID } from '@/lib/hook/queryState';
 
 type Props = {
     mapSpots: any;
@@ -14,7 +13,7 @@ type Props = {
 };
 
 const MapCustomNavigationSpots = ({ mapSpots, closeExtension }: Props) => {
-    const dispatch = useDispatch();
+    const [, selectSpot] = useSpotID();
     const { current: map } = useMap();
 
     const onSpotClick = (spot: Spot) => {
@@ -26,7 +25,7 @@ const MapCustomNavigationSpots = ({ mapSpots, closeExtension }: Props) => {
             },
             duration: 1000,
         });
-        dispatch(selectSpot(spot.id));
+        selectSpot(spot.id);
     };
 
     return (

@@ -7,9 +7,8 @@ import * as S from './Carousel.styled';
 import Typography from '@/components/Ui/typography/Typography';
 import SpotIcon from '@/components/Ui/Utils/SpotIcon';
 import IconInfo from '@/components/Ui/Icons/IconInfo';
-import { useAppDispatch } from '@/store/hook';
-import { setMedia } from '@/store/map/slice';
 import { Media } from '@krak/carrelage-client';
+import { useMediaID } from '@/lib/hook/queryState';
 
 type CarouselMediaProps = {
     media: Media;
@@ -38,22 +37,22 @@ const Carousel = ({ media, nextMedia, prevMedia, additionalActions }: CarouselPr
 export default Carousel;
 
 export const CarouselNav = ({ media, prevMedia, nextMedia }: CarouselMediaProps) => {
-    const dispatch = useAppDispatch();
     const isFirst = prevMedia == null;
     const isLast = nextMedia == null;
+    const [, setMedia] = useMediaID();
 
     /** Description */
     const [isDescOpen, setIsDescOpen] = useState(false);
 
     const onPrevious = () => {
         if (prevMedia != null) {
-            dispatch(setMedia(prevMedia.id));
+            setMedia(prevMedia.id);
         }
     };
 
     const onNext = () => {
         if (nextMedia != null) {
-            dispatch(setMedia(nextMedia.id));
+            setMedia(nextMedia.id);
         }
     };
 

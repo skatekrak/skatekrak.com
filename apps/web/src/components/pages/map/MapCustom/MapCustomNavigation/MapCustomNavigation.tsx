@@ -11,9 +11,7 @@ import MapCustomNavigationVideos from './MapCustomNavigationVideos';
 import * as S from './MapCustomNavigation.styled';
 
 import { Spot } from '@krak/carrelage-client';
-import { updateUrlParams } from '@/store/map/slice';
 import MapCustomNavigationExtension from './MapCustomNavigationExtension';
-import { useAppDispatch } from '@/store/hook';
 import MapCustomNavigationMediaFeed from './MapCustomNavigationMediaFeed';
 import { useMedias } from '@/shared/feudartifice/hooks/media';
 
@@ -27,8 +25,6 @@ type MapCustomNavigationProps = {
 };
 
 const MapCustomNavigation = ({ id, title, about, subtitle, spots, videos }: MapCustomNavigationProps) => {
-    const dispatch = useAppDispatch();
-
     const today = useMemo(() => {
         return new Date();
     }, []);
@@ -41,14 +37,6 @@ const MapCustomNavigation = ({ id, title, about, subtitle, spots, videos }: MapC
 
     const goBack = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
         e.preventDefault();
-        dispatch(
-            updateUrlParams({
-                customMapId: null,
-                modal: false,
-                spotId: null,
-                mediaId: null,
-            }),
-        );
     };
 
     return (

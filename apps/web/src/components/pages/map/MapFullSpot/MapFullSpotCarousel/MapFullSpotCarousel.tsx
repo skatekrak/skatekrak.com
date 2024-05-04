@@ -6,10 +6,9 @@ import * as S from './MapFullSpotCarousel.styled';
 
 import useMedia from '@/shared/feudartifice/hooks/media';
 import { KrakLoading } from '@/components/Ui/Icons/Spinners';
-import { useAppDispatch } from '@/store/hook';
-import { updateUrlParams } from '@/store/map/slice';
 import { Spot, Media } from '@krak/carrelage-client';
 import { useSpotMediasAround } from '@/lib/hook/carrelage/spot-medias';
+import { useMediaID } from '@/lib/hook/queryState';
 
 type Props = {
     initialMediaId: string;
@@ -28,12 +27,12 @@ const MapFullSpotCarousel = ({ initialMediaId, spot }: Props) => {
 };
 
 const MapFullSpotCarouselContent = ({ spot, media }: { spot: Spot; media: Media }) => {
-    const dispatch = useAppDispatch();
+    const [, setMediaID] = useMediaID();
 
     const { data } = useSpotMediasAround(spot.id, media);
 
     const goBackToSpot = () => {
-        dispatch(updateUrlParams({ mediaId: null }));
+        setMediaID(null);
     };
 
     return (

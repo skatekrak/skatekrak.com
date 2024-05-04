@@ -26,8 +26,7 @@ import { useSpotsGeoJSON } from '@/shared/feudartifice/hooks/spot';
 import { isEmpty, intersects } from 'radash';
 import { trpc } from '@/server/trpc/utils';
 import { SpinnerCircle } from '@/components/Ui/Icons/Spinners';
-import { useViewport } from '@/lib/hook/useViewport';
-import { useCustomMapID, useMediaID, useSpotID, useSpotModal } from '@/lib/hook/queryState';
+import { useCustomMapID, useMediaID, useSpotID, useSpotModal, useViewport } from '@/lib/hook/queryState';
 
 const DynamicMapComponent = dynamic(() => import('./MapComponent'), { ssr: false });
 const MapFullSpot = dynamic(() => import('./MapFullSpot'), { ssr: false });

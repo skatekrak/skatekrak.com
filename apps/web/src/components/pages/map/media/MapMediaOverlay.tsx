@@ -4,10 +4,9 @@ import { useMap } from 'react-map-gl';
 import Typography from '@/components/Ui/typography/Typography';
 import * as S from './MapMedia.styled';
 
-import { selectSpot } from '@/store/map/slice';
 import { Media } from '@krak/carrelage-client';
-import { useAppDispatch } from '@/store/hook';
 import SpotIcon from '@/components/Ui/Utils/SpotIcon';
+import { useSpotID } from '@/lib/hook/queryState';
 
 type Props = {
     media: Media;
@@ -16,7 +15,7 @@ type Props = {
 
 const MapMediaOverlaySpotOrUsername = ({ media, isFromCustomMapFeed }: Props) => {
     const { current: map } = useMap();
-    const dispatch = useAppDispatch();
+    const [, selectSpot] = useSpotID();
 
     if (isFromCustomMapFeed) {
         const { spot } = media;
@@ -33,7 +32,7 @@ const MapMediaOverlaySpotOrUsername = ({ media, isFromCustomMapFeed }: Props) =>
                                 duration: 1000,
                             });
                         }
-                        dispatch(selectSpot(spot.id));
+                        selectSpot(spot.id);
                     }}
                 >
                     <SpotIcon spot={spot} />

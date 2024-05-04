@@ -15,8 +15,7 @@ import { Status, Types } from '@/shared/feudartifice/types';
 import SmallLayer from './layers/SmallLayer';
 import SpotPinLayer from './layers/SpotPinLayer';
 import { intersects } from 'radash';
-import { useViewport } from '@/lib/hook/useViewport';
-import { useSpotID, useSpotModal } from '@/lib/hook/queryState';
+import { useSpotID, useSpotModal, useViewport } from '@/lib/hook/queryState';
 
 type MapComponentProps = {
     mapRef: React.RefObject<MapRef>;

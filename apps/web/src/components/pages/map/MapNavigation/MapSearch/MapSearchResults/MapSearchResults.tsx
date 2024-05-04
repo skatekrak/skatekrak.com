@@ -1,5 +1,4 @@
-import React, { useCallback } from 'react';
-import { useDispatch } from 'react-redux';
+import React from 'react';
 import { useMap } from 'react-map-gl';
 
 import Scrollbar from '@/components/Ui/Scrollbar';
@@ -12,7 +11,7 @@ import MapSearchResultPlace from './MapSearchResultPlace';
 import * as S from './MapSearchResults.styled';
 
 import { Place } from '@/lib/placeApi';
-import { selectSpot } from '@/store/map/slice';
+import { useSpotID } from '@/lib/hook/queryState';
 
 type MapSearchResultsProps = {
     loading: boolean;
@@ -22,37 +21,31 @@ type MapSearchResultsProps = {
 };
 
 const MapSearchResults: React.FC<MapSearchResultsProps> = ({ spots, loading, places, onClick }) => {
-    const dispatch = useDispatch();
     const { current: map } = useMap();
+    const [, selectSpot] = useSpotID();
 
-    const onSpotClick = useCallback(
-        (spot: SpotHit) => {
-            map?.flyTo({
-                center: {
-                    lat: spot._geoloc.lat,
-                    lon: spot._geoloc.lng,
-                },
-                duration: 1000,
-            });
-            dispatch(selectSpot(spot.objectID));
-            onClick();
-        },
-        [dispatch, onClick, map],
-    );
+    const onSpotClick = (spot: SpotHit) => {
+        map?.flyTo({
+            center: {
+                lat: spot._geoloc.lat,
+                lon: spot._geoloc.lng,
+            },
+            duration: 1000,
+        });
+        selectSpot(spot.objectID);
+        onClick();
+    };
 
-    const onPlaceClick = useCallback(
-        (place: Place) => {
-            map?.flyTo({
-                center: {
-                    lat: place.geometry.location.lat,
-                    lon: place.geometry.location.lng,
-                },
-                duration: 1000,
-            });
-            onClick();
-        },
-        [onClick, map],
-    );
+    const onPlaceClick = (place: Place) => {
+        map?.flyTo({
+            center: {
+                lat: place.geometry.location.lat,
+                lon: place.geometry.location.lng,
+            },
+            duration: 1000,
+        });
+        onClick();
+    };
 
     return (
         <S.MapSearchResultsContainer>

@@ -5,19 +5,13 @@ import { createRouterMiddleware, initialRouterState, routerReducer } from 'conne
 import queryString from 'query-string';
 import { save, load } from 'redux-localstorage-simple';
 import merge from 'deepmerge';
-import { combineReducers } from '@reduxjs/toolkit';
-import { draw } from 'radash';
-
-import querySyncMiddleware from './middleware/query-sync';
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
 
 import mapReducer, { initialState as mapInitialState } from './map/slice';
 import magReducer, { initialState as magInitialState } from './mag/slice';
 import newsReducer, { initialState as newsInitialState } from './news/slice';
 import videosReducer, { initialState as videosInitialState } from './videos/slice';
 import settingsReducer from './settings/slice';
-import { configureStore } from '@reduxjs/toolkit';
-import cities from '@/data/cities/_cities';
-import { centerFromBounds } from '@/lib/map/helpers';
 
 const reducers = combineReducers({
     router: routerReducer,
@@ -78,16 +72,6 @@ export const initializeStore = (context) => {
             },
         };
 
-        // We don't go to a random city if a spot is selected, as well as a custom map
-        if (params.spot == null && params.id == null) {
-            const randomCity = draw(cities);
-
-            state.map.viewport = {
-                ...state.map.viewport,
-                ...centerFromBounds(randomCity!.bounds),
-            };
-        }
-
         initialState = merge(
             state,
             load({
@@ -99,7 +83,6 @@ export const initializeStore = (context) => {
 
     const middlewares = [
         routerMiddleware,
-        querySyncMiddleware,
         save({ states: ['news', 'mag', 'videos'], debounce: 500, namespace: 'skatekrak' }),
     ];
 

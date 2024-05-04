@@ -8,8 +8,8 @@ import { flatten } from '@/lib/helpers';
 import { useInfiniteMedias } from '@/shared/feudartifice/hooks/media';
 
 import * as S from './MapCustomNavigationMediaFeed.styled';
-import { useAppSelector } from '@/store/hook';
 import MapCustomNavigationMediaCarousel from '@/components/pages/map/MapCustom/MapCustomNavigation/MapCustomNavigationMediaFeed/MapCustomNavigationMediaCarousel';
+import { useMediaID } from '@/lib/hook/queryState';
 
 type Props = {
     mapId: string;
@@ -33,7 +33,7 @@ const MapCustomNavigationMediaFeed = ({ mapId }: Props) => {
         return wrappers[wrappers.length - 1] as HTMLElement;
     };
 
-    const [mediaId] = useAppSelector((state) => [state.map.media]);
+    const [mediaId] = useMediaID();
 
     return (
         <div>

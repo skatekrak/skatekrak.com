@@ -3,17 +3,17 @@ import React, { FocusEventHandler, useState } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
 import Feudartifice from '@/shared/feudartifice';
 import { useVideoInformation } from '@/shared/feudartifice/hooks/clips';
-import { useAppDispatch, useAppSelector } from '@/store/hook';
-import { selectFullSpotTab } from '@/store/map/slice';
+import { useAppSelector } from '@/store/hook';
 
 import * as S from './MapFullSpotAddClip.styled';
+import { useFullSpotSelectedTab } from '@/lib/hook/queryState';
 
 const MapFullSpotAddClip = () => {
     const spotOverview = useAppSelector((state) => state.map.spotOverview);
-    const dispatch = useAppDispatch();
     const [url, setURL] = useState('');
     const [isSubmitting, setSubmitting] = useState(false);
     const queryClient = useQueryClient();
+    const [, selectFullSpotTab] = useFullSpotSelectedTab();
 
     const { data, isError, isFetched } = useVideoInformation(url);
 
@@ -31,7 +31,7 @@ const MapFullSpotAddClip = () => {
 
         try {
             const clip = await Feudartifice.clips.addClip(spotOverview.spot.id, url);
-            dispatch(selectFullSpotTab('clips'));
+            selectFullSpotTab('clips');
             queryClient.invalidateQueries({ queryKey: ['load-overview', spotOverview.spot.id] });
             queryClient.setQueryData(['fetch-spot-clips', spotOverview.spot.id], (prevData: any) => {
                 if (prevData == null) return prevData;
