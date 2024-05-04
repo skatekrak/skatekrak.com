@@ -10,9 +10,10 @@ import MapFullSpotMainClips from './MapFullSpotMainClips';
 import MapFullSpotMedias from './MapFullSpotMedias';
 import MapFullSpotAddMedia from './MapFullSpotAdd/MapFullSpotAddMedia';
 import MapFullSpotAddClip from './MapFullSpotAdd/MapFullSpotAddClip';
+import { useFullSpotSelectedTab } from '@/lib/hook/queryState';
 
 const MapFullSpotMain = () => {
-    const selectedTab = useSelector((state: RootState) => state.map.fullSpotSelectedTab);
+    const [selectedTab] = useFullSpotSelectedTab();
     const spotOverview = useSelector((state: RootState) => state.map.spotOverview);
 
     if (spotOverview) {

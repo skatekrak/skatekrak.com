@@ -5,7 +5,7 @@ import dynamic from 'next/dynamic';
 import { Spot } from '@krak/carrelage-client';
 
 import { getSpotOverview } from '@krak/carrelage-client';
-import { setSpotOverview, toggleCreateSpot, updateUrlParams } from '@/store/map/slice';
+import { setSpotOverview, toggleCreateSpot } from '@/store/map/slice';
 import { RootState } from '@/store';
 
 import MapQuickAccessDesktop from './mapQuickAccess/MapQuickAccessDesktop';
@@ -27,6 +27,7 @@ import { isEmpty, intersects } from 'radash';
 import { trpc } from '@/server/trpc/utils';
 import { SpinnerCircle } from '@/components/Ui/Icons/Spinners';
 import { useViewport } from '@/lib/hook/useViewport';
+import { useCustomMapID, useMediaID, useSpotID, useSpotModal } from '@/lib/hook/queryState';
 
 const DynamicMapComponent = dynamic(() => import('./MapComponent'), { ssr: false });
 const MapFullSpot = dynamic(() => import('./MapFullSpot'), { ssr: false });
@@ -40,10 +41,10 @@ const MapContainer = () => {
     const router = useRouter();
 
     /** Spot ID in the query */
-    const id = useAppSelector((state: RootState) => state.map.customMapId);
-    const spotId = useAppSelector((state: RootState) => state.map.selectSpot);
-    const customMapId = useAppSelector((state: RootState) => state.map.customMapId);
-    const modalVisible = useAppSelector((state: RootState) => state.map.modalVisible);
+    const [id] = useCustomMapID();
+    const [spotId, setSpotID] = useSpotID();
+    const [modalVisible, setModalVisible] = useSpotModal();
+    const [, setMedia] = useMediaID();
 
     const [, setFirstLoad] = useState(() => (spotId ? true : false));
     const [mapLoaded, setMapLoaded] = useState(false);
@@ -69,13 +70,9 @@ const MapContainer = () => {
         if (session.data == null) {
             router.push('/auth/login');
         } else {
-            dispatch(
-                updateUrlParams({
-                    spotId: null,
-                    modal: null,
-                    mediaId: null,
-                }),
-            );
+            setSpotID(null);
+            setModalVisible(null);
+            setMedia(null);
             dispatch(toggleCreateSpot());
         }
     };
@@ -142,7 +139,8 @@ const MapContainer = () => {
     );
 
     const onFullSpotClose = () => {
-        dispatch(updateUrlParams({ spotId, customMapId, modal: false, mediaId: null }));
+        setSpotID(spotId);
+        setModalVisible(null);
     };
 
     useEffect(() => {

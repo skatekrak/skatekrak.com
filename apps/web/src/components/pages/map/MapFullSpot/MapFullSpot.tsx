@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 
 import Modal from '@/components/Ui/Modal';
 import MapFullSpotNav from './MapFullSpotNav';
@@ -7,9 +6,9 @@ import MapFullSpotMain from './MapFullSpotMain';
 import MapFullSpotCarousel from './MapFullSpotCarousel';
 import * as S from './MapFullSpot.styled';
 
-import { selectFullSpotTab } from '@/store/map/slice';
 import { useAppSelector } from '@/store/hook';
 import { modalThemeStyles } from '@/components/Ui/Modal/styles';
+import { useFullSpotSelectedTab, useMediaID } from '@/lib/hook/queryState';
 
 type MapFullSpotProps = {
     open: boolean;
@@ -18,14 +17,15 @@ type MapFullSpotProps = {
 };
 
 const MapFullSpot: React.FC<MapFullSpotProps> = ({ open, onClose, container }) => {
-    const dispatch = useDispatch();
-    const [mediaId, spotOverview] = useAppSelector((state) => [state.map.media, state.map.spotOverview]);
+    const [spotOverview] = useAppSelector((state) => [state.map.spotOverview]);
+    const [mediaId] = useMediaID();
+    const [, selectFullSpotTab] = useFullSpotSelectedTab();
 
     useEffect(() => {
         if (!open) {
-            dispatch(selectFullSpotTab());
+            selectFullSpotTab(null);
         }
-    }, [open, dispatch]);
+    }, [open, selectFullSpotTab]);
 
     return (
         <Modal

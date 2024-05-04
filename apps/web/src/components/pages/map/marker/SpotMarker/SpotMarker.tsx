@@ -9,8 +9,8 @@ import BadgeHistory from '@/components/pages/map/marker/badges/History';
 import BadgeIconic from '@/components/pages/map/marker/badges/Iconic';
 import BadgeMinute from '@/components/pages/map/marker/badges/Minute';
 import Activity from '@/components/pages/map/marker/Activity';
-import { selectSpot } from '@/store/map/slice';
-import { useAppDispatch, useAppSelector } from '@/store/hook';
+import { useAppSelector } from '@/store/hook';
+import { useSpotID } from '@/lib/hook/queryState';
 
 type SpotMarkerProps = {
     spot: SpotGeoJSON;
@@ -30,14 +30,14 @@ const Pin = ({ imageName }: { imageName: string }) => {
 
 const SpotMarker = ({ spot, isSelected, small = false }: SpotMarkerProps) => {
     const isCreateSpotOpen = useAppSelector((state) => state.map.isCreateSpotOpen);
-    const dispatch = useAppDispatch();
+    const [, setSpotID] = useSpotID();
     const active = spot.properties.mediasStat.all >= 10;
     const firing = spot.properties.mediasStat.all >= 30;
 
     const onMarkerClick: MarkerProps['onClick'] = (event) => {
         event.originalEvent?.stopPropagation();
         if (!isCreateSpotOpen) {
-            dispatch(selectSpot(spot.properties.id));
+            setSpotID(spot.properties.id);
         }
     };
 

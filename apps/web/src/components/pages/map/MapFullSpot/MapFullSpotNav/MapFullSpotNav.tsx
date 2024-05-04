@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import IconStreet from '@/components/pages/map/marker/icons/Street';
 import IconDiy from '@/components/pages/map/marker/icons/Diy';
@@ -15,8 +15,9 @@ import MapFullSpotAddTrigger from '../MapFullSpotMain/MapFullSpotAdd/MapFullSpot
 import * as S from './MapFullSpotNav.styled';
 
 import { Spot, Status, Types } from '@krak/carrelage-client';
-import { FullSpotTab, selectFullSpotTab } from '@/store/map/slice';
+import { FullSpotTab } from '@/store/map/slice';
 import { RootState } from '@/store';
+import { useFullSpotSelectedTab } from '@/lib/hook/queryState';
 
 const SpotIcon = ({ type, status }: { type: Types; status: Status }) => {
     if (status === Status.Rip) {
@@ -53,12 +54,11 @@ const displayAddress = (spot: Spot): string => {
 };
 
 const MapFullSpotNav = () => {
-    const dispatch = useDispatch();
     const spotOverview = useSelector((state: RootState) => state.map.spotOverview);
-    const selectedTab = useSelector((state: RootState) => state.map.fullSpotSelectedTab);
+    const [selectedTab, selectFullSpotTab] = useFullSpotSelectedTab();
 
     const onTabSelect = (tab: FullSpotTab) => {
-        dispatch(selectFullSpotTab(tab));
+        selectFullSpotTab(tab);
     };
 
     return (

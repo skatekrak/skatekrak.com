@@ -22,14 +22,8 @@ export type MapState = {
     types: Record<Types, FilterState>;
     status: Record<Status, FilterState>;
     spotOverview?: SpotOverview;
-    fullSpotSelectedTab: FullSpotTab;
-    selectSpot?: string;
-    /// ID of the media in full in spot modal
-    media?: string;
-    modalVisible: boolean;
     legendOpen: boolean;
     searchResultOpen: boolean;
-    customMapId?: string;
     videoPlayingId?: string;
     isCreateSpotOpen: boolean;
 };
@@ -47,10 +41,8 @@ export const initialState: MapState = {
         [Status.Wip]: FilterState.SELECTED,
         [Status.Rip]: FilterState.SELECTED,
     },
-    modalVisible: false,
     legendOpen: false,
     searchResultOpen: false,
-    fullSpotSelectedTab: 'media',
     isCreateSpotOpen: false,
 };
 
@@ -114,84 +106,11 @@ const mapSlice = createSlice({
                 state.status = map;
             }
         },
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        mapRefreshEnd: (state) => {
-            // for (const key in state.status) {
-            //     if (state.status[key] === FilterState.LOADING_TO_SELECTED) {
-            //         state.status[key] = FilterState.SELECTED;
-            //     } else if (state.status[key] === FilterState.LOADING_TO_UNSELECTED) {
-            //         state.status[key] = FilterState.UNSELECTED;
-            //     }
-            // }
-            //
-            // for (const key in state.types) {
-            //     if (state.types[key] === FilterState.LOADING_TO_SELECTED) {
-            //         state.types[key] = FilterState.SELECTED;
-            //     } else if (state.types[key] === FilterState.LOADING_TO_UNSELECTED) {
-            //         state.types[key] = FilterState.UNSELECTED;
-            //     }
-            // }
-        },
         setSpotOverview: (state, action: PayloadAction<SpotOverview | undefined>) => {
             return {
                 ...state,
                 spotOverview: action.payload,
             };
-        },
-        selectFullSpotTab: (state, action: PayloadAction<FullSpotTab | undefined>) => {
-            return {
-                ...state,
-                fullSpotSelectedTab: action.payload ?? initialState.fullSpotSelectedTab,
-            };
-        },
-        selectSpot: {
-            reducer: (state, action: PayloadAction<string | undefined>) => {
-                return {
-                    ...state,
-                    selectSpot: action.payload,
-                };
-            },
-            prepare: (value?: string) => ({
-                payload: value,
-                meta: { pushToUrl: { spot: value ?? null } },
-            }),
-        },
-        setMedia: {
-            reducer: (state, action: PayloadAction<string | undefined>) => {
-                return {
-                    ...state,
-                    media: action.payload,
-                };
-            },
-            prepare: (value?: string) => ({
-                payload: value,
-                meta: { pushToUrl: { media: value ?? null } },
-            }),
-        },
-        toggleSpotModal: {
-            reducer: (state, action: PayloadAction<boolean | undefined>) => {
-                const { payload = true } = action;
-                return {
-                    ...state,
-                    modalVisible: payload,
-                };
-            },
-            prepare: (value?: boolean) => ({
-                payload: value,
-                meta: { pushToUrl: { modal: value ? '1' : null } },
-            }),
-        },
-        toggleCustomMap: {
-            reducer: (state, action: PayloadAction<string | undefined>) => {
-                return {
-                    ...state,
-                    customMapId: action.payload ?? undefined,
-                };
-            },
-            prepare: (value?: string) => ({
-                payload: value,
-                meta: { pushToUrl: { id: value } },
-            }),
         },
         toggleLegend: (state, action: PayloadAction<boolean>) => {
             return {
@@ -211,64 +130,6 @@ const mapSlice = createSlice({
                 searchResultOpen: action.payload,
             };
         },
-        updateUrlParams: {
-            reducer: (
-                state,
-                action: PayloadAction<{
-                    spotId?: string | null;
-                    modal?: boolean | null;
-                    customMapId?: string | null;
-                    mediaId?: string | null;
-                }>,
-            ) => {
-                console.log('payload', action.payload);
-                const spotId = extractData(state.selectSpot, action.payload.spotId);
-                const modal = extractData(state.modalVisible, action.payload.modal);
-                const customMapId = extractData(state.customMapId, action.payload.customMapId);
-                const mediaId = extractData(state.media, action.payload.mediaId);
-
-                console.log('new payload', { spotId, modal, customMapId, mediaId });
-
-                return {
-                    ...state,
-                    selectSpot: spotId,
-                    modalVisible: modal ?? false,
-                    customMapId: customMapId,
-                    media: mediaId,
-                };
-            },
-            prepare: ({
-                spotId,
-                modal,
-                customMapId,
-                mediaId,
-            }: {
-                spotId?: string | null;
-                modal?: boolean | null;
-                customMapId?: string | null;
-                mediaId?: string | null;
-            }) => {
-                let newModalUrl: string | undefined = undefined;
-                if (modal == null || !modal) {
-                    console.log('modal will be removed from url');
-                    newModalUrl = undefined;
-                } else if (modal) {
-                    newModalUrl = '1';
-                }
-
-                return {
-                    payload: { spotId, modal, customMapId, mediaId },
-                    meta: {
-                        pushToUrl: {
-                            spot: spotId,
-                            modal: newModalUrl,
-                            id: customMapId,
-                            media: mediaId,
-                        },
-                    },
-                };
-            },
-        },
         toggleCreateSpot: (state) => {
             state.isCreateSpotOpen = !state.isCreateSpotOpen;
             return state;
@@ -282,15 +143,6 @@ const mapSlice = createSlice({
     },
 });
 
-const extractData = <T>(defaultValue: T, data?: T | null) => {
-    if (data === undefined) {
-        return defaultValue;
-    } else if (data === null) {
-        return undefined;
-    }
-    return data;
-};
-
 export function getSelectedFilterState<T extends string>(filterState: Record<T, FilterState>): T[] {
     const keys = Object.keys(filterState) as T[];
     return keys.filter((key) => filterState[key] === FilterState.SELECTED);
@@ -300,17 +152,10 @@ export const {
     selectAllMapFilters,
     unselectAllMapFilters,
     toggleMapFilter,
-    mapRefreshEnd,
     setSpotOverview,
-    selectFullSpotTab,
-    selectSpot,
-    setMedia,
-    toggleSpotModal,
-    toggleCustomMap,
     toggleLegend,
     setVideoPlaying,
     toggleSearchResult,
-    updateUrlParams,
     toggleCreateSpot,
 } = mapSlice.actions;
 

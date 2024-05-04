@@ -5,7 +5,6 @@ import { MapRef } from 'react-map-gl';
 import { useEffect, useState } from 'react';
 import useDebounce from '@/lib/hook/useDebounce';
 import { useAppDispatch } from '@/store/hook';
-import { mapRefreshEnd } from '@/store/map/slice';
 import { SpotGeoJSON, boxSpotsSearch, getSpotsByTags } from '@krak/carrelage-client';
 import { sort, unique } from 'radash';
 import { trpc } from '@/server/trpc/utils';
@@ -16,10 +15,6 @@ const { client } = Feudartifice;
 export const fetchSpot = async (id: string): Promise<Spot> => {
     const res = await client.get<Spot>(`/spots/${id}`);
     return res.data;
-};
-
-const useSpot = (id: string) => {
-    return useQuery({ queryKey: ['fetch-spot', id], queryFn: () => fetchSpot(id), placeholderData: keepPreviousData });
 };
 
 export const useSpotsSearch = (mapRef: MapRef | undefined, enabled = true) => {
@@ -59,7 +54,6 @@ export const useSpotsSearch = (mapRef: MapRef | undefined, enabled = true) => {
 
     useEffect(() => {
         if (data != null) {
-            dispatch(mapRefreshEnd());
             setLoadedSpots((previousSpots) => unique(previousSpots.concat(data ?? []), (a) => a.id));
         }
     }, [data, dispatch, setLoadedSpots]);
@@ -89,7 +83,6 @@ export const useSpotsByTags = (tags: string[] | undefined, tagsFromMedia?: boole
 
 export const useSpotsGeoJSON = (mapRef: MapRef | undefined, enabled = true) => {
     const [viewport] = useViewport();
-    const dispatch = useAppDispatch();
     const utils = trpc.useUtils();
 
     const debouncedViewport = useDebounce(viewport, 200);
@@ -115,16 +108,8 @@ export const useSpotsGeoJSON = (mapRef: MapRef | undefined, enabled = true) => {
         placeholderData: keepPreviousData,
     });
 
-    useEffect(() => {
-        if (queryRes.isLoading) {
-            dispatch(mapRefreshEnd());
-        }
-    }, [queryRes.isLoading, dispatch]);
-
     return {
         data: data ?? [],
         ...queryRes,
     };
 };
-
-export default useSpot;

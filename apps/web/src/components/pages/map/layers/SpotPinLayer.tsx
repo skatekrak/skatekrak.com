@@ -1,10 +1,10 @@
 import { memo, useCallback, useEffect } from 'react';
 import { Layer, MapLayerMouseEvent, useMap } from 'react-map-gl';
 import { Status, Types } from '@/shared/feudartifice/types';
-import { useAppDispatch, useAppSelector } from '@/store/hook';
-import { selectSpot } from '@/store/map/slice';
+import { useAppSelector } from '@/store/hook';
 import { ZOOM_DISPLAY_DOTS } from '../Map.constant';
 import { first } from 'radash';
+import { useSpotID } from '@/lib/hook/queryState';
 
 type SpotPinLayerProps = {
     type: Types | Status;
@@ -13,7 +13,7 @@ type SpotPinLayerProps = {
 const SpotPinLayer = ({ type }: SpotPinLayerProps) => {
     const { current: map } = useMap();
     const isCreateSpotOpen = useAppSelector((state) => state.map.isCreateSpotOpen);
-    const dispatch = useAppDispatch();
+    const [, setSpotID] = useSpotID();
 
     useEffect(() => {
         if (!map?.hasImage(`/images/map/icons/${type}@2x.png`)) {
@@ -32,11 +32,11 @@ const SpotPinLayer = ({ type }: SpotPinLayerProps) => {
             if (event.features != null) {
                 const feature = first(event.features);
                 if (feature != null) {
-                    dispatch(selectSpot(feature.properties?.id));
+                    setSpotID(feature.properties?.id);
                 }
             }
         },
-        [dispatch],
+        [setSpotID],
     );
 
     useEffect(() => {
