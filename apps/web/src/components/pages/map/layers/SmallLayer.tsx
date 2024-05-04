@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import { Layer, MapLayerMouseEvent, useMap } from 'react-map-gl';
 import { Status, Types } from '@/shared/feudartifice/types';
-import { useAppSelector } from '@/store/hook';
 import { useTheme } from 'styled-components';
 import { ZOOM_DISPLAY_DOTS } from '../Map.constant';
+import { useMapStore } from '@/store/map';
 
 /**
  * mapgl layer to display small pin representing the spot
@@ -11,7 +11,7 @@ import { ZOOM_DISPLAY_DOTS } from '../Map.constant';
  */
 const SmallLayer = () => {
     const theme = useTheme();
-    const isCreateSpotOpen = useAppSelector((state) => state.map.isCreateSpotOpen);
+    const isCreateSpotOpen = useMapStore((state) => state.isCreateSpotOpen);
     const { current: map } = useMap();
 
     useEffect(() => {

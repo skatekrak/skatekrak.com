@@ -1,4 +1,5 @@
 import React from 'react';
+import { useShallow } from 'zustand/react/shallow';
 
 import MapMediaOverlay from './MapMediaOverlay';
 import MapMediaShare from './MapMediaShare';
@@ -6,12 +7,9 @@ import * as S from './MapMedia.styled';
 
 import { Media } from '@krak/carrelage-client';
 import MapMediaVideoPlayer from './MapMediaVideoPlayer';
-import { useSelector } from 'react-redux';
-import { RootState } from '@/store';
-import { useAppDispatch } from '@/store/hook';
-import { setVideoPlaying } from '@/store/map/slice';
 import IconFullScreen from '@/components/Ui/Icons/IconFullScreen';
 import { useMediaID } from '@/lib/hook/queryState';
+import { useMapStore } from '@/store/map';
 
 export type MapMediaProps = {
     shareURL?: string;
@@ -20,15 +18,16 @@ export type MapMediaProps = {
 };
 
 const MapMedia = ({ shareURL, media, isFromCustomMapFeed = false }: MapMediaProps) => {
-    const dispatch = useAppDispatch();
+    const [videoPlayingId, setVideoPlaying] = useMapStore(
+        useShallow((state) => [state.videoPlayingId, state.setVideoPlaying]),
+    );
     const [, setMediaID] = useMediaID();
 
-    const videoPlayingId = useSelector((state: RootState) => state.map.videoPlayingId);
     const isPlaying = videoPlayingId === media.id;
 
     const openCarousel = (mediaId: string) => {
         // Close video if opened
-        dispatch(setVideoPlaying());
+        setVideoPlaying(null);
         setMediaID(mediaId);
     };
 

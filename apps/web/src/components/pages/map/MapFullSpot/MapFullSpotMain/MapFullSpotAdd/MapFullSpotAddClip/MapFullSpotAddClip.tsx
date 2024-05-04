@@ -3,13 +3,13 @@ import React, { FocusEventHandler, useState } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
 import Feudartifice from '@/shared/feudartifice';
 import { useVideoInformation } from '@/shared/feudartifice/hooks/clips';
-import { useAppSelector } from '@/store/hook';
+import { useMapStore } from '@/store/map';
 
 import * as S from './MapFullSpotAddClip.styled';
 import { useFullSpotSelectedTab } from '@/lib/hook/queryState';
 
 const MapFullSpotAddClip = () => {
-    const spotOverview = useAppSelector((state) => state.map.spotOverview);
+    const spotOverview = useMapStore((state) => state.spotOverview);
     const [url, setURL] = useState('');
     const [isSubmitting, setSubmitting] = useState(false);
     const queryClient = useQueryClient();

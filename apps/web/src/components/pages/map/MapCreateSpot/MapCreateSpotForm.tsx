@@ -1,14 +1,14 @@
 import { useFormikContext } from 'formik';
 import mapboxgl, { MapLayerMouseEvent } from 'mapbox-gl';
-import { memo, useCallback, useEffect, useState } from 'react';
+import { memo, useEffect, useState } from 'react';
 import { useMap } from 'react-map-gl';
-import { useAppDispatch, useAppSelector } from '@/store/hook';
+import { useAppSelector } from '@/store/hook';
 
+import { useMapStore } from '@/store/map';
 import ButtonPrimary from '@/components/Ui/Button/ButtonPrimary';
 import Arrow from '@/components/Ui/Icons/Arrow';
 import ScrollBar from '@/components/Ui/Scrollbar';
 import Typography from '@/components/Ui/typography/Typography';
-import { toggleCreateSpot } from '@/store/map/slice';
 import { MapCreateSpotFormValues } from './MapCreateSpot';
 import * as S from './MapCreateSpot.styled';
 import MapCreateSpotLocation from './MapCreateSpotLocation';
@@ -22,7 +22,7 @@ const MapCreateSpotForm = () => {
         useFormikContext<MapCreateSpotFormValues>();
     const isMobile = useAppSelector((state) => state.settings.isMobile);
     const [isMapVisible, setMapVisible] = useState(false);
-    const dispatch = useAppDispatch();
+    const toggleCreateSpot = useMapStore((state) => state.toggleCreateSpot);
     const [isLocationHelperFlashing, setIsLocationHelperFlashing] = useState(false);
 
     const { current: map } = useMap();
@@ -76,10 +76,6 @@ const MapCreateSpotForm = () => {
         }, 200);
     };
 
-    const toggleMapCreateSpot = useCallback(() => {
-        dispatch(toggleCreateSpot());
-    }, [dispatch]);
-
     return (
         <form onSubmit={handleSubmit}>
             {(isMapVisible || (!isMobile && values.type !== undefined)) && (
@@ -92,7 +88,7 @@ const MapCreateSpotForm = () => {
             )}
             <S.MapCreateSpotContainer isMapVisible={isMapVisible && isMobile}>
                 <S.MapCreateSpotHeader>
-                    <S.MapCreateSpotBackButton onClick={toggleMapCreateSpot}>
+                    <S.MapCreateSpotBackButton onClick={() => toggleCreateSpot()}>
                         <Arrow />
                     </S.MapCreateSpotBackButton>
                     <Typography component="heading6">Create a spot</Typography>

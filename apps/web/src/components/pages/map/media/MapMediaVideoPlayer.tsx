@@ -1,10 +1,9 @@
 import React, { useEffect, useRef } from 'react';
-import { useDispatch } from 'react-redux';
 import ReactPlayer from 'react-player';
 
-import { setVideoPlaying } from '@/store/map/slice';
 import { Media } from '@krak/carrelage-client';
 import VideoPlayer from '@/components/Ui/Player/VideoPlayer';
+import { useMapStore } from '@/store/map';
 
 export type MapMediaVideoPlayerProps = {
     media: Media;
@@ -12,11 +11,11 @@ export type MapMediaVideoPlayerProps = {
 };
 
 const MapMediaVideoPlayer: React.FC<MapMediaVideoPlayerProps> = ({ media, isPlaying }) => {
-    const dispatch = useDispatch();
+    const setVideoPlaying = useMapStore((state) => state.setVideoPlaying);
     const playerRef = useRef<ReactPlayer>(null);
 
     const onReady = () => {
-        dispatch(setVideoPlaying(media.id));
+        setVideoPlaying(media.id);
     };
 
     useEffect(() => {

@@ -6,7 +6,7 @@ import MapFullSpotMain from './MapFullSpotMain';
 import MapFullSpotCarousel from './MapFullSpotCarousel';
 import * as S from './MapFullSpot.styled';
 
-import { useAppSelector } from '@/store/hook';
+import { useMapStore } from '@/store/map';
 import { modalThemeStyles } from '@/components/Ui/Modal/styles';
 import { useFullSpotSelectedTab, useMediaID } from '@/lib/hook/queryState';
 
@@ -17,7 +17,7 @@ type MapFullSpotProps = {
 };
 
 const MapFullSpot: React.FC<MapFullSpotProps> = ({ open, onClose, container }) => {
-    const [spotOverview] = useAppSelector((state) => [state.map.spotOverview]);
+    const spotOverview = useMapStore((state) => state.spotOverview);
     const [mediaId] = useMediaID();
     const [, selectFullSpotTab] = useFullSpotSelectedTab();
 

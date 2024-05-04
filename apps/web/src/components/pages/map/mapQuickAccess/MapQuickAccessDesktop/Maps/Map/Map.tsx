@@ -1,13 +1,13 @@
 import React, { useMemo } from 'react';
-import { useDispatch } from 'react-redux';
+import { useShallow } from 'zustand/react/shallow';
 
 import * as S from './Map.styled';
 
-import { toggleLegend, toggleSearchResult } from '@/store/map/slice';
 import { QuickAccessMap } from '../../../types';
 import { useRouter } from 'next/router';
 import RoundedImage from '../../components/RoundedImage';
 import { useCustomMapID, useMediaID, useSpotID, useSpotModal } from '@/lib/hook/queryState';
+import { useMapStore } from '@/store/map';
 
 type MapProps = {
     map: QuickAccessMap;
@@ -16,7 +16,9 @@ type MapProps = {
 
 const Map: React.FC<MapProps> = ({ map, onClick }) => {
     const router = useRouter();
-    const dispatch = useDispatch();
+    const [toggleLegend, toggleSearchResult] = useMapStore(
+        useShallow((state) => [state.toggleLegend, state.toggleSearchResult]),
+    );
     const [, setCustomMapID] = useCustomMapID();
     const [, setModalVisible] = useSpotModal();
     const [, setSpotID] = useSpotID();
@@ -28,8 +30,8 @@ const Map: React.FC<MapProps> = ({ map, onClick }) => {
 
     const handleClick = (e: React.SyntheticEvent) => {
         e.preventDefault();
-        dispatch(toggleLegend(false));
-        dispatch(toggleSearchResult(false));
+        toggleLegend(false);
+        toggleSearchResult(false);
 
         setCustomMapID(map.id);
         setSpotID(null);

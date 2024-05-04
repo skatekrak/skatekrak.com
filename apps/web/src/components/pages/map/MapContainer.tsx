@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef, useCallback, useMemo, ElementRef } from 'react';
 import { MapRef } from 'react-map-gl';
 import dynamic from 'next/dynamic';
+import { useShallow } from 'zustand/react/shallow';
 
 import { Spot } from '@krak/carrelage-client';
 
 import { getSpotOverview } from '@krak/carrelage-client';
-import { setSpotOverview, toggleCreateSpot } from '@/store/map/slice';
 import { RootState } from '@/store';
 
 import MapQuickAccessDesktop from './mapQuickAccess/MapQuickAccessDesktop';
@@ -15,7 +15,7 @@ import MapBottomNav from './MapBottomNav';
 import MapGradients from './MapGradients';
 import MapZoomAlert from './MapZoomAlert';
 import * as S from './Map.styled';
-import { useAppDispatch, useAppSelector } from '@/store/hook';
+import { useAppSelector } from '@/store/hook';
 import { findSpotsBoundsCoordinate, spotToGeoJSON } from '@/lib/map/helpers';
 import { ZOOM_DISPLAY_WARNING } from './Map.constant';
 import MapCreateSpot from './MapCreateSpot';
@@ -27,15 +27,17 @@ import { isEmpty, intersects } from 'radash';
 import { trpc } from '@/server/trpc/utils';
 import { SpinnerCircle } from '@/components/Ui/Icons/Spinners';
 import { useCustomMapID, useMediaID, useSpotID, useSpotModal, useViewport } from '@/lib/hook/queryState';
+import { useMapStore } from '@/store/map';
 
 const DynamicMapComponent = dynamic(() => import('./MapComponent'), { ssr: false });
 const MapFullSpot = dynamic(() => import('./MapFullSpot'), { ssr: false });
 
 const MapContainer = () => {
     const isMobile = useAppSelector((state: RootState) => state.settings.isMobile);
-    const isCreateSpotOpen = useAppSelector((state: RootState) => state.map.isCreateSpotOpen);
+    const [isCreateSpotOpen, toggleCreateSpot, setSpotOverview] = useMapStore(
+        useShallow((state) => [state.isCreateSpotOpen, state.toggleCreateSpot, state.setSpotOverview]),
+    );
     const [viewport] = useViewport();
-    const dispatch = useAppDispatch();
     const session = useSession();
     const router = useRouter();
 
@@ -72,7 +74,7 @@ const MapContainer = () => {
             setSpotID(null);
             setModalVisible(null);
             setMedia(null);
-            dispatch(toggleCreateSpot());
+            toggleCreateSpot();
         }
     };
 
@@ -89,7 +91,7 @@ const MapContainer = () => {
 
     useEffect(() => {
         if (overview != null && mapLoaded) {
-            dispatch(setSpotOverview(overview));
+            setSpotOverview(overview);
             setFirstLoad((value) => {
                 if (value) {
                     centerToSpot(overview.spot);
@@ -98,7 +100,7 @@ const MapContainer = () => {
                 return value;
             });
         }
-    }, [overview, dispatch, centerToSpot, mapLoaded]);
+    }, [overview, centerToSpot, mapLoaded, setSpotOverview]);
 
     const enableSpotQuery = useMemo(() => {
         if (!mapLoaded) {

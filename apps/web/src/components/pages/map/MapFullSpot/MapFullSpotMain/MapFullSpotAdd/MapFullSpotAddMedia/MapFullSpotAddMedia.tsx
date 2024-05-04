@@ -7,9 +7,9 @@ import * as S from './MapFullSpotAddMedia.styled';
 import { Field, Formik } from 'formik';
 import MapFullSpotAddMediaInput from './MapFullSpotAddMediaInput';
 import Feudartifice from '@/shared/feudartifice';
-import { useAppSelector } from '@/store/hook';
 import { useQueryClient } from '@tanstack/react-query';
 import { useFullSpotSelectedTab } from '@/lib/hook/queryState';
+import { useMapStore } from '@/store/map';
 
 type AddMediaFormValues = {
     file: FileWithPath | null;
@@ -22,7 +22,7 @@ const addMediaFormSchema = Yup.object().shape({
 });
 
 const MapFullSpotAddMedia = () => {
-    const spotOverview = useAppSelector((state) => state.map.spotOverview);
+    const spotOverview = useMapStore((state) => state.spotOverview);
     const queryClient = useQueryClient();
     const [, selectFullSpotTab] = useFullSpotSelectedTab();
 

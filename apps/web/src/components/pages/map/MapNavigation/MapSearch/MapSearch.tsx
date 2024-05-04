@@ -1,17 +1,16 @@
-import React, { useCallback, useState } from 'react';
+import React, { useState } from 'react';
 import useConstant from 'use-constant';
 import AwesomeDebouncePromise from 'awesome-debounce-promise';
 import { useQuery } from '@tanstack/react-query';
-import { useDispatch, useSelector } from 'react-redux';
+import { useShallow } from 'zustand/react/shallow';
 
 import SearchIcon from '@/components/Ui/Icons/Search';
 import IconClear from '@/components/Ui/Icons/IconClear';
 import MapSearchResults from './MapSearchResults/MapSearchResults';
 import { SpotHit, spotIndex, SpotSearchResult } from '@/lib/algolia';
-import { RootState } from '@/store';
-import { toggleSearchResult } from '@/store/map/slice';
 
 import * as S from './MapSearch.styled';
+import { useMapStore } from '@/store/map';
 
 const fetchSpots = async (query: string): Promise<SpotHit[]> => {
     const res = await spotIndex.search<SpotSearchResult>(query, { hitsPerPage: 20 });
@@ -20,8 +19,9 @@ const fetchSpots = async (query: string): Promise<SpotHit[]> => {
 
 const MapNavigation = () => {
     const [searchValue, setSearchValue] = useState('');
-    const searchResultOpen = useSelector((state: RootState) => state.map.searchResultOpen);
-    const dispatch = useDispatch();
+    const [searchResultOpen, toggleSearchResult] = useMapStore(
+        useShallow((state) => [state.searchResultIsOpen, state.toggleSearchResult]),
+    );
 
     const debouncedSpotsSearch = useConstant(() =>
         AwesomeDebouncePromise((query: string) => Promise.all([fetchSpots(query)]), 200),
@@ -47,12 +47,9 @@ const MapNavigation = () => {
         setSearchValue('');
     };
 
-    const updateSearchResultVisibility = useCallback(
-        (open: boolean) => {
-            dispatch(toggleSearchResult(open));
-        },
-        [dispatch],
-    );
+    const updateSearchResultVisibility = (open: boolean) => {
+        toggleSearchResult(open);
+    };
 
     return (
         <S.MapSearchContainer>

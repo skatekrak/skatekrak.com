@@ -1,10 +1,11 @@
 import { memo, useCallback, useEffect } from 'react';
 import { Layer, MapLayerMouseEvent, useMap } from 'react-map-gl';
+
 import { Status, Types } from '@/shared/feudartifice/types';
-import { useAppSelector } from '@/store/hook';
 import { ZOOM_DISPLAY_DOTS } from '../Map.constant';
 import { first } from 'radash';
 import { useSpotID } from '@/lib/hook/queryState';
+import { useMapStore } from '@/store/map';
 
 type SpotPinLayerProps = {
     type: Types | Status;
@@ -12,7 +13,7 @@ type SpotPinLayerProps = {
 
 const SpotPinLayer = ({ type }: SpotPinLayerProps) => {
     const { current: map } = useMap();
-    const isCreateSpotOpen = useAppSelector((state) => state.map.isCreateSpotOpen);
+    const isCreateSpotOpen = useMapStore((state) => state.isCreateSpotOpen);
     const [, setSpotID] = useSpotID();
 
     useEffect(() => {

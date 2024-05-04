@@ -1,7 +1,4 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-
-import { RootState } from '@/store';
 
 import MapFullSpotEdito from './Edito';
 import MapFullSpotInfo from './Info';
@@ -11,10 +8,11 @@ import MapFullSpotMedias from './MapFullSpotMedias';
 import MapFullSpotAddMedia from './MapFullSpotAdd/MapFullSpotAddMedia';
 import MapFullSpotAddClip from './MapFullSpotAdd/MapFullSpotAddClip';
 import { useFullSpotSelectedTab } from '@/lib/hook/queryState';
+import { useMapStore } from '@/store/map';
 
 const MapFullSpotMain = () => {
     const [selectedTab] = useFullSpotSelectedTab();
-    const spotOverview = useSelector((state: RootState) => state.map.spotOverview);
+    const spotOverview = useMapStore((state) => state.spotOverview);
 
     if (spotOverview) {
         return (

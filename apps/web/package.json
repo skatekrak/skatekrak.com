@@ -69,7 +69,8 @@
     "typesafe-actions": "^5.1.0",
     "use-constant": "^1.1.1",
     "yup": "^1.2.0",
-    "zod": "^3.23.5"
+    "zod": "^3.23.5",
+    "zustand": "^4.5.2"
   },
   "devDependencies": {
     "@babel/core": "^7.22.1",

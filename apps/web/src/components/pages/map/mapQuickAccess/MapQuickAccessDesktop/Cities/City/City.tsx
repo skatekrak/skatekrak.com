@@ -1,13 +1,13 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useShallow } from 'zustand/react/shallow';
 
 import * as S from './City.styled';
 
 import { City } from '@/lib/map/types';
-import { toggleLegend, toggleSearchResult } from '@/store/map/slice';
 import { useMap } from 'react-map-gl';
 import { centerFromBounds } from '@/lib/map/helpers';
 import { useCustomMapID, useSpotID, useSpotModal } from '@/lib/hook/queryState';
+import { useMapStore } from '@/store/map';
 
 type CityProps = {
     city: City;
@@ -15,7 +15,9 @@ type CityProps = {
 };
 
 const CityComponent: React.FC<CityProps> = ({ city, onCityClick }) => {
-    const dispatch = useDispatch();
+    const [toggleLegend, toggleSearchResult] = useMapStore(
+        useShallow((state) => [state.toggleLegend, state.toggleSearchResult]),
+    );
     const { current: map } = useMap();
     const [, setSpotID] = useSpotID();
     const [, setModalVisible] = useSpotModal();
@@ -24,8 +26,8 @@ const CityComponent: React.FC<CityProps> = ({ city, onCityClick }) => {
     const onClick = (e: React.SyntheticEvent) => {
         e.preventDefault();
         onCityClick();
-        dispatch(toggleLegend(false));
-        dispatch(toggleSearchResult(false));
+        toggleLegend(false);
+        toggleSearchResult(false);
         setSpotID(null);
         setModalVisible(null);
         setCustomMapID(null);

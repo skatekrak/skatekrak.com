@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AnyAction } from 'redux';
-import { Types, Status, SpotOverview } from '@krak/carrelage-client';
+import { Types, Status } from '@krak/carrelage-client';
 import { FilterState } from '@/lib/FilterState';
 import merge from 'deepmerge';
 import { HYDRATE } from 'next-redux-wrapper';
@@ -21,11 +21,6 @@ export type FullSpotTab =
 export type MapState = {
     types: Record<Types, FilterState>;
     status: Record<Status, FilterState>;
-    spotOverview?: SpotOverview;
-    legendOpen: boolean;
-    searchResultOpen: boolean;
-    videoPlayingId?: string;
-    isCreateSpotOpen: boolean;
 };
 
 export const initialState: MapState = {
@@ -41,9 +36,6 @@ export const initialState: MapState = {
         [Status.Wip]: FilterState.SELECTED,
         [Status.Rip]: FilterState.SELECTED,
     },
-    legendOpen: false,
-    searchResultOpen: false,
-    isCreateSpotOpen: false,
 };
 
 const mapSlice = createSlice({
@@ -106,34 +98,6 @@ const mapSlice = createSlice({
                 state.status = map;
             }
         },
-        setSpotOverview: (state, action: PayloadAction<SpotOverview | undefined>) => {
-            return {
-                ...state,
-                spotOverview: action.payload,
-            };
-        },
-        toggleLegend: (state, action: PayloadAction<boolean>) => {
-            return {
-                ...state,
-                legendOpen: action.payload,
-            };
-        },
-        setVideoPlaying: (state, action: PayloadAction<string | undefined>) => {
-            return {
-                ...state,
-                videoPlayingId: action.payload,
-            };
-        },
-        toggleSearchResult: (state, action: PayloadAction<boolean>) => {
-            return {
-                ...state,
-                searchResultOpen: action.payload,
-            };
-        },
-        toggleCreateSpot: (state) => {
-            state.isCreateSpotOpen = !state.isCreateSpotOpen;
-            return state;
-        },
     },
     extraReducers: (builder) => {
         builder.addCase(HYDRATE, (state, action: AnyAction) => {
@@ -148,15 +112,6 @@ export function getSelectedFilterState<T extends string>(filterState: Record<T, 
     return keys.filter((key) => filterState[key] === FilterState.SELECTED);
 }
 
-export const {
-    selectAllMapFilters,
-    unselectAllMapFilters,
-    toggleMapFilter,
-    setSpotOverview,
-    toggleLegend,
-    setVideoPlaying,
-    toggleSearchResult,
-    toggleCreateSpot,
-} = mapSlice.actions;
+export const { selectAllMapFilters, unselectAllMapFilters, toggleMapFilter } = mapSlice.actions;
 
 export default mapSlice.reducer;

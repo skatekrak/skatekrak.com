@@ -1,18 +1,6 @@
-import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-
 import * as S from './MapSearchResults.styled';
 
-import { toggleLegend } from '@/store/map/slice';
-
 const MapSearchResultLoading = () => {
-    const dispatch = useDispatch();
-
-    useEffect(() => {
-        dispatch(toggleLegend(false));
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
-
     return (
         <S.MapSearchResultsLoading>
             <span className="skeleton-circle" />

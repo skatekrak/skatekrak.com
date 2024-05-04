@@ -1,21 +1,20 @@
 import React, { useCallback, useMemo, memo } from 'react';
-import { useDispatch } from 'react-redux';
 import ReactMapGL, { GeolocateControl, MapRef, NavigationControl, Source, ViewStateChangeEvent } from 'react-map-gl';
 import type { FeatureCollection, Geometry } from 'geojson';
+import { useShallow } from 'zustand/react/shallow';
 
 import SpotMarker from '@/components/pages/map/marker/SpotMarker';
 import MapSpotOverview from './MapSpotOverview';
 import * as S from './Map.styled';
 
 import { SpotGeoJSON } from '@krak/carrelage-client';
-import { setSpotOverview, toggleLegend, toggleSearchResult } from '@/store/map/slice';
-import { useAppSelector } from '@/store/hook';
 import { MAX_ZOOM_LEVEL, ZOOM_DISPLAY_DOTS, MIN_ZOOM_LEVEL } from './Map.constant';
 import { Status, Types } from '@/shared/feudartifice/types';
 import SmallLayer from './layers/SmallLayer';
 import SpotPinLayer from './layers/SpotPinLayer';
 import { intersects } from 'radash';
 import { useSpotID, useSpotModal, useViewport } from '@/lib/hook/queryState';
+import { useMapStore } from '@/store/map';
 
 type MapComponentProps = {
     mapRef: React.RefObject<MapRef>;
@@ -25,11 +24,17 @@ type MapComponentProps = {
 };
 
 const MapComponent = ({ mapRef, spots, children, onLoad }: MapComponentProps) => {
-    const dispatch = useDispatch();
+    const [selectedSpotOverview, setSpotOverview, toggleLegend, toggleSearchResult] = useMapStore(
+        useShallow((state) => [
+            state.spotOverview,
+            state.setSpotOverview,
+            state.toggleLegend,
+            state.toggleSearchResult,
+        ]),
+    );
     const [viewport, setViewport] = useViewport();
     const [spotId, setSpotId] = useSpotID();
     const [, setModalVisible] = useSpotModal();
-    const selectedSpotOverview = useAppSelector((state) => state.map.spotOverview);
 
     const [markers, spotSourceData]: [JSX.Element[], FeatureCollection<Geometry>] = useMemo(() => {
         const markers: JSX.Element[] = [];
@@ -57,8 +62,8 @@ const MapComponent = ({ mapRef, spots, children, onLoad }: MapComponentProps) =>
 
     const onPopupClick = () => {
         setModalVisible(true);
-        dispatch(toggleLegend(false));
-        dispatch(toggleSearchResult(false));
+        toggleLegend(false);
+        toggleSearchResult(false);
     };
 
     const onPopupClose = useCallback(() => {
@@ -67,9 +72,9 @@ const MapComponent = ({ mapRef, spots, children, onLoad }: MapComponentProps) =>
         }
 
         if (selectedSpotOverview != null) {
-            dispatch(setSpotOverview(undefined));
+            setSpotOverview(null);
         }
-    }, [dispatch, spotId, selectedSpotOverview, setSpotId]);
+    }, [setSpotOverview, spotId, selectedSpotOverview, setSpotId]);
 
     const onViewportChange = async (viewState: ViewStateChangeEvent) => {
         await setViewport(viewState.viewState);
