@@ -104,7 +104,7 @@ const MapContainer = () => {
     }, [overview, dispatch, centerToSpot, mapLoaded]);
 
     const enableSpotQuery = useMemo(() => {
-        if (mapRef.current == null) {
+        if (!mapLoaded) {
             return false;
         }
 
@@ -117,13 +117,14 @@ const MapContainer = () => {
         }
 
         return true;
-    }, [id, viewport.zoom, mapRef]);
+    }, [id, viewport.zoom, mapLoaded]);
 
     const {
         data: spots,
         refetch,
         isFetching: spotsGeoJSONLoading,
     } = useSpotsGeoJSON(mapRef?.current ?? undefined, enableSpotQuery);
+
     const shouldFetchWithMedia = useMemo(() => {
         if (isEmpty(customMapInfo)) return undefined;
         if (isEmpty(customMapInfo?.categories)) return true;
