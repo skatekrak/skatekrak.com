@@ -11,7 +11,7 @@ export const MapFiltersContainer = styled.div`
 type MapFilterProps = {
     filter: Types | Status;
     isActive: boolean;
-    isLoading: boolean;
+    isLoading?: boolean;
 };
 
 export const MapFilterContainer = styled.button<MapFilterProps>`

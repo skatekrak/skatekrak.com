@@ -1,61 +1,30 @@
-import React, { useState, useCallback, useEffect, useMemo } from 'react';
-import { useDispatch } from 'react-redux';
+import { memo } from 'react';
+import { useShallow } from 'zustand/react/shallow';
 
 import { Types, Status } from '@krak/carrelage-client';
-import { SpinnerCircle } from '@/components/Ui/Icons/Spinners';
-import { toggleMapFilter } from '@/store/map/slice';
-import { FilterStateUtil, FilterState } from '@/lib/FilterState';
 
 import * as S from './MapFilters.styled';
-import { useAppSelector } from '@/store/hook';
+import { useMapStore } from '@/store/map';
 
-type Props = {
+type MapFilterProps = {
     filter: Types | Status;
     icon: JSX.Element;
 };
 
-const MapFilter: React.FC<Props> = ({ filter, icon }) => {
-    const [loading, setLoading] = useState(false);
-    const [status, types] = useAppSelector((state) => [state.map.status, state.map.types]);
+const MapFilter = ({ filter, icon }: MapFilterProps) => {
+    const [filters, toggleFilter] = useMapStore(useShallow((state) => [state.filters, state.toggleFilter]));
 
-    const dispatch = useDispatch();
+    const handleOnClick = () => {
+        toggleFilter(filter);
+    };
 
-    const handleOnClick = useCallback(() => {
-        dispatch(toggleMapFilter(filter));
-    }, [dispatch]);
-
-    const isActive = useMemo(() => {
-        if (Object.values(Types).includes(filter as any)) {
-            return FilterStateUtil.isSelected(types[filter as Types]);
-        } else if (Object.values(Status).includes(filter as any)) {
-            return FilterStateUtil.isSelected(status[filter as Status]);
-        }
-        return false;
-    }, [status, types]);
-
-    useEffect(() => {
-        if (Object.values(Types).includes(filter as any)) {
-            const filterState = types[filter as Types];
-            if (filterState === FilterState.LOADING_TO_SELECTED || filterState === FilterState.LOADING_TO_UNSELECTED) {
-                setLoading(true);
-            } else {
-                setLoading(false);
-            }
-        } else if (Object.values(Status).includes(filter as any)) {
-            const filterState = status[filter as Status];
-            if (filterState === FilterState.LOADING_TO_SELECTED || filterState === FilterState.LOADING_TO_UNSELECTED) {
-                setLoading(true);
-            } else {
-                setLoading(false);
-            }
-        }
-    }, [status, types]);
+    const isActive = filters.includes(filter);
 
     return (
-        <S.MapFilterContainer filter={filter} isActive={isActive} isLoading={loading} onClick={handleOnClick}>
-            {loading ? <SpinnerCircle /> : icon}
+        <S.MapFilterContainer filter={filter} isActive={isActive} onClick={handleOnClick}>
+            {icon}
         </S.MapFilterContainer>
     );
 };
 
-export default React.memo(MapFilter);
+export default memo(MapFilter);

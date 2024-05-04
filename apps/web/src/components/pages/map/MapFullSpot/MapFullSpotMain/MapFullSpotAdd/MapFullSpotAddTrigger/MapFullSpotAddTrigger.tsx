@@ -7,7 +7,7 @@ import IconMedia from '@/components/Ui/Icons/IconMedia';
 import MapFullSpotAddTriggerTooltip from './MapFullSpotAddTriggerTooltip';
 import * as S from './MapFullSpotAddTrigger.styled';
 
-import { FullSpotTab } from '@/store/map/slice';
+import { FullSpotTab } from '@/store/map';
 import useSession from '@/lib/hook/carrelage/use-session';
 import { useRouter } from 'next/router';
 import { useFullSpotSelectedTab } from '@/lib/hook/queryState';

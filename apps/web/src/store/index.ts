@@ -7,7 +7,6 @@ import { save, load } from 'redux-localstorage-simple';
 import merge from 'deepmerge';
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 
-import mapReducer, { initialState as mapInitialState } from './map/slice';
 import magReducer, { initialState as magInitialState } from './mag/slice';
 import newsReducer, { initialState as newsInitialState } from './news/slice';
 import videosReducer, { initialState as videosInitialState } from './videos/slice';
@@ -15,7 +14,6 @@ import settingsReducer from './settings/slice';
 
 const reducers = combineReducers({
     router: routerReducer,
-    map: mapReducer,
     mag: magReducer,
     news: newsReducer,
     video: videosReducer,
@@ -51,13 +49,6 @@ export const initializeStore = (context) => {
 
         const state = {
             router: initialRouter,
-            map: {
-                ...mapInitialState,
-                selectSpot: params.spot,
-                modalVisible: params.modal === '1',
-                customMapId: params.id,
-                media: params.media,
-            },
             mag: {
                 ...magInitialState,
                 search: params.query ?? '',
@@ -97,7 +88,7 @@ export const initializeStore = (context) => {
 };
 
 export type RootStore = ReturnType<typeof initializeStore>;
-export type RootState = Pick<ReturnType<typeof reducers>, 'mag' | 'map' | 'news' | 'router' | 'settings' | 'video'>;
+export type RootState = Pick<ReturnType<typeof reducers>, 'mag' | 'news' | 'router' | 'settings' | 'video'>;
 export type AppDispatch = RootStore['dispatch'];
 
 export const wrapper = createWrapper<RootStore>(initializeStore, {
