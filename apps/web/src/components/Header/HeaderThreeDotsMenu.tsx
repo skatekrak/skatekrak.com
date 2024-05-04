@@ -3,16 +3,16 @@ import Tippy from '@tippyjs/react/headless';
 import Link from 'next/link';
 
 import * as S from './Header.styled';
-import { useAppSelector } from '@/store/hook';
 import IconDotsThreeVertical from '@/components/Ui/Icons/IconDotsThreeVertical';
 import Typography from '@/components/Ui/typography/Typography';
 import { PATH_CALL_TO_ADVENTURE } from '@/pages/call-to-adventure';
 import IconTwitter from '@/components/Ui/Icons/Logos/IconTwitter';
 import IconInstagram from '@/components/Ui/Icons/Logos/IconInstagram';
 import IconYoutubeMonochrome from '@/components/Ui/Icons/Logos/IconYoutubeMonochrome';
+import { useSettingsStore } from '@/store/settings';
 
 export const HeaderThreeDotsMenu = () => {
-    const isMobile = useAppSelector((state) => state.settings.isMobile);
+    const isMobile = useSettingsStore((state) => state.isMobile);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const handleMenuOpen = () => setIsMenuOpen((prev) => !prev);
 

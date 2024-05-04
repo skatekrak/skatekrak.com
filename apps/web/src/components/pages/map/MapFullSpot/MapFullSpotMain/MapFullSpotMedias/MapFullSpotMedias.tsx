@@ -1,5 +1,4 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 import InfiniteScroll from 'react-infinite-scroller';
 
 import { KrakLoading } from '@/components/Ui/Icons/Spinners';
@@ -11,7 +10,7 @@ import * as S from '@/components/pages/map/MapFullSpot/MapFullSpotMain/MapFullSp
 import { Spot, Media } from '@krak/carrelage-client';
 import useSpotMedias from '@/lib/hook/carrelage/spot-medias';
 import { flatten } from '@/lib/helpers';
-import { RootState } from '@/store';
+import { useSettingsStore } from '@/store/settings';
 
 export type MapFullSpotMediasProps = {
     medias: Media[];
@@ -19,7 +18,7 @@ export type MapFullSpotMediasProps = {
 };
 
 const MapFullSpotMedias: React.FC<MapFullSpotMediasProps> = ({ medias: firstMedias, spot }) => {
-    const isMobile = useSelector((state: RootState) => state.settings.isMobile);
+    const isMobile = useSettingsStore((state) => state.isMobile);
 
     const { isFetching, data, hasNextPage, fetchNextPage } = useSpotMedias(spot.id, firstMedias);
     const medias = flatten(data?.pages ?? []);

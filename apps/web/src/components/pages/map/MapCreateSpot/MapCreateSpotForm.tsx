@@ -2,7 +2,6 @@ import { useFormikContext } from 'formik';
 import mapboxgl, { MapLayerMouseEvent } from 'mapbox-gl';
 import { memo, useEffect, useState } from 'react';
 import { useMap } from 'react-map-gl';
-import { useAppSelector } from '@/store/hook';
 
 import { useMapStore } from '@/store/map';
 import ButtonPrimary from '@/components/Ui/Button/ButtonPrimary';
@@ -16,11 +15,12 @@ import MapCreateSpotLocationHelper from './MapCreateSpotLocation/MapCreateSpotLo
 import MapCreateSpotMedia from './MapCreateSpotMedia';
 import MapCreateSpotRain from './MapCreateSpotRain';
 import MapCreateSpotType from './MapCreateSpotType';
+import { useSettingsStore } from '@/store/settings';
 
 const MapCreateSpotForm = () => {
     const { handleSubmit, values, isSubmitting, isValid, dirty, setFieldValue } =
         useFormikContext<MapCreateSpotFormValues>();
-    const isMobile = useAppSelector((state) => state.settings.isMobile);
+    const isMobile = useSettingsStore((state) => state.isMobile);
     const [isMapVisible, setMapVisible] = useState(false);
     const toggleCreateSpot = useMapStore((state) => state.toggleCreateSpot);
     const [isLocationHelperFlashing, setIsLocationHelperFlashing] = useState(false);

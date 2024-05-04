@@ -4,27 +4,26 @@ import Head from 'next/head';
 import Header from '@/components/Header';
 import * as S from './Layout.styled';
 
-import { setDeviceSize } from '@/store/settings/slice';
-import { useAppDispatch } from '@/store/hook';
+import { useSettingsStore } from '@/store/settings';
 
 export type LayoutProps = {
     head?: React.ReactElement;
 };
 
 const Layout: React.FC<LayoutProps & { children: React.ReactNode }> = ({ head, children }) => {
-    const dispatch = useAppDispatch();
+    const setDeviceSize = useSettingsStore((state) => state.setDeviceSize);
 
     useEffect(() => {
         const setWindowsDimensions = () => {
-            dispatch(setDeviceSize(window.innerWidth));
+            setDeviceSize(window.innerWidth);
         };
 
         window.addEventListener('resize', setWindowsDimensions);
-        dispatch(setDeviceSize(window.innerWidth));
+        setDeviceSize(window.innerWidth);
         return () => {
             window.removeEventListener('resize', setWindowsDimensions);
         };
-    }, []);
+    }, [setDeviceSize]);
 
     return (
         <>

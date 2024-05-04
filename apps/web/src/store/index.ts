@@ -10,14 +10,12 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import magReducer, { initialState as magInitialState } from './mag/slice';
 import newsReducer, { initialState as newsInitialState } from './news/slice';
 import videosReducer, { initialState as videosInitialState } from './videos/slice';
-import settingsReducer from './settings/slice';
 
 const reducers = combineReducers({
     router: routerReducer,
     mag: magReducer,
     news: newsReducer,
     video: videosReducer,
-    settings: settingsReducer,
 });
 
 const reducer = (state, action) => {
@@ -88,7 +86,7 @@ export const initializeStore = (context) => {
 };
 
 export type RootStore = ReturnType<typeof initializeStore>;
-export type RootState = Pick<ReturnType<typeof reducers>, 'mag' | 'news' | 'router' | 'settings' | 'video'>;
+export type RootState = Pick<ReturnType<typeof reducers>, 'mag' | 'news' | 'router' | 'video'>;
 export type AppDispatch = RootStore['dispatch'];
 
 export const wrapper = createWrapper<RootStore>(initializeStore, {

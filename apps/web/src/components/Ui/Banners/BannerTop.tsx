@@ -2,64 +2,27 @@
  * Npm import
  */
 import Link from 'next/link';
-import React from 'react';
-import { connect } from 'react-redux';
+import React, { useEffect } from 'react';
 
 /*
  * Local import
  */
 import ScrollHelper from '@/lib/ScrollHelper';
-import { State as SettingState } from '@/store/settings/slice';
-import { RootState } from '@/store';
+import { useSettingsStore } from '@/store/settings';
 
 /*
  * Code
  */
-type Props = {
+type BannerTopProps = {
     offsetScroll: boolean;
     link: string;
     text: string;
-    settings: SettingState;
 };
 
-class BannerTop extends React.Component<Props> {
-    public componentDidMount() {
-        const scrollContainer = ScrollHelper.getScrollContainer();
-        if (scrollContainer) {
-            scrollContainer.addEventListener('scroll', this.handleScroll);
-        }
+function BannerTop({ offsetScroll, link, text }: BannerTopProps) {
+    const isMobile = useSettingsStore((state) => state.isMobile);
 
-        const banner = document.getElementById('banner-top');
-        if (!this.props.offsetScroll) {
-            banner?.classList.add('banner-top-show');
-        }
-    }
-
-    public componentDidUpdate(prevProps: Props) {
-        if (prevProps.settings.isMobile !== this.props.settings.isMobile) {
-            const scrollContainer = ScrollHelper.getScrollContainer();
-            if (scrollContainer) {
-                scrollContainer.addEventListener('scroll', this.handleScroll);
-            }
-        }
-    }
-
-    public componentWillUnmount() {
-        const scrollContainer = ScrollHelper.getScrollContainer();
-        if (scrollContainer) {
-            scrollContainer.removeEventListener('scroll', this.handleScroll);
-        }
-    }
-
-    public render() {
-        return (
-            <Link id="banner-top" href={this.props.link}>
-                {this.props.text}
-            </Link>
-        );
-    }
-
-    private handleScroll = () => {
+    function handleScroll() {
         const scrollContainer = ScrollHelper.getScrollContainer();
         if (scrollContainer) {
             let showFrom = 0;
@@ -78,7 +41,32 @@ class BannerTop extends React.Component<Props> {
                 banner?.classList.remove('banner-top-show');
             }
         }
-    };
+    }
+
+    useEffect(() => {
+        const scrollContainer = ScrollHelper.getScrollContainer();
+        if (scrollContainer) {
+            scrollContainer.addEventListener('scroll', handleScroll);
+        }
+
+        const banner = document.getElementById('banner-top');
+        if (!offsetScroll) {
+            banner?.classList.add('banner-top-show');
+        }
+
+        return () => {
+            const scrollContainer = ScrollHelper.getScrollContainer();
+            if (scrollContainer) {
+                scrollContainer.removeEventListener('scroll', handleScroll);
+            }
+        };
+    }, [isMobile, offsetScroll]);
+
+    return (
+        <Link id="banner-top" href={link}>
+            {text}
+        </Link>
+    );
 }
 
-export default connect((state: RootState) => ({ settings: state.settings }))(BannerTop);
+export default BannerTop;

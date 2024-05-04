@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 import NoContent from '@/components/Ui/Feed/NoContent';
 import { KrakLoading } from '@/components/Ui/Icons/Spinners';
 import ScrollHelper from '@/lib/ScrollHelper';
-import { FeedLayout } from '@/store/settings/slice';
+import { FeedLayout, useSettingsStore } from '@/store/settings';
 
 import ArticlesList from '../ArticlesList';
 import { RootState } from '@/store';
@@ -19,7 +19,7 @@ type ArticlesProps = {
 
 const Articles = ({ sidebarNavIsOpen }: ArticlesProps) => {
     const selectedSources = useSelector((state: RootState) => state.news.selectSources);
-    const feedLayout = useSelector((state: RootState) => state.settings.feedLayout);
+    const feedLayout = useSettingsStore((state) => state.feedLayout);
 
     const [promoCardIndexes, setPromoCardIndexes] = useState<number[]>([]);
 

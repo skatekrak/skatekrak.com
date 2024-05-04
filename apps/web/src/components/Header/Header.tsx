@@ -1,5 +1,4 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 import Link from 'next/link';
 
 import IconDiscord from '@/components/Ui/Icons/Logos/IconDiscord';
@@ -11,12 +10,12 @@ import * as S from './Header.styled';
 
 import { PATH_CALL_TO_ADVENTURE } from '@/pages/call-to-adventure';
 import useSession from '@/lib/hook/carrelage/use-session';
-import { RootState } from '@/store';
 import IconInstagram from '@/components/Ui/Icons/Logos/IconInstagram';
 import { HeaderThreeDotsMenu } from './HeaderThreeDotsMenu';
+import { useSettingsStore } from '@/store/settings';
 
 const Header: React.FC = () => {
-    const isMobile = useSelector((state: RootState) => state.settings.isMobile);
+    const isMobile = useSettingsStore((state) => state.isMobile);
     const { data: sessionData } = useSession();
     const isConnected = sessionData != null;
 
