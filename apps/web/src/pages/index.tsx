@@ -101,7 +101,6 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
         // choose random city to land to
         const randomCity = draw(cities);
         if (randomCity != null) {
-            console.log('randomCity', randomCity);
             const viewport = centerFromBounds(randomCity.bounds);
 
             return {

@@ -8,6 +8,7 @@
     "build": "bun build src/index.ts --target bun --outdir ./dist"
   },
   "dependencies": {
+    "@bogeychan/elysia-logger": "^0.0.21",
     "@elysiajs/cors": "^1.0.2",
     "@elysiajs/trpc": "^1.0.2",
     "@elysiajs/websocket": "^0.2.8",
