@@ -92,7 +92,7 @@ export const spotsRouter = router({
         .query(async ({ ctx, input }) => {
             if (input.tagsFromMedia) {
                 const spots = await ctx.db
-                    .collection('medias')
+                    .collection('media')
                     .aggregate([
                         {
                             $match: {
