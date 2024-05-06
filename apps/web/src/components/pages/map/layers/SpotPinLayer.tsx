@@ -48,8 +48,6 @@ const SpotPinLayer = ({ type }: SpotPinLayerProps) => {
         };
     }, [map, type, onMapLayerClick]);
 
-    const filterAttribute = type === Status.Rip || type === Status.Wip ? 'status' : 'type';
-
     return (
         <Layer
             id={`spot-layer-${type}`}
@@ -64,7 +62,7 @@ const SpotPinLayer = ({ type }: SpotPinLayerProps) => {
             paint={{
                 'icon-opacity': isCreateSpotOpen ? 0.5 : 1,
             }}
-            filter={['==', filterAttribute, type]}
+            filter={['==', 'type', type]}
         />
     );
 };

@@ -1,7 +1,7 @@
 import { ObjectId } from 'mongodb';
 import { publicProcedure, router } from '../trpc';
 import { z } from 'zod';
-import { SpotGeoJSON, Spot } from '@krak/carrelage-client';
+import { SpotGeoJSON, Spot, Status } from '@krak/carrelage-client';
 
 const formatSpotsToGEOJson = (spots: Spot[]) => {
     return spots.map(
@@ -14,8 +14,7 @@ const formatSpotsToGEOJson = (spots: Spot[]) => {
             properties: {
                 id: spot.id,
                 name: spot.name,
-                type: spot.type,
-                status: spot.status,
+                type: spot.status === Status.Active ? spot.type : spot.status,
                 indoor: spot.indoor,
                 tags: spot.tags,
                 mediasStat: spot.mediasStat,

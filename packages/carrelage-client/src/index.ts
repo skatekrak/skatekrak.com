@@ -218,7 +218,7 @@ export const boxSpotsSearch = async (params: BoxSearchSpotsParams) => {
 
 export type SpotGeoJSON = GeoJSON.Feature<
     GeoJSON.Point,
-    Pick<Spot, 'id' | 'name' | 'type' | 'status' | 'indoor' | 'tags' | 'mediasStat'>
+    Pick<Spot, 'id' | 'name' | 'indoor' | 'tags' | 'mediasStat'> & { type: Types | Status }
 >;
 
 export const spotsSearchGeoJSON = async (params: BoxSearchSpotsParams) => {
