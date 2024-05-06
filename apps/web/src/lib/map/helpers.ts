@@ -1,4 +1,4 @@
-import { Spot, SpotGeoJSON } from '@krak/carrelage-client';
+import { Spot, SpotGeoJSON, Status } from '@krak/carrelage-client';
 
 /**
  *
@@ -51,8 +51,7 @@ export const spotToGeoJSON = (spot: Spot): SpotGeoJSON => {
         properties: {
             id: spot.id,
             name: spot.name,
-            type: spot.type,
-            status: spot.status,
+            type: spot.status === Status.Active ? spot.type : spot.status,
             indoor: spot.indoor,
             tags: spot.tags,
             mediasStat: spot.mediasStat,
