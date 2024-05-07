@@ -44,10 +44,6 @@ const useSpotMedias = (spotId: string, initialMedias: Media[], key?: string) => 
             }
             return null;
         },
-        initialData: {
-            pages: [initialMedias],
-            pageParams: initialMedias.length >= 20 ? [first(initialMedias)?.createdAt ?? new Date()] : [],
-        },
         refetchOnWindowFocus: false,
         refetchOnMount: false,
     });
