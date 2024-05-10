@@ -32,15 +32,7 @@ const MapFullSpotMainClip = ({ clip }: MapFullSpotMainClipProps) => {
     return (
         <S.MapFullSpotMainClip>
             <S.MapFullSpotMainClipTitle component="heading6">{clip.title}</S.MapFullSpotMainClipTitle>
-            <VideoPlayer
-                ref={playerRef}
-                playing={isPlaying}
-                onReady={onReady}
-                url={clip.videoURL}
-                light={clip.thumbnailURL}
-                controls
-                playIcon={clip.provider === 'vimeo' ? () => <></> : undefined} // Remove play icon on Vimeo as there is already one in the thumbnail
-            />
+            <VideoPlayer ref={playerRef} playing={isPlaying} onReady={onReady} url={clip.videoURL} light controls />
         </S.MapFullSpotMainClip>
     );
 };
