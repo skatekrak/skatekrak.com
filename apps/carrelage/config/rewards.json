@@ -1,0 +1,142 @@
+{
+    "create_like": {
+        "1": {
+            "name": "Baby Liker",
+            "description": "You like your 1st post",
+            "badge": "",
+            "multiplier": 10
+        },
+        "10": {
+            "name": "Wat a Liker",
+            "description": "You like your 10th post",
+            "badge": "",
+            "multiplier": 20
+        },
+        "100": {
+            "name": "Lover",
+            "description": "You like your 100th post",
+            "badge": "",
+            "multiplier": 30
+        }
+    },
+    "receive_like": {
+        "1": {
+            "name": "Someone",
+            "description": "Someone like one of your post",
+            "badge": "",
+            "multiplier": 20
+        },
+        "10": {
+            "name": "Popular",
+            "description": "You've reached 10 likes on your posts",
+            "badge": "",
+            "multiplier": 30
+        },
+        "100": {
+            "name": "Famous",
+            "description": "You've reached 100 likes on your posts",
+            "badge": "",
+            "multiplier": 40
+        }
+    },
+    "create_comment": {
+        "1": {
+            "name": "Baby Chatter",
+            "description": "You comment your 1st post",
+            "badge": "",
+            "multiplier": 10
+        },
+        "10": {
+            "name": "Chit-Chat",
+            "description": "You comment your 10th post",
+            "badge": "",
+            "multiplier": 20
+        },
+        "100": {
+            "name": "Writer",
+            "description": "You commented your 100th post",
+            "badge": "",
+            "multiplier": 40
+        }
+    },
+    "create_spot": {
+        "1": {
+            "name": "Baby Spotter",
+            "description": "You create your first spot",
+            "badge": "",
+            "multiplier": 20
+        },
+        "10": {
+            "name": "Regular Spotter",
+            "description": "You create your 10th spot",
+            "badge": "",
+            "multiplier": 30
+        },
+        "100": {
+            "name": "Monster Spotter",
+            "description": "You create your 100th spot",
+            "badge": "",
+            "multiplier": 40
+        }
+    },
+    "create_media": {
+        "1": {
+            "name": "Baby Filmer",
+            "description": "You create your first media",
+            "badge": "",
+            "multiplier": 20
+        },
+        "10": {
+            "name": "Chit-Chat",
+            "description": "",
+            "badge": "",
+            "multiplier": 40
+        },
+        "100": {
+            "name": "Chatty",
+            "description": "",
+            "badge": "",
+            "multiplier": 60
+        }
+    },
+    "create_clips": {
+        "1": {
+            "name": "Viewer",
+            "description": "You posted your 1st clip",
+            "badge": "",
+            "multiplier": 10
+        },
+        "10": {
+            "name": "Archiver",
+            "description": "You posted your 10th clip",
+            "badge": "",
+            "multiplier": 20
+        },
+        "100": {
+            "name": "Maester Archiver",
+            "description": "You posted your 100th clip",
+            "badge": "",
+            "multiplier": 40
+        }
+    },
+    "create_tricksDone": {
+        "1": {
+            "name": "New comer",
+            "description": "You got your first trick done",
+            "badge": "",
+            "multiplier": 10
+        },
+        "10": {
+            "name": "Skater",
+            "description": "You've done your 10th trick done",
+            "badge": "",
+            "multiplier": 20
+        },
+        "100": {
+            "name": "Sponsored",
+            "description": "You've done your 100th trick done",
+            "badge": "",
+            "multiplier": 40
+        }
+    }
+}
