@@ -47,19 +47,15 @@ jobs:
     create_map:
         runs-on: ubuntu-latest
         steps:
-            - uses: actions/checkout@v3
+            - uses: actions/checkout@v4
               with:
                   token: ${{ secrets.REPO_PAT }}
-            - uses: pnpm/action-setup@v2
+            - uses: oven-sh/setup-bun@v1
               with:
-                  version: latest
-            - uses: actions/setup-node@v2
-              with:
-                  node-version: 18
-                  cache: pnpm
+                  bun-version: 1.1.6
             - name: Write map data
               run: |
-                  node ./scripts/create_map.js \
+                  bun ./scripts/create_map.js \
                     --tag ${{ inputs.tag }} \
                     --name "${{ inputs.name }}" \
                     --category "${{ inputs.categories }}" \
@@ -73,8 +69,8 @@ jobs:
                   add: "['./apps/api/src/data/customMaps/_spots.json']"
                   default_author: user_info
                   message: 'feat: Add new ${{ inputs.tag }} map'
-            - run: pnpm install --frozen-lockfile
-            - run: pnpm lint
+            - run: bun install --frozen-lockfile
+            - run: bun lint
             - name: Deploying to Vercel
               uses: amondnet/vercel-action@v25
               with:
