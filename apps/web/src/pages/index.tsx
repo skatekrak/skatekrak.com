@@ -97,7 +97,7 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
         } catch (err) {
             console.error(err);
         }
-    } else if (query.latitude == null || query.longitude == null) {
+    } else if (query.id == null && (query.latitude == null || query.longitude == null)) {
         // choose random city to land to
         const randomCity = draw(cities);
         if (randomCity != null) {
