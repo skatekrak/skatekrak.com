@@ -31,20 +31,19 @@ const MapFullSpotAddClip = () => {
 
         try {
             const clip = await Feudartifice.clips.addClip(spotOverview.spot.id, url);
-            selectFullSpotTab('clips');
             queryClient.invalidateQueries({ queryKey: ['load-overview', spotOverview.spot.id] });
             queryClient.setQueryData(['fetch-spot-clips', spotOverview.spot.id], (prevData: any) => {
                 if (prevData == null) return prevData;
 
                 return {
                     pages: [[clip], ...prevData.pages],
-                    pagaParams: prevData.pageParams,
+                    pageParams: prevData.pageParams,
                 };
             });
+
+            selectFullSpotTab('clips');
         } catch (err) {
             console.error(err);
-        } finally {
-            setSubmitting(false);
         }
     };
 

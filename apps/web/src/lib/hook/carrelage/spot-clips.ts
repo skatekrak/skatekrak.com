@@ -29,6 +29,7 @@ const useSpotClips = (spotId: string) => {
         },
         initialPageParam: new Date(),
         refetchOnWindowFocus: false,
+        refetchOnMount: false,
     });
 };
 
