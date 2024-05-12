@@ -8255,5 +8255,18 @@
     "edito": "",
     "about": "The Belgian issue !",
     "videos": []
+  },
+  {
+    "id": "raion",
+    "categories": [
+      "maps"
+    ],
+    "name": "Raion",
+    "subtitle": "",
+    "edito": "",
+    "about": "RAION is a Belgium based non-profit organization, owned & operated by skaters, in service of skateboarding. They stand for happiness through skateboarding.  https://raion.be/",
+    "videos": [
+      "https://www.youtube.com/playlist?list=PLNX45q78g5zODk1qkP1793UM97JUCD5-u"
+    ]
   }
 ]
