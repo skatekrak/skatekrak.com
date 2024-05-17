@@ -8281,5 +8281,18 @@
     "videos": [
       "https://www.youtube.com/playlist?list=PLKsJQVchEr54vne5Op8wQsG6A3KlmUTD6"
     ]
+  },
+  {
+    "id": "markgonzales",
+    "categories": [
+      "skater"
+    ],
+    "name": "Mark Gonzales",
+    "subtitle": "",
+    "edito": "",
+    "about": "Mark Gonzales (born June 1, 1968 in South Gate, California, United States), also known as Gonz and The",
+    "videos": [
+      "https://www.youtube.com/playlist?list=PLO9RQGlVE8brdztsPN0JJuAmcwiaSzIuR"
+    ]
   }
 ]
