@@ -8294,5 +8294,22 @@
     "videos": [
       "https://www.youtube.com/playlist?list=PLO9RQGlVE8brdztsPN0JJuAmcwiaSzIuR"
     ]
+  },
+  {
+    "id": "kerrygetz",
+    "categories": [
+      "skater"
+    ],
+    "name": "Kerry Getz",
+    "subtitle": "",
+    "edito": "",
+    "about": "Kerry Getz (born June 10, 1975) is an American professional skateboarder.",
+    "videos": [
+      "https://www.youtube.com/watch?v=2f4oiAvOezA",
+      "https://www.youtube.com/watch?v=DOPeZRuzI8Q",
+      "https://www.youtube.com/watch?v=kD8ft9PYDnU",
+      "https://www.youtube.com/watch?v=kUbW9wW_irQ",
+      "https://www.youtube.com/watch?v=wRRhU2Eu4ME"
+    ]
   }
 ]
