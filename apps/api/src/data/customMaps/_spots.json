@@ -8268,5 +8268,18 @@
     "videos": [
       "https://www.youtube.com/playlist?list=PLNX45q78g5zODk1qkP1793UM97JUCD5-u"
     ]
+  },
+  {
+    "id": "joshkalis",
+    "categories": [
+      "skater"
+    ],
+    "name": "Josh Kalis",
+    "subtitle": "",
+    "edito": "",
+    "about": "Josh Kalis (born April 27, 1976 in Grand Rapids, Michigan, US) is an american professional skateboarder.",
+    "videos": [
+      "https://www.youtube.com/playlist?list=PLKsJQVchEr54vne5Op8wQsG6A3KlmUTD6"
+    ]
   }
 ]
