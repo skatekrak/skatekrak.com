@@ -12,25 +12,23 @@ const router = express.Router();
 
 const validations = {
     list: {
-        query: {
+        query: Joi.object({
             limit: Joi.number().positive(),
             skip: Joi.number(),
-        },
+        }),
     },
     create: {
-        body: {
-            url: Joi.string()
-                .uri()
-                .required(),
-        },
+        body: Joi.object({
+            url: Joi.string().uri().required(),
+        }),
     },
     update: {
-        body: {
+        body: Joi.object({
             title: Joi.string(),
             description: Joi.string().allow('', null),
             thumbnailURL: Joi.string().uri(),
             trick: Joi.string(),
-        },
+        }),
     },
 };
 

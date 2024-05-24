@@ -11,12 +11,12 @@ const router = express.Router();
 
 const validations = {
     create: {
-        body: {
+        body: Joi.object({
             title: Joi.string().required(),
             description: Joi.string().required(),
             endDate: Joi.date().required(),
             reward: Joi.string().required(),
-        },
+        }),
     },
     update: {
         body: {

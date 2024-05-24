@@ -8,11 +8,9 @@ const router = express.Router();
 
 const validation = {
     overview: {
-        query: {
-            limit: Joi.number()
-                .positive()
-                .default(6),
-        },
+        query: Joi.object({
+            limit: Joi.number().positive().default(6),
+        }),
     },
 };
 

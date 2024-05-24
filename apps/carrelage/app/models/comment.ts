@@ -1,7 +1,6 @@
 import { Document, Model, Types } from 'mongoose';
 import twitterText from 'twitter-text';
 
-import '../helpers/replace-all';
 import mongoose from '../server/mongo';
 import utils from './utils';
 
@@ -74,7 +73,7 @@ export const CommentSchema = new mongoose.Schema(
     }),
 );
 
-CommentSchema.virtual('content').get(function(this: IComment) {
+CommentSchema.virtual('content').get(function (this: IComment) {
     let content = this._content.repeat(1);
     for (let i = 0; i < this.usertags.length; i += 1) {
         const handle = this.usertags[i];

@@ -4,8 +4,7 @@ import mongoose from '../server/mongo';
 import APIError from '../helpers/api-error';
 import utils from './utils';
 
-// eslint-disable-next-line
-import REWARDS from '/app/config/rewards.json';
+import REWARDS from '../../config/rewards.json';
 export const REWARD_TYPE = Object.keys(REWARDS);
 
 export const RewardSchema = new mongoose.Schema(

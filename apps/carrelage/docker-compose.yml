@@ -9,8 +9,8 @@ services:
             - 27017:27017
 
     carrelage:
-        image: node:16
-        command: bash -c "yarn install && yarn start:cmd:dev"
+        image: node:20
+        command: bash -c "bun install && bun run start:cmd:dev"
         depends_on:
             - mongodb
         labels:

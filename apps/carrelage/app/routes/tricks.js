@@ -13,38 +13,36 @@ const router = express.Router();
 
 const validation = {
     trickId: {
-        params: {
+        params: Joi.object({
             trickId: Joi.string().required(),
-        },
+        }),
     },
     create: {
-        body: {
+        body: Joi.object({
             name: Joi.string().required(),
             displayName: Joi.string().required(),
             order: Joi.number().required(),
             difficultyLevel: Joi.string()
-                .valid(Object.values(DifficultyLevels))
+                .valid(...Object.values(DifficultyLevels))
                 .required(),
-            keywords: Joi.array()
-                .items(Joi.string())
-                .required(),
+            keywords: Joi.array().items(Joi.string()).required(),
             points: Joi.number().required(),
-        },
+        }),
     },
     update: {
-        body: {
+        body: Joi.object({
             displayName: Joi.string(),
             order: Joi.number(),
-            difficultyLevel: Joi.string().valid(Object.values(DifficultyLevels)),
+            difficultyLevel: Joi.string().valid(...Object.values(DifficultyLevels)),
             keywords: Joi.array().items(Joi.string()),
             points: Joi.number(),
-        },
+        }),
     },
     search: {
-        query: {
+        query: Joi.object({
             query: Joi.string().required(),
             limit: Joi.number().positive(),
-        },
+        }),
     },
 };
 

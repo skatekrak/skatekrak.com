@@ -4,6 +4,7 @@ import Joi from 'joi';
 
 import rewardCtrl from '../controllers/rewards';
 import { REWARD_TYPE } from '../models/reward';
+import REWARDS from '../config/rewards.json';
 import auth from '../server/auth';
 import defaultValidations from '../helpers/default-validations';
 
@@ -11,12 +12,20 @@ const router = express.Router();
 
 const validation = {
     create: {
-        body: {
+        body: Joi.object({
             type: Joi.string()
-                .valid(REWARD_TYPE)
+                .valid(
+                    'create_like',
+                    'receive_like',
+                    'create_comment',
+                    'create_spot',
+                    'create_media',
+                    'create_clips',
+                    'create_tricksDone',
+                )
                 .required(),
             subtype: Joi.string().required(),
-        },
+        }),
     },
 };
 
@@ -24,9 +33,6 @@ router.param('objectId', validate(defaultValidations.objectId));
 
 router.route('/').post(auth.admin(), validate(validation.create), rewardCtrl.create);
 
-router
-    .route('/:objectId')
-    .get(rewardCtrl.load, rewardCtrl.get)
-    .delete(rewardCtrl.load, rewardCtrl.remove);
+router.route('/:objectId').get(rewardCtrl.load, rewardCtrl.get).delete(rewardCtrl.load, rewardCtrl.remove);
 
 export default router;

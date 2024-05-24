@@ -17,14 +17,14 @@ const router = express.Router();
 
 const validations = {
     list: {
-        query: {
+        query: Joi.object({
             limit: Joi.number().positive(),
             skip: Joi.number(),
-        },
+        }),
     },
     update: {
         body: Joi.object({
-            stance: Joi.string().valid(Object.values(Stances)),
+            stance: Joi.string().valid(...Object.values(Stances)),
             snapchat: Joi.string().allow('', null),
             instagram: Joi.string().allow('', null),
             location: Joi.string().allow('', null),
@@ -44,34 +44,28 @@ const validations = {
         }).unknown(false),
     },
     search: {
-        query: {
+        query: Joi.object({
             query: Joi.string().required(),
             limit: Joi.number().positive(),
-        },
+        }),
     },
     points: {
-        query: {
-            period: Joi.string()
-                .valid(['month', 'week', 'day'])
-                .default('week'),
-            from: Joi.date()
-                .iso()
-                .required(),
-            to: Joi.date()
-                .iso()
-                .required(),
+        query: Joi.object({
+            period: Joi.string().valid('month', 'week', 'day').default('week'),
+            from: Joi.date().iso().required(),
+            to: Joi.date().iso().required(),
             validated: Joi.boolean().default(true),
-        },
+        }),
     },
     percentage: {
-        query: {
+        query: Joi.object({
             validated: Joi.boolean().default(true),
-        },
+        }),
     },
     medias: {
-        query: {
+        query: Joi.object({
             trickDone: Joi.boolean(),
-        },
+        }),
     },
 };
 

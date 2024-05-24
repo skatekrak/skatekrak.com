@@ -5,6 +5,7 @@ import GoogleStaticMap from 'google-static-map';
 import ngeohash from 'ngeohash';
 import { Types as MongoTypes } from 'mongoose';
 import { NextFunction, Request, Response } from 'express';
+import qs from 'qs';
 
 import APIError from '../helpers/api-error';
 import config from '../server/config';
@@ -65,12 +66,7 @@ function genFakeLocation(existing = false): ILocation {
  */
 function generateAndUploadStaticMap(latitude: number, longitude: number, filename: string) {
     if (config.NODE_ENV !== 'development') {
-        const stream = gm()
-            .address(`${latitude},${longitude}`)
-            .zoom(14)
-            .resolution('640x640')
-            .staticMap()
-            .done();
+        const stream = gm().address(`${latitude},${longitude}`).zoom(14).resolution('640x640').staticMap().done();
         return gStorage.uploadToGCloud(stream, 'spots', filename);
     }
     return gStorage.uploadToGCloud(null, 'spots', filename);
@@ -102,7 +98,7 @@ async function create(req: Request, res: Response, next: NextFunction) {
     const spot = new Spot({
         name: req.body.name,
         description: req.body.description,
-        addedBy: req.user.id,
+        addedBy: req.user!.id,
         type: req.body.type,
         status: req.body.status,
         phone: req.body.phone,
@@ -135,8 +131,8 @@ async function create(req: Request, res: Response, next: NextFunction) {
                 spot.location = {
                     streetNumber: geoRes.streetNumber,
                     streetName: geoRes.streetName,
-                    city: geoRes.city,
-                    country: geoRes.country,
+                    city: geoRes.city ?? '',
+                    country: geoRes!.country ?? '',
                 };
             }
         } else {
@@ -152,8 +148,8 @@ async function create(req: Request, res: Response, next: NextFunction) {
     }
 
     const savedSpot = await spot.save();
-    rewardCtrl.checkSpot(req.user.id);
-    const profile = await Profile.get(req.user.id);
+    rewardCtrl.checkSpot(req.user!.id);
+    const profile = await Profile.get(req.user!.id);
     profile.spotsFollowing.addToSet(savedSpot._id);
     profile.save();
     res.json(savedSpot);
@@ -240,8 +236,8 @@ async function update(req: Request, res: Response, next: NextFunction) {
                     spot.location = {
                         streetNumber: geoRes.streetNumber,
                         streetName: geoRes.streetName,
-                        city: geoRes.city,
-                        country: geoRes.country,
+                        city: geoRes.city ?? '',
+                        country: geoRes.country ?? '',
                     };
                 }
             } else {
@@ -272,9 +268,23 @@ async function update(req: Request, res: Response, next: NextFunction) {
 
 /**
  * Get spot list
- * @returns {Spot[]}
  */
-function list(req: Request, res: Response, next: NextFunction) {
+function list(
+    req: Request<
+        {},
+        {},
+        {},
+        qs.ParsedQs & {
+            limit: number;
+            newer: Date | undefined;
+            older: Date | undefined;
+            with: string[] | undefined;
+            tags: string[];
+        }
+    >,
+    res: Response,
+    next: NextFunction,
+) {
     const { limit = 20, newer, older, tags } = req.query;
 
     const filters = req.query.with || ['comments'];
@@ -286,17 +296,23 @@ function list(req: Request, res: Response, next: NextFunction) {
         query.tags = { $in: tags };
     }
 
-    Spot.list(limit, newer, older, query, selects)
+    Spot.list(limit as number, newer, older, query, selects)
         .then((spots) => res.json(spots))
         .catch((e) => next(e));
 }
 
-function listByTags(req: Request, res: Response, next: NextFunction) {
+function listByTags(
+    req: Request<{}, {}, {}, qs.ParsedQs & { limit: number; tags: string[]; tagsFromMedia: boolean }>,
+    res: Response,
+    next: NextFunction,
+) {
     const { limit = 2000, tags, tagsFromMedia } = req.query;
     if (tagsFromMedia) {
         Media.aggregate([
             {
-                $match: { hashtags: { $in: tags.map((tag: string) => (tag[0] !== '#' ? `#${tag}` : tag)) } },
+                $match: {
+                    hashtags: { $in: tags.map((tag: string) => (tag[0] !== '#' ? `#${tag}` : tag)) },
+                },
             },
             {
                 $lookup: {
@@ -516,7 +532,28 @@ function formatMongoDBClusterToGEOJson(clusters: any) {
  * @property {number} req.query.limit - Max Number of Spots
  * @returns {Spot[]}
  */
-function search(req: Request, res: Response, next: NextFunction) {
+function search(
+    req: Request<
+        {},
+        {},
+        {},
+        qs.ParsedQs & {
+            query: string;
+            limit: number;
+            clustering: boolean;
+            filters: SpotQueryFilters;
+            geojson: boolean;
+            zoomFactor: number;
+            spotsPerCluster: number;
+            northEastLatitude: number;
+            northEastLongitude: number;
+            southWestLatitude: number;
+            southWestLongitude: number;
+        }
+    >,
+    res: Response,
+    next: NextFunction,
+) {
     const { query } = req.query;
     const { limit = 100, clustering = false, filters, geojson, zoomFactor, spotsPerCluster } = req.query;
 
@@ -598,7 +635,7 @@ function fetchGeoJSON(req: Request, res: Response, next: NextFunction) {
 async function follow(req: Request, res: Response, next: NextFunction) {
     const spot = req.object.last().el();
     try {
-        const profile = await Profile.get(req.user._id);
+        const profile = await Profile.get(req.user!._id);
         profile.spotsFollowing.addToSet(spot._id);
         const saved = await profile.save();
         res.json(saved);
@@ -614,7 +651,7 @@ async function follow(req: Request, res: Response, next: NextFunction) {
 async function unfollow(req: Request, res: Response, next: NextFunction) {
     const spot = req.object.last().el();
     try {
-        const profile = await Profile.get(req.user._id);
+        const profile = await Profile.get(req.user!._id);
         profile.spotsFollowing.pull(spot._id);
         const saved = await profile.save();
         res.json(saved);
@@ -632,8 +669,8 @@ async function overview(req: Request, res: Response, next: NextFunction) {
         const [mostLiked, lastMedias, skaters, lastClips] = await Promise.all([
             Media.mostLiked(1, Timeframes.All, { spot: spot._id, type: 'image' }),
             Media.list({ limit: 5, older: new Date(), query: { spot: spot._id } }),
-            Session.whoSkateHere(spot._id, 7, null, new Date()),
-            Clip.list(5, null, new Date(), { spot: spot._id }),
+            Session.whoSkateHere(spot._id, 7, undefined, new Date()),
+            Clip.list(5, undefined, new Date(), { spot: spot._id }),
         ]);
         res.json({
             spot,
@@ -652,18 +689,19 @@ async function overview(req: Request, res: Response, next: NextFunction) {
  */
 function whoSkateHere(req: Request, res: Response, next: NextFunction) {
     const spot = req.object.last().el();
-    Session.whoSkateHere(spot._id, 0, null, new Date())
+    Session.whoSkateHere(spot._id, 0, undefined, new Date())
         .then((skaters) => res.json(skaters))
         .catch((e) => next(e));
 }
 
 /**
  * Get Medias related to this Spot
- * @param {Number} [limit=20] - Number of max returned objects
- * @param {Date} [newer] - Select objects newer to this date
- * @param {Date} [older] - Select objects older to this date
  */
-function medias(req: Request, res: Response, next: NextFunction) {
+function medias(
+    req: Request<{}, {}, {}, qs.ParsedQs & { limit: number; newer: Date | undefined; older: Date | undefined }>,
+    res: Response,
+    next: NextFunction,
+) {
     const spot = req.object.last().el();
     const { limit = 20, newer, older } = req.query;
     Media.list({
@@ -678,11 +716,17 @@ function medias(req: Request, res: Response, next: NextFunction) {
 
 /**
  * Get Sessions related to this Spot
- * @param {Number} [limit=20] - Number of max returned objects
- * @param {Date} [newer] - Select objects newer to this date
- * @param {Date} [older] - Select objects older to this date
  */
-function sessions(req: Request, res: Response, next: NextFunction) {
+function sessions(
+    req: Request<
+        {},
+        {},
+        {},
+        qs.ParsedQs & { limit: number; newer: Date | undefined; older: Date | undefined; userId: string | undefined }
+    >,
+    res: Response,
+    next: NextFunction,
+) {
     const spot = req.object.last().el();
     const { limit = 20, newer, older, userId } = req.query;
     if (userId) {
@@ -698,11 +742,12 @@ function sessions(req: Request, res: Response, next: NextFunction) {
 
 /**
  * Get Clips related to this Spot
- * @param {Number} [limit=20] - Number of max returned objects
- * @param {Date} [newer] - Select objects newer to this date
- * @param {Date} [older] - Select objects older to this date
  */
-function clips(req: Request, res: Response, next: NextFunction) {
+function clips(
+    req: Request<{}, {}, {}, qs.ParsedQs & { limit: number; newer: Date | undefined; older: Date | undefined }>,
+    res: Response,
+    next: NextFunction,
+) {
     const spot = req.object.last().el();
     const { limit = 20, newer, older } = req.query;
     Clip.list(limit, newer, older, { spot: spot._id })
@@ -712,11 +757,12 @@ function clips(req: Request, res: Response, next: NextFunction) {
 
 /**
  * Get TricksDone created by this Profile
- * @param {Number} [limit=20] - Number of max returned objects
- * @param {Date} [newer] - Select objects newer to this date
- * @param {Date} [older] - Select objects older to this date
  */
-function tricksDone(req: Request, res: Response, next: NextFunction) {
+function tricksDone(
+    req: Request<{}, {}, {}, qs.ParsedQs & { limit: number; newer: Date | undefined; older: Date | undefined }>,
+    res: Response,
+    next: NextFunction,
+) {
     const spot = req.object.last().el();
     const { limit = 20, newer, older } = req.query;
     TrickDone.list({
@@ -729,7 +775,10 @@ function tricksDone(req: Request, res: Response, next: NextFunction) {
         .catch((err) => next(err));
 }
 
-async function reverseGeocoder(req: Request, res: Response) {
+async function reverseGeocoder(
+    req: Request<{}, {}, {}, qs.ParsedQs & { latitude: number; longitude: number }>,
+    res: Response,
+) {
     const { latitude, longitude } = req.query;
     const response = await geocoder.reverse({
         lat: latitude,

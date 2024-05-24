@@ -8,7 +8,6 @@ import generateSelect from '../helpers/generate-select';
 import cloudinary from '../helpers/cloudinary';
 import APIError from '../helpers/api-error';
 import arrayHelpers from '../helpers/array';
-import '../helpers/replace-all';
 
 import CloudinaryFile from '../models/cloudinary-file';
 import Media from '../models/media';

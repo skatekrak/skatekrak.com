@@ -8,10 +8,10 @@ import devCtrl from '../controllers/dev';
 const router = express.Router();
 
 const validBadRequest = {
-    body: {
+    body: Joi.object({
         arg1: Joi.string().required(),
         arg2: Joi.string().required(),
-    },
+    }),
 };
 
 router.get('/need-admin', auth.logged(), auth.admin(), devCtrl.trueBullshit);

@@ -18,7 +18,6 @@ import LearnVideo from '../models/learn-video';
 import Session from '../models/session';
 import TrickDone from '../models/trick-done';
 import APIError from '../helpers/api-error';
-import '../helpers/replace-all';
 
 /**
  * Load user and append to req

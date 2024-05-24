@@ -3,7 +3,6 @@ import { Document, Model, Types } from 'mongoose';
 import twitterText from 'twitter-text';
 
 import APIError from '../helpers/api-error';
-import '../helpers/replace-all';
 import mongoose from '../server/mongo';
 import utils from './utils';
 
@@ -146,13 +145,13 @@ export const SessionSchema = new mongoose.Schema<ISession>(
     }),
 );
 
-SessionSchema.pre('save', function(this: ISession, next) {
+SessionSchema.pre('save', function (this: ISession, next) {
     this.likesStat = Stat.build(this.likes);
     this.commentsStat = Stat.build(this.comments);
     next();
 });
 
-SessionSchema.virtual('caption').get(function(this: ISession) {
+SessionSchema.virtual('caption').get(function (this: ISession) {
     if (!this._caption) {
         return undefined;
     }

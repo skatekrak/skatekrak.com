@@ -20,24 +20,22 @@ const validations = {
             .xor('newer', 'older'),
     },
     create: {
-        body: {
+        body: Joi.object({
             url: Joi.string().required(),
             spot: Joi.string().regex(/^[0-9a-fA-F]{24}$/),
-        },
+        }),
     },
     update: {
-        body: {
+        body: Joi.object({
             title: Joi.string(),
             description: Joi.string().allow('', null),
             thumbnailURL: Joi.string().uri(),
             spot: Joi.string().regex(/^[0-9a-fA-F]{24}$/),
-        },
+        }),
     },
     videoInformation: {
         query: {
-            url: Joi.string()
-                .uri()
-                .required(),
+            url: Joi.string().uri().required(),
         },
     },
 };

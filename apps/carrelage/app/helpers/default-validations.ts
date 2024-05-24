@@ -19,11 +19,11 @@ export function throwIfValidationFailed() {
 
 export default {
     objectId: {
-        params: {
+        params: Joi.object({
             objectId: Joi.string()
                 .regex(/^[0-9a-fA-F]{24}$/)
                 .required(),
-        },
+        }),
     },
     userId: {
         params: {

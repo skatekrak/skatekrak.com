@@ -1,5 +1,5 @@
 import express from 'express';
-import expressValidation from 'express-validation';
+import { ValidationError } from 'express-validation';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 import compress from 'compression';
@@ -73,7 +73,7 @@ app.use('/', routes);
 
 // if error is not an instanceOf APIError, convert it.
 app.use((err, req, res, next) => {
-    if (err instanceof expressValidation.ValidationError) {
+    if (err instanceof ValidationError) {
         const unifiedErrorMessage = err.errors.map((e) => e.messages.join('. ')).join(' and ');
         const error = new APIError(unifiedErrorMessage, err.status);
         return next(error);

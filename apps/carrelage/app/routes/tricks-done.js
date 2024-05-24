@@ -24,20 +24,20 @@ const validations = {
             .xor('newer', 'older'),
     },
     create: {
-        body: {
+        body: Joi.object({
             trick: Joi.string().required(),
             spot: Joi.string(),
             stance: Joi.string()
-                .valid(Object.values(TrickStances))
+                .valid(...Object.values(TrickStances))
                 .default(TrickStances.Regular),
             terrain: Joi.string()
-                .valid(Object.values(Terrains))
+                .valid(...Object.values(Terrains))
                 .required(),
-            shifty: Joi.string().valid(Object.values(Shifty)),
-            oneFooted: Joi.string().valid(Object.values(OneFooted)),
-            bodyVarial: Joi.string().valid(Object.values(BodyVarial)),
-            grab: Joi.string().valid(Object.values(Grabs)),
-        },
+            shifty: Joi.string().valid(...Object.values(Shifty)),
+            oneFooted: Joi.string().valid(...Object.values(OneFooted)),
+            bodyVarial: Joi.string().valid(...Object.values(BodyVarial)),
+            grab: Joi.string().valid(...Object.values(Grabs)),
+        }),
     },
 };
 

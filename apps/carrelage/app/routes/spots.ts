@@ -26,23 +26,20 @@ const validation = {
     listByTags: {
         query: Joi.object().keys({
             limit: Joi.number().positive(),
-            tags: Joi.array()
-                .items(Joi.string())
-                .min(1)
-                .required(),
+            tags: Joi.array().items(Joi.string()).min(1).required(),
             /// If true, the tags will be searched in the media of the spot
             tagsFromMedia: Joi.boolean().default(false),
         }),
     },
     create: {
-        body: {
+        body: Joi.object({
             name: Joi.string().required(),
             latitude: Joi.number().required(),
             longitude: Joi.number().required(),
             type: Joi.string()
-                .valid(Object.values(Types))
+                .valid(...Object.values(Types))
                 .required(),
-            status: Joi.string().valid(Object.values(Status)),
+            status: Joi.string().valid(...Object.values(Status)),
             phone: Joi.string(),
             website: Joi.string().uri(),
             instagram: Joi.string(),
@@ -53,24 +50,22 @@ const validation = {
             tags: Joi.array().items(Joi.string()),
             obstacles: Joi.array()
                 .unique()
-                .items(Joi.string().valid(Object.values(Obstacle))),
-        },
+                .items(Joi.string().valid(...Object.values(Obstacle))),
+        }),
     },
     update: {
-        query: {
+        query: Joi.object({
             editId: Joi.string().regex(/^[0-9a-fA-F]{24}$/),
-        },
+        }),
         body: Joi.object()
             .keys({
                 name: Joi.string(),
                 latitude: Joi.number(),
                 longitude: Joi.number(),
-                type: Joi.string().valid(Object.values(Types)),
-                status: Joi.string().valid(Object.values(Status)),
+                type: Joi.string().valid(...Object.values(Types)),
+                status: Joi.string().valid(...Object.values(Status)),
                 phone: Joi.string().allow('', null),
-                website: Joi.string()
-                    .uri()
-                    .allow('', null),
+                website: Joi.string().uri().allow('', null),
                 instagram: Joi.string().allow('', null),
                 snapchat: Joi.string().allow('', null),
                 facebook: Joi.string().allow('', null),
@@ -99,14 +94,14 @@ const validation = {
                 filters: Joi.object()
                     .keys({
                         indoor: Joi.boolean(),
-                        type: Joi.array().items(Joi.string().valid(Object.values(Types))),
-                        status: Joi.array().items(Joi.string().valid(Object.values(Status))),
+                        type: Joi.array().items(Joi.string().valid(...Object.values(Types))),
+                        status: Joi.array().items(Joi.string().valid(...Object.values(Status))),
                     })
                     .unknown(false)
                     .default({}),
             })
             .without('query', ['northEastLatitude', 'northEastLongitude', 'southWestLatitude', 'southWestLongitude'])
-            .and(['northEastLatitude', 'northEastLongitude', 'southWestLatitude', 'southWestLongitude'])
+            .and('northEastLatitude', 'northEastLongitude', 'southWestLatitude', 'southWestLongitude')
             .xor('query', 'northEastLatitude'),
     },
     geoJSON: {

@@ -21,7 +21,7 @@ const validations = {
             .xor('newer', 'older'),
     },
     create: {
-        body: {
+        body: Joi.object({
             caption: Joi.string(),
             spots: Joi.array()
                 .items(Joi.string().regex(/^[0-9a-fA-F]{24}$/))
@@ -29,17 +29,17 @@ const validations = {
                 .required(),
             with: Joi.array().items(Joi.string().regex(/^[a-z0-9_]{1,15}$/)),
             when: Joi.date().required(),
-        },
+        }),
     },
     update: {
-        body: {
+        body: Joi.object({
             caption: Joi.string().allow('', null),
             spots: Joi.array()
                 .items(Joi.string().regex(/^[0-9a-fA-F]{24}$/))
                 .min(1),
             with: Joi.array().items(Joi.string().regex(/^[a-z0-9_]{1,15}$/)),
             when: Joi.date(),
-        },
+        }),
     },
 };
 

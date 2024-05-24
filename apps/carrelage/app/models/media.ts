@@ -4,7 +4,6 @@ import twitterText from 'twitter-text';
 import { Document, Model, Types as MongoTypes } from 'mongoose';
 
 import APIError from '../helpers/api-error';
-import '../helpers/replace-all';
 import mongoose from '../server/mongo';
 import utils from './utils';
 import { extractHashtags } from '../helpers/hashtags';
@@ -174,13 +173,13 @@ MediaSchema.index(
     },
 );
 
-MediaSchema.pre('save', function(this: IMedia, next) {
+MediaSchema.pre('save', function (this: IMedia, next) {
     this.likesStat = Stat.build(this.likes);
     this.commentsStat = Stat.build(this.comments);
     next();
 });
 
-MediaSchema.virtual('caption').get(function(this: IMedia) {
+MediaSchema.virtual('caption').get(function (this: IMedia) {
     if (!this._caption) {
         return undefined;
     }
@@ -263,10 +262,7 @@ MediaSchema.statics = {
         return q.exec();
     },
     countByHashtag(this: IMediaModel, tag: string): Promise<number> {
-        return this.find()
-            .where({ hashtags: tag })
-            .countDocuments()
-            .exec();
+        return this.find().where({ hashtags: tag }).countDocuments().exec();
     },
     updateAllSpot(this: IMediaModel, oriId: MongoTypes.ObjectId, destId: MongoTypes.ObjectId): Promise<any> {
         return this.updateMany({ spot: oriId }, { spot: destId }).exec();

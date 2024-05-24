@@ -18,16 +18,14 @@ const validations = {
     },
     added_by_null: {
         query: {
-            object: Joi.string()
-                .allow(['media', 'spot', 'session', 'clip'])
-                .required(),
+            object: Joi.string().allow(['media', 'spot', 'session', 'clip']).required(),
         },
     },
     updateSubscription: {
         body: Joi.object().keys({
             userId: Joi.string().required(),
             status: Joi.string()
-                .valid(Object.values(SubscriptionStatus))
+                .valid(...Object.values(SubscriptionStatus))
                 .required(),
             subscriptionEndAt: Joi.date(),
             stripeCustomerId: Joi.string(),

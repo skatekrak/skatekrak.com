@@ -9,14 +9,14 @@ const router = express.Router();
 
 const validation = {
     create: {
-        body: {
+        body: Joi.object({
             message: Joi.string().required(),
-        },
+        }),
     },
     update: {
-        body: {
+        body: Joi.object({
             message: Joi.string(),
-        },
+        }),
     },
 };
 

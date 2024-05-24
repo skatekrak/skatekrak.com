@@ -12,47 +12,45 @@ const router = express.Router();
 
 const validations = {
     create: {
-        body: {
+        body: Joi.object({
             username: Joi.string()
                 .regex(/^[a-z0-9_]{1,15}$/)
                 .required(),
             password: Joi.string().required(),
-            email: Joi.string()
-                .email()
-                .required(),
+            email: Joi.string().email().required(),
             role: Joi.string()
                 .required()
-                .valid(Object.values(Roles)),
-        },
+                .valid(...Object.values(Roles)),
+        }),
     },
     update: {
-        body: {
+        body: Joi.object({
             password: Joi.string(),
             email: Joi.string().email(),
             welcomeEmailSent: Joi.bool(),
             emailVerified: Joi.bool(),
-            role: Joi.string().valid(Object.values(Roles)),
-        },
+            role: Joi.string().valid(...Object.values(Roles)),
+        }),
     },
     list: {
-        query: {
+        query: Joi.object({
             limit: Joi.number().positive(),
             skip: Joi.number(),
-        },
+        }),
     },
     rename: {
-        body: {
+        body: Joi.object({
             username: Joi.string()
                 .regex(/^[a-z0-9_]{1,15}$/)
                 .required(),
             mobile: Joi.boolean().default(true),
             rememberMe: Joi.boolean().default(false),
-        },
+        }),
     },
     confirmEmail: {
-        body: {
+        body: Joi.object({
             token: Joi.string().required(),
-        },
+        }),
     },
 };
 

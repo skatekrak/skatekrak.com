@@ -27,50 +27,50 @@ const validations = {
             .xor('newer', 'older'),
     },
     create: {
-        body: {
+        body: Joi.object({
             caption: Joi.string(),
             spot: Joi.string().regex(/^[0-9a-fA-F]{24}$/),
             releaseDate: Joi.date().iso(),
             trickDone: Joi.object({
                 trick: Joi.string().required(),
                 stance: Joi.string()
-                    .valid(Object.values(TrickStances))
+                    .valid(...Object.values(TrickStances))
                     .default(TrickStances.Regular),
                 terrain: Joi.string()
-                    .valid(Object.values(Terrains))
+                    .valid(...Object.values(Terrains))
                     .required(),
-                shifty: Joi.string().valid(Object.values(Shifty)),
-                oneFooted: Joi.string().valid(Object.values(OneFooted)),
-                bodyVarial: Joi.string().valid(Object.values(BodyVarial)),
-                grab: Joi.string().valid(Object.values(Grabs)),
+                shifty: Joi.string().valid(...Object.values(Shifty)),
+                oneFooted: Joi.string().valid(...Object.values(OneFooted)),
+                bodyVarial: Joi.string().valid(...Object.values(BodyVarial)),
+                grab: Joi.string().valid(...Object.values(Grabs)),
             }),
-        },
+        }),
     },
     update: {
-        body: {
+        body: Joi.object({
             caption: Joi.string().allow('', null),
             spot: Joi.string().regex(/^[0-9a-fA-F]{24}$/),
             releaseDate: Joi.date().iso(),
             trickDone: Joi.object({
                 trick: Joi.string().required(),
                 stance: Joi.string()
-                    .valid(Object.values(TrickStances))
+                    .valid(...Object.values(TrickStances))
                     .default(TrickStances.Regular),
                 terrain: Joi.string()
-                    .valid(Object.values(Terrains))
+                    .valid(...Object.values(Terrains))
                     .required(),
-                shifty: Joi.string().valid(Object.values(Shifty)),
-                oneFooted: Joi.string().valid(Object.values(OneFooted)),
-                bodyVarial: Joi.string().valid(Object.values(BodyVarial)),
-                grab: Joi.string().valid(Object.values(Grabs)),
+                shifty: Joi.string().valid(...Object.values(Shifty)),
+                oneFooted: Joi.string().valid(...Object.values(OneFooted)),
+                bodyVarial: Joi.string().valid(...Object.values(BodyVarial)),
+                grab: Joi.string().valid(...Object.values(Grabs)),
             }).allow(null),
-        },
+        }),
     },
     search: {
-        query: {
+        query: Joi.object({
             query: Joi.string().required(),
             limit: Joi.number().positive(),
-        },
+        }),
     },
 };
 

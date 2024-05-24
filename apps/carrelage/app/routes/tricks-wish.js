@@ -9,23 +9,21 @@ const router = express.Router();
 
 const validations = {
     create: {
-        body: {
+        body: Joi.object({
             trick: Joi.string().required(),
             stance: Joi.string()
-                .valid(Object.values(TrickStances))
+                .valid(...Object.values(TrickStances))
                 .default(TrickStances.Regular),
             terrain: Joi.string()
-                .valid(Object.values(Terrains))
+                .valid(...Object.values(Terrains))
                 .required(),
             amountWanted: Joi.number().positive(),
-        },
+        }),
     },
     update: {
-        body: {
-            amountWanted: Joi.number()
-                .positive()
-                .required(),
-        },
+        body: Joi.object({
+            amountWanted: Joi.number().positive().required(),
+        }),
     },
 };
 
