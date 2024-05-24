@@ -14,15 +14,7 @@ const validation = {
     create: {
         body: Joi.object({
             type: Joi.string()
-                .valid(
-                    'create_like',
-                    'receive_like',
-                    'create_comment',
-                    'create_spot',
-                    'create_media',
-                    'create_clips',
-                    'create_tricksDone',
-                )
+                .valid(...REWARD_TYPE)
                 .required(),
             subtype: Joi.string().required(),
         }),
