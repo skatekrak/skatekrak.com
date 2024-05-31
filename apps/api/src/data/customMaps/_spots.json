@@ -8441,5 +8441,23 @@
       "https://www.youtube.com/watch?v=Ctt2q46L4IY",
       "https://www.youtube.com/watch?v=9KdzdrVbHzw"
     ]
+  },
+  {
+    "id": "bobburnquist",
+    "categories": [
+      "skater"
+    ],
+    "name": "Bob Burnquist",
+    "subtitle": "",
+    "edito": "",
+    "about": "Robert Dean Silva Burnquist (born October 10th, 1976 in Rio de Janeiro, Brasil) is a Brazilian-American professional skateboarder.",
+    "videos": [
+      "https://www.youtube.com/watch?v=wlL4NPOrYck",
+      "https://www.youtube.com/watch?v=aI_vlp-FdBw",
+      "https://www.youtube.com/watch?v=2DbBY2PVGtQ",
+      "https://www.youtube.com/watch?v=OjsVlgrCD-Y",
+      "https://www.youtube.com/watch?v=E_2EroUAcfg",
+      "https://www.youtube.com/watch?v=tttCCMvSV28"
+    ]
   }
 ]
