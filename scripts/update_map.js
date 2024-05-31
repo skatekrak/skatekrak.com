@@ -65,12 +65,12 @@ const main = () => {
         }
     }
 
-    const maps = JSON.parse(file.readFileSync('data/customMaps/_spots.json', 'utf8'));
+    const maps = JSON.parse(file.readFileSync('apps/api/src/data/customMaps/_spots.json', 'utf8'));
 
     for (let i = 0; i < maps.length; i++) {
         if (maps[i].id === tag) {
             maps[i] = { ...maps[i], ...newMap };
-            file.writeFileSync('data/customMaps/_spots.json', JSON.stringify(maps, undefined, 2), 'utf8');
+            file.writeFileSync('apps/api/src/data/customMaps/_spots.json', JSON.stringify(maps, undefined, 2), 'utf8');
             console.log(`Map ${tag} updated`);
             return;
         }
