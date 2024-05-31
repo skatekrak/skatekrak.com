@@ -23,6 +23,6 @@ primary_region = 'ams'
   processes = ['app']
 
 [[vm]]
-  memory = '512mb'
+  memory = '1024mb'
   cpu_kind = 'shared'
   cpus = 1
