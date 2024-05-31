@@ -8403,5 +8403,24 @@
       "https://www.youtube.com/watch?v=czoZ9EBahXQ",
       "https://www.youtube.com/watch?v=MWVOiOc1EUs"
     ]
+  },
+  {
+    "id": "rickmccrank",
+    "categories": [
+      "skater"
+    ],
+    "name": "Rick McCrank",
+    "subtitle": "",
+    "edito": "",
+    "about": "Rick McCrank (born January 23rd, 1976 in Peterborough, Ontario) is a Canadian professional skateboarder and skate shop owner.",
+    "videos": [
+      "https://www.youtube.com/watch?v=f__jVcy1LvE",
+      "https://www.youtube.com/watch?v=Gc6-2nNgnwg",
+      "https://www.youtube.com/watch?v=-QWQSaa-7L0",
+      "https://www.youtube.com/watch?v=iglRwxXXYGQ",
+      "https://www.youtube.com/watch?v=RoUaTwzjZZI",
+      "https://www.youtube.com/watch?v=mRqr1NyvQmY",
+      "https://www.youtube.com/watch?v=x16zVch69cU"
+    ]
   }
 ]
