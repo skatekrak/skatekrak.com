@@ -8384,5 +8384,24 @@
     "videos": [
       "https://www.youtube.com/playlist?list=PLC5A3DFBCD724C1AB"
     ]
+  },
+  {
+    "id": "geoffrowley",
+    "categories": [
+      "skater"
+    ],
+    "name": "Geoff Rowley",
+    "subtitle": "",
+    "edito": "",
+    "about": "Geoffrey Joseph Rowley Jr. (born June 6th, 1976 in Liverpool, England) is an English professional skateboarder, former co-owner of Flip Skateboards and owner of the Civilware Service Corporation. He received Thrasher Magazine's Skater",
+    "videos": [
+      "https://www.youtube.com/watch?v=71bNp8cMFAc",
+      "https://www.youtube.com/watch?v=L1N2Eb9cRgM",
+      "https://www.youtube.com/watch?v=lXsE3W1Bnyk",
+      "https://www.youtube.com/watch?v=S6yxO4CwjFE",
+      "https://www.youtube.com/watch?v=EXhBAQ_c-LI",
+      "https://www.youtube.com/watch?v=czoZ9EBahXQ",
+      "https://www.youtube.com/watch?v=MWVOiOc1EUs"
+    ]
   }
 ]
