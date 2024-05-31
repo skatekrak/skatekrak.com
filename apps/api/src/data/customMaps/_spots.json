@@ -8459,5 +8459,16 @@
       "https://www.youtube.com/watch?v=E_2EroUAcfg",
       "https://www.youtube.com/watch?v=tttCCMvSV28"
     ]
+  },
+  {
+    "id": "drash01",
+    "categories": [
+      "magazine"
+    ],
+    "name": "Drash 01",
+    "subtitle": "",
+    "edito": "",
+    "about": "DRASH was a belgian magazine from Brussels dedicated to urban culture. ",
+    "videos": []
   }
 ]
