@@ -1,4 +1,4 @@
-import { isWithinRange, startOfMonth, subDays } from 'date-fns';
+import { isWithinInterval, startOfMonth, subDays } from 'date-fns';
 
 import { Document, Schema, HydratedDocument, Model, Query, model } from 'mongoose';
 import utils from './utils';
@@ -69,14 +69,14 @@ export const StatSchema = new Schema<IStat, IStatModel>(
         const yesterday = subDays(now, 1);
         const sevenDaysAgo = subDays(now, 7);
         const monthStart = startOfMonth(now);
-        if (!isWithinRange(doc.createdAt, monthStart, now)) {
+        if (!isWithinInterval(now, { start: doc.createdAt, end: monthStart })) {
             delete ret.monthly;
             delete ret.weekly;
             delete ret.daily;
-        } else if (!isWithinRange(doc.createdAt, sevenDaysAgo, now)) {
+        } else if (!isWithinInterval(now, { start: doc.createdAt, end: sevenDaysAgo })) {
             delete ret.weekly;
             delete ret.daily;
-        } else if (!isWithinRange(doc.createdAt, yesterday, now)) {
+        } else if (!isWithinInterval(now, { start: doc.createdAt, end: yesterday })) {
             delete ret.daily;
         }
         return ret;
@@ -98,17 +98,17 @@ StatSchema.statics = {
             stat.weekly = 0;
             stat.daily = 0;
             for (const item of list) {
-                if (isWithinRange(item.createdAt, monthStart, now)) {
+                if (isWithinInterval(now, { start: item.createdAt, end: monthStart })) {
                     stat.monthly += 1;
                 } else {
                     break;
                 }
-                if (isWithinRange(item.createdAt, sevenDaysAgo, now)) {
+                if (isWithinInterval(now, { start: item.createdAt, end: sevenDaysAgo })) {
                     stat.weekly += 1;
                 } else {
                     break;
                 }
-                if (isWithinRange(item.createdAt, yesterday, now)) {
+                if (isWithinInterval(now, { start: item.createdAt, end: yesterday })) {
                     stat.daily += 1;
                 }
             }

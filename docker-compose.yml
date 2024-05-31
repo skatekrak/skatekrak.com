@@ -1,7 +1,6 @@
-version: '3'
 services:
     web:
-        image: oven/bun:1.1.6
+        image: oven/bun:1.1.7
         command: bash -c "bun install && bun dev:web"
         labels:
             - traefik.enable=true
@@ -23,7 +22,7 @@ services:
         env_file: apps/web/.env
 
     api:
-        image: oven/bun:1.1.6
+        image: oven/bun:1.1.7
         command: bash -c "bun install && bun dev:api"
         labels:
             - traefik.enable=true
@@ -48,7 +47,7 @@ services:
     #         - 27017:27017
 
     carrelage:
-        image: oven/bun:1.1.6
+        image: oven/bun:1.1.7
         command: bash -c "bun install && bun dev:carrelage"
         # depends_on:
         #     - mongodb

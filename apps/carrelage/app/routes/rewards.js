@@ -4,7 +4,6 @@ import Joi from 'joi';
 
 import rewardCtrl from '../controllers/rewards';
 import { REWARD_TYPE } from '../models/reward';
-import REWARDS from '../config/rewards.json';
 import auth from '../server/auth';
 import defaultValidations from '../helpers/default-validations';
 
