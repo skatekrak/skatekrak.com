@@ -8371,5 +8371,18 @@
       "https://www.youtube.com/watch?v=xBvEJztX37Y",
       "https://www.youtube.com/watch?v=ti_AdWT8kyM"
     ]
+  },
+  {
+    "id": "ronniecreager",
+    "categories": [
+      "skater"
+    ],
+    "name": "Ronnie Creager",
+    "subtitle": "",
+    "edito": "",
+    "about": "Ronnie Aaron Creager (born January 14th, 1974) is a goofy-footed American professional skateboarder from Orange, California.",
+    "videos": [
+      "https://www.youtube.com/playlist?list=PLC5A3DFBCD724C1AB"
+    ]
   }
 ]
