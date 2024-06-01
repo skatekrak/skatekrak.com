@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "outDir": "dist",
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "resolveJsonModule": true,
+    "target": "esnext"
+  },
+  "include": [
+    "app/**/*.ts",
+    "app/**/*.js",
+    "config/**/*.json",
+    "tests/**/*.ts",
+    "tests/**/*.js"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

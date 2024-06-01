@@ -14,7 +14,9 @@
     "dev": "turbo dev --parallel",
     "dev:web": "turbo dev --filter=@krak/web",
     "dev:api": "turbo dev --filter=@krak/api",
+    "dev:carrelage": "turbo dev --filter=@krak/carrelage",
     "build:api": "turbo build --filter=@krak/api",
+    "build:carrelage": "turbo build --filter=@krak/carrelage",
     "start:api": "turbo start --filter=@krak/api"
   },
   "workspaces": [
