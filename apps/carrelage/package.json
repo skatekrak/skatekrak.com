@@ -3,6 +3,7 @@
   "version": "2.6.65",
   "description": "Carrelage",
   "main": "dist/app/server.js",
+  "type": "module",
   "scripts": {
     "build": "tsc",
     "lint": "eslint 'app/**/*.{js,ts}' --quiet --fix",

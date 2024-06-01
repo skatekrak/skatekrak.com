@@ -13,11 +13,9 @@ async function createRoot() {
 }
 
 function startExpress() {
-    if (!module.parent) {
-        app.listen(config.API_PORT, '0.0.0.0', () => {
-            logger.info(`Express start on ${config.API_URL}:${config.API_PORT}`);
-        });
-    }
+    app.listen(config.API_PORT, '0.0.0.0', () => {
+        logger.info(`Express start on ${config.API_URL}:${config.API_PORT}`);
+    });
 }
 
 export const ready = waitMongoAlive()

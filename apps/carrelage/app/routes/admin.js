@@ -1,5 +1,5 @@
 import express from 'express';
-import validate from 'express-validation';
+import { validate } from 'express-validation';
 import Joi from 'joi';
 
 import auth from '../server/auth';
@@ -11,15 +11,15 @@ const router = express.Router();
 
 const validations = {
     apply_db_script: {
-        query: {
+        query: Joi.object({
             script: Joi.string().required(),
             safe: Joi.boolean().default(true),
-        },
+        }),
     },
     added_by_null: {
-        query: {
-            object: Joi.string().allow(['media', 'spot', 'session', 'clip']).required(),
-        },
+        query: Joi.object({
+            object: Joi.string().allow('media', 'spot', 'session', 'clip').required(),
+        }),
     },
     updateSubscription: {
         body: Joi.object().keys({
@@ -32,10 +32,10 @@ const validations = {
         }),
     },
     getStats: {
-        query: {
+        query: Joi.object({
             from: Joi.date().required(),
             to: Joi.date().required(),
-        },
+        }),
     },
 };
 

@@ -1,5 +1,5 @@
 import express from 'express';
-import validate from 'express-validation';
+import { validate } from 'express-validation';
 import Joi from 'joi';
 
 import auth from '../server/auth';

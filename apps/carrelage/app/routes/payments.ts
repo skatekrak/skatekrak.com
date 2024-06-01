@@ -1,6 +1,6 @@
 import express from 'express';
-import validate from 'express-validation';
-import * as Joi from 'joi';
+import { validate } from 'express-validation';
+import Joi from 'joi';
 import payments from '../controllers/payments';
 import auth from '../server/auth';
 

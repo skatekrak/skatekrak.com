@@ -1,5 +1,5 @@
 import express from 'express';
-import validate from 'express-validation';
+import { validate } from 'express-validation';
 import Joi from 'joi';
 
 import defaultValidations from '../helpers/default-validations';

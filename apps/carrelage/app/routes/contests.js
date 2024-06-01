@@ -1,5 +1,5 @@
 import express from 'express';
-import validate from 'express-validation';
+import { validate } from 'express-validation';
 import Joi from 'joi';
 
 import auth from '../server/auth';
@@ -19,19 +19,19 @@ const validations = {
         }),
     },
     update: {
-        body: {
+        body: Joi.object({
             title: Joi.string(),
             description: Joi.string().allow('', null),
             endDate: Joi.date(),
             reward: Joi.string().allow('', null),
-        },
+        }),
     },
     medias: {
-        query: {
+        query: Joi.object({
             limit: Joi.number().positive(),
             newer: Joi.date().iso(),
             older: Joi.date().iso(),
-        },
+        }),
     },
 };
 

@@ -26,9 +26,9 @@ export default {
         }),
     },
     userId: {
-        params: {
+        params: Joi.object({
             userId: Joi.string().required(),
-        },
+        }),
     },
     feed: {
         query: Joi.object()

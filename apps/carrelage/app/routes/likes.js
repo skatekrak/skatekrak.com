@@ -1,5 +1,5 @@
 import express from 'express';
-import validate from 'express-validation';
+import { validate } from 'express-validation';
 import likeCtrl from '../controllers/like';
 import auth from '../server/auth';
 import defaultValidations from '../helpers/default-validations';

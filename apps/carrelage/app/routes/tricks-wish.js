@@ -1,5 +1,5 @@
 import express from 'express';
-import validate from 'express-validation';
+import { validate } from 'express-validation';
 import Joi from 'joi';
 
 import trickWishCtrl from '../controllers/tricks-wish';

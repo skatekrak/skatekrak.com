@@ -73,11 +73,11 @@ export const SpotEditSchema = new mongoose.Schema(
         },
         type: {
             type: String,
-            enum: Object.values(Types),
+            enum: ['shop', 'street', 'park', 'private', 'diy'],
         },
         status: {
             type: String,
-            enum: Object.values(Status),
+            enum: ['active', 'wip', 'rip'],
         },
         description: {
             type: String,

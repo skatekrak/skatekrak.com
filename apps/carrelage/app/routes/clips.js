@@ -1,5 +1,5 @@
 import express from 'express';
-import validate from 'express-validation';
+import { validate } from 'express-validation';
 import Joi from 'joi';
 import clipsCtrl from '../controllers/clips';
 import auth from '../server/auth';
@@ -34,9 +34,9 @@ const validations = {
         }),
     },
     videoInformation: {
-        query: {
+        query: Joi.object({
             url: Joi.string().uri().required(),
-        },
+        }),
     },
 };
 

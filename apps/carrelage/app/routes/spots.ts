@@ -1,5 +1,5 @@
 import express from 'express';
-import validate from 'express-validation';
+import { validate } from 'express-validation';
 import Joi from 'joi';
 
 import spotCtrl from '../controllers/spots';
@@ -74,7 +74,7 @@ const validation = {
                 tags: Joi.array().items(Joi.string()),
                 obstacles: Joi.array()
                     .unique()
-                    .items(Joi.string().valid(Object.values(Obstacle))),
+                    .items(Joi.string().valid(...Object.values(Obstacle))),
             })
             .and('latitude', 'longitude'),
     },
