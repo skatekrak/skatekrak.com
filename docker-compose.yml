@@ -38,19 +38,19 @@ services:
             - skatekrak-api-node_modules:/app/node_modules
         env_file: apps/api/.env
 
-    # mongodb:
-    #     image: mongo:7.0
-    #     volumes:
-    #         - ./backup:/backup
-    #         - mongo-data:/data/db
-    #     ports:
-    #         - 27017:27017
+    mongodb:
+        image: mongo:7.0
+        volumes:
+            - ./backup:/backup
+            - mongo-data:/data/db
+        ports:
+            - 27017:27017
 
     carrelage:
         image: oven/bun:1.1.7
         command: bash -c "bun install && bun dev:carrelage"
-        # depends_on:
-        #     - mongodb
+        depends_on:
+            - mongodb
         labels:
             - traefik.enable=true
             - traefik.http.routers.carrelage.entrypoints=http,https
@@ -74,6 +74,7 @@ volumes:
     skatekrak-api-node_modules: null
     carrelage-build: null
     carrelage-node_modules: null
+    mongo-data: null
 
 networks:
     default:
