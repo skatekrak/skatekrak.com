@@ -23,7 +23,7 @@ import { requestObject } from '../helpers/request-object';
 i18n.configure({
     locales: ['en'],
     defaultLocale: 'en',
-    directory: '/app/locales',
+    directory: './locales',
 });
 
 Bugsnag.start({
