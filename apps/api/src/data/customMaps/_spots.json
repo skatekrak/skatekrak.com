@@ -8503,5 +8503,18 @@
     "edito": "",
     "about": "DRASH was a belgian magazine from Brussels dedicated to urban culture. ",
     "videos": []
+  },
+  {
+    "id": "pavingspace",
+    "categories": [
+      "maps"
+    ],
+    "name": "Paving Space",
+    "subtitle": "",
+    "edito": "",
+    "about": "An unconventional encounter between math’s, art and skateboarding.This exhibition presents film, sculpture and photography, documenting a series of performances, at the Palais de Tokyo in Paris, Institute of Contemporary Art of Singapore and Sainte-Croix Museum in Poitiers.Carhartt WIP and ISLE could think of no one better than artist and fellow skateboarder, Raphaël Zarka. When they approached Zarka, he had been researching the work of 19th Century mathematician Arthur Moritz Schoenflies. Schoenflies – a master of geometry and crystallography – had developed his own three dimensional models that specifically captivated Zarka’s attention, inspired with their sculptural potential.",
+    "videos": [
+      "https://www.youtube.com/watch?v=jDjwGZoloQQ"
+    ]
   }
 ]
