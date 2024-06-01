@@ -1,5 +1,4 @@
 import Feedback from '../models/feedback';
-import slack from '../helpers/slack';
 
 /**
  * Load feedback and append to req
@@ -35,7 +34,7 @@ function create(req, res, next) {
     feedback
         .save()
         .then((savedFeedback) => {
-            slack.sendMessageFeedback('#krak', savedFeedback);
+            // TODO: Send feedback somewhere
             res.json(savedFeedback);
         })
         .catch((e) => next(e));

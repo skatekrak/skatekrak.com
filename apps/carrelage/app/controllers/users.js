@@ -1,10 +1,8 @@
 import httpStatus from 'http-status';
-import got from 'got';
 
 import cloudinary from '../helpers/cloudinary';
 import logger from '../server/logger';
 import auth from '../server/auth';
-import config from '../server/config';
 
 import User from '../models/user';
 import Profile from '../models/profile';

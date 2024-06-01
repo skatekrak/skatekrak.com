@@ -6,10 +6,11 @@ module.exports = {
     },
     extends: [
         'plugin:@typescript-eslint/recommended', // Uses the recommended rules from the @typescript-eslint/eslint-plugin
-        'plugin:prettier/recommended', // Enable eslint-plugin-prettier and eslint-config-prettier
+        'prettier',
     ],
     rules: {
         '@typescript-eslint/no-this-alias': 'off',
         '@typescript-eslint/ban-types': 'off',
+        '@typescript-eslint/no-explicit-any': 'warn',
     },
 };
