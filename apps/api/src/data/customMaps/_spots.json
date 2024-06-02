@@ -8516,5 +8516,16 @@
     "videos": [
       "https://www.youtube.com/watch?v=jDjwGZoloQQ"
     ]
+  },
+  {
+    "id": "kingpinmag",
+    "categories": [
+      "magazine"
+    ],
+    "name": "Kingpin Mag",
+    "subtitle": "",
+    "edito": "",
+    "about": "Launched in November 2002, Kingpin was the only pan-European skateboarding magazine. The magazine delivered the best of European skateboarding,",
+    "videos": []
   }
 ]
