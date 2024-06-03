@@ -8560,5 +8560,16 @@
     "edito": "",
     "about": "",
     "videos": []
+  },
+  {
+    "id": "apropos01",
+    "categories": [
+      "magazine"
+    ],
+    "name": "A Propos 01",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": []
   }
 ]
