@@ -8865,5 +8865,16 @@
     "edito": "",
     "about": "Skaters smoking cigs, inspired by a post by Peter Grannis, AKA competer_programmis.",
     "videos": []
+  },
+  {
+    "id": "sunglasses",
+    "categories": [
+      "maps"
+    ],
+    "name": "Sunglasses",
+    "subtitle": "",
+    "edito": "",
+    "about": "Skaters wearing sunglasses, inspired by a post by Peter Grannis, AKA competer_programmis.",
+    "videos": []
   }
 ]
