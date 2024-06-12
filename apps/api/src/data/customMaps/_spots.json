@@ -8802,5 +8802,18 @@
     "edito": "",
     "about": "",
     "videos": []
+  },
+  {
+    "id": "unitedbyfate2",
+    "categories": [
+      "video"
+    ],
+    "name": "Globe 'United by Fate Ep.2'",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=DVvDjtyA7eg"
+    ]
   }
 ]
