@@ -8854,5 +8854,16 @@
     "videos": [
       "https://www.youtube.com/watch?v=XYrNQJ8oCJ8"
     ]
+  },
+  {
+    "id": "cigarette",
+    "categories": [
+      "maps"
+    ],
+    "name": "Cigarette",
+    "subtitle": "",
+    "edito": "",
+    "about": "Skaters smoking cigs, inspired by a post by Peter Grannis, AKA competer_programmis.",
+    "videos": []
   }
 ]
