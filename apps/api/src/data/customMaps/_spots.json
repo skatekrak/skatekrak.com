@@ -8887,5 +8887,16 @@
     "edito": "",
     "about": "Barefoot skateboarding, inspired by a post by Peter Grannis, AKA competer_programmis.",
     "videos": []
+  },
+  {
+    "id": "onefoot",
+    "categories": [
+      "maps"
+    ],
+    "name": "One Foot",
+    "subtitle": "",
+    "edito": "",
+    "about": "One footed skateboarding, inspired by a post by Peter Grannis, AKA competer_programmis.",
+    "videos": []
   }
 ]
