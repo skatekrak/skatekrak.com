@@ -8876,5 +8876,16 @@
     "edito": "",
     "about": "Skaters wearing sunglasses, inspired by a post by Peter Grannis, AKA competer_programmis.",
     "videos": []
+  },
+  {
+    "id": "barefoot",
+    "categories": [
+      "maps"
+    ],
+    "name": "Barefoot",
+    "subtitle": "",
+    "edito": "",
+    "about": "Barefoot skateboarding, inspired by a post by Peter Grannis, AKA competer_programmis.",
+    "videos": []
   }
 ]
