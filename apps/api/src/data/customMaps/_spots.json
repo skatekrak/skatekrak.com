@@ -8898,5 +8898,16 @@
     "edito": "",
     "about": "One footed skateboarding, inspired by a post by Peter Grannis, AKA competer_programmis.",
     "videos": []
+  },
+  {
+    "id": "naked",
+    "categories": [
+      "maps"
+    ],
+    "name": "Naked",
+    "subtitle": "",
+    "edito": "",
+    "about": "Naked skateboarding..",
+    "videos": []
   }
 ]
