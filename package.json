@@ -2,11 +2,13 @@
   "name": "@krak/monorepo",
   "dependencies": {
     "@manypkg/cli": "^0.21.4",
-    "turbo": "^1.13.3"
+    "turbo": "^2.0.4"
   },
   "engines": {
-    "node": "20"
+    "node": "20",
+    "bun": "1.1.12"
   },
+  "packageManager": "bun@1.1.12",
   "private": false,
   "scripts": {
     "lint": "turbo lint && manypkg check",
@@ -22,5 +24,8 @@
   "workspaces": [
     "apps/*",
     "packages/*"
+  ],
+  "trustedDependencies": [
+    "core-js"
   ]
 }
