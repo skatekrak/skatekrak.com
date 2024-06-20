@@ -26,7 +26,6 @@ import SpotEdit from '../models/spot-edit';
 
 export const geocoder = NodeGeocoder({
     provider: 'google',
-    httpAdapter: 'https',
     apiKey: config.GOOGLE_KEY,
     language: 'en',
     formatter: {
@@ -121,12 +120,13 @@ async function create(req: Request, res: Response, next: NextFunction) {
 
     // Calculate spot.location
     try {
-        if (config.NODE_ENV !== 'development') {
+        if (config.NODE_ENV === 'development') {
             const geocodingResults = await geocoder.reverse({
                 lat: req.body.latitude,
                 lon: req.body.longitude,
             });
-            if (geocodingResults.length > 1) {
+            console.log('geocoding', typeof geocodingResults, geocodingResults);
+            if (Array.isArray(geocodingResults) && geocodingResults.length > 1) {
                 const geoRes = geocodingResults[0];
                 spot.location = {
                     streetNumber: geoRes.streetNumber,
@@ -134,7 +134,16 @@ async function create(req: Request, res: Response, next: NextFunction) {
                     city: geoRes.city ?? '',
                     country: geoRes!.country ?? '',
                 };
+            } else if (typeof geocodingResults === 'object') {
+                const geoRes = geocodingResults as NodeGeocoder.Entry;
+                spot.location = {
+                    streetNumber: geoRes.streetNumber,
+                    streetName: geoRes.streetName,
+                    city: geoRes.city ?? '',
+                    country: geoRes!.country ?? '',
+                };
             }
+            console.log('LOCATION', spot.location);
         } else {
             spot.location = genFakeLocation();
         }
