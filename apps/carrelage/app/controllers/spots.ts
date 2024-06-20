@@ -120,7 +120,7 @@ async function create(req: Request, res: Response, next: NextFunction) {
 
     // Calculate spot.location
     try {
-        if (config.NODE_ENV === 'development') {
+        if (config.NODE_ENV !== 'development') {
             const geocodingResults = await geocoder.reverse({
                 lat: req.body.latitude,
                 lon: req.body.longitude,
