@@ -19,7 +19,8 @@
     "dev:carrelage": "turbo dev --filter=@krak/carrelage",
     "build:api": "turbo build --filter=@krak/api",
     "build:carrelage": "turbo build --filter=@krak/carrelage",
-    "start:api": "turbo start --filter=@krak/api"
+    "start:api": "turbo start --filter=@krak/api",
+    "start:carrelage": "turbo start --filter=@krak/carrelage"
   },
   "workspaces": [
     "apps/*",
