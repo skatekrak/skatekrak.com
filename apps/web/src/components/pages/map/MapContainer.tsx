@@ -141,6 +141,7 @@ const MapContainer = () => {
     const onFullSpotClose = () => {
         setSpotID(spotId);
         setModalVisible(null);
+        setMedia(null);
     };
 
     useEffect(() => {
