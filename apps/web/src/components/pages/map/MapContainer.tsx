@@ -27,6 +27,7 @@ import { SpinnerCircle } from '@/components/Ui/Icons/Spinners';
 import { useCustomMapID, useMediaID, useSpotID, useSpotModal, useViewport } from '@/lib/hook/queryState';
 import { useMapStore } from '@/store/map';
 import { useSettingsStore } from '@/store/settings';
+import MapCustomPanel from '@/components/pages/map/MapCustom/newCustomMap/panel/MapCustomPanel';
 
 const DynamicMapComponent = dynamic(() => import('./MapComponent'), { ssr: false });
 const MapFullSpot = dynamic(() => import('./MapFullSpot'), { ssr: false });
@@ -188,14 +189,23 @@ const MapContainer = () => {
                 ) : (
                     <>
                         {id !== undefined && customMapInfo !== undefined ? (
-                            <MapCustomNavigation
-                                id={customMapInfo.id}
-                                title={customMapInfo.name}
-                                about={customMapInfo.about}
-                                subtitle={customMapInfo.subtitle}
-                                spots={spotsByTags ?? []}
-                                videos={customMapInfo.videos}
-                            />
+                            <>
+                                <MapCustomPanel
+                                    id={customMapInfo.id}
+                                    title={customMapInfo.name}
+                                    about={customMapInfo.about}
+                                    spots={spotsByTags ?? []}
+                                    videos={customMapInfo.videos}
+                                />
+                                {/* <MapCustomNavigation
+                                    id={customMapInfo.id}
+                                    title={customMapInfo.name}
+                                    about={customMapInfo.about}
+                                    subtitle={customMapInfo.subtitle}
+                                    spots={spotsByTags ?? []}
+                                    videos={customMapInfo.videos}
+                                /> */}
+                            </>
                         ) : (
                             <MapNavigation handleCreateSpotClick={onToggleSpotCreation} />
                         )}
