@@ -9250,5 +9250,16 @@
     "edito": "",
     "about": "Schief was a fanzine made in Brussels.",
     "videos": []
+  },
+  {
+    "id": "wood01",
+    "categories": [
+      "magazine"
+    ],
+    "name": "Wood 01",
+    "subtitle": "",
+    "edito": "",
+    "about": "Wood was a really good belgian skateboard magazine.",
+    "videos": []
   }
 ]
