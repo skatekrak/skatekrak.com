@@ -9217,5 +9217,16 @@
     "edito": "",
     "about": "",
     "videos": []
+  },
+  {
+    "id": "schief01",
+    "categories": [
+      "magazine"
+    ],
+    "name": "Schief 01",
+    "subtitle": "",
+    "edito": "",
+    "about": "Schief was a fanzine made in Brussels.",
+    "videos": []
   }
 ]
