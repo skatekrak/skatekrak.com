@@ -35,6 +35,7 @@ const MapFullSpot: React.FC<MapFullSpotProps> = ({ open, onClose, container }) =
             onClose={onClose}
             closable
             closeIcon={undefined}
+            customClassNames={{ customRoot: '!z-[1100]' }}
         >
             {spotOverview && (
                 <S.MapFullSpotContainer isCarouselOpen={!!mediaId}>

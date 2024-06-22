@@ -10,15 +10,15 @@ type Props = {
     hashtag: string;
 };
 
-const MapCustomNavigationMediaCarousel = ({ hashtag, initialMediaId }: Props) => {
+const MapCustomMediaCarousel = ({ hashtag, initialMediaId }: Props) => {
     const { data: media, isLoading: mediaLoading } = useMedia(initialMediaId);
 
-    return media && !mediaLoading && <MapCustomNavigationMediaCarouselContent hashtag={hashtag} media={media} />;
+    return media && !mediaLoading && <MapCustomMediaCarouselContent hashtag={hashtag} media={media} />;
 };
 
-export default MapCustomNavigationMediaCarousel;
+export default MapCustomMediaCarousel;
 
-const MapCustomNavigationMediaCarouselContent = ({ hashtag, media }: { hashtag: string; media: Media }) => {
+const MapCustomMediaCarouselContent = ({ hashtag, media }: { hashtag: string; media: Media }) => {
     const [, setMediaID] = useMediaID();
 
     const { data, isLoading } = useHashtagMediasAround(hashtag, media);
