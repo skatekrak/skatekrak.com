@@ -23,18 +23,11 @@ export const MapFullSpotContainer = styled.div<MapFullSpotContainerProps>`
     }
 
     ${media.laptop} {
-        grid-template-columns: 18rem 3fr;
-        width: 64rem;
-    }
-
-    ${media.laptopL} {
-        width: 72rem;
-        height: 40rem;
-    }
-
-    ${media.desktop} {
-        width: 88rem;
-        height: 52rem;
+        min-height: inherit;
+        height: inherit;
+        aspect-ratio: 16 / 9;
+        width: 88vw;
+        max-width: 80rem;
     }
 `;
 
