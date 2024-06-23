@@ -27,6 +27,7 @@ type Props = {
         customOverlay?: string;
         customModal?: string;
         customCloseButton?: string;
+        customRoot?: string;
     };
 } & Partial<ModalProps>;
 
@@ -37,6 +38,7 @@ const ModalWithStyle: React.FC<Props> = ({ open, onClose, children, closable, cu
                 overlay: defaultClassNames.overlay + ' ' + customClassNames.customOverlay,
                 modal: defaultClassNames.modal + ' ' + customClassNames.customModal,
                 closeButton: defaultClassNames.closeButton + ' ' + customClassNames.customCloseButton,
+                root: customClassNames.customRoot,
             };
         }
         return defaultClassNames;

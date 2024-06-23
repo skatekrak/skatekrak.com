@@ -32,7 +32,7 @@ const MapMedia = ({ shareURL, media, isFromCustomMapFeed = false }: MapMediaProp
     };
 
     return (
-        <S.MapMediaContainer key={media.id}>
+        <S.MapMediaContainer key={media.id} className="rounded">
             {shareURL && <MapMediaShare url={shareURL} media={media} />}
 
             <S.OpenCarouselButton onClick={() => openCarousel(media.id)}>

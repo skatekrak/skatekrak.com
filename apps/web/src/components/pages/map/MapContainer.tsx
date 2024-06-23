@@ -8,7 +8,6 @@ import { Spot } from '@krak/carrelage-client';
 import { getSpotOverview } from '@krak/carrelage-client';
 
 import MapQuickAccessDesktop from './mapQuickAccess/MapQuickAccessDesktop';
-import MapCustomNavigation from './MapCustom/MapCustomNavigation';
 import MapNavigation from './MapNavigation';
 import MapBottomNav from './MapBottomNav';
 import MapGradients from './MapGradients';
@@ -27,6 +26,7 @@ import { SpinnerCircle } from '@/components/Ui/Icons/Spinners';
 import { useCustomMapID, useMediaID, useSpotID, useSpotModal, useViewport } from '@/lib/hook/queryState';
 import { useMapStore } from '@/store/map';
 import { useSettingsStore } from '@/store/settings';
+import MapCustomPanel from '@/components/pages/map/MapCustom/panel/MapCustomPanel';
 
 const DynamicMapComponent = dynamic(() => import('./MapComponent'), { ssr: false });
 const MapFullSpot = dynamic(() => import('./MapFullSpot'), { ssr: false });
@@ -188,14 +188,7 @@ const MapContainer = () => {
                 ) : (
                     <>
                         {id !== undefined && customMapInfo !== undefined ? (
-                            <MapCustomNavigation
-                                id={customMapInfo.id}
-                                title={customMapInfo.name}
-                                about={customMapInfo.about}
-                                subtitle={customMapInfo.subtitle}
-                                spots={spotsByTags ?? []}
-                                videos={customMapInfo.videos}
-                            />
+                            <MapCustomPanel map={customMapInfo} spots={spotsByTags ?? []} />
                         ) : (
                             <MapNavigation handleCreateSpotClick={onToggleSpotCreation} />
                         )}
