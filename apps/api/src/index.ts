@@ -6,6 +6,9 @@ import { cron } from '@elysiajs/cron';
 
 import { appRouter, createContext } from '@krak/trpc';
 import { endOfWeek, startOfWeek, sub } from 'date-fns';
+import { env } from './env';
+
+console.log('CARRELAGE_URL', env.CARRELAGE_URL);
 
 const app = new Elysia()
     .use(logger())
@@ -17,7 +20,7 @@ const app = new Elysia()
                 const lastWeekDay = sub(new Date(), { weeks: 1 });
                 try {
                     const response = await fetch(
-                        `${process.env.CARRELAGE_URL}/admin/stats?from=${startOfWeek(lastWeekDay, { weekStartsOn: 1 })}&to=${endOfWeek(lastWeekDay, { weekStartsOn: 1 })}`,
+                        `${env.CARRELAGE_URL}/admin/stats?from=${startOfWeek(lastWeekDay, { weekStartsOn: 1 })}&to=${endOfWeek(lastWeekDay, { weekStartsOn: 1 })}`,
                         {
                             method: 'GET',
                             headers: { Authorization: process.env.ADMIN_TOKEN! },
@@ -39,5 +42,6 @@ const app = new Elysia()
     )
     .use(cors({ origin: /(\w+\.)?skatekrak\.com$/ }))
     .use(trpc(appRouter, { createContext }));
+
 app.listen(3000);
 console.log('Server running on :3000');

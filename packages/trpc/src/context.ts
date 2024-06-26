@@ -1,11 +1,8 @@
 import { FetchCreateContextFnOptions } from '@trpc/server/adapters/fetch';
 import { MongoClient } from 'mongodb';
+import { env } from './env';
 
-if (process.env.MONGODB_URI === undefined) {
-    throw new Error('MONGODB_URI is not defined');
-}
-
-const client = new MongoClient(process.env.MONGODB_URI!);
+const client = new MongoClient(env.MONGODB_URI);
 client.connect();
 
 export const createContext = async ({ req }: FetchCreateContextFnOptions) => {

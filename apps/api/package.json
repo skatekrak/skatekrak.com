@@ -14,6 +14,7 @@
     "@elysiajs/trpc": "^1.0.2",
     "@elysiajs/websocket": "^0.2.8",
     "@krak/trpc": "workspace:*",
+    "@t3-oss/env-core": "^0.10.1",
     "date-fns": "^3.6.0",
     "elysia": "^1.0.16"
   }

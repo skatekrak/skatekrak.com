@@ -1,7 +1,7 @@
 # syntax = docker/dockerfile:1
 
 ARG BUN_VERSION=1.1.12
-FROM oven/bun:${BUN_VERSION}-slim as base
+FROM oven/bun:${BUN_VERSION}-slim AS base
 
 LABEL fly_launch_runtime="Bun"
 
@@ -13,7 +13,7 @@ ENV NODE_ENV=production
 
 
 # Throw-away build stage to reduce size of final image
-FROM base as build
+FROM base AS build
 
 # Install packages needed to build node modules
 RUN apt-get update -qq && \
@@ -21,7 +21,7 @@ RUN apt-get update -qq && \
 
 # Install node modules
 COPY . .
-RUN bun install
+RUN bun install --production
 
 # Final stage for app image
 FROM base
@@ -29,5 +29,7 @@ FROM base
 # Copy built application
 COPY --from=build /app /app
 
+EXPOSE 3000
+
 # Start the server by default, this can be overwritten at runtime
-CMD [ "bun", "start:api"]
+CMD [ "bun", "start:api" ]

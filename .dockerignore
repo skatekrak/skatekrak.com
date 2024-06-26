@@ -1,0 +1,13 @@
+.dist
+.gitignore
+.env
+.env.*
+node_modules
+.prettierrc
+.turbo
+.git
+.vscode
+.DS_Store
+backup
+scripts
+*.md
