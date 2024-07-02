@@ -8,8 +8,6 @@ import { appRouter, createContext } from '@krak/trpc';
 import { endOfWeek, startOfWeek, sub } from 'date-fns';
 import { env } from './env';
 
-console.log('CARRELAGE_URL', env.CARRELAGE_URL);
-
 const app = new Elysia()
     .use(logger())
     .use(
@@ -23,12 +21,12 @@ const app = new Elysia()
                         `${env.CARRELAGE_URL}/admin/stats?from=${startOfWeek(lastWeekDay, { weekStartsOn: 1 })}&to=${endOfWeek(lastWeekDay, { weekStartsOn: 1 })}`,
                         {
                             method: 'GET',
-                            headers: { Authorization: process.env.ADMIN_TOKEN! },
+                            headers: { Authorization: env.ADMIN_TOKEN },
                         },
                     );
                     const stats = await response.json();
 
-                    await fetch(process.env.DISCORD_HOOK_URL!, {
+                    await fetch(env.DISCORD_HOOK_URL, {
                         method: 'POST',
                         body: JSON.stringify({
                             content: `**Last week stats 📈**\nspot: ${stats.spots}\nmedia: ${stats.media}`,
