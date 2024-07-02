@@ -4,6 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "private": true,
+  "packageManager": "bun@1.1.12",
   "scripts": {
     "dev": "next dev",
     "start:cmd:debug": "NODE_OPTIONS='--inspect' next dev",
@@ -98,6 +99,7 @@
     "webpack": "^5.90.3"
   },
   "engines": {
-    "node": "20"
+    "node": "20",
+    "bun": "1.1.12"
   }
 }

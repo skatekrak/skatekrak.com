@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import Tippy from '@tippyjs/react/headless';
-import Link from 'next/link';
 
 import * as S from './Header.styled';
 import IconDotsThreeVertical from '@/components/Ui/Icons/IconDotsThreeVertical';
@@ -74,31 +73,37 @@ export const HeaderThreeDotsMenu = () => {
                     {/**/}
                     {isMobile && (
                         <S.ThreeDotMenuSocialContainer>
-                            <Link href="https://www.twitter.com/skatekrak" target="_blank" rel="noopener noreferrer">
-                                <S.SecondaryNavSocialIcon>
-                                    <IconTwitter />
-                                </S.SecondaryNavSocialIcon>
-                            </Link>
+                            <S.SecondaryNavSocialIcon
+                                href="https://www.twitter.com/skatekrak"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                <IconTwitter />
+                            </S.SecondaryNavSocialIcon>
                             <S.SecondaryNavIconSeparator />
-                            <Link href="https://www.youtube.com/krakskate" target="_blank" rel="noopener noreferrer">
-                                <S.SecondaryNavSocialIcon>
-                                    <IconYoutubeMonochrome />
-                                </S.SecondaryNavSocialIcon>
-                            </Link>
+                            <S.SecondaryNavSocialIcon
+                                href="https://www.youtube.com/krakskate"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                <IconYoutubeMonochrome />
+                            </S.SecondaryNavSocialIcon>
                             <S.SecondaryNavIconSeparator />
-                            <Link href="https://www.instagram.com/skate_krak" target="_blank" rel="noopener noreferrer">
-                                <S.SecondaryNavSocialIcon>
-                                    <IconInstagram />
-                                </S.SecondaryNavSocialIcon>
-                            </Link>
+                            <S.SecondaryNavSocialIcon
+                                href="https://www.instagram.com/skate_krak"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                <IconInstagram />
+                            </S.SecondaryNavSocialIcon>
                         </S.ThreeDotMenuSocialContainer>
                     )}
                 </S.ThreeDotMenu>
             )}
         >
-            <S.SecondaryNavIcon as="button" onClick={handleMenuOpen}>
+            <S.SecondaryNavIconButton onClick={handleMenuOpen}>
                 <IconDotsThreeVertical />
-            </S.SecondaryNavIcon>
+            </S.SecondaryNavIconButton>
         </Tippy>
     );
 };

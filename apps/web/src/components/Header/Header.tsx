@@ -12,10 +12,8 @@ import { PATH_CALL_TO_ADVENTURE } from '@/pages/call-to-adventure';
 import useSession from '@/lib/hook/carrelage/use-session';
 import IconInstagram from '@/components/Ui/Icons/Logos/IconInstagram';
 import { HeaderThreeDotsMenu } from './HeaderThreeDotsMenu';
-import { useSettingsStore } from '@/store/settings';
 
 const Header: React.FC = () => {
-    const isMobile = useSettingsStore((state) => state.isMobile);
     const { data: sessionData } = useSession();
     const isConnected = sessionData != null;
 
@@ -27,83 +25,70 @@ const Header: React.FC = () => {
                         <S.KrakLogo title="Home page" />
                     </S.LogoLink>
                 </Link>
-                {!isMobile && (
-                    <S.HeaderSentenceContainer>
-                        <S.HeaderSentence component="condensedBody1">
-                            powered by{' '}
-                            <a href="https://www.opensb.org/" target="_blank" rel="noopener noreferrer">
-                                OpenSB
-                            </a>
-                        </S.HeaderSentence>
-                    </S.HeaderSentenceContainer>
-                )}
+                <S.HeaderSentenceContainer className="hidden md:block">
+                    <S.HeaderSentence component="condensedBody1">
+                        powered by{' '}
+                        <a href="https://www.opensb.org/" target="_blank" rel="noopener noreferrer">
+                            OpenSB
+                        </a>
+                    </S.HeaderSentence>
+                </S.HeaderSentenceContainer>
+
                 <S.SecondaryNav className="gap-6">
-                    {isMobile ? (
-                        <>
-                            <S.SecondaryNavIcon
-                                as="a"
+                    <div className="flex items-center space-x-4 md:hidden">
+                        <S.SecondaryNavIconLink target="_blank" href="https://discord.gg/exMAqSuVfj" rel="noreferrer">
+                            <IconDiscord />
+                        </S.SecondaryNavIconLink>
+                        <HeaderThreeDotsMenu />
+                    </div>
+                    <div className="hidden md:flex items-center">
+                        <Link href="https://shop.opensb.org/" target="_blank" rel="noopener noreferrer">
+                            <S.SecondaryNavItem>Shop</S.SecondaryNavItem>
+                        </Link>
+                        <Link href={PATH_CALL_TO_ADVENTURE}>
+                            <S.SecondaryNavItem>Call to Adventure</S.SecondaryNavItem>
+                        </Link>
+                        <Link
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            href="https://opencollective.com/opensb/projects/krakmap"
+                        >
+                            <S.SecondaryNavItem>Support</S.SecondaryNavItem>
+                        </Link>
+                        <div className="ml-5 flex items-center">
+                            <S.SecondaryNavSocialIcon
                                 target="_blank"
                                 href="https://discord.gg/exMAqSuVfj"
                                 rel="noreferrer"
                             >
-                                <IconDiscord />
-                            </S.SecondaryNavIcon>
-                            <HeaderThreeDotsMenu />
-                        </>
-                    ) : (
-                        <>
-                            <Link href="https://shop.opensb.org/" target="_blank" rel="noopener noreferrer">
-                                <S.SecondaryNavItem>Shop</S.SecondaryNavItem>
-                            </Link>
-                            <Link href={PATH_CALL_TO_ADVENTURE}>
-                                <S.SecondaryNavItem>Call to Adventure</S.SecondaryNavItem>
-                            </Link>
-                            <Link
+                                <IconDiscord className="size-5" />
+                            </S.SecondaryNavSocialIcon>
+                            <S.SecondaryNavIconSeparator />
+                            <S.SecondaryNavSocialIcon
                                 target="_blank"
-                                rel="noopener noreferrer"
-                                href="https://opencollective.com/opensb/projects/krakmap"
+                                href="https://www.twitter.com/skatekrak"
+                                rel="noreferrer"
                             >
-                                <S.SecondaryNavItem>Support</S.SecondaryNavItem>
-                            </Link>
-                            <div className="flex items-center">
-                                <S.SecondaryNavSocialIcon
-                                    as="a"
-                                    target="_blank"
-                                    href="https://discord.gg/exMAqSuVfj"
-                                    rel="noreferrer"
-                                >
-                                    <IconDiscord />
-                                </S.SecondaryNavSocialIcon>
-                                <S.SecondaryNavIconSeparator />
-                                <S.SecondaryNavSocialIcon
-                                    as="a"
-                                    target="_blank"
-                                    href="https://www.twitter.com/skatekrak"
-                                    rel="noreferrer"
-                                >
-                                    <IconTwitter />
-                                </S.SecondaryNavSocialIcon>
-                                <S.SecondaryNavIconSeparator />
-                                <S.SecondaryNavSocialIcon
-                                    as="a"
-                                    target="_blank"
-                                    href="https://www.youtube.com/krakskate"
-                                    rel="noreferrer"
-                                >
-                                    <IconYoutubeMonochrome />
-                                </S.SecondaryNavSocialIcon>
-                                <S.SecondaryNavIconSeparator />
-                                <S.SecondaryNavSocialIcon
-                                    as="a"
-                                    target="_blank"
-                                    href="https://www.instagram.com/skate_krak"
-                                    rel="noreferrer"
-                                >
-                                    <IconInstagram />
-                                </S.SecondaryNavSocialIcon>
-                            </div>
-                        </>
-                    )}
+                                <IconTwitter className="size-5" />
+                            </S.SecondaryNavSocialIcon>
+                            <S.SecondaryNavIconSeparator />
+                            <S.SecondaryNavSocialIcon
+                                target="_blank"
+                                href="https://www.youtube.com/krakskate"
+                                rel="noreferrer"
+                            >
+                                <IconYoutubeMonochrome className="size-5" />
+                            </S.SecondaryNavSocialIcon>
+                            <S.SecondaryNavIconSeparator />
+                            <S.SecondaryNavSocialIcon
+                                target="_blank"
+                                href="https://www.instagram.com/skate_krak"
+                                rel="noreferrer"
+                            >
+                                <IconInstagram className="size-5" />
+                            </S.SecondaryNavSocialIcon>
+                        </div>
+                    </div>
 
                     {isConnected ? (
                         <HeaderProfile />
