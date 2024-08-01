@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import NextImage from 'next/image';
 import classNames from 'classnames';
 
@@ -9,6 +9,8 @@ import { CustomMap } from '@/lib/map/types';
 import { Spot } from '@krak/carrelage-client';
 import MapCustomMediaCarousel from '@/components/pages/map/MapCustom/MapCustomMediaCarousel';
 import ScrollBar from '@/components/Ui/Scrollbar';
+import { useMedias } from '@/shared/feudartifice/hooks/media';
+import { KrakLoading } from '@/components/Ui/Icons/Spinners';
 
 export type MapCustomPanelTabs = 'media' | 'video' | 'spots';
 
@@ -46,6 +48,31 @@ const MapCustomPanel = ({ map, spots }: Props) => {
     };
 
     const [mediaId] = useMediaID();
+
+    const today = useMemo(() => {
+        return new Date();
+    }, []);
+
+    const { data: medias, isLoading } = useMedias({
+        older: today,
+        limit: 10,
+        hashtag: id,
+    });
+
+    useEffect(() => {
+        if (!isLoading) {
+            if (medias && medias.length > 0) {
+                setOpenTab('media');
+            } else {
+                if (map.videos && map.videos.length > 0) {
+                    setOpenTab('video');
+                } else {
+                    setOpenTab('spots');
+                }
+            }
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [isLoading]);
 
     return (
         <>
@@ -120,16 +147,46 @@ const MapCustomPanel = ({ map, spots }: Props) => {
                                     </>
                                 )}
                             </div>
-                            {/** Tabs */}
-                            <div className="flex gap-6 justify-center flex-wrap my-8 px-6">
-                                <Tab title="media" onClick={() => setOpenTab('media')} isActive={openTab === 'media'} />
-                                <Tab title="video" onClick={() => setOpenTab('video')} isActive={openTab === 'video'} />
-                                <Tab title="spots" onClick={() => setOpenTab('spots')} isActive={openTab === 'spots'} />
-                            </div>
-                            {/** Content */}
-                            <div className="grow flex flex-col gap-6 px-6 pb-8">
-                                <Content map={map} activeTab={openTab} spots={spots} />
-                            </div>
+                            {isLoading ? (
+                                <div className="mx-auto my-32">
+                                    <KrakLoading />
+                                </div>
+                            ) : (
+                                <>
+                                    {/** Tabs */}
+                                    <div className="flex gap-6 justify-center flex-wrap my-8 px-6">
+                                        {medias && medias.length > 0 && (
+                                            <Tab
+                                                title="media"
+                                                onClick={() => setOpenTab('media')}
+                                                isActive={openTab === 'media'}
+                                            />
+                                        )}
+                                        {map.videos && map.videos?.length > 0 && (
+                                            <Tab
+                                                title="video"
+                                                onClick={() => setOpenTab('video')}
+                                                isActive={openTab === 'video'}
+                                            />
+                                        )}
+                                        {spots.length > 0 && (
+                                            <Tab
+                                                title="spots"
+                                                onClick={() => setOpenTab('spots')}
+                                                isActive={openTab === 'spots'}
+                                            />
+                                        )}
+                                    </div>
+                                    <div className="grow flex flex-col gap-6 px-6 pb-8">
+                                        <Content
+                                            activeTab={openTab}
+                                            spots={spots}
+                                            medias={medias ?? []}
+                                            videos={map.videos}
+                                        />
+                                    </div>
+                                </>
+                            )}
                         </>
                     )}
                 </ScrollBar>
@@ -140,7 +197,7 @@ const MapCustomPanel = ({ map, spots }: Props) => {
 
 export default MapCustomPanel;
 
-const Tab = ({
+export const Tab = ({
     title,
     isActive,
     className,
