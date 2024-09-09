@@ -5,6 +5,7 @@ const envSchema = z.object({
 });
 
 const createEnv = () => {
+    console.log(process.env);
     const env = envSchema.safeParse(process.env);
     if (!env.success) {
         throw new Error(`Invalid environment variables: ${env.error.issues.map((i) => i.message).join(', ')}`);

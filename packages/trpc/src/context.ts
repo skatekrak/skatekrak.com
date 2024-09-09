@@ -4,6 +4,7 @@ import { env } from './env';
 
 const client = new MongoClient(env.MONGODB_URI);
 client.connect();
+console.log(process.env);
 
 export const createContext = async ({ req }: FetchCreateContextFnOptions) => {
     return {
