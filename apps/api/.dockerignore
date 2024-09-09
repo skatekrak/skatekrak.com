@@ -3,3 +3,10 @@ Dockerfile
 .dockerignore
 node_modules
 .git
+.env
+.DS_Store
+.turbo
+.next
+.vscode
+.github
+.git

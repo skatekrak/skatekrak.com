@@ -37,10 +37,15 @@ jobs:
         needs: [lint]
         steps:
             - uses: actions/checkout@v4
-            - uses: superfly/flyctl-actions/setup-flyctl@master
-            - run: flyctl deploy --config apps/api/fly.toml --dockerfile apps/api/Dockerfile
+            - name: Install flyctl
+              run: |
+                  curl -L https://fly.io/install.sh | sh
+                  echo "/home/runner/.fly/bin" >> $GITHUB_PATH
+                  flyctl deploy --config apps/api/fly.toml --dockerfile apps/api/Dockerfile
               env:
                   FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+            # - uses: superfly/flyctl-actions/setup-flyctl@master
+            # - run: flyctl deploy --config apps/api/fly.toml --dockerfile apps/api/Dockerfile
 
     # deploy_carrelage_fly:
     #     name: deploy carrelage fly
