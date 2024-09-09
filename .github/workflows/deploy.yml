@@ -18,29 +18,29 @@ jobs:
             - run: bun install --frozen-lockfile
             - run: bun lint
 
-    # deploy_vercel:
-    #     name: deploy web vercel
-    #     runs-on: ubuntu-latest
-    #     needs: [lint]
-    #     steps:
-    #         - uses: actions/checkout@v4
-    #         - uses: amondnet/vercel-action@v25
-    #           with:
-    #               vercel-token: ${{ secrets.VERCEL_TOKEN }}
-    #               vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
-    #               vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-    #               vercel-args: --prod
+    deploy_vercel:
+        name: deploy web vercel
+        runs-on: ubuntu-latest
+        needs: [lint]
+        steps:
+            - uses: actions/checkout@v4
+            - uses: amondnet/vercel-action@v25
+              with:
+                  vercel-token: ${{ secrets.VERCEL_TOKEN }}
+                  vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+                  vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+                  vercel-args: --prod
 
-    # deploy_api_fly:
-    #     name: deploy api fly
-    #     runs-on: ubuntu-latest
-    #     needs: [lint]
-    #     steps:
-    #         - uses: actions/checkout@v4
-    #         - uses: superfly/flyctl-actions/setup-flyctl@master
-    #         - run: flyctl deploy --config apps/api/fly.toml --dockerfile apps/api/Dockerfile
-    #           env:
-    #               FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+    deploy_api_fly:
+        name: deploy api fly
+        runs-on: ubuntu-latest
+        needs: [lint]
+        steps:
+            - uses: actions/checkout@v4
+            - uses: superfly/flyctl-actions/setup-flyctl@master
+            - run: flyctl deploy --config apps/api/fly.toml --dockerfile apps/api/Dockerfile
+              env:
+                  FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
 
     # deploy_carrelage_fly:
     #     name: deploy carrelage fly
