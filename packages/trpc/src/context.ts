@@ -1,4 +1,4 @@
-import { FetchCreateContextFnOptions } from '@trpc/server/adapters/fetch';
+import { type FetchCreateContextFnOptions } from '@trpc/server/adapters/fetch';
 import { MongoClient } from 'mongodb';
 import { env } from './env';
 

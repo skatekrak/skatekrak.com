@@ -1,11 +1,15 @@
-import { createEnv } from '@t3-oss/env-core';
 import { z } from 'zod';
 
-export const env = createEnv({
-    server: {
-        MONGODB_URI: z.string(),
-    },
-    runtimeEnv: {
-        MONGODB_URI: process.env.MONGODB_URI,
-    },
+const envSchema = z.object({
+    MONGODB_URI: z.string(),
 });
+
+const createEnv = () => {
+    const env = envSchema.safeParse(process.env);
+    if (!env.success) {
+        throw new Error(`Invalid environment variables: ${env.error.issues.map((i) => i.message).join(', ')}`);
+    }
+    return env.data;
+};
+
+export const env = createEnv();

@@ -1,5 +1,5 @@
 {
-  "extends": "@krak/tsconfig/base.json",
+  "extends": "@total-typescript/tsconfig/bundler/no-dom/library-monorepo",
   "include": [
     "src"
   ],

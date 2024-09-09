@@ -24,7 +24,7 @@ const app = new Elysia()
                             headers: { Authorization: env.ADMIN_TOKEN },
                         },
                     );
-                    const stats = await response.json();
+                    const stats: { spots: number; media: number } = (await response.json()) as any;
 
                     await fetch(env.DISCORD_HOOK_URL, {
                         method: 'POST',
