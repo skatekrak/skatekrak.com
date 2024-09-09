@@ -1,10 +1,8 @@
 import { type FetchCreateContextFnOptions } from '@trpc/server/adapters/fetch';
 import { MongoClient } from 'mongodb';
-import { env } from './env';
 
-const client = new MongoClient(env.MONGODB_URI);
+const client = new MongoClient(process.env.MONGODB_URI!);
 client.connect();
-console.log(process.env);
 
 export const createContext = async ({ req }: FetchCreateContextFnOptions) => {
     return {

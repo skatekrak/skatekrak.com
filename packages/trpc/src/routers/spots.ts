@@ -1,7 +1,7 @@
 import { ObjectId } from 'mongodb';
 import { publicProcedure, router } from '../trpc';
 import { z } from 'zod';
-import { SpotGeoJSON, Spot, Status } from '@krak/carrelage-client';
+import { type SpotGeoJSON, type Spot, Status } from '@krak/carrelage-client';
 
 const formatSpotsToGEOJson = (spots: Spot[]) => {
     return spots.map(
@@ -40,21 +40,6 @@ function formatSpot(spot: any): Spot {
 function addHashtagIfNeeded(tag: string) {
     return tag[0] !== '#' ? `#${tag}` : tag;
 }
-
-const isSpotInBound = (bounds: [[number, number], [number, number]]): ((spot: SpotGeoJSON) => boolean) => {
-    return (spot) => {
-        if (
-            spot.geometry.coordinates[0] >= bounds[0][0] &&
-            spot.geometry.coordinates[0] <= bounds[1][0] &&
-            spot.geometry.coordinates[1] >= bounds[0][1] &&
-            spot.geometry.coordinates[1] <= bounds[1][1]
-        ) {
-            return true;
-        } else {
-            return false;
-        }
-    };
-};
 
 export const spotsRouter = router({
     getSpot: publicProcedure.input(z.object({ id: z.string() })).query(async ({ ctx, input }) => {
