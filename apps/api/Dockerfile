@@ -32,4 +32,4 @@ COPY --from=build /app /app
 EXPOSE 3000
 
 # Start the server by default, this can be overwritten at runtime
-CMD [ "npm", "start:api" ]
+CMD [ "npm", "run", "start:api" ]
