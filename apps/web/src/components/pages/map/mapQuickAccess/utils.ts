@@ -13,7 +13,7 @@ export const generateCategories = (data: QuickAccessMap[]): Category[] => {
 
     return orderedCategories.map((category) => ({
         id: category,
-        name: CustomMapCategory[category],
+        name: category,
         maps: data.filter((map) => map.categories?.some((cat) => cat === category)),
     }));
 };
