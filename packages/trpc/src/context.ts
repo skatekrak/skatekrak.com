@@ -6,7 +6,7 @@ export const createContext =
     async ({ req }: FetchCreateContextFnOptions) => {
         return {
             headers: req.headers,
-            db: mongoClient,
+            db: mongoClient.db('carrelage'),
         };
     };
 
