@@ -4,7 +4,7 @@
   "description": "Krak API",
   "scripts": {
     "dev": "bun --watch run src/index.ts",
-    "start": "bun run src/index.ts",
+    "start": "bun run dist/index.js",
     "build": "bun build src/index.ts --target bun --outdir ./dist"
   },
   "dependencies": {

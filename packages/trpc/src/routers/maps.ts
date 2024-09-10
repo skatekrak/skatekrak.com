@@ -1,8 +1,8 @@
 import { z } from 'zod';
-import path from 'path';
 
 import { publicProcedure, router, t } from '../trpc';
 import { TRPCError } from '@trpc/server';
+import CustomMaps from '@krak/api/src/data/customMaps/_spots.json';
 
 enum CustomMapCategory {
     maps = 'Maps',
@@ -33,17 +33,22 @@ let loadedMaps: CustomMap[] = [];
 
 const loadMaps = t.middleware(async (opts) => {
     if (loadedMaps.length <= 0) {
-        const directory = path.join(process.cwd(), 'src', 'data', 'customMaps');
-        let customMaps: CustomMap[] = await Bun.file(directory + '/_spots.json').json();
-
-        customMaps = customMaps.filter((map) => {
+        loadedMaps = CustomMaps.filter((map) => {
             if (process.env.NODE_ENV !== 'production') {
                 return !map.staging;
             }
             return true;
+        }).map((map): CustomMap => {
+            return {
+                ...map,
+                edito: map.edito || '',
+                videos: map.videos || [],
+                categories: map.categories.map(
+                    (category) => CustomMapCategory[category as keyof typeof CustomMapCategory],
+                ),
+                staging: false,
+            };
         });
-
-        loadedMaps = customMaps;
     }
 
     return opts.next({
