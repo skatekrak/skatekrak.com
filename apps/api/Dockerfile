@@ -3,7 +3,7 @@
 ARG BUN_VERSION=1.1.12
 FROM oven/bun:${BUN_VERSION}-slim AS base
 
-LABEL fly_launch_runtime="Bun"
+LABEL fly_launch_runtime="nodejs"
 
 # NodeJS app lives here
 WORKDIR /app
@@ -21,10 +21,10 @@ RUN apt-get update -qq && \
 
 # Install node modules
 COPY . .
-RUN bun install --production
+RUN bun install --production --frozen-lockfile
 
 # Final stage for app image
-FROM base
+FROM node:lts-slim 
 
 # Copy built application
 COPY --from=build /app /app
@@ -32,4 +32,4 @@ COPY --from=build /app /app
 EXPOSE 3000
 
 # Start the server by default, this can be overwritten at runtime
-CMD [ "bun", "start:api" ]
+CMD [ "npm", "start:api" ]
