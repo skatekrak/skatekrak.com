@@ -4,6 +4,7 @@ const envSchema = z.object({
     CARRELAGE_URL: z.string(),
     ADMIN_TOKEN: z.string(),
     DISCORD_HOOK_URL: z.string(),
+    MONGODB_URI: z.string(),
 });
 
 const createEnv = () => {

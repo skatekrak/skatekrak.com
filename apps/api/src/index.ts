@@ -3,10 +3,14 @@ import { cors } from '@elysiajs/cors';
 import { Elysia } from 'elysia';
 import { logger } from '@bogeychan/elysia-logger';
 import { cron } from '@elysiajs/cron';
+import { MongoClient } from 'mongodb';
 
 import { appRouter, createContext } from '@krak/trpc';
 import { endOfWeek, startOfWeek, sub } from 'date-fns';
 import { env } from './env';
+
+const client = new MongoClient(env.MONGODB_URI);
+client.connect();
 
 const app = new Elysia()
     .use(logger())
@@ -39,7 +43,7 @@ const app = new Elysia()
         }),
     )
     .use(cors({ origin: /(\w+\.)?skatekrak\.com$/ }))
-    .use(trpc(appRouter, { createContext }));
+    .use(trpc(appRouter, { createContext: createContext(client) }));
 
 app.listen(3000);
 console.log('Server running on :3000');
