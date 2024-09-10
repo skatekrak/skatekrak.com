@@ -22,7 +22,7 @@ RUN apt-get update -qq && \
 # Install node modules
 COPY . .
 RUN bun install --frozen-lockfile
-RUN bun run build
+RUN bun run build:api
 RUN bun install --production --frozen-lockfile
 
 # Final stage for app image
