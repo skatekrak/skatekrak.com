@@ -29,20 +29,26 @@ interface CustomMap {
     staging: boolean;
 }
 
-const loadMaps = t.middleware(async (opts) => {
-    const directory = path.join(process.cwd(), 'src', 'data', 'customMaps');
-    let customMaps: CustomMap[] = await Bun.file(directory + '/_spots.json').json();
+let loadedMaps: CustomMap[] = [];
 
-    customMaps = customMaps.filter((map) => {
-        if (process.env.NODE_ENV !== 'production') {
-            return !map.staging;
-        }
-        return true;
-    });
+const loadMaps = t.middleware(async (opts) => {
+    if (loadedMaps.length <= 0) {
+        const directory = path.join(process.cwd(), 'src', 'data', 'customMaps');
+        let customMaps: CustomMap[] = await Bun.file(directory + '/_spots.json').json();
+
+        customMaps = customMaps.filter((map) => {
+            if (process.env.NODE_ENV !== 'production') {
+                return !map.staging;
+            }
+            return true;
+        });
+
+        loadedMaps = customMaps;
+    }
 
     return opts.next({
         ctx: {
-            customMaps,
+            customMaps: loadedMaps,
         },
     });
 });
