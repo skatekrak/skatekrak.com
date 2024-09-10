@@ -43,7 +43,8 @@ const app = new Elysia()
         }),
     )
     .use(cors({ origin: /(\w+\.)?skatekrak\.com$/ }))
-    .use(trpc(appRouter, { createContext: createContext(client) }));
+    .use(trpc(appRouter, { createContext: createContext(client) }))
+    .get('/', () => ({ message: 'krak-api' }));
 
 app.listen(3000);
 console.log('Server running on :3000');
