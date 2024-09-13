@@ -1,8 +1,9 @@
 import { z } from 'zod';
+import { promises as fs } from 'fs';
 
 import { publicProcedure, router, t } from '../trpc';
 import { TRPCError } from '@trpc/server';
-import CustomMaps from '@krak/api/src/data/customMaps/_spots.json';
+import '@krak/api/src/data/customMaps/_spots.json';
 
 enum CustomMapCategory {
     maps = 'Maps',
@@ -33,22 +34,27 @@ let loadedMaps: CustomMap[] = [];
 
 const loadMaps = t.middleware(async (opts) => {
     if (loadedMaps.length <= 0) {
-        loadedMaps = CustomMaps.filter((map) => {
-            if (process.env.NODE_ENV !== 'production') {
-                return !map.staging;
-            }
-            return true;
-        }).map((map): CustomMap => {
-            return {
-                ...map,
-                edito: map.edito || '',
-                videos: map.videos || [],
-                categories: map.categories.map(
-                    (category) => CustomMapCategory[category as keyof typeof CustomMapCategory],
-                ),
-                staging: false,
-            };
-        });
+        const file = await fs.readFile(process.cwd() + '/src/data/customMaps/_spots.json', 'utf8');
+        let customMaps: CustomMap[] = JSON.parse(file);
+
+        loadedMaps = customMaps
+            .filter((map) => {
+                if (process.env.NODE_ENV !== 'production') {
+                    return !map.staging;
+                }
+                return true;
+            })
+            .map((map): CustomMap => {
+                return {
+                    ...map,
+                    edito: map.edito || '',
+                    videos: map.videos || [],
+                    categories: map.categories.map(
+                        (category) => CustomMapCategory[category as unknown as keyof typeof CustomMapCategory],
+                    ),
+                    staging: false,
+                };
+            });
     }
 
     return opts.next({
