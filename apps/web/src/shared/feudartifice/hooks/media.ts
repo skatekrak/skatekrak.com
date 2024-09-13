@@ -67,7 +67,7 @@ export const useInfiniteMedias = (options: BaseFetchMediasOptions = {}) => {
             }
             return null;
         },
-        initialPageParam: { limit: 20, older: new Date() },
+        initialPageParam: { limit: options.limit ?? 20, older: options.older ?? new Date() },
         placeholderData: keepPreviousData,
         refetchOnMount: false,
         refetchOnReconnect: false,
