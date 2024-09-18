@@ -9371,5 +9371,16 @@
     "edito": "",
     "about": "Wood was a really good belgian skateboard magazine.",
     "videos": []
+  },
+  {
+    "id": "simpsons",
+    "categories": [
+      "maps"
+    ],
+    "name": "The Simpsons",
+    "subtitle": "",
+    "edito": "",
+    "about": "We thought it would be nice to have a space where we could put every Simpsons stuff related to skateboarding. Enjoy!",
+    "videos": []
   }
 ]
