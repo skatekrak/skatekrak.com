@@ -9382,5 +9382,16 @@
     "edito": "",
     "about": "We thought it would be nice to have a space where we could put every Simpsons stuff related to skateboarding. Enjoy!",
     "videos": []
+  },
+  {
+    "id": "cars",
+    "categories": [
+      "maps"
+    ],
+    "name": "Cars",
+    "subtitle": "",
+    "edito": "",
+    "about": "Skateboarding and cars, a map inspired by a post by Peter Grannis, AKA competer_programmis.",
+    "videos": []
   }
 ]
