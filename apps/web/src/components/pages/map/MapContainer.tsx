@@ -27,6 +27,7 @@ import { useCustomMapID, useMediaID, useSpotID, useSpotModal, useViewport } from
 import { useMapStore } from '@/store/map';
 import { useSettingsStore } from '@/store/settings';
 import MapCustomPanel from '@/components/pages/map/MapCustom/panel/MapCustomPanel';
+import { CustomMapCategory } from './mapQuickAccess/types';
 
 const DynamicMapComponent = dynamic(() => import('./MapComponent'), { ssr: false });
 const MapFullSpot = dynamic(() => import('./MapFullSpot'), { ssr: false });
@@ -127,7 +128,10 @@ const MapContainer = () => {
         if (isEmpty(customMapInfo)) return undefined;
         if (isEmpty(customMapInfo?.categories)) return true;
 
-        return !intersects(['maps', 'skatepark', 'shop'], customMapInfo!.categories);
+        return !intersects(
+            [CustomMapCategory.maps, CustomMapCategory.skatepark, CustomMapCategory.shop],
+            customMapInfo!.categories,
+        );
     }, [customMapInfo]);
 
     const { data: spotsByTags, isFetching: spotsTagsLoading } = trpc.spots.listByTags.useQuery(
