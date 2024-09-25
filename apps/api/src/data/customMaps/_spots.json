@@ -9393,5 +9393,16 @@
     "edito": "",
     "about": "Skateboarding and cars, a map inspired by a post by Peter Grannis, AKA competer_programmis.",
     "videos": []
+  },
+  {
+    "id": "turnspro",
+    "categories": [
+      "maps"
+    ],
+    "name": "Turns Pro",
+    "subtitle": "",
+    "edito": "",
+    "about": "This map is for all these special moments when someone turns pro! ",
+    "videos": []
   }
 ]
