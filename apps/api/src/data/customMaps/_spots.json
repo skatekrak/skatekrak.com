@@ -9626,5 +9626,16 @@
     "edito": "",
     "about": "",
     "videos": []
+  },
+  {
+    "id": "mirror",
+    "categories": [
+      "maps"
+    ],
+    "name": "Mirror",
+    "subtitle": "",
+    "edito": "",
+    "about": "Mirror lines or mirror tricks.",
+    "videos": []
   }
 ]
