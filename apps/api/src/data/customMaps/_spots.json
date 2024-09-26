@@ -9536,5 +9536,16 @@
     "edito": "",
     "about": "",
     "videos": []
+  },
+  {
+    "id": "slapmag",
+    "categories": [
+      "magazine"
+    ],
+    "name": "Slap Magazine",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": []
   }
 ]
