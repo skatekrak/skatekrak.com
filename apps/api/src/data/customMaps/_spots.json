@@ -9648,5 +9648,16 @@
     "edito": "",
     "about": "Everything first try.",
     "videos": []
+  },
+  {
+    "id": "tried",
+    "categories": [
+      "maps"
+    ],
+    "name": "Tried",
+    "subtitle": "",
+    "edito": "",
+    "about": "Sometimes you win, sometimes you lose. It's part of the game. All the tried tricks that couldn't be landed we could think of.",
+    "videos": []
   }
 ]
