@@ -9525,5 +9525,16 @@
     "edito": "",
     "about": "",
     "videos": []
+  },
+  {
+    "id": "bigbrothermag",
+    "categories": [
+      "magazine"
+    ],
+    "name": "Big Brother Mag",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": []
   }
 ]
