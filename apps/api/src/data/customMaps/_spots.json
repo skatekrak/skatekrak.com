@@ -9404,5 +9404,16 @@
     "edito": "",
     "about": "This map is for all these special moments when someone turns pro! ",
     "videos": []
+  },
+  {
+    "id": "dogs",
+    "categories": [
+      "maps"
+    ],
+    "name": "Dogs",
+    "subtitle": "",
+    "edito": "",
+    "about": "Skateboarding and dogs, a map inspired by a post by Peter Grannis, AKA competer_programmis.",
+    "videos": []
   }
 ]
