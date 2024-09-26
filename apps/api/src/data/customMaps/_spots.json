@@ -9637,5 +9637,16 @@
     "edito": "",
     "about": "Mirror lines or mirror tricks.",
     "videos": []
+  },
+  {
+    "id": "firsttry",
+    "categories": [
+      "maps"
+    ],
+    "name": "First Try",
+    "subtitle": "",
+    "edito": "",
+    "about": "Everything first try.",
+    "videos": []
   }
 ]
