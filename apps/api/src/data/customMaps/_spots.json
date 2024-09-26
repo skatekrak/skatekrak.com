@@ -9415,5 +9415,16 @@
     "edito": "",
     "about": "Skateboarding and dogs, a map inspired by a post by Peter Grannis, AKA competer_programmis.",
     "videos": []
+  },
+  {
+    "id": "ancientsites",
+    "categories": [
+      "maps"
+    ],
+    "name": "Ancient Sites",
+    "subtitle": "",
+    "edito": "",
+    "about": "Spots that are centuries-old, a map based on a Jenkem article.",
+    "videos": []
   }
 ]
