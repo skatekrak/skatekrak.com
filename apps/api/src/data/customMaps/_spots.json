@@ -9670,5 +9670,16 @@
     "edito": "",
     "about": "Doubles in skateboarding, inspired by a post by Peter Grannis, AKA competer_programmis.",
     "videos": []
+  },
+  {
+    "id": "sculptures",
+    "categories": [
+      "maps"
+    ],
+    "name": "Sculptures",
+    "subtitle": "",
+    "edito": "",
+    "about": "Skateable sculptures.",
+    "videos": []
   }
 ]
