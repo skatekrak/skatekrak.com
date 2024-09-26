@@ -9580,5 +9580,16 @@
     "edito": "",
     "about": "",
     "videos": []
+  },
+  {
+    "id": "privateskateparks",
+    "categories": [
+      "maps"
+    ],
+    "name": "Private Skateparks",
+    "subtitle": "",
+    "edito": "",
+    "about": "We created this map for archiving purposes only. Please don't bother people at their houses and respect their privacy.",
+    "videos": []
   }
 ]
