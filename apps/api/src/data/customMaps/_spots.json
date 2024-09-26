@@ -9659,5 +9659,16 @@
     "edito": "",
     "about": "Sometimes you win, sometimes you lose. It's part of the game. All the tried tricks that couldn't be landed we could think of.",
     "videos": []
+  },
+  {
+    "id": "doubletrouble",
+    "categories": [
+      "maps"
+    ],
+    "name": "Double Trouble",
+    "subtitle": "",
+    "edito": "",
+    "about": "Doubles in skateboarding, inspired by a post by Peter Grannis, AKA competer_programmis.",
+    "videos": []
   }
 ]
