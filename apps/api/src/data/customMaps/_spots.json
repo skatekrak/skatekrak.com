@@ -9591,5 +9591,16 @@
     "edito": "",
     "about": "We created this map for archiving purposes only. Please don't bother people at their houses and respect their privacy.",
     "videos": []
+  },
+  {
+    "id": "ridingmodernart",
+    "categories": [
+      "maps"
+    ],
+    "name": "Riding Modern Art",
+    "subtitle": "",
+    "edito": "",
+    "about": "Riding Modern Art is a book by Raphaël Zarka that brings together a collection of 70 black and white photographs of people skateboarding on sculptures in public spaces.",
+    "videos": []
   }
 ]
