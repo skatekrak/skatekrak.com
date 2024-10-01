@@ -9683,5 +9683,16 @@
     "edito": "",
     "about": "Skateable sculptures.",
     "videos": []
+  },
+  {
+    "id": "roofs",
+    "categories": [
+      "maps"
+    ],
+    "name": "Roofs",
+    "subtitle": "",
+    "edito": "",
+    "about": "Skateboarding on roofs, inspired by a Jenkem article.",
+    "videos": []
   }
 ]
