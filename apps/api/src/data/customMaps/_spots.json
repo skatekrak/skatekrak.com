@@ -9694,5 +9694,16 @@
     "edito": "",
     "about": "Skateboarding on roofs, inspired by a Jenkem article.",
     "videos": []
+  },
+  {
+    "id": "woodmag",
+    "categories": [
+      "magazine"
+    ],
+    "name": "Wood Mag",
+    "subtitle": "",
+    "edito": "",
+    "about": "Wood was a really good belgian skateboard magazine.",
+    "videos": []
   }
 ]
