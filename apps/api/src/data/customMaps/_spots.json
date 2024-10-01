@@ -9727,5 +9727,16 @@
     "edito": "",
     "about": "Not totally sure about it but we think Maxime Geronzi started that trend.",
     "videos": []
+  },
+  {
+    "id": "sequences",
+    "categories": [
+      "magazine"
+    ],
+    "name": "Sequences",
+    "subtitle": "",
+    "edito": "",
+    "about": "Photo sequences.",
+    "videos": []
   }
 ]
