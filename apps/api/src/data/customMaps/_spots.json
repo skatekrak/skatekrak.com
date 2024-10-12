@@ -9749,5 +9749,16 @@
     "edito": "",
     "about": "",
     "videos": []
+  },
+  {
+    "id": "bowls",
+    "categories": [
+      "skatepark"
+    ],
+    "name": "Bowls",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": []
   }
 ]
