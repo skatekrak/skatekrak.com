@@ -9738,5 +9738,16 @@
     "edito": "",
     "about": "Photo sequences.",
     "videos": []
+  },
+  {
+    "id": "apropos",
+    "categories": [
+      "magazine"
+    ],
+    "name": "A Propos Skatemag",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": []
   }
 ]
