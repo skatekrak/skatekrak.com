@@ -9760,5 +9760,16 @@
     "edito": "",
     "about": "",
     "videos": []
+  },
+  {
+    "id": "chains",
+    "categories": [
+      "maps"
+    ],
+    "name": "Chains",
+    "subtitle": "",
+    "edito": "",
+    "about": "Chains and Skateboarding, a map inspired by a post by Peter Grannis, AKA competer_programmis.",
+    "videos": []
   }
 ]
