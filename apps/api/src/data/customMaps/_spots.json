@@ -9771,5 +9771,18 @@
     "edito": "",
     "about": "Chains and Skateboarding, a map inspired by a post by Peter Grannis, AKA competer_programmis.",
     "videos": []
+  },
+  {
+    "id": "bturnerswitchhardflip",
+    "categories": [
+      "maps"
+    ],
+    "name": "Brandon Turner Switch Hardflips",
+    "subtitle": "",
+    "edito": "",
+    "about": "The",
+    "videos": [
+      "https://www.youtube.com/watch?v=XsoGM42cFto"
+    ]
   }
 ]
