@@ -9784,5 +9784,18 @@
     "videos": [
       "https://www.youtube.com/watch?v=XsoGM42cFto"
     ]
+  },
+  {
+    "id": "karen",
+    "categories": [
+      "maps"
+    ],
+    "name": "Karen",
+    "subtitle": "",
+    "edito": "",
+    "about": "Skateboarders VS Karens, haters..",
+    "videos": [
+      "https://www.youtube.com/watch?v=s1HGaRobdUw"
+    ]
   }
 ]
