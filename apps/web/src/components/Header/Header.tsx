@@ -42,9 +42,6 @@ const Header: React.FC = () => {
                         <HeaderThreeDotsMenu />
                     </div>
                     <div className="hidden md:flex items-center">
-                        <Link href="https://shop.opensb.org/" target="_blank" rel="noopener noreferrer">
-                            <S.SecondaryNavItem>Shop</S.SecondaryNavItem>
-                        </Link>
                         <Link href={PATH_CALL_TO_ADVENTURE}>
                             <S.SecondaryNavItem>Call to Adventure</S.SecondaryNavItem>
                         </Link>
