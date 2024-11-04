@@ -9810,5 +9810,20 @@
     "videos": [
       "https://www.youtube.com/watch?v=WHZfUNxNlnk&list=PLUGVEUc8dsgEY8TI5VXK6gSnjp1yPzL5j"
     ]
+  },
+  {
+    "id": "citibikeboyz",
+    "categories": [
+      "maps"
+    ],
+    "name": "Citibikeboyz",
+    "subtitle": "",
+    "edito": "",
+    "about": "Citi Bike Boyz is an instagram account run by American skateboarder Jerome Peel. It's known for daredevil stunts performed on Citi Bikes, rented bicycles provided by the Citi Bike bikeshare program. The account posts tricks at skate parks and notable skate spots in New York City. The bikes are notoriously heavy, weighing around 45 pounds.",
+    "videos": [
+      "https://www.youtube.com/watch?v=UOV1LNCLcNM",
+      "https://www.youtube.com/watch?v=x1USRRMCO9w",
+      "https://www.youtube.com/watch?v=BGmJVnpwVv8"
+    ]
   }
 ]
