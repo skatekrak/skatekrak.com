@@ -9797,5 +9797,18 @@
     "videos": [
       "https://www.youtube.com/watch?v=XsoGM42cFto"
     ]
+  },
+  {
+    "id": "justinbehan",
+    "categories": [
+      "maps"
+    ],
+    "name": "Justin Behan ",
+    "subtitle": "",
+    "edito": "",
+    "about": "Justin Behan Takes us for a tour of Toronto's most famous spots.",
+    "videos": [
+      "https://www.youtube.com/watch?v=WHZfUNxNlnk&list=PLUGVEUc8dsgEY8TI5VXK6gSnjp1yPzL5j"
+    ]
   }
 ]
