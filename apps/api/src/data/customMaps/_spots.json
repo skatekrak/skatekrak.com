@@ -9842,5 +9842,24 @@
       "https://www.youtube.com/watch?v=thZ-zt82N8A",
       "https://www.youtube.com/watch?v=gNPJdx2v4_k"
     ]
+  },
+  {
+    "id": "techdeck",
+    "categories": [
+      "maps"
+    ],
+    "name": "Tech Deck",
+    "subtitle": "",
+    "edito": "",
+    "about": "Tech Deck is the most well known fingerboard brand and is a household name. They have been running since 1998, and were originally owned by XConcepts, before being bought by Spin Master. Tech Deck has capitalized on its use of well known brands on their fingerboards, using their graphics on their decks.",
+    "videos": [
+      "https://www.youtube.com/watch?v=uYvS4dVz2rw",
+      "https://www.youtube.com/watch?v=YFT_ytetk7w",
+      "https://www.youtube.com/watch?v=bCWTF7EH3vw",
+      "https://www.youtube.com/watch?v=8ewTQ13GBUA",
+      "https://www.youtube.com/watch?v=BSBDDycLlEo",
+      "https://www.youtube.com/watch?v=vFoyT0ItA-k",
+      "https://www.youtube.com/watch?v=wmRCAUi0cO4"
+    ]
   }
 ]
