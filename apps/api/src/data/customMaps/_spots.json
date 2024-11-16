@@ -9861,5 +9861,16 @@
       "https://www.youtube.com/watch?v=vFoyT0ItA-k",
       "https://www.youtube.com/watch?v=wmRCAUi0cO4"
     ]
+  },
+  {
+    "id": "cartoons",
+    "categories": [
+      "maps"
+    ],
+    "name": "Skateboarding In Cartoons",
+    "subtitle": "",
+    "edito": "",
+    "about": "This is not a map but we thought it would be cool to start gathering all the Skateboarding scenes in cartoons in one place.",
+    "videos": []
   }
 ]
