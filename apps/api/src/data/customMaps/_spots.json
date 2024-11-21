@@ -9904,5 +9904,18 @@
     "edito": "",
     "about": "Emmanuel Camusat AKA Imaurf is an artist and a teacher at the art school in Chateauroux. He started skateboarding in 1986 and has been drawing for as many years as he can remember!",
     "videos": []
+  },
+  {
+    "id": "shecklermilestones",
+    "categories": [
+      "maps"
+    ],
+    "name": "Ryan Sheckler Milestones Series",
+    "subtitle": "",
+    "edito": "",
+    "about": "Ryan Sheckler Milestones Series presented by Sandlot Times Skateboards. Ryan tells us about his major milestones that brought him where he is today.",
+    "videos": [
+      "https://www.youtube.com/playlist?list=PLcLW3IC4ascjUQEXQVjwzMDLMRjnHY5pv"
+    ]
   }
 ]
