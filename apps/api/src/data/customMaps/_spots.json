@@ -9928,5 +9928,16 @@
     "edito": "",
     "about": "This map is for all the sad spot destruction footage or pictures that became part of our culture.",
     "videos": []
+  },
+  {
+    "id": "spotproducts",
+    "categories": [
+      "maps"
+    ],
+    "name": "Spot Products",
+    "subtitle": "",
+    "edito": "",
+    "about": "This map is for all the spots that inspired skate products, mostly board graphics.",
+    "videos": []
   }
 ]
