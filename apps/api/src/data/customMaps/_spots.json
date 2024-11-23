@@ -9917,5 +9917,16 @@
     "videos": [
       "https://www.youtube.com/playlist?list=PLcLW3IC4ascjUQEXQVjwzMDLMRjnHY5pv"
     ]
+  },
+  {
+    "id": "spotdestruction",
+    "categories": [
+      "maps"
+    ],
+    "name": "Spot Destruction",
+    "subtitle": "",
+    "edito": "",
+    "about": "This map is for all the sad spot destruction footage or pictures that became part of our culture.",
+    "videos": []
   }
 ]
