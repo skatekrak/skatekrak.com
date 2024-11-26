@@ -9939,5 +9939,16 @@
     "edito": "",
     "about": "This map is for all the spots that inspired skate products, mostly board graphics.",
     "videos": []
+  },
+  {
+    "id": "replicaseries",
+    "categories": [
+      "skatepark"
+    ],
+    "name": "American Ramp Company 'Replica Series'",
+    "subtitle": "",
+    "edito": "",
+    "about": "From the Sants benches in Barcelona to the Hubba Hideout in San Francisco, most skaters will never have the opportunity to travel to a faraway destination to skate any of these legendary spots. So American Ramp Company has developed their Replica Series equipment which duplicates these sites exactly down to the precise angles and dimensions.",
+    "videos": []
   }
 ]
