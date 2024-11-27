@@ -9997,5 +9997,16 @@
     "edito": "",
     "about": "Gabriel Lalande, AKA Brother Merle, is an artist and skateboarder from Montréal, Canada. ",
     "videos": []
+  },
+  {
+    "id": "motorcycle",
+    "categories": [
+      "maps"
+    ],
+    "name": "Motorcycle",
+    "subtitle": "",
+    "edito": "",
+    "about": "Motorcycles hitting spots..",
+    "videos": []
   }
 ]
