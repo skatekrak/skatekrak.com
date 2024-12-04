@@ -10008,5 +10008,16 @@
     "edito": "",
     "about": "Motorcycles hitting spots..",
     "videos": []
+  },
+  {
+    "id": "backpack",
+    "categories": [
+      "maps"
+    ],
+    "name": "Backpacks",
+    "subtitle": "",
+    "edito": "",
+    "about": "Tricks with a backpack on..",
+    "videos": []
   }
 ]
