@@ -10053,5 +10053,20 @@
     "edito": "",
     "about": "Henry Jones is a skateboarder and illustrator from West Chester, Pennsylvania whose satirical art is so funny it will literally get you rolling.",
     "videos": []
+  },
+  {
+    "id": "jamesjarvis",
+    "categories": [
+      "maps"
+    ],
+    "name": "James Jarvis",
+    "subtitle": "",
+    "edito": "",
+    "about": "James Jarvis is an artist and illustrator from London, born in 1970, whose work encompasses cartoons, objects, comics, graphic design, printmaking and moving image. His practice concerns drawing, philosophy, alternate realities, minimalism and skateboarding.",
+    "videos": [
+      "https://www.youtube.com/watch?v=7O482OjK8SY",
+      "https://www.youtube.com/watch?v=9AKA0pFTy-w",
+      "https://www.youtube.com/watch?v=6Fcl4Bk6Djo"
+    ]
   }
 ]
