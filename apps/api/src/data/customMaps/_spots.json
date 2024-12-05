@@ -10042,5 +10042,16 @@
       "https://www.youtube.com/watch?v=zW1GFqvgvVE",
       "https://www.youtube.com/watch?v=bGELn7jQEjI"
     ]
+  },
+  {
+    "id": "henryjones",
+    "categories": [
+      "maps"
+    ],
+    "name": "Henry Jones",
+    "subtitle": "",
+    "edito": "",
+    "about": "Henry Jones is a skateboarder and illustrator from West Chester, Pennsylvania whose satirical art is so funny it will literally get you rolling.",
+    "videos": []
   }
 ]
