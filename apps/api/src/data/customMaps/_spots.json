@@ -10019,5 +10019,28 @@
     "edito": "",
     "about": "Tricks with a backpack on, a map inspired by a Jenkem article.",
     "videos": []
+  },
+  {
+    "id": "jarneverbruggen",
+    "categories": [
+      "skater"
+    ],
+    "name": "Jarne Verbruggen",
+    "subtitle": "",
+    "edito": "",
+    "about": "Jarne Verbruggen (born February 7, 1993) is from Mechelen, Belgium. He now lives in Marseille, France.",
+    "videos": [
+      "https://www.youtube.com/watch?v=tmHm2ufJLcU",
+      "https://www.youtube.com/watch?v=Jz6EbAYKnAw",
+      "https://www.youtube.com/watch?v=FNBEO_G2vTE",
+      "https://www.youtube.com/watch?v=dj3gRSvRmyo",
+      "https://www.youtube.com/watch?v=hacp1nTHoVo",
+      "https://www.youtube.com/watch?v=na9lnAq6Y9Y",
+      "https://www.youtube.com/watch?v=RPmTRihDhxg",
+      "https://www.youtube.com/watch?v=iQMYybnWecU",
+      "https://www.youtube.com/watch?v=l_5OzAR5eKg",
+      "https://www.youtube.com/watch?v=zW1GFqvgvVE",
+      "https://www.youtube.com/watch?v=bGELn7jQEjI"
+    ]
   }
 ]
