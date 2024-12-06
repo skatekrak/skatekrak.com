@@ -10079,5 +10079,18 @@
     "edito": "",
     "about": "Leon Washere is multidisciplinary artist and animator; his work has appeared internationally in a variety of digital and printed formats, as well as in galleries and at film festivals.",
     "videos": []
+  },
+  {
+    "id": "andrewdurginbarnes",
+    "categories": [
+      "maps"
+    ],
+    "name": "Andrew Durgin-Barnes",
+    "subtitle": "",
+    "edito": "",
+    "about": "Andrew Durgin-Barnes’ paintings depict sordid American city street scenes, skateboarding and snapshot moments of everyday debauchery and suburban squalor and transform them into beautiful things to look at.",
+    "videos": [
+      "https://www.youtube.com/watch?v=TfHbZbPkj6c"
+    ]
   }
 ]
