@@ -10092,5 +10092,16 @@
     "videos": [
       "https://www.youtube.com/watch?v=TfHbZbPkj6c"
     ]
+  },
+  {
+    "id": "tomdelves",
+    "categories": [
+      "maps"
+    ],
+    "name": "Tom Delves",
+    "subtitle": "",
+    "edito": "",
+    "about": "Tom Delves is a skateboarder and illustrator from London who’s always making new work, taking commissions or out skating the city’s streets.",
+    "videos": []
   }
 ]
