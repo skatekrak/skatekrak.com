@@ -10116,5 +10116,16 @@
     "videos": [
       "https://www.youtube.com/watch?v=CGeyZMj_Qe4"
     ]
+  },
+  {
+    "id": "mannybusters",
+    "categories": [
+      "maps"
+    ],
+    "name": "MannyBusters",
+    "subtitle": "",
+    "edito": "",
+    "about": "Weckingball is the Internet’s own self-proclaimed ‘Most Jacked Skater’ whose made his name from debunking manuals in his MannyBusters video series, delivering a new kind of skate entertainment. He kinda dissapeared now though..",
+    "videos": []
   }
 ]
