@@ -10127,5 +10127,16 @@
     "edito": "",
     "about": "Weckingball is the Internet’s own self-proclaimed ‘Most Jacked Skater’ whose made his name from debunking manuals in his MannyBusters video series, delivering a new kind of skate entertainment. He kinda dissapeared now though..",
     "videos": []
+  },
+  {
+    "id": "yagozarka",
+    "categories": [
+      "maps"
+    ],
+    "name": "Yago Zarka",
+    "subtitle": "",
+    "edito": "",
+    "about": "Illustrator based in Barcelona, Yago created amazing cartoon animations. ",
+    "videos": []
   }
 ]
