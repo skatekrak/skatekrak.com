@@ -10103,5 +10103,18 @@
     "edito": "",
     "about": "Tom Delves is a skateboarder and illustrator from London who’s always making new work, taking commissions or out skating the city’s streets.",
     "videos": []
+  },
+  {
+    "id": "makelifeskatelife",
+    "categories": [
+      "maps"
+    ],
+    "name": "Make Life Skate Life",
+    "subtitle": "",
+    "edito": "",
+    "about": "Makelifeskatelife makes skateboarding accessible by building skateparks and developing skate programs that positively impact the lives of underserved youth worldwide.",
+    "videos": [
+      "https://www.youtube.com/watch?v=CGeyZMj_Qe4"
+    ]
   }
 ]
