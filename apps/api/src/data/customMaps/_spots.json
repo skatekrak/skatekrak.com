@@ -10138,5 +10138,16 @@
     "edito": "",
     "about": "Illustrator based in Barcelona, Yago created amazing cartoon animations. ",
     "videos": []
+  },
+  {
+    "id": "ryancoulson",
+    "categories": [
+      "maps"
+    ],
+    "name": "Ryan Coulson",
+    "subtitle": "",
+    "edito": "",
+    "about": "William Ryan Coulson is a skateboarder and artist based in Canada.",
+    "videos": []
   }
 ]
