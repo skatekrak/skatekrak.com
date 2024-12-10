@@ -10149,5 +10149,18 @@
     "edito": "",
     "about": "William Ryan Coulson is a skateboarder and artist based in Canada.",
     "videos": []
+  },
+  {
+    "id": "theskateroom",
+    "categories": [
+      "maps"
+    ],
+    "name": "The Skateroom",
+    "subtitle": "",
+    "edito": "",
+    "about": "The Skateroom is a social entrepreneurship whose main purpose is to help empower youth using art and skateboarding.",
+    "videos": [
+      "https://www.youtube.com/watch?v=Ag0lWeOHupg"
+    ]
   }
 ]
