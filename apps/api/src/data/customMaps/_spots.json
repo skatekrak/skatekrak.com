@@ -10184,5 +10184,19 @@
     "edito": "",
     "about": "",
     "videos": []
+  },
+  {
+    "id": "adrienbulardtre",
+    "categories": [
+      "maps"
+    ],
+    "name": "Adrien Bulard 360 flips",
+    "subtitle": "",
+    "edito": "",
+    "about": "Adrien's signature trick since the one he pulled on the Bercy 5 blocks that got him famous.",
+    "videos": [
+      "https://www.youtube.com/watch?v=6G-wha4Q0O8",
+      "https://www.youtube.com/watch?v=vnKcS7T5-0I"
+    ]
   }
 ]
