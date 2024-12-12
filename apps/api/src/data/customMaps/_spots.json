@@ -10187,5 +10187,16 @@
       "https://www.youtube.com/watch?v=6G-wha4Q0O8",
       "https://www.youtube.com/watch?v=vnKcS7T5-0I"
     ]
+  },
+  {
+    "id": "slsresurrection",
+    "categories": [
+      "maps"
+    ],
+    "name": "SLS Resurrection",
+    "subtitle": "",
+    "edito": "",
+    "about": "This is SLS Resurrection, where street spots of the past are brought back to life.",
+    "videos": []
   }
 ]
