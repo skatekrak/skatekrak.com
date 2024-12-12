@@ -10198,5 +10198,23 @@
     "edito": "",
     "about": "This is SLS Resurrection, where street spots of the past are brought back to life.",
     "videos": []
+  },
+  {
+    "id": "slsapex",
+    "categories": [
+      "maps"
+    ],
+    "name": "SLS Apex",
+    "subtitle": "",
+    "edito": "",
+    "about": "SLS APEX events are spot-based with an exclusive roster.",
+    "videos": [
+      "https://www.youtube.com/watch?v=NgCJfDjOdms",
+      "https://www.youtube.com/watch?v=bjtSTwc3guU",
+      "https://www.youtube.com/watch?v=GfWWX2mrKP4",
+      "https://www.youtube.com/watch?v=XNQoaFS6BrY",
+      "https://www.youtube.com/watch?v=pTyJz4oxPbg",
+      "https://www.youtube.com/watch?v=ghMhT1i_ASQ"
+    ]
   }
 ]
