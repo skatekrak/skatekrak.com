@@ -1,7 +1,7 @@
 import React from 'react';
 
 import ScrollBar from '@/components/Ui/Scrollbar';
-import * as S from './Panel.styled';
+import classNames from 'classnames';
 
 type PanelProps = {
     isOpen: boolean;
@@ -11,9 +11,14 @@ type PanelProps = {
 /** Wrapper to set styles and scroll height on categories */
 const Panel: React.FC<PanelProps> = ({ isOpen, children }) => {
     return (
-        <S.Panel isOpen={isOpen}>
+        <div
+            className={classNames(
+                'hidden w-[23rem] text-onLight-highEmphasis bg-tertiary-dark border border-solid border-tertiary-medium rounded shadow shadow-onLight-placeholder',
+                { '!block': isOpen },
+            )}
+        >
             <ScrollBar maxHeight="calc(100vh - 7rem)">{children}</ScrollBar>
-        </S.Panel>
+        </div>
     );
 };
 
