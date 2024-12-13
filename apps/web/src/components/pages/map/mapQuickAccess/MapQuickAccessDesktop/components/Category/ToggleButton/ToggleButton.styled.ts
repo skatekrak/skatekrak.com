@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 
 type ToggleButtonProps = {
-    isOpen: boolean;
+    $isOpen: boolean;
 };
 
 export const ToggleButton = styled.button<ToggleButtonProps>`
@@ -11,8 +11,8 @@ export const ToggleButton = styled.button<ToggleButtonProps>`
     color: ${({ theme }) => theme.color.onDark.highEmphasis};
     cursor: pointer;
 
-    ${({ isOpen }) =>
-        isOpen &&
+    ${({ $isOpen }) =>
+        $isOpen &&
         css`
             ${Tooltip} {
                 display: none !important;

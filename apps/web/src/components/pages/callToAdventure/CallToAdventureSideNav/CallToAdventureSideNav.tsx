@@ -72,58 +72,44 @@ const CallToAdventureSideNav = ({ bodyContentRef }: Props) => {
         <S.CallToAdventureSideNav ref={sideNavRef}>
             <S.CallToAdventureSideNavLink
                 href={`#${ctaSections.TLDR}`}
-                isActive={currentSectionInView === ctaSections.TLDR}
+                $isActive={currentSectionInView === ctaSections.TLDR}
             >
                 tl;dr
             </S.CallToAdventureSideNavLink>
             <S.CallToAdventureSideNavLink
                 href={`#${ctaSections.EVOLUTION}`}
-                isActive={currentSectionInView === ctaSections.EVOLUTION}
+                $isActive={currentSectionInView === ctaSections.EVOLUTION}
             >
                 skateboarding evolution
             </S.CallToAdventureSideNavLink>
             <S.CallToAdventureSideNavLink
                 href={`#${ctaSections.ARCHIVING}`}
-                isActive={currentSectionInView === ctaSections.ARCHIVING}
+                $isActive={currentSectionInView === ctaSections.ARCHIVING}
             >
                 why archiving is important
             </S.CallToAdventureSideNavLink>
             <S.CallToAdventureSideNavLink
                 href={`#${ctaSections.ABOUT}`}
-                isActive={currentSectionInView === ctaSections.ABOUT}
+                $isActive={currentSectionInView === ctaSections.ABOUT}
             >
                 who we are
             </S.CallToAdventureSideNavLink>
             <CallToAdventureSubNav currentSectionInView={currentSectionInView} />
-            {/* <S.CallToAdventureSideNavLink
-                href={`#${ctaSections.DONE}`}
-                isActive={currentSectionInView === ctaSections.DONE}
-            >
-                what we’ve done
-            </S.CallToAdventureSideNavLink>
-            <S.CallToAdventureSideNavSubNav>
-                <S.CallToAdventureSideNavLink
-                    href={`#${ctaSections.DONE}`}
-                    isActive={currentSectionInView === ctaSections.DONE}
-                >
-                    hardware device
-                </S.CallToAdventureSideNavLink>
-            </S.CallToAdventureSideNavSubNav> */}
             <S.CallToAdventureSideNavLink
                 href={`#${ctaSections.VISION}`}
-                isActive={currentSectionInView === ctaSections.VISION}
+                $isActive={currentSectionInView === ctaSections.VISION}
             >
                 where we’re heading to
             </S.CallToAdventureSideNavLink>
             <S.CallToAdventureSideNavLink
                 href={`#${ctaSections.DAO}`}
-                isActive={currentSectionInView === ctaSections.DAO}
+                $isActive={currentSectionInView === ctaSections.DAO}
             >
                 why a DAO + co-op
             </S.CallToAdventureSideNavLink>
             <S.CallToAdventureSideNavLink
                 href={`#${ctaSections.FINAL}`}
-                isActive={currentSectionInView === ctaSections.FINAL}
+                $isActive={currentSectionInView === ctaSections.FINAL}
             >
                 final words - world-building
             </S.CallToAdventureSideNavLink>

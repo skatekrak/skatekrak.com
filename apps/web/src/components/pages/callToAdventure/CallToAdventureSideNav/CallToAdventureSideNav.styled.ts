@@ -19,7 +19,7 @@ export const CallToAdventureSideNav = styled.div`
 `;
 
 type CallToAdventureSideNavLinkProps = {
-    isActive: boolean;
+    $isActive: boolean;
 };
 
 export const CallToAdventureSideNavLink = styled.a<CallToAdventureSideNavLinkProps>`
@@ -32,7 +32,7 @@ export const CallToAdventureSideNavLink = styled.a<CallToAdventureSideNavLinkPro
         color: ${({ theme }) => theme.color.onDark.highEmphasis};
     }
 
-    ${({ isActive, theme }) =>
+    ${({ $isActive: isActive, theme }) =>
         isActive && {
             fontFamily: theme.typography.fonts.roboto.bold,
             color: theme.color.onDark.highEmphasis,

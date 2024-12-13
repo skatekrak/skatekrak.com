@@ -18,7 +18,7 @@ const ToggleButton: React.FC<Props> = React.forwardRef((props, ref) => {
     return (
         <div ref={ref}>
             <ToggleButtonTooltip text={tooltipText}>
-                <S.ToggleButton onClick={onClick} isOpen={isOpen}>
+                <S.ToggleButton onClick={onClick} $isOpen={isOpen}>
                     <RoundedImage selected={selected} src={src} alt={tooltipText} />
                 </S.ToggleButton>
             </ToggleButtonTooltip>

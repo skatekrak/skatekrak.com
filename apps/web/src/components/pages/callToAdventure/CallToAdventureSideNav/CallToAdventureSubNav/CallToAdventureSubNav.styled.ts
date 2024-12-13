@@ -27,7 +27,7 @@ export const CallToAdventureSubNavToggle = styled(CallToAdventureSideNavLink)`
         }
     }
 
-    ${({ isActive }) =>
+    ${({ $isActive: isActive }) =>
         isActive &&
         css`
             & svg {
