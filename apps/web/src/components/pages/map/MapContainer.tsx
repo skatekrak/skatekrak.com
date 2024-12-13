@@ -23,11 +23,12 @@ import { useSpotsGeoJSON } from '@/shared/feudartifice/hooks/spot';
 import { isEmpty, intersects } from 'radash';
 import { trpc } from '@/server/trpc/utils';
 import { SpinnerCircle } from '@/components/Ui/Icons/Spinners';
-import { useCustomMapID, useMediaID, useSpotID, useSpotModal, useViewport } from '@/lib/hook/queryState';
+import { useCityID, useCustomMapID, useMediaID, useSpotID, useSpotModal, useViewport } from '@/lib/hook/queryState';
 import { useMapStore } from '@/store/map';
 import { useSettingsStore } from '@/store/settings';
 import MapCustomPanel from '@/components/pages/map/MapCustom/panel/MapCustomPanel';
 import { CustomMapCategory } from './mapQuickAccess/types';
+import CityPanel from '@/components/pages/map/cities/CityPanel';
 
 const DynamicMapComponent = dynamic(() => import('./MapComponent'), { ssr: false });
 const MapFullSpot = dynamic(() => import('./MapFullSpot'), { ssr: false });
@@ -43,6 +44,7 @@ const MapContainer = () => {
 
     /** Spot ID in the query */
     const [id] = useCustomMapID();
+    const [city] = useCityID();
     const [spotId, setSpotID] = useSpotID();
     const [modalVisible, setModalVisible] = useSpotModal();
     const [, setMedia] = useMediaID();
@@ -193,6 +195,8 @@ const MapContainer = () => {
                     <>
                         {id !== undefined && customMapInfo !== undefined ? (
                             <MapCustomPanel map={customMapInfo} spots={spotsByTags ?? []} />
+                        ) : city ? (
+                            <CityPanel />
                         ) : (
                             <MapNavigation handleCreateSpotClick={onToggleSpotCreation} />
                         )}

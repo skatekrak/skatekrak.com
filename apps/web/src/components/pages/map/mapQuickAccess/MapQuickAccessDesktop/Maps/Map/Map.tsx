@@ -6,7 +6,7 @@ import * as S from './Map.styled';
 import { QuickAccessMap } from '../../../types';
 import { useRouter } from 'next/router';
 import RoundedImage from '../../components/RoundedImage';
-import { useCustomMapID, useMediaID, useSpotID, useSpotModal } from '@/lib/hook/queryState';
+import { useCityID, useCustomMapID, useMediaID, useSpotID, useSpotModal } from '@/lib/hook/queryState';
 import { useMapStore } from '@/store/map';
 
 type MapProps = {
@@ -20,6 +20,7 @@ const Map: React.FC<MapProps> = ({ map, onClick }) => {
         useShallow((state) => [state.toggleLegend, state.toggleSearchResult]),
     );
     const [, setCustomMapID] = useCustomMapID();
+    const [, setCityID] = useCityID();
     const [, setModalVisible] = useSpotModal();
     const [, setSpotID] = useSpotID();
     const [, setMediaID] = useMediaID();
@@ -34,6 +35,7 @@ const Map: React.FC<MapProps> = ({ map, onClick }) => {
         toggleSearchResult(false);
 
         setCustomMapID(map.id);
+        setCityID(null);
         setSpotID(null);
         setModalVisible(null);
         setMediaID(null);

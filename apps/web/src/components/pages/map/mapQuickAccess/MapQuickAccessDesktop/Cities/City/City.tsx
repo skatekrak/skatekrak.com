@@ -6,7 +6,7 @@ import * as S from './City.styled';
 import { City } from '@/lib/map/types';
 import { useMap } from 'react-map-gl';
 import { centerFromBounds } from '@/lib/map/helpers';
-import { useCustomMapID, useSpotID, useSpotModal } from '@/lib/hook/queryState';
+import { useCityID, useCustomMapID, useSpotID, useSpotModal } from '@/lib/hook/queryState';
 import { useMapStore } from '@/store/map';
 
 type CityProps = {
@@ -22,6 +22,7 @@ const CityComponent: React.FC<CityProps> = ({ city, onCityClick }) => {
     const [, setSpotID] = useSpotID();
     const [, setModalVisible] = useSpotModal();
     const [, setCustomMapID] = useCustomMapID();
+    const [, setCityID] = useCityID();
 
     const onClick = (e: React.SyntheticEvent) => {
         e.preventDefault();
@@ -31,6 +32,7 @@ const CityComponent: React.FC<CityProps> = ({ city, onCityClick }) => {
         setSpotID(null);
         setModalVisible(null);
         setCustomMapID(null);
+        setCityID(city.id);
 
         const cityCenter = centerFromBounds(city.bounds);
         map?.flyTo({

@@ -17,6 +17,10 @@ export const useCustomMapID = () => {
     return useQueryState('id');
 };
 
+export const useCityID = () => {
+    return useQueryState('city');
+};
+
 export const useSpotID = () => {
     return useQueryState('spot');
 };

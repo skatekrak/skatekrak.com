@@ -3,7 +3,7 @@ import NextImage from 'next/image';
 import classNames from 'classnames';
 
 import IconArrow from '@/components/Ui/Icons/Arrow';
-import { useCustomMapID, useMediaID, useSpotID, useSpotModal } from '@/lib/hook/queryState';
+import { useCustomMapID, useCityID, useMediaID, useSpotID, useSpotModal } from '@/lib/hook/queryState';
 import Content from '@/components/pages/map/MapCustom/panel/Content';
 import { CustomMap } from '@/lib/map/types';
 import { Spot } from '@krak/carrelage-client';
@@ -38,12 +38,14 @@ const MapCustomPanel = ({ map, spots }: MapCustomPanelProps) => {
     const [openTab, setOpenTab] = useState<MapCustomPanelTabs>('media');
 
     const [, setCustomMapID] = useCustomMapID();
+    const [, setCityID] = useCityID();
     const [, setSpotID] = useSpotID();
     const [, setModalVisible] = useSpotModal();
 
     const goBack = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
         e.preventDefault();
         setCustomMapID(null);
+        setCityID(null);
         setSpotID(null);
         setModalVisible(null);
     };
