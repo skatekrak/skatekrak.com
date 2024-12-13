@@ -10238,5 +10238,19 @@
     "edito": "",
     "about": "",
     "videos": []
+  },
+  {
+    "id": "decathlonfoundation",
+    "categories": [
+      "maps"
+    ],
+    "name": "Decathlon Foundation",
+    "subtitle": "",
+    "edito": "",
+    "about": "By financing sustainable investment expenses, the Decathlon Foundation brings the benefits & wonders of sport to people in vulnerable situations.",
+    "videos": [
+      "https://www.youtube.com/watch?v=F0J6m9LiVjw",
+      "https://www.youtube.com/watch?v=b4ShReYzQEs"
+    ]
   }
 ]
