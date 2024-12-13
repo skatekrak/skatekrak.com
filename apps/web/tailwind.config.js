@@ -18,6 +18,7 @@ module.exports = {
                 },
                 tertiary: {
                     white: '#FFFFFF',
+                    darker: '#0D0D0D',
                     dark: '#1F1F1F',
                     medium: '#333333',
                     light: '#4D4D4D',
