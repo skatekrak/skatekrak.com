@@ -51,7 +51,7 @@ const CityComponent: React.FC<CityProps> = ({ city, onCityClick }) => {
                 }}
             />
             <S.CityName component="subtitle2" truncateLines={1}>
-                {city.name}
+                {city.smallName ?? city.name}
             </S.CityName>
         </S.City>
     );

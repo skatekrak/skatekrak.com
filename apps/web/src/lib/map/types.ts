@@ -1,10 +1,12 @@
 export interface City {
     id: string;
     name: string;
+    smallName?: string;
     edito: string;
     about: string;
     subtitle: string;
     bounds: [[number, number], [number, number]];
+    videos: string[];
 }
 
 export interface CustomMap {
