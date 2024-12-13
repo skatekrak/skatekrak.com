@@ -10,8 +10,8 @@ export const SpinnerCircle = ({ className }: { className?: string }) => (
     </svg>
 );
 
-export const KrakLoading = () => (
-    <svg className="icon-loading-krak" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96">
+export const KrakLoading = ({ className }: { className?: string }) => (
+    <svg className={classNames('icon-loading-krak', className)} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96">
         <title>loading</title>
         <g>
             <g className="icon-loading-krak-text">

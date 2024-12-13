@@ -26,7 +26,7 @@ const VideoPlayer = React.forwardRef<ReactPlayer, VideoPlayerProps>(({ url, vide
         className="video-player-container"
         style={{ ...(videoSize ? { paddingTop: (videoSize.height / videoSize.width) * 100 + '%' } : {}), ...style }}
     >
-        <div className="video-player">
+        <div className="video-player !bg-tertiary-darker">
             <ReactPlayer
                 ref={ref}
                 height="100%"
