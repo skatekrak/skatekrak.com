@@ -10274,5 +10274,18 @@
     "edito": "",
     "about": "",
     "videos": []
+  },
+  {
+    "id": "saladdays",
+    "categories": [
+      "maps"
+    ],
+    "name": "Salad Days of Skateboarding",
+    "subtitle": "",
+    "edito": "",
+    "about": "Salad Days of Skateboarding is a 501c(3) nonprofit based in Los Angeles that operates globally by visiting skateboarding communities to partner with local community leaders to donate equipment, build infrastructure, and collaborate on mentorship programming.",
+    "videos": [
+      "https://www.youtube.com/watch?v=jgsuFvJpMCU"
+    ]
   }
 ]
