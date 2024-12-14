@@ -10287,5 +10287,22 @@
     "videos": [
       "https://www.youtube.com/watch?v=jgsuFvJpMCU"
     ]
+  },
+  {
+    "id": "verifryd",
+    "categories": [
+      "maps"
+    ],
+    "name": "Verifry'd",
+    "subtitle": "",
+    "edito": "",
+    "about": "Andrew Clarke AKA Verifry'd is a skateboarder and he makes funny animations.",
+    "videos": [
+      "https://www.youtube.com/watch?v=9QDkd22199U",
+      "https://www.youtube.com/watch?v=ro0qbGEbNA0",
+      "https://www.youtube.com/watch?v=hebEVPrPno4",
+      "https://www.youtube.com/watch?v=ozcasevPLWI",
+      "https://www.youtube.com/watch?v=9FpC1QI2QGc"
+    ]
   }
 ]
