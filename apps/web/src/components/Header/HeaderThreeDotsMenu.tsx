@@ -23,54 +23,21 @@ export const HeaderThreeDotsMenu = () => {
             placement="bottom"
             render={() => (
                 <S.ThreeDotMenu>
-                    {isMobile && (
-                        <>
-                            <S.ThreeDotMenuItem
-                                href="https://shop.opensb.org/"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                            >
-                                <Typography as="span" component="body1">
-                                    Shop
-                                </Typography>
-                            </S.ThreeDotMenuItem>
+                    <S.ThreeDotMenuItem
+                        target="_bank"
+                        rel="noopener noreferrer"
+                        href="https://opencollective.com/opensb/projects/krakmap"
+                    >
+                        <Typography as="span" component="body1">
+                            Support
+                        </Typography>
+                    </S.ThreeDotMenuItem>
 
-                            <S.ThreeDotMenuItem
-                                target="_bank"
-                                rel="noopener noreferrer"
-                                href="https://opencollective.com/opensb/projects/krakmap"
-                            >
-                                <Typography as="span" component="body1">
-                                    Support
-                                </Typography>
-                            </S.ThreeDotMenuItem>
-
-                            <S.ThreeDotMenuItem href={PATH_CALL_TO_ADVENTURE}>
-                                <Typography as="span" component="body1">
-                                    Call to Adventure
-                                </Typography>
-                            </S.ThreeDotMenuItem>
-                        </>
-                    )}
-
-                    {/* <S.ThreeDotMenuItem href="/mag"> */}
-                    {/*     <Typography as="span" component="body1"> */}
-                    {/*         Mag */}
-                    {/*     </Typography> */}
-                    {/* </S.ThreeDotMenuItem> */}
-                    {/**/}
-                    {/* <S.ThreeDotMenuItem href="/video"> */}
-                    {/*     <Typography as="span" component="body1"> */}
-                    {/*         Video */}
-                    {/*     </Typography> */}
-                    {/* </S.ThreeDotMenuItem> */}
-                    {/**/}
-                    {/* <S.ThreeDotMenuItem href="/news"> */}
-                    {/*     <Typography as="span" component="body1"> */}
-                    {/*         News */}
-                    {/*     </Typography> */}
-                    {/* </S.ThreeDotMenuItem> */}
-                    {/**/}
+                    <S.ThreeDotMenuItem href={PATH_CALL_TO_ADVENTURE}>
+                        <Typography as="span" component="body1">
+                            Call to Adventure
+                        </Typography>
+                    </S.ThreeDotMenuItem>
                     {isMobile && (
                         <S.ThreeDotMenuSocialContainer>
                             <S.SecondaryNavSocialIcon

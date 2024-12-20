@@ -8,7 +8,6 @@ import IconUserCircle from '@/components/Ui/Icons/IconUserCircle';
 import HeaderProfile from './HeaderProfile/HeaderProfile';
 import * as S from './Header.styled';
 
-import { PATH_CALL_TO_ADVENTURE } from '@/pages/call-to-adventure';
 import useSession from '@/lib/hook/carrelage/use-session';
 import IconInstagram from '@/components/Ui/Icons/Logos/IconInstagram';
 import { HeaderThreeDotsMenu } from './HeaderThreeDotsMenu';
@@ -27,31 +26,25 @@ const Header: React.FC = () => {
                 </Link>
                 <S.HeaderSentenceContainer className="hidden md:block">
                     <S.HeaderSentence component="condensedBody1">
-                        powered by{' '}
-                        <a href="https://www.opensb.org/" target="_blank" rel="noopener noreferrer">
+                        free skateboarding archives built & run by skateboarders; part of{' '}
+                        <a className="mr-1" href="https://www.opensb.org/" target="_blank" rel="noopener noreferrer">
                             OpenSB
                         </a>
-                    </S.HeaderSentence>
-                </S.HeaderSentenceContainer>
-
-                <S.SecondaryNav className="gap-6">
-                    <div className="flex items-center space-x-4 md:hidden">
-                        <S.SecondaryNavIconLink target="_blank" href="https://discord.gg/exMAqSuVfj" rel="noreferrer">
-                            <IconDiscord />
-                        </S.SecondaryNavIconLink>
-                        <HeaderThreeDotsMenu />
-                    </div>
-                    <div className="hidden md:flex items-center">
-                        <Link href={PATH_CALL_TO_ADVENTURE}>
-                            <S.SecondaryNavItem>Call to Adventure</S.SecondaryNavItem>
-                        </Link>
-                        <Link
+                        -- support the project by donating to our{' '}
+                        <a
+                            className="mr-1.5"
                             target="_blank"
                             rel="noopener noreferrer"
                             href="https://opencollective.com/opensb/projects/krakmap"
                         >
-                            <S.SecondaryNavItem>Support</S.SecondaryNavItem>
-                        </Link>
+                            open collective
+                        </a>{' '}
+                        🙏
+                    </S.HeaderSentence>
+                </S.HeaderSentenceContainer>
+
+                <S.SecondaryNav className="gap-4">
+                    <div className="hidden md:flex items-center">
                         <div className="ml-5 flex items-center">
                             <S.SecondaryNavSocialIcon
                                 target="_blank"
@@ -86,6 +79,17 @@ const Header: React.FC = () => {
                             </S.SecondaryNavSocialIcon>
                         </div>
                     </div>
+
+                    <S.SecondaryNavIconLink
+                        className="md:hidden"
+                        target="_blank"
+                        href="https://discord.gg/exMAqSuVfj"
+                        rel="noreferrer"
+                    >
+                        <IconDiscord />
+                    </S.SecondaryNavIconLink>
+
+                    <HeaderThreeDotsMenu />
 
                     {isConnected ? (
                         <HeaderProfile />

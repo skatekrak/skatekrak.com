@@ -41,7 +41,6 @@ export const HeaderSentenceContainer = styled.div`
 
 export const HeaderSentence = styled(Typography)`
     font-style: italic;
-    text-align: center;
     letter-spacing: 0.03rem;
     overflow: visible;
 
