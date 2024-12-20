@@ -45,6 +45,9 @@ const CallToAdventure = () => {
                             <br />
                             for skateboarders
                         </S.CallToAdventureH1>
+                        <p className="mb-8 pb-4 italic text-onDark-mediumEmphasis border-b border-solid border-onDark-placeholder">
+                            first written & published on nov. 1st, 2022
+                        </p>
                     </S.CallToAdventureHeader>
                 </S.CallToAdventureGrid>
                 <S.CallToAdventureGrid>
