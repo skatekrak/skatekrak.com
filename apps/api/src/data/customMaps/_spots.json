@@ -10304,5 +10304,16 @@
       "https://www.youtube.com/watch?v=ozcasevPLWI",
       "https://www.youtube.com/watch?v=9FpC1QI2QGc"
     ]
+  },
+  {
+    "id": "jeremyjones",
+    "categories": [
+      "maps"
+    ],
+    "name": "Jeremy Jones",
+    "subtitle": "",
+    "edito": "",
+    "about": "Jeremy is a skater from UK and artist sponsored by Magenta Skateboards.",
+    "videos": []
   }
 ]
