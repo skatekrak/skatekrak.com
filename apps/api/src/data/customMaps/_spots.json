@@ -10383,5 +10383,18 @@
     "edito": "",
     "about": "Animations by Nicholas Emery.",
     "videos": []
+  },
+  {
+    "id": "concretejunglefoundation",
+    "categories": [
+      "maps"
+    ],
+    "name": "Concrete Jungle Foundation",
+    "subtitle": "",
+    "edito": "",
+    "about": "Concrete Jungle Foundation is an innovative skateboarding non-profit that builds skateparks and runs youth programs for communities around the world.",
+    "videos": [
+      "https://www.youtube.com/watch?v=QepfLwSsN0Q"
+    ]
   }
 ]
