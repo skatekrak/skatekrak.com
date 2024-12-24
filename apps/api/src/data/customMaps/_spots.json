@@ -10326,5 +10326,16 @@
     "edito": "",
     "about": "Chase is an artist and skater based in London.",
     "videos": []
+  },
+  {
+    "id": "nelsonflores",
+    "categories": [
+      "maps"
+    ],
+    "name": "Nelson Flores",
+    "subtitle": "",
+    "edito": "",
+    "about": "Nelson is a skateboarder and oil painter from Arizona.",
+    "videos": []
   }
 ]
