@@ -10361,5 +10361,16 @@
     "edito": "",
     "about": "Tom Wareing started out Word Repeats as a uni drawing project and continued into making skate art, doing commissions and sending stuff out to various other countries.",
     "videos": []
+  },
+  {
+    "id": "idrawmazes",
+    "categories": [
+      "maps"
+    ],
+    "name": "idrawmazes",
+    "subtitle": "",
+    "edito": "",
+    "about": "Mazes by Eric J. Eckert.",
+    "videos": []
   }
 ]
