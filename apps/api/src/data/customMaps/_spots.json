@@ -10315,5 +10315,16 @@
     "edito": "",
     "about": "Jeremy is a skater from UK and artist sponsored by Magenta Skateboards.",
     "videos": []
+  },
+  {
+    "id": "chasechivers",
+    "categories": [
+      "maps"
+    ],
+    "name": "Chase Chivers",
+    "subtitle": "",
+    "edito": "",
+    "about": "Chase is an artist and skater based in London.",
+    "videos": []
   }
 ]
