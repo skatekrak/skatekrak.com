@@ -10372,5 +10372,16 @@
     "edito": "",
     "about": "Mazes by Eric J. Eckert.",
     "videos": []
+  },
+  {
+    "id": "friedfiles",
+    "categories": [
+      "maps"
+    ],
+    "name": "Fried Files",
+    "subtitle": "",
+    "edito": "",
+    "about": "Animations by Nicholas Emery.",
+    "videos": []
   }
 ]
