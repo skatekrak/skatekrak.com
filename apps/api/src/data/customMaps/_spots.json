@@ -10337,5 +10337,18 @@
     "edito": "",
     "about": "Nelson is a skateboarder and oil painter from Arizona.",
     "videos": []
+  },
+  {
+    "id": "andyjenkins",
+    "categories": [
+      "maps"
+    ],
+    "name": "Andy Jenkins",
+    "subtitle": "",
+    "edito": "",
+    "about": "Andy Jenkins is a multidisciplinary artist, artistic director and creative conduit.",
+    "videos": [
+      "https://www.youtube.com/watch?v=exTZ9vB6ZeE"
+    ]
   }
 ]
