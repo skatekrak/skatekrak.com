@@ -10396,5 +10396,18 @@
     "videos": [
       "https://www.youtube.com/watch?v=QepfLwSsN0Q"
     ]
+  },
+  {
+    "id": "neverskate",
+    "categories": [
+      "maps"
+    ],
+    "name": "Never Skate",
+    "subtitle": "",
+    "edito": "",
+    "about": "Sick animations by 'Never Skate'.",
+    "videos": [
+      "https://www.youtube.com/playlist?list=PLAnbfFE85xI2bq0QzQA5x-uik2jda2-eS"
+    ]
   }
 ]
