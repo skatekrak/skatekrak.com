@@ -10420,5 +10420,18 @@
     "edito": "",
     "about": "Animations by Connor Smith.",
     "videos": []
+  },
+  {
+    "id": "jackhydeanimations",
+    "categories": [
+      "maps"
+    ],
+    "name": "Jack Hyde Animations",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/playlist?list=PLUgbW18wdBt1nxCIAPg5muzdBrgW_lNWz"
+    ]
   }
 ]
