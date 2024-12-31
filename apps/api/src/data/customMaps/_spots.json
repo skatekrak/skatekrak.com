@@ -10409,5 +10409,16 @@
     "videos": [
       "https://www.youtube.com/playlist?list=PLAnbfFE85xI2bq0QzQA5x-uik2jda2-eS"
     ]
+  },
+  {
+    "id": "dieselraptor",
+    "categories": [
+      "maps"
+    ],
+    "name": "Diesel Raptor",
+    "subtitle": "",
+    "edito": "",
+    "about": "Animations by Connor Smith.",
+    "videos": []
   }
 ]
