@@ -10433,5 +10433,20 @@
     "videos": [
       "https://www.youtube.com/playlist?list=PLUgbW18wdBt1nxCIAPg5muzdBrgW_lNWz"
     ]
+  },
+  {
+    "id": "sotycover",
+    "categories": [
+      "magazine"
+    ],
+    "name": "Thrasher SOTY Covers",
+    "subtitle": "",
+    "edito": "",
+    "about": "Thrasher Magazine's Skater of the Year (SOTY) is one of the most prestigious skateboarding awards. Here are all the Thrasher covers celebrating every years' winners.",
+    "videos": [
+      "https://www.youtube.com/watch?v=mTOP8iNjEVU",
+      "https://www.youtube.com/watch?v=gBcBiPhmTRk",
+      ""
+    ]
   }
 ]
