@@ -10448,5 +10448,18 @@
       "https://www.youtube.com/watch?v=gBcBiPhmTRk",
       ""
     ]
+  },
+  {
+    "id": "thrasherdiy",
+    "categories": [
+      "maps"
+    ],
+    "name": "Thrasher DIY",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/playlist?list=PL7V-xVyJYY3dO6wTVBzUO6fdPzRc-Z5M1"
+    ]
   }
 ]
