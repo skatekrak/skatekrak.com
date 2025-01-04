@@ -10461,5 +10461,30 @@
     "videos": [
       "https://www.youtube.com/playlist?list=PL7V-xVyJYY3dO6wTVBzUO6fdPzRc-Z5M1"
     ]
+  },
+  {
+    "id": "process",
+    "categories": [
+      "maps"
+    ],
+    "name": "Process",
+    "subtitle": "",
+    "edito": "",
+    "about": "Process, a video series by The Berrics.",
+    "videos": [
+      "https://www.youtube.com/watch?v=epOFy7H55_c",
+      "https://www.youtube.com/watch?v=xnl1vpXp3dY",
+      "https://www.youtube.com/watch?v=VeGsaTflhJg",
+      "https://www.youtube.com/watch?v=TTZx0J8eRpc",
+      "https://www.youtube.com/watch?v=h3FLlnS8siQ",
+      "https://www.youtube.com/watch?v=QUmosqEQGps",
+      "https://www.youtube.com/watch?v=MkjsCpJEhuI",
+      "https://www.youtube.com/watch?v=Da3iMrBzoHo",
+      "https://www.youtube.com/watch?v=XyNf6Voh8v0",
+      "https://www.youtube.com/watch?v=_3rcnwQiN7Q",
+      "https://www.youtube.com/watch?v=aamRJ1-8rQw",
+      "https://www.youtube.com/watch?v=jF5mWd0gYYo",
+      "https://www.youtube.com/watch?v=w4AmlyJJY54"
+    ]
   }
 ]
