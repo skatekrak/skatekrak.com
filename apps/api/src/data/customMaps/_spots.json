@@ -10538,5 +10538,16 @@
     "edito": "",
     "about": "Paul is originally from Portland, Oregon but lives in Frankfurt, Germany. He makes some rad stabilo pen drawings over some skateboard mag pages.",
     "videos": []
+  },
+  {
+    "id": "wondersaroundtheworld",
+    "categories": [
+      "maps"
+    ],
+    "name": "Wonders Around The World",
+    "subtitle": "",
+    "edito": "",
+    "about": "WAW is an international and independent non-profit organization built to help make skateboarding accessible worldwide, by developing skateparks in areas of the world where they are not present and supporting the communities pivoting around the facilities.",
+    "videos": []
   }
 ]
