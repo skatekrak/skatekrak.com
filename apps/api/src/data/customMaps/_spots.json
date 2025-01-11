@@ -10549,5 +10549,16 @@
     "edito": "",
     "about": "WAW is an international and independent non-profit organization built to help make skateboarding accessible worldwide, by developing skateparks in areas of the world where they are not present and supporting the communities pivoting around the facilities.",
     "videos": []
+  },
+  {
+    "id": "skatestoppers",
+    "categories": [
+      "maps"
+    ],
+    "name": "Skatestoppers",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": []
   }
 ]
