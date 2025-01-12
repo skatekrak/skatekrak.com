@@ -10595,5 +10595,16 @@
     "edito": "",
     "about": "Ski style..",
     "videos": []
+  },
+  {
+    "id": "headphones",
+    "categories": [
+      "maps"
+    ],
+    "name": "Headphones",
+    "subtitle": "",
+    "edito": "",
+    "about": "Tricks with headphones on..",
+    "videos": []
   }
 ]
