@@ -10606,5 +10606,16 @@
     "edito": "",
     "about": "Tricks with headphones on..",
     "videos": []
+  },
+  {
+    "id": "longboard",
+    "categories": [
+      "maps"
+    ],
+    "name": "Longboard",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": []
   }
 ]
