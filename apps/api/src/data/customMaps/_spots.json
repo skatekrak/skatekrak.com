@@ -10584,5 +10584,16 @@
     "videos": [
       "https://www.youtube.com/watch?v=83PExTKn6s4"
     ]
+  },
+  {
+    "id": "ski",
+    "categories": [
+      "maps"
+    ],
+    "name": "Ski",
+    "subtitle": "",
+    "edito": "",
+    "about": "Ski style..",
+    "videos": []
   }
 ]
