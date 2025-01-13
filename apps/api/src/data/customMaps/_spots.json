@@ -10617,5 +10617,16 @@
     "edito": "",
     "about": "",
     "videos": []
+  },
+  {
+    "id": "diving",
+    "categories": [
+      "maps"
+    ],
+    "name": "Diving",
+    "subtitle": "",
+    "edito": "",
+    "about": "Tricks that ended up in water..",
+    "videos": []
   }
 ]
