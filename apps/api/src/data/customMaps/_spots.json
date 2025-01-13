@@ -10639,5 +10639,18 @@
     "edito": "",
     "about": "",
     "videos": []
+  },
+  {
+    "id": "ninjalifestyle",
+    "categories": [
+      "maps"
+    ],
+    "name": "NinjaLifestyle",
+    "subtitle": "",
+    "edito": "",
+    "about": "Exploring Las Vegas with NinjaLifestyle..",
+    "videos": [
+      "https://www.youtube.com/playlist?list=PLtQLwNqR4tA2CsoJrqI1qNYJ1xwwcEBZU"
+    ]
   }
 ]
