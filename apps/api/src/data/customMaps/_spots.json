@@ -10696,5 +10696,16 @@
     "edito": "",
     "about": "Jamie",
     "videos": []
+  },
+  {
+    "id": "skaterowned",
+    "categories": [
+      "maps"
+    ],
+    "name": "Skater Owned Business",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": []
   }
 ]
