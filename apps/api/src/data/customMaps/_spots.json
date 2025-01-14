@@ -10740,5 +10740,18 @@
     "edito": "",
     "about": "People trippin on Skateboarding..",
     "videos": []
+  },
+  {
+    "id": "luge",
+    "categories": [
+      "maps"
+    ],
+    "name": "Luge",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=-kux7N6Ltao"
+    ]
   }
 ]
