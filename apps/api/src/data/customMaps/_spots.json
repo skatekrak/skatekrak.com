@@ -10718,5 +10718,16 @@
     "edito": "",
     "about": "This map is inspired by a Jenkem article.",
     "videos": []
+  },
+  {
+    "id": "quickfeet",
+    "categories": [
+      "maps"
+    ],
+    "name": "Quick Feet",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": []
   }
 ]
