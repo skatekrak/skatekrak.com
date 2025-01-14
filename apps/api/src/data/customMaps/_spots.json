@@ -10707,5 +10707,16 @@
     "edito": "",
     "about": "",
     "videos": []
+  },
+  {
+    "id": "midlineboardpickup",
+    "categories": [
+      "maps"
+    ],
+    "name": "Midline Board Pickup",
+    "subtitle": "",
+    "edito": "",
+    "about": "This map is inspired by a Jenkem article.",
+    "videos": []
   }
 ]
