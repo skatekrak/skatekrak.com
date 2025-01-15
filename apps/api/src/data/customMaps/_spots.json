@@ -10764,5 +10764,16 @@
     "edito": "",
     "about": "",
     "videos": []
+  },
+  {
+    "id": "glass",
+    "categories": [
+      "maps"
+    ],
+    "name": "Glass",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": []
   }
 ]
