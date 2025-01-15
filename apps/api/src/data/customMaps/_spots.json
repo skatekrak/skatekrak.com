@@ -10797,5 +10797,16 @@
     "edito": "",
     "about": "deckaid.org",
     "videos": []
+  },
+  {
+    "id": "bakermaker",
+    "categories": [
+      "maps"
+    ],
+    "name": "Baker Maker",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": []
   }
 ]
