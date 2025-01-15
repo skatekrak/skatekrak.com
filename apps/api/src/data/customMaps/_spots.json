@@ -10753,5 +10753,16 @@
     "videos": [
       "https://www.youtube.com/watch?v=-kux7N6Ltao"
     ]
+  },
+  {
+    "id": "ceiling",
+    "categories": [
+      "maps"
+    ],
+    "name": "Ceiling",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": []
   }
 ]
