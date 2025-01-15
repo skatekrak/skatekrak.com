@@ -10775,5 +10775,16 @@
     "edito": "",
     "about": "",
     "videos": []
+  },
+  {
+    "id": "fingerspot",
+    "categories": [
+      "maps"
+    ],
+    "name": "Finger Spots",
+    "subtitle": "",
+    "edito": "",
+    "about": "fingerboardspots.com",
+    "videos": []
   }
 ]
