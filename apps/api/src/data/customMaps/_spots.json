@@ -10786,5 +10786,16 @@
     "edito": "",
     "about": "fingerboardspots.com",
     "videos": []
+  },
+  {
+    "id": "deckaid",
+    "categories": [
+      "maps"
+    ],
+    "name": "Deckaid",
+    "subtitle": "",
+    "edito": "",
+    "about": "deckaid.org",
+    "videos": []
   }
 ]
