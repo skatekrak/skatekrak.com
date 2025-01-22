@@ -10808,5 +10808,16 @@
     "edito": "",
     "about": "",
     "videos": []
+  },
+  {
+    "id": "skatebnb",
+    "categories": [
+      "maps"
+    ],
+    "name": "SkateBnB",
+    "subtitle": "",
+    "edito": "",
+    "about": "skatebnbs.com",
+    "videos": []
   }
 ]
