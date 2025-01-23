@@ -10830,5 +10830,16 @@
     "edito": "",
     "about": "takethetopo.com",
     "videos": []
+  },
+  {
+    "id": "chadsuter",
+    "categories": [
+      "maps"
+    ],
+    "name": "Chad Suter",
+    "subtitle": "",
+    "edito": "",
+    "about": "Chad is a filmmaker from Vista, California.",
+    "videos": []
   }
 ]
