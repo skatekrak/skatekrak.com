@@ -10841,5 +10841,19 @@
     "edito": "",
     "about": "Chad is a filmmaker from Vista, California.",
     "videos": []
+  },
+  {
+    "id": "antonthallner",
+    "categories": [
+      "maps"
+    ],
+    "name": "Anton Thallner",
+    "subtitle": "",
+    "edito": "",
+    "about": "antonthallner.com",
+    "videos": [
+      "https://www.youtube.com/watch?v=bZ_EEiTXUc0",
+      "https://www.youtube.com/watch?v=bdW19TOe5wI"
+    ]
   }
 ]
