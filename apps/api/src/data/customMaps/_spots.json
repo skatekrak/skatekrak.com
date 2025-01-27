@@ -10866,5 +10866,21 @@
     "edito": "",
     "about": "",
     "videos": []
+  },
+  {
+    "id": "pogostick",
+    "categories": [
+      "maps"
+    ],
+    "name": "PogoStick",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=nHhp8DrEh7A",
+      "https://www.youtube.com/watch?v=KdGCeNPrJzE",
+      "https://www.youtube.com/watch?v=6AIc2Qwsgik",
+      "https://www.youtube.com/watch?v=mfbuJO5JalM"
+    ]
   }
 ]
