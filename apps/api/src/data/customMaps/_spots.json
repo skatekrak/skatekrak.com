@@ -10882,5 +10882,16 @@
       "https://www.youtube.com/watch?v=6AIc2Qwsgik",
       "https://www.youtube.com/watch?v=mfbuJO5JalM"
     ]
+  },
+  {
+    "id": "distributors",
+    "categories": [
+      "maps"
+    ],
+    "name": "Distributors",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": []
   }
 ]
