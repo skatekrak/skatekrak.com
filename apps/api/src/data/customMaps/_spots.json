@@ -10915,5 +10915,16 @@
     "edito": "",
     "about": "Tim Janke is a skateboarder and artist from Berlin, Germany. He was born on October 7th, 1994.",
     "videos": []
+  },
+  {
+    "id": "pepijndejonge",
+    "categories": [
+      "maps"
+    ],
+    "name": "Pepijn De Jonge",
+    "subtitle": "",
+    "edito": "",
+    "about": "Pepijn is an illustrator from Holland.",
+    "videos": []
   }
 ]
