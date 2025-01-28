@@ -10926,5 +10926,16 @@
     "edito": "",
     "about": "Pepijn is an illustrator from Holland.",
     "videos": []
+  },
+  {
+    "id": "magazines",
+    "categories": [
+      "maps"
+    ],
+    "name": "Magazines",
+    "subtitle": "",
+    "edito": "",
+    "about": "Headquarters of Skateboarding magazines.",
+    "videos": []
   }
 ]
