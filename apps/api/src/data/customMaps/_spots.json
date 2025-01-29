@@ -10948,5 +10948,16 @@
     "edito": "",
     "about": "This map is based on a Jenkem article. Streets are wild!",
     "videos": []
+  },
+  {
+    "id": "twiceinarow",
+    "categories": [
+      "maps"
+    ],
+    "name": "Twice In A Row",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": []
   }
 ]
