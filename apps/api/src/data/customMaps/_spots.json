@@ -10937,5 +10937,16 @@
     "edito": "",
     "about": "Headquarters of Skateboarding magazines.",
     "videos": []
+  },
+  {
+    "id": "sketchymoments",
+    "categories": [
+      "maps"
+    ],
+    "name": "Sketchy Moments",
+    "subtitle": "",
+    "edito": "",
+    "about": "This map is based on a Jenkem article. Streets are wild!",
+    "videos": []
   }
 ]
