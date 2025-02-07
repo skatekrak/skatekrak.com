@@ -11014,5 +11014,16 @@
     "edito": "",
     "about": "All about retro skateboarding!",
     "videos": []
+  },
+  {
+    "id": "manufacturers",
+    "categories": [
+      "maps"
+    ],
+    "name": "Manufacturers",
+    "subtitle": "",
+    "edito": "",
+    "about": "Skateboard manufacturers worldwide.",
+    "videos": []
   }
 ]
