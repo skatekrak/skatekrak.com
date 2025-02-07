@@ -11003,5 +11003,16 @@
     "edito": "",
     "about": "The adventures of Emily and Ryan Herron.",
     "videos": []
+  },
+  {
+    "id": "theskateboardingcrucible",
+    "categories": [
+      "maps"
+    ],
+    "name": "The Skateboarding Crucible",
+    "subtitle": "",
+    "edito": "",
+    "about": "All about retro skateboarding!",
+    "videos": []
   }
 ]
