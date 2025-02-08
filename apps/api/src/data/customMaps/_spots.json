@@ -11047,5 +11047,16 @@
     "edito": "",
     "about": "A map for the Berrics video series called 'On location'.",
     "videos": []
+  },
+  {
+    "id": "flipinflipout",
+    "categories": [
+      "maps"
+    ],
+    "name": "Flip In Flip Out",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": []
   }
 ]
