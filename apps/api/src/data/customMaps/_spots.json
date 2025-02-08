@@ -11025,5 +11025,16 @@
     "edito": "",
     "about": "Skateboard manufacturers worldwide.",
     "videos": []
+  },
+  {
+    "id": "skateableskateshops",
+    "categories": [
+      "maps"
+    ],
+    "name": "Skateable Skateshops",
+    "subtitle": "",
+    "edito": "",
+    "about": "Skateshops with stuff to skate.",
+    "videos": []
   }
 ]
