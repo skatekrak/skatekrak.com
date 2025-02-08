@@ -11036,5 +11036,16 @@
     "edito": "",
     "about": "Skateshops with stuff to skate.",
     "videos": []
+  },
+  {
+    "id": "onlocation",
+    "categories": [
+      "maps"
+    ],
+    "name": "On Location",
+    "subtitle": "",
+    "edito": "",
+    "about": "A map for the Berrics video series called 'On location'.",
+    "videos": []
   }
 ]
