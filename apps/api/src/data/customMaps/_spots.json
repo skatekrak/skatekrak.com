@@ -11069,5 +11069,16 @@
     "edito": "",
     "about": "Just like we created a map for the opening lines in video parts, here is a map for the closing lines of parts that should be remembered.",
     "videos": []
+  },
+  {
+    "id": "skateaid",
+    "categories": [
+      "maps"
+    ],
+    "name": "Skate Aid",
+    "subtitle": "",
+    "edito": "",
+    "about": "With the help of donations, skate-aid wants to support children worldwide in their development, sports, culture and international understanding.",
+    "videos": []
   }
 ]
