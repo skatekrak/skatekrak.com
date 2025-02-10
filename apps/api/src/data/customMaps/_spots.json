@@ -11114,5 +11114,21 @@
     "edito": "",
     "about": "",
     "videos": []
+  },
+  {
+    "id": "intheloupe",
+    "categories": [
+      "maps"
+    ],
+    "name": "In The Loupe",
+    "subtitle": "",
+    "edito": "",
+    "about": "Photographers and jewelers use loupes to get a better look at extremely fine details. In the In",
+    "videos": [
+      "https://www.youtube.com/watch?v=SyPLOIyWqMs",
+      "https://www.youtube.com/watch?v=lnHwLzKDr1U",
+      "https://www.youtube.com/watch?v=NhsNYk78e64",
+      "https://www.youtube.com/watch?v=ahRLZ6Czh54"
+    ]
   }
 ]
