@@ -11103,5 +11103,16 @@
     "edito": "",
     "about": "With the help of donations, skate-aid wants to support children worldwide in their development, sports, culture and international understanding.",
     "videos": []
+  },
+  {
+    "id": "rickandmorty",
+    "categories": [
+      "maps"
+    ],
+    "name": "Rick & Morty",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": []
   }
 ]
