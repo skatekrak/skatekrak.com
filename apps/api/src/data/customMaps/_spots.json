@@ -11164,5 +11164,18 @@
       "https://www.youtube.com/watch?v=2DbBY2PVGtQ",
       "https://www.youtube.com/watch?v=0J90v8fgw1M"
     ]
+  },
+  {
+    "id": "parkkiller",
+    "categories": [
+      "maps"
+    ],
+    "name": "Park Killer",
+    "subtitle": "",
+    "edito": "",
+    "about": "A map for the 'Park Killer' video series by The Berrics.",
+    "videos": [
+      "https://www.youtube.com/playlist?list=PLmxvVi4Ors7bXPPtqeWCE5C7NR6Y7hbWN"
+    ]
   }
 ]
