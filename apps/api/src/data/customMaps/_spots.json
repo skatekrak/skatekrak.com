@@ -11188,5 +11188,19 @@
     "edito": "",
     "about": "Skateboarding History told by Tony Roberts.",
     "videos": []
+  },
+  {
+    "id": "josephgarbaccio",
+    "categories": [
+      "skater"
+    ],
+    "name": "Joseph Garbaccio",
+    "subtitle": "",
+    "edito": "",
+    "about": "Joseph Garbaccio (born on April 1st, 1998) is originally from Le Havre in France. He won the Skateboarding French Championships 8 times.",
+    "videos": [
+      "https://www.youtube.com/watch?v=X9lnAxLJe7w",
+      "https://www.youtube.com/watch?v=vI8HFM8By8w"
+    ]
   }
 ]
