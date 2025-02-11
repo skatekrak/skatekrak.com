@@ -11177,5 +11177,16 @@
     "videos": [
       "https://www.youtube.com/playlist?list=PLmxvVi4Ors7bXPPtqeWCE5C7NR6Y7hbWN"
     ]
+  },
+  {
+    "id": "realskatestories",
+    "categories": [
+      "maps"
+    ],
+    "name": "Real Skate Stories",
+    "subtitle": "",
+    "edito": "",
+    "about": "Skateboarding History told by Tony Roberts.",
+    "videos": []
   }
 ]
