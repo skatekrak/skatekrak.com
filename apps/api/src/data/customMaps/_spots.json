@@ -11213,5 +11213,16 @@
     "edito": "",
     "about": "Tricks with a scarf on, another map inspired by a post by Peter Grannis, AKA competer_programmis.",
     "videos": []
+  },
+  {
+    "id": "wetspots",
+    "categories": [
+      "maps"
+    ],
+    "name": "Wet Spots",
+    "subtitle": "",
+    "edito": "",
+    "about": "Sometimes rain doesn't stop skateboarders to get their tricks..",
+    "videos": []
   }
 ]
