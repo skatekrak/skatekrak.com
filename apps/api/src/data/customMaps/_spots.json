@@ -11202,5 +11202,16 @@
       "https://www.youtube.com/watch?v=X9lnAxLJe7w",
       "https://www.youtube.com/watch?v=vI8HFM8By8w"
     ]
+  },
+  {
+    "id": "scarf",
+    "categories": [
+      "maps"
+    ],
+    "name": "Scarf",
+    "subtitle": "",
+    "edito": "",
+    "about": "Tricks with a scarf on, another map inspired by a post by Peter Grannis, AKA competer_programmis.",
+    "videos": []
   }
 ]
