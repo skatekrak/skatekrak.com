@@ -36,6 +36,10 @@ on:
             about:
                 type: string
                 required: false
+            soundtrack:
+                description: "Soundtrack (if multiple, separate them by commas: ',')"
+                type: string
+                required: false
             videos:
                 description: "URLs of videos (if multiple, separate them by commas: ',')"
                 type: string
@@ -63,6 +67,7 @@ jobs:
                     --subtitle "${{ inputs.subtitle }}" \
                     --edito "${{ inputs.edito }}" \
                     --about "${{ inputs.about }}" \
+                    --soundtrack "${{ inputs.soundtrack }}" \
                     --videos "${{ inputs.videos }}"
             - name: Write commit
               uses: EndBug/add-and-commit@v9

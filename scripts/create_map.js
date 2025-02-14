@@ -32,6 +32,7 @@ const getParam = (param, required = false) => {
  *  --edito <edito> \
  *  --about <about> \
  *  --videos <videos>
+ *  --soundtrack <soundtrack>
  */
 const main = () => {
     const tag = getParam('--tag', true);
@@ -40,12 +41,19 @@ const main = () => {
     const subtitle = getParam('--subtitle');
     const edito = getParam('--edito');
     const about = getParam('--about');
+    let soundtrack = getParam('--soundtrack');
     let videos = getParam('--videos');
 
     if (videos !== '') {
         videos = videos.split(',').map((url) => url.trim());
     } else {
         videos = [];
+    }
+
+    if (soundtrack !== '') {
+        soundtrack = soundtrack.split(',').map((url) => url.trim());
+    } else {
+        soundtrack = [];
     }
 
     const newMap = {
@@ -56,6 +64,7 @@ const main = () => {
         edito,
         about,
         videos,
+        soundtrack,
     };
 
     const maps = JSON.parse(file.readFileSync('apps/api/src/data/customMaps/_spots.json', 'utf8'));
