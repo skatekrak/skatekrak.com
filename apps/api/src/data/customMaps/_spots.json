@@ -11237,5 +11237,19 @@
     "videos": [
       "https://www.youtube.com/playlist?list=PL2Tey3ulIQmtq4SGNEsOpyHiccFyPMCuj"
     ]
+  },
+  {
+    "id": "skateliner",
+    "categories": [
+      "maps"
+    ],
+    "name": "Skateliner",
+    "subtitle": "",
+    "edito": "",
+    "about": "The stickman skater",
+    "videos": [
+      "https://www.youtube.com/playlist?list=PLOXJvqDjikT1MbpIyvzjy5iaHCho32Yge"
+    ],
+    "soundtrack": []
   }
 ]
