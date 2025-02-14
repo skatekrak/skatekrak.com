@@ -22,6 +22,7 @@ on:
                     - shop
                     - greatest
                     - members
+                    - artist
             name:
                 type: string
                 required: false
@@ -32,6 +33,10 @@ on:
                 type: string
                 required: false
             about:
+                type: string
+                required: false
+            soundtrack:
+                description: "Soundtrack (if multiple, separate them by commas: ',')"
                 type: string
                 required: false
             videos:
@@ -61,6 +66,7 @@ jobs:
                     --subtitle "${{ inputs.subtitle }}" \
                     --edito "${{ inputs.edito }}" \
                     --about "${{ inputs.about }}" \
+                    --soundtrack "${{ inputs.soundtrack }}" \
                     --videos "${{ inputs.videos }}"
             - name: Write commit
               uses: EndBug/add-and-commit@v9

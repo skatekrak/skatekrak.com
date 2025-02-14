@@ -32,6 +32,7 @@ const getParam = (param, required = false) => {
  *  --edito <edito> \
  *  --about <about> \
  *  --videos <videos>
+ * *  --soundtrack <soundtrack>
  */
 const main = () => {
     const tag = getParam('--tag');
@@ -40,6 +41,7 @@ const main = () => {
     const subtitle = getParam('--subtitle');
     const edito = getParam('--edito');
     const about = getParam('--about');
+    let soundtrack = getParam('--soundtrack');
     let videos = getParam('--videos');
 
     const newMap = {
@@ -52,6 +54,10 @@ const main = () => {
 
     if (videos !== '') {
         newMap.videos = videos.split(',').map((url) => url.trim());
+    }
+
+    if (soundtrack !== '') {
+        newMap.soundtrack = soundtrack.split(',').map((url) => url.trim());
     }
 
     if (category != '') {
