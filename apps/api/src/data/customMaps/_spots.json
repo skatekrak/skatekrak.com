@@ -11286,5 +11286,19 @@
     "about": "",
     "videos": [],
     "soundtrack": []
+  },
+  {
+    "id": "hermanosamor",
+    "categories": [
+      "maps"
+    ],
+    "name": "Hermanos Amor",
+    "subtitle": "",
+    "edito": "",
+    "about": "Ana and Alex Amor showing us some skateparks..",
+    "videos": [
+      "https://www.youtube.com/playlist?list=PLn1avb9oHwv9k4UQa4x0Bsq158rfFem90"
+    ],
+    "soundtrack": []
   }
 ]
