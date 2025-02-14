@@ -17,6 +17,7 @@ enum CustomMapCategory {
     years = 'Years',
     greatest = 'Greatest',
     members = 'Members',
+    artist = 'Artists',
 }
 
 interface CustomMap {

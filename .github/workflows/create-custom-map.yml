@@ -23,6 +23,7 @@ on:
                     - shop
                     - greatest
                     - members
+                    - artist
             name:
                 type: string
                 required: true
