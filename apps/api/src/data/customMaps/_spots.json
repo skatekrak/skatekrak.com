@@ -11274,5 +11274,17 @@
       "https://www.youtube.com/playlist?list=PLOXJvqDjikT1MbpIyvzjy5iaHCho32Yge"
     ],
     "soundtrack": []
+  },
+  {
+    "id": "videopremiere",
+    "categories": [
+      "maps"
+    ],
+    "name": "Video Premieres",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [],
+    "soundtrack": []
   }
 ]
