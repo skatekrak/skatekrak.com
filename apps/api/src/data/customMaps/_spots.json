@@ -10041,7 +10041,9 @@
     "subtitle": "",
     "edito": "",
     "about": "Henry Jones is a skateboarder and illustrator from West Chester, Pennsylvania whose satirical art is so funny it will literally get you rolling.",
-    "videos": []
+    "videos": [
+      "https://www.youtube.com/watch?v=niAY-yeV4D8"
+    ]
   },
   {
     "id": "jamesjarvis",
@@ -10303,6 +10305,937 @@
       "https://www.youtube.com/watch?v=hebEVPrPno4",
       "https://www.youtube.com/watch?v=ozcasevPLWI",
       "https://www.youtube.com/watch?v=9FpC1QI2QGc"
+    ]
+  },
+  {
+    "id": "jeremyjones",
+    "categories": [
+      "maps"
+    ],
+    "name": "Jeremy Jones",
+    "subtitle": "",
+    "edito": "",
+    "about": "Jeremy is a skater from UK and artist sponsored by Magenta Skateboards.",
+    "videos": []
+  },
+  {
+    "id": "chasechivers",
+    "categories": [
+      "maps"
+    ],
+    "name": "Chase Chivers",
+    "subtitle": "",
+    "edito": "",
+    "about": "Chase is an artist and skater based in London.",
+    "videos": []
+  },
+  {
+    "id": "nelsonflores",
+    "categories": [
+      "maps"
+    ],
+    "name": "Nelson Flores",
+    "subtitle": "",
+    "edito": "",
+    "about": "Nelson is a skateboarder and oil painter from Arizona.",
+    "videos": []
+  },
+  {
+    "id": "andyjenkins",
+    "categories": [
+      "maps"
+    ],
+    "name": "Andy Jenkins",
+    "subtitle": "",
+    "edito": "",
+    "about": "Andy Jenkins is a multidisciplinary artist, artistic director and creative conduit.",
+    "videos": [
+      "https://www.youtube.com/watch?v=exTZ9vB6ZeE"
+    ]
+  },
+  {
+    "id": "wordrepeats",
+    "categories": [
+      "maps"
+    ],
+    "name": "Word Repeats",
+    "subtitle": "",
+    "edito": "",
+    "about": "Tom Wareing started out Word Repeats as a uni drawing project and continued into making skate art, doing commissions and sending stuff out to various other countries.",
+    "videos": []
+  },
+  {
+    "id": "idrawmazes",
+    "categories": [
+      "maps"
+    ],
+    "name": "idrawmazes",
+    "subtitle": "",
+    "edito": "",
+    "about": "Mazes by Eric J. Eckert.",
+    "videos": []
+  },
+  {
+    "id": "friedfiles",
+    "categories": [
+      "maps"
+    ],
+    "name": "Fried Files",
+    "subtitle": "",
+    "edito": "",
+    "about": "Animations by Nicholas Emery.",
+    "videos": []
+  },
+  {
+    "id": "concretejunglefoundation",
+    "categories": [
+      "maps"
+    ],
+    "name": "Concrete Jungle Foundation",
+    "subtitle": "",
+    "edito": "",
+    "about": "Concrete Jungle Foundation is an innovative skateboarding non-profit that builds skateparks and runs youth programs for communities around the world.",
+    "videos": [
+      "https://www.youtube.com/watch?v=QepfLwSsN0Q"
+    ]
+  },
+  {
+    "id": "neverskate",
+    "categories": [
+      "maps"
+    ],
+    "name": "Never Skate",
+    "subtitle": "",
+    "edito": "",
+    "about": "Sick animations by 'Never Skate'.",
+    "videos": [
+      "https://www.youtube.com/playlist?list=PLAnbfFE85xI2bq0QzQA5x-uik2jda2-eS"
+    ]
+  },
+  {
+    "id": "dieselraptor",
+    "categories": [
+      "maps"
+    ],
+    "name": "Diesel Raptor",
+    "subtitle": "",
+    "edito": "",
+    "about": "Animations by Connor Smith.",
+    "videos": []
+  },
+  {
+    "id": "jackhydeanimations",
+    "categories": [
+      "maps"
+    ],
+    "name": "Jack Hyde Animations",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/playlist?list=PLUgbW18wdBt1nxCIAPg5muzdBrgW_lNWz"
+    ]
+  },
+  {
+    "id": "sotycover",
+    "categories": [
+      "magazine"
+    ],
+    "name": "Thrasher SOTY Covers",
+    "subtitle": "",
+    "edito": "",
+    "about": "Thrasher Magazine's Skater of the Year (SOTY) is one of the most prestigious skateboarding awards. Here are all the Thrasher covers celebrating every years' winners.",
+    "videos": [
+      "https://www.youtube.com/watch?v=mTOP8iNjEVU",
+      "https://www.youtube.com/watch?v=gBcBiPhmTRk",
+      ""
+    ]
+  },
+  {
+    "id": "thrasherdiy",
+    "categories": [
+      "maps"
+    ],
+    "name": "Thrasher DIY",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/playlist?list=PL7V-xVyJYY3dO6wTVBzUO6fdPzRc-Z5M1"
+    ]
+  },
+  {
+    "id": "process",
+    "categories": [
+      "maps"
+    ],
+    "name": "Process",
+    "subtitle": "",
+    "edito": "",
+    "about": "Process, a video series by The Berrics.",
+    "videos": [
+      "https://www.youtube.com/watch?v=epOFy7H55_c",
+      "https://www.youtube.com/watch?v=xnl1vpXp3dY",
+      "https://www.youtube.com/watch?v=VeGsaTflhJg",
+      "https://www.youtube.com/watch?v=TTZx0J8eRpc",
+      "https://www.youtube.com/watch?v=h3FLlnS8siQ",
+      "https://www.youtube.com/watch?v=QUmosqEQGps",
+      "https://www.youtube.com/watch?v=MkjsCpJEhuI",
+      "https://www.youtube.com/watch?v=Da3iMrBzoHo",
+      "https://www.youtube.com/watch?v=XyNf6Voh8v0",
+      "https://www.youtube.com/watch?v=_3rcnwQiN7Q",
+      "https://www.youtube.com/watch?v=aamRJ1-8rQw",
+      "https://www.youtube.com/watch?v=jF5mWd0gYYo",
+      "https://www.youtube.com/watch?v=w4AmlyJJY54"
+    ]
+  },
+  {
+    "id": "chrisroberts",
+    "categories": [
+      "skater"
+    ],
+    "name": "Chris Roberts",
+    "subtitle": "",
+    "edito": "",
+    "about": "Chris Roberts is an American professional skateboarder and host of the podcast The Nine Club with Chris Roberts. He was born in Inglewood, California on August 13, 1976, and raised in Malibu, California.",
+    "videos": [
+      "https://www.youtube.com/watch?v=CjrwJlP7Ruo",
+      "https://www.youtube.com/watch?v=vkyw3YPnnDI",
+      "https://www.youtube.com/watch?v=YiFidKlsquQ",
+      "https://www.youtube.com/watch?v=IAPltoU4Ek0",
+      "https://www.youtube.com/watch?v=gzVHqhxd7RM",
+      "https://www.youtube.com/watch?v=BVa72qGgY0g",
+      "https://www.youtube.com/watch?v=4L3TM1aGj1Y"
+    ]
+  },
+  {
+    "id": "lebschfryday",
+    "categories": [
+      "maps"
+    ],
+    "name": "LebschFryday",
+    "subtitle": "",
+    "edito": "",
+    "about": "Sketches by the @lebschfryday instagram account.",
+    "videos": []
+  },
+  {
+    "id": "theartofdrop",
+    "categories": [
+      "maps"
+    ],
+    "name": "Drop",
+    "subtitle": "",
+    "edito": "",
+    "about": "The art of Drop from Frankfurt, Germany.",
+    "videos": []
+  },
+  {
+    "id": "paulthurlow",
+    "categories": [
+      "maps"
+    ],
+    "name": "Paul Thurlow",
+    "subtitle": "",
+    "edito": "",
+    "about": "Paul is originally from Portland, Oregon but lives in Frankfurt, Germany. He makes some rad stabilo pen drawings over some skateboard mag pages.",
+    "videos": []
+  },
+  {
+    "id": "wondersaroundtheworld",
+    "categories": [
+      "maps"
+    ],
+    "name": "Wonders Around The World",
+    "subtitle": "",
+    "edito": "",
+    "about": "WAW is an international and independent non-profit organization built to help make skateboarding accessible worldwide, by developing skateparks in areas of the world where they are not present and supporting the communities pivoting around the facilities.",
+    "videos": []
+  },
+  {
+    "id": "skatestoppers",
+    "categories": [
+      "maps"
+    ],
+    "name": "Skatestoppers",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": []
+  },
+  {
+    "id": "lookingback",
+    "categories": [
+      "maps"
+    ],
+    "name": "Looking Back",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": []
+  },
+  {
+    "id": "snow",
+    "categories": [
+      "maps"
+    ],
+    "name": "Snow",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=83PExTKn6s4"
+    ]
+  },
+  {
+    "id": "ski",
+    "categories": [
+      "maps"
+    ],
+    "name": "Ski",
+    "subtitle": "",
+    "edito": "",
+    "about": "Ski style..",
+    "videos": []
+  },
+  {
+    "id": "headphones",
+    "categories": [
+      "maps"
+    ],
+    "name": "Headphones",
+    "subtitle": "",
+    "edito": "",
+    "about": "Tricks with headphones on..",
+    "videos": []
+  },
+  {
+    "id": "longboard",
+    "categories": [
+      "maps"
+    ],
+    "name": "Longboard",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": []
+  },
+  {
+    "id": "diving",
+    "categories": [
+      "maps"
+    ],
+    "name": "Diving",
+    "subtitle": "",
+    "edito": "",
+    "about": "Tricks that ended up in water..",
+    "videos": []
+  },
+  {
+    "id": "greatestdarkslides",
+    "categories": [
+      "greatest"
+    ],
+    "name": "Greatest Darkslides",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": []
+  },
+  {
+    "id": "ninjalifestyle",
+    "categories": [
+      "maps"
+    ],
+    "name": "NinjaLifestyle",
+    "subtitle": "",
+    "edito": "",
+    "about": "Exploring Las Vegas with NinjaLifestyle..",
+    "videos": [
+      "https://www.youtube.com/playlist?list=PLtQLwNqR4tA2CsoJrqI1qNYJ1xwwcEBZU"
+    ]
+  },
+  {
+    "id": "greatestfastplants",
+    "categories": [
+      "greatest"
+    ],
+    "name": "Greatest Fastplants",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": []
+  },
+  {
+    "id": "greatestslappies",
+    "categories": [
+      "greatest"
+    ],
+    "name": "Greatest Slappies",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": []
+  },
+  {
+    "id": "greatestwallies",
+    "categories": [
+      "greatest"
+    ],
+    "name": "Greatest Wallies",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": []
+  },
+  {
+    "id": "jamiefoyfscrook",
+    "categories": [
+      "maps"
+    ],
+    "name": "Jamie Foy Frontside Crooks",
+    "subtitle": "",
+    "edito": "",
+    "about": "Jamie",
+    "videos": []
+  },
+  {
+    "id": "skaterowned",
+    "categories": [
+      "maps"
+    ],
+    "name": "Skater Owned Business",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": []
+  },
+  {
+    "id": "midlineboardpickup",
+    "categories": [
+      "maps"
+    ],
+    "name": "Midline Board Pickup",
+    "subtitle": "",
+    "edito": "",
+    "about": "This map is inspired by a Jenkem article.",
+    "videos": []
+  },
+  {
+    "id": "quickfeet",
+    "categories": [
+      "maps"
+    ],
+    "name": "Quick Feet",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": []
+  },
+  {
+    "id": "stoked",
+    "categories": [
+      "maps"
+    ],
+    "name": "People Stoked ",
+    "subtitle": "",
+    "edito": "",
+    "about": "People trippin on Skateboarding..",
+    "videos": []
+  },
+  {
+    "id": "luge",
+    "categories": [
+      "maps"
+    ],
+    "name": "Luge",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=-kux7N6Ltao"
+    ]
+  },
+  {
+    "id": "ceiling",
+    "categories": [
+      "maps"
+    ],
+    "name": "Ceiling",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": []
+  },
+  {
+    "id": "glass",
+    "categories": [
+      "maps"
+    ],
+    "name": "Glass",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": []
+  },
+  {
+    "id": "fingerspot",
+    "categories": [
+      "maps"
+    ],
+    "name": "Finger Spots",
+    "subtitle": "",
+    "edito": "",
+    "about": "fingerboardspots.com",
+    "videos": []
+  },
+  {
+    "id": "deckaid",
+    "categories": [
+      "maps"
+    ],
+    "name": "Deckaid",
+    "subtitle": "",
+    "edito": "",
+    "about": "deckaid.org",
+    "videos": []
+  },
+  {
+    "id": "bakermaker",
+    "categories": [
+      "maps"
+    ],
+    "name": "Baker Maker",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": []
+  },
+  {
+    "id": "skatebnb",
+    "categories": [
+      "maps"
+    ],
+    "name": "SkateBnB",
+    "subtitle": "",
+    "edito": "",
+    "about": "skatebnbs.com",
+    "videos": []
+  },
+  {
+    "id": "takethetopo",
+    "categories": [
+      "maps"
+    ],
+    "name": "Take The Topo",
+    "subtitle": "",
+    "edito": "",
+    "about": "takethetopo.com",
+    "videos": []
+  },
+  {
+    "id": "chadsuter",
+    "categories": [
+      "maps"
+    ],
+    "name": "Chad Suter",
+    "subtitle": "",
+    "edito": "",
+    "about": "Chad is a filmmaker from Vista, California.",
+    "videos": []
+  },
+  {
+    "id": "antonthallner",
+    "categories": [
+      "maps"
+    ],
+    "name": "Anton Thallner",
+    "subtitle": "",
+    "edito": "",
+    "about": "antonthallner.com",
+    "videos": [
+      "https://www.youtube.com/watch?v=bZ_EEiTXUc0",
+      "https://www.youtube.com/watch?v=bdW19TOe5wI"
+    ]
+  },
+  {
+    "id": "greatestswitchtres",
+    "categories": [
+      "greatest"
+    ],
+    "name": "Greatest Switch Treflips",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": []
+  },
+  {
+    "id": "pogostick",
+    "categories": [
+      "maps"
+    ],
+    "name": "PogoStick",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=nHhp8DrEh7A",
+      "https://www.youtube.com/watch?v=KdGCeNPrJzE",
+      "https://www.youtube.com/watch?v=6AIc2Qwsgik",
+      "https://www.youtube.com/watch?v=mfbuJO5JalM"
+    ]
+  },
+  {
+    "id": "distributors",
+    "categories": [
+      "maps"
+    ],
+    "name": "Distributors",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": []
+  },
+  {
+    "id": "marcdonahue",
+    "categories": [
+      "maps"
+    ],
+    "name": "Marc Donahue",
+    "subtitle": "",
+    "edito": "",
+    "about": "Marc is playing with AI to bring us amazing artworks. You can also find him online as permagrinfilms. ",
+    "videos": []
+  },
+  {
+    "id": "timjanke",
+    "categories": [
+      "maps"
+    ],
+    "name": "Tim Janke",
+    "subtitle": "",
+    "edito": "",
+    "about": "Tim Janke is a skateboarder and artist from Berlin, Germany. He was born on October 7th, 1994.",
+    "videos": []
+  },
+  {
+    "id": "pepijndejonge",
+    "categories": [
+      "maps"
+    ],
+    "name": "Pepijn De Jonge",
+    "subtitle": "",
+    "edito": "",
+    "about": "Pepijn is an illustrator from Holland.",
+    "videos": []
+  },
+  {
+    "id": "magazines",
+    "categories": [
+      "maps"
+    ],
+    "name": "Magazines",
+    "subtitle": "",
+    "edito": "",
+    "about": "Headquarters of Skateboarding magazines.",
+    "videos": []
+  },
+  {
+    "id": "sketchymoments",
+    "categories": [
+      "maps"
+    ],
+    "name": "Sketchy Moments",
+    "subtitle": "",
+    "edito": "",
+    "about": "This map is based on a Jenkem article. Streets are wild!",
+    "videos": []
+  },
+  {
+    "id": "twiceinarow",
+    "categories": [
+      "maps"
+    ],
+    "name": "Twice In A Row",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": []
+  },
+  {
+    "id": "landedonefoot",
+    "categories": [
+      "maps"
+    ],
+    "name": "Landed One Foot",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": []
+  },
+  {
+    "id": "slams",
+    "categories": [
+      "maps"
+    ],
+    "name": "Slams",
+    "subtitle": "",
+    "edito": "",
+    "about": "This map is for all these clips of skaters eating shit.",
+    "videos": []
+  },
+  {
+    "id": "pheos",
+    "categories": [
+      "maps"
+    ],
+    "name": "Dan Pheos",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": []
+  },
+  {
+    "id": "skatewives",
+    "categories": [
+      "maps"
+    ],
+    "name": "Skate Wives",
+    "subtitle": "",
+    "edito": "",
+    "about": "The adventures of Emily and Ryan Herron.",
+    "videos": []
+  },
+  {
+    "id": "theskateboardingcrucible",
+    "categories": [
+      "maps"
+    ],
+    "name": "The Skateboarding Crucible",
+    "subtitle": "",
+    "edito": "",
+    "about": "All about retro skateboarding!",
+    "videos": []
+  },
+  {
+    "id": "manufacturers",
+    "categories": [
+      "maps"
+    ],
+    "name": "Manufacturers",
+    "subtitle": "",
+    "edito": "",
+    "about": "Skateboard manufacturers worldwide.",
+    "videos": []
+  },
+  {
+    "id": "skateableskateshops",
+    "categories": [
+      "maps"
+    ],
+    "name": "Skateable Skateshops",
+    "subtitle": "",
+    "edito": "",
+    "about": "Skateshops with stuff to skate.",
+    "videos": []
+  },
+  {
+    "id": "onlocation",
+    "categories": [
+      "maps"
+    ],
+    "name": "On Location",
+    "subtitle": "",
+    "edito": "",
+    "about": "A map for the Berrics video series called 'On location'.",
+    "videos": [
+      "https://www.youtube.com/watch?v=tzkb9ShEZU0",
+      "https://www.youtube.com/watch?v=BDiS6uT7cEM",
+      "https://www.youtube.com/watch?v=LkXCc8CzEbw",
+      "https://www.youtube.com/watch?v=eBbBB8DIo4M",
+      "https://www.youtube.com/watch?v=LOnG4G23gRU",
+      "https://www.youtube.com/watch?v=RNYCHqv8Isw",
+      "https://www.youtube.com/watch?v=Sl-O7WeGPqc",
+      "https://www.youtube.com/watch?v=-11sjipID4s",
+      "https://www.youtube.com/watch?v=QgbVpDzNJig",
+      "https://www.youtube.com/watch?v=0ROZ-jpOdTg",
+      "https://www.youtube.com/watch?v=Kjonhrq_cmU",
+      "https://www.youtube.com/watch?v=NEN5R32ynDw",
+      "https://www.youtube.com/watch?v=1mx6-adQy-4",
+      "https://www.youtube.com/watch?v=ATa2wExrRmI",
+      "https://www.youtube.com/watch?v=82-emXX0Mlo",
+      "https://www.youtube.com/watch?v=Egh1h_yNSDE",
+      "https://www.youtube.com/watch?v=2-Vod4APOvU",
+      "https://www.youtube.com/watch?v=QYb4LdRVItI",
+      "https://www.youtube.com/watch?v=nfYYGxjvRiw",
+      "https://www.youtube.com/watch?v=V6beg_r4Ol4"
+    ]
+  },
+  {
+    "id": "flipinflipout",
+    "categories": [
+      "maps"
+    ],
+    "name": "Flip In Flip Out",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": []
+  },
+  {
+    "id": "closinglines",
+    "categories": [
+      "maps"
+    ],
+    "name": "Closing Lines",
+    "subtitle": "",
+    "edito": "",
+    "about": "Just like we created a map for the opening lines in video parts, here is a map for the closing lines of parts that should be remembered.",
+    "videos": []
+  },
+  {
+    "id": "skateaid",
+    "categories": [
+      "maps"
+    ],
+    "name": "Skate Aid",
+    "subtitle": "",
+    "edito": "",
+    "about": "With the help of donations, skate-aid wants to support children worldwide in their development, sports, culture and international understanding.",
+    "videos": []
+  },
+  {
+    "id": "rickandmorty",
+    "categories": [
+      "maps"
+    ],
+    "name": "Rick & Morty",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": []
+  },
+  {
+    "id": "intheloupe",
+    "categories": [
+      "maps"
+    ],
+    "name": "In The Loupe",
+    "subtitle": "",
+    "edito": "",
+    "about": "Photographers and jewelers use loupes to get a better look at extremely fine details. In the 'In The Loupe' video series by The Berrics, photographers share the finer details about some of their jewels with us.",
+    "videos": [
+      "https://www.youtube.com/watch?v=SyPLOIyWqMs",
+      "https://www.youtube.com/watch?v=lnHwLzKDr1U",
+      "https://www.youtube.com/watch?v=NhsNYk78e64",
+      "https://www.youtube.com/watch?v=ahRLZ6Czh54"
+    ]
+  },
+  {
+    "id": "intransition",
+    "categories": [
+      "maps"
+    ],
+    "name": "In Transition",
+    "subtitle": "",
+    "edito": "",
+    "about": "In Transition is a tranny contest like no other, organised by The Berrics in 2014, 2015 and 2017.",
+    "videos": [
+      "https://www.youtube.com/watch?v=iY6sxmwoPwA",
+      "https://www.youtube.com/watch?v=3LFzYN6BkYA",
+      "https://www.youtube.com/watch?v=M72K53vKRxs",
+      "https://www.youtube.com/watch?v=5fPt6Mw1DyY",
+      "https://www.youtube.com/watch?v=Ue_gwXIPRF8",
+      "https://www.youtube.com/watch?v=vQ-Br9XXTj4",
+      "https://www.youtube.com/watch?v=zNUVOfRV_u0",
+      "https://www.youtube.com/watch?v=4Wpl35fbdyg",
+      "https://www.youtube.com/watch?v=JiDX5591B6k",
+      "https://www.youtube.com/watch?v=IVt5P01HPis",
+      "https://www.youtube.com/watch?v=2v6W2wCHIIo",
+      "https://www.youtube.com/watch?v=FpxBZwkSXPA",
+      "https://www.youtube.com/watch?v=t0svx-3gqhY",
+      "https://www.youtube.com/watch?v=RBtVsN1X5vA",
+      "https://www.youtube.com/watch?v=dfhxmEcRpBk",
+      "https://www.youtube.com/watch?v=iI31idnRu4w",
+      "https://www.youtube.com/watch?v=KoamZHfkosc",
+      "https://www.youtube.com/watch?v=oMKgrcGVt48",
+      "https://www.youtube.com/watch?v=TwrBGLwGjdE",
+      "https://www.youtube.com/watch?v=jmpNgRYVtPc",
+      "https://www.youtube.com/watch?v=2DbBY2PVGtQ",
+      "https://www.youtube.com/watch?v=0J90v8fgw1M"
+    ]
+  },
+  {
+    "id": "parkkiller",
+    "categories": [
+      "maps"
+    ],
+    "name": "Park Killer",
+    "subtitle": "",
+    "edito": "",
+    "about": "A map for the 'Park Killer' video series by The Berrics.",
+    "videos": [
+      "https://www.youtube.com/playlist?list=PLmxvVi4Ors7bXPPtqeWCE5C7NR6Y7hbWN"
+    ]
+  },
+  {
+    "id": "realskatestories",
+    "categories": [
+      "maps"
+    ],
+    "name": "Real Skate Stories",
+    "subtitle": "",
+    "edito": "",
+    "about": "Skateboarding History told by Tony Roberts.",
+    "videos": []
+  },
+  {
+    "id": "josephgarbaccio",
+    "categories": [
+      "skater"
+    ],
+    "name": "Joseph Garbaccio",
+    "subtitle": "",
+    "edito": "",
+    "about": "Joseph Garbaccio (born on April 1st, 1998) is originally from Le Havre in France. He won the Skateboarding French Championships 8 times.",
+    "videos": [
+      "https://www.youtube.com/watch?v=X9lnAxLJe7w",
+      "https://www.youtube.com/watch?v=vI8HFM8By8w"
+    ]
+  },
+  {
+    "id": "scarf",
+    "categories": [
+      "maps"
+    ],
+    "name": "Scarf",
+    "subtitle": "",
+    "edito": "",
+    "about": "Tricks with a scarf on, another map inspired by a post by Peter Grannis, AKA competer_programmis.",
+    "videos": []
+  },
+  {
+    "id": "wetspots",
+    "categories": [
+      "maps"
+    ],
+    "name": "Wet Spots",
+    "subtitle": "",
+    "edito": "",
+    "about": "Sometimes rain doesn't stop skateboarders to get their tricks..",
+    "videos": []
+  },
+  {
+    "id": "inthepark",
+    "categories": [
+      "maps"
+    ],
+    "name": "In The Park",
+    "subtitle": "",
+    "edito": "",
+    "about": "Creature Skateboards presents the 'In the park' video series.",
+    "videos": [
+      "https://www.youtube.com/playlist?list=PL2Tey3ulIQmtq4SGNEsOpyHiccFyPMCuj"
     ]
   }
 ]
