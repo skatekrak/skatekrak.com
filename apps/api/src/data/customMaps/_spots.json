@@ -11224,5 +11224,18 @@
     "edito": "",
     "about": "Sometimes rain doesn't stop skateboarders to get their tricks..",
     "videos": []
+  },
+  {
+    "id": "inthepark",
+    "categories": [
+      "maps"
+    ],
+    "name": "In The Park",
+    "subtitle": "",
+    "edito": "",
+    "about": "Creature Skateboards presents the 'In the park' video series.",
+    "videos": [
+      "https://www.youtube.com/playlist?list=PL2Tey3ulIQmtq4SGNEsOpyHiccFyPMCuj"
+    ]
   }
 ]
