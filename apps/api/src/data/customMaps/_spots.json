@@ -11300,5 +11300,19 @@
       "https://www.youtube.com/playlist?list=PLn1avb9oHwv9k4UQa4x0Bsq158rfFem90"
     ],
     "soundtrack": []
+  },
+  {
+    "id": "norewind",
+    "categories": [
+      "maps"
+    ],
+    "name": "Red Bull No Rewind",
+    "subtitle": "",
+    "edito": "",
+    "about": "A new skate video competition like no other. 4 Teams. 4 Rigged VX1000s. 60 Minutes of Tape. No Rewinds.",
+    "videos": [
+      "https://www.youtube.com/playlist?list=PLC36SNUcTH5S1JkYHaVGMag4shNpzqi26"
+    ],
+    "soundtrack": []
   }
 ]
