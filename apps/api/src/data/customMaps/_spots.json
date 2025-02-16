@@ -11326,5 +11326,17 @@
     "about": "Have a look at the real life skatespots you can skate in the videogame..",
     "videos": [],
     "soundtrack": []
+  },
+  {
+    "id": "session",
+    "categories": [
+      "maps"
+    ],
+    "name": "Session",
+    "subtitle": "",
+    "edito": "",
+    "about": "Have a look at the real life skatespots you can skate in the videogame..",
+    "videos": [],
+    "soundtrack": []
   }
 ]
