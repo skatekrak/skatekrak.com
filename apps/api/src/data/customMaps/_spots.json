@@ -11626,5 +11626,19 @@
     "about": "",
     "videos": [],
     "soundtrack": []
+  },
+  {
+    "id": "psl",
+    "categories": [
+      "maps"
+    ],
+    "name": "PSL",
+    "subtitle": "",
+    "edito": "",
+    "about": "Professional Skateboarding League - 8 of the best skaters in the world. 4 stacked teams. 3 matches. 2 Skaters Per Team. 1 champion. 0 Judges.",
+    "videos": [
+      "https://www.youtube.com/watch?v=O_oqK69Mook"
+    ],
+    "soundtrack": []
   }
 ]
