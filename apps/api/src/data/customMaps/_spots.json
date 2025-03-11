@@ -11840,5 +11840,17 @@
       "https://www.youtube.com/watch?v=v_3xETIgoss"
     ],
     "soundtrack": []
+  },
+  {
+    "id": "streetboard",
+    "categories": [
+      "maps"
+    ],
+    "name": "Streetboard",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [],
+    "soundtrack": []
   }
 ]
