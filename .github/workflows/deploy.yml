@@ -3,6 +3,7 @@ name: Deploy
 on:
     push:
         branches: [main]
+    workflow_dispatch:
 
 env:
     NEXT_PUBLIC_BUGSNAG_KEY: ${{ secrets.NEXT_PUBLIC_BUGSNAG_KEY }}
