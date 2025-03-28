@@ -18,4 +18,5 @@ export interface CustomMap {
     about: string;
     videos: string[];
     staging: boolean;
+    soundtrack: string[];
 }

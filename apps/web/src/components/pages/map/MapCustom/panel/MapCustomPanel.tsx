@@ -13,7 +13,7 @@ import { useInfiniteMedias } from '@/shared/feudartifice/hooks/media';
 import { KrakLoading } from '@/components/Ui/Icons/Spinners';
 import InfiniteScroll from 'react-infinite-scroller';
 
-export type MapCustomPanelTabs = 'media' | 'video' | 'spots';
+export type MapCustomPanelTabs = 'media' | 'video' | 'spots' | 'soundtrack';
 
 type MapCustomPanelProps = {
     map: CustomMap;
@@ -179,7 +179,7 @@ const MapCustomPanel = ({ map, spots }: MapCustomPanelProps) => {
                                 ) : (
                                     <>
                                         {/** Tabs */}
-                                        <div className="flex gap-6 justify-center flex-wrap my-8 px-6">
+                                        <div className="flex gap-x-6 gap-y-4 justify-center flex-wrap my-8 px-6">
                                             {medias && medias.length > 0 && (
                                                 <Tab
                                                     title="media"
@@ -201,6 +201,13 @@ const MapCustomPanel = ({ map, spots }: MapCustomPanelProps) => {
                                                     isActive={openTab === 'spots'}
                                                 />
                                             )}
+                                            {map.soundtrack.length > 0 && (
+                                                <Tab
+                                                    title="soundtrack"
+                                                    onClick={() => setOpenTab('soundtrack')}
+                                                    isActive={openTab === 'soundtrack'}
+                                                />
+                                            )}
                                         </div>
                                         <div className="grow flex flex-col gap-6 px-6 pb-8">
                                             <Content
@@ -208,6 +215,7 @@ const MapCustomPanel = ({ map, spots }: MapCustomPanelProps) => {
                                                 spots={spots}
                                                 medias={medias ?? []}
                                                 videos={map.videos}
+                                                soundtrack={map.soundtrack}
                                             />
                                             {isFetchingNextPage && <KrakLoading />}
                                         </div>

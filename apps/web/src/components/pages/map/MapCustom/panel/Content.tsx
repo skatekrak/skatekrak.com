@@ -14,9 +14,10 @@ type Props = {
     videos: string[];
     spots: Spot[];
     medias: Media[];
+    soundtrack: string[];
 };
 
-const Content = ({ videos, spots, activeTab, medias }: Props) => {
+const Content = ({ videos, spots, activeTab, medias, soundtrack }: Props) => {
     const [, selectSpot] = useSpotID();
     const { current: currentMap } = useMap();
 
@@ -25,6 +26,20 @@ const Content = ({ videos, spots, activeTab, medias }: Props) => {
     }
     if (activeTab === 'video' && videos.length > 0) {
         return videos.map((video) => <VideoPlayer key={video} url={video} controls />);
+    }
+    if (activeTab === 'soundtrack' && soundtrack.length > 0) {
+        return (
+            <ul className="flex flex-col gap-4 py-4 items-center">
+                {soundtrack.map((track) => (
+                    <>
+                        <li key={track} className="text-sm text-center">
+                            {track}
+                        </li>
+                        <div className="h-px w-16 bg-onDark-placeholder last-of-type:hidden" />
+                    </>
+                ))}
+            </ul>
+        );
     }
     if (activeTab === 'spots' && spots.length > 0) {
         return (

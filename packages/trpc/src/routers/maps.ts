@@ -29,6 +29,7 @@ interface CustomMap {
     about: string;
     videos: string[];
     staging: boolean;
+    soundtrack: string[];
 }
 
 let loadedMaps: CustomMap[] = [];
@@ -54,6 +55,7 @@ const loadMaps = t.middleware(async (opts) => {
                         (category) => CustomMapCategory[category as unknown as keyof typeof CustomMapCategory],
                     ),
                     staging: false,
+                    soundtrack: map.soundtrack || [],
                 };
             });
     }
