@@ -1,14 +1,14 @@
 import { useState } from 'react';
 import Tippy from '@tippyjs/react/headless';
 
-import * as S from './Header.styled';
 import IconDotsThreeVertical from '@/components/Ui/Icons/IconDotsThreeVertical';
-import Typography from '@/components/Ui/typography/Typography';
 import { PATH_CALL_TO_ADVENTURE } from '@/pages/call-to-adventure';
 import IconTwitter from '@/components/Ui/Icons/Logos/IconTwitter';
 import IconInstagram from '@/components/Ui/Icons/Logos/IconInstagram';
 import IconYoutubeMonochrome from '@/components/Ui/Icons/Logos/IconYoutubeMonochrome';
 import { useSettingsStore } from '@/store/settings';
+import { NavSocialIconLink, NavSocialIconSeparator } from '@/components/Header/components';
+import Link from 'next/link';
 
 export const HeaderThreeDotsMenu = () => {
     const isMobile = useSettingsStore((state) => state.isMobile);
@@ -22,55 +22,55 @@ export const HeaderThreeDotsMenu = () => {
             interactive
             placement="bottom"
             render={() => (
-                <S.ThreeDotMenu>
-                    <S.ThreeDotMenuItem
-                        target="_bank"
+                <div className="min-width-[10rem] flex flex-col gap-2 mt-1 p-2 rounded bg-tertiary-dark border border-tertiary-medium box-shadow-onDark-highSharp">
+                    <Link
+                        className="block max-md:p-4 py-2 px-4 rounded hover:bg-tertiary-medium"
+                        target="_blank"
                         rel="noopener noreferrer"
                         href="https://opencollective.com/opensb/projects/krakmap"
                     >
-                        <Typography as="span" component="body1">
-                            Support
-                        </Typography>
-                    </S.ThreeDotMenuItem>
+                        Support
+                    </Link>
 
-                    <S.ThreeDotMenuItem href={PATH_CALL_TO_ADVENTURE}>
-                        <Typography as="span" component="body1">
-                            Call to Adventure
-                        </Typography>
-                    </S.ThreeDotMenuItem>
+                    <Link
+                        className="block max-md:p-4 py-2 px-4 rounded hover:bg-tertiary-medium"
+                        href={PATH_CALL_TO_ADVENTURE}
+                    >
+                        Call to Adventure
+                    </Link>
                     {isMobile && (
-                        <S.ThreeDotMenuSocialContainer>
-                            <S.SecondaryNavSocialIcon
+                        <div className="flex items-center justify-between pt-2 px-3 pb-1">
+                            <NavSocialIconLink
                                 href="https://www.twitter.com/skatekrak"
                                 target="_blank"
                                 rel="noopener noreferrer"
                             >
                                 <IconTwitter />
-                            </S.SecondaryNavSocialIcon>
-                            <S.SecondaryNavIconSeparator />
-                            <S.SecondaryNavSocialIcon
+                            </NavSocialIconLink>
+                            <NavSocialIconSeparator />
+                            <NavSocialIconLink
                                 href="https://www.youtube.com/krakskate"
                                 target="_blank"
                                 rel="noopener noreferrer"
                             >
                                 <IconYoutubeMonochrome />
-                            </S.SecondaryNavSocialIcon>
-                            <S.SecondaryNavIconSeparator />
-                            <S.SecondaryNavSocialIcon
+                            </NavSocialIconLink>
+                            <NavSocialIconSeparator />
+                            <NavSocialIconLink
                                 href="https://www.instagram.com/skate_krak"
                                 target="_blank"
                                 rel="noopener noreferrer"
                             >
                                 <IconInstagram />
-                            </S.SecondaryNavSocialIcon>
-                        </S.ThreeDotMenuSocialContainer>
+                            </NavSocialIconLink>
+                        </div>
                     )}
-                </S.ThreeDotMenu>
+                </div>
             )}
         >
-            <S.SecondaryNavIconButton onClick={handleMenuOpen}>
+            <button className="flex flex-shrink-0 p-3" onClick={handleMenuOpen}>
                 <IconDotsThreeVertical />
-            </S.SecondaryNavIconButton>
+            </button>
         </Tippy>
     );
 };

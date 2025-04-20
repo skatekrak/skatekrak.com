@@ -154,6 +154,7 @@ type TypographyProps = {
     className?: string;
     as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'span' | 'strong';
     component?: Component;
+    title?: string;
 };
 
 const Typography: React.FC<TruncateTextProps & TypographyProps & { children: React.ReactNode }> = ({
@@ -161,12 +162,14 @@ const Typography: React.FC<TruncateTextProps & TypographyProps & { children: Rea
     truncateLines: $truncateLines,
     as,
     component: $component,
+    title,
     children,
 }) => (
     <StyledTypography
         as={as}
         $truncateLines={$truncateLines}
         $component={$component !== undefined ? $component : 'body1'}
+        title={title}
         className={`ui-Typography ${className}`}
     >
         {children}
