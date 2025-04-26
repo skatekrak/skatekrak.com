@@ -26,6 +26,10 @@ jobs:
         runs-on: ubuntu-latest
         needs: [lint]
         steps:
+            - uses: oven-sh/setup-bun@v1
+              with:
+                  bun-version: 1.2.10
+            - run: bun install --frozen-lockfile
             - uses: actions/checkout@v4
             - name: Install Vercel CLI
               run: bun add --global vercel@latest
