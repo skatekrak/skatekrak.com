@@ -50,11 +50,11 @@ env:
 
 jobs:
     create_map:
+        permissions:
+            contents: write
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v4
-              with:
-                  token: ${{ secrets.REPO_PAT }}
             - uses: oven-sh/setup-bun@v1
               with:
                   bun-version: 1.1.6
@@ -73,7 +73,7 @@ jobs:
               uses: EndBug/add-and-commit@v9
               with:
                   add: "['./apps/api/src/data/customMaps/_spots.json']"
-                  default_author: user_info
+                  default_author: github_actor
                   message: 'feat: Add new ${{ inputs.tag }} map'
             - run: bun install --frozen-lockfile
             - run: bun lint
