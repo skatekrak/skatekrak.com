@@ -77,11 +77,3 @@ jobs:
                   add: "['./apps/api/src/data/customMaps/_spots.json']"
                   default_author: github_actor
                   message: 'feat: Add new ${{ inputs.tag }} map'
-            - run: bun install --frozen-lockfile
-            - run: bun lint
-            - name: Install Vercel CLI
-              run: bun add --global vercel@latest
-            - name: Pull Vercel Environment Information
-              run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
-            - name: Deploy Project Artifacts to Vercel
-              run: vercel deploy --prod --token=${{ secrets.VERCEL_TOKEN }}
