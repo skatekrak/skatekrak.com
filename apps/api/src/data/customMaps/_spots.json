@@ -12053,5 +12053,28 @@
       "Focus (Petr Horvat): Cappadonna",
       "Outro: Al Green - I Can't Stop"
     ]
+  },
+  {
+    "id": "puzzle24",
+    "categories": [
+      "video"
+    ],
+    "name": "Puzzle 24",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=rX7WUe31pM4",
+      "https://www.youtube.com/watch?v=vIn9slFyceI",
+      "https://www.youtube.com/watch?v=YpcVSjwr59c",
+      "https://www.youtube.com/watch?v=XPFeJ0TSHdo"
+    ],
+    "soundtrack": [
+      "Jumble: Cedric Im Brooks & The Light Of Saba - Sabasi",
+      "Focus: Looptroop - Don't Hate The Player",
+      "Event - Melbourne in Australia: The Cats Get Remixed - Bushy Don't Mind If I Do",
+      "Focus: Diverse - 747 (Flyin)",
+      "Guys: Placebo - Daddy Cool"
+    ]
   }
 ]
