@@ -11999,5 +11999,36 @@
       "Holland: Utrecht: Jay-Z - Dead Presidents II",
       "outro / credits: Wyclef Jean - Guantanamera"
     ]
+  },
+  {
+    "id": "puzzle02",
+    "categories": [
+      "video"
+    ],
+    "name": "Puzzle 02",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=5PovaUA-mc4",
+      "https://www.youtube.com/watch?v=n8-1AVrvDKg",
+      "https://www.youtube.com/watch?v=wY7RQ9s44Ek",
+      "https://www.youtube.com/watch?v=je0bGmQfkOo"
+    ],
+    "soundtrack": [
+      "Intro: Portishead - Sheared Box",
+      "Wood: German",
+      "France & Belgium: Supersuckers - Coattail Rider",
+      "Report: London England: EPMD - Never Seen Before",
+      "Event: Board Aid- Andermatt Switzerland: Larry Ridley - Well You Needn't",
+      "Commercial: Cornershop - Butter the Soul",
+      "Shop: Street Machine Paris: ?",
+      "Event: Glissexpo Anglet - Paris France - Street: ?",
+      "Event: Glissexpo Anglet - Paris France - Vert: The Greyboy Allstars - Fire-Eater",
+      "Report: Stuttgart Germany: Gang Starr - You Know My Steez",
+      "Film: Edited by Sugar Skateboard Magazine: Yo La Tengo - Center of Gravity",
+      "Report: France-Geneva Switerland-Belgium: Rakim - It's Been A Long Time",
+      "Slams / credits: Tom Scott - Gotcha"
+    ]
   }
 ]
