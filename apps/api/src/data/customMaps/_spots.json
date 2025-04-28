@@ -12026,5 +12026,32 @@
       "Report: France-Geneva Switerland-Belgium: Rakim - It's Been A Long Time",
       "Slams / credits: Tom Scott - Gotcha"
     ]
+  },
+  {
+    "id": "puzzle23",
+    "categories": [
+      "video"
+    ],
+    "name": "Puzzle 23",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=2PlChF_mgNs",
+      "https://www.youtube.com/watch?v=bS2c_K3ubzg",
+      "https://www.youtube.com/watch?v=3G0azZcVHNI",
+      "https://www.youtube.com/watch?v=zOzNbpoOAFE",
+      "https://www.youtube.com/watch?v=js98n1M5YUI"
+    ],
+    "soundtrack": [
+      "Intro: TGM",
+      "Jumble: Grandaddy - The Crystal Lake",
+      "Kids: Al Green - I've Been Waitin' On You",
+      "Event (Montpellier/Turino): RJD2 - Smoke And Mirrors",
+      "Tour (Platinum In France): Dream Evil - The Prophecy",
+      "Jumble: Charizma & Peanut Butter Wolf - Devotion",
+      "Focus (Petr Horvat): Cappadonna",
+      "Outro: Al Green - I Can't Stop"
+    ]
   }
 ]
