@@ -12154,5 +12154,30 @@
       "Guys #2: RJD2 - Good Times Roll (part 2)",
       "Credits: ?"
     ]
+  },
+  {
+    "id": "puzzle17",
+    "categories": [
+      "video"
+    ],
+    "name": "Puzzle 17",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=HVAyQWLIJcY",
+      "https://www.youtube.com/watch?v=m3e5aAjenBA",
+      "https://www.youtube.com/watch?v=nz6Po2EQGOA",
+      "https://www.youtube.com/watch?v=zy6buK9Ia7o"
+    ],
+    "soundtrack": [
+      "Intro: Killa Carltoon/Soom Soom",
+      "Jumble: Xploding Plastix - Sports Not Heavy Crime",
+      "Osiris in Portugal Spain: Blak Twang - Vow",
+      "Germany Denmark Norway: Biffy Clyro - 57",
+      "Teenage Tour (France): J-Live - Satisfied?",
+      "Event: Last Days Of April - Too Close",
+      "Credits: Luna - Lovedust"
+    ]
   }
 ]
