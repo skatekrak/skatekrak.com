@@ -12363,5 +12363,21 @@
       "Thibaud Fradin/Korahn Gayle: Protassov & Kinski - Eastern",
       "Guy Kampfen (1999): Deela - Heartbreaker"
     ]
+  },
+  {
+    "id": "puzzle47",
+    "categories": [
+      "video"
+    ],
+    "name": "Puzzle 47",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=E9vxeanFFFg",
+      "https://www.youtube.com/watch?v=vXHRo6CvddQ",
+      "https://www.youtube.com/watch?v=rQurNKGcBlc"
+    ],
+    "soundtrack": []
   }
 ]
