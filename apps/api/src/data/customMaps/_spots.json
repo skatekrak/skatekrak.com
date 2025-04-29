@@ -12102,5 +12102,31 @@
       "Element in Barcelona: TGM - Infinity 2.0 (feat. Shella Gatwright)",
       "Credits: M83 - Run Into Flowers"
     ]
+  },
+  {
+    "id": "puzzle21",
+    "categories": [
+      "video"
+    ],
+    "name": "Puzzle 21",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=W8S1GC8WtLw",
+      "https://www.youtube.com/watch?v=TSNljfYMGyY",
+      "https://www.youtube.com/watch?v=PZpKd0OkGj8",
+      "https://www.youtube.com/watch?v=u6Lzft9wPaM"
+    ],
+    "soundtrack": [
+      "Intro/animations: TGM - You Decide",
+      "Alis in Scandinavia: State Of The World - Keep Steppin",
+      "Jumble: Aceyalone - The Take Off",
+      "Etnies European Open: The Postal Service - Brand New Colony",
+      "Guys #1: Manitoba - Thistles And Felt",
+      "Guys #2: The Postal Service - Such Great Heights",
+      "Sole Tech/Element tours: Karlito - Contenu Sous Pression",
+      "Outro: Imitation Electric Piano - Dont Tell Me Im Wrong"
+    ]
   }
 ]
