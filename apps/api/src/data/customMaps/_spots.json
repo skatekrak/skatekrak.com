@@ -12341,5 +12341,27 @@
       "Samu Karvonen #2: El Perro del Mar - Glory To The World",
       "Globe World Cup Skateboarding 2005: Wild Sweet Orange - Ten Dead Dogs"
     ]
+  },
+  {
+    "id": "puzzle41",
+    "categories": [
+      "video"
+    ],
+    "name": "Puzzle 41",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=1k4B2rDgVI0",
+      "https://www.youtube.com/watch?v=scTCFkiwQ2o",
+      "https://www.youtube.com/watch?v=BsUXR9fdZLk"
+    ],
+    "soundtrack": [
+      "Intro: Deela - Mountains & Stars",
+      "C1rca Europe in Greece: Kabanjak - Clap Your Hands",
+      "Globe in Denmark and Germany: Protassov - Steam & Oil",
+      "Thibaud Fradin/Korahn Gayle: Protassov & Kinski - Eastern",
+      "Guy Kampfen (1999): Deela - Heartbreaker"
+    ]
   }
 ]
