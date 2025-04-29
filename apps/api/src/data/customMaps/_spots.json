@@ -12179,5 +12179,30 @@
       "Event: Last Days Of April - Too Close",
       "Credits: Luna - Lovedust"
     ]
+  },
+  {
+    "id": "puzzle15",
+    "categories": [
+      "video"
+    ],
+    "name": "Puzzle 15",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=Un0AGPraDlo",
+      "https://www.youtube.com/watch?v=7FnFUs7PzTA",
+      "https://www.youtube.com/watch?v=vho3-m_OU1o"
+    ],
+    "soundtrack": [
+      "Intro: Killa Carltoon/Soom Soom",
+      "Jumble 1: Mike Ladd - Music For Tanks",
+      "Marcos Gomez: Family Tree - Elements Of Style",
+      "London Barcelona: Beige GT - Zoo",
+      "Thomas Kahlbom & Carl Edvard Heisholdt: Diaz - I Come To Collect",
+      "Cliché tour: Kids Indestructible - Gooom Tracks",
+      "Jumble 2: II Ceo - Funk Cut",
+      "Credits: The Bees - Punchbag"
+    ]
   }
 ]
