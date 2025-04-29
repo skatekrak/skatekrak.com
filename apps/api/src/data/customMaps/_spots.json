@@ -12204,5 +12204,28 @@
       "Jumble 2: II Ceo - Funk Cut",
       "Credits: The Bees - Punchbag"
     ]
+  },
+  {
+    "id": "puzzle18",
+    "categories": [
+      "video"
+    ],
+    "name": "Puzzle 18",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=KsRUGA_2O80",
+      "https://www.youtube.com/watch?v=vchsNIoUiOM",
+      "https://www.youtube.com/watch?v=FW-U9I6vUuY"
+    ],
+    "soundtrack": [
+      "Intro: Killa Carltoon/Soom Soom",
+      "Jumble: M83 - Night",
+      "One Week With Jean Postec: Asian Dub Foundation - Riddim I Like",
+      "Event - Marseille Bowlriders & Prague Mystic Cup: Interpol - Untitled",
+      "5 Guys: Dwayne Sodahberk - Devoiced",
+      "Ending: Nada Surf - Happy Kid"
+    ]
   }
 ]
