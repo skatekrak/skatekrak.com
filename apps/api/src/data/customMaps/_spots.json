@@ -12076,5 +12076,31 @@
       "Focus: Diverse - 747 (Flyin)",
       "Guys: Placebo - Daddy Cool"
     ]
+  },
+  {
+    "id": "puzzle20",
+    "categories": [
+      "video"
+    ],
+    "name": "Puzzle 20",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=LDDQNnMnmhQ",
+      "https://www.youtube.com/watch?v=b39WzxZjTFg",
+      "https://www.youtube.com/watch?v=niK64JWc0I8",
+      "https://www.youtube.com/watch?v=G1kzSlDmjLI"
+    ],
+    "soundtrack": [
+      "Jumble: Now'n Later Vs Nemless - The Wheight",
+      "Adrenalin Skatepark opening: Langhorns - Camel Ride",
+      "Focus - Sebastian Hepp: Radio 4 - Dance To The Underground",
+      "Guys #1: M83 - America",
+      "Guys #2: Lil Dap - Got It",
+      "Got It",
+      "Element in Barcelona: TGM - Infinity 2.0 (feat. Shella Gatwright)",
+      "Credits: M83 - Run Into Flowers"
+    ]
   }
 ]
