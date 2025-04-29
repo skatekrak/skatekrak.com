@@ -12128,5 +12128,31 @@
       "Sole Tech/Element tours: Karlito - Contenu Sous Pression",
       "Outro: Imitation Electric Piano - Dont Tell Me Im Wrong"
     ]
+  },
+  {
+    "id": "puzzle22",
+    "categories": [
+      "video"
+    ],
+    "name": "Puzzle 22",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=rmpRLgDSmY8",
+      "https://www.youtube.com/watch?v=U1k822MvUno",
+      "https://www.youtube.com/watch?v=4fMzhvP8IsI",
+      "https://www.youtube.com/watch?v=CBFNiCgUsQI"
+    ],
+    "soundtrack": [
+      "Jumble: Akrobatik - Front Steps",
+      "Giorgio Zattoni: Lacuna Coil - Heaven's A Lie",
+      "Aeon in Europe: F & B - Savana",
+      "Event: RJD2 - Smokes And Mirrors",
+      "Billabong/Volcom tours: ASG - Painted Hatred",
+      "Guys #1: RJD2 - Work",
+      "Guys #2: RJD2 - Good Times Roll (part 2)",
+      "Credits: ?"
+    ]
   }
 ]
