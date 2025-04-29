@@ -12517,5 +12517,38 @@
       "Tour: Gonzo Tour - France-Spain: The Big Cheese Allstars - Cheese Omelette",
       "Credits: The Big Jullen and His Allstars - Crescendo"
     ]
+  },
+  {
+    "id": "puzzle04",
+    "categories": [
+      "video"
+    ],
+    "name": "Puzzle 04",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=cwvjyPGRMVw",
+      "https://www.youtube.com/watch?v=T1vHAZCmdU8",
+      "https://www.youtube.com/watch?v=zYRZMxx1EV8"
+    ],
+    "soundtrack": [
+      "Intro: ?",
+      "Jumble: Europe: Bhudda Simpson - Sumbarine Fears",
+      "Event: Etnies Cup Copenhagen & Mystic Skate Prague: Undeclinable Ambuscade - Vagabond",
+      "Commercial #1: King Kooba - Freakmeister",
+      "Commercial #2: Billy cobham - Stratus",
+      "Event: Grand Pix Lausanne Switzerland: The Big Cheese And The Allstars - Prawns",
+      "Company: V7 Distribution #1: Rawcotiks - Hardcore Hip-Hop",
+      "Company: V7 Distribution #2: Lee Perry - I Love You",
+      "Tour: Vans Tour IT '98: Mama Mystique & Q-Ball & Curt Cazal - Tremendous",
+      "Event: Attitude '98 - Montpellier France: De Heideroosjes - Smile... You're Dying!",
+      "Tour: Lordz Summer Tour '98: Sabat X & R.A. The Rugged Man - 50 000 Heads",
+      "Commercial: Funk Crime - Dans Ma Jeep",
+      "Event: Münster Monster Mastership: Kenny Dope Gonzales - Get On Down",
+      "Report: Berlin",
+      "Germany: Big Jaz feat. Sauce Money & Tone Hooker - Foundation",
+      "Credits: Hosny Bronx & Good Morning Babylones - No War No Discrimination"
+    ]
   }
 ]
