@@ -12489,5 +12489,33 @@
       "Manolo Robles: Mr Flash - Over The Top",
       "Stephane Larance (2000): ?"
     ]
+  },
+  {
+    "id": "puzzle03",
+    "categories": [
+      "video"
+    ],
+    "name": "Puzzle 03",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=NuHENwwsSRI",
+      "https://www.youtube.com/watch?v=Pc3tCY9C8Tc",
+      "https://www.youtube.com/watch?v=5bZgnpb3c7g",
+      "https://www.youtube.com/watch?v=duJJs9nSVKg"
+    ],
+    "soundtrack": [
+      "Jumble: Düne - On Ne Vit qu' Une Fois",
+      "Report: London England: The Meateaters - Meatteater",
+      "Commercial: EPMD - Da Joint",
+      "Event: Annecy France: Sausage Biscuit - Fast Lane",
+      "Tour: Etnies/Lordz/World Industries: Good Morning Babylones - Sing For Love London",
+      "Wood: DJ Rico - DJ Rico",
+      "Report: Lyon France: DJ Rico - ?",
+      "Event: Bochum & Munich Germany: Sausage Biscuit - Gust",
+      "Tour: Gonzo Tour - France-Spain: The Big Cheese Allstars - Cheese Omelette",
+      "Credits: The Big Jullen and His Allstars - Crescendo"
+    ]
   }
 ]
