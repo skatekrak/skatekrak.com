@@ -12227,5 +12227,26 @@
       "5 Guys: Dwayne Sodahberk - Devoiced",
       "Ending: Nada Surf - Happy Kid"
     ]
+  },
+  {
+    "id": "puzzle48",
+    "categories": [
+      "video"
+    ],
+    "name": "Puzzle 48",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=i98NDIGuvHw",
+      "https://www.youtube.com/watch?v=DElQ_NRjT9I"
+    ],
+    "soundtrack": [
+      "Intro: Framesworks - Masterdigital First Step",
+      "Jumble: Kaleb Brown - Strange Dreams",
+      "Zev van Sluysdam: Eggplant Mustafa & Mafugio Mafungo - Exclamatory Reaction",
+      "Derek Fukuhara: Frameworks - First Step",
+      "Outro: John Kennedy - Boom Clack"
+    ]
   }
 ]
