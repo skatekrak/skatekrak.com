@@ -12869,5 +12869,34 @@
       "Guys : Roots Manuva - Too Cold",
       "Outro : Eedio - A75 05h49"
     ]
+  },
+  {
+    "id": "puzzle07",
+    "categories": [
+      "video"
+    ],
+    "name": "Puzzle 07",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=GuPIPYbdyr8",
+      "https://www.youtube.com/watch?v=y2_diO5xJdE",
+      "https://www.youtube.com/watch?v=K-jSYR2R3Xo",
+      "https://www.youtube.com/watch?v=OIM2V4V4Eqw"
+    ],
+    "soundtrack": [
+      "Focus: Mark Shanner (England): Hocus Pocus - ?",
+      "Event: Radlands (Northampton",
+      "England): Hocus Pocus - ?",
+      "Report: Vienna Austria: Rasco ft. Planet Asia - How Many K's",
+      "Event: Mystic Cup - Prague Czech Republic: All Systems Go - All I Want",
+      "Event: Münster Monster Mastership (Vert) - Dortmund Germany: Dub Club - Vol.1",
+      "Event: Münster Monster Mastership (Street) - Dortmund Germany: Layton - Another Place",
+      "Focus: Guy Kämpfen Switzerland: Daryl Halls & John Oates - Marygold Sky",
+      "World: England Belgium France & Germany: Lootpack - Long awaited",
+      "Commercial: Big Daddy Kane - Definitey",
+      "Event: Glissexpo - Anglet France: Yaya! - Mal En Mar"
+    ]
   }
 ]
