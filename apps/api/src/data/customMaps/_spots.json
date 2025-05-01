@@ -12634,5 +12634,22 @@
       "Untitled Section: Superrappin - Games Dames In Automobiles",
       "Untitled Section: Superrappin - Natural On Top"
     ]
+  },
+  {
+    "id": "puzzle09",
+    "categories": [
+      "video"
+    ],
+    "name": "Puzzle 09",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=XQCA3_6cdIw",
+      "https://www.youtube.com/watch?v=_UuzXcEXsAY",
+      "https://www.youtube.com/watch?v=hKBYU9qexpY",
+      "https://www.youtube.com/watch?v=dC_3Ka8IYPk"
+    ],
+    "soundtrack": []
   }
 ]
