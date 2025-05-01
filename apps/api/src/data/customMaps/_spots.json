@@ -12736,5 +12736,22 @@
       "https://www.youtube.com/watch?v=Em4VRicDJj8"
     ],
     "soundtrack": []
+  },
+  {
+    "id": "puzzle19",
+    "categories": [
+      "video"
+    ],
+    "name": "Puzzle 19",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=KRGWCTCu4Hg",
+      "https://www.youtube.com/watch?v=8f0A6gr2W04",
+      "https://www.youtube.com/watch?v=S_xDVYZtm9Q",
+      "https://www.youtube.com/watch?v=yCBEHUcYask"
+    ],
+    "soundtrack": []
   }
 ]
