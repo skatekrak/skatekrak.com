@@ -12898,5 +12898,30 @@
       "Commercial: Big Daddy Kane - Definitey",
       "Event: Glissexpo - Anglet France: Yaya! - Mal En Mar"
     ]
+  },
+  {
+    "id": "puzzle11",
+    "categories": [
+      "video"
+    ],
+    "name": "Puzzle 11",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=6duLjkaZaP0",
+      "https://www.youtube.com/watch?v=TUGHX9f5hO4",
+      "https://www.youtube.com/watch?v=eOZEYfE4laA",
+      "https://www.youtube.com/watch?v=CX5OJcAuebs"
+    ],
+    "soundtrack": [
+      "Check Out - Thibaud Fradin: Fradin' Brothers - ?",
+      "World: (Sweden Italy France Germany and Denmark): The Mission (feat. DJ Mr Thing / The Music (feat. El D Sense) - ?",
+      "Event: (Etnies Cup Emerica Cup and Vans Contest): IV my People - Brekbeat vol.2",
+      "Check Out: Christin Bomholt: Six by Seven - New Year",
+      "World: Switzerland: Pork - Quartehead",
+      "Check Out: Love Eneroth & Jons Sohn: Pork - Lets Pretend Desperate",
+      "World: (Norway Austria and Spain): Diskin - Dogpile"
+    ]
   }
 ]
