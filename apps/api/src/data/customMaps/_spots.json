@@ -12770,5 +12770,32 @@
       "https://www.youtube.com/watch?v=xDvh0EUD3gc"
     ],
     "soundtrack": []
+  },
+  {
+    "id": "puzzle26",
+    "categories": [
+      "video"
+    ],
+    "name": "Puzzle 26",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=kIC5brTzu3c",
+      "https://www.youtube.com/watch?v=8Oi06fqOa80",
+      "https://www.youtube.com/watch?v=tiq_kNmfA98",
+      "https://www.youtube.com/watch?v=lrCyJ4mPHxs",
+      "https://www.youtube.com/watch?v=5yCGRKW8ELE"
+    ],
+    "soundtrack": [
+      "Jumble: The Rapture - Sister Saviour",
+      "Guys: Interpol - Narc",
+      "Event: M83 - A Guitar And A Heart",
+      "Alis in Czech Republic: Looptroop - Revolutionary Step",
+      "Focus: Eero Anttila: Ed Og Masta Ace & Common - Boulevard Connection",
+      "Credits: M83 - Moonchild",
+      "Picnic Table Contest #1: M83 - I Guess I'm Floating",
+      "Picnic Table Contest #2: M83 - Teen Angst"
+    ]
   }
 ]
