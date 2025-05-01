@@ -12651,5 +12651,22 @@
       "https://www.youtube.com/watch?v=dC_3Ka8IYPk"
     ],
     "soundtrack": []
+  },
+  {
+    "id": "puzzle10",
+    "categories": [
+      "video"
+    ],
+    "name": "Puzzle 10",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=dFBl1cs9cDk",
+      "https://www.youtube.com/watch?v=WcsGYwj4_NM",
+      "https://www.youtube.com/watch?v=8avEVAhJvZk",
+      "https://www.youtube.com/watch?v=bwqsr1PIJEY"
+    ],
+    "soundtrack": []
   }
 ]
