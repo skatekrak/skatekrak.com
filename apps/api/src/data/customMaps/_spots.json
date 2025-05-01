@@ -12668,5 +12668,22 @@
       "https://www.youtube.com/watch?v=bwqsr1PIJEY"
     ],
     "soundtrack": []
+  },
+  {
+    "id": "puzzle12",
+    "categories": [
+      "video"
+    ],
+    "name": "Puzzle 12",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=zpV0GYRUACs",
+      "https://www.youtube.com/watch?v=FEY7gEVBtxI",
+      "https://www.youtube.com/watch?v=7FkdLni9j08",
+      "https://www.youtube.com/watch?v=KMks7XZUj5E"
+    ],
+    "soundtrack": []
   }
 ]
