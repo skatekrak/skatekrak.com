@@ -12607,5 +12607,32 @@
       "Report: Lake France & Geneva Switzerland: Kilo - Pigeonhole",
       "Tour: Lordz - Spain: Strange Brew - Dream Theory"
     ]
+  },
+  {
+    "id": "puzzle08",
+    "categories": [
+      "video"
+    ],
+    "name": "Puzzle 08",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=j85xeOWLz-U",
+      "https://www.youtube.com/watch?v=crepvs-Q78g",
+      "https://www.youtube.com/watch?v=KG6iFQGA3Ok",
+      "https://www.youtube.com/watch?v=YeRGEPi1fvY",
+      "https://www.youtube.com/watch?v=7Lb875T8Phw"
+    ],
+    "soundtrack": [
+      "Untitled Section: Lootpack - Wanna Test",
+      "Untitled Section: Tek 9 - Teknology",
+      "Untitled Section: Lootpack - Questions",
+      "Untitled Section: Suba - Antropofagos",
+      "Untitled Section: Undeclinables Ambuscade - Bully Proof",
+      "Untitled Section: Bad Taste Vol. 3 - Every Fifteen Minutes",
+      "Untitled Section: Superrappin - Games Dames In Automobiles",
+      "Untitled Section: Superrappin - Natural On Top"
+    ]
   }
 ]
