@@ -12753,5 +12753,22 @@
       "https://www.youtube.com/watch?v=yCBEHUcYask"
     ],
     "soundtrack": []
+  },
+  {
+    "id": "puzzle25",
+    "categories": [
+      "video"
+    ],
+    "name": "Puzzle 25",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=VAGYg_v8onE",
+      "https://www.youtube.com/watch?v=SHyNXZ-YbOw",
+      "https://www.youtube.com/watch?v=EBbA4MSsW84",
+      "https://www.youtube.com/watch?v=xDvh0EUD3gc"
+    ],
+    "soundtrack": []
   }
 ]
