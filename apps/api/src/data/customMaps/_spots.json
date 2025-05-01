@@ -12797,5 +12797,29 @@
       "Picnic Table Contest #1: M83 - I Guess I'm Floating",
       "Picnic Table Contest #2: M83 - Teen Angst"
     ]
+  },
+  {
+    "id": "puzzle27",
+    "categories": [
+      "video"
+    ],
+    "name": "Puzzle 27",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=0Xw0JGtAjZg",
+      "https://www.youtube.com/watch?v=S4vwUjHLh84",
+      "https://www.youtube.com/watch?v=BB8nrVxoD1s",
+      "https://www.youtube.com/watch?v=w8rnEnepRqw"
+    ],
+    "soundtrack": [
+      "Jumble: Protassov - More Days Please",
+      "Aeon In Poland: Madizm & Sec.Undo - 707 Team",
+      "Melbourne Australia: Kabanjak - Clap Your Hands",
+      "Globe In Spain: Kabanjak - Zumbala",
+      "Focus - Chris Oliver: Madizm & Sec.Undo - 707 Team",
+      "Credits: M83 - Lower Your Eyelids To Die With The Sun"
+    ]
   }
 ]
