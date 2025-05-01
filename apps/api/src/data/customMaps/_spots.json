@@ -13072,5 +13072,28 @@
       "Guys: Lightheaded - Wrong Way",
       "Outro: Toy - Rabbit Pushing Mower"
     ]
+  },
+  {
+    "id": "puzzle30",
+    "categories": [
+      "video"
+    ],
+    "name": "Puzzle 30",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=w9VgNrFPsmw",
+      "https://www.youtube.com/watch?v=cTFmdxs-Aes",
+      "https://www.youtube.com/watch?v=J3kuu9nsl8M",
+      "https://www.youtube.com/watch?v=C6nNWYqCI8g"
+    ],
+    "soundtrack": [
+      "Jumble: Coldcut - Man In A Garage",
+      "Tour: Giant Panda - Strings",
+      "Event: Giant Panda - Grand Prix",
+      "Jumble: Colossus - Like That",
+      "Outro: John Arnold - 1234 (feat. Paul Randolph)"
+    ]
   }
 ]
