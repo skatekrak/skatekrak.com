@@ -13048,5 +13048,29 @@
       "Guys - Simon Pedersen & Severin Von Ow: Strange Fruit Project - Pinball",
       "Credits: Strange Fruit Project - Soul Clap"
     ]
+  },
+  {
+    "id": "puzzle31",
+    "categories": [
+      "video"
+    ],
+    "name": "Puzzle 31",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=bgGObBpnpTc",
+      "https://www.youtube.com/watch?v=DTBLWwcOJjw",
+      "https://www.youtube.com/watch?v=DcQR6aW5As4",
+      "https://www.youtube.com/watch?v=MiI_1gF1liw"
+    ],
+    "soundtrack": [
+      "Nike SB Belgium in US & France: Lightheaded - Surprise Cypher",
+      "Jumble: Casual - In The Whip",
+      "Global Assault in Melbourne: Doctor Flake - Hot Stuff",
+      "Volcom & friends in Spain: Single Frame - Underground At Noon",
+      "Guys: Lightheaded - Wrong Way",
+      "Outro: Toy - Rabbit Pushing Mower"
+    ]
   }
 ]
