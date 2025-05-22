@@ -16630,5 +16630,22 @@
     "about": "Skateable sculptures that make the streets more interesting ! An initiative of vzweetje !",
     "videos": [],
     "soundtrack": []
+  },
+  {
+    "id": "unitedbyfate6",
+    "categories": [
+      "video"
+    ],
+    "name": "Globe 'United by Fate Ep.6'",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=RKkHOItDbfo"
+    ],
+    "soundtrack": [
+      "Louie Lopez & Luan de Oliveira: Cartola - Preciso Me Encontrar",
+      "Team Montage 6: A Place To Bury Strangers - Ocean"
+    ]
   }
 ]
