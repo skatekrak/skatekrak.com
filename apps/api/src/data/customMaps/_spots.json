@@ -16647,5 +16647,19 @@
       "Louie Lopez & Luan de Oliveira: Cartola - Preciso Me Encontrar",
       "Team Montage 6: A Place To Bury Strangers - Ocean"
     ]
+  },
+  {
+    "id": "up",
+    "categories": [
+      "maps"
+    ],
+    "name": "Up",
+    "subtitle": "",
+    "edito": "",
+    "about": "A map for the spots skated upside! ",
+    "videos": [
+      "https://www.youtube.com/watch?v=x372g4pDA3I"
+    ],
+    "soundtrack": []
   }
 ]
