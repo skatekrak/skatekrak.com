@@ -16810,5 +16810,17 @@
     "about": "Spots no longer here or like they used to be.",
     "videos": [],
     "soundtrack": []
+  },
+  {
+    "id": "slomo",
+    "categories": [
+      "maps"
+    ],
+    "name": "Slow Motion.",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [],
+    "soundtrack": []
   }
 ]
