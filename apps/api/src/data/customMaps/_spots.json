@@ -16798,5 +16798,17 @@
     "about": "",
     "videos": [],
     "soundtrack": []
+  },
+  {
+    "id": "rip",
+    "categories": [
+      "maps"
+    ],
+    "name": "RIP",
+    "subtitle": "",
+    "edito": "",
+    "about": "Spots no longer here or like they used to be.",
+    "videos": [],
+    "soundtrack": []
   }
 ]
