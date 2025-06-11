@@ -16757,5 +16757,22 @@
     "about": "",
     "videos": [],
     "soundtrack": []
+  },
+  {
+    "id": "fire",
+    "categories": [
+      "maps"
+    ],
+    "name": "Fire",
+    "subtitle": "",
+    "edito": "",
+    "about": "Skateboarding and fire..",
+    "videos": [
+      "https://www.youtube.com/watch?v=QKVpq3P5oCE",
+      "https://vimeo.com/171483667",
+      "https://www.youtube.com/watch?v=LPnVhynifQU",
+      "https://www.youtube.com/watch?v=yhmBhmZhXSo"
+    ],
+    "soundtrack": []
   }
 ]
