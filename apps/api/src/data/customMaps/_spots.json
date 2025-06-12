@@ -16858,5 +16858,17 @@
     "about": "A map for the clips that went straight to the gram..",
     "videos": [],
     "soundtrack": []
+  },
+  {
+    "id": "jersey",
+    "categories": [
+      "maps"
+    ],
+    "name": "Jersey barriers",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [],
+    "soundtrack": []
   }
 ]
