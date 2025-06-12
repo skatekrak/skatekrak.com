@@ -16870,5 +16870,17 @@
     "about": "",
     "videos": [],
     "soundtrack": []
+  },
+  {
+    "id": "drone",
+    "categories": [
+      "maps"
+    ],
+    "name": "Drones",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [],
+    "soundtrack": []
   }
 ]
