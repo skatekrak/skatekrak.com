@@ -16906,5 +16906,17 @@
     "about": "",
     "videos": [],
     "soundtrack": []
+  },
+  {
+    "id": "shop",
+    "categories": [
+      "shop"
+    ],
+    "name": "Skateshops",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [],
+    "soundtrack": []
   }
 ]
