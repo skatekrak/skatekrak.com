@@ -16992,5 +16992,19 @@
     "about": "",
     "videos": [],
     "soundtrack": []
+  },
+  {
+    "id": "manuals",
+    "categories": [
+      "maps"
+    ],
+    "name": "Manuals",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=xEDA1kwYAF4"
+    ],
+    "soundtrack": []
   }
 ]
