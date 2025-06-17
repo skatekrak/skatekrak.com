@@ -17269,5 +17269,17 @@
     "about": "",
     "videos": [],
     "soundtrack": []
+  },
+  {
+    "id": "demo",
+    "categories": [
+      "maps"
+    ],
+    "name": "Demos",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [],
+    "soundtrack": []
   }
 ]
