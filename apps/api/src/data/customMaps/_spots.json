@@ -17245,5 +17245,17 @@
     "about": "All tricks filmed with a Sony VX1000, VX2000 or VX2100!",
     "videos": [],
     "soundtrack": []
+  },
+  {
+    "id": "fisheye",
+    "categories": [
+      "maps"
+    ],
+    "name": "Fisheye",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [],
+    "soundtrack": []
   }
 ]
