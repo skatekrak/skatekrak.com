@@ -17221,5 +17221,17 @@
     "about": "",
     "videos": [],
     "soundtrack": []
+  },
+  {
+    "id": "gopro",
+    "categories": [
+      "maps"
+    ],
+    "name": "GoPro",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [],
+    "soundtrack": []
   }
 ]
