@@ -17233,5 +17233,17 @@
     "about": "",
     "videos": [],
     "soundtrack": []
+  },
+  {
+    "id": "vx",
+    "categories": [
+      "maps"
+    ],
+    "name": "VX",
+    "subtitle": "",
+    "edito": "",
+    "about": "All tricks filmed with a Sony VX1000, VX2000 or VX2100!",
+    "videos": [],
+    "soundtrack": []
   }
 ]
