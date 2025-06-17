@@ -17058,5 +17058,17 @@
       "https://www.youtube.com/watch?v=WDFoII9mdu4"
     ],
     "soundtrack": []
+  },
+  {
+    "id": "rails",
+    "categories": [
+      "maps"
+    ],
+    "name": "Rails",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [],
+    "soundtrack": []
   }
 ]
