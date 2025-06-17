@@ -17293,5 +17293,17 @@
     "about": "",
     "videos": [],
     "soundtrack": []
+  },
+  {
+    "id": "contests",
+    "categories": [
+      "maps"
+    ],
+    "name": "Contests",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [],
+    "soundtrack": []
   }
 ]
