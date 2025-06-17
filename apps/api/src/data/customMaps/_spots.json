@@ -17030,5 +17030,17 @@
     "about": "",
     "videos": [],
     "soundtrack": []
+  },
+  {
+    "id": "earth",
+    "categories": [
+      "maps"
+    ],
+    "name": "Earth",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [],
+    "soundtrack": []
   }
 ]
