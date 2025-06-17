@@ -17180,5 +17180,22 @@
     "about": "",
     "videos": [],
     "soundtrack": []
+  },
+  {
+    "id": "kotr",
+    "categories": [
+      "maps"
+    ],
+    "name": "King Of The Road",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=1SnBuFAbQVg",
+      "https://www.youtube.com/watch?v=-qil64Pij3k",
+      "https://www.youtube.com/watch?v=pWNXydXKF0U",
+      "https://www.youtube.com/watch?v=d2r8VO55aII"
+    ],
+    "soundtrack": []
   }
 ]
