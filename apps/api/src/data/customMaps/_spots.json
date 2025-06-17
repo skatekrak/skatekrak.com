@@ -16942,5 +16942,19 @@
     "about": "",
     "videos": [],
     "soundtrack": []
+  },
+  {
+    "id": "tjrogersswitch360",
+    "categories": [
+      "maps"
+    ],
+    "name": "TJ Rogers Switch 360s",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=uJ1p4yZNXfo"
+    ],
+    "soundtrack": []
   }
 ]
