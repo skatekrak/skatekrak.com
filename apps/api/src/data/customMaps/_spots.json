@@ -17154,5 +17154,19 @@
     "about": "",
     "videos": [],
     "soundtrack": []
+  },
+  {
+    "id": "tiagolemosswitchbacktail",
+    "categories": [
+      "maps"
+    ],
+    "name": "Tiago Lemos Switch Backtails",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=SeWhqWxsVi8"
+    ],
+    "soundtrack": []
   }
 ]
