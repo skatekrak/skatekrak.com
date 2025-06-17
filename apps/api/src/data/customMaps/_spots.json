@@ -17042,5 +17042,21 @@
     "about": "",
     "videos": [],
     "soundtrack": []
+  },
+  {
+    "id": "beaubrunclair",
+    "categories": [
+      "skater"
+    ],
+    "name": "Beau Brunclair",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=EVBCo2GBy7A",
+      "https://www.youtube.com/watch?v=JNKWxV1HaIg",
+      "https://www.youtube.com/watch?v=WDFoII9mdu4"
+    ],
+    "soundtrack": []
   }
 ]
