@@ -17342,5 +17342,17 @@
       "Leo is a local from Vale do Anhangabaú",
       "São Paulo."
     ]
+  },
+  {
+    "id": "eggsailor",
+    "categories": [
+      "artist"
+    ],
+    "name": "EggSailor",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [],
+    "soundtrack": []
   }
 ]
