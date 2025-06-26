@@ -17382,5 +17382,19 @@
       "https://www.youtube.com/watch?v=bLEwda0BKhk"
     ],
     "soundtrack": []
+  },
+  {
+    "id": "southpark",
+    "categories": [
+      "maps"
+    ],
+    "name": "South Park",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=uAlAflY0c6c"
+    ],
+    "soundtrack": []
   }
 ]
