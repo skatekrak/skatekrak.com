@@ -17424,5 +17424,19 @@
     "about": "",
     "videos": [],
     "soundtrack": []
+  },
+  {
+    "id": "weakdays",
+    "categories": [
+      "maps"
+    ],
+    "name": "Crailtap Weakdays",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/playlist?list=PLZn52-a9Y7i_V2CPyXOjtzZVOQmyevzI3"
+    ],
+    "soundtrack": []
   }
 ]
