@@ -17438,5 +17438,17 @@
       "https://www.youtube.com/playlist?list=PLZn52-a9Y7i_V2CPyXOjtzZVOQmyevzI3"
     ],
     "soundtrack": []
+  },
+  {
+    "id": "downhill",
+    "categories": [
+      "maps"
+    ],
+    "name": "Downhills",
+    "subtitle": "",
+    "edito": "",
+    "about": "We started this map with some dowhills in Brussels but feel free to add yours! Each pin corresponds to the top of the hill.",
+    "videos": [],
+    "soundtrack": []
   }
 ]
