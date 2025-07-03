@@ -17450,5 +17450,31 @@
     "about": "",
     "videos": [],
     "soundtrack": []
+  },
+  {
+    "id": "toyotawheelpark",
+    "categories": [
+      "maps"
+    ],
+    "name": "Toyota Wheel Park",
+    "subtitle": "",
+    "edito": "",
+    "about": "Fidèle à l’engagement de Toyota pour une mobilité inclusive, ce skatepark hybride, itinérant et éco-conçu est accessible à toutes et tous, que l’on soit valide ou en situation de handicap.",
+    "videos": [
+      "https://www.youtube.com/watch?v=Ly7wtMqxEsc",
+      "https://www.youtube.com/watch?v=CplRX_r50O0",
+      "https://www.youtube.com/watch?v=ixoRoHVkRZc",
+      "https://www.youtube.com/watch?v=Bk6Nts_dZWU",
+      "https://www.youtube.com/watch?v=HJh5Ntnx14Y",
+      "https://www.youtube.com/watch?v=zisnR9ImA3o",
+      "https://www.youtube.com/watch?v=pWOpKOcexIM",
+      "https://www.youtube.com/watch?v=D_YhWrFLtqU",
+      "https://www.youtube.com/watch?v=bK7phOfeZTg",
+      "https://www.youtube.com/watch?v=j-2DaGSwyhY",
+      "https://www.youtube.com/watch?v=h4EUdrTpllA",
+      "https://www.youtube.com/watch?v=Aq0ioJ1HVUE",
+      "https://www.youtube.com/watch?v=UQ58OWBU3Y4"
+    ],
+    "soundtrack": []
   }
 ]
