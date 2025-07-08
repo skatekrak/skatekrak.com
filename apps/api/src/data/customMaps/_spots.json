@@ -17488,5 +17488,19 @@
     "about": "",
     "videos": [],
     "soundtrack": []
+  },
+  {
+    "id": "robwelshnoseslide",
+    "categories": [
+      "maps"
+    ],
+    "name": "Rob Welsh Noseslides",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=V4Js9QIf9q8"
+    ],
+    "soundtrack": []
   }
 ]
