@@ -17554,5 +17554,19 @@
     "about": "",
     "videos": [],
     "soundtrack": []
+  },
+  {
+    "id": "bryanhermanhardflip",
+    "categories": [
+      "maps"
+    ],
+    "name": "Bryan Herman Hardflips",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=1MSsXoDpycQ"
+    ],
+    "soundtrack": []
   }
 ]
