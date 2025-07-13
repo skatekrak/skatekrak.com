@@ -17615,5 +17615,17 @@
       "https://www.youtube.com/watch?v=dI4lhfNW5nM"
     ],
     "soundtrack": []
+  },
+  {
+    "id": "mudderfuger",
+    "categories": [
+      "maps"
+    ],
+    "name": "Mudderfuger",
+    "subtitle": "",
+    "edito": "",
+    "about": "The world’s first AI skateboarder",
+    "videos": [],
+    "soundtrack": []
   }
 ]
