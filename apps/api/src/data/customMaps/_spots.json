@@ -17663,5 +17663,30 @@
     "about": "",
     "videos": [],
     "soundtrack": []
+  },
+  {
+    "id": "maxgeronzi",
+    "categories": [
+      "skater"
+    ],
+    "name": "Max Geronzi",
+    "subtitle": "",
+    "edito": "",
+    "about": "Born on July 28, 1991, Max discovered his love for skateboarding at a young age. With the support of his family, he dedicated himself to the sport and quickly began to make a name for himself in the French skate scene.",
+    "videos": [
+      "https://www.youtube.com/watch?v=lNhTpJREI84",
+      "https://www.youtube.com/watch?v=KxgsKPBSrdc",
+      "https://www.youtube.com/watch?v=Y1RP3RPV508",
+      "https://www.youtube.com/watch?v=Y1RP3RPV508",
+      "https://www.youtube.com/watch?v=Syf-wNI6N1U",
+      "https://www.youtube.com/watch?v=Z0blnL_AuJ8",
+      "https://www.youtube.com/watch?v=XtgHCITlkWs",
+      "https://www.youtube.com/watch?v=BChF-9Dg8X4",
+      "https://www.youtube.com/watch?v=FaoNGCRHgPM",
+      "https://www.youtube.com/watch?v=BAiN7Q9JjPg",
+      "https://www.youtube.com/watch?v=TeaOcOGF8tg",
+      "https://www.youtube.com/watch?v=VGsSEwMJNLw"
+    ],
+    "soundtrack": []
   }
 ]
