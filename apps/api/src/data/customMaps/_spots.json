@@ -17891,5 +17891,19 @@
     "about": "",
     "videos": [],
     "soundtrack": []
+  },
+  {
+    "id": "teenagetour",
+    "categories": [
+      "maps"
+    ],
+    "name": "Teenage Tour",
+    "subtitle": "",
+    "edito": "",
+    "about": "The Teenage Tour was a contest series organised by V7 Distribution for the french youth.",
+    "videos": [
+      "https://www.youtube.com/playlist?list=PL39F968DE1C327592"
+    ],
+    "soundtrack": []
   }
 ]
