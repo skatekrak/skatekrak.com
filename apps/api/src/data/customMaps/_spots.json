@@ -17917,5 +17917,19 @@
     "about": "Mátyás Ricsi is from Hungary and he makes silly doodles for secondhand thoughts & other stupid shit about skateboarding on his instagram account called 'balekovits'.",
     "videos": [],
     "soundtrack": []
+  },
+  {
+    "id": "snoopy",
+    "categories": [
+      "maps"
+    ],
+    "name": "Snoopy",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=yfbjghLMKC8"
+    ],
+    "soundtrack": []
   }
 ]
