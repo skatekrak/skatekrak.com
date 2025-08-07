@@ -17931,5 +17931,21 @@
       "https://www.youtube.com/watch?v=yfbjghLMKC8"
     ],
     "soundtrack": []
+  },
+  {
+    "id": "lego",
+    "categories": [
+      "maps"
+    ],
+    "name": "Lego",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=nCTrO5KzmyY",
+      "https://www.youtube.com/watch?v=CWLSyA3oaaM",
+      "https://www.youtube.com/watch?v=FbeHfGV4RU4"
+    ],
+    "soundtrack": []
   }
 ]
