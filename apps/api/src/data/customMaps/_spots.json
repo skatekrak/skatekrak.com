@@ -17971,5 +17971,24 @@
     "about": "",
     "videos": [],
     "soundtrack": []
+  },
+  {
+    "id": "spiderman",
+    "categories": [
+      "maps"
+    ],
+    "name": "Spiderman",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=l4gV0u72nMk",
+      "https://www.youtube.com/watch?v=t0LfX0QQdVg",
+      "https://www.youtube.com/watch?v=1lgiV_fC4bs",
+      "https://www.youtube.com/watch?v=8i4lsZ_BNc0",
+      "https://www.youtube.com/watch?v=vJWDUTwbbUk",
+      "https://www.youtube.com/watch?v=-7RwgypAfTo"
+    ],
+    "soundtrack": []
   }
 ]
