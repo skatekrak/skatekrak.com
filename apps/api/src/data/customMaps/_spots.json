@@ -17977,5 +17977,21 @@
     "about": "Rick AKA FutureLater is a designer from Ottawa, Canada.",
     "videos": [],
     "soundtrack": []
+  },
+  {
+    "id": "circleboard",
+    "categories": [
+      "maps"
+    ],
+    "name": "Circle Board",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=7J3e-NQ-OV0",
+      "https://www.youtube.com/watch?v=JEE10Ocww4g",
+      "https://www.youtube.com/watch?v=xTxe24tElHs"
+    ],
+    "soundtrack": []
   }
 ]
