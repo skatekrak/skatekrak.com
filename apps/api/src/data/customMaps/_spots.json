@@ -18086,5 +18086,20 @@
     "about": "",
     "videos": [],
     "soundtrack": []
+  },
+  {
+    "id": "shrek",
+    "categories": [
+      "maps"
+    ],
+    "name": "Shrek",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=_EdLv60Md4U",
+      "https://www.youtube.com/watch?v=DnQfalMNo_M"
+    ],
+    "soundtrack": []
   }
 ]
