@@ -18101,5 +18101,21 @@
       "https://www.youtube.com/watch?v=DnQfalMNo_M"
     ],
     "soundtrack": []
+  },
+  {
+    "id": "gta",
+    "categories": [
+      "maps"
+    ],
+    "name": "Grand Theft Auto",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=IfZtrrS92Iw",
+      "https://www.youtube.com/watch?v=5DH-xUq6x8g",
+      "https://www.youtube.com/watch?v=iF5ViMxX7Jg"
+    ],
+    "soundtrack": []
   }
 ]
