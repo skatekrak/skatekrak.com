@@ -18175,5 +18175,22 @@
       "https://www.youtube.com/watch?v=Hs3xcv-XoWY"
     ],
     "soundtrack": []
+  },
+  {
+    "id": "spongebob",
+    "categories": [
+      "maps"
+    ],
+    "name": "SpongeBob",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=shcPnCVWm4w",
+      "https://www.youtube.com/watch?v=WhgXvEY_yQ8",
+      "https://www.youtube.com/watch?v=g4KKNAMjZZI",
+      "https://www.youtube.com/watch?v=2xO87NK63Pk"
+    ],
+    "soundtrack": []
   }
 ]
