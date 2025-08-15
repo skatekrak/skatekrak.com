@@ -18312,5 +18312,17 @@
       "https://www.youtube.com/watch?v=IMnoVxBmgig"
     ],
     "soundtrack": []
+  },
+  {
+    "id": "toys",
+    "categories": [
+      "maps"
+    ],
+    "name": "Toys",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [],
+    "soundtrack": []
   }
 ]
