@@ -18255,5 +18255,19 @@
       "https://www.youtube.com/watch?v=UaAoa4oh3l8"
     ],
     "soundtrack": []
+  },
+  {
+    "id": "ironman",
+    "categories": [
+      "maps"
+    ],
+    "name": "Iron Man",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=7feYybfD6ys"
+    ],
+    "soundtrack": []
   }
 ]
