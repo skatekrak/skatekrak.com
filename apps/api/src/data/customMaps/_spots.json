@@ -18241,5 +18241,19 @@
       "https://www.youtube.com/watch?v=cMtBiZSW888"
     ],
     "soundtrack": []
+  },
+  {
+    "id": "greenday",
+    "categories": [
+      "maps"
+    ],
+    "name": "Green Day",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=UaAoa4oh3l8"
+    ],
+    "soundtrack": []
   }
 ]
