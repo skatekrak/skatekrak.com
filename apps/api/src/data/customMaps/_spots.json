@@ -18324,5 +18324,25 @@
     "about": "",
     "videos": [],
     "soundtrack": []
+  },
+  {
+    "id": "mickeymouse",
+    "categories": [
+      "maps"
+    ],
+    "name": "Mickey Mouse",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=qBobzy8XYC4",
+      "https://www.youtube.com/watch?v=cSnXHnpcib0",
+      "https://www.youtube.com/watch?v=6c_K_-Y5UTI",
+      "https://www.youtube.com/watch?v=U9flGEMo-d0",
+      "https://www.youtube.com/watch?v=ZgXeQKpPhqo",
+      "https://www.youtube.com/watch?v=ETLXb5IedN4",
+      "https://www.youtube.com/watch?v=hmEVgAcVXik"
+    ],
+    "soundtrack": []
   }
 ]
