@@ -18390,5 +18390,17 @@
     "about": "",
     "videos": [],
     "soundtrack": []
+  },
+  {
+    "id": "celebrities",
+    "categories": [
+      "maps"
+    ],
+    "name": "Celebrities",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [],
+    "soundtrack": []
   }
 ]
