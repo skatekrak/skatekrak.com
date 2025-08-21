@@ -18414,5 +18414,21 @@
     "about": "",
     "videos": [],
     "soundtrack": []
+  },
+  {
+    "id": "miniboard",
+    "categories": [
+      "maps"
+    ],
+    "name": "Mini Board",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=9TfbGp4JqCs",
+      "https://www.youtube.com/watch?v=c6K_9YUW5LE",
+      "https://www.youtube.com/watch?v=87_d_A2sJIE"
+    ],
+    "soundtrack": []
   }
 ]
