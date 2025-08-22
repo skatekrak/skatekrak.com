@@ -18454,5 +18454,25 @@
     "about": "",
     "videos": [],
     "soundtrack": []
+  },
+  {
+    "id": "raphaeldetienne",
+    "categories": [
+      "skater"
+    ],
+    "name": "Raphaël Detienne",
+    "subtitle": "",
+    "edito": "",
+    "about": "Belgian ripper living in Quebec, Canada. ",
+    "videos": [
+      "https://www.youtube.com/watch?v=burLeSAFNQs",
+      "https://www.youtube.com/watch?v=Hf4chKLlaxs",
+      "https://www.youtube.com/watch?v=LR8DZm4F0cI",
+      "https://www.youtube.com/watch?v=97cMQQXPFQs",
+      "https://www.youtube.com/watch?v=Z6o8fdq_NFs",
+      "https://www.youtube.com/watch?v=-whktNCI1J0",
+      "https://www.youtube.com/watch?v=uynM0O6VDMA"
+    ],
+    "soundtrack": []
   }
 ]
