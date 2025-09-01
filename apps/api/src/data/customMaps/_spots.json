@@ -18558,5 +18558,20 @@
     "about": "",
     "videos": [],
     "soundtrack": []
+  },
+  {
+    "id": "rollerskate",
+    "categories": [
+      "maps"
+    ],
+    "name": "Rollerskate",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=hVQRL4i71ZY",
+      "https://www.youtube.com/watch?v=5U72crpGOcQ"
+    ],
+    "soundtrack": []
   }
 ]
