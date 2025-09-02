@@ -18602,5 +18602,17 @@
       "https://www.youtube.com/watch?v=AeJjzmKBARs"
     ],
     "soundtrack": []
+  },
+  {
+    "id": "bmxstreets",
+    "categories": [
+      "maps"
+    ],
+    "name": "BMX Streets",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [],
+    "soundtrack": []
   }
 ]
