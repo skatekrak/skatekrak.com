@@ -1,7 +1,7 @@
 # syntax = docker/dockerfile:1
 
 ARG BUN_VERSION=1.1.12
-FROM oven/bun:${BUN_VERSION}-slim as base
+FROM oven/bun:${BUN_VERSION}-slim AS base
 
 LABEL fly_launch_runtime="Bun"
 
@@ -13,7 +13,7 @@ ENV NODE_ENV=production
 
 
 # Throw-away build stage to reduce size of final image
-FROM base as build
+FROM base AS build
 
 # Install packages needed to build node modules
 RUN apt-get update -qq && \
