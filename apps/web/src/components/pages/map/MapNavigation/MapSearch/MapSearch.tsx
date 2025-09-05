@@ -7,7 +7,7 @@ import { useShallow } from 'zustand/react/shallow';
 import SearchIcon from '@/components/Ui/Icons/Search';
 import IconClear from '@/components/Ui/Icons/IconClear';
 import MapSearchResults from './MapSearchResults/MapSearchResults';
-import { SpotHit, spotIndex, SpotSearchResult } from '@/lib/algolia';
+import { SpotHit, spotIndex, SpotSearchResult } from '@/lib/meilisearch';
 
 import * as S from './MapSearch.styled';
 import { useMapStore } from '@/store/map';

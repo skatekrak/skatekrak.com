@@ -43,6 +43,7 @@
         "geojson": "^0.5.0",
         "jump.js": "https://github.com/MilllerTime/jump.js.git#b95f9279a4c0f4ca942fd648a6b97094b53bcbab",
         "mapbox-gl": "^2.15.0",
+        "meilisearch": "^0.52.0",
         "next": "^14.1.0",
         "next-compose-plugins": "^2.2.1",
         "next-redux-wrapper": "^8.1.0",

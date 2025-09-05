@@ -2,7 +2,7 @@ import React from 'react';
 import { useMap } from 'react-map-gl';
 
 import Scrollbar from '@/components/Ui/Scrollbar';
-import type { SpotHit } from '@/lib/algolia';
+import type { SpotHit } from '@/lib/meilisearch';
 
 import MapSearchResultLoading from './MapSearchResultLoading';
 import MapSearchResultNoContent from './MapSearchResultNoContent';
@@ -27,8 +27,8 @@ const MapSearchResults: React.FC<MapSearchResultsProps> = ({ spots, loading, pla
     const onSpotClick = (spot: SpotHit) => {
         map?.flyTo({
             center: {
-                lat: spot._geoloc.lat,
-                lon: spot._geoloc.lng,
+                lat: spot._geo.lat,
+                lon: spot._geo.lng,
             },
             duration: 1000,
         });

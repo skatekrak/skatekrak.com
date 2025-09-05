@@ -14,7 +14,7 @@ import MinuteBadge from '@/components/pages/map/marker/badges/Minute';
 import * as S from './MapSearchResults.styled';
 
 import { Spot, Status, Types } from '@krak/carrelage-client';
-import { SpotHit } from '@/lib/algolia';
+import { SpotHit } from '@/lib/meilisearch';
 
 type Props<T> = {
     spot: T;
