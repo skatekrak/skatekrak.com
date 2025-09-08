@@ -1,7 +1,6 @@
 /*
  * Npm import
  */
-import jump from 'jump.js';
 import { useCallback, useEffect } from 'react';
 
 import ScrollHelper from '@/lib/ScrollHelper';
@@ -32,11 +31,25 @@ const ScrollTop = ({ elementId }: ScrollTopProps) => {
 
     const handleTopClick = () => {
         const scrollContainer = ScrollHelper.getScrollContainer();
-        if (scrollContainer) {
-            jump(`#${elementId}`, {
-                offset: -300,
-                container: scrollContainer,
+        const element = document.getElementById(elementId);
+
+        if (scrollContainer && element) {
+            // Calculate the target scroll position with offset
+            const elementTop = element.offsetTop;
+            const targetScrollTop = elementTop - 300; // -300 offset like the original
+
+            // Use native smooth scrolling
+            scrollContainer.scrollTo({
+                top: Math.max(0, targetScrollTop), // Ensure we don't scroll to negative position
+                behavior: 'smooth'
             });
+        }
+    };
+
+    useEffect(() => {
+        const scrollContainer = ScrollHelper.getScrollContainer();
+        if (scrollContainer) {
+            scrollContainer.addEventListener('scroll', handleScroll);
         }
 
         return () => {
@@ -45,13 +58,6 @@ const ScrollTop = ({ elementId }: ScrollTopProps) => {
                 scrollContainer.removeEventListener('scroll', handleScroll);
             }
         };
-    };
-
-    useEffect(() => {
-        const scrollContainer = ScrollHelper.getScrollContainer();
-        if (scrollContainer) {
-            scrollContainer.addEventListener('scroll', handleScroll);
-        }
     }, [isMobile, elementId, handleScroll]);
 
     return (
