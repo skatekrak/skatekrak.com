@@ -18662,5 +18662,19 @@
     "about": "",
     "videos": [],
     "soundtrack": []
+  },
+  {
+    "id": "hotwheels",
+    "categories": [
+      "maps"
+    ],
+    "name": "Hot Wheels",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=w9vv8cGuoEU"
+    ],
+    "soundtrack": []
   }
 ]
