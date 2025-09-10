@@ -18695,5 +18695,20 @@
       "https://www.youtube.com/watch?v=NUka0QLt6-M"
     ],
     "soundtrack": []
+  },
+  {
+    "id": "skatecity",
+    "categories": [
+      "maps"
+    ],
+    "name": "Skate City",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=Ahvd7v0zSzs",
+      "https://www.youtube.com/watch?v=Occ-DoMjvIQ"
+    ],
+    "soundtrack": []
   }
 ]
