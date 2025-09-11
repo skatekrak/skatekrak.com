@@ -18724,5 +18724,22 @@
       "https://www.youtube.com/watch?v=XUPs0hU7Xbw"
     ],
     "soundtrack": []
+  },
+  {
+    "id": "sonic",
+    "categories": [
+      "maps"
+    ],
+    "name": "Sonic ",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=lCOEiODM6IM",
+      "https://www.youtube.com/watch?v=lVu2qAcZRqo",
+      "https://www.youtube.com/watch?v=wG3bd8njWBo",
+      "https://www.youtube.com/watch?v=XH7QRlMp0tI"
+    ],
+    "soundtrack": []
   }
 ]
