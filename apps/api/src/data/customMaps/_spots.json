@@ -18758,5 +18758,21 @@
       "https://www.youtube.com/watch?v=JADj93mxli4"
     ],
     "soundtrack": []
+  },
+  {
+    "id": "looneytunes",
+    "categories": [
+      "maps"
+    ],
+    "name": "Looney Tunes",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=zJHJawPyxMU",
+      "https://www.youtube.com/watch?v=_KD7IvaCIpc",
+      "https://www.youtube.com/watch?v=mIunXRZ0N4s"
+    ],
+    "soundtrack": []
   }
 ]
