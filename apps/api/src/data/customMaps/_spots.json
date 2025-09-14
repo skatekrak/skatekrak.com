@@ -18741,5 +18741,22 @@
       "https://www.youtube.com/watch?v=XH7QRlMp0tI"
     ],
     "soundtrack": []
+  },
+  {
+    "id": "mario",
+    "categories": [
+      "maps"
+    ],
+    "name": "Mario",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=d1m-v5QhAio",
+      "https://www.youtube.com/watch?v=rql_F8H3h9E",
+      "https://www.youtube.com/watch?v=pPAK6EZIfPE",
+      "https://www.youtube.com/watch?v=JADj93mxli4"
+    ],
+    "soundtrack": []
   }
 ]
