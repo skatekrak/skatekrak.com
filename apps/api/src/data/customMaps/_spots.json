@@ -18774,5 +18774,17 @@
       "https://www.youtube.com/watch?v=mIunXRZ0N4s"
     ],
     "soundtrack": []
+  },
+  {
+    "id": "pokemon",
+    "categories": [
+      "maps"
+    ],
+    "name": "Pokémon",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [],
+    "soundtrack": []
   }
 ]
