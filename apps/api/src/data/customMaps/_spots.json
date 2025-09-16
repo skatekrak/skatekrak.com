@@ -18786,5 +18786,19 @@
     "about": "",
     "videos": [],
     "soundtrack": []
+  },
+  {
+    "id": "grindsession",
+    "categories": [
+      "maps"
+    ],
+    "name": "Grind Session",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=iiiDXfnBCYk"
+    ],
+    "soundtrack": []
   }
 ]
