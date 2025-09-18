@@ -18916,5 +18916,19 @@
     "about": "",
     "videos": [],
     "soundtrack": []
+  },
+  {
+    "id": "pinkpanther",
+    "categories": [
+      "maps"
+    ],
+    "name": "Pink Panther",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=UOZldGIQy1I"
+    ],
+    "soundtrack": []
   }
 ]
