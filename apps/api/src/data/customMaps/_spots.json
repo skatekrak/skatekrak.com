@@ -18856,5 +18856,17 @@
       "https://www.youtube.com/watch?v=_5VxovAgkCk"
     ],
     "soundtrack": []
+  },
+  {
+    "id": "flintstones",
+    "categories": [
+      "maps"
+    ],
+    "name": "The Flintstones",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [],
+    "soundtrack": []
   }
 ]
