@@ -18930,5 +18930,17 @@
       "https://www.youtube.com/watch?v=UOZldGIQy1I"
     ],
     "soundtrack": []
+  },
+  {
+    "id": "tintin",
+    "categories": [
+      "maps"
+    ],
+    "name": "Tintin",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [],
+    "soundtrack": []
   }
 ]
