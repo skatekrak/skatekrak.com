@@ -18842,5 +18842,19 @@
       "https://www.youtube.com/watch?v=KoD-JcwrMI0"
     ],
     "soundtrack": []
+  },
+  {
+    "id": "videogames",
+    "categories": [
+      "maps"
+    ],
+    "name": "Video Games",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=_5VxovAgkCk"
+    ],
+    "soundtrack": []
   }
 ]
