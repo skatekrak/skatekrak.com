@@ -18824,5 +18824,23 @@
     "about": "",
     "videos": [],
     "soundtrack": []
+  },
+  {
+    "id": "scoobydoo",
+    "categories": [
+      "maps"
+    ],
+    "name": "Scooby-Doo",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=LOt_3V49PHk",
+      "https://www.youtube.com/watch?v=r0AST_C2zLY",
+      "https://www.youtube.com/watch?v=eKU_OvMLjRE",
+      "https://www.youtube.com/watch?v=Lk0pLt14Qlw",
+      "https://www.youtube.com/watch?v=KoD-JcwrMI0"
+    ],
+    "soundtrack": []
   }
 ]
