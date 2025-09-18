@@ -18942,5 +18942,19 @@
     "about": "",
     "videos": [],
     "soundtrack": []
+  },
+  {
+    "id": "mcdonalds",
+    "categories": [
+      "maps"
+    ],
+    "name": "McDonald's",
+    "subtitle": "",
+    "edito": "",
+    "about": "Another map inspired by Peter Grannis AKA @competer_programmis.",
+    "videos": [
+      "https://www.youtube.com/watch?v=y_aG6nRFVoc"
+    ],
+    "soundtrack": []
   }
 ]
