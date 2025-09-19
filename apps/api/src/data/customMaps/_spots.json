@@ -18956,5 +18956,17 @@
       "https://www.youtube.com/watch?v=y_aG6nRFVoc"
     ],
     "soundtrack": []
+  },
+  {
+    "id": "pumptrack",
+    "categories": [
+      "maps"
+    ],
+    "name": "Pumptracks",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [],
+    "soundtrack": []
   }
 ]
