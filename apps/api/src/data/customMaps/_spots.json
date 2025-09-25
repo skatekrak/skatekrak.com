@@ -19028,5 +19028,17 @@
     "about": "Serge Awata loves playing with AI!",
     "videos": [],
     "soundtrack": []
+  },
+  {
+    "id": "whereswally",
+    "categories": [
+      "maps"
+    ],
+    "name": "Where's Wally?",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [],
+    "soundtrack": []
   }
 ]
