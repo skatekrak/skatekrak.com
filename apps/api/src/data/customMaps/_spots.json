@@ -19052,5 +19052,21 @@
     "about": "",
     "videos": [],
     "soundtrack": []
+  },
+  {
+    "id": "batman",
+    "categories": [
+      "maps"
+    ],
+    "name": "Batman",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=j-rT_Gqavxw",
+      "https://www.youtube.com/watch?v=LL3_GxLm9PE",
+      "https://www.youtube.com/watch?v=jC-y-XWl0pQ"
+    ],
+    "soundtrack": []
   }
 ]
