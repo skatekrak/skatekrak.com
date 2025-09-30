@@ -19080,5 +19080,19 @@
     "about": "",
     "videos": [],
     "soundtrack": []
+  },
+  {
+    "id": "wonderwoman",
+    "categories": [
+      "maps"
+    ],
+    "name": "Wonder Woman",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=OCJsCM_4BNI"
+    ],
+    "soundtrack": []
   }
 ]
