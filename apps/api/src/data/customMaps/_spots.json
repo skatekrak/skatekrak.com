@@ -19130,5 +19130,17 @@
     "about": "Established in 2017, Derek Michael Brennan’s Illustrated Skateboard Trading Card project pays tribute to some of the most iconic skateboarders in history through hand-drawn, limited-edition cards. Inspired by the classic aesthetics of vintage baseball and basketball cards, each release has featured carefully illustrated portraits, with select editions including holographic and autographed cards. The project has collaborated with respected brands like DeckAid, Alien Workshop, and Stereo Skateboards, as well as notable skate photographers Jaime Owens, Leo Sharp, and Mike O’Meally.",
     "videos": [],
     "soundtrack": []
+  },
+  {
+    "id": "pins",
+    "categories": [
+      "maps"
+    ],
+    "name": "Pin's",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [],
+    "soundtrack": []
   }
 ]
