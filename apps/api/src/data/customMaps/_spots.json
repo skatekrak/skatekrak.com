@@ -19322,5 +19322,17 @@
     "about": "",
     "videos": [],
     "soundtrack": []
+  },
+  {
+    "id": "nfts",
+    "categories": [
+      "artist"
+    ],
+    "name": "NFTs",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [],
+    "soundtrack": []
   }
 ]
