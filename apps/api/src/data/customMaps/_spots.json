@@ -19310,5 +19310,17 @@
     "about": "",
     "videos": [],
     "soundtrack": []
+  },
+  {
+    "id": "pixelart",
+    "categories": [
+      "artist"
+    ],
+    "name": "Pixel Art",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [],
+    "soundtrack": []
   }
 ]
