@@ -19598,5 +19598,17 @@
     "about": "Michael Reuter AKA mrtheartist.",
     "videos": [],
     "soundtrack": []
+  },
+  {
+    "id": "marsattacks",
+    "categories": [
+      "maps"
+    ],
+    "name": "Mars Attacks",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [],
+    "soundtrack": []
   }
 ]
