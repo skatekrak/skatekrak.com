@@ -19648,5 +19648,17 @@
     "about": "",
     "videos": [],
     "soundtrack": []
+  },
+  {
+    "id": "politics",
+    "categories": [
+      "maps"
+    ],
+    "name": "Politics",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [],
+    "soundtrack": []
   }
 ]
