@@ -19756,5 +19756,19 @@
     "about": "",
     "videos": [],
     "soundtrack": []
+  },
+  {
+    "id": "selfie",
+    "categories": [
+      "maps"
+    ],
+    "name": "Selfies",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=azpmKUyrrzo"
+    ],
+    "soundtrack": []
   }
 ]
