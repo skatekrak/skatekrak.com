@@ -19819,5 +19819,22 @@
     "about": "",
     "videos": [],
     "soundtrack": []
+  },
+  {
+    "id": "kapestreetrushseries",
+    "categories": [
+      "maps"
+    ],
+    "name": "Kape Street Rush Series",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=NG-EqIOobsI",
+      "https://www.youtube.com/watch?v=bgUpfypDmFg",
+      "https://www.youtube.com/watch?v=7y8EbAp-S48",
+      "https://www.youtube.com/watch?v=a4_wQPPy3XY"
+    ],
+    "soundtrack": []
   }
 ]
