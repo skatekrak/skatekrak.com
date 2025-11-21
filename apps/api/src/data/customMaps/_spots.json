@@ -19900,5 +19900,17 @@
     "about": "AI Art",
     "videos": [],
     "soundtrack": []
+  },
+  {
+    "id": "ai",
+    "categories": [
+      "maps"
+    ],
+    "name": "AI",
+    "subtitle": "",
+    "edito": "",
+    "about": "Artificial Intelligence.",
+    "videos": [],
+    "soundtrack": []
   }
 ]
