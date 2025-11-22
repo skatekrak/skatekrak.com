@@ -19912,5 +19912,24 @@
     "about": "Artificial Intelligence.",
     "videos": [],
     "soundtrack": []
+  },
+  {
+    "id": "cjet",
+    "categories": [
+      "maps"
+    ],
+    "name": "",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=e1cKcgKla4Q",
+      "https://www.youtube.com/watch?v=aBqEZkyxYcI",
+      "https://www.youtube.com/watch?v=wGUYwUPblKk",
+      "https://www.youtube.com/watch?v=pt4Lqs3Yv6A",
+      "https://www.youtube.com/watch?v=LgDpj-fIdBE",
+      "https://www.youtube.com/watch?v=CL5u-ooKtzc"
+    ],
+    "soundtrack": []
   }
 ]
