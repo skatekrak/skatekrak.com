@@ -1,18 +1,39 @@
 import React, { useState } from 'react';
-
-import Map from '../../MapQuickAccessDesktop/Maps/Map';
-
-import { Category as TCategory } from '../../types';
-import ArrowHead from '@/components/Ui/Icons/ArrowHead';
-import Typography from '@/components/Ui/typography/Typography';
 import classNames from 'classnames';
 
+import { generateCategories } from '../utils';
+import { trpc } from '@/server/trpc/utils';
+import { Category as TCategory } from '../types';
+import Typography from '@/components/Ui/typography/Typography';
+import ArrowHead from '@/components/Ui/Icons/ArrowHead';
+import Map from '../Map';
+
 type Props = {
+    closeSheet: () => void;
+};
+
+const MobileMaps: React.FC<Props> = ({ closeSheet }) => {
+    const { isLoading, data } = trpc.maps.list.useQuery();
+
+    return (
+        <div className="block">
+            {!isLoading &&
+                data &&
+                generateCategories(data).map((category) => (
+                    <Category key={category.id} category={category} onMapClick={closeSheet} />
+                ))}
+        </div>
+    );
+};
+
+export default MobileMaps;
+
+type CategoryProps = {
     category: TCategory;
     onMapClick: () => void;
 };
 
-const Category = ({ category, onMapClick }: Props) => {
+const Category = ({ category, onMapClick }: CategoryProps) => {
     const [isOpen, setIsOpen] = useState(false);
     return (
         <div className="text-onDark-highEmphasis">
@@ -47,5 +68,3 @@ const Category = ({ category, onMapClick }: Props) => {
         </div>
     );
 };
-
-export default Category;

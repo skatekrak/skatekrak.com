@@ -1,11 +1,10 @@
 import React, { useMemo } from 'react';
 import { useShallow } from 'zustand/react/shallow';
 
-import * as S from './Map.styled';
-
-import { QuickAccessMap } from '../../../types';
+import Typography from '@/components/Ui/typography/Typography';
+import { QuickAccessMap } from './types';
 import { useRouter } from 'next/router';
-import RoundedImage from '../../components/RoundedImage';
+import RoundedImage from './RoundedImage';
 import { useCityID, useCustomMapID, useMediaID, useSpotID, useSpotModal } from '@/lib/hook/queryState';
 import { useMapStore } from '@/store/map';
 
@@ -44,19 +43,26 @@ const Map: React.FC<MapProps> = ({ map, onClick }) => {
     };
 
     return (
-        <S.MapCard onClick={handleClick}>
-            <S.MapButton>
+        <button
+            onClick={handleClick}
+            className="flex flex-col w-full border border-onDark-divider rounded-lg hover:border-onDark-placeholder hover:shadow-[1px_5px_24px_1px_rgba(0,0,0,0.24)]"
+        >
+            <div className="flex items-center w-full py-2 px-3">
                 <RoundedImage
                     selected={isMapSelected}
                     size="3rem"
                     src={`/images/map/custom-maps/${map.id}.png`}
                     alt={map.name}
                 />
-                <S.MapName component="condensedSubtitle1" truncateLines={1}>
+                <Typography
+                    component="condensedSubtitle1"
+                    truncateLines={1}
+                    className="mx-4 text-left text-onDark-mediumEmphasis whitespace-normal"
+                >
                     {map.name}
-                </S.MapName>
-            </S.MapButton>
-        </S.MapCard>
+                </Typography>
+            </div>
+        </button>
     );
 };
 

@@ -1,8 +1,7 @@
 import React from 'react';
 
-import Category from '../components/Category';
-import City from './City';
-import * as S from './Cities.styled';
+import QuickAccessDesktopPanel from './quick-access-desktop.panel';
+import City from '../City';
 
 import cities from '@/data/cities/_cities';
 
@@ -12,21 +11,21 @@ const category = {
     displayedCityImage: 'paris',
 };
 
-const Cities = () => {
+const QuickAccessDesktopCities = () => {
     return (
-        <Category
+        <QuickAccessDesktopPanel
             isSelected={false}
             src={`/images/map/cities/${category.displayedCityImage}.jpg`}
             tooltipText={category.name}
             panelContent={(closePanel) => (
-                <S.CitiesGrid>
+                <div className="grid grid-cols-4 p-4">
                     {cities.map((city) => (
                         <City key={city.id} city={city} onCityClick={closePanel} />
                     ))}
-                </S.CitiesGrid>
+                </div>
             )}
         />
     );
 };
 
-export default Cities;
+export default QuickAccessDesktopCities;

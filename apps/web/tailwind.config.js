@@ -3,6 +3,13 @@ module.exports = {
     content: ['./src/components/**/*.{js,ts,jsx,tsx}', './src/pages/**/*.{js,ts,jsx,tsx}'],
     theme: {
         extend: {
+            boxShadow: {
+                onDarkLow: '1px 3px 24px 1px rgba(0, 0, 0, 0.08)',
+                onDarkMedium: '1px 4px 24px 1px rgba(0, 0, 0, 0.14)',
+                onDarkHigh: '1px 5px 24px 1px rgba(0, 0, 0, 0.24)',
+                onDarkHighSharp: '0px 0px 4px 1px rgba(0, 0, 0, 0.2)',
+                onDarkExtreme: '1px 5px 24px 1px rgba(0, 0, 0, 0.4)',
+            },
             colors: {
                 primary: {
                     100: '#BF2722',

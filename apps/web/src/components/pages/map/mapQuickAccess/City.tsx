@@ -1,8 +1,7 @@
 import React from 'react';
 import { useShallow } from 'zustand/react/shallow';
 
-import * as S from './City.styled';
-
+import Typography from '@/components/Ui/typography/Typography';
 import { City } from '@/lib/map/types';
 import { useMap } from 'react-map-gl';
 import { centerFromBounds } from '@/lib/map/helpers';
@@ -46,16 +45,20 @@ const CityComponent: React.FC<CityProps> = ({ city, onCityClick }) => {
         });
     };
     return (
-        <S.City onClick={onClick}>
-            <S.CityImage
+        <button
+            onClick={onClick}
+            className="flex flex-col items-center w-20 mx-auto p-2 text-onDark-highEmphasis border-0"
+        >
+            <div
+                className="w-14 h-14 bg-tertiary-medium bg-cover bg-center border-2 border-solid border-tertiary-light rounded-full"
                 style={{
                     backgroundImage: `url('/images/map/cities/${city.id}.jpg')`,
                 }}
             />
-            <S.CityName component="subtitle2" truncateLines={1}>
+            <Typography component="subtitle2" truncateLines={1} className="w-full mt-1">
                 {city.smallName ?? city.name}
-            </S.CityName>
-        </S.City>
+            </Typography>
+        </button>
     );
 };
 

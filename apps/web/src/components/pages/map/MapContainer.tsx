@@ -7,9 +7,9 @@ import { Spot } from '@krak/carrelage-client';
 
 import { getSpotOverview } from '@krak/carrelage-client';
 
-import MapQuickAccessDesktop from './mapQuickAccess/MapQuickAccessDesktop';
+import QuickAccessDesktop from './mapQuickAccess/desktop/quick-access-desktop';
 import MapNavigation from './MapNavigation';
-import MapBottomNav from './MapBottomNav';
+import MapBottomNav from './MapBottomNav/MapBottomNav';
 import MapGradients from './MapGradients';
 import MapZoomAlert from './MapZoomAlert';
 import * as S from './Map.styled';
@@ -200,7 +200,7 @@ const MapContainer = () => {
                         ) : (
                             <MapNavigation handleCreateSpotClick={onToggleSpotCreation} />
                         )}
-                        {!isMobile && <MapQuickAccessDesktop />}
+                        {!isMobile && <QuickAccessDesktop />}
                         {viewport.zoom <= ZOOM_DISPLAY_WARNING && id == null && <MapZoomAlert />}
                         {isLoading && (
                             <div className="absolute bottom-24 left-6 md:left-8 md:bottom-28 flex items-center gap-2 text-gray-400 text-sm">
