@@ -1,27 +1,23 @@
-/*
- * Npm import
- */
 import * as React from 'react';
 
-/*
- * Local import
- */
 import IconCross from '@/components/Ui/Icons/Cross';
+import classNames from 'classnames';
 
-/*
- * Code
- */
 type Props = {
     onClick: (fct: any) => void;
+    className?: string;
 };
 
-const CloseButton: React.FC<Props> = ({ onClick }) => (
-    <button className="krak-close-button" onClick={onClick}>
-        <IconCross />
+const CloseButton = ({ onClick, className }: Props) => (
+    <button
+        className={classNames(
+            'flex items-center justify-center w-6 h-6 p-1 bg-onDark-placeholder hover:bg-onDark-lowEmphasis rounded-full',
+            className,
+        )}
+        onClick={onClick}
+    >
+        <IconCross className="fill-onDark-mediumEmphasis" />
     </button>
 );
 
-/*
- * Export Default
- */
 export default CloseButton;

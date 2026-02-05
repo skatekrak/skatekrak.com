@@ -1,12 +1,11 @@
-import React from 'react';
+import React, { ButtonHTMLAttributes } from 'react';
 
 import Typography from '@/components/Ui/typography/Typography';
 import KrakAppIcon from '@/components/Ui/Icons/Logos/KrakAppIcon';
 import Legend from '@/components/pages/map/Legend';
 import MapBottomNavSheet from './MapBottomNavSheet';
-import MapQuickAccessMobileCities from '../mapQuickAccess/MapQuickAccessMobile/MapQuickAccessMobileCities';
-import MapQuickAccessMobileCustom from '../mapQuickAccess/MapQuickAccessMobile/MapQuickAccessMobileCustom';
-import * as S from './MapBottomNav.styled';
+import MobileCities from '../mapQuickAccess/mobile/mobile-cities';
+import MobileMaps from '../mapQuickAccess/mobile/mobile-maps';
 
 type Props = {
     isMobile: boolean;
@@ -14,15 +13,13 @@ type Props = {
 
 const MapBottomNav: React.FC<Props> = ({ isMobile }) => {
     return (
-        <S.MapBottomNavContainer>
+        <div className="absolute left-4 bottom-4 md:left-6 md:bottom-6 flex items-cente gap-2 z-[1000]">
             {/* Legend */}
             <MapBottomNavSheet title="Explore the map" maxWidth="27rem" render={() => <Legend />}>
-                <S.MapBottomNavTriggerContainer>
-                    <S.MapBottomNavQuickAccessTrigger>
-                        <KrakAppIcon />
-                        <Typography component="condensedButton">Legend</Typography>
-                    </S.MapBottomNavQuickAccessTrigger>
-                </S.MapBottomNavTriggerContainer>
+                <TriggerButton>
+                    <KrakAppIcon className="max-lg:hidden w-7 h-7 mr-4 shadow-none" />
+                    <Typography component="condensedButton">Legend</Typography>
+                </TriggerButton>
             </MapBottomNavSheet>
             {isMobile && (
                 <>
@@ -30,30 +27,35 @@ const MapBottomNav: React.FC<Props> = ({ isMobile }) => {
                     <MapBottomNavSheet
                         title="Cities"
                         maxWidth="24rem"
-                        render={({ close }) => <MapQuickAccessMobileCities closeSheet={close} />}
+                        render={({ close }) => <MobileCities closeSheet={close} />}
                     >
-                        <S.MapBottomNavTriggerContainer>
-                            <S.MapBottomNavQuickAccessTrigger>
-                                <Typography component="condensedButton">Cities</Typography>
-                            </S.MapBottomNavQuickAccessTrigger>
-                        </S.MapBottomNavTriggerContainer>
+                        <TriggerButton>
+                            <Typography component="condensedButton">Cities</Typography>
+                        </TriggerButton>
                     </MapBottomNavSheet>
                     {/* Maps */}
                     <MapBottomNavSheet
                         displayCloseButton={false}
                         maxWidth="24rem"
-                        render={({ close }) => <MapQuickAccessMobileCustom closeSheet={close} />}
+                        render={({ close }) => <MobileMaps closeSheet={close} />}
                     >
-                        <S.MapBottomNavTriggerContainer>
-                            <S.MapBottomNavQuickAccessTrigger>
-                                <Typography component="condensedButton">Maps</Typography>
-                            </S.MapBottomNavQuickAccessTrigger>
-                        </S.MapBottomNavTriggerContainer>
+                        <TriggerButton>
+                            <Typography component="condensedButton">Maps</Typography>
+                        </TriggerButton>
                     </MapBottomNavSheet>
                 </>
             )}
-        </S.MapBottomNavContainer>
+        </div>
     );
 };
 
 export default React.memo(MapBottomNav);
+
+const TriggerButton = ({ children, ...props }: ButtonHTMLAttributes<HTMLButtonElement>) => (
+    <button
+        className="flex items-center py-3 px-4 text-onDark-highEmphasis bg-tertiary-dark border border-solid border-tertiary-medium rounded shadow-onDarkHighSharp"
+        {...props}
+    >
+        {children}
+    </button>
+);

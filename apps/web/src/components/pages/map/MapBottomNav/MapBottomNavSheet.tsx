@@ -1,9 +1,9 @@
 import React, { cloneElement, useState } from 'react';
 import { useFloating, useInteractions, useDismiss, useClick } from '@floating-ui/react';
 
+import Typography from '@/components/Ui/typography/Typography';
 import Scrollbar from '@/components/Ui/Scrollbar';
 import CloseButton from '@/components/Ui/Button/CloseButton';
-import * as S from './MapBottomNavSheet.styled';
 
 type Props = {
     title?: string;
@@ -27,12 +27,21 @@ const MapBottomNavSheet: React.FC<Props> = ({ title, maxWidth, render, children,
         <>
             {cloneElement(children, getReferenceProps({ ref: refs.setReference, ...children.props }))}
             {isSheetOpen && (
-                <S.MapBottomNavSheetContainer
-                    {...getFloatingProps({ ref: refs.setFloating, style: { maxWidth: maxWidth } })}
+                <div
+                    {...getFloatingProps({
+                        ref: refs.setFloating,
+                        style: { maxWidth: maxWidth },
+                        className:
+                            'absolute block bottom-0 left-0 min-h-[20vh] w-[calc(100vw-2rem)] sm:w-[calc(100vw-3rem)] text-onDark-highEmphasis bg-tertiary-dark border border-solid border-tertiary-medium rounded shadow-[0px_0px_4px_1px_rgba(0,0,0,0.2)] z-[1000]',
+                    })}
                 >
-                    {displayCloseButton && <CloseButton onClick={() => setIsSheetOpen(false)} />}
+                    {displayCloseButton && (
+                        <CloseButton className="absolute top-4 right-4 z-[1]" onClick={() => setIsSheetOpen(false)} />
+                    )}
                     {title && (
-                        <S.MapBottomNavSheetTitle component="condensedHeading6">{title}</S.MapBottomNavSheetTitle>
+                        <Typography component="condensedHeading6" className="my-4 mx-6 uppercase">
+                            {title}
+                        </Typography>
                     )}
                     <Scrollbar maxHeight="60vh">
                         {render({
@@ -41,7 +50,7 @@ const MapBottomNavSheet: React.FC<Props> = ({ title, maxWidth, render, children,
                             },
                         })}
                     </Scrollbar>
-                </S.MapBottomNavSheetContainer>
+                </div>
             )}
         </>
     );
