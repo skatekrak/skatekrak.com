@@ -17,7 +17,7 @@ const MapBottomNav: React.FC<Props> = ({ isMobile }) => {
             {/* Legend */}
             <MapBottomNavSheet title="Explore the map" maxWidth="27rem" render={() => <Legend />}>
                 <TriggerButton>
-                    <KrakAppIcon className="w-7 h-7 mr-4 shadow-none" />
+                    <KrakAppIcon className="max-lg:hidden w-7 h-7 mr-4 shadow-none" />
                     <Typography component="condensedButton">Legend</Typography>
                 </TriggerButton>
             </MapBottomNavSheet>
@@ -53,7 +53,7 @@ export default React.memo(MapBottomNav);
 
 const TriggerButton = ({ children, ...props }: ButtonHTMLAttributes<HTMLButtonElement>) => (
     <button
-        className="flex items-center min-h-[3.5rem] py-2.5 px-4 text-onDark-highEmphasis bg-tertiary-dark border border-solid border-tertiary-medium rounded shadow-onDarkHighSharp"
+        className="flex items-center py-3 px-4 text-onDark-highEmphasis bg-tertiary-dark border border-solid border-tertiary-medium rounded shadow-onDarkHighSharp"
         {...props}
     >
         {children}

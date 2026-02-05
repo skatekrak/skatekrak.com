@@ -13,8 +13,9 @@ import { Status, Types } from '@/shared/feudartifice/types';
 import SmallLayer from './layers/SmallLayer';
 import SpotPinLayer from './layers/SpotPinLayer';
 import { intersects } from 'radash';
-import { useSpotID, useSpotModal, useViewport } from '@/lib/hook/queryState';
+import { useMapStyle, useSpotID, useSpotModal, useViewport } from '@/lib/hook/queryState';
 import { useMapStore } from '@/store/map';
+import IconLayer from '@/components/Ui/Icons/IconLayer';
 
 type MapComponentProps = {
     mapRef: React.RefObject<MapRef>;
@@ -80,6 +81,12 @@ const MapComponent = ({ mapRef, spots, children, onLoad }: MapComponentProps) =>
         await setViewport(viewState.viewState);
     };
 
+    const [mapStyle, setMapStyle] = useMapStyle();
+
+    const onSwitchMapStyle = () => {
+        setMapStyle(mapStyle === 'dark-v11' ? 'satellite-streets-v11' : 'dark-v11');
+    };
+
     return (
         <S.MapComponent>
             <ReactMapGL
@@ -89,7 +96,7 @@ const MapComponent = ({ mapRef, spots, children, onLoad }: MapComponentProps) =>
                 minZoom={MIN_ZOOM_LEVEL}
                 maxZoom={MAX_ZOOM_LEVEL}
                 mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}
-                mapStyle={'mapbox://styles/mapbox/dark-v11'}
+                mapStyle={`mapbox://styles/mapbox/${mapStyle}`}
                 projection={{ name: 'mercator' }}
                 onMove={onViewportChange}
                 onLoad={onLoad}
@@ -118,6 +125,12 @@ const MapComponent = ({ mapRef, spots, children, onLoad }: MapComponentProps) =>
                 {markers}
 
                 {/* Controls */}
+                <button
+                    className="absolute bottom-4 md:bottom-6 right-14 md:right-16 text-sm bg-white hover:bg-gray-100 text-white p-2 rounded-md"
+                    onClick={onSwitchMapStyle}
+                >
+                    <IconLayer className="w-5 h-5" />
+                </button>
                 <NavigationControl position="bottom-right" />
                 <GeolocateControl position="bottom-right" showAccuracyCircle={false} />
             </ReactMapGL>
