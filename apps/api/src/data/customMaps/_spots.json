@@ -22524,5 +22524,26 @@
     "about": "",
     "videos": [],
     "soundtrack": []
+  },
+  {
+    "id": "sightless",
+    "categories": [
+      "maps"
+    ],
+    "name": "Sightless",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=e3JkEG6oafg",
+      "https://www.youtube.com/watch?v=C7V5kxYMZs8",
+      "https://www.youtube.com/watch?v=703y9w9F23I",
+      "https://www.youtube.com/watch?v=UDU18NrEC4k",
+      "https://www.youtube.com/watch?v=ICs0U7GFqDM",
+      "https://www.youtube.com/watch?v=W27D_ac7dLQ",
+      "https://www.youtube.com/watch?v=kI_QQR7nGFs",
+      "https://www.youtube.com/watch?v=svoUE-QzP9w"
+    ],
+    "soundtrack": []
   }
 ]
