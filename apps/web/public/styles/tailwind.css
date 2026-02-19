@@ -1,3 +1,26 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+    a,
+    del,
+    ins {
+        text-decoration: none;
+    }
+    a {
+        color: inherit;
+    }
+    label,
+    button {
+        cursor: pointer;
+    }
+    button {
+        padding: 0;
+        background-color: inherit;
+    }
+    html,
+    body {
+        height: 100%;
+    }
+}

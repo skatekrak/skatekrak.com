@@ -5,7 +5,6 @@ import { QueryClient, QueryClientProvider, HydrationBoundary } from '@tanstack/r
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { Analytics } from '@vercel/analytics/react';
 
-import '/public/styles/reset.css';
 import '/public/styles/tailwind.css';
 import '/public/styles/flexbox-grid.css';
 import '/public/dist/fonts.css';
