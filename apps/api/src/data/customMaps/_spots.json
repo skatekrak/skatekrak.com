@@ -22622,5 +22622,29 @@
     "about": "The art of Darren Johnson AKA 'Darjohn'.",
     "videos": [],
     "soundtrack": []
+  },
+  {
+    "id": "manramp",
+    "categories": [
+      "maps"
+    ],
+    "name": "Manramp",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=iGwOn1QFi68",
+      "https://www.youtube.com/watch?v=IrbqCSUJqpM",
+      "https://www.youtube.com/watch?v=8z-IDJ59xEQ",
+      "https://www.youtube.com/watch?v=ejzxmFxgcvE",
+      "https://www.youtube.com/watch?v=p0zA1gvCyfs",
+      "https://www.youtube.com/watch?v=zBppdi4h46U",
+      "https://www.youtube.com/watch?v=ugMAPe2pMeI",
+      "https://www.youtube.com/watch?v=kP9D_0ucSPA",
+      "https://www.youtube.com/watch?v=75CJXFU7LEY",
+      "https://www.youtube.com/watch?v=Ve6eDyDqBcM",
+      "https://www.youtube.com/watch?v=IWuVEcQexWo"
+    ],
+    "soundtrack": []
   }
 ]
