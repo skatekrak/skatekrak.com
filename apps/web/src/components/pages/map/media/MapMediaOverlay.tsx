@@ -2,7 +2,6 @@ import React from 'react';
 import { useMap } from 'react-map-gl';
 
 import Typography from '@/components/Ui/typography/Typography';
-import * as S from './MapMedia.styled';
 
 import { Media } from '@krak/carrelage-client';
 import SpotIcon from '@/components/Ui/Utils/SpotIcon';
@@ -21,7 +20,8 @@ const MapMediaOverlaySpotOrUsername = ({ media, isFromCustomMapFeed }: Props) =>
         const { spot } = media;
         if (spot != null) {
             return (
-                <S.MapMediaSpotButton
+                <button
+                    className="text-onDark-highEmphasis bg-transparent flex flex-row items-center hover:underline [&_svg]:w-7"
                     onClick={() => {
                         if (spot.location.latitude && spot.location.longitude) {
                             map?.flyTo({
@@ -39,7 +39,7 @@ const MapMediaOverlaySpotOrUsername = ({ media, isFromCustomMapFeed }: Props) =>
                     <Typography as="h5" component="condensedSubtitle1">
                         {spot.name}
                     </Typography>
-                </S.MapMediaSpotButton>
+                </button>
             );
         }
         // Don't show anything if the media is not from a spot and we are on the custom map feed
@@ -55,14 +55,14 @@ const MapMediaOverlaySpotOrUsername = ({ media, isFromCustomMapFeed }: Props) =>
 
 const MapMediaOverlay = ({ media, isFromCustomMapFeed }: Props) => {
     return (
-        <S.MapMediaOverlay>
+        <div className="hidden group-hover:block absolute bottom-0 left-0 right-0 px-4 py-2 bg-[rgba(31,31,31,0.6)] z-[1] [&_.media-overlay-spot_span]:inline [&_.media-overlay-spot_button]:underline [&_.media-overlay-spot_button]:text-onDark-highEmphasis [&_.media-overlay-spot_button]:bg-transparent">
             <MapMediaOverlaySpotOrUsername media={media} isFromCustomMapFeed={isFromCustomMapFeed} />
             {media.caption != null && (
-                <S.MapMediaOverlayCaption component="body2" truncateLines={3}>
+                <Typography className="mt-1 line-clamp-3" component="body2">
                     {media.caption}
-                </S.MapMediaOverlayCaption>
+                </Typography>
             )}
-        </S.MapMediaOverlay>
+        </div>
     );
 };
 

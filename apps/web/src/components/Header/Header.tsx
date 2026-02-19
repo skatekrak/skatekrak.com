@@ -19,12 +19,12 @@ const Header: React.FC = () => {
     const isConnected = sessionData != null;
 
     return (
-        <header className="flex flex-shrink-0 flex-col py-[0.625rem] px-8 md:px-5 bg-tertiary-dark box-shadow-onDark-highSharp z-index-2">
+        <header className="flex flex-shrink-0 flex-col py-[0.625rem] px-8 tablet:px-5 bg-tertiary-dark box-shadow-onDark-highSharp z-index-2">
             <div className="flex flex-shrink items-center justify-between">
                 <Link href="/">
                     <KrakLogoHand className="h-11 fill-onDark-highEmphasis [&>.krak-logo-hand-shape]:stroke-red-600" />
                 </Link>
-                <div className="hidden md:block relative mx-6">
+                <div className="hidden tablet:block relative mx-6">
                     <Typography component="condensedBody1" className="italic [&>a]:underline">
                         free skateboarding archives built & run by skateboarders; part of{' '}
                         <a className="mr-1" href="https://www.opensb.org/" target="_blank" rel="noopener noreferrer">
@@ -44,7 +44,7 @@ const Header: React.FC = () => {
                 </div>
 
                 <nav className="flex items-center gap-4 ml-auto shrink-0">
-                    <div className="hidden md:flex items-center">
+                    <div className="hidden tablet:flex items-center">
                         <div className="ml-5 flex items-center">
                             <NavSocialIconLink target="_blank" href="https://discord.gg/exMAqSuVfj" rel="noreferrer">
                                 <IconDiscord className="size-5" />
@@ -77,7 +77,7 @@ const Header: React.FC = () => {
                     </div>
 
                     <NavSocialIconLink
-                        className="mr-4 md:hidden"
+                        className="mr-4 tablet:hidden"
                         target="_blank"
                         href="https://discord.gg/exMAqSuVfj"
                         rel="noreferrer"

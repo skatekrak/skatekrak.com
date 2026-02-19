@@ -8,8 +8,6 @@ import SearchIcon from '@/components/Ui/Icons/Search';
 import IconClear from '@/components/Ui/Icons/IconClear';
 import MapSearchResults from './MapSearchResults/MapSearchResults';
 import { SpotHit, spotIndex, SpotSearchResult } from '@/lib/meilisearch';
-
-import * as S from './MapSearch.styled';
 import { useMapStore } from '@/store/map';
 
 const fetchSpots = async (query: string): Promise<SpotHit[]> => {
@@ -52,8 +50,8 @@ const MapNavigation = () => {
     };
 
     return (
-        <S.MapSearchContainer>
-            <S.MapSearchBar>
+        <div className="grow relative flex flex-col z-[1]">
+            <div className="flex items-center p-4 bg-tertiary-dark border border-tertiary-medium rounded shadow-onDarkHighSharp [&_input]:w-full [&_input]:text-base [&_input]:text-onDark-highEmphasis [&_input]:bg-inherit [&_input]:outline-none [&_input_placeholder]:text-onDark-mediumEmphasis [&_button]:flex [&_button]:ml-4 [&_svg]:shrink-0 [&_svg]:!w-6 [&_svg]:fill-onDark-lowEmphasis">
                 <input
                     type="text"
                     placeholder="Find a spot"
@@ -69,7 +67,7 @@ const MapNavigation = () => {
                         <IconClear />
                     </button>
                 )}
-            </S.MapSearchBar>
+            </div>
             {searchValue !== '' && searchResultOpen && (
                 <MapSearchResults
                     places={places ?? []}
@@ -78,7 +76,7 @@ const MapNavigation = () => {
                     onClick={() => updateSearchResultVisibility(false)}
                 />
             )}
-        </S.MapSearchContainer>
+        </div>
     );
 };
 

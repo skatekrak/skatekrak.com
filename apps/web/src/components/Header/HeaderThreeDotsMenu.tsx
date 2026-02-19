@@ -24,7 +24,7 @@ export const HeaderThreeDotsMenu = () => {
             render={() => (
                 <div className="min-width-[10rem] flex flex-col gap-2 mt-1 p-2 rounded bg-tertiary-dark border border-tertiary-medium box-shadow-onDark-highSharp">
                     <Link
-                        className="block max-md:p-4 py-2 px-4 rounded hover:bg-tertiary-medium"
+                        className="block max-tablet:p-4 py-2 px-4 rounded hover:bg-tertiary-medium"
                         target="_blank"
                         rel="noopener noreferrer"
                         href="https://opencollective.com/opensb/projects/krakmap"
@@ -33,7 +33,7 @@ export const HeaderThreeDotsMenu = () => {
                     </Link>
 
                     <Link
-                        className="block max-md:p-4 py-2 px-4 rounded hover:bg-tertiary-medium"
+                        className="block max-tablet:p-4 py-2 px-4 rounded hover:bg-tertiary-medium"
                         href={PATH_CALL_TO_ADVENTURE}
                     >
                         Call to Adventure

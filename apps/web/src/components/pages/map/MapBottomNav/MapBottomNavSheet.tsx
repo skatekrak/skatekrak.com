@@ -32,7 +32,7 @@ const MapBottomNavSheet: React.FC<Props> = ({ title, maxWidth, render, children,
                         ref: refs.setFloating,
                         style: { maxWidth: maxWidth },
                         className:
-                            'absolute block bottom-0 left-0 min-h-[20vh] w-[calc(100vw-2rem)] sm:w-[calc(100vw-3rem)] text-onDark-highEmphasis bg-tertiary-dark border border-solid border-tertiary-medium rounded shadow-[0px_0px_4px_1px_rgba(0,0,0,0.2)] z-[1000]',
+                            'absolute block bottom-0 left-0 min-h-[20vh] w-[calc(100vw-2rem)] mobile:w-[calc(100vw-3rem)] text-onDark-highEmphasis bg-tertiary-dark border border-solid border-tertiary-medium rounded shadow-[0px_0px_4px_1px_rgba(0,0,0,0.2)] z-[1000]',
                     })}
                 >
                     {displayCloseButton && (

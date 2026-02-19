@@ -1,7 +1,7 @@
 import React from 'react';
-import styled from 'styled-components';
+import classnames from 'classnames';
 
-import { truncateMultipleLinesStyles, truncateOneLineStyles, TruncateTextProps } from './truncateText';
+import { getTruncateClasses, TruncateTextProps } from './truncateText';
 
 type Component =
     | 'heading1'
@@ -26,154 +26,66 @@ type Component =
     | 'condensedButton'
     | 'condensedOverline';
 
-const StyledTypography = styled.p<{ $truncateLines?: number; $component: Component }>`
-    position: relative;
-    font-family: ${({ theme }) => theme.typography.fonts.roboto.regular};
-    line-height: 1.33;
+/**
+ * Tailwind class lookup for each typography variant.
+ *
+ * Base styles applied to all variants: `relative font-roboto leading-[1.33] [&>*]:!inline`
+ * Each variant overrides font-family, font-size, and optionally line-height, letter-spacing, text-transform.
+ */
+const variantClasses: Record<Component, string> = {
+    heading1: 'font-roboto-bold text-[6rem] leading-[7rem] tracking-[-0.09375rem]',
+    heading2: 'font-roboto-bold text-[3.75rem] leading-[4.5rem] tracking-[-0.03125rem]',
+    heading3: 'font-roboto text-[3rem]',
+    heading4: 'font-roboto-bold text-[2.125rem] tracking-[0.015625rem]',
+    heading5: 'font-roboto-bold text-[1.5rem] leading-[1.8125rem]',
+    heading6: 'font-roboto-bold text-[1.25rem] leading-[1.5rem] tracking-[0.015625rem]',
+    subtitle1: 'font-roboto-bold text-[1rem] tracking-[-0.03125rem]',
+    subtitle2: 'font-roboto-bold text-[0.875rem]',
+    body1: 'font-roboto text-[1rem]',
+    body2: 'font-roboto text-[0.875rem]',
+    button: 'font-roboto-bold text-[0.875rem] leading-[1.5rem] tracking-[0.03125rem] uppercase',
+    caption: 'font-roboto-bold text-[0.75rem] leading-[1rem] tracking-[0.03125rem]',
+    overline: 'font-roboto text-[0.625rem] leading-[1rem] tracking-[0.09375rem] uppercase',
+    condensedHeading3: 'font-roboto-condensed-bold text-[3rem]',
+    condensedHeading4: 'font-roboto-condensed-bold text-[2.125rem] tracking-[0.015625rem]',
+    condensedHeading5: 'font-roboto-condensed-bold text-[1.5rem] leading-[1.8125rem]',
+    condensedHeading6: 'font-roboto-condensed-bold text-[1.25rem] leading-[1.5rem]',
+    condensedSubtitle1: 'font-roboto-condensed-bold text-[1rem]',
+    condensedBody1: 'font-roboto-condensed text-[1rem]',
+    condensedButton: 'font-roboto-condensed-bold text-[0.875rem] tracking-[4%] uppercase',
+    condensedOverline: 'font-roboto-condensed text-[0.625rem] leading-[1rem] tracking-[0.09375rem] uppercase',
+};
 
-    & * {
-        display: inline !important;
-    }
-
-    ${({ $component, theme }) =>
-        ($component === 'heading1' && {
-            fontFamily: theme.typography.fonts.roboto.bold,
-            fontSize: '6rem',
-            lineHeight: '7rem',
-            letterSpacing: '-0.09375rem',
-        }) ||
-        ($component === 'heading2' && {
-            fontFamily: theme.typography.fonts.roboto.bold,
-            fontSize: '3.75rem',
-            lineHeight: '4.5rem',
-            letterSpacing: '-0.03125rem',
-        }) ||
-        ($component === 'heading3' && {
-            fontFamily: theme.typography.fonts.roboto.regular,
-            fontSize: '3rem',
-        }) ||
-        ($component === 'heading4' && {
-            fontFamily: theme.typography.fonts.roboto.bold,
-            fontSize: '2.125rem',
-            letterSpacing: '0.015625rem',
-        }) ||
-        ($component === 'heading5' && {
-            fontFamily: theme.typography.fonts.roboto.bold,
-            fontSize: '1.5rem',
-            lineHeight: '1.8125rem',
-        }) ||
-        ($component === 'heading6' && {
-            fontFamily: theme.typography.fonts.roboto.bold,
-            fontSize: '1.25rem',
-            lineHeight: '1.5rem',
-            letterSpacing: '0.015625rem',
-        }) ||
-        ($component === 'subtitle1' && {
-            fontFamily: theme.typography.fonts.roboto.bold,
-            fontSize: '1rem',
-            letterSpacing: '-0.03125rem',
-        }) ||
-        ($component === 'subtitle2' && {
-            fontFamily: theme.typography.fonts.roboto.bold,
-            fontSize: '0.875rem',
-        }) ||
-        ($component === 'body1' && {
-            fontFamily: theme.typography.fonts.roboto.regular,
-            fontSize: '1rem',
-        }) ||
-        ($component === 'body2' && {
-            fontFamily: theme.typography.fonts.roboto.regular,
-            fontSize: '0.875rem',
-        }) ||
-        ($component === 'button' && {
-            fontFamily: theme.typography.fonts.roboto.bold,
-            fontSize: '0.875rem',
-            lineHeight: '1.5rem',
-            letterSpacing: '0.03125rem',
-            textTransform: 'uppercase',
-        }) ||
-        ($component === 'caption' && {
-            fontFamily: theme.typography.fonts.roboto.bold,
-            fontSize: '0.75rem',
-            lineHeight: '1rem',
-            letterSpacing: '0.03125rem',
-        }) ||
-        ($component === 'overline' && {
-            fontFamily: theme.typography.fonts.roboto.regular,
-            fontSize: '0.625rem',
-            lineHeight: '1rem',
-            letterSpacing: '0.09375rem',
-            textTransform: 'uppercase',
-        }) ||
-        ($component === 'condensedHeading3' && {
-            fontFamily: theme.typography.fonts.roboto.condensed.bold,
-            fontSize: '3rem',
-        }) ||
-        ($component === 'condensedHeading4' && {
-            fontFamily: theme.typography.fonts.roboto.condensed.bold,
-            fontSize: '2.125rem',
-            letterSpacing: '0.015625rem',
-        }) ||
-        ($component === 'condensedHeading5' && {
-            fontFamily: theme.typography.fonts.roboto.condensed.bold,
-            fontSize: '1.5rem',
-            lineHeight: '1.8125rem',
-        }) ||
-        ($component === 'condensedHeading6' && {
-            fontFamily: theme.typography.fonts.roboto.condensed.bold,
-            fontSize: '1.25rem',
-            lineHeight: '1.5rem',
-        }) ||
-        ($component === 'condensedSubtitle1' && {
-            fontFamily: theme.typography.fonts.roboto.condensed.bold,
-            fontSize: '1rem',
-        }) ||
-        ($component === 'condensedBody1' && {
-            fontFamily: theme.typography.fonts.roboto.condensed.regular,
-            fontSize: '1rem',
-        }) ||
-        ($component === 'condensedButton' && {
-            fontFamily: theme.typography.fonts.roboto.condensed.bold,
-            fontSize: '0.875rem',
-            letterSpacing: '4%',
-            textTransform: 'uppercase',
-        }) ||
-        ($component === 'condensedOverline' && {
-            fontFamily: theme.typography.fonts.roboto.condensed.regular,
-            fontSize: '0.625rem',
-            lineHeight: '1rem',
-            letterSpacing: '0.09375rem',
-            textTransform: 'uppercase',
-        })}
-
-    ${({ $truncateLines }) =>
-        $truncateLines === 1 ? truncateOneLineStyles : truncateMultipleLinesStyles($truncateLines)}
-`;
+type HtmlTag = 'p' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'span' | 'strong';
 
 type TypographyProps = {
     className?: string;
-    as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'span' | 'strong';
+    as?: HtmlTag;
     component?: Component;
     title?: string;
 };
 
 const Typography: React.FC<TruncateTextProps & TypographyProps & { children: React.ReactNode }> = ({
     className,
-    truncateLines: $truncateLines,
-    as,
-    component: $component,
+    truncateLines,
+    as = 'p',
+    component = 'body1',
     title,
     children,
-}) => (
-    <StyledTypography
-        as={as}
-        $truncateLines={$truncateLines}
-        $component={$component !== undefined ? $component : 'body1'}
-        title={title}
-        className={`ui-Typography ${className}`}
-    >
-        {children}
-    </StyledTypography>
-);
+}) => {
+    return React.createElement(
+        as,
+        {
+            title,
+            className: classnames(
+                'ui-Typography relative leading-[1.33] [&>*]:!inline',
+                variantClasses[component],
+                getTruncateClasses(truncateLines),
+                className,
+            ),
+        },
+        children,
+    );
+};
 
 export default Typography;

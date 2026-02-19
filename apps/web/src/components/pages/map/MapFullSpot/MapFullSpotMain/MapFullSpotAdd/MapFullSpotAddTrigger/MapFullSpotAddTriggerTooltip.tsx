@@ -1,8 +1,6 @@
 import React, { cloneElement, useState } from 'react';
 import { useFloating, offset, useInteractions, useRole, useDismiss, shift, useClick } from '@floating-ui/react';
 
-import * as S from './MapFullSpotAddTrigger.styled';
-
 type MapFullSpotAddTriggerTooltipProps = {
     render: (props: any) => React.ReactNode;
     children: JSX.Element;
@@ -29,7 +27,8 @@ const MapFullSpotAddTriggerTooltip = ({ render, children }: MapFullSpotAddTrigge
         <>
             {cloneElement(children, getReferenceProps({ ref: refs.setReference, ...children.props }))}
             {open && (
-                <S.MapFullSpotAddTriggerTooltipContainer
+                <div
+                    className="w-40 bg-tertiary-dark border border-tertiary-medium rounded shadow-onDarkHighSharp z-[1]"
                     {...getFloatingProps({
                         ref: refs.setFloating,
                         style: {
@@ -44,7 +43,7 @@ const MapFullSpotAddTriggerTooltip = ({ render, children }: MapFullSpotAddTrigge
                             setOpen(false);
                         },
                     })}
-                </S.MapFullSpotAddTriggerTooltipContainer>
+                </div>
             )}
         </>
     );

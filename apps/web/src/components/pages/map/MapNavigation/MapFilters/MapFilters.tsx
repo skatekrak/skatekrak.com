@@ -9,12 +9,11 @@ import ShopIcon from '@/components/pages/map/marker/icons/Shop';
 import StreetIcon from '@/components/pages/map/marker/icons/Street';
 import WipIcon from '@/components/pages/map/marker/icons/Wip';
 
-import * as S from './MapFilters.styled';
 import MapFilter from './MapFilter';
 
 const MapFilters = () => {
     return (
-        <S.MapFiltersContainer>
+        <div className="flex items-center mt-2">
             <MapFilter filter={Types.Street} icon={<StreetIcon />} />
             <MapFilter filter={Types.Park} icon={<ParkIcon />} />
             <MapFilter filter={Types.Diy} icon={<DiyIcon />} />
@@ -22,7 +21,7 @@ const MapFilters = () => {
             <MapFilter filter={Types.Shop} icon={<ShopIcon />} />
             <MapFilter filter={Status.Wip} icon={<WipIcon />} />
             <MapFilter filter={Status.Rip} icon={<RipIcon />} />
-        </S.MapFiltersContainer>
+        </div>
     );
 };
 

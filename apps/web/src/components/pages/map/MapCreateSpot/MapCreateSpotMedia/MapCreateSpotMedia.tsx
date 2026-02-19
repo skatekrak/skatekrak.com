@@ -2,7 +2,6 @@ import React, { ElementRef, useRef } from 'react';
 
 import Typography from '@/components/Ui/typography/Typography';
 import IconPlus from '@/components/Ui/Icons/IconPlus';
-import * as S from './MapCreateSpotMedia.styled';
 import { useField } from 'formik';
 import MapCreateSpotMediaItem from './MapCreateSpotMediaItem';
 
@@ -32,12 +31,15 @@ const MapCreateSpotMedia = () => {
     };
 
     return (
-        <S.MapCreateSpotMediaContainer>
+        <div className="p-6 tablet:px-8 tablet:py-5">
             <Typography component="subtitle1">Media (1 minimum)</Typography>
-            <S.MapCreateSpotMediaGrid>
-                <S.MapCreateSpotMediaItemContainer>
-                    <S.MapCreateSpotMediaItem>
-                        <S.MapCreateSpotMediaAdd onClick={handleAddMediaClick}>
+            <div className="grid grid-cols-2 gap-4 mt-4">
+                <div className="relative pt-[100%] rounded bg-tertiary-light overflow-hidden">
+                    <div className="absolute top-0 right-0 bottom-0 left-0">
+                        <button
+                            className="flex w-full h-full hover:[&_svg]:fill-onDark-highEmphasis [&_svg]:m-auto [&_svg]:w-6 [&_svg]:fill-onDark-mediumEmphasis"
+                            onClick={handleAddMediaClick}
+                        >
                             <IconPlus />
                             <input
                                 type="file"
@@ -46,9 +48,9 @@ const MapCreateSpotMedia = () => {
                                 onChange={handleMediaChange}
                                 style={{ display: 'none' }}
                             />
-                        </S.MapCreateSpotMediaAdd>
-                    </S.MapCreateSpotMediaItem>
-                </S.MapCreateSpotMediaItemContainer>
+                        </button>
+                    </div>
+                </div>
                 {value.map((image, index) => (
                     <MapCreateSpotMediaItem
                         key={`map-create-media-${index}`}
@@ -56,8 +58,8 @@ const MapCreateSpotMedia = () => {
                         onRemove={handleRemoveMedia}
                     />
                 ))}
-            </S.MapCreateSpotMediaGrid>
-        </S.MapCreateSpotMediaContainer>
+            </div>
+        </div>
     );
 };
 

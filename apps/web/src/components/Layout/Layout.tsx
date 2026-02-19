@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import Head from 'next/head';
 
 import Header from '@/components/Header';
-import * as S from './Layout.styled';
 
 import { useSettingsStore } from '@/store/settings';
 
@@ -39,10 +38,12 @@ const Layout: React.FC<LayoutProps & { children: React.ReactNode }> = ({ head, c
                     <meta property="og:url" content={process.env.NEXT_PUBLIC_WEBSITE_URL} />
                 </Head>
             )}
-            <S.LayoutPageContainer>
+            <div className="absolute flex flex-col left-0 top-0 right-0 bottom-0 overflow-hidden">
                 <Header />
-                <S.LayoutMainContainer className="scroll-container">{children}</S.LayoutMainContainer>
-            </S.LayoutPageContainer>
+                <div className="relative grow flex flex-col text-onLight-highEmphasis overflow-y-auto scroll-smooth z-[1] scroll-container">
+                    {children}
+                </div>
+            </div>
         </>
     );
 };

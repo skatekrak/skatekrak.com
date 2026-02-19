@@ -12,7 +12,7 @@ import MapNavigation from './MapNavigation';
 import MapBottomNav from './MapBottomNav/MapBottomNav';
 import MapGradients from './MapGradients';
 import MapZoomAlert from './MapZoomAlert';
-import * as S from './Map.styled';
+
 import { findSpotsBoundsCoordinate, spotToGeoJSON } from '@/lib/map/helpers';
 import { ZOOM_DISPLAY_WARNING } from './Map.constant';
 import MapCreateSpot from './MapCreateSpot';
@@ -180,7 +180,7 @@ const MapContainer = () => {
     const isLoading = spotsGeoJSONLoading || spotsTagsLoading;
 
     return (
-        <S.MapContainer ref={fullSpotContainerRef}>
+        <div ref={fullSpotContainerRef} className="relative grow flex bg-tertiary-dark overflow-hidden">
             <DynamicMapComponent
                 mapRef={mapRef}
                 spots={displayedSpots}
@@ -203,7 +203,7 @@ const MapContainer = () => {
                         {!isMobile && <QuickAccessDesktop />}
                         {viewport.zoom <= ZOOM_DISPLAY_WARNING && id == null && <MapZoomAlert />}
                         {isLoading && (
-                            <div className="absolute bottom-24 left-6 md:left-8 md:bottom-28 flex items-center gap-2 text-gray-400 text-sm">
+                            <div className="absolute bottom-24 left-6 tablet:left-8 tablet:bottom-28 flex items-center gap-2 text-gray-400 text-sm">
                                 <SpinnerCircle className="stroke-gray-400 w-3.5" />
                                 <span>loading spots</span>
                             </div>
@@ -218,7 +218,7 @@ const MapContainer = () => {
                 )}
             </DynamicMapComponent>
             <MapGradients />
-        </S.MapContainer>
+        </div>
     );
 };
 

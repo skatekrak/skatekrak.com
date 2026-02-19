@@ -5,7 +5,6 @@ import { KrakLoading } from '@/components/Ui/Icons/Spinners';
 import ScrollBar from '@/components/Ui/Scrollbar';
 import KrakMasonry from '@/components/Ui/Masonry';
 import MapMedia from '@/components/pages/map/media/MapMedia';
-import * as S from '@/components/pages/map/MapFullSpot/MapFullSpotMain/MapFullSpotMain.styled';
 
 import { Spot, Media } from '@krak/carrelage-client';
 import useSpotMedias from '@/lib/hook/carrelage/spot-medias';
@@ -45,14 +44,14 @@ const MapFullSpotMedias: React.FC<MapFullSpotMediasProps> = ({ medias: firstMedi
                 getScrollParent={getScrollParent}
                 useWindow={false}
             >
-                <S.MapFullSpotMainMediaGridContainer>
+                <div className="block p-6 [&_.icon-loading-krak]:mx-auto [&_.icon-loading-krak]:mt-16 [&_.icon-loading-krak]:mb-8 tablet:p-12">
                     <KrakMasonry breakpointCols={isMobile ? 1 : 2}>
                         {medias.map((media) => (
                             <MapMedia key={media.id} media={media} shareURL={generateShareURL(spot.id, media.id)} />
                         ))}
                     </KrakMasonry>
                     {isFetching && <KrakLoading />}
-                </S.MapFullSpotMainMediaGridContainer>
+                </div>
             </InfiniteScroll>
         </ScrollBar>
     );

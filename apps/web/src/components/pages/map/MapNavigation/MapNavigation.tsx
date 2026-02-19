@@ -3,21 +3,19 @@ import React from 'react';
 import MapCreateSpotButton from '../MapCreateSpot/MapCreateSpotButton';
 import MapSearch from './MapSearch';
 
-import * as S from './MapNavigation.styled';
-
 type Props = {
     handleCreateSpotClick: () => void;
 };
 
 const MapNavigation = ({ handleCreateSpotClick }: Props) => {
     return (
-        <S.MapNavigation>
-            <S.MapNavigationMain>
+        <div className="absolute top-4 left-4 right-4 z-[990] tablet:right-auto tablet:min-w-[24rem] laptop:top-6 laptop:left-6">
+            <div className="flex items-center">
                 <MapSearch />
                 <MapCreateSpotButton onClick={handleCreateSpotClick} />
-            </S.MapNavigationMain>
+            </div>
             {/* <MapFilters /> */}
-        </S.MapNavigation>
+        </div>
     );
 };
 

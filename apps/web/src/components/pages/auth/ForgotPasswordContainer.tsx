@@ -4,9 +4,8 @@ import * as Yup from 'yup';
 
 import ButtonPrimary from '@/components/Ui/Button/ButtonPrimary/ButtonPrimary';
 import Emoji from '@/components/Ui/Icons/Emoji';
+import Typography from '@/components/Ui/typography/Typography';
 
-import * as S from '@/components/pages/auth/Auth.styled';
-import * as SF from '@/components/pages/auth/Forgot.styled';
 import Feudartifice from '@/shared/feudartifice';
 import { CarrelageAPIError } from '@/shared/feudartifice/types';
 import { AxiosError } from 'axios';
@@ -36,14 +35,16 @@ const ForgotPasswordContainer = () => {
     };
 
     return (
-        <S.AuthPageContainer>
-            <S.AuthUniqueColumnPage>
-                <S.AuthFormTitle component="condensedHeading5">Forgot your password?</S.AuthFormTitle>
-                <SF.ForgotDescription component="body1">
+        <div className="grow flex flex-col w-full py-8 text-onDark-highEmphasis bg-tertiary-dark">
+            <div className="w-full max-w-[20rem] flex flex-col mx-auto">
+                <Typography component="condensedHeading5" className="mb-8 text-center">
+                    Forgot your password?
+                </Typography>
+                <Typography component="body1" className="mb-16 text-center text-onDark-mediumEmphasis">
                     Give us your email and
                     <br />
                     we will send you a verification link.
-                </SF.ForgotDescription>
+                </Typography>
                 {success ? (
                     <div id="auth-form-success">
                         <h2>Email sent!</h2>
@@ -54,19 +55,21 @@ const ForgotPasswordContainer = () => {
                         {({ errors, isSubmitting, isValid, dirty, touched }) => (
                             <Form>
                                 {/* Email input */}
-                                <S.AuthInputField>
+                                <div className="relative flex items-center mb-4 bg-tertiary-medium rounded overflow-hidden last:mb-0 [&_input]:w-full [&_input]:p-4 [&_input]:text-base [&_input]:text-onDark-highEmphasis [&_input]:bg-tertiary-medium [&_input]:outline-none [&_.emoji]:shrink-0 [&_.emoji]:w-4 [&_.emoji]:ml-4 [&_.emoji]:text-onDark-mediumEmphasis">
                                     <Emoji label="email" symbol="📭" />
                                     <Field name="email" type="email" placeholder="Email" />
-                                </S.AuthInputField>
+                                </div>
 
                                 {/* Submit */}
-                                <S.AuthSubmitContainer>
+                                <div className="relative mt-4 pt-14">
                                     {touched.email && errors.email != null && (
-                                        <S.AuthSubmitErrorContainer>
+                                        <div className="absolute top-0 left-0 right-0">
                                             {errors.email !== null && (
-                                                <S.AuthSubmitError component="body2">{errors.email}</S.AuthSubmitError>
+                                                <Typography component="body2" className="text-system-error">
+                                                    {errors.email}
+                                                </Typography>
                                             )}
-                                        </S.AuthSubmitErrorContainer>
+                                        </div>
                                     )}
                                     <ButtonPrimary
                                         type="submit"
@@ -76,13 +79,13 @@ const ForgotPasswordContainer = () => {
                                     >
                                         Send email
                                     </ButtonPrimary>
-                                </S.AuthSubmitContainer>
+                                </div>
                             </Form>
                         )}
                     </Formik>
                 )}
-            </S.AuthUniqueColumnPage>
-        </S.AuthPageContainer>
+            </div>
+        </div>
     );
 };
 

@@ -1,7 +1,18 @@
 /** @type {import('tailwindcss').Config} */
+const plugin = require('tailwindcss/plugin');
+
 module.exports = {
     content: ['./src/components/**/*.{js,ts,jsx,tsx}', './src/pages/**/*.{js,ts,jsx,tsx}'],
     theme: {
+        screens: {
+            mobile: '480px',
+            tablet: '768px',
+            'laptop-s': '1024px',
+            laptop: '1280px',
+            'laptop-l': '1440px',
+            desktop: '1920px',
+            infinite: '2560px',
+        },
         extend: {
             boxShadow: {
                 onDarkLow: '1px 3px 24px 1px rgba(0, 0, 0, 0.08)',
@@ -9,6 +20,20 @@ module.exports = {
                 onDarkHigh: '1px 5px 24px 1px rgba(0, 0, 0, 0.24)',
                 onDarkHighSharp: '0px 0px 4px 1px rgba(0, 0, 0, 0.2)',
                 onDarkExtreme: '1px 5px 24px 1px rgba(0, 0, 0, 0.4)',
+                onLightLow: '1px 3px 24px 1px rgba(31, 31, 31, 0.06)',
+                onLightMedium: '1px 4px 24px 1px rgba(31, 31, 31, 0.1)',
+                onLightHigh: '1px 5px 24px 1px rgba(31, 31, 31, 0.16)',
+                onLightExtreme: '1px 5px 24px 1px rgba(31, 31, 31, 0.32)',
+            },
+            fontFamily: {
+                roboto: ['"roboto-regular"', '"helvetica"', '"Arial"', 'sans-serif'],
+                'roboto-bold': ['"roboto-bold"', '"helvetica"', '"Arial"', 'sans-serif'],
+                'roboto-black': ['"roboto-black"', '"helvetica"', '"Arial"', 'sans-serif'],
+                'roboto-black-italic': ['"roboto-black-italic"', '"helvetica"', '"Arial"', 'sans-serif'],
+                'roboto-condensed': ['"roboto-condensed-regular"', '"helvetica"', '"Arial"', 'sans-serif'],
+                'roboto-condensed-bold': ['"roboto-condensed-bold"', '"helvetica"', '"Arial"', 'sans-serif'],
+                brush: ['"dirty-brush"', '"helvetica"', '"Arial"', 'sans-serif'],
+                ink: ['"inkfree"', '"helvetica"', '"Arial"', 'sans-serif'],
             },
             colors: {
                 primary: {
@@ -82,5 +107,16 @@ module.exports = {
             },
         },
     },
-    plugins: [],
+    plugins: [
+        plugin(function ({ addUtilities }) {
+            addUtilities({
+                '.text-shadow-low': {
+                    'text-shadow': '0px 0px 2px rgba(0, 0, 0, 0.25)',
+                },
+                '.text-shadow-high': {
+                    'text-shadow': '0px 0px 2px rgba(0, 0, 0, 0.5)',
+                },
+            });
+        }),
+    ],
 };

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import IconClear from '@/components/Ui/Icons/IconClear';
-import * as S from './MapCreateSpotMedia.styled';
+
 type MapCreateSpotMediaItemProps = {
     file: File;
     onRemove: (file: File) => void;
@@ -15,14 +15,17 @@ const MapCreateSpotMediaItem = ({ file, onRemove }: MapCreateSpotMediaItemProps)
     }, []);
 
     return (
-        <S.MapCreateSpotMediaItemContainer key={imageURL}>
-            <S.MapCreateSpotMediaItem>
-                <S.MapCreateSpotMediaRemoveButton onClick={() => onRemove(file)}>
+        <div className="relative pt-[100%] rounded bg-tertiary-light overflow-hidden" key={imageURL}>
+            <div className="absolute top-0 right-0 bottom-0 left-0">
+                <button
+                    className="absolute top-2 right-2 flex bg-tertiary-light rounded-full z-[1] [&_svg]:w-8 [&_svg]:fill-onDark-mediumEmphasis hover:[&_svg]:fill-onDark-highEmphasis"
+                    onClick={() => onRemove(file)}
+                >
                     <IconClear />
-                </S.MapCreateSpotMediaRemoveButton>
-                <S.MapCreateSpotMediaItemImage src={imageURL} />
-            </S.MapCreateSpotMediaItem>
-        </S.MapCreateSpotMediaItemContainer>
+                </button>
+                <img className="relative w-full h-full object-cover bg-tertiary-light" src={imageURL} />
+            </div>
+        </div>
     );
 };
 

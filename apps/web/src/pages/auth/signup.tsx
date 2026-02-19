@@ -8,7 +8,8 @@ import { isEmpty, first, shake } from 'radash';
 import Layout from '@/components/Layout';
 import ButtonPrimary from '@/components/Ui/Button/ButtonPrimary/ButtonPrimary';
 import Emoji from '@/components/Ui/Icons/Emoji';
-import * as S from '@/components/pages/auth/Auth.styled';
+import IconLike from '@/components/Ui/Icons/IconLike';
+import Typography from '@/components/Ui/typography/Typography';
 
 import Feudartifice from '@/shared/feudartifice';
 import { CarrelageAPIError } from '@/shared/feudartifice/types';
@@ -59,10 +60,12 @@ const Signup: NextPage = () => {
 
     return (
         <Layout>
-            <S.AuthPageContainer>
-                <S.AuthUniqueColumnPage>
-                    <S.LoginKrakLikeIcon />
-                    <S.AuthFormTitle component="condensedHeading5">Join the family</S.AuthFormTitle>
+            <div className="grow flex flex-col w-full py-8 text-onDark-highEmphasis bg-tertiary-dark">
+                <div className="w-full max-w-[20rem] flex flex-col mx-auto">
+                    <IconLike className="w-12 mx-auto mb-8 fill-[#a738ff]" />
+                    <Typography component="condensedHeading5" className="mb-8 text-center">
+                        Join the family
+                    </Typography>
                     <Formik
                         initialValues={{ username: '', email: '', password: '', confirmPassword: '' }}
                         validationSchema={SignupFormSchema}
@@ -71,30 +74,30 @@ const Signup: NextPage = () => {
                         {({ errors, isSubmitting, handleSubmit, isValid, dirty, touched }) => (
                             <form onSubmit={handleSubmit}>
                                 {/* Signup inputs */}
-                                <S.AuthInputField>
+                                <div className="relative flex items-center mb-4 bg-tertiary-medium rounded overflow-hidden last:mb-0 [&_input]:w-full [&_input]:p-4 [&_input]:text-base [&_input]:text-onDark-highEmphasis [&_input]:bg-tertiary-medium [&_input]:outline-none [&_.emoji]:shrink-0 [&_.emoji]:w-4 [&_.emoji]:ml-4 [&_.emoji]:text-onDark-mediumEmphasis">
                                     <Emoji label="username" symbol="@" />
                                     <Field name="username" type="username" placeholder="Username" />
-                                </S.AuthInputField>
-                                <S.AuthInputField>
+                                </div>
+                                <div className="relative flex items-center mb-4 bg-tertiary-medium rounded overflow-hidden last:mb-0 [&_input]:w-full [&_input]:p-4 [&_input]:text-base [&_input]:text-onDark-highEmphasis [&_input]:bg-tertiary-medium [&_input]:outline-none [&_.emoji]:shrink-0 [&_.emoji]:w-4 [&_.emoji]:ml-4 [&_.emoji]:text-onDark-mediumEmphasis">
                                     <Emoji label="email" symbol="📭" />
                                     <Field name="email" type="email" placeholder="Email" />
-                                </S.AuthInputField>
-                                <S.AuthInputField>
+                                </div>
+                                <div className="relative flex items-center mb-4 bg-tertiary-medium rounded overflow-hidden last:mb-0 [&_input]:w-full [&_input]:p-4 [&_input]:text-base [&_input]:text-onDark-highEmphasis [&_input]:bg-tertiary-medium [&_input]:outline-none [&_.emoji]:shrink-0 [&_.emoji]:w-4 [&_.emoji]:ml-4 [&_.emoji]:text-onDark-mediumEmphasis">
                                     <Emoji label="password" symbol="🔒" />
                                     <Field name="password" type="password" placeholder="Password" />
-                                </S.AuthInputField>
-                                <S.AuthInputField>
+                                </div>
+                                <div className="relative flex items-center mb-4 bg-tertiary-medium rounded overflow-hidden last:mb-0 [&_input]:w-full [&_input]:p-4 [&_input]:text-base [&_input]:text-onDark-highEmphasis [&_input]:bg-tertiary-medium [&_input]:outline-none [&_.emoji]:shrink-0 [&_.emoji]:w-4 [&_.emoji]:ml-4 [&_.emoji]:text-onDark-mediumEmphasis">
                                     <Emoji label="confirmPassword" symbol="🔒" />
                                     <Field name="confirmPassword" type="password" placeholder="Confirm password" />
-                                </S.AuthInputField>
+                                </div>
 
                                 {/* Submit */}
-                                <S.AuthSubmitContainer>
+                                <div className="relative mt-4 pt-14">
                                     {/* First check if we have at least one error */}
                                     {Object.keys(shake(errors)).length > 0 && (
-                                        <S.AuthSubmitErrorContainer>
+                                        <div className="absolute top-0 left-0 right-0">
                                             {/* Display the first error found which isn't nil and is touched */}
-                                            <S.AuthSubmitError component="body2">
+                                            <Typography component="body2" className="text-system-error">
                                                 {
                                                     errors[
                                                         first(
@@ -104,8 +107,8 @@ const Signup: NextPage = () => {
                                                         ) as string
                                                     ]
                                                 }
-                                            </S.AuthSubmitError>
-                                        </S.AuthSubmitErrorContainer>
+                                            </Typography>
+                                        </div>
                                     )}
                                     <ButtonPrimary
                                         type="submit"
@@ -115,12 +118,12 @@ const Signup: NextPage = () => {
                                     >
                                         Create my account
                                     </ButtonPrimary>
-                                </S.AuthSubmitContainer>
+                                </div>
                             </form>
                         )}
                     </Formik>
-                </S.AuthUniqueColumnPage>
-            </S.AuthPageContainer>
+                </div>
+            </div>
         </Layout>
     );
 };

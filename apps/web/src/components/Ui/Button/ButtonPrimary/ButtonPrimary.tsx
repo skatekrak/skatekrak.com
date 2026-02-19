@@ -2,12 +2,12 @@
  * Npm import
  */
 import React from 'react';
+import classnames from 'classnames';
 
 /*
  * Local import
  */
 import { SpinnerCircle } from '@/components/Ui/Icons/Spinners';
-import * as S from './ButtonPrimary.styled';
 import Typography from '@/components/Ui/typography/Typography';
 
 /*
@@ -35,12 +35,16 @@ const ButtonPrimary: React.FC<Props & { children: React.ReactNode }> = ({
     icon,
     fullWidth,
 }) => (
-    <S.ButtonPrimaryContainer
-        className={`button-primary ${className}`}
+    <button
+        className={classnames(
+            'button-primary',
+            'inline-flex items-center justify-center py-3 px-8 text-onDark-highEmphasis bg-primary-80 rounded transition-all duration-150 hover:bg-primary-100 disabled:text-onDark-lowEmphasis disabled:bg-tertiary-light disabled:hover:bg-tertiary-light [&_.spinner-circle]:h-6 [&_.spinner-circle]:w-6 [&_.spinner-circle]:mr-4 [&_.spinner-circle_.path]:stroke-onDark-highEmphasis disabled:[&_.spinner-circle_.path]:stroke-onDark-lowEmphasis [&_.icon]:-ml-4 [&_.icon]:mr-2',
+            { 'w-full': fullWidth },
+            className,
+        )}
         onClick={onClick}
         type={type}
         disabled={disabled}
-        fullWidth={fullWidth}
     >
         {loading ? (
             <>
@@ -53,7 +57,7 @@ const ButtonPrimary: React.FC<Props & { children: React.ReactNode }> = ({
                 <Typography component="button">{children}</Typography>
             </>
         )}
-    </S.ButtonPrimaryContainer>
+    </button>
 );
 
 /*

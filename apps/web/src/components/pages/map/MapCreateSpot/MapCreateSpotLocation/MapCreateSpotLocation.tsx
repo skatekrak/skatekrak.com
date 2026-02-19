@@ -3,8 +3,6 @@ import React from 'react';
 import Typography from '@/components/Ui/typography/Typography';
 import IconPlus from '@/components/Ui/Icons/IconPlus';
 import IconEdit from '@/components/Ui/Icons/IconEdit';
-import * as S from './MapCreateSpotLocation.styled';
-import * as SM from '../MapCreateSpot.styled';
 
 import { useField } from 'formik';
 import { useQuery } from '@tanstack/react-query';
@@ -28,34 +26,34 @@ const MapCreateSpotLocation = ({ handleToggleMapVisible }: Props) => {
     });
 
     return (
-        <S.MapCreateSpotLocationContainer onClick={handleToggleMapVisible}>
+        <button className="relative w-full p-6 text-left tablet:px-8 tablet:py-5" onClick={handleToggleMapVisible}>
             {value != null && value.latitude != null && value.longitude != null && data != null ? (
-                <S.MapCreateSpotLocationAddressContainer>
-                    <S.MapCreateSpotLocationAddress>
+                <div className="flex">
+                    <div className="mr-4 text-onDark-highEmphasis [&_.ui-Typography:last-child]:mt-1 [&_.ui-Typography:last-child]:uppercase">
                         <Typography>
                             {data.streetNumber} {data.streetName}
                         </Typography>
                         <Typography>
                             {data.city}, {data.country}
                         </Typography>
-                    </S.MapCreateSpotLocationAddress>
-                    <S.MapCreateSpotEditLocation>
-                        <SM.MapCreateSpotIconButton as="div">
+                    </div>
+                    <div className="ml-auto text-onDark-mediumEmphasis">
+                        <div className="flex items-center text-onDark-mediumEmphasis [&_.ui-Typography]:shrink-0 [&_svg]:shrink-0 [&_svg]:w-5 [&_svg]:ml-3 [&_svg]:fill-onDark-mediumEmphasis">
                             <Typography component="button">Edit</Typography>
                             <IconEdit />
-                        </SM.MapCreateSpotIconButton>
-                    </S.MapCreateSpotEditLocation>
-                </S.MapCreateSpotLocationAddressContainer>
+                        </div>
+                    </div>
+                </div>
             ) : (
-                <S.MapCreateSpotAddLocation>
-                    <SM.MapCreateSpotIconButton as="div">
+                <div className="text-onDark-mediumEmphasis [&_div]:mb-2">
+                    <div className="flex items-center text-onDark-mediumEmphasis [&_.ui-Typography]:shrink-0 [&_svg]:shrink-0 [&_svg]:w-5 [&_svg]:ml-3 [&_svg]:fill-onDark-mediumEmphasis">
                         <Typography component="button">Add location</Typography>
                         <IconPlus />
-                    </SM.MapCreateSpotIconButton>
+                    </div>
                     <Typography component="body2">Select a type to add location</Typography>
-                </S.MapCreateSpotAddLocation>
+                </div>
             )}
-        </S.MapCreateSpotLocationContainer>
+        </button>
     );
 };
 

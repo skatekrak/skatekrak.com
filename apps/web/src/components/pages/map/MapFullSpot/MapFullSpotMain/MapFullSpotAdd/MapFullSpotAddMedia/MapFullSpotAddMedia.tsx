@@ -3,13 +3,13 @@ import * as Yup from 'yup';
 import { FileWithPath } from 'react-dropzone';
 
 import Typography from '@/components/Ui/typography/Typography';
-import * as S from './MapFullSpotAddMedia.styled';
-import { Field, Formik } from 'formik';
+import { Field, Form, Formik } from 'formik';
 import MapFullSpotAddMediaInput from './MapFullSpotAddMediaInput';
 import Feudartifice from '@/shared/feudartifice';
 import { useQueryClient } from '@tanstack/react-query';
 import { useFullSpotSelectedTab } from '@/lib/hook/queryState';
 import { useMapStore } from '@/store/map';
+import ButtonPrimary from '@/components/Ui/Button/ButtonPrimary';
 
 type AddMediaFormValues = {
     file: FileWithPath | null;
@@ -68,22 +68,23 @@ const MapFullSpotAddMedia = () => {
     };
 
     return (
-        <S.MapFullSpotAddMediaTabContainer>
-            <S.MapFullSpotAddMediaTitle component="heading6">
+        <div className="relative flex flex-col h-full p-8 px-4 overflow-y-auto tablet:p-8">
+            <Typography className="shrink-0 mb-2" component="heading6">
                 Attach an image or a video to this spot
-            </S.MapFullSpotAddMediaTitle>
-            <S.MapFullSpotAddMediaSubtitle component="body2">
+            </Typography>
+            <Typography className="shrink-0 text-onDark-mediumEmphasis" component="body2">
                 Image: jpeg, png, webP / Video: mp4
-            </S.MapFullSpotAddMediaSubtitle>
+            </Typography>
             <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={addMediaFormSchema}>
                 {({ isSubmitting, isValid }) => (
-                    <S.MapFullSpotAddMediaGrid>
+                    <Form className="laptop-s:grid laptop-s:grid-cols-[2fr_1.25fr] laptop-s:gap-8 laptop-s:h-full laptop-s:mt-8 laptop-l:grid-cols-[2fr_minmax(18rem,1fr)]">
                         <MapFullSpotAddMediaInput />
-                        <S.MapFullSpotAddMediaSecondaryColumn>
+                        <div className="flex flex-col">
                             <Typography component="subtitle1">Add a caption</Typography>
                             <Field name="caption">
                                 {({ field }) => (
-                                    <S.MapFullSpotAddMediaCaption
+                                    <textarea
+                                        className="w-full mt-4 mb-8 p-4 text-base text-onDark-highEmphasis bg-tertiary-light rounded resize-y placeholder:text-onDark-lowEmphasis"
                                         id="caption"
                                         name="caption"
                                         placeholder="Your caption here"
@@ -92,18 +93,19 @@ const MapFullSpotAddMedia = () => {
                                     />
                                 )}
                             </Field>
-                            <S.MapFullSpotAddMediaSubmitButton
+                            <ButtonPrimary
+                                className="w-full mt-auto"
                                 type="submit"
                                 loading={isSubmitting}
                                 disabled={isSubmitting || !isValid}
                             >
                                 Add media
-                            </S.MapFullSpotAddMediaSubmitButton>
-                        </S.MapFullSpotAddMediaSecondaryColumn>
-                    </S.MapFullSpotAddMediaGrid>
+                            </ButtonPrimary>
+                        </div>
+                    </Form>
                 )}
             </Formik>
-        </S.MapFullSpotAddMediaTabContainer>
+        </div>
     );
 };
 

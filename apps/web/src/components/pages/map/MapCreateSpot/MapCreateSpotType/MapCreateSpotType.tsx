@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import classnames from 'classnames';
 import { Types } from '@/shared/feudartifice/types';
 
 import IconEdit from '@/components/Ui/Icons/IconEdit';
@@ -9,8 +10,6 @@ import Shop from '@/components/pages/map/marker/icons/Shop';
 import Private from '@/components/pages/map/marker/icons/Private';
 import Diy from '@/components/pages/map/marker/icons/Diy';
 import Typography from '@/components/Ui/typography/Typography';
-import * as S from './MapCreateSpotType.styled';
-import * as SM from '../MapCreateSpot.styled';
 import { useField } from 'formik';
 
 const MapCreateSpotType = () => {
@@ -26,67 +25,85 @@ const MapCreateSpotType = () => {
 
     return (
         <>
-            <S.MapCreateSpotTypeMain onClick={handleTypeBarClick}>
+            <button
+                className="flex items-center justify-between w-full p-6 tablet:px-8 tablet:py-5"
+                onClick={handleTypeBarClick}
+            >
                 {type != null ? (
                     <>
-                        <S.MapCreateSpotTypeSelected>
+                        <div className="flex items-center grow text-onDark-highEmphasis [&_svg]:w-10 [&_svg]:mr-2">
                             {type === 'street' && <Street />}
                             {type === 'park' && <Park />}
                             {type === 'shop' && <Shop />}
                             {type === 'private' && <Private />}
                             {type === 'diy' && <Diy />}
                             <Typography component="heading6">{type}</Typography>
-                        </S.MapCreateSpotTypeSelected>
-                        <SM.MapCreateSpotIconButton as="div">
+                        </div>
+                        <div className="flex items-center text-onDark-mediumEmphasis [&_.ui-Typography]:shrink-0 [&_svg]:shrink-0 [&_svg]:w-5 [&_svg]:ml-3 [&_svg]:fill-onDark-mediumEmphasis">
                             <Typography component="button">Edit</Typography>
                             <IconEdit />
-                        </SM.MapCreateSpotIconButton>
+                        </div>
                     </>
                 ) : (
-                    <SM.MapCreateSpotIconButton as="div">
+                    <div className="flex items-center text-onDark-mediumEmphasis [&_.ui-Typography]:shrink-0 [&_svg]:shrink-0 [&_svg]:w-5 [&_svg]:ml-3 [&_svg]:fill-onDark-mediumEmphasis">
                         <Typography component="button">Select type</Typography>
                         <IconPlus />
-                    </SM.MapCreateSpotIconButton>
+                    </div>
                 )}
-            </S.MapCreateSpotTypeMain>
+            </button>
             {isSelectTypeOpen && (
-                <S.MapCreateSpotTypeSelection>
-                    <S.MapCreateSpotTypeSelectionButton
+                <div className="grid grid-cols-5 gap-6 px-6 pb-6 tablet:px-8 tablet:pb-5">
+                    <button
+                        className={classnames('mx-auto text-onDark-mediumEmphasis [&_svg]:w-10', {
+                            '[&_.map-icon-stroke-outter]:fill-onDark-lowEmphasis [&_.map-icon-street-fill]:fill-tertiary-light [&_.map-icon-park-fill]:fill-tertiary-light [&_.map-icon-shop-fill]:fill-tertiary-light [&_.map-icon-private-fill]:fill-tertiary-light [&_.map-icon-diy-fill]:fill-tertiary-light':
+                                type !== Types.Street,
+                        })}
                         onClick={() => onTypeClick(Types.Street)}
-                        isSelected={type === Types.Street}
                     >
                         <Street />
                         <Typography component="caption">Street</Typography>
-                    </S.MapCreateSpotTypeSelectionButton>
-                    <S.MapCreateSpotTypeSelectionButton
+                    </button>
+                    <button
+                        className={classnames('mx-auto text-onDark-mediumEmphasis [&_svg]:w-10', {
+                            '[&_.map-icon-stroke-outter]:fill-onDark-lowEmphasis [&_.map-icon-street-fill]:fill-tertiary-light [&_.map-icon-park-fill]:fill-tertiary-light [&_.map-icon-shop-fill]:fill-tertiary-light [&_.map-icon-private-fill]:fill-tertiary-light [&_.map-icon-diy-fill]:fill-tertiary-light':
+                                type !== Types.Park,
+                        })}
                         onClick={() => onTypeClick(Types.Park)}
-                        isSelected={type === Types.Park}
                     >
                         <Park />
                         <Typography component="caption">Park</Typography>
-                    </S.MapCreateSpotTypeSelectionButton>
-                    <S.MapCreateSpotTypeSelectionButton
+                    </button>
+                    <button
+                        className={classnames('mx-auto text-onDark-mediumEmphasis [&_svg]:w-10', {
+                            '[&_.map-icon-stroke-outter]:fill-onDark-lowEmphasis [&_.map-icon-street-fill]:fill-tertiary-light [&_.map-icon-park-fill]:fill-tertiary-light [&_.map-icon-shop-fill]:fill-tertiary-light [&_.map-icon-private-fill]:fill-tertiary-light [&_.map-icon-diy-fill]:fill-tertiary-light':
+                                type !== Types.Shop,
+                        })}
                         onClick={() => onTypeClick(Types.Shop)}
-                        isSelected={type === Types.Shop}
                     >
                         <Shop />
                         <Typography component="caption">Shop</Typography>
-                    </S.MapCreateSpotTypeSelectionButton>
-                    <S.MapCreateSpotTypeSelectionButton
+                    </button>
+                    <button
+                        className={classnames('mx-auto text-onDark-mediumEmphasis [&_svg]:w-10', {
+                            '[&_.map-icon-stroke-outter]:fill-onDark-lowEmphasis [&_.map-icon-street-fill]:fill-tertiary-light [&_.map-icon-park-fill]:fill-tertiary-light [&_.map-icon-shop-fill]:fill-tertiary-light [&_.map-icon-private-fill]:fill-tertiary-light [&_.map-icon-diy-fill]:fill-tertiary-light':
+                                type !== Types.Private,
+                        })}
                         onClick={() => onTypeClick(Types.Private)}
-                        isSelected={type === Types.Private}
                     >
                         <Private />
                         <Typography component="caption">Private</Typography>
-                    </S.MapCreateSpotTypeSelectionButton>
-                    <S.MapCreateSpotTypeSelectionButton
+                    </button>
+                    <button
+                        className={classnames('mx-auto text-onDark-mediumEmphasis [&_svg]:w-10', {
+                            '[&_.map-icon-stroke-outter]:fill-onDark-lowEmphasis [&_.map-icon-street-fill]:fill-tertiary-light [&_.map-icon-park-fill]:fill-tertiary-light [&_.map-icon-shop-fill]:fill-tertiary-light [&_.map-icon-private-fill]:fill-tertiary-light [&_.map-icon-diy-fill]:fill-tertiary-light':
+                                type !== Types.Diy,
+                        })}
                         onClick={() => onTypeClick(Types.Diy)}
-                        isSelected={type === Types.Diy}
                     >
                         <Diy />
                         <Typography component="caption">Diy</Typography>
-                    </S.MapCreateSpotTypeSelectionButton>
-                </S.MapCreateSpotTypeSelection>
+                    </button>
+                </div>
             )}
         </>
     );

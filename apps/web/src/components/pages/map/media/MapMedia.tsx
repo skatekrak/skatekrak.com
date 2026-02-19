@@ -3,7 +3,6 @@ import { useShallow } from 'zustand/react/shallow';
 
 import MapMediaOverlay from './MapMediaOverlay';
 import MapMediaShare from './MapMediaShare';
-import * as S from './MapMedia.styled';
 
 import { Media } from '@krak/carrelage-client';
 import MapMediaVideoPlayer from './MapMediaVideoPlayer';
@@ -32,18 +31,24 @@ const MapMedia = ({ shareURL, media, isFromCustomMapFeed = false }: MapMediaProp
     };
 
     return (
-        <S.MapMediaContainer key={media.id} className="rounded">
+        <div
+            key={media.id}
+            className="group relative flex min-h-14 bg-onDark-divider overflow-hidden rounded [&_.video-player-container]:w-full [&_.video-player]:rounded-none [&_.video-player_.react-player\_\_preview]:rounded-none [&_img]:w-full [&_img]:h-full"
+        >
             {shareURL && <MapMediaShare url={shareURL} media={media} />}
 
-            <S.OpenCarouselButton onClick={() => openCarousel(media.id)}>
+            <button
+                className="absolute top-2.5 right-2.5 hidden group-hover:flex p-1 text-onDark-highEmphasis bg-tertiary-medium rounded z-10 [&_svg]:w-6 [&_svg]:fill-onDark-mediumEmphasis hover:[&_svg]:fill-onDark-highEmphasis"
+                onClick={() => openCarousel(media.id)}
+            >
                 <IconFullScreen />
-            </S.OpenCarouselButton>
+            </button>
             {media.type === 'video' && <MapMediaVideoPlayer media={media} isPlaying={isPlaying} />}
             {media.type === 'image' && <img key={media.id} src={media.image.jpg} alt={media.addedBy.username} />}
             {(media.type === 'image' || (media.type === 'video' && !isPlaying)) && (
                 <MapMediaOverlay media={media} isFromCustomMapFeed={isFromCustomMapFeed} />
             )}
-        </S.MapMediaContainer>
+        </div>
     );
 };
 

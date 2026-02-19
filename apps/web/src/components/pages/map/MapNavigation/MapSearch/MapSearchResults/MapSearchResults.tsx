@@ -8,7 +8,6 @@ import MapSearchResultLoading from './MapSearchResultLoading';
 import MapSearchResultNoContent from './MapSearchResultNoContent';
 import MapSearchResultSpot from './MapSearchResultSpot';
 import MapSearchResultPlace from './MapSearchResultPlace';
-import * as S from './MapSearchResults.styled';
 
 import { Place } from '@/lib/placeApi';
 import { useSpotID } from '@/lib/hook/queryState';
@@ -48,7 +47,7 @@ const MapSearchResults: React.FC<MapSearchResultsProps> = ({ spots, loading, pla
     };
 
     return (
-        <S.MapSearchResultsContainer>
+        <div className="absolute top-[3.75rem] left-0 right-0 text-onDark-highEmphasis bg-tertiary-dark border border-tertiary-medium rounded shadow-onDarkHighSharp">
             <Scrollbar maxHeight="22.25rem">
                 {loading ? (
                     <MapSearchResultLoading />
@@ -69,7 +68,7 @@ const MapSearchResults: React.FC<MapSearchResultsProps> = ({ spots, loading, pla
                     </>
                 )}
             </Scrollbar>
-        </S.MapSearchResultsContainer>
+        </div>
     );
 };
 

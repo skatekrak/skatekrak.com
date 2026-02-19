@@ -3,7 +3,7 @@ import ReactPlayer from 'react-player';
 import { useShallow } from 'zustand/react/shallow';
 
 import VideoPlayer from '@/components/Ui/Player/VideoPlayer';
-import * as S from '@/components/pages/map/MapFullSpot/MapFullSpotMain/MapFullSpotMain.styled';
+import Typography from '@/components/Ui/typography/Typography';
 
 import { Clip } from '@krak/carrelage-client';
 import { useMapStore } from '@/store/map';
@@ -30,10 +30,12 @@ const MapFullSpotMainClip = ({ clip }: MapFullSpotMainClipProps) => {
     }, [isPlaying]);
 
     return (
-        <S.MapFullSpotMainClip>
-            <S.MapFullSpotMainClipTitle component="heading6">{clip.title}</S.MapFullSpotMainClipTitle>
+        <div className="mb-8 last:mb-0 tablet:mb-16">
+            <Typography className="mb-4" component="heading6">
+                {clip.title}
+            </Typography>
             <VideoPlayer ref={playerRef} playing={isPlaying} onReady={onReady} url={clip.videoURL} light controls />
-        </S.MapFullSpotMainClip>
+        </div>
     );
 };
 

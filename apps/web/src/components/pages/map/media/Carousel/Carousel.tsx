@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
+import classnames from 'classnames';
 
 import VideoPlayer from '@/components/Ui/Player/VideoPlayer';
 import IconArrowHead from '@/components/Ui/Icons/ArrowHead';
-import * as S from './Carousel.styled';
 
 import Typography from '@/components/Ui/typography/Typography';
 import SpotIcon from '@/components/Ui/Utils/SpotIcon';
@@ -22,15 +22,13 @@ export type CarouselProps = CarouselMediaProps & {
 
 const Carousel = ({ media, nextMedia, prevMedia, additionalActions }: CarouselProps) => {
     return (
-        <S.Carousel>
+        <div className="group relative grow flex flex-col bg-[#141414] overflow-hidden [&_.video-player-container]:h-full">
             <CarouselContent media={media} />
-            <S.Nav>
-                {additionalActions && (
-                    <S.NavAdditionalActionsContainer>{additionalActions}</S.NavAdditionalActionsContainer>
-                )}
+            <div className="grow flex items-center justify-between p-3 transition-all duration-150 tablet:absolute tablet:top-6 tablet:left-6 tablet:flex-col tablet:items-start tablet:justify-start tablet:p-0 tablet:opacity-0 group-hover:opacity-100">
+                {additionalActions && <div className="tablet:mb-4">{additionalActions}</div>}
                 <CarouselNav media={media} nextMedia={nextMedia} prevMedia={prevMedia} />
-            </S.Nav>
-        </S.Carousel>
+            </div>
+        </div>
     );
 };
 
@@ -56,52 +54,62 @@ export const CarouselNav = ({ media, prevMedia, nextMedia }: CarouselMediaProps)
         }
     };
 
-    /** handle with arrow keys down */
-    // const handleKeydown = (e: KeyboardEvent) => {
-    //     e.key === 'ArrowLeft' && onPrevious();
-    //     e.key === 'ArrowRight' && onNext();
-    // };
-
-    // useEffect(() => {
-    //     document.addEventListener('keydown', handleKeydown);
-    //     return () => {
-    //         document.removeEventListener('keydown', handleKeydown);
-    //     };
-    //     // eslint-disable-next-line react-hooks/exhaustive-deps
-    // }, []);
-
     return (
-        <S.MenuContainer>
-            <S.Menu>
-                <S.IconButton isActive={isDescOpen} onClick={() => setIsDescOpen(!isDescOpen)}>
+        <div>
+            <nav className="inline-flex rounded bg-tertiary-dark border-[1.5px] border-tertiary-medium shadow-onDarkHighSharp overflow-hidden">
+                <button
+                    className={classnames('flex py-2 px-3 [&_svg]:w-6', {
+                        '[&_svg]:fill-onDark-highEmphasis': isDescOpen,
+                        '[&_svg]:fill-onDark-mediumEmphasis hover:[&_svg]:fill-onDark-highEmphasis': !isDescOpen,
+                    })}
+                    onClick={() => setIsDescOpen(!isDescOpen)}
+                >
                     <IconInfo />
-                </S.IconButton>
-                <S.MenuDivider />
-                <S.IconButton direction="left" onClick={onPrevious} disabled={isFirst}>
+                </button>
+                <div className="my-2 w-px bg-onDark-divider" />
+                <button
+                    className={classnames('flex py-2 px-3 [&_svg]:w-6 [&_svg]:rotate-180', {
+                        'cursor-default [&_svg]:fill-onDark-lowEmphasis': isFirst,
+                        '[&_svg]:fill-onDark-mediumEmphasis hover:[&_svg]:fill-onDark-highEmphasis': !isFirst,
+                    })}
+                    onClick={onPrevious}
+                    disabled={isFirst}
+                >
                     <IconArrowHead />
-                </S.IconButton>
-                <S.MenuDivider />
-                <S.IconButton onClick={onNext} disabled={isLast}>
+                </button>
+                <div className="my-2 w-px bg-onDark-divider" />
+                <button
+                    className={classnames('flex py-2 px-3 [&_svg]:w-6', {
+                        'cursor-default [&_svg]:fill-onDark-lowEmphasis': isLast,
+                        '[&_svg]:fill-onDark-mediumEmphasis hover:[&_svg]:fill-onDark-highEmphasis': !isLast,
+                    })}
+                    onClick={onNext}
+                    disabled={isLast}
+                >
                     <IconArrowHead />
-                </S.IconButton>
-            </S.Menu>
+                </button>
+            </nav>
             {isDescOpen && (
-                <S.MediaDescription>
-                    <S.MediaDescriptionUploadedBy component="body2">Uploaded by</S.MediaDescriptionUploadedBy>
+                <div className="absolute bottom-[4.125rem] left-0 max-h-[80vh] w-full py-5 px-6 mt-2 rounded bg-tertiary-dark border-[1.5px] border-tertiary-medium shadow-onDarkHighSharp overflow-y-auto tablet:relative tablet:max-w-[24rem] tablet:min-w-[16rem] tablet:max-h-[50vh] tablet:bottom-auto">
+                    <Typography component="body2" className="mb-2 text-onDark-lowEmphasis">
+                        Uploaded by
+                    </Typography>
                     <Typography component="body1">{media.addedBy.username}</Typography>
-                    <S.MediaDescriptionDivider />
+                    <div className="h-px my-4 mt-4 mb-5 bg-onDark-divider" />
                     {media.spot != null && (
-                        <S.MediaDescriptionSpot>
+                        <button className="flex items-center text-onDark-mediumEmphasis underline text-sm [&_svg]:w-5 [&_svg]:mr-1">
                             <SpotIcon spot={media.spot} />
                             {media.spot.name && <Typography component="body2">{media.spot.name}</Typography>}
-                        </S.MediaDescriptionSpot>
+                        </button>
                     )}
                     {media.caption && (
-                        <S.MediaDescriptionCaption component="body1">{media.caption}</S.MediaDescriptionCaption>
+                        <Typography component="body1" className="leading-[1.8] mt-3">
+                            {media.caption}
+                        </Typography>
                     )}
-                </S.MediaDescription>
+                </div>
             )}
-        </S.MenuContainer>
+        </div>
     );
 };
 
@@ -110,5 +118,5 @@ const CarouselContent = ({ media }: { media: Media }) => {
         return <VideoPlayer style={{ paddingTop: 'inherit' }} url={media.video.url} loop controls playing />;
     }
 
-    return <S.Image src={media.image.url} alt={media.caption} />;
+    return <img className="w-full h-full object-contain" src={media.image.url} alt={media.caption} />;
 };

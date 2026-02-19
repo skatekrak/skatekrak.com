@@ -11,7 +11,6 @@ import RipIcon from '@/components/pages/map/marker/icons/Rip';
 import IconicBadge from '@/components/pages/map/marker/badges/Iconic';
 import HistoryBadge from '@/components/pages/map/marker/badges/History';
 import MinuteBadge from '@/components/pages/map/marker/badges/Minute';
-import * as S from './MapSearchResults.styled';
 
 import { Spot, Status, Types } from '@krak/carrelage-client';
 import { SpotHit } from '@/lib/meilisearch';
@@ -42,8 +41,8 @@ export default function MapSearchResultSpot<T extends Spot | SpotHit>({ spot, on
 
     return (
         <>
-            <S.MapSearchResultSpot onClick={handleSpotClick}>
-                <S.MapSearchResultSpotIcon>
+            <button className="relative flex items-center w-full py-2.5 pl-2 pr-4 text-left" onClick={handleSpotClick}>
+                <div className="flex flex-col [&_svg]:my-auto [&_svg]:mr-2 [&_svg]:ml-0 [&_svg]:w-9">
                     {spot.status === Status.Active && (
                         <>
                             {spot.type === Types.Park && <ParkIcon />}
@@ -55,20 +54,20 @@ export default function MapSearchResultSpot<T extends Spot | SpotHit>({ spot, on
                     )}
                     {spot.status === Status.Wip && <WipIcon />}
                     {spot.status === Status.Rip && <RipIcon />}
-                </S.MapSearchResultSpotIcon>
-                <S.MapSearchResultSpotMain>
-                    <S.MapSearchResultSpotName component="subtitle1" truncateLines={1}>
+                </div>
+                <div className="flex flex-col grow overflow-hidden">
+                    <Typography className="tracking-[0.2px] text-onDark-highEmphasis" component="subtitle1" truncateLines={1}>
                         {spot.name}
-                    </S.MapSearchResultSpotName>
+                    </Typography>
                     {spot.location && (
-                        <S.MapSearchResultSpotStreet component="body2" truncateLines={1}>
+                        <Typography className="mt-0.5 italic text-onDark-lowEmphasis" component="body2" truncateLines={1}>
                             {spot.location.streetNumber} {spot.location.streetName}
-                        </S.MapSearchResultSpotStreet>
+                        </Typography>
                     )}
-                </S.MapSearchResultSpotMain>
-                <S.MapSearchResultSpotDetails>
+                </div>
+                <div className="shrink-0 flex flex-col max-w-[24%] mt-auto ml-4 overflow-hidden">
                     {renderedTags && (
-                        <S.MapSearchResultSpotBadges>
+                        <div className="flex items-center justify-end mb-1 [&_svg]:w-4 [&_svg]:mr-1.5 [&_svg:last-child]:mr-0 [&_.ui-Typography]:text-onDark-lowEmphasis">
                             {renderedTags.map((tag) => (
                                 <React.Fragment key={tag}>
                                     {tag === 'famous' || tag === 'history' || tag === 'minute' ? (
@@ -83,16 +82,16 @@ export default function MapSearchResultSpot<T extends Spot | SpotHit>({ spot, on
                                 </React.Fragment>
                             ))}
                             {overBadgeCounter && <Typography component="body2">+{overBadgeCounter}</Typography>}
-                        </S.MapSearchResultSpotBadges>
+                        </div>
                     )}
                     {spot.location && spot.location.city && (
-                        <S.MapSearchResultSpotCity component="body2" truncateLines={1}>
+                        <Typography className="text-right text-onDark-mediumEmphasis" component="body2" truncateLines={1}>
                             {spot.location.city}
-                        </S.MapSearchResultSpotCity>
+                        </Typography>
                     )}
-                </S.MapSearchResultSpotDetails>
-            </S.MapSearchResultSpot>
-            <S.MapSearchResultSpotDivider />
+                </div>
+            </button>
+            <div className="h-px bg-onDark-divider last-of-type:hidden" />
         </>
     );
 }

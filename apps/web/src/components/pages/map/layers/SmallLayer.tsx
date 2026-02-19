@@ -1,7 +1,8 @@
 import { useEffect } from 'react';
 import { Layer, MapLayerMouseEvent, useMap } from 'react-map-gl';
 import { Status, Types } from '@/shared/feudartifice/types';
-import { useTheme } from 'styled-components';
+
+import { mapColors } from '@/styles/colors';
 import { ZOOM_DISPLAY_DOTS } from '../Map.constant';
 import { useMapStore } from '@/store/map';
 
@@ -10,7 +11,6 @@ import { useMapStore } from '@/store/map';
  * @returns JSX.Element
  */
 const SmallLayer = () => {
-    const theme = useTheme();
     const isCreateSpotOpen = useMapStore((state) => state.isCreateSpotOpen);
     const { current: map } = useMap();
 
@@ -49,19 +49,19 @@ const SmallLayer = () => {
                     'match',
                     ['get', 'type'],
                     Status.Rip,
-                    theme.color.map.rip.default,
+                    mapColors.rip.default,
                     Status.Wip,
-                    theme.color.map.wip.default,
+                    mapColors.wip.default,
                     Types.Street,
-                    theme.color.map.street.default,
+                    mapColors.street.default,
                     Types.Park,
-                    theme.color.map.park.default,
+                    mapColors.park.default,
                     Types.Diy,
-                    theme.color.map.diy.default,
+                    mapColors.diy.default,
                     Types.Private,
-                    theme.color.map.private.default,
+                    mapColors.private.default,
                     Types.Shop,
-                    theme.color.map.shop.default,
+                    mapColors.shop.default,
                     '#000', // fallback color
                 ],
             }}

@@ -1,7 +1,8 @@
-import { useFormikContext } from 'formik';
+import { useFormikContext, Field } from 'formik';
 import mapboxgl, { MapLayerMouseEvent } from 'mapbox-gl';
 import { memo, useEffect, useState } from 'react';
 import { useMap } from 'react-map-gl';
+import classnames from 'classnames';
 
 import { useMapStore } from '@/store/map';
 import ButtonPrimary from '@/components/Ui/Button/ButtonPrimary';
@@ -9,7 +10,6 @@ import Arrow from '@/components/Ui/Icons/Arrow';
 import ScrollBar from '@/components/Ui/Scrollbar';
 import Typography from '@/components/Ui/typography/Typography';
 import { MapCreateSpotFormValues } from './MapCreateSpot';
-import * as S from './MapCreateSpot.styled';
 import MapCreateSpotLocation from './MapCreateSpotLocation';
 import MapCreateSpotLocationHelper from './MapCreateSpotLocation/MapCreateSpotLocationHelper';
 import MapCreateSpotMedia from './MapCreateSpotMedia';
@@ -86,44 +86,55 @@ const MapCreateSpotForm = () => {
                     isFlashing={isLocationHelperFlashing}
                 />
             )}
-            <S.MapCreateSpotContainer isMapVisible={isMapVisible && isMobile}>
-                <S.MapCreateSpotHeader>
-                    <S.MapCreateSpotBackButton onClick={() => toggleCreateSpot()}>
+            <div
+                className={classnames(
+                    'absolute top-0 left-0 right-0 bottom-0 flex flex-col w-full text-onDark-highEmphasis pointer-events-none [&_.icon-plus]:w-5 mobile:max-w-[24rem] mobile:top-4 mobile:left-4 mobile:bottom-4 laptop:top-6 laptop:left-6 laptop:bottom-6',
+                    { hidden: isMapVisible && isMobile },
+                )}
+            >
+                <div className="relative p-4 bg-tertiary-dark pointer-events-auto [&_button]:absolute [&_button]:left-4 [&_button]:top-[calc(50%-1.25rem)] [&_button_svg]:w-6 [&_button_svg]:fill-onDark-highEmphasis [&_button_svg]:rotate-180 [&_.ui-Typography]:text-center mobile:shadow-onDarkHighSharp">
+                    <button className="flex p-2 z-[1]" onClick={() => toggleCreateSpot()}>
                         <Arrow />
-                    </S.MapCreateSpotBackButton>
+                    </button>
                     <Typography component="heading6">Create a spot</Typography>
-                </S.MapCreateSpotHeader>
+                </div>
 
-                <S.MapCreateSpotMain>
+                <div className="grow overflow-hidden bg-tertiary-medium pointer-events-auto mobile:grow-0 mobile:bg-tertiary-dark">
                     <ScrollBar maxHeight="100%">
                         {/* NAME */}
-                        <S.MapCreateSpotName>
-                            <S.MapCreateSpotInput name="name" placeholder="Name" autoFocus autoComplete="off" />
-                        </S.MapCreateSpotName>
-                        <S.MapCreateSpotMainDivider />
+                        <div className="p-6 pb-8 tablet:px-8 tablet:py-6">
+                            <Field
+                                name="name"
+                                placeholder="Name"
+                                autoFocus
+                                autoComplete="off"
+                                className="w-full font-roboto-bold text-xl text-onDark-highEmphasis bg-inherit outline-none"
+                            />
+                        </div>
+                        <div className="h-px w-full bg-onDark-divider" />
 
                         {/* TYPE */}
                         <MapCreateSpotType />
-                        <S.MapCreateSpotMainDivider />
+                        <div className="h-px w-full bg-onDark-divider" />
 
                         {/* LOCATION */}
                         <MapCreateSpotLocation handleToggleMapVisible={handleToggleMapVisible} />
-                        <S.MapCreateSpotMainDivider />
+                        <div className="h-px w-full bg-onDark-divider" />
 
                         {/* RAIN */}
                         <MapCreateSpotRain />
-                        <S.MapCreateSpotMainDivider />
+                        <div className="h-px w-full bg-onDark-divider" />
 
                         {/* MEDIA */}
                         <MapCreateSpotMedia />
                     </ScrollBar>
-                </S.MapCreateSpotMain>
-                <S.MapCreateSpotFooter>
+                </div>
+                <div className="p-4 px-6 bg-tertiary-dark shadow-onDarkHighSharp pointer-events-auto z-[1] [&_button]:w-full">
                     <ButtonPrimary loading={isSubmitting} disabled={!isValid || isSubmitting || !dirty}>
                         Create
                     </ButtonPrimary>
-                </S.MapCreateSpotFooter>
-            </S.MapCreateSpotContainer>
+                </div>
+            </div>
         </form>
     );
 };

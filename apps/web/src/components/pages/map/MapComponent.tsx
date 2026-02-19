@@ -5,7 +5,6 @@ import { useShallow } from 'zustand/react/shallow';
 
 import SpotMarker from '@/components/pages/map/marker/SpotMarker';
 import MapSpotOverview from './MapSpotOverview';
-import * as S from './Map.styled';
 
 import { SpotGeoJSON } from '@krak/carrelage-client';
 import { MAX_ZOOM_LEVEL, ZOOM_DISPLAY_DOTS, MIN_ZOOM_LEVEL } from './Map.constant';
@@ -88,7 +87,7 @@ const MapComponent = ({ mapRef, spots, children, onLoad }: MapComponentProps) =>
     };
 
     return (
-        <S.MapComponent>
+        <div className="absolute top-0 right-0 bottom-0 left-0">
             <ReactMapGL
                 ref={mapRef}
                 {...viewport}
@@ -126,7 +125,7 @@ const MapComponent = ({ mapRef, spots, children, onLoad }: MapComponentProps) =>
 
                 {/* Controls */}
                 <button
-                    className="absolute bottom-4 md:bottom-6 right-14 md:right-16 text-sm bg-white hover:bg-gray-100 text-white p-2 rounded-md"
+                    className="absolute bottom-4 tablet:bottom-6 right-14 tablet:right-16 text-sm bg-white hover:bg-gray-100 text-white p-2 rounded-md"
                     onClick={onSwitchMapStyle}
                 >
                     <IconLayer className="w-5 h-5" />
@@ -134,7 +133,7 @@ const MapComponent = ({ mapRef, spots, children, onLoad }: MapComponentProps) =>
                 <NavigationControl position="bottom-right" />
                 <GeolocateControl position="bottom-right" showAccuracyCircle={false} />
             </ReactMapGL>
-        </S.MapComponent>
+        </div>
     );
 };
 

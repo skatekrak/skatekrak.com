@@ -4,7 +4,6 @@ import InfiniteScroll from 'react-infinite-scroller';
 import ScrollBar from '@/components/Ui/Scrollbar';
 import { KrakLoading } from '@/components/Ui/Icons/Spinners';
 import MapFullSpotMainClip from './MapFullSpotMainClip';
-import * as S from '@/components/pages/map/MapFullSpot/MapFullSpotMain/MapFullSpotMain.styled';
 
 import { flatten } from '@/lib/helpers';
 import { Spot } from '@krak/carrelage-client';
@@ -37,14 +36,14 @@ const MapFullSpotMainClips = ({ spot }: MapFullSpotMainClipsProps) => {
                 getScrollParent={getScrollParent}
                 useWindow={false}
             >
-                <S.MapFullSpotMainContainer>
-                    <S.MapFullSpotMainClips>
+                <div className="flex flex-col h-full">
+                    <div className="flex flex-col grow p-6 tablet:p-12 laptop-l:p-20">
                         {clips.map((clip) => (
                             <MapFullSpotMainClip key={clip.id} clip={clip} />
                         ))}
                         {isFetching && <KrakLoading />}
-                    </S.MapFullSpotMainClips>
-                </S.MapFullSpotMainContainer>
+                    </div>
+                </div>
             </InfiniteScroll>
         </ScrollBar>
     );

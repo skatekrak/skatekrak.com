@@ -2,7 +2,6 @@ import React from 'react';
 
 import Layout from '@/components/Layout';
 import Typography from '@/components/Ui/typography/Typography';
-import * as S from '@/components/Ui/pages/OneColumnPage.styled';
 import Link from 'next/link';
 import { PATH_CALL_TO_ADVENTURE } from './call-to-adventure';
 
@@ -11,9 +10,10 @@ export const PATH_MEMBERSHIP = '/membership';
 const Membership = () => {
     return (
         <Layout>
-            <S.OneColumnPage>
-                <S.OneColumnPageInnerContainer>
-                    <S.CTA
+            <div className="grow w-full py-24 text-onDark-highEmphasis bg-tertiary-dark">
+                <div className="flex flex-col w-full mx-auto px-6 tablet:max-w-[32rem] tablet:px-0">
+                    <a
+                        className="relative py-1 px-6 mx-auto mt-8 mb-16 text-center text-onLight-highEmphasis bg-onDark-highEmphasis rounded cursor-pointer laptop-s:py-2 laptop-s:px-6 [&_.ui-Typography]:laptop-s:text-base after:laptop-s:content-[''] after:laptop-s:absolute after:laptop-s:top-2 after:laptop-s:left-2 after:laptop-s:w-full after:laptop-s:h-full after:laptop-s:border after:laptop-s:border-onDark-mediumEmphasis after:laptop-s:rounded after:laptop-s:transition-all after:laptop-s:duration-100 after:laptop-s:ease-in-out hover:after:laptop-s:top-0 hover:after:laptop-s:left-0"
                         href="https://opencollective.com/opensb/projects/krakmap"
                         target="_blank"
                         rel="noopener noreferrer"
@@ -23,8 +23,8 @@ const Membership = () => {
                             <br />
                             Become a member
                         </Typography>
-                    </S.CTA>
-                    <S.OneColumnPageContent>
+                    </a>
+                    <div className="text-onDark-mediumEmphasis [&_ul]:my-6 [&_li]:list-disc [&_li]:list-inside [&_li]:mb-2 [&_.ui-Typography]:text-lg [&_.ui-Typography]:inline [&_a]:text-onDark-highEmphasis [&_a]:underline">
                         <Typography>
                             Subscribe for $50 a year and be part of a release club where we - skateboarders -
                             collaborate to drop and support work together. This money joins a common treasury and allows
@@ -62,9 +62,9 @@ const Membership = () => {
                             <br />
                             Our forever promise? This is a community asset, 100% owned by skateboarders.
                         </Typography>
-                    </S.OneColumnPageContent>
-                </S.OneColumnPageInnerContainer>
-            </S.OneColumnPage>
+                    </div>
+                </div>
+            </div>
         </Layout>
     );
 };

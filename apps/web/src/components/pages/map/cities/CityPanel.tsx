@@ -57,7 +57,7 @@ const CityPanel = () => {
     if (!city) return null;
 
     return (
-        <div className="absolute inset-0 lg:right-auto lg:w-[32rem] flex flex-col text-onDark-mediumEmphasis text-base bg-tertiary-dark border-r border-solid border-tertiary-medium shadow-2xl z-[1010] overflow-y-auto">
+        <div className="absolute inset-0 laptop-s:right-auto laptop-s:w-[32rem] flex flex-col text-onDark-mediumEmphasis text-base bg-tertiary-dark border-r border-solid border-tertiary-medium shadow-2xl z-[1010] overflow-y-auto">
             <ScrollBar maxHeight="100%">
                 {/** Navigation */}
                 <div className="flex justify-between py-3 px-6 border-b border-solid border-b-onDark-divider">
@@ -93,7 +93,7 @@ const CityPanel = () => {
                     getScrollParent={getScrollParent}
                     useWindow={false}
                 >
-                    <div className="grow flex flex-col gap-4 sm:gap-8 px-4 sm:px-6 pb-8">
+                    <div className="grow flex flex-col gap-4 mobile:gap-8 px-4 mobile:px-6 pb-8">
                         {isLoading ? (
                             <KrakLoading className="!my-24" />
                         ) : (

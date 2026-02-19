@@ -1,8 +1,8 @@
 import ScrollHelper from '@/lib/ScrollHelper';
 import React, { ElementRef, useEffect, useRef, useState } from 'react';
+import classnames from 'classnames';
 import { ctaSections } from '../constants';
 
-import * as S from './CallToAdventureSideNav.styled';
 import CallToAdventureSubNav from './CallToAdventureSubNav';
 
 type Props = {
@@ -68,52 +68,45 @@ const CallToAdventureSideNav = ({ bodyContentRef }: Props) => {
         }
     }, []);
 
+    const linkClasses = (isActive: boolean) =>
+        classnames('block py-3 text-onDark-mediumEmphasis cursor-pointer hover:text-onDark-highEmphasis', {
+            'font-roboto-bold text-onDark-highEmphasis': isActive,
+        });
+
     return (
-        <S.CallToAdventureSideNav ref={sideNavRef}>
-            <S.CallToAdventureSideNavLink
-                href={`#${ctaSections.TLDR}`}
-                $isActive={currentSectionInView === ctaSections.TLDR}
-            >
+        <div
+            className="hidden laptop-s:flex laptop-s:flex-col laptop-s:w-full laptop-s:max-w-[10rem] laptop-s:mt-8 laptop:max-w-[13rem]"
+            ref={sideNavRef}
+        >
+            <a href={`#${ctaSections.TLDR}`} className={linkClasses(currentSectionInView === ctaSections.TLDR)}>
                 tl;dr
-            </S.CallToAdventureSideNavLink>
-            <S.CallToAdventureSideNavLink
+            </a>
+            <a
                 href={`#${ctaSections.EVOLUTION}`}
-                $isActive={currentSectionInView === ctaSections.EVOLUTION}
+                className={linkClasses(currentSectionInView === ctaSections.EVOLUTION)}
             >
                 skateboarding evolution
-            </S.CallToAdventureSideNavLink>
-            <S.CallToAdventureSideNavLink
+            </a>
+            <a
                 href={`#${ctaSections.ARCHIVING}`}
-                $isActive={currentSectionInView === ctaSections.ARCHIVING}
+                className={linkClasses(currentSectionInView === ctaSections.ARCHIVING)}
             >
                 why archiving is important
-            </S.CallToAdventureSideNavLink>
-            <S.CallToAdventureSideNavLink
-                href={`#${ctaSections.ABOUT}`}
-                $isActive={currentSectionInView === ctaSections.ABOUT}
-            >
+            </a>
+            <a href={`#${ctaSections.ABOUT}`} className={linkClasses(currentSectionInView === ctaSections.ABOUT)}>
                 who we are
-            </S.CallToAdventureSideNavLink>
+            </a>
             <CallToAdventureSubNav currentSectionInView={currentSectionInView} />
-            <S.CallToAdventureSideNavLink
-                href={`#${ctaSections.VISION}`}
-                $isActive={currentSectionInView === ctaSections.VISION}
-            >
-                where we’re heading to
-            </S.CallToAdventureSideNavLink>
-            <S.CallToAdventureSideNavLink
-                href={`#${ctaSections.DAO}`}
-                $isActive={currentSectionInView === ctaSections.DAO}
-            >
+            <a href={`#${ctaSections.VISION}`} className={linkClasses(currentSectionInView === ctaSections.VISION)}>
+                where we&apos;re heading to
+            </a>
+            <a href={`#${ctaSections.DAO}`} className={linkClasses(currentSectionInView === ctaSections.DAO)}>
                 why a DAO + co-op
-            </S.CallToAdventureSideNavLink>
-            <S.CallToAdventureSideNavLink
-                href={`#${ctaSections.FINAL}`}
-                $isActive={currentSectionInView === ctaSections.FINAL}
-            >
+            </a>
+            <a href={`#${ctaSections.FINAL}`} className={linkClasses(currentSectionInView === ctaSections.FINAL)}>
                 final words - world-building
-            </S.CallToAdventureSideNavLink>
-        </S.CallToAdventureSideNav>
+            </a>
+        </div>
     );
 };
 

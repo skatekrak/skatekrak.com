@@ -5,7 +5,8 @@ import Feudartifice from '@/shared/feudartifice';
 import { useVideoInformation } from '@/shared/feudartifice/hooks/clips';
 import { useMapStore } from '@/store/map';
 
-import * as S from './MapFullSpotAddClip.styled';
+import Typography from '@/components/Ui/typography/Typography';
+import ButtonPrimary from '@/components/Ui/Button/ButtonPrimary';
 import { useFullSpotSelectedTab } from '@/lib/hook/queryState';
 
 const MapFullSpotAddClip = () => {
@@ -48,32 +49,44 @@ const MapFullSpotAddClip = () => {
     };
 
     return (
-        <S.MapFullSpotAddClipContainer>
-            <S.MapFullSpotAddClipTitle component="heading6">
+        <div className="h-full p-8 px-4 overflow-y-auto tablet:p-8">
+            <Typography className="shrink-0" component="heading6">
                 Attach a Youtube video or Vimeo to this spot
-            </S.MapFullSpotAddClipTitle>
-            <S.MapFullSpotAddClipInputRow>
-                <S.MapFullSpotAddClipInputContainer>
-                    <S.MapFullSpotAddClipInput placeholder="Paste link here" onBlur={onBlur} />
+            </Typography>
+            <div className="flex flex-col items-start my-6 tablet:flex-row tablet:items-center">
+                <div className="relative mb-4 tablet:grow tablet:mr-4 tablet:mb-0 laptop-s:grow-0 laptop-s:w-1/2 laptop-s:min-w-[25rem] laptop-s:mr-4 laptop-s:mb-0">
+                    <input
+                        className="w-full p-4 text-base text-onDark-highEmphasis bg-tertiary-light rounded placeholder:text-onDark-lowEmphasis"
+                        placeholder="Paste link here"
+                        onBlur={onBlur}
+                    />
                     {isError && (
-                        <S.MapFullSpotAddClipError component="body2">
+                        <Typography
+                            className="mt-2 text-system-error tablet:absolute tablet:top-[calc(100%+0.5rem)] tablet:mt-0"
+                            component="body2"
+                        >
                             URL not valid, we only support youtube of vimeo video
-                        </S.MapFullSpotAddClipError>
+                        </Typography>
                     )}
-                </S.MapFullSpotAddClipInputContainer>
-                <S.MapFullSpotAddClipSubmit disabled={isError || !isFetched} loading={isSubmitting} onClick={onSubmit}>
+                </div>
+                <ButtonPrimary
+                    className="tablet:w-max"
+                    disabled={isError || !isFetched}
+                    loading={isSubmitting}
+                    onClick={onSubmit}
+                >
                     Add clip
-                </S.MapFullSpotAddClipSubmit>
-            </S.MapFullSpotAddClipInputRow>
+                </ButtonPrimary>
+            </div>
             {data != null && (
                 <>
-                    <S.MapFullSpotAddClipPreviewTitle component="heading6">
+                    <Typography className="mt-8 mb-4 tablet:mt-12" component="heading6">
                         {data.title}
-                    </S.MapFullSpotAddClipPreviewTitle>
+                    </Typography>
                     <VideoPlayer url={url} />
                 </>
             )}
-        </S.MapFullSpotAddClipContainer>
+        </div>
     );
 };
 

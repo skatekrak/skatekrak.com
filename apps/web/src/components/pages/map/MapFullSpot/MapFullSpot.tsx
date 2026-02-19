@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
+import classnames from 'classnames';
 
 import Modal from '@/components/Ui/Modal';
 import MapFullSpotNav from './MapFullSpotNav';
 import MapFullSpotMain from './MapFullSpotMain';
 import MapFullSpotCarousel from './MapFullSpotCarousel';
-import * as S from './MapFullSpot.styled';
 
 import { useMapStore } from '@/store/map';
 import { modalThemeStyles } from '@/components/Ui/Modal/styles';
@@ -38,15 +38,22 @@ const MapFullSpot: React.FC<MapFullSpotProps> = ({ open, onClose, container }) =
             customClassNames={{ customRoot: '!z-[1100]' }}
         >
             {spotOverview && (
-                <S.MapFullSpotContainer isCarouselOpen={!!mediaId}>
+                <div
+                    className={classnames(
+                        'relative flex flex-col min-h-screen overflow-hidden',
+                        'tablet:grid tablet:grid-cols-[minmax(16rem,1fr)_3fr] tablet:[grid-template-areas:"fullSpotNav_fullSpotMain"] tablet:min-h-0 tablet:h-[40rem]',
+                        'laptop:min-h-0 laptop:h-auto laptop:aspect-video laptop:w-[88vw] laptop:max-w-[80rem]',
+                        mediaId ? 'h-screen' : 'h-auto',
+                    )}
+                >
                     {mediaId && <MapFullSpotCarousel initialMediaId={mediaId} spot={spotOverview.spot} />}
-                    <S.MapFullSpotNavContainer>
+                    <header className="tablet:[grid-area:fullSpotNav] tablet:absolute tablet:top-0 tablet:right-0 tablet:bottom-0 tablet:left-0 tablet:border-r tablet:border-onDark-divider">
                         <MapFullSpotNav />
-                    </S.MapFullSpotNavContainer>
-                    <S.MapFullSpotMainContainer>
+                    </header>
+                    <main className="grow bg-tertiary-medium tablet:[grid-area:fullSpotMain] tablet:absolute tablet:top-0 tablet:right-0 tablet:bottom-0 tablet:left-0 tablet:overflow-hidden">
                         <MapFullSpotMain />
-                    </S.MapFullSpotMainContainer>
-                </S.MapFullSpotContainer>
+                    </main>
+                </div>
             )}
         </Modal>
     );

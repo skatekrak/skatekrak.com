@@ -1,5 +1,3 @@
-import { themeData } from '@/styles/Theme/ThemeStore';
-
 /** theme styles */
 export const modalThemeStyles: Record<string, React.CSSProperties> = {
     overlay: {
@@ -8,9 +6,9 @@ export const modalThemeStyles: Record<string, React.CSSProperties> = {
     },
     modal: {
         padding: '0',
-        color: `${themeData.color.onDark.highEmphasis}`,
-        background: `${themeData.color.tertiary.dark}`,
-        border: `1px solid ${themeData.color.tertiary.medium}`,
+        color: 'rgba(255, 255, 255, 1)',
+        background: '#1F1F1F',
+        border: '1px solid #333333',
         borderRadius: '0.25rem',
         boxShadow: '0px 0px 16px rgba(0, 0, 0, 0.25)',
         overflow: 'hidden',
@@ -21,12 +19,12 @@ export const modalThemeStyles: Record<string, React.CSSProperties> = {
         justifyContent: 'center',
         width: '1.75rem',
         height: '1.75rem',
-        backgroundColor: `${themeData.color.onDark.divider}`,
+        backgroundColor: 'rgba(255, 255, 255, 0.08)',
         borderRadius: '50%',
     },
     closeIcon: {
         width: '1.5rem',
         height: '1.25rem',
-        fill: `${themeData.color.onDark.mediumEmphasis}`,
+        fill: 'rgba(255, 255, 255, 0.7)',
     },
 };

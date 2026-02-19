@@ -11,7 +11,7 @@ import IconMedia from '@/components/Ui/Icons/IconMedia';
 import IconClips from '@/components/Ui/Icons/IconClips';
 import MapFullSpotNavItem from './MapFullSpotNavItem';
 import MapFullSpotAddTrigger from '../MapFullSpotMain/MapFullSpotAdd/MapFullSpotAddTrigger';
-import * as S from './MapFullSpotNav.styled';
+import Typography from '@/components/Ui/typography/Typography';
 
 import { Spot, Status, Types } from '@krak/carrelage-client';
 import type { FullSpotTab } from '@/store/map';
@@ -61,25 +61,25 @@ const MapFullSpotNav = () => {
     };
 
     return (
-        <S.MapFullSpotNavContainer>
+        <div className="relative flex flex-col h-full py-8 px-0 overflow-y-auto tablet:pt-6 tablet:pb-8">
             {spotOverview != null && (
                 <>
-                    <S.MapFullSpotNavHeader>
-                        <S.MapFullSpotName forwardedAs="h1" component="heading5">
+                    <div className="mx-6 mb-6 pb-6 border-b border-onDark-divider">
+                        <Typography className="mb-4 max-w-[80%]" as="h1" component="heading5">
                             {spotOverview.spot.name}
-                        </S.MapFullSpotName>
-                        <S.MapFullSpotCity component="caption">
+                        </Typography>
+                        <Typography className="mb-1 font-roboto uppercase [&_span]:font-roboto-bold" component="caption">
                             <span>{spotOverview.spot.location.city}</span> | {spotOverview.spot.location.country}
-                        </S.MapFullSpotCity>
-                        <S.MapFullSpotStreet component="caption">
+                        </Typography>
+                        <Typography className="italic font-roboto text-onDark-mediumEmphasis" component="caption">
                             {displayAddress(spotOverview.spot)}
-                        </S.MapFullSpotStreet>
-                        <S.MapFullSpotExtra>
+                        </Typography>
+                        <div className="flex items-center mt-4 [&_.map-icon]:w-12 [&_.map-icon]:mr-6">
                             <SpotIcon type={spotOverview.spot.type} status={spotOverview.spot.status} />
                             <MapFullSpotAddTrigger />
-                        </S.MapFullSpotExtra>
-                    </S.MapFullSpotNavHeader>
-                    <S.MapFullSpotNavMain>
+                        </div>
+                    </div>
+                    <nav className="flex tablet:grow tablet:flex-col">
                         <MapFullSpotNavItem
                             text={`Media(${spotOverview.spot.mediasStat.all})`}
                             onClick={() => onTabSelect('media')}
@@ -92,10 +92,10 @@ const MapFullSpotNav = () => {
                             isActive={selectedTab === 'clips'}
                             icon={<IconClips />}
                         />
-                    </S.MapFullSpotNavMain>
+                    </nav>
                 </>
             )}
-        </S.MapFullSpotNavContainer>
+        </div>
     );
 };
 

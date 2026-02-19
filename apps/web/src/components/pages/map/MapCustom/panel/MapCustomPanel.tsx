@@ -82,7 +82,7 @@ const MapCustomPanel = ({ map, spots }: MapCustomPanelProps) => {
             {mediaId && <MapCustomMediaCarousel initialMediaId={mediaId} hashtag={id} />}
             <div
                 className={classNames(
-                    'absolute inset-0 lg:right-auto lg:w-[32rem] flex flex-col text-onDark-mediumEmphasis text-base bg-tertiary-dark border-r border-solid border-tertiary-medium shadow-2xl z-[1010] overflow-y-auto',
+                    'absolute inset-0 laptop-s:right-auto laptop-s:w-[32rem] flex flex-col text-onDark-mediumEmphasis text-base bg-tertiary-dark border-r border-solid border-tertiary-medium shadow-2xl z-[1010] overflow-y-auto',
                     { 'bottom-auto': !isOpen },
                 )}
             >

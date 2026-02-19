@@ -1,18 +1,15 @@
-import { css } from 'styled-components';
-
 export type TruncateTextProps = {
     truncateLines?: number;
 };
 
-export const truncateOneLineStyles = css`
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-`;
-
-export const truncateMultipleLinesStyles = (nbLines?: number) => css`
-    display: -webkit-box;
-    -webkit-line-clamp: ${nbLines};
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-`;
+/**
+ * Returns Tailwind class names for text truncation.
+ * - 1 line: `truncate` (white-space: nowrap; overflow: hidden; text-overflow: ellipsis)
+ * - N lines: `line-clamp-N` (display: -webkit-box; -webkit-line-clamp: N; -webkit-box-orient: vertical; overflow: hidden)
+ * - undefined: empty string (no truncation)
+ */
+export const getTruncateClasses = (lines?: number): string => {
+    if (lines == null) return '';
+    if (lines === 1) return 'truncate';
+    return `line-clamp-[${lines}]`;
+};

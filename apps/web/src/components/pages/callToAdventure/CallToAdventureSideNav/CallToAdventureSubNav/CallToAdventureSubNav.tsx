@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import classnames from 'classnames';
 
-import * as S from './CallToAdventureSubNav.styled';
-import * as SS from '../CallToAdventureSideNav.styled';
 import { ctaSections } from '../../constants';
 import ArrowHead from '@/components/Ui/Icons/ArrowHead';
 
@@ -34,87 +33,96 @@ const CallToAdventureSubNav = ({ currentSectionInView }: Props) => {
         }
     }, [currentSectionInView, isActive]);
 
+    const subNavLinkClasses = (isLinkActive: boolean) =>
+        classnames('block py-2 px-2 text-sm text-onDark-mediumEmphasis cursor-pointer hover:text-onDark-highEmphasis', {
+            'font-roboto-bold text-onDark-highEmphasis': isLinkActive,
+        });
+
     return (
-        <S.CallToAdventureSubNav>
-            <S.CallToAdventureSubNavToggle
-                // href={`#${ctaSections.DONE}`}
-                $isActive={isOpen}
+        <div className="flex flex-col">
+            <a
+                className={classnames(
+                    'flex items-center py-3 text-onDark-mediumEmphasis cursor-pointer hover:text-onDark-highEmphasis hover:[&_svg]:fill-onDark-highEmphasis [&_svg]:w-5 [&_svg]:ml-auto [&_svg]:fill-onDark-mediumEmphasis',
+                    {
+                        'font-roboto-bold text-onDark-highEmphasis [&_svg]:rotate-90': isOpen,
+                    },
+                )}
                 onClick={() => setIsOpen(!isOpen)}
             >
-                what we’ve done
+                what we&apos;ve done
                 <ArrowHead />
-            </S.CallToAdventureSubNavToggle>
+            </a>
             {isOpen && (
-                <S.CallToAdventureSubNavOptions>
-                    <SS.CallToAdventureSideNavLink
+                <div className="flex flex-col ml-3">
+                    <a
                         href={`#${ctaSections.HARDWARE}`}
-                        $isActive={currentSectionInView === ctaSections.HARDWARE}
+                        className={subNavLinkClasses(currentSectionInView === ctaSections.HARDWARE)}
                     >
                         hardware device
-                    </SS.CallToAdventureSideNavLink>
-                    <SS.CallToAdventureSideNavLink
+                    </a>
+                    <a
                         href={`#${ctaSections.KRAKAPP}`}
-                        $isActive={currentSectionInView === ctaSections.KRAKAPP}
+                        className={subNavLinkClasses(currentSectionInView === ctaSections.KRAKAPP)}
                     >
                         Krak app
-                    </SS.CallToAdventureSideNavLink>
-                    <SS.CallToAdventureSideNavLink
+                    </a>
+                    <a
                         href={`#${ctaSections.KRAKBOX}`}
-                        $isActive={currentSectionInView === ctaSections.KRAKBOX}
+                        className={subNavLinkClasses(currentSectionInView === ctaSections.KRAKBOX)}
                     >
                         KrakBox
-                    </SS.CallToAdventureSideNavLink>
-                    <SS.CallToAdventureSideNavLink
+                    </a>
+                    <a
                         href={`#${ctaSections.KRAKMAG}`}
-                        $isActive={currentSectionInView === ctaSections.KRAKMAG}
+                        className={subNavLinkClasses(currentSectionInView === ctaSections.KRAKMAG)}
                     >
                         KrakMag
-                    </SS.CallToAdventureSideNavLink>
-                    <SS.CallToAdventureSideNavLink
+                    </a>
+                    <a
                         href={`#${ctaSections.YOUTUBE}`}
-                        $isActive={currentSectionInView === ctaSections.YOUTUBE}
+                        className={subNavLinkClasses(currentSectionInView === ctaSections.YOUTUBE)}
                     >
                         Youtube channel
-                    </SS.CallToAdventureSideNavLink>
-                    <SS.CallToAdventureSideNavLink
+                    </a>
+                    <a
                         href={`#${ctaSections.COLLABS}`}
-                        $isActive={currentSectionInView === ctaSections.COLLABS}
+                        className={subNavLinkClasses(currentSectionInView === ctaSections.COLLABS)}
                     >
                         collabs and merch
-                    </SS.CallToAdventureSideNavLink>
-                    <SS.CallToAdventureSideNavLink
+                    </a>
+                    <a
                         href={`#${ctaSections.EVENTS}`}
-                        $isActive={currentSectionInView === ctaSections.EVENTS}
+                        className={subNavLinkClasses(currentSectionInView === ctaSections.EVENTS)}
                     >
                         events
-                    </SS.CallToAdventureSideNavLink>
-                    <SS.CallToAdventureSideNavLink
+                    </a>
+                    <a
                         href={`#${ctaSections.KRAKSESSION}`}
-                        $isActive={currentSectionInView === ctaSections.KRAKSESSION}
+                        className={subNavLinkClasses(currentSectionInView === ctaSections.KRAKSESSION)}
                     >
                         Krak Session app
-                    </SS.CallToAdventureSideNavLink>
-                    <SS.CallToAdventureSideNavLink
+                    </a>
+                    <a
                         href={`#${ctaSections.FEED}`}
-                        $isActive={currentSectionInView === ctaSections.FEED}
+                        className={subNavLinkClasses(currentSectionInView === ctaSections.FEED)}
                     >
                         video and news feed
-                    </SS.CallToAdventureSideNavLink>
-                    <SS.CallToAdventureSideNavLink
+                    </a>
+                    <a
                         href={`#${ctaSections.MAP}`}
-                        $isActive={currentSectionInView === ctaSections.MAP}
+                        className={subNavLinkClasses(currentSectionInView === ctaSections.MAP)}
                     >
                         skatespots map
-                    </SS.CallToAdventureSideNavLink>
-                    <SS.CallToAdventureSideNavLink
+                    </a>
+                    <a
                         href={`#${ctaSections.DISCORD}`}
-                        $isActive={currentSectionInView === ctaSections.DISCORD}
+                        className={subNavLinkClasses(currentSectionInView === ctaSections.DISCORD)}
                     >
                         Discord community
-                    </SS.CallToAdventureSideNavLink>
-                </S.CallToAdventureSubNavOptions>
+                    </a>
+                </div>
             )}
-        </S.CallToAdventureSubNav>
+        </div>
     );
 };
 

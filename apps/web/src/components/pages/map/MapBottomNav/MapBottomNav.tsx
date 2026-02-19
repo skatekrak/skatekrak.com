@@ -13,11 +13,11 @@ type Props = {
 
 const MapBottomNav: React.FC<Props> = ({ isMobile }) => {
     return (
-        <div className="absolute left-4 bottom-4 md:left-6 md:bottom-6 flex items-cente gap-2 z-[1000]">
+        <div className="absolute left-4 bottom-4 tablet:left-6 tablet:bottom-6 flex items-cente gap-2 z-[1000]">
             {/* Legend */}
             <MapBottomNavSheet title="Explore the map" maxWidth="27rem" render={() => <Legend />}>
                 <TriggerButton>
-                    <KrakAppIcon className="max-lg:hidden w-7 h-7 mr-4 shadow-none" />
+                    <KrakAppIcon className="max-laptop-s:hidden w-7 h-7 mr-4 shadow-none" />
                     <Typography component="condensedButton">Legend</Typography>
                 </TriggerButton>
             </MapBottomNavSheet>

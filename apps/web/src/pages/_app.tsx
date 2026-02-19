@@ -8,7 +8,6 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { Analytics } from '@vercel/analytics/react';
 
 import { wrapper } from '@/store';
-import { ThemeStore } from '@/styles/Theme/ThemeStore';
 
 import '/public/styles/tailwind.css';
 import '/public/styles/reset.css';
@@ -51,9 +50,7 @@ const WrappedApp: React.FC<AppProps> = ({ Component, ...rest }) => {
                         <meta name="viewport" content="width=device-width, initial-scale=1" />
                     </Head>
                     <ConnectedRouter>
-                        <ThemeStore>
-                            <Component {...props.pageProps} />
-                        </ThemeStore>
+                        <Component {...props.pageProps} />
                     </ConnectedRouter>
                     {process.env.NEXT_PUBLIC_STAGE === 'development' && <ReactQueryDevtools initialIsOpen={false} />}
                 </HydrationBoundary>

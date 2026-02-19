@@ -3,7 +3,6 @@ import { useDropzone } from 'react-dropzone';
 
 import IconClear from '@/components/Ui/Icons/IconClear';
 import IconPlus from '@/components/Ui/Icons/IconPlus';
-import * as S from './MapFullSpotAddMedia.styled';
 import { useCallback, useMemo, useState } from 'react';
 
 const MapFullSpotAddMediaInput = () => {
@@ -41,25 +40,43 @@ const MapFullSpotAddMediaInput = () => {
 
     if (file.value != null) {
         return (
-            <S.MapFullSpotAddMediaAddContainer>
-                <S.MapFullSpotAddMediaAdd as="div">
-                    <S.MapFullSpotAddMediaRemoveButton onClick={removeMedia}>
+            <div className="relative max-w-full pt-[100%] my-8 rounded bg-tertiary-light overflow-hidden laptop-s:m-0 laptop-s:pt-0">
+                <div className="absolute w-full top-0 bottom-0 left-0 hover:[&_svg]:fill-onDark-highEmphasis [&_svg]:m-auto [&_svg]:w-6 [&_svg]:fill-onDark-mediumEmphasis">
+                    <button
+                        className="absolute top-2 right-2 flex bg-tertiary-light rounded-full z-[1] [&_svg]:w-8 [&_svg]:fill-onDark-mediumEmphasis hover:[&_svg]:fill-onDark-highEmphasis"
+                        onClick={removeMedia}
+                    >
                         <IconClear />
-                    </S.MapFullSpotAddMediaRemoveButton>
-                    {type.startsWith('image') && <S.MapFullSpotAddMediaImage src={url} />}
-                    {type.startsWith('video') && <S.MapFullSpotAddMediaVideo src={url} controls autoPlay />}
-                </S.MapFullSpotAddMediaAdd>
-            </S.MapFullSpotAddMediaAddContainer>
+                    </button>
+                    {type.startsWith('image') && (
+                        <img
+                            className="relative w-full h-full object-cover m-auto bg-tertiary-dark"
+                            src={url}
+                        />
+                    )}
+                    {type.startsWith('video') && (
+                        <video
+                            className="relative w-full h-full object-cover m-auto bg-tertiary-dark"
+                            src={url}
+                            controls
+                            autoPlay
+                        />
+                    )}
+                </div>
+            </div>
         );
     }
 
     return (
-        <S.MapFullSpotAddMediaAddContainer {...getRootProps()}>
-            <S.MapFullSpotAddMediaAdd>
+        <div
+            className="relative max-w-full pt-[100%] my-8 rounded bg-tertiary-light overflow-hidden laptop-s:m-0 laptop-s:pt-0"
+            {...getRootProps()}
+        >
+            <button className="absolute w-full top-0 bottom-0 left-0 hover:[&_svg]:fill-onDark-highEmphasis [&_svg]:m-auto [&_svg]:w-6 [&_svg]:fill-onDark-mediumEmphasis">
                 <IconPlus />
                 <input type="file" accept=".jpg,.jpeg,.png" style={{ display: 'none' }} {...getInputProps()} />
-            </S.MapFullSpotAddMediaAdd>
-        </S.MapFullSpotAddMediaAddContainer>
+            </button>
+        </div>
     );
 };
 
