@@ -149,7 +149,7 @@ button {
 input,
 textarea,
 button {
-    border: 0;
+    border-width: 0;
 }
 button {
     padding: 0;

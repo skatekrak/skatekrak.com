@@ -68,7 +68,10 @@ const MapFullSpotNav = () => {
                         <Typography className="mb-4 max-w-[80%]" as="h1" component="heading5">
                             {spotOverview.spot.name}
                         </Typography>
-                        <Typography className="mb-1 font-roboto uppercase [&_span]:font-roboto-bold" component="caption">
+                        <Typography
+                            className="mb-1 font-roboto uppercase [&_span]:font-roboto-bold"
+                            component="caption"
+                        >
                             <span>{spotOverview.spot.location.city}</span> | {spotOverview.spot.location.country}
                         </Typography>
                         <Typography className="italic font-roboto text-onDark-mediumEmphasis" component="caption">
