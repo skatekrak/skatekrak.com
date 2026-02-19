@@ -1,6 +1,6 @@
 # syntax = docker/dockerfile:1
 
-ARG BUN_VERSION=1.1.12
+ARG BUN_VERSION=1.3.9
 FROM oven/bun:${BUN_VERSION}-slim AS base
 
 LABEL fly_launch_runtime="Bun"
@@ -17,7 +17,7 @@ FROM base AS build
 
 # Install packages needed to build node modules
 RUN apt-get update -qq && \
-    apt-get install -y python-is-python3 pkg-config build-essential 
+  apt-get install -y python-is-python3 pkg-config build-essential 
 
 # Install node modules
 COPY . .
