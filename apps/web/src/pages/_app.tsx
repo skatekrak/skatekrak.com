@@ -1,13 +1,9 @@
 import React, { useState } from 'react';
 import { AppProps } from 'next/app';
 import Head from 'next/head';
-import { Provider } from 'react-redux';
-import { ConnectedRouter } from 'connected-next-router';
 import { QueryClient, QueryClientProvider, HydrationBoundary } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { Analytics } from '@vercel/analytics/react';
-
-import { wrapper } from '@/store';
 
 import '/public/styles/tailwind.css';
 import '/public/styles/reset.css';
@@ -37,27 +33,22 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import '/public/styles/masonry.css';
 import { trpc } from '@/server/trpc/utils';
 
-const WrappedApp: React.FC<AppProps> = ({ Component, ...rest }) => {
-    const { store, props } = wrapper.useWrappedStore(rest);
+const App: React.FC<AppProps> = ({ Component, pageProps }) => {
     const [queryClient] = useState(() => new QueryClient());
 
     return (
-        <Provider store={store}>
-            <QueryClientProvider client={queryClient}>
-                <HydrationBoundary state={props.pageProps.dehydratedState}>
-                    <Head>
-                        <meta charSet="utf-8" />
-                        <meta name="viewport" content="width=device-width, initial-scale=1" />
-                    </Head>
-                    <ConnectedRouter>
-                        <Component {...props.pageProps} />
-                    </ConnectedRouter>
-                    {process.env.NEXT_PUBLIC_STAGE === 'development' && <ReactQueryDevtools initialIsOpen={false} />}
-                </HydrationBoundary>
-            </QueryClientProvider>
+        <QueryClientProvider client={queryClient}>
+            <HydrationBoundary state={pageProps.dehydratedState}>
+                <Head>
+                    <meta charSet="utf-8" />
+                    <meta name="viewport" content="width=device-width, initial-scale=1" />
+                </Head>
+                <Component {...pageProps} />
+                {process.env.NEXT_PUBLIC_STAGE === 'development' && <ReactQueryDevtools initialIsOpen={false} />}
+            </HydrationBoundary>
             <Analytics />
-        </Provider>
+        </QueryClientProvider>
     );
 };
 
-export default trpc.withTRPC(WrappedApp);
+export default trpc.withTRPC(App);

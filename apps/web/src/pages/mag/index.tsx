@@ -1,6 +1,6 @@
-import { NextPage } from 'next';
+import { GetStaticProps, InferGetStaticPropsType, NextPage } from 'next';
 import Head from 'next/head';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import Layout from '@/components/Layout';
 import LayoutFeed from '@/components/Ui/Feed/LayoutFeed';
@@ -8,9 +8,8 @@ import RefreshScrollOnNewPage from '@/components/Ui/Utils/RefreshScrollOnNewPage
 
 import Feed from '@/components/pages/mag/Feed';
 import Sidebar from '@/components/pages/mag/Sidebar';
-import { wrapper } from '@/store';
 import { getPostBySlug, getPostSlugs } from '@/lib/mag/generate';
-import { setArticles } from '@/store/mag/slice';
+import { SlicePost, useMagStore } from '@/store/mag';
 
 const MagHead = () => {
     const baseURL = process.env.NEXT_PUBLIC_WEBSITE_URL;
@@ -33,8 +32,13 @@ const MagHead = () => {
     );
 };
 
-const Mag: NextPage = () => {
+const Mag: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({ articles }) => {
+    const setArticles = useMagStore((state) => state.setArticles);
     const [sidebarNavIsOpen, setSidebarNavOpen] = useState(false);
+
+    useEffect(() => {
+        setArticles(articles);
+    }, [articles, setArticles]);
 
     const setSidebarOpeness = () => {
         setSidebarNavOpen(!sidebarNavIsOpen);
@@ -56,25 +60,22 @@ const Mag: NextPage = () => {
     );
 };
 
-export const getStaticProps = wrapper.getStaticProps((store) => () => {
+export const getStaticProps: GetStaticProps<{ articles: SlicePost[] }> = () => {
     const slugs = getPostSlugs();
     const posts = slugs.map((slug) => getPostBySlug(slug));
     console.log(`got ${posts.length} posts`);
 
-    store.dispatch(
-        setArticles(
-            posts.map((post) => ({
+    return {
+        props: {
+            articles: posts.map((post) => ({
                 categories: post.categories,
                 featuredImages: post.featuredImages,
                 id: post.id,
                 slug: post.slug,
                 title: post.title,
             })),
-        ),
-    );
-    return {
-        props: {},
+        },
     };
-});
+};
 
 export default Mag;

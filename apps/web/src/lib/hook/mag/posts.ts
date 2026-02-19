@@ -1,6 +1,6 @@
 import { intersects } from 'radash';
 import { useInfiniteQuery } from '@tanstack/react-query';
-import { useAppSelector } from '@/store/hook';
+import { useMagStore } from '@/store/mag';
 
 export type PostsFetchParam = {
     per_page: number;
@@ -8,7 +8,7 @@ export type PostsFetchParam = {
 };
 
 const usePosts = (params: PostsFetchParam) => {
-    const articles = useAppSelector((state) => state.mag.articles);
+    const articles = useMagStore((state) => state.articles);
 
     return useInfiniteQuery({
         queryKey: ['mag-feed', params, articles],

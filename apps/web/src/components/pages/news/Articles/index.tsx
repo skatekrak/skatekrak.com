@@ -1,7 +1,6 @@
 import classNames from 'classnames';
 import React, { useCallback, useEffect, useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroller';
-import { useSelector } from 'react-redux';
 
 import NoContent from '@/components/Ui/Feed/NoContent';
 import { KrakLoading } from '@/components/Ui/Icons/Spinners';
@@ -9,7 +8,7 @@ import ScrollHelper from '@/lib/ScrollHelper';
 import { FeedLayout, useSettingsStore } from '@/store/settings';
 
 import ArticlesList from '../ArticlesList';
-import { RootState } from '@/store';
+import { useNewsStore } from '@/store/news';
 import useNewsContent from '@/lib/hook/news/contents';
 import { flatten } from '@/lib/helpers';
 
@@ -18,7 +17,7 @@ type ArticlesProps = {
 };
 
 const Articles = ({ sidebarNavIsOpen }: ArticlesProps) => {
-    const selectedSources = useSelector((state: RootState) => state.news.selectSources);
+    const selectedSources = useNewsStore((state) => state.selectSources);
     const feedLayout = useSettingsStore((state) => state.feedLayout);
 
     const [promoCardIndexes, setPromoCardIndexes] = useState<number[]>([]);

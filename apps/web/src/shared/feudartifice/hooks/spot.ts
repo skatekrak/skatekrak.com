@@ -4,7 +4,6 @@ import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import { MapRef } from 'react-map-gl';
 import { useEffect, useState } from 'react';
 import useDebounce from '@/lib/hook/useDebounce';
-import { useAppDispatch } from '@/store/hook';
 import { SpotGeoJSON, boxSpotsSearch, getSpotsByTags } from '@krak/carrelage-client';
 import { sort, unique } from 'radash';
 import { trpc } from '@/server/trpc/utils';
@@ -19,7 +18,6 @@ export const fetchSpot = async (id: string): Promise<Spot> => {
 
 export const useSpotsSearch = (mapRef: MapRef | undefined, enabled = true) => {
     const [viewport] = useViewport();
-    const dispatch = useAppDispatch();
 
     const debouncedViewport = useDebounce(viewport, 200);
     const [loadedSpots, setLoadedSpots] = useState<Spot[]>([]);
@@ -56,7 +54,7 @@ export const useSpotsSearch = (mapRef: MapRef | undefined, enabled = true) => {
         if (data != null) {
             setLoadedSpots((previousSpots) => unique(previousSpots.concat(data ?? []), (a) => a.id));
         }
-    }, [data, dispatch, setLoadedSpots]);
+    }, [data, setLoadedSpots]);
 
     return {
         data: loadedSpots,

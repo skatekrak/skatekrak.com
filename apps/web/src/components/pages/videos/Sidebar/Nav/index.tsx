@@ -1,6 +1,5 @@
 import classNames from 'classnames';
 import React, { useMemo } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 
 import LanguageFilter from '@/components/Ui/Feed/Sidebar/LanguageFilter';
 import { SpinnerCircle } from '@/components/Ui/Icons/Spinners';
@@ -8,9 +7,8 @@ import Analytics from '@/lib/analytics';
 import { Language } from 'rss-feed';
 import useLanguages from '@/lib/hook/languages';
 import useVideosSources from '@/lib/hook/videos/sources';
-import { resetVideos, selectVideosSources, toggleVideosSource } from '@/store/videos/slice';
+import { useVideosStore } from '@/store/videos';
 import SourceOption from '@/components/Ui/Feed/Sidebar/SourceOption';
-import { RootState } from '@/store';
 import useVideos from '@/lib/hook/videos/videos';
 
 type SourcesProps = {
@@ -19,11 +17,13 @@ type SourcesProps = {
 };
 
 const Sources = ({ navIsOpen, handleOpenSourcesMenu }: SourcesProps) => {
-    const dispatch = useDispatch();
     const { data: sources, isLoading } = useVideosSources();
     const languages = useLanguages(sources ?? []);
-    const selectedSources = useSelector((state: RootState) => state.video.selectSources);
-    const query = useSelector((state: RootState) => state.video.search);
+    const selectedSources = useVideosStore((state) => state.selectSources);
+    const query = useVideosStore((state) => state.search);
+    const resetVideos = useVideosStore((state) => state.resetVideos);
+    const selectVideosSources = useVideosStore((state) => state.selectVideosSources);
+    const toggleVideosSource = useVideosStore((state) => state.toggleVideosSource);
 
     const { isFetching } = useVideos({ sources: selectedSources, query });
 
@@ -31,7 +31,7 @@ const Sources = ({ navIsOpen, handleOpenSourcesMenu }: SourcesProps) => {
         if (sources != null && sources.length > 0) {
             Analytics.trackEvent('Click', 'Filter_Select_All', { value: 1 });
         }
-        dispatch(resetVideos());
+        resetVideos();
     };
 
     const length = useMemo(() => {
@@ -51,12 +51,12 @@ const Sources = ({ navIsOpen, handleOpenSourcesMenu }: SourcesProps) => {
     const toggleLanguage = (language: Language) => {
         const sourcesToSelect = sources?.filter((source) => source.lang.isoCode === language.isoCode);
         if (sourcesToSelect) {
-            dispatch(selectVideosSources(sourcesToSelect));
+            selectVideosSources(sourcesToSelect);
         }
     };
 
     const toggleSource = (id: string) => {
-        dispatch(toggleVideosSource(id));
+        toggleVideosSource(id);
     };
 
     return (

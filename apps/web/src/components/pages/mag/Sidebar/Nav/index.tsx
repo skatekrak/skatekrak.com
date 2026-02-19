@@ -3,9 +3,8 @@ import React, { useMemo } from 'react';
 
 import SourceOption from '@/components/Ui/Feed/Sidebar/SourceOption';
 import Analytics from '@/lib/analytics';
-import { resetCategories, toggleCategory } from '@/store/mag/slice';
 import usePosts from '@/lib/hook/mag/posts';
-import { useAppDispatch, useAppSelector } from '@/store/hook';
+import { useMagStore } from '@/store/mag';
 import { unique, flat } from 'radash';
 
 type NavProps = {
@@ -14,10 +13,10 @@ type NavProps = {
 };
 
 const Nav = ({ sidebarNavIsOpen, handleOpenSidebarNav }: NavProps) => {
-    const dispatch = useAppDispatch();
-    const sources = useAppSelector((state) => state.mag.selectedCategories);
-
-    const articles = useAppSelector((state) => state.mag.articles);
+    const sources = useMagStore((state) => state.selectedCategories);
+    const articles = useMagStore((state) => state.articles);
+    const toggleCategory = useMagStore((state) => state.toggleCategory);
+    const resetCategories = useMagStore((state) => state.resetCategories);
     const categories = useMemo(() => {
         const _categories = unique(flat(articles.map((article) => article.categories)));
         return _categories.map((category) => ({
@@ -44,7 +43,7 @@ const Nav = ({ sidebarNavIsOpen, handleOpenSidebarNav }: NavProps) => {
         if (categories.length > 0) {
             Analytics.trackEvent('Click', 'Filter_Select_All');
         }
-        dispatch(resetCategories());
+        resetCategories();
     };
 
     const isActive = (id: string): boolean => {
@@ -55,7 +54,7 @@ const Nav = ({ sidebarNavIsOpen, handleOpenSidebarNav }: NavProps) => {
     };
 
     const toggleSource = (id: string) => {
-        dispatch(toggleCategory(id));
+        toggleCategory(id);
     };
 
     return (
