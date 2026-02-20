@@ -34,11 +34,24 @@ services:
             - traefik.http.routers.krak-api.service=krak-api
             - traefik.http.services.krak-api.loadbalancer.server.port=3000 # Adapt to the exposed port in the service
         working_dir: /app
+        depends_on:
+            - postgres
         volumes:
             - .:/app
             - ~/.npmrc:/app/.npmrc:ro
             - skatekrak-api-node_modules:/app/node_modules
         env_file: apps/api/.env
+
+    postgres:
+        image: postgres:17
+        environment:
+            POSTGRES_USER: krak
+            POSTGRES_PASSWORD: krak
+            POSTGRES_DB: krak
+        volumes:
+            - postgres-data:/var/lib/postgresql/data
+        ports:
+            - 5433:5432
 
     mongodb:
         image: mongo:7.0
@@ -76,6 +89,7 @@ volumes:
     skatekrak-api-node_modules: null
     carrelage-build: null
     carrelage-node_modules: null
+    postgres-data: null
     mongo-data: null
 
 networks:
