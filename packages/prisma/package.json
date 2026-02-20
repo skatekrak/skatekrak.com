@@ -11,10 +11,12 @@
         "db:push": "prisma db push",
         "studio": "prisma studio",
         "format": "prisma format",
-        "validate": "prisma validate"
+        "validate": "prisma validate",
+        "migrate:from-mongo": "bun run scripts/migrate-from-mongo.ts"
     },
     "dependencies": {
-        "@prisma/client": "^7.4.1"
+        "@prisma/client": "^7.4.1",
+        "mongodb": "^6.8.1"
     },
     "devDependencies": {
         "prisma": "^7.4.1"
