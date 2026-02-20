@@ -8,6 +8,7 @@ module.exports = {
             mobile: '480px',
             tablet: '768px',
             'laptop-s': '1024px',
+            'laptop-m': '1200px',
             laptop: '1280px',
             'laptop-l': '1440px',
             desktop: '1920px',

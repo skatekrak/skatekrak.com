@@ -47,7 +47,7 @@ const Mag: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({ article
     return (
         <RefreshScrollOnNewPage>
             <Layout head={<MagHead />}>
-                <div id="mag-container" className="inner-page-container">
+                <div id="mag-container" className="w-full pt-8 pb-8 laptop-s:pt-16">
                     <LayoutFeed
                         mainView={<Feed sidebarNavIsOpen={sidebarNavIsOpen} />}
                         sidebar={

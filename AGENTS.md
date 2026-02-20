@@ -141,13 +141,12 @@ src/
   store/        — Zustand + Redux stores
   lib/          — Utilities, hooks, helpers
   server/       — Server-side utilities (tRPC)
-  styles/       — Global styles (Tailwind + Stylus)
+  styles/       — Global styles (Tailwind CSS)
 ```
 
 ## Common Pitfalls
 
 - `apps/web` uses **Next.js Pages Router** (not App Router). Routes are in `src/pages/`.
-- The web app compiles Stylus CSS before the Next.js build (`build:style` script). Don't forget this step.
 - Workspace packages (`@krak/trpc`, `@krak/carrelage-client`) are transpiled by Next.js via `transpilePackages` in `next.config.js`.
 - The preview CI workflow still uses pnpm/Node 18 (legacy), but the main deploy uses Bun. Always use Bun locally.
 - `apps/carrelage` tests require a running MongoDB instance and compiled TypeScript (`bun run build` first).

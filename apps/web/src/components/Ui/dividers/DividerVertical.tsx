@@ -1,7 +1,7 @@
 import React from 'react';
 
 const DividerVertical = () => {
-    return <div className="divider-vertical" />;
+    return <div className="w-px h-full my-auto bg-tertiary-light" />;
 };
 
 export default DividerVertical;

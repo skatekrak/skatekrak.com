@@ -76,7 +76,7 @@ const News: NextPage<Props> = ({ contentData, gotId }) => {
 
     return (
         <Layout head={content != null ? <NewsHead content={content} /> : undefined}>
-            <div id="news-container" className="inner-page-container">
+            <div id="news-container" className="w-full pt-8 pb-8 laptop-s:pt-16">
                 {gotId && <DynamicArticleModal show={gotId} content={content} />}
                 <LayoutFeed
                     mainView={<Articles sidebarNavIsOpen={sidebarNavIsOpen} />}

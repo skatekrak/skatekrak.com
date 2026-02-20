@@ -58,7 +58,7 @@ const Videos: NextPage<Props> = ({ video, gotId }) => {
 
     return (
         <Layout head={video != null ? <VideoHead video={video} /> : undefined}>
-            <div id="videos-container" className="inner-page-container">
+            <div id="videos-container" className="w-full pt-8 pb-8 laptop-s:pt-16">
                 {gotId && <VideoModal video={video} open={gotId} />}
                 <LayoutFeed
                     mainView={<VideoFeed sidebarNavIsOpen={sidebarNavIsOpen} />}
