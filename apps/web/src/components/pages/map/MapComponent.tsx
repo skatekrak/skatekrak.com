@@ -17,7 +17,7 @@ import { useMapStore } from '@/store/map';
 import IconLayer from '@/components/Ui/Icons/IconLayer';
 
 type MapComponentProps = {
-    mapRef: React.RefObject<MapRef>;
+    mapRef: React.RefObject<MapRef | null>;
     onLoad?: () => void;
     spots: SpotGeoJSON[];
     children?: React.ReactNode;
@@ -36,8 +36,8 @@ const MapComponent = ({ mapRef, spots, children, onLoad }: MapComponentProps) =>
     const [spotId, setSpotId] = useSpotID();
     const [, setModalVisible] = useSpotModal();
 
-    const [markers, spotSourceData]: [JSX.Element[], FeatureCollection<Geometry>] = useMemo(() => {
-        const markers: JSX.Element[] = [];
+    const [markers, spotSourceData]: [React.ReactElement[], FeatureCollection<Geometry>] = useMemo(() => {
+        const markers: React.ReactElement[] = [];
         const spotSourceData: FeatureCollection<Geometry> = {
             type: 'FeatureCollection',
             features: [],

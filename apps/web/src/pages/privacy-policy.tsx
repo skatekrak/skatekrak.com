@@ -2,7 +2,7 @@ import React from 'react';
 
 import Layout from '@/components/Layout';
 
-const P = ({ children }: { children: string | (string | JSX.Element)[] }) => (
+const P = ({ children }: { children: string | (string | React.ReactElement)[] }) => (
     <p style={{ marginTop: '10px', marginBottom: '10px' }}>{children}</p>
 );
 

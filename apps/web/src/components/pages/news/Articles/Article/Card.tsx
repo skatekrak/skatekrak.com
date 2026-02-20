@@ -1,6 +1,5 @@
 import { formatDistanceToNow, parseISO } from 'date-fns';
 import React from 'react';
-import Truncate from 'react-truncate';
 
 import Content from '@/models/Content';
 
@@ -47,10 +46,8 @@ const Card = ({ content }: Props) => (
                 &nbsp;- {formatDistanceToNow(parseISO(content.createdAt))}
             </span>
         </div>
-        <p className="news-article-desc">
-            <Truncate lines={4} ellipsis="...">
-                {content.getContent()}
-            </Truncate>
+        <p className="news-article-desc line-clamp-4">
+            {content.getContent()}
         </p>
     </>
 );

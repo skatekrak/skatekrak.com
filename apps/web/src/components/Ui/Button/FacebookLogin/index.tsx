@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import getParamsFromObject from './objectToParams';
 import decodeParamForKey from './decodeParam';
 
@@ -75,7 +75,7 @@ type FacebookLoginProps = {
     language?: string;
     onClick?: (e: any) => void;
     onFailure?: (callback: FacebookLoginCallbackParams) => void | null;
-    render: (props: FacebookLoginRenderProps) => JSX.Element;
+    render: (props: FacebookLoginRenderProps) => React.ReactElement;
 };
 
 export default function FacebookLogin({

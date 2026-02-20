@@ -20,7 +20,7 @@ type Props = {
     className?: string;
     type?: 'reset' | 'submit' | 'button';
     disabled?: boolean;
-    icon?: JSX.Element;
+    icon?: React.ReactNode;
     fullWidth?: boolean;
 };
 

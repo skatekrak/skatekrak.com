@@ -11,10 +11,10 @@ type Props = {
 /*
  * Need to be wrapped in a container for placement
  */
-const SocialShare = ({ url, facebookQuote, twitterTitle }: Props) => {
+const SocialShare = ({ url, twitterTitle }: Props) => {
     return (
         <>
-            <FacebookShareButton url={url} quote={facebookQuote}>
+            <FacebookShareButton url={url}>
                 <FacebookIcon size={24} round />
             </FacebookShareButton>
             <TwitterShareButton url={url} title={twitterTitle} via="skatekrak">

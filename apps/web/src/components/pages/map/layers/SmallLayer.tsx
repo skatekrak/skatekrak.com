@@ -8,7 +8,7 @@ import { useMapStore } from '@/store/map';
 
 /**
  * mapgl layer to display small pin representing the spot
- * @returns JSX.Element
+ * @returns React.JSX.Element
  */
 const SmallLayer = () => {
     const isCreateSpotOpen = useMapStore((state) => state.isCreateSpotOpen);

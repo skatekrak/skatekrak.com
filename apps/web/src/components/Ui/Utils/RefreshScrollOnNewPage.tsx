@@ -1,23 +1,24 @@
-import { Router, withRouter } from 'next/router';
-import React from 'react';
+import { useRouter } from 'next/router';
+import React, { useEffect, useRef } from 'react';
 
 import ScrollHelper from '@/lib/ScrollHelper';
 
 type Props = {
-    router: Router;
     children?: React.ReactNode;
 };
 
-class RefreshScrollOnNewPage extends React.Component<Props> {
-    public componentDidUpdate(prevProps: Readonly<Props>) {
-        if (this.props.router.asPath !== prevProps.router.asPath) {
+const RefreshScrollOnNewPage: React.FC<Props> = ({ children }) => {
+    const router = useRouter();
+    const prevPathRef = useRef(router.asPath);
+
+    useEffect(() => {
+        if (router.asPath !== prevPathRef.current) {
             ScrollHelper.getScrollContainer().scrollTop = 0;
+            prevPathRef.current = router.asPath;
         }
-    }
+    }, [router.asPath]);
 
-    public render() {
-        return this.props.children;
-    }
-}
+    return <>{children}</>;
+};
 
-export default withRouter(RefreshScrollOnNewPage);
+export default RefreshScrollOnNewPage;

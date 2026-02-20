@@ -7,7 +7,7 @@ import cities from '@/data/cities/_cities';
 import { City } from '@/lib/map/types';
 import VideoPlayer from '@/components/Ui/Player/VideoPlayer';
 import { KrakLoading } from '@/components/Ui/Icons/Spinners';
-import InfiniteScroll from 'react-infinite-scroller';
+import InfiniteScroll from '@/components/Ui/InfiniteScroll';
 
 const generatePages = (videos: string[], pageSize: number) => {
     const pages: string[][] = [];
@@ -88,10 +88,11 @@ const CityPanel = () => {
                 </div>
                 <div className="flex h-[1px] w-4/5 mt-8 mb-10 mx-auto bg-onDark-divider" />
                 <InfiniteScroll
-                    loadMore={() => hasNextPage && loadMore()}
+                    loadMore={() => {
+                        if (hasNextPage) loadMore();
+                    }}
                     hasMore={hasNextPage}
                     getScrollParent={getScrollParent}
-                    useWindow={false}
                 >
                     <div className="grow flex flex-col gap-4 mobile:gap-8 px-4 mobile:px-6 pb-8">
                         {isLoading ? (

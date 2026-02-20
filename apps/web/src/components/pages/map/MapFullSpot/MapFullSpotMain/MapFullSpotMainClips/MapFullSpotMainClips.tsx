@@ -1,7 +1,6 @@
 import React from 'react';
-import InfiniteScroll from 'react-infinite-scroller';
-
 import ScrollBar from '@/components/Ui/Scrollbar';
+import InfiniteScroll from '@/components/Ui/InfiniteScroll';
 import { KrakLoading } from '@/components/Ui/Icons/Spinners';
 import MapFullSpotMainClip from './MapFullSpotMainClip';
 
@@ -25,8 +24,6 @@ const MapFullSpotMainClips = ({ spot }: MapFullSpotMainClipsProps) => {
     return (
         <ScrollBar id="clip-scroll" maxHeight="100%">
             <InfiniteScroll
-                pageStart={1}
-                initialLoad={false}
                 loadMore={() => {
                     if (hasNextPage) {
                         fetchNextPage();
@@ -34,7 +31,6 @@ const MapFullSpotMainClips = ({ spot }: MapFullSpotMainClipsProps) => {
                 }}
                 hasMore={!isFetching && hasNextPage}
                 getScrollParent={getScrollParent}
-                useWindow={false}
             >
                 <div className="flex flex-col h-full">
                     <div className="flex flex-col grow p-6 tablet:p-12 laptop-l:p-20">

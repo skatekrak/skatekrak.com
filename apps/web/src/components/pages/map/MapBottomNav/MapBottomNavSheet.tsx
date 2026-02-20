@@ -9,7 +9,7 @@ type Props = {
     title?: string;
     maxWidth?: string;
     render: (data: { close: () => void }) => React.ReactNode;
-    children: JSX.Element;
+    children: React.ReactElement;
     displayCloseButton?: boolean;
 };
 
@@ -25,7 +25,7 @@ const MapBottomNavSheet: React.FC<Props> = ({ title, maxWidth, render, children,
 
     return (
         <>
-            {cloneElement(children, getReferenceProps({ ref: refs.setReference, ...children.props }))}
+            {cloneElement(children, getReferenceProps({ ref: refs.setReference, ...(children.props as Record<string, unknown>) }))}
             {isSheetOpen && (
                 <div
                     {...getFloatingProps({

@@ -8,7 +8,7 @@ type Props = {
     isSelected: boolean;
     src: string;
     tooltipText: string;
-    panelContent: (closePanel: () => void) => JSX.Element;
+    panelContent: (closePanel: () => void) => React.ReactElement;
 };
 
 const QuickAccessDesktopPanel = ({ isSelected, src, tooltipText, panelContent }: Props) => {

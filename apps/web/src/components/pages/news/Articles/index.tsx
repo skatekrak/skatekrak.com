@@ -1,9 +1,8 @@
 import classNames from 'classnames';
 import React, { useCallback, useEffect, useState } from 'react';
-import InfiniteScroll from 'react-infinite-scroller';
-
 import NoContent from '@/components/Ui/Feed/NoContent';
 import { KrakLoading } from '@/components/Ui/Icons/Spinners';
+import InfiniteScroll from '@/components/Ui/InfiniteScroll';
 import ScrollHelper from '@/lib/ScrollHelper';
 import { FeedLayout, useSettingsStore } from '@/store/settings';
 
@@ -58,9 +57,6 @@ const Articles = ({ sidebarNavIsOpen }: ArticlesProps) => {
     return (
         <div id="news-articles-container">
             <InfiniteScroll
-                key={`infinite-need-refresh`}
-                pageStart={1}
-                initialLoad={false}
                 loadMore={() => {
                     if (hasNextPage) {
                         fetchNextPage();
@@ -68,7 +64,6 @@ const Articles = ({ sidebarNavIsOpen }: ArticlesProps) => {
                 }}
                 hasMore={hasNextPage}
                 getScrollParent={ScrollHelper.getScrollContainer}
-                useWindow={false}
             >
                 <div className={classNames('row', { hide: sidebarNavIsOpen })}>
                     {contents.length === 0 && !isFetching && (

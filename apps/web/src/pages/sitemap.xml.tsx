@@ -1,5 +1,5 @@
 import { format } from 'date-fns';
-import React from 'react';
+import { GetServerSideProps } from 'next';
 
 const lastMod = format(new Date(), 'yyyy-MM-dd');
 const baseURL = process.env.NEXT_PUBLIC_WEBSITE_URL;
@@ -37,10 +37,14 @@ const sitemapXml = `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     </url>
 </urlset>`;
 
-export default class Sitemap extends React.Component {
-    public static getInitialProps({ res }) {
-        res.setHeader('Content-Type', 'text/xml');
-        res.write(sitemapXml);
-        res.end();
-    }
-}
+const Sitemap = () => null;
+
+export const getServerSideProps: GetServerSideProps = async ({ res }) => {
+    res.setHeader('Content-Type', 'text/xml');
+    res.write(sitemapXml);
+    res.end();
+
+    return { props: {} };
+};
+
+export default Sitemap;

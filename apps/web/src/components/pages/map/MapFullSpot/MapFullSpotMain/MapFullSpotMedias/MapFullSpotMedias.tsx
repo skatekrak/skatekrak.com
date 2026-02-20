@@ -1,7 +1,6 @@
 import React from 'react';
-import InfiniteScroll from 'react-infinite-scroller';
-
 import { KrakLoading } from '@/components/Ui/Icons/Spinners';
+import InfiniteScroll from '@/components/Ui/InfiniteScroll';
 import ScrollBar from '@/components/Ui/Scrollbar';
 import KrakMasonry from '@/components/Ui/Masonry';
 import MapMedia from '@/components/pages/map/media/MapMedia';
@@ -33,8 +32,6 @@ const MapFullSpotMedias: React.FC<MapFullSpotMediasProps> = ({ medias: firstMedi
     return (
         <ScrollBar maxHeight="100%">
             <InfiniteScroll
-                pageStart={1}
-                initialLoad={true}
                 loadMore={() => {
                     if (hasNextPage) {
                         fetchNextPage();
@@ -42,7 +39,6 @@ const MapFullSpotMedias: React.FC<MapFullSpotMediasProps> = ({ medias: firstMedi
                 }}
                 hasMore={hasNextPage && !isFetching}
                 getScrollParent={getScrollParent}
-                useWindow={false}
             >
                 <div className="block p-6 [&_.icon-loading-krak]:mx-auto [&_.icon-loading-krak]:mt-16 [&_.icon-loading-krak]:mb-8 tablet:p-12">
                     <KrakMasonry breakpointCols={isMobile ? 1 : 2}>

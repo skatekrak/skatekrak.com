@@ -11,7 +11,7 @@ import MapCustomMediaCarousel from '@/components/pages/map/MapCustom/MapCustomMe
 import ScrollBar from '@/components/Ui/Scrollbar';
 import { useInfiniteMedias } from '@/shared/feudartifice/hooks/media';
 import { KrakLoading } from '@/components/Ui/Icons/Spinners';
-import InfiniteScroll from 'react-infinite-scroller';
+import InfiniteScroll from '@/components/Ui/InfiniteScroll';
 
 export type MapCustomPanelTabs = 'media' | 'video' | 'spots' | 'soundtrack';
 
@@ -88,13 +88,9 @@ const MapCustomPanel = ({ map, spots }: MapCustomPanelProps) => {
             >
                 <ScrollBar maxHeight="100%">
                     <InfiniteScroll
-                        pageStart={1}
-                        initialLoad={false}
                         hasMore={hasNextPage}
-                        useWindow={false}
                         getScrollParent={getScrollParent}
                         loadMore={() => {
-                            console.log('load more');
                             if (hasNextPage) {
                                 fetchNextPage();
                             }

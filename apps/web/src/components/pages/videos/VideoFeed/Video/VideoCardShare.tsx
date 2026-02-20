@@ -7,24 +7,18 @@ type Props = {
     video: IContent;
 };
 
-class VideoCardShare extends React.PureComponent<Props> {
-    public render() {
-        const { video } = this.props;
+const VideoCardShare: React.FC<Props> = ({ video }) => {
+    const getVideoPopupUrl = (v: IContent): string => `${window.location.origin}/video?id=${v.id}`;
 
-        return (
-            <div className="video-card-share">
-                <SocialShare
-                    url={this.getVideoPopupUrl(video)}
-                    facebookQuote={`${video.title} shared via skatekrak.com`}
-                    twitterTitle={video.title}
-                />
-            </div>
-        );
-    }
-
-    private getVideoPopupUrl(video: IContent): string {
-        return `${window.location.origin}/video?id=${video.id}`;
-    }
-}
+    return (
+        <div className="video-card-share">
+            <SocialShare
+                url={getVideoPopupUrl(video)}
+                facebookQuote={`${video.title} shared via skatekrak.com`}
+                twitterTitle={video.title}
+            />
+        </div>
+    );
+};
 
 export default VideoCardShare;

@@ -1,4 +1,4 @@
-import { memo, CSSProperties } from 'react';
+import React, { memo, CSSProperties } from 'react';
 import { useShallow } from 'zustand/react/shallow';
 import classnames from 'classnames';
 
@@ -8,7 +8,7 @@ import { useMapStore } from '@/store/map';
 
 type MapFilterProps = {
     filter: Types | Status;
-    icon: JSX.Element;
+    icon: React.ReactNode;
 };
 
 const gradientMap: Record<string, string> = {

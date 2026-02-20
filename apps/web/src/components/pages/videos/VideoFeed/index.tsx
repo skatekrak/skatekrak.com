@@ -1,10 +1,9 @@
 import classNames from 'classnames';
 import React from 'react';
-import InfiniteScroll from 'react-infinite-scroller';
-
 import VideoCard from '@/components/pages/videos/VideoFeed/Video/VideoCard';
 import NoContent from '@/components/Ui/Feed/NoContent';
 import { KrakLoading } from '@/components/Ui/Icons/Spinners';
+import InfiniteScroll from '@/components/Ui/InfiniteScroll';
 import ScrollHelper from '@/lib/ScrollHelper';
 import { useVideosStore } from '@/store/videos';
 import useVideos from '@/lib/hook/videos/videos';
@@ -24,9 +23,6 @@ const VideoFeed = ({ sidebarNavIsOpen }: VideoFeedProps) => {
     return (
         <div id="videos-feed-container">
             <InfiniteScroll
-                key={`infinite-need-refresh`}
-                pageStart={1}
-                initialLoad={false}
                 loadMore={() => {
                     if (hasNextPage) {
                         fetchNextPage();
@@ -34,7 +30,6 @@ const VideoFeed = ({ sidebarNavIsOpen }: VideoFeedProps) => {
                 }}
                 hasMore={!isFetching && hasNextPage}
                 getScrollParent={ScrollHelper.getScrollContainer}
-                useWindow={false}
             >
                 <div className={classNames('row', { hide: sidebarNavIsOpen })}>
                     {displayedVideos.map((video, index) => (

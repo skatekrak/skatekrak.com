@@ -1,10 +1,9 @@
 import classNames from 'classnames';
 import React from 'react';
-import InfiniteScroll from 'react-infinite-scroller';
-
 import Card from '@/components/pages/mag/Feed/Card';
 import NoContent from '@/components/Ui/Feed/NoContent';
 import { KrakLoading } from '@/components/Ui/Icons/Spinners';
+import InfiniteScroll from '@/components/Ui/InfiniteScroll';
 import ScrollHelper from '@/lib/ScrollHelper';
 
 import usePosts from '@/lib/hook/mag/posts';
@@ -29,8 +28,6 @@ const Feed = ({ sidebarNavIsOpen }: Props) => {
     return (
         <div id="mag-feed">
             <InfiniteScroll
-                pageStart={1}
-                initialLoad={false}
                 loadMore={() => {
                     if (hasNextPage) {
                         fetchNextPage();
@@ -38,7 +35,6 @@ const Feed = ({ sidebarNavIsOpen }: Props) => {
                 }}
                 hasMore={hasNextPage}
                 getScrollParent={ScrollHelper.getScrollContainer}
-                useWindow={false}
             >
                 <div className={classNames('row', { hide: sidebarNavIsOpen })}>
                     {posts.map((post) => (
