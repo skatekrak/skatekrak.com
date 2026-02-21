@@ -17,7 +17,7 @@ client.connect();
 
 const adapter = new PrismaPg({ connectionString: env.DATABASE_URL });
 const prisma = new PrismaClient({ adapter });
-const auth = createAuth(prisma);
+const auth = createAuth(prisma, env.BETTER_AUTH_BASE_URL);
 
 const app = new Elysia()
     .use(logger())

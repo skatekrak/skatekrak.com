@@ -7,8 +7,9 @@ import type { PrismaClient } from '@krak/prisma';
 
 const BCRYPT_ROUNDS = 10;
 
-export const createAuth = (prisma: PrismaClient) =>
+export const createAuth = (prisma: PrismaClient, baseURL?: string) =>
     betterAuth({
+        baseURL,
         database: prismaAdapter(prisma, {
             provider: 'postgresql',
         }),
