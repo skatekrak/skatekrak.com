@@ -19,6 +19,7 @@
  */
 
 import { MongoClient, type Db, type Document as MongoDocument, ObjectId } from 'mongodb';
+import { PrismaPg } from '@prisma/adapter-pg';
 import { PrismaClient, Prisma } from '../node_modules/.prisma/client';
 import type {
     Role,
@@ -196,11 +197,7 @@ const clipIdMap = new Map<string, string>();
 // Batch helper — run createMany in chunks to avoid memory issues
 // ---------------------------------------------------------------------------
 
-async function batchCreate<T>(
-    label: string,
-    data: T[],
-    fn: (batch: T[]) => Promise<unknown>,
-): Promise<void> {
+async function batchCreate<T>(label: string, data: T[], fn: (batch: T[]) => Promise<unknown>): Promise<void> {
     for (let i = 0; i < data.length; i += BATCH_SIZE) {
         const batch = data.slice(i, i + BATCH_SIZE);
         await fn(batch);
@@ -307,8 +304,8 @@ async function migrateSpots(db: Db, prisma: PrismaClient) {
                 streetNumber: toStr(s.location?.streetNumber),
                 city: toStr(s.location?.city),
                 country: toStr(s.location?.country),
-                longitude: Array.isArray(s.geo) ? (s.geo[0] ?? 0) : 0,
-                latitude: Array.isArray(s.geo) ? (s.geo[1] ?? 0) : 0,
+                longitude: Array.isArray(s.geo) ? s.geo[0] ?? 0 : 0,
+                latitude: Array.isArray(s.geo) ? s.geo[1] ?? 0 : 0,
                 type: spotTypeMap[s.type] ?? 'STREET',
                 status: spotStatusMap[s.status] ?? 'ACTIVE',
                 description: toStr(s.description),
@@ -815,7 +812,8 @@ async function main() {
     log('');
 
     const mongoClient = new MongoClient(MONGODB_URI);
-    const prisma = new PrismaClient();
+    const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL });
+    const prisma = new PrismaClient({ adapter });
 
     try {
         await mongoClient.connect();
