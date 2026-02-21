@@ -4,19 +4,19 @@
 
 Bun + Turborepo monorepo for the Skatekrak skateboarding platform. Three apps and two shared packages.
 
-| Package | Path | Tech | Deploys To |
-|---|---|---|---|
-| `@krak/web` | `apps/web` | Next.js 14 (Pages Router), React 18, Zustand, Redux Toolkit | Vercel |
-| `@krak/api` | `apps/api` | Elysia (Bun), tRPC, MongoDB | Dokploy (custom server) |
-| `@krak/carrelage` | `apps/carrelage` | Express, Mongoose, MongoDB | Not deployed |
-| `@krak/trpc` | `packages/trpc` | tRPC router (spots, maps) | — |
-| `@krak/carrelage-client` | `packages/carrelage-client` | Axios client + shared TS types | — |
+| Package                  | Path                        | Tech                                                        | Deploys To              |
+| ------------------------ | --------------------------- | ----------------------------------------------------------- | ----------------------- |
+| `@krak/web`              | `apps/web`                  | Next.js 14 (Pages Router), React 18, Zustand, Redux Toolkit | Vercel                  |
+| `@krak/api`              | `apps/api`                  | Elysia (Bun), tRPC, MongoDB                                 | Dokploy (custom server) |
+| `@krak/carrelage`        | `apps/carrelage`            | Express, Mongoose, MongoDB                                  | Not deployed            |
+| `@krak/trpc`             | `packages/trpc`             | tRPC router (spots, maps)                                   | —                       |
+| `@krak/carrelage-client` | `packages/carrelage-client` | Axios client + shared TS types                              | —                       |
 
 Dependency chain: `web` -> `trpc` -> `carrelage-client`; `api` -> `trpc` -> `carrelage-client`.
 
 ## Build / Lint / Test Commands
 
-Package manager is **Bun** (`bun@1.2.21`). Node engine: 24. Always use `bun` instead of npm/yarn/pnpm.
+Package manager is **Bun** (`bun@1.3.9`). Node engine: 24. Always use `bun` instead of npm/yarn/pnpm.
 
 ```bash
 # Install dependencies

@@ -445,6 +445,33 @@ model Comment {
   @@map("comments")
 }
 
+// ============================================================================
+// Map (Custom Maps / Curated Content)
+// ============================================================================
+
+/// A curated map or content collection (e.g. famous spots, video soundtracks, skater profiles).
+/// Imported from _spots.json custom maps data.
+model Map {
+  id         String   @id // human-readable slug, e.g. "famous", "thps"
+  categories String[] // e.g. ["maps"], ["magazine"], ["video", "skater"]
+  name       String
+  subtitle   String   @default("")
+  edito      String   @default("")
+  about      String   @default("")
+  staging    Boolean  @default(false)
+  videos     String[] // video URLs
+  soundtrack String[] // soundtrack entries
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("maps")
+}
+
+// ============================================================================
+// Like
+// ============================================================================
+
 /// A like on a Media, Clip, or Comment. Polymorphic via nullable FKs.
 /// Exactly one of mediaId, clipId, or commentId should be set.
 model Like {

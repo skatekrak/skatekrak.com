@@ -12,11 +12,13 @@
         "studio": "prisma studio",
         "format": "prisma format",
         "validate": "prisma validate",
-        "migrate:from-mongo": "bun run scripts/migrate-from-mongo.ts"
+        "migrate:from-mongo": "bun run scripts/migrate-from-mongo.ts",
+        "migrate:maps": "bun run scripts/migrate-maps.ts"
     },
     "dependencies": {
         "@prisma/adapter-pg": "^7.4.1",
         "@prisma/client": "^7.4.1",
+        "@prisma/client-runtime-utils": "^7.4.1",
         "mongodb": "^6.8.1"
     },
     "devDependencies": {
