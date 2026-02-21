@@ -8,6 +8,11 @@
         ".": "./src/index.ts",
         "./client": "./src/client.ts"
     },
+    "typesVersions": {
+        "*": {
+            "client": ["./src/client.ts"]
+        }
+    },
     "dependencies": {
         "@krak/prisma": "workspace:*",
         "bcrypt": "^6.0.0",

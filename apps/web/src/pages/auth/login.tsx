@@ -1,4 +1,3 @@
-import React from 'react';
 import { NextPage } from 'next';
 import { Formik, Field, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
@@ -13,7 +12,7 @@ import IconLike from '@/components/Ui/Icons/IconLike';
 
 import { useRouter } from 'next/router';
 import useSession from '@/lib/hook/carrelage/use-session';
-import { signIn } from '@krak/auth/src/client';
+import { signIn } from '@krak/auth/client';
 
 type LoginFormValues = {
     username: string;

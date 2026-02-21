@@ -1,4 +1,3 @@
-import React from 'react';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { Formik, Field, FormikHelpers } from 'formik';
@@ -11,7 +10,7 @@ import Emoji from '@/components/Ui/Icons/Emoji';
 import IconLike from '@/components/Ui/Icons/IconLike';
 import Typography from '@/components/Ui/typography/Typography';
 
-import { signUp } from '@krak/auth/src/client';
+import { signUp } from '@krak/auth/client';
 
 type SignupFormValues = {
     username: string;
@@ -44,7 +43,7 @@ const Signup: NextPage = () => {
             return;
         }
 
-        const { error } = await signUp.username({
+        const { error } = await signUp.email({
             username: values.username,
             email: values.email,
             password: values.password,
