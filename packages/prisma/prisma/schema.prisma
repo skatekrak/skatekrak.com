@@ -122,8 +122,6 @@ model User {
   profile       Profile?
   tokens        Token[]
 
-  @@index([createdAt])
-  @@index([updatedAt])
   @@map("users")
 }
 
@@ -160,7 +158,6 @@ model Installation {
   // Relations
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  @@index([userId])
   @@map("installations")
 }
 
@@ -180,8 +177,6 @@ model Token {
   // Relations
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  @@index([userId])
-  @@index([createdAt])
   @@map("tokens")
 }
 
@@ -235,8 +230,6 @@ model Profile {
   comments  Comment[]
   likes     Like[]
 
-  @@index([createdAt])
-  @@index([updatedAt])
   @@map("profiles")
 }
 
@@ -251,8 +244,6 @@ model ProfileFollow {
   following Profile @relation("following", fields: [followingId], references: [id], onDelete: Cascade)
 
   @@id([followerId, followingId])
-  @@index([followerId])
-  @@index([followingId])
   @@map("profile_follows")
 }
 
@@ -267,8 +258,6 @@ model ProfileSpotFollow {
   spot    Spot    @relation(fields: [spotId], references: [id], onDelete: Cascade)
 
   @@id([profileId, spotId])
-  @@index([profileId])
-  @@index([spotId])
   @@map("profile_spot_follows")
 }
 
@@ -284,7 +273,6 @@ model Reward {
   // Relations
   profile Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
 
-  @@index([profileId])
   @@map("rewards")
 }
 
@@ -336,15 +324,6 @@ model Spot {
   followedBy     ProfileSpotFollow[]
   mergeEditsFrom SpotEdit[]          @relation("mergeTarget")
 
-  @@index([createdAt])
-  @@index([updatedAt])
-  @@index([type])
-  @@index([status])
-  @@index([indoor])
-  @@index([addedById])
-  @@index([geoHash])
-  @@index([tags])
-  @@index([obstacles])
   @@map("spots")
 }
 
@@ -374,8 +353,6 @@ model SpotEdit {
   addedBy   Profile @relation(fields: [addedById], references: [id])
   mergeInto Spot?   @relation("mergeTarget", fields: [mergeIntoId], references: [id], onDelete: SetNull)
 
-  @@index([spotId])
-  @@index([addedById])
   @@map("spot_edits")
 }
 
@@ -412,14 +389,6 @@ model Media {
   comments Comment[]
   likes    Like[]
 
-  @@index([createdAt])
-  @@index([updatedAt])
-  @@index([type])
-  @@index([spotId])
-  @@index([addedById])
-  @@index([staffPicked])
-  @@index([releaseDate])
-  @@index([hashtags])
   @@map("media")
 }
 
@@ -452,11 +421,6 @@ model Clip {
   comments Comment[]
   likes    Like[]
 
-  @@index([createdAt])
-  @@index([updatedAt])
-  @@index([provider])
-  @@index([spotId])
-  @@index([addedById])
   @@map("clips")
 }
 
@@ -485,11 +449,6 @@ model Comment {
   clip    Clip?   @relation(fields: [clipId], references: [id], onDelete: Cascade)
   likes   Like[]
 
-  @@index([addedById])
-  @@index([spotId])
-  @@index([mediaId])
-  @@index([clipId])
-  @@index([createdAt])
   @@map("comments")
 }
 
@@ -514,9 +473,5 @@ model Like {
   @@unique([addedById, mediaId])
   @@unique([addedById, clipId])
   @@unique([addedById, commentId])
-  @@index([addedById])
-  @@index([mediaId])
-  @@index([clipId])
-  @@index([commentId])
   @@map("likes")
 }
