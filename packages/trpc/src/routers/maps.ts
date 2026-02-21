@@ -1,9 +1,7 @@
 import { z } from 'zod';
-import { promises as fs } from 'fs';
 
-import { publicProcedure, router, t } from '../trpc';
+import { publicProcedure, router } from '../trpc';
 import { TRPCError } from '@trpc/server';
-import '@krak/api/src/data/customMaps/_spots.json';
 
 enum CustomMapCategory {
     maps = 'Maps',
@@ -20,73 +18,52 @@ enum CustomMapCategory {
     artist = 'Artists',
 }
 
-interface CustomMap {
-    id: string;
-    name: string;
-    categories: CustomMapCategory[];
-    subtitle: string;
-    edito: string;
-    about: string;
-    videos: string[];
-    staging: boolean;
-    soundtrack: string[];
+function mapCategories(categories: string[]): string[] {
+    return categories.map(
+        (category) => CustomMapCategory[category as keyof typeof CustomMapCategory] ?? category,
+    );
 }
 
-let loadedMaps: CustomMap[] = [];
-
-const loadMaps = t.middleware(async (opts) => {
-    if (loadedMaps.length <= 0) {
-        const file = await fs.readFile(process.cwd() + '/src/data/customMaps/_spots.json', 'utf8');
-        let customMaps: CustomMap[] = JSON.parse(file);
-
-        loadedMaps = customMaps
-            .filter((map) => {
-                if (process.env.NODE_ENV !== 'production') {
-                    return !map.staging;
-                }
-                return true;
-            })
-            .map((map): CustomMap => {
-                return {
-                    ...map,
-                    edito: map.edito || '',
-                    videos: map.videos || [],
-                    categories: map.categories.map(
-                        (category) => CustomMapCategory[category as unknown as keyof typeof CustomMapCategory],
-                    ),
-                    staging: false,
-                    soundtrack: map.soundtrack || [],
-                };
-            });
-    }
-
-    return opts.next({
-        ctx: {
-            customMaps: loadedMaps,
-        },
-    });
-});
-
 export const mapsRouter = router({
-    fetch: publicProcedure
-        .input(z.object({ id: z.string() }))
-        .use(loadMaps)
-        .query(async ({ ctx, input }) => {
-            const map = ctx.customMaps.find((map) => map.id === input.id);
-            if (map == null) {
-                throw new TRPCError({ code: 'NOT_FOUND', message: "This map doesn't exists" });
-            }
-            return map;
-        }),
+    fetch: publicProcedure.input(z.object({ id: z.string() })).query(async ({ ctx, input }) => {
+        const map = await ctx.prisma.map.findUnique({
+            where: { id: input.id },
+        });
 
-    list: publicProcedure.use(loadMaps).query(async ({ ctx }) => {
-        return ctx.customMaps.map((map) => ({
+        if (map == null) {
+            throw new TRPCError({ code: 'NOT_FOUND', message: "This map doesn't exists" });
+        }
+
+        // Filter staging maps in non-production
+        if (process.env.NODE_ENV !== 'production' && map.staging) {
+            throw new TRPCError({ code: 'NOT_FOUND', message: "This map doesn't exists" });
+        }
+
+        return {
+            id: map.id,
+            name: map.name,
+            categories: mapCategories(map.categories),
+            subtitle: map.subtitle,
+            edito: map.edito,
+            about: map.about,
+            videos: map.videos,
+            staging: false,
+            soundtrack: map.soundtrack,
+        };
+    }),
+
+    list: publicProcedure.query(async ({ ctx }) => {
+        const where = process.env.NODE_ENV !== 'production' ? { staging: false } : {};
+
+        const maps = await ctx.prisma.map.findMany({ where });
+
+        return maps.map((map) => ({
             id: map.id,
             name: map.name,
             subtitle: map.subtitle,
             about: map.about,
             edito: map.edito,
-            categories: map.categories,
+            categories: mapCategories(map.categories),
         }));
     }),
 });

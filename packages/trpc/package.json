@@ -5,6 +5,7 @@
   "main": "src/index.ts",
   "dependencies": {
     "@krak/carrelage-client": "workspace:*",
+    "@krak/prisma": "workspace:*",
     "@trpc/client": "^11.10.0",
     "@trpc/next": "^11.10.0",
     "@trpc/server": "^11.10.0",

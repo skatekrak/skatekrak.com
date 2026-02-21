@@ -7,6 +7,7 @@ export const env = createEnv({
         ADMIN_TOKEN: z.string(),
         DISCORD_HOOK_URL: z.string(),
         MONGODB_URI: z.string(),
+        DATABASE_URL: z.string(),
     },
     runtimeEnv: process.env,
     emptyStringAsUndefined: true,
