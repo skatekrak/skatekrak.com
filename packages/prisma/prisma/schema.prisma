@@ -117,67 +117,9 @@ model User {
   updatedAt              DateTime           @updatedAt
 
   // Relations
-  installations Installation[]
-  authProvider  AuthProvider?
-  profile       Profile?
-  tokens        Token[]
+  profile Profile?
 
   @@map("users")
-}
-
-/// OAuth / social auth providers. Was embedded in User as `auth` sub-document.
-model AuthProvider {
-  id                  String    @id @default(uuid())
-  userId              String    @unique
-  facebookUserId      String? // was auth.facebook.user_id
-  facebookAccessToken String? // was auth.facebook.access_token
-  facebookExpiresAt   DateTime? // was auth.facebook.expires_at
-  appleId             String? // was auth.apple.apple_id
-
-  // Relations
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@map("auth_providers")
-}
-
-/// Push notification device registrations. Was embedded array in User.
-model Installation {
-  id               String     @id @default(uuid())
-  userId           String
-  deviceToken      String
-  appVersion       Int?
-  version          String?
-  deviceType       DeviceType
-  localeIdentifier String? // format: xx-XX
-  timezone         String? // format: Region/City
-  badge            Int        @default(0)
-  channels         String[]
-  createdAt        DateTime   @default(now())
-  updatedAt        DateTime   @updatedAt
-
-  // Relations
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@map("installations")
-}
-
-/// Auth tokens for user sessions.
-model Token {
-  id        String    @id @default(uuid())
-  token     String    @unique
-  userId    String
-  role      String
-  expires   DateTime?
-  ip        String?
-  location  String? // geo-located string from IP
-  userAgent String?
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-
-  // Relations
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@map("tokens")
 }
 
 // ============================================================================
@@ -203,14 +145,6 @@ model Profile {
   mediasStat         Json? // Stat
   clipsStat          Json? // Stat
   tricksDoneStat     Json? // Stat
-
-  // Gear fields (flattened from embedded Gear sub-document)
-  gearDeck     String?
-  gearTrucks   String?
-  gearWheels   String?
-  gearBearings String?
-  gearGrip     String?
-  gearHardware String?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -290,7 +224,6 @@ model Spot {
   country      String? // was location.country
   longitude    Float      @default(0) // was geo[0]
   latitude     Float      @default(0) // was geo[1]
-  geoHash      String? // ngeohash encoded
   type         SpotType
   status       SpotStatus @default(ACTIVE)
   description  String?

@@ -23,7 +23,6 @@ import { PrismaClient, Prisma } from '../node_modules/.prisma/client';
 import type {
     Role,
     SubscriptionStatus,
-    DeviceType,
     Stance,
     SpotType,
     SpotStatus,
@@ -76,11 +75,6 @@ const subscriptionStatusMap: Record<string, SubscriptionStatus> = {
     expired: 'EXPIRED',
     cancelled: 'CANCELLED',
     none: 'NONE',
-};
-
-const deviceTypeMap: Record<string, DeviceType> = {
-    ios: 'IOS',
-    android: 'ANDROID',
 };
 
 const stanceMap: Record<string, Stance> = {
@@ -250,106 +244,6 @@ async function migrateUsers(db: Db, prisma: PrismaClient) {
     log(`  Inserted ${rows.length} users`);
 }
 
-async function migrateAuthProviders(db: Db, prisma: PrismaClient) {
-    log('Migrating auth providers...');
-    const users = await db.collection('users').find({ auth: { $exists: true, $ne: null } }).toArray();
-    let count = 0;
-
-    for (const u of users) {
-        const auth = u.auth;
-        if (!auth) continue;
-
-        const hasFacebook = auth.facebook?.user_id || auth.facebook?.access_token;
-        const hasApple = auth.apple?.apple_id;
-        if (!hasFacebook && !hasApple) continue;
-
-        const userId = userIdMap.get(String(u._id));
-        if (!userId) continue;
-
-        await prisma.authProvider.create({
-            data: {
-                userId,
-                facebookUserId: toStr(auth.facebook?.user_id),
-                facebookAccessToken: toStr(auth.facebook?.access_token),
-                facebookExpiresAt: toDate(auth.facebook?.expires_at),
-                appleId: toStr(auth.apple?.apple_id),
-            },
-        });
-        count++;
-    }
-
-    log(`  Inserted ${count} auth providers`);
-}
-
-async function migrateInstallations(db: Db, prisma: PrismaClient) {
-    log('Migrating installations...');
-    const users = await db
-        .collection('users')
-        .find({ installations: { $exists: true, $not: { $size: 0 } } })
-        .toArray();
-
-    const rows: Prisma.InstallationCreateManyInput[] = [];
-
-    for (const u of users) {
-        const userId = userIdMap.get(String(u._id));
-        if (!userId) continue;
-
-        for (const inst of u.installations ?? []) {
-            const dt = deviceTypeMap[inst.deviceType];
-            if (!dt || !inst.deviceToken) continue;
-
-            rows.push({
-                userId,
-                deviceToken: String(inst.deviceToken),
-                appVersion: inst.appVersion != null ? Number(inst.appVersion) : null,
-                version: toStr(inst.version),
-                deviceType: dt,
-                localeIdentifier: toStr(inst.localeIdentifier),
-                timezone: toStr(inst.timezone),
-                badge: inst.badge ?? 0,
-                channels: Array.isArray(inst.channels) ? inst.channels.map(String) : [],
-                createdAt: toDateRequired(inst.createdAt),
-                updatedAt: toDateRequired(inst.updatedAt),
-            });
-        }
-    }
-
-    await batchCreate('installations', rows, (batch) =>
-        prisma.installation.createMany({ data: batch }),
-    );
-    log(`  Inserted ${rows.length} installations`);
-}
-
-async function migrateTokens(db: Db, prisma: PrismaClient) {
-    log('Migrating tokens...');
-    const tokens = await db.collection('tokens').find().toArray();
-
-    const rows: Prisma.TokenCreateManyInput[] = [];
-
-    for (const t of tokens) {
-        // Token.user references User._id which is a username string
-        const userId = userIdMap.get(String(t.user));
-        if (!userId) continue;
-
-        rows.push({
-            token: String(t.token),
-            userId,
-            role: String(t.role),
-            expires: toDate(t.expires),
-            ip: toStr(t.ip),
-            location: toStr(t.location),
-            userAgent: toStr(t.userAgent),
-            createdAt: toDateRequired(t.createdAt),
-            updatedAt: toDateRequired(t.updatedAt),
-        });
-    }
-
-    await batchCreate('tokens', rows, (batch) =>
-        prisma.token.createMany({ data: batch }),
-    );
-    log(`  Inserted ${rows.length} tokens`);
-}
-
 async function migrateProfiles(db: Db, prisma: PrismaClient) {
     log('Migrating profiles...');
     const profiles = await db.collection('profiles').find().toArray();
@@ -381,12 +275,6 @@ async function migrateProfiles(db: Db, prisma: PrismaClient) {
                 mediasStat: toStatJson(p.mediasStat),
                 clipsStat: toStatJson(p.clipsStat),
                 tricksDoneStat: toStatJson(p.tricksDoneStat),
-                gearDeck: toStr(p.gears?.deck),
-                gearTrucks: toStr(p.gears?.trucks),
-                gearWheels: toStr(p.gears?.wheels),
-                gearBearings: toStr(p.gears?.bearings),
-                gearGrip: toStr(p.gears?.grip),
-                gearHardware: toStr(p.gears?.hardware),
                 createdAt: toDateRequired(p.createdAt),
                 updatedAt: toDateRequired(p.updatedAt),
             },
@@ -421,7 +309,6 @@ async function migrateSpots(db: Db, prisma: PrismaClient) {
                 country: toStr(s.location?.country),
                 longitude: Array.isArray(s.geo) ? (s.geo[0] ?? 0) : 0,
                 latitude: Array.isArray(s.geo) ? (s.geo[1] ?? 0) : 0,
-                geoHash: toStr(s.geoHash),
                 type: spotTypeMap[s.type] ?? 'STREET',
                 status: spotStatusMap[s.status] ?? 'ACTIVE',
                 description: toStr(s.description),
@@ -911,9 +798,6 @@ async function wipeTables(prisma: PrismaClient) {
     await prisma.clip.deleteMany();
     await prisma.media.deleteMany();
     await prisma.spot.deleteMany();
-    await prisma.token.deleteMany();
-    await prisma.installation.deleteMany();
-    await prisma.authProvider.deleteMany();
     await prisma.profile.deleteMany();
     await prisma.user.deleteMany();
 
@@ -950,12 +834,7 @@ async function main() {
         // 1. Users first (no dependencies)
         await migrateUsers(db, prisma);
 
-        // 2. Auth providers & installations (depend on User)
-        await migrateAuthProviders(db, prisma);
-        await migrateInstallations(db, prisma);
-        await migrateTokens(db, prisma);
-
-        // 3. Profiles (depend on User)
+        // 2. Profiles (depend on User)
         await migrateProfiles(db, prisma);
 
         // 4. Spots (depend on Profile)
