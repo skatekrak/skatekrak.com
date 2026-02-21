@@ -6,6 +6,7 @@ import { cron } from '@elysiajs/cron';
 import { MongoClient } from 'mongodb';
 import { PrismaPg } from '@prisma/adapter-pg';
 import { PrismaClient } from '@krak/prisma';
+import { createAuth } from '@krak/auth';
 
 import { appRouter, createContext } from '@krak/trpc';
 import { endOfWeek, startOfWeek, sub } from 'date-fns';
@@ -16,6 +17,7 @@ client.connect();
 
 const adapter = new PrismaPg({ connectionString: env.DATABASE_URL });
 const prisma = new PrismaClient({ adapter });
+const auth = createAuth(prisma);
 
 const app = new Elysia()
     .use(logger())
@@ -47,8 +49,8 @@ const app = new Elysia()
             },
         }),
     )
-    .use(cors({ origin: /(\w+\.)?skatekrak\.com$/ }))
-    .use(trpc(appRouter, { createContext: createContext(client, prisma) }))
+    .use(cors({ origin: /(\w+\.)?skatekrak\.com$/, credentials: true }))
+    .use(trpc(appRouter, { createContext: createContext(client, prisma, auth) }))
     .get('/', () => ({ message: 'krak-api' }));
 
 app.listen(3000);

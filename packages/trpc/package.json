@@ -4,6 +4,7 @@
   "description": "tRPC router",
   "main": "src/index.ts",
   "dependencies": {
+    "@krak/auth": "workspace:*",
     "@krak/carrelage-client": "workspace:*",
     "@krak/prisma": "workspace:*",
     "@trpc/client": "^11.10.0",

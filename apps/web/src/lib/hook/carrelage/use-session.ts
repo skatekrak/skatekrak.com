@@ -1,7 +1,5 @@
-import { tryit } from 'radash';
+import { useSession as useBetterAuthSession } from '@krak/auth/src/client';
 import { useRouter } from 'next/router';
-import { useQuery } from '@tanstack/react-query';
-import Feudartifice from '@/shared/feudartifice';
 import { useEffect } from 'react';
 
 type UseSessionOptions = {
@@ -10,39 +8,20 @@ type UseSessionOptions = {
 
 const useSession = ({ redirectTo }: UseSessionOptions = {}) => {
     const router = useRouter();
-
-    const { error, ...res } = useQuery({
-        queryKey: ['fetch-session'],
-        queryFn: async () => {
-            const [errorGetSession, sessionRes] = await tryit(Feudartifice.auth.getSession)();
-            if (errorGetSession != null) {
-                // if (errorGetSession.response?.status === 401) {
-                //     if (redirectTo != null) {
-                //         router.push(redirectTo);
-                //     }
-                // }
-
-                throw errorGetSession;
-            }
-
-            if (sessionRes == null) {
-                throw Error('session appear to be undefined');
-            }
-
-            return sessionRes;
-        },
-        retry: false,
-    });
+    const { data: sessionData, isPending, error } = useBetterAuthSession();
 
     useEffect(() => {
-        if (error) {
-            if (redirectTo != null) {
-                router.push(redirectTo);
-            }
+        if (!isPending && !sessionData && redirectTo) {
+            router.push(redirectTo);
         }
-    }, [error, router, redirectTo]);
+    }, [isPending, sessionData, router, redirectTo]);
 
-    return { error, ...res };
+    return {
+        data: sessionData,
+        isLoading: isPending,
+        isSuccess: !!sessionData,
+        error: error ?? null,
+    };
 };
 
 export default useSession;

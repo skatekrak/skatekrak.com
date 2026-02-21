@@ -15,6 +15,12 @@ export const trpc = createTRPCNext<AppRouter>({
                     httpBatchLink({
                         url: getBaseUrl() + '/trpc',
                         transformer: superjson,
+                        fetch(url, options) {
+                            return fetch(url, {
+                                ...options,
+                                credentials: 'include',
+                            });
+                        },
                     }),
                 ],
             };

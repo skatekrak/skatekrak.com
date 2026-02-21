@@ -8,6 +8,7 @@ export const env = createEnv({
         DISCORD_HOOK_URL: z.string(),
         MONGODB_URI: z.string(),
         DATABASE_URL: z.string(),
+        BETTER_AUTH_SECRET: z.string(),
     },
     runtimeEnv: process.env,
     emptyStringAsUndefined: true,

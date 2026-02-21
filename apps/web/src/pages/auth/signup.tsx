@@ -11,9 +11,7 @@ import Emoji from '@/components/Ui/Icons/Emoji';
 import IconLike from '@/components/Ui/Icons/IconLike';
 import Typography from '@/components/Ui/typography/Typography';
 
-import Feudartifice from '@/shared/feudartifice';
-import { CarrelageAPIError } from '@/shared/feudartifice/types';
-import { AxiosError } from 'axios';
+import { signUp } from '@krak/auth/src/client';
 
 type SignupFormValues = {
     username: string;
@@ -41,20 +39,22 @@ const Signup: NextPage = () => {
     const router = useRouter();
 
     const onSubmit = async (values: SignupFormValues, helpers: FormikHelpers<SignupFormValues>) => {
-        try {
-            await Feudartifice.auth.signup({
-                username: values.username,
-                email: values.email,
-                password: values.password,
-                mobile: false,
-            });
+        if (values.password !== values.confirmPassword) {
+            helpers.setFieldError('confirmPassword', 'Passwords do not match');
+            return;
+        }
 
+        const { error } = await signUp.username({
+            username: values.username,
+            email: values.email,
+            password: values.password,
+            name: values.username,
+        });
+
+        if (error) {
+            helpers.setFieldError('username', error.message ?? 'Signup failed');
+        } else {
             router.push('/auth/subscribe');
-        } catch (err) {
-            if (err instanceof AxiosError) {
-                const error = err.response as CarrelageAPIError;
-                helpers.setFieldError('username', error.data.message);
-            }
         }
     };
 

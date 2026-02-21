@@ -13,6 +13,7 @@
     "@elysiajs/cron": "^1.0.3",
     "@elysiajs/trpc": "^1.0.2",
     "@elysiajs/websocket": "^0.2.8",
+    "@krak/auth": "workspace:*",
     "@krak/prisma": "workspace:*",
     "@krak/trpc": "workspace:*",
     "@prisma/adapter-pg": "^7.4.1",

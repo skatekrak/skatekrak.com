@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
-import { useQueryClient } from '@tanstack/react-query';
 import { offset, shift, useClick, useDismiss, useFloating, useInteractions } from '@floating-ui/react';
 
 import UserProfilePic from '@/components/Ui/user/UserProfilePic';
 import Typography from '@/components/Ui/typography/Typography';
 
 import useProfileMe from '@/shared/feudartifice/hooks/use-profile-me';
-import { logout } from '@/shared/feudartifice/auth';
+import { signOut } from '@krak/auth/src/client';
 
 const HeaderProfile = () => {
     const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
@@ -20,15 +19,12 @@ const HeaderProfile = () => {
 
     const { getReferenceProps, getFloatingProps } = useInteractions([useClick(context), useDismiss(context)]);
 
-    const queryClient = useQueryClient();
-
     const { data: profile, isLoading } = useProfileMe();
 
     const handleLogOutClick = async () => {
-        await logout();
+        await signOut();
         setIsProfileMenuOpen(false);
-        queryClient.setQueryData(['fetch-session'], () => undefined);
-        queryClient.invalidateQueries({ queryKey: ['fetch-profile'] });
+        window.location.reload();
     };
 
     if (isLoading || profile == null) {
