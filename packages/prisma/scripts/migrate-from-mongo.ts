@@ -214,31 +214,60 @@ async function migrateUsers(db: Db, prisma: PrismaClient) {
     const users = await db.collection('users').find().toArray();
     log(`  Found ${users.length} users in MongoDB`);
 
-    const rows = users.map((u) => ({
-        username: String(u._id),
-        email: toStr(u.email),
-        emailVerified: u.emailVerified ?? false,
-        emailConfirmationToken: toStr(u.emailConfirmationToken),
-        welcomeMailSent: u.welcomeMailSent ?? false,
-        password: toStr(u.password),
-        role: roleMap[u.role] ?? ('USER' as Role),
-        resetPasswordToken: toStr(u.resetPasswordToken),
-        resetPasswordExpires: toDate(u.resetPasswordExpires),
-        receiveNewsletter: u.receiveNewsletter ?? false,
-        subscriptionStatus: subscriptionStatusMap[u.subscriptionStatus] ?? ('NONE' as SubscriptionStatus),
-        stripeCustomerId: toStr(u.stripeCustomerId),
-        subscriptionEndAt: toDate(u.subscriptionEndAt),
-        createdAt: toDateRequired(u.createdAt),
-        updatedAt: toDateRequired(u.updatedAt),
-    }));
-
     // Insert one-by-one to capture generated IDs
-    for (const row of rows) {
-        const created = await prisma.user.create({ data: row });
-        userIdMap.set(row.username, created.id);
+    for (const u of users) {
+        const username = String(u._id);
+        const created = await prisma.user.create({
+            data: {
+                username,
+                email: toStr(u.email),
+                emailVerified: u.emailVerified ?? false,
+                emailConfirmationToken: toStr(u.emailConfirmationToken),
+                welcomeMailSent: u.welcomeMailSent ?? false,
+                role: roleMap[u.role] ?? ('USER' as Role),
+                resetPasswordToken: toStr(u.resetPasswordToken),
+                resetPasswordExpires: toDate(u.resetPasswordExpires),
+                receiveNewsletter: u.receiveNewsletter ?? false,
+                subscriptionStatus: subscriptionStatusMap[u.subscriptionStatus] ?? ('NONE' as SubscriptionStatus),
+                stripeCustomerId: toStr(u.stripeCustomerId),
+                subscriptionEndAt: toDate(u.subscriptionEndAt),
+                createdAt: toDateRequired(u.createdAt),
+                updatedAt: toDateRequired(u.updatedAt),
+            },
+        });
+        userIdMap.set(username, created.id);
     }
 
-    log(`  Inserted ${rows.length} users`);
+    log(`  Inserted ${users.length} users`);
+}
+
+async function migrateAccounts(db: Db, prisma: PrismaClient) {
+    log('Migrating accounts (credential provider with password)...');
+    const users = await db.collection('users').find().toArray();
+    let count = 0;
+
+    for (const u of users) {
+        const username = String(u._id);
+        const userId = userIdMap.get(username);
+        if (!userId) continue;
+
+        const password = toStr(u.password);
+        if (!password) continue;
+
+        await prisma.account.create({
+            data: {
+                userId,
+                accountId: userId,
+                providerId: 'credential',
+                password,
+                createdAt: toDateRequired(u.createdAt),
+                updatedAt: toDateRequired(u.updatedAt),
+            },
+        });
+        count++;
+    }
+
+    log(`  Inserted ${count} credential accounts`);
 }
 
 async function migrateProfiles(db: Db, prisma: PrismaClient) {
@@ -796,6 +825,9 @@ async function wipeTables(prisma: PrismaClient) {
     await prisma.media.deleteMany();
     await prisma.spot.deleteMany();
     await prisma.profile.deleteMany();
+    await prisma.verification.deleteMany();
+    await prisma.session.deleteMany();
+    await prisma.account.deleteMany();
     await prisma.user.deleteMany();
 
     log('  All tables wiped');
@@ -832,7 +864,10 @@ async function main() {
         // 1. Users first (no dependencies)
         await migrateUsers(db, prisma);
 
-        // 2. Profiles (depend on User)
+        // 2. Accounts — credential provider with password (depend on User)
+        await migrateAccounts(db, prisma);
+
+        // 3. Profiles (depend on User)
         await migrateProfiles(db, prisma);
 
         // 4. Spots (depend on Profile)

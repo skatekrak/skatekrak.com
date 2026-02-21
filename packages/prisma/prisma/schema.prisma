@@ -98,14 +98,17 @@ enum ClipProvider {
 // ============================================================================
 
 /// Core user account. Username was previously used as _id in MongoDB.
+/// Also serves as BetterAuth's `user` table (mapped to "users" via modelName config).
 model User {
   id                     String             @id @default(uuid())
   username               String             @unique
+  displayUsername        String?            @unique // BetterAuth username plugin: non-normalized display username
   email                  String?            @unique
   emailVerified          Boolean            @default(false)
   emailConfirmationToken String?
   welcomeMailSent        Boolean            @default(false)
-  password               String? // bcrypt hash
+  name                   String? // BetterAuth core: user display name
+  image                  String? // BetterAuth core: user avatar URL
   role                   Role               @default(USER)
   resetPasswordToken     String?
   resetPasswordExpires   DateTime?
@@ -117,9 +120,66 @@ model User {
   updatedAt              DateTime           @updatedAt
 
   // Relations
-  profile Profile?
+  profile  Profile?
+  sessions Session[]
+  accounts Account[]
 
   @@map("users")
+}
+
+// ============================================================================
+// BetterAuth: Session, Account, Verification
+// ============================================================================
+
+/// BetterAuth session. Tracks active user sessions with token & device info.
+model Session {
+  id        String   @id @default(uuid())
+  userId    String
+  token     String   @unique
+  expiresAt DateTime
+  ipAddress String?
+  userAgent String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
+}
+
+/// BetterAuth account. Links auth providers (credential, OAuth, etc.) to a user.
+model Account {
+  id                    String    @id @default(uuid())
+  userId                String
+  accountId             String
+  providerId            String
+  accessToken           String?
+  refreshToken          String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  idToken               String?
+  password              String?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+
+  // Relations
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("accounts")
+}
+
+/// BetterAuth verification. Used for email verification, password reset tokens, etc.
+model Verification {
+  id         String   @id @default(uuid())
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@map("verifications")
 }
 
 // ============================================================================
