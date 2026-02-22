@@ -3,6 +3,7 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 });
 
 module.exports = withBundleAnalyzer({
+    allowedDevOrigins: '*.skatekrak.com',
     productionBrowserSourceMaps: true,
     compiler: {
         removeConsole: process.env.NODE_ENV === 'production',
