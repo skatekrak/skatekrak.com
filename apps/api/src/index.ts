@@ -50,6 +50,7 @@ const app = new Elysia()
         }),
     )
     .use(cors({ origin: /(\w+\.)?skatekrak\.com$/, credentials: true }))
+    .mount(auth.handler)
     .use(trpc(appRouter, { createContext: createContext(client, prisma, auth) }))
     .get('/', () => ({ message: 'krak-api' }));
 

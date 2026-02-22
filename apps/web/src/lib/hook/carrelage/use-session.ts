@@ -1,4 +1,4 @@
-import { useSession as useBetterAuthSession } from '@krak/auth/client';
+import { useSession as useBetterAuthSession } from '@/lib/auth';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 

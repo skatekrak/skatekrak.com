@@ -5,7 +5,7 @@ import UserProfilePic from '@/components/Ui/user/UserProfilePic';
 import Typography from '@/components/Ui/typography/Typography';
 
 import useProfileMe from '@/shared/feudartifice/hooks/use-profile-me';
-import { signOut } from '@krak/auth/client';
+import { signOut } from '@/lib/auth';
 
 const HeaderProfile = () => {
     const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);

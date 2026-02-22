@@ -10,7 +10,7 @@ import Emoji from '@/components/Ui/Icons/Emoji';
 import IconLike from '@/components/Ui/Icons/IconLike';
 import Typography from '@/components/Ui/typography/Typography';
 
-import { signUp } from '@krak/auth/client';
+import { signUp } from '@/lib/auth';
 
 type SignupFormValues = {
     username: string;

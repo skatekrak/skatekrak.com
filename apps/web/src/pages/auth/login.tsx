@@ -12,7 +12,7 @@ import IconLike from '@/components/Ui/Icons/IconLike';
 
 import { useRouter } from 'next/router';
 import useSession from '@/lib/hook/carrelage/use-session';
-import { signIn } from '@krak/auth/client';
+import { signIn } from '@/lib/auth';
 
 type LoginFormValues = {
     username: string;
