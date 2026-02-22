@@ -40,7 +40,11 @@ export const createAuth = (prisma: PrismaClient, baseURL?: string) =>
         verification: {
             modelName: 'Verification',
         },
-        plugins: [username()],
+        plugins: [
+            username({
+                minUsernameLength: 1,
+            }),
+        ],
     });
 
 export type Auth = ReturnType<typeof createAuth>;
