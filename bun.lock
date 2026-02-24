@@ -20,13 +20,13 @@
         "@bogeychan/elysia-logger": "^0.1.10",
         "@elysiajs/cors": "^1.4.1",
         "@elysiajs/cron": "^1.4.1",
-        "@elysiajs/trpc": "^1.1.0",
         "@krak/auth": "workspace:*",
         "@krak/prisma": "workspace:*",
         "@krak/trpc": "workspace:*",
         "@prisma/adapter-pg": "^7.4.1",
         "@sinclair/typebox": "^0.34.0",
         "@t3-oss/env-core": "^0.11.1",
+        "@trpc/server": "^11.10.0",
         "date-fns": "^3.6.0",
         "elysia": "^1.4.25",
         "mongodb": "^6.8.1",
@@ -369,8 +369,6 @@
     "@elysiajs/cors": ["@elysiajs/cors@1.4.1", "", { "peerDependencies": { "elysia": ">= 1.4.0" } }, "sha512-lQfad+F3r4mNwsxRKbXyJB8Jg43oAOXjRwn7sKUL6bcOW3KjUqUimTS+woNpO97efpzjtDE0tEjGk9DTw8lqTQ=="],
 
     "@elysiajs/cron": ["@elysiajs/cron@1.4.1", "", { "dependencies": { "croner": "^6.0.3" }, "peerDependencies": { "elysia": ">= 1.4.0" } }, "sha512-Y+jqXtMJ+m17QzNWlWc09ugd1Fn1Wh7lqE+y9qSW8eiQZEqsRADXWmbLuXRSRaSC5dkfOyRSiwNCp6n8L/yuqA=="],
-
-    "@elysiajs/trpc": ["@elysiajs/trpc@1.1.0", "", { "peerDependencies": { "elysia": ">= 1.1.0" } }, "sha512-M8QWC+Wa5Z5MWY/+uMQuwZ+JoQkp4jOc1ra4SncFy1zSjFGin59LO1AT0pE+DRJaFV17gha9y7cB6Q7GnaJEAw=="],
 
     "@emnapi/runtime": ["@emnapi/runtime@1.8.1", "", { "dependencies": { "tslib": "^2.4.0" } }, "sha512-mehfKSMWjjNol8659Z8KxEMrdSJDDot5SXMq00dM8BN4o+CLNXQ0xH2V7EchNHV4RmbZLmmPdEaXZc5H2FXmDg=="],
 

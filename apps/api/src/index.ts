@@ -1,4 +1,4 @@
-import { trpc } from '@elysiajs/trpc';
+import { fetchRequestHandler } from '@trpc/server/adapters/fetch';
 import { cors } from '@elysiajs/cors';
 import { Elysia } from 'elysia';
 import { logger } from '@bogeychan/elysia-logger';
@@ -51,7 +51,14 @@ const app = new Elysia()
     )
     .use(cors({ origin: /(\w+\.)?skatekrak\.com$/, credentials: true }))
     .mount(auth.handler)
-    .use(trpc(appRouter, { createContext: createContext(client, prisma, auth) }))
+    .all('/trpc/*', async ({ request }) => {
+        return fetchRequestHandler({
+            endpoint: '/trpc',
+            req: request,
+            router: appRouter,
+            createContext: createContext(client, prisma, auth),
+        });
+    })
     .get('/', () => ({ message: 'krak-api' }));
 
 app.listen(3000);
