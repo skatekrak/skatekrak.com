@@ -5,8 +5,6 @@ import { useShallow } from 'zustand/react/shallow';
 
 import { Spot } from '@krak/carrelage-client';
 
-import { getSpotOverview } from '@krak/carrelage-client';
-
 import QuickAccessDesktop from './mapQuickAccess/desktop/quick-access-desktop';
 import MapNavigation from './MapNavigation';
 import MapBottomNav from './MapBottomNav/MapBottomNav';
@@ -18,7 +16,6 @@ import { ZOOM_DISPLAY_WARNING } from './Map.constant';
 import MapCreateSpot from './MapCreateSpot';
 import useSession from '@/lib/hook/carrelage/use-session';
 import { useRouter } from 'next/router';
-import { useQuery } from '@tanstack/react-query';
 import { useSpotsGeoJSON } from '@/shared/feudartifice/hooks/spot';
 import { isEmpty, intersects } from 'radash';
 import { trpc } from '@/server/trpc/utils';
@@ -80,16 +77,10 @@ const MapContainer = () => {
         }
     };
 
-    const { data: overview } = useQuery({
-        queryKey: ['load-overview', spotId],
-        queryFn: async () => {
-            if (spotId == null) return undefined;
-            const overview = await getSpotOverview(spotId);
-            return overview;
-        },
-        enabled: spotId != null,
-        retry: false,
-    });
+    const { data: overview } = trpc.spots.getSpotOverview.useQuery(
+        { id: spotId! },
+        { enabled: spotId != null, retry: false },
+    );
 
     useEffect(() => {
         if (overview != null && mapLoaded) {

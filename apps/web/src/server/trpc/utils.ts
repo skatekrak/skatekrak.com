@@ -1,4 +1,4 @@
-import { httpBatchLink } from '@trpc/client';
+import { createTRPCClient, httpBatchLink } from '@trpc/client';
 import { createTRPCNext } from '@trpc/next';
 import type { AppRouter } from '@krak/trpc';
 import superjson from 'superjson';
@@ -6,6 +6,16 @@ import superjson from 'superjson';
 function getBaseUrl() {
     return process.env.NEXT_PUBLIC_KRAK_API_URL!;
 }
+
+/** Vanilla tRPC client for server-side usage (e.g. getServerSideProps) */
+export const trpcServer = createTRPCClient<AppRouter>({
+    links: [
+        httpBatchLink({
+            url: getBaseUrl() + '/trpc',
+            transformer: superjson,
+        }),
+    ],
+});
 
 export const trpc = createTRPCNext<AppRouter>({
     config: ({ ctx }) => {

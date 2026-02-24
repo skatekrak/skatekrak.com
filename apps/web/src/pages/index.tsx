@@ -5,9 +5,9 @@ import dynamic from 'next/dynamic';
 
 import Layout from '@/components/Layout';
 import { dehydrate, QueryClient } from '@tanstack/react-query';
-import { getSpotOverview } from '@krak/carrelage-client';
-import { SpotOverview } from '@/shared/feudartifice/types';
+import { SpotOverview } from '@krak/carrelage-client';
 import { draw } from 'radash';
+import { trpcServer } from '@/server/trpc/utils';
 import cities from '@/data/cities/_cities';
 import { centerFromBounds } from '@/lib/map/helpers';
 
@@ -79,7 +79,7 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
 
     if (query.spot != null && typeof query.spot === 'string') {
         try {
-            const overview = await getSpotOverview(query.spot);
+            const overview = await trpcServer.spots.getSpotOverview.query({ id: query.spot });
 
             ogData = {
                 title: overview.spot.name,
