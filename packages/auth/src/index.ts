@@ -10,6 +10,7 @@ const BCRYPT_ROUNDS = 10;
 export const createAuth = (prisma: PrismaClient, baseURL?: string) =>
     betterAuth({
         baseURL,
+        trustedOrigins: ['*.skatekrak.com'],
         database: prismaAdapter(prisma, {
             provider: 'postgresql',
         }),

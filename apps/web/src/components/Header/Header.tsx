@@ -19,7 +19,7 @@ const Header: React.FC = () => {
     const isConnected = sessionData != null;
 
     return (
-        <header className="flex flex-shrink-0 flex-col py-[0.625rem] px-8 tablet:px-5 bg-tertiary-dark box-shadow-onDark-highSharp z-index-2">
+        <header className="flex flex-shrink-0 flex-col py-[0.625rem] px-8 tablet:px-5 bg-tertiary-dark box-shadow-onDark-highSharp z-[2]">
             <div className="flex flex-shrink items-center justify-between">
                 <Link href="/">
                     <KrakLogoHand className="h-11 fill-onDark-highEmphasis [&>.krak-logo-hand-shape]:stroke-red-600" />
