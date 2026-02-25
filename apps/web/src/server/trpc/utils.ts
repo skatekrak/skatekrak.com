@@ -4,6 +4,9 @@ import type { AppRouter } from '@krak/trpc';
 import superjson from 'superjson';
 
 function getBaseUrl() {
+    if (typeof window === 'undefined') {
+        return process.env.KRAK_API_URL ?? process.env.NEXT_PUBLIC_KRAK_API_URL!;
+    }
     return process.env.NEXT_PUBLIC_KRAK_API_URL!;
 }
 
