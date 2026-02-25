@@ -22672,5 +22672,21 @@
     "about": "",
     "videos": [],
     "soundtrack": []
+  },
+  {
+    "id": "marcelveldman",
+    "categories": [
+      "photographer"
+    ],
+    "name": "Marcel Veldman",
+    "subtitle": "",
+    "edito": "",
+    "about": "",
+    "videos": [
+      "https://www.youtube.com/watch?v=r9apHJWZUvM",
+      "https://www.youtube.com/watch?v=1PL4DIAoFGs",
+      "https://www.youtube.com/watch?v=qhgLF1yINTg"
+    ],
+    "soundtrack": []
   }
 ]
