@@ -4,8 +4,6 @@ import React from 'react';
 import dynamic from 'next/dynamic';
 
 import Layout from '@/components/Layout';
-import { dehydrate, QueryClient } from '@tanstack/react-query';
-import { SpotOverview } from '@krak/carrelage-client';
 import { draw } from 'radash';
 import { trpcServer } from '@/server/trpc/utils';
 import cities from '@/data/cities/_cities';
@@ -73,8 +71,6 @@ const Index: NextPage<MapPageProps> = ({ ogData }) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
-    const queryClient = new QueryClient();
-
     let ogData: OGData | null = null;
 
     if (query.spot != null && typeof query.spot === 'string') {
@@ -90,10 +86,6 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
                         : null,
                 url: `${baseURL}?spot=${query.spot}`,
             };
-            await queryClient.prefetchQuery<SpotOverview>({
-                queryKey: ['load-overview', query.spot],
-                queryFn: () => overview,
-            });
         } catch (err) {
             console.error(err);
         }
@@ -114,7 +106,6 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
 
     return {
         props: {
-            dehydratedState: dehydrate(queryClient),
             ogData: ogData,
         },
     };
