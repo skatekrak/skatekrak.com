@@ -3,11 +3,10 @@ import React from 'react';
 import Carousel from '../../media/Carousel';
 import IconArrowHead from '@/components/Ui/Icons/ArrowHead';
 
-import useMedia from '@/shared/feudartifice/hooks/media';
 import { KrakLoading } from '@/components/Ui/Icons/Spinners';
 import { Spot, Media } from '@krak/carrelage-client';
-import { useSpotMediasAround } from '@/lib/hook/carrelage/spot-medias';
 import { useMediaID } from '@/lib/hook/queryState';
+import { trpc } from '@/server/trpc/utils';
 
 type Props = {
     initialMediaId: string;
@@ -15,7 +14,10 @@ type Props = {
 };
 
 const MapFullSpotCarousel = ({ initialMediaId, spot }: Props) => {
-    const { data: media, isLoading: mediaLoading } = useMedia(initialMediaId);
+    const { data: media, isLoading: mediaLoading } = trpc.media.getById.useQuery(
+        { id: initialMediaId },
+        { placeholderData: (prev) => prev, refetchOnMount: false, refetchOnReconnect: false, refetchOnWindowFocus: false },
+    );
 
     return (
         <div className="absolute inset-0 flex z-10">
@@ -28,7 +30,10 @@ const MapFullSpotCarousel = ({ initialMediaId, spot }: Props) => {
 const MapFullSpotCarouselContent = ({ spot, media }: { spot: Spot; media: Media }) => {
     const [, setMediaID] = useMediaID();
 
-    const { data } = useSpotMediasAround(spot.id, media);
+    const { data } = trpc.media.getSpotMediasAround.useQuery({
+        spotId: spot.id,
+        mediaCreatedAt: media.createdAt,
+    });
 
     const goBackToSpot = () => {
         setMediaID(null);

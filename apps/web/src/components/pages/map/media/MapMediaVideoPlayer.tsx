@@ -29,8 +29,8 @@ const MapMediaVideoPlayer: React.FC<MapMediaVideoPlayerProps> = ({ media, isPlay
             ref={playerRef}
             playing={isPlaying}
             onReady={onReady}
-            url={media.video!.jpg}
-            light={media.image.jpg}
+            url={media.video!.url}
+            light={media.image.url}
             videoSize={{
                 width: media.video!.width,
                 height: media.video!.height,

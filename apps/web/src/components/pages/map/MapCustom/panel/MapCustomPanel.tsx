@@ -9,9 +9,9 @@ import { CustomMap } from '@/lib/map/types';
 import { Spot } from '@krak/carrelage-client';
 import MapCustomMediaCarousel from '@/components/pages/map/MapCustom/MapCustomMediaCarousel';
 import ScrollBar from '@/components/Ui/Scrollbar';
-import { useInfiniteMedias } from '@/shared/feudartifice/hooks/media';
 import { KrakLoading } from '@/components/Ui/Icons/Spinners';
 import InfiniteScroll from '@/components/Ui/InfiniteScroll';
+import { trpc } from '@/server/trpc/utils';
 
 export type MapCustomPanelTabs = 'media' | 'video' | 'spots' | 'soundtrack';
 
@@ -52,9 +52,19 @@ const MapCustomPanel = ({ map, spots }: MapCustomPanelProps) => {
 
     const [mediaId] = useMediaID();
 
-    const { isLoading, isFetchingNextPage, data, hasNextPage, fetchNextPage } = useInfiniteMedias({
-        hashtag: id,
-    });
+    const { isLoading, isFetchingNextPage, data, hasNextPage, fetchNextPage } = trpc.media.list.useInfiniteQuery(
+        { hashtag: id, limit: 20 },
+        {
+            getNextPageParam: (lastPage) => {
+                const lastElement = lastPage[lastPage.length - 1];
+                return lastElement?.createdAt ?? null;
+            },
+            placeholderData: (prev) => prev,
+            refetchOnMount: false,
+            refetchOnReconnect: false,
+            refetchOnWindowFocus: false,
+        },
+    );
     const medias = data?.pages.flatMap((page) => page) ?? [];
 
     useEffect(() => {

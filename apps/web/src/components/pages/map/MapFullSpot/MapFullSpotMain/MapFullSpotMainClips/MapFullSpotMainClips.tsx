@@ -6,14 +6,26 @@ import MapFullSpotMainClip from './MapFullSpotMainClip';
 
 import { flatten } from '@/lib/helpers';
 import { Spot } from '@krak/carrelage-client';
-import useSpotClips from '@/lib/hook/carrelage/spot-clips';
+import { trpc } from '@/server/trpc/utils';
 
 export type MapFullSpotMainClipsProps = {
     spot: Spot;
 };
 
 const MapFullSpotMainClips = ({ spot }: MapFullSpotMainClipsProps) => {
-    const { isFetching, data, fetchNextPage, hasNextPage } = useSpotClips(spot.id);
+    const { isFetching, data, fetchNextPage, hasNextPage } = trpc.media.listClipsBySpot.useInfiniteQuery(
+        { spotId: spot.id, limit: 20 },
+        {
+            getNextPageParam: (lastPage) => {
+                if (lastPage.length < 20) return null;
+                const lastElement = lastPage[lastPage.length - 1];
+                return lastElement?.createdAt ?? null;
+            },
+            initialCursor: new Date(),
+            refetchOnWindowFocus: false,
+            refetchOnMount: false,
+        },
+    );
     const clips = flatten(data?.pages ?? []);
 
     const getScrollParent = () => {

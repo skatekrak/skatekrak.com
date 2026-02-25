@@ -6,19 +6,30 @@ import KrakMasonry from '@/components/Ui/Masonry';
 import MapMedia from '@/components/pages/map/media/MapMedia';
 
 import { Spot, Media } from '@krak/carrelage-client';
-import useSpotMedias from '@/lib/hook/carrelage/spot-medias';
 import { flatten } from '@/lib/helpers';
 import { useSettingsStore } from '@/store/settings';
+import { trpc } from '@/server/trpc/utils';
 
 export type MapFullSpotMediasProps = {
     medias: Media[];
     spot: Spot;
 };
 
-const MapFullSpotMedias: React.FC<MapFullSpotMediasProps> = ({ medias: firstMedias, spot }) => {
+const MapFullSpotMedias: React.FC<MapFullSpotMediasProps> = ({ spot }) => {
     const isMobile = useSettingsStore((state) => state.isMobile);
 
-    const { isFetching, data, hasNextPage, fetchNextPage } = useSpotMedias(spot.id, firstMedias);
+    const { isFetching, data, hasNextPage, fetchNextPage } = trpc.media.listBySpot.useInfiniteQuery(
+        { spotId: spot.id, limit: 20 },
+        {
+            getNextPageParam: (lastPage) => {
+                if (lastPage.length < 20) return null;
+                const lastElement = lastPage[lastPage.length - 1];
+                return lastElement?.createdAt ?? null;
+            },
+            refetchOnWindowFocus: false,
+            refetchOnMount: false,
+        },
+    );
     const medias = flatten(data?.pages ?? []);
 
     const getScrollParent = () => {
