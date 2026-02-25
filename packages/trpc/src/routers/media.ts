@@ -7,13 +7,15 @@ import { formatPrismaMedia, formatPrismaClip } from '../formatters';
 // Shared Prisma include for media relations
 // ============================================================================
 
+const addedByInclude = { include: { user: { select: { username: true } } } } as const;
+
 const mediaInclude = {
-    addedBy: true,
-    spot: { include: { addedBy: true } },
+    addedBy: addedByInclude,
+    spot: { include: { addedBy: addedByInclude } },
 } as const;
 
 const clipInclude = {
-    addedBy: true,
+    addedBy: addedByInclude,
 } as const;
 
 // ============================================================================

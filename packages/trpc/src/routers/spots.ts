@@ -13,6 +13,12 @@ import {
 } from '../formatters';
 
 // ============================================================================
+// Shared Prisma include for addedBy with user relation
+// ============================================================================
+
+const addedByInclude = { addedBy: { include: { user: { select: { username: true } } } } } as const;
+
+// ============================================================================
 // GeoJSON helper
 // ============================================================================
 
@@ -50,7 +56,7 @@ export const spotsRouter = router({
     getSpot: publicProcedure.input(z.object({ id: z.string() })).query(async ({ ctx, input }) => {
         const spot = await ctx.prisma.spot.findUnique({
             where: { id: input.id },
-            include: { addedBy: true },
+            include: addedByInclude,
         });
 
         if (!spot) {
@@ -65,7 +71,7 @@ export const spotsRouter = router({
 
         const spotDoc = await ctx.prisma.spot.findUnique({
             where: { id: input.id },
-            include: { addedBy: true },
+            include: addedByInclude,
         });
 
         if (!spotDoc) {
@@ -77,9 +83,15 @@ export const spotsRouter = router({
         const [mostLikedRaw, mediaDocs, clipDocs] = await Promise.all([
             // Most liked image media for this spot (sort by JSON likesStat.all via raw SQL)
             ctx.prisma.$queryRaw<PrismaMedia[]>`
-                SELECT m.*, row_to_json(p.*) as "addedBy"
+                SELECT m.*, json_build_object(
+                    'id', p.id,
+                    'userId', p."userId",
+                    'profilePicture', p."profilePicture",
+                    'user', json_build_object('username', u.username)
+                ) as "addedBy"
                 FROM media m
                 JOIN profiles p ON p.id = m."addedById"
+                JOIN users u ON u.id = p."userId"
                 WHERE m."spotId" = ${input.id}
                   AND m.type = 'IMAGE'
                 ORDER BY (m."likesStat"->>'all')::int DESC NULLS LAST
@@ -96,7 +108,7 @@ export const spotsRouter = router({
                 },
                 orderBy: { createdAt: 'desc' },
                 take: 5,
-                include: { addedBy: true, spot: { include: { addedBy: true } } },
+                include: { addedBy: { include: { user: { select: { username: true } } } }, spot: { include: addedByInclude } },
             }),
 
             // Last 5 clips for this spot
@@ -104,7 +116,7 @@ export const spotsRouter = router({
                 where: { spotId: input.id, createdAt: { lt: now } },
                 orderBy: { createdAt: 'desc' },
                 take: 5,
-                include: { addedBy: true },
+                include: addedByInclude,
             }),
         ]);
 
@@ -142,7 +154,7 @@ export const spotsRouter = router({
                         lte: input.northEast.latitude,
                     },
                 },
-                include: { addedBy: true },
+                include: addedByInclude,
             });
 
             return spotsToGeoJSON(spots);
@@ -175,7 +187,7 @@ export const spotsRouter = router({
 
                 const spots = await ctx.prisma.spot.findMany({
                     where: { id: { in: spotIds } },
-                    include: { addedBy: true },
+                    include: addedByInclude,
                 });
 
                 return spots.map(formatPrismaSpot);
@@ -183,7 +195,7 @@ export const spotsRouter = router({
 
             const spots = await ctx.prisma.spot.findMany({
                 where: { tags: { hasSome: input.tags } },
-                include: { addedBy: true },
+                include: addedByInclude,
                 take: input.limit,
             });
 

@@ -1,13 +1,20 @@
 import { type Spot, type Media, type Clip, Status, Types } from '@krak/carrelage-client';
-import type { Spot as PrismaSpot, Media as PrismaMedia, Clip as PrismaClip, Profile as PrismaProfile } from '@krak/prisma';
+import type {
+    Spot as PrismaSpot,
+    Media as PrismaMedia,
+    Clip as PrismaClip,
+    Profile as PrismaProfile,
+    User as PrismaUser,
+} from '@krak/prisma';
 
 // ============================================================================
 // Composite Prisma types (with relations included)
 // ============================================================================
 
-export type SpotWithAddedBy = PrismaSpot & { addedBy: PrismaProfile };
-export type MediaWithRelations = PrismaMedia & { addedBy: PrismaProfile; spot?: PrismaSpot | null };
-export type ClipWithRelations = PrismaClip & { addedBy: PrismaProfile; spot?: PrismaSpot | null };
+export type ProfileWithUser = PrismaProfile & { user: Pick<PrismaUser, 'username'> };
+export type SpotWithAddedBy = PrismaSpot & { addedBy: ProfileWithUser };
+export type MediaWithRelations = PrismaMedia & { addedBy: ProfileWithUser; spot?: PrismaSpot | null };
+export type ClipWithRelations = PrismaClip & { addedBy: ProfileWithUser; spot?: PrismaSpot | null };
 
 // ============================================================================
 // Prisma -> Carrelage-client type formatters
@@ -62,7 +69,7 @@ export function formatPrismaMedia(media: MediaWithRelations): Media {
         video: (media.video as unknown as Media['video']) ?? undefined,
         addedBy: {
             id: media.addedBy.id,
-            username: media.addedBy.id,
+            username: media.addedBy.user.username,
             profilePicture: media.addedBy.profilePicture as Media['addedBy']['profilePicture'],
         },
         spot: media.spot ? formatPrismaSpot(media.spot as SpotWithAddedBy) : undefined,
@@ -81,16 +88,16 @@ export function formatPrismaClip(clip: ClipWithRelations): Clip {
         spot: clip.spotId ?? '',
         addedBy: {
             id: clip.addedBy.id,
-            username: clip.addedBy.id,
+            username: clip.addedBy.user.username,
             profilePicture: clip.addedBy.profilePicture as Clip['addedBy']['profilePicture'],
         },
     };
 }
 
-export function formatPrismaProfile(profile: PrismaProfile) {
+export function formatPrismaProfile(profile: ProfileWithUser) {
     return {
         id: profile.id,
-        username: profile.id,
+        username: profile.user.username,
         profilePicture: profile.profilePicture,
     } as any;
 }
