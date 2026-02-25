@@ -1,83 +1,9 @@
-import Feudartifice from '..';
-import type { Spot } from '../types';
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import { MapRef } from 'react-map-gl';
-import { useEffect, useState } from 'react';
-import useDebounce from '@/lib/hook/useDebounce';
-import { SpotGeoJSON, boxSpotsSearch, getSpotsByTags } from '@krak/carrelage-client';
-import { sort, unique } from 'radash';
+import { SpotGeoJSON } from '@krak/carrelage-client';
 import { trpc } from '@/server/trpc/utils';
+import useDebounce from '@/lib/hook/useDebounce';
 import { useViewport } from '@/lib/hook/queryState';
-
-const { client } = Feudartifice;
-
-export const fetchSpot = async (id: string): Promise<Spot> => {
-    const res = await client.get<Spot>(`/spots/${id}`);
-    return res.data;
-};
-
-export const useSpotsSearch = (mapRef: MapRef | undefined, enabled = true) => {
-    const [viewport] = useViewport();
-
-    const debouncedViewport = useDebounce(viewport, 200);
-    const [loadedSpots, setLoadedSpots] = useState<Spot[]>([]);
-
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { data, ...queryRes } = useQuery({
-        queryKey: ['fetch-spots-on-map', debouncedViewport],
-        queryFn: async () => {
-            if (mapRef == null) return [];
-            const map = mapRef.getMap();
-            const bounds = map.getBounds();
-            console.log(bounds);
-            const northEast = bounds.getNorthEast();
-            const southWest = bounds.getSouthWest();
-
-            const spots = await boxSpotsSearch({
-                northEastLatitude: northEast.lat,
-                northEastLongitude: northEast.lng,
-                southWestLatitude: southWest.lat,
-                southWestLongitude: southWest.lng,
-                limit: 150,
-            });
-
-            return spots;
-        },
-
-        enabled,
-        refetchOnWindowFocus: false,
-        refetchOnMount: false,
-        placeholderData: keepPreviousData,
-    });
-
-    useEffect(() => {
-        if (data != null) {
-            setLoadedSpots((previousSpots) => unique(previousSpots.concat(data ?? []), (a) => a.id));
-        }
-    }, [data, setLoadedSpots]);
-
-    return {
-        data: loadedSpots,
-        ...queryRes,
-    };
-};
-
-export const useSpotsByTags = (tags: string[] | undefined, tagsFromMedia?: boolean) => {
-    return useQuery({
-        queryKey: ['fetch-spots-by-tags', tags, tagsFromMedia],
-        queryFn: async () => {
-            if (tags != null && tagsFromMedia != null) {
-                const spots = await getSpotsByTags(tags, tagsFromMedia);
-                return sort(spots, (s) => s.mediasStat.all, true);
-            }
-            return;
-        },
-        enabled: !!tags && tagsFromMedia != null,
-        refetchOnMount: false,
-        refetchOnReconnect: false,
-        refetchOnWindowFocus: false,
-    });
-};
 
 export const useSpotsGeoJSON = (mapRef: MapRef | undefined, enabled = true) => {
     const [viewport] = useViewport();
