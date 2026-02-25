@@ -1,5 +1,5 @@
 import VideoPlayer from '@/components/Ui/Player/VideoPlayer';
-import React, { FocusEventHandler, useState } from 'react';
+import { FocusEventHandler, useState } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
 import Feudartifice from '@/shared/feudartifice';
 import { useVideoInformation } from '@/shared/feudartifice/hooks/clips';
