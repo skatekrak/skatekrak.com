@@ -21,6 +21,7 @@
 import { MongoClient, type Db, type Document as MongoDocument, ObjectId } from 'mongodb';
 import { PrismaPg } from '@prisma/adapter-pg';
 import { PrismaClient, Prisma } from '../node_modules/.prisma/client';
+import { createId } from '@paralleldrive/cuid2';
 import type {
     Role,
     SubscriptionStatus,
@@ -177,21 +178,20 @@ function oid(val: unknown): string {
 // ---------------------------------------------------------------------------
 // ID mapping registries
 //
-// MongoDB uses string _id for User/Profile and ObjectId for Spot/Media/Clip.
-// In PostgreSQL everything is a UUID. We need to map old IDs → new UUIDs so
-// that foreign key references resolve correctly.
+// MongoDB uses string _id for User/Profile (usernames) which map to new UUIDs.
+// Content models (Spot, Media, Clip, etc.) keep their original MongoDB ObjectId
+// hex strings as the Postgres primary key — no mapping needed.
+// Embedded subdocs without a MongoDB _id get a new cuid2 ID via createId().
 // ---------------------------------------------------------------------------
 
 /** username → new postgres UUID */
 const userIdMap = new Map<string, string>();
 /** username → new postgres profile UUID */
 const profileIdMap = new Map<string, string>();
-/** mongo ObjectId hex → new postgres UUID */
-const spotIdMap = new Map<string, string>();
-/** mongo ObjectId hex → new postgres UUID */
-const mediaIdMap = new Map<string, string>();
-/** mongo ObjectId hex → new postgres UUID */
-const clipIdMap = new Map<string, string>();
+/** Sets of mongo IDs that were successfully migrated (used for FK validation) */
+const migratedSpotIds = new Set<string>();
+const migratedMediaIds = new Set<string>();
+const migratedClipIds = new Set<string>();
 
 // ---------------------------------------------------------------------------
 // Batch helper — run createMany in chunks to avoid memory issues
@@ -288,7 +288,7 @@ async function migrateProfiles(db: Db, prisma: PrismaClient) {
                 userId,
                 description: toStr(p.description),
                 location: toStr(p.location),
-                stance: p.stance ? stanceMap[p.stance] ?? null : null,
+                stance: p.stance ? (stanceMap[p.stance] ?? null) : null,
                 snapchat: toStr(p.snapchat),
                 instagram: toStr(p.instagram),
                 website: toStr(p.website),
@@ -317,6 +317,8 @@ async function migrateSpots(db: Db, prisma: PrismaClient) {
     const spots = await db.collection('spots').find().toArray();
     log(`  Found ${spots.length} spots in MongoDB`);
 
+    let count = 0;
+
     for (const s of spots) {
         const mongoId = oid(s._id);
         const addedByUsername = String(s.addedBy);
@@ -326,15 +328,16 @@ async function migrateSpots(db: Db, prisma: PrismaClient) {
             continue;
         }
 
-        const created = await prisma.spot.create({
+        await prisma.spot.create({
             data: {
+                id: mongoId,
                 name: String(s.name),
                 streetName: toStr(s.location?.streetName),
                 streetNumber: toStr(s.location?.streetNumber),
                 city: toStr(s.location?.city),
                 country: toStr(s.location?.country),
-                longitude: Array.isArray(s.geo) ? s.geo[0] ?? 0 : 0,
-                latitude: Array.isArray(s.geo) ? s.geo[1] ?? 0 : 0,
+                longitude: Array.isArray(s.geo) ? (s.geo[0] ?? 0) : 0,
+                latitude: Array.isArray(s.geo) ? (s.geo[1] ?? 0) : 0,
                 type: spotTypeMap[s.type] ?? 'STREET',
                 status: spotStatusMap[s.status] ?? 'ACTIVE',
                 description: toStr(s.description),
@@ -358,10 +361,11 @@ async function migrateSpots(db: Db, prisma: PrismaClient) {
             },
         });
 
-        spotIdMap.set(mongoId, created.id);
+        migratedSpotIds.add(mongoId);
+        count++;
     }
 
-    log(`  Inserted ${spotIdMap.size} spots`);
+    log(`  Inserted ${count} spots`);
 }
 
 async function migrateSpotEdits(db: Db, prisma: PrismaClient) {
@@ -374,25 +378,26 @@ async function migrateSpotEdits(db: Db, prisma: PrismaClient) {
     let count = 0;
 
     for (const s of spots) {
-        const spotMongoId = oid(s._id);
-        const spotId = spotIdMap.get(spotMongoId);
-        if (!spotId) continue;
+        const spotId = oid(s._id);
+        if (!spotId || !migratedSpotIds.has(spotId)) continue;
 
         for (const edit of s.edits ?? []) {
             const addedById = profileIdMap.get(String(edit.addedBy));
             if (!addedById) continue;
 
-            const mergeIntoId = edit.mergeInto ? spotIdMap.get(oid(edit.mergeInto)) ?? null : null;
+            const rawMergeIntoId = edit.mergeInto ? oid(edit.mergeInto) || null : null;
+            const mergeIntoId = rawMergeIntoId && migratedSpotIds.has(rawMergeIntoId) ? rawMergeIntoId : null;
 
             await prisma.spotEdit.create({
                 data: {
+                    id: oid(edit._id) || createId(),
                     spotId,
                     addedById,
                     name: toStr(edit.name),
                     longitude: edit.longitude != null ? Number(edit.longitude) : null,
                     latitude: edit.latitude != null ? Number(edit.latitude) : null,
-                    type: edit.type ? spotTypeMap[edit.type] ?? null : null,
-                    status: edit.status ? spotStatusMap[edit.status] ?? null : null,
+                    type: edit.type ? (spotTypeMap[edit.type] ?? null) : null,
+                    status: edit.status ? (spotStatusMap[edit.status] ?? null) : null,
                     description: toStr(edit.description),
                     indoor: edit.indoor != null ? Boolean(edit.indoor) : null,
                     phone: toStr(edit.phone),
@@ -417,6 +422,8 @@ async function migrateMedia(db: Db, prisma: PrismaClient) {
     const medias = await db.collection('media').find().toArray();
     log(`  Found ${medias.length} media in MongoDB`);
 
+    let count = 0;
+
     for (const m of medias) {
         const mongoId = oid(m._id);
         const addedByUsername = String(m.addedBy);
@@ -426,7 +433,8 @@ async function migrateMedia(db: Db, prisma: PrismaClient) {
             continue;
         }
 
-        const spotId = m.spot ? spotIdMap.get(oid(m.spot)) ?? null : null;
+        const rawSpotId = m.spot ? oid(m.spot) || null : null;
+        const spotId = rawSpotId && migratedSpotIds.has(rawSpotId) ? rawSpotId : null;
 
         // Determine media type — fall back to checking which file exists
         let mediaType: MediaType = mediaTypeMap[m.type] ?? 'IMAGE';
@@ -435,8 +443,9 @@ async function migrateMedia(db: Db, prisma: PrismaClient) {
             else mediaType = 'IMAGE';
         }
 
-        const created = await prisma.media.create({
+        await prisma.media.create({
             data: {
+                id: mongoId,
                 type: mediaType,
                 caption: toStr(m._caption),
                 spotId,
@@ -455,16 +464,19 @@ async function migrateMedia(db: Db, prisma: PrismaClient) {
             },
         });
 
-        mediaIdMap.set(mongoId, created.id);
+        migratedMediaIds.add(mongoId);
+        count++;
     }
 
-    log(`  Inserted ${mediaIdMap.size} media`);
+    log(`  Inserted ${count} media`);
 }
 
 async function migrateClips(db: Db, prisma: PrismaClient) {
     log('Migrating clips...');
     const clips = await db.collection('clips').find().toArray();
     log(`  Found ${clips.length} clips in MongoDB`);
+
+    let count = 0;
 
     for (const c of clips) {
         const mongoId = oid(c._id);
@@ -475,10 +487,12 @@ async function migrateClips(db: Db, prisma: PrismaClient) {
             continue;
         }
 
-        const spotId = c.spot ? spotIdMap.get(oid(c.spot)) ?? null : null;
+        const rawSpotId = c.spot ? oid(c.spot) || null : null;
+        const spotId = rawSpotId && migratedSpotIds.has(rawSpotId) ? rawSpotId : null;
 
-        const created = await prisma.clip.create({
+        await prisma.clip.create({
             data: {
+                id: mongoId,
                 title: String(c.title),
                 description: toStr(c.description),
                 provider: clipProviderMap[c.provider] ?? 'YOUTUBE',
@@ -493,10 +507,11 @@ async function migrateClips(db: Db, prisma: PrismaClient) {
             },
         });
 
-        clipIdMap.set(mongoId, created.id);
+        migratedClipIds.add(mongoId);
+        count++;
     }
 
-    log(`  Inserted ${clipIdMap.size} clips`);
+    log(`  Inserted ${count} clips`);
 }
 
 /**
@@ -507,10 +522,6 @@ async function migrateComments(db: Db, prisma: PrismaClient) {
     log('Migrating comments...');
     let count = 0;
 
-    // We need a map from old embedded comment _id → new postgres comment UUID
-    // so we can attach likes to comments
-    const commentIdMap = new Map<string, string>();
-
     // --- Spot comments ---
     const spots = await db
         .collection('spots')
@@ -518,15 +529,16 @@ async function migrateComments(db: Db, prisma: PrismaClient) {
         .toArray();
 
     for (const s of spots) {
-        const spotId = spotIdMap.get(oid(s._id));
-        if (!spotId) continue;
+        const spotId = oid(s._id);
+        if (!spotId || !migratedSpotIds.has(spotId)) continue;
 
         for (const c of s.comments ?? []) {
             const addedById = profileIdMap.get(String(c.addedBy));
             if (!addedById) continue;
 
-            const created = await prisma.comment.create({
+            await prisma.comment.create({
                 data: {
+                    id: oid(c._id) || createId(),
                     content: String(c._content ?? c.content ?? ''),
                     addedById,
                     spotId,
@@ -536,7 +548,6 @@ async function migrateComments(db: Db, prisma: PrismaClient) {
                     updatedAt: toDateRequired(c.updatedAt),
                 },
             });
-            commentIdMap.set(oid(c._id), created.id);
             count++;
         }
     }
@@ -548,15 +559,16 @@ async function migrateComments(db: Db, prisma: PrismaClient) {
         .toArray();
 
     for (const m of medias) {
-        const mediaId = mediaIdMap.get(oid(m._id));
-        if (!mediaId) continue;
+        const mediaId = oid(m._id);
+        if (!mediaId || !migratedMediaIds.has(mediaId)) continue;
 
         for (const c of m.comments ?? []) {
             const addedById = profileIdMap.get(String(c.addedBy));
             if (!addedById) continue;
 
-            const created = await prisma.comment.create({
+            await prisma.comment.create({
                 data: {
+                    id: oid(c._id) || createId(),
                     content: String(c._content ?? c.content ?? ''),
                     addedById,
                     mediaId,
@@ -566,7 +578,6 @@ async function migrateComments(db: Db, prisma: PrismaClient) {
                     updatedAt: toDateRequired(c.updatedAt),
                 },
             });
-            commentIdMap.set(oid(c._id), created.id);
             count++;
         }
     }
@@ -578,15 +589,16 @@ async function migrateComments(db: Db, prisma: PrismaClient) {
         .toArray();
 
     for (const cl of clips) {
-        const clipId = clipIdMap.get(oid(cl._id));
-        if (!clipId) continue;
+        const clipId = oid(cl._id);
+        if (!clipId || !migratedClipIds.has(clipId)) continue;
 
         for (const c of cl.comments ?? []) {
             const addedById = profileIdMap.get(String(c.addedBy));
             if (!addedById) continue;
 
-            const created = await prisma.comment.create({
+            await prisma.comment.create({
                 data: {
+                    id: oid(c._id) || createId(),
                     content: String(c._content ?? c.content ?? ''),
                     addedById,
                     clipId,
@@ -596,7 +608,6 @@ async function migrateComments(db: Db, prisma: PrismaClient) {
                     updatedAt: toDateRequired(c.updatedAt),
                 },
             });
-            commentIdMap.set(oid(c._id), created.id);
             count++;
         }
     }
@@ -608,15 +619,15 @@ async function migrateComments(db: Db, prisma: PrismaClient) {
     let commentLikeCount = 0;
 
     const allSources = [
-        { collection: 'spots', items: spots, idMap: spotIdMap },
-        { collection: 'media', items: medias, idMap: mediaIdMap },
-        { collection: 'clips', items: clips, idMap: clipIdMap },
+        { collection: 'spots', items: spots },
+        { collection: 'media', items: medias },
+        { collection: 'clips', items: clips },
     ];
 
     for (const source of allSources) {
         for (const doc of source.items) {
             for (const c of doc.comments ?? []) {
-                const commentId = commentIdMap.get(oid(c._id));
+                const commentId = oid(c._id);
                 if (!commentId) continue;
 
                 for (const like of c.likes ?? []) {
@@ -626,6 +637,7 @@ async function migrateComments(db: Db, prisma: PrismaClient) {
                     try {
                         await prisma.like.create({
                             data: {
+                                id: oid(like._id) || createId(),
                                 addedById,
                                 commentId,
                                 createdAt: toDateRequired(like.createdAt),
@@ -658,8 +670,8 @@ async function migrateLikes(db: Db, prisma: PrismaClient) {
         .toArray();
 
     for (const m of medias) {
-        const mediaId = mediaIdMap.get(oid(m._id));
-        if (!mediaId) continue;
+        const mediaId = oid(m._id);
+        if (!mediaId || !migratedMediaIds.has(mediaId)) continue;
 
         for (const like of m.likes ?? []) {
             const addedById = profileIdMap.get(String(like.addedBy));
@@ -668,6 +680,7 @@ async function migrateLikes(db: Db, prisma: PrismaClient) {
             try {
                 await prisma.like.create({
                     data: {
+                        id: oid(like._id) || createId(),
                         addedById,
                         mediaId,
                         createdAt: toDateRequired(like.createdAt),
@@ -688,8 +701,8 @@ async function migrateLikes(db: Db, prisma: PrismaClient) {
         .toArray();
 
     for (const cl of clips) {
-        const clipId = clipIdMap.get(oid(cl._id));
-        if (!clipId) continue;
+        const clipId = oid(cl._id);
+        if (!clipId || !migratedClipIds.has(clipId)) continue;
 
         for (const like of cl.likes ?? []) {
             const addedById = profileIdMap.get(String(like.addedBy));
@@ -698,6 +711,7 @@ async function migrateLikes(db: Db, prisma: PrismaClient) {
             try {
                 await prisma.like.create({
                     data: {
+                        id: oid(like._id) || createId(),
                         addedById,
                         clipId,
                         createdAt: toDateRequired(like.createdAt),
@@ -755,7 +769,7 @@ async function migrateProfileSpotFollows(db: Db, prisma: PrismaClient) {
         if (!profileId) continue;
 
         for (const spotRef of p.spotsFollowing ?? []) {
-            const spotId = spotIdMap.get(oid(spotRef));
+            const spotId = oid(spotRef);
             if (!spotId) continue;
 
             try {
@@ -793,6 +807,7 @@ async function migrateRewards(db: Db, prisma: PrismaClient) {
 
             await prisma.reward.create({
                 data: {
+                    id: oid(r._id) || createId(),
                     profileId,
                     type: String(r.type),
                     subtype: String(r.subtype),
@@ -896,9 +911,6 @@ async function main() {
         log('=== Migration complete ===');
         log(`  Users:              ${userIdMap.size}`);
         log(`  Profiles:           ${profileIdMap.size}`);
-        log(`  Spots:              ${spotIdMap.size}`);
-        log(`  Media:              ${mediaIdMap.size}`);
-        log(`  Clips:              ${clipIdMap.size}`);
     } catch (err) {
         console.error('Migration failed:', err);
         process.exit(1);

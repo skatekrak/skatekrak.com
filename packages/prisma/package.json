@@ -16,6 +16,7 @@
         "migrate:maps": "bun run scripts/migrate-maps.ts"
     },
     "dependencies": {
+        "@paralleldrive/cuid2": "^3.3.0",
         "@prisma/adapter-pg": "^7.4.1",
         "@prisma/client": "^7.4.1",
         "@prisma/client-runtime-utils": "^7.4.1",
