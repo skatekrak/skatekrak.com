@@ -13,8 +13,8 @@ export const MediaSchema = z.object({
     updatedAt: z.coerce.date(),
     type: z.enum(['image', 'video']),
     caption: z.string().optional(),
-    image: CloudinaryFileSchema,
-    video: CloudinaryFileSchema.optional(),
+    image: CloudinaryFileSchema.nullish(),
+    video: CloudinaryFileSchema.nullish(),
     addedBy: AddedBySchema,
     spot: SpotSchema.optional(),
 });

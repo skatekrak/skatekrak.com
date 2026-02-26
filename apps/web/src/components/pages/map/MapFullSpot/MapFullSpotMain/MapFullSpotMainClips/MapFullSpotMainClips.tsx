@@ -17,7 +17,7 @@ const MapFullSpotMainClips = ({ spot }: MapFullSpotMainClipsProps) => {
     const { isFetching, data, fetchNextPage, hasNextPage } = useInfiniteQuery(
         orpc.media.listClipsBySpot.infiniteOptions({
             input: (pageParam: Date | undefined) => ({ spotId: spot.id, limit: 20, cursor: pageParam }),
-            initialPageParam: new Date() as Date | undefined,
+            initialPageParam: undefined,
             getNextPageParam: (lastPage) => {
                 if (lastPage.length < 20) return undefined;
                 const lastElement = lastPage[lastPage.length - 1];

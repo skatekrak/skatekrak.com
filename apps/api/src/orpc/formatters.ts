@@ -65,12 +65,12 @@ export function formatPrismaMedia(media: MediaWithRelations): Media {
         updatedAt: media.updatedAt,
         type: media.type.toLowerCase() as 'image' | 'video',
         caption: media.caption ?? undefined,
-        image: media.image as unknown as Media['image'],
-        video: (media.video as unknown as Media['video']) ?? undefined,
+        image: formatCloudinaryFile(media.image),
+        video: formatCloudinaryFile(media.video),
         addedBy: {
             id: media.addedBy.id,
             username: media.addedBy.user.username,
-            profilePicture: media.addedBy.profilePicture as Media['addedBy']['profilePicture'],
+            profilePicture: formatProfilePicture(media.addedBy.profilePicture),
         },
         spot: media.spot ? formatPrismaSpot(media.spot as SpotWithAddedBy) : undefined,
     };
@@ -89,7 +89,7 @@ export function formatPrismaClip(clip: ClipWithRelations): Clip {
         addedBy: {
             id: clip.addedBy.id,
             username: clip.addedBy.user.username,
-            profilePicture: clip.addedBy.profilePicture as Clip['addedBy']['profilePicture'],
+            profilePicture: formatProfilePicture(clip.addedBy.profilePicture),
         },
     };
 }
@@ -100,6 +100,28 @@ export function formatPrismaProfile(profile: ProfileWithUser) {
         username: profile.user.username,
         profilePicture: profile.profilePicture,
     } as any;
+}
+
+export function formatCloudinaryFile(file: any): any {
+    if (!file) return undefined;
+    return {
+        publicId: file.publicId ?? '',
+        version: file.version ?? '',
+        url: file.url ?? '',
+        format: file.format ?? '',
+        width: typeof file.width === 'number' ? file.width : 0,
+        height: typeof file.height === 'number' ? file.height : 0,
+        jpg: file.jpg ?? file.url?.replace(/\.webp$/, '.jpg') ?? '',
+    };
+}
+
+export function formatProfilePicture(pic: any): any {
+    if (!pic) return undefined;
+    return {
+        url: pic.url ?? '',
+        publicId: pic.publicId ?? '',
+        jpg: pic.jpg ?? pic.url?.replace(/\.webp$/, '.jpg') ?? '',
+    };
 }
 
 export function formatStat(stat: any) {

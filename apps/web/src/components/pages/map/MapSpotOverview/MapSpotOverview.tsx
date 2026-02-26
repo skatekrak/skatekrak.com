@@ -37,7 +37,7 @@ const MapSpotOverview: React.FC<MapSpotOverviewProps> = ({ spotOverview, onPopup
                 >
                     {spotOverview.spot.name}
                 </h4>
-                {spotOverview.mostLikedMedia && (
+                {spotOverview.mostLikedMedia?.image && (
                     <div className="map-spot-overview-cover-container">
                         <div
                             className="map-spot-overview-cover"

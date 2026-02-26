@@ -40,7 +40,7 @@ export const CloudinaryFileSchema = z.object({
     format: z.string(),
     width: z.number(),
     height: z.number(),
-    jpg: z.string(),
+    jpg: z.string().optional(),
 });
 
 export const AddedBySchema = z.object({
@@ -50,9 +50,9 @@ export const AddedBySchema = z.object({
         .object({
             url: z.string(),
             publicId: z.string(),
-            jpg: z.string(),
+            jpg: z.string().optional(),
         })
-        .optional(),
+        .nullish(),
 });
 
 export const ProfileSummarySchema = z.object({

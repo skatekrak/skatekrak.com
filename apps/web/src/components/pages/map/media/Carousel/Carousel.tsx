@@ -118,5 +118,5 @@ const CarouselContent = ({ media }: { media: Media }) => {
         return <VideoPlayer style={{ paddingTop: 'inherit' }} url={media.video.url} loop controls playing />;
     }
 
-    return <img className="w-full h-full object-contain" src={media.image.url} alt={media.caption} />;
+    return <img className="w-full h-full object-contain" src={media.image?.url} alt={media.caption} />;
 };

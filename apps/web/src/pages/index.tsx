@@ -81,7 +81,7 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
                 title: overview.spot.name,
                 description: `${overview.spot.location.streetNumber} ${overview.spot.location.streetName}, ${overview.spot.location.city} ${overview.spot.location.country}`,
                 imageUrl:
-                    overview.mostLikedMedia != null
+                    overview.mostLikedMedia?.image != null
                         ? `https://res.cloudinary.com/krak/image/upload/c_fill,w_1200,h_630/${overview.mostLikedMedia.image.publicId}.jpg`
                         : null,
                 url: `${baseURL}?spot=${query.spot}`,

@@ -15,7 +15,7 @@ export const ProfileMeSchema = z.object({
             format: z.string(),
             width: z.number(),
             height: z.number(),
-            jpg: z.string(),
+            jpg: z.string().optional(),
         })
         .nullable(),
 });
