@@ -3,11 +3,10 @@ import React from 'react';
 import MapMedia from '@/components/pages/map/media/MapMedia';
 import { MapCustomPanelTabs } from '@/components/pages/map/MapCustom/panel/MapCustomPanel';
 import VideoPlayer from '@/components/Ui/Player/VideoPlayer';
-import { Spot } from '@krak/carrelage-client';
+import type { Spot, Media } from '@krak/contracts';
 import MapSearchResultSpot from '@/components/pages/map/MapNavigation/MapSearch/MapSearchResults/MapSearchResultSpot';
 import { useSpotID } from '@/lib/hook/queryState';
 import { useMap } from 'react-map-gl';
-import { Media } from '@/shared/feudartifice/types';
 
 type Props = {
     activeTab: MapCustomPanelTabs;

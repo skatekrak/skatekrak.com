@@ -7,7 +7,7 @@ import IconArrowHead from '@/components/Ui/Icons/ArrowHead';
 import Typography from '@/components/Ui/typography/Typography';
 import SpotIcon from '@/components/Ui/Utils/SpotIcon';
 import IconInfo from '@/components/Ui/Icons/IconInfo';
-import { Media } from '@krak/carrelage-client';
+import type { Media } from '@krak/contracts';
 import { useMediaID } from '@/lib/hook/queryState';
 
 type CarouselMediaProps = {

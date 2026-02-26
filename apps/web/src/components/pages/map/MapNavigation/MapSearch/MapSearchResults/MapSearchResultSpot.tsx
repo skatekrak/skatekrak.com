@@ -12,7 +12,8 @@ import IconicBadge from '@/components/pages/map/marker/badges/Iconic';
 import HistoryBadge from '@/components/pages/map/marker/badges/History';
 import MinuteBadge from '@/components/pages/map/marker/badges/Minute';
 
-import { Spot, Status, Types } from '@krak/carrelage-client';
+import type { Spot } from '@krak/contracts';
+import { Status, Types } from '@krak/carrelage-client';
 import { SpotHit } from '@/lib/meilisearch';
 
 type Props<T> = {

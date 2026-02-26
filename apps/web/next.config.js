@@ -8,7 +8,7 @@ module.exports = withBundleAnalyzer({
     compiler: {
         removeConsole: process.env.NODE_ENV === 'production',
     },
-    transpilePackages: ['@krak/auth', '@krak/carrelage-client', '@krak/trpc'],
+    transpilePackages: ['@krak/auth', '@krak/carrelage-client', '@krak/contracts'],
     images: {
         unoptimized: true,
         remotePatterns: [

@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import classNames from 'classnames';
 
 import { generateCategories } from '../utils';
-import { trpc } from '@/server/trpc/utils';
+import { useQuery } from '@tanstack/react-query';
+import { orpc } from '@/server/orpc/client';
 import { Category as TCategory } from '../types';
 import Typography from '@/components/Ui/typography/Typography';
 import ArrowHead from '@/components/Ui/Icons/ArrowHead';
@@ -13,7 +14,7 @@ type Props = {
 };
 
 const MobileMaps: React.FC<Props> = ({ closeSheet }) => {
-    const { isLoading, data } = trpc.maps.list.useQuery();
+    const { isLoading, data } = useQuery(orpc.maps.list.queryOptions({}));
 
     return (
         <div className="block">

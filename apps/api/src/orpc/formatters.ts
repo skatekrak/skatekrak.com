@@ -106,5 +106,12 @@ export function formatStat(stat: any) {
     if (!stat) {
         return { createdAt: new Date(), className: 'Stat', all: 0, monthly: 0, weekly: 0, daily: 0 };
     }
-    return stat;
+    return {
+        createdAt: stat.createdAt ? new Date(stat.createdAt) : new Date(),
+        className: stat.className ?? 'Stat',
+        all: stat.all ?? 0,
+        monthly: stat.monthly ?? 0,
+        weekly: stat.weekly ?? 0,
+        daily: stat.daily ?? 0,
+    };
 }

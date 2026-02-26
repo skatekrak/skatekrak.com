@@ -8,7 +8,8 @@ import Map from '../Map';
 
 import { QuickAccessMap, Category as TCategory } from '../types';
 import { generateCategories } from '../utils';
-import { trpc } from '@/server/trpc/utils';
+import { useQuery } from '@tanstack/react-query';
+import { orpc } from '@/server/orpc/client';
 
 const isCategorySelected = (category: TCategory, mapId: string | string[]) =>
     category.maps.some((map) => map.id === mapId);
@@ -18,7 +19,7 @@ const sortMaps = (maps: QuickAccessMap[]) => alphabetical(maps, (map) => map.nam
 const QuickAccessDesktopMaps = () => {
     const router = useRouter();
 
-    const { isLoading, data } = trpc.maps.list.useQuery();
+    const { isLoading, data } = useQuery(orpc.maps.list.queryOptions({}));
 
     return (
         <>

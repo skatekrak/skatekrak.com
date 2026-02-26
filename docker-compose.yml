@@ -35,6 +35,7 @@ services:
             - traefik.http.services.krak-api.loadbalancer.server.port=3000 # Adapt to the exposed port in the service
         working_dir: /app
         depends_on:
+            - mongodb
             - postgres
         volumes:
             - .:/app

@@ -2,7 +2,7 @@ import React from 'react';
 
 import SocialShare from '@/components/Ui/share/SocialShare';
 
-import { Media } from '@krak/carrelage-client';
+import type { Media } from '@krak/contracts';
 
 type Props = {
     media: Media;

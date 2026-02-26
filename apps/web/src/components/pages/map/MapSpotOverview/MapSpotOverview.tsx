@@ -5,7 +5,10 @@ import { Popup } from 'react-map-gl';
 import IconMedia from '@/components/Ui/Icons/IconMedia';
 import IconClips from '@/components/Ui/Icons/IconClips';
 
-import { SpotOverview } from '@krak/carrelage-client';
+import type { InferContractRouterOutputs } from '@orpc/contract';
+import type { contract } from '@krak/contracts';
+
+type SpotOverview = InferContractRouterOutputs<typeof contract>['spots']['getSpotOverview'];
 
 type MapSpotOverviewProps = {
     spotOverview: SpotOverview;

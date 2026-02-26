@@ -1,7 +1,11 @@
 import { create } from 'zustand';
 import { devtools } from 'zustand/middleware';
 
-import type { SpotOverview, Status, Types } from '@krak/carrelage-client';
+import type { Status, Types } from '@krak/carrelage-client';
+import type { InferContractRouterOutputs } from '@orpc/contract';
+import type { contract } from '@krak/contracts';
+
+type SpotOverview = InferContractRouterOutputs<typeof contract>['spots']['getSpotOverview'];
 
 export type FullSpotTab =
     | 'info'

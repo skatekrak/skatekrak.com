@@ -13,7 +13,8 @@ import {
 import UserProfilePic from '@/components/Ui/user/UserProfilePic';
 import Typography from '@/components/Ui/typography/Typography';
 
-import { trpc } from '@/server/trpc/utils';
+import { useQuery } from '@tanstack/react-query';
+import { orpc } from '@/server/orpc/client';
 import { signOut } from '@/lib/auth';
 
 const HeaderProfile = () => {
@@ -30,7 +31,7 @@ const HeaderProfile = () => {
     const dismiss = useDismiss(context);
     const { getReferenceProps, getFloatingProps } = useInteractions([click, dismiss]);
 
-    const { data: profile, isLoading } = trpc.profiles.me.useQuery(undefined, { retry: false });
+    const { data: profile, isLoading } = useQuery(orpc.profiles.me.queryOptions({ retry: false }));
 
     const handleLogOutClick = async () => {
         await signOut();

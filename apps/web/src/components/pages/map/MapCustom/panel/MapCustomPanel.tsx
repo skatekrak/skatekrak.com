@@ -6,12 +6,13 @@ import IconArrow from '@/components/Ui/Icons/Arrow';
 import { useCustomMapID, useCityID, useMediaID, useSpotID, useSpotModal } from '@/lib/hook/queryState';
 import Content from '@/components/pages/map/MapCustom/panel/Content';
 import { CustomMap } from '@/lib/map/types';
-import { Spot } from '@krak/carrelage-client';
+import type { Spot } from '@krak/contracts';
 import MapCustomMediaCarousel from '@/components/pages/map/MapCustom/MapCustomMediaCarousel';
 import ScrollBar from '@/components/Ui/Scrollbar';
 import { KrakLoading } from '@/components/Ui/Icons/Spinners';
 import InfiniteScroll from '@/components/Ui/InfiniteScroll';
-import { trpc } from '@/server/trpc/utils';
+import { useInfiniteQuery } from '@tanstack/react-query';
+import { orpc } from '@/server/orpc/client';
 
 export type MapCustomPanelTabs = 'media' | 'video' | 'spots' | 'soundtrack';
 
@@ -52,18 +53,19 @@ const MapCustomPanel = ({ map, spots }: MapCustomPanelProps) => {
 
     const [mediaId] = useMediaID();
 
-    const { isLoading, isFetchingNextPage, data, hasNextPage, fetchNextPage } = trpc.media.list.useInfiniteQuery(
-        { hashtag: id, limit: 20 },
-        {
+    const { isLoading, isFetchingNextPage, data, hasNextPage, fetchNextPage } = useInfiniteQuery(
+        orpc.media.list.infiniteOptions({
+            input: (pageParam: Date | undefined) => ({ hashtag: id, limit: 20, cursor: pageParam }),
+            initialPageParam: undefined as Date | undefined,
             getNextPageParam: (lastPage) => {
                 const lastElement = lastPage[lastPage.length - 1];
-                return lastElement?.createdAt ?? null;
+                return lastElement?.createdAt ?? undefined;
             },
             placeholderData: (prev) => prev,
             refetchOnMount: false,
             refetchOnReconnect: false,
             refetchOnWindowFocus: false,
-        },
+        }),
     );
     const medias = data?.pages.flatMap((page) => page) ?? [];
 

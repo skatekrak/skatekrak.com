@@ -1,14 +1,15 @@
 import React from 'react';
+import { useInfiniteQuery } from '@tanstack/react-query';
 import { KrakLoading } from '@/components/Ui/Icons/Spinners';
 import InfiniteScroll from '@/components/Ui/InfiniteScroll';
 import ScrollBar from '@/components/Ui/Scrollbar';
 import KrakMasonry from '@/components/Ui/Masonry';
 import MapMedia from '@/components/pages/map/media/MapMedia';
 
-import { Spot, Media } from '@krak/carrelage-client';
+import type { Spot, Media } from '@krak/contracts';
 import { flatten } from '@/lib/helpers';
 import { useSettingsStore } from '@/store/settings';
-import { trpc } from '@/server/trpc/utils';
+import { orpc } from '@/server/orpc/client';
 
 export type MapFullSpotMediasProps = {
     medias: Media[];
@@ -18,17 +19,18 @@ export type MapFullSpotMediasProps = {
 const MapFullSpotMedias: React.FC<MapFullSpotMediasProps> = ({ spot }) => {
     const isMobile = useSettingsStore((state) => state.isMobile);
 
-    const { isFetching, data, hasNextPage, fetchNextPage } = trpc.media.listBySpot.useInfiniteQuery(
-        { spotId: spot.id, limit: 20 },
-        {
+    const { isFetching, data, hasNextPage, fetchNextPage } = useInfiniteQuery(
+        orpc.media.listBySpot.infiniteOptions({
+            input: (pageParam: Date | undefined) => ({ spotId: spot.id, limit: 20, cursor: pageParam }),
+            initialPageParam: undefined as Date | undefined,
             getNextPageParam: (lastPage) => {
-                if (lastPage.length < 20) return null;
+                if (lastPage.length < 20) return undefined;
                 const lastElement = lastPage[lastPage.length - 1];
-                return lastElement?.createdAt ?? null;
+                return lastElement?.createdAt ?? undefined;
             },
             refetchOnWindowFocus: false,
             refetchOnMount: false,
-        },
+        }),
     );
     const medias = flatten(data?.pages ?? []);
 

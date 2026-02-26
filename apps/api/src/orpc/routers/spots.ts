@@ -1,0 +1,184 @@
+import { ORPCError } from '@orpc/server';
+import { type SpotGeoJSON, Status, Types } from '@krak/carrelage-client';
+import type { Media as PrismaMedia } from '@krak/prisma';
+
+import { os } from '../base';
+import {
+    type SpotWithAddedBy,
+    type MediaWithRelations,
+    formatPrismaSpot,
+    formatPrismaMedia,
+    formatPrismaClip,
+    formatStat,
+} from '../formatters';
+
+// ============================================================================
+// Shared Prisma include for addedBy with user relation
+// ============================================================================
+
+const addedByInclude = { addedBy: { include: { user: { select: { username: true } } } } } as const;
+
+// ============================================================================
+// GeoJSON helper
+// ============================================================================
+
+function spotsToGeoJSON(spots: SpotWithAddedBy[]): SpotGeoJSON[] {
+    return spots.map((spot) => {
+        const status = spot.status.toLowerCase() as Status;
+        const type = spot.type.toLowerCase() as Types;
+        return {
+            type: 'Feature',
+            geometry: {
+                type: 'Point',
+                coordinates: [spot.longitude, spot.latitude],
+            },
+            properties: {
+                id: spot.id,
+                name: spot.name,
+                type: status === Status.Active ? type : status,
+                indoor: spot.indoor,
+                tags: spot.tags,
+                mediasStat: formatStat(spot.mediasStat),
+            },
+        } satisfies SpotGeoJSON;
+    });
+}
+
+function addHashtagIfNeeded(tag: string) {
+    return tag[0] !== '#' ? `#${tag}` : tag;
+}
+
+// ============================================================================
+// Procedure implementations
+// ============================================================================
+
+export const getSpot = os.spots.getSpot.handler(async ({ context, input }) => {
+    const spot = await context.prisma.spot.findUnique({
+        where: { id: input.id },
+        include: addedByInclude,
+    });
+
+    if (!spot) {
+        throw new ORPCError('NOT_FOUND', { message: 'Spot not found' });
+    }
+
+    return formatPrismaSpot(spot);
+});
+
+export const getSpotOverview = os.spots.getSpotOverview.handler(async ({ context, input }) => {
+    const now = new Date();
+
+    const spotDoc = await context.prisma.spot.findUnique({
+        where: { id: input.id },
+        include: addedByInclude,
+    });
+
+    if (!spotDoc) {
+        throw new ORPCError('NOT_FOUND', { message: 'Spot not found' });
+    }
+
+    const spot = formatPrismaSpot(spotDoc);
+
+    const [mostLikedRaw, mediaDocs, clipDocs] = await Promise.all([
+        context.prisma.$queryRaw<PrismaMedia[]>`
+            SELECT m.*, json_build_object(
+                'id', p.id,
+                'userId', p."userId",
+                'profilePicture', p."profilePicture",
+                'user', json_build_object('username', u.username)
+            ) as "addedBy"
+            FROM media m
+            JOIN profiles p ON p.id = m."addedById"
+            JOIN users u ON u.id = p."userId"
+            WHERE m."spotId" = ${input.id}
+              AND m.type = 'IMAGE'
+            ORDER BY (m."likesStat"->>'all')::int DESC NULLS LAST
+            LIMIT 1
+        `,
+        context.prisma.media.findMany({
+            where: {
+                spotId: input.id,
+                createdAt: { lt: now },
+                OR: [{ image: { not: { equals: null } } }, { video: { not: { equals: null } } }],
+                AND: [{ OR: [{ releaseDate: null }, { releaseDate: { lt: now } }] }],
+            },
+            orderBy: { createdAt: 'desc' },
+            take: 5,
+            include: {
+                addedBy: { include: { user: { select: { username: true } } } },
+                spot: { include: addedByInclude },
+            },
+        }),
+        context.prisma.clip.findMany({
+            where: { spotId: input.id, createdAt: { lt: now } },
+            orderBy: { createdAt: 'desc' },
+            take: 5,
+            include: addedByInclude,
+        }),
+    ]);
+
+    const medias = mediaDocs.map(formatPrismaMedia);
+    const clips = clipDocs.map(formatPrismaClip);
+    const mostLikedMedia =
+        mostLikedRaw.length > 0
+            ? formatPrismaMedia(mostLikedRaw[0] as unknown as MediaWithRelations)
+            : undefined;
+
+    return {
+        spot,
+        medias,
+        clips,
+        mostLikedMedia,
+    };
+});
+
+export const getSpotsGeoJSON = os.spots.getSpotsGeoJSON.handler(async ({ context, input }) => {
+    const spots = await context.prisma.spot.findMany({
+        where: {
+            longitude: {
+                gte: input.southWest.longitude,
+                lte: input.northEast.longitude,
+            },
+            latitude: {
+                gte: input.southWest.latitude,
+                lte: input.northEast.latitude,
+            },
+        },
+        include: addedByInclude,
+    });
+
+    return spotsToGeoJSON(spots);
+});
+
+export const listByTags = os.spots.listByTags.handler(async ({ context, input }) => {
+    if (input.tagsFromMedia) {
+        const medias = await context.prisma.media.findMany({
+            where: {
+                hashtags: { hasSome: input.tags.map(addHashtagIfNeeded) },
+                spotId: { not: null },
+            },
+            select: { spotId: true },
+            distinct: ['spotId'],
+            take: input.limit,
+        });
+
+        const spotIds = medias.map((m) => m.spotId).filter((id): id is string => id != null);
+
+        if (spotIds.length === 0) return [];
+
+        const spots = await context.prisma.spot.findMany({
+            where: { id: { in: spotIds } },
+            include: addedByInclude,
+        });
+
+        return spots.map(formatPrismaSpot);
+    }
+
+    const spots = await context.prisma.spot.findMany({
+        where: { tags: { hasSome: input.tags } },
+        include: addedByInclude,
+        take: input.limit,
+    });
+
+    return spots.map(formatPrismaSpot);
+});

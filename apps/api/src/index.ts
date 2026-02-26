@@ -1,4 +1,5 @@
-import { fetchRequestHandler } from '@trpc/server/adapters/fetch';
+import { RPCHandler } from '@orpc/server/fetch';
+import { onError } from '@orpc/server';
 import { cors } from '@elysiajs/cors';
 import { Elysia } from 'elysia';
 import { logger } from '@bogeychan/elysia-logger';
@@ -8,7 +9,8 @@ import { PrismaPg } from '@prisma/adapter-pg';
 import { PrismaClient } from '@krak/prisma';
 import { createAuth } from '@krak/auth';
 
-import { appRouter, createContext } from '@krak/trpc';
+import { router } from './orpc/router';
+import type { AuthSession } from './orpc/base';
 import { endOfWeek, startOfWeek, sub } from 'date-fns';
 import { env } from './env';
 
@@ -18,6 +20,14 @@ client.connect();
 const adapter = new PrismaPg({ connectionString: env.DATABASE_URL });
 const prisma = new PrismaClient({ adapter });
 const auth = createAuth(prisma, env.BETTER_AUTH_BASE_URL);
+
+const handler = new RPCHandler(router, {
+    interceptors: [
+        onError((error) => {
+            console.error(error);
+        }),
+    ],
+});
 
 const app = new Elysia()
     .use(logger())
@@ -51,14 +61,27 @@ const app = new Elysia()
     )
     .use(cors({ origin: /(\w+\.)?skatekrak\.com$/, credentials: true }))
     .mount(auth.handler)
-    .all('/trpc/*', async ({ request }) => {
-        return fetchRequestHandler({
-            endpoint: '/trpc',
-            req: request,
-            router: appRouter,
-            createContext: createContext(client, prisma, auth),
-        });
-    })
+    .all(
+        '/rpc/*',
+        async ({ request }: { request: Request }) => {
+            const session = (await auth.api.getSession({
+                headers: request.headers,
+            })) as AuthSession;
+
+            const { response } = await handler.handle(request, {
+                prefix: '/rpc',
+                context: {
+                    headers: request.headers,
+                    db: client.db('carrelage'),
+                    prisma,
+                    session,
+                },
+            });
+
+            return response ?? new Response('Not Found', { status: 404 });
+        },
+        { parse: 'none' },
+    )
     .get('/', () => ({ message: 'krak-api' }));
 
 app.listen(3000);

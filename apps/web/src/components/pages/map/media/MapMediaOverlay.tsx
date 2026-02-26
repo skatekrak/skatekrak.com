@@ -3,7 +3,7 @@ import { useMap } from 'react-map-gl';
 
 import Typography from '@/components/Ui/typography/Typography';
 
-import { Media } from '@krak/carrelage-client';
+import type { Media } from '@krak/contracts';
 import SpotIcon from '@/components/Ui/Utils/SpotIcon';
 import { useSpotID } from '@/lib/hook/queryState';
 

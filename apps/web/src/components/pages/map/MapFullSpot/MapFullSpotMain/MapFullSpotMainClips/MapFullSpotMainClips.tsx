@@ -1,30 +1,31 @@
 import React from 'react';
+import { useInfiniteQuery } from '@tanstack/react-query';
 import ScrollBar from '@/components/Ui/Scrollbar';
 import InfiniteScroll from '@/components/Ui/InfiniteScroll';
 import { KrakLoading } from '@/components/Ui/Icons/Spinners';
 import MapFullSpotMainClip from './MapFullSpotMainClip';
 
 import { flatten } from '@/lib/helpers';
-import { Spot } from '@krak/carrelage-client';
-import { trpc } from '@/server/trpc/utils';
+import type { Spot } from '@krak/contracts';
+import { orpc } from '@/server/orpc/client';
 
 export type MapFullSpotMainClipsProps = {
     spot: Spot;
 };
 
 const MapFullSpotMainClips = ({ spot }: MapFullSpotMainClipsProps) => {
-    const { isFetching, data, fetchNextPage, hasNextPage } = trpc.media.listClipsBySpot.useInfiniteQuery(
-        { spotId: spot.id, limit: 20 },
-        {
+    const { isFetching, data, fetchNextPage, hasNextPage } = useInfiniteQuery(
+        orpc.media.listClipsBySpot.infiniteOptions({
+            input: (pageParam: Date | undefined) => ({ spotId: spot.id, limit: 20, cursor: pageParam }),
+            initialPageParam: new Date() as Date | undefined,
             getNextPageParam: (lastPage) => {
-                if (lastPage.length < 20) return null;
+                if (lastPage.length < 20) return undefined;
                 const lastElement = lastPage[lastPage.length - 1];
-                return lastElement?.createdAt ?? null;
+                return lastElement?.createdAt ?? undefined;
             },
-            initialCursor: new Date(),
             refetchOnWindowFocus: false,
             refetchOnMount: false,
-        },
+        }),
     );
     const clips = flatten(data?.pages ?? []);
 

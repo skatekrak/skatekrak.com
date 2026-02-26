@@ -1,13 +1,12 @@
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import { MapRef } from 'react-map-gl';
 import { SpotGeoJSON } from '@krak/carrelage-client';
-import { trpc } from '@/server/trpc/utils';
+import { client } from '@/server/orpc/client';
 import useDebounce from '@/lib/hook/useDebounce';
 import { useViewport } from '@/lib/hook/queryState';
 
 export const useSpotsGeoJSON = (mapRef: MapRef | undefined, enabled = true) => {
     const [viewport] = useViewport();
-    const utils = trpc.useUtils();
 
     const debouncedViewport = useDebounce(viewport, 200);
 
@@ -20,7 +19,7 @@ export const useSpotsGeoJSON = (mapRef: MapRef | undefined, enabled = true) => {
             const bounds = map.getBounds();
             const northEast = bounds.getNorthEast();
             const southWest = bounds.getSouthWest();
-            const spots = await utils.spots.getSpotsGeoJSON.fetch({
+            const spots = await client.spots.getSpotsGeoJSON({
                 northEast: { latitude: northEast.lat, longitude: northEast.lng },
                 southWest: { latitude: southWest.lat, longitude: southWest.lng },
             });

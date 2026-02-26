@@ -4,7 +4,7 @@ import { useShallow } from 'zustand/react/shallow';
 import MapMediaOverlay from './MapMediaOverlay';
 import MapMediaShare from './MapMediaShare';
 
-import { Media } from '@krak/carrelage-client';
+import type { Media } from '@krak/contracts';
 import MapMediaVideoPlayer from './MapMediaVideoPlayer';
 import IconFullScreen from '@/components/Ui/Icons/IconFullScreen';
 import { useMediaID } from '@/lib/hook/queryState';

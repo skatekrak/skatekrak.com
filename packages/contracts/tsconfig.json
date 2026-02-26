@@ -1,0 +1,10 @@
+{
+    "extends": "@total-typescript/tsconfig/bundler/no-dom/library-monorepo",
+    "compilerOptions": {
+        "composite": true,
+        "esModuleInterop": true,
+        "types": ["bun-types"]
+    },
+    "include": ["src"],
+    "exclude": ["node_modules"]
+}

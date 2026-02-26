@@ -5,7 +5,7 @@ import dynamic from 'next/dynamic';
 
 import Layout from '@/components/Layout';
 import { draw } from 'radash';
-import { trpcServer } from '@/server/trpc/utils';
+import { serverClient } from '@/server/orpc/client';
 import cities from '@/data/cities/_cities';
 import { centerFromBounds } from '@/lib/map/helpers';
 
@@ -75,7 +75,7 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
 
     if (query.spot != null && typeof query.spot === 'string') {
         try {
-            const overview = await trpcServer.spots.getSpotOverview.query({ id: query.spot });
+            const overview = await serverClient.spots.getSpotOverview({ id: query.spot });
 
             ogData = {
                 title: overview.spot.name,

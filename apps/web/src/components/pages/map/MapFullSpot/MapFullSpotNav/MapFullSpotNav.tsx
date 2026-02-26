@@ -13,7 +13,8 @@ import MapFullSpotNavItem from './MapFullSpotNavItem';
 import MapFullSpotAddTrigger from '../MapFullSpotMain/MapFullSpotAdd/MapFullSpotAddTrigger';
 import Typography from '@/components/Ui/typography/Typography';
 
-import { Spot, Status, Types } from '@krak/carrelage-client';
+import type { Spot } from '@krak/contracts';
+import { Status, Types } from '@krak/carrelage-client';
 import type { FullSpotTab } from '@/store/map';
 import { useFullSpotSelectedTab } from '@/lib/hook/queryState';
 import { useMapStore } from '@/store/map';

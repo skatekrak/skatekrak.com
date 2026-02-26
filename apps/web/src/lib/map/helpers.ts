@@ -1,4 +1,8 @@
-import { Spot, SpotGeoJSON, Status } from '@krak/carrelage-client';
+import { type SpotGeoJSON, Status } from '@krak/carrelage-client';
+import type { InferContractRouterOutputs } from '@orpc/contract';
+import type { contract } from '@krak/contracts';
+
+type Spot = InferContractRouterOutputs<typeof contract>['spots']['getSpot'];
 
 /**
  *

@@ -1,0 +1,81 @@
+import { z } from 'zod';
+
+import {
+    StatSchema,
+    LocationSchema,
+    ProfileSummarySchema,
+    SpotTypeSchema,
+    SpotStatusSchema,
+} from './shared';
+
+// ============================================================================
+// Output schemas
+// ============================================================================
+
+export const SpotSchema = z.object({
+    id: z.string(),
+    createdAt: z.date(),
+    updatedAt: z.date(),
+    className: z.string(),
+    name: z.string(),
+    location: LocationSchema,
+    geo: z.tuple([z.number(), z.number()]),
+    geoHash: z.string(),
+    type: SpotTypeSchema,
+    status: SpotStatusSchema,
+    description: z.string(),
+    indoor: z.boolean(),
+    openingHours: z.array(z.string()),
+    phone: z.string(),
+    website: z.string(),
+    instagram: z.string(),
+    snapchat: z.string(),
+    facebook: z.string(),
+    addedBy: ProfileSummarySchema,
+    coverURL: z.string(),
+    commentsStat: StatSchema,
+    comments: z.array(z.any()),
+    mediasStat: StatSchema,
+    clipsStat: StatSchema,
+    tricksDoneStat: StatSchema,
+    tags: z.array(z.string()),
+});
+
+export const SpotGeoJSONSchema = z.object({
+    type: z.literal('Feature'),
+    geometry: z.object({
+        type: z.literal('Point'),
+        coordinates: z.tuple([z.number(), z.number()]),
+    }),
+    properties: z.object({
+        id: z.string(),
+        name: z.string(),
+        type: z.union([SpotTypeSchema, SpotStatusSchema]),
+        indoor: z.boolean(),
+        tags: z.array(z.string()),
+        mediasStat: StatSchema,
+    }),
+});
+
+// ============================================================================
+// Input schemas
+// ============================================================================
+
+export const getSpotInput = z.object({
+    id: z.string(),
+});
+
+export const getSpotOverviewInput = z.object({
+    id: z.string(),
+});
+
+export const getSpotsGeoJSONInput = z.object({
+    northEast: z.object({ latitude: z.number(), longitude: z.number() }),
+    southWest: z.object({ latitude: z.number(), longitude: z.number() }),
+});
+
+export const listByTagsInput = z.object({
+    tags: z.array(z.string()).min(1, 'You must give at least one tag'),
+    tagsFromMedia: z.boolean().default(false),
+    limit: z.number().default(2000),
+});

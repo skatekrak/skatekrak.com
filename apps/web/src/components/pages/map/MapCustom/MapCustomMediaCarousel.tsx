@@ -1,9 +1,10 @@
 import React from 'react';
+import { useQuery } from '@tanstack/react-query';
 
 import CarouselModal from '@/components/pages/map/media/Carousel/CarouselModal';
-import { Media } from '@krak/carrelage-client';
+import type { Media } from '@krak/contracts';
 import { useMediaID } from '@/lib/hook/queryState';
-import { trpc } from '@/server/trpc/utils';
+import { orpc } from '@/server/orpc/client';
 
 type Props = {
     initialMediaId: string;
@@ -11,9 +12,14 @@ type Props = {
 };
 
 const MapCustomMediaCarousel = ({ hashtag, initialMediaId }: Props) => {
-    const { data: media, isLoading: mediaLoading } = trpc.media.getById.useQuery(
-        { id: initialMediaId },
-        { placeholderData: (prev) => prev, refetchOnMount: false, refetchOnReconnect: false, refetchOnWindowFocus: false },
+    const { data: media, isLoading: mediaLoading } = useQuery(
+        orpc.media.getById.queryOptions({
+            input: { id: initialMediaId },
+            placeholderData: (prev) => prev,
+            refetchOnMount: false,
+            refetchOnReconnect: false,
+            refetchOnWindowFocus: false,
+        }),
     );
 
     return media && !mediaLoading && <MapCustomMediaCarouselContent hashtag={hashtag} media={media} />;
@@ -24,10 +30,14 @@ export default MapCustomMediaCarousel;
 const MapCustomMediaCarouselContent = ({ hashtag, media }: { hashtag: string; media: Media }) => {
     const [, setMediaID] = useMediaID();
 
-    const { data, isLoading } = trpc.media.getHashtagMediasAround.useQuery({
-        hashtag,
-        mediaCreatedAt: media.createdAt,
-    });
+    const { data, isLoading } = useQuery(
+        orpc.media.getHashtagMediasAround.queryOptions({
+            input: {
+                hashtag,
+                mediaCreatedAt: media.createdAt,
+            },
+        }),
+    );
 
     return (
         <CarouselModal

@@ -31,8 +31,6 @@ import '../../public/dist/auth/auth.css';
 import 'mapbox-gl/dist/mapbox-gl.css';
 
 import '../../public/styles/masonry.css';
-import { trpc } from '@/server/trpc/utils';
-
 const App: React.FC<AppProps> = ({ Component, pageProps }) => {
     const [queryClient] = useState(() => new QueryClient());
 
@@ -53,4 +51,4 @@ const App: React.FC<AppProps> = ({ Component, pageProps }) => {
     );
 };
 
-export default trpc.withTRPC(App);
+export default App;
