@@ -6,7 +6,7 @@
     "dependencies": {
         "@krak/carrelage-client": "workspace:*",
         "@orpc/contract": "^1.6.0",
-        "zod": "^3.23.5"
+        "zod": "^4.3.6"
     },
     "devDependencies": {
         "@total-typescript/tsconfig": "^1.0.4",

@@ -13,6 +13,7 @@ import {
     formatStat,
 } from '../formatters';
 import { getVideoInformation } from '../../helpers/videos';
+import { buildStat } from '../../helpers/stats';
 
 // ============================================================================
 // Shared Prisma include for addedBy with user relation
@@ -208,22 +209,38 @@ export const addClipToSpot = os.spots.addClipToSpot.use(authed).handler(async ({
         throw new ORPCError('NOT_FOUND', { message: 'Profile not found' });
     }
 
-    // Fetch video metadata from YouTube/Vimeo
+    // Fetch video metadata from YouTube/Vimeo (outside transaction — external call)
     const videoInfo = await getVideoInformation(input.videoURL);
 
-    // Create the clip
-    const clip = await context.prisma.clip.create({
-        data: {
-            id: new ObjectId().toHexString(),
-            title: videoInfo.title,
-            description: videoInfo.description,
-            provider: videoInfo.provider.toUpperCase() as ClipProvider,
-            videoURL: input.videoURL,
-            thumbnailURL: videoInfo.thumbnailURL,
-            spotId: input.spotId,
-            addedById: profile.id,
-        },
-        include: addedByInclude,
+    // Create the clip and recompute clipsStat atomically
+    const clip = await context.prisma.$transaction(async (tx) => {
+        const created = await tx.clip.create({
+            data: {
+                id: new ObjectId().toHexString(),
+                title: videoInfo.title,
+                description: videoInfo.description,
+                provider: videoInfo.provider.toUpperCase() as ClipProvider,
+                videoURL: input.videoURL,
+                thumbnailURL: videoInfo.thumbnailURL,
+                spotId: input.spotId,
+                addedById: profile.id,
+            },
+            include: addedByInclude,
+        });
+
+        // Recompute clipsStat on the spot (same approach as carrelage)
+        const allClips = await tx.clip.findMany({
+            where: { spotId: input.spotId },
+            orderBy: { createdAt: 'desc' },
+            select: { createdAt: true },
+        });
+
+        await tx.spot.update({
+            where: { id: input.spotId },
+            data: { clipsStat: buildStat(allClips) },
+        });
+
+        return created;
     });
 
     return formatPrismaClip(clip);
