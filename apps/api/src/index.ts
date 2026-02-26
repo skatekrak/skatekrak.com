@@ -33,20 +33,23 @@ const app = new Elysia()
             pattern: '0 8 * * 1',
             async run() {
                 const lastWeekDay = sub(new Date(), { weeks: 1 });
+                const from = startOfWeek(lastWeekDay, { weekStartsOn: 1 });
+                const to = endOfWeek(lastWeekDay, { weekStartsOn: 1 });
+
                 try {
-                    const response = await fetch(
-                        `${env.CARRELAGE_URL}/admin/stats?from=${startOfWeek(lastWeekDay, { weekStartsOn: 1 })}&to=${endOfWeek(lastWeekDay, { weekStartsOn: 1 })}`,
-                        {
-                            method: 'GET',
-                            headers: { Authorization: env.ADMIN_TOKEN },
-                        },
-                    );
-                    const stats: { spots: number; media: number } = (await response.json()) as any;
+                    const [spots, media] = await Promise.all([
+                        prisma.spot.count({
+                            where: { createdAt: { gte: from, lt: to } },
+                        }),
+                        prisma.media.count({
+                            where: { createdAt: { gte: from, lt: to } },
+                        }),
+                    ]);
 
                     await fetch(env.DISCORD_HOOK_URL, {
                         method: 'POST',
                         body: JSON.stringify({
-                            content: `**Last week stats 📈**\nspot: ${stats.spots}\nmedia: ${stats.media}`,
+                            content: `**Last week stats 📈**\nspot: ${spots}\nmedia: ${media}`,
                         }),
                     });
                 } catch (err) {

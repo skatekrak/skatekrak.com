@@ -3,8 +3,6 @@ import { createEnv } from '@t3-oss/env-core';
 
 export const env = createEnv({
     server: {
-        CARRELAGE_URL: z.string(),
-        ADMIN_TOKEN: z.string(),
         DISCORD_HOOK_URL: z.string(),
         DATABASE_URL: z.string(),
         BETTER_AUTH_SECRET: z.string(),
