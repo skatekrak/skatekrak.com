@@ -68,18 +68,16 @@ export const getSpot = os.spots.getSpot.handler(async ({ context, input }) => {
 export const getSpotOverview = os.spots.getSpotOverview.handler(async ({ context, input }) => {
     const now = new Date();
 
-    const spotDoc = await context.prisma.spot.findUnique({
+    const spot = await context.prisma.spot.findUnique({
         where: { id: input.id },
         include: addedByInclude,
     });
 
-    if (!spotDoc) {
+    if (!spot) {
         throw new ORPCError('NOT_FOUND', { message: 'Spot not found' });
     }
 
-    const spot = formatPrismaSpot(spotDoc);
-
-    const [mostLikedRaw, mediaDocs, clipDocs] = await Promise.all([
+    const [mostLikedRaw, medias, clips] = await Promise.all([
         context.prisma.$queryRaw<PrismaMedia[]>`
             SELECT m.*, json_build_object(
                 'id', p.id,
@@ -117,17 +115,13 @@ export const getSpotOverview = os.spots.getSpotOverview.handler(async ({ context
         }),
     ]);
 
-    const medias = mediaDocs.map(formatPrismaMedia);
-    const clips = clipDocs.map(formatPrismaClip);
     const mostLikedMedia =
-        mostLikedRaw.length > 0
-            ? formatPrismaMedia(mostLikedRaw[0] as unknown as MediaWithRelations)
-            : undefined;
+        mostLikedRaw.length > 0 ? formatPrismaMedia(mostLikedRaw[0] as unknown as MediaWithRelations) : undefined;
 
     return {
-        spot,
-        medias,
-        clips,
+        spot: formatPrismaSpot(spot),
+        medias: medias.map(formatPrismaMedia),
+        clips: clips.map(formatPrismaClip),
         mostLikedMedia,
     };
 });

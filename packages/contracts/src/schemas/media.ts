@@ -9,8 +9,8 @@ import { SpotSchema } from './spots';
 
 export const MediaSchema = z.object({
     id: z.string(),
-    createdAt: z.date(),
-    updatedAt: z.date(),
+    createdAt: z.coerce.date(),
+    updatedAt: z.coerce.date(),
     type: z.enum(['image', 'video']),
     caption: z.string().optional(),
     image: CloudinaryFileSchema,
@@ -21,8 +21,8 @@ export const MediaSchema = z.object({
 
 export const ClipSchema = z.object({
     id: z.string(),
-    createdAt: z.date(),
-    updatedAt: z.date(),
+    createdAt: z.coerce.date(),
+    updatedAt: z.coerce.date(),
     title: z.string(),
     provider: VideoProviderSchema,
     videoURL: z.string(),
