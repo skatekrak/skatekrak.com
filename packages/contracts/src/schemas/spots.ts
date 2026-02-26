@@ -6,6 +6,7 @@ import {
     ProfileSummarySchema,
     SpotTypeSchema,
     SpotStatusSchema,
+    VideoProviderSchema,
 } from './shared';
 
 // ============================================================================
@@ -78,4 +79,15 @@ export const listByTagsInput = z.object({
     tags: z.array(z.string()).min(1, 'You must give at least one tag'),
     tagsFromMedia: z.boolean().default(false),
     limit: z.number().default(2000),
+});
+
+export const getVideoInformationInput = z.object({
+    url: z.string().url(),
+});
+
+export const VideoInformationSchema = z.object({
+    title: z.string(),
+    description: z.string(),
+    thumbnailURL: z.string(),
+    provider: VideoProviderSchema,
 });

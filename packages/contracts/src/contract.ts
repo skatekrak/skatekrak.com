@@ -8,13 +8,11 @@ import {
     getSpotOverviewInput,
     getSpotsGeoJSONInput,
     listByTagsInput,
+    getVideoInformationInput,
+    VideoInformationSchema,
 } from './schemas/spots';
 import { MediaSchema, ClipSchema, MediasAroundSchema } from './schemas/media';
-import {
-    MapSchema,
-    MapListItemSchema,
-    fetchMapInput,
-} from './schemas/maps';
+import { MapSchema, MapListItemSchema, fetchMapInput } from './schemas/maps';
 import {
     getMediaByIdInput,
     listBySpotInput,
@@ -22,6 +20,7 @@ import {
     listMediaInput,
     getHashtagMediasAroundInput,
     listClipsBySpotInput,
+    addClipToSpotInput,
 } from './schemas/media';
 import { ProfileMeSchema } from './schemas/profiles';
 
@@ -46,6 +45,8 @@ export const contract = {
         getSpotOverview: oc.input(getSpotOverviewInput).output(SpotOverviewSchema),
         getSpotsGeoJSON: oc.input(getSpotsGeoJSONInput).output(z.array(SpotGeoJSONSchema)),
         listByTags: oc.input(listByTagsInput).output(z.array(SpotSchema)),
+        addClipToSpot: oc.input(addClipToSpotInput).output(ClipSchema),
+        getVideoInformation: oc.input(getVideoInformationInput).output(VideoInformationSchema),
     },
     maps: {
         fetch: oc.input(fetchMapInput).output(MapSchema),

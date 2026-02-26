@@ -144,3 +144,4 @@ export const listClipsBySpot = os.media.listClipsBySpot.handler(async ({ context
 
     return clips.map(formatPrismaClip);
 });
+

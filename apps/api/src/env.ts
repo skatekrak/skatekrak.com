@@ -10,6 +10,8 @@ export const env = createEnv({
         DATABASE_URL: z.string(),
         BETTER_AUTH_SECRET: z.string(),
         BETTER_AUTH_BASE_URL: z.string(),
+        GOOGLE_KEY: z.string(),
+        VIMEO_AUTH: z.string(),
     },
     runtimeEnv: process.env,
     emptyStringAsUndefined: true,

@@ -7,7 +7,7 @@ Bun + Turborepo monorepo for the Skatekrak skateboarding platform. Three apps an
 | Package                  | Path                        | Tech                                                        | Deploys To              |
 | ------------------------ | --------------------------- | ----------------------------------------------------------- | ----------------------- |
 | `@krak/web`              | `apps/web`                  | Next.js 14 (Pages Router), React 18, Zustand, Redux Toolkit | Vercel                  |
-| `@krak/api`              | `apps/api`                  | Elysia (Bun), tRPC, MongoDB                                 | Dokploy (custom server) |
+| `@krak/api`              | `apps/api`                  | Elysia (Bun), oRPC, MongoDB, PostgreSQL                     | Dokploy (custom server) |
 | `@krak/carrelage`        | `apps/carrelage`            | Express, Mongoose, MongoDB                                  | Not deployed            |
 | `@krak/trpc`             | `packages/trpc`             | tRPC router (spots, maps)                                   | —                       |
 | `@krak/carrelage-client` | `packages/carrelage-client` | Axios client + shared TS types                              | —                       |

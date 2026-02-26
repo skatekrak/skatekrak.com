@@ -1,8 +1,9 @@
 import { ORPCError } from '@orpc/server';
+import { ObjectId } from 'mongodb';
 import { type SpotGeoJSON, Status, Types } from '@krak/carrelage-client';
-import type { Media as PrismaMedia } from '@krak/prisma';
+import type { Media as PrismaMedia, ClipProvider } from '@krak/prisma';
 
-import { os } from '../base';
+import { os, authed } from '../base';
 import {
     type SpotWithAddedBy,
     type MediaWithRelations,
@@ -11,6 +12,7 @@ import {
     formatPrismaClip,
     formatStat,
 } from '../formatters';
+import { getVideoInformation } from '../../helpers/videos';
 
 // ============================================================================
 // Shared Prisma include for addedBy with user relation
@@ -175,4 +177,54 @@ export const listByTags = os.spots.listByTags.handler(async ({ context, input })
     });
 
     return spots.map(formatPrismaSpot);
+});
+
+export const getVideoInfo = os.spots.getVideoInformation.handler(async ({ input }) => {
+    const info = await getVideoInformation(input.url);
+    return {
+        title: info.title,
+        description: info.description,
+        thumbnailURL: info.thumbnailURL,
+        provider: info.provider,
+    };
+});
+
+export const addClipToSpot = os.spots.addClipToSpot.use(authed).handler(async ({ context, input }) => {
+    // Verify the spot exists
+    const spot = await context.prisma.spot.findUnique({
+        where: { id: input.spotId },
+    });
+
+    if (!spot) {
+        throw new ORPCError('NOT_FOUND', { message: 'Spot not found' });
+    }
+
+    // Resolve the authenticated user's profile
+    const profile = await context.prisma.profile.findUnique({
+        where: { userId: context.session.user.id },
+    });
+
+    if (!profile) {
+        throw new ORPCError('NOT_FOUND', { message: 'Profile not found' });
+    }
+
+    // Fetch video metadata from YouTube/Vimeo
+    const videoInfo = await getVideoInformation(input.videoURL);
+
+    // Create the clip
+    const clip = await context.prisma.clip.create({
+        data: {
+            id: new ObjectId().toHexString(),
+            title: videoInfo.title,
+            description: videoInfo.description,
+            provider: videoInfo.provider.toUpperCase() as ClipProvider,
+            videoURL: input.videoURL,
+            thumbnailURL: videoInfo.thumbnailURL,
+            spotId: input.spotId,
+            addedById: profile.id,
+        },
+        include: addedByInclude,
+    });
+
+    return formatPrismaClip(clip);
 });

@@ -71,3 +71,8 @@ export const listClipsBySpotInput = z.object({
     cursor: z.date().optional(),
     limit: z.number().min(1).max(100).default(20),
 });
+
+export const addClipToSpotInput = z.object({
+    spotId: z.string(),
+    videoURL: z.string().url(),
+});
