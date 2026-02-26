@@ -1,5 +1,4 @@
 import { implement, ORPCError } from '@orpc/server';
-import type { Db } from 'mongodb';
 import type { PrismaClient, Session, User } from '@krak/prisma';
 
 import { contract } from '@krak/contracts';
@@ -19,7 +18,6 @@ export type AuthSession = {
 
 export type Context = {
     headers: Headers;
-    db: Db;
     prisma: PrismaClient;
     session: AuthSession;
 };

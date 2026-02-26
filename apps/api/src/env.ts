@@ -6,7 +6,6 @@ export const env = createEnv({
         CARRELAGE_URL: z.string(),
         ADMIN_TOKEN: z.string(),
         DISCORD_HOOK_URL: z.string(),
-        MONGODB_URI: z.string(),
         DATABASE_URL: z.string(),
         BETTER_AUTH_SECRET: z.string(),
         BETTER_AUTH_BASE_URL: z.string(),

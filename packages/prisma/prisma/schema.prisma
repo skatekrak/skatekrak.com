@@ -100,7 +100,7 @@ enum ClipProvider {
 /// Core user account. Username was previously used as _id in MongoDB.
 /// Also serves as BetterAuth's `user` table (mapped to "users" via modelName config).
 model User {
-  id                     String             @id @default(uuid())
+  id                     String             @id @default(cuid())
   username               String             @unique
   displayUsername        String?            @unique // BetterAuth username plugin: non-normalized display username
   email                  String?            @unique
@@ -133,7 +133,7 @@ model User {
 
 /// BetterAuth session. Tracks active user sessions with token & device info.
 model Session {
-  id        String   @id @default(uuid())
+  id        String   @id @default(cuid())
   userId    String
   token     String   @unique
   expiresAt DateTime
@@ -150,7 +150,7 @@ model Session {
 
 /// BetterAuth account. Links auth providers (credential, OAuth, etc.) to a user.
 model Account {
-  id                    String    @id @default(uuid())
+  id                    String    @id @default(cuid())
   userId                String
   accountId             String
   providerId            String
@@ -172,7 +172,7 @@ model Account {
 
 /// BetterAuth verification. Used for email verification, password reset tokens, etc.
 model Verification {
-  id         String   @id @default(uuid())
+  id         String   @id @default(cuid())
   identifier String
   value      String
   expiresAt  DateTime
@@ -188,7 +188,7 @@ model Verification {
 
 /// User profile with social info, stats, and gear. One-to-one with User.
 model Profile {
-  id                 String   @id @default(uuid())
+  id                 String   @id @default(cuid())
   userId             String   @unique
   description        String?
   location           String?
@@ -257,7 +257,7 @@ model ProfileSpotFollow {
 
 /// Achievement/badge unlocked by a profile. Was embedded array in Profile.
 model Reward {
-  id        String   @id
+  id        String   @id @default(cuid())
   profileId String
   type      String // e.g. create_like, receive_like, create_comment, create_spot, etc.
   subtype   String // milestone: "1", "10", "100"
@@ -276,7 +276,7 @@ model Reward {
 
 /// A skate spot location.
 model Spot {
-  id           String     @id
+  id           String     @id @default(cuid())
   name         String
   streetName   String? // was location.streetName
   streetNumber String? // was location.streetNumber
@@ -322,7 +322,7 @@ model Spot {
 
 /// A proposed edit to a spot. Was embedded array in Spot.edits.
 model SpotEdit {
-  id          String      @id
+  id          String      @id @default(cuid())
   spotId      String
   addedById   String
   name        String?
@@ -355,7 +355,7 @@ model SpotEdit {
 
 /// A photo or video posted to a spot.
 model Media {
-  id          String    @id
+  id          String    @id @default(cuid())
   type        MediaType
   caption     String? // was _caption (usertag placeholders resolved at app level)
   spotId      String?
@@ -391,7 +391,7 @@ model Media {
 
 /// A video clip (YouTube/Vimeo) linked to a spot.
 model Clip {
-  id           String       @id
+  id           String       @id @default(cuid())
   title        String
   description  String?
   provider     ClipProvider
@@ -424,7 +424,7 @@ model Clip {
 /// A comment on a Spot, Media, or Clip. Polymorphic via nullable FKs.
 /// Exactly one of spotId, mediaId, or clipId should be set.
 model Comment {
-  id        String   @id
+  id        String   @id @default(cuid())
   content   String // was _content (usertag placeholders resolved at app level)
   addedById String
   spotId    String?
@@ -475,7 +475,7 @@ model Map {
 /// A like on a Media, Clip, or Comment. Polymorphic via nullable FKs.
 /// Exactly one of mediaId, clipId, or commentId should be set.
 model Like {
-  id        String   @id
+  id        String   @id @default(cuid())
   addedById String
   mediaId   String?
   clipId    String?

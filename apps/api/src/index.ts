@@ -4,7 +4,6 @@ import { cors } from '@elysiajs/cors';
 import { Elysia } from 'elysia';
 import { logger } from '@bogeychan/elysia-logger';
 import { cron } from '@elysiajs/cron';
-import { MongoClient } from 'mongodb';
 import { PrismaPg } from '@prisma/adapter-pg';
 import { PrismaClient } from '@krak/prisma';
 import { createAuth } from '@krak/auth';
@@ -13,9 +12,6 @@ import { router } from './orpc/router';
 import type { AuthSession } from './orpc/base';
 import { endOfWeek, startOfWeek, sub } from 'date-fns';
 import { env } from './env';
-
-const client = new MongoClient(env.MONGODB_URI);
-client.connect();
 
 const adapter = new PrismaPg({ connectionString: env.DATABASE_URL });
 const prisma = new PrismaClient({ adapter });
@@ -72,7 +68,6 @@ const app = new Elysia()
                 prefix: '/rpc',
                 context: {
                     headers: request.headers,
-                    db: client.db('carrelage'),
                     prisma,
                     session,
                 },
