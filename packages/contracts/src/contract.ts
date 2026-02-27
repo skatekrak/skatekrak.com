@@ -21,6 +21,7 @@ import {
     getHashtagMediasAroundInput,
     listClipsBySpotInput,
     addClipToSpotInput,
+    uploadToSpotInput,
 } from './schemas/media';
 import { ProfileMeSchema } from './schemas/profiles';
 
@@ -59,6 +60,7 @@ export const contract = {
         list: oc.input(listMediaInput).output(z.array(MediaSchema)),
         getHashtagMediasAround: oc.input(getHashtagMediasAroundInput).output(MediasAroundSchema),
         listClipsBySpot: oc.input(listClipsBySpotInput).output(z.array(ClipSchema)),
+        uploadToSpot: oc.input(uploadToSpotInput).output(MediaSchema),
     },
     profiles: {
         me: oc.output(ProfileMeSchema),

@@ -76,3 +76,9 @@ export const addClipToSpotInput = z.object({
     spotId: z.string(),
     videoURL: z.string().url(),
 });
+
+export const uploadToSpotInput = z.object({
+    spotId: z.string(),
+    file: z.file(),
+    caption: z.string().optional(),
+});
