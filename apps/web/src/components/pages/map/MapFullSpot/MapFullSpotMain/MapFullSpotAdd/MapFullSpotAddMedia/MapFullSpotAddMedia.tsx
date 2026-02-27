@@ -43,15 +43,14 @@ const MapFullSpotAddMedia = () => {
                 file: values.file,
                 caption: values.caption || undefined,
             });
-
-            selectFullSpotTab('media');
-
-            queryClient.invalidateQueries({
+            await queryClient.invalidateQueries({
                 queryKey: orpc.spots.getSpotOverview.key({ input: { id: spotOverview.spot.id } }),
             });
-            queryClient.invalidateQueries({
+            await queryClient.invalidateQueries({
                 queryKey: orpc.media.listBySpot.key({ input: { spotId: spotOverview.spot.id } }),
             });
+
+            selectFullSpotTab('media');
         } catch (err) {
             console.error(err);
         }

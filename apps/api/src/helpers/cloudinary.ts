@@ -76,15 +76,21 @@ export async function uploadToCloudinary(
         options.video_codec = 'auto';
     }
 
-    const dataUri = `data:${mimeType};base64,${buffer.toString('base64')}`;
-    const result = await cloudinary.uploader.upload(dataUri, options);
-
-    return {
-        publicId: result.public_id,
-        version: String(result.version),
-        url: result.secure_url,
-        format: result.format,
-        width: result.width,
-        height: result.height,
-    };
+    return new Promise<CloudinaryUploadResult>((resolve, reject) => {
+        cloudinary.uploader
+            .upload_stream(options, (error, result) => {
+                if (error || !result) {
+                    return reject(error ?? new Error('Cloudinary upload failed'));
+                }
+                resolve({
+                    publicId: result.public_id,
+                    version: String(result.version),
+                    url: result.secure_url,
+                    format: result.format,
+                    width: result.width,
+                    height: result.height,
+                });
+            })
+            .end(buffer);
+    });
 }
