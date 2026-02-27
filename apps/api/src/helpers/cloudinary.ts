@@ -1,10 +1,9 @@
 import { v2 as cloudinary, type UploadApiOptions } from 'cloudinary';
-import { Readable } from 'node:stream';
 
 import { env } from '../env';
 
 // ============================================================================
-// Configuration
+// Configuration (signed upload — api_key + api_secret)
 // ============================================================================
 
 cloudinary.config({
@@ -39,7 +38,7 @@ export type CloudinaryUploadResult = {
 // ============================================================================
 
 /**
- * Upload a file buffer to Cloudinary.
+ * Upload a file buffer to Cloudinary (signed upload).
  *
  * Ported from carrelage's `helpers/cloudinary.js` — same folder structure,
  * format conversion (webp for images, mp4 for videos), and size limits.
@@ -64,7 +63,6 @@ export async function uploadToCloudinary(
 
     const options: UploadApiOptions = {
         folder,
-        upload_preset: 'medias',
         resource_type: resourceType as 'image' | 'video',
         width: DEFAULT_WIDTH,
         crop: 'scale',
@@ -78,22 +76,15 @@ export async function uploadToCloudinary(
         options.video_codec = 'auto';
     }
 
-    return new Promise<CloudinaryUploadResult>((resolve, reject) => {
-        const uploadStream = cloudinary.uploader.upload_stream(options, (error, result) => {
-            if (error || !result) {
-                return reject(error ?? new Error('Cloudinary upload failed'));
-            }
-            resolve({
-                publicId: result.public_id,
-                version: String(result.version),
-                url: result.secure_url,
-                format: result.format,
-                width: result.width,
-                height: result.height,
-            });
-        });
+    const dataUri = `data:${mimeType};base64,${buffer.toString('base64')}`;
+    const result = await cloudinary.uploader.upload(dataUri, options);
 
-        const readable = Readable.from(buffer);
-        readable.pipe(uploadStream);
-    });
+    return {
+        publicId: result.public_id,
+        version: String(result.version),
+        url: result.secure_url,
+        format: result.format,
+        width: result.width,
+        height: result.height,
+    };
 }
