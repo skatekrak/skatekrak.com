@@ -5,11 +5,11 @@ import { FileWithPath } from 'react-dropzone';
 import Typography from '@/components/Ui/typography/Typography';
 import { Field, Form, Formik } from 'formik';
 import MapFullSpotAddMediaInput from './MapFullSpotAddMediaInput';
-import Feudartifice from '@/shared/feudartifice';
 import { useQueryClient } from '@tanstack/react-query';
 import { useFullSpotSelectedTab } from '@/lib/hook/queryState';
 import { useMapStore } from '@/store/map';
 import ButtonPrimary from '@/components/Ui/Button/ButtonPrimary';
+import { client, orpc } from '@/server/orpc/client';
 
 type AddMediaFormValues = {
     file: FileWithPath | null;
@@ -38,24 +38,19 @@ const MapFullSpotAddMedia = () => {
         }
 
         try {
-            let media = await Feudartifice.media.createMedia({
-                caption: values.caption,
-                spot: spotOverview.spot.id,
+            await client.media.uploadToSpot({
+                spotId: spotOverview.spot.id,
+                file: values.file,
+                caption: values.caption || undefined,
             });
 
-            media = await Feudartifice.media.uploadMedia(media.id, values.file);
             selectFullSpotTab('media');
 
-            queryClient.invalidateQueries({ queryKey: ['load-overview', spotOverview.spot.id] });
-            queryClient.setQueryData(['fetch-spot-medias', spotOverview.spot.id, null], (prevData: any) => {
-                if (prevData == null) return prevData;
-
-                console.log('new media', media);
-
-                return {
-                    pages: [[media], ...prevData.pages],
-                    pageParams: prevData.pageParams,
-                };
+            queryClient.invalidateQueries({
+                queryKey: orpc.spots.getSpotOverview.key({ input: { id: spotOverview.spot.id } }),
+            });
+            queryClient.invalidateQueries({
+                queryKey: orpc.media.listBySpot.key({ input: { spotId: spotOverview.spot.id } }),
             });
         } catch (err) {
             console.error(err);

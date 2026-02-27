@@ -183,17 +183,7 @@ export const uploadToSpot = os.media.uploadToSpot
         const buffer = Buffer.from(await file.arrayBuffer());
 
         // 2. Upload to Cloudinary
-        const cloudinaryResult = await uploadToCloudinary(buffer, mimeType, 'medias');
-
-        // 3. Build the image/video JSON fields (matching carrelage's CloudinaryFile shape)
-        const cloudinaryFile = {
-            publicId: cloudinaryResult.publicId,
-            version: cloudinaryResult.version,
-            url: cloudinaryResult.url,
-            format: cloudinaryResult.format,
-            width: cloudinaryResult.width,
-            height: cloudinaryResult.height,
-        };
+        const cloudinaryFile = await uploadToCloudinary(buffer, mimeType, 'medias');
 
         const isVideo = resourceType === 'video';
         const mediaType: MediaType = isVideo ? 'VIDEO' : 'IMAGE';
@@ -204,10 +194,10 @@ export const uploadToSpot = os.media.uploadToSpot
             : cloudinaryFile;
         const videoField = isVideo ? cloudinaryFile : undefined;
 
-        // 4. Extract hashtags from caption
+        // 3. Extract hashtags from caption
         const hashtags = extractHashtags(input.caption);
 
-        // 5. Create the media record and recompute stats atomically
+        // 4. Create the media record and recompute stats atomically
         const media = await context.prisma.$transaction(async (tx) => {
             const created = await tx.media.create({
                 data: {
@@ -251,4 +241,3 @@ export const uploadToSpot = os.media.uploadToSpot
 
         return formatPrismaMedia(media);
     });
-

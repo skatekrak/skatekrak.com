@@ -64,6 +64,7 @@ export async function uploadToCloudinary(
 
     const options: UploadApiOptions = {
         folder,
+        upload_preset: 'medias',
         resource_type: resourceType as 'image' | 'video',
         width: DEFAULT_WIDTH,
         crop: 'scale',
@@ -78,22 +79,19 @@ export async function uploadToCloudinary(
     }
 
     return new Promise<CloudinaryUploadResult>((resolve, reject) => {
-        const uploadStream = cloudinary.uploader.upload_stream(
-            options,
-            (error, result) => {
-                if (error || !result) {
-                    return reject(error ?? new Error('Cloudinary upload failed'));
-                }
-                resolve({
-                    publicId: result.public_id,
-                    version: String(result.version),
-                    url: result.secure_url,
-                    format: result.format,
-                    width: result.width,
-                    height: result.height,
-                });
-            },
-        );
+        const uploadStream = cloudinary.uploader.upload_stream(options, (error, result) => {
+            if (error || !result) {
+                return reject(error ?? new Error('Cloudinary upload failed'));
+            }
+            resolve({
+                publicId: result.public_id,
+                version: String(result.version),
+                url: result.secure_url,
+                format: result.format,
+                width: result.width,
+                height: result.height,
+            });
+        });
 
         const readable = Readable.from(buffer);
         readable.pipe(uploadStream);
