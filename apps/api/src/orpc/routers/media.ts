@@ -1,7 +1,7 @@
 import { ORPCError } from '@orpc/server';
 import type { MediaType } from '@krak/prisma';
 
-import { os, authed } from '../base';
+import { os, authed, loadProfile, loadSpot } from '../base';
 import { formatPrismaMedia, formatPrismaClip } from '../formatters';
 import { uploadToCloudinary } from '../../helpers/cloudinary';
 import { buildStat } from '../../helpers/stats';
@@ -164,103 +164,91 @@ function extractHashtags(str: string | undefined): string[] {
 // ============================================================================
 
 /** Upload a media file to a spot (single-step: upload to Cloudinary + create DB record + recompute stats) */
-export const uploadToSpot = os.media.uploadToSpot.use(authed).handler(async ({ context, input }) => {
-    // 1. Verify the spot exists
-    const spot = await context.prisma.spot.findUnique({
-        where: { id: input.spotId },
+export const uploadToSpot = os.media.uploadToSpot
+    .use(authed)
+    .use(loadProfile)
+    .use(loadSpot)
+    .handler(async ({ context, input }) => {
+        const { profile, spot } = context;
+
+        // 1. Read the file and determine its type
+        const file = input.file;
+        const mimeType = file.type || 'application/octet-stream';
+        const resourceType = mimeType.split('/')[0] as string;
+
+        if (resourceType !== 'image' && resourceType !== 'video') {
+            throw new ORPCError('BAD_REQUEST', { message: `Unsupported file type: ${mimeType}` });
+        }
+
+        const buffer = Buffer.from(await file.arrayBuffer());
+
+        // 2. Upload to Cloudinary
+        const cloudinaryResult = await uploadToCloudinary(buffer, mimeType, 'medias');
+
+        // 3. Build the image/video JSON fields (matching carrelage's CloudinaryFile shape)
+        const cloudinaryFile = {
+            publicId: cloudinaryResult.publicId,
+            version: cloudinaryResult.version,
+            url: cloudinaryResult.url,
+            format: cloudinaryResult.format,
+            width: cloudinaryResult.width,
+            height: cloudinaryResult.height,
+        };
+
+        const isVideo = resourceType === 'video';
+        const mediaType: MediaType = isVideo ? 'VIDEO' : 'IMAGE';
+
+        // For videos, carrelage creates a thumbnail image by replacing .mp4 with .webp
+        const imageField = isVideo
+            ? { publicId: cloudinaryFile.publicId, url: cloudinaryFile.url.replace('.mp4', '.webp') }
+            : cloudinaryFile;
+        const videoField = isVideo ? cloudinaryFile : undefined;
+
+        // 4. Extract hashtags from caption
+        const hashtags = extractHashtags(input.caption);
+
+        // 5. Create the media record and recompute stats atomically
+        const media = await context.prisma.$transaction(async (tx) => {
+            const created = await tx.media.create({
+                data: {
+                    type: mediaType,
+                    caption: input.caption,
+                    image: imageField,
+                    video: videoField ?? undefined,
+                    hashtags,
+                    spotId: spot.id,
+                    addedById: profile.id,
+                },
+                include: mediaInclude,
+            });
+
+            // Recompute mediasStat on the spot
+            const allSpotMedias = await tx.media.findMany({
+                where: { spotId: spot.id },
+                orderBy: { createdAt: 'desc' },
+                select: { createdAt: true },
+            });
+
+            await tx.spot.update({
+                where: { id: spot.id },
+                data: { mediasStat: buildStat(allSpotMedias) },
+            });
+
+            // Recompute mediasStat on the profile
+            const allProfileMedias = await tx.media.findMany({
+                where: { addedById: profile.id },
+                orderBy: { createdAt: 'desc' },
+                select: { createdAt: true },
+            });
+
+            await tx.profile.update({
+                where: { id: profile.id },
+                data: { mediasStat: buildStat(allProfileMedias) },
+            });
+
+            return created;
+        });
+
+        return formatPrismaMedia(media);
     });
-
-    if (!spot) {
-        throw new ORPCError('NOT_FOUND', { message: 'Spot not found' });
-    }
-
-    // 2. Resolve the authenticated user's profile
-    const profile = await context.prisma.profile.findUnique({
-        where: { userId: context.session.user.id },
-    });
-
-    if (!profile) {
-        throw new ORPCError('NOT_FOUND', { message: 'Profile not found' });
-    }
-
-    // 3. Read the file and determine its type
-    const file = input.file;
-    const mimeType = file.type || 'application/octet-stream';
-    const resourceType = mimeType.split('/')[0] as string;
-
-    if (resourceType !== 'image' && resourceType !== 'video') {
-        throw new ORPCError('BAD_REQUEST', { message: `Unsupported file type: ${mimeType}` });
-    }
-
-    const buffer = Buffer.from(await file.arrayBuffer());
-
-    // 4. Upload to Cloudinary
-    const cloudinaryResult = await uploadToCloudinary(buffer, mimeType, 'medias');
-
-    // 5. Build the image/video JSON fields (matching carrelage's CloudinaryFile shape)
-    const cloudinaryFile = {
-        publicId: cloudinaryResult.publicId,
-        version: cloudinaryResult.version,
-        url: cloudinaryResult.url,
-        format: cloudinaryResult.format,
-        width: cloudinaryResult.width,
-        height: cloudinaryResult.height,
-    };
-
-    const isVideo = resourceType === 'video';
-    const mediaType: MediaType = isVideo ? 'VIDEO' : 'IMAGE';
-
-    // For videos, carrelage creates a thumbnail image by replacing .mp4 with .webp
-    const imageField = isVideo
-        ? { publicId: cloudinaryFile.publicId, url: cloudinaryFile.url.replace('.mp4', '.webp') }
-        : cloudinaryFile;
-    const videoField = isVideo ? cloudinaryFile : undefined;
-
-    // 6. Extract hashtags from caption
-    const hashtags = extractHashtags(input.caption);
-
-    // 7. Create the media record and recompute stats atomically
-    const media = await context.prisma.$transaction(async (tx) => {
-        const created = await tx.media.create({
-            data: {
-                type: mediaType,
-                caption: input.caption,
-                image: imageField,
-                video: videoField ?? undefined,
-                hashtags,
-                spotId: input.spotId,
-                addedById: profile.id,
-            },
-            include: mediaInclude,
-        });
-
-        // Recompute mediasStat on the spot (same approach as carrelage + addClipToSpot)
-        const allSpotMedias = await tx.media.findMany({
-            where: { spotId: input.spotId },
-            orderBy: { createdAt: 'desc' },
-            select: { createdAt: true },
-        });
-
-        await tx.spot.update({
-            where: { id: input.spotId },
-            data: { mediasStat: buildStat(allSpotMedias) },
-        });
-
-        // Recompute mediasStat on the profile
-        const allProfileMedias = await tx.media.findMany({
-            where: { addedById: profile.id },
-            orderBy: { createdAt: 'desc' },
-            select: { createdAt: true },
-        });
-
-        await tx.profile.update({
-            where: { id: profile.id },
-            data: { mediasStat: buildStat(allProfileMedias) },
-        });
-
-        return created;
-    });
-
-    return formatPrismaMedia(media);
-});
 
