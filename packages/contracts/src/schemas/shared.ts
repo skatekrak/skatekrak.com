@@ -60,3 +60,39 @@ export const ProfileSummarySchema = z.object({
     username: z.string(),
     profilePicture: z.any(),
 });
+
+// ============================================================================
+// Obstacle enum (matches Prisma Obstacle in lowercase snake_case)
+// ============================================================================
+
+export const ObstacleValues = [
+    'stairs',
+    'gap',
+    'street_gap',
+    'ledge',
+    'hubba',
+    'bench',
+    'low_to_high',
+    'manny_pad',
+    'slappy',
+    'polejam',
+    'jersey',
+    'drop',
+    'flatground',
+    'handrail',
+    'flatbar',
+    'bump',
+    'wallride',
+    'bank',
+    'tranny',
+    'spine',
+    'ramp',
+    'bowl',
+    'quarterpipe',
+    'fullpipe',
+    'downhill',
+    'hip',
+    'other',
+] as const;
+
+export const ObstacleSchema = z.enum(ObstacleValues);

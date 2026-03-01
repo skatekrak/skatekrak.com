@@ -1,12 +1,12 @@
-import React, { memo } from 'react';
+import { memo } from 'react';
 import * as Yup from 'yup';
-import { Types } from '@/shared/feudartifice/types';
+import { Types } from '@krak/carrelage-client';
 import { Formik } from 'formik';
 import MapCreateSpotForm from './MapCreateSpotForm';
-import Feudartifice from '@/shared/feudartifice';
 import * as _ from 'radash';
 import { useQueryClient } from '@tanstack/react-query';
 
+import { client } from '@/server/orpc/client';
 import { useSpotID } from '@/lib/hook/queryState';
 import { useMapStore } from '@/store/map';
 
@@ -44,15 +44,15 @@ const MapCreateSpot = () => {
     const [, setSpotID] = useSpotID();
 
     const onSubmit = async (values: MapCreateSpotFormValues) => {
-        const [errorAddingSpot, spot] = await _.try(Feudartifice.spots.addSpot)({
+        const [errorCreating, spot] = await _.try(client.spots.create)({
             name: values.name,
             type: values.type!,
             ...values.location!,
             indoor: values.indoor === 'true',
         });
 
-        if (errorAddingSpot) {
-            console.error('Error adding spot', errorAddingSpot);
+        if (errorCreating) {
+            console.error('Error creating spot', errorCreating);
             return;
         }
 
@@ -61,9 +61,8 @@ const MapCreateSpot = () => {
             return;
         }
 
-        await _.try(_.parallel)(2, values.images, async (imageURL: File) => {
-            const media = await Feudartifice.media.createMedia({ spot: spot.id });
-            return Feudartifice.media.uploadMedia(media.id, imageURL);
+        await _.try(_.parallel)(2, values.images, async (imageFile: File) => {
+            return client.media.uploadToSpot({ spotId: spot.id, file: imageFile });
         });
 
         toggleCreateSpot();

@@ -6,6 +6,7 @@ import {
     ProfileSummarySchema,
     SpotTypeSchema,
     SpotStatusSchema,
+    ObstacleSchema,
     VideoProviderSchema,
 } from './shared';
 
@@ -79,6 +80,23 @@ export const listByTagsInput = z.object({
     tags: z.array(z.string()).min(1, 'You must give at least one tag'),
     tagsFromMedia: z.boolean().default(false),
     limit: z.number().default(2000),
+});
+
+export const createSpotInput = z.object({
+    name: z.string().min(1),
+    latitude: z.number(),
+    longitude: z.number(),
+    type: SpotTypeSchema,
+    indoor: z.boolean(),
+    status: SpotStatusSchema.optional(),
+    description: z.string().optional(),
+    phone: z.string().optional(),
+    website: z.string().url().optional(),
+    instagram: z.string().optional(),
+    snapchat: z.string().optional(),
+    facebook: z.string().optional(),
+    tags: z.array(z.string()).optional(),
+    obstacles: z.array(ObstacleSchema).optional(),
 });
 
 export const getVideoInformationInput = z.object({

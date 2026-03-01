@@ -1,6 +1,6 @@
 import { ORPCError } from '@orpc/server';
 import { type SpotGeoJSON, Status, Types } from '@krak/carrelage-client';
-import type { Media as PrismaMedia, ClipProvider } from '@krak/prisma';
+import type { Media as PrismaMedia, ClipProvider, SpotType, SpotStatus, Obstacle } from '@krak/prisma';
 
 import { os, authed, loadProfile, loadSpot } from '../base';
 import {
@@ -12,7 +12,9 @@ import {
     formatStat,
 } from '../formatters';
 import { getVideoInformation } from '../../helpers/videos';
+import { reverseGeocode } from '../../helpers/geocoding';
 import { buildStat } from '../../helpers/stats';
+import { env } from '../../env';
 
 // ============================================================================
 // Shared Prisma include for addedBy with user relation
@@ -53,6 +55,73 @@ function addHashtagIfNeeded(tag: string) {
 // ============================================================================
 // Procedure implementations
 // ============================================================================
+
+export const createSpot = os.spots.create
+    .use(authed)
+    .use(loadProfile)
+    .handler(async ({ context, input }) => {
+        const { profile } = context;
+
+        // Reverse-geocode coordinates into a street address
+        let location: { streetNumber: string | null; streetName: string | null; city: string | null; country: string | null } = {
+            streetNumber: null,
+            streetName: null,
+            city: null,
+            country: null,
+        };
+
+        try {
+            const geocoded = await reverseGeocode(input.latitude, input.longitude, env.GOOGLE_KEY);
+            if (geocoded) {
+                location = geocoded;
+            }
+        } catch (error) {
+            console.error('Reverse geocoding failed:', error);
+        }
+
+        // Map lowercase obstacle values to Prisma UPPERCASE enum
+        const obstacles = (input.obstacles ?? []).map((o) => o.toUpperCase() as Obstacle);
+
+        // Create spot + auto-follow in a single transaction
+        const spot = await context.prisma.$transaction(async (tx) => {
+            const created = await tx.spot.create({
+                data: {
+                    name: input.name,
+                    latitude: input.latitude,
+                    longitude: input.longitude,
+                    type: input.type.toUpperCase() as SpotType,
+                    status: input.status ? (input.status.toUpperCase() as SpotStatus) : 'ACTIVE',
+                    indoor: input.indoor,
+                    description: input.description,
+                    phone: input.phone,
+                    website: input.website,
+                    instagram: input.instagram,
+                    snapchat: input.snapchat,
+                    facebook: input.facebook,
+                    tags: input.tags ?? [],
+                    obstacles,
+                    streetName: location.streetName,
+                    streetNumber: location.streetNumber,
+                    city: location.city,
+                    country: location.country,
+                    addedById: profile.id,
+                },
+                include: addedByInclude,
+            });
+
+            // Auto-follow: creator follows the new spot
+            await tx.profileSpotFollow.create({
+                data: {
+                    profileId: profile.id,
+                    spotId: created.id,
+                },
+            });
+
+            return created;
+        });
+
+        return formatPrismaSpot(spot);
+    });
 
 export const getSpot = os.spots.getSpot.handler(async ({ context, input }) => {
     const spot = await context.prisma.spot.findUnique({

@@ -4,6 +4,7 @@ import { z } from 'zod';
 import {
     SpotSchema,
     SpotGeoJSONSchema,
+    createSpotInput,
     getSpotInput,
     getSpotOverviewInput,
     getSpotsGeoJSONInput,
@@ -42,6 +43,7 @@ const SpotOverviewSchema = z.object({
 
 export const contract = {
     spots: {
+        create: oc.input(createSpotInput).output(SpotSchema),
         getSpot: oc.input(getSpotInput).output(SpotSchema),
         getSpotOverview: oc.input(getSpotOverviewInput).output(SpotOverviewSchema),
         getSpotsGeoJSON: oc.input(getSpotsGeoJSONInput).output(z.array(SpotGeoJSONSchema)),

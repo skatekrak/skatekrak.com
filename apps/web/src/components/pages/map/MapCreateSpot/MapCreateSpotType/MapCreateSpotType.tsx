@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import classnames from 'classnames';
-import { Types } from '@/shared/feudartifice/types';
+import { Types } from '@krak/carrelage-client';
 
 import IconEdit from '@/components/Ui/Icons/IconEdit';
 import IconPlus from '@/components/Ui/Icons/IconPlus';
