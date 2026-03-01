@@ -61,6 +61,16 @@ services:
         ports:
             - 27017:27017
 
+    meilisearch:
+        image: getmeili/meilisearch:v1.13
+        environment:
+            MEILI_MASTER_KEY: masterKey
+            MEILI_ENV: development
+        volumes:
+            - meilisearch-data:/meili_data
+        ports:
+            - 7700:7700
+
     carrelage:
         image: oven/bun:1.1.7
         command: bash -c "bun install && bun dev:carrelage"
@@ -91,6 +101,7 @@ volumes:
     carrelage-node_modules: null
     postgres-data: null
     mongo-data: null
+    meilisearch-data: null
 
 networks:
     default:
