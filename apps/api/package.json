@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "bun --watch run src/index.ts",
     "start": "bun run dist/index.js",
-    "build": "bun build src/index.ts --target bun --outdir ./dist"
+    "build": "bun build src/index.ts --target bun --outdir ./dist",
+    "seed:meilisearch": "bun --env-file=.env run src/scripts/seed-meilisearch.ts"
   },
   "dependencies": {
     "@bogeychan/elysia-logger": "^0.1.10",
