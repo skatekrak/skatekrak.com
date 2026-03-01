@@ -15,7 +15,7 @@ services:
         # - traefik.http.middlewares.carrelage-redir.redirectregex.replacement=http://carrelage-carrelage-1:3636/$$1
         working_dir: /app
         depends_on:
-            - mongodb
+            - api
         volumes:
             - .:/app
             - ~/.npmrc:/app/.npmrc:ro
