@@ -12,6 +12,8 @@ export const env = createEnv({
         CLOUDINARY_CLOUD_NAME: z.string(),
         CLOUDINARY_API_KEY: z.string(),
         CLOUDINARY_SECRET_KEY: z.string(),
+        MEILI_HOST: z.string(),
+        MEILI_ADMIN_KEY: z.string(),
     },
     runtimeEnv: process.env,
     emptyStringAsUndefined: true,

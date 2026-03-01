@@ -14,6 +14,7 @@ import {
 import { getVideoInformation } from '../../helpers/videos';
 import { reverseGeocode } from '../../helpers/geocoding';
 import { buildStat } from '../../helpers/stats';
+import { spotIndex } from '../../helpers/meilisearch';
 import { env } from '../../env';
 
 // ============================================================================
@@ -119,6 +120,38 @@ export const createSpot = os.spots.create
 
             return created;
         });
+
+        // Index the new spot in Meilisearch (fire-and-forget, don't block the response)
+        spotIndex
+            .addDocuments([
+                {
+                    objectID: spot.id,
+                    name: spot.name,
+                    coverURL: spot.coverURL ?? '',
+                    type: spot.type.toLowerCase(),
+                    status: spot.status.toLowerCase(),
+                    indoor: spot.indoor,
+                    tags: spot.tags,
+                    obstacles: spot.obstacles,
+                    facebook: spot.facebook ?? undefined,
+                    instagram: spot.instagram ?? undefined,
+                    snapchat: spot.snapchat ?? undefined,
+                    website: spot.website ?? undefined,
+                    location: {
+                        streetName: spot.streetName ?? '',
+                        streetNumber: spot.streetNumber ?? '',
+                        city: spot.city ?? '',
+                        country: spot.country ?? '',
+                    },
+                    _geo: {
+                        lat: spot.latitude,
+                        lng: spot.longitude,
+                    },
+                },
+            ], { primaryKey: 'objectID' })
+            .catch((err) => {
+                console.error('Failed to index spot in Meilisearch:', err);
+            });
 
         return formatPrismaSpot(spot);
     });
