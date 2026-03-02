@@ -12,10 +12,26 @@ import { router } from './orpc/router';
 import type { AuthSession } from './orpc/base';
 import { endOfWeek, startOfWeek, sub } from 'date-fns';
 import { env } from './env';
+import { sendEmail } from './helpers/mail';
 
 const adapter = new PrismaPg({ connectionString: env.DATABASE_URL });
 const prisma = new PrismaClient({ adapter });
-const auth = createAuth(prisma, env.BETTER_AUTH_BASE_URL);
+const auth = createAuth(prisma, {
+    baseURL: env.BETTER_AUTH_BASE_URL,
+    sendResetPassword: async ({ user, url }) => {
+        sendEmail({
+            from: `"${env.MAIL_FROM_NAME}" <${env.MAIL_FROM_EMAIL}>`,
+            to: user.email,
+            subject: 'Krak password reset',
+            html:
+                `You are receiving this because you (or someone else) have requested the reset of the password for your account.<br/><br/>` +
+                'Please click on the following link, or paste this into your browser to complete the process:<br/><br/>' +
+                `<a href="${url}">${url}</a><br/><br/>` +
+                'Be aware that the link is only active for <strong>1 hour</strong><br/><br/>' +
+                'If you did not request this, please ignore this email and your password will remain unchanged.',
+        });
+    },
+});
 
 const handler = new RPCHandler(router, {
     interceptors: [

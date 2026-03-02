@@ -3,15 +3,27 @@ import { prismaAdapter } from 'better-auth/adapters/prisma';
 import { username } from 'better-auth/plugins';
 import type { PrismaClient } from '@krak/prisma';
 
-export const createAuth = (prisma: PrismaClient, baseURL?: string) =>
+type SendResetPasswordData = {
+    user: { email: string; name: string };
+    url: string;
+    token: string;
+};
+
+type CreateAuthOptions = {
+    baseURL?: string;
+    sendResetPassword?: (data: SendResetPasswordData, request?: Request) => Promise<void>;
+};
+
+export const createAuth = (prisma: PrismaClient, options?: CreateAuthOptions) =>
     betterAuth({
-        baseURL,
+        baseURL: options?.baseURL,
         trustedOrigins: ['*.skatekrak.com'],
         database: prismaAdapter(prisma, {
             provider: 'postgresql',
         }),
         emailAndPassword: {
             enabled: true,
+            sendResetPassword: options?.sendResetPassword,
             password: {
                 hash: (password) => Bun.password.hash(password, 'bcrypt'),
                 verify: ({ password, hash: storedHash }) => Bun.password.verify(password, storedHash, 'bcrypt'),

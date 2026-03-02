@@ -6,9 +6,7 @@ import ButtonPrimary from '@/components/Ui/Button/ButtonPrimary/ButtonPrimary';
 import Emoji from '@/components/Ui/Icons/Emoji';
 import Typography from '@/components/Ui/typography/Typography';
 
-import Feudartifice from '@/shared/feudartifice';
-import { CarrelageAPIError } from '@/shared/feudartifice/types';
-import { AxiosError } from 'axios';
+import { requestPasswordReset } from '@/lib/auth';
 
 type ForgotFormValues = {
     email: string;
@@ -22,15 +20,15 @@ const ForgotPasswordContainer = () => {
     const [success, setSuccess] = useState(false);
 
     const onSubmit = async (values: ForgotFormValues, helpers: FormikHelpers<ForgotFormValues>) => {
-        try {
-            await Feudartifice.auth.forgotPassword(values.email);
-            // TODO: Display success notification for user to check their email
+        const { error } = await requestPasswordReset({
+            email: values.email,
+            redirectTo: `${window.location.origin}/auth/reset`,
+        });
+
+        if (error) {
+            helpers.setFieldError('email', error.message ?? 'Something went wrong');
+        } else {
             setSuccess(true);
-        } catch (err) {
-            if (err instanceof AxiosError) {
-                const error = err.response as CarrelageAPIError;
-                helpers.setFieldError('email', error.data.message);
-            }
         }
     };
 

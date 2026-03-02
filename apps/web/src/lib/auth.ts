@@ -7,4 +7,4 @@ const apiUrl =
 
 const authClient = createClient(apiUrl);
 
-export const { signIn, signUp, signOut, useSession } = authClient;
+export const { signIn, signUp, signOut, useSession, requestPasswordReset, resetPassword } = authClient;

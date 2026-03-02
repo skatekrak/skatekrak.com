@@ -4,41 +4,35 @@ import { Formik, Field, Form, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
 
 import ButtonPrimary from '@/components/Ui/Button/ButtonPrimary/ButtonPrimary';
-import Feudartifice from '@/shared/feudartifice';
-import { AxiosError } from 'axios';
-import { CarrelageAPIError } from '@/shared/feudartifice/types';
+
+import { resetPassword } from '@/lib/auth';
 
 type ResetPasswordFormValues = {
-    resetToken: string;
     password: string;
 };
 
 const ResetPasswordSchema = Yup.object().shape({
-    resetToken: Yup.string().required('Your reset token cannot be empty'),
     password: Yup.string()
-        .min(6, 'Your password must be at least 6 characters long')
+        .min(8, 'Your password must be at least 8 characters long')
         .required('A password must be filled'),
 });
 
 const ResetPasswordContainer = () => {
     const { query } = useRouter();
     const [success, setSuccess] = useState(false);
-
-    const initialValues: ResetPasswordFormValues = {
-        resetToken: typeof query.token === 'string' ? query.token : '',
-        password: '',
-    };
+    const token = typeof query.token === 'string' ? query.token : '';
+    const tokenError = typeof query.error === 'string' ? query.error : '';
 
     const onSubmit = async (values: ResetPasswordFormValues, helpers: FormikHelpers<ResetPasswordFormValues>) => {
-        try {
-            await Feudartifice.auth.resetPassword(values);
+        const { error } = await resetPassword({
+            newPassword: values.password,
+            token,
+        });
+
+        if (error) {
+            helpers.setFieldError('password', error.message ?? 'Something went wrong');
+        } else {
             setSuccess(true);
-        } catch (err) {
-            console.error(err);
-            if (err instanceof AxiosError) {
-                const error = err.response as CarrelageAPIError;
-                helpers.setFieldError('password', error.data.message);
-            }
         }
     };
 
@@ -46,10 +40,11 @@ const ResetPasswordContainer = () => {
         <div id="auth-container" className="inner-page-container container-fluid">
             <div id="auth-form-container">
                 <h1 id="auth-form-title">Reset password</h1>
-                {(query.token == null || query.token === '') && (
+                {tokenError && <p>This reset link is invalid or has expired. Please request a new one.</p>}
+                {!token && !tokenError && (
                     <p>Token is missing, open the link from the email we sent you</p>
                 )}
-                {query.token != null && query.token !== '' && (
+                {token && !tokenError && (
                     <>
                         {success ? (
                             <div id="auth-form-success">
@@ -58,7 +53,7 @@ const ResetPasswordContainer = () => {
                             </div>
                         ) : (
                             <Formik
-                                initialValues={initialValues}
+                                initialValues={{ password: '' }}
                                 validationSchema={ResetPasswordSchema}
                                 onSubmit={onSubmit}
                             >
@@ -72,7 +67,7 @@ const ResetPasswordContainer = () => {
                                                 placeholder="New password"
                                             />
                                             <ul id="auth-form-help-list">
-                                                <li>must be at least 6 characters long</li>
+                                                <li>must be at least 8 characters long</li>
                                             </ul>
                                         </div>
                                         {touched.password && errors.password != null && (
