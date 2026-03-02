@@ -28,7 +28,6 @@
         "packages/*"
     ],
     "trustedDependencies": [
-        "bcrypt",
         "core-js"
     ],
     "overrides": {

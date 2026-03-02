@@ -15,11 +15,9 @@
     },
     "dependencies": {
         "@krak/prisma": "workspace:*",
-        "bcrypt": "^6.0.0",
         "better-auth": "^1.2.0"
     },
     "devDependencies": {
-        "@total-typescript/tsconfig": "^1.0.4",
-        "@types/bcrypt": "^6.0.0"
+        "@total-typescript/tsconfig": "^1.0.4"
     }
 }

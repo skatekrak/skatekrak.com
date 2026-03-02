@@ -1,11 +1,7 @@
 import { betterAuth } from 'better-auth';
 import { prismaAdapter } from 'better-auth/adapters/prisma';
 import { username } from 'better-auth/plugins';
-import { hash, compare } from 'bcrypt';
-
 import type { PrismaClient } from '@krak/prisma';
-
-const BCRYPT_ROUNDS = 10;
 
 export const createAuth = (prisma: PrismaClient, baseURL?: string) =>
     betterAuth({
@@ -17,8 +13,8 @@ export const createAuth = (prisma: PrismaClient, baseURL?: string) =>
         emailAndPassword: {
             enabled: true,
             password: {
-                hash: (password) => hash(password, BCRYPT_ROUNDS),
-                verify: ({ password, hash: storedHash }) => compare(password, storedHash),
+                hash: (password) => Bun.password.hash(password, 'bcrypt'),
+                verify: ({ password, hash: storedHash }) => Bun.password.verify(password, storedHash, 'bcrypt'),
             },
         },
         user: {
