@@ -19,3 +19,4 @@ node_modules/
 .turbo
 .env
 dist
+.env.docker

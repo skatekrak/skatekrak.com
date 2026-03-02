@@ -1,6 +1,6 @@
 services:
     web:
-        image: oven/bun:1.3.9
+        image: oven/bun:1.3.10
         command: bash -c "bun install && bun dev:web"
         labels:
             - traefik.enable=true
@@ -22,13 +22,10 @@ services:
             - skatekrak-next:/app/.next
             - skatekrak-web-node_modules:/app/node_modules
         env_file: apps/web/.env
-        environment:
-            MEILI_HOST: http://meilisearch:7700
-            DATABASE_URL: postgres://krak:krak@postgres:5432/krak
 
     api:
-        image: oven/bun:1.3.9
-        command: bash -c "bun install && bun dev:api"
+        image: oven/bun:1.3.10
+        command: bash -c "bun install && bun dev:api:docker"
         labels:
             - traefik.enable=true
             - traefik.http.routers.krak-api.entrypoints=http,https
@@ -43,7 +40,6 @@ services:
             - .:/app
             - ~/.npmrc:/app/.npmrc:ro
             - skatekrak-api-node_modules:/app/node_modules
-        env_file: apps/api/.env
 
     postgres:
         image: postgres:17
