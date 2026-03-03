@@ -200,8 +200,8 @@
     "packages/carrelage-client": {
       "name": "@krak/carrelage-client",
       "version": "1.0.0",
-      "dependencies": {
-        "axios": "^1.6.8",
+      "devDependencies": {
+        "@types/geojson": "^7946.0.16",
       },
     },
     "packages/contracts": {

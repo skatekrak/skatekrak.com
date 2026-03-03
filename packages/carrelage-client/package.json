@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Krak Client for Carrelage API",
   "main": "./src/index.ts",
-  "dependencies": {
-    "axios": "^1.6.8"
+  "devDependencies": {
+    "@types/geojson": "^7946.0.16"
   }
 }

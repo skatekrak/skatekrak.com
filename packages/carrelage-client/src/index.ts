@@ -1,5 +1,3 @@
-import axios from 'axios';
-
 export interface Stat {
     createdAt: Date;
     className: string;
@@ -181,83 +179,7 @@ export interface SpotOverview {
     // TODO: complete SpotOverview interface
 }
 
-export const carrelage = axios.create({
-    baseURL: `${process.env.NEXT_PUBLIC_CARRELAGE_URL}`,
-});
-
-export type FiltersParams = {
-    indoor?: boolean;
-    type: Types[];
-    status: Status[];
-};
-
-export type QuerySearchSpotsParam = {
-    query?: string;
-    filters?: FiltersParams;
-};
-
-export type BoxSearchSpotsParams = {
-    northEastLatitude?: number;
-    northEastLongitude?: number;
-    southWestLatitude?: number;
-    southWestLongitude?: number;
-    filters?: FiltersParams;
-    limit?: number;
-};
-
-export type SearchSpotsParams = QuerySearchSpotsParam & BoxSearchSpotsParams;
-
-/**
- * Search and returns spots with given map bounds
- * @param params
- */
-export const boxSpotsSearch = async (params: BoxSearchSpotsParams) => {
-    const res = await carrelage.get<Spot[]>('/spots/search', { params });
-    return res.data;
-};
-
 export type SpotGeoJSON = GeoJSON.Feature<
     GeoJSON.Point,
     Pick<Spot, 'id' | 'name' | 'indoor' | 'tags' | 'mediasStat'> & { type: Types | Status }
 >;
-
-export const spotsSearchGeoJSON = async (params: BoxSearchSpotsParams) => {
-    const res = await carrelage.get<SpotGeoJSON[]>('/spots/geojson', { params });
-    return res.data;
-};
-
-/**
- * Search and returns spots with query search (on name, description and address)
- * @param params
- */
-export const querySpotsSearch = async (params: QuerySearchSpotsParam) => {
-    const res = await carrelage.get<Spot[]>('/spots/search', { params });
-    return res.data;
-};
-
-export const searchSpots = (params: SearchSpotsParams) => {
-    return carrelage.get('/spots/search', { params });
-};
-
-export const getSpotOverview = async (spotId: string): Promise<SpotOverview> => {
-    const res = await carrelage.get<SpotOverview>(`/spots/${spotId}/overview`);
-    return res.data;
-};
-
-export const getSpotsByTags = async (tags: string[], tagsFromMedia = false): Promise<Spot[]> => {
-    const res = await carrelage.get<Spot[]>(`/spots/by-tags`, { params: { tags, tagsFromMedia } });
-    return res.data;
-};
-
-export const getClips = async (spotId: string, older: Date = new Date(), limit = 10) => {
-    const res = await carrelage.get<Clip[]>(`/spots/${spotId}/clips`, {
-        params: {
-            older,
-            limit,
-        },
-    });
-
-    return res.data;
-};
-
-export default carrelage;
