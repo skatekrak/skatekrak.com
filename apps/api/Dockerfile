@@ -1,9 +1,7 @@
 # syntax = docker/dockerfile:1
 
-ARG BUN_VERSION=1.3.9
+ARG BUN_VERSION=1.3.10
 FROM oven/bun:${BUN_VERSION}-slim AS base
-
-LABEL fly_launch_runtime="Bun"
 
 # NodeJS app lives here
 WORKDIR /app
@@ -30,8 +28,9 @@ FROM base
 
 # Copy built application
 COPY --from=build /app /app
+RUN chmod +x /app/apps/api/entrypoint.sh
 
 EXPOSE 3000
 
-# Start the server by default, this can be overwritten at runtime
-CMD [ "bun", "start:api"]
+# Run migrations then start the server
+CMD ["sh", "/app/apps/api/entrypoint.sh"]
