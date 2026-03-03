@@ -291,6 +291,11 @@ export const getVideoInfo = os.spots.getVideoInformation.handler(async ({ input 
     };
 });
 
+export const reverseGeocodeSpot = os.spots.reverseGeocode.handler(async ({ input }) => {
+    const result = await reverseGeocode(input.latitude, input.longitude, env.GOOGLE_KEY);
+    return result ?? { streetNumber: null, streetName: null, city: null, country: null };
+});
+
 export const addClipToSpot = os.spots.addClipToSpot
     .use(authed)
     .use(loadProfile)

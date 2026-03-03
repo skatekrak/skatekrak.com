@@ -99,6 +99,18 @@ export const createSpotInput = z.object({
     obstacles: z.array(ObstacleSchema).optional(),
 });
 
+export const reverseGeocodeInput = z.object({
+    latitude: z.number(),
+    longitude: z.number(),
+});
+
+export const ReverseGeocodeResultSchema = z.object({
+    streetNumber: z.string().nullable(),
+    streetName: z.string().nullable(),
+    city: z.string().nullable(),
+    country: z.string().nullable(),
+});
+
 export const getVideoInformationInput = z.object({
     url: z.string().url(),
 });

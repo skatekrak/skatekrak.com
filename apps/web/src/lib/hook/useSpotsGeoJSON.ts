@@ -1,5 +1,6 @@
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import { MapRef } from 'react-map-gl';
+
 import { SpotGeoJSON } from '@krak/carrelage-client';
 import { client } from '@/server/orpc/client';
 import useDebounce from '@/lib/hook/useDebounce';

@@ -8,7 +8,7 @@ import MapSpotOverview from './MapSpotOverview';
 
 import { SpotGeoJSON } from '@krak/carrelage-client';
 import { MAX_ZOOM_LEVEL, ZOOM_DISPLAY_DOTS, MIN_ZOOM_LEVEL } from './Map.constant';
-import { Status, Types } from '@/shared/feudartifice/types';
+import { Status, Types } from '@krak/carrelage-client';
 import SmallLayer from './layers/SmallLayer';
 import SpotPinLayer from './layers/SpotPinLayer';
 import { intersects } from 'radash';

@@ -16,7 +16,7 @@ import { ZOOM_DISPLAY_WARNING } from './Map.constant';
 import MapCreateSpot from './MapCreateSpot';
 import useSession from '@/lib/hook/carrelage/use-session';
 import { useRouter } from 'next/router';
-import { useSpotsGeoJSON } from '@/shared/feudartifice/hooks/spot';
+import { useSpotsGeoJSON } from '@/lib/hook/useSpotsGeoJSON';
 import { isEmpty, intersects } from 'radash';
 import { useQuery } from '@tanstack/react-query';
 import { orpc } from '@/server/orpc/client';

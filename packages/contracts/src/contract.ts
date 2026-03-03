@@ -9,6 +9,8 @@ import {
     getSpotOverviewInput,
     getSpotsGeoJSONInput,
     listByTagsInput,
+    reverseGeocodeInput,
+    ReverseGeocodeResultSchema,
     getVideoInformationInput,
     VideoInformationSchema,
 } from './schemas/spots';
@@ -49,6 +51,7 @@ export const contract = {
         getSpotsGeoJSON: oc.input(getSpotsGeoJSONInput).output(z.array(SpotGeoJSONSchema)),
         listByTags: oc.input(listByTagsInput).output(z.array(SpotSchema)),
         addClipToSpot: oc.input(addClipToSpotInput).output(ClipSchema),
+        reverseGeocode: oc.input(reverseGeocodeInput).output(ReverseGeocodeResultSchema),
         getVideoInformation: oc.input(getVideoInformationInput).output(VideoInformationSchema),
     },
     maps: {
