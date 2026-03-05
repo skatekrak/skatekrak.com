@@ -1,7 +1,6 @@
 {
     "name": "@krak/monorepo",
-    "dependencies": {
-        "@manypkg/cli": "^0.21.4",
+    "devDependencies": {
         "@types/bun": "^1.1.1",
         "@types/node": "^25.3.0",
         "turbo": "^2.0.4"
@@ -10,9 +9,10 @@
         "node": "24",
         "bun": "1.3.10"
     },
-    "private": false,
+    "packageManager": "bun@1.3.10",
+    "private": true,
     "scripts": {
-        "lint": "turbo lint && manypkg check",
+        "lint": "turbo lint && bunx sherif",
         "build": "turbo build",
         "dev": "turbo dev --parallel",
         "dev:web": "turbo dev --filter=@krak/web",
