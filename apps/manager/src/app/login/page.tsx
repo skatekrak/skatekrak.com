@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, type FormEvent } from 'react';
+import { useState, type SubmitEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button, Card, CardContent, CardDescription, CardHeader, CardTitle, Input, Label } from '@krak/ui';
 
@@ -13,7 +13,7 @@ export default function LoginPage() {
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);
 
-    async function handleSubmit(e: FormEvent) {
+    async function handleSubmit(e: SubmitEvent) {
         e.preventDefault();
         setError(null);
         setLoading(true);
@@ -26,13 +26,13 @@ export default function LoginPage() {
 
             if (result.error) {
                 setError(result.error.message ?? 'Invalid credentials');
-                setLoading(false);
                 return;
             }
 
             router.push('/');
         } catch {
             setError('An unexpected error occurred');
+        } finally {
             setLoading(false);
         }
     }
