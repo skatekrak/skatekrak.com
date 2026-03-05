@@ -28,9 +28,32 @@ export type Context = {
 
 export const os = implement(contract).$context<Context>();
 
+/**
+ * Requires an authenticated session. Throws UNAUTHORIZED if not authenticated.
+ */
 export const authed = os.middleware(async ({ context, next }) => {
     if (!context.session) {
         throw new ORPCError('UNAUTHORIZED', { message: 'Not authenticated' });
+    }
+
+    return next({
+        context: {
+            session: context.session,
+        },
+    });
+});
+
+/**
+ * Requires the authenticated user to have an ADMIN role.
+ * Must be chained after `authed` (requires `context.session` to be non-null).
+ */
+export const admin = os.middleware(async ({ context, next }) => {
+    if (!context.session) {
+        throw new ORPCError('UNAUTHORIZED', { message: 'Not authenticated' });
+    }
+
+    if (context.session.user.role !== 'ADMIN') {
+        throw new ORPCError('FORBIDDEN', { message: 'Admin access required' });
     }
 
     return next({

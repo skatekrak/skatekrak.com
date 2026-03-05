@@ -9,6 +9,7 @@ export * from './schemas/spots';
 export * from './schemas/maps';
 export * from './schemas/media';
 export * from './schemas/profiles';
+export * from './schemas/admin';
 
 // Inferred types from the contract
 export type ContractInputs = InferContractRouterInputs<typeof import('./contract').contract>;
