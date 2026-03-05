@@ -10,7 +10,9 @@
     },
     "typesVersions": {
         "*": {
-            "client": ["./src/client.ts"]
+            "client": [
+                "./src/client.ts"
+            ]
         }
     },
     "dependencies": {
