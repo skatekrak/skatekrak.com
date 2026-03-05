@@ -95,7 +95,10 @@ function SidebarProvider({
                             ...style,
                         } as React.CSSProperties
                     }
-                    className={cn('group/sidebar-wrapper flex min-h-svh w-full has-[[data-variant=inset]]:bg-sidebar', className)}
+                    className={cn(
+                        'group/sidebar-wrapper flex min-h-svh w-full has-[[data-variant=inset]]:bg-sidebar',
+                        className,
+                    )}
                     {...props}
                 >
                     {children}
@@ -206,15 +209,36 @@ function SidebarTrigger({ className, onClick, ...props }: React.ComponentProps<t
 }
 
 function SidebarHeader({ className, ...props }: React.ComponentProps<'div'>) {
-    return <div data-slot="sidebar-header" data-sidebar="header" className={cn('flex flex-col gap-2 p-2', className)} {...props} />;
+    return (
+        <div
+            data-slot="sidebar-header"
+            data-sidebar="header"
+            className={cn('flex flex-col gap-2 p-2', className)}
+            {...props}
+        />
+    );
 }
 
 function SidebarFooter({ className, ...props }: React.ComponentProps<'div'>) {
-    return <div data-slot="sidebar-footer" data-sidebar="footer" className={cn('flex flex-col gap-2 p-2', className)} {...props} />;
+    return (
+        <div
+            data-slot="sidebar-footer"
+            data-sidebar="footer"
+            className={cn('flex flex-col gap-2 p-2', className)}
+            {...props}
+        />
+    );
 }
 
 function SidebarSeparator({ className, ...props }: React.ComponentProps<typeof Separator>) {
-    return <Separator data-slot="sidebar-separator" data-sidebar="separator" className={cn('mx-2 w-auto', className)} {...props} />;
+    return (
+        <Separator
+            data-slot="sidebar-separator"
+            data-sidebar="separator"
+            className={cn('mx-2 w-auto', className)}
+            {...props}
+        />
+    );
 }
 
 function SidebarContent({ className, ...props }: React.ComponentProps<'div'>) {
@@ -222,7 +246,10 @@ function SidebarContent({ className, ...props }: React.ComponentProps<'div'>) {
         <div
             data-slot="sidebar-content"
             data-sidebar="content"
-            className={cn('flex min-h-0 flex-1 flex-col gap-2 overflow-auto group-data-[collapsible=icon]:overflow-hidden', className)}
+            className={cn(
+                'flex min-h-0 flex-1 flex-col gap-2 overflow-auto group-data-[collapsible=icon]:overflow-hidden',
+                className,
+            )}
             {...props}
         />
     );
@@ -261,7 +288,14 @@ function SidebarGroupLabel({
 }
 
 function SidebarGroupContent({ className, ...props }: React.ComponentProps<'div'>) {
-    return <div data-slot="sidebar-group-content" data-sidebar="group-content" className={cn('w-full text-sm', className)} {...props} />;
+    return (
+        <div
+            data-slot="sidebar-group-content"
+            data-sidebar="group-content"
+            className={cn('w-full text-sm', className)}
+            {...props}
+        />
+    );
 }
 
 function SidebarMenu({ className, ...props }: React.ComponentProps<'ul'>) {
@@ -276,7 +310,14 @@ function SidebarMenu({ className, ...props }: React.ComponentProps<'ul'>) {
 }
 
 function SidebarMenuItem({ className, ...props }: React.ComponentProps<'li'>) {
-    return <li data-slot="sidebar-menu-item" data-sidebar="menu-item" className={cn('group/menu-item relative', className)} {...props} />;
+    return (
+        <li
+            data-slot="sidebar-menu-item"
+            data-sidebar="menu-item"
+            className={cn('group/menu-item relative', className)}
+            {...props}
+        />
+    );
 }
 
 function SidebarMenuButton({
