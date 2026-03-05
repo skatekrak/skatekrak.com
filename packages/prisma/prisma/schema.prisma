@@ -110,6 +110,9 @@ model User {
   name                   String? // BetterAuth core: user display name
   image                  String? // BetterAuth core: user avatar URL
   role                   Role               @default(USER)
+  banned                 Boolean            @default(false)
+  banReason              String?
+  banExpires             DateTime?
   resetPasswordToken     String?
   resetPasswordExpires   DateTime?
   receiveNewsletter      Boolean            @default(false)
@@ -137,8 +140,9 @@ model Session {
   userId    String
   token     String   @unique
   expiresAt DateTime
-  ipAddress String?
-  userAgent String?
+  ipAddress      String?
+  userAgent      String?
+  impersonatedBy String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 

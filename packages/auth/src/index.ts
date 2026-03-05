@@ -1,6 +1,6 @@
 import { betterAuth } from 'better-auth';
 import { prismaAdapter } from 'better-auth/adapters/prisma';
-import { username } from 'better-auth/plugins';
+import { admin, username } from 'better-auth/plugins';
 import type { PrismaClient } from '@krak/prisma';
 
 type SendResetPasswordData = {
@@ -31,14 +31,6 @@ export const createAuth = (prisma: PrismaClient, options?: CreateAuthOptions) =>
         },
         user: {
             modelName: 'User',
-            additionalFields: {
-                role: {
-                    type: 'string',
-                    required: false,
-                    defaultValue: 'USER',
-                    input: false,
-                },
-            },
         },
         session: {
             modelName: 'Session',
@@ -52,6 +44,10 @@ export const createAuth = (prisma: PrismaClient, options?: CreateAuthOptions) =>
         plugins: [
             username({
                 minUsernameLength: 1,
+            }),
+            admin({
+                defaultRole: 'USER',
+                adminRoles: ['ADMIN'],
             }),
         ],
     });
