@@ -1,8 +1,8 @@
 import { z } from 'zod';
-import { Types, Status, VideoProvider } from '@krak/carrelage-client';
+import { Types, Status, VideoProvider } from '@krak/types';
 
 // ============================================================================
-// Enums (using nativeEnum to match carrelage-client types exactly)
+// Enums (using nativeEnum to match @krak/types exactly)
 // ============================================================================
 
 export const SpotTypeSchema = z.nativeEnum(Types);

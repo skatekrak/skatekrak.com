@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { Layer, MapLayerMouseEvent, useMap } from 'react-map-gl';
-import { Status, Types } from '@krak/carrelage-client';
+import { Status, Types } from '@krak/types';
 
 import { mapColors } from '@/styles/colors';
 import { ZOOM_DISPLAY_DOTS } from '../Map.constant';

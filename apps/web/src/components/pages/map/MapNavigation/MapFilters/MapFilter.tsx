@@ -2,7 +2,7 @@ import React, { memo, CSSProperties } from 'react';
 import { useShallow } from 'zustand/react/shallow';
 import classnames from 'classnames';
 
-import { Types, Status } from '@krak/carrelage-client';
+import { Types, Status } from '@krak/types';
 
 import { useMapStore } from '@/store/map';
 

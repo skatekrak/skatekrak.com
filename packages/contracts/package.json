@@ -4,7 +4,7 @@
     "description": "oRPC API contract definitions",
     "main": "src/index.ts",
     "dependencies": {
-        "@krak/carrelage-client": "workspace:*",
+        "@krak/types": "workspace:*",
         "@orpc/contract": "^1.6.0",
         "zod": "^4.3.6"
     },

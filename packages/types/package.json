@@ -1,7 +1,7 @@
 {
-  "name": "@krak/carrelage-client",
+  "name": "@krak/types",
   "version": "1.0.0",
-  "description": "Krak Client for Carrelage API",
+  "description": "Shared TypeScript types for Krak",
   "main": "./src/index.ts",
   "devDependencies": {
     "@types/geojson": "^7946.0.16"

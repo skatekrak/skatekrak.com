@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Cluster } from '@krak/carrelage-client';
+import { Cluster } from '@krak/types';
 import { Marker } from 'react-map-gl';
 
 type SpotClusterProps = {

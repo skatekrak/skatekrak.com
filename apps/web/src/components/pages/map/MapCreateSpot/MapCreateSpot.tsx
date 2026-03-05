@@ -1,6 +1,6 @@
 import { memo } from 'react';
 import * as Yup from 'yup';
-import { Types } from '@krak/carrelage-client';
+import { Types } from '@krak/types';
 import { Formik } from 'formik';
 import MapCreateSpotForm from './MapCreateSpotForm';
 import * as _ from 'radash';

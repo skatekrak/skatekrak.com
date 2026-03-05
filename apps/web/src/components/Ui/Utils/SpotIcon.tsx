@@ -1,4 +1,4 @@
-import { Status, Types } from '@krak/carrelage-client';
+import { Status, Types } from '@krak/types';
 import Street from '@/components/pages/map/marker/icons/Street';
 import Private from '@/components/pages/map/marker/icons/Private';
 import Diy from '@/components/pages/map/marker/icons/Diy';

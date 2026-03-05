@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import classnames from 'classnames';
-import { Types } from '@krak/carrelage-client';
+import { Types } from '@krak/types';
 
 import IconEdit from '@/components/Ui/Icons/IconEdit';
 import IconPlus from '@/components/Ui/Icons/IconPlus';

@@ -13,7 +13,7 @@ import HistoryBadge from '@/components/pages/map/marker/badges/History';
 import MinuteBadge from '@/components/pages/map/marker/badges/Minute';
 
 import type { Spot } from '@krak/contracts';
-import { Status, Types } from '@krak/carrelage-client';
+import { Status, Types } from '@krak/types';
 import { SpotHit } from '@/lib/meilisearch';
 
 type Props<T> = {

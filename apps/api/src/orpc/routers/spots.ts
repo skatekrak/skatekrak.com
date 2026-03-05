@@ -1,5 +1,5 @@
 import { ORPCError } from '@orpc/server';
-import { type SpotGeoJSON, Status, Types } from '@krak/carrelage-client';
+import { type SpotGeoJSON, Status, Types } from '@krak/types';
 import type { Media as PrismaMedia, ClipProvider, SpotType, SpotStatus, Obstacle } from '@krak/prisma';
 
 import { os, authed, loadProfile, loadSpot } from '../base';

@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { devtools } from 'zustand/middleware';
 
-import type { Status, Types } from '@krak/carrelage-client';
+import type { Status, Types } from '@krak/types';
 import type { InferContractRouterOutputs } from '@orpc/contract';
 import type { contract } from '@krak/contracts';
 

@@ -10,9 +10,9 @@ Bun + Turborepo monorepo for the Skatekrak skateboarding platform. Three apps an
 | `@krak/api`              | `apps/api`                  | Elysia (Bun), oRPC, MongoDB, PostgreSQL                     | Dokploy (custom server) |
 | `@krak/carrelage`        | `apps/carrelage`            | Express, Mongoose, MongoDB                                  | Not deployed            |
 | `@krak/trpc`             | `packages/trpc`             | tRPC router (spots, maps)                                   | —                       |
-| `@krak/carrelage-client` | `packages/carrelage-client` | Axios client + shared TS types                              | —                       |
+| `@krak/types`            | `packages/types`            | Shared TypeScript types                                     | —                       |
 
-Dependency chain: `web` -> `trpc` -> `carrelage-client`; `api` -> `trpc` -> `carrelage-client`.
+Dependency chain: `web` -> `trpc` -> `types`; `api` -> `trpc` -> `types`.
 
 ## Build / Lint / Test Commands
 
@@ -72,7 +72,7 @@ Order imports as: external packages, then internal workspace packages (`@krak/*`
 import { ObjectId } from 'mongodb';
 import { z } from 'zod';
 
-import { type Spot, Status } from '@krak/carrelage-client';
+import { type Spot, Status } from '@krak/types';
 import { publicProcedure, router } from '../trpc';
 ```
 
@@ -101,7 +101,7 @@ Use `import type { ... }` for type-only imports. This is enforced by TypeScript'
 - `react/react-in-jsx-scope` is OFF (React 17+ JSX transform).
 - State management: **Zustand** for map-related state, **Redux Toolkit** for mag/news/videos.
 - Styled-components are imported as `import * as S from './Component.styled'`.
-- Data fetching: **tRPC + React Query** for spot/map data, **Axios** (via carrelage-client) for legacy endpoints.
+- Data fetching: **oRPC + React Query** for spot/map data.
 - Form validation: **Formik + Yup** for forms, **Zod** for tRPC input schemas.
 - URL state: **nuqs** for query string state management.
 
@@ -148,6 +148,6 @@ src/
 
 - `apps/web` uses **Next.js Pages Router** (not App Router). Routes are in `src/pages/`.
 - The web app compiles Stylus CSS before the Next.js build (`build:style` script). Don't forget this step.
-- Workspace packages (`@krak/trpc`, `@krak/carrelage-client`) are transpiled by Next.js via `transpilePackages` in `next.config.js`.
+- Workspace packages (`@krak/trpc`, `@krak/types`) are transpiled by Next.js via `transpilePackages` in `next.config.js`.
 - The preview CI workflow still uses pnpm/Node 18 (legacy), but the main deploy uses Bun. Always use Bun locally.
 - `apps/carrelage` tests require a running MongoDB instance and compiled TypeScript (`bun run build` first).

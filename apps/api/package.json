@@ -14,7 +14,7 @@
         "@elysiajs/cors": "^1.4.1",
         "@elysiajs/cron": "^1.4.1",
         "@krak/auth": "workspace:*",
-        "@krak/carrelage-client": "workspace:*",
+        "@krak/types": "workspace:*",
         "@krak/contracts": "workspace:*",
         "@krak/prisma": "workspace:*",
         "@orpc/client": "^1.6.0",

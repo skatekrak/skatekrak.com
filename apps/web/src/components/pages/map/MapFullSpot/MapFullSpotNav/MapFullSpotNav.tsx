@@ -14,7 +14,7 @@ import MapFullSpotAddTrigger from '../MapFullSpotMain/MapFullSpotAdd/MapFullSpot
 import Typography from '@/components/Ui/typography/Typography';
 
 import type { Spot } from '@krak/contracts';
-import { Status, Types } from '@krak/carrelage-client';
+import { Status, Types } from '@krak/types';
 import type { FullSpotTab } from '@/store/map';
 import { useFullSpotSelectedTab } from '@/lib/hook/queryState';
 import { useMapStore } from '@/store/map';

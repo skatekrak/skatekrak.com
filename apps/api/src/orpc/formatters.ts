@@ -1,4 +1,4 @@
-import { type Spot, type Media, type Clip, Status, Types } from '@krak/carrelage-client';
+import { type Spot, type Media, type Clip, Status, Types } from '@krak/types';
 import type {
     Spot as PrismaSpot,
     Media as PrismaMedia,
