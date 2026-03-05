@@ -43,10 +43,7 @@ export const listUsers = os.admin.users.list
         ]);
 
         return {
-            users: users.map((user) => ({
-                ...user,
-                role: user.role as 'USER' | 'MODERATOR' | 'ADMIN',
-            })),
+            users,
             total,
             page,
             perPage,

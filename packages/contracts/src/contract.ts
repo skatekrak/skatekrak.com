@@ -27,7 +27,7 @@ import {
     uploadToSpotInput,
 } from './schemas/media';
 import { ProfileMeSchema } from './schemas/profiles';
-import { AdminUserSchema, listUsersInput, listUsersOutput } from './schemas/admin';
+import { listUsersInput, listUsersOutput } from './schemas/admin';
 
 // ============================================================================
 // SpotOverview output (composite — uses Spot + Media + Clip schemas)
