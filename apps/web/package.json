@@ -23,6 +23,7 @@
         "@krak/auth": "workspace:*",
         "@krak/contracts": "workspace:*",
         "@krak/types": "workspace:*",
+        "@krak/ui": "workspace:*",
         "@next/bundle-analyzer": "^16.1.6",
         "@orpc/client": "^1.6.0",
         "@orpc/contract": "^1.6.0",
