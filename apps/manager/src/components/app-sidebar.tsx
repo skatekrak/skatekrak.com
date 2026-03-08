@@ -27,10 +27,10 @@ export function AppSidebar() {
     const pathname = usePathname();
 
     return (
-        <Sidebar>
+        <Sidebar variant="inset">
             <SidebarHeader className="border-b px-4 py-3">
                 <Link href="/" className="flex items-center gap-2 font-semibold">
-                    <span className="text-lg">Skatekrak</span>
+                    <span className="text-lg">Manager</span>
                 </Link>
             </SidebarHeader>
             <SidebarContent>
