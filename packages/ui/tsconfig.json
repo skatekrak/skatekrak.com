@@ -5,7 +5,7 @@
         "jsx": "react-jsx",
         "baseUrl": ".",
         "paths": {
-            "@ui/*": ["./src/*"]
+            "@krak/ui/*": ["./src/*"]
         }
     },
     "include": ["src"],

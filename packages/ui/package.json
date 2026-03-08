@@ -6,7 +6,10 @@
     "types": "./src/index.ts",
     "exports": {
         ".": "./src/index.ts",
-        "./globals.css": "./src/globals.css"
+        "./globals.css": "./src/globals.css",
+        "./lib/*": "./src/lib/*.ts",
+        "./hooks/*": "./src/hooks/*.ts",
+        "./components/*": "./src/components/*.tsx"
     },
     "dependencies": {
         "@radix-ui/react-dialog": "^1.1.15",
