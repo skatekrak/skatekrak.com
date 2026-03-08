@@ -23,7 +23,6 @@ export { Skeleton } from './components/ui/skeleton';
 export {
     Sidebar,
     SidebarContent,
-    SidebarContext,
     SidebarFooter,
     SidebarGroup,
     SidebarGroupContent,
