@@ -5,11 +5,13 @@ import type { ContractRouterClient } from '@orpc/contract';
 
 import type { contract } from '@krak/contracts';
 
+import { env } from '@/env';
+
 function getBaseUrl() {
     if (typeof window === 'undefined') {
-        return process.env.KRAK_API_URL ?? process.env.NEXT_PUBLIC_KRAK_API_URL!;
+        return env.KRAK_API_URL ?? env.NEXT_PUBLIC_KRAK_API_URL;
     }
-    return process.env.NEXT_PUBLIC_KRAK_API_URL!;
+    return env.NEXT_PUBLIC_KRAK_API_URL;
 }
 
 // ============================================================================
