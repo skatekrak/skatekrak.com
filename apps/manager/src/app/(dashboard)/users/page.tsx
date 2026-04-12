@@ -8,6 +8,7 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 import { orpc } from '@/lib/orpc';
 import { DataTable } from '@/components/data-table';
+import { SiteHeader } from '@/components/site-header';
 import { columns } from './columns';
 
 export default function UsersPage() {
@@ -48,69 +49,73 @@ export default function UsersPage() {
     }
 
     return (
-        <div className="space-y-4">
-            <div className="flex items-center justify-between">
-                <h1 className="text-2xl font-bold tracking-tight">Users</h1>
-            </div>
-
-            <div className="flex items-center gap-4">
-                <Input
-                    placeholder="Search by username or email..."
-                    value={search}
-                    onChange={(e) => handleSearchChange(e.target.value)}
-                    className="max-w-sm"
-                />
-            </div>
-
-            {isLoading ? (
-                <div className="space-y-3">
-                    <Skeleton className="h-10 w-full" />
-                    <Skeleton className="h-10 w-full" />
-                    <Skeleton className="h-10 w-full" />
-                    <Skeleton className="h-10 w-full" />
-                    <Skeleton className="h-10 w-full" />
+        <>
+            <SiteHeader title="Users" />
+            <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
+                <div className="flex items-center gap-4">
+                    <Input
+                        placeholder="Search by username or email..."
+                        value={search}
+                        onChange={(e) => handleSearchChange(e.target.value)}
+                        className="max-w-sm"
+                    />
                 </div>
-            ) : (
-                <>
-                    <DataTable columns={columns} data={data?.users ?? []} sorting={sorting} onSortingChange={setSorting} />
 
-                    <div className="flex items-center justify-between">
-                        <p className="text-sm text-muted-foreground">
-                            {data ? (
-                                <>
-                                    Showing {(page - 1) * perPage + 1}-{Math.min(page * perPage, data.total)} of{' '}
-                                    {data.total} users
-                                </>
-                            ) : (
-                                'Loading...'
-                            )}
-                        </p>
-                        <div className="flex items-center gap-2">
-                            <Button
-                                variant="outline"
-                                size="sm"
-                                onClick={() => setPage((p) => Math.max(1, p - 1))}
-                                disabled={page <= 1}
-                            >
-                                <ChevronLeft className="size-4" />
-                                Previous
-                            </Button>
-                            <span className="text-sm text-muted-foreground">
-                                Page {page} of {totalPages}
-                            </span>
-                            <Button
-                                variant="outline"
-                                size="sm"
-                                onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
-                                disabled={page >= totalPages}
-                            >
-                                Next
-                                <ChevronRight className="size-4" />
-                            </Button>
-                        </div>
+                {isLoading ? (
+                    <div className="space-y-3">
+                        <Skeleton className="h-10 w-full" />
+                        <Skeleton className="h-10 w-full" />
+                        <Skeleton className="h-10 w-full" />
+                        <Skeleton className="h-10 w-full" />
+                        <Skeleton className="h-10 w-full" />
                     </div>
-                </>
-            )}
-        </div>
+                ) : (
+                    <>
+                        <DataTable
+                            columns={columns}
+                            data={data?.users ?? []}
+                            sorting={sorting}
+                            onSortingChange={setSorting}
+                        />
+
+                        <div className="flex items-center justify-between">
+                            <p className="text-sm text-muted-foreground">
+                                {data ? (
+                                    <>
+                                        Showing {(page - 1) * perPage + 1}-
+                                        {Math.min(page * perPage, data.total)} of {data.total} users
+                                    </>
+                                ) : (
+                                    'Loading...'
+                                )}
+                            </p>
+                            <div className="flex items-center gap-2">
+                                <Button
+                                    variant="outline"
+                                    size="sm"
+                                    onClick={() => setPage((p) => Math.max(1, p - 1))}
+                                    disabled={page <= 1}
+                                >
+                                    <ChevronLeft className="size-4" />
+                                    Previous
+                                </Button>
+                                <span className="text-sm text-muted-foreground">
+                                    Page {page} of {totalPages}
+                                </span>
+                                <Button
+                                    variant="outline"
+                                    size="sm"
+                                    onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+                                    disabled={page >= totalPages}
+                                >
+                                    Next
+                                    <ChevronRight className="size-4" />
+                                </Button>
+                            </div>
+                        </div>
+                    </>
+                )}
+            </div>
+        </>
     );
 }
