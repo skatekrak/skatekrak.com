@@ -33,6 +33,7 @@ export {
     SidebarMenuButton,
     SidebarMenuItem,
     SidebarProvider,
+    SidebarRail,
     SidebarSeparator,
     SidebarTrigger,
     useSidebar,
