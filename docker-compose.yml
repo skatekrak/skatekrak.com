@@ -72,14 +72,6 @@ services:
         ports:
             - 5433:5432
 
-    mongodb:
-        image: mongo:7.0
-        volumes:
-            - ./backup:/backup
-            - mongo-data:/data/db
-        ports:
-            - 27017:27017
-
     meilisearch:
         image: getmeili/meilisearch:v1.13
         environment:
@@ -99,7 +91,6 @@ volumes:
     carrelage-build: null
     carrelage-node_modules: null
     postgres-data: null
-    mongo-data: null
     meilisearch-data: null
 
 networks:
