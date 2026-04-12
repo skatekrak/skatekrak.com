@@ -14,8 +14,6 @@ import { endOfWeek, startOfWeek, sub } from 'date-fns';
 import { env } from './env';
 import { sendEmail } from './helpers/mail';
 
-const CORS_ORIGIN = /^https:\/\/(\w+\.)?skatekrak\.com$/;
-
 const adapter = new PrismaPg({ connectionString: env.DATABASE_URL });
 const prisma = new PrismaClient({ adapter });
 const auth = createAuth(prisma, {
@@ -76,29 +74,11 @@ const app = new Elysia()
             },
         }),
     )
-    .use(cors({ origin: CORS_ORIGIN, credentials: true }))
-    .all('/api/auth/*', ({ request }) => auth.handler(request))
+    .use(cors({ origin: /(\w+\.)?skatekrak\.com$/, credentials: true }))
+    .mount(auth.handler)
     .all(
         '/rpc/*',
         async ({ request }: { request: Request }) => {
-            const origin = request.headers.get('origin');
-            const allowedOrigin = origin && CORS_ORIGIN.test(origin) ? origin : null;
-
-            if (request.method === 'OPTIONS') {
-                return new Response(null, {
-                    status: 204,
-                    headers: {
-                        ...(allowedOrigin && {
-                            'Access-Control-Allow-Origin': allowedOrigin,
-                            'Access-Control-Allow-Credentials': 'true',
-                        }),
-                        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
-                        'Access-Control-Allow-Headers': request.headers.get('access-control-request-headers') ?? '',
-                        'Access-Control-Max-Age': '86400',
-                    },
-                });
-            }
-
             const session = (await auth.api.getSession({
                 headers: request.headers,
             })) as AuthSession;
@@ -112,12 +92,7 @@ const app = new Elysia()
                 },
             });
 
-            const res = response ?? new Response('Not Found', { status: 404 });
-            if (allowedOrigin) {
-                res.headers.set('Access-Control-Allow-Origin', allowedOrigin);
-                res.headers.set('Access-Control-Allow-Credentials', 'true');
-            }
-            return res;
+            return response ?? new Response('Not Found', { status: 404 });
         },
         { parse: 'none' },
     )
