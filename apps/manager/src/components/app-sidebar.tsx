@@ -18,6 +18,8 @@ import {
     SidebarRail,
 } from '@krak/ui';
 
+import { NavUser } from '@/components/nav-user';
+
 const navItems = [
     {
         title: 'Users',
@@ -32,16 +34,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     return (
         <Sidebar collapsible="offcanvas" {...props}>
             <SidebarHeader>
-                <SidebarMenu>
-                    <SidebarMenuItem>
-                        <SidebarMenuButton asChild className="data-[slot=sidebar-menu-button]:!p-1.5">
-                            <Link href="/">
-                                <LayoutDashboard />
-                                <span className="text-base font-semibold">Manager</span>
-                            </Link>
-                        </SidebarMenuButton>
-                    </SidebarMenuItem>
-                </SidebarMenu>
+                <Link href="/" className="flex flex-row gap-x-2 px-1 py-2 items-center">
+                    <LayoutDashboard />
+                    <span className="text-base font-semibold">Manager</span>
+                </Link>
             </SidebarHeader>
             <SidebarContent>
                 <SidebarGroup>
@@ -62,7 +58,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                     </SidebarGroupContent>
                 </SidebarGroup>
             </SidebarContent>
-            <SidebarFooter />
+            <SidebarFooter>
+                <NavUser />
+            </SidebarFooter>
             <SidebarRail />
         </Sidebar>
     );

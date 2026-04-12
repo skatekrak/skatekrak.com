@@ -20,6 +20,24 @@ export {
 export { Separator } from './components/ui/separator';
 export { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from './components/ui/tooltip';
 export { Skeleton } from './components/ui/skeleton';
+export { Avatar, AvatarImage, AvatarFallback } from './components/ui/avatar';
+export {
+    DropdownMenu,
+    DropdownMenuTrigger,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuCheckboxItem,
+    DropdownMenuRadioItem,
+    DropdownMenuLabel,
+    DropdownMenuSeparator,
+    DropdownMenuShortcut,
+    DropdownMenuGroup,
+    DropdownMenuPortal,
+    DropdownMenuSub,
+    DropdownMenuSubContent,
+    DropdownMenuSubTrigger,
+    DropdownMenuRadioGroup,
+} from './components/ui/dropdown-menu';
 export {
     Sidebar,
     SidebarContent,
