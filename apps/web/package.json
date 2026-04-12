@@ -11,8 +11,8 @@
         "build": "NEXT_PUBLIC_STAGE=production NODE_ENV=production next build",
         "start": "next start",
         "analyze": "ANALYZE=true next build",
-        "style": "eslint '*/**/*.{js,ts,tsx}' --quiet --fix",
-        "lint": "eslint '*/**/*.{js,ts,tsx}'"
+        "style": "oxlint --fix .",
+        "lint": "oxlint ."
     },
     "dependencies": {
         "@algolia/client-common": "^4.19.1",
@@ -68,13 +68,9 @@
         "@types/node": "^25.3.0",
         "@types/react": "^19.2.14",
         "@types/react-dom": "^19.2.3",
-        "@typescript-eslint/eslint-plugin": "^6.21.0",
-        "@typescript-eslint/parser": "^6.21.0",
+
         "babel-plugin-module-resolver": "^5.0.0",
-        "eslint": "^8.57.0",
-        "eslint-config-prettier": "^9.1.0",
-        "eslint-plugin-react": "^7.37.5",
-        "eslint-plugin-react-hooks": "^4.6.0",
+
         "postcss": "^8.4.38",
         "prettier": "^3.2.5",
         "tailwindcss": "^4.2.2",

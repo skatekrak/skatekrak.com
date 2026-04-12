@@ -22,7 +22,7 @@ const MapNavigation = () => {
     );
 
     const debouncedSpotsSearch = useConstant(() =>
-        AwesomeDebouncePromise((query: string) => Promise.all([fetchSpots(query)]), 200),
+        AwesomeDebouncePromise((query: string) => fetchSpots(query), 200),
     );
     const { isLoading, data } = useQuery({
         queryKey: ['search-spots', searchValue],

@@ -94,7 +94,7 @@ News.getInitialProps = async ({ query }) => {
         try {
             const res = await axios.get(`${process.env.NEXT_PUBLIC_RSS_BACKEND_URL}/contents/${query.id}`);
             return { contentData: res.data, gotId: true };
-        } catch (error) {
+        } catch {
             return { gotId: true };
         }
     }

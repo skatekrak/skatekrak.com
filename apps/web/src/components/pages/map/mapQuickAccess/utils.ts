@@ -14,7 +14,7 @@ export const generateCategories = (data: QuickAccessMap[]): Category[] => {
     const order = Object.keys(CustomMapCategory);
     const categories = allCategories
         .filter((cat): cat is CustomMapCategory => customMapCategoryValues.includes(cat))
-        .sort((a, b) => order.indexOf(a) - order.indexOf(b));
+        .toSorted((a, b) => order.indexOf(a) - order.indexOf(b));
 
     return categories.map((category) => ({
         id: category,

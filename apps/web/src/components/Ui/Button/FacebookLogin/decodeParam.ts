@@ -9,7 +9,7 @@ const decodeToParams = (paramString: string, key: string) => {
     return decodeURIComponent(
         paramString.replace(
             new RegExp(
-                '^(?:.*[&\\?]' + encodeURIComponent(key).replace(/[\.\+\*]/g, '\\$&') + '(?:\\=([^&]*))?)?.*$',
+                '^(?:.*[&\\?]' + encodeURIComponent(key).replace(/[.+*]/g, '\\$&') + '(?:\\=([^&]*))?)?.*$',
                 'i',
             ),
             '$1',

@@ -1,0 +1,24 @@
+{
+    "$schema": "./node_modules/oxlint/configuration_schema.json",
+    "plugins": ["typescript", "react", "nextjs", "import", "unicorn", "oxc"],
+    "categories": {
+        "correctness": "error",
+        "suspicious": "warn"
+    },
+    "rules": {
+        "typescript/no-explicit-any": "warn",
+        "react/react-in-jsx-scope": "off",
+        "import/no-unassigned-import": "off",
+        "nextjs/no-img-element": "warn",
+        "react-hooks/exhaustive-deps": "warn"
+    },
+    "settings": {
+        "react": {
+            "linkComponents": [{ "name": "Link", "linkAttribute": "href" }]
+        },
+        "next": {
+            "rootDir": "apps/web/"
+        }
+    },
+    "ignorePatterns": ["dist", ".next", "backup", "*.config.js", "*.config.mjs", "*.config.ts"]
+}

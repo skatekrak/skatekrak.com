@@ -53,7 +53,7 @@ const ButtonPrimary: React.FC<Props & { children: React.ReactNode }> = ({
             </>
         ) : (
             <>
-                {icon && icon}
+                {icon}
                 <Typography component="button">{children}</Typography>
             </>
         )}

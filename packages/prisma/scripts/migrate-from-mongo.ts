@@ -197,7 +197,7 @@ const migratedClipIds = new Set<string>();
 // Batch helper — run createMany in chunks to avoid memory issues
 // ---------------------------------------------------------------------------
 
-async function batchCreate<T>(label: string, data: T[], fn: (batch: T[]) => Promise<unknown>): Promise<void> {
+async function _batchCreate<T>(label: string, data: T[], fn: (batch: T[]) => Promise<unknown>): Promise<void> {
     for (let i = 0; i < data.length; i += BATCH_SIZE) {
         const batch = data.slice(i, i + BATCH_SIZE);
         await fn(batch);

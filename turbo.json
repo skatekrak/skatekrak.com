@@ -5,7 +5,6 @@
             "dependsOn": ["^build"],
             "outputs": [".next/**", "!.next/cache/**", "dist", "node_modules/.prisma/**"]
         },
-        "lint": {},
         "dev": {
             "persistent": true,
             "cache": false
