@@ -47,7 +47,7 @@ const MapSearchResults: React.FC<MapSearchResultsProps> = ({ spots, loading, pla
     };
 
     return (
-        <div className="absolute top-[3.75rem] left-0 right-0 text-onDark-highEmphasis bg-tertiary-dark border border-tertiary-medium rounded shadow-onDarkHighSharp">
+        <div className="absolute top-15 left-0 right-0 text-onDark-highEmphasis bg-tertiary-dark border border-tertiary-medium rounded shadow-onDarkHighSharp">
             <Scrollbar maxHeight="22.25rem">
                 {loading ? (
                     <MapSearchResultLoading />
