@@ -28,14 +28,14 @@ module.exports = {
                 onLightExtreme: '1px 5px 24px 1px rgba(31, 31, 31, 0.32)',
             },
             fontFamily: {
-                roboto: ['roboto-regular"', 'helvetica"', 'Arial', 'sans-serif'],
-                'roboto-bold': ['roboto-bold"', 'helvetica"', 'Arial', 'sans-serif'],
-                'roboto-black': ['roboto-black"', 'helvetica"', 'Arial', 'sans-serif'],
-                'roboto-black-italic': ['roboto-black-italic"', 'helvetica"', 'Arial', 'sans-serif'],
-                'roboto-condensed': ['roboto-condensed-regular"', 'helvetica"', 'Arial', 'sans-serif'],
-                'roboto-condensed-bold': ['roboto-condensed-bold"', 'helvetica"', 'Arial', 'sans-serif'],
-                brush: ['dirty-brush"', 'helvetica"', 'Arial', 'sans-serif'],
-                ink: ['inkfree"', 'helvetica"', 'Arial', 'sans-serif'],
+                roboto: ['roboto-regular', 'helvetica', 'Arial', 'sans-serif'],
+                'roboto-bold': ['roboto-bold', 'helvetica', 'Arial', 'sans-serif'],
+                'roboto-black': ['roboto-black', 'helvetica', 'Arial', 'sans-serif'],
+                'roboto-black-italic': ['roboto-black-italic', 'helvetica', 'Arial', 'sans-serif'],
+                'roboto-condensed': ['roboto-condensed-regular', 'helvetica', 'Arial', 'sans-serif'],
+                'roboto-condensed-bold': ['roboto-condensed-bold', 'helvetica', 'Arial', 'sans-serif'],
+                brush: ['dirty-brush', 'helvetica', 'Arial', 'sans-serif'],
+                ink: ['inkfree', 'helvetica', 'Arial', 'sans-serif'],
             },
             colors: {
                 primary: {
