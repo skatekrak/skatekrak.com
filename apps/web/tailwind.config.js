@@ -2,6 +2,7 @@
 const plugin = require('tailwindcss/plugin');
 
 module.exports = {
+    darkMode: ['class'],
     content: ['./src/components/**/*.{js,ts,jsx,tsx}', './src/pages/**/*.{js,ts,jsx,tsx}'],
     theme: {
         screens: {
@@ -27,27 +28,27 @@ module.exports = {
                 onLightExtreme: '1px 5px 24px 1px rgba(31, 31, 31, 0.32)',
             },
             fontFamily: {
-                roboto: ['"roboto-regular"', '"helvetica"', '"Arial"', 'sans-serif'],
-                'roboto-bold': ['"roboto-bold"', '"helvetica"', '"Arial"', 'sans-serif'],
-                'roboto-black': ['"roboto-black"', '"helvetica"', '"Arial"', 'sans-serif'],
-                'roboto-black-italic': ['"roboto-black-italic"', '"helvetica"', '"Arial"', 'sans-serif'],
-                'roboto-condensed': ['"roboto-condensed-regular"', '"helvetica"', '"Arial"', 'sans-serif'],
-                'roboto-condensed-bold': ['"roboto-condensed-bold"', '"helvetica"', '"Arial"', 'sans-serif'],
-                brush: ['"dirty-brush"', '"helvetica"', '"Arial"', 'sans-serif'],
-                ink: ['"inkfree"', '"helvetica"', '"Arial"', 'sans-serif'],
+                roboto: ['roboto-regular"', 'helvetica"', 'Arial', 'sans-serif'],
+                'roboto-bold': ['roboto-bold"', 'helvetica"', 'Arial', 'sans-serif'],
+                'roboto-black': ['roboto-black"', 'helvetica"', 'Arial', 'sans-serif'],
+                'roboto-black-italic': ['roboto-black-italic"', 'helvetica"', 'Arial', 'sans-serif'],
+                'roboto-condensed': ['roboto-condensed-regular"', 'helvetica"', 'Arial', 'sans-serif'],
+                'roboto-condensed-bold': ['roboto-condensed-bold"', 'helvetica"', 'Arial', 'sans-serif'],
+                brush: ['dirty-brush"', 'helvetica"', 'Arial', 'sans-serif'],
+                ink: ['inkfree"', 'helvetica"', 'Arial', 'sans-serif'],
             },
             colors: {
                 primary: {
-                    100: '#BF2722',
-                    80: '#FF3D38',
-                    50: '#FF8380',
                     20: '#FFCDCC',
+                    50: '#FF8380',
+                    80: '#FF3D38',
+                    100: '#BF2722',
                 },
                 secondary: {
-                    100: '#006ACC',
-                    80: '#56AEFF',
-                    50: '#80C2FF',
                     20: '#CCE7FF',
+                    50: '#80C2FF',
+                    80: '#56AEFF',
+                    100: '#006ACC',
                 },
                 tertiary: {
                     white: '#FFFFFF',
@@ -104,6 +105,16 @@ module.exports = {
                         default: '#FF791A',
                         dark: '#93501F',
                     },
+                },
+                sidebar: {
+                    DEFAULT: 'hsl(var(--sidebar-background))',
+                    foreground: 'hsl(var(--sidebar-foreground))',
+                    primary: 'hsl(var(--sidebar-primary))',
+                    'primary-foreground': 'hsl(var(--sidebar-primary-foreground))',
+                    accent: 'hsl(var(--sidebar-accent))',
+                    'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
+                    border: 'hsl(var(--sidebar-border))',
+                    ring: 'hsl(var(--sidebar-ring))',
                 },
             },
         },

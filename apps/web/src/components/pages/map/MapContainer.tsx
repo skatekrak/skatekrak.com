@@ -3,9 +3,7 @@ import { MapRef } from 'react-map-gl';
 import dynamic from 'next/dynamic';
 import { useShallow } from 'zustand/react/shallow';
 
-import { Spot } from '@krak/carrelage-client';
-
-import { getSpotOverview } from '@krak/carrelage-client';
+import type { Spot } from '@krak/contracts';
 
 import QuickAccessDesktop from './mapQuickAccess/desktop/quick-access-desktop';
 import MapNavigation from './MapNavigation';
@@ -18,10 +16,10 @@ import { ZOOM_DISPLAY_WARNING } from './Map.constant';
 import MapCreateSpot from './MapCreateSpot';
 import useSession from '@/lib/hook/carrelage/use-session';
 import { useRouter } from 'next/router';
-import { useQuery } from '@tanstack/react-query';
-import { useSpotsGeoJSON } from '@/shared/feudartifice/hooks/spot';
+import { useSpotsGeoJSON } from '@/lib/hook/useSpotsGeoJSON';
 import { isEmpty, intersects } from 'radash';
-import { trpc } from '@/server/trpc/utils';
+import { useQuery } from '@tanstack/react-query';
+import { orpc } from '@/server/orpc/client';
 import { SpinnerCircle } from '@/components/Ui/Icons/Spinners';
 import { useCityID, useCustomMapID, useMediaID, useSpotID, useSpotModal, useViewport } from '@/lib/hook/queryState';
 import { useMapStore } from '@/store/map';
@@ -52,14 +50,14 @@ const MapContainer = () => {
     const [, setFirstLoad] = useState(() => (spotId ? true : false));
     const [mapLoaded, setMapLoaded] = useState(false);
 
-    const { data: customMapInfo } = trpc.maps.fetch.useQuery({ id: id ?? '' }, { enabled: !!id });
+    const { data: customMapInfo } = useQuery(orpc.maps.fetch.queryOptions({ input: { id: id ?? '' }, enabled: !!id }));
 
     // Full spot
     const fullSpotContainerRef = useRef<ElementRef<'div'> | null>(null);
 
     const mapRef = useRef<MapRef | null>(null);
 
-    const centerToSpot = useCallback((spot: Spot) => {
+    const centerToSpot = useCallback((spot: Pick<Spot, 'location'>) => {
         console.log('center to spot', spot, mapRef.current);
 
         mapRef.current?.flyTo({
@@ -80,16 +78,9 @@ const MapContainer = () => {
         }
     };
 
-    const { data: overview } = useQuery({
-        queryKey: ['load-overview', spotId],
-        queryFn: async () => {
-            if (spotId == null) return undefined;
-            const overview = await getSpotOverview(spotId);
-            return overview;
-        },
-        enabled: spotId != null,
-        retry: false,
-    });
+    const { data: overview } = useQuery(
+        orpc.spots.getSpotOverview.queryOptions({ input: { id: spotId! }, enabled: spotId != null, retry: false }),
+    );
 
     useEffect(() => {
         if (overview != null && mapLoaded) {
@@ -136,12 +127,14 @@ const MapContainer = () => {
         );
     }, [customMapInfo]);
 
-    const { data: spotsByTags, isFetching: spotsTagsLoading } = trpc.spots.listByTags.useQuery(
-        {
-            tags: isEmpty(id) ? [] : [id!],
-            tagsFromMedia: shouldFetchWithMedia,
-        },
-        { enabled: !isEmpty(id) },
+    const { data: spotsByTags, isFetching: spotsTagsLoading } = useQuery(
+        orpc.spots.listByTags.queryOptions({
+            input: {
+                tags: isEmpty(id) ? [] : [id!],
+                tagsFromMedia: shouldFetchWithMedia,
+            },
+            enabled: !isEmpty(id),
+        }),
     );
 
     const onFullSpotClose = () => {

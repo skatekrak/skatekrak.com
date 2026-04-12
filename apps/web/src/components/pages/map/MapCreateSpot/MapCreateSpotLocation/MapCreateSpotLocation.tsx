@@ -1,12 +1,10 @@
-import React from 'react';
-
 import Typography from '@/components/Ui/typography/Typography';
 import IconPlus from '@/components/Ui/Icons/IconPlus';
 import IconEdit from '@/components/Ui/Icons/IconEdit';
 
 import { useField } from 'formik';
 import { useQuery } from '@tanstack/react-query';
-import Feudartifice from '@/shared/feudartifice';
+import { orpc } from '@/server/orpc/client';
 
 type Props = {
     handleToggleMapVisible: () => void;
@@ -15,15 +13,12 @@ type Props = {
 const MapCreateSpotLocation = ({ handleToggleMapVisible }: Props) => {
     const [{ value }] = useField<{ latitude: number | undefined; longitude: number | undefined }>('location');
 
-    const { data } = useQuery({
-        queryKey: ['fetch-reverser-geocoder', value],
-        queryFn: async () => {
-            if (value != null && value.latitude != null && value.longitude != null) {
-                return Feudartifice.spots.reverseGeocoder({ latitude: value.latitude, longitude: value.longitude });
-            }
-        },
-        enabled: value != null && value.latitude != null && value.longitude != null,
-    });
+    const { data } = useQuery(
+        orpc.spots.reverseGeocode.queryOptions({
+            input: { latitude: value.latitude!, longitude: value.longitude! },
+            enabled: value != null && value.latitude != null && value.longitude != null,
+        }),
+    );
 
     return (
         <button className="relative w-full p-6 text-left tablet:px-8 tablet:py-5" onClick={handleToggleMapVisible}>

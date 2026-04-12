@@ -1,0 +1,501 @@
+// ============================================================================
+// Skatekrak Prisma Schema
+// Migrated from MongoDB/Mongoose models in apps/carrelage
+// ============================================================================
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../node_modules/.prisma/client"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ============================================================================
+// Enums
+// ============================================================================
+
+enum Role {
+  USER
+  MODERATOR
+  ADMIN
+}
+
+enum SubscriptionStatus {
+  ACTIVE
+  EXPIRED
+  CANCELLED
+  NONE
+}
+
+enum DeviceType {
+  IOS
+  ANDROID
+}
+
+enum Stance {
+  GOOFY
+  REGULAR
+}
+
+enum SpotType {
+  SHOP
+  STREET
+  PARK
+  DIY
+  PRIVATE
+}
+
+enum SpotStatus {
+  ACTIVE
+  WIP
+  RIP
+}
+
+enum Obstacle {
+  STAIRS
+  GAP
+  STREET_GAP
+  LEDGE
+  HUBBA
+  BENCH
+  LOW_TO_HIGH
+  MANNY_PAD
+  SLAPPY
+  POLEJAM
+  JERSEY
+  DROP
+  FLATGROUND
+  HANDRAIL
+  FLATBAR
+  BUMP
+  WALLRIDE
+  BANK
+  TRANNY
+  SPINE
+  RAMP
+  BOWL
+  QUARTERPIPE
+  FULLPIPE
+  DOWNHILL
+  HIP
+  OTHER
+}
+
+enum MediaType {
+  IMAGE
+  VIDEO
+}
+
+enum ClipProvider {
+  YOUTUBE
+  VIMEO
+}
+
+// ============================================================================
+// User & Auth
+// ============================================================================
+
+/// Core user account. Username was previously used as _id in MongoDB.
+/// Also serves as BetterAuth's `user` table (mapped to "users" via modelName config).
+model User {
+  id                     String             @id @default(cuid())
+  username               String             @unique
+  displayUsername        String?            @unique // BetterAuth username plugin: non-normalized display username
+  email                  String?            @unique
+  emailVerified          Boolean            @default(false)
+  emailConfirmationToken String?
+  welcomeMailSent        Boolean            @default(false)
+  name                   String? // BetterAuth core: user display name
+  image                  String? // BetterAuth core: user avatar URL
+  role                   Role               @default(USER)
+  banned                 Boolean            @default(false)
+  banReason              String?
+  banExpires             DateTime?
+  resetPasswordToken     String?
+  resetPasswordExpires   DateTime?
+  receiveNewsletter      Boolean            @default(false)
+  subscriptionStatus     SubscriptionStatus @default(NONE)
+  stripeCustomerId       String?
+  subscriptionEndAt      DateTime?
+  createdAt              DateTime           @default(now())
+  updatedAt              DateTime           @updatedAt
+
+  // Relations
+  profile  Profile?
+  sessions Session[]
+  accounts Account[]
+
+  @@map("users")
+}
+
+// ============================================================================
+// BetterAuth: Session, Account, Verification
+// ============================================================================
+
+/// BetterAuth session. Tracks active user sessions with token & device info.
+model Session {
+  id        String   @id @default(cuid())
+  userId    String
+  token     String   @unique
+  expiresAt DateTime
+  ipAddress      String?
+  userAgent      String?
+  impersonatedBy String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
+}
+
+/// BetterAuth account. Links auth providers (credential, OAuth, etc.) to a user.
+model Account {
+  id                    String    @id @default(cuid())
+  userId                String
+  accountId             String
+  providerId            String
+  accessToken           String?
+  refreshToken          String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  idToken               String?
+  password              String?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+
+  // Relations
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("accounts")
+}
+
+/// BetterAuth verification. Used for email verification, password reset tokens, etc.
+model Verification {
+  id         String   @id @default(cuid())
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@map("verifications")
+}
+
+// ============================================================================
+// Profile
+// ============================================================================
+
+/// User profile with social info, stats, and gear. One-to-one with User.
+model Profile {
+  id                 String   @id @default(cuid())
+  userId             String   @unique
+  description        String?
+  location           String?
+  stance             Stance?
+  snapchat           String?
+  instagram          String?
+  website            String?
+  sponsors           String[]
+  profilePicture     Json? // CloudinaryFile: { publicId, version, url, format, width, height }
+  banner             Json? // CloudinaryFile
+  followersStat      Json? // Stat: { all, monthly, weekly, daily, createdAt }
+  followingStat      Json? // Stat
+  spotsFollowingStat Json? // Stat
+  mediasStat         Json? // Stat
+  clipsStat          Json? // Stat
+  tricksDoneStat     Json? // Stat
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  user           User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  followers      ProfileFollow[]     @relation("following") // profiles that follow this profile
+  following      ProfileFollow[]     @relation("follower") // profiles this profile follows
+  spotsFollowing ProfileSpotFollow[]
+  rewards        Reward[]
+
+  // Content authored by this profile
+  medias    Media[]
+  clips     Clip[]
+  spots     Spot[]
+  spotEdits SpotEdit[]
+  comments  Comment[]
+  likes     Like[]
+
+  @@map("profiles")
+}
+
+/// Self-referencing many-to-many join table for profile followers/following.
+model ProfileFollow {
+  followerId  String
+  followingId String
+  createdAt   DateTime @default(now())
+
+  // Relations
+  follower  Profile @relation("follower", fields: [followerId], references: [id], onDelete: Cascade)
+  following Profile @relation("following", fields: [followingId], references: [id], onDelete: Cascade)
+
+  @@id([followerId, followingId])
+  @@map("profile_follows")
+}
+
+/// Join table for profiles following spots.
+model ProfileSpotFollow {
+  profileId String
+  spotId    String
+  createdAt DateTime @default(now())
+
+  // Relations
+  profile Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  spot    Spot    @relation(fields: [spotId], references: [id], onDelete: Cascade)
+
+  @@id([profileId, spotId])
+  @@map("profile_spot_follows")
+}
+
+/// Achievement/badge unlocked by a profile. Was embedded array in Profile.
+model Reward {
+  id        String   @id @default(cuid())
+  profileId String
+  type      String // e.g. create_like, receive_like, create_comment, create_spot, etc.
+  subtype   String // milestone: "1", "10", "100"
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  profile Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+
+  @@map("rewards")
+}
+
+// ============================================================================
+// Spot
+// ============================================================================
+
+/// A skate spot location.
+model Spot {
+  id           String     @id @default(cuid())
+  name         String
+  streetName   String? // was location.streetName
+  streetNumber String? // was location.streetNumber
+  city         String? // was location.city
+  country      String? // was location.country
+  longitude    Float      @default(0) // was geo[0]
+  latitude     Float      @default(0) // was geo[1]
+  type         SpotType
+  status       SpotStatus @default(ACTIVE)
+  description  String?
+  indoor       Boolean    @default(false)
+  openingHours String[]
+  phone        String?
+  website      String?
+  instagram    String?
+  snapchat     String?
+  facebook     String?
+  addedById    String
+  coverURL     String?
+  tags         String[]
+  obstacles    Obstacle[]
+
+  // Stat snapshots (JSON)
+  commentsStat   Json? // Stat: { all, monthly, weekly, daily, createdAt }
+  mediasStat     Json? // Stat
+  clipsStat      Json? // Stat
+  tricksDoneStat Json? // Stat
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  addedBy        Profile             @relation(fields: [addedById], references: [id])
+  comments       Comment[]
+  edits          SpotEdit[]
+  medias         Media[]
+  clips          Clip[]
+  followedBy     ProfileSpotFollow[]
+  mergeEditsFrom SpotEdit[]          @relation("mergeTarget")
+
+  @@map("spots")
+}
+
+/// A proposed edit to a spot. Was embedded array in Spot.edits.
+model SpotEdit {
+  id          String      @id @default(cuid())
+  spotId      String
+  addedById   String
+  name        String?
+  longitude   Float?
+  latitude    Float?
+  type        SpotType?
+  status      SpotStatus?
+  description String?
+  indoor      Boolean?
+  phone       String?
+  website     String?
+  instagram   String?
+  snapchat    String?
+  facebook    String?
+  mergeIntoId String? // FK to another Spot this edit proposes merging into
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  // Relations
+  spot      Spot    @relation(fields: [spotId], references: [id], onDelete: Cascade)
+  addedBy   Profile @relation(fields: [addedById], references: [id])
+  mergeInto Spot?   @relation("mergeTarget", fields: [mergeIntoId], references: [id], onDelete: SetNull)
+
+  @@map("spot_edits")
+}
+
+// ============================================================================
+// Media
+// ============================================================================
+
+/// A photo or video posted to a spot.
+model Media {
+  id          String    @id @default(cuid())
+  type        MediaType
+  caption     String? // was _caption (usertag placeholders resolved at app level)
+  spotId      String?
+  addedById   String
+  image       Json? // CloudinaryFile: { publicId, version, url, format, width, height }
+  video       Json? // CloudinaryFile
+  staffPicked Boolean   @default(false)
+  releaseDate DateTime?
+  hashtags    String[]
+  usertags    String[]
+  trickDone   Json? // TrickDone snapshot: { trick, points, terrain, stance, ... }
+
+  // Stat snapshots (JSON)
+  likesStat    Json? // Stat: { all, monthly, weekly, daily, createdAt }
+  commentsStat Json? // Stat
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  spot    Spot?   @relation(fields: [spotId], references: [id], onDelete: SetNull)
+  addedBy Profile @relation(fields: [addedById], references: [id])
+
+  comments Comment[]
+  likes    Like[]
+
+  @@map("media")
+}
+
+// ============================================================================
+// Clip
+// ============================================================================
+
+/// A video clip (YouTube/Vimeo) linked to a spot.
+model Clip {
+  id           String       @id @default(cuid())
+  title        String
+  description  String?
+  provider     ClipProvider
+  videoURL     String
+  thumbnailURL String
+  spotId       String?
+  addedById    String
+
+  // Stat snapshots (JSON)
+  likesStat    Json? // Stat: { all, monthly, weekly, daily, createdAt }
+  commentsStat Json? // Stat
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  spot    Spot?   @relation(fields: [spotId], references: [id], onDelete: SetNull)
+  addedBy Profile @relation(fields: [addedById], references: [id])
+
+  comments Comment[]
+  likes    Like[]
+
+  @@map("clips")
+}
+
+// ============================================================================
+// Comment & Like (extracted from embedded sub-documents)
+// ============================================================================
+
+/// A comment on a Spot, Media, or Clip. Polymorphic via nullable FKs.
+/// Exactly one of spotId, mediaId, or clipId should be set.
+model Comment {
+  id        String   @id @default(cuid())
+  content   String // was _content (usertag placeholders resolved at app level)
+  addedById String
+  spotId    String?
+  mediaId   String?
+  clipId    String?
+  hashtags  String[]
+  usertags  String[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  addedBy Profile @relation(fields: [addedById], references: [id])
+  spot    Spot?   @relation(fields: [spotId], references: [id], onDelete: Cascade)
+  media   Media?  @relation(fields: [mediaId], references: [id], onDelete: Cascade)
+  clip    Clip?   @relation(fields: [clipId], references: [id], onDelete: Cascade)
+  likes   Like[]
+
+  @@map("comments")
+}
+
+// ============================================================================
+// Map (Custom Maps / Curated Content)
+// ============================================================================
+
+/// A curated map or content collection (e.g. famous spots, video soundtracks, skater profiles).
+/// Imported from _spots.json custom maps data.
+model Map {
+  id         String   @id // human-readable slug, e.g. "famous", "thps"
+  categories String[] // e.g. ["maps"], ["magazine"], ["video", "skater"]
+  name       String
+  subtitle   String   @default("")
+  edito      String   @default("")
+  about      String   @default("")
+  staging    Boolean  @default(false)
+  videos     String[] // video URLs
+  soundtrack String[] // soundtrack entries
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("maps")
+}
+
+// ============================================================================
+// Like
+// ============================================================================
+
+/// A like on a Media, Clip, or Comment. Polymorphic via nullable FKs.
+/// Exactly one of mediaId, clipId, or commentId should be set.
+model Like {
+  id        String   @id @default(cuid())
+  addedById String
+  mediaId   String?
+  clipId    String?
+  commentId String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  addedBy Profile  @relation(fields: [addedById], references: [id])
+  media   Media?   @relation(fields: [mediaId], references: [id], onDelete: Cascade)
+  clip    Clip?    @relation(fields: [clipId], references: [id], onDelete: Cascade)
+  comment Comment? @relation(fields: [commentId], references: [id], onDelete: Cascade)
+
+  // Prevent double-liking the same entity
+  @@unique([addedById, mediaId])
+  @@unique([addedById, clipId])
+  @@unique([addedById, commentId])
+  @@map("likes")
+}

@@ -4,7 +4,7 @@ import { useShallow } from 'zustand/react/shallow';
 import MapMediaOverlay from './MapMediaOverlay';
 import MapMediaShare from './MapMediaShare';
 
-import { Media } from '@krak/carrelage-client';
+import type { Media } from '@krak/contracts';
 import MapMediaVideoPlayer from './MapMediaVideoPlayer';
 import IconFullScreen from '@/components/Ui/Icons/IconFullScreen';
 import { useMediaID } from '@/lib/hook/queryState';
@@ -44,7 +44,7 @@ const MapMedia = ({ shareURL, media, isFromCustomMapFeed = false }: MapMediaProp
                 <IconFullScreen />
             </button>
             {media.type === 'video' && <MapMediaVideoPlayer media={media} isPlaying={isPlaying} />}
-            {media.type === 'image' && <img key={media.id} src={media.image.jpg} alt={media.addedBy.username} />}
+            {media.type === 'image' && media.image && <img key={media.id} src={media.image.url} alt={media.addedBy.username} />}
             {(media.type === 'image' || (media.type === 'video' && !isPlaying)) && (
                 <MapMediaOverlay media={media} isFromCustomMapFeed={isFromCustomMapFeed} />
             )}

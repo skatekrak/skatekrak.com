@@ -4,10 +4,8 @@ import React from 'react';
 import dynamic from 'next/dynamic';
 
 import Layout from '@/components/Layout';
-import { dehydrate, QueryClient } from '@tanstack/react-query';
-import { getSpotOverview } from '@krak/carrelage-client';
-import { SpotOverview } from '@/shared/feudartifice/types';
 import { draw } from 'radash';
+import { serverClient } from '@/server/orpc/client';
 import cities from '@/data/cities/_cities';
 import { centerFromBounds } from '@/lib/map/helpers';
 
@@ -73,27 +71,21 @@ const Index: NextPage<MapPageProps> = ({ ogData }) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
-    const queryClient = new QueryClient();
-
     let ogData: OGData | null = null;
 
     if (query.spot != null && typeof query.spot === 'string') {
         try {
-            const overview = await getSpotOverview(query.spot);
+            const overview = await serverClient.spots.getSpotOverview({ id: query.spot });
 
             ogData = {
                 title: overview.spot.name,
                 description: `${overview.spot.location.streetNumber} ${overview.spot.location.streetName}, ${overview.spot.location.city} ${overview.spot.location.country}`,
                 imageUrl:
-                    overview.mostLikedMedia != null
+                    overview.mostLikedMedia?.image != null
                         ? `https://res.cloudinary.com/krak/image/upload/c_fill,w_1200,h_630/${overview.mostLikedMedia.image.publicId}.jpg`
                         : null,
                 url: `${baseURL}?spot=${query.spot}`,
             };
-            await queryClient.prefetchQuery<SpotOverview>({
-                queryKey: ['load-overview', query.spot],
-                queryFn: () => overview,
-            });
         } catch (err) {
             console.error(err);
         }
@@ -114,7 +106,6 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
 
     return {
         props: {
-            dehydratedState: dehydrate(queryClient),
             ogData: ogData,
         },
     };

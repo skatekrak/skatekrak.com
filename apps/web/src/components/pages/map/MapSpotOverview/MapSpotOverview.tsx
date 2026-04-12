@@ -5,7 +5,10 @@ import { Popup } from 'react-map-gl';
 import IconMedia from '@/components/Ui/Icons/IconMedia';
 import IconClips from '@/components/Ui/Icons/IconClips';
 
-import { SpotOverview } from '@krak/carrelage-client';
+import type { InferContractRouterOutputs } from '@orpc/contract';
+import type { contract } from '@krak/contracts';
+
+type SpotOverview = InferContractRouterOutputs<typeof contract>['spots']['getSpotOverview'];
 
 type MapSpotOverviewProps = {
     spotOverview: SpotOverview;
@@ -34,7 +37,7 @@ const MapSpotOverview: React.FC<MapSpotOverviewProps> = ({ spotOverview, onPopup
                 >
                     {spotOverview.spot.name}
                 </h4>
-                {spotOverview.mostLikedMedia && (
+                {spotOverview.mostLikedMedia?.image && (
                     <div className="map-spot-overview-cover-container">
                         <div
                             className="map-spot-overview-cover"

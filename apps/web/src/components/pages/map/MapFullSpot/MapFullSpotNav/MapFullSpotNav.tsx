@@ -13,7 +13,8 @@ import MapFullSpotNavItem from './MapFullSpotNavItem';
 import MapFullSpotAddTrigger from '../MapFullSpotMain/MapFullSpotAdd/MapFullSpotAddTrigger';
 import Typography from '@/components/Ui/typography/Typography';
 
-import { Spot, Status, Types } from '@krak/carrelage-client';
+import type { Spot } from '@krak/contracts';
+import { Status, Types } from '@krak/types';
 import type { FullSpotTab } from '@/store/map';
 import { useFullSpotSelectedTab } from '@/lib/hook/queryState';
 import { useMapStore } from '@/store/map';
@@ -45,11 +46,19 @@ const displayAddress = (spot: Spot): string => {
         .filter((str) => str != null)
         .join(' ');
 
-    if (startOfAddress) {
+    if (startOfAddress && startOfAddress !== ' ') {
         return [startOfAddress, spot.location.city].join(', ');
     }
 
     return spot.location.city;
+};
+
+const SpotAddress = ({ spot }: { spot: Spot }) => {
+    return (
+        <Typography className="italic font-roboto text-onDark-mediumEmphasis" component="caption">
+            {displayAddress(spot)}
+        </Typography>
+    );
 };
 
 const MapFullSpotNav = () => {
@@ -74,9 +83,7 @@ const MapFullSpotNav = () => {
                         >
                             <span>{spotOverview.spot.location.city}</span> | {spotOverview.spot.location.country}
                         </Typography>
-                        <Typography className="italic font-roboto text-onDark-mediumEmphasis" component="caption">
-                            {displayAddress(spotOverview.spot)}
-                        </Typography>
+                        <SpotAddress spot={spotOverview.spot} />
                         <div className="flex items-center mt-4 [&_.map-icon]:w-12 [&_.map-icon]:mr-6">
                             <SpotIcon type={spotOverview.spot.type} status={spotOverview.spot.status} />
                             <MapFullSpotAddTrigger />

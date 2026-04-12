@@ -1,17 +1,28 @@
-FROM node:lts
+ARG BUN_VERSION=1.3.10
+FROM oven/bun:${BUN_VERSION}-slim AS base
 
-ARG NPM_AUTH_TOKEN
-
+# NodeJS app lives here
 WORKDIR /app
-COPY . /app
 
+# Set production environment
+ENV NODE_ENV=production
+
+# Throw-away build stage to reduce size of final image
+FROM base AS build
+
+# Install packages needed to build node modules
+RUN apt-get update -qq && \
+  apt-get install -y python-is-python3 pkg-config build-essential 
+
+# Install node modules
+COPY . .
+RUN bun install --frozen-lockfile
+RUN bun run build:web
+RUN bun install --production --frozen-lockfile
+
+FROM base
+
+COPY --from=build /app /app
 EXPOSE 3000
 
-RUN echo "registry=https://npm.thepunk.tech/" > .npmrc && \
-    echo "always-auth=true" >> .npmrc && \
-    echo "_authToken=${NPM_AUTH_TOKEN}" >> .npmrc && \
-    yarn install --frozen-lockfile && \
-    yarn build && \
-    yarn install --frozen-lockfile --production
-
-CMD ["yarn", "start"];
+CMD ["bun", "start:web"]

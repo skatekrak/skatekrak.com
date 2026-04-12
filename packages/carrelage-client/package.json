@@ -1,9 +1,0 @@
-{
-  "name": "@krak/carrelage-client",
-  "version": "1.0.0",
-  "description": "Krak Client for Carrelage API",
-  "main": "./src/index.ts",
-  "dependencies": {
-    "axios": "^1.6.8"
-  }
-}

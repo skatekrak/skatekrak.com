@@ -1,0 +1,16 @@
+{
+    "name": "@krak/contracts",
+    "version": "1.0.0",
+    "description": "oRPC API contract definitions",
+    "main": "src/index.ts",
+    "dependencies": {
+        "@krak/types": "workspace:*",
+        "@orpc/contract": "^1.6.0",
+        "zod": "^4.3.6"
+    },
+    "devDependencies": {
+        "@total-typescript/tsconfig": "^1.0.4",
+        "@types/bun": "^1.1.1",
+        "bun-types": "^1.1.6"
+    }
+}

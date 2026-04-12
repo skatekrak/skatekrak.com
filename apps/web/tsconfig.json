@@ -9,7 +9,7 @@
       "dom.iterable"
     ],
     "module": "esnext",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "noEmit": true,
     "noUnusedLocals": false,
     "noUnusedParameters": false,
@@ -32,6 +32,9 @@
       ]
     }
   },
+  "references": [
+    { "path": "../../packages/contracts" }
+  ],
   "exclude": [
     "node_modules"
   ],

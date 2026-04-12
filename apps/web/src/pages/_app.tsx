@@ -14,8 +14,6 @@ import '../../public/styles/tailwind.css';
 import '../../public/styles/fonts.css';
 import '../../public/styles/flexbox-grid.css';
 import '../../public/styles/masonry.css';
-import { trpc } from '@/server/trpc/utils';
-
 const App: React.FC<AppProps> = ({ Component, pageProps }) => {
     const [queryClient] = useState(() => new QueryClient());
 
@@ -36,4 +34,4 @@ const App: React.FC<AppProps> = ({ Component, pageProps }) => {
     );
 };
 
-export default trpc.withTRPC(App);
+export default App;

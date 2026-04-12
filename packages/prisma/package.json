@@ -1,0 +1,31 @@
+{
+    "name": "@krak/prisma",
+    "version": "0.0.1",
+    "private": true,
+    "main": "./src/index.ts",
+    "types": "./src/index.ts",
+    "scripts": {
+        "generate": "prisma generate",
+        "migrate:dev": "prisma migrate dev",
+        "migrate:deploy": "prisma migrate deploy",
+        "db:push": "prisma db push",
+        "studio": "prisma studio",
+        "format": "prisma format",
+        "validate": "prisma validate",
+        "migrate:from-mongo": "bun run scripts/migrate-from-mongo.ts",
+        "migrate:maps": "bun run scripts/migrate-maps.ts"
+    },
+    "dependencies": {
+        "@paralleldrive/cuid2": "^3.3.0",
+        "@prisma/adapter-pg": "^7.4.1",
+        "@prisma/client": "^7.4.1",
+        "@prisma/client-runtime-utils": "^7.4.1",
+        "mongodb": "^6.8.1"
+    },
+    "devDependencies": {
+        "@total-typescript/tsconfig": "^1.0.4",
+        "@types/bun": "^1.1.1",
+        "bun-types": "^1.1.6",
+        "prisma": "^7.4.1"
+    }
+}

@@ -1,7 +1,7 @@
 import { memo, useCallback, useEffect } from 'react';
 import { Layer, MapLayerMouseEvent, useMap } from 'react-map-gl';
 
-import { Status, Types } from '@/shared/feudartifice/types';
+import { Status, Types } from '@krak/types';
 import { ZOOM_DISPLAY_DOTS } from '../Map.constant';
 import { first } from 'radash';
 import { useSpotID } from '@/lib/hook/queryState';

@@ -5,7 +5,7 @@ import { useShallow } from 'zustand/react/shallow';
 import VideoPlayer from '@/components/Ui/Player/VideoPlayer';
 import Typography from '@/components/Ui/typography/Typography';
 
-import { Clip } from '@krak/carrelage-client';
+import type { Clip } from '@krak/contracts';
 import { useMapStore } from '@/store/map';
 
 type MapFullSpotMainClipProps = {

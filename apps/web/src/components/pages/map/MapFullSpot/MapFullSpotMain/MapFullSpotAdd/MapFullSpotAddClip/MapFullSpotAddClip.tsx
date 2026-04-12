@@ -1,9 +1,8 @@
 import VideoPlayer from '@/components/Ui/Player/VideoPlayer';
-import React, { FocusEventHandler, useState } from 'react';
-import { useQueryClient } from '@tanstack/react-query';
-import Feudartifice from '@/shared/feudartifice';
-import { useVideoInformation } from '@/shared/feudartifice/hooks/clips';
+import { FocusEventHandler, useState } from 'react';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { useMapStore } from '@/store/map';
+import { client, orpc } from '@/server/orpc/client';
 
 import Typography from '@/components/Ui/typography/Typography';
 import ButtonPrimary from '@/components/Ui/Button/ButtonPrimary';
@@ -16,7 +15,16 @@ const MapFullSpotAddClip = () => {
     const queryClient = useQueryClient();
     const [, selectFullSpotTab] = useFullSpotSelectedTab();
 
-    const { data, isError, isFetched } = useVideoInformation(url);
+    const { data, isError, isFetched } = useQuery(
+        orpc.spots.getVideoInformation.queryOptions({
+            input: { url },
+            enabled: url !== '',
+            refetchOnMount: false,
+            refetchOnReconnect: false,
+            refetchOnWindowFocus: false,
+            retry: false,
+        }),
+    );
 
     const onBlur: FocusEventHandler<HTMLInputElement> = (event) => {
         setURL(event.target.value);
@@ -31,8 +39,13 @@ const MapFullSpotAddClip = () => {
         }
 
         try {
-            const clip = await Feudartifice.clips.addClip(spotOverview.spot.id, url);
-            queryClient.invalidateQueries({ queryKey: ['load-overview', spotOverview.spot.id] });
+            const clip = await client.spots.addClipToSpot({
+                spotId: spotOverview.spot.id,
+                videoURL: url,
+            });
+            queryClient.invalidateQueries({
+                queryKey: orpc.spots.getSpotOverview.key({ input: { id: spotOverview.spot.id } }),
+            });
             queryClient.setQueryData(['fetch-spot-clips', spotOverview.spot.id], (prevData: any) => {
                 if (prevData == null) return prevData;
 

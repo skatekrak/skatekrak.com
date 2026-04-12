@@ -1,13 +1,13 @@
 export interface QuickAccess {
     id: string;
     name: string;
-    edito: string;
+    edito: string | null;
 }
 
 export interface QuickAccessMap extends QuickAccess {
-    subtitle: string;
-    about: string;
-    categories?: CustomMapCategory[];
+    subtitle: string | null;
+    about: string | null;
+    categories?: string[];
     numberOfSpots?: number;
 }
 

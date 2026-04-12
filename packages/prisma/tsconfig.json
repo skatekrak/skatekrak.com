@@ -1,0 +1,9 @@
+{
+    "extends": "@total-typescript/tsconfig/bundler/no-dom",
+    "include": ["src", "scripts", "prisma.config.ts"],
+    "compilerOptions": {
+        "esModuleInterop": true,
+        "types": ["bun-types"]
+    },
+    "exclude": ["node_modules"]
+}

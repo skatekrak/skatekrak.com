@@ -3,11 +3,12 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 });
 
 module.exports = withBundleAnalyzer({
+    allowedDevOrigins: ['*.skatekrak.com'],
     productionBrowserSourceMaps: true,
     compiler: {
         removeConsole: process.env.NODE_ENV === 'production',
     },
-    transpilePackages: ['@krak/carrelage-client', '@krak/trpc'],
+    transpilePackages: ['@krak/auth', '@krak/types', '@krak/contracts'],
     images: {
         unoptimized: true,
         remotePatterns: [

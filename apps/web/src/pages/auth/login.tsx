@@ -1,9 +1,7 @@
-import React from 'react';
 import { NextPage } from 'next';
 import { Formik, Field, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
 import { isEmpty, first, shake } from 'radash';
-import Feudartifice from '@/shared/feudartifice';
 import Link from 'next/link';
 
 import Layout from '@/components/Layout';
@@ -12,10 +10,9 @@ import ButtonPrimary from '@/components/Ui/Button/ButtonPrimary/ButtonPrimary';
 import Emoji from '@/components/Ui/Icons/Emoji';
 import IconLike from '@/components/Ui/Icons/IconLike';
 
-import { CarrelageAPIError } from '@/shared/feudartifice/types';
 import { useRouter } from 'next/router';
 import useSession from '@/lib/hook/carrelage/use-session';
-import { AxiosError } from 'axios';
+import { signIn } from '@/lib/auth';
 
 type LoginFormValues = {
     username: string;
@@ -38,19 +35,16 @@ const Login: NextPage = () => {
     }
 
     const onSubmit = async (values: LoginFormValues, helpers: FormikHelpers<LoginFormValues>) => {
-        try {
-            await Feudartifice.auth.login({
-                username: values.username,
-                password: values.password,
-                rememberMe: values.remember,
-            });
+        const { error } = await signIn.username({
+            username: values.username,
+            password: values.password,
+            rememberMe: values.remember,
+        });
+
+        if (error) {
+            helpers.setFieldError('username', error.message ?? 'Login failed');
+        } else {
             router.push('/');
-        } catch (err) {
-            if (err instanceof AxiosError) {
-                console.log(JSON.stringify(err.response, undefined, 2));
-                const error = err.response as CarrelageAPIError;
-                helpers.setFieldError('username', error.data.message);
-            }
         }
     };
 

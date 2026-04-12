@@ -1,6 +1,6 @@
 import { Meilisearch, Hit } from 'meilisearch';
 
-import { Types, Status } from '@krak/carrelage-client';
+import { Types, Status } from '@krak/types';
 
 const client = new Meilisearch({
     host: process.env.NEXT_PUBLIC_MEILI_HOST!,

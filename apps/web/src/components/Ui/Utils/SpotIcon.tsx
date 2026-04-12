@@ -1,4 +1,4 @@
-import { Spot, Status, Types } from '@/shared/feudartifice/types';
+import { Status, Types } from '@krak/types';
 import Street from '@/components/pages/map/marker/icons/Street';
 import Private from '@/components/pages/map/marker/icons/Private';
 import Diy from '@/components/pages/map/marker/icons/Diy';
@@ -7,7 +7,7 @@ import Shop from '@/components/pages/map/marker/icons/Shop';
 import Rip from '@/components/pages/map/marker/icons/Rip';
 import Wip from '@/components/pages/map/marker/icons/Wip';
 
-const SpotIcon = ({ spot }: { spot: Spot }) => {
+const SpotIcon = ({ spot }: { spot: { status: Status; type: Types } }) => {
     if (spot.status === Status.Active) {
         switch (spot.type) {
             case Types.Street:
