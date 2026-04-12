@@ -28,9 +28,6 @@ FROM base
 
 # Copy built application
 COPY --from=build /app /app
-RUN chmod +x /app/apps/api/entrypoint.sh
-
 EXPOSE 3000
 
-# Run migrations then start the server
-CMD ["sh", "/app/apps/api/entrypoint.sh"]
+CMD ["bun", "start:api"]
