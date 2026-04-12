@@ -74,8 +74,8 @@ const app = new Elysia()
             },
         }),
     )
-    .use(cors({ origin: /(\w+\.)?skatekrak\.com$/, credentials: true }))
-    .mount(auth.handler)
+    .use(cors({ origin: /^https:\/\/(\w+\.)?skatekrak\.com$/, credentials: true }))
+    .all('/api/auth/*', ({ request }) => auth.handler(request))
     .all(
         '/rpc/*',
         async ({ request }: { request: Request }) => {
