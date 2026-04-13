@@ -20,9 +20,7 @@
         "dev:manager": "turbo dev --filter=@krak/manager",
         "dev:api": "turbo dev --filter=@krak/api",
         "build:api": "turbo build --filter=@krak/api",
-        "build:carrelage": "turbo build --filter=@krak/carrelage",
-        "start:api": "cd apps/api && bun run start",
-        "start:carrelage": "turbo start --filter=@krak/carrelage"
+        "start:api": "cd apps/api && bun run start"
     },
     "workspaces": [
         "apps/*",
