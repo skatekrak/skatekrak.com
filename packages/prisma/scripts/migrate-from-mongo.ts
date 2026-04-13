@@ -197,11 +197,18 @@ const migratedClipIds = new Set<string>();
 // Batch helper — run createMany in chunks to avoid memory issues
 // ---------------------------------------------------------------------------
 
-async function _batchCreate<T>(label: string, data: T[], fn: (batch: T[]) => Promise<unknown>): Promise<void> {
+async function batchCreate<T>(label: string, data: T[], fn: (batch: T[]) => Promise<unknown>): Promise<void> {
+    if (data.length === 0) {
+        log(`  ${label}: 0 records, nothing to insert`);
+        return;
+    }
+    const start = performance.now();
     for (let i = 0; i < data.length; i += BATCH_SIZE) {
         const batch = data.slice(i, i + BATCH_SIZE);
         await fn(batch);
-        log(`  ${label}: inserted ${Math.min(i + BATCH_SIZE, data.length)}/${data.length}`);
+        const done = Math.min(i + BATCH_SIZE, data.length);
+        const elapsed = ((performance.now() - start) / 1000).toFixed(1);
+        log(`  ${label}: ${done}/${data.length} (${elapsed}s)`);
     }
 }
 
@@ -214,38 +221,38 @@ async function migrateUsers(db: Db, prisma: PrismaClient) {
     const users = await db.collection('users').find().toArray();
     log(`  Found ${users.length} users in MongoDB`);
 
-    // Insert one-by-one to capture generated IDs
-    for (const u of users) {
+    const data: Prisma.UserCreateManyInput[] = users.map((u) => {
         const username = String(u._id);
-        const created = await prisma.user.create({
-            data: {
-                username,
-                email: toStr(u.email),
-                emailVerified: u.emailVerified ?? false,
-                emailConfirmationToken: toStr(u.emailConfirmationToken),
-                welcomeMailSent: u.welcomeMailSent ?? false,
-                role: roleMap[u.role] ?? ('USER' as Role),
-                resetPasswordToken: toStr(u.resetPasswordToken),
-                resetPasswordExpires: toDate(u.resetPasswordExpires),
-                receiveNewsletter: u.receiveNewsletter ?? false,
-                subscriptionStatus: subscriptionStatusMap[u.subscriptionStatus] ?? ('NONE' as SubscriptionStatus),
-                stripeCustomerId: toStr(u.stripeCustomerId),
-                subscriptionEndAt: toDate(u.subscriptionEndAt),
-                createdAt: toDateRequired(u.createdAt),
-                updatedAt: toDateRequired(u.updatedAt),
-            },
-        });
-        userIdMap.set(username, created.id);
-    }
+        const id = createId();
+        userIdMap.set(username, id);
+        return {
+            id,
+            username,
+            email: toStr(u.email),
+            emailVerified: u.emailVerified ?? false,
+            emailConfirmationToken: toStr(u.emailConfirmationToken),
+            welcomeMailSent: u.welcomeMailSent ?? false,
+            role: roleMap[u.role] ?? ('USER' as Role),
+            resetPasswordToken: toStr(u.resetPasswordToken),
+            resetPasswordExpires: toDate(u.resetPasswordExpires),
+            receiveNewsletter: u.receiveNewsletter ?? false,
+            subscriptionStatus: subscriptionStatusMap[u.subscriptionStatus] ?? ('NONE' as SubscriptionStatus),
+            stripeCustomerId: toStr(u.stripeCustomerId),
+            subscriptionEndAt: toDate(u.subscriptionEndAt),
+            createdAt: toDateRequired(u.createdAt),
+            updatedAt: toDateRequired(u.updatedAt),
+        };
+    });
 
-    log(`  Inserted ${users.length} users`);
+    await batchCreate('users', data, (batch) => prisma.user.createMany({ data: batch }));
+    log(`  Migrated ${users.length} users`);
 }
 
 async function migrateAccounts(db: Db, prisma: PrismaClient) {
     log('Migrating accounts (credential provider with password)...');
     const users = await db.collection('users').find().toArray();
-    let count = 0;
 
+    const data: Prisma.AccountCreateManyInput[] = [];
     for (const u of users) {
         const username = String(u._id);
         const userId = userIdMap.get(username);
@@ -254,20 +261,19 @@ async function migrateAccounts(db: Db, prisma: PrismaClient) {
         const password = toStr(u.password);
         if (!password) continue;
 
-        await prisma.account.create({
-            data: {
-                userId,
-                accountId: userId,
-                providerId: 'credential',
-                password,
-                createdAt: toDateRequired(u.createdAt),
-                updatedAt: toDateRequired(u.updatedAt),
-            },
+        data.push({
+            id: createId(),
+            userId,
+            accountId: userId,
+            providerId: 'credential',
+            password,
+            createdAt: toDateRequired(u.createdAt),
+            updatedAt: toDateRequired(u.updatedAt),
         });
-        count++;
     }
 
-    log(`  Inserted ${count} credential accounts`);
+    await batchCreate('accounts', data, (batch) => prisma.account.createMany({ data: batch }));
+    log(`  Migrated ${data.length} credential accounts`);
 }
 
 async function migrateProfiles(db: Db, prisma: PrismaClient) {
@@ -275,51 +281,59 @@ async function migrateProfiles(db: Db, prisma: PrismaClient) {
     const profiles = await db.collection('profiles').find().toArray();
     log(`  Found ${profiles.length} profiles in MongoDB`);
 
+    // First pass: create missing users in batch
+    const missingUsers: Prisma.UserCreateManyInput[] = [];
     for (const p of profiles) {
         const username = String(p._id);
-        let userId = userIdMap.get(username);
-        if (!userId) {
-            log(`  INFO: No user found for profile "${username}", creating one`);
-            const created = await prisma.user.create({
-                data: {
-                    username,
-                    role: 'USER' as Role,
-                    subscriptionStatus: 'NONE' as SubscriptionStatus,
-                    createdAt: toDateRequired(p.createdAt),
-                    updatedAt: toDateRequired(p.updatedAt),
-                },
-            });
-            userId = created.id;
-            userIdMap.set(username, userId);
-        }
-
-        const created = await prisma.profile.create({
-            data: {
-                userId,
-                description: toStr(p.description),
-                location: toStr(p.location),
-                stance: p.stance ? (stanceMap[p.stance] ?? null) : null,
-                snapchat: toStr(p.snapchat),
-                instagram: toStr(p.instagram),
-                website: toStr(p.website),
-                sponsors: Array.isArray(p.sponsors) ? p.sponsors.map(String) : [],
-                profilePicture: toCloudinaryJson(p.profilePicture),
-                banner: toCloudinaryJson(p.banner),
-                followersStat: toStatJson(p.followersStat),
-                followingStat: toStatJson(p.followingStat),
-                spotsFollowingStat: toStatJson(p.spotsFollowingStat),
-                mediasStat: toStatJson(p.mediasStat),
-                clipsStat: toStatJson(p.clipsStat),
-                tricksDoneStat: toStatJson(p.tricksDoneStat),
+        if (!userIdMap.has(username)) {
+            const id = createId();
+            userIdMap.set(username, id);
+            missingUsers.push({
+                id,
+                username,
+                role: 'USER' as Role,
+                subscriptionStatus: 'NONE' as SubscriptionStatus,
                 createdAt: toDateRequired(p.createdAt),
                 updatedAt: toDateRequired(p.updatedAt),
-            },
-        });
-
-        profileIdMap.set(username, created.id);
+            });
+        }
+    }
+    if (missingUsers.length > 0) {
+        await batchCreate('missing users', missingUsers, (batch) => prisma.user.createMany({ data: batch }));
+        log(`  Created ${missingUsers.length} users for orphan profiles`);
     }
 
-    log(`  Inserted ${profileIdMap.size} profiles`);
+    // Second pass: create all profiles in batch
+    const data: Prisma.ProfileCreateManyInput[] = profiles.map((p) => {
+        const username = String(p._id);
+        const userId = userIdMap.get(username)!;
+        const id = createId();
+        profileIdMap.set(username, id);
+        return {
+            id,
+            userId,
+            description: toStr(p.description),
+            location: toStr(p.location),
+            stance: p.stance ? (stanceMap[p.stance] ?? null) : null,
+            snapchat: toStr(p.snapchat),
+            instagram: toStr(p.instagram),
+            website: toStr(p.website),
+            sponsors: Array.isArray(p.sponsors) ? p.sponsors.map(String) : [],
+            profilePicture: toCloudinaryJson(p.profilePicture),
+            banner: toCloudinaryJson(p.banner),
+            followersStat: toStatJson(p.followersStat),
+            followingStat: toStatJson(p.followingStat),
+            spotsFollowingStat: toStatJson(p.spotsFollowingStat),
+            mediasStat: toStatJson(p.mediasStat),
+            clipsStat: toStatJson(p.clipsStat),
+            tricksDoneStat: toStatJson(p.tricksDoneStat),
+            createdAt: toDateRequired(p.createdAt),
+            updatedAt: toDateRequired(p.updatedAt),
+        };
+    });
+
+    await batchCreate('profiles', data, (batch) => prisma.profile.createMany({ data: batch }));
+    log(`  Migrated ${profileIdMap.size} profiles`);
 }
 
 async function migrateSpots(db: Db, prisma: PrismaClient) {
@@ -327,7 +341,8 @@ async function migrateSpots(db: Db, prisma: PrismaClient) {
     const spots = await db.collection('spots').find().toArray();
     log(`  Found ${spots.length} spots in MongoDB`);
 
-    let count = 0;
+    const data: Prisma.SpotCreateManyInput[] = [];
+    let skipped = 0;
 
     for (const s of spots) {
         const mongoId = oid(s._id);
@@ -335,47 +350,47 @@ async function migrateSpots(db: Db, prisma: PrismaClient) {
         const addedById = profileIdMap.get(addedByUsername);
         if (!addedById) {
             log(`  WARN: No profile found for spot addedBy "${addedByUsername}" (spot ${mongoId}), skipping`);
+            skipped++;
             continue;
         }
 
-        await prisma.spot.create({
-            data: {
-                id: mongoId,
-                name: String(s.name),
-                streetName: toStr(s.location?.streetName),
-                streetNumber: toStr(s.location?.streetNumber),
-                city: toStr(s.location?.city),
-                country: toStr(s.location?.country),
-                longitude: Array.isArray(s.geo) ? (s.geo[0] ?? 0) : 0,
-                latitude: Array.isArray(s.geo) ? (s.geo[1] ?? 0) : 0,
-                type: spotTypeMap[s.type] ?? 'STREET',
-                status: spotStatusMap[s.status] ?? 'ACTIVE',
-                description: toStr(s.description),
-                indoor: s.indoor ?? false,
-                openingHours: Array.isArray(s.openingHours) ? s.openingHours.map(String) : [],
-                phone: toStr(s.phone),
-                website: toStr(s.website),
-                instagram: toStr(s.instagram),
-                snapchat: toStr(s.snapchat),
-                facebook: toStr(s.facebook),
-                addedById,
-                coverURL: toStr(s.coverURL),
-                tags: Array.isArray(s.tags) ? s.tags.map(String) : [],
-                obstacles: mapObstacles(s.obstacles),
-                commentsStat: toStatJson(s.commentsStat),
-                mediasStat: toStatJson(s.mediasStat),
-                clipsStat: toStatJson(s.clipsStat),
-                tricksDoneStat: toStatJson(s.tricksDoneStat),
-                createdAt: toDateRequired(s.createdAt),
-                updatedAt: toDateRequired(s.updatedAt),
-            },
+        data.push({
+            id: mongoId,
+            name: String(s.name),
+            streetName: toStr(s.location?.streetName),
+            streetNumber: toStr(s.location?.streetNumber),
+            city: toStr(s.location?.city),
+            country: toStr(s.location?.country),
+            longitude: Array.isArray(s.geo) ? (s.geo[0] ?? 0) : 0,
+            latitude: Array.isArray(s.geo) ? (s.geo[1] ?? 0) : 0,
+            type: spotTypeMap[s.type] ?? 'STREET',
+            status: spotStatusMap[s.status] ?? 'ACTIVE',
+            description: toStr(s.description),
+            indoor: s.indoor ?? false,
+            openingHours: Array.isArray(s.openingHours) ? s.openingHours.map(String) : [],
+            phone: toStr(s.phone),
+            website: toStr(s.website),
+            instagram: toStr(s.instagram),
+            snapchat: toStr(s.snapchat),
+            facebook: toStr(s.facebook),
+            addedById,
+            coverURL: toStr(s.coverURL),
+            tags: Array.isArray(s.tags) ? s.tags.map(String) : [],
+            obstacles: mapObstacles(s.obstacles),
+            commentsStat: toStatJson(s.commentsStat),
+            mediasStat: toStatJson(s.mediasStat),
+            clipsStat: toStatJson(s.clipsStat),
+            tricksDoneStat: toStatJson(s.tricksDoneStat),
+            createdAt: toDateRequired(s.createdAt),
+            updatedAt: toDateRequired(s.updatedAt),
         });
 
         migratedSpotIds.add(mongoId);
-        count++;
     }
 
-    log(`  Inserted ${count} spots`);
+    if (skipped > 0) log(`  Skipped ${skipped} spots (missing profile)`);
+    await batchCreate('spots', data, (batch) => prisma.spot.createMany({ data: batch }));
+    log(`  Migrated ${data.length} spots`);
 }
 
 async function migrateSpotEdits(db: Db, prisma: PrismaClient) {
@@ -385,7 +400,7 @@ async function migrateSpotEdits(db: Db, prisma: PrismaClient) {
         .find({ edits: { $exists: true, $not: { $size: 0 } } })
         .toArray();
 
-    let count = 0;
+    const data: Prisma.SpotEditCreateManyInput[] = [];
 
     for (const s of spots) {
         const spotId = oid(s._id);
@@ -398,33 +413,31 @@ async function migrateSpotEdits(db: Db, prisma: PrismaClient) {
             const rawMergeIntoId = edit.mergeInto ? oid(edit.mergeInto) || null : null;
             const mergeIntoId = rawMergeIntoId && migratedSpotIds.has(rawMergeIntoId) ? rawMergeIntoId : null;
 
-            await prisma.spotEdit.create({
-                data: {
-                    id: oid(edit._id) || createId(),
-                    spotId,
-                    addedById,
-                    name: toStr(edit.name),
-                    longitude: edit.longitude != null ? Number(edit.longitude) : null,
-                    latitude: edit.latitude != null ? Number(edit.latitude) : null,
-                    type: edit.type ? (spotTypeMap[edit.type] ?? null) : null,
-                    status: edit.status ? (spotStatusMap[edit.status] ?? null) : null,
-                    description: toStr(edit.description),
-                    indoor: edit.indoor != null ? Boolean(edit.indoor) : null,
-                    phone: toStr(edit.phone),
-                    website: toStr(edit.website),
-                    instagram: toStr(edit.instagram),
-                    snapchat: toStr(edit.snapchat),
-                    facebook: toStr(edit.facebook),
-                    mergeIntoId,
-                    createdAt: toDateRequired(edit.createdAt),
-                    updatedAt: toDateRequired(edit.updatedAt),
-                },
+            data.push({
+                id: oid(edit._id) || createId(),
+                spotId,
+                addedById,
+                name: toStr(edit.name),
+                longitude: edit.longitude != null ? Number(edit.longitude) : null,
+                latitude: edit.latitude != null ? Number(edit.latitude) : null,
+                type: edit.type ? (spotTypeMap[edit.type] ?? null) : null,
+                status: edit.status ? (spotStatusMap[edit.status] ?? null) : null,
+                description: toStr(edit.description),
+                indoor: edit.indoor != null ? Boolean(edit.indoor) : null,
+                phone: toStr(edit.phone),
+                website: toStr(edit.website),
+                instagram: toStr(edit.instagram),
+                snapchat: toStr(edit.snapchat),
+                facebook: toStr(edit.facebook),
+                mergeIntoId,
+                createdAt: toDateRequired(edit.createdAt),
+                updatedAt: toDateRequired(edit.updatedAt),
             });
-            count++;
         }
     }
 
-    log(`  Inserted ${count} spot edits`);
+    await batchCreate('spot edits', data, (batch) => prisma.spotEdit.createMany({ data: batch }));
+    log(`  Migrated ${data.length} spot edits`);
 }
 
 async function migrateMedia(db: Db, prisma: PrismaClient) {
@@ -432,7 +445,8 @@ async function migrateMedia(db: Db, prisma: PrismaClient) {
     const medias = await db.collection('media').find().toArray();
     log(`  Found ${medias.length} media in MongoDB`);
 
-    let count = 0;
+    const data: Prisma.MediaCreateManyInput[] = [];
+    let skipped = 0;
 
     for (const m of medias) {
         const mongoId = oid(m._id);
@@ -440,6 +454,7 @@ async function migrateMedia(db: Db, prisma: PrismaClient) {
         const addedById = profileIdMap.get(addedByUsername);
         if (!addedById) {
             log(`  WARN: No profile for media addedBy "${addedByUsername}" (media ${mongoId}), skipping`);
+            skipped++;
             continue;
         }
 
@@ -453,32 +468,31 @@ async function migrateMedia(db: Db, prisma: PrismaClient) {
             else mediaType = 'IMAGE';
         }
 
-        await prisma.media.create({
-            data: {
-                id: mongoId,
-                type: mediaType,
-                caption: toStr(m._caption),
-                spotId,
-                addedById,
-                image: toCloudinaryJson(m.image),
-                video: toCloudinaryJson(m.video),
-                staffPicked: m.staffPicked ?? false,
-                releaseDate: toDate(m.releaseDate),
-                hashtags: Array.isArray(m.hashtags) ? m.hashtags.map(String) : [],
-                usertags: Array.isArray(m.usertags) ? m.usertags.map(String) : [],
-                trickDone: m.trickDone ? (m.trickDone as Prisma.InputJsonValue) : Prisma.JsonNull,
-                likesStat: toStatJson(m.likesStat),
-                commentsStat: toStatJson(m.commentsStat),
-                createdAt: toDateRequired(m.createdAt),
-                updatedAt: toDateRequired(m.updatedAt),
-            },
+        data.push({
+            id: mongoId,
+            type: mediaType,
+            caption: toStr(m._caption),
+            spotId,
+            addedById,
+            image: toCloudinaryJson(m.image),
+            video: toCloudinaryJson(m.video),
+            staffPicked: m.staffPicked ?? false,
+            releaseDate: toDate(m.releaseDate),
+            hashtags: Array.isArray(m.hashtags) ? m.hashtags.map(String) : [],
+            usertags: Array.isArray(m.usertags) ? m.usertags.map(String) : [],
+            trickDone: m.trickDone ? (m.trickDone as Prisma.InputJsonValue) : Prisma.JsonNull,
+            likesStat: toStatJson(m.likesStat),
+            commentsStat: toStatJson(m.commentsStat),
+            createdAt: toDateRequired(m.createdAt),
+            updatedAt: toDateRequired(m.updatedAt),
         });
 
         migratedMediaIds.add(mongoId);
-        count++;
     }
 
-    log(`  Inserted ${count} media`);
+    if (skipped > 0) log(`  Skipped ${skipped} media (missing profile)`);
+    await batchCreate('media', data, (batch) => prisma.media.createMany({ data: batch }));
+    log(`  Migrated ${data.length} media`);
 }
 
 async function migrateClips(db: Db, prisma: PrismaClient) {
@@ -486,7 +500,8 @@ async function migrateClips(db: Db, prisma: PrismaClient) {
     const clips = await db.collection('clips').find().toArray();
     log(`  Found ${clips.length} clips in MongoDB`);
 
-    let count = 0;
+    const data: Prisma.ClipCreateManyInput[] = [];
+    let skipped = 0;
 
     for (const c of clips) {
         const mongoId = oid(c._id);
@@ -494,34 +509,34 @@ async function migrateClips(db: Db, prisma: PrismaClient) {
         const addedById = profileIdMap.get(addedByUsername);
         if (!addedById) {
             log(`  WARN: No profile for clip addedBy "${addedByUsername}" (clip ${mongoId}), skipping`);
+            skipped++;
             continue;
         }
 
         const rawSpotId = c.spot ? oid(c.spot) || null : null;
         const spotId = rawSpotId && migratedSpotIds.has(rawSpotId) ? rawSpotId : null;
 
-        await prisma.clip.create({
-            data: {
-                id: mongoId,
-                title: String(c.title),
-                description: toStr(c.description),
-                provider: clipProviderMap[c.provider] ?? 'YOUTUBE',
-                videoURL: String(c.videoURL),
-                thumbnailURL: String(c.thumbnailURL),
-                spotId,
-                addedById,
-                likesStat: toStatJson(c.likesStat),
-                commentsStat: toStatJson(c.commentsStat),
-                createdAt: toDateRequired(c.createdAt),
-                updatedAt: toDateRequired(c.updatedAt),
-            },
+        data.push({
+            id: mongoId,
+            title: String(c.title),
+            description: toStr(c.description),
+            provider: clipProviderMap[c.provider] ?? 'YOUTUBE',
+            videoURL: String(c.videoURL),
+            thumbnailURL: String(c.thumbnailURL),
+            spotId,
+            addedById,
+            likesStat: toStatJson(c.likesStat),
+            commentsStat: toStatJson(c.commentsStat),
+            createdAt: toDateRequired(c.createdAt),
+            updatedAt: toDateRequired(c.updatedAt),
         });
 
         migratedClipIds.add(mongoId);
-        count++;
     }
 
-    log(`  Inserted ${count} clips`);
+    if (skipped > 0) log(`  Skipped ${skipped} clips (missing profile)`);
+    await batchCreate('clips', data, (batch) => prisma.clip.createMany({ data: batch }));
+    log(`  Migrated ${data.length} clips`);
 }
 
 /**
@@ -530,7 +545,9 @@ async function migrateClips(db: Db, prisma: PrismaClient) {
  */
 async function migrateComments(db: Db, prisma: PrismaClient) {
     log('Migrating comments...');
-    let count = 0;
+
+    const commentData: Prisma.CommentCreateManyInput[] = [];
+    const commentLikeData: Prisma.LikeCreateManyInput[] = [];
 
     // --- Spot comments ---
     const spots = await db
@@ -546,19 +563,30 @@ async function migrateComments(db: Db, prisma: PrismaClient) {
             const addedById = profileIdMap.get(String(c.addedBy));
             if (!addedById) continue;
 
-            await prisma.comment.create({
-                data: {
-                    id: oid(c._id) || createId(),
-                    content: String(c._content ?? c.content ?? ''),
-                    addedById,
-                    spotId,
-                    hashtags: Array.isArray(c.hashtags) ? c.hashtags.map(String) : [],
-                    usertags: Array.isArray(c.usertags) ? c.usertags.map(String) : [],
-                    createdAt: toDateRequired(c.createdAt),
-                    updatedAt: toDateRequired(c.updatedAt),
-                },
+            const commentId = oid(c._id) || createId();
+            commentData.push({
+                id: commentId,
+                content: String(c._content ?? c.content ?? ''),
+                addedById,
+                spotId,
+                hashtags: Array.isArray(c.hashtags) ? c.hashtags.map(String) : [],
+                usertags: Array.isArray(c.usertags) ? c.usertags.map(String) : [],
+                createdAt: toDateRequired(c.createdAt),
+                updatedAt: toDateRequired(c.updatedAt),
             });
-            count++;
+
+            // Collect comment likes
+            for (const like of c.likes ?? []) {
+                const likeAddedById = profileIdMap.get(String(like.addedBy));
+                if (!likeAddedById) continue;
+                commentLikeData.push({
+                    id: oid(like._id) || createId(),
+                    addedById: likeAddedById,
+                    commentId,
+                    createdAt: toDateRequired(like.createdAt),
+                    updatedAt: toDateRequired(like.updatedAt),
+                });
+            }
         }
     }
 
@@ -576,19 +604,29 @@ async function migrateComments(db: Db, prisma: PrismaClient) {
             const addedById = profileIdMap.get(String(c.addedBy));
             if (!addedById) continue;
 
-            await prisma.comment.create({
-                data: {
-                    id: oid(c._id) || createId(),
-                    content: String(c._content ?? c.content ?? ''),
-                    addedById,
-                    mediaId,
-                    hashtags: Array.isArray(c.hashtags) ? c.hashtags.map(String) : [],
-                    usertags: Array.isArray(c.usertags) ? c.usertags.map(String) : [],
-                    createdAt: toDateRequired(c.createdAt),
-                    updatedAt: toDateRequired(c.updatedAt),
-                },
+            const commentId = oid(c._id) || createId();
+            commentData.push({
+                id: commentId,
+                content: String(c._content ?? c.content ?? ''),
+                addedById,
+                mediaId,
+                hashtags: Array.isArray(c.hashtags) ? c.hashtags.map(String) : [],
+                usertags: Array.isArray(c.usertags) ? c.usertags.map(String) : [],
+                createdAt: toDateRequired(c.createdAt),
+                updatedAt: toDateRequired(c.updatedAt),
             });
-            count++;
+
+            for (const like of c.likes ?? []) {
+                const likeAddedById = profileIdMap.get(String(like.addedBy));
+                if (!likeAddedById) continue;
+                commentLikeData.push({
+                    id: oid(like._id) || createId(),
+                    addedById: likeAddedById,
+                    commentId,
+                    createdAt: toDateRequired(like.createdAt),
+                    updatedAt: toDateRequired(like.updatedAt),
+                });
+            }
         }
     }
 
@@ -606,64 +644,39 @@ async function migrateComments(db: Db, prisma: PrismaClient) {
             const addedById = profileIdMap.get(String(c.addedBy));
             if (!addedById) continue;
 
-            await prisma.comment.create({
-                data: {
-                    id: oid(c._id) || createId(),
-                    content: String(c._content ?? c.content ?? ''),
-                    addedById,
-                    clipId,
-                    hashtags: Array.isArray(c.hashtags) ? c.hashtags.map(String) : [],
-                    usertags: Array.isArray(c.usertags) ? c.usertags.map(String) : [],
-                    createdAt: toDateRequired(c.createdAt),
-                    updatedAt: toDateRequired(c.updatedAt),
-                },
+            const commentId = oid(c._id) || createId();
+            commentData.push({
+                id: commentId,
+                content: String(c._content ?? c.content ?? ''),
+                addedById,
+                clipId,
+                hashtags: Array.isArray(c.hashtags) ? c.hashtags.map(String) : [],
+                usertags: Array.isArray(c.usertags) ? c.usertags.map(String) : [],
+                createdAt: toDateRequired(c.createdAt),
+                updatedAt: toDateRequired(c.updatedAt),
             });
-            count++;
-        }
-    }
 
-    log(`  Inserted ${count} comments`);
-
-    // --- Comment likes (nested inside embedded comments) ---
-    log('Migrating comment likes...');
-    let commentLikeCount = 0;
-
-    const allSources = [
-        { collection: 'spots', items: spots },
-        { collection: 'media', items: medias },
-        { collection: 'clips', items: clips },
-    ];
-
-    for (const source of allSources) {
-        for (const doc of source.items) {
-            for (const c of doc.comments ?? []) {
-                const commentId = oid(c._id);
-                if (!commentId) continue;
-
-                for (const like of c.likes ?? []) {
-                    const addedById = profileIdMap.get(String(like.addedBy));
-                    if (!addedById) continue;
-
-                    try {
-                        await prisma.like.create({
-                            data: {
-                                id: oid(like._id) || createId(),
-                                addedById,
-                                commentId,
-                                createdAt: toDateRequired(like.createdAt),
-                                updatedAt: toDateRequired(like.updatedAt),
-                            },
-                        });
-                        commentLikeCount++;
-                    } catch {
-                        // Unique constraint violation — duplicate like, skip
-                    }
-                }
+            for (const like of c.likes ?? []) {
+                const likeAddedById = profileIdMap.get(String(like.addedBy));
+                if (!likeAddedById) continue;
+                commentLikeData.push({
+                    id: oid(like._id) || createId(),
+                    addedById: likeAddedById,
+                    commentId,
+                    createdAt: toDateRequired(like.createdAt),
+                    updatedAt: toDateRequired(like.updatedAt),
+                });
             }
         }
     }
 
-    log(`  Inserted ${commentLikeCount} comment likes`);
+    await batchCreate('comments', commentData, (batch) => prisma.comment.createMany({ data: batch }));
+    log(`  Migrated ${commentData.length} comments`);
+
+    await batchCreate('comment likes', commentLikeData, (batch) =>
+        prisma.like.createMany({ data: batch, skipDuplicates: true }),
+    );
+    log(`  Migrated ${commentLikeData.length} comment likes`);
 }
 
 /**
@@ -671,7 +684,8 @@ async function migrateComments(db: Db, prisma: PrismaClient) {
  */
 async function migrateLikes(db: Db, prisma: PrismaClient) {
     log('Migrating media & clip likes...');
-    let count = 0;
+
+    const data: Prisma.LikeCreateManyInput[] = [];
 
     // --- Media likes ---
     const medias = await db
@@ -687,20 +701,13 @@ async function migrateLikes(db: Db, prisma: PrismaClient) {
             const addedById = profileIdMap.get(String(like.addedBy));
             if (!addedById) continue;
 
-            try {
-                await prisma.like.create({
-                    data: {
-                        id: oid(like._id) || createId(),
-                        addedById,
-                        mediaId,
-                        createdAt: toDateRequired(like.createdAt),
-                        updatedAt: toDateRequired(like.updatedAt),
-                    },
-                });
-                count++;
-            } catch {
-                // Unique constraint violation — duplicate like, skip
-            }
+            data.push({
+                id: oid(like._id) || createId(),
+                addedById,
+                mediaId,
+                createdAt: toDateRequired(like.createdAt),
+                updatedAt: toDateRequired(like.updatedAt),
+            });
         }
     }
 
@@ -718,61 +725,51 @@ async function migrateLikes(db: Db, prisma: PrismaClient) {
             const addedById = profileIdMap.get(String(like.addedBy));
             if (!addedById) continue;
 
-            try {
-                await prisma.like.create({
-                    data: {
-                        id: oid(like._id) || createId(),
-                        addedById,
-                        clipId,
-                        createdAt: toDateRequired(like.createdAt),
-                        updatedAt: toDateRequired(like.updatedAt),
-                    },
-                });
-                count++;
-            } catch {
-                // Unique constraint violation — duplicate like, skip
-            }
+            data.push({
+                id: oid(like._id) || createId(),
+                addedById,
+                clipId,
+                createdAt: toDateRequired(like.createdAt),
+                updatedAt: toDateRequired(like.updatedAt),
+            });
         }
     }
 
-    log(`  Inserted ${count} media & clip likes`);
+    await batchCreate('media & clip likes', data, (batch) =>
+        prisma.like.createMany({ data: batch, skipDuplicates: true }),
+    );
+    log(`  Migrated ${data.length} media & clip likes`);
 }
 
 async function migrateProfileFollows(db: Db, prisma: PrismaClient) {
     log('Migrating profile follows...');
     const profiles = await db.collection('profiles').find().toArray();
-    let count = 0;
+
+    const data: Prisma.ProfileFollowCreateManyInput[] = [];
 
     for (const p of profiles) {
         const followerId = profileIdMap.get(String(p._id));
         if (!followerId) continue;
 
-        // `following` is the list of profile usernames this profile follows
         for (const followingUsername of p.following ?? []) {
             const followingId = profileIdMap.get(String(followingUsername));
             if (!followingId) continue;
 
-            try {
-                await prisma.profileFollow.create({
-                    data: {
-                        followerId,
-                        followingId,
-                    },
-                });
-                count++;
-            } catch {
-                // Duplicate, skip
-            }
+            data.push({ followerId, followingId });
         }
     }
 
-    log(`  Inserted ${count} profile follows`);
+    await batchCreate('profile follows', data, (batch) =>
+        prisma.profileFollow.createMany({ data: batch, skipDuplicates: true }),
+    );
+    log(`  Migrated ${data.length} profile follows`);
 }
 
 async function migrateProfileSpotFollows(db: Db, prisma: PrismaClient) {
     log('Migrating profile spot follows...');
     const profiles = await db.collection('profiles').find().toArray();
-    let count = 0;
+
+    const data: Prisma.ProfileSpotFollowCreateManyInput[] = [];
 
     for (const p of profiles) {
         const profileId = profileIdMap.get(String(p._id));
@@ -780,23 +777,16 @@ async function migrateProfileSpotFollows(db: Db, prisma: PrismaClient) {
 
         for (const spotRef of p.spotsFollowing ?? []) {
             const spotId = oid(spotRef);
-            if (!spotId) continue;
+            if (!spotId || !migratedSpotIds.has(spotId)) continue;
 
-            try {
-                await prisma.profileSpotFollow.create({
-                    data: {
-                        profileId,
-                        spotId,
-                    },
-                });
-                count++;
-            } catch {
-                // Duplicate, skip
-            }
+            data.push({ profileId, spotId });
         }
     }
 
-    log(`  Inserted ${count} profile spot follows`);
+    await batchCreate('profile spot follows', data, (batch) =>
+        prisma.profileSpotFollow.createMany({ data: batch, skipDuplicates: true }),
+    );
+    log(`  Migrated ${data.length} profile spot follows`);
 }
 
 async function migrateRewards(db: Db, prisma: PrismaClient) {
@@ -806,7 +796,7 @@ async function migrateRewards(db: Db, prisma: PrismaClient) {
         .find({ rewards: { $exists: true, $not: { $size: 0 } } })
         .toArray();
 
-    let count = 0;
+    const data: Prisma.RewardCreateManyInput[] = [];
 
     for (const p of profiles) {
         const profileId = profileIdMap.get(String(p._id));
@@ -815,21 +805,19 @@ async function migrateRewards(db: Db, prisma: PrismaClient) {
         for (const r of p.rewards ?? []) {
             if (!r.type || !r.subtype) continue;
 
-            await prisma.reward.create({
-                data: {
-                    id: oid(r._id) || createId(),
-                    profileId,
-                    type: String(r.type),
-                    subtype: String(r.subtype),
-                    createdAt: toDateRequired(r.createdAt),
-                    updatedAt: toDateRequired(r.updatedAt),
-                },
+            data.push({
+                id: oid(r._id) || createId(),
+                profileId,
+                type: String(r.type),
+                subtype: String(r.subtype),
+                createdAt: toDateRequired(r.createdAt),
+                updatedAt: toDateRequired(r.updatedAt),
             });
-            count++;
         }
     }
 
-    log(`  Inserted ${count} rewards`);
+    await batchCreate('rewards', data, (batch) => prisma.reward.createMany({ data: batch }));
+    log(`  Migrated ${data.length} rewards`);
 }
 
 // ---------------------------------------------------------------------------
@@ -863,6 +851,7 @@ async function wipeTables(prisma: PrismaClient) {
 // ---------------------------------------------------------------------------
 
 async function main() {
+    const totalStart = performance.now();
     log('=== MongoDB → PostgreSQL Migration ===');
     log(`MongoDB URI: ${MONGODB_URI}`);
     log(`PostgreSQL: using DATABASE_URL from environment`);
@@ -917,10 +906,12 @@ async function main() {
         // 9. Rewards (depend on Profile)
         await migrateRewards(db, prisma);
 
+        const totalElapsed = ((performance.now() - totalStart) / 1000).toFixed(1);
         log('');
         log('=== Migration complete ===');
         log(`  Users:              ${userIdMap.size}`);
         log(`  Profiles:           ${profileIdMap.size}`);
+        log(`  Total time:         ${totalElapsed}s`);
     } catch (err) {
         console.error('Migration failed:', err);
         process.exit(1);
