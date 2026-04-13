@@ -1,7 +1,7 @@
 'use client';
 
 import type { ColumnDef } from '@tanstack/react-table';
-import { Badge, DataTableColumnHeader, DataTableRowActions, DropdownMenuItem } from '@krak/ui';
+import { Badge, DataTableColumnHeader } from '@krak/ui';
 
 import type { ContractOutputs } from '@krak/contracts';
 
@@ -38,11 +38,7 @@ export const columns: ColumnDef<AdminUser>[] = [
         enableSorting: false,
         cell: ({ row }) => {
             const banned = row.getValue('banned') as boolean;
-            return banned ? (
-                <Badge variant="destructive">Banned</Badge>
-            ) : (
-                <Badge variant="outline">Active</Badge>
-            );
+            return banned ? <Badge variant="destructive">Banned</Badge> : <Badge variant="outline">Active</Badge>;
         },
     },
     {
@@ -52,15 +48,5 @@ export const columns: ColumnDef<AdminUser>[] = [
             const date = new Date(row.getValue('createdAt'));
             return <span className="text-muted-foreground">{date.toLocaleDateString()}</span>;
         },
-    },
-    {
-        id: 'actions',
-        cell: ({ row }) => (
-            <DataTableRowActions>
-                <DropdownMenuItem onClick={() => console.log('View details', row.original)}>
-                    View details
-                </DropdownMenuItem>
-            </DataTableRowActions>
-        ),
     },
 ];
