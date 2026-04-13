@@ -1,8 +1,7 @@
 'use client';
 
 import type { ColumnDef } from '@tanstack/react-table';
-import { ArrowUpDown } from 'lucide-react';
-import { Badge, Button } from '@krak/ui';
+import { Badge, DataTableColumnHeader, DataTableRowActions, DropdownMenuItem } from '@krak/ui';
 
 import type { ContractOutputs } from '@krak/contracts';
 
@@ -11,12 +10,7 @@ export type AdminUser = ContractOutputs['admin']['users']['list']['users'][numbe
 export const columns: ColumnDef<AdminUser>[] = [
     {
         accessorKey: 'username',
-        header: ({ column }) => (
-            <Button variant="ghost" size="sm" className="-ml-3" onClick={() => column.toggleSorting()}>
-                Username
-                <ArrowUpDown className="ml-2 size-4" />
-            </Button>
-        ),
+        header: ({ column }) => <DataTableColumnHeader column={column} title="Username" />,
         cell: ({ row }) => <span className="font-medium">{row.getValue('username')}</span>,
     },
     {
@@ -50,15 +44,20 @@ export const columns: ColumnDef<AdminUser>[] = [
     },
     {
         accessorKey: 'createdAt',
-        header: ({ column }) => (
-            <Button variant="ghost" size="sm" className="-ml-3" onClick={() => column.toggleSorting()}>
-                Created
-                <ArrowUpDown className="ml-2 size-4" />
-            </Button>
-        ),
+        header: ({ column }) => <DataTableColumnHeader column={column} title="Created" />,
         cell: ({ row }) => {
             const date = new Date(row.getValue('createdAt'));
             return <span className="text-muted-foreground">{date.toLocaleDateString()}</span>;
         },
+    },
+    {
+        id: 'actions',
+        cell: ({ row }) => (
+            <DataTableRowActions>
+                <DropdownMenuItem onClick={() => console.log('View details', row.original)}>
+                    View details
+                </DropdownMenuItem>
+            </DataTableRowActions>
+        ),
     },
 ];

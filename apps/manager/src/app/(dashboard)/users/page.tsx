@@ -2,12 +2,10 @@
 
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import type { SortingState } from '@tanstack/react-table';
-import { Button, Input, Skeleton } from '@krak/ui';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { getCoreRowModel, useReactTable, type SortingState } from '@tanstack/react-table';
+import { Input, DataTable, DataTablePagination } from '@krak/ui';
 
 import { orpc } from '@/lib/orpc';
-import { DataTable } from '@/components/data-table';
 import { SiteHeader } from '@/components/site-header';
 import { columns } from './columns';
 
@@ -37,6 +35,15 @@ export default function UsersPage() {
 
     const totalPages = data ? Math.ceil(data.total / perPage) : 0;
 
+    const table = useReactTable({
+        data: data?.users ?? [],
+        columns,
+        getCoreRowModel: getCoreRowModel(),
+        manualSorting: true,
+        state: { sorting },
+        onSortingChange: setSorting,
+    });
+
     // Simple debounce for search
     let searchTimeout: ReturnType<typeof setTimeout>;
     function handleSearchChange(value: string) {
@@ -61,60 +68,23 @@ export default function UsersPage() {
                     />
                 </div>
 
-                {isLoading ? (
-                    <div className="space-y-3">
-                        <Skeleton className="h-10 w-full" />
-                        <Skeleton className="h-10 w-full" />
-                        <Skeleton className="h-10 w-full" />
-                        <Skeleton className="h-10 w-full" />
-                        <Skeleton className="h-10 w-full" />
-                    </div>
-                ) : (
-                    <>
-                        <DataTable
-                            columns={columns}
-                            data={data?.users ?? []}
-                            sorting={sorting}
-                            onSortingChange={setSorting}
+                <DataTable
+                    columns={columns}
+                    data={data?.users ?? []}
+                    table={table}
+                    loading={isLoading}
+                    skeletonRows={perPage}
+                >
+                    {data && (
+                        <DataTablePagination
+                            page={page}
+                            totalPages={totalPages}
+                            total={data.total}
+                            perPage={perPage}
+                            onPageChange={setPage}
                         />
-
-                        <div className="flex items-center justify-between">
-                            <p className="text-sm text-muted-foreground">
-                                {data ? (
-                                    <>
-                                        Showing {(page - 1) * perPage + 1}-
-                                        {Math.min(page * perPage, data.total)} of {data.total} users
-                                    </>
-                                ) : (
-                                    'Loading...'
-                                )}
-                            </p>
-                            <div className="flex items-center gap-2">
-                                <Button
-                                    variant="outline"
-                                    size="sm"
-                                    onClick={() => setPage((p) => Math.max(1, p - 1))}
-                                    disabled={page <= 1}
-                                >
-                                    <ChevronLeft className="size-4" />
-                                    Previous
-                                </Button>
-                                <span className="text-sm text-muted-foreground">
-                                    Page {page} of {totalPages}
-                                </span>
-                                <Button
-                                    variant="outline"
-                                    size="sm"
-                                    onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
-                                    disabled={page >= totalPages}
-                                >
-                                    Next
-                                    <ChevronRight className="size-4" />
-                                </Button>
-                            </div>
-                        </div>
-                    </>
-                )}
+                    )}
+                </DataTable>
             </div>
         </>
     );
