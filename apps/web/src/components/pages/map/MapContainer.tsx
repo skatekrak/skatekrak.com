@@ -131,9 +131,9 @@ const MapContainer = () => {
         orpc.spots.listByTags.queryOptions({
             input: {
                 tags: isEmpty(id) ? [] : [id!],
-                tagsFromMedia: shouldFetchWithMedia,
+                tagsFromMedia: shouldFetchWithMedia ?? false,
             },
-            enabled: !isEmpty(id),
+            enabled: !isEmpty(id) && shouldFetchWithMedia !== undefined,
         }),
     );
 
