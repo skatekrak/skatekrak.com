@@ -2,7 +2,6 @@ import type { Column } from '@tanstack/react-table';
 import { ArrowDown, ArrowUp, ChevronsUpDown } from 'lucide-react';
 
 import { cn } from '@krak/ui/lib/utils';
-import { Button } from '@krak/ui/components/ui/button';
 
 interface DataTableColumnHeaderProps<TData, TValue> extends React.HTMLAttributes<HTMLDivElement> {
     column: Column<TData, TValue>;
@@ -14,25 +13,26 @@ export function DataTableColumnHeader<TData, TValue>({
     title,
     className,
 }: DataTableColumnHeaderProps<TData, TValue>) {
-    if (!column.getCanSort()) {
-        return <div className={cn(className)}>{title}</div>;
-    }
+    const canSort = column.getCanSort();
 
     return (
-        <Button
-            variant="ghost"
-            size="sm"
-            className={cn('-ml-3 h-8 data-[state=open]:bg-accent', className)}
-            onClick={() => column.toggleSorting()}
+        <div
+            className={cn(
+                'flex items-center gap-2',
+                canSort && 'cursor-pointer select-none',
+                className,
+            )}
+            onClick={canSort ? () => column.toggleSorting() : undefined}
         >
             <span>{title}</span>
-            {column.getIsSorted() === 'desc' ? (
-                <ArrowDown className="ml-2 size-4" />
-            ) : column.getIsSorted() === 'asc' ? (
-                <ArrowUp className="ml-2 size-4" />
-            ) : (
-                <ChevronsUpDown className="ml-2 size-4" />
-            )}
-        </Button>
+            {canSort &&
+                (column.getIsSorted() === 'desc' ? (
+                    <ArrowDown className="size-4 text-foreground" />
+                ) : column.getIsSorted() === 'asc' ? (
+                    <ArrowUp className="size-4 text-foreground" />
+                ) : (
+                    <ChevronsUpDown className="size-4 text-muted-foreground/50" />
+                ))}
+        </div>
     );
 }

@@ -15,12 +15,14 @@ export const columns: ColumnDef<AdminUser>[] = [
     },
     {
         accessorKey: 'email',
-        header: 'Email',
+        header: ({ column }) => <DataTableColumnHeader column={column} title="Email" />,
+        enableSorting: false,
         cell: ({ row }) => <span className="text-muted-foreground">{row.getValue('email') ?? '-'}</span>,
     },
     {
         accessorKey: 'role',
-        header: 'Role',
+        header: ({ column }) => <DataTableColumnHeader column={column} title="Role" />,
+        enableSorting: false,
         cell: ({ row }) => {
             const role = row.getValue('role') as string;
             return (
@@ -32,7 +34,8 @@ export const columns: ColumnDef<AdminUser>[] = [
     },
     {
         accessorKey: 'banned',
-        header: 'Status',
+        header: ({ column }) => <DataTableColumnHeader column={column} title="Status" />,
+        enableSorting: false,
         cell: ({ row }) => {
             const banned = row.getValue('banned') as boolean;
             return banned ? (

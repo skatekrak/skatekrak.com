@@ -25,7 +25,7 @@ export function DataTable<TData, TValue>({
 }: DataTableProps<TData, TValue>) {
     return (
         <div className="space-y-4">
-            <div className={cn('rounded-md border', stickyHeader && 'max-h-[calc(100vh-200px)] overflow-auto')}>
+            <div className={cn('overflow-hidden rounded-md border', stickyHeader && 'max-h-[calc(100vh-200px)] overflow-auto')}>
                 {loading ? (
                     <DataTableSkeleton columnCount={columns.length} rowCount={skeletonRows} />
                 ) : (
