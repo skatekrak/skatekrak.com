@@ -4,7 +4,6 @@
     "description": "Krak API",
     "scripts": {
         "dev": "bun --watch run src/index.ts",
-        "dev:docker": "bun --watch --env-file=.env --env-file=.env.docker run src/index.ts",
         "start": "bun run dist/index.js",
         "build": "bun build src/index.ts --target bun --outdir ./dist",
         "seed:meilisearch": "bun --env-file=.env run src/scripts/seed-meilisearch.ts"

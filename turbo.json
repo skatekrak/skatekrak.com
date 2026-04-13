@@ -9,10 +9,6 @@
             "persistent": true,
             "cache": false
         },
-        "dev:docker": {
-            "persistent": true,
-            "cache": false
-        },
         "type-check": {}
     }
 }

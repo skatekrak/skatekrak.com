@@ -98,5 +98,5 @@ const app = new Elysia()
     )
     .get('/', () => ({ message: 'krak-api' }));
 
-app.listen(3000);
-console.log('Server running on :3000');
+app.listen(env.PORT);
+console.log(`Server running on :${env.PORT}`);

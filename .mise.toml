@@ -1,0 +1,54 @@
+[tools]
+bun = "1.3.10"
+node = "24"
+"aqua:caddyserver/caddy" = "latest"
+
+[tasks.setup]
+description = "One-time setup: /etc/hosts entries + trust Caddy CA"
+run = """
+#!/usr/bin/env bash
+set -e
+
+HOSTS_ENTRIES=(
+    "127.0.0.1 dev.skatekrak.com"
+    "127.0.0.1 api.dev.skatekrak.com"
+    "127.0.0.1 manager.dev.skatekrak.com"
+)
+
+for entry in "${HOSTS_ENTRIES[@]}"; do
+    if ! grep -qF "$entry" /etc/hosts; then
+        echo "$entry" | sudo tee -a /etc/hosts > /dev/null
+        echo "Added: $entry"
+    else
+        echo "Already exists: $entry"
+    fi
+done
+
+# Start Caddy briefly to generate its local CA, trust it, then stop
+caddy start --config Caddyfile
+caddy trust
+caddy stop
+echo "Setup complete."
+"""
+
+[tasks."dev:infra"]
+description = "Start Docker services (postgres, meilisearch) + Caddy"
+run = """
+#!/usr/bin/env bash
+set -e
+docker compose up -d
+caddy start --config Caddyfile 2>/dev/null || caddy reload --config Caddyfile
+"""
+
+[tasks."dev:stop"]
+description = "Stop Caddy + Docker services"
+run = """
+#!/usr/bin/env bash
+caddy stop 2>/dev/null || true
+docker compose down
+"""
+
+[tasks.dev]
+description = "Start full dev environment"
+depends = ["dev:infra"]
+run = "turbo dev --parallel"

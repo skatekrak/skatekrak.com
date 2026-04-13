@@ -19,6 +19,5 @@ node_modules/
 .turbo
 .env
 dist
-.env.docker
-/.tool-versions
+
 /krak_dump.sql

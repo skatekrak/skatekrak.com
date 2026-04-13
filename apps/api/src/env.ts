@@ -3,6 +3,7 @@ import { createEnv } from '@t3-oss/env-core';
 
 export const env = createEnv({
     server: {
+        PORT: z.coerce.number().default(3001),
         DISCORD_HOOK_URL: z.string(),
         DATABASE_URL: z.string(),
         BETTER_AUTH_SECRET: z.string(),

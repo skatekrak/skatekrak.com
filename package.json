@@ -15,11 +15,10 @@
     "scripts": {
         "lint": "oxlint . && bunx sherif",
         "build": "turbo build",
-        "dev": "turbo dev --parallel",
+        "dev": "turbo dev --parallel --ui tui",
         "dev:web": "turbo dev --filter=@krak/web",
         "dev:manager": "turbo dev --filter=@krak/manager",
         "dev:api": "turbo dev --filter=@krak/api",
-        "dev:api:docker": "turbo dev:docker --filter=@krak/api",
         "build:api": "turbo build --filter=@krak/api",
         "build:carrelage": "turbo build --filter=@krak/carrelage",
         "start:api": "cd apps/api && bun run start",

@@ -1,0 +1,14 @@
+dev.skatekrak.com {
+	reverse_proxy localhost:3000
+	tls internal
+}
+
+api.dev.skatekrak.com {
+	reverse_proxy localhost:3001
+	tls internal
+}
+
+manager.dev.skatekrak.com {
+	reverse_proxy localhost:3002
+	tls internal
+}
