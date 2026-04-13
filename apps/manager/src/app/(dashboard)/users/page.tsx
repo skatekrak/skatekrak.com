@@ -1,20 +1,35 @@
 'use client';
 
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import type { SortingState } from '@tanstack/react-table';
-import { Button, Input, Skeleton } from '@krak/ui';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { getCoreRowModel, useReactTable, type SortingState } from '@tanstack/react-table';
+import {
+    Input,
+    DataTable,
+    DataTablePagination,
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from '@krak/ui';
 
 import { orpc } from '@/lib/orpc';
-import { DataTable } from '@/components/data-table';
+import { SiteHeader } from '@/components/site-header';
 import { columns } from './columns';
+
+type RoleFilter = 'USER' | 'MODERATOR' | 'ADMIN' | undefined;
+type StatusFilter = boolean | undefined;
 
 export default function UsersPage() {
     const [page, setPage] = useState(1);
     const [search, setSearch] = useState('');
     const [debouncedSearch, setDebouncedSearch] = useState('');
     const [sorting, setSorting] = useState<SortingState>([{ id: 'createdAt', desc: true }]);
+    const [roleFilter, setRoleFilter] = useState<RoleFilter>(undefined);
+    const [statusFilter, setStatusFilter] = useState<StatusFilter>(undefined);
+
+    const searchTimeoutRef = useRef<ReturnType<typeof setTimeout>>(undefined);
 
     const perPage = 20;
 
@@ -30,87 +45,97 @@ export default function UsersPage() {
                 sortBy,
                 sortOrder,
                 search: debouncedSearch || undefined,
+                role: roleFilter,
+                banned: statusFilter,
             },
         }),
     );
 
     const totalPages = data ? Math.ceil(data.total / perPage) : 0;
 
-    // Simple debounce for search
-    let searchTimeout: ReturnType<typeof setTimeout>;
+    const table = useReactTable({
+        data: data?.users ?? [],
+        columns,
+        getCoreRowModel: getCoreRowModel(),
+        manualSorting: true,
+        state: { sorting },
+        onSortingChange: setSorting,
+    });
+
     function handleSearchChange(value: string) {
         setSearch(value);
-        clearTimeout(searchTimeout);
-        searchTimeout = setTimeout(() => {
+        clearTimeout(searchTimeoutRef.current);
+        searchTimeoutRef.current = setTimeout(() => {
             setDebouncedSearch(value);
             setPage(1);
         }, 300);
     }
 
+    function handleRoleChange(value: string) {
+        setRoleFilter(value === 'all' ? undefined : (value as RoleFilter));
+        setPage(1);
+    }
+
+    function handleStatusChange(value: string) {
+        setStatusFilter(value === 'all' ? undefined : value === 'banned');
+        setPage(1);
+    }
+
     return (
-        <div className="space-y-4">
-            <div className="flex items-center justify-between">
-                <h1 className="text-2xl font-bold tracking-tight">Users</h1>
-            </div>
-
-            <div className="flex items-center gap-4">
-                <Input
-                    placeholder="Search by username or email..."
-                    value={search}
-                    onChange={(e) => handleSearchChange(e.target.value)}
-                    className="max-w-sm"
-                />
-            </div>
-
-            {isLoading ? (
-                <div className="space-y-3">
-                    <Skeleton className="h-10 w-full" />
-                    <Skeleton className="h-10 w-full" />
-                    <Skeleton className="h-10 w-full" />
-                    <Skeleton className="h-10 w-full" />
-                    <Skeleton className="h-10 w-full" />
+        <>
+            <SiteHeader title="Users" />
+            <div className="flex flex-1 flex-col gap-6 px-6 pb-6 pt-4">
+                <div className="flex items-center gap-3">
+                    <Input
+                        placeholder="Search by username or email..."
+                        value={search}
+                        onChange={(e) => handleSearchChange(e.target.value)}
+                        className="max-w-sm"
+                    />
+                    <Select value={roleFilter ?? 'all'} onValueChange={handleRoleChange}>
+                        <SelectTrigger className="w-40">
+                            <SelectValue placeholder="Role" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectItem value="all">All roles</SelectItem>
+                            <SelectItem value="USER">User</SelectItem>
+                            <SelectItem value="MODERATOR">Moderator</SelectItem>
+                            <SelectItem value="ADMIN">Admin</SelectItem>
+                        </SelectContent>
+                    </Select>
+                    <Select
+                        value={statusFilter === undefined ? 'all' : statusFilter ? 'banned' : 'active'}
+                        onValueChange={handleStatusChange}
+                    >
+                        <SelectTrigger className="w-40">
+                            <SelectValue placeholder="Status" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectItem value="all">All statuses</SelectItem>
+                            <SelectItem value="active">Active</SelectItem>
+                            <SelectItem value="banned">Banned</SelectItem>
+                        </SelectContent>
+                    </Select>
                 </div>
-            ) : (
-                <>
-                    <DataTable columns={columns} data={data?.users ?? []} sorting={sorting} onSortingChange={setSorting} />
 
-                    <div className="flex items-center justify-between">
-                        <p className="text-sm text-muted-foreground">
-                            {data ? (
-                                <>
-                                    Showing {(page - 1) * perPage + 1}-{Math.min(page * perPage, data.total)} of{' '}
-                                    {data.total} users
-                                </>
-                            ) : (
-                                'Loading...'
-                            )}
-                        </p>
-                        <div className="flex items-center gap-2">
-                            <Button
-                                variant="outline"
-                                size="sm"
-                                onClick={() => setPage((p) => Math.max(1, p - 1))}
-                                disabled={page <= 1}
-                            >
-                                <ChevronLeft className="size-4" />
-                                Previous
-                            </Button>
-                            <span className="text-sm text-muted-foreground">
-                                Page {page} of {totalPages}
-                            </span>
-                            <Button
-                                variant="outline"
-                                size="sm"
-                                onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
-                                disabled={page >= totalPages}
-                            >
-                                Next
-                                <ChevronRight className="size-4" />
-                            </Button>
-                        </div>
-                    </div>
-                </>
-            )}
-        </div>
+                <DataTable
+                    columns={columns}
+                    data={data?.users ?? []}
+                    table={table}
+                    loading={isLoading}
+                    skeletonRows={perPage}
+                >
+                    {data && (
+                        <DataTablePagination
+                            page={page}
+                            totalPages={totalPages}
+                            total={data.total}
+                            perPage={perPage}
+                            onPageChange={setPage}
+                        />
+                    )}
+                </DataTable>
+            </div>
+        </>
     );
 }

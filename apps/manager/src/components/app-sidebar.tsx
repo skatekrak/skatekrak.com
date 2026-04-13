@@ -1,11 +1,13 @@
 'use client';
 
+import * as React from 'react';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
-import { Users } from 'lucide-react';
+import { LayoutDashboard, Users } from 'lucide-react';
 import {
     Sidebar,
     SidebarContent,
+    SidebarFooter,
     SidebarGroup,
     SidebarGroupContent,
     SidebarGroupLabel,
@@ -13,7 +15,10 @@ import {
     SidebarMenu,
     SidebarMenuButton,
     SidebarMenuItem,
+    SidebarRail,
 } from '@krak/ui';
+
+import { NavUser } from '@/components/nav-user';
 
 const navItems = [
     {
@@ -23,14 +28,15 @@ const navItems = [
     },
 ];
 
-export function AppSidebar() {
+export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     const pathname = usePathname();
 
     return (
-        <Sidebar variant="inset">
-            <SidebarHeader className="border-b px-4 py-3">
-                <Link href="/" className="flex items-center gap-2 font-semibold">
-                    <span className="text-lg">Manager</span>
+        <Sidebar collapsible="offcanvas" {...props}>
+            <SidebarHeader>
+                <Link href="/" className="flex flex-row gap-x-2 px-1 py-2 items-center">
+                    <LayoutDashboard />
+                    <span className="text-base font-semibold">Manager</span>
                 </Link>
             </SidebarHeader>
             <SidebarContent>
@@ -52,6 +58,10 @@ export function AppSidebar() {
                     </SidebarGroupContent>
                 </SidebarGroup>
             </SidebarContent>
+            <SidebarFooter>
+                <NavUser />
+            </SidebarFooter>
+            <SidebarRail />
         </Sidebar>
     );
 }

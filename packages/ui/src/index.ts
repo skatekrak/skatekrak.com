@@ -17,9 +17,39 @@ export {
     TableCell,
     TableCaption,
 } from './components/ui/table';
+export {
+    Select,
+    SelectGroup,
+    SelectValue,
+    SelectTrigger,
+    SelectContent,
+    SelectLabel,
+    SelectItem,
+    SelectSeparator,
+    SelectScrollUpButton,
+    SelectScrollDownButton,
+} from './components/ui/select';
 export { Separator } from './components/ui/separator';
 export { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from './components/ui/tooltip';
 export { Skeleton } from './components/ui/skeleton';
+export { Avatar, AvatarImage, AvatarFallback } from './components/ui/avatar';
+export {
+    DropdownMenu,
+    DropdownMenuTrigger,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuCheckboxItem,
+    DropdownMenuRadioItem,
+    DropdownMenuLabel,
+    DropdownMenuSeparator,
+    DropdownMenuShortcut,
+    DropdownMenuGroup,
+    DropdownMenuPortal,
+    DropdownMenuSub,
+    DropdownMenuSubContent,
+    DropdownMenuSubTrigger,
+    DropdownMenuRadioGroup,
+} from './components/ui/dropdown-menu';
 export {
     Sidebar,
     SidebarContent,
@@ -33,7 +63,13 @@ export {
     SidebarMenuButton,
     SidebarMenuItem,
     SidebarProvider,
+    SidebarRail,
     SidebarSeparator,
     SidebarTrigger,
     useSidebar,
 } from './components/ui/sidebar';
+export { DataTable } from './components/ui/data-table';
+export { DataTableColumnHeader } from './components/ui/data-table-column-header';
+export { DataTablePagination } from './components/ui/data-table-pagination';
+export { DataTableRowActions } from './components/ui/data-table-row-actions';
+export { DataTableSkeleton } from './components/ui/data-table-skeleton';
