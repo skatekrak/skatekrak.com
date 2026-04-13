@@ -277,10 +277,20 @@ async function migrateProfiles(db: Db, prisma: PrismaClient) {
 
     for (const p of profiles) {
         const username = String(p._id);
-        const userId = userIdMap.get(username);
+        let userId = userIdMap.get(username);
         if (!userId) {
-            log(`  WARN: No user found for profile "${username}", skipping`);
-            continue;
+            log(`  INFO: No user found for profile "${username}", creating one`);
+            const created = await prisma.user.create({
+                data: {
+                    username,
+                    role: 'USER' as Role,
+                    subscriptionStatus: 'NONE' as SubscriptionStatus,
+                    createdAt: toDateRequired(p.createdAt),
+                    updatedAt: toDateRequired(p.updatedAt),
+                },
+            });
+            userId = created.id;
+            userIdMap.set(username, userId);
         }
 
         const created = await prisma.profile.create({
