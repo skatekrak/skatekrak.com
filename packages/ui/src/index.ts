@@ -17,6 +17,18 @@ export {
     TableCell,
     TableCaption,
 } from './components/ui/table';
+export {
+    Select,
+    SelectGroup,
+    SelectValue,
+    SelectTrigger,
+    SelectContent,
+    SelectLabel,
+    SelectItem,
+    SelectSeparator,
+    SelectScrollUpButton,
+    SelectScrollDownButton,
+} from './components/ui/select';
 export { Separator } from './components/ui/separator';
 export { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from './components/ui/tooltip';
 export { Skeleton } from './components/ui/skeleton';

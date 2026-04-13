@@ -38,4 +38,6 @@ export const listUsersInput = z.object({
     sortBy: z.enum(['username', 'createdAt']).default('createdAt'),
     sortOrder: z.enum(['asc', 'desc']).default('desc'),
     search: z.string().optional(),
+    role: RoleSchema.optional(),
+    banned: z.boolean().optional(),
 });

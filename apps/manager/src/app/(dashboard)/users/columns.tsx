@@ -27,7 +27,7 @@ export const columns: ColumnDef<AdminUser>[] = [
             const role = row.getValue('role') as string;
             return (
                 <Badge variant={role === 'ADMIN' ? 'default' : role === 'MODERATOR' ? 'secondary' : 'outline'}>
-                    {role}
+                    {role.toLowerCase()}
                 </Badge>
             );
         },

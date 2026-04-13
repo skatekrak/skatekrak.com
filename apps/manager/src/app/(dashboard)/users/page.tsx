@@ -1,19 +1,35 @@
 'use client';
 
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { getCoreRowModel, useReactTable, type SortingState } from '@tanstack/react-table';
-import { Input, DataTable, DataTablePagination } from '@krak/ui';
+import {
+    Input,
+    DataTable,
+    DataTablePagination,
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from '@krak/ui';
 
 import { orpc } from '@/lib/orpc';
 import { SiteHeader } from '@/components/site-header';
 import { columns } from './columns';
+
+type RoleFilter = 'USER' | 'MODERATOR' | 'ADMIN' | undefined;
+type StatusFilter = boolean | undefined;
 
 export default function UsersPage() {
     const [page, setPage] = useState(1);
     const [search, setSearch] = useState('');
     const [debouncedSearch, setDebouncedSearch] = useState('');
     const [sorting, setSorting] = useState<SortingState>([{ id: 'createdAt', desc: true }]);
+    const [roleFilter, setRoleFilter] = useState<RoleFilter>(undefined);
+    const [statusFilter, setStatusFilter] = useState<StatusFilter>(undefined);
+
+    const searchTimeoutRef = useRef<ReturnType<typeof setTimeout>>(undefined);
 
     const perPage = 20;
 
@@ -29,6 +45,8 @@ export default function UsersPage() {
                 sortBy,
                 sortOrder,
                 search: debouncedSearch || undefined,
+                role: roleFilter,
+                banned: statusFilter,
             },
         }),
     );
@@ -44,28 +62,60 @@ export default function UsersPage() {
         onSortingChange: setSorting,
     });
 
-    // Simple debounce for search
-    let searchTimeout: ReturnType<typeof setTimeout>;
     function handleSearchChange(value: string) {
         setSearch(value);
-        clearTimeout(searchTimeout);
-        searchTimeout = setTimeout(() => {
+        clearTimeout(searchTimeoutRef.current);
+        searchTimeoutRef.current = setTimeout(() => {
             setDebouncedSearch(value);
             setPage(1);
         }, 300);
     }
 
+    function handleRoleChange(value: string) {
+        setRoleFilter(value === 'all' ? undefined : (value as RoleFilter));
+        setPage(1);
+    }
+
+    function handleStatusChange(value: string) {
+        setStatusFilter(value === 'all' ? undefined : value === 'banned');
+        setPage(1);
+    }
+
     return (
         <>
             <SiteHeader title="Users" />
-            <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
-                <div className="flex items-center gap-4">
+            <div className="flex flex-1 flex-col gap-6 px-6 pb-6 pt-4">
+                <div className="flex items-center gap-3">
                     <Input
                         placeholder="Search by username or email..."
                         value={search}
                         onChange={(e) => handleSearchChange(e.target.value)}
                         className="max-w-sm"
                     />
+                    <Select value={roleFilter ?? 'all'} onValueChange={handleRoleChange}>
+                        <SelectTrigger className="w-40">
+                            <SelectValue placeholder="Role" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectItem value="all">All roles</SelectItem>
+                            <SelectItem value="USER">User</SelectItem>
+                            <SelectItem value="MODERATOR">Moderator</SelectItem>
+                            <SelectItem value="ADMIN">Admin</SelectItem>
+                        </SelectContent>
+                    </Select>
+                    <Select
+                        value={statusFilter === undefined ? 'all' : statusFilter ? 'banned' : 'active'}
+                        onValueChange={handleStatusChange}
+                    >
+                        <SelectTrigger className="w-40">
+                            <SelectValue placeholder="Status" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectItem value="all">All statuses</SelectItem>
+                            <SelectItem value="active">Active</SelectItem>
+                            <SelectItem value="banned">Banned</SelectItem>
+                        </SelectContent>
+                    </Select>
                 </div>
 
                 <DataTable
