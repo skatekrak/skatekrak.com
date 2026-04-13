@@ -38,7 +38,7 @@ export const columns: ColumnDef<AdminUser>[] = [
         enableSorting: false,
         cell: ({ row }) => {
             const banned = row.getValue('banned') as boolean;
-            return banned ? <Badge variant="destructive">Banned</Badge> : <Badge variant="outline">Active</Badge>;
+            return banned ? <Badge variant="destructive">banned</Badge> : <Badge variant="outline">active</Badge>;
         },
     },
     {
