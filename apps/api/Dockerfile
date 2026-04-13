@@ -2,32 +2,45 @@
 
 ARG BUN_VERSION=1.3.10
 FROM oven/bun:${BUN_VERSION}-slim AS base
-
-# NodeJS app lives here
 WORKDIR /app
-
-# Set production environment
 ENV NODE_ENV=production
 
-
-# Throw-away build stage to reduce size of final image
+# ---------------------------------------------------------------------------
+# Build stage
+# ---------------------------------------------------------------------------
 FROM base AS build
 
-# Install packages needed to build node modules
 RUN apt-get update -qq && \
-  apt-get install -y python-is-python3 pkg-config build-essential 
+  apt-get install --no-install-recommends -y python-is-python3 pkg-config build-essential && \
+  rm -rf /var/lib/apt/lists/*
 
-# Install node modules
-COPY . .
-RUN bun install --frozen-lockfile
+# Dependency cache layer — only re-runs when manifests or lockfile change
+COPY package.json bun.lock ./
+COPY apps/api/package.json apps/api/
+COPY apps/web/package.json apps/web/
+COPY apps/manager/package.json apps/manager/
+COPY packages/auth/package.json packages/auth/
+COPY packages/contracts/package.json packages/contracts/
+COPY packages/prisma/package.json packages/prisma/
+COPY packages/types/package.json packages/types/
+COPY packages/ui/package.json packages/ui/
+
+RUN --mount=type=cache,target=/root/.bun/install/cache \
+  bun install --frozen-lockfile
+
+# Copy only source needed for @krak/api and its workspace deps
+COPY turbo.json ./
+COPY apps/api/ apps/api/
+COPY packages/ packages/
+
 RUN bun run build:api
-RUN bun install --production --frozen-lockfile
 
-# Final stage for app image
+# ---------------------------------------------------------------------------
+# Runtime stage — single-file bundle + Bun, nothing else
+# ---------------------------------------------------------------------------
 FROM base
 
-# Copy built application
-COPY --from=build /app /app
-EXPOSE 3000
+COPY --from=build /app/apps/api/dist/index.js ./index.js
 
-CMD ["bun", "start:api"]
+EXPOSE 3000
+CMD ["bun", "run", "index.js"]
