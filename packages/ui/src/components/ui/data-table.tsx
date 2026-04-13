@@ -6,7 +6,6 @@ import { DataTableSkeleton } from '@krak/ui/components/ui/data-table-skeleton';
 
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[];
-    data: TData[];
     table: ReactTable<TData>;
     loading?: boolean;
     skeletonRows?: number;
@@ -16,7 +15,6 @@ interface DataTableProps<TData, TValue> {
 
 export function DataTable<TData, TValue>({
     columns,
-    data,
     table,
     loading = false,
     skeletonRows = 5,

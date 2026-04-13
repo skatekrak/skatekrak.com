@@ -120,7 +120,6 @@ export default function UsersPage() {
 
                 <DataTable
                     columns={columns}
-                    data={data?.users ?? []}
                     table={table}
                     loading={isLoading}
                     skeletonRows={perPage}
