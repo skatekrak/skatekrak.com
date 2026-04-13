@@ -56,3 +56,8 @@ export {
     SidebarTrigger,
     useSidebar,
 } from './components/ui/sidebar';
+export { DataTable } from './components/ui/data-table';
+export { DataTableColumnHeader } from './components/ui/data-table-column-header';
+export { DataTablePagination } from './components/ui/data-table-pagination';
+export { DataTableRowActions } from './components/ui/data-table-row-actions';
+export { DataTableSkeleton } from './components/ui/data-table-skeleton';
