@@ -40,9 +40,12 @@ ENV NEXT_PUBLIC_KRAK_API_URL=$NEXT_PUBLIC_KRAK_API_URL
 RUN bunx turbo build --filter=@krak/manager
 
 # ---------------------------------------------------------------------------
-# Runtime stage — standalone Next.js server + Bun
+# Runtime stage — standalone Next.js server + Node.js
 # ---------------------------------------------------------------------------
-FROM base
+FROM node:24-slim
+
+WORKDIR /app
+ENV NODE_ENV=production
 
 # Next.js standalone output (server + minimal node_modules)
 COPY --from=build /app/apps/manager/.next/standalone ./
@@ -54,4 +57,4 @@ ENV HOSTNAME=0.0.0.0
 ENV PORT=3000
 
 EXPOSE 3000
-CMD ["bun", "apps/manager/server.js"]
+CMD ["node", "apps/manager/server.js"]
