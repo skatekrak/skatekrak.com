@@ -3,7 +3,7 @@ import { createSpot, getSpot, getSpotOverview, getSpotsGeoJSON, listByTags, reve
 import { fetchMap, listMaps } from './routers/maps';
 import { getById, listBySpot, getSpotMediasAround, list, getHashtagMediasAround, listClipsBySpot, uploadToSpot } from './routers/media';
 import { me } from './routers/profiles';
-import { listUsers } from './routers/admin';
+import { listUsers, getUserByUsername } from './routers/admin';
 
 export const router = os.router({
     spots: {
@@ -35,6 +35,7 @@ export const router = os.router({
     admin: {
         users: {
             list: listUsers,
+            getByUsername: getUserByUsername,
         },
     },
 });
