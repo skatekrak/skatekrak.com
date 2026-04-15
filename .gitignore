@@ -22,3 +22,5 @@ dist
 
 /krak_dump.sql
 /packages/contracts/tsconfig.tsbuildinfo
+/apps/manager/next-env.d.ts
+/apps/web/next-env.d.ts
