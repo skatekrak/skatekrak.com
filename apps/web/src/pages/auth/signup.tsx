@@ -1,15 +1,14 @@
+import { Formik, Field, FormikHelpers } from 'formik';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import { Formik, Field, FormikHelpers } from 'formik';
-import * as Yup from 'yup';
 import { isEmpty, first, shake } from 'radash';
+import * as Yup from 'yup';
 
 import Layout from '@/components/Layout';
 import ButtonPrimary from '@/components/Ui/Button/ButtonPrimary/ButtonPrimary';
 import Emoji from '@/components/Ui/Icons/Emoji';
 import IconLike from '@/components/Ui/Icons/IconLike';
 import Typography from '@/components/Ui/typography/Typography';
-
 import { signUp } from '@/lib/auth';
 
 type SignupFormValues = {

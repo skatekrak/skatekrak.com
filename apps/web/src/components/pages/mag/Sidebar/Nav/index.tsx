@@ -1,11 +1,11 @@
 import classNames from 'classnames';
+import { unique, flat } from 'radash';
 import React, { useMemo } from 'react';
 
 import SourceOption from '@/components/Ui/Feed/Sidebar/SourceOption';
 import Analytics from '@/lib/analytics';
 import usePosts from '@/lib/hook/mag/posts';
 import { useMagStore } from '@/store/mag';
-import { unique, flat } from 'radash';
 
 type NavProps = {
     sidebarNavIsOpen: boolean;

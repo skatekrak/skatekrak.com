@@ -1,7 +1,6 @@
 import React from 'react';
 
 import Article from '@/components/pages/news/Articles/Article';
-
 import Content from '@/models/Content';
 
 type Props = {

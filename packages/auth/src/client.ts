@@ -1,5 +1,5 @@
-import { createAuthClient } from 'better-auth/react';
 import { adminClient, usernameClient } from 'better-auth/client/plugins';
+import { createAuthClient } from 'better-auth/react';
 
 export const createClient = (baseURL?: string) => {
     const client = createAuthClient({

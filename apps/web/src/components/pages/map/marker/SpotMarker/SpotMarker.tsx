@@ -1,14 +1,13 @@
 import classNames from 'classnames';
 import React from 'react';
-
 import { Marker, MarkerProps } from 'react-map-gl';
 
 import { SpotGeoJSON } from '@krak/types';
 
+import Activity from '@/components/pages/map/marker/Activity';
 import BadgeHistory from '@/components/pages/map/marker/badges/History';
 import BadgeIconic from '@/components/pages/map/marker/badges/Iconic';
 import BadgeMinute from '@/components/pages/map/marker/badges/Minute';
-import Activity from '@/components/pages/map/marker/Activity';
 import { useSpotID } from '@/lib/hook/queryState';
 import { useMapStore } from '@/store/map';
 

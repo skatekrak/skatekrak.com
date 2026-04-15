@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { Language } from 'rss-feed';
 
 type LanguageFilterProps = {

@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from 'react';
 import NextImage from 'next/image';
+import React, { useEffect, useState } from 'react';
 
-import ScrollBar from '@/components/Ui/Scrollbar';
-import { useCityID } from '@/lib/hook/queryState';
-import cities from '@/data/cities/_cities';
-import { City } from '@/lib/map/types';
-import VideoPlayer from '@/components/Ui/Player/VideoPlayer';
 import { KrakLoading } from '@/components/Ui/Icons/Spinners';
 import InfiniteScroll from '@/components/Ui/InfiniteScroll';
+import VideoPlayer from '@/components/Ui/Player/VideoPlayer';
+import ScrollBar from '@/components/Ui/Scrollbar';
+import cities from '@/data/cities/_cities';
+import { useCityID } from '@/lib/hook/queryState';
+import { City } from '@/lib/map/types';
 
 const generatePages = (videos: string[], pageSize: number) => {
     const pages: string[][] = [];

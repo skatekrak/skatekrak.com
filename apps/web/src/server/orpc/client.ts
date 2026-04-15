@@ -1,9 +1,10 @@
 import { createORPCClient } from '@orpc/client';
 import { RPCLink } from '@orpc/client/fetch';
 import { createTanstackQueryUtils } from '@orpc/tanstack-query';
-import type { ContractRouterClient } from '@orpc/contract';
 
 import type { contract } from '@krak/contracts';
+
+import type { ContractRouterClient } from '@orpc/contract';
 
 function getBaseUrl() {
     if (typeof window === 'undefined') {

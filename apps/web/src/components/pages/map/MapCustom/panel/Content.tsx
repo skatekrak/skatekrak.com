@@ -1,10 +1,12 @@
-import MapMedia from '@/components/pages/map/media/MapMedia';
-import { MapCustomPanelTabs } from '@/components/pages/map/MapCustom/panel/MapCustomPanel';
-import VideoPlayer from '@/components/Ui/Player/VideoPlayer';
-import type { Spot, Media } from '@krak/contracts';
-import MapSearchResultSpot from '@/components/pages/map/MapNavigation/MapSearch/MapSearchResults/MapSearchResultSpot';
-import { useSpotID } from '@/lib/hook/queryState';
 import { useMap } from 'react-map-gl';
+
+import type { Spot, Media } from '@krak/contracts';
+
+import { MapCustomPanelTabs } from '@/components/pages/map/MapCustom/panel/MapCustomPanel';
+import MapSearchResultSpot from '@/components/pages/map/MapNavigation/MapSearch/MapSearchResults/MapSearchResultSpot';
+import MapMedia from '@/components/pages/map/media/MapMedia';
+import VideoPlayer from '@/components/Ui/Player/VideoPlayer';
+import { useSpotID } from '@/lib/hook/queryState';
 
 type Props = {
     activeTab: MapCustomPanelTabs;

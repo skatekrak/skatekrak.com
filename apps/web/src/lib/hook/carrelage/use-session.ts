@@ -1,6 +1,7 @@
-import { useSession as useBetterAuthSession } from '@/lib/auth';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
+
+import { useSession as useBetterAuthSession } from '@/lib/auth';
 
 type UseSessionOptions = {
     redirectTo?: string;

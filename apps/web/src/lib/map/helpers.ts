@@ -1,6 +1,7 @@
-import { type SpotGeoJSON, Status } from '@krak/types';
-import type { InferContractRouterOutputs } from '@orpc/contract';
 import type { contract } from '@krak/contracts';
+import { type SpotGeoJSON, Status } from '@krak/types';
+
+import type { InferContractRouterOutputs } from '@orpc/contract';
 
 type Spot = InferContractRouterOutputs<typeof contract>['spots']['getSpot'];
 

@@ -1,10 +1,10 @@
-import React, { ElementRef, useRef } from 'react';
 import Head from 'next/head';
+import React, { ElementRef, useRef } from 'react';
 
 import Layout from '@/components/Layout';
-import CallToAdventureSideNav from '@/components/pages/callToAdventure/CallToAdventureSideNav';
 import CallToAdventureContent from '@/components/pages/callToAdventure/CallToAdventureContent';
 import CallToAdventureCTA from '@/components/pages/callToAdventure/CallToAdventureCTA/CallToAdventureCTA';
+import CallToAdventureSideNav from '@/components/pages/callToAdventure/CallToAdventureSideNav';
 import Typography from '@/components/Ui/typography/Typography';
 
 export const PATH_CALL_TO_ADVENTURE = '/call-to-adventure';
@@ -40,7 +40,10 @@ const CallToAdventure = () => {
             <div className="grow w-full py-24 text-onDark-highEmphasis bg-tertiary-dark">
                 <div className="w-full max-w-[96rem] mx-auto px-6 tablet:px-32 laptop-s:grid laptop-s:grid-cols-[1fr_3fr_1fr] laptop-s:gap-16 laptop-s:px-12">
                     <div className="laptop-s:col-start-2">
-                        <Typography className="mb-12 font-roboto-condensed-bold text-[2.5rem] uppercase [&_span]:lowercase" as="h1">
+                        <Typography
+                            className="mb-12 font-roboto-condensed-bold text-[2.5rem] uppercase [&_span]:lowercase"
+                            as="h1"
+                        >
                             Building a common good
                             <br />
                             for skateboarders
@@ -52,7 +55,10 @@ const CallToAdventure = () => {
                 </div>
                 <div className="w-full max-w-[96rem] mx-auto px-6 tablet:px-32 laptop-s:grid laptop-s:grid-cols-[1fr_3fr_1fr] laptop-s:gap-16 laptop-s:px-12">
                     <CallToAdventureSideNav bodyContentRef={bodyContentRef} />
-                    <div className="flex flex-col laptop-s:col-start-2 w-full max-w-[48rem] mx-auto whitespace-pre-line" ref={bodyContentRef}>
+                    <div
+                        className="flex flex-col laptop-s:col-start-2 w-full max-w-[48rem] mx-auto whitespace-pre-line"
+                        ref={bodyContentRef}
+                    >
                         <CallToAdventureContent />
                     </div>
                     <CallToAdventureCTA />

@@ -5,11 +5,9 @@ import Head from 'next/head';
 import React, { useState } from 'react';
 
 import Layout from '@/components/Layout';
-import LayoutFeed from '@/components/Ui/Feed/LayoutFeed';
-
 import Articles from '@/components/pages/news/Articles';
 import Sidebar from '@/components/pages/news/Sidebar';
-
+import LayoutFeed from '@/components/Ui/Feed/LayoutFeed';
 import Content from '@/models/Content';
 
 const DynamicArticleModal = dynamic(() => import('@/components/pages/news/Articles/Article/ArticleModal'), {

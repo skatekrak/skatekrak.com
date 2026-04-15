@@ -1,5 +1,6 @@
-import type { Prisma } from '@krak/prisma';
 import { ORPCError } from '@orpc/server';
+
+import type { Prisma } from '@krak/prisma';
 
 import { os, authed, admin } from '../base';
 

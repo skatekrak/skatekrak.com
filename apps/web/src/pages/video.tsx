@@ -3,13 +3,12 @@ import { NextPage, NextPageContext } from 'next';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import React, { useState } from 'react';
+import { IContent } from 'rss-feed';
 
 import Layout from '@/components/Layout';
-import LayoutFeed from '@/components/Ui/Feed/LayoutFeed';
-
 import Sidebar from '@/components/pages/videos/Sidebar';
 import VideoFeed from '@/components/pages/videos/VideoFeed';
-import { IContent } from 'rss-feed';
+import LayoutFeed from '@/components/Ui/Feed/LayoutFeed';
 
 const VideoModal = dynamic(() => import('@/components/pages/videos/VideoFeed/Video/VideoModal'), { ssr: false });
 

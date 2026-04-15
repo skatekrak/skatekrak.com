@@ -1,6 +1,6 @@
+import { Source } from 'rss-feed';
 import { create } from 'zustand';
 import { devtools, persist } from 'zustand/middleware';
-import { Source } from 'rss-feed';
 
 type NewsStore = {
     selectSources: string[];
@@ -19,8 +19,7 @@ export const useNewsStore = create<NewsStore>()(
                 selectSources: [],
                 search: '',
 
-                selectNewsSources: (sources) =>
-                    set({ selectSources: sources.map((source) => `${source.id}`) }),
+                selectNewsSources: (sources) => set({ selectSources: sources.map((source) => `${source.id}`) }),
                 toggleNewsSource: (id) =>
                     set((state) => {
                         const index = state.selectSources.indexOf(id);

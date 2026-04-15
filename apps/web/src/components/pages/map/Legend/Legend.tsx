@@ -1,6 +1,10 @@
-import React from 'react';
 import Link from 'next/link';
+import React from 'react';
 
+import Activity from '@/components/pages/map/marker/Activity';
+import BadgeHistory from '@/components/pages/map/marker/badges/History';
+import BadgeIconic from '@/components/pages/map/marker/badges/Iconic';
+import BadgeMinute from '@/components/pages/map/marker/badges/Minute';
 import IconDiy from '@/components/pages/map/marker/icons/Diy';
 import IconPark from '@/components/pages/map/marker/icons/Park';
 import IconPrivate from '@/components/pages/map/marker/icons/Private';
@@ -8,17 +12,15 @@ import IconRip from '@/components/pages/map/marker/icons/Rip';
 import IconShop from '@/components/pages/map/marker/icons/Shop';
 import IconStreet from '@/components/pages/map/marker/icons/Street';
 import IconWip from '@/components/pages/map/marker/icons/Wip';
-import Activity from '@/components/pages/map/marker/Activity';
-import BadgeHistory from '@/components/pages/map/marker/badges/History';
-import BadgeIconic from '@/components/pages/map/marker/badges/Iconic';
-import BadgeMinute from '@/components/pages/map/marker/badges/Minute';
-
 import Typography from '@/components/Ui/typography/Typography';
 
 const Legend = () => {
     return (
         <div className="px-6 pt-2 pb-8 text-onDark-highEmphasis bg-tertiary-dark">
-            <Typography className="mb-8 leading-[1.4] text-onDark-mediumEmphasis [&_a]:text-primary-80 [&_a]:underline" component="body2">
+            <Typography
+                className="mb-8 leading-[1.4] text-onDark-mediumEmphasis [&_a]:text-primary-80 [&_a]:underline"
+                component="body2"
+            >
                 Skateboarding isn't easy. It takes time, passion, effort & learning. But when you're in the flow,
                 starting to see things all around you differently, it's incredibly thrilling & addictive. That's why
                 we're making this map. There's so much more to come. If you want to be a part of it, please{' '}
@@ -31,7 +33,9 @@ const Legend = () => {
                 </Link>
             </Typography>
 
-            <Typography className="mb-4 text-primary-80" component="condensedSubtitle1">Categories & status</Typography>
+            <Typography className="mb-4 text-primary-80" component="condensedSubtitle1">
+                Categories & status
+            </Typography>
             <ul className="flex flex-wrap">
                 <li className="flex items-center w-1/2 mb-2 last:mb-0 [&_svg]:h-7 [&_svg]:w-7 [&_svg]:mr-2">
                     <IconStreet />
@@ -63,7 +67,9 @@ const Legend = () => {
                 </li>
             </ul>
             <div className="h-px my-6 mt-6 mb-4 bg-onDark-divider" />
-            <Typography className="mb-4 text-primary-80" component="condensedSubtitle1">Tags</Typography>
+            <Typography className="mb-4 text-primary-80" component="condensedSubtitle1">
+                Tags
+            </Typography>
             <ul className="flex flex-wrap">
                 <li className="flex items-center mb-3 mr-4 last:mr-0 [&_svg]:h-5 [&_svg]:w-5 [&_svg]:mr-2">
                     <BadgeIconic />

@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import {
     useFloating,
     offset,
@@ -9,15 +8,16 @@ import {
     useInteractions,
     FloatingPortal,
 } from '@floating-ui/react';
-
-import IconDotsThreeVertical from '@/components/Ui/Icons/IconDotsThreeVertical';
-import { PATH_CALL_TO_ADVENTURE } from '@/pages/call-to-adventure';
-import IconTwitter from '@/components/Ui/Icons/Logos/IconTwitter';
-import IconInstagram from '@/components/Ui/Icons/Logos/IconInstagram';
-import IconYoutubeMonochrome from '@/components/Ui/Icons/Logos/IconYoutubeMonochrome';
-import { useSettingsStore } from '@/store/settings';
-import { NavSocialIconLink, NavSocialIconSeparator } from '@/components/Header/components';
 import Link from 'next/link';
+import { useState } from 'react';
+
+import { NavSocialIconLink, NavSocialIconSeparator } from '@/components/Header/components';
+import IconDotsThreeVertical from '@/components/Ui/Icons/IconDotsThreeVertical';
+import IconInstagram from '@/components/Ui/Icons/Logos/IconInstagram';
+import IconTwitter from '@/components/Ui/Icons/Logos/IconTwitter';
+import IconYoutubeMonochrome from '@/components/Ui/Icons/Logos/IconYoutubeMonochrome';
+import { PATH_CALL_TO_ADVENTURE } from '@/pages/call-to-adventure';
+import { useSettingsStore } from '@/store/settings';
 
 export const HeaderThreeDotsMenu = () => {
     const isMobile = useSettingsStore((state) => state.isMobile);

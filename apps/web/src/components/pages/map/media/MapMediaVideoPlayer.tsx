@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import ReactPlayer from 'react-player';
 
 import type { Media } from '@krak/contracts';
+
 import VideoPlayer from '@/components/Ui/Player/VideoPlayer';
 import { useMapStore } from '@/store/map';
 

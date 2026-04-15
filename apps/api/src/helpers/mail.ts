@@ -1,8 +1,9 @@
 import formData from 'form-data';
 import Mailgun from 'mailgun.js';
-import type { MailgunMessageData } from 'mailgun.js/interfaces/Messages';
 
 import { env } from '../env';
+
+import type { MailgunMessageData } from 'mailgun.js/interfaces/Messages';
 
 const mailgun = new Mailgun(formData);
 const mailgunClient = mailgun.client({

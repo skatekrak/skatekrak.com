@@ -1,14 +1,15 @@
+import { useQuery } from '@tanstack/react-query';
+import AwesomeDebouncePromise from 'awesome-debounce-promise';
 import React, { useState } from 'react';
 import useConstant from 'use-constant';
-import AwesomeDebouncePromise from 'awesome-debounce-promise';
-import { useQuery } from '@tanstack/react-query';
 import { useShallow } from 'zustand/react/shallow';
 
-import SearchIcon from '@/components/Ui/Icons/Search';
 import IconClear from '@/components/Ui/Icons/IconClear';
-import MapSearchResults from './MapSearchResults/MapSearchResults';
+import SearchIcon from '@/components/Ui/Icons/Search';
 import { SpotHit, spotIndex, SpotSearchResult } from '@/lib/meilisearch';
 import { useMapStore } from '@/store/map';
+
+import MapSearchResults from './MapSearchResults/MapSearchResults';
 
 const fetchSpots = async (query: string): Promise<SpotHit[]> => {
     const res = await spotIndex.search<SpotSearchResult>(query, { hitsPerPage: 20 });

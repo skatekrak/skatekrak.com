@@ -1,8 +1,8 @@
+import classnames from 'classnames';
 /*
  * Npm import
  */
 import React from 'react';
-import classnames from 'classnames';
 
 /*
  * Local import

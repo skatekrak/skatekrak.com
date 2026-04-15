@@ -1,5 +1,5 @@
-import React, { cloneElement, useState } from 'react';
 import { useFloating, offset, useInteractions, useRole, useDismiss, shift, useClick } from '@floating-ui/react';
+import React, { cloneElement, useState } from 'react';
 
 type MapFullSpotAddTriggerTooltipProps = {
     render: (props: any) => React.ReactNode;
@@ -25,7 +25,10 @@ const MapFullSpotAddTriggerTooltip = ({ render, children }: MapFullSpotAddTrigge
 
     return (
         <>
-            {cloneElement(children, getReferenceProps({ ref: refs.setReference, ...(children.props as Record<string, unknown>) }))}
+            {cloneElement(
+                children,
+                getReferenceProps({ ref: refs.setReference, ...(children.props as Record<string, unknown>) }),
+            )}
             {open && (
                 <div
                     className="w-40 bg-tertiary-dark border border-tertiary-medium rounded shadow-onDarkHighSharp z-[1]"

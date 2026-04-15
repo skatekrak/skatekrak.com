@@ -1,15 +1,16 @@
-import React from 'react';
 import { useInfiniteQuery } from '@tanstack/react-query';
-import { KrakLoading } from '@/components/Ui/Icons/Spinners';
-import InfiniteScroll from '@/components/Ui/InfiniteScroll';
-import ScrollBar from '@/components/Ui/Scrollbar';
-import KrakMasonry from '@/components/Ui/Masonry';
-import MapMedia from '@/components/pages/map/media/MapMedia';
+import React from 'react';
 
 import type { Spot, Media } from '@krak/contracts';
+
+import MapMedia from '@/components/pages/map/media/MapMedia';
+import { KrakLoading } from '@/components/Ui/Icons/Spinners';
+import InfiniteScroll from '@/components/Ui/InfiniteScroll';
+import KrakMasonry from '@/components/Ui/Masonry';
+import ScrollBar from '@/components/Ui/Scrollbar';
 import { flatten } from '@/lib/helpers';
-import { useSettingsStore } from '@/store/settings';
 import { orpc } from '@/server/orpc/client';
+import { useSettingsStore } from '@/store/settings';
 
 export type MapFullSpotMediasProps = {
     medias: Media[];

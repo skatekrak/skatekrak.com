@@ -1,7 +1,8 @@
 'use client';
 
-import { useEffect, type ReactNode } from 'react';
 import { useRouter } from 'next/navigation';
+import { useEffect, type ReactNode } from 'react';
+
 import { Skeleton } from '@krak/ui';
 
 import { useSession } from '@/lib/auth';

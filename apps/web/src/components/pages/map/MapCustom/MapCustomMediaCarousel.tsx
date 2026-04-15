@@ -1,8 +1,9 @@
-import React from 'react';
 import { useQuery } from '@tanstack/react-query';
+import React from 'react';
+
+import type { Media } from '@krak/contracts';
 
 import CarouselModal from '@/components/pages/map/media/Carousel/CarouselModal';
-import type { Media } from '@krak/contracts';
 import { useMediaID } from '@/lib/hook/queryState';
 import { orpc } from '@/server/orpc/client';
 

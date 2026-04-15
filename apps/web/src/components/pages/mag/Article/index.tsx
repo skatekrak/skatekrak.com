@@ -1,13 +1,12 @@
 import Link from 'next/link';
 import React from 'react';
-
-import createMarkup from '@/lib/createMarkup';
-import decodeHTML from '@/lib/decodeHTML';
-import createPropsGetter from '@/lib/getProps';
+import { Post } from 'wordpress-types';
 
 import { KrakLoading } from '@/components/Ui/Icons/Spinners';
 import SocialShare from '@/components/Ui/share/SocialShare';
-import { Post } from 'wordpress-types';
+import createMarkup from '@/lib/createMarkup';
+import decodeHTML from '@/lib/decodeHTML';
+import createPropsGetter from '@/lib/getProps';
 
 type Props = {
     post: Post;

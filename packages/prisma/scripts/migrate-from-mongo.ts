@@ -18,10 +18,12 @@
  * Run it as many times as needed during development.
  */
 
-import { MongoClient, type Db, type Document as MongoDocument, ObjectId } from 'mongodb';
-import { PrismaPg } from '@prisma/adapter-pg';
-import { PrismaClient, Prisma } from '../node_modules/.prisma/client';
 import { createId } from '@paralleldrive/cuid2';
+import { PrismaPg } from '@prisma/adapter-pg';
+import { MongoClient, type Db, type Document as MongoDocument, ObjectId } from 'mongodb';
+
+import { PrismaClient, Prisma } from '../node_modules/.prisma/client';
+
 import type {
     Role,
     SubscriptionStatus,

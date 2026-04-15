@@ -1,15 +1,16 @@
 import classNames from 'classnames';
 import React, { useCallback, useEffect, useState } from 'react';
+
 import NoContent from '@/components/Ui/Feed/NoContent';
 import { KrakLoading } from '@/components/Ui/Icons/Spinners';
 import InfiniteScroll from '@/components/Ui/InfiniteScroll';
+import { flatten } from '@/lib/helpers';
+import useNewsContent from '@/lib/hook/news/contents';
 import ScrollHelper from '@/lib/ScrollHelper';
+import { useNewsStore } from '@/store/news';
 import { FeedLayout, useSettingsStore } from '@/store/settings';
 
 import ArticlesList from '../ArticlesList';
-import { useNewsStore } from '@/store/news';
-import useNewsContent from '@/lib/hook/news/contents';
-import { flatten } from '@/lib/helpers';
 
 type ArticlesProps = {
     sidebarNavIsOpen: boolean;

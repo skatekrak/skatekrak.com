@@ -3,11 +3,10 @@ import Head from 'next/head';
 import React, { useEffect, useState } from 'react';
 
 import Layout from '@/components/Layout';
-import LayoutFeed from '@/components/Ui/Feed/LayoutFeed';
-import RefreshScrollOnNewPage from '@/components/Ui/Utils/RefreshScrollOnNewPage';
-
 import Feed from '@/components/pages/mag/Feed';
 import Sidebar from '@/components/pages/mag/Sidebar';
+import LayoutFeed from '@/components/Ui/Feed/LayoutFeed';
+import RefreshScrollOnNewPage from '@/components/Ui/Utils/RefreshScrollOnNewPage';
 import { getPostBySlug, getPostSlugs } from '@/lib/mag/generate';
 import { SlicePost, useMagStore } from '@/store/mag';
 

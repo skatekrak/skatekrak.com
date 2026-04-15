@@ -1,9 +1,8 @@
-import React from 'react';
 import Link from 'next/link';
+import React from 'react';
 
-import Typography from '@/components/Ui/typography/Typography';
 import KrakLogoHand from '@/components/Ui/branding/KrakLogoHand';
-
+import Typography from '@/components/Ui/typography/Typography';
 import { PATH_CALL_TO_ADVENTURE } from '@/pages/call-to-adventure';
 
 const ArticleAd = () => (

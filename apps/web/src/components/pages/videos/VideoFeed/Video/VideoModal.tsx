@@ -1,13 +1,13 @@
 import { formatDistanceToNow, parseISO } from 'date-fns';
 import { useRouter } from 'next/router';
 import React from 'react';
+import { IContent } from 'rss-feed';
 
 import VideoCardShare from '@/components/pages/videos/VideoFeed/Video/VideoCardShare';
 import Emoji from '@/components/Ui/Icons/Emoji';
 import Modal from '@/components/Ui/Modal';
 import VideoPlayer from '@/components/Ui/Player/VideoPlayer';
 import { SourceType } from '@/lib/constants';
-import { IContent } from 'rss-feed';
 
 type Props = {
     video?: IContent;

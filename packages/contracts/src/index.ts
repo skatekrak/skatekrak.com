@@ -1,5 +1,5 @@
-import type { z } from 'zod';
 import type { InferContractRouterInputs, InferContractRouterOutputs } from '@orpc/contract';
+import type { z } from 'zod';
 
 export { contract } from './contract';
 
@@ -19,8 +19,8 @@ export type ContractOutputs = InferContractRouterOutputs<typeof import('./contra
 // Convenience type aliases inferred from Zod schemas
 // ============================================================================
 
-import type { SpotSchema } from './schemas/spots';
 import type { MediaSchema, ClipSchema } from './schemas/media';
+import type { SpotSchema } from './schemas/spots';
 
 /** Spot type inferred from the contract schema */
 export type Spot = z.infer<typeof SpotSchema>;

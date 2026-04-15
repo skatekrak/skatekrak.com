@@ -1,4 +1,5 @@
 import { unique } from 'radash';
+
 import { Category, CustomMapCategory, QuickAccessMap } from './types';
 
 const customMapCategoryValues = Object.values(CustomMapCategory) as string[];

@@ -1,13 +1,13 @@
 import { GetServerSideProps, NextPage } from 'next';
-import Head from 'next/head';
-import React from 'react';
 import dynamic from 'next/dynamic';
+import Head from 'next/head';
+import { draw } from 'radash';
+import React from 'react';
 
 import Layout from '@/components/Layout';
-import { draw } from 'radash';
-import { serverClient } from '@/server/orpc/client';
 import cities from '@/data/cities/_cities';
 import { centerFromBounds } from '@/lib/map/helpers';
+import { serverClient } from '@/server/orpc/client';
 
 const DyamicMapContainer = dynamic(() => import('@/components/pages/map/MapContainer'), { ssr: false });
 

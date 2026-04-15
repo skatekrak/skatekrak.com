@@ -1,9 +1,9 @@
 import React from 'react';
 import { useMap } from 'react-map-gl';
 
-import Typography from '@/components/Ui/typography/Typography';
-
 import type { Media } from '@krak/contracts';
+
+import Typography from '@/components/Ui/typography/Typography';
 import SpotIcon from '@/components/Ui/Utils/SpotIcon';
 import { useSpotID } from '@/lib/hook/queryState';
 

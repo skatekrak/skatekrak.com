@@ -1,10 +1,9 @@
 import { formatDistanceToNow, parseISO } from 'date-fns';
 import React from 'react';
 
-import Content from '@/models/Content';
-
-import BackgroundLoader from '@/components/Ui/Utils/BackgroundLoader';
 import SocialShare from '@/components/Ui/share/SocialShare';
+import BackgroundLoader from '@/components/Ui/Utils/BackgroundLoader';
+import Content from '@/models/Content';
 
 type Props = {
     content: Content;
@@ -46,9 +45,7 @@ const Card = ({ content }: Props) => (
                 &nbsp;- {formatDistanceToNow(parseISO(content.createdAt))}
             </span>
         </div>
-        <p className="news-article-desc line-clamp-4">
-            {content.getContent()}
-        </p>
+        <p className="news-article-desc line-clamp-4">{content.getContent()}</p>
     </>
 );
 

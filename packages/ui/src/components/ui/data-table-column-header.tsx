@@ -1,7 +1,8 @@
-import type { Column } from '@tanstack/react-table';
 import { ArrowDown, ArrowUp, ChevronsUpDown } from 'lucide-react';
 
 import { cn } from '@krak/ui/lib/utils';
+
+import type { Column } from '@tanstack/react-table';
 
 interface DataTableColumnHeaderProps<TData, TValue> extends React.HTMLAttributes<HTMLDivElement> {
     column: Column<TData, TValue>;
@@ -17,11 +18,7 @@ export function DataTableColumnHeader<TData, TValue>({
 
     return (
         <div
-            className={cn(
-                'flex items-center gap-2',
-                canSort && 'cursor-pointer select-none',
-                className,
-            )}
+            className={cn('flex items-center gap-2', canSort && 'cursor-pointer select-none', className)}
             onClick={canSort ? () => column.toggleSorting() : undefined}
         >
             <span>{title}</span>

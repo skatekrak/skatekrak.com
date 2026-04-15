@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import {
     useFloating,
     offset,
@@ -9,13 +8,13 @@ import {
     useInteractions,
     FloatingPortal,
 } from '@floating-ui/react';
-
-import UserProfilePic from '@/components/Ui/user/UserProfilePic';
-import Typography from '@/components/Ui/typography/Typography';
-
 import { useQuery } from '@tanstack/react-query';
-import { orpc } from '@/server/orpc/client';
+import React, { useState } from 'react';
+
+import Typography from '@/components/Ui/typography/Typography';
+import UserProfilePic from '@/components/Ui/user/UserProfilePic';
 import { signOut } from '@/lib/auth';
+import { orpc } from '@/server/orpc/client';
 
 const HeaderProfile = () => {
     const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);

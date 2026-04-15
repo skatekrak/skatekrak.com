@@ -1,7 +1,7 @@
+import classNames from 'classnames';
 import * as React from 'react';
 
 import IconCross from '@/components/Ui/Icons/Cross';
-import classNames from 'classnames';
 
 type Props = {
     onClick: (fct: any) => void;

@@ -1,13 +1,13 @@
 import classNames from 'classnames';
 import React from 'react';
+
 import Card from '@/components/pages/mag/Feed/Card';
 import NoContent from '@/components/Ui/Feed/NoContent';
 import { KrakLoading } from '@/components/Ui/Icons/Spinners';
 import InfiniteScroll from '@/components/Ui/InfiniteScroll';
-import ScrollHelper from '@/lib/ScrollHelper';
-
-import usePosts from '@/lib/hook/mag/posts';
 import { flatten } from '@/lib/helpers';
+import usePosts from '@/lib/hook/mag/posts';
+import ScrollHelper from '@/lib/ScrollHelper';
 import { useMagStore } from '@/store/mag';
 
 type Props = {

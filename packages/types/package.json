@@ -1,9 +1,9 @@
 {
-  "name": "@krak/types",
-  "version": "1.0.0",
-  "description": "Shared TypeScript types for Krak",
-  "main": "./src/index.ts",
-  "devDependencies": {
-    "@types/geojson": "^7946.0.16"
-  }
+    "name": "@krak/types",
+    "version": "1.0.0",
+    "description": "Shared TypeScript types for Krak",
+    "main": "./src/index.ts",
+    "devDependencies": {
+        "@types/geojson": "^7946.0.16"
+    }
 }

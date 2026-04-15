@@ -2,10 +2,10 @@ import React, { useEffect, useRef } from 'react';
 import ReactPlayer from 'react-player';
 import { useShallow } from 'zustand/react/shallow';
 
+import type { Clip } from '@krak/contracts';
+
 import VideoPlayer from '@/components/Ui/Player/VideoPlayer';
 import Typography from '@/components/Ui/typography/Typography';
-
-import type { Clip } from '@krak/contracts';
 import { useMapStore } from '@/store/map';
 
 type MapFullSpotMainClipProps = {

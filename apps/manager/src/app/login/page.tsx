@@ -1,7 +1,8 @@
 'use client';
 
-import { useState, type SubmitEvent } from 'react';
 import { useRouter } from 'next/navigation';
+import { useState, type SubmitEvent } from 'react';
+
 import { Button, Card, CardContent, CardDescription, CardHeader, CardTitle, Input, Label } from '@krak/ui';
 
 import { signIn } from '@/lib/auth';

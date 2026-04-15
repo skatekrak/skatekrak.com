@@ -1,7 +1,7 @@
 import React from 'react';
+import { Marker } from 'react-map-gl';
 
 import { Cluster } from '@krak/types';
-import { Marker } from 'react-map-gl';
 
 type SpotClusterProps = {
     cluster: Cluster;

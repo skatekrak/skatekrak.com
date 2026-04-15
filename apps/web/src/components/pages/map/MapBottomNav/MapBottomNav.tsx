@@ -1,11 +1,12 @@
 import React, { ButtonHTMLAttributes } from 'react';
 
-import Typography from '@/components/Ui/typography/Typography';
-import KrakAppIcon from '@/components/Ui/Icons/Logos/KrakAppIcon';
 import Legend from '@/components/pages/map/Legend';
-import MapBottomNavSheet from './MapBottomNavSheet';
+import KrakAppIcon from '@/components/Ui/Icons/Logos/KrakAppIcon';
+import Typography from '@/components/Ui/typography/Typography';
+
 import MobileCities from '../mapQuickAccess/mobile/mobile-cities';
 import MobileMaps from '../mapQuickAccess/mobile/mobile-maps';
+import MapBottomNavSheet from './MapBottomNavSheet';
 
 type Props = {
     isMobile: boolean;

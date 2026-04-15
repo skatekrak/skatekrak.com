@@ -1,6 +1,6 @@
+import { Post } from 'wordpress-types';
 import { create } from 'zustand';
 import { devtools, persist } from 'zustand/middleware';
-import { Post } from 'wordpress-types';
 
 export type SlicePost = Pick<Post, 'categories' | 'slug' | 'title' | 'featuredImages' | 'id'>;
 

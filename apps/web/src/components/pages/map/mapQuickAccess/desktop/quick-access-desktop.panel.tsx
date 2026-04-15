@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
 import { useFloating, useInteractions, useClick, useDismiss, offset, shift } from '@floating-ui/react';
+import React, { useState } from 'react';
+
+import ScrollBar from '@/components/Ui/Scrollbar';
 
 import ToggleButton from './quick-access-desktop.panel-toggle';
-import ScrollBar from '@/components/Ui/Scrollbar';
 
 type Props = {
     isSelected: boolean;

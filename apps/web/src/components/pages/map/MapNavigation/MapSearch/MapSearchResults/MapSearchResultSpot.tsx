@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from 'react';
 
-import Typography from '@/components/Ui/typography/Typography';
-import StreetIcon from '@/components/pages/map/marker/icons/Street';
-import ParkIcon from '@/components/pages/map/marker/icons/Park';
-import DiyIcon from '@/components/pages/map/marker/icons/Diy';
-import ShopIcon from '@/components/pages/map/marker/icons/Shop';
-import PrivateIcon from '@/components/pages/map/marker/icons/Private';
-import WipIcon from '@/components/pages/map/marker/icons/Wip';
-import RipIcon from '@/components/pages/map/marker/icons/Rip';
-import IconicBadge from '@/components/pages/map/marker/badges/Iconic';
-import HistoryBadge from '@/components/pages/map/marker/badges/History';
-import MinuteBadge from '@/components/pages/map/marker/badges/Minute';
-
 import type { Spot } from '@krak/contracts';
 import { Status, Types } from '@krak/types';
+
+import HistoryBadge from '@/components/pages/map/marker/badges/History';
+import IconicBadge from '@/components/pages/map/marker/badges/Iconic';
+import MinuteBadge from '@/components/pages/map/marker/badges/Minute';
+import DiyIcon from '@/components/pages/map/marker/icons/Diy';
+import ParkIcon from '@/components/pages/map/marker/icons/Park';
+import PrivateIcon from '@/components/pages/map/marker/icons/Private';
+import RipIcon from '@/components/pages/map/marker/icons/Rip';
+import ShopIcon from '@/components/pages/map/marker/icons/Shop';
+import StreetIcon from '@/components/pages/map/marker/icons/Street';
+import WipIcon from '@/components/pages/map/marker/icons/Wip';
+import Typography from '@/components/Ui/typography/Typography';
 import { SpotHit } from '@/lib/meilisearch';
 
 type Props<T> = {
@@ -57,11 +57,19 @@ export default function MapSearchResultSpot<T extends Spot | SpotHit>({ spot, on
                     {spot.status === Status.Rip && <RipIcon />}
                 </div>
                 <div className="flex flex-col grow overflow-hidden">
-                    <Typography className="tracking-[0.2px] text-onDark-highEmphasis" component="subtitle1" truncateLines={1}>
+                    <Typography
+                        className="tracking-[0.2px] text-onDark-highEmphasis"
+                        component="subtitle1"
+                        truncateLines={1}
+                    >
                         {spot.name}
                     </Typography>
                     {spot.location && (
-                        <Typography className="mt-0.5 italic text-onDark-lowEmphasis" component="body2" truncateLines={1}>
+                        <Typography
+                            className="mt-0.5 italic text-onDark-lowEmphasis"
+                            component="body2"
+                            truncateLines={1}
+                        >
                             {spot.location.streetNumber} {spot.location.streetName}
                         </Typography>
                     )}
@@ -86,7 +94,11 @@ export default function MapSearchResultSpot<T extends Spot | SpotHit>({ spot, on
                         </div>
                     )}
                     {spot.location && spot.location.city && (
-                        <Typography className="text-right text-onDark-mediumEmphasis" component="body2" truncateLines={1}>
+                        <Typography
+                            className="text-right text-onDark-mediumEmphasis"
+                            component="body2"
+                            truncateLines={1}
+                        >
                             {spot.location.city}
                         </Typography>
                     )}

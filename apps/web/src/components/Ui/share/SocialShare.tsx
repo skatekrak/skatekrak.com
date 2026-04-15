@@ -1,5 +1,6 @@
 import React from 'react';
 import { FacebookIcon, FacebookShareButton, TwitterIcon, TwitterShareButton } from 'react-share';
+
 import ClipboardButton from '@/components/Ui/Button/ClipboardButton';
 
 type Props = {

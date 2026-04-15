@@ -1,7 +1,7 @@
 import { implement, ORPCError } from '@orpc/server';
-import type { PrismaClient, Profile, Spot, Session, User } from '@krak/prisma';
 
 import { contract } from '@krak/contracts';
+import type { PrismaClient, Profile, Spot, Session, User } from '@krak/prisma';
 
 // ============================================================================
 // Auth session type

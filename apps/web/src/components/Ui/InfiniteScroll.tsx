@@ -12,7 +12,13 @@ type InfiniteScrollProps = {
  * Lightweight InfiniteScroll component using Intersection Observer.
  * Replaces react-infinite-scroller (unmaintained, class-based, incompatible with React 19).
  */
-const InfiniteScroll: React.FC<InfiniteScrollProps> = ({ loadMore, hasMore, threshold = 250, getScrollParent, children }) => {
+const InfiniteScroll: React.FC<InfiniteScrollProps> = ({
+    loadMore,
+    hasMore,
+    threshold = 250,
+    getScrollParent,
+    children,
+}) => {
     const sentinelRef = useRef<HTMLDivElement>(null);
     const loadMoreRef = useRef(loadMore);
 

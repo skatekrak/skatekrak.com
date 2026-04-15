@@ -1,11 +1,11 @@
 import React from 'react';
+import { useMap } from 'react-map-gl';
 import { useShallow } from 'zustand/react/shallow';
 
 import Typography from '@/components/Ui/typography/Typography';
-import { City } from '@/lib/map/types';
-import { useMap } from 'react-map-gl';
-import { centerFromBounds } from '@/lib/map/helpers';
 import { useCityID, useCustomMapID, useSpotID, useSpotModal } from '@/lib/hook/queryState';
+import { centerFromBounds } from '@/lib/map/helpers';
+import { City } from '@/lib/map/types';
 import { useMapStore } from '@/store/map';
 
 type CityProps = {

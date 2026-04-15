@@ -30,7 +30,11 @@ function findComponent(components: AddressComponent[], type: string): string | n
  * Reverse-geocode a lat/lng pair into a street address using the Google Maps Geocoding API.
  * Returns null if no results are found.
  */
-export async function reverseGeocode(latitude: number, longitude: number, apiKey: string): Promise<SpotLocation | null> {
+export async function reverseGeocode(
+    latitude: number,
+    longitude: number,
+    apiKey: string,
+): Promise<SpotLocation | null> {
     const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${apiKey}&language=en`;
     const response = await fetch(url);
     const data = (await response.json()) as GeocodingResponse;

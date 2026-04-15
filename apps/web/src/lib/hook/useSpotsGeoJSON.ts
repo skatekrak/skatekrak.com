@@ -2,9 +2,10 @@ import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import { MapRef } from 'react-map-gl';
 
 import { SpotGeoJSON } from '@krak/types';
-import { client } from '@/server/orpc/client';
-import useDebounce from '@/lib/hook/useDebounce';
+
 import { useViewport } from '@/lib/hook/queryState';
+import useDebounce from '@/lib/hook/useDebounce';
+import { client } from '@/server/orpc/client';
 
 export const useSpotsGeoJSON = (mapRef: MapRef | undefined, enabled = true) => {
     const [viewport] = useViewport();

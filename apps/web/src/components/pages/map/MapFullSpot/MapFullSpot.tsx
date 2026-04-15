@@ -1,14 +1,14 @@
-import React, { useEffect } from 'react';
 import classnames from 'classnames';
+import React, { useEffect } from 'react';
 
 import Modal from '@/components/Ui/Modal';
-import MapFullSpotNav from './MapFullSpotNav';
-import MapFullSpotMain from './MapFullSpotMain';
-import MapFullSpotCarousel from './MapFullSpotCarousel';
-
-import { useMapStore } from '@/store/map';
 import { modalThemeStyles } from '@/components/Ui/Modal/styles';
 import { useFullSpotSelectedTab, useMediaID } from '@/lib/hook/queryState';
+import { useMapStore } from '@/store/map';
+
+import MapFullSpotCarousel from './MapFullSpotCarousel';
+import MapFullSpotMain from './MapFullSpotMain';
+import MapFullSpotNav from './MapFullSpotNav';
 
 type MapFullSpotProps = {
     open: boolean;

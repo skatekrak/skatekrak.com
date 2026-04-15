@@ -1,15 +1,13 @@
-import React, { useState } from 'react';
+import { QueryClient, QueryClientProvider, HydrationBoundary } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { AppProps } from 'next/app';
 import Head from 'next/head';
 import Script from 'next/script';
 import { NuqsAdapter } from 'nuqs/adapters/next/pages';
-import { QueryClient, QueryClientProvider, HydrationBoundary } from '@tanstack/react-query';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-
+import React, { useState } from 'react';
 import 'simplebar-react/dist/simplebar.min.css';
 import 'react-responsive-modal/styles.css';
 import 'mapbox-gl/dist/mapbox-gl.css';
-
 import '../../public/styles/tailwind.css';
 import '../../public/styles/fonts.css';
 import '../../public/styles/flexbox-grid.css';

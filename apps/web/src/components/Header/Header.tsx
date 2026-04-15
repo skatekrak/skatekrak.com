@@ -1,18 +1,18 @@
-import React from 'react';
 import Link from 'next/link';
+import React from 'react';
 
-import IconDiscord from '@/components/Ui/Icons/Logos/IconDiscord';
-import IconTwitter from '@/components/Ui/Icons/Logos/IconTwitter';
-import IconYoutubeMonochrome from '@/components/Ui/Icons/Logos/IconYoutubeMonochrome';
-import IconUserCircle from '@/components/Ui/Icons/IconUserCircle';
-import HeaderProfile from './HeaderProfile';
-
-import useSession from '@/lib/hook/carrelage/use-session';
-import IconInstagram from '@/components/Ui/Icons/Logos/IconInstagram';
-import { HeaderThreeDotsMenu } from './HeaderThreeDotsMenu';
-import Typography from '@/components/Ui/typography/Typography';
 import { NavSocialIconLink, NavSocialIconSeparator } from '@/components/Header/components';
 import KrakLogoHand from '@/components/Ui/branding/KrakLogoHand';
+import IconUserCircle from '@/components/Ui/Icons/IconUserCircle';
+import IconDiscord from '@/components/Ui/Icons/Logos/IconDiscord';
+import IconInstagram from '@/components/Ui/Icons/Logos/IconInstagram';
+import IconTwitter from '@/components/Ui/Icons/Logos/IconTwitter';
+import IconYoutubeMonochrome from '@/components/Ui/Icons/Logos/IconYoutubeMonochrome';
+import Typography from '@/components/Ui/typography/Typography';
+import useSession from '@/lib/hook/carrelage/use-session';
+
+import HeaderProfile from './HeaderProfile';
+import { HeaderThreeDotsMenu } from './HeaderThreeDotsMenu';
 
 const Header: React.FC = () => {
     const { data: sessionData } = useSession();

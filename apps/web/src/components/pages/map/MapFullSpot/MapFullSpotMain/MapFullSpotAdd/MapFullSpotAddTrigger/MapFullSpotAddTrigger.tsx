@@ -1,15 +1,15 @@
+import { useRouter } from 'next/router';
 import React from 'react';
 
-import Typography from '@/components/Ui/typography/Typography';
-import IconPlus from '@/components/Ui/Icons/IconPlus';
 import IconClips from '@/components/Ui/Icons/IconClips';
 import IconMedia from '@/components/Ui/Icons/IconMedia';
-import MapFullSpotAddTriggerTooltip from './MapFullSpotAddTriggerTooltip';
-
-import { FullSpotTab } from '@/store/map';
+import IconPlus from '@/components/Ui/Icons/IconPlus';
+import Typography from '@/components/Ui/typography/Typography';
 import useSession from '@/lib/hook/carrelage/use-session';
-import { useRouter } from 'next/router';
 import { useFullSpotSelectedTab } from '@/lib/hook/queryState';
+import { FullSpotTab } from '@/store/map';
+
+import MapFullSpotAddTriggerTooltip from './MapFullSpotAddTriggerTooltip';
 
 const MapFullSpotAddTrigger = () => {
     const router = useRouter();

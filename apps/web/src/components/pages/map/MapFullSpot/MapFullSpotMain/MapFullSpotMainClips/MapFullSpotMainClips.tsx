@@ -1,13 +1,15 @@
-import React from 'react';
 import { useInfiniteQuery } from '@tanstack/react-query';
-import ScrollBar from '@/components/Ui/Scrollbar';
-import InfiniteScroll from '@/components/Ui/InfiniteScroll';
-import { KrakLoading } from '@/components/Ui/Icons/Spinners';
-import MapFullSpotMainClip from './MapFullSpotMainClip';
+import React from 'react';
 
-import { flatten } from '@/lib/helpers';
 import type { Spot } from '@krak/contracts';
+
+import { KrakLoading } from '@/components/Ui/Icons/Spinners';
+import InfiniteScroll from '@/components/Ui/InfiniteScroll';
+import ScrollBar from '@/components/Ui/Scrollbar';
+import { flatten } from '@/lib/helpers';
 import { orpc } from '@/server/orpc/client';
+
+import MapFullSpotMainClip from './MapFullSpotMainClip';
 
 export type MapFullSpotMainClipsProps = {
     spot: Spot;

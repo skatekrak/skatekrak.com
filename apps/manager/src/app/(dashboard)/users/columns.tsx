@@ -1,10 +1,11 @@
 'use client';
 
-import type { ColumnDef } from '@tanstack/react-table';
-import { Badge, DataTableColumnHeader } from '@krak/ui';
 import { format } from 'date-fns';
 
 import type { ContractOutputs } from '@krak/contracts';
+import { Badge, DataTableColumnHeader } from '@krak/ui';
+
+import type { ColumnDef } from '@tanstack/react-table';
 
 export type AdminUser = ContractOutputs['admin']['users']['list']['users'][number];
 

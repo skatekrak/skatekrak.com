@@ -1,4 +1,3 @@
-import { type Spot, type Media, type Clip, Status, Types } from '@krak/types';
 import type {
     Spot as PrismaSpot,
     Media as PrismaMedia,
@@ -6,6 +5,7 @@ import type {
     Profile as PrismaProfile,
     User as PrismaUser,
 } from '@krak/prisma';
+import { type Spot, type Media, type Clip, Status, Types } from '@krak/types';
 
 // ============================================================================
 // Composite Prisma types (with relations included)

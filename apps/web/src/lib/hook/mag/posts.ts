@@ -1,5 +1,6 @@
-import { intersects } from 'radash';
 import { useInfiniteQuery } from '@tanstack/react-query';
+import { intersects } from 'radash';
+
 import { useMagStore } from '@/store/mag';
 
 export type PostsFetchParam = {

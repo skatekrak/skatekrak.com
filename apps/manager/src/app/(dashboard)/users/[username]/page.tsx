@@ -1,8 +1,11 @@
 'use client';
 
-import { use } from 'react';
 import { useQuery } from '@tanstack/react-query';
+import { format } from 'date-fns';
 import { Globe, Instagram, Ghost, ExternalLink } from 'lucide-react';
+import { use } from 'react';
+
+import type { ContractOutputs } from '@krak/contracts';
 import {
     Card,
     CardContent,
@@ -16,11 +19,8 @@ import {
     Skeleton,
 } from '@krak/ui';
 
-import type { ContractOutputs } from '@krak/contracts';
-
-import { orpc } from '@/lib/orpc';
 import { SiteHeader } from '@/components/site-header';
-import { format } from 'date-fns';
+import { orpc } from '@/lib/orpc';
 
 type UserDetailOutput = ContractOutputs['admin']['users']['getByUsername'];
 

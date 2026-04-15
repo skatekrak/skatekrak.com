@@ -1,8 +1,8 @@
 import React from 'react';
 
-import City from '../City';
-
 import cities from '@/data/cities/_cities';
+
+import City from '../City';
 
 type Props = {
     closeSheet: () => void;

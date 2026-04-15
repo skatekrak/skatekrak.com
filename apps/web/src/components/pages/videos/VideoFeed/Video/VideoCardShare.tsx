@@ -1,7 +1,7 @@
 import React from 'react';
+import { IContent } from 'rss-feed';
 
 import SocialShare from '@/components/Ui/share/SocialShare';
-import { IContent } from 'rss-feed';
 
 type Props = {
     video: IContent;

@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
-import classNames from 'classnames';
-
-import { generateCategories } from '../utils';
 import { useQuery } from '@tanstack/react-query';
-import { orpc } from '@/server/orpc/client';
-import { Category as TCategory } from '../types';
-import Typography from '@/components/Ui/typography/Typography';
+import classNames from 'classnames';
+import React, { useState } from 'react';
+
 import ArrowHead from '@/components/Ui/Icons/ArrowHead';
+import Typography from '@/components/Ui/typography/Typography';
+import { orpc } from '@/server/orpc/client';
+
 import Map from '../Map';
+import { Category as TCategory } from '../types';
+import { generateCategories } from '../utils';
 
 type Props = {
     closeSheet: () => void;

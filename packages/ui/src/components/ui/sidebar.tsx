@@ -1,16 +1,16 @@
-import * as React from 'react';
 import { Slot } from '@radix-ui/react-slot';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { PanelLeft } from 'lucide-react';
+import * as React from 'react';
 
-import { useIsMobile } from '@krak/ui/hooks/use-mobile';
-import { cn } from '@krak/ui/lib/utils';
 import { Button } from '@krak/ui/components/ui/button';
 import { Input } from '@krak/ui/components/ui/input';
 import { Separator } from '@krak/ui/components/ui/separator';
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from '@krak/ui/components/ui/sheet';
 import { Skeleton } from '@krak/ui/components/ui/skeleton';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@krak/ui/components/ui/tooltip';
+import { useIsMobile } from '@krak/ui/hooks/use-mobile';
+import { cn } from '@krak/ui/lib/utils';
 
 const SIDEBAR_COOKIE_NAME = 'sidebar_state';
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7;
@@ -144,7 +144,10 @@ const Sidebar = React.forwardRef<
     if (collapsible === 'none') {
         return (
             <div
-                className={cn('flex h-full w-[var(--sidebar-width)] flex-col bg-sidebar text-sidebar-foreground', className)}
+                className={cn(
+                    'flex h-full w-[var(--sidebar-width)] flex-col bg-sidebar text-sidebar-foreground',
+                    className,
+                )}
                 ref={ref}
                 {...props}
             >

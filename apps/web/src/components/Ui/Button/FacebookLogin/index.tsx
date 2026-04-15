@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import getParamsFromObject from './objectToParams';
+
 import decodeParamForKey from './decodeParam';
+import getParamsFromObject from './objectToParams';
 
 const getIsMobile = () => {
     let isMobile = false;

@@ -1,9 +1,9 @@
 import { formatDistanceToNow, parseISO } from 'date-fns';
 import React from 'react';
+import { IContent } from 'rss-feed';
 
 import VideoCardShare from '@/components/pages/videos/VideoFeed/Video/VideoCardShare';
 import VideoPlayerCaption from '@/components/pages/videos/VideoFeed/Video/VideoPlayerCaption';
-import { IContent } from 'rss-feed';
 
 type Props = {
     video: IContent;

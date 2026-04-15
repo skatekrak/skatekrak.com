@@ -1,0 +1,27 @@
+{
+    "$schema": "./node_modules/oxfmt/configuration_schema.json",
+    "printWidth": 120,
+    "tabWidth": 4,
+    "singleQuote": true,
+    "arrowParens": "always",
+    "bracketSpacing": true,
+    "trailingComma": "all",
+    "sortPackageJson": false,
+    "sortImports": {
+        "customGroups": [
+            {
+                "groupName": "krak-workspace",
+                "elementNamePattern": ["@krak/**"]
+            }
+        ],
+        "groups": [
+            ["value-builtin", "value-external"],
+            "krak-workspace",
+            "value-internal",
+            ["value-parent", "value-sibling", "value-index"],
+            "type-import",
+            "unknown"
+        ],
+        "newlinesBetween": true
+    }
+}

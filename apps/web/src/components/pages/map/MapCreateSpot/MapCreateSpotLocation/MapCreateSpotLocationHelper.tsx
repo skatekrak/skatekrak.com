@@ -1,8 +1,8 @@
-import React from 'react';
 import classnames from 'classnames';
+import React from 'react';
 
-import Typography from '@/components/Ui/typography/Typography';
 import ButtonPrimary from '@/components/Ui/Button/ButtonPrimary/ButtonPrimary';
+import Typography from '@/components/Ui/typography/Typography';
 
 type Props = {
     isMobile: boolean;
@@ -25,10 +25,7 @@ const MapCreateSpotLocationHelper = ({ isMobile, handleToggleMapVisible, isPinPl
                 <Typography>Tap on the map to place the spot</Typography>
             </div>
             {isMobile && isPinPlaced && (
-                <ButtonPrimary
-                    className="absolute bottom-8 right-[calc(50%-5.5rem)]"
-                    onClick={handleToggleMapVisible}
-                >
+                <ButtonPrimary className="absolute bottom-8 right-[calc(50%-5.5rem)]" onClick={handleToggleMapVisible}>
                     Save location
                 </ButtonPrimary>
             )}

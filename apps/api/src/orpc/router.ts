@@ -1,9 +1,26 @@
 import { os } from './base';
-import { createSpot, getSpot, getSpotOverview, getSpotsGeoJSON, listByTags, reverseGeocodeSpot, addClipToSpot, getVideoInfo } from './routers/spots';
-import { fetchMap, listMaps } from './routers/maps';
-import { getById, listBySpot, getSpotMediasAround, list, getHashtagMediasAround, listClipsBySpot, uploadToSpot } from './routers/media';
-import { me } from './routers/profiles';
 import { listUsers, getUserByUsername } from './routers/admin';
+import { fetchMap, listMaps } from './routers/maps';
+import {
+    getById,
+    listBySpot,
+    getSpotMediasAround,
+    list,
+    getHashtagMediasAround,
+    listClipsBySpot,
+    uploadToSpot,
+} from './routers/media';
+import { me } from './routers/profiles';
+import {
+    createSpot,
+    getSpot,
+    getSpotOverview,
+    getSpotsGeoJSON,
+    listByTags,
+    reverseGeocodeSpot,
+    addClipToSpot,
+    getVideoInfo,
+} from './routers/spots';
 
 export const router = os.router({
     spots: {

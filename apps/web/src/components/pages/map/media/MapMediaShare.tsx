@@ -1,8 +1,8 @@
 import React from 'react';
 
-import SocialShare from '@/components/Ui/share/SocialShare';
-
 import type { Media } from '@krak/contracts';
+
+import SocialShare from '@/components/Ui/share/SocialShare';
 
 type Props = {
     media: Media;

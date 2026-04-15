@@ -1,5 +1,6 @@
 {
     "editor.formatOnSave": true,
+    "editor.defaultFormatter": "nicolo-ribaudo.oxfmt-vscode",
     "oxc.enable": true,
     "files.exclude": {
         "**/.git": true,
@@ -10,7 +11,6 @@
         "**/.next": true,
         "**/.devcontainer": true,
         "**/next-env.d.ts": true,
-        "**/.prettierrc": false,
         "**/babel.config.js": false,
         "**/.gitignore": true,
         "**/yarn-error.log": true,

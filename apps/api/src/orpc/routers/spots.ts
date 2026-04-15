@@ -1,7 +1,13 @@
 import { ORPCError } from '@orpc/server';
-import { type SpotGeoJSON, Status, Types } from '@krak/types';
-import type { Media as PrismaMedia, ClipProvider, SpotType, SpotStatus, Obstacle } from '@krak/prisma';
 
+import type { Media as PrismaMedia, ClipProvider, SpotType, SpotStatus, Obstacle } from '@krak/prisma';
+import { type SpotGeoJSON, Status, Types } from '@krak/types';
+
+import { env } from '../../env';
+import { reverseGeocode } from '../../helpers/geocoding';
+import { spotIndex } from '../../helpers/meilisearch';
+import { buildStat } from '../../helpers/stats';
+import { getVideoInformation } from '../../helpers/videos';
 import { os, authed, loadProfile, loadSpot } from '../base';
 import {
     type SpotWithAddedBy,
@@ -11,11 +17,6 @@ import {
     formatPrismaClip,
     formatStat,
 } from '../formatters';
-import { getVideoInformation } from '../../helpers/videos';
-import { reverseGeocode } from '../../helpers/geocoding';
-import { buildStat } from '../../helpers/stats';
-import { spotIndex } from '../../helpers/meilisearch';
-import { env } from '../../env';
 
 // ============================================================================
 // Shared Prisma include for addedBy with user relation
@@ -64,7 +65,12 @@ export const createSpot = os.spots.create
         const { profile } = context;
 
         // Reverse-geocode coordinates into a street address
-        let location: { streetNumber: string | null; streetName: string | null; city: string | null; country: string | null } = {
+        let location: {
+            streetNumber: string | null;
+            streetName: string | null;
+            city: string | null;
+            country: string | null;
+        } = {
             streetNumber: null,
             streetName: null,
             city: null,
@@ -123,32 +129,35 @@ export const createSpot = os.spots.create
 
         // Index the new spot in Meilisearch (fire-and-forget, don't block the response)
         spotIndex
-            .addDocuments([
-                {
-                    objectID: spot.id,
-                    name: spot.name,
-                    coverURL: spot.coverURL ?? '',
-                    type: spot.type.toLowerCase(),
-                    status: spot.status.toLowerCase(),
-                    indoor: spot.indoor,
-                    tags: spot.tags,
-                    obstacles: spot.obstacles,
-                    facebook: spot.facebook ?? undefined,
-                    instagram: spot.instagram ?? undefined,
-                    snapchat: spot.snapchat ?? undefined,
-                    website: spot.website ?? undefined,
-                    location: {
-                        streetName: spot.streetName ?? '',
-                        streetNumber: spot.streetNumber ?? '',
-                        city: spot.city ?? '',
-                        country: spot.country ?? '',
+            .addDocuments(
+                [
+                    {
+                        objectID: spot.id,
+                        name: spot.name,
+                        coverURL: spot.coverURL ?? '',
+                        type: spot.type.toLowerCase(),
+                        status: spot.status.toLowerCase(),
+                        indoor: spot.indoor,
+                        tags: spot.tags,
+                        obstacles: spot.obstacles,
+                        facebook: spot.facebook ?? undefined,
+                        instagram: spot.instagram ?? undefined,
+                        snapchat: spot.snapchat ?? undefined,
+                        website: spot.website ?? undefined,
+                        location: {
+                            streetName: spot.streetName ?? '',
+                            streetNumber: spot.streetNumber ?? '',
+                            city: spot.city ?? '',
+                            country: spot.country ?? '',
+                        },
+                        _geo: {
+                            lat: spot.latitude,
+                            lng: spot.longitude,
+                        },
                     },
-                    _geo: {
-                        lat: spot.latitude,
-                        lng: spot.longitude,
-                    },
-                },
-            ], { primaryKey: 'objectID' })
+                ],
+                { primaryKey: 'objectID' },
+            )
             .catch((err) => {
                 console.error('Failed to index spot in Meilisearch:', err);
             });

@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
 import classnames from 'classnames';
+import React, { useEffect, useState } from 'react';
+
+import ArrowHead from '@/components/Ui/Icons/ArrowHead';
 
 import { ctaSections } from '../../constants';
-import ArrowHead from '@/components/Ui/Icons/ArrowHead';
 
 type Props = {
     currentSectionInView: ctaSections | undefined;

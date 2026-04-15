@@ -1,9 +1,9 @@
+import Link from 'next/link';
 import React from 'react';
 
 import Layout from '@/components/Layout';
-import Typography from '@/components/Ui/typography/Typography';
-import Link from 'next/link';
 import Emoji from '@/components/Ui/Icons/Emoji';
+import Typography from '@/components/Ui/typography/Typography';
 
 export const PATH_WELCOME = '/welcome';
 

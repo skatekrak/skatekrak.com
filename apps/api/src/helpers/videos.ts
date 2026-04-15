@@ -1,8 +1,9 @@
-import type { z } from 'zod';
 import type { VideoInformationSchema } from '@krak/contracts';
 import { VideoProvider } from '@krak/types';
 
 import { env } from '../env';
+
+import type { z } from 'zod';
 
 // ============================================================================
 // Types

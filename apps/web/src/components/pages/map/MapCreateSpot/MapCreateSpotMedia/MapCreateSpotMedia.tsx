@@ -1,8 +1,9 @@
+import { useField } from 'formik';
 import React, { ElementRef, useRef } from 'react';
 
-import Typography from '@/components/Ui/typography/Typography';
 import IconPlus from '@/components/Ui/Icons/IconPlus';
-import { useField } from 'formik';
+import Typography from '@/components/Ui/typography/Typography';
+
 import MapCreateSpotMediaItem from './MapCreateSpotMediaItem';
 
 const MapCreateSpotMedia = () => {

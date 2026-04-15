@@ -1,9 +1,9 @@
 import React from 'react';
 
-import QuickAccessDesktopPanel from './quick-access-desktop.panel';
-import City from '../City';
-
 import cities from '@/data/cities/_cities';
+
+import City from '../City';
+import QuickAccessDesktopPanel from './quick-access-desktop.panel';
 
 const category = {
     name: 'Cities',

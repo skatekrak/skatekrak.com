@@ -1,6 +1,7 @@
-import rssClient from '@/lib/clients/rss';
 import { useQuery } from '@tanstack/react-query';
 import { Source } from 'rss-feed';
+
+import rssClient from '@/lib/clients/rss';
 
 const fetchSources = async () => {
     const { data } = await rssClient.get<Source[]>('/sources', {

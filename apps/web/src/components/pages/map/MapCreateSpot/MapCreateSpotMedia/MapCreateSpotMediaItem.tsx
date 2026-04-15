@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+
 import IconClear from '@/components/Ui/Icons/IconClear';
 
 type MapCreateSpotMediaItemProps = {

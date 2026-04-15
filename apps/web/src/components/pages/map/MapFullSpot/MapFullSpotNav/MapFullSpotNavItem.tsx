@@ -1,8 +1,8 @@
-import React from 'react';
 import classnames from 'classnames';
+import React from 'react';
 
-import Typography from '@/components/Ui/typography/Typography';
 import ArrowHead from '@/components/Ui/Icons/ArrowHead';
+import Typography from '@/components/Ui/typography/Typography';
 
 type MapFullSpotNavItemProps = {
     text: string;

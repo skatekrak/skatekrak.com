@@ -1,4 +1,5 @@
 import React from 'react';
+
 import Typography from '@/components/Ui/typography/Typography';
 
 const CallToAdventureCTA = () => {

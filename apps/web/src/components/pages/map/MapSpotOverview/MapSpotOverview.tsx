@@ -1,12 +1,13 @@
-import React, { memo } from 'react';
 import classNames from 'classnames';
+import React, { memo } from 'react';
 import { Popup } from 'react-map-gl';
 
-import IconMedia from '@/components/Ui/Icons/IconMedia';
+import type { contract } from '@krak/contracts';
+
 import IconClips from '@/components/Ui/Icons/IconClips';
+import IconMedia from '@/components/Ui/Icons/IconMedia';
 
 import type { InferContractRouterOutputs } from '@orpc/contract';
-import type { contract } from '@krak/contracts';
 
 type SpotOverview = InferContractRouterOutputs<typeof contract>['spots']['getSpotOverview'];
 

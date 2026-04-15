@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
 import classnames from 'classnames';
+import React, { useState } from 'react';
 
-import VideoPlayer from '@/components/Ui/Player/VideoPlayer';
+import type { Media } from '@krak/contracts';
+
 import IconArrowHead from '@/components/Ui/Icons/ArrowHead';
-
+import IconInfo from '@/components/Ui/Icons/IconInfo';
+import VideoPlayer from '@/components/Ui/Player/VideoPlayer';
 import Typography from '@/components/Ui/typography/Typography';
 import SpotIcon from '@/components/Ui/Utils/SpotIcon';
-import IconInfo from '@/components/Ui/Icons/IconInfo';
-import type { Media } from '@krak/contracts';
 import { useMediaID } from '@/lib/hook/queryState';
 
 type CarouselMediaProps = {

@@ -1,16 +1,17 @@
-import React, { useState } from 'react';
 import classnames from 'classnames';
+import { useField } from 'formik';
+import React, { useState } from 'react';
+
 import { Types } from '@krak/types';
 
+import Diy from '@/components/pages/map/marker/icons/Diy';
+import Park from '@/components/pages/map/marker/icons/Park';
+import Private from '@/components/pages/map/marker/icons/Private';
+import Shop from '@/components/pages/map/marker/icons/Shop';
+import Street from '@/components/pages/map/marker/icons/Street';
 import IconEdit from '@/components/Ui/Icons/IconEdit';
 import IconPlus from '@/components/Ui/Icons/IconPlus';
-import Street from '@/components/pages/map/marker/icons/Street';
-import Park from '@/components/pages/map/marker/icons/Park';
-import Shop from '@/components/pages/map/marker/icons/Shop';
-import Private from '@/components/pages/map/marker/icons/Private';
-import Diy from '@/components/pages/map/marker/icons/Diy';
 import Typography from '@/components/Ui/typography/Typography';
-import { useField } from 'formik';
 
 const MapCreateSpotType = () => {
     const [{ value: type }, , helpers] = useField<Types>('type');

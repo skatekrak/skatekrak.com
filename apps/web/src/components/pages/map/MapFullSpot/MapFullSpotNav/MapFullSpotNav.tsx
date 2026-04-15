@@ -1,23 +1,25 @@
 import React from 'react';
 
-import IconStreet from '@/components/pages/map/marker/icons/Street';
+import type { Spot } from '@krak/contracts';
+import { Status, Types } from '@krak/types';
+
 import IconDiy from '@/components/pages/map/marker/icons/Diy';
 import IconPark from '@/components/pages/map/marker/icons/Park';
 import IconPrivate from '@/components/pages/map/marker/icons/Private';
 import IconRip from '@/components/pages/map/marker/icons/Rip';
 import IconShop from '@/components/pages/map/marker/icons/Shop';
+import IconStreet from '@/components/pages/map/marker/icons/Street';
 import IconWip from '@/components/pages/map/marker/icons/Wip';
-import IconMedia from '@/components/Ui/Icons/IconMedia';
 import IconClips from '@/components/Ui/Icons/IconClips';
-import MapFullSpotNavItem from './MapFullSpotNavItem';
-import MapFullSpotAddTrigger from '../MapFullSpotMain/MapFullSpotAdd/MapFullSpotAddTrigger';
+import IconMedia from '@/components/Ui/Icons/IconMedia';
 import Typography from '@/components/Ui/typography/Typography';
-
-import type { Spot } from '@krak/contracts';
-import { Status, Types } from '@krak/types';
-import type { FullSpotTab } from '@/store/map';
 import { useFullSpotSelectedTab } from '@/lib/hook/queryState';
 import { useMapStore } from '@/store/map';
+
+import MapFullSpotAddTrigger from '../MapFullSpotMain/MapFullSpotAdd/MapFullSpotAddTrigger';
+import MapFullSpotNavItem from './MapFullSpotNavItem';
+
+import type { FullSpotTab } from '@/store/map';
 
 const SpotIcon = ({ type, status }: { type: Types; status: Status }) => {
     if (status === Status.Rip) {

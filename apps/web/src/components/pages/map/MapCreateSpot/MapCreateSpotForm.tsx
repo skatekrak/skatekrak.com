@@ -1,21 +1,22 @@
+import classnames from 'classnames';
 import { useFormikContext, Field } from 'formik';
 import mapboxgl, { MapLayerMouseEvent } from 'mapbox-gl';
 import { memo, useEffect, useState } from 'react';
 import { useMap } from 'react-map-gl';
-import classnames from 'classnames';
 
-import { useMapStore } from '@/store/map';
 import ButtonPrimary from '@/components/Ui/Button/ButtonPrimary';
 import Arrow from '@/components/Ui/Icons/Arrow';
 import ScrollBar from '@/components/Ui/Scrollbar';
 import Typography from '@/components/Ui/typography/Typography';
+import { useMapStore } from '@/store/map';
+import { useSettingsStore } from '@/store/settings';
+
 import { MapCreateSpotFormValues } from './MapCreateSpot';
 import MapCreateSpotLocation from './MapCreateSpotLocation';
 import MapCreateSpotLocationHelper from './MapCreateSpotLocation/MapCreateSpotLocationHelper';
 import MapCreateSpotMedia from './MapCreateSpotMedia';
 import MapCreateSpotRain from './MapCreateSpotRain';
 import MapCreateSpotType from './MapCreateSpotType';
-import { useSettingsStore } from '@/store/settings';
 
 const MapCreateSpotForm = () => {
     const { handleSubmit, values, isSubmitting, isValid, dirty, setFieldValue } =

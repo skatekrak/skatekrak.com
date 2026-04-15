@@ -1,8 +1,8 @@
 import { flexRender, type ColumnDef, type Row, type Table as ReactTable } from '@tanstack/react-table';
 
-import { cn } from '@krak/ui/lib/utils';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@krak/ui/components/ui/table';
 import { DataTableSkeleton } from '@krak/ui/components/ui/data-table-skeleton';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@krak/ui/components/ui/table';
+import { cn } from '@krak/ui/lib/utils';
 
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[];
@@ -25,7 +25,12 @@ export function DataTable<TData, TValue>({
 }: DataTableProps<TData, TValue>) {
     return (
         <div className="space-y-4">
-            <div className={cn('overflow-hidden rounded-md border', stickyHeader && 'max-h-[calc(100vh-200px)] overflow-auto')}>
+            <div
+                className={cn(
+                    'overflow-hidden rounded-md border',
+                    stickyHeader && 'max-h-[calc(100vh-200px)] overflow-auto',
+                )}
+            >
                 {loading ? (
                     <DataTableSkeleton columnCount={columns.length} rowCount={skeletonRows} />
                 ) : (

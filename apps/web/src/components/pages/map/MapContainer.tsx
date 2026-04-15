@@ -1,32 +1,32 @@
+import { useQuery } from '@tanstack/react-query';
+import dynamic from 'next/dynamic';
+import { useRouter } from 'next/router';
+import { isEmpty, intersects } from 'radash';
 import React, { useState, useEffect, useRef, useCallback, useMemo, ElementRef } from 'react';
 import { MapRef } from 'react-map-gl';
-import dynamic from 'next/dynamic';
 import { useShallow } from 'zustand/react/shallow';
 
 import type { Spot } from '@krak/contracts';
 
-import QuickAccessDesktop from './mapQuickAccess/desktop/quick-access-desktop';
-import MapNavigation from './MapNavigation';
-import MapBottomNav from './MapBottomNav/MapBottomNav';
-import MapGradients from './MapGradients';
-import MapZoomAlert from './MapZoomAlert';
-
-import { findSpotsBoundsCoordinate, spotToGeoJSON } from '@/lib/map/helpers';
-import { ZOOM_DISPLAY_WARNING } from './Map.constant';
-import MapCreateSpot from './MapCreateSpot';
-import useSession from '@/lib/hook/carrelage/use-session';
-import { useRouter } from 'next/router';
-import { useSpotsGeoJSON } from '@/lib/hook/useSpotsGeoJSON';
-import { isEmpty, intersects } from 'radash';
-import { useQuery } from '@tanstack/react-query';
-import { orpc } from '@/server/orpc/client';
+import CityPanel from '@/components/pages/map/cities/CityPanel';
+import MapCustomPanel from '@/components/pages/map/MapCustom/panel/MapCustomPanel';
 import { SpinnerCircle } from '@/components/Ui/Icons/Spinners';
+import useSession from '@/lib/hook/carrelage/use-session';
 import { useCityID, useCustomMapID, useMediaID, useSpotID, useSpotModal, useViewport } from '@/lib/hook/queryState';
+import { useSpotsGeoJSON } from '@/lib/hook/useSpotsGeoJSON';
+import { findSpotsBoundsCoordinate, spotToGeoJSON } from '@/lib/map/helpers';
+import { orpc } from '@/server/orpc/client';
 import { useMapStore } from '@/store/map';
 import { useSettingsStore } from '@/store/settings';
-import MapCustomPanel from '@/components/pages/map/MapCustom/panel/MapCustomPanel';
+
+import { ZOOM_DISPLAY_WARNING } from './Map.constant';
+import MapBottomNav from './MapBottomNav/MapBottomNav';
+import MapCreateSpot from './MapCreateSpot';
+import MapGradients from './MapGradients';
+import MapNavigation from './MapNavigation';
+import QuickAccessDesktop from './mapQuickAccess/desktop/quick-access-desktop';
 import { CustomMapCategory } from './mapQuickAccess/types';
-import CityPanel from '@/components/pages/map/cities/CityPanel';
+import MapZoomAlert from './MapZoomAlert';
 
 const DynamicMapComponent = dynamic(() => import('./MapComponent'), { ssr: false });
 const MapFullSpot = dynamic(() => import('./MapFullSpot'), { ssr: false });

@@ -1,4 +1,3 @@
-import React, { Ref, useState } from 'react';
 import {
     useFloating,
     offset,
@@ -9,10 +8,12 @@ import {
     useDismiss,
     shift,
 } from '@floating-ui/react';
+import React, { Ref, useState } from 'react';
+
+import IconArrowHead from '@/components/Ui/Icons/ArrowHead';
+import Typography from '@/components/Ui/typography/Typography';
 
 import RoundedImage from '../RoundedImage';
-import Typography from '@/components/Ui/typography/Typography';
-import IconArrowHead from '@/components/Ui/Icons/ArrowHead';
 
 type Props = {
     ref?: Ref<HTMLDivElement>;

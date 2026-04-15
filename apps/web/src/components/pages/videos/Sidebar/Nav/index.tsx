@@ -1,15 +1,15 @@
 import classNames from 'classnames';
 import React, { useMemo } from 'react';
+import { Language } from 'rss-feed';
 
 import LanguageFilter from '@/components/Ui/Feed/Sidebar/LanguageFilter';
+import SourceOption from '@/components/Ui/Feed/Sidebar/SourceOption';
 import { SpinnerCircle } from '@/components/Ui/Icons/Spinners';
 import Analytics from '@/lib/analytics';
-import { Language } from 'rss-feed';
 import useLanguages from '@/lib/hook/languages';
 import useVideosSources from '@/lib/hook/videos/sources';
-import { useVideosStore } from '@/store/videos';
-import SourceOption from '@/components/Ui/Feed/Sidebar/SourceOption';
 import useVideos from '@/lib/hook/videos/videos';
+import { useVideosStore } from '@/store/videos';
 
 type SourcesProps = {
     navIsOpen: boolean;

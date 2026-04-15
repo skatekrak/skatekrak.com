@@ -1,9 +1,9 @@
-import axios from 'axios';
-import { removeEmptyStringAndNull } from '@/lib/helpers';
-
-import Content from '@/models/Content';
 import { useInfiniteQuery } from '@tanstack/react-query';
+import axios from 'axios';
 import { IContent, Pagination } from 'rss-feed';
+
+import { removeEmptyStringAndNull } from '@/lib/helpers';
+import Content from '@/models/Content';
 
 export type FetchNewsParams = {
     sources: string[];

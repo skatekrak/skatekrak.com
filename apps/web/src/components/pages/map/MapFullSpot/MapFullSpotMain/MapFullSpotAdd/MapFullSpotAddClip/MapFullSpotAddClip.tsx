@@ -1,12 +1,12 @@
-import VideoPlayer from '@/components/Ui/Player/VideoPlayer';
-import { FocusEventHandler, useState } from 'react';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { useMapStore } from '@/store/map';
-import { client, orpc } from '@/server/orpc/client';
+import { FocusEventHandler, useState } from 'react';
 
-import Typography from '@/components/Ui/typography/Typography';
 import ButtonPrimary from '@/components/Ui/Button/ButtonPrimary';
+import VideoPlayer from '@/components/Ui/Player/VideoPlayer';
+import Typography from '@/components/Ui/typography/Typography';
 import { useFullSpotSelectedTab } from '@/lib/hook/queryState';
+import { client, orpc } from '@/server/orpc/client';
+import { useMapStore } from '@/store/map';
 
 const MapFullSpotAddClip = () => {
     const spotOverview = useMapStore((state) => state.spotOverview);

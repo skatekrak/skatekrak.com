@@ -1,10 +1,9 @@
+import { Formik, Field, Form, FormikHelpers } from 'formik';
 import { useRouter } from 'next/router';
 import React, { memo, useState } from 'react';
-import { Formik, Field, Form, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
 
 import ButtonPrimary from '@/components/Ui/Button/ButtonPrimary/ButtonPrimary';
-
 import { resetPassword } from '@/lib/auth';
 
 type ResetPasswordFormValues = {
@@ -41,9 +40,7 @@ const ResetPasswordContainer = () => {
             <div id="auth-form-container">
                 <h1 id="auth-form-title">Reset password</h1>
                 {tokenError && <p>This reset link is invalid or has expired. Please request a new one.</p>}
-                {!token && !tokenError && (
-                    <p>Token is missing, open the link from the email we sent you</p>
-                )}
+                {!token && !tokenError && <p>Token is missing, open the link from the email we sent you</p>}
                 {token && !tokenError && (
                     <>
                         {success ? (

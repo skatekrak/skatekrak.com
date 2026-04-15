@@ -1,9 +1,9 @@
 import { useField } from 'formik';
+import { useCallback, useMemo, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 
 import IconClear from '@/components/Ui/Icons/IconClear';
 import IconPlus from '@/components/Ui/Icons/IconPlus';
-import { useCallback, useMemo, useState } from 'react';
 
 const MapFullSpotAddMediaInput = () => {
     const [file, , helpers] = useField<File | null>('file');
@@ -49,10 +49,7 @@ const MapFullSpotAddMediaInput = () => {
                         <IconClear />
                     </button>
                     {type.startsWith('image') && (
-                        <img
-                            className="relative w-full h-full object-cover m-auto bg-tertiary-dark"
-                            src={url}
-                        />
+                        <img className="relative w-full h-full object-cover m-auto bg-tertiary-dark" src={url} />
                     )}
                     {type.startsWith('video') && (
                         <video

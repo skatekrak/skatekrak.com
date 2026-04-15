@@ -16,8 +16,9 @@
  */
 
 import { PrismaPg } from '@prisma/adapter-pg';
-import { PrismaClient } from '../node_modules/.prisma/client';
 import { resolve } from 'path';
+
+import { PrismaClient } from '../node_modules/.prisma/client';
 
 // ---------------------------------------------------------------------------
 // Types

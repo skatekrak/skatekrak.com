@@ -1,10 +1,11 @@
 import { Status, Types } from '@krak/types';
-import Street from '@/components/pages/map/marker/icons/Street';
-import Private from '@/components/pages/map/marker/icons/Private';
+
 import Diy from '@/components/pages/map/marker/icons/Diy';
 import Park from '@/components/pages/map/marker/icons/Park';
-import Shop from '@/components/pages/map/marker/icons/Shop';
+import Private from '@/components/pages/map/marker/icons/Private';
 import Rip from '@/components/pages/map/marker/icons/Rip';
+import Shop from '@/components/pages/map/marker/icons/Shop';
+import Street from '@/components/pages/map/marker/icons/Street';
 import Wip from '@/components/pages/map/marker/icons/Wip';
 
 const SpotIcon = ({ spot }: { spot: { status: Status; type: Types } }) => {

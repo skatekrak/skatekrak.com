@@ -4,13 +4,13 @@
 
 Bun + Turborepo monorepo for the Skatekrak skateboarding platform. Three apps and two shared packages.
 
-| Package                  | Path                        | Tech                                                        | Deploys To              |
-| ------------------------ | --------------------------- | ----------------------------------------------------------- | ----------------------- |
-| `@krak/web`              | `apps/web`                  | Next.js 14 (Pages Router), React 18, Zustand, Redux Toolkit | Vercel                  |
-| `@krak/api`              | `apps/api`                  | Elysia (Bun), oRPC, MongoDB, PostgreSQL                     | Dokploy (custom server) |
-| `@krak/carrelage`        | `apps/carrelage`            | Express, Mongoose, MongoDB                                  | Not deployed            |
-| `@krak/trpc`             | `packages/trpc`             | tRPC router (spots, maps)                                   | —                       |
-| `@krak/types`            | `packages/types`            | Shared TypeScript types                                     | —                       |
+| Package           | Path             | Tech                                                        | Deploys To              |
+| ----------------- | ---------------- | ----------------------------------------------------------- | ----------------------- |
+| `@krak/web`       | `apps/web`       | Next.js 14 (Pages Router), React 18, Zustand, Redux Toolkit | Vercel                  |
+| `@krak/api`       | `apps/api`       | Elysia (Bun), oRPC, MongoDB, PostgreSQL                     | Dokploy (custom server) |
+| `@krak/carrelage` | `apps/carrelage` | Express, Mongoose, MongoDB                                  | Not deployed            |
+| `@krak/trpc`      | `packages/trpc`  | tRPC router (spots, maps)                                   | —                       |
+| `@krak/types`     | `packages/types` | Shared TypeScript types                                     | —                       |
 
 Dependency chain: `web` -> `trpc` -> `types`; `api` -> `trpc` -> `types`.
 

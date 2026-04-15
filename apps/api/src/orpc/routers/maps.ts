@@ -22,9 +22,7 @@ enum CustomMapCategory {
 }
 
 function mapCategories(categories: string[]): string[] {
-    return categories.map(
-        (category) => CustomMapCategory[category as keyof typeof CustomMapCategory] ?? category,
-    );
+    return categories.map((category) => CustomMapCategory[category as keyof typeof CustomMapCategory] ?? category);
 }
 
 // ============================================================================

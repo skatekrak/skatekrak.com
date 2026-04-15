@@ -1,8 +1,9 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
-import { useTheme } from 'next-themes';
 import { ChevronsUpDown, LogOut, Moon, Sun, Monitor } from 'lucide-react';
+import { useTheme } from 'next-themes';
+import { useRouter } from 'next/navigation';
+
 import {
     Avatar,
     AvatarFallback,

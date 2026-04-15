@@ -1,9 +1,10 @@
 import { PrismaPg } from '@prisma/adapter-pg';
+
 import { PrismaClient } from '@krak/prisma';
 
+import { env } from '../env';
 import { spotIndex } from '../helpers/meilisearch';
 import client from '../helpers/meilisearch';
-import { env } from '../env';
 
 const BATCH_SIZE = 500;
 

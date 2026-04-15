@@ -1,9 +1,9 @@
-import React, { cloneElement, useState } from 'react';
 import { useFloating, useInteractions, useDismiss, useClick } from '@floating-ui/react';
+import React, { cloneElement, useState } from 'react';
 
-import Typography from '@/components/Ui/typography/Typography';
-import Scrollbar from '@/components/Ui/Scrollbar';
 import CloseButton from '@/components/Ui/Button/CloseButton';
+import Scrollbar from '@/components/Ui/Scrollbar';
+import Typography from '@/components/Ui/typography/Typography';
 
 type Props = {
     title?: string;
@@ -25,7 +25,10 @@ const MapBottomNavSheet: React.FC<Props> = ({ title, maxWidth, render, children,
 
     return (
         <>
-            {cloneElement(children, getReferenceProps({ ref: refs.setReference, ...(children.props as Record<string, unknown>) }))}
+            {cloneElement(
+                children,
+                getReferenceProps({ ref: refs.setReference, ...(children.props as Record<string, unknown>) }),
+            )}
             {isSheetOpen && (
                 <div
                     {...getFloatingProps({

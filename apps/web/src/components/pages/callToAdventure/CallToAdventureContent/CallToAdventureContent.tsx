@@ -1,13 +1,17 @@
+import React from 'react';
+
 import VideoPlayer from '@/components/Ui/Player/VideoPlayer';
 import Typography from '@/components/Ui/typography/Typography';
-import React from 'react';
+
 import { ctaSections } from '../constants';
 
 const CallToAdventureContent = () => {
     return (
         <>
             <div id={ctaSections.TLDR} data-spy>
-                <Typography className="my-6 mb-8" component="heading5">tl;dr</Typography>
+                <Typography className="my-6 mb-8" component="heading5">
+                    tl;dr
+                </Typography>
                 <Typography className="mb-8 text-lg leading-[1.6] text-onDark-mediumEmphasis [&_a]:text-onDark-highEmphasis [&_a]:underline [&_i]:italic [&_.line-through]:line-through">
                     We're a bunch of skateboarders. Hungry to make sure skateboarding keeps its roots deep in
                     creativity, openness, rebellion and freedom. Foolish enough to believe we can build and own this
@@ -24,22 +28,22 @@ const CallToAdventureContent = () => {
                     And we want to achieve this by creating a proper common good. You can think of us as if Wikipedia,
                     OpenStreetMap, Thrasher and a DAO had a baby.
                     <br />
-                    <br />
-                    - Wikipedia? yep! We are building a free online skateboarding encyclopedia written and maintained by
-                    a community of passionate skateboarders through open collaboration.
-                    <br />
-                    - OpenStreetMap? yep! We are building a free, editable map of the whole world that is being built by
-                    passionate skateboarders largely from scratch and released with an open-content license.
-                    <br />
-                    - Thrasher? yep! We are building a full skateboarding centric publication.
-                    <br />
-                    - DAO? yep! We are building a Decentralized Autonomous Organization.
+                    <br />- Wikipedia? yep! We are building a free online skateboarding encyclopedia written and
+                    maintained by a community of passionate skateboarders through open collaboration.
+                    <br />- OpenStreetMap? yep! We are building a free, editable map of the whole world that is being
+                    built by passionate skateboarders largely from scratch and released with an open-content license.
+                    <br />- Thrasher? yep! We are building a full skateboarding centric publication.
+                    <br />- DAO? yep! We are building a Decentralized Autonomous Organization.
                     <br />
                     <br />
                     Our forever promise? To make Krak a community asset, 100% owned by skateboarders, workers and the
                     community.
                 </Typography>
-                <img className="max-w-full mb-8 rounded" src="/images/call-to-adventure/krak-basquiat.jpg" alt="basquiat krak canvas" />
+                <img
+                    className="max-w-full mb-8 rounded"
+                    src="/images/call-to-adventure/krak-basquiat.jpg"
+                    alt="basquiat krak canvas"
+                />
                 <Typography className="-mt-4 italic text-onDark-mediumEmphasis [&_a]:text-onDark-highEmphasis [&_a]:underline [&_strong]:font-roboto-bold">
                     <strong>A Panel of Experts</strong> is a painting created by American artist{' '}
                     <a
@@ -55,7 +59,9 @@ const CallToAdventureContent = () => {
                 </Typography>
             </div>
             <div id={ctaSections.EVOLUTION} data-spy>
-                <Typography className="my-6 mb-8" component="heading5">skateboarding evolution</Typography>
+                <Typography className="my-6 mb-8" component="heading5">
+                    skateboarding evolution
+                </Typography>
                 <Typography className="mb-8 text-lg leading-[1.6] text-onDark-mediumEmphasis [&_a]:text-onDark-highEmphasis [&_a]:underline [&_i]:italic [&_.line-through]:line-through">
                     Everyone reading this should know what we're talking about but still, highlighting a bit more
                     context around skateboarding might be useful.
@@ -99,17 +105,14 @@ const CallToAdventureContent = () => {
                     Along the way - and across 40 years at least - skateboarding grew bigger and bigger and started to
                     hugely influence more industries.
                     <br />
-                    <br />
-                    - In fashion, Supreme, which started as a little skateshop in Manhattan back in 1994, sold for $2bn+
-                    to VF Corp at the end of 2020.
-                    <br />
-                    - In luxury, Virgil Abloh - RIP - ex Louis Vuitton creative director, used to be a skater and got a
-                    lot of his inspiration from the community.
-                    <br />
-                    - In culture, Tony Hawk Pro Skater is still one of the most sold video-game series in sports, ever.
-                    <br />
-                    - In art, The Skate Room is printing some one-of-a-kind pieces on decks and already hit one-million
-                    in funding for social impact projects.
+                    <br />- In fashion, Supreme, which started as a little skateshop in Manhattan back in 1994, sold for
+                    $2bn+ to VF Corp at the end of 2020.
+                    <br />- In luxury, Virgil Abloh - RIP - ex Louis Vuitton creative director, used to be a skater and
+                    got a lot of his inspiration from the community.
+                    <br />- In culture, Tony Hawk Pro Skater is still one of the most sold video-game series in sports,
+                    ever.
+                    <br />- In art, The Skate Room is printing some one-of-a-kind pieces on decks and already hit
+                    one-million in funding for social impact projects.
                     <br />
                     <br />
                     All of this new acquired fame and influence attracted the biggest corporations of our world - Nike,
@@ -142,7 +145,9 @@ const CallToAdventureContent = () => {
                 </Typography>
             </div>
             <div id={ctaSections.ARCHIVING} data-spy>
-                <Typography className="my-6 mb-8" component="heading5">why archiving is important</Typography>
+                <Typography className="my-6 mb-8" component="heading5">
+                    why archiving is important
+                </Typography>
                 <Typography className="mb-8 text-lg leading-[1.6] text-onDark-mediumEmphasis [&_a]:text-onDark-highEmphasis [&_a]:underline [&_i]:italic [&_.line-through]:line-through">
                     When you ride somewhere, you leave an imprint. But at the speed things are now going, how can we
                     remember all the tricks done on a specific spot? and what about all the tricks on all the famous
@@ -195,7 +200,9 @@ const CallToAdventureContent = () => {
                 </Typography>
             </div>
             <div id={ctaSections.ABOUT} data-spy>
-                <Typography className="my-6 mb-8" component="heading5">who we are</Typography>
+                <Typography className="my-6 mb-8" component="heading5">
+                    who we are
+                </Typography>
                 <Typography className="mb-8 text-lg leading-[1.6] text-onDark-mediumEmphasis [&_a]:text-onDark-highEmphasis [&_a]:underline [&_i]:italic [&_.line-through]:line-through">
                     Krak has been managed by a core team of 5 people since 2014. We received tons of help along the way
                     and at its peak, in 2018, there were 10 of us working full time.
@@ -227,7 +234,9 @@ const CallToAdventureContent = () => {
                 </Typography>
             </div>
             <div id={ctaSections.DONE} data-spy>
-                <Typography className="my-6 mb-8" component="heading5">what we've done</Typography>
+                <Typography className="my-6 mb-8" component="heading5">
+                    what we've done
+                </Typography>
                 <Typography className="mb-8 text-lg leading-[1.6] text-onDark-mediumEmphasis [&_a]:text-onDark-highEmphasis [&_a]:underline [&_i]:italic [&_.line-through]:line-through">
                     While the project itself took many forms along all these years, the passion and mission always
                     stayed the same.
@@ -244,7 +253,12 @@ const CallToAdventureContent = () => {
                     Let's dive into our past. In no particular order, here are what we built and launched so far 👇
                 </Typography>
                 <div id={ctaSections.HARDWARE} data-spy>
-                    <Typography className="mb-4 pl-8 text-lg leading-[1.6] text-onDark-mediumEmphasis [&_a]:text-onDark-highEmphasis [&_a]:underline [&_i]:italic [&_.line-through]:line-through" as="strong">the hardware device</Typography>
+                    <Typography
+                        className="mb-4 pl-8 text-lg leading-[1.6] text-onDark-mediumEmphasis [&_a]:text-onDark-highEmphasis [&_a]:underline [&_i]:italic [&_.line-through]:line-through"
+                        as="strong"
+                    >
+                        the hardware device
+                    </Typography>
                     <Typography className="mb-8 text-lg leading-[1.6] text-onDark-mediumEmphasis [&_a]:text-onDark-highEmphasis [&_a]:underline [&_i]:italic [&_.line-through]:line-through">
                         This feels like ages ago. We're late 2013 / early 2014 and we built a 3D printed prototype of a
                         hardware device that we attached to our board - right under the truck axle - that tracked every
@@ -259,7 +273,12 @@ const CallToAdventureContent = () => {
                     </Typography>
                 </div>
                 <div id={ctaSections.KRAKAPP} data-spy>
-                    <Typography className="mb-4 pl-8 text-lg leading-[1.6] text-onDark-mediumEmphasis [&_a]:text-onDark-highEmphasis [&_a]:underline [&_i]:italic [&_.line-through]:line-through" as="strong">Krak app and its skatespots database</Typography>
+                    <Typography
+                        className="mb-4 pl-8 text-lg leading-[1.6] text-onDark-mediumEmphasis [&_a]:text-onDark-highEmphasis [&_a]:underline [&_i]:italic [&_.line-through]:line-through"
+                        as="strong"
+                    >
+                        Krak app and its skatespots database
+                    </Typography>
                     <Typography className="mb-8 text-lg leading-[1.6] text-onDark-mediumEmphasis [&_a]:text-onDark-highEmphasis [&_a]:underline [&_i]:italic [&_.line-through]:line-through">
                         I realised we called our very first app: iOS Summer 😎 This one is so close to our hearts. We
                         now count more than 25,000 skatespots added to the database by the community.
@@ -280,7 +299,12 @@ const CallToAdventureContent = () => {
                     <br />
                 </div>
                 <div id={ctaSections.KRAKBOX} data-spy>
-                    <Typography className="mb-4 pl-8 text-lg leading-[1.6] text-onDark-mediumEmphasis [&_a]:text-onDark-highEmphasis [&_a]:underline [&_i]:italic [&_.line-through]:line-through" as="strong">KrakBox</Typography>
+                    <Typography
+                        className="mb-4 pl-8 text-lg leading-[1.6] text-onDark-mediumEmphasis [&_a]:text-onDark-highEmphasis [&_a]:underline [&_i]:italic [&_.line-through]:line-through"
+                        as="strong"
+                    >
+                        KrakBox
+                    </Typography>
                     <Typography className="mb-8 text-lg leading-[1.6] text-onDark-mediumEmphasis [&_a]:text-onDark-highEmphasis [&_a]:underline [&_i]:italic [&_.line-through]:line-through">
                         We launched mid-2015 the very first subscription box for skateboarders. For $39, people would
                         receive every 2 month a mistery package - full of skateboarding paraphernalia. Think components,
@@ -297,14 +321,23 @@ const CallToAdventureContent = () => {
                     <br />
                 </div>
                 <div id={ctaSections.KRAKMAG} data-spy>
-                    <Typography className="mb-4 pl-8 text-lg leading-[1.6] text-onDark-mediumEmphasis [&_a]:text-onDark-highEmphasis [&_a]:underline [&_i]:italic [&_.line-through]:line-through" as="strong">KrakMag</Typography>
+                    <Typography
+                        className="mb-4 pl-8 text-lg leading-[1.6] text-onDark-mediumEmphasis [&_a]:text-onDark-highEmphasis [&_a]:underline [&_i]:italic [&_.line-through]:line-through"
+                        as="strong"
+                    >
+                        KrakMag
+                    </Typography>
                     <Typography className="mb-8 text-lg leading-[1.6] text-onDark-mediumEmphasis [&_a]:text-onDark-highEmphasis [&_a]:underline [&_i]:italic [&_.line-through]:line-through">
                         We designed and wrote our own skate zine. We always included a printed version into every
                         KrakBox mix we shipped. The content itself revolved around the stuff in the mix, the brands and
                         the people behind the brands.
                         <br />
                         <br />
-                        <img className="max-w-full mb-8 rounded" src="/images/call-to-adventure/krakmag-preview.jpg" alt="krak mag" />
+                        <img
+                            className="max-w-full mb-8 rounded"
+                            src="/images/call-to-adventure/krakmag-preview.jpg"
+                            alt="krak mag"
+                        />
                         It's funny because we always heard things like "kids nowadays don't read. And worst, they'd
                         never read on papers." so we tried once: we didn't print the zine and didn't include it in a
                         mix. We got overwhelmed by messages everywhere asking us "where's the zine?". We knew it 😎
@@ -328,7 +361,12 @@ const CallToAdventureContent = () => {
                     </Typography>
                 </div>
                 <div id={ctaSections.YOUTUBE} data-spy>
-                    <Typography className="mb-4 pl-8 text-lg leading-[1.6] text-onDark-mediumEmphasis [&_a]:text-onDark-highEmphasis [&_a]:underline [&_i]:italic [&_.line-through]:line-through" as="strong">Krak History Clip and our Youtube channel</Typography>
+                    <Typography
+                        className="mb-4 pl-8 text-lg leading-[1.6] text-onDark-mediumEmphasis [&_a]:text-onDark-highEmphasis [&_a]:underline [&_i]:italic [&_.line-through]:line-through"
+                        as="strong"
+                    >
+                        Krak History Clip and our Youtube channel
+                    </Typography>
                     <Typography className="mb-8 text-lg leading-[1.6] text-onDark-mediumEmphasis [&_a]:text-onDark-highEmphasis [&_a]:underline [&_i]:italic [&_.line-through]:line-through">
                         We opened{' '}
                         <a href="https://www.youtube.com/krakskate" target="_blank" rel="noopener noreferrer">
@@ -358,7 +396,12 @@ const CallToAdventureContent = () => {
                     <br />
                 </div>
                 <div id={ctaSections.COLLABS} data-spy>
-                    <Typography className="mb-4 pl-8 text-lg leading-[1.6] text-onDark-mediumEmphasis [&_a]:text-onDark-highEmphasis [&_a]:underline [&_i]:italic [&_.line-through]:line-through" as="strong">some collabs and our own merch</Typography>
+                    <Typography
+                        className="mb-4 pl-8 text-lg leading-[1.6] text-onDark-mediumEmphasis [&_a]:text-onDark-highEmphasis [&_a]:underline [&_i]:italic [&_.line-through]:line-through"
+                        as="strong"
+                    >
+                        some collabs and our own merch
+                    </Typography>
                     <Typography className="mb-8 text-lg leading-[1.6] text-onDark-mediumEmphasis [&_a]:text-onDark-highEmphasis [&_a]:underline [&_i]:italic [&_.line-through]:line-through">
                         We've been extremely lucky to work with so many talented and passionate people. We can't list
                         them all here but let's randomly cherry-pick few examples.
@@ -372,7 +415,11 @@ const CallToAdventureContent = () => {
                         — and coming up with a special exclusive deck with them felt very special.
                         <br />
                         <br />
-                        <img className="max-w-full mb-8 rounded" src="/images/call-to-adventure/KrakxCliche.png" alt="krak x cliche skateboard deck" />
+                        <img
+                            className="max-w-full mb-8 rounded"
+                            src="/images/call-to-adventure/KrakxCliche.png"
+                            alt="krak x cliche skateboard deck"
+                        />
                         Our very own{' '}
                         <a href="https://skatekrak.com/mag/the-krak-tee" target="_blank" rel="noopener noreferrer">
                             Krak Tee{' '}
@@ -397,7 +444,11 @@ const CallToAdventureContent = () => {
                         We also published the one and only Devoted magazine. I still open it to this day to read few
                         interviews here and there.
                     </Typography>
-                    <img className="max-w-full mb-8 rounded" src="/images/call-to-adventure/lucas-beaufort.png" alt="presentaition Lucas Beaufort - French artist" />
+                    <img
+                        className="max-w-full mb-8 rounded"
+                        src="/images/call-to-adventure/lucas-beaufort.png"
+                        alt="presentaition Lucas Beaufort - French artist"
+                    />
                     <Typography className="mb-8 text-lg leading-[1.6] text-onDark-mediumEmphasis [&_a]:text-onDark-highEmphasis [&_a]:underline [&_i]:italic [&_.line-through]:line-through">
                         Anthony Pappalardo's{' '}
                         <a href="https://anthonypappalardo.substack.com" target="_blank" rel="noopener noreferrer">
@@ -422,7 +473,11 @@ const CallToAdventureContent = () => {
                         . Picture below.
                         <br />
                         <br />
-                        <img className="max-w-full mb-8 rounded" src="/images/call-to-adventure/krak-yeah-girl.jpg" alt="krak x cliche skateboard deck" />
+                        <img
+                            className="max-w-full mb-8 rounded"
+                            src="/images/call-to-adventure/krak-yeah-girl.jpg"
+                            alt="krak x cliche skateboard deck"
+                        />
                         We always enjoyed teaming up with Getta Grip. Work-in-action.
                     </Typography>
                     <VideoPlayer
@@ -433,8 +488,15 @@ const CallToAdventureContent = () => {
                     <br />
                 </div>
                 <div id={ctaSections.EVENTS} data-spy>
-                    <Typography className="mb-4 pl-8 text-lg leading-[1.6] text-onDark-mediumEmphasis [&_a]:text-onDark-highEmphasis [&_a]:underline [&_i]:italic [&_.line-through]:line-through" as="strong">some physical events and many sessions</Typography>
-                    <Typography className="mb-8 text-lg leading-[1.6] text-onDark-mediumEmphasis [&_a]:text-onDark-highEmphasis [&_a]:underline [&_i]:italic [&_.line-through]:line-through">Remember the "a picture is worth a thousand words" 😎</Typography>
+                    <Typography
+                        className="mb-4 pl-8 text-lg leading-[1.6] text-onDark-mediumEmphasis [&_a]:text-onDark-highEmphasis [&_a]:underline [&_i]:italic [&_.line-through]:line-through"
+                        as="strong"
+                    >
+                        some physical events and many sessions
+                    </Typography>
+                    <Typography className="mb-8 text-lg leading-[1.6] text-onDark-mediumEmphasis [&_a]:text-onDark-highEmphasis [&_a]:underline [&_i]:italic [&_.line-through]:line-through">
+                        Remember the "a picture is worth a thousand words" 😎
+                    </Typography>
                     <VideoPlayer
                         style={{ marginBottom: '2rem' }}
                         url="https://www.youtube.com/watch?v=_GNho4pIsx0"
@@ -448,13 +510,17 @@ const CallToAdventureContent = () => {
                         url="https://www.youtube.com/watch?v=h-sMv-9zQj8"
                         controls
                     />
-                    <Typography className="mb-8 text-lg leading-[1.6] text-onDark-mediumEmphasis [&_a]:text-onDark-highEmphasis [&_a]:underline [&_i]:italic [&_.line-through]:line-through">We made few trips in the woods.</Typography>
+                    <Typography className="mb-8 text-lg leading-[1.6] text-onDark-mediumEmphasis [&_a]:text-onDark-highEmphasis [&_a]:underline [&_i]:italic [&_.line-through]:line-through">
+                        We made few trips in the woods.
+                    </Typography>
                     <VideoPlayer
                         style={{ marginBottom: '2rem' }}
                         url="https://www.youtube.com/watch?v=tNdIQMK-CZ8"
                         controls
                     />
-                    <Typography className="mb-8 text-lg leading-[1.6] text-onDark-mediumEmphasis [&_a]:text-onDark-highEmphasis [&_a]:underline [&_i]:italic [&_.line-through]:line-through">Or some event reports.</Typography>
+                    <Typography className="mb-8 text-lg leading-[1.6] text-onDark-mediumEmphasis [&_a]:text-onDark-highEmphasis [&_a]:underline [&_i]:italic [&_.line-through]:line-through">
+                        Or some event reports.
+                    </Typography>
                     <VideoPlayer
                         style={{ marginBottom: '2rem' }}
                         url="https://www.youtube.com/watch?v=i8NhD70aLvA"
@@ -463,7 +529,12 @@ const CallToAdventureContent = () => {
                     <br />
                 </div>
                 <div id={ctaSections.KRAKSESSION} data-spy>
-                    <Typography className="mb-4 pl-8 text-lg leading-[1.6] text-onDark-mediumEmphasis [&_a]:text-onDark-highEmphasis [&_a]:underline [&_i]:italic [&_.line-through]:line-through" as="strong">the Krak Session app</Typography>
+                    <Typography
+                        className="mb-4 pl-8 text-lg leading-[1.6] text-onDark-mediumEmphasis [&_a]:text-onDark-highEmphasis [&_a]:underline [&_i]:italic [&_.line-through]:line-through"
+                        as="strong"
+                    >
+                        the Krak Session app
+                    </Typography>
                     <Typography className="mb-8 text-lg leading-[1.6] text-onDark-mediumEmphasis [&_a]:text-onDark-highEmphasis [&_a]:underline [&_i]:italic [&_.line-through]:line-through">
                         That app was very different than what we used to develop. You can think of it as a friendly
                         skateboarding journal. We heard many people express their need for a digital journal - literally
@@ -474,12 +545,21 @@ const CallToAdventureContent = () => {
                         add. Like launching your THPS playlist when you start riding, automatically ping your crew when
                         you reach a specific spot etc.
                     </Typography>
-                    <img className="max-w-full mb-8 rounded" src="/images/call-to-adventure/krak-session.jpg" alt="krak session app screenshots" />
+                    <img
+                        className="max-w-full mb-8 rounded"
+                        src="/images/call-to-adventure/krak-session.jpg"
+                        alt="krak session app screenshots"
+                    />
                     <br />
                     <br />
                 </div>
                 <div id={ctaSections.FEED} data-spy>
-                    <Typography className="mb-4 pl-8 text-lg leading-[1.6] text-onDark-mediumEmphasis [&_a]:text-onDark-highEmphasis [&_a]:underline [&_i]:italic [&_.line-through]:line-through" as="strong">the video & news feed</Typography>
+                    <Typography
+                        className="mb-4 pl-8 text-lg leading-[1.6] text-onDark-mediumEmphasis [&_a]:text-onDark-highEmphasis [&_a]:underline [&_i]:italic [&_.line-through]:line-through"
+                        as="strong"
+                    >
+                        the video & news feed
+                    </Typography>
                     <Typography className="mb-8 text-lg leading-[1.6] text-onDark-mediumEmphasis [&_a]:text-onDark-highEmphasis [&_a]:underline [&_i]:italic [&_.line-through]:line-through">
                         One day we were wondering which kind of digital tools we could add to the suite to empower
                         skateboarders or just enhance their own experience of the culture. Like too many times we landed
@@ -506,7 +586,12 @@ const CallToAdventureContent = () => {
                     </Typography>
                 </div>
                 <div id={ctaSections.MAP} data-spy>
-                    <Typography className="mb-4 pl-8 text-lg leading-[1.6] text-onDark-mediumEmphasis [&_a]:text-onDark-highEmphasis [&_a]:underline [&_i]:italic [&_.line-through]:line-through" as="strong">the map on the web & the custom ones</Typography>
+                    <Typography
+                        className="mb-4 pl-8 text-lg leading-[1.6] text-onDark-mediumEmphasis [&_a]:text-onDark-highEmphasis [&_a]:underline [&_i]:italic [&_.line-through]:line-through"
+                        as="strong"
+                    >
+                        the map on the web & the custom ones
+                    </Typography>
                     <Typography className="mb-8 text-lg leading-[1.6] text-onDark-mediumEmphasis [&_a]:text-onDark-highEmphasis [&_a]:underline [&_i]:italic [&_.line-through]:line-through">
                         While we've always been true fans of our phones as medium to both consume and create some
                         skateboarding content, we also enjoy the size and comfort of our laptops. That's why we released
@@ -529,7 +614,12 @@ const CallToAdventureContent = () => {
                     </Typography>
                 </div>
                 <div id={ctaSections.DISCORD} data-spy>
-                    <Typography className="mb-4 pl-8 text-lg leading-[1.6] text-onDark-mediumEmphasis [&_a]:text-onDark-highEmphasis [&_a]:underline [&_i]:italic [&_.line-through]:line-through" as="strong">the discord community</Typography>
+                    <Typography
+                        className="mb-4 pl-8 text-lg leading-[1.6] text-onDark-mediumEmphasis [&_a]:text-onDark-highEmphasis [&_a]:underline [&_i]:italic [&_.line-through]:line-through"
+                        as="strong"
+                    >
+                        the discord community
+                    </Typography>
                     <Typography className="mb-8 text-lg leading-[1.6] text-onDark-mediumEmphasis [&_a]:text-onDark-highEmphasis [&_a]:underline [&_i]:italic [&_.line-through]:line-through">
                         We've played with many tools over the years to keep a direct channel of communication with
                         everyone. At the end of the day, emails have been our best friends. For some obvious reasons, we
@@ -564,7 +654,9 @@ const CallToAdventureContent = () => {
                 </div>
             </div>
             <div id={ctaSections.VISION} data-spy>
-                <Typography className="my-6 mb-8" component="heading5">where we're heading to</Typography>
+                <Typography className="my-6 mb-8" component="heading5">
+                    where we're heading to
+                </Typography>
                 <Typography className="mb-8 text-lg leading-[1.6] text-onDark-mediumEmphasis [&_a]:text-onDark-highEmphasis [&_a]:underline [&_i]:italic [&_.line-through]:line-through">
                     Back in 2019 we hit a wall. Energy speaking, we were exhausted. Then some of us became parents —
                     which is both at the same time a blessing and the most challenging mission ever — then COVID broke
@@ -611,7 +703,9 @@ const CallToAdventureContent = () => {
                     <br />
                     3) Cultural shifts are often outcomes of collective effort.
                 </Typography>
-                <Typography className="mb-8 text-lg leading-[1.6] text-onDark-mediumEmphasis [&_a]:text-onDark-highEmphasis [&_a]:underline [&_i]:italic [&_.line-through]:line-through">He went on:</Typography>
+                <Typography className="mb-8 text-lg leading-[1.6] text-onDark-mediumEmphasis [&_a]:text-onDark-highEmphasis [&_a]:underline [&_i]:italic [&_.line-through]:line-through">
+                    He went on:
+                </Typography>
                 <Typography className="-mt-4 pl-4 mb-8 text-lg leading-[1.6] text-onDark-mediumEmphasis border-l-2 border-onDark-mediumEmphasis [&_a]:text-onDark-highEmphasis [&_a]:underline [&_i]:italic [&_.line-through]:line-through">
                     In the internet culture era our new institutions are still being formed, but what's become clear is
                     that our primary challenge today is sifting through all the ideas, cultural norms, and potential
@@ -668,8 +762,12 @@ const CallToAdventureContent = () => {
                 </Typography>
             </div>
             <div id={ctaSections.DAO} data-spy>
-                <Typography className="my-6 mb-8" component="heading5">why a DAO + co-op</Typography>
-                <Typography className="mb-8 text-lg leading-[1.6] text-onDark-mediumEmphasis [&_a]:text-onDark-highEmphasis [&_a]:underline [&_i]:italic [&_.line-through]:line-through">This is how folks from E2C explain their approach:</Typography>
+                <Typography className="my-6 mb-8" component="heading5">
+                    why a DAO + co-op
+                </Typography>
+                <Typography className="mb-8 text-lg leading-[1.6] text-onDark-mediumEmphasis [&_a]:text-onDark-highEmphasis [&_a]:underline [&_i]:italic [&_.line-through]:line-through">
+                    This is how folks from E2C explain their approach:
+                </Typography>
                 <Typography className="-mt-4 pl-4 mb-8 text-lg leading-[1.6] text-onDark-mediumEmphasis border-l-2 border-onDark-mediumEmphasis [&_a]:text-onDark-highEmphasis [&_a]:underline [&_i]:italic [&_.line-through]:line-through">
                     Most startups aim for an "exit" like getting acquired or going public, but these ownership
                     transitions often pit startup founders and investors against the health of their community. We're
@@ -727,14 +825,12 @@ const CallToAdventureContent = () => {
                     A cooperative is a collectively owned enterprise that serves the interests of its members. This
                     means a company owned by its workers, customers, or both.
                     <br />
-                    <br />
-                    - Co-ops are for-profit, private enterprises. The primary distinction is that the shareholders in
-                    co-ops are its workers or customers—not its investors and founders. This means that the company's
+                    <br />- Co-ops are for-profit, private enterprises. The primary distinction is that the shareholders
+                    in co-ops are its workers or customers—not its investors and founders. This means that the company's
                     profits are distributed back to its members, instead of to a singular owner or group of executives.
                     <br />
-                    <br />
-                    - Co-ops are controlled by their members. In addition to profit sharing, cooperative member-owners
-                    are given a voice in business decisions.
+                    <br />- Co-ops are controlled by their members. In addition to profit sharing, cooperative
+                    member-owners are given a voice in business decisions.
                     <br />
                     <br />- Co-ops are a constructive alternative. Historically, co-ops have emerged when markets have
                     failed to meet the needs of a particular community, or to correct markets that have consolidated
@@ -777,7 +873,9 @@ const CallToAdventureContent = () => {
                 </Typography>
             </div>
             <div id={ctaSections.FINAL} data-spy>
-                <Typography className="my-6 mb-8" component="heading5">final words - world-building</Typography>
+                <Typography className="my-6 mb-8" component="heading5">
+                    final words - world-building
+                </Typography>
                 <Typography className="mb-8 text-lg leading-[1.6] text-onDark-mediumEmphasis [&_a]:text-onDark-highEmphasis [&_a]:underline [&_i]:italic [&_.line-through]:line-through">
                     Krak is in the business of universe creation.
                     <br />
@@ -848,8 +946,14 @@ const CallToAdventureContent = () => {
                     <br />
                     It is on us to decide.
                 </Typography>
-                <img className="max-w-full mb-8 rounded" src="/images/call-to-adventure/zeb-weisman.jpeg" alt="skateboarder trick over stairs" />
-                <Typography className="-mt-4 italic text-onDark-mediumEmphasis [&_a]:text-onDark-highEmphasis [&_a]:underline [&_strong]:font-roboto-bold">Zeb Weisman- sw flip, Lisbon; photo © Ando</Typography>
+                <img
+                    className="max-w-full mb-8 rounded"
+                    src="/images/call-to-adventure/zeb-weisman.jpeg"
+                    alt="skateboarder trick over stairs"
+                />
+                <Typography className="-mt-4 italic text-onDark-mediumEmphasis [&_a]:text-onDark-highEmphasis [&_a]:underline [&_strong]:font-roboto-bold">
+                    Zeb Weisman- sw flip, Lisbon; photo © Ando
+                </Typography>
                 <Typography className="mb-8 text-lg leading-[1.6] text-onDark-mediumEmphasis [&_a]:text-onDark-highEmphasis [&_a]:underline [&_i]:italic [&_.line-through]:line-through">
                     <br />
                     This collage comes from Ando and features in{' '}

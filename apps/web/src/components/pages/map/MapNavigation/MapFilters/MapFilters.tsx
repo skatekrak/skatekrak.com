@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { Types, Status } from '@krak/types';
+
 import DiyIcon from '@/components/pages/map/marker/icons/Diy';
 import ParkIcon from '@/components/pages/map/marker/icons/Park';
 import PrivateIcon from '@/components/pages/map/marker/icons/Private';

@@ -3,6 +3,7 @@
     "devDependencies": {
         "@types/bun": "^1.1.1",
         "@types/node": "^25.3.0",
+        "oxfmt": "^0.45.0",
         "oxlint": "^1.59.0",
         "turbo": "^2.0.4"
     },
@@ -13,6 +14,8 @@
     "packageManager": "bun@1.3.10",
     "private": true,
     "scripts": {
+        "format": "oxfmt .",
+        "format:check": "oxfmt --check .",
         "lint": "oxlint . && bunx sherif",
         "build": "turbo build",
         "dev": "turbo dev --parallel --ui tui",

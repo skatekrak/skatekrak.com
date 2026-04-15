@@ -1,8 +1,9 @@
-import ScrollHelper from '@/lib/ScrollHelper';
-import React, { ElementRef, useEffect, useRef, useState } from 'react';
 import classnames from 'classnames';
-import { ctaSections } from '../constants';
+import React, { ElementRef, useEffect, useRef, useState } from 'react';
 
+import ScrollHelper from '@/lib/ScrollHelper';
+
+import { ctaSections } from '../constants';
 import CallToAdventureSubNav from './CallToAdventureSubNav';
 
 type Props = {

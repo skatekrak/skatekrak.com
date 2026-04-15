@@ -1,11 +1,7 @@
 import { MoreHorizontal } from 'lucide-react';
 
 import { Button } from '@krak/ui/components/ui/button';
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuTrigger,
-} from '@krak/ui/components/ui/dropdown-menu';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from '@krak/ui/components/ui/dropdown-menu';
 
 interface DataTableRowActionsProps {
     children: React.ReactNode;

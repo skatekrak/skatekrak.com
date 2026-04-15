@@ -1,5 +1,5 @@
-import { NextApiRequest, NextApiResponse } from 'next';
 import Cors from 'cors';
+import { NextApiRequest, NextApiResponse } from 'next';
 
 import { Place, placeAutocomplete, getPlace } from '@/lib/placeApi';
 

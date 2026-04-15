@@ -1,6 +1,6 @@
+import { Source } from 'rss-feed';
 import { create } from 'zustand';
 import { devtools, persist } from 'zustand/middleware';
-import { Source } from 'rss-feed';
 
 type VideosStore = {
     selectSources: string[];
@@ -29,8 +29,7 @@ export const useVideosStore = create<VideosStore>()(
                                     : state.selectSources.filter((_, i) => i !== index),
                         };
                     }),
-                selectVideosSources: (sources) =>
-                    set({ selectSources: sources.map((source) => String(source.id)) }),
+                selectVideosSources: (sources) => set({ selectSources: sources.map((source) => String(source.id)) }),
                 setSearch: (search) => set({ search }),
                 resetVideos: () => set({ selectSources: [] }),
             }),

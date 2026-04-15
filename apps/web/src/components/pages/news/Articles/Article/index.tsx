@@ -1,10 +1,9 @@
 import React from 'react';
 
-import Content from '@/models/Content';
-
 import Ad from '@/components/pages/news/Articles/Article/Ad';
 import Card from '@/components/pages/news/Articles/Article/Card';
 import createPropsGetter from '@/lib/getProps';
+import Content from '@/models/Content';
 
 type Props = {
     content?: Content;

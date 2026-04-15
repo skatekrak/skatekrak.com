@@ -1,20 +1,22 @@
+import { intersects } from 'radash';
 import React, { useCallback, useMemo, memo } from 'react';
 import ReactMapGL, { GeolocateControl, MapRef, NavigationControl, Source, ViewStateChangeEvent } from 'react-map-gl';
-import type { FeatureCollection, Geometry } from 'geojson';
 import { useShallow } from 'zustand/react/shallow';
 
-import SpotMarker from '@/components/pages/map/marker/SpotMarker';
-import MapSpotOverview from './MapSpotOverview';
-
 import { SpotGeoJSON } from '@krak/types';
-import { MAX_ZOOM_LEVEL, ZOOM_DISPLAY_DOTS, MIN_ZOOM_LEVEL } from './Map.constant';
 import { Status, Types } from '@krak/types';
-import SmallLayer from './layers/SmallLayer';
-import SpotPinLayer from './layers/SpotPinLayer';
-import { intersects } from 'radash';
+
+import SpotMarker from '@/components/pages/map/marker/SpotMarker';
+import IconLayer from '@/components/Ui/Icons/IconLayer';
 import { useMapStyle, useSpotID, useSpotModal, useViewport } from '@/lib/hook/queryState';
 import { useMapStore } from '@/store/map';
-import IconLayer from '@/components/Ui/Icons/IconLayer';
+
+import SmallLayer from './layers/SmallLayer';
+import SpotPinLayer from './layers/SpotPinLayer';
+import { MAX_ZOOM_LEVEL, ZOOM_DISPLAY_DOTS, MIN_ZOOM_LEVEL } from './Map.constant';
+import MapSpotOverview from './MapSpotOverview';
+
+import type { FeatureCollection, Geometry } from 'geojson';
 
 type MapComponentProps = {
     mapRef: React.RefObject<MapRef | null>;

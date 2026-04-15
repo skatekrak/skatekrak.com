@@ -1,14 +1,15 @@
 import React from 'react';
 
-import MapFullSpotEdito from './Edito';
-import MapFullSpotInfo from './Info';
-import MapFullSpotTips from './Tips';
-import MapFullSpotMainClips from './MapFullSpotMainClips';
-import MapFullSpotMedias from './MapFullSpotMedias';
-import MapFullSpotAddMedia from './MapFullSpotAdd/MapFullSpotAddMedia';
-import MapFullSpotAddClip from './MapFullSpotAdd/MapFullSpotAddClip';
 import { useFullSpotSelectedTab } from '@/lib/hook/queryState';
 import { useMapStore } from '@/store/map';
+
+import MapFullSpotEdito from './Edito';
+import MapFullSpotInfo from './Info';
+import MapFullSpotAddClip from './MapFullSpotAdd/MapFullSpotAddClip';
+import MapFullSpotAddMedia from './MapFullSpotAdd/MapFullSpotAddMedia';
+import MapFullSpotMainClips from './MapFullSpotMainClips';
+import MapFullSpotMedias from './MapFullSpotMedias';
+import MapFullSpotTips from './Tips';
 
 const MapFullSpotMain = () => {
     const [selectedTab] = useFullSpotSelectedTab();

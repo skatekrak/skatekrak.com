@@ -41,7 +41,7 @@ const ScrollTop = ({ elementId }: ScrollTopProps) => {
             // Use native smooth scrolling
             scrollContainer.scrollTo({
                 top: Math.max(0, targetScrollTop), // Ensure we don't scroll to negative position
-                behavior: 'smooth'
+                behavior: 'smooth',
             });
         }
     };

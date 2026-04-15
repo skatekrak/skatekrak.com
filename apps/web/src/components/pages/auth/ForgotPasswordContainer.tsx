@@ -1,11 +1,10 @@
-import React, { memo, useState } from 'react';
 import { Formik, Field, Form, FormikHelpers } from 'formik';
+import React, { memo, useState } from 'react';
 import * as Yup from 'yup';
 
 import ButtonPrimary from '@/components/Ui/Button/ButtonPrimary/ButtonPrimary';
 import Emoji from '@/components/Ui/Icons/Emoji';
 import Typography from '@/components/Ui/typography/Typography';
-
 import { requestPasswordReset } from '@/lib/auth';
 
 type ForgotFormValues = {

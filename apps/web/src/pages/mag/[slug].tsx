@@ -1,16 +1,12 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import Head from 'next/head';
 import React from 'react';
-
-import decodeHTML from '@/lib/decodeHTML';
+import { Post } from 'wordpress-types';
 
 import Layout from '@/components/Layout';
-
-import LayoutFeed from '@/components/Ui/Feed/LayoutFeed';
-
 import Article from '@/components/pages/mag/Article';
-
-import { Post } from 'wordpress-types';
+import LayoutFeed from '@/components/Ui/Feed/LayoutFeed';
+import decodeHTML from '@/lib/decodeHTML';
 import { getPostBySlug, getPostSlugs } from '@/lib/mag/generate';
 
 type HeadProps = {

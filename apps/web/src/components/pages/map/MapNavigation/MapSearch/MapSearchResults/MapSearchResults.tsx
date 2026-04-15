@@ -2,15 +2,15 @@ import React from 'react';
 import { useMap } from 'react-map-gl';
 
 import Scrollbar from '@/components/Ui/Scrollbar';
-import type { SpotHit } from '@/lib/meilisearch';
+import { useSpotID } from '@/lib/hook/queryState';
+import { Place } from '@/lib/placeApi';
 
 import MapSearchResultLoading from './MapSearchResultLoading';
 import MapSearchResultNoContent from './MapSearchResultNoContent';
-import MapSearchResultSpot from './MapSearchResultSpot';
 import MapSearchResultPlace from './MapSearchResultPlace';
+import MapSearchResultSpot from './MapSearchResultSpot';
 
-import { Place } from '@/lib/placeApi';
-import { useSpotID } from '@/lib/hook/queryState';
+import type { SpotHit } from '@/lib/meilisearch';
 
 type MapSearchResultsProps = {
     loading: boolean;

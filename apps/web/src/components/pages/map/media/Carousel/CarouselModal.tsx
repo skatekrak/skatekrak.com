@@ -1,8 +1,8 @@
 import React from 'react';
 
 import Carousel, { CarouselProps } from '@/components/pages/map/media/Carousel/Carousel';
-import Modal from '@/components/Ui/Modal';
 import { KrakLoading } from '@/components/Ui/Icons/Spinners';
+import Modal from '@/components/Ui/Modal';
 import { modalThemeStyles } from '@/components/Ui/Modal/styles';
 
 type Props = {

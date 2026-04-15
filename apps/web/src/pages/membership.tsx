@@ -1,8 +1,9 @@
+import Link from 'next/link';
 import React from 'react';
 
 import Layout from '@/components/Layout';
 import Typography from '@/components/Ui/typography/Typography';
-import Link from 'next/link';
+
 import { PATH_CALL_TO_ADVENTURE } from './call-to-adventure';
 
 export const PATH_MEMBERSHIP = '/membership';

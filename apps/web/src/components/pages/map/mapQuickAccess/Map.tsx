@@ -1,12 +1,13 @@
+import { useRouter } from 'next/router';
 import React, { useMemo } from 'react';
 import { useShallow } from 'zustand/react/shallow';
 
 import Typography from '@/components/Ui/typography/Typography';
-import { QuickAccessMap } from './types';
-import { useRouter } from 'next/router';
-import RoundedImage from './RoundedImage';
 import { useCityID, useCustomMapID, useMediaID, useSpotID, useSpotModal } from '@/lib/hook/queryState';
 import { useMapStore } from '@/store/map';
+
+import RoundedImage from './RoundedImage';
+import { QuickAccessMap } from './types';
 
 type MapProps = {
     map: QuickAccessMap;

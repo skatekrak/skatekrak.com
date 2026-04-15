@@ -1,6 +1,7 @@
 import { betterAuth } from 'better-auth';
 import { prismaAdapter } from 'better-auth/adapters/prisma';
 import { admin, username } from 'better-auth/plugins';
+
 import type { PrismaClient } from '@krak/prisma';
 
 type SendResetPasswordData = {

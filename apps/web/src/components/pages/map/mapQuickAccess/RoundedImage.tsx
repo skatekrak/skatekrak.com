@@ -1,6 +1,6 @@
-import React from 'react';
-import NextImage from 'next/image';
 import classNames from 'classnames';
+import NextImage from 'next/image';
+import React from 'react';
 
 import useRemPX from '@/lib/useRemPX';
 

@@ -1,10 +1,9 @@
 import Link from 'next/link';
 import React from 'react';
 
+import SocialShare from '@/components/Ui/share/SocialShare';
 import createMarkup from '@/lib/createMarkup';
 import decodeHTML from '@/lib/decodeHTML';
-
-import SocialShare from '@/components/Ui/share/SocialShare';
 import { SlicePost } from '@/store/mag';
 
 type Props = {

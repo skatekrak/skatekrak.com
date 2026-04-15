@@ -1,13 +1,14 @@
-import React from 'react';
 import { useQuery } from '@tanstack/react-query';
+import React from 'react';
 
-import Carousel from '../../media/Carousel';
-import IconArrowHead from '@/components/Ui/Icons/ArrowHead';
-
-import { KrakLoading } from '@/components/Ui/Icons/Spinners';
 import type { Spot, Media } from '@krak/contracts';
+
+import IconArrowHead from '@/components/Ui/Icons/ArrowHead';
+import { KrakLoading } from '@/components/Ui/Icons/Spinners';
 import { useMediaID } from '@/lib/hook/queryState';
 import { orpc } from '@/server/orpc/client';
+
+import Carousel from '../../media/Carousel';
 
 type Props = {
     initialMediaId: string;
