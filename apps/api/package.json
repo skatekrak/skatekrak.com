@@ -22,7 +22,7 @@
         "@sinclair/typebox": "^0.34.0",
         "@t3-oss/env-core": "^0.11.1",
         "cloudinary": "^2.9.0",
-        "date-fns": "^3.6.0",
+        "date-fns": "^4.1.0",
         "elysia": "^1.4.25",
         "form-data": "^4.0.5",
         "mailgun.js": "^12.7.0",
