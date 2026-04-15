@@ -3,9 +3,12 @@
 import { useQuery } from '@tanstack/react-query';
 import { formatDistanceToNow } from 'date-fns';
 
+import type { ContractOutputs } from '@krak/contracts';
 import { Avatar, AvatarFallback, Card, CardContent, CardHeader, CardTitle, Skeleton } from '@krak/ui';
 
 import { orpc } from '@/lib/orpc';
+
+type User = ContractOutputs['admin']['users']['list']['users'][number];
 
 export function LatestUsers() {
     const { data, isLoading } = useQuery(
@@ -22,26 +25,29 @@ export function LatestUsers() {
             <CardContent className="flex flex-col gap-3">
                 {isLoading
                     ? Array.from({ length: 5 }).map((_, i) => <RowSkeleton key={i} />)
-                    : data?.users.map((user) => (
-                          <a
-                              key={user.id}
-                              href={`/users/${user.username}`}
-                              className="flex items-center gap-3 rounded-md p-2 transition-colors hover:bg-muted"
-                          >
-                              <Avatar className="size-8">
-                                  <AvatarFallback>{user.username[0]?.toUpperCase()}</AvatarFallback>
-                              </Avatar>
-                              <div className="flex flex-1 flex-col overflow-hidden">
-                                  <span className="truncate text-sm font-medium">{user.username}</span>
-                                  <span className="truncate text-xs text-muted-foreground">{user.email}</span>
-                              </div>
-                              <span className="shrink-0 text-xs text-muted-foreground">
-                                  {formatDistanceToNow(new Date(user.createdAt), { addSuffix: true })}
-                              </span>
-                          </a>
-                      ))}
+                    : data?.users.map((user) => <UserRow key={user.id} user={user} />)}
             </CardContent>
         </Card>
+    );
+}
+
+function UserRow({ user }: { user: User }) {
+    return (
+        <a
+            href={`/users/${user.username}`}
+            className="flex items-center gap-3 rounded-md p-2 transition-colors hover:bg-muted"
+        >
+            <Avatar className="size-8">
+                <AvatarFallback>{user.username[0]?.toUpperCase()}</AvatarFallback>
+            </Avatar>
+            <div className="flex flex-1 flex-col overflow-hidden">
+                <span className="truncate text-sm font-medium">{user.username}</span>
+                <span className="truncate text-xs text-muted-foreground">{user.email}</span>
+            </div>
+            <span className="shrink-0 text-xs text-muted-foreground">
+                {formatDistanceToNow(new Date(user.createdAt), { addSuffix: true })}
+            </span>
+        </a>
     );
 }
 

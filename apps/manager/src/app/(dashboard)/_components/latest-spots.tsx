@@ -4,9 +4,12 @@ import { useQuery } from '@tanstack/react-query';
 import { formatDistanceToNow } from 'date-fns';
 import { MapPin } from 'lucide-react';
 
+import type { ContractOutputs } from '@krak/contracts';
 import { Badge, Card, CardContent, CardHeader, CardTitle, Skeleton } from '@krak/ui';
 
 import { orpc } from '@/lib/orpc';
+
+type Spot = ContractOutputs['admin']['spots']['list']['spots'][number];
 
 export function LatestSpots() {
     const { data, isLoading } = useQuery(
@@ -23,29 +26,33 @@ export function LatestSpots() {
             <CardContent className="flex flex-col gap-3">
                 {isLoading
                     ? Array.from({ length: 5 }).map((_, i) => <RowSkeleton key={i} />)
-                    : data?.spots.map((spot) => (
-                          <div key={spot.id} className="flex items-center gap-3 rounded-md p-2">
-                              <div className="flex size-8 shrink-0 items-center justify-center rounded-md bg-muted">
-                                  <MapPin className="size-4 text-muted-foreground" />
-                              </div>
-                              <div className="flex flex-1 flex-col overflow-hidden">
-                                  <span className="truncate text-sm font-medium">{spot.name}</span>
-                                  <span className="truncate text-xs text-muted-foreground">
-                                      {[spot.city, spot.country].filter(Boolean).join(', ')}
-                                  </span>
-                              </div>
-                              <div className="flex shrink-0 flex-col items-end gap-1">
-                                  <Badge variant="outline" className="text-xs">
-                                      {spot.type}
-                                  </Badge>
-                                  <span className="text-xs text-muted-foreground">
-                                      {formatDistanceToNow(new Date(spot.createdAt), { addSuffix: true })}
-                                  </span>
-                              </div>
-                          </div>
-                      ))}
+                    : data?.spots.map((spot) => <SpotRow key={spot.id} spot={spot} />)}
             </CardContent>
         </Card>
+    );
+}
+
+function SpotRow({ spot }: { spot: Spot }) {
+    return (
+        <div className="flex items-center gap-3 rounded-md p-2">
+            <div className="flex size-8 shrink-0 items-center justify-center rounded-md bg-muted">
+                <MapPin className="size-4 text-muted-foreground" />
+            </div>
+            <div className="flex flex-1 flex-col overflow-hidden">
+                <span className="truncate text-sm font-medium">{spot.name}</span>
+                <span className="truncate text-xs text-muted-foreground">
+                    {[spot.city, spot.country].filter(Boolean).join(', ')}
+                </span>
+            </div>
+            <div className="flex shrink-0 flex-col items-end gap-1">
+                <Badge variant="outline" className="text-xs">
+                    {spot.type}
+                </Badge>
+                <span className="text-xs text-muted-foreground">
+                    {formatDistanceToNow(new Date(spot.createdAt), { addSuffix: true })}
+                </span>
+            </div>
+        </div>
     );
 }
 
