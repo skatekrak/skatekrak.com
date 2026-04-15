@@ -21,3 +21,4 @@ node_modules/
 dist
 
 /krak_dump.sql
+/packages/contracts/tsconfig.tsbuildinfo
