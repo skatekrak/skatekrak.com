@@ -3,8 +3,10 @@
 import { useQuery } from '@tanstack/react-query';
 import { formatDistanceToNow } from 'date-fns';
 
+import Link from 'next/link';
+
 import type { ContractOutputs } from '@krak/contracts';
-import { Avatar, AvatarFallback, Card, CardContent, CardHeader, CardTitle, Skeleton } from '@krak/ui';
+import { Avatar, AvatarFallback, Button, Card, CardContent, CardFooter, CardHeader, CardTitle, Skeleton } from '@krak/ui';
 
 import { orpc } from '@/lib/orpc';
 
@@ -27,6 +29,11 @@ export function LatestUsers() {
                     ? Array.from({ length: 5 }).map((_, i) => <RowSkeleton key={i} />)
                     : data?.users.map((user) => <UserRow key={user.id} user={user} />)}
             </CardContent>
+            <CardFooter>
+                <Button variant="outline" size="sm" className="w-full" asChild>
+                    <Link href="/users">View all users</Link>
+                </Button>
+            </CardFooter>
         </Card>
     );
 }
