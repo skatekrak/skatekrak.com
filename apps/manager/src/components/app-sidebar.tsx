@@ -21,7 +21,15 @@ import {
 
 import { NavUser } from '@/components/nav-user';
 
-const navItems = [
+const mainItems = [
+    {
+        title: 'Home',
+        href: '/',
+        icon: LayoutDashboard,
+    },
+];
+
+const managementItems = [
     {
         title: 'Users',
         href: '/users',
@@ -42,10 +50,29 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             </SidebarHeader>
             <SidebarContent>
                 <SidebarGroup>
+                    <SidebarGroupContent>
+                        <SidebarMenu>
+                            {mainItems.map((item) => (
+                                <SidebarMenuItem key={item.href}>
+                                    <SidebarMenuButton
+                                        asChild
+                                        isActive={item.href === '/' ? pathname === '/' : pathname.startsWith(item.href)}
+                                    >
+                                        <Link href={item.href}>
+                                            <item.icon />
+                                            <span>{item.title}</span>
+                                        </Link>
+                                    </SidebarMenuButton>
+                                </SidebarMenuItem>
+                            ))}
+                        </SidebarMenu>
+                    </SidebarGroupContent>
+                </SidebarGroup>
+                <SidebarGroup>
                     <SidebarGroupLabel>Management</SidebarGroupLabel>
                     <SidebarGroupContent>
                         <SidebarMenu>
-                            {navItems.map((item) => (
+                            {managementItems.map((item) => (
                                 <SidebarMenuItem key={item.href}>
                                     <SidebarMenuButton asChild isActive={pathname.startsWith(item.href)}>
                                         <Link href={item.href}>
