@@ -93,7 +93,7 @@ export const list = os.media.list.handler(async ({ context, input }) => {
             OR: [{ image: { not: { equals: null } } }, { video: { not: { equals: null } } }],
             AND: [
                 { OR: [{ releaseDate: null }, { releaseDate: { lt: new Date() } }] },
-                ...(input.hashtag ? [{ hashtags: { has: input.hashtag } }] : []),
+                ...(input.hashtag ? [{ hashtags: { has: addHashtagIfNeeded(input.hashtag) } }] : []),
             ],
         },
         orderBy: { createdAt: 'desc' },
@@ -106,10 +106,11 @@ export const list = os.media.list.handler(async ({ context, input }) => {
 
 /** Get the previous and next media around a given media for a hashtag (carousel navigation) */
 export const getHashtagMediasAround = os.media.getHashtagMediasAround.handler(async ({ context, input }) => {
+    const hashtag = addHashtagIfNeeded(input.hashtag);
     const [prevMedias, nextMedias] = await Promise.all([
         context.prisma.media.findMany({
             where: {
-                hashtags: { has: input.hashtag },
+                hashtags: { has: hashtag },
                 createdAt: { gt: input.mediaCreatedAt },
             },
             orderBy: { createdAt: 'asc' },
@@ -118,7 +119,7 @@ export const getHashtagMediasAround = os.media.getHashtagMediasAround.handler(as
         }),
         context.prisma.media.findMany({
             where: {
-                hashtags: { has: input.hashtag },
+                hashtags: { has: hashtag },
                 createdAt: { lt: input.mediaCreatedAt },
             },
             orderBy: { createdAt: 'desc' },
@@ -157,6 +158,11 @@ function extractHashtags(str: string | undefined): string[] {
     if (!str) return [];
     const result = str.match(/#[\w\d]+/g);
     return result ? [...new Set(result)] : [];
+}
+
+/** Ensure a hashtag string starts with '#' (stored hashtags include the prefix) */
+function addHashtagIfNeeded(tag: string): string {
+    return tag[0] !== '#' ? `#${tag}` : tag;
 }
 
 // ============================================================================

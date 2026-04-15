@@ -1,4 +1,3 @@
-import React from 'react';
 import { useShallow } from 'zustand/react/shallow';
 
 import MapMediaOverlay from './MapMediaOverlay';
@@ -44,7 +43,9 @@ const MapMedia = ({ shareURL, media, isFromCustomMapFeed = false }: MapMediaProp
                 <IconFullScreen />
             </button>
             {media.type === 'video' && <MapMediaVideoPlayer media={media} isPlaying={isPlaying} />}
-            {media.type === 'image' && media.image && <img key={media.id} src={media.image.url} alt={media.addedBy.username} />}
+            {media.type === 'image' && media.image && (
+                <img key={media.id} src={media.image.url} alt={media.addedBy.username} />
+            )}
             {(media.type === 'image' || (media.type === 'video' && !isPlaying)) && (
                 <MapMediaOverlay media={media} isFromCustomMapFeed={isFromCustomMapFeed} />
             )}

@@ -1,5 +1,3 @@
-import React from 'react';
-
 import MapMedia from '@/components/pages/map/media/MapMedia';
 import { MapCustomPanelTabs } from '@/components/pages/map/MapCustom/panel/MapCustomPanel';
 import VideoPlayer from '@/components/Ui/Player/VideoPlayer';
