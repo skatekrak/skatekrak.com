@@ -3,6 +3,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { formatDistanceToNow } from 'date-fns';
 import { Film, Image } from 'lucide-react';
+import Link from 'next/link';
 
 import type { ContractOutputs } from '@krak/contracts';
 import { Badge, Card, CardContent, CardHeader, CardTitle, Skeleton } from '@krak/ui';
@@ -61,7 +62,14 @@ function MediaRow({ media }: { media: Media }) {
                 <span className="truncate text-sm font-medium">{media.caption || 'No caption'}</span>
                 <span className="truncate text-xs text-muted-foreground">
                     {media.spot?.name ?? 'No spot'}
-                    {media.addedBy ? ` · ${media.addedBy.username}` : ''}
+                    {media.addedBy ? (
+                        <>
+                            {' · '}
+                            <Link href={`/users/${media.addedBy.username}`} className="hover:underline">
+                                {media.addedBy.username}
+                            </Link>
+                        </>
+                    ) : null}
                 </span>
             </div>
             <div className="flex shrink-0 flex-col items-end gap-1">
