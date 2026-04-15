@@ -1,7 +1,17 @@
 import { oc } from '@orpc/contract';
 import { z } from 'zod';
 
-import { listUsersInput, listUsersOutput, getUserByUsernameInput, getUserByUsernameOutput } from './schemas/admin';
+import {
+    listUsersInput,
+    listUsersOutput,
+    getUserByUsernameInput,
+    getUserByUsernameOutput,
+    adminOverviewOutput,
+    adminListSpotsInput,
+    adminListSpotsOutput,
+    adminListMediaInput,
+    adminListMediaOutput,
+} from './schemas/admin';
 import { MapSchema, MapListItemSchema, fetchMapInput } from './schemas/maps';
 import { MediaSchema, ClipSchema, MediasAroundSchema } from './schemas/media';
 import {
@@ -72,9 +82,16 @@ export const contract = {
         me: oc.output(ProfileMeSchema),
     },
     admin: {
+        overview: oc.output(adminOverviewOutput),
         users: {
             list: oc.input(listUsersInput).output(listUsersOutput),
             getByUsername: oc.input(getUserByUsernameInput).output(getUserByUsernameOutput),
+        },
+        spots: {
+            list: oc.input(adminListSpotsInput).output(adminListSpotsOutput),
+        },
+        media: {
+            list: oc.input(adminListMediaInput).output(adminListMediaOutput),
         },
     },
 };

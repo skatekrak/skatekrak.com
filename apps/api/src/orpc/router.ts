@@ -1,5 +1,5 @@
 import { os } from './base';
-import { listUsers, getUserByUsername } from './routers/admin';
+import { listUsers, getUserByUsername, overview, listSpots, listMedia } from './routers/admin';
 import { fetchMap, listMaps } from './routers/maps';
 import {
     getById,
@@ -50,9 +50,16 @@ export const router = os.router({
         me,
     },
     admin: {
+        overview,
         users: {
             list: listUsers,
             getByUsername: getUserByUsername,
+        },
+        spots: {
+            list: listSpots,
+        },
+        media: {
+            list: listMedia,
         },
     },
 });
