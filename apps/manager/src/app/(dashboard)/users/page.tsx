@@ -1,6 +1,7 @@
 'use client';
 
 import { useRef, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
 import { getCoreRowModel, useReactTable, type SortingState } from '@tanstack/react-table';
 import {
@@ -32,6 +33,7 @@ export default function UsersPage() {
     const searchTimeoutRef = useRef<ReturnType<typeof setTimeout>>(undefined);
 
     const perPage = 20;
+    const router = useRouter();
 
     // Map TanStack Table sorting state to API params
     const sortBy = (sorting[0]?.id as 'username' | 'createdAt') ?? 'createdAt';
@@ -123,6 +125,7 @@ export default function UsersPage() {
                     table={table}
                     loading={isLoading}
                     skeletonRows={perPage}
+                    onRowClick={(row) => router.push(`/users/${row.original.username}`)}
                 >
                     {data && (
                         <DataTablePagination
