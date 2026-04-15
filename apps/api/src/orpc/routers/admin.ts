@@ -1,6 +1,6 @@
 import { ORPCError } from '@orpc/server';
 
-import type { Prisma } from '@krak/prisma';
+import type { Prisma, ClipProvider } from '@krak/prisma';
 
 import { os, authed, admin } from '../base';
 
@@ -276,6 +276,64 @@ export const listMedia = os.admin.media.list
                 spot: m.spot ? { id: m.spot.id, name: m.spot.name } : null,
                 addedBy: m.addedBy ? { username: m.addedBy.user.username } : null,
                 createdAt: m.createdAt,
+            })),
+            total,
+            page,
+            perPage,
+        };
+    });
+
+// ============================================================================
+// admin.clips.list — Paginated, sortable clip listing for admin dashboard
+// ============================================================================
+
+export const listClips = os.admin.clips.list
+    .use(authed)
+    .use(admin)
+    .handler(async ({ context, input }) => {
+        const { page, perPage, sortBy, sortOrder } = input;
+        const skip = (page - 1) * perPage;
+
+        const [clips, total] = await Promise.all([
+            context.prisma.clip.findMany({
+                orderBy: { [sortBy]: sortOrder },
+                skip,
+                take: perPage,
+                select: {
+                    id: true,
+                    title: true,
+                    provider: true,
+                    videoURL: true,
+                    thumbnailURL: true,
+                    spot: {
+                        select: {
+                            id: true,
+                            name: true,
+                        },
+                    },
+                    addedBy: {
+                        select: {
+                            user: {
+                                select: { username: true },
+                            },
+                        },
+                    },
+                    createdAt: true,
+                },
+            }),
+            context.prisma.clip.count(),
+        ]);
+
+        return {
+            clips: clips.map((c) => ({
+                id: c.id,
+                title: c.title,
+                provider: c.provider as ClipProvider,
+                videoURL: c.videoURL,
+                thumbnailURL: c.thumbnailURL,
+                spot: c.spot ? { id: c.spot.id, name: c.spot.name } : null,
+                addedBy: c.addedBy ? { username: c.addedBy.user.username } : null,
+                createdAt: c.createdAt,
             })),
             total,
             page,
