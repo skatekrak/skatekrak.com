@@ -1,13 +1,11 @@
 'use client';
 
 import { use } from 'react';
-import Link from 'next/link';
 import { useQuery } from '@tanstack/react-query';
-import { ArrowLeft, Globe, Instagram, Ghost, ExternalLink } from 'lucide-react';
+import { Globe, Instagram, Ghost, ExternalLink } from 'lucide-react';
 import {
     Card,
     CardContent,
-    CardDescription,
     CardHeader,
     CardTitle,
     Badge,
@@ -16,7 +14,6 @@ import {
     AvatarImage,
     Separator,
     Skeleton,
-    Button,
 } from '@krak/ui';
 
 import type { ContractOutputs } from '@krak/contracts';
@@ -79,25 +76,43 @@ function StatCell({ label, value }: { label: string; value: number | null | unde
 }
 
 // ============================================================================
+// Hero section (profile picture + username + stats)
+// ============================================================================
+
+function UserHero({ user, profile }: { user: UserDetailOutput['user']; profile: UserDetailOutput['profile'] }) {
+    const initials = user.username.slice(0, 2).toUpperCase();
+    const avatarUrl = profile?.profilePicture?.url || user.image;
+
+    return (
+        <div className="flex flex-col items-center gap-6 py-4">
+            <Avatar className="h-24 w-24">
+                {avatarUrl && <AvatarImage src={avatarUrl} alt={user.username} />}
+                <AvatarFallback className="text-2xl">{initials}</AvatarFallback>
+            </Avatar>
+            <h1 className="text-2xl font-semibold">@{user.username}</h1>
+            {profile && (
+                <div className="grid w-full max-w-lg grid-cols-3 gap-2 sm:grid-cols-6">
+                    <StatCell label="Followers" value={profile.followersStat?.all} />
+                    <StatCell label="Following" value={profile.followingStat?.all} />
+                    <StatCell label="Spots" value={profile.spotsFollowingStat?.all} />
+                    <StatCell label="Medias" value={profile.mediasStat?.all} />
+                    <StatCell label="Clips" value={profile.clipsStat?.all} />
+                    <StatCell label="Tricks" value={profile.tricksDoneStat?.all} />
+                </div>
+            )}
+        </div>
+    );
+}
+
+// ============================================================================
 // Cards
 // ============================================================================
 
 function UserInfoCard({ user }: { user: UserDetailOutput['user'] }) {
-    const initials = (user.displayUsername || user.username).slice(0, 2).toUpperCase();
-
     return (
         <Card>
             <CardHeader>
-                <div className="flex items-center gap-4">
-                    <Avatar className="h-16 w-16">
-                        {user.image && <AvatarImage src={user.image} alt={user.username} />}
-                        <AvatarFallback className="text-lg">{initials}</AvatarFallback>
-                    </Avatar>
-                    <div>
-                        <CardTitle className="text-xl">{user.displayUsername || user.username}</CardTitle>
-                        <CardDescription>@{user.username}</CardDescription>
-                    </div>
-                </div>
+                <CardTitle>User Info</CardTitle>
             </CardHeader>
             <CardContent className="grid gap-4">
                 <div className="grid grid-cols-2 gap-4">
@@ -261,14 +276,6 @@ function ProfileCard({ profile }: { profile: UserDetailOutput['profile'] }) {
                     </div>
                 )}
 
-                {/* Profile Picture */}
-                {profile.profilePicture?.url && (
-                    <Avatar className="h-20 w-20">
-                        <AvatarImage src={profile.profilePicture.url} alt="Profile" />
-                        <AvatarFallback>PP</AvatarFallback>
-                    </Avatar>
-                )}
-
                 {/* Description */}
                 {profile.description && (
                     <Field label="Description">
@@ -341,21 +348,6 @@ function ProfileCard({ profile }: { profile: UserDetailOutput['profile'] }) {
 
                 <Separator />
 
-                {/* Stats Grid */}
-                <div className="grid gap-2">
-                    <span className="text-muted-foreground text-sm">Stats</span>
-                    <div className="grid grid-cols-3 gap-2">
-                        <StatCell label="Followers" value={profile.followersStat?.all} />
-                        <StatCell label="Following" value={profile.followingStat?.all} />
-                        <StatCell label="Spots" value={profile.spotsFollowingStat?.all} />
-                        <StatCell label="Medias" value={profile.mediasStat?.all} />
-                        <StatCell label="Clips" value={profile.clipsStat?.all} />
-                        <StatCell label="Tricks" value={profile.tricksDoneStat?.all} />
-                    </div>
-                </div>
-
-                <Separator />
-
                 <div className="grid grid-cols-2 gap-4">
                     <DateField label="Created" value={profile.createdAt} />
                     <DateField label="Updated" value={profile.updatedAt} />
@@ -371,46 +363,51 @@ function ProfileCard({ profile }: { profile: UserDetailOutput['profile'] }) {
 
 function UserDetailSkeleton() {
     return (
-        <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-            <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-6">
+            <div className="flex flex-col items-center gap-6 py-4">
+                <Skeleton className="h-24 w-24 rounded-full" />
+                <Skeleton className="h-8 w-48" />
+                <div className="grid w-full max-w-lg grid-cols-3 gap-2 sm:grid-cols-6">
+                    {Array.from({ length: 6 }).map((_, i) => (
+                        <Skeleton key={i} className="h-16 rounded-md" />
+                    ))}
+                </div>
+            </div>
+            <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+                <div className="flex flex-col gap-6">
+                    <Card>
+                        <CardHeader>
+                            <Skeleton className="h-6 w-24" />
+                        </CardHeader>
+                        <CardContent className="space-y-4">
+                            {Array.from({ length: 6 }).map((_, i) => (
+                                <Skeleton key={i} className="h-8 w-full" />
+                            ))}
+                        </CardContent>
+                    </Card>
+                    <Card>
+                        <CardHeader>
+                            <Skeleton className="h-6 w-32" />
+                        </CardHeader>
+                        <CardContent className="space-y-4">
+                            {Array.from({ length: 3 }).map((_, i) => (
+                                <Skeleton key={i} className="h-8 w-full" />
+                            ))}
+                        </CardContent>
+                    </Card>
+                </div>
                 <Card>
                     <CardHeader>
-                        <div className="flex items-center gap-4">
-                            <Skeleton className="h-16 w-16 rounded-full" />
-                            <div className="space-y-2">
-                                <Skeleton className="h-6 w-40" />
-                                <Skeleton className="h-4 w-24" />
-                            </div>
-                        </div>
+                        <Skeleton className="h-6 w-24" />
                     </CardHeader>
                     <CardContent className="space-y-4">
-                        {Array.from({ length: 6 }).map((_, i) => (
-                            <Skeleton key={i} className="h-8 w-full" />
-                        ))}
-                    </CardContent>
-                </Card>
-                <Card>
-                    <CardHeader>
-                        <Skeleton className="h-6 w-32" />
-                    </CardHeader>
-                    <CardContent className="space-y-4">
-                        {Array.from({ length: 3 }).map((_, i) => (
+                        <Skeleton className="h-32 w-full" />
+                        {Array.from({ length: 4 }).map((_, i) => (
                             <Skeleton key={i} className="h-8 w-full" />
                         ))}
                     </CardContent>
                 </Card>
             </div>
-            <Card>
-                <CardHeader>
-                    <Skeleton className="h-6 w-24" />
-                </CardHeader>
-                <CardContent className="space-y-4">
-                    <Skeleton className="h-32 w-full" />
-                    {Array.from({ length: 4 }).map((_, i) => (
-                        <Skeleton key={i} className="h-8 w-full" />
-                    ))}
-                </CardContent>
-            </Card>
         </div>
     );
 }
@@ -436,44 +433,30 @@ export default function UserDetailPage({ params }: { params: Promise<{ username:
                     <p className="text-muted-foreground">
                         User <code>@{username}</code> was not found.
                     </p>
-                    <Button variant="outline" asChild>
-                        <Link href="/users">
-                            <ArrowLeft className="mr-2 h-4 w-4" />
-                            Back to Users
-                        </Link>
-                    </Button>
                 </div>
             </>
         );
     }
 
-    const displayName = data?.user.displayUsername || data?.user.username || username;
-
     return (
         <>
-            <SiteHeader title={`User - @${displayName}`} />
+            <SiteHeader title={`User - @${data?.user.username || username}`} />
             <div className="flex flex-1 flex-col gap-6 px-6 pb-6 pt-4">
-                <div>
-                    <Button variant="ghost" size="sm" asChild>
-                        <Link href="/users">
-                            <ArrowLeft className="mr-2 h-4 w-4" />
-                            Users
-                        </Link>
-                    </Button>
-                </div>
-
                 {isLoading ? (
                     <UserDetailSkeleton />
                 ) : data ? (
-                    <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-                        <div className="flex flex-col gap-6">
-                            <UserInfoCard user={data.user} />
-                            <AccountsCard accounts={data.accounts} />
+                    <>
+                        <UserHero user={data.user} profile={data.profile} />
+                        <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+                            <div className="flex flex-col gap-6">
+                                <UserInfoCard user={data.user} />
+                                <AccountsCard accounts={data.accounts} />
+                            </div>
+                            <div>
+                                <ProfileCard profile={data.profile} />
+                            </div>
                         </div>
-                        <div>
-                            <ProfileCard profile={data.profile} />
-                        </div>
-                    </div>
+                    </>
                 ) : null}
             </div>
         </>
