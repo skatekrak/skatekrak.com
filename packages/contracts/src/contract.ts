@@ -27,7 +27,7 @@ import {
     uploadToSpotInput,
 } from './schemas/media';
 import { ProfileMeSchema } from './schemas/profiles';
-import { listUsersInput, listUsersOutput } from './schemas/admin';
+import { listUsersInput, listUsersOutput, getUserByUsernameInput, getUserByUsernameOutput } from './schemas/admin';
 
 // ============================================================================
 // SpotOverview output (composite — uses Spot + Media + Clip schemas)
@@ -74,6 +74,7 @@ export const contract = {
     admin: {
         users: {
             list: oc.input(listUsersInput).output(listUsersOutput),
+            getByUsername: oc.input(getUserByUsernameInput).output(getUserByUsernameOutput),
         },
     },
 };
