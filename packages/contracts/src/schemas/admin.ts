@@ -131,3 +131,100 @@ export const getUserByUsernameOutput = z.object({
     profile: AdminProfileSchema.nullable(),
     accounts: z.array(AdminAccountSchema),
 });
+
+// ============================================================================
+// Overview stats
+// ============================================================================
+
+export const adminOverviewOutput = z.object({
+    totalUsers: z.number(),
+    totalSpots: z.number(),
+    totalMedia: z.number(),
+    totalClips: z.number(),
+});
+
+// ============================================================================
+// List spots
+// ============================================================================
+
+const AdminSpotTypeSchema = z.enum(['SHOP', 'STREET', 'PARK', 'DIY', 'PRIVATE']);
+const AdminSpotStatusSchema = z.enum(['ACTIVE', 'WIP', 'RIP']);
+
+export const AdminSpotSchema = z.object({
+    id: z.string(),
+    name: z.string(),
+    city: z.string().nullable(),
+    country: z.string().nullable(),
+    type: AdminSpotTypeSchema,
+    status: AdminSpotStatusSchema,
+    addedBy: z
+        .object({
+            username: z.string(),
+        })
+        .nullable(),
+    createdAt: z.coerce.date(),
+});
+
+export const adminListSpotsInput = z.object({
+    page: z.number().int().min(1).default(1),
+    perPage: z.number().int().min(1).max(100).default(20),
+    sortBy: z.enum(['name', 'createdAt']).default('createdAt'),
+    sortOrder: z.enum(['asc', 'desc']).default('desc'),
+    search: z.string().optional(),
+});
+
+export const adminListSpotsOutput = z.object({
+    spots: z.array(AdminSpotSchema),
+    total: z.number(),
+    page: z.number(),
+    perPage: z.number(),
+});
+
+// ============================================================================
+// List media
+// ============================================================================
+
+export const MediaTypeSchema = z.enum(['IMAGE', 'VIDEO']);
+
+const AdminCloudinaryFileSchemaMedia = z
+    .object({
+        publicId: z.string().nullable(),
+        url: z.string(),
+        width: z.number().nullable(),
+        height: z.number().nullable(),
+    })
+    .nullable();
+
+export const AdminMediaSchema = z.object({
+    id: z.string(),
+    type: MediaTypeSchema,
+    caption: z.string().nullable(),
+    image: AdminCloudinaryFileSchemaMedia,
+    spot: z
+        .object({
+            id: z.string(),
+            name: z.string(),
+        })
+        .nullable(),
+    addedBy: z
+        .object({
+            username: z.string(),
+        })
+        .nullable(),
+    createdAt: z.coerce.date(),
+});
+
+export const adminListMediaInput = z.object({
+    page: z.number().int().min(1).default(1),
+    perPage: z.number().int().min(1).max(100).default(20),
+    sortBy: z.enum(['createdAt']).default('createdAt'),
+    sortOrder: z.enum(['asc', 'desc']).default('desc'),
+    type: MediaTypeSchema.optional(),
+});
+
+export const adminListMediaOutput = z.object({
+    media: z.array(AdminMediaSchema),
+    total: z.number(),
+    page: z.number(),
+    perPage: z.number(),
+});
