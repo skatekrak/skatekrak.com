@@ -68,7 +68,7 @@ function SubscriptionBadge({ status }: { status: string }) {
 
 function StatCell({ label, value }: { label: string; value: number | null | undefined }) {
     return (
-        <div className="flex flex-col items-center gap-1 rounded-md border p-3">
+        <div className="flex w-20 flex-col items-center gap-1 rounded-md border p-3">
             <span className="text-2xl font-semibold">{value ?? 0}</span>
             <span className="text-muted-foreground text-xs">{label}</span>
         </div>
