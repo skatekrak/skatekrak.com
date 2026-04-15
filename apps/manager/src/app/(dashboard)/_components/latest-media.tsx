@@ -25,13 +25,28 @@ export function LatestMedia() {
                     ? Array.from({ length: 5 }).map((_, i) => <RowSkeleton key={i} />)
                     : data?.media.map((m) => (
                           <div key={m.id} className="flex items-center gap-3 rounded-md p-2">
-                              <div className="flex size-8 shrink-0 items-center justify-center rounded-md bg-muted">
-                                  {m.type === 'VIDEO' ? (
-                                      <Film className="size-4 text-muted-foreground" />
-                                  ) : (
-                                      <Image className="size-4 text-muted-foreground" />
-                                  )}
-                              </div>
+                              {m.image?.url ? (
+                                  <div className="relative size-10 shrink-0 overflow-hidden rounded-md bg-muted">
+                                      <img
+                                          src={m.image.url}
+                                          alt={m.caption || 'Media preview'}
+                                          className="size-full object-cover"
+                                      />
+                                      {m.type === 'VIDEO' && (
+                                          <div className="absolute inset-0 flex items-center justify-center bg-black/30">
+                                              <Film className="size-4 text-white" />
+                                          </div>
+                                      )}
+                                  </div>
+                              ) : (
+                                  <div className="flex size-10 shrink-0 items-center justify-center rounded-md bg-muted">
+                                      {m.type === 'VIDEO' ? (
+                                          <Film className="size-4 text-muted-foreground" />
+                                      ) : (
+                                          <Image className="size-4 text-muted-foreground" />
+                                      )}
+                                  </div>
+                              )}
                               <div className="flex flex-1 flex-col overflow-hidden">
                                   <span className="truncate text-sm font-medium">{m.caption || 'No caption'}</span>
                                   <span className="truncate text-xs text-muted-foreground">
@@ -57,7 +72,7 @@ export function LatestMedia() {
 function RowSkeleton() {
     return (
         <div className="flex items-center gap-3 p-2">
-            <Skeleton className="size-8 rounded-md" />
+            <Skeleton className="size-10 rounded-md" />
             <div className="flex flex-1 flex-col gap-1">
                 <Skeleton className="h-4 w-24" />
                 <Skeleton className="h-3 w-32" />
