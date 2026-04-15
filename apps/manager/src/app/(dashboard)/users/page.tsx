@@ -1,9 +1,10 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
 import { getCoreRowModel, useReactTable, type SortingState } from '@tanstack/react-table';
+import { parseAsInteger, parseAsString, parseAsStringLiteral, useQueryState } from 'nuqs';
 import {
     Input,
     DataTable,
@@ -19,18 +20,15 @@ import { orpc } from '@/lib/orpc';
 import { SiteHeader } from '@/components/site-header';
 import { columns } from './columns';
 
-type RoleFilter = 'USER' | 'MODERATOR' | 'ADMIN' | undefined;
-type StatusFilter = boolean | undefined;
+const roles = ['USER', 'MODERATOR', 'ADMIN'] as const;
+const statuses = ['active', 'banned'] as const;
 
 export default function UsersPage() {
-    const [page, setPage] = useState(1);
-    const [search, setSearch] = useState('');
-    const [debouncedSearch, setDebouncedSearch] = useState('');
+    const [page, setPage] = useQueryState('page', parseAsInteger.withDefault(1));
+    const [search, setSearch] = useQueryState('search', parseAsString.withDefault('').withOptions({ throttleMs: 300 }));
+    const [role, setRole] = useQueryState('role', parseAsStringLiteral(roles));
+    const [status, setStatus] = useQueryState('status', parseAsStringLiteral(statuses));
     const [sorting, setSorting] = useState<SortingState>([{ id: 'createdAt', desc: true }]);
-    const [roleFilter, setRoleFilter] = useState<RoleFilter>(undefined);
-    const [statusFilter, setStatusFilter] = useState<StatusFilter>(undefined);
-
-    const searchTimeoutRef = useRef<ReturnType<typeof setTimeout>>(undefined);
 
     const perPage = 20;
     const router = useRouter();
@@ -39,6 +37,9 @@ export default function UsersPage() {
     const sortBy = (sorting[0]?.id as 'username' | 'createdAt') ?? 'createdAt';
     const sortOrder = sorting[0]?.desc ? ('desc' as const) : ('asc' as const);
 
+    // Map status string to banned boolean
+    const banned = status === 'banned' ? true : status === 'active' ? false : undefined;
+
     const { data, isLoading } = useQuery(
         orpc.admin.users.list.queryOptions({
             input: {
@@ -46,9 +47,9 @@ export default function UsersPage() {
                 perPage,
                 sortBy,
                 sortOrder,
-                search: debouncedSearch || undefined,
-                role: roleFilter,
-                banned: statusFilter,
+                search: search || undefined,
+                role: role ?? undefined,
+                banned,
             },
         }),
     );
@@ -65,21 +66,17 @@ export default function UsersPage() {
     });
 
     function handleSearchChange(value: string) {
-        setSearch(value);
-        clearTimeout(searchTimeoutRef.current);
-        searchTimeoutRef.current = setTimeout(() => {
-            setDebouncedSearch(value);
-            setPage(1);
-        }, 300);
+        setSearch(value || null);
+        setPage(1);
     }
 
     function handleRoleChange(value: string) {
-        setRoleFilter(value === 'all' ? undefined : (value as RoleFilter));
+        setRole(value === 'all' ? null : (value as (typeof roles)[number]));
         setPage(1);
     }
 
     function handleStatusChange(value: string) {
-        setStatusFilter(value === 'all' ? undefined : value === 'banned');
+        setStatus(value === 'all' ? null : (value as (typeof statuses)[number]));
         setPage(1);
     }
 
@@ -94,7 +91,7 @@ export default function UsersPage() {
                         onChange={(e) => handleSearchChange(e.target.value)}
                         className="max-w-sm"
                     />
-                    <Select value={roleFilter ?? 'all'} onValueChange={handleRoleChange}>
+                    <Select value={role ?? 'all'} onValueChange={handleRoleChange}>
                         <SelectTrigger className="w-40">
                             <SelectValue placeholder="Role" />
                         </SelectTrigger>
@@ -105,10 +102,7 @@ export default function UsersPage() {
                             <SelectItem value="ADMIN">Admin</SelectItem>
                         </SelectContent>
                     </Select>
-                    <Select
-                        value={statusFilter === undefined ? 'all' : statusFilter ? 'banned' : 'active'}
-                        onValueChange={handleStatusChange}
-                    >
+                    <Select value={status ?? 'all'} onValueChange={handleStatusChange}>
                         <SelectTrigger className="w-40">
                             <SelectValue placeholder="Status" />
                         </SelectTrigger>
