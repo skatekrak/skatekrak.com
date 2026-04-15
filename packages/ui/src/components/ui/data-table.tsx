@@ -1,4 +1,4 @@
-import { flexRender, type ColumnDef, type Table as ReactTable } from '@tanstack/react-table';
+import { flexRender, type ColumnDef, type Row, type Table as ReactTable } from '@tanstack/react-table';
 
 import { cn } from '@krak/ui/lib/utils';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@krak/ui/components/ui/table';
@@ -10,6 +10,7 @@ interface DataTableProps<TData, TValue> {
     loading?: boolean;
     skeletonRows?: number;
     stickyHeader?: boolean;
+    onRowClick?: (row: Row<TData>) => void;
     children?: React.ReactNode;
 }
 
@@ -19,6 +20,7 @@ export function DataTable<TData, TValue>({
     loading = false,
     skeletonRows = 5,
     stickyHeader = false,
+    onRowClick,
     children,
 }: DataTableProps<TData, TValue>) {
     return (
@@ -47,7 +49,8 @@ export function DataTable<TData, TValue>({
                                     <TableRow
                                         key={row.id}
                                         data-state={row.getIsSelected() && 'selected'}
-                                        className="group"
+                                        className={cn('group', onRowClick && 'cursor-pointer')}
+                                        onClick={onRowClick ? () => onRowClick(row) : undefined}
                                     >
                                         {row.getVisibleCells().map((cell) => (
                                             <TableCell key={cell.id}>
