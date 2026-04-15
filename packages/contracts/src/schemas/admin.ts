@@ -1,7 +1,5 @@
 import { z } from 'zod';
 
-import { CloudinaryFileSchema, StatSchema } from './shared';
-
 // ============================================================================
 // Enums
 // ============================================================================
@@ -43,8 +41,30 @@ export const listUsersInput = z.object({
 });
 
 // ============================================================================
-// Get user by username (new)
+// Get user by username
 // ============================================================================
+
+// Admin-specific schemas matching the raw Postgres JSON shape.
+// These differ from the shared CloudinaryFileSchema/StatSchema which expect
+// formatted output (e.g. StatSchema requires `className` that only exists
+// after formatStat() is applied, not in the raw DB JSON).
+
+const AdminCloudinaryFileSchema = z.object({
+    publicId: z.string().nullable(),
+    version: z.string().nullable(),
+    url: z.string(),
+    format: z.string().nullable(),
+    width: z.number().nullable(),
+    height: z.number().nullable(),
+});
+
+const AdminStatSchema = z.object({
+    all: z.number(),
+    monthly: z.number(),
+    weekly: z.number(),
+    daily: z.number(),
+    createdAt: z.coerce.date().nullable(),
+});
 
 export const AdminUserDetailSchema = z.object({
     id: z.string(),
@@ -76,14 +96,14 @@ export const AdminProfileSchema = z.object({
     instagram: z.string().nullable(),
     website: z.string().nullable(),
     sponsors: z.array(z.string()),
-    profilePicture: CloudinaryFileSchema.nullable(),
-    banner: CloudinaryFileSchema.nullable(),
-    followersStat: StatSchema.nullable(),
-    followingStat: StatSchema.nullable(),
-    spotsFollowingStat: StatSchema.nullable(),
-    mediasStat: StatSchema.nullable(),
-    clipsStat: StatSchema.nullable(),
-    tricksDoneStat: StatSchema.nullable(),
+    profilePicture: AdminCloudinaryFileSchema.nullable(),
+    banner: AdminCloudinaryFileSchema.nullable(),
+    followersStat: AdminStatSchema.nullable(),
+    followingStat: AdminStatSchema.nullable(),
+    spotsFollowingStat: AdminStatSchema.nullable(),
+    mediasStat: AdminStatSchema.nullable(),
+    clipsStat: AdminStatSchema.nullable(),
+    tricksDoneStat: AdminStatSchema.nullable(),
     createdAt: z.coerce.date(),
     updatedAt: z.coerce.date(),
 });
