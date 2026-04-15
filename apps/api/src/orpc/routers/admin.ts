@@ -138,3 +138,147 @@ export const getUserByUsername = os.admin.users.getByUsername
             })),
         };
     });
+
+// ============================================================================
+// admin.overview — Aggregate platform counts
+// ============================================================================
+
+export const overview = os.admin.overview
+    .use(authed)
+    .use(admin)
+    .handler(async ({ context }) => {
+        const [totalUsers, totalSpots, totalMedia, totalClips] = await Promise.all([
+            context.prisma.user.count(),
+            context.prisma.spot.count(),
+            context.prisma.media.count(),
+            context.prisma.clip.count(),
+        ]);
+
+        return { totalUsers, totalSpots, totalMedia, totalClips };
+    });
+
+// ============================================================================
+// admin.spots.list — Paginated, sortable spot listing for admin dashboard
+// ============================================================================
+
+export const listSpots = os.admin.spots.list
+    .use(authed)
+    .use(admin)
+    .handler(async ({ context, input }) => {
+        const { page, perPage, sortBy, sortOrder, search } = input;
+        const skip = (page - 1) * perPage;
+
+        const where: Prisma.SpotWhereInput = {};
+
+        if (search) {
+            where.OR = [
+                { name: { contains: search, mode: 'insensitive' } },
+                { city: { contains: search, mode: 'insensitive' } },
+            ];
+        }
+
+        const [spots, total] = await Promise.all([
+            context.prisma.spot.findMany({
+                where,
+                orderBy: { [sortBy]: sortOrder },
+                skip,
+                take: perPage,
+                select: {
+                    id: true,
+                    name: true,
+                    city: true,
+                    country: true,
+                    type: true,
+                    status: true,
+                    addedBy: {
+                        select: {
+                            user: {
+                                select: { username: true },
+                            },
+                        },
+                    },
+                    createdAt: true,
+                },
+            }),
+            context.prisma.spot.count({ where }),
+        ]);
+
+        return {
+            spots: spots.map((spot) => ({
+                id: spot.id,
+                name: spot.name,
+                city: spot.city,
+                country: spot.country,
+                type: spot.type,
+                status: spot.status,
+                addedBy: spot.addedBy ? { username: spot.addedBy.user.username } : null,
+                createdAt: spot.createdAt,
+            })),
+            total,
+            page,
+            perPage,
+        };
+    });
+
+// ============================================================================
+// admin.media.list — Paginated, sortable media listing for admin dashboard
+// ============================================================================
+
+export const listMedia = os.admin.media.list
+    .use(authed)
+    .use(admin)
+    .handler(async ({ context, input }) => {
+        const { page, perPage, sortBy, sortOrder, type } = input;
+        const skip = (page - 1) * perPage;
+
+        const where: Prisma.MediaWhereInput = {};
+
+        if (type) {
+            where.type = type;
+        }
+
+        const [media, total] = await Promise.all([
+            context.prisma.media.findMany({
+                where,
+                orderBy: { [sortBy]: sortOrder },
+                skip,
+                take: perPage,
+                select: {
+                    id: true,
+                    type: true,
+                    caption: true,
+                    image: true,
+                    spot: {
+                        select: {
+                            id: true,
+                            name: true,
+                        },
+                    },
+                    addedBy: {
+                        select: {
+                            user: {
+                                select: { username: true },
+                            },
+                        },
+                    },
+                    createdAt: true,
+                },
+            }),
+            context.prisma.media.count({ where }),
+        ]);
+
+        return {
+            media: media.map((m) => ({
+                id: m.id,
+                type: m.type,
+                caption: m.caption,
+                image: m.image as any,
+                spot: m.spot ? { id: m.spot.id, name: m.spot.name } : null,
+                addedBy: m.addedBy ? { username: m.addedBy.user.username } : null,
+                createdAt: m.createdAt,
+            })),
+            total,
+            page,
+            perPage,
+        };
+    });
