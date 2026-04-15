@@ -84,14 +84,14 @@ function UserHero({ user, profile }: { user: UserDetailOutput['user']; profile: 
     const avatarUrl = profile?.profilePicture?.url || user.image;
 
     return (
-        <div className="flex flex-col items-center gap-6 py-4">
-            <Avatar className="h-24 w-24">
+        <div className="flex items-center gap-6 py-4">
+            <Avatar className="h-16 w-16 shrink-0">
                 {avatarUrl && <AvatarImage src={avatarUrl} alt={user.username} />}
-                <AvatarFallback className="text-2xl">{initials}</AvatarFallback>
+                <AvatarFallback className="text-xl">{initials}</AvatarFallback>
             </Avatar>
-            <h1 className="text-2xl font-semibold">@{user.username}</h1>
+            <h1 className="shrink-0 text-2xl font-semibold">@{user.username}</h1>
             {profile && (
-                <div className="grid w-full max-w-lg grid-cols-3 gap-2 sm:grid-cols-6">
+                <div className="ml-auto flex gap-2">
                     <StatCell label="Followers" value={profile.followersStat?.all} />
                     <StatCell label="Following" value={profile.followingStat?.all} />
                     <StatCell label="Spots" value={profile.spotsFollowingStat?.all} />
@@ -364,12 +364,12 @@ function ProfileCard({ profile }: { profile: UserDetailOutput['profile'] }) {
 function UserDetailSkeleton() {
     return (
         <div className="flex flex-col gap-6">
-            <div className="flex flex-col items-center gap-6 py-4">
-                <Skeleton className="h-24 w-24 rounded-full" />
-                <Skeleton className="h-8 w-48" />
-                <div className="grid w-full max-w-lg grid-cols-3 gap-2 sm:grid-cols-6">
+            <div className="flex items-center gap-6 py-4">
+                <Skeleton className="h-16 w-16 shrink-0 rounded-full" />
+                <Skeleton className="h-8 w-48 shrink-0" />
+                <div className="ml-auto flex gap-2">
                     {Array.from({ length: 6 }).map((_, i) => (
-                        <Skeleton key={i} className="h-16 rounded-md" />
+                        <Skeleton key={i} className="h-16 w-16 rounded-md" />
                     ))}
                 </div>
             </div>
