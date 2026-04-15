@@ -20,6 +20,7 @@ import type { ContractOutputs } from '@krak/contracts';
 
 import { orpc } from '@/lib/orpc';
 import { SiteHeader } from '@/components/site-header';
+import { format } from 'date-fns';
 
 type UserDetailOutput = ContractOutputs['admin']['users']['getByUsername'];
 
@@ -38,7 +39,7 @@ function Field({ label, children }: { label: string; children: React.ReactNode }
 
 function DateField({ label, value }: { label: string; value: Date | null }) {
     if (!value) return <Field label={label}>-</Field>;
-    return <Field label={label}>{new Date(value).toLocaleString()}</Field>;
+    return <Field label={label}>{format(value, 'PPpp')}</Field>;
 }
 
 function RoleBadge({ role }: { role: string }) {
@@ -147,16 +148,10 @@ function UserInfoCard({ user }: { user: UserDetailOutput['user'] }) {
                         <SubscriptionBadge status={user.subscriptionStatus} />
                     </Field>
                     <Field label="Stripe Customer ID">
-                        {user.stripeCustomerId ? (
-                            <code className="text-xs">{user.stripeCustomerId}</code>
-                        ) : (
-                            '-'
-                        )}
+                        {user.stripeCustomerId ? <code className="text-xs">{user.stripeCustomerId}</code> : '-'}
                     </Field>
                 </div>
-                {user.subscriptionEndAt && (
-                    <DateField label="Subscription End" value={user.subscriptionEndAt} />
-                )}
+                {user.subscriptionEndAt && <DateField label="Subscription End" value={user.subscriptionEndAt} />}
 
                 <div className="grid grid-cols-2 gap-4">
                     <Field label="Newsletter">
@@ -188,18 +183,14 @@ function AccountsCard({ accounts }: { accounts: UserDetailOutput['accounts'] }) 
                 </div>
             </CardHeader>
             <CardContent className="grid gap-4">
-                {accounts.length === 0 && (
-                    <p className="text-muted-foreground text-sm">No linked accounts.</p>
-                )}
+                {accounts.length === 0 && <p className="text-muted-foreground text-sm">No linked accounts.</p>}
                 {accounts.map((account, index) => (
                     <div key={account.id}>
                         {index > 0 && <Separator className="mb-4" />}
                         <div className="grid gap-3">
                             <div className="grid grid-cols-2 gap-4">
                                 <Field label="Provider">
-                                    <Badge variant="outline">
-                                        {account.providerId}
-                                    </Badge>
+                                    <Badge variant="outline">{account.providerId}</Badge>
                                 </Field>
                                 <Field label="Account ID">
                                     <code className="text-xs">{account.accountId}</code>
@@ -268,11 +259,7 @@ function ProfileCard({ profile }: { profile: UserDetailOutput['profile'] }) {
                 {/* Banner */}
                 {profile.banner?.url && (
                     <div className="overflow-hidden rounded-md">
-                        <img
-                            src={profile.banner.url}
-                            alt="Banner"
-                            className="h-32 w-full object-cover"
-                        />
+                        <img src={profile.banner.url} alt="Banner" className="h-32 w-full object-cover" />
                     </div>
                 )}
 

@@ -2,6 +2,7 @@
 
 import type { ColumnDef } from '@tanstack/react-table';
 import { Badge, DataTableColumnHeader } from '@krak/ui';
+import { format } from 'date-fns';
 
 import type { ContractOutputs } from '@krak/contracts';
 
@@ -46,7 +47,7 @@ export const columns: ColumnDef<AdminUser>[] = [
         header: ({ column }) => <DataTableColumnHeader column={column} title="Created" />,
         cell: ({ row }) => {
             const date = new Date(row.getValue('createdAt'));
-            return <span className="text-muted-foreground">{date.toLocaleDateString()}</span>;
+            return <span className="text-muted-foreground">{format(date, 'PP')}</span>;
         },
     },
 ];
