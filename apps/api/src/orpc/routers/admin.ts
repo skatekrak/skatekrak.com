@@ -165,7 +165,7 @@ export const listSpots = os.admin.spots.list
     .use(authed)
     .use(admin)
     .handler(async ({ context, input }) => {
-        const { page, perPage, sortBy, sortOrder, search } = input;
+        const { page, perPage, sortBy, sortOrder, search, type, status } = input;
         const skip = (page - 1) * perPage;
 
         const where: Prisma.SpotWhereInput = {};
@@ -175,6 +175,14 @@ export const listSpots = os.admin.spots.list
                 { name: { contains: search, mode: 'insensitive' } },
                 { city: { contains: search, mode: 'insensitive' } },
             ];
+        }
+
+        if (type && type.length > 0) {
+            where.type = { in: type };
+        }
+
+        if (status && status.length > 0) {
+            where.status = { in: status };
         }
 
         const [spots, total] = await Promise.all([
@@ -198,6 +206,7 @@ export const listSpots = os.admin.spots.list
                         },
                     },
                     createdAt: true,
+                    updatedAt: true,
                 },
             }),
             context.prisma.spot.count({ where }),
@@ -213,6 +222,7 @@ export const listSpots = os.admin.spots.list
                 status: spot.status,
                 addedBy: spot.addedBy ? { username: spot.addedBy.user.username } : null,
                 createdAt: spot.createdAt,
+                updatedAt: spot.updatedAt,
             })),
             total,
             page,

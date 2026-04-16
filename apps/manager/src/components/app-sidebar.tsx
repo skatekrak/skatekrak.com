@@ -1,6 +1,6 @@
 'use client';
 
-import { LayoutDashboard, Users } from 'lucide-react';
+import { LayoutDashboard, MapPin, Users } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import * as React from 'react';
@@ -34,6 +34,11 @@ const managementItems = [
         title: 'Users',
         href: '/users',
         icon: Users,
+    },
+    {
+        title: 'Spots',
+        href: '/spots',
+        icon: MapPin,
     },
 ];
 

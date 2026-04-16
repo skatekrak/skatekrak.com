@@ -2,16 +2,16 @@
 
 Monorepo for the Skatekrak skateboarding platform.
 
-| App / Package | Path | What it does |
-| --- | --- | --- |
-| **Web** | `apps/web` | Main website (Next.js, React 19, Tailwind) |
-| **API** | `apps/api` | Backend API (Elysia on Bun, oRPC, Prisma) |
-| **Manager** | `apps/manager` | Admin dashboard (Next.js) |
-| **Contracts** | `packages/contracts` | Shared oRPC contract definitions |
-| **Auth** | `packages/auth` | Shared authentication logic |
-| **Prisma** | `packages/prisma` | Database schema and client |
-| **Types** | `packages/types` | Shared TypeScript types |
-| **UI** | `packages/ui` | Shared component library |
+| App / Package | Path                 | What it does                               |
+| ------------- | -------------------- | ------------------------------------------ |
+| **Web**       | `apps/web`           | Main website (Next.js, React 19, Tailwind) |
+| **API**       | `apps/api`           | Backend API (Elysia on Bun, oRPC, Prisma)  |
+| **Manager**   | `apps/manager`       | Admin dashboard (Next.js)                  |
+| **Contracts** | `packages/contracts` | Shared oRPC contract definitions           |
+| **Auth**      | `packages/auth`      | Shared authentication logic                |
+| **Prisma**    | `packages/prisma`    | Database schema and client                 |
+| **Types**     | `packages/types`     | Shared TypeScript types                    |
+| **UI**        | `packages/ui`        | Shared component library                   |
 
 ## Prerequisites
 
@@ -59,10 +59,10 @@ You will be prompted for your password (needed for `/etc/hosts` and trusting the
 
 After this, the following local domains are available:
 
-| Domain | Routes to |
-| --- | --- |
-| `https://dev.skatekrak.com` | Web (port 3000) |
-| `https://api.dev.skatekrak.com` | API (port 3001) |
+| Domain                              | Routes to           |
+| ----------------------------------- | ------------------- |
+| `https://dev.skatekrak.com`         | Web (port 3000)     |
+| `https://api.dev.skatekrak.com`     | API (port 3001)     |
 | `https://manager.dev.skatekrak.com` | Manager (port 3002) |
 
 ### 4. Environment variables
@@ -120,7 +120,7 @@ bun run format:check   # Check formatting without writing
 
 ## Deployments
 
-| Branch | Environment | URL |
-| --- | --- | --- |
-| `main` | Production | [skatekrak.com](https://www.skatekrak.com) |
-| PRs | Preview | Auto-deployed on Vercel |
+| Branch | Environment | URL                                        |
+| ------ | ----------- | ------------------------------------------ |
+| `main` | Production  | [skatekrak.com](https://www.skatekrak.com) |
+| PRs    | Preview     | Auto-deployed on Vercel                    |

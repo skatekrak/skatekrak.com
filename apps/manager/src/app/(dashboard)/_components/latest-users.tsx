@@ -2,11 +2,20 @@
 
 import { useQuery } from '@tanstack/react-query';
 import { formatDistanceToNow } from 'date-fns';
-
 import Link from 'next/link';
 
 import type { ContractOutputs } from '@krak/contracts';
-import { Avatar, AvatarFallback, Button, Card, CardContent, CardFooter, CardHeader, CardTitle, Skeleton } from '@krak/ui';
+import {
+    Avatar,
+    AvatarFallback,
+    Button,
+    Card,
+    CardContent,
+    CardFooter,
+    CardHeader,
+    CardTitle,
+    Skeleton,
+} from '@krak/ui';
 
 import { orpc } from '@/lib/orpc';
 
