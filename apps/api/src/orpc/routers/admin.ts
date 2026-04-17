@@ -231,6 +231,43 @@ export const listSpots = os.admin.spots.list
     });
 
 // ============================================================================
+// admin.spots.updateGeneralInfo — Update spot general info fields
+// ============================================================================
+
+export const updateSpotGeneralInfo = os.admin.spots.updateGeneralInfo
+    .use(authed)
+    .use(admin)
+    .handler(async ({ context, input }) => {
+        const { id, ...fields } = input;
+
+        // Build the Prisma update data, only including fields that were provided
+        const data: Prisma.SpotUpdateInput = {};
+
+        if (fields.name !== undefined) data.name = fields.name;
+        if (fields.type !== undefined) data.type = fields.type;
+        if (fields.status !== undefined) data.status = fields.status;
+        if (fields.indoor !== undefined) data.indoor = fields.indoor;
+        if (fields.description !== undefined) data.description = fields.description;
+        if (fields.tags !== undefined) data.tags = fields.tags;
+
+        const spot = await context.prisma.spot.update({
+            where: { id },
+            data,
+        });
+
+        return {
+            id: spot.id,
+            name: spot.name,
+            type: spot.type,
+            status: spot.status,
+            indoor: spot.indoor,
+            description: spot.description,
+            tags: spot.tags,
+            updatedAt: spot.updatedAt,
+        };
+    });
+
+// ============================================================================
 // admin.media.list — Paginated, sortable media listing for admin dashboard
 // ============================================================================
 
