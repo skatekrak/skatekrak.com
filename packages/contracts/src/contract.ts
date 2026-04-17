@@ -9,6 +9,8 @@ import {
     adminOverviewOutput,
     adminListSpotsInput,
     adminListSpotsOutput,
+    updateSpotGeneralInfoInput,
+    updateSpotGeneralInfoOutput,
     adminListMediaInput,
     adminListMediaOutput,
     adminListClipsInput,
@@ -91,6 +93,7 @@ export const contract = {
         },
         spots: {
             list: oc.input(adminListSpotsInput).output(adminListSpotsOutput),
+            updateGeneralInfo: oc.input(updateSpotGeneralInfoInput).output(updateSpotGeneralInfoOutput),
         },
         media: {
             list: oc.input(adminListMediaInput).output(adminListMediaOutput),
