@@ -3,6 +3,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { getCoreRowModel, useReactTable, type SortingState } from '@tanstack/react-table';
 import { ChevronDown } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 import { parseAsArrayOf, parseAsInteger, parseAsString, parseAsStringLiteral, useQueryState } from 'nuqs';
 import { useState } from 'react';
 
@@ -28,6 +29,7 @@ type SpotType = (typeof spotTypes)[number];
 type SpotStatus = (typeof spotStatuses)[number];
 
 export default function SpotsListPage() {
+    const router = useRouter();
     const [page, setPage] = useQueryState('page', parseAsInteger.withDefault(1));
     const [search, setSearch] = useQueryState('search', parseAsString.withDefault('').withOptions({ throttleMs: 300 }));
     const [types, setTypes] = useQueryState('type', parseAsArrayOf(parseAsStringLiteral(spotTypes)));
@@ -152,7 +154,13 @@ export default function SpotsListPage() {
                 </DropdownMenu>
             </div>
 
-            <DataTable columns={columns} table={table} loading={isLoading} skeletonRows={perPage}>
+            <DataTable
+                columns={columns}
+                table={table}
+                loading={isLoading}
+                skeletonRows={perPage}
+                onRowClick={(row) => router.push(`/spots/${row.original.id}`)}
+            >
                 {data && (
                     <DataTablePagination
                         page={page}
