@@ -184,6 +184,31 @@ export const adminListSpotsOutput = z.object({
 });
 
 // ============================================================================
+// Update spot general info
+// ============================================================================
+
+export const updateSpotGeneralInfoInput = z.object({
+    id: z.string(),
+    name: z.string().min(1).optional(),
+    type: AdminSpotTypeSchema.optional(),
+    status: AdminSpotStatusSchema.optional(),
+    indoor: z.boolean().optional(),
+    description: z.string().nullable().optional(),
+    tags: z.array(z.string()).optional(),
+});
+
+export const updateSpotGeneralInfoOutput = z.object({
+    id: z.string(),
+    name: z.string(),
+    type: AdminSpotTypeSchema,
+    status: AdminSpotStatusSchema,
+    indoor: z.boolean(),
+    description: z.string().nullable(),
+    tags: z.array(z.string()),
+    updatedAt: z.coerce.date(),
+});
+
+// ============================================================================
 // List media
 // ============================================================================
 
