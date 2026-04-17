@@ -1,17 +1,59 @@
 'use client';
 
-import { useQuery } from '@tanstack/react-query';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { format } from 'date-fns';
-import { ExternalLink, Facebook, Ghost, Globe, Instagram, MapPin, Phone } from 'lucide-react';
-import { use } from 'react';
+import { ExternalLink, Facebook, Ghost, Globe, Instagram, MapPin, Pencil, Phone } from 'lucide-react';
+import { use, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
 
 import type { ContractOutputs } from '@krak/contracts';
-import { Badge, Card, CardContent, CardHeader, CardTitle, Separator, Skeleton } from '@krak/ui';
+import { AdminSpotStatusSchema, AdminSpotTypeSchema } from '@krak/contracts';
+import {
+    Badge,
+    Button,
+    Card,
+    CardContent,
+    CardHeader,
+    CardTitle,
+    Form,
+    FormControl,
+    FormField,
+    FormItem,
+    FormLabel,
+    FormMessage,
+    Input,
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+    Separator,
+    Skeleton,
+    Switch,
+    Textarea,
+} from '@krak/ui';
 
-import { orpc } from '@/lib/orpc';
+import { client, orpc } from '@/lib/orpc';
 
 type SpotOverview = ContractOutputs['spots']['getSpotOverview'];
 type Spot = SpotOverview['spot'];
+
+// ============================================================================
+// Edit form schema
+// ============================================================================
+
+const editGeneralInfoSchema = z.object({
+    name: z.string().min(1, 'Name is required'),
+    type: AdminSpotTypeSchema,
+    status: AdminSpotStatusSchema,
+    indoor: z.boolean(),
+    description: z.string(),
+    tags: z.string(),
+});
+
+type EditGeneralInfoValues = z.infer<typeof editGeneralInfoSchema>;
 
 // ============================================================================
 // Helper components
@@ -81,10 +123,209 @@ function MapPreviewCard({ spot }: { spot: Spot }) {
 // ============================================================================
 
 function GeneralInfoCard({ spot }: { spot: Spot }) {
+    const [isEditing, setIsEditing] = useState(false);
+    const queryClient = useQueryClient();
+
+    const form = useForm<EditGeneralInfoValues>({
+        resolver: zodResolver(editGeneralInfoSchema),
+        defaultValues: {
+            name: spot.name,
+            type: spot.type.toUpperCase() as z.infer<typeof AdminSpotTypeSchema>,
+            status: spot.status.toUpperCase() as z.infer<typeof AdminSpotStatusSchema>,
+            indoor: spot.indoor,
+            description: spot.description ?? '',
+            tags: spot.tags.join(', '),
+        },
+    });
+
+    const mutation = useMutation({
+        mutationFn: (values: EditGeneralInfoValues) => {
+            const tags = values.tags
+                .split(',')
+                .map((t) => t.trim())
+                .filter(Boolean);
+
+            return client.admin.spots.updateGeneralInfo({
+                id: spot.id,
+                name: values.name,
+                type: values.type,
+                status: values.status,
+                indoor: values.indoor,
+                description: values.description || null,
+                tags,
+            });
+        },
+        onSuccess: () => {
+            queryClient.invalidateQueries({
+                queryKey: orpc.spots.getSpotOverview.queryOptions({ input: { id: spot.id } }).queryKey,
+            });
+            setIsEditing(false);
+        },
+    });
+
+    const handleCancel = () => {
+        form.reset();
+        mutation.reset();
+        setIsEditing(false);
+    };
+
+    const handleEdit = () => {
+        form.reset({
+            name: spot.name,
+            type: spot.type.toUpperCase() as z.infer<typeof AdminSpotTypeSchema>,
+            status: spot.status.toUpperCase() as z.infer<typeof AdminSpotStatusSchema>,
+            indoor: spot.indoor,
+            description: spot.description ?? '',
+            tags: spot.tags.join(', '),
+        });
+        setIsEditing(true);
+    };
+
+    if (isEditing) {
+        return (
+            <Card>
+                <CardHeader className="flex flex-row items-center justify-between">
+                    <CardTitle>General</CardTitle>
+                    <Button variant="ghost" size="sm" onClick={handleCancel}>
+                        Cancel
+                    </Button>
+                </CardHeader>
+                <CardContent>
+                    <Form {...form}>
+                        <form
+                            onSubmit={form.handleSubmit((values) => mutation.mutate(values))}
+                            className="flex flex-col gap-4"
+                        >
+                            <FormField
+                                control={form.control}
+                                name="name"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Name</FormLabel>
+                                        <FormControl>
+                                            <Input {...field} />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+
+                            <div className="grid grid-cols-2 gap-4">
+                                <FormField
+                                    control={form.control}
+                                    name="type"
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <FormLabel>Type</FormLabel>
+                                            <Select onValueChange={field.onChange} value={field.value}>
+                                                <FormControl>
+                                                    <SelectTrigger className="w-full">
+                                                        <SelectValue />
+                                                    </SelectTrigger>
+                                                </FormControl>
+                                                <SelectContent>
+                                                    {['SHOP', 'STREET', 'PARK', 'DIY', 'PRIVATE'].map((t) => (
+                                                        <SelectItem key={t} value={t}>
+                                                            {t.toLowerCase()}
+                                                        </SelectItem>
+                                                    ))}
+                                                </SelectContent>
+                                            </Select>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )}
+                                />
+
+                                <FormField
+                                    control={form.control}
+                                    name="status"
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <FormLabel>Status</FormLabel>
+                                            <Select onValueChange={field.onChange} value={field.value}>
+                                                <FormControl>
+                                                    <SelectTrigger className="w-full">
+                                                        <SelectValue />
+                                                    </SelectTrigger>
+                                                </FormControl>
+                                                <SelectContent>
+                                                    {['ACTIVE', 'WIP', 'RIP'].map((s) => (
+                                                        <SelectItem key={s} value={s}>
+                                                            {s.toLowerCase()}
+                                                        </SelectItem>
+                                                    ))}
+                                                </SelectContent>
+                                            </Select>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )}
+                                />
+                            </div>
+
+                            <FormField
+                                control={form.control}
+                                name="indoor"
+                                render={({ field }) => (
+                                    <FormItem className="flex flex-row items-center gap-3">
+                                        <FormLabel>Indoor</FormLabel>
+                                        <FormControl>
+                                            <Switch checked={field.value} onCheckedChange={field.onChange} />
+                                        </FormControl>
+                                    </FormItem>
+                                )}
+                            />
+
+                            <FormField
+                                control={form.control}
+                                name="description"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Description</FormLabel>
+                                        <FormControl>
+                                            <Textarea placeholder="Spot description..." {...field} />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+
+                            <FormField
+                                control={form.control}
+                                name="tags"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Tags</FormLabel>
+                                        <FormControl>
+                                            <Input placeholder="tag1, tag2, tag3" {...field} />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+
+                            {mutation.error && (
+                                <p className="text-sm text-destructive">
+                                    {mutation.error.message || 'Failed to update spot.'}
+                                </p>
+                            )}
+
+                            <Button type="submit" disabled={mutation.isPending}>
+                                {mutation.isPending ? 'Saving...' : 'Save'}
+                            </Button>
+                        </form>
+                    </Form>
+                </CardContent>
+            </Card>
+        );
+    }
+
     return (
         <Card>
-            <CardHeader>
+            <CardHeader className="flex flex-row items-center justify-between">
                 <CardTitle>General</CardTitle>
+                <Button variant="ghost" size="icon" onClick={handleEdit}>
+                    <Pencil className="size-4" />
+                </Button>
             </CardHeader>
             <CardContent className="flex flex-col gap-4">
                 <div className="grid grid-cols-2 gap-4">
