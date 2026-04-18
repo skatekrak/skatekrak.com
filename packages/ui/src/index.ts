@@ -86,3 +86,12 @@ export {
     FormMessage,
     FormField,
 } from './components/ui/form';
+export {
+    ChartContainer,
+    ChartTooltip,
+    ChartTooltipContent,
+    ChartLegend,
+    ChartLegendContent,
+    ChartStyle,
+    type ChartConfig,
+} from './components/ui/chart';

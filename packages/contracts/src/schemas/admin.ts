@@ -136,11 +136,17 @@ export const getUserByUsernameOutput = z.object({
 // Overview stats
 // ============================================================================
 
+export const SpotTypeCountSchema = z.object({
+    type: z.enum(['SHOP', 'STREET', 'PARK', 'DIY', 'PRIVATE']),
+    count: z.number(),
+});
+
 export const adminOverviewOutput = z.object({
     totalUsers: z.number(),
     totalSpots: z.number(),
     totalMedia: z.number(),
     totalClips: z.number(),
+    spotsByType: z.array(SpotTypeCountSchema),
 });
 
 // ============================================================================

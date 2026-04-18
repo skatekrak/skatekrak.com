@@ -147,14 +147,23 @@ export const overview = os.admin.overview
     .use(authed)
     .use(admin)
     .handler(async ({ context }) => {
-        const [totalUsers, totalSpots, totalMedia, totalClips] = await Promise.all([
+        const [totalUsers, totalSpots, totalMedia, totalClips, spotsByTypeRaw] = await Promise.all([
             context.prisma.user.count(),
             context.prisma.spot.count(),
             context.prisma.media.count(),
             context.prisma.clip.count(),
+            context.prisma.spot.groupBy({
+                by: ['type'],
+                _count: { type: true },
+            }),
         ]);
 
-        return { totalUsers, totalSpots, totalMedia, totalClips };
+        const spotsByType = spotsByTypeRaw.map((row) => ({
+            type: row.type,
+            count: row._count.type,
+        }));
+
+        return { totalUsers, totalSpots, totalMedia, totalClips, spotsByType };
     });
 
 // ============================================================================
