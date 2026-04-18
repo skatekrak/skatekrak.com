@@ -82,6 +82,7 @@ function StatusBadge({ status }: { status: string }) {
     return <Badge variant={variant}>{status}</Badge>;
 }
 
+
 // ============================================================================
 // Map Preview Card (placeholder)
 // ============================================================================
@@ -446,36 +447,7 @@ function SocialContactCard({ spot }: { spot: Spot }) {
     );
 }
 
-// ============================================================================
-// Statistics Card
-// ============================================================================
 
-function StatCell({ label, value }: { label: string; value: number | null | undefined }) {
-    return (
-        <div className="flex w-20 flex-col items-center gap-1 rounded-md border p-3">
-            <span className="text-2xl font-semibold">{value ?? 0}</span>
-            <span className="text-xs text-muted-foreground">{label}</span>
-        </div>
-    );
-}
-
-function StatsCard({ spot }: { spot: Spot }) {
-    return (
-        <Card>
-            <CardHeader>
-                <CardTitle>Statistics</CardTitle>
-            </CardHeader>
-            <CardContent>
-                <div className="flex flex-wrap gap-2">
-                    <StatCell label="Media" value={spot.mediasStat?.all} />
-                    <StatCell label="Clips" value={spot.clipsStat?.all} />
-                    <StatCell label="Tricks" value={spot.tricksDoneStat?.all} />
-                    <StatCell label="Comments" value={spot.commentsStat?.all} />
-                </div>
-            </CardContent>
-        </Card>
-    );
-}
 
 // ============================================================================
 // Loading skeleton
@@ -559,7 +531,6 @@ export default function SpotInfoPage({ params }: { params: Promise<{ id: string 
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
             <div className="flex flex-col gap-6">
                 <MapPreviewCard spot={spot} />
-                <StatsCard spot={spot} />
             </div>
             <div className="flex flex-col gap-6">
                 <GeneralInfoCard spot={spot} />
