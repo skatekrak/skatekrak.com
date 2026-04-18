@@ -45,7 +45,6 @@ type Spot = SpotOverview['spot'];
 // ============================================================================
 
 const editGeneralInfoSchema = z.object({
-    name: z.string().min(1, 'Name is required'),
     type: AdminSpotTypeSchema,
     status: AdminSpotStatusSchema,
     indoor: z.boolean(),
@@ -129,7 +128,6 @@ function GeneralInfoCard({ spot }: { spot: Spot }) {
     const form = useForm<EditGeneralInfoValues>({
         resolver: zodResolver(editGeneralInfoSchema),
         defaultValues: {
-            name: spot.name,
             type: spot.type.toUpperCase() as z.infer<typeof AdminSpotTypeSchema>,
             status: spot.status.toUpperCase() as z.infer<typeof AdminSpotStatusSchema>,
             indoor: spot.indoor,
@@ -147,7 +145,6 @@ function GeneralInfoCard({ spot }: { spot: Spot }) {
 
             return client.admin.spots.updateGeneralInfo({
                 id: spot.id,
-                name: values.name,
                 type: values.type,
                 status: values.status,
                 indoor: values.indoor,
@@ -171,7 +168,6 @@ function GeneralInfoCard({ spot }: { spot: Spot }) {
 
     const handleEdit = () => {
         form.reset({
-            name: spot.name,
             type: spot.type.toUpperCase() as z.infer<typeof AdminSpotTypeSchema>,
             status: spot.status.toUpperCase() as z.infer<typeof AdminSpotStatusSchema>,
             indoor: spot.indoor,
@@ -196,20 +192,6 @@ function GeneralInfoCard({ spot }: { spot: Spot }) {
                             onSubmit={form.handleSubmit((values) => mutation.mutate(values))}
                             className="flex flex-col gap-4"
                         >
-                            <FormField
-                                control={form.control}
-                                name="name"
-                                render={({ field }) => (
-                                    <FormItem>
-                                        <FormLabel>Name</FormLabel>
-                                        <FormControl>
-                                            <Input {...field} />
-                                        </FormControl>
-                                        <FormMessage />
-                                    </FormItem>
-                                )}
-                            />
-
                             <div className="grid grid-cols-2 gap-4">
                                 <FormField
                                     control={form.control}
@@ -298,6 +280,9 @@ function GeneralInfoCard({ spot }: { spot: Spot }) {
                                         <FormControl>
                                             <Input placeholder="tag1, tag2, tag3" {...field} />
                                         </FormControl>
+                                        <p className="text-xs text-muted-foreground">
+                                            Comma separated
+                                        </p>
                                         <FormMessage />
                                     </FormItem>
                                 )}
