@@ -314,3 +314,48 @@ export const adminListClipsOutput = z.object({
     page: z.number(),
     perPage: z.number(),
 });
+
+// ============================================================================
+// List maps
+// ============================================================================
+
+export const AdminMapCategorySchema = z.enum([
+    'maps',
+    'video',
+    'skater',
+    'filmer',
+    'photographer',
+    'magazine',
+    'skatepark',
+    'shop',
+    'years',
+    'greatest',
+    'members',
+    'artist',
+]);
+
+export const AdminMapSchema = z.object({
+    id: z.string(),
+    name: z.string(),
+    categories: z.array(z.string()),
+    subtitle: z.string().nullable(),
+    staging: z.boolean(),
+    createdAt: z.coerce.date(),
+    updatedAt: z.coerce.date(),
+});
+
+export const adminListMapsInput = z.object({
+    page: z.number().int().min(1).default(1),
+    perPage: z.number().int().min(1).max(100).default(20),
+    sortBy: z.enum(['createdAt']).default('createdAt'),
+    sortOrder: z.enum(['asc', 'desc']).default('desc'),
+    search: z.string().optional(),
+    categories: z.array(AdminMapCategorySchema).optional(),
+});
+
+export const adminListMapsOutput = z.object({
+    maps: z.array(AdminMapSchema),
+    total: z.number(),
+    page: z.number(),
+    perPage: z.number(),
+});
