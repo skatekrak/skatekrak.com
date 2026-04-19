@@ -114,7 +114,7 @@ export function SpotTypeChart() {
                         {overviewLoading ? (
                             <Skeleton className="mx-auto aspect-square w-full max-w-[150px] rounded-full" />
                         ) : (
-                            <ChartContainer config={chartConfig} className="mx-auto aspect-square w-full max-h-[200px]">
+                            <ChartContainer config={chartConfig} className="ml-auto aspect-square w-full max-h-[200px]">
                                 <PieChart>
                                     <Pie
                                         data={chartData}

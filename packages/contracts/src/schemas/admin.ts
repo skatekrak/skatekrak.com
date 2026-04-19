@@ -141,12 +141,18 @@ export const SpotTypeCountSchema = z.object({
     count: z.number(),
 });
 
+export const MediaTypeCountSchema = z.object({
+    type: z.enum(['IMAGE', 'VIDEO']),
+    count: z.number(),
+});
+
 export const adminOverviewOutput = z.object({
     totalUsers: z.number(),
     totalSpots: z.number(),
     totalMedia: z.number(),
     totalClips: z.number(),
     spotsByType: z.array(SpotTypeCountSchema),
+    mediaByType: z.array(MediaTypeCountSchema),
 });
 
 // ============================================================================
