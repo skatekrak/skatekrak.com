@@ -146,6 +146,11 @@ export const MediaTypeCountSchema = z.object({
     count: z.number(),
 });
 
+export const ClipProviderCountSchema = z.object({
+    provider: z.enum(['YOUTUBE', 'VIMEO']),
+    count: z.number(),
+});
+
 export const adminOverviewOutput = z.object({
     totalUsers: z.number(),
     totalSpots: z.number(),
@@ -153,6 +158,7 @@ export const adminOverviewOutput = z.object({
     totalClips: z.number(),
     spotsByType: z.array(SpotTypeCountSchema),
     mediaByType: z.array(MediaTypeCountSchema),
+    clipsByProvider: z.array(ClipProviderCountSchema),
 });
 
 // ============================================================================
