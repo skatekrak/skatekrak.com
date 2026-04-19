@@ -7,6 +7,7 @@ import {
     updateSpotGeneralInfo,
     listMedia,
     listClips,
+    listAdminMaps,
 } from './routers/admin';
 import { fetchMap, listMaps } from './routers/maps';
 import {
@@ -72,6 +73,9 @@ export const router = os.router({
         },
         clips: {
             list: listClips,
+        },
+        maps: {
+            list: listAdminMaps,
         },
     },
 });

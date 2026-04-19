@@ -415,3 +415,51 @@ export const listClips = os.admin.clips.list
             perPage,
         };
     });
+
+// ============================================================================
+// admin.maps.list — Paginated, sortable map listing for admin dashboard
+// ============================================================================
+
+export const listAdminMaps = os.admin.maps.list
+    .use(authed)
+    .use(admin)
+    .handler(async ({ context, input }) => {
+        const { page, perPage, sortBy, sortOrder, search, categories } = input;
+        const skip = (page - 1) * perPage;
+
+        const where: Prisma.MapWhereInput = {};
+
+        if (search) {
+            where.name = { contains: search, mode: 'insensitive' };
+        }
+
+        if (categories && categories.length > 0) {
+            where.categories = { hasSome: categories };
+        }
+
+        const [maps, total] = await Promise.all([
+            context.prisma.map.findMany({
+                where,
+                orderBy: { [sortBy]: sortOrder },
+                skip,
+                take: perPage,
+                select: {
+                    id: true,
+                    name: true,
+                    categories: true,
+                    subtitle: true,
+                    staging: true,
+                    createdAt: true,
+                    updatedAt: true,
+                },
+            }),
+            context.prisma.map.count({ where }),
+        ]);
+
+        return {
+            maps,
+            total,
+            page,
+            perPage,
+        };
+    });
