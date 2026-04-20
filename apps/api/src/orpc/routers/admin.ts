@@ -463,3 +463,35 @@ export const listAdminMaps = os.admin.maps.list
             perPage,
         };
     });
+
+// ============================================================================
+// admin.maps.create — Create a new map
+// ============================================================================
+
+export const createAdminMap = os.admin.maps.create
+    .use(authed)
+    .use(admin)
+    .handler(async ({ context, input }) => {
+        const { id, name, subtitle, categories, edito, about, staging, videos, soundtrack } = input;
+
+        const existing = await context.prisma.map.findUnique({ where: { id } });
+        if (existing) {
+            throw new ORPCError('CONFLICT', { message: `A map with ID "${id}" already exists` });
+        }
+
+        const map = await context.prisma.map.create({
+            data: {
+                id,
+                name,
+                subtitle,
+                categories,
+                edito,
+                about,
+                staging,
+                videos,
+                soundtrack,
+            },
+        });
+
+        return map;
+    });
