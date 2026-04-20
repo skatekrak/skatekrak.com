@@ -1,8 +1,7 @@
 import * as React from 'react';
 
-import { getImgproxyUrl, type ImgproxyOptions } from '@krak/utils';
-
 import { cn } from '@krak/ui/lib/utils';
+import { getImgproxyUrl, type ImgproxyOptions } from '@krak/utils';
 
 // ---------------------------------------------------------------------------
 // Context — share the imgproxy base URL across the app
