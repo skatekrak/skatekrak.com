@@ -47,8 +47,7 @@ function SpotHero({ spot }: { spot: Spot }) {
     const inputRef = useRef<HTMLInputElement>(null);
 
     const mutation = useMutation({
-        mutationFn: (newName: string) =>
-            client.admin.spots.updateGeneralInfo({ id: spot.id, name: newName }),
+        mutationFn: (newName: string) => client.admin.spots.updateGeneralInfo({ id: spot.id, name: newName }),
         onSuccess: () => {
             queryClient.invalidateQueries({
                 queryKey: orpc.spots.getSpotOverview.queryOptions({ input: { id: spot.id } }).queryKey,

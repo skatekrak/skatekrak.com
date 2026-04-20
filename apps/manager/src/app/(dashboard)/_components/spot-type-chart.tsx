@@ -6,7 +6,6 @@ import { MapPin } from 'lucide-react';
 import Link from 'next/link';
 import * as React from 'react';
 import { Pie, PieChart } from 'recharts';
-import type { PieLabelRenderProps } from 'recharts';
 
 import type { ContractOutputs } from '@krak/contracts';
 import {
@@ -22,6 +21,8 @@ import {
 } from '@krak/ui';
 
 import { orpc } from '@/lib/orpc';
+
+import type { PieLabelRenderProps } from 'recharts';
 
 type Spot = ContractOutputs['admin']['spots']['list']['spots'][number];
 
@@ -149,7 +150,10 @@ export function SpotTypeChart() {
 
 function SpotRow({ spot }: { spot: Spot }) {
     return (
-        <Link href={`/spots/${spot.id}/info`} className="flex items-center gap-3 rounded-md p-2 transition-colors hover:bg-muted/50">
+        <Link
+            href={`/spots/${spot.id}/info`}
+            className="flex items-center gap-3 rounded-md p-2 transition-colors hover:bg-muted/50"
+        >
             <div className="flex size-8 shrink-0 items-center justify-center rounded-md bg-muted">
                 <MapPin className="size-4 text-muted-foreground" />
             </div>
@@ -172,13 +176,13 @@ function SpotRow({ spot }: { spot: Spot }) {
 }
 
 function RowSkeleton() {
-  return (
-    <div className="flex items-center gap-3 p-2">
-      <Skeleton className="size-8 rounded-md" />
-      <div className="flex flex-1 flex-col gap-1">
-        <Skeleton className="h-4 w-24" />
-        <Skeleton className="h-3 w-32" />
-      </div>
-    </div>
-  );
+    return (
+        <div className="flex items-center gap-3 p-2">
+            <Skeleton className="size-8 rounded-md" />
+            <div className="flex flex-1 flex-col gap-1">
+                <Skeleton className="h-4 w-24" />
+                <Skeleton className="h-3 w-32" />
+            </div>
+        </div>
+    );
 }

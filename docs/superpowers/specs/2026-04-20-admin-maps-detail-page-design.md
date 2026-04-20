@@ -17,13 +17,14 @@ Replace the side sheet on the Maps admin page with a full detail page at `/maps/
 
 The detail page makes 3 queries (same as the web app):
 
-| Query | oRPC call | When |
-|-------|-----------|------|
-| Map info | `orpc.maps.fetch({ id })` | Always |
-| Spots | `orpc.spots.listByTags({ tags: [id], tagsFromMedia })` | Always (`tagsFromMedia` depends on map category) |
-| Media | `orpc.media.list({ hashtag: id, limit: 20 })` | Always (cursor-paginated) |
+| Query    | oRPC call                                              | When                                             |
+| -------- | ------------------------------------------------------ | ------------------------------------------------ |
+| Map info | `orpc.maps.fetch({ id })`                              | Always                                           |
+| Spots    | `orpc.spots.listByTags({ tags: [id], tagsFromMedia })` | Always (`tagsFromMedia` depends on map category) |
+| Media    | `orpc.media.list({ hashtag: id, limit: 20 })`          | Always (cursor-paginated)                        |
 
 The `tagsFromMedia` flag logic (same as web app):
+
 - `false` when map categories include "Maps", "Skateparks", or "Shops" — spots are found by their direct `tags` array
 - `true` for all other categories (Video, Skaters, Filmers, etc.) — spots are found via media hashtags
 
@@ -78,6 +79,7 @@ Tab labels include counts when data is loaded: "Spots (42)", "Media (15)", etc.
 Data: `orpc.spots.listByTags({ tags: [id], tagsFromMedia })`
 
 Display: List of spot rows inside a `<Card>`. Each row shows:
+
 - Spot name (font-medium)
 - City + Country in muted text
 - Type badge (`<Badge>`)
@@ -90,6 +92,7 @@ Empty state: "No spots linked to this map"
 Data: `orpc.media.list({ hashtag: id, limit: 20, cursor })` — cursor-paginated infinite query
 
 Display: Grid of media thumbnails (Cloudinary image URLs). Each item shows:
+
 - Thumbnail image (small square, `object-cover`)
 - Caption below (truncated)
 - Added by username in muted text

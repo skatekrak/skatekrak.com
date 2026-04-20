@@ -15,19 +15,19 @@ Add a Maps management page to the manager app (`apps/manager`) at `/maps`, allow
 
 PostgreSQL `maps` table (Prisma):
 
-| Field | Type | Notes |
-|-------|------|-------|
-| id | String (PK) | Human-readable slug, e.g. "famous", "thps" |
-| name | String | Display name |
-| categories | String[] | Raw slugs: maps, video, skater, filmer, photographer, magazine, skatepark, shop, years, greatest, members, artist |
-| subtitle | String | Default "" |
-| edito | String | Editorial blurb |
-| about | String | Longer description |
-| staging | Boolean | Default false, hides from public endpoints |
-| videos | String[] | Video URLs |
-| soundtrack | String[] | Track names |
-| createdAt | DateTime | Auto-generated |
-| updatedAt | DateTime | Auto-updated |
+| Field      | Type        | Notes                                                                                                             |
+| ---------- | ----------- | ----------------------------------------------------------------------------------------------------------------- |
+| id         | String (PK) | Human-readable slug, e.g. "famous", "thps"                                                                        |
+| name       | String      | Display name                                                                                                      |
+| categories | String[]    | Raw slugs: maps, video, skater, filmer, photographer, magazine, skatepark, shop, years, greatest, members, artist |
+| subtitle   | String      | Default ""                                                                                                        |
+| edito      | String      | Editorial blurb                                                                                                   |
+| about      | String      | Longer description                                                                                                |
+| staging    | Boolean     | Default false, hides from public endpoints                                                                        |
+| videos     | String[]    | Video URLs                                                                                                        |
+| soundtrack | String[]    | Track names                                                                                                       |
+| createdAt  | DateTime    | Auto-generated                                                                                                    |
+| updatedAt  | DateTime    | Auto-updated                                                                                                      |
 
 12 category values: `maps`, `video`, `skater`, `filmer`, `photographer`, `magazine`, `skatepark`, `shop`, `years`, `greatest`, `members`, `artist`.
 
@@ -39,9 +39,18 @@ Add to `packages/contracts/src/schemas/admin.ts`:
 
 ```ts
 export const AdminMapCategorySchema = z.enum([
-    'maps', 'video', 'skater', 'filmer', 'photographer',
-    'magazine', 'skatepark', 'shop', 'years', 'greatest',
-    'members', 'artist',
+    'maps',
+    'video',
+    'skater',
+    'filmer',
+    'photographer',
+    'magazine',
+    'skatepark',
+    'shop',
+    'years',
+    'greatest',
+    'members',
+    'artist',
 ]);
 
 export const AdminMapSchema = z.object({
@@ -84,9 +93,9 @@ maps: {
 New file `apps/api/src/orpc/routers/admin/maps.ts` implementing `listAdminMaps`:
 
 - Uses `context.prisma.map.findMany()` with:
-  - `where.name: { contains: search, mode: 'insensitive' }` when search is provided
-  - `where.categories: { hasSome: categories }` when categories filter is provided
-  - No staging filter — admin always sees all maps
+    - `where.name: { contains: search, mode: 'insensitive' }` when search is provided
+    - `where.categories: { hasSome: categories }` when categories filter is provided
+    - No staging filter — admin always sees all maps
 - `orderBy: { [sortBy]: sortOrder }`
 - `skip: (page - 1) * perPage`, `take: perPage`
 - Separate `count()` query with the same `where` clause for total
@@ -102,15 +111,18 @@ Register in `apps/api/src/orpc/router.ts` under `admin.maps.list`.
 Client component. Same structure as Users and Spots list pages.
 
 **URL state (nuqs):**
+
 - `page` — `parseAsInteger.withDefault(1)`
 - `search` — `parseAsString.withDefault('').withOptions({ throttleMs: 300 })`
 - `categories` — `parseAsArrayOf(parseAsStringLiteral([...12 categories]))`
 
 **Local state:**
+
 - `sorting` — `useState<SortingState>([{ id: 'createdAt', desc: true }])`
 - `selectedMapId` — `useState<string | null>(null)` for the side sheet
 
 **Data fetching:**
+
 ```ts
 const { data, isLoading } = useQuery(
     orpc.admin.maps.list.queryOptions({
@@ -120,26 +132,30 @@ const { data, isLoading } = useQuery(
 ```
 
 **Filter bar layout:**
+
 - Search `<Input>` (placeholder "Search maps...", max-w-sm)
 - Category multi-select `<DropdownMenu>` with `<DropdownMenuCheckboxItem>` for each of the 12 categories (same pattern as spot type filter)
 
 **Table:**
+
 - `useReactTable` with `manualSorting: true`
 - `<DataTable>` with `onRowClick` setting `selectedMapId` to the clicked map's ID
 - `<DataTablePagination>` as children
 
 **Side sheet:**
+
 - `<MapDetailSheet mapId={selectedMapId} open={!!selectedMapId} onOpenChange={...} />`
 
 ### Columns: maps/columns.tsx
 
-| Column key | Header | Sortable | Cell rendering |
-|------------|--------|----------|----------------|
-| `name` | Name | No | Map name in font-medium. If `staging === true`, render a `<Badge variant="outline">Staging</Badge>` inline after the name. Subtitle rendered below in `text-muted-foreground text-sm` if present. |
-| `categories` | Categories | No | Array of `<Badge variant="secondary">` with display-friendly labels (capitalize first letter). Wrap with `flex flex-wrap gap-1`. |
-| `createdAt` | Created At | Yes | Formatted date using `toLocaleDateString()`. Uses `<DataTableColumnHeader>`. |
+| Column key   | Header     | Sortable | Cell rendering                                                                                                                                                                                    |
+| ------------ | ---------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `name`       | Name       | No       | Map name in font-medium. If `staging === true`, render a `<Badge variant="outline">Staging</Badge>` inline after the name. Subtitle rendered below in `text-muted-foreground text-sm` if present. |
+| `categories` | Categories | No       | Array of `<Badge variant="secondary">` with display-friendly labels (capitalize first letter). Wrap with `flex flex-wrap gap-1`.                                                                  |
+| `createdAt`  | Created At | Yes      | Formatted date using `toLocaleDateString()`. Uses `<DataTableColumnHeader>`.                                                                                                                      |
 
 Type definition:
+
 ```ts
 export type AdminMap = ContractOutputs['admin']['maps']['list']['maps'][number];
 ```
@@ -151,16 +167,17 @@ Uses `<Sheet>` from `@krak/ui` (shadcn), opens from the right.
 Fetches full map data using existing `orpc.maps.fetch.queryOptions({ input: { id } })` when `mapId` is set.
 
 Layout inside `<SheetContent>`:
+
 - `<SheetHeader>`: Map name as title, subtitle as description
 - Staging badge if `staging === true`
 - Categories as badges
 - Sections with labels:
-  - **Edito**: Text content or "—" if empty
-  - **About**: Text content or "—" if empty
-  - **Videos**: List of URLs (or "No videos")
-  - **Soundtrack**: List of track names (or "No soundtrack")
-  - **Created**: Formatted date
-  - **Updated**: Formatted date
+    - **Edito**: Text content or "—" if empty
+    - **About**: Text content or "—" if empty
+    - **Videos**: List of URLs (or "No videos")
+    - **Soundtrack**: List of track names (or "No soundtrack")
+    - **Created**: Formatted date
+    - **Updated**: Formatted date
 
 Read-only — no editing capabilities in this iteration.
 
@@ -177,12 +194,14 @@ Using the `Map` icon from `lucide-react`. Place it after Spots.
 ## 3. Files to Create/Modify
 
 ### New files:
+
 - `apps/manager/src/app/(dashboard)/maps/page.tsx`
 - `apps/manager/src/app/(dashboard)/maps/columns.tsx`
 - `apps/manager/src/app/(dashboard)/maps/map-detail-sheet.tsx`
 - `apps/api/src/orpc/routers/admin/maps.ts`
 
 ### Modified files:
+
 - `packages/contracts/src/schemas/admin.ts` — Add map admin schemas
 - `packages/contracts/src/contract.ts` — Add `admin.maps.list` contract
 - `apps/api/src/orpc/router.ts` — Register admin maps route

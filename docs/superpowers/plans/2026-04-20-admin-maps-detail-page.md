@@ -13,12 +13,15 @@
 ## File Structure
 
 ### Modified files:
+
 - `apps/manager/src/app/(dashboard)/maps/page.tsx` — Remove sheet, add router navigation
 
 ### Deleted files:
+
 - `apps/manager/src/app/(dashboard)/maps/map-detail-sheet.tsx` — No longer needed
 
 ### New files:
+
 - `apps/manager/src/app/(dashboard)/maps/[id]/page.tsx` — Detail page orchestrator
 - `apps/manager/src/app/(dashboard)/maps/[id]/map-info-card.tsx` — Left panel (map metadata)
 - `apps/manager/src/app/(dashboard)/maps/[id]/map-preview-tabs.tsx` — Right panel (tabbed content preview)
@@ -28,6 +31,7 @@
 ### Task 1: Update maps list page to navigate instead of opening sheet
 
 **Files:**
+
 - Modify: `apps/manager/src/app/(dashboard)/maps/page.tsx`
 - Delete: `apps/manager/src/app/(dashboard)/maps/map-detail-sheet.tsx`
 
@@ -106,10 +110,7 @@ export default function MapsPage() {
     const router = useRouter();
     const [page, setPage] = useQueryState('page', parseAsInteger.withDefault(1));
     const [search, setSearch] = useQueryState('search', parseAsString.withDefault('').withOptions({ throttleMs: 300 }));
-    const [categories, setCategories] = useQueryState(
-        'category',
-        parseAsArrayOf(parseAsStringLiteral(mapCategories)),
-    );
+    const [categories, setCategories] = useQueryState('category', parseAsArrayOf(parseAsStringLiteral(mapCategories)));
     const [sorting, setSorting] = useState<SortingState>([{ id: 'createdAt', desc: true }]);
 
     const perPage = 20;
@@ -237,6 +238,7 @@ git commit -m "refactor(manager): replace maps side sheet with navigation to det
 ### Task 2: Create map info card component
 
 **Files:**
+
 - Create: `apps/manager/src/app/(dashboard)/maps/[id]/map-info-card.tsx`
 
 - [ ] **Step 1: Create map-info-card.tsx**
@@ -323,15 +325,11 @@ export function MapInfoCard({ map }: MapInfoCardProps) {
                     </div>
                     <div className="flex items-center justify-between">
                         <span className="text-sm font-medium">Created</span>
-                        <span className="text-sm text-muted-foreground">
-                            {format(new Date(map.createdAt), 'PP')}
-                        </span>
+                        <span className="text-sm text-muted-foreground">{format(new Date(map.createdAt), 'PP')}</span>
                     </div>
                     <div className="flex items-center justify-between">
                         <span className="text-sm font-medium">Updated</span>
-                        <span className="text-sm text-muted-foreground">
-                            {format(new Date(map.updatedAt), 'PP')}
-                        </span>
+                        <span className="text-sm text-muted-foreground">{format(new Date(map.updatedAt), 'PP')}</span>
                     </div>
                 </div>
             </CardContent>
@@ -439,6 +437,7 @@ git commit -m "feat(manager): add map info card component for detail page"
 ### Task 3: Create map preview tabs component
 
 **Files:**
+
 - Create: `apps/manager/src/app/(dashboard)/maps/[id]/map-preview-tabs.tsx`
 
 - [ ] **Step 1: Create map-preview-tabs.tsx**
@@ -453,7 +452,19 @@ import { useMemo } from 'react';
 import Link from 'next/link';
 
 import type { ContractOutputs } from '@krak/contracts';
-import { Badge, Button, Card, CardContent, CardHeader, CardTitle, Skeleton, Tabs, TabsContent, TabsList, TabsTrigger } from '@krak/ui';
+import {
+    Badge,
+    Button,
+    Card,
+    CardContent,
+    CardHeader,
+    CardTitle,
+    Skeleton,
+    Tabs,
+    TabsContent,
+    TabsList,
+    TabsTrigger,
+} from '@krak/ui';
 
 import { orpc } from '@/lib/orpc';
 
@@ -509,18 +520,10 @@ export function MapPreviewTabs({ map }: MapPreviewTabsProps) {
     return (
         <Tabs defaultValue="spots">
             <TabsList>
-                <TabsTrigger value="spots">
-                    Spots{!spotsLoading && ` (${spotsCount})`}
-                </TabsTrigger>
-                <TabsTrigger value="media">
-                    Media{!mediaLoading && ` (${mediasCount})`}
-                </TabsTrigger>
-                <TabsTrigger value="videos">
-                    Videos ({map.videos.length})
-                </TabsTrigger>
-                <TabsTrigger value="soundtrack">
-                    Soundtrack ({map.soundtrack.length})
-                </TabsTrigger>
+                <TabsTrigger value="spots">Spots{!spotsLoading && ` (${spotsCount})`}</TabsTrigger>
+                <TabsTrigger value="media">Media{!mediaLoading && ` (${mediasCount})`}</TabsTrigger>
+                <TabsTrigger value="videos">Videos ({map.videos.length})</TabsTrigger>
+                <TabsTrigger value="soundtrack">Soundtrack ({map.soundtrack.length})</TabsTrigger>
             </TabsList>
 
             {/* Spots Tab */}
@@ -687,6 +690,7 @@ git commit -m "feat(manager): add map preview tabs component with spots, media, 
 ### Task 4: Create map detail page
 
 **Files:**
+
 - Create: `apps/manager/src/app/(dashboard)/maps/[id]/page.tsx`
 
 - [ ] **Step 1: Create page.tsx**

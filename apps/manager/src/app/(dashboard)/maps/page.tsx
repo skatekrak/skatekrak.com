@@ -59,10 +59,7 @@ export default function MapsPage() {
     const router = useRouter();
     const [page, setPage] = useQueryState('page', parseAsInteger.withDefault(1));
     const [search, setSearch] = useQueryState('search', parseAsString.withDefault('').withOptions({ throttleMs: 300 }));
-    const [categories, setCategories] = useQueryState(
-        'category',
-        parseAsArrayOf(parseAsStringLiteral(mapCategories)),
-    );
+    const [categories, setCategories] = useQueryState('category', parseAsArrayOf(parseAsStringLiteral(mapCategories)));
     const [sorting, setSorting] = useState<SortingState>([{ id: 'createdAt', desc: true }]);
 
     const perPage = 20;

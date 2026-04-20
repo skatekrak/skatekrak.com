@@ -82,7 +82,6 @@ function StatusBadge({ status }: { status: string }) {
     return <Badge variant={variant}>{status}</Badge>;
 }
 
-
 // ============================================================================
 // Map Preview Card (placeholder)
 // ============================================================================
@@ -281,9 +280,7 @@ function GeneralInfoCard({ spot }: { spot: Spot }) {
                                         <FormControl>
                                             <Input placeholder="tag1, tag2, tag3" {...field} />
                                         </FormControl>
-                                        <p className="text-xs text-muted-foreground">
-                                            Comma separated
-                                        </p>
+                                        <p className="text-xs text-muted-foreground">Comma separated</p>
                                         <FormMessage />
                                     </FormItem>
                                 )}
@@ -446,8 +443,6 @@ function SocialContactCard({ spot }: { spot: Spot }) {
         </Card>
     );
 }
-
-
 
 // ============================================================================
 // Loading skeleton

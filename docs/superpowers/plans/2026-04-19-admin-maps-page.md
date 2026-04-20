@@ -13,6 +13,7 @@
 ## File Structure
 
 ### New files:
+
 - `packages/contracts/src/schemas/admin.ts` — add admin map schemas (modify)
 - `packages/contracts/src/contract.ts` — add admin.maps.list contract (modify)
 - `apps/api/src/orpc/routers/admin.ts` — add listAdminMaps handler (modify)
@@ -28,6 +29,7 @@
 ### Task 1: Add admin map schemas to contracts
 
 **Files:**
+
 - Modify: `packages/contracts/src/schemas/admin.ts`
 
 - [ ] **Step 1: Add admin map schemas**
@@ -125,6 +127,7 @@ git commit -m "feat(contracts): add admin.maps.list contract with pagination, se
 ### Task 2: Add admin maps list endpoint
 
 **Files:**
+
 - Modify: `apps/api/src/orpc/routers/admin.ts`
 - Modify: `apps/api/src/orpc/router.ts`
 
@@ -225,6 +228,7 @@ git commit -m "feat(api): add admin.maps.list endpoint with search, category fil
 ### Task 3: Export Sheet from @krak/ui
 
 **Files:**
+
 - Modify: `packages/ui/src/index.ts`
 
 - [ ] **Step 1: Add Sheet exports**
@@ -258,6 +262,7 @@ git commit -m "feat(ui): export Sheet components from @krak/ui barrel"
 ### Task 4: Add Maps to sidebar navigation
 
 **Files:**
+
 - Modify: `apps/manager/src/components/app-sidebar.tsx`
 
 - [ ] **Step 1: Add Map icon import and Maps nav item**
@@ -308,6 +313,7 @@ git commit -m "feat(manager): add Maps to sidebar navigation"
 ### Task 5: Create maps column definitions
 
 **Files:**
+
 - Create: `apps/manager/src/app/(dashboard)/maps/columns.tsx`
 
 - [ ] **Step 1: Create columns.tsx**
@@ -402,6 +408,7 @@ git commit -m "feat(manager): add maps table column definitions"
 ### Task 6: Create map detail side sheet
 
 **Files:**
+
 - Create: `apps/manager/src/app/(dashboard)/maps/map-detail-sheet.tsx`
 
 - [ ] **Step 1: Create map-detail-sheet.tsx**
@@ -569,6 +576,7 @@ git commit -m "feat(manager): add map detail side sheet component"
 ### Task 7: Create maps list page
 
 **Files:**
+
 - Create: `apps/manager/src/app/(dashboard)/maps/page.tsx`
 
 - [ ] **Step 1: Create page.tsx**
@@ -636,10 +644,7 @@ const categoryLabels: Record<string, string> = {
 export default function MapsPage() {
     const [page, setPage] = useQueryState('page', parseAsInteger.withDefault(1));
     const [search, setSearch] = useQueryState('search', parseAsString.withDefault('').withOptions({ throttleMs: 300 }));
-    const [categories, setCategories] = useQueryState(
-        'category',
-        parseAsArrayOf(parseAsStringLiteral(mapCategories)),
-    );
+    const [categories, setCategories] = useQueryState('category', parseAsArrayOf(parseAsStringLiteral(mapCategories)));
     const [sorting, setSorting] = useState<SortingState>([{ id: 'createdAt', desc: true }]);
     const [selectedMapId, setSelectedMapId] = useState<string | null>(null);
 
