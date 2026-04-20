@@ -17,7 +17,7 @@
         "format": "oxfmt .",
         "format:check": "oxfmt --check .",
         "lint": "oxlint . && bunx sherif",
-        "lint:fix": "oxlint . --fix",
+        "lint:fix": "oxlint . --fix && bunx sherif --fix",
         "build": "turbo build",
         "dev": "turbo dev --parallel --ui tui",
         "dev:web": "turbo dev --filter=@krak/web",
