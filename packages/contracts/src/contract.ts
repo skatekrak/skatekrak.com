@@ -21,6 +21,7 @@ import {
     updateMapInput,
     uploadMapImageInput,
     uploadMapImageOutput,
+    deleteMapInput,
 } from './schemas/admin';
 import { MapSchema, MapListItemSchema, fetchMapInput } from './schemas/maps';
 import { MediaSchema, ClipSchema, MediasAroundSchema } from './schemas/media';
@@ -112,6 +113,7 @@ export const contract = {
             create: oc.input(createMapInput).output(MapSchema),
             update: oc.input(updateMapInput).output(MapSchema),
             uploadImage: oc.input(uploadMapImageInput).output(uploadMapImageOutput),
+            delete: oc.input(deleteMapInput).output(z.object({ success: z.boolean() })),
         },
     },
 };

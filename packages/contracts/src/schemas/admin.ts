@@ -407,3 +407,11 @@ export const uploadMapImageInput = z.object({
 export const uploadMapImageOutput = z.object({
     path: z.string(),
 });
+
+// ============================================================================
+// Delete map
+// ============================================================================
+
+export const deleteMapInput = z.object({
+    id: z.string().min(1),
+});

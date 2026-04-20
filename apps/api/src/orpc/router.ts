@@ -11,6 +11,7 @@ import {
     createAdminMap,
     updateAdminMap,
     uploadMapImage,
+    deleteAdminMap,
 } from './routers/admin';
 import { fetchMap, listMaps } from './routers/maps';
 import {
@@ -82,6 +83,7 @@ export const router = os.router({
             create: createAdminMap,
             update: updateAdminMap,
             uploadImage: uploadMapImage,
+            delete: deleteAdminMap,
         },
     },
 });

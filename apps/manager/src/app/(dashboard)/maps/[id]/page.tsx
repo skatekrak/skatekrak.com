@@ -1,32 +1,28 @@
 'use client';
 
-import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { Pencil, Trash2 } from 'lucide-react';
+import Link from 'next/link';
 import { useParams, useRouter } from 'next/navigation';
-import { useEffect, useRef } from 'react';
-import { useForm } from 'react-hook-form';
+import { useState } from 'react';
 
-import { useImgproxy } from '@krak/ui';
-import { Button, Card, CardContent, CardHeader, CardTitle, Form, Separator, Skeleton } from '@krak/ui';
-import { getImgproxyUrl } from '@krak/utils';
+import { Button, Skeleton } from '@krak/ui';
 
 import { SiteHeader } from '@/components/site-header';
 import { client, orpc } from '@/lib/orpc';
 
-import { MapFormFields } from '../_components/map-form-fields';
-import { mapFormSchema, normalizeCategoryKeys, type MapFormValues } from '../_components/map-form-types';
+import { MapInfoCard } from './map-info-card';
 import { MapPreviewTabs } from './map-preview-tabs';
 
 // ============================================================================
 // Page Component
 // ============================================================================
 
-export default function MapEditPage() {
+export default function MapDetailPage() {
     const { id } = useParams<{ id: string }>();
     const router = useRouter();
     const queryClient = useQueryClient();
-    const imgproxy = useImgproxy();
-    const imageFileRef = useRef<File | null>(null);
+    const [confirmDelete, setConfirmDelete] = useState(false);
 
     const { data: map, isLoading } = useQuery(
         orpc.maps.fetch.queryOptions({
@@ -34,74 +30,15 @@ export default function MapEditPage() {
         }),
     );
 
-    const form = useForm<MapFormValues>({
-        resolver: zodResolver(mapFormSchema),
-        defaultValues: {
-            id: '',
-            name: '',
-            subtitle: '',
-            categories: [],
-            edito: '',
-            about: '',
-            staging: false,
-            videos: [],
-            soundtrack: [],
-        },
-    });
-
-    // Populate form when map data loads
-    useEffect(() => {
-        if (!map) return;
-        form.reset({
-            id: map.id,
-            name: map.name,
-            subtitle: map.subtitle ?? '',
-            categories: normalizeCategoryKeys(map.categories),
-            edito: map.edito ?? '',
-            about: map.about ?? '',
-            staging: map.staging,
-            videos: map.videos.map((v) => ({ value: v })),
-            soundtrack: map.soundtrack.map((s) => ({ value: s })),
-        });
-    }, [map, form]);
-
-    const mutation = useMutation({
-        mutationFn: async (values: MapFormValues) => {
-            const updated = await client.admin.maps.update({
-                id: values.id,
-                name: values.name,
-                subtitle: values.subtitle,
-                categories: values.categories,
-                edito: values.edito,
-                about: values.about,
-                staging: values.staging,
-                videos: values.videos.map((v) => v.value).filter(Boolean),
-                soundtrack: values.soundtrack.map((s) => s.value).filter(Boolean),
-            });
-
-            if (imageFileRef.current) {
-                await client.admin.maps.uploadImage({ id: values.id, file: imageFileRef.current });
-            }
-
-            return updated;
-        },
+    const deleteMutation = useMutation({
+        mutationFn: () => client.admin.maps.delete({ id }),
         onSuccess: () => {
-            queryClient.invalidateQueries({
-                queryKey: orpc.maps.fetch.queryOptions({ input: { id } }).queryKey,
-            });
             queryClient.invalidateQueries({
                 queryKey: orpc.admin.maps.list.queryOptions({ input: {} }).queryKey,
             });
+            router.push('/maps');
         },
     });
-
-    const existingImageUrl = imgproxy
-        ? getImgproxyUrl(imgproxy.baseUrl, `assets/maps/custom-maps/${id}.png`, {
-              width: 400,
-              resizingType: 'fit',
-              format: 'webp',
-          })
-        : undefined;
 
     return (
         <>
@@ -115,63 +52,53 @@ export default function MapEditPage() {
                         </div>
                     </div>
                 ) : map ? (
-                    <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
-                        {/* Form */}
-                        <div>
-                            <Card>
-                                <CardHeader>
-                                    <CardTitle>Edit Map</CardTitle>
-                                </CardHeader>
-                                <CardContent>
-                                    <Form {...form}>
-                                        <form
-                                            onSubmit={form.handleSubmit((values) => mutation.mutate(values))}
-                                            className="flex flex-col gap-4"
-                                        >
-                                            <MapFormFields
-                                                form={form}
-                                                idReadOnly
-                                                existingImageUrl={existingImageUrl}
-                                                onImageChange={(file) => {
-                                                    imageFileRef.current = file;
-                                                }}
-                                            />
-
-                                            <Separator />
-
-                                            {mutation.error && (
-                                                <p className="text-sm text-destructive">
-                                                    {mutation.error.message || 'Failed to update map.'}
-                                                </p>
-                                            )}
-
-                                            {mutation.isSuccess && (
-                                                <p className="text-sm text-green-600">Map updated successfully.</p>
-                                            )}
-
-                                            <div className="flex items-center gap-3">
-                                                <Button type="submit" disabled={mutation.isPending}>
-                                                    {mutation.isPending ? 'Saving...' : 'Save'}
-                                                </Button>
-                                                <Button
-                                                    type="button"
-                                                    variant="outline"
-                                                    onClick={() => router.push('/maps')}
-                                                >
-                                                    Back
-                                                </Button>
-                                            </div>
-                                        </form>
-                                    </Form>
-                                </CardContent>
-                            </Card>
+                    <>
+                        {/* Actions */}
+                        <div className="flex items-center justify-end gap-2">
+                            <Button asChild variant="outline" size="sm">
+                                <Link href={`/maps/${id}/edit`}>
+                                    <Pencil className="mr-2 size-4" />
+                                    Edit
+                                </Link>
+                            </Button>
+                            {confirmDelete ? (
+                                <div className="flex items-center gap-2">
+                                    <span className="text-sm text-muted-foreground">Are you sure?</span>
+                                    <Button
+                                        variant="destructive"
+                                        size="sm"
+                                        onClick={() => deleteMutation.mutate()}
+                                        disabled={deleteMutation.isPending}
+                                    >
+                                        {deleteMutation.isPending ? 'Deleting...' : 'Confirm'}
+                                    </Button>
+                                    <Button variant="outline" size="sm" onClick={() => setConfirmDelete(false)}>
+                                        Cancel
+                                    </Button>
+                                </div>
+                            ) : (
+                                <Button variant="outline" size="sm" onClick={() => setConfirmDelete(true)}>
+                                    <Trash2 className="mr-2 size-4" />
+                                    Delete
+                                </Button>
+                            )}
                         </div>
 
-                        {/* Preview */}
-                        <div className="lg:col-span-2">
-                            <MapPreviewTabs map={map} />
+                        {deleteMutation.error && (
+                            <p className="text-sm text-destructive">
+                                {deleteMutation.error.message || 'Failed to delete map.'}
+                            </p>
+                        )}
+
+                        <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
+                            <div>
+                                <MapInfoCard map={map} />
+                            </div>
+                            <div className="lg:col-span-2">
+                                <MapPreviewTabs map={map} />
+                            </div>
                         </div>
-                    </div>
+                    </>
                 ) : (
                     <p className="text-muted-foreground">Map not found</p>
                 )}

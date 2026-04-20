@@ -541,3 +541,21 @@ export const uploadMapImage = os.admin.maps.uploadImage
 
         return { path: key };
     });
+
+// ============================================================================
+// admin.maps.delete — Delete a map
+// ============================================================================
+
+export const deleteAdminMap = os.admin.maps.delete
+    .use(authed)
+    .use(admin)
+    .handler(async ({ context, input }) => {
+        const existing = await context.prisma.map.findUnique({ where: { id: input.id } });
+        if (!existing) {
+            throw new ORPCError('NOT_FOUND', { message: `Map "${input.id}" not found` });
+        }
+
+        await context.prisma.map.delete({ where: { id: input.id } });
+
+        return { success: true };
+    });
