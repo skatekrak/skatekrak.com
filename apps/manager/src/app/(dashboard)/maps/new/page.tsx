@@ -8,7 +8,6 @@ import { useFieldArray, useForm, useWatch } from 'react-hook-form';
 import { z } from 'zod';
 
 import { AdminMapCategorySchema } from '@krak/contracts';
-
 import {
     Badge,
     Button,
@@ -240,11 +239,7 @@ export default function CreateMapPage() {
                                                 <FormItem>
                                                     <FormLabel>About</FormLabel>
                                                     <FormControl>
-                                                        <Textarea
-                                                            placeholder="About this map..."
-                                                            rows={3}
-                                                            {...field}
-                                                        />
+                                                        <Textarea placeholder="About this map..." rows={3} {...field} />
                                                     </FormControl>
                                                     <FormMessage />
                                                 </FormItem>

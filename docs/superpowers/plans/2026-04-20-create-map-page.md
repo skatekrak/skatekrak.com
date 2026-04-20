@@ -13,9 +13,11 @@
 ## File Structure
 
 ### New files:
+
 - `apps/manager/src/app/(dashboard)/maps/new/page.tsx` — Create map page (form + live preview)
 
 ### Modified files:
+
 - `packages/contracts/src/schemas/admin.ts` — Add `createMapInput` schema
 - `packages/contracts/src/contract.ts` — Add `admin.maps.create` to contract
 - `apps/api/src/orpc/routers/admin.ts` — Add `createAdminMap` handler
@@ -27,6 +29,7 @@
 ### Task 1: Add `createMapInput` contract schema
 
 **Files:**
+
 - Modify: `packages/contracts/src/schemas/admin.ts:361` (append after `adminListMapsOutput`)
 
 - [ ] **Step 1: Add the schema**
@@ -113,6 +116,7 @@ git commit -m "feat(contracts): add createMapInput schema and admin.maps.create 
 ### Task 2: Add API handler for `admin.maps.create`
 
 **Files:**
+
 - Modify: `apps/api/src/orpc/routers/admin.ts:465` (append after `listAdminMaps`)
 - Modify: `apps/api/src/orpc/router.ts:10,78`
 
@@ -214,6 +218,7 @@ git commit -m "feat(api): add admin.maps.create handler"
 ### Task 3: Add "Create Map" button to maps list page
 
 **Files:**
+
 - Modify: `apps/manager/src/app/(dashboard)/maps/page.tsx`
 
 - [ ] **Step 1: Add the button**
@@ -235,14 +240,14 @@ import Link from 'next/link';
 3. Inside the toolbar `<div className="flex items-center gap-3">` (line 119), add the button after the DropdownMenu (after line 145, before the closing `</div>` on line 146):
 
 ```tsx
-                    <div className="ml-auto">
-                        <Button asChild>
-                            <Link href="/maps/new">
-                                <Plus className="mr-2 size-4" />
-                                Create Map
-                            </Link>
-                        </Button>
-                    </div>
+<div className="ml-auto">
+    <Button asChild>
+        <Link href="/maps/new">
+            <Plus className="mr-2 size-4" />
+            Create Map
+        </Link>
+    </Button>
+</div>
 ```
 
 - [ ] **Step 2: Commit**
@@ -257,6 +262,7 @@ git commit -m "feat(manager): add Create Map button to maps list page"
 ### Task 4: Create the `/maps/new` page with form and live preview
 
 **Files:**
+
 - Create: `apps/manager/src/app/(dashboard)/maps/new/page.tsx`
 
 - [ ] **Step 1: Create the page file**
@@ -431,7 +437,10 @@ function MapPreview({ values }: { values: CreateMapValues }) {
                     </>
                 )}
 
-                {(values.edito || values.about || values.videos.some((v) => v.value) || values.soundtrack.some((s) => s.value)) && <Separator />}
+                {(values.edito ||
+                    values.about ||
+                    values.videos.some((v) => v.value) ||
+                    values.soundtrack.some((s) => s.value)) && <Separator />}
 
                 {/* ID */}
                 {values.id && (
@@ -628,11 +637,7 @@ export default function CreateMapPage() {
                                                 <FormItem>
                                                     <FormLabel>About</FormLabel>
                                                     <FormControl>
-                                                        <Textarea
-                                                            placeholder="About this map..."
-                                                            rows={3}
-                                                            {...field}
-                                                        />
+                                                        <Textarea placeholder="About this map..." rows={3} {...field} />
                                                     </FormControl>
                                                     <FormMessage />
                                                 </FormItem>
@@ -679,10 +684,7 @@ export default function CreateMapPage() {
                                                         render={({ field }) => (
                                                             <FormItem className="flex-1">
                                                                 <FormControl>
-                                                                    <Input
-                                                                        placeholder="https://..."
-                                                                        {...field}
-                                                                    />
+                                                                    <Input placeholder="https://..." {...field} />
                                                                 </FormControl>
                                                                 <FormMessage />
                                                             </FormItem>
@@ -722,10 +724,7 @@ export default function CreateMapPage() {
                                                         render={({ field }) => (
                                                             <FormItem className="flex-1">
                                                                 <FormControl>
-                                                                    <Input
-                                                                        placeholder="Track name"
-                                                                        {...field}
-                                                                    />
+                                                                    <Input placeholder="Track name" {...field} />
                                                                 </FormControl>
                                                                 <FormMessage />
                                                             </FormItem>

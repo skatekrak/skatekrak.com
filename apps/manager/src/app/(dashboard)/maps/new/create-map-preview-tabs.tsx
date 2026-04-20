@@ -5,7 +5,19 @@ import Link from 'next/link';
 import { useEffect, useMemo, useState } from 'react';
 import { useWatch } from 'react-hook-form';
 
-import { Badge, Button, Card, CardContent, CardHeader, CardTitle, Skeleton, Tabs, TabsContent, TabsList, TabsTrigger } from '@krak/ui';
+import {
+    Badge,
+    Button,
+    Card,
+    CardContent,
+    CardHeader,
+    CardTitle,
+    Skeleton,
+    Tabs,
+    TabsContent,
+    TabsList,
+    TabsTrigger,
+} from '@krak/ui';
 
 import { orpc } from '@/lib/orpc';
 

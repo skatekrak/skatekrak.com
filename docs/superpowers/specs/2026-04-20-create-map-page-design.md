@@ -10,17 +10,17 @@ Add a full-stack "Create Map" feature to the manager app: an API endpoint to cre
 
 New `createMapInput` Zod schema:
 
-| Field        | Type                          | Required | Default |
-|-------------|-------------------------------|----------|---------|
-| `id`        | `z.string().regex(/^[a-z0-9-]+$/)` | Yes      | —       |
-| `name`      | `z.string().min(1)`           | Yes      | —       |
-| `subtitle`  | `z.string()`                  | No       | `""`    |
-| `categories`| `z.array(AdminMapCategorySchema).min(1)` | Yes | —   |
-| `edito`     | `z.string()`                  | No       | `""`    |
-| `about`     | `z.string()`                  | No       | `""`    |
-| `staging`   | `z.boolean()`                 | No       | `false` |
-| `videos`    | `z.array(z.string())`         | No       | `[]`    |
-| `soundtrack`| `z.array(z.string())`         | No       | `[]`    |
+| Field        | Type                                     | Required | Default |
+| ------------ | ---------------------------------------- | -------- | ------- |
+| `id`         | `z.string().regex(/^[a-z0-9-]+$/)`       | Yes      | —       |
+| `name`       | `z.string().min(1)`                      | Yes      | —       |
+| `subtitle`   | `z.string()`                             | No       | `""`    |
+| `categories` | `z.array(AdminMapCategorySchema).min(1)` | Yes      | —       |
+| `edito`      | `z.string()`                             | No       | `""`    |
+| `about`      | `z.string()`                             | No       | `""`    |
+| `staging`    | `z.boolean()`                            | No       | `false` |
+| `videos`     | `z.array(z.string())`                    | No       | `[]`    |
+| `soundtrack` | `z.array(z.string())`                    | No       | `[]`    |
 
 Output reuses the existing `MapSchema`.
 
@@ -67,17 +67,17 @@ Single Card component using react-hook-form + zodResolver with a Zod schema matc
 
 **Fields (top to bottom):**
 
-| Field        | Component                    | Notes                                       |
-|-------------|------------------------------|---------------------------------------------|
-| `id`        | `Input`                      | Slug field. Hint: "URL-safe identifier". Validated `/^[a-z0-9-]+$/`. |
-| `name`      | `Input`                      | Required.                                   |
-| `subtitle`  | `Input`                      | Optional.                                   |
-| `categories`| Checkbox group               | Uses `AdminMapCategorySchema` enum values. At least one required. |
-| `edito`     | `Textarea`                   | Optional, multi-line.                       |
-| `about`     | `Textarea`                   | Optional, multi-line.                       |
-| `staging`   | `Switch`                     | Boolean toggle, defaults off.               |
-| `videos`    | Dynamic Input list           | Add/remove buttons per entry. Each is a URL string. |
-| `soundtrack`| Dynamic Input list           | Add/remove buttons per entry. Each is a track name. |
+| Field        | Component          | Notes                                                                |
+| ------------ | ------------------ | -------------------------------------------------------------------- |
+| `id`         | `Input`            | Slug field. Hint: "URL-safe identifier". Validated `/^[a-z0-9-]+$/`. |
+| `name`       | `Input`            | Required.                                                            |
+| `subtitle`   | `Input`            | Optional.                                                            |
+| `categories` | Checkbox group     | Uses `AdminMapCategorySchema` enum values. At least one required.    |
+| `edito`      | `Textarea`         | Optional, multi-line.                                                |
+| `about`      | `Textarea`         | Optional, multi-line.                                                |
+| `staging`    | `Switch`           | Boolean toggle, defaults off.                                        |
+| `videos`     | Dynamic Input list | Add/remove buttons per entry. Each is a URL string.                  |
+| `soundtrack` | Dynamic Input list | Add/remove buttons per entry. Each is a track name.                  |
 
 **Bottom of form:** "Create Map" submit button + "Cancel" link back to `/maps`.
 
@@ -115,9 +115,11 @@ No interactivity in the preview — purely visual feedback.
 ## Files to Create/Modify
 
 ### New files:
+
 - `apps/manager/src/app/(dashboard)/maps/new/page.tsx` — create map page (form + preview)
 
 ### Modified files:
+
 - `packages/contracts/src/schemas/admin.ts` — add `createMapInput` schema
 - `packages/contracts/src/contract.ts` — add `admin.maps.create` contract
 - `apps/api/src/orpc/routers/admin.ts` — add create map handler
