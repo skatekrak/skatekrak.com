@@ -5,7 +5,7 @@ import { formatDistanceToNow } from 'date-fns';
 import { Film, Play } from 'lucide-react';
 import Link from 'next/link';
 import * as React from 'react';
-import { Cell, Pie, PieChart } from 'recharts';
+import { Cell, Pie, PieChart, type PieLabelRenderProps } from 'recharts';
 
 import type { ContractOutputs } from '@krak/contracts';
 import {
@@ -40,16 +40,14 @@ const chartConfig = {
 
 const RADIAN = Math.PI / 180;
 
-function renderInnerLabel(props: {
-    cx: number;
-    cy: number;
-    midAngle: number;
-    innerRadius: number;
-    outerRadius: number;
-    payload: { provider: string; count: number };
-    percent: number;
-}) {
-    const { cx, cy, midAngle, innerRadius, outerRadius, payload, percent } = props;
+function renderInnerLabel(props: PieLabelRenderProps) {
+    const cx = Number(props.cx ?? 0);
+    const cy = Number(props.cy ?? 0);
+    const midAngle = props.midAngle ?? 0;
+    const innerRadius = Number(props.innerRadius ?? 0);
+    const outerRadius = Number(props.outerRadius ?? 0);
+    const percent = props.percent ?? 0;
+    const payload = props.payload as { provider: string; count: number };
     const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
     const x = cx + radius * Math.cos(-midAngle * RADIAN);
     const y = cy + radius * Math.sin(-midAngle * RADIAN);
