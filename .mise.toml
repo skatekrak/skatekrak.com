@@ -1,6 +1,7 @@
 [tools]
 bun = "1.3.10"
 node = "24"
+lefthook = "latest"
 "aqua:caddyserver/caddy" = "latest"
 
 [tasks.setup]
@@ -23,6 +24,9 @@ for entry in "${HOSTS_ENTRIES[@]}"; do
         echo "Already exists: $entry"
     fi
 done
+
+# Install git hooks
+lefthook install
 
 # Start Caddy briefly to generate its local CA, trust it, then stop
 caddy start --config Caddyfile
