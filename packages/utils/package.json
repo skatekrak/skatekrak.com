@@ -1,0 +1,6 @@
+{
+    "name": "@krak/utils",
+    "version": "1.0.0",
+    "description": "Shared utilities for Krak",
+    "main": "./src/index.ts"
+}

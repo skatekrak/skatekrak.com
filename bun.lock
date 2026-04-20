@@ -50,6 +50,7 @@
         "@krak/auth": "workspace:*",
         "@krak/contracts": "workspace:*",
         "@krak/ui": "workspace:*",
+        "@krak/utils": "workspace:*",
         "@orpc/client": "^1.6.0",
         "@orpc/contract": "^1.6.0",
         "@orpc/tanstack-query": "^1.6.0",
@@ -188,6 +189,7 @@
       "name": "@krak/ui",
       "version": "0.0.1",
       "dependencies": {
+        "@krak/utils": "workspace:*",
         "@radix-ui/react-avatar": "^1.1.11",
         "@radix-ui/react-dialog": "^1.1.15",
         "@radix-ui/react-dropdown-menu": "^2.1.16",
@@ -218,6 +220,10 @@
         "react-dom": "^18.0.0 || ^19.0.0",
         "react-hook-form": ">=7.0.0",
       },
+    },
+    "packages/utils": {
+      "name": "@krak/utils",
+      "version": "1.0.0",
     },
   },
   "overrides": {
@@ -390,6 +396,8 @@
     "@krak/types": ["@krak/types@workspace:packages/types"],
 
     "@krak/ui": ["@krak/ui@workspace:packages/ui"],
+
+    "@krak/utils": ["@krak/utils@workspace:packages/utils"],
 
     "@krak/web": ["@krak/web@workspace:apps/web"],
 

@@ -13,6 +13,7 @@
         "@krak/auth": "workspace:*",
         "@krak/contracts": "workspace:*",
         "@krak/ui": "workspace:*",
+        "@krak/utils": "workspace:*",
         "@orpc/client": "^1.6.0",
         "@orpc/contract": "^1.6.0",
         "@orpc/tanstack-query": "^1.6.0",

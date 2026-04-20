@@ -3,7 +3,7 @@ import './src/env';
 
 const nextConfig: NextConfig = {
     output: 'standalone',
-    transpilePackages: ['@krak/auth', '@krak/contracts'],
+    transpilePackages: ['@krak/auth', '@krak/contracts', '@krak/utils'],
     allowedDevOrigins: ['*.skatekrak.com', '*.dev.skatekrak.com'],
 };
 

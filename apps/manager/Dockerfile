@@ -36,6 +36,8 @@ COPY packages/ packages/
 # NEXT_PUBLIC_ vars are inlined at build time — pass via --build-arg
 ARG NEXT_PUBLIC_KRAK_API_URL
 ENV NEXT_PUBLIC_KRAK_API_URL=$NEXT_PUBLIC_KRAK_API_URL
+ARG NEXT_PUBLIC_IMGPROXY_URL
+ENV NEXT_PUBLIC_IMGPROXY_URL=$NEXT_PUBLIC_IMGPROXY_URL
 
 RUN bunx turbo build --filter=@krak/manager
 

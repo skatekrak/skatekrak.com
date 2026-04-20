@@ -7,7 +7,7 @@ export default defineConfig({
     clean: true,
     deps: {
         neverBundle: ['react', 'react-dom', '@tanstack/react-table'],
-        alwaysBundle: [/^@krak\/ui/],
+        alwaysBundle: [/^@krak\/ui/, /^@krak\/utils/],
     },
     banner: '"use client";',
 });

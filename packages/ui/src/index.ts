@@ -95,6 +95,15 @@ export {
     ChartStyle,
     type ChartConfig,
 } from './components/ui/chart';
+// KrakImage
+export {
+    ImgproxyProvider,
+    useImgproxy,
+    KrakImage,
+    type KrakImageProps,
+    type ImgproxyProviderProps,
+} from './components/ui/krak-image';
+
 export {
     Sheet,
     SheetPortal,
