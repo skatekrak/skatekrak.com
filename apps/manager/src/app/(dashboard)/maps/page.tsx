@@ -3,6 +3,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { getCoreRowModel, useReactTable, type SortingState } from '@tanstack/react-table';
 import { ChevronDown } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 import { parseAsArrayOf, parseAsInteger, parseAsString, parseAsStringLiteral, useQueryState } from 'nuqs';
 import { useState } from 'react';
 
@@ -21,7 +22,6 @@ import { SiteHeader } from '@/components/site-header';
 import { orpc } from '@/lib/orpc';
 
 import { columns } from './columns';
-import { MapDetailSheet } from './map-detail-sheet';
 
 const mapCategories = [
     'maps',
@@ -56,6 +56,7 @@ const categoryLabels: Record<string, string> = {
 };
 
 export default function MapsPage() {
+    const router = useRouter();
     const [page, setPage] = useQueryState('page', parseAsInteger.withDefault(1));
     const [search, setSearch] = useQueryState('search', parseAsString.withDefault('').withOptions({ throttleMs: 300 }));
     const [categories, setCategories] = useQueryState(
@@ -63,7 +64,6 @@ export default function MapsPage() {
         parseAsArrayOf(parseAsStringLiteral(mapCategories)),
     );
     const [sorting, setSorting] = useState<SortingState>([{ id: 'createdAt', desc: true }]);
-    const [selectedMapId, setSelectedMapId] = useState<string | null>(null);
 
     const perPage = 20;
 
@@ -153,7 +153,7 @@ export default function MapsPage() {
                     table={table}
                     loading={isLoading}
                     skeletonRows={perPage}
-                    onRowClick={(row) => setSelectedMapId(row.original.id)}
+                    onRowClick={(row) => router.push(`/maps/${row.original.id}`)}
                 >
                     {data && (
                         <DataTablePagination
@@ -166,14 +166,6 @@ export default function MapsPage() {
                     )}
                 </DataTable>
             </div>
-
-            <MapDetailSheet
-                mapId={selectedMapId}
-                open={!!selectedMapId}
-                onOpenChange={(open) => {
-                    if (!open) setSelectedMapId(null);
-                }}
-            />
         </>
     );
 }
