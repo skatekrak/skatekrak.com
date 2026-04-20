@@ -4,6 +4,27 @@ import type { Prisma, ClipProvider } from '@krak/prisma';
 
 import { os, authed, admin } from '../base';
 
+import type { Stat } from '../helpers/stats';
+
+// Types matching the raw Postgres JSON shapes for Prisma Json? columns.
+// These mirror the Zod schemas in @krak/contracts (AdminCloudinaryFileSchema).
+
+type AdminCloudinaryFile = {
+    publicId: string | null;
+    version: string | null;
+    url: string;
+    format: string | null;
+    width: number | null;
+    height: number | null;
+};
+
+type AdminCloudinaryFileMedia = {
+    publicId: string | null;
+    url: string;
+    width: number | null;
+    height: number | null;
+} | null;
+
 // ============================================================================
 // admin.users.list — Paginated, sortable user listing for admin dashboard
 // ============================================================================
@@ -111,14 +132,14 @@ export const getUserByUsername = os.admin.users.getByUsername
                       instagram: user.profile.instagram,
                       website: user.profile.website,
                       sponsors: user.profile.sponsors,
-                      profilePicture: user.profile.profilePicture as any,
-                      banner: user.profile.banner as any,
-                      followersStat: user.profile.followersStat as any,
-                      followingStat: user.profile.followingStat as any,
-                      spotsFollowingStat: user.profile.spotsFollowingStat as any,
-                      mediasStat: user.profile.mediasStat as any,
-                      clipsStat: user.profile.clipsStat as any,
-                      tricksDoneStat: user.profile.tricksDoneStat as any,
+                      profilePicture: user.profile.profilePicture as AdminCloudinaryFile | null,
+                      banner: user.profile.banner as AdminCloudinaryFile | null,
+                      followersStat: user.profile.followersStat as Stat | null,
+                      followingStat: user.profile.followingStat as Stat | null,
+                      spotsFollowingStat: user.profile.spotsFollowingStat as Stat | null,
+                      mediasStat: user.profile.mediasStat as Stat | null,
+                      clipsStat: user.profile.clipsStat as Stat | null,
+                      tricksDoneStat: user.profile.tricksDoneStat as Stat | null,
                       createdAt: user.profile.createdAt,
                       updatedAt: user.profile.updatedAt,
                   }
@@ -347,7 +368,7 @@ export const listMedia = os.admin.media.list
                 id: m.id,
                 type: m.type,
                 caption: m.caption,
-                image: m.image as any,
+                image: m.image as AdminCloudinaryFileMedia,
                 spot: m.spot ? { id: m.spot.id, name: m.spot.name } : null,
                 addedBy: m.addedBy ? { username: m.addedBy.user.username } : null,
                 createdAt: m.createdAt,
