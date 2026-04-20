@@ -14,7 +14,7 @@ import { SiteHeader } from '@/components/site-header';
 import { client, orpc } from '@/lib/orpc';
 
 import { MapFormFields } from '../_components/map-form-fields';
-import { mapFormSchema, type MapFormValues } from '../_components/map-form-types';
+import { mapFormSchema, normalizeCategoryKeys, type MapFormValues } from '../_components/map-form-types';
 import { MapPreviewTabs } from './map-preview-tabs';
 
 // ============================================================================
@@ -56,7 +56,7 @@ export default function MapEditPage() {
             id: map.id,
             name: map.name,
             subtitle: map.subtitle ?? '',
-            categories: map.categories as MapFormValues['categories'],
+            categories: normalizeCategoryKeys(map.categories),
             edito: map.edito ?? '',
             about: map.about ?? '',
             staging: map.staging,

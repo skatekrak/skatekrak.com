@@ -48,3 +48,18 @@ export const categoryLabels: Record<string, string> = {
     members: 'Members',
     artist: 'Artists',
 };
+
+/** Reverse lookup: display label → raw key (e.g. "Maps" → "maps") */
+const categoryLabelToKey: Record<string, MapCategory> = Object.fromEntries(
+    Object.entries(categoryLabels).map(([key, label]) => [label, key as MapCategory]),
+) as Record<string, MapCategory>;
+
+/**
+ * Convert category strings from the API (which may be display labels like "Maps")
+ * back to raw enum keys ("maps"). Passes through values that are already raw keys.
+ */
+export function normalizeCategoryKeys(categories: string[]): MapCategory[] {
+    return categories
+        .map((cat) => (categoryLabelToKey[cat] ?? cat) as MapCategory)
+        .filter((cat) => mapCategories.includes(cat));
+}
