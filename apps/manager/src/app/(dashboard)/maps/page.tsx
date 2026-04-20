@@ -2,7 +2,8 @@
 
 import { useQuery } from '@tanstack/react-query';
 import { getCoreRowModel, useReactTable, type SortingState } from '@tanstack/react-table';
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown, Plus } from 'lucide-react';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { parseAsArrayOf, parseAsInteger, parseAsString, parseAsStringLiteral, useQueryState } from 'nuqs';
 import { useState } from 'react';
@@ -143,6 +144,14 @@ export default function MapsPage() {
                             ))}
                         </DropdownMenuContent>
                     </DropdownMenu>
+                    <div className="ml-auto">
+                        <Button asChild>
+                            <Link href="/maps/new">
+                                <Plus className="mr-2 size-4" />
+                                Create Map
+                            </Link>
+                        </Button>
+                    </div>
                 </div>
 
                 <DataTable
