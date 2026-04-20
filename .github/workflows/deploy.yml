@@ -31,6 +31,19 @@ jobs:
     build:
         runs-on: ubuntu-latest
         needs: [lint, format]
+        env:
+            NEXT_PUBLIC_CARRELAGE_URL: http://placeholder
+            NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN: http://placeholder
+            NEXT_PUBLIC_KRAK_API_URL: http://placeholder
+            NEXT_PUBLIC_STAGE: http://placeholder
+            NEXT_PUBLIC_MEILI_HOST: http://placeholder
+            NEXT_PUBLIC_MEILI_API_KEY: http://placeholder
+            NEXT_PUBLIC_IMGPROXY_URL: http://placeholder
+            NEXT_PUBLIC_UMAMI_SCRIPT_URL: http://placeholder
+            NEXT_PUBLIC_UMAMI_WEBSITE_ID: http://placeholder
+            NEXT_PUBLIC_WEBSITE_URL: http://placeholder
+            NEXT_PUBLIC_RSS_BACKEND_URL: http://placeholder
+            NEXT_PUBLIC_KRAKMAG_URL: http://placeholder
         steps:
             - uses: actions/checkout@v6
             - uses: oven-sh/setup-bun@v1
