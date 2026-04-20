@@ -58,7 +58,7 @@ jobs:
         steps:
             - name: Trigger Dokploy deployment for API
               run: |
-                  curl -X POST -H "x-api-key: ${{ secrets.DOKPLOY_TOKEN }}" "${{ secrets.DOKPLOY_DEPLOY_URL }}" -d '{"applicationId": "${{ secrets.DOKPLOY_API_ID }}"}'
+                  curl -X POST -H "x-api-key: ${{ secrets.DOKPLOY_TOKEN }}" -H "Content-Type: application/json" -H "Accept: application/json" "${{ secrets.DOKPLOY_DEPLOY_URL }}" -d '{"applicationId": "${{ secrets.DOKPLOY_API_ID }}"}'
 
     deploy-web:
         runs-on: ubuntu-latest
@@ -66,7 +66,7 @@ jobs:
         steps:
             - name: Trigger Dokploy deployment for Web
               run: |
-                  curl -X POST -H "x-api-key: ${{ secrets.DOKPLOY_TOKEN }}" "${{ secrets.DOKPLOY_DEPLOY_URL }}" -d '{"applicationId": "${{ secrets.DOKPLOY_WEB_ID }}"}'
+                  curl -X POST -H "x-api-key: ${{ secrets.DOKPLOY_TOKEN }}" -H "Content-Type: application/json" -H "Accept: application/json" "${{ secrets.DOKPLOY_DEPLOY_URL }}" -d '{"applicationId": "${{ secrets.DOKPLOY_WEB_ID }}"}'
 
     deploy-manager:
         runs-on: ubuntu-latest
@@ -74,4 +74,4 @@ jobs:
         steps:
             - name: Trigger Dokploy deployment for Manager
               run: |
-                  curl -X POST -H "x-api-key: ${{ secrets.DOKPLOY_TOKEN }}" "${{ secrets.DOKPLOY_DEPLOY_URL }}" -d '{"applicationId": "${{ secrets.DOKPLOY_MANAGER_ID }}"}'
+                  curl -X POST -H "x-api-key: ${{ secrets.DOKPLOY_TOKEN }}" -H "Content-Type: application/json" -H "Accept: application/json" "${{ secrets.DOKPLOY_DEPLOY_URL }}" -d '{"applicationId": "${{ secrets.DOKPLOY_MANAGER_ID }}"}'
