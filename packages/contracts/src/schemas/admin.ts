@@ -359,3 +359,22 @@ export const adminListMapsOutput = z.object({
     page: z.number(),
     perPage: z.number(),
 });
+
+// ============================================================================
+// Create map
+// ============================================================================
+
+export const createMapInput = z.object({
+    id: z
+        .string()
+        .min(1)
+        .regex(/^[a-z0-9-]+$/, 'ID must contain only lowercase letters, numbers, and hyphens'),
+    name: z.string().min(1),
+    subtitle: z.string().default(''),
+    categories: z.array(AdminMapCategorySchema).min(1, 'At least one category is required'),
+    edito: z.string().default(''),
+    about: z.string().default(''),
+    staging: z.boolean().default(false),
+    videos: z.array(z.string()).default([]),
+    soundtrack: z.array(z.string()).default([]),
+});

@@ -17,6 +17,7 @@ import {
     adminListClipsOutput,
     adminListMapsInput,
     adminListMapsOutput,
+    createMapInput,
 } from './schemas/admin';
 import { MapSchema, MapListItemSchema, fetchMapInput } from './schemas/maps';
 import { MediaSchema, ClipSchema, MediasAroundSchema } from './schemas/media';
@@ -105,6 +106,7 @@ export const contract = {
         },
         maps: {
             list: oc.input(adminListMapsInput).output(adminListMapsOutput),
+            create: oc.input(createMapInput).output(MapSchema),
         },
     },
 };
