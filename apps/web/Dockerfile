@@ -23,6 +23,7 @@ COPY packages/auth/package.json packages/auth/
 COPY packages/contracts/package.json packages/contracts/
 COPY packages/prisma/package.json packages/prisma/
 COPY packages/types/package.json packages/types/
+COPY packages/trpc/package.json packages/trpc/
 COPY packages/ui/package.json packages/ui/
 COPY packages/utils/package.json packages/utils/
 
