@@ -2,7 +2,6 @@
 
 import { ImageIcon, Plus, Trash2, X } from 'lucide-react';
 import { useRef, useState } from 'react';
-import type { UseFormReturn } from 'react-hook-form';
 import { useFieldArray, useWatch } from 'react-hook-form';
 
 import {
@@ -20,6 +19,8 @@ import {
 } from '@krak/ui';
 
 import { categoryLabels, mapCategories, type MapCategory, type MapFormValues } from './map-form-types';
+
+import type { UseFormReturn } from 'react-hook-form';
 
 // ============================================================================
 // Props
@@ -252,12 +253,7 @@ export function MapFormFields({ form, idReadOnly, existingImageUrl, onImageChang
             <div className="flex flex-col gap-2">
                 <div className="flex items-center justify-between">
                     <span className="text-sm font-medium">Videos</span>
-                    <Button
-                        type="button"
-                        variant="ghost"
-                        size="sm"
-                        onClick={() => videosField.append({ value: '' })}
-                    >
+                    <Button type="button" variant="ghost" size="sm" onClick={() => videosField.append({ value: '' })}>
                         <Plus className="mr-1 size-4" />
                         Add
                     </Button>
@@ -276,12 +272,7 @@ export function MapFormFields({ form, idReadOnly, existingImageUrl, onImageChang
                                 </FormItem>
                             )}
                         />
-                        <Button
-                            type="button"
-                            variant="ghost"
-                            size="icon"
-                            onClick={() => videosField.remove(index)}
-                        >
+                        <Button type="button" variant="ghost" size="icon" onClick={() => videosField.remove(index)}>
                             <Trash2 className="size-4" />
                         </Button>
                     </div>
@@ -316,12 +307,7 @@ export function MapFormFields({ form, idReadOnly, existingImageUrl, onImageChang
                                 </FormItem>
                             )}
                         />
-                        <Button
-                            type="button"
-                            variant="ghost"
-                            size="icon"
-                            onClick={() => soundtrackField.remove(index)}
-                        >
+                        <Button type="button" variant="ghost" size="icon" onClick={() => soundtrackField.remove(index)}>
                             <Trash2 className="size-4" />
                         </Button>
                     </div>

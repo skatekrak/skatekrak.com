@@ -25,7 +25,12 @@ import { getImgproxyUrl } from '@krak/utils';
 import { client, orpc } from '@/lib/orpc';
 
 import { MapFormFields } from '../_components/map-form-fields';
-import { categoryLabels, mapFormSchema, normalizeCategoryKeys, type MapFormValues } from '../_components/map-form-types';
+import {
+    categoryLabels,
+    mapFormSchema,
+    normalizeCategoryKeys,
+    type MapFormValues,
+} from '../_components/map-form-types';
 
 type MapData = ContractOutputs['maps']['fetch'];
 

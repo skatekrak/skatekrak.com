@@ -1,7 +1,8 @@
-import type { UseFormReturn } from 'react-hook-form';
 import { z } from 'zod';
 
 import { AdminMapCategorySchema } from '@krak/contracts';
+
+import type { UseFormReturn } from 'react-hook-form';
 
 // ============================================================================
 // Form schema — shared between create and edit
