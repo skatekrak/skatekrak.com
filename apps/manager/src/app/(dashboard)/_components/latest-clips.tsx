@@ -105,9 +105,9 @@ export function LatestClips() {
                     </div>
                     <div className="flex-1">
                         {overviewLoading ? (
-                            <Skeleton className="mx-auto aspect-square w-full max-w-[150px] rounded-full" />
+                            <Skeleton className="mx-auto aspect-square w-full max-w-37.5 rounded-full" />
                         ) : (
-                            <ChartContainer config={chartConfig} className="ml-auto aspect-square w-full max-h-[200px]">
+                            <ChartContainer config={chartConfig} className="ml-auto aspect-square w-full max-h-50">
                                 <PieChart>
                                     <Pie
                                         data={chartData}

@@ -1,8 +1,9 @@
 'use client';
 
+import { SiInstagram } from '@icons-pack/react-simple-icons';
 import { useQuery } from '@tanstack/react-query';
 import { format } from 'date-fns';
-import { Globe, Instagram, Ghost, ExternalLink } from 'lucide-react';
+import { Globe, Ghost, ExternalLink } from 'lucide-react';
 import { use } from 'react';
 
 import type { ContractOutputs } from '@krak/contracts';
@@ -290,7 +291,7 @@ function ProfileCard({ profile }: { profile: UserDetailOutput['profile'] }) {
                                 rel="noopener noreferrer"
                                 className="inline-flex items-center gap-1 text-sm underline"
                             >
-                                <Instagram className="h-4 w-4" />
+                                <SiInstagram className="h-4 w-4" />
                                 {profile.instagram}
                                 <ExternalLink className="h-3 w-3" />
                             </a>

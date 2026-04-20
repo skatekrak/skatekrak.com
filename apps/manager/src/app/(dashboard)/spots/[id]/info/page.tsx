@@ -1,9 +1,10 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
+import { SiFacebook, SiInstagram } from '@icons-pack/react-simple-icons';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { format } from 'date-fns';
-import { ExternalLink, Facebook, Ghost, Globe, Instagram, MapPin, Pencil, Phone } from 'lucide-react';
+import { ExternalLink, Ghost, Globe, MapPin, Pencil, Phone } from 'lucide-react';
 import { use, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -408,7 +409,7 @@ function SocialContactCard({ spot }: { spot: Spot }) {
                                 rel="noopener noreferrer"
                                 className="inline-flex items-center gap-2 text-sm underline"
                             >
-                                <Instagram className="size-4" />
+                                <SiInstagram className="size-4" />
                                 {spot.instagram}
                                 <ExternalLink className="size-3" />
                             </a>
@@ -420,7 +421,7 @@ function SocialContactCard({ spot }: { spot: Spot }) {
                                 rel="noopener noreferrer"
                                 className="inline-flex items-center gap-2 text-sm underline"
                             >
-                                <Facebook className="size-4" />
+                                <SiFacebook className="size-4" />
                                 {spot.facebook}
                                 <ExternalLink className="size-3" />
                             </a>
