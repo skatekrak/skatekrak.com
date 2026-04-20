@@ -3,7 +3,6 @@ name: Deploy
 on:
     push:
         branches: [main]
-    workflow_dispatch:
 
 env:
     NEXT_PUBLIC_BUGSNAG_KEY: ${{ secrets.NEXT_PUBLIC_BUGSNAG_KEY }}
@@ -18,3 +17,48 @@ jobs:
                   bun-version: 1.3.10
             - run: bun install --frozen-lockfile
             - run: bun lint
+
+    format:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+            - uses: oven-sh/setup-bun@v1
+              with:
+                  bun-version: 1.3.10
+            - run: bun install --frozen-lockfile
+            - run: bun run format:check
+
+    build:
+        runs-on: ubuntu-latest
+        needs: [lint, format]
+        steps:
+            - uses: actions/checkout@v4
+            - uses: oven-sh/setup-bun@v1
+              with:
+                  bun-version: 1.3.10
+            - run: bun install --frozen-lockfile
+            - run: bun run build
+
+    deploy-api:
+        runs-on: ubuntu-latest
+        needs: [build]
+        steps:
+            - name: Trigger Dokploy deployment for API
+              run: |
+                  curl -X POST -H "x-api-key: ${{ secrets.DOKPLOY_TOKEN }}" "${{ secrets.DOKPLOY_WEBHOOK_API }}"
+
+    deploy-web:
+        runs-on: ubuntu-latest
+        needs: [build]
+        steps:
+            - name: Trigger Dokploy deployment for Web
+              run: |
+                  curl -X POST -H "x-api-key: ${{ secrets.DOKPLOY_TOKEN }}" "${{ secrets.DOKPLOY_WEBHOOK_WEB }}"
+
+    deploy-manager:
+        runs-on: ubuntu-latest
+        needs: [build]
+        steps:
+            - name: Trigger Dokploy deployment for Manager
+              run: |
+                  curl -X POST -H "x-api-key: ${{ secrets.DOKPLOY_TOKEN }}" "${{ secrets.DOKPLOY_WEBHOOK_MANAGER }}"
