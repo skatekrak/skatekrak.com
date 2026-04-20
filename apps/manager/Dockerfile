@@ -26,9 +26,7 @@ COPY packages/types/package.json packages/types/
 COPY packages/ui/package.json packages/ui/
 COPY packages/utils/package.json packages/utils/
 
-ARG CACHEBUST=1
-RUN --mount=type=cache,target=/root/.bun/install/cache \
-  bun install --frozen-lockfile
+RUN bun install --frozen-lockfile
 
 # Copy source needed for @krak/manager and its workspace deps
 COPY turbo.json ./
