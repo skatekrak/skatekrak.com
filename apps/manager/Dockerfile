@@ -24,6 +24,7 @@ COPY packages/contracts/package.json packages/contracts/
 COPY packages/prisma/package.json packages/prisma/
 COPY packages/types/package.json packages/types/
 COPY packages/ui/package.json packages/ui/
+COPY packages/utils/package.json packages/utils/
 
 RUN --mount=type=cache,target=/root/.bun/install/cache \
   bun install --frozen-lockfile
