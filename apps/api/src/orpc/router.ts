@@ -9,6 +9,7 @@ import {
     listClips,
     listAdminMaps,
     createAdminMap,
+    uploadMapImage,
 } from './routers/admin';
 import { fetchMap, listMaps } from './routers/maps';
 import {
@@ -78,6 +79,7 @@ export const router = os.router({
         maps: {
             list: listAdminMaps,
             create: createAdminMap,
+            uploadImage: uploadMapImage,
         },
     },
 });

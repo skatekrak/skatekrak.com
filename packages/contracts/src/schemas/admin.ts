@@ -378,3 +378,16 @@ export const createMapInput = z.object({
     videos: z.array(z.string()).default([]),
     soundtrack: z.array(z.string()).default([]),
 });
+
+// ============================================================================
+// Upload map image
+// ============================================================================
+
+export const uploadMapImageInput = z.object({
+    id: z.string().min(1),
+    file: z.file(),
+});
+
+export const uploadMapImageOutput = z.object({
+    path: z.string(),
+});

@@ -495,3 +495,26 @@ export const createAdminMap = os.admin.maps.create
 
         return map;
     });
+
+// ============================================================================
+// admin.maps.uploadImage — Upload a map image (convert to PNG, store in S3)
+// ============================================================================
+
+export const uploadMapImage = os.admin.maps.uploadImage
+    .use(authed)
+    .use(admin)
+    .handler(async ({ input }) => {
+        const { default: sharp } = await import('sharp');
+        const { uploadToS3 } = await import('../../helpers/s3');
+
+        const file = input.file;
+        const buffer = Buffer.from(await file.arrayBuffer());
+
+        // Convert to PNG using sharp
+        const pngBuffer = await sharp(buffer).png().toBuffer();
+
+        const key = `assets/maps/custom-maps/${input.id}.png`;
+        await uploadToS3(key, pngBuffer, 'image/png');
+
+        return { path: key };
+    });

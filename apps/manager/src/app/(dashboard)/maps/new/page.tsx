@@ -2,8 +2,9 @@
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { Plus, Trash2 } from 'lucide-react';
+import { ImageIcon, Plus, Trash2, X } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import { useRef, useState } from 'react';
 import { useFieldArray, useForm, useWatch } from 'react-hook-form';
 import { z } from 'zod';
 
@@ -84,9 +85,27 @@ export default function CreateMapPage() {
 
     const watchedCategories = useWatch({ control: form.control, name: 'categories' });
 
+    const [imageFile, setImageFile] = useState<File | null>(null);
+    const [imagePreview, setImagePreview] = useState<string | null>(null);
+    const fileInputRef = useRef<HTMLInputElement>(null);
+
+    function handleImageChange(e: React.ChangeEvent<HTMLInputElement>) {
+        const file = e.target.files?.[0];
+        if (!file) return;
+        setImageFile(file);
+        setImagePreview(URL.createObjectURL(file));
+    }
+
+    function clearImage() {
+        setImageFile(null);
+        if (imagePreview) URL.revokeObjectURL(imagePreview);
+        setImagePreview(null);
+        if (fileInputRef.current) fileInputRef.current.value = '';
+    }
+
     const mutation = useMutation({
-        mutationFn: (values: CreateMapValues) => {
-            return client.admin.maps.create({
+        mutationFn: async (values: CreateMapValues) => {
+            const map = await client.admin.maps.create({
                 id: values.id,
                 name: values.name,
                 subtitle: values.subtitle,
@@ -97,6 +116,12 @@ export default function CreateMapPage() {
                 videos: values.videos.map((v) => v.value).filter(Boolean),
                 soundtrack: values.soundtrack.map((s) => s.value).filter(Boolean),
             });
+
+            if (imageFile) {
+                await client.admin.maps.uploadImage({ id: values.id, file: imageFile });
+            }
+
+            return map;
         },
         onSuccess: (data) => {
             queryClient.invalidateQueries({
@@ -157,6 +182,50 @@ export default function CreateMapPage() {
                                                 </FormItem>
                                             )}
                                         />
+
+                                        {/* Image upload */}
+                                        <div className="flex flex-col gap-2">
+                                            <span className="text-sm font-medium">Logo</span>
+                                            {imagePreview ? (
+                                                <div className="relative w-full">
+                                                    <img
+                                                        src={imagePreview}
+                                                        alt="Map image preview"
+                                                        className="h-32 w-full rounded-md object-cover"
+                                                    />
+                                                    <Button
+                                                        type="button"
+                                                        variant="ghost"
+                                                        size="icon"
+                                                        className="absolute right-1 top-1 size-6 bg-background/80"
+                                                        onClick={clearImage}
+                                                    >
+                                                        <X className="size-3" />
+                                                    </Button>
+                                                </div>
+                                            ) : (
+                                                <button
+                                                    type="button"
+                                                    className="flex h-32 w-full items-center justify-center rounded-md border border-dashed border-muted-foreground/25 hover:border-muted-foreground/50"
+                                                    onClick={() => fileInputRef.current?.click()}
+                                                >
+                                                    <div className="flex flex-col items-center gap-1 text-muted-foreground">
+                                                        <ImageIcon className="size-6" />
+                                                        <span className="text-xs">Click to upload</span>
+                                                    </div>
+                                                </button>
+                                            )}
+                                            <input
+                                                ref={fileInputRef}
+                                                type="file"
+                                                accept="image/*"
+                                                className="hidden"
+                                                onChange={handleImageChange}
+                                            />
+                                            <p className="text-xs text-muted-foreground">
+                                                Any image format — will be converted to PNG
+                                            </p>
+                                        </div>
 
                                         <FormField
                                             control={form.control}
