@@ -383,6 +383,22 @@ export const createMapInput = z.object({
 // Upload map image
 // ============================================================================
 
+export const updateMapInput = z.object({
+    id: z.string().min(1),
+    name: z.string().min(1).optional(),
+    subtitle: z.string().optional(),
+    categories: z.array(AdminMapCategorySchema).min(1, 'At least one category is required').optional(),
+    edito: z.string().optional(),
+    about: z.string().optional(),
+    staging: z.boolean().optional(),
+    videos: z.array(z.string()).optional(),
+    soundtrack: z.array(z.string()).optional(),
+});
+
+// ============================================================================
+// Upload map image
+// ============================================================================
+
 export const uploadMapImageInput = z.object({
     id: z.string().min(1),
     file: z.file(),

@@ -497,6 +497,29 @@ export const createAdminMap = os.admin.maps.create
     });
 
 // ============================================================================
+// admin.maps.update — Update an existing map
+// ============================================================================
+
+export const updateAdminMap = os.admin.maps.update
+    .use(authed)
+    .use(admin)
+    .handler(async ({ context, input }) => {
+        const { id, ...data } = input;
+
+        const existing = await context.prisma.map.findUnique({ where: { id } });
+        if (!existing) {
+            throw new ORPCError('NOT_FOUND', { message: `Map "${id}" not found` });
+        }
+
+        const map = await context.prisma.map.update({
+            where: { id },
+            data,
+        });
+
+        return map;
+    });
+
+// ============================================================================
 // admin.maps.uploadImage — Upload a map image (convert to PNG, store in S3)
 // ============================================================================
 

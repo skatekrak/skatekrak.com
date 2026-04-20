@@ -18,6 +18,7 @@ import {
     adminListMapsInput,
     adminListMapsOutput,
     createMapInput,
+    updateMapInput,
     uploadMapImageInput,
     uploadMapImageOutput,
 } from './schemas/admin';
@@ -109,6 +110,7 @@ export const contract = {
         maps: {
             list: oc.input(adminListMapsInput).output(adminListMapsOutput),
             create: oc.input(createMapInput).output(MapSchema),
+            update: oc.input(updateMapInput).output(MapSchema),
             uploadImage: oc.input(uploadMapImageInput).output(uploadMapImageOutput),
         },
     },

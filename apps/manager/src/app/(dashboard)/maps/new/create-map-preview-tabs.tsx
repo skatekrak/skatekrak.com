@@ -21,7 +21,7 @@ import {
 
 import { orpc } from '@/lib/orpc';
 
-import type { CreateMapFormControl } from './types';
+import type { MapFormControl } from '../_components/map-form-types';
 
 // ============================================================================
 // Constants
@@ -33,7 +33,7 @@ const directTagCategories = ['maps', 'skatepark', 'shop'];
 // CreateMapPreviewTabs — fetches spots & media by map ID
 // ============================================================================
 
-export function CreateMapPreviewTabs({ control }: { control: CreateMapFormControl }) {
+export function CreateMapPreviewTabs({ control }: { control: MapFormControl }) {
     const mapId = useWatch({ control, name: 'id' });
     const categories = useWatch({ control, name: 'categories' });
 
