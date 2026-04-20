@@ -75,8 +75,6 @@ export function MapPreviewTabs({ map }: MapPreviewTabsProps) {
             <TabsList>
                 <TabsTrigger value="spots">Spots{!spotsLoading && ` (${spotsCount})`}</TabsTrigger>
                 <TabsTrigger value="media">Media{!mediaLoading && ` (${mediasCount})`}</TabsTrigger>
-                <TabsTrigger value="videos">Videos ({map.videos.length})</TabsTrigger>
-                <TabsTrigger value="soundtrack">Soundtrack ({map.soundtrack.length})</TabsTrigger>
             </TabsList>
 
             {/* Spots Tab */}
@@ -171,57 +169,6 @@ export function MapPreviewTabs({ map }: MapPreviewTabsProps) {
                                     </Button>
                                 )}
                             </div>
-                        )}
-                    </CardContent>
-                </Card>
-            </TabsContent>
-
-            {/* Videos Tab */}
-            <TabsContent value="videos">
-                <Card>
-                    <CardHeader>
-                        <CardTitle className="text-base">Videos</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                        {map.videos.length === 0 ? (
-                            <p className="text-sm text-muted-foreground">No videos</p>
-                        ) : (
-                            <ul className="flex flex-col gap-2">
-                                {map.videos.map((url, i) => (
-                                    <li key={i}>
-                                        <a
-                                            href={url}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="break-all text-sm text-primary underline-offset-4 hover:underline"
-                                        >
-                                            {url}
-                                        </a>
-                                    </li>
-                                ))}
-                            </ul>
-                        )}
-                    </CardContent>
-                </Card>
-            </TabsContent>
-
-            {/* Soundtrack Tab */}
-            <TabsContent value="soundtrack">
-                <Card>
-                    <CardHeader>
-                        <CardTitle className="text-base">Soundtrack</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                        {map.soundtrack.length === 0 ? (
-                            <p className="text-sm text-muted-foreground">No soundtrack</p>
-                        ) : (
-                            <ul className="flex flex-col gap-1">
-                                {map.soundtrack.map((track, i) => (
-                                    <li key={i} className="text-sm text-muted-foreground">
-                                        {track}
-                                    </li>
-                                ))}
-                            </ul>
                         )}
                     </CardContent>
                 </Card>

@@ -100,13 +100,13 @@ export function MapFormFields({ form, idReadOnly, existingImageUrl, onImageChang
 
             {/* Image upload */}
             <div className="flex flex-col gap-2">
-                <span className="text-sm font-medium">Image</span>
+                <span className="text-sm font-medium">Logo</span>
                 {displayImage ? (
                     <div className="relative w-full">
                         <img
                             src={displayImage}
                             alt="Map image preview"
-                            className="h-32 w-full rounded-md object-cover"
+                            className="h-32 w-full rounded-md object-contain"
                         />
                         {imagePreview && (
                             <Button
