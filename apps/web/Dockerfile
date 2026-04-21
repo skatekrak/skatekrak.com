@@ -54,9 +54,9 @@ ENV NEXT_PUBLIC_IMGPROXY_URL=$NEXT_PUBLIC_IMGPROXY_URL
 RUN bunx turbo build --filter=@krak/web
 
 # ---------------------------------------------------------------------------
-# Runtime stage — standalone Next.js server + Node.js
+# Runtime stage — standalone Next.js server + Bun (distroless)
 # ---------------------------------------------------------------------------
-FROM node:24-slim
+FROM oven/bun:${BUN_VERSION}-distroless
 
 WORKDIR /app
 ENV NODE_ENV=production
@@ -73,4 +73,4 @@ ENV HOSTNAME=0.0.0.0
 ENV PORT=3000
 
 EXPOSE 3000
-CMD ["node", "apps/web/server.js"]
+CMD ["bun", "run", "apps/web/server.js"]
