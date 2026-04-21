@@ -30,6 +30,7 @@ const App: React.FC<AppProps> = ({ Component, pageProps }) => {
                 <Script
                     src={process.env.NEXT_PUBLIC_UMAMI_SCRIPT_URL}
                     data-website-id={process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID}
+                    data-performance="true"
                     strategy="afterInteractive"
                 />
             </QueryClientProvider>
