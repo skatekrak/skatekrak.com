@@ -2,7 +2,6 @@ import { GetServerSideProps, NextPage } from 'next';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import { draw } from 'radash';
-import React from 'react';
 
 import { getImgproxyUrl } from '@krak/utils';
 
@@ -79,19 +78,24 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
         try {
             const overview = await serverClient.spots.getSpotOverview({ id: query.spot });
 
+            const image = overview.mostLikedMedia?.image ?? null;
+            let imageUrl: string | null = null;
+            if (image != null) {
+                if ('key' in image) {
+                    imageUrl = getImgproxyUrl(process.env.NEXT_PUBLIC_IMGPROXY_URL ?? '', image.key, {
+                        width: 1200,
+                        height: 630,
+                        resizingType: 'fill',
+                    });
+                } else {
+                    imageUrl = `https://res.cloudinary.com/krak/image/upload/c_fill,w_1200,h_630/${image.publicId}.jpg`;
+                }
+            }
+
             ogData = {
                 title: overview.spot.name,
                 description: `${overview.spot.location.streetNumber} ${overview.spot.location.streetName}, ${overview.spot.location.city} ${overview.spot.location.country}`,
-                imageUrl:
-                    overview.mostLikedMedia?.image != null
-                        ? overview.mostLikedMedia.image.provider === 's3' && 'key' in overview.mostLikedMedia.image
-                            ? getImgproxyUrl(
-                                  process.env.NEXT_PUBLIC_IMGPROXY_URL ?? '',
-                                  overview.mostLikedMedia.image.key as string,
-                                  { width: 1200, height: 630, resizingType: 'fill' },
-                              )
-                            : `https://res.cloudinary.com/krak/image/upload/c_fill,w_1200,h_630/${overview.mostLikedMedia.image.publicId}.jpg`
-                        : null,
+                imageUrl,
                 url: `${baseURL}?spot=${query.spot}`,
             };
         } catch (err) {
