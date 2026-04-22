@@ -34,11 +34,7 @@ const mapCreateSpotSchema = Yup.object().shape({
         })
         .required(),
     indoor: Yup.mixed().oneOf(['true', 'false']).default('false'),
-    images: Yup.array()
-        .of(Yup.mixed())
-        .min(1, 'You must add at least 1 media')
-        .default([])
-        .required('You must add at least 1 media'),
+    images: Yup.array().of(Yup.mixed()).default([]),
 });
 
 const MapCreateSpot = () => {
