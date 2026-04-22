@@ -1,9 +1,11 @@
 import { useShallow } from 'zustand/react/shallow';
 
 import type { Media } from '@krak/contracts';
+import { useImgproxy } from '@krak/ui';
 
 import IconFullScreen from '@/components/Ui/Icons/IconFullScreen';
 import { useMediaID } from '@/lib/hook/queryState';
+import { getMediaImageUrl } from '@/lib/media';
 import { useMapStore } from '@/store/map';
 
 import MapMediaOverlay from './MapMediaOverlay';
@@ -21,6 +23,7 @@ const MapMedia = ({ shareURL, media, isFromCustomMapFeed = false }: MapMediaProp
         useShallow((state) => [state.videoPlayingId, state.setVideoPlaying]),
     );
     const [, setMediaID] = useMediaID();
+    const imgproxy = useImgproxy();
 
     const isPlaying = videoPlayingId === media.id;
 
@@ -45,7 +48,11 @@ const MapMedia = ({ shareURL, media, isFromCustomMapFeed = false }: MapMediaProp
             </button>
             {media.type === 'video' && <MapMediaVideoPlayer media={media} isPlaying={isPlaying} />}
             {media.type === 'image' && media.image && (
-                <img key={media.id} src={media.image.url} alt={media.addedBy.username} />
+                <img
+                    key={media.id}
+                    src={imgproxy ? getMediaImageUrl(media.image, imgproxy.baseUrl) : ''}
+                    alt={media.addedBy.username}
+                />
             )}
             {(media.type === 'image' || (media.type === 'video' && !isPlaying)) && (
                 <MapMediaOverlay media={media} isFromCustomMapFeed={isFromCustomMapFeed} />

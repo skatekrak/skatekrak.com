@@ -4,6 +4,8 @@ import Head from 'next/head';
 import { draw } from 'radash';
 import React from 'react';
 
+import { getImgproxyUrl } from '@krak/utils';
+
 import Layout from '@/components/Layout';
 import cities from '@/data/cities/_cities';
 import { centerFromBounds } from '@/lib/map/helpers';
@@ -82,7 +84,13 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
                 description: `${overview.spot.location.streetNumber} ${overview.spot.location.streetName}, ${overview.spot.location.city} ${overview.spot.location.country}`,
                 imageUrl:
                     overview.mostLikedMedia?.image != null
-                        ? `https://res.cloudinary.com/krak/image/upload/c_fill,w_1200,h_630/${overview.mostLikedMedia.image.publicId}.jpg`
+                        ? overview.mostLikedMedia.image.provider === 's3' && 'key' in overview.mostLikedMedia.image
+                            ? getImgproxyUrl(
+                                  process.env.NEXT_PUBLIC_IMGPROXY_URL ?? '',
+                                  overview.mostLikedMedia.image.key as string,
+                                  { width: 1200, height: 630, resizingType: 'fill' },
+                              )
+                            : `https://res.cloudinary.com/krak/image/upload/c_fill,w_1200,h_630/${overview.mostLikedMedia.image.publicId}.jpg`
                         : null,
                 url: `${baseURL}?spot=${query.spot}`,
             };

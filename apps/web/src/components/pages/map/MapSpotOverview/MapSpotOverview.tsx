@@ -3,6 +3,8 @@ import React, { memo } from 'react';
 import { Popup } from 'react-map-gl';
 
 import type { contract } from '@krak/contracts';
+import { useImgproxy } from '@krak/ui';
+import { getImgproxyUrl } from '@krak/utils';
 
 import IconClips from '@/components/Ui/Icons/IconClips';
 import IconMedia from '@/components/Ui/Icons/IconMedia';
@@ -17,11 +19,24 @@ type MapSpotOverviewProps = {
     onPopupClose: () => void;
 };
 
-const generateCloudinaryURL = (publicId: string): string => {
-    return `https://res.cloudinary.com/krak/image/upload/w_275,ar_1.5,c_fill,dpr_auto/${publicId}.jpg`;
-};
+function getOverviewImageUrl(
+    image: { provider?: string; key?: string; publicId?: string; [key: string]: unknown },
+    imgproxyBaseUrl: string | undefined,
+): string {
+    if (image.provider === 's3' && image.key && imgproxyBaseUrl) {
+        return getImgproxyUrl(imgproxyBaseUrl, image.key, {
+            width: 275,
+            height: 183,
+            resizingType: 'fill',
+        });
+    }
+    // Legacy Cloudinary
+    return `https://res.cloudinary.com/krak/image/upload/w_275,ar_1.5,c_fill,dpr_auto/${image.publicId}.jpg`;
+}
 
 const MapSpotOverview: React.FC<MapSpotOverviewProps> = ({ spotOverview, onPopupClick, onPopupClose }) => {
+    const imgproxy = useImgproxy();
+
     return (
         <Popup
             className="map-spot-overview"
@@ -43,8 +58,9 @@ const MapSpotOverview: React.FC<MapSpotOverviewProps> = ({ spotOverview, onPopup
                         <div
                             className="map-spot-overview-cover"
                             style={{
-                                backgroundImage: `url("${generateCloudinaryURL(
-                                    spotOverview.mostLikedMedia.image.publicId,
+                                backgroundImage: `url("${getOverviewImageUrl(
+                                    spotOverview.mostLikedMedia.image,
+                                    imgproxy?.baseUrl,
                                 )}")`,
                             }}
                         />

@@ -17,6 +17,15 @@ export interface CloudinaryFile {
     jpg: string;
 }
 
+export interface S3File {
+    provider: 's3';
+    key: string;
+    width: number;
+    height: number;
+}
+
+export type MediaImage = CloudinaryFile | S3File;
+
 export interface Profile {
     id: string;
     username: string;
@@ -160,7 +169,7 @@ export interface Cluster {
 
 export interface Media {
     id: string;
-    image: CloudinaryFile;
+    image: MediaImage;
     video?: CloudinaryFile;
     addedBy: AddedBy;
     spot?: Spot;

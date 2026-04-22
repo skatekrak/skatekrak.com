@@ -5,6 +5,8 @@ import Head from 'next/head';
 import Script from 'next/script';
 import { NuqsAdapter } from 'nuqs/adapters/next/pages';
 import React, { useState } from 'react';
+
+import { ImgproxyProvider } from '@krak/ui';
 import 'simplebar-react/dist/simplebar.min.css';
 import 'react-responsive-modal/styles.css';
 import 'mapbox-gl/dist/mapbox-gl.css';
@@ -20,12 +22,16 @@ const App: React.FC<AppProps> = ({ Component, pageProps }) => {
         <NuqsAdapter>
             <QueryClientProvider client={queryClient}>
                 <HydrationBoundary state={pageProps.dehydratedState}>
-                    <Head>
-                        <meta charSet="utf-8" />
-                        <meta name="viewport" content="width=device-width, initial-scale=1" />
-                    </Head>
-                    <Component {...pageProps} />
-                    {process.env.NEXT_PUBLIC_STAGE === 'development' && <ReactQueryDevtools initialIsOpen={false} />}
+                    <ImgproxyProvider baseUrl={process.env.NEXT_PUBLIC_IMGPROXY_URL ?? ''}>
+                        <Head>
+                            <meta charSet="utf-8" />
+                            <meta name="viewport" content="width=device-width, initial-scale=1" />
+                        </Head>
+                        <Component {...pageProps} />
+                        {process.env.NEXT_PUBLIC_STAGE === 'development' && (
+                            <ReactQueryDevtools initialIsOpen={false} />
+                        )}
+                    </ImgproxyProvider>
                 </HydrationBoundary>
                 <Script
                     src={process.env.NEXT_PUBLIC_UMAMI_SCRIPT_URL}

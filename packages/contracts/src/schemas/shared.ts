@@ -44,6 +44,15 @@ export const CloudinaryFileSchema = z.object({
     jpg: z.string().optional(),
 });
 
+export const S3FileSchema = z.object({
+    provider: z.literal('s3'),
+    key: z.string(),
+    width: z.number(),
+    height: z.number(),
+});
+
+export const MediaImageSchema = z.union([S3FileSchema, CloudinaryFileSchema]);
+
 export const AddedBySchema = z.object({
     username: z.string(),
     id: z.string(),

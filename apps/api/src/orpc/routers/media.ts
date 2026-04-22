@@ -1,8 +1,10 @@
 import { ORPCError } from '@orpc/server';
+import { createId } from '@paralleldrive/cuid2';
 
 import type { MediaType } from '@krak/prisma';
 
 import { uploadToCloudinary } from '../../helpers/cloudinary';
+import { uploadToS3 } from '../../helpers/s3';
 import { buildStat } from '../../helpers/stats';
 import { os, authed, loadProfile, loadSpot } from '../base';
 import { formatPrismaMedia, formatPrismaClip } from '../formatters';
@@ -189,17 +191,32 @@ export const uploadToSpot = os.media.uploadToSpot
 
         const buffer = Buffer.from(await file.arrayBuffer());
 
-        // 2. Upload to Cloudinary
-        const cloudinaryFile = await uploadToCloudinary(buffer, mimeType, 'medias');
-
         const isVideo = resourceType === 'video';
         const mediaType: MediaType = isVideo ? 'VIDEO' : 'IMAGE';
 
-        // For videos, carrelage creates a thumbnail image by replacing .mp4 with .webp
-        const imageField = isVideo
-            ? { publicId: cloudinaryFile.publicId, url: cloudinaryFile.url.replace('.mp4', '.webp') }
-            : cloudinaryFile;
-        const videoField = isVideo ? cloudinaryFile : undefined;
+        let imageField: Record<string, unknown>;
+        let videoField: Record<string, unknown> | undefined;
+        let mediaId: string | undefined;
+
+        if (isVideo) {
+            // Videos stay on Cloudinary
+            const cloudinaryFile = await uploadToCloudinary(buffer, mimeType, 'medias');
+            imageField = { publicId: cloudinaryFile.publicId, url: cloudinaryFile.url.replace('.mp4', '.webp') };
+            videoField = cloudinaryFile;
+        } else {
+            // Images go to S3 via sharp
+            const { default: sharp } = await import('sharp');
+            const webpBuffer = await sharp(buffer).webp().toBuffer();
+            const metadata = await sharp(buffer).metadata();
+            const width = metadata.width ?? 0;
+            const height = metadata.height ?? 0;
+
+            mediaId = createId();
+            const s3Key = `assets/medias/${mediaId}.webp`;
+            await uploadToS3(s3Key, webpBuffer, 'image/webp');
+
+            imageField = { provider: 's3', key: s3Key, width, height };
+        }
 
         // 3. Extract hashtags from caption
         const hashtags = extractHashtags(input.caption);
@@ -208,6 +225,7 @@ export const uploadToSpot = os.media.uploadToSpot
         const media = await context.prisma.$transaction(async (tx) => {
             const created = await tx.media.create({
                 data: {
+                    ...(mediaId != null ? { id: mediaId } : {}),
                     type: mediaType,
                     caption: input.caption,
                     image: imageField,

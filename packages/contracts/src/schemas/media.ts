@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-import { AddedBySchema, CloudinaryFileSchema, VideoProviderSchema } from './shared';
+import { AddedBySchema, CloudinaryFileSchema, MediaImageSchema, VideoProviderSchema } from './shared';
 import { SpotSchema } from './spots';
 
 // ============================================================================
@@ -13,7 +13,7 @@ export const MediaSchema = z.object({
     updatedAt: z.coerce.date(),
     type: z.enum(['image', 'video']),
     caption: z.string().optional(),
-    image: CloudinaryFileSchema.nullish(),
+    image: MediaImageSchema.nullish(),
     video: CloudinaryFileSchema.nullish(),
     addedBy: AddedBySchema,
     spot: SpotSchema.optional(),

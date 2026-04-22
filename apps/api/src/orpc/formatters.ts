@@ -65,7 +65,7 @@ export function formatPrismaMedia(media: MediaWithRelations): Media {
         updatedAt: media.updatedAt,
         type: media.type.toLowerCase() as 'image' | 'video',
         caption: media.caption ?? undefined,
-        image: formatCloudinaryFile(media.image),
+        image: formatMediaImage(media.image),
         video: formatCloudinaryFile(media.video),
         addedBy: {
             id: media.addedBy.id,
@@ -100,6 +100,19 @@ export function formatPrismaProfile(profile: ProfileWithUser) {
         username: profile.user.username,
         profilePicture: profile.profilePicture,
     } as any;
+}
+
+export function formatMediaImage(file: any): any {
+    if (!file) return undefined;
+    if (file.provider === 's3') {
+        return {
+            provider: 's3' as const,
+            key: file.key,
+            width: typeof file.width === 'number' ? file.width : 0,
+            height: typeof file.height === 'number' ? file.height : 0,
+        };
+    }
+    return formatCloudinaryFile(file);
 }
 
 export function formatCloudinaryFile(file: any): any {

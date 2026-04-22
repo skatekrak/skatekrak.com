@@ -2,6 +2,7 @@ import classnames from 'classnames';
 import React, { useState } from 'react';
 
 import type { Media } from '@krak/contracts';
+import { useImgproxy } from '@krak/ui';
 
 import IconArrowHead from '@/components/Ui/Icons/ArrowHead';
 import IconInfo from '@/components/Ui/Icons/IconInfo';
@@ -9,6 +10,7 @@ import VideoPlayer from '@/components/Ui/Player/VideoPlayer';
 import Typography from '@/components/Ui/typography/Typography';
 import SpotIcon from '@/components/Ui/Utils/SpotIcon';
 import { useMediaID } from '@/lib/hook/queryState';
+import { getMediaImageUrl } from '@/lib/media';
 
 type CarouselMediaProps = {
     media: Media;
@@ -114,9 +116,13 @@ export const CarouselNav = ({ media, prevMedia, nextMedia }: CarouselMediaProps)
 };
 
 const CarouselContent = ({ media }: { media: Media }) => {
+    const imgproxy = useImgproxy();
+
     if (media.type === 'video' && media.video != null) {
         return <VideoPlayer style={{ paddingTop: 'inherit' }} url={media.video.url} loop controls playing />;
     }
 
-    return <img className="w-full h-full object-contain" src={media.image?.url} alt={media.caption} />;
+    const src = media.image && imgproxy ? getMediaImageUrl(media.image, imgproxy.baseUrl) : '';
+
+    return <img className="w-full h-full object-contain" src={src} alt={media.caption} />;
 };

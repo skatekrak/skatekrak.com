@@ -232,6 +232,15 @@ export const updateSpotGeneralInfoOutput = z.object({
 
 export const MediaTypeSchema = z.enum(['IMAGE', 'VIDEO']);
 
+const AdminS3FileSchema = z
+    .object({
+        provider: z.literal('s3'),
+        key: z.string(),
+        width: z.number().nullable(),
+        height: z.number().nullable(),
+    })
+    .nullable();
+
 const AdminCloudinaryFileSchemaMedia = z
     .object({
         publicId: z.string().nullable(),
@@ -241,11 +250,13 @@ const AdminCloudinaryFileSchemaMedia = z
     })
     .nullable();
 
+const AdminMediaImageSchema = z.union([AdminS3FileSchema, AdminCloudinaryFileSchemaMedia]);
+
 export const AdminMediaSchema = z.object({
     id: z.string(),
     type: MediaTypeSchema,
     caption: z.string().nullable(),
-    image: AdminCloudinaryFileSchemaMedia,
+    image: AdminMediaImageSchema,
     spot: z
         .object({
             id: z.string(),
