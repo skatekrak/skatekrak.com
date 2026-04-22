@@ -1,8 +1,8 @@
 import classnames from 'classnames';
 import { useFormikContext, Field } from 'formik';
-import mapboxgl, { MapLayerMouseEvent } from 'mapbox-gl';
+import maplibregl, { MapLayerMouseEvent } from 'maplibre-gl';
 import { memo, useEffect, useState } from 'react';
-import { useMap } from 'react-map-gl';
+import { useMap } from 'react-map-gl/maplibre';
 
 import ButtonPrimary from '@/components/Ui/Button/ButtonPrimary';
 import Arrow from '@/components/Ui/Icons/Arrow';
@@ -44,7 +44,7 @@ const MapCreateSpotForm = () => {
     }, [map, values.type, setFieldValue]);
 
     useEffect(() => {
-        let newSpotMaker: mapboxgl.Marker | null = null;
+        let newSpotMaker: maplibregl.Marker | null = null;
         if (values.location?.latitude != null && values.location.longitude != null) {
             const el = document.createElement('div');
             el.className = 'marker';
@@ -54,7 +54,7 @@ const MapCreateSpotForm = () => {
             el.style.backgroundSize = '100%';
 
             if (map != null) {
-                newSpotMaker = new mapboxgl.Marker(el)
+                newSpotMaker = new maplibregl.Marker({ element: el })
                     .setLngLat([values.location.longitude, values.location.latitude])
                     .addTo(map.getMap());
             }
