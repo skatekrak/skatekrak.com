@@ -20,13 +20,15 @@ const SpotPinLayer = ({ type }: SpotPinLayerProps) => {
 
     useEffect(() => {
         if (!map?.hasImage(`/images/map/icons/${type}@2x.png`)) {
-            map?.loadImage(`/images/map/icons/${type}@2x.png`, (error, image) => {
-                if (error) {
+            map?.loadImage(`/images/map/icons/${type}@2x.png`)
+                .then((response) => {
+                    if (response?.data != null && !map?.hasImage(`spot-${type}`)) {
+                        map?.addImage(`spot-${type}`, response.data);
+                    }
+                })
+                .catch((error) => {
                     console.error(error);
-                } else if (image != null) {
-                    map?.addImage(`spot-${type}`, image);
-                }
-            });
+                });
         }
     }, [type, map]);
 

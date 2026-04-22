@@ -115,7 +115,7 @@ const MapComponent = ({ mapRef, spots, children, onLoad }: MapComponentProps) =>
                     }
                     return { url };
                 }}
-                projection={{ name: 'mercator' }}
+                projection={{ type: 'mercator' }}
                 onMove={onViewportChange}
                 onLoad={onLoad}
             >
