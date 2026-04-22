@@ -104,8 +104,8 @@ const MapComponent = ({ mapRef, spots, children, onLoad }: MapComponentProps) =>
                 style={{ width: '100%', height: '100%' }}
                 minZoom={MIN_ZOOM_LEVEL}
                 maxZoom={MAX_ZOOM_LEVEL}
-                mapStyle={`https://api.mapbox.com/styles/v1/mapbox/${mapStyle}?access_token=${MAPBOX_TOKEN}`}
-                transformRequest={(url: string, _resourceType?: string) => {
+                mapStyle={`https://api.mapbox.com/styles/v1/mapbox/${mapStyle}`}
+                transformRequest={(url: string) => {
                     if (url.includes('api.mapbox.com') || url.includes('tiles.mapbox.com')) {
                         return {
                             url: url.includes('?')
