@@ -8,6 +8,8 @@ import { useShallow } from 'zustand/react/shallow';
 
 import type { Spot } from '@krak/contracts';
 
+import Analytics from '@/lib/analytics';
+
 import CityPanel from '@/components/pages/map/cities/CityPanel';
 import MapCustomPanel from '@/components/pages/map/MapCustom/panel/MapCustomPanel';
 import { SpinnerCircle } from '@/components/Ui/Icons/Spinners';
@@ -71,6 +73,7 @@ const MapContainer = () => {
         if (session.data == null) {
             router.push('/auth/login');
         } else {
+            Analytics.trackEvent('spot_add_started');
             setSpotID(null);
             setModalVisible(null);
             setMedia(null);

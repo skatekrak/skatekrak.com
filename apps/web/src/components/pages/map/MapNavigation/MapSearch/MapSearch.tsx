@@ -6,6 +6,7 @@ import { useShallow } from 'zustand/react/shallow';
 
 import IconClear from '@/components/Ui/Icons/IconClear';
 import SearchIcon from '@/components/Ui/Icons/Search';
+import Analytics from '@/lib/analytics';
 import { SpotHit, spotIndex, SpotSearchResult } from '@/lib/meilisearch';
 import { useMapStore } from '@/store/map';
 
@@ -29,6 +30,7 @@ const MapNavigation = () => {
             if (!searchValue) {
                 return null;
             }
+            Analytics.trackEvent('map_search', 'query', searchValue);
             return debouncedSpotsSearch(searchValue);
         },
         refetchOnWindowFocus: false,

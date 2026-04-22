@@ -6,6 +6,7 @@ import * as Yup from 'yup';
 
 import { Types } from '@krak/types';
 
+import Analytics from '@/lib/analytics';
 import { useSpotID } from '@/lib/hook/queryState';
 import { client } from '@/server/orpc/client';
 import { useMapStore } from '@/store/map';
@@ -67,6 +68,7 @@ const MapCreateSpot = () => {
             return client.media.uploadToSpot({ spotId: spot.id, file: imageFile });
         });
 
+        Analytics.trackEvent('spot_add_completed', spot.id, spot.name);
         toggleCreateSpot();
         setSpotID(spot.id);
         queryClient.invalidateQueries({ queryKey: ['fetch-spots-on-map'] });

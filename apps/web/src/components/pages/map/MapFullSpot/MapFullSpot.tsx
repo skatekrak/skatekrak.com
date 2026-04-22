@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 
 import Modal from '@/components/Ui/Modal';
 import { modalThemeStyles } from '@/components/Ui/Modal/styles';
+import Analytics from '@/lib/analytics';
 import { useFullSpotSelectedTab, useMediaID } from '@/lib/hook/queryState';
 import { useMapStore } from '@/store/map';
 
@@ -26,6 +27,12 @@ const MapFullSpot: React.FC<MapFullSpotProps> = ({ open, onClose, container }) =
             selectFullSpotTab(null);
         }
     }, [open, selectFullSpotTab]);
+
+    useEffect(() => {
+        if (open && spotOverview) {
+            Analytics.trackEvent('spot_view', spotOverview.spot.id, spotOverview.spot.name);
+        }
+    }, [open, spotOverview]);
 
     return (
         <Modal
