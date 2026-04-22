@@ -9,7 +9,7 @@ import React, { useState } from 'react';
 import { ImgproxyProvider } from '@krak/ui';
 import 'simplebar-react/dist/simplebar.min.css';
 import 'react-responsive-modal/styles.css';
-import 'mapbox-gl/dist/mapbox-gl.css';
+import 'maplibre-gl/dist/maplibre-gl.css';
 import '../../public/styles/tailwind.css';
 import '../../public/styles/fonts.css';
 import '../../public/styles/flexbox-grid.css';
