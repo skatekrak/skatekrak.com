@@ -47,15 +47,15 @@ const MapComponent = ({ mapRef, spots, children, onLoad }: MapComponentProps) =>
     const [, setModalVisible] = useSpotModal();
 
     const [markers, spotSourceData]: [React.ReactElement[], FeatureCollection<Geometry>] = useMemo(() => {
-        const markers: React.ReactElement[] = [];
-        const spotSourceData: FeatureCollection<Geometry> = {
+        const mrks: React.ReactElement[] = [];
+        const spotData: FeatureCollection<Geometry> = {
             type: 'FeatureCollection',
             features: [],
         };
 
         for (const spot of spots) {
             if (isSpotMarker(spot) && viewport.zoom > ZOOM_DISPLAY_DOTS) {
-                markers.push(
+                mrks.push(
                     <SpotMarker
                         key={spot.id}
                         spot={spot}
@@ -63,11 +63,11 @@ const MapComponent = ({ mapRef, spots, children, onLoad }: MapComponentProps) =>
                     />,
                 );
             } else {
-                spotSourceData.features.push(spot);
+                spotData.features.push(spot);
             }
         }
 
-        return [markers, spotSourceData];
+        return [mrks, spotData];
     }, [spots, selectedSpotOverview, viewport.zoom]);
 
     const onPopupClick = () => {
