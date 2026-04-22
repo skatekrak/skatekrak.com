@@ -73,4 +73,4 @@ ENV HOSTNAME=0.0.0.0
 ENV PORT=3000
 
 EXPOSE 3000
-CMD ["bun", "run", "apps/web/server.js"]
+CMD ["bun", "apps/web/server.js"]
