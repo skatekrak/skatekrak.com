@@ -1637,35 +1637,35 @@
     fill: #fff;
 }
 
-/* === mapbox-gl overrides === */
-.mapboxgl-marker {
+/* === maplibre-gl overrides === */
+.maplibregl-marker {
     display: flex;
 }
-.mapboxgl-marker:hover {
+.maplibregl-marker:hover {
     z-index: 8;
 }
-.mapboxgl-ctrl-bottom-left,
-.mapboxgl-ctrl-attrib {
+.maplibregl-ctrl-bottom-left,
+.maplibregl-ctrl-attrib {
     display: none;
 }
-.mapboxgl-ctrl-bottom-right {
+.maplibregl-ctrl-bottom-right {
     z-index: 10;
     margin-right: 1rem;
     margin-bottom: 1rem;
 }
 @media (min-width: 768px) {
-    .mapboxgl-ctrl-bottom-right {
+    .maplibregl-ctrl-bottom-right {
         margin-right: 1.5rem;
         margin-bottom: 1.5rem;
     }
 }
-.mapboxgl-ctrl-bottom-right .mapboxgl-ctrl {
+.maplibregl-ctrl-bottom-right .maplibregl-ctrl {
     margin: 0 !important;
 }
-.mapboxgl-ctrl-bottom-right .mapboxgl-ctrl:first-child {
+.maplibregl-ctrl-bottom-right .maplibregl-ctrl:first-child {
     margin-bottom: 0.5rem !important;
 }
-.map-spot-overview .mapboxgl-popup-content {
+.map-spot-overview .maplibregl-popup-content {
     padding: 0.5rem;
     background: none;
     box-shadow: none;
