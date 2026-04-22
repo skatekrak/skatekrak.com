@@ -13,7 +13,7 @@ export const useViewport = () => {
     );
 };
 
-const mapStyles = ['dark-v11', 'satellite-streets-v11'] as const;
+const mapStyles = ['dark-v11', 'satellite-streets-v12'] as const;
 
 export const useMapStyle = () => {
     return useQueryState('style', parseAsStringLiteral(mapStyles).withDefault('dark-v11'));

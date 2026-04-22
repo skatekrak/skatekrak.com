@@ -93,7 +93,7 @@ const MapComponent = ({ mapRef, spots, children, onLoad }: MapComponentProps) =>
     const [mapStyle, setMapStyle] = useMapStyle();
 
     const onSwitchMapStyle = () => {
-        setMapStyle(mapStyle);
+        setMapStyle(mapStyle === 'dark-v11' ? 'satellite-streets-v12' : 'dark-v11');
     };
 
     return (
@@ -104,10 +104,12 @@ const MapComponent = ({ mapRef, spots, children, onLoad }: MapComponentProps) =>
                 style={{ width: '100%', height: '100%' }}
                 minZoom={MIN_ZOOM_LEVEL}
                 maxZoom={MAX_ZOOM_LEVEL}
+                attributionControl={false}
+                maplibreLogo={false}
                 // Mapbox style JSON contains proprietary properties (name, owner, etc.)
                 // that MapLibre's strict validator flags as unknown — disable validation
                 validateStyle={false}
-                mapStyle={`https://api.mapbox.com/styles/v1/mapbox/${mapStyle}?access_token=${MAPBOX_TOKEN}`}
+                mapStyle={`https://api.mapbox.com/styles/v1/mapbox/${mapStyle}`}
                 transformRequest={(url: string) => {
                     // Resolve mapbox:// protocol URIs that MapLibre doesn't understand
                     if (url.startsWith('mapbox://fonts/')) {
