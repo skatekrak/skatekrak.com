@@ -4,17 +4,17 @@
 
 Bun + Turborepo monorepo for the Skatekrak skateboarding platform. Three apps and six shared packages.
 
-| Package            | Path               | Tech                                                          | Deploys To              |
-| ------------------ | ------------------ | ------------------------------------------------------------- | ----------------------- |
-| `@krak/web`        | `apps/web`         | Next.js 16 (Pages Router), React 19, Zustand, Redux Toolkit   | Vercel                  |
-| `@krak/api`        | `apps/api`         | Elysia (Bun), oRPC, PostgreSQL (Prisma 7), BetterAuth         | Dokploy (custom server) |
-| `@krak/manager`    | `apps/manager`     | Next.js 16 (App Router), React 19, oRPC                       | Dokploy                 |
-| `@krak/auth`       | `packages/auth`    | BetterAuth 1.2 wrapper                                        | —                       |
-| `@krak/contracts`  | `packages/contracts` | oRPC contract definitions (Zod schemas)                     | —                       |
-| `@krak/prisma`     | `packages/prisma`  | Prisma 7 client + PostgreSQL schema                           | —                       |
-| `@krak/ui`         | `packages/ui`      | Shared React components (Radix UI + Tailwind CSS 4)           | —                       |
-| `@krak/types`      | `packages/types`   | Shared TypeScript types                                       | —                       |
-| `@krak/utils`      | `packages/utils`   | Shared utility functions                                      | —                       |
+| Package           | Path                 | Tech                                                        | Deploys To              |
+| ----------------- | -------------------- | ----------------------------------------------------------- | ----------------------- |
+| `@krak/web`       | `apps/web`           | Next.js 16 (Pages Router), React 19, Zustand, Redux Toolkit | Vercel                  |
+| `@krak/api`       | `apps/api`           | Elysia (Bun), oRPC, PostgreSQL (Prisma 7), BetterAuth       | Dokploy (custom server) |
+| `@krak/manager`   | `apps/manager`       | Next.js 16 (App Router), React 19, oRPC                     | Dokploy                 |
+| `@krak/auth`      | `packages/auth`      | BetterAuth 1.2 wrapper                                      | —                       |
+| `@krak/contracts` | `packages/contracts` | oRPC contract definitions (Zod schemas)                     | —                       |
+| `@krak/prisma`    | `packages/prisma`    | Prisma 7 client + PostgreSQL schema                         | —                       |
+| `@krak/ui`        | `packages/ui`        | Shared React components (Radix UI + Tailwind CSS 4)         | —                       |
+| `@krak/types`     | `packages/types`     | Shared TypeScript types                                     | —                       |
+| `@krak/utils`     | `packages/utils`     | Shared utility functions                                    | —                       |
 
 Dependency chain: `web` → `contracts` → `types`; `api` → `contracts` → `prisma` → `auth`; `manager` → `contracts` → `ui`.
 
@@ -150,8 +150,8 @@ Use `import type { ... }` for type-only imports. Enforced by TypeScript's `isola
 ## Infrastructure
 
 - **Docker Compose** for local dev: `api`, `postgres`, `meilisearch` services.
-  - PostgreSQL 17 on port 5433 (credentials: `krak`/`krak`, db: `krak`)
-  - Meilisearch v1.13 on port 7700
+    - PostgreSQL 17 on port 5433 (credentials: `krak`/`krak`, db: `krak`)
+    - Meilisearch v1.13 on port 7700
 - No Traefik reverse proxy in local dev — apps run directly on their respective ports.
 - CI: GitHub Actions — `bun install --frozen-lockfile`, `oxlint`, `sherif`, `oxfmt --check`, `turbo build` on push to main.
 - Deployments: Vercel (web), Dokploy (api, manager).
@@ -159,6 +159,7 @@ Use `import type { ... }` for type-only imports. Enforced by TypeScript's `isola
 ## Key Directories
 
 ### apps/web
+
 ```
 src/
   components/   — React components (PascalCase dirs with index.ts barrel exports)
@@ -170,6 +171,7 @@ src/
 ```
 
 ### apps/api
+
 ```
 src/
   routers/      — oRPC procedure implementations
@@ -179,6 +181,7 @@ src/
 ```
 
 ### apps/manager
+
 ```
 src/
   app/          — Next.js App Router pages
