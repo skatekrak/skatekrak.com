@@ -3,7 +3,7 @@ import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { isEmpty, intersects } from 'radash';
 import React, { useState, useEffect, useRef, useCallback, useMemo, ElementRef } from 'react';
-import { MapRef } from 'react-map-gl';
+import { MapRef } from 'react-map-gl/maplibre';
 import { useShallow } from 'zustand/react/shallow';
 
 import type { Spot } from '@krak/contracts';

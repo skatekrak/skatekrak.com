@@ -1,5 +1,5 @@
 import React from 'react';
-import { useMap } from 'react-map-gl';
+import { useMap } from 'react-map-gl/maplibre';
 import { useShallow } from 'zustand/react/shallow';
 
 import Typography from '@/components/Ui/typography/Typography';

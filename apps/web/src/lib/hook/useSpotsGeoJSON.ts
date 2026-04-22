@@ -1,5 +1,5 @@
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
-import { MapRef } from 'react-map-gl';
+import { MapRef } from 'react-map-gl/maplibre';
 
 import { SpotGeoJSON } from '@krak/types';
 

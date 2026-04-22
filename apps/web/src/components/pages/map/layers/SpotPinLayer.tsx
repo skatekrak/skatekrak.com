@@ -1,6 +1,6 @@
 import { first } from 'radash';
 import { memo, useCallback, useEffect } from 'react';
-import { Layer, MapLayerMouseEvent, useMap } from 'react-map-gl';
+import { Layer, MapLayerMouseEvent, useMap } from 'react-map-gl/maplibre';
 
 import { Status, Types } from '@krak/types';
 

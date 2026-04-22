@@ -1,5 +1,5 @@
 import React from 'react';
-import { useMap } from 'react-map-gl';
+import { useMap } from 'react-map-gl/maplibre';
 
 import Scrollbar from '@/components/Ui/Scrollbar';
 import { useSpotID } from '@/lib/hook/queryState';

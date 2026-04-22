@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import React, { memo } from 'react';
-import { Popup } from 'react-map-gl';
+import { Popup } from 'react-map-gl/maplibre';
 
 import type { contract } from '@krak/contracts';
 import { useImgproxy } from '@krak/ui';

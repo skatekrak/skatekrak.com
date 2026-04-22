@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import React from 'react';
-import { Marker, MarkerProps } from 'react-map-gl';
+import { Marker, MarkerProps } from 'react-map-gl/maplibre';
 
 import { SpotGeoJSON } from '@krak/types';
 

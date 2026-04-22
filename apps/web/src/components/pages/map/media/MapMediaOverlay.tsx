@@ -1,5 +1,5 @@
 import React from 'react';
-import { useMap } from 'react-map-gl';
+import { useMap } from 'react-map-gl/maplibre';
 
 import type { Media } from '@krak/contracts';
 
