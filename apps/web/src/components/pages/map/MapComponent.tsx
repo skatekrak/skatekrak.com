@@ -1,6 +1,12 @@
 import { intersects } from 'radash';
 import React, { useCallback, useMemo, memo } from 'react';
-import ReactMapGL, { GeolocateControl, MapRef, NavigationControl, Source, ViewStateChangeEvent } from 'react-map-gl';
+import ReactMapGL, {
+    GeolocateControl,
+    MapRef,
+    NavigationControl,
+    Source,
+    ViewStateChangeEvent,
+} from 'react-map-gl/maplibre';
 import { useShallow } from 'zustand/react/shallow';
 
 import { SpotGeoJSON } from '@krak/types';
@@ -17,6 +23,8 @@ import { MAX_ZOOM_LEVEL, ZOOM_DISPLAY_DOTS, MIN_ZOOM_LEVEL } from './Map.constan
 import MapSpotOverview from './MapSpotOverview';
 
 import type { FeatureCollection, Geometry } from 'geojson';
+
+const MAPBOX_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN;
 
 type MapComponentProps = {
     mapRef: React.RefObject<MapRef | null>;
@@ -96,8 +104,17 @@ const MapComponent = ({ mapRef, spots, children, onLoad }: MapComponentProps) =>
                 style={{ width: '100%', height: '100%' }}
                 minZoom={MIN_ZOOM_LEVEL}
                 maxZoom={MAX_ZOOM_LEVEL}
-                mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}
-                mapStyle={`mapbox://styles/mapbox/${mapStyle}`}
+                mapStyle={`https://api.mapbox.com/styles/v1/mapbox/${mapStyle}?access_token=${MAPBOX_TOKEN}`}
+                transformRequest={(url: string, _resourceType?: string) => {
+                    if (url.includes('api.mapbox.com') || url.includes('tiles.mapbox.com')) {
+                        return {
+                            url: url.includes('?')
+                                ? `${url}&access_token=${MAPBOX_TOKEN}`
+                                : `${url}?access_token=${MAPBOX_TOKEN}`,
+                        };
+                    }
+                    return { url };
+                }}
                 projection={{ name: 'mercator' }}
                 onMove={onViewportChange}
                 onLoad={onLoad}
