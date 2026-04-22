@@ -12,6 +12,7 @@ import {
     CardContent,
     CardHeader,
     CardTitle,
+    KrakImage,
     Skeleton,
     Tabs,
     TabsContent,
@@ -137,26 +138,41 @@ export function MapPreviewTabs({ map }: MapPreviewTabsProps) {
                         ) : (
                             <div className="flex flex-col gap-4">
                                 <div className="grid grid-cols-3 gap-2">
-                                    {medias.map((media) => (
-                                        <div key={media.id} className="flex flex-col gap-1">
-                                            <div className="relative aspect-square overflow-hidden rounded-md bg-muted">
-                                                {media.image?.url ? (
-                                                    <img
-                                                        src={media.image.url}
-                                                        alt={media.caption ?? ''}
-                                                        className="h-full w-full object-cover"
-                                                    />
-                                                ) : (
-                                                    <div className="flex h-full items-center justify-center text-xs text-muted-foreground">
-                                                        {media.type}
-                                                    </div>
-                                                )}
+                                    {medias.map((media) => {
+                                        const image = media.image;
+                                        return (
+                                            <div key={media.id} className="flex flex-col gap-1">
+                                                <div className="relative aspect-square overflow-hidden rounded-md bg-muted">
+                                                    {image != null && 'key' in image && image.key ? (
+                                                        <KrakImage
+                                                            path={image.key}
+                                                            alt={media.caption ?? ''}
+                                                            options={{
+                                                                width: 200,
+                                                                height: 200,
+                                                                resizingType: 'fill',
+                                                                format: 'webp',
+                                                            }}
+                                                            className="h-full w-full object-cover"
+                                                        />
+                                                    ) : image != null && 'url' in image && image.url ? (
+                                                        <img
+                                                            src={image.url}
+                                                            alt={media.caption ?? ''}
+                                                            className="h-full w-full object-cover"
+                                                        />
+                                                    ) : (
+                                                        <div className="flex h-full items-center justify-center text-xs text-muted-foreground">
+                                                            {media.type}
+                                                        </div>
+                                                    )}
+                                                </div>
+                                                <span className="truncate text-xs text-muted-foreground">
+                                                    {media.addedBy.username}
+                                                </span>
                                             </div>
-                                            <span className="truncate text-xs text-muted-foreground">
-                                                {media.addedBy.username}
-                                            </span>
-                                        </div>
-                                    ))}
+                                        );
+                                    })}
                                 </div>
                                 {hasNextPage && (
                                     <Button

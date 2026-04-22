@@ -24,3 +24,4 @@ dist
 /apps/manager/next-env.d.ts
 /apps/web/next-env.d.ts
 *.tsbuildinfo
+/apps/web/tsconfig.tsbuildinfo

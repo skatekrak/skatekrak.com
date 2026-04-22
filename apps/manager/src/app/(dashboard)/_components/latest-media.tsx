@@ -15,6 +15,7 @@ import {
     CardHeader,
     CardTitle,
     ChartContainer,
+    KrakImage,
     Separator,
     Skeleton,
     type ChartConfig,
@@ -142,16 +143,37 @@ export function LatestMedia() {
     );
 }
 
+function MediaThumbnail({ image, alt }: { image: Media['image']; alt: string }) {
+    if (image == null) return null;
+    if ('key' in image && image.key) {
+        return (
+            <KrakImage
+                path={image.key}
+                alt={alt}
+                options={{ width: 80, height: 80, resizingType: 'fill', format: 'webp' }}
+                className="size-full object-cover"
+            />
+        );
+    }
+    if ('url' in image && image.url) {
+        return <img src={image.url} alt={alt} className="size-full object-cover" />;
+    }
+    return null;
+}
+
+function hasDisplayableImage(image: Media['image']): boolean {
+    if (image == null) return false;
+    if ('key' in image && image.key) return true;
+    if ('url' in image && image.url) return true;
+    return false;
+}
+
 function MediaRow({ media }: { media: Media }) {
     return (
         <div className="flex items-center gap-3 rounded-md p-2">
-            {media.image?.url ? (
+            {hasDisplayableImage(media.image) ? (
                 <div className="relative size-10 shrink-0 overflow-hidden rounded-md bg-muted">
-                    <img
-                        src={media.image.url}
-                        alt={media.caption || 'Media preview'}
-                        className="size-full object-cover"
-                    />
+                    <MediaThumbnail image={media.image} alt={media.caption || 'Media preview'} />
                     {media.type === 'VIDEO' && (
                         <div className="absolute inset-0 flex items-center justify-center bg-black/30">
                             <Film className="size-4 text-white" />
