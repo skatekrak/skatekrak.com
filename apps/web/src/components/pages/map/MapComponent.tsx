@@ -93,7 +93,7 @@ const MapComponent = ({ mapRef, spots, children, onLoad }: MapComponentProps) =>
     const [mapStyle, setMapStyle] = useMapStyle();
 
     const onSwitchMapStyle = () => {
-        setMapStyle(mapStyle === 'dark-v11' ? 'satellite-streets-v11' : 'dark-v11');
+        setMapStyle(mapStyle);
     };
 
     return (
@@ -107,14 +107,30 @@ const MapComponent = ({ mapRef, spots, children, onLoad }: MapComponentProps) =>
                 // Mapbox style JSON contains proprietary properties (name, owner, etc.)
                 // that MapLibre's strict validator flags as unknown — disable validation
                 validateStyle={false}
-                mapStyle={`https://api.mapbox.com/styles/v1/mapbox/${mapStyle}`}
+                mapStyle={`https://api.mapbox.com/styles/v1/mapbox/${mapStyle}?access_token=${MAPBOX_TOKEN}`}
                 transformRequest={(url: string) => {
+                    // Resolve mapbox:// protocol URIs that MapLibre doesn't understand
+                    if (url.startsWith('mapbox://fonts/')) {
+                        const path = url.replace('mapbox://fonts/', '');
+                        return { url: `https://api.mapbox.com/fonts/v1/${path}?access_token=${MAPBOX_TOKEN}` };
+                    }
+                    if (url.startsWith('mapbox://sprites/')) {
+                        const path = url.replace('mapbox://sprites/', '');
+                        return { url: `https://api.mapbox.com/styles/v1/${path}/sprite?access_token=${MAPBOX_TOKEN}` };
+                    }
+                    if (url.startsWith('mapbox://')) {
+                        const path = url.replace('mapbox://', '');
+                        return { url: `https://api.mapbox.com/v4/${path}.json?secure&access_token=${MAPBOX_TOKEN}` };
+                    }
+                    // Append token to any other Mapbox API requests
                     if (url.includes('api.mapbox.com') || url.includes('tiles.mapbox.com')) {
-                        return {
-                            url: url.includes('?')
-                                ? `${url}&access_token=${MAPBOX_TOKEN}`
-                                : `${url}?access_token=${MAPBOX_TOKEN}`,
-                        };
+                        if (!url.includes('access_token=')) {
+                            return {
+                                url: url.includes('?')
+                                    ? `${url}&access_token=${MAPBOX_TOKEN}`
+                                    : `${url}?access_token=${MAPBOX_TOKEN}`,
+                            };
+                        }
                     }
                     return { url };
                 }}
