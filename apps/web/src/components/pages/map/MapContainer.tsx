@@ -21,6 +21,9 @@ import { orpc } from '@/server/orpc/client';
 import { useMapStore } from '@/store/map';
 import { useSettingsStore } from '@/store/settings';
 
+import IconPlus from '@/components/Ui/Icons/IconPlus';
+import Typography from '@/components/Ui/typography/Typography';
+
 import { ZOOM_DISPLAY_WARNING } from './Map.constant';
 import MapBottomNav from './MapBottomNav/MapBottomNav';
 import MapCreateSpot from './MapCreateSpot';
@@ -205,6 +208,15 @@ const MapContainer = () => {
                             </div>
                         )}
                         <MapBottomNav isMobile={isMobile ?? false} />
+                        {isMobile && (
+                            <button
+                                onClick={onToggleSpotCreation}
+                                className="absolute bottom-4 right-4 z-[1000] flex items-center gap-2 py-3 px-4 text-onDark-highEmphasis bg-primary-80 rounded shadow-onDarkHighSharp hover:bg-primary-100 transition-colors duration-150 [&_svg]:w-5 [&_svg]:fill-onDark-highEmphasis"
+                            >
+                                <IconPlus />
+                                <Typography component="condensedButton">Add Your Spot</Typography>
+                            </button>
+                        )}
                         <MapFullSpot
                             open={modalVisible}
                             onClose={onFullSpotClose}
