@@ -4,7 +4,7 @@ import { AppProps } from 'next/app';
 import Head from 'next/head';
 import Script from 'next/script';
 import { NuqsAdapter } from 'nuqs/adapters/next/pages';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { ImgproxyProvider } from '@krak/ui';
 import 'simplebar-react/dist/simplebar.min.css';
@@ -15,8 +15,22 @@ import '../../public/styles/fonts.css';
 import '../../public/styles/flexbox-grid.css';
 import '../../public/styles/masonry.css';
 
+import Analytics from '@/lib/analytics';
+
+const useUtmTracking = () => {
+    useEffect(() => {
+        const params = new URLSearchParams(window.location.search);
+        const source = params.get('utm_source');
+        const campaign = params.get('utm_campaign');
+        if (source) {
+            Analytics.trackEvent('utm_arrival', source, campaign ?? undefined);
+        }
+    }, []);
+};
+
 const App: React.FC<AppProps> = ({ Component, pageProps }) => {
     const [queryClient] = useState(() => new QueryClient());
+    useUtmTracking();
 
     return (
         <NuqsAdapter>

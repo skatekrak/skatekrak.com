@@ -16,6 +16,7 @@ const MapMediaShare = ({ media, url }: Props) => {
                 url={url}
                 facebookQuote={`${media.caption} shared via skatekrak.com`}
                 twitterTitle={media.caption ?? ''}
+                utmCampaign="map_awareness"
             />
         </div>
     );

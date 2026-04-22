@@ -29,6 +29,17 @@ const MapCreateSpotForm = () => {
     const { current: map } = useMap();
 
     useEffect(() => {
+        if (!isMobile || !navigator.geolocation) return;
+        navigator.geolocation.getCurrentPosition((pos) => {
+            setFieldValue('location', {
+                latitude: pos.coords.latitude,
+                longitude: pos.coords.longitude,
+            });
+            map?.flyTo({ center: [pos.coords.longitude, pos.coords.latitude], zoom: 16 });
+        });
+    }, []);
+
+    useEffect(() => {
         const onClick = (event: MapLayerMouseEvent) => {
             event.preventDefault();
             setFieldValue('location', { latitude: event.lngLat.lat, longitude: event.lngLat.lng });
@@ -107,7 +118,7 @@ const MapCreateSpotForm = () => {
                             <Field
                                 name="name"
                                 placeholder="Name"
-                                autoFocus
+                                autoFocus={!isMobile}
                                 autoComplete="off"
                                 className="w-full font-roboto-bold text-xl text-onDark-highEmphasis bg-inherit outline-none"
                             />
