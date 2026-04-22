@@ -1332,6 +1332,10 @@
         @apply absolute inset-0 w-full h-full bg-center bg-cover;
     }
 
+    .map-spot-overview-cover--placeholder {
+        @apply bg-contain bg-no-repeat bg-tertiary-dark;
+    }
+
     .map-spot-overview-cover-container {
         @apply relative h-0 w-[275px] mt-2 overflow-hidden bg-tertiary-medium rounded-sm;
         padding-top: 56.25%;

@@ -52,7 +52,12 @@ const MapCreateSpotMedia = () => {
 
     return (
         <div className="p-6 tablet:px-8 tablet:py-5">
-            <Typography component="subtitle1">Media (1 minimum)</Typography>
+            <Typography component="subtitle1">Media (optional)</Typography>
+            {value.length === 0 && (
+                <Typography component="body2" className="mt-1 text-onDark-mediumEmphasis">
+                    Add a photo to help skaters find this spot
+                </Typography>
+            )}
             {fileError && (
                 <Typography component="body2" className="mt-1 text-red-400">
                     {fileError}

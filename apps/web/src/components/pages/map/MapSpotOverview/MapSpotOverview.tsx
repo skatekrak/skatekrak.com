@@ -1,4 +1,3 @@
-import classNames from 'classnames';
 import React, { memo } from 'react';
 import { Popup } from 'react-map-gl';
 
@@ -46,14 +45,10 @@ const MapSpotOverview: React.FC<MapSpotOverviewProps> = ({ spotOverview, onPopup
             closeButton={false}
         >
             <button className="map-spot-overview-container" onClick={onPopupClick}>
-                <h4
-                    className={classNames('map-spot-overview-name', {
-                        'map-spot-overview-name-center': !spotOverview.mostLikedMedia,
-                    })}
-                >
+                <h4 className="map-spot-overview-name">
                     {spotOverview.spot.name}
                 </h4>
-                {spotOverview.mostLikedMedia?.image && (
+                {spotOverview.mostLikedMedia?.image ? (
                     <div className="map-spot-overview-cover-container">
                         <div
                             className="map-spot-overview-cover"
@@ -65,12 +60,17 @@ const MapSpotOverview: React.FC<MapSpotOverviewProps> = ({ spotOverview, onPopup
                             }}
                         />
                     </div>
+                ) : (
+                    <div className="map-spot-overview-cover-container">
+                        <div
+                            className="map-spot-overview-cover map-spot-overview-cover--placeholder"
+                            style={{
+                                backgroundImage: `url("/images/map/icons/${spotOverview.spot.type}@2x.png")`,
+                            }}
+                        />
+                    </div>
                 )}
-                <div
-                    className={classNames('map-spot-overview-overlay', {
-                        'map-spot-overview-overlay--relative': !spotOverview.mostLikedMedia,
-                    })}
-                >
+                <div className="map-spot-overview-overlay">
                     <div className="map-spot-overview-overlay-amount-container">
                         <IconMedia />
                         <p className="map-spot-overview-overlay-amount-number">{spotOverview.spot.mediasStat.all}</p>
