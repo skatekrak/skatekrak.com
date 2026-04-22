@@ -104,6 +104,9 @@ const MapComponent = ({ mapRef, spots, children, onLoad }: MapComponentProps) =>
                 style={{ width: '100%', height: '100%' }}
                 minZoom={MIN_ZOOM_LEVEL}
                 maxZoom={MAX_ZOOM_LEVEL}
+                // Mapbox style JSON contains proprietary properties (name, owner, etc.)
+                // that MapLibre's strict validator flags as unknown — disable validation
+                validateStyle={false}
                 mapStyle={`https://api.mapbox.com/styles/v1/mapbox/${mapStyle}`}
                 transformRequest={(url: string) => {
                     if (url.includes('api.mapbox.com') || url.includes('tiles.mapbox.com')) {
