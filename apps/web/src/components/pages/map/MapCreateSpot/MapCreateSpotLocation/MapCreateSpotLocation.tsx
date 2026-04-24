@@ -13,16 +13,18 @@ type Props = {
 const MapCreateSpotLocation = ({ handleToggleMapVisible }: Props) => {
     const [{ value }] = useField<{ latitude: number | undefined; longitude: number | undefined }>('location');
 
+    const hasLocation = value != null && value.latitude != null && value.longitude != null;
+
     const { data } = useQuery(
         orpc.spots.reverseGeocode.queryOptions({
-            input: { latitude: value.latitude!, longitude: value.longitude! },
-            enabled: value != null && value.latitude != null && value.longitude != null,
+            input: { latitude: value?.latitude ?? 0, longitude: value?.longitude ?? 0 },
+            enabled: hasLocation,
         }),
     );
 
     return (
         <button className="relative w-full p-6 text-left tablet:px-8 tablet:py-5" onClick={handleToggleMapVisible}>
-            {value != null && value.latitude != null && value.longitude != null && data != null ? (
+            {hasLocation && data != null ? (
                 <div className="flex">
                     <div className="mr-4 text-onDark-highEmphasis [&_.ui-Typography:last-child]:mt-1 [&_.ui-Typography:last-child]:uppercase">
                         <Typography>
