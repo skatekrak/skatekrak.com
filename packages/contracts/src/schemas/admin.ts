@@ -133,6 +133,29 @@ export const getUserByUsernameOutput = z.object({
 });
 
 // ============================================================================
+// Update user
+// ============================================================================
+
+export const updateUserInput = z.object({
+    id: z.string(),
+    username: z.string().min(1).optional(),
+    displayUsername: z.string().nullable().optional(),
+    email: z.string().email().nullable().optional(),
+    name: z.string().nullable().optional(),
+    role: RoleSchema.optional(),
+});
+
+export const updateUserOutput = z.object({
+    id: z.string(),
+    username: z.string(),
+    displayUsername: z.string().nullable(),
+    email: z.string().nullable(),
+    name: z.string().nullable(),
+    role: RoleSchema,
+    updatedAt: z.coerce.date(),
+});
+
+// ============================================================================
 // Overview stats
 // ============================================================================
 
