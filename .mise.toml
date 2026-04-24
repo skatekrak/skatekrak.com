@@ -57,23 +57,3 @@ docker compose down
 description = "Start full dev environment"
 depends = ["dev:infra"]
 run = "turbo dev --parallel"
-
-[tasks."setup:fnox"]
-description = "Generate age key for fnox secret management"
-run = """
-#!/usr/bin/env bash
-set -e
-if [ -f ~/.config/fnox/age.txt ]; then
-    echo "Age key already exists at ~/.config/fnox/age.txt"
-    echo "Your public key:"
-    grep "public key:" ~/.config/fnox/age.txt | awk '{print $NF}'
-else
-    mkdir -p ~/.config/fnox
-    age-keygen -o ~/.config/fnox/age.txt
-    echo ""
-    echo "Key generated. Share the public key above with the team to be added as a recipient."
-    echo ""
-    echo "Add this to your ~/.zshrc:"
-    echo '  export FNOX_AGE_KEY=$(grep "AGE-SECRET-KEY" ~/.config/fnox/age.txt)'
-fi
-"""
