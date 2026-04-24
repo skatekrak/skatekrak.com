@@ -5,7 +5,7 @@
     "scripts": {
         "dev": "fnox exec -- bun --watch run src/index.ts",
         "start": "fnox exec -- bun run dist/index.js",
-        "build": "bun build src/index.ts --target bun --outdir ./dist",
+        "build": "bun build src/index.ts --target bun --outdir ./dist --external sharp",
         "seed:meilisearch": "fnox exec -- bun run src/scripts/seed-meilisearch.ts"
     },
     "dependencies": {

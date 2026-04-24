@@ -37,11 +37,18 @@ COPY packages/ packages/
 RUN bun run build:api
 
 # ---------------------------------------------------------------------------
-# Runtime stage — single-file bundle + Bun, nothing else
+# Runtime stage — bundle + sharp native bindings
 # ---------------------------------------------------------------------------
 FROM base
 
+# sharp requires libvips at runtime
+RUN apt-get update -qq && \
+  apt-get install --no-install-recommends -y libvips-dev && \
+  rm -rf /var/lib/apt/lists/*
+
 COPY --from=build /app/apps/api/dist/index.js ./index.js
+COPY --from=build /app/node_modules/sharp ./node_modules/sharp
+COPY --from=build /app/node_modules/@img ./node_modules/@img
 
 EXPOSE 3000
 CMD ["bun", "run", "index.js"]
