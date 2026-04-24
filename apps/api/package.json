@@ -3,10 +3,10 @@
     "version": "1.0.0",
     "description": "Krak API",
     "scripts": {
-        "dev": "bun --watch run src/index.ts",
-        "start": "bun run dist/index.js",
+        "dev": "fnox exec -- bun --watch run src/index.ts",
+        "start": "fnox exec -- bun run dist/index.js",
         "build": "bun build src/index.ts --target bun --outdir ./dist",
-        "seed:meilisearch": "bun --env-file=.env run src/scripts/seed-meilisearch.ts"
+        "seed:meilisearch": "fnox exec -- bun run src/scripts/seed-meilisearch.ts"
     },
     "dependencies": {
         "@aws-sdk/client-s3": "^3.1033.0",
