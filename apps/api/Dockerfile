@@ -29,6 +29,11 @@ COPY packages/utils/package.json packages/utils/
 
 RUN bun install --frozen-lockfile
 
+# Flatten sharp + its platform binaries into a predictable layout for COPY
+RUN mkdir -p /sharp-vendor/node_modules && \
+  cp -r apps/api/node_modules/sharp /sharp-vendor/node_modules/sharp && \
+  cp -r node_modules/.bun/node_modules/@img /sharp-vendor/node_modules/@img
+
 # Copy only source needed for @krak/api and its workspace deps
 COPY turbo.json ./
 COPY apps/api/ apps/api/
@@ -41,14 +46,8 @@ RUN bun run build:api
 # ---------------------------------------------------------------------------
 FROM base
 
-# sharp requires libvips at runtime
-RUN apt-get update -qq && \
-  apt-get install --no-install-recommends -y libvips-dev && \
-  rm -rf /var/lib/apt/lists/*
-
 COPY --from=build /app/apps/api/dist/index.js ./index.js
-COPY --from=build /app/node_modules/sharp ./node_modules/sharp
-COPY --from=build /app/node_modules/@img ./node_modules/@img
+COPY --from=build /sharp-vendor/node_modules ./node_modules
 
 EXPOSE 3000
 CMD ["bun", "run", "index.js"]
