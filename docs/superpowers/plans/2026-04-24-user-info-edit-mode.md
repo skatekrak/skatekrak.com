@@ -12,22 +12,23 @@
 
 ## File Map
 
-| File | Action | Responsibility |
-|------|--------|---------------|
-| `packages/contracts/src/schemas/admin.ts` | Modify | Add `updateUserInput` and `updateUserOutput` Zod schemas |
-| `packages/contracts/src/contract.ts` | Modify | Add `admin.users.update` contract entry |
-| `apps/api/src/orpc/routers/admin.ts` | Modify | Add `updateUser` handler |
-| `apps/api/src/orpc/router.ts` | Modify | Wire `updateUser` into the router |
-| `packages/ui/src/components/ui/alert-dialog.tsx` | Create | AlertDialog component (shadcn) |
-| `packages/ui/src/index.ts` | Modify | Export AlertDialog components |
-| `packages/ui/package.json` | Modify | Add `@radix-ui/react-alert-dialog` dependency |
-| `apps/manager/src/app/(dashboard)/users/[username]/page.tsx` | Modify | Add edit mode to UserInfoCard, role confirmation dialog |
+| File                                                         | Action | Responsibility                                           |
+| ------------------------------------------------------------ | ------ | -------------------------------------------------------- |
+| `packages/contracts/src/schemas/admin.ts`                    | Modify | Add `updateUserInput` and `updateUserOutput` Zod schemas |
+| `packages/contracts/src/contract.ts`                         | Modify | Add `admin.users.update` contract entry                  |
+| `apps/api/src/orpc/routers/admin.ts`                         | Modify | Add `updateUser` handler                                 |
+| `apps/api/src/orpc/router.ts`                                | Modify | Wire `updateUser` into the router                        |
+| `packages/ui/src/components/ui/alert-dialog.tsx`             | Create | AlertDialog component (shadcn)                           |
+| `packages/ui/src/index.ts`                                   | Modify | Export AlertDialog components                            |
+| `packages/ui/package.json`                                   | Modify | Add `@radix-ui/react-alert-dialog` dependency            |
+| `apps/manager/src/app/(dashboard)/users/[username]/page.tsx` | Modify | Add edit mode to UserInfoCard, role confirmation dialog  |
 
 ---
 
 ### Task 1: Add update user schemas to contracts
 
 **Files:**
+
 - Modify: `packages/contracts/src/schemas/admin.ts` (after line 133, before the overview stats section)
 - Modify: `packages/contracts/src/contract.ts` (lines 6, 99)
 
@@ -111,6 +112,7 @@ git commit -m "feat(contracts): add admin.users.update contract"
 ### Task 2: Add update user API handler
 
 **Files:**
+
 - Modify: `apps/api/src/orpc/routers/admin.ts` (add after the `getUserByUsername` handler, around line 160)
 - Modify: `apps/api/src/orpc/router.ts` (lines 4, 69)
 
@@ -143,7 +145,11 @@ export const updateUser = os.admin.users.update
             }
         }
 
-        if (fields.displayUsername !== undefined && fields.displayUsername !== null && fields.displayUsername !== existing.displayUsername) {
+        if (
+            fields.displayUsername !== undefined &&
+            fields.displayUsername !== null &&
+            fields.displayUsername !== existing.displayUsername
+        ) {
             const taken = await context.prisma.user.findUnique({ where: { displayUsername: fields.displayUsername } });
             if (taken) {
                 throw new ORPCError('CONFLICT', { message: 'Display username already taken' });
@@ -231,6 +237,7 @@ git commit -m "feat(api): add admin.users.update handler"
 ### Task 3: Add AlertDialog component to @krak/ui
 
 **Files:**
+
 - Create: `packages/ui/src/components/ui/alert-dialog.tsx`
 - Modify: `packages/ui/src/index.ts`
 - Modify: `packages/ui/package.json`
@@ -392,6 +399,7 @@ git commit -m "feat(ui): add AlertDialog component"
 ### Task 4: Add edit mode to UserInfoCard
 
 **Files:**
+
 - Modify: `apps/manager/src/app/(dashboard)/users/[username]/page.tsx`
 
 This is the main frontend task. The `UserInfoCard` component gets a read/edit toggle, a react-hook-form form, and a role-change confirmation dialog.
@@ -571,10 +579,7 @@ function UserInfoCard({ user, username }: { user: UserDetailOutput['user']; user
                     </CardHeader>
                     <CardContent>
                         <Form {...form}>
-                            <form
-                                onSubmit={form.handleSubmit(handleSubmit)}
-                                className="flex flex-col gap-4"
-                            >
+                            <form onSubmit={form.handleSubmit(handleSubmit)} className="flex flex-col gap-4">
                                 <div className="grid grid-cols-2 gap-4">
                                     <FormField
                                         control={form.control}

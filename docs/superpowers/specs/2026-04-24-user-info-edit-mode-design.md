@@ -78,9 +78,9 @@ admin: {
 1. Destructure `{ id, ...fields }` from input.
 2. Fetch the existing user by `id`. Throw `ORPCError('NOT_FOUND')` if missing.
 3. **Uniqueness checks** (only when the field is provided and differs from current value):
-   - `username`: `findUnique({ where: { username } })` — throw `ORPCError('CONFLICT', { message: 'Username already taken' })` if taken by a different user.
-   - `displayUsername`: same pattern.
-   - `email`: same pattern.
+    - `username`: `findUnique({ where: { username } })` — throw `ORPCError('CONFLICT', { message: 'Username already taken' })` if taken by a different user.
+    - `displayUsername`: same pattern.
+    - `email`: same pattern.
 4. Build a conditional `Prisma.UserUpdateInput` — only set fields that are `!== undefined`.
 5. `prisma.user.update({ where: { id }, data })`.
 6. Return the curated output: `{ id, username, displayUsername, email, name, role, updatedAt }`.
@@ -113,11 +113,11 @@ const editUserInfoSchema = z.object({
 
 1. **Edit button:** Ghost `<Pencil>` icon button in the `CardHeader`, triggers `handleEdit()` which resets the form to current user values and sets `isEditing(true)`.
 2. **Form fields:**
-   - `username` — `<Input>` (required)
-   - `displayUsername` — `<Input>`
-   - `email` — `<Input type="email">`
-   - `name` — `<Input>`
-   - `role` — `<Select>` with options: USER, MODERATOR, ADMIN
+    - `username` — `<Input>` (required)
+    - `displayUsername` — `<Input>`
+    - `email` — `<Input type="email">`
+    - `name` — `<Input>`
+    - `role` — `<Select>` with options: USER, MODERATOR, ADMIN
 3. **Cancel button:** Ghost text button, resets form + mutation state, sets `isEditing(false)`.
 4. **Save button:** Disabled while `mutation.isPending`, shows "Saving..." loading text.
 5. **Error display:** `{mutation.error && <p className="text-sm text-destructive">...</p>}` below the form.
@@ -172,13 +172,13 @@ Then export it from `packages/ui/src/index.ts`.
 
 ## Files Changed
 
-| File | Change |
-|------|--------|
-| `packages/contracts/src/schemas/admin.ts` | Add `updateUserInput`, `updateUserOutput` |
-| `packages/contracts/src/contract.ts` | Add `admin.users.update` contract entry + imports |
-| `apps/api/src/orpc/routers/admin.ts` | Add `updateUser` handler |
-| `apps/api/src/orpc/router.ts` | Wire `updateUser` into the router |
-| `packages/ui/` | Add `AlertDialog` component via shadcn |
+| File                                                         | Change                                                        |
+| ------------------------------------------------------------ | ------------------------------------------------------------- |
+| `packages/contracts/src/schemas/admin.ts`                    | Add `updateUserInput`, `updateUserOutput`                     |
+| `packages/contracts/src/contract.ts`                         | Add `admin.users.update` contract entry + imports             |
+| `apps/api/src/orpc/routers/admin.ts`                         | Add `updateUser` handler                                      |
+| `apps/api/src/orpc/router.ts`                                | Wire `updateUser` into the router                             |
+| `packages/ui/`                                               | Add `AlertDialog` component via shadcn                        |
 | `apps/manager/src/app/(dashboard)/users/[username]/page.tsx` | Add edit mode to `UserInfoCard`, add role confirmation dialog |
 
 ## Out of Scope
