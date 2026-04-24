@@ -57,3 +57,7 @@ docker compose down
 description = "Start full dev environment"
 depends = ["dev:infra"]
 run = "turbo dev --parallel"
+
+[tasks.restore]
+description = "Restore db"
+run = "psql -U krak -d krak -h localhost -p 5433 -p krak -f krak_dump.sql"
