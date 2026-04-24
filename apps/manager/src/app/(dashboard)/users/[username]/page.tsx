@@ -1,29 +1,69 @@
 'use client';
 
+import { zodResolver } from '@hookform/resolvers/zod';
 import { SiInstagram } from '@icons-pack/react-simple-icons';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { format } from 'date-fns';
-import { Globe, Ghost, ExternalLink } from 'lucide-react';
-import { use } from 'react';
+import { Globe, Ghost, ExternalLink, Pencil } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import { use, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
 
 import type { ContractOutputs } from '@krak/contracts';
+import { RoleSchema } from '@krak/contracts';
 import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
     Card,
     CardContent,
     CardHeader,
     CardTitle,
     Badge,
+    Button,
     Avatar,
     AvatarFallback,
     AvatarImage,
+    Form,
+    FormControl,
+    FormField,
+    FormItem,
+    FormLabel,
+    FormMessage,
+    Input,
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
     Separator,
     Skeleton,
 } from '@krak/ui';
 
 import { SiteHeader } from '@/components/site-header';
-import { orpc } from '@/lib/orpc';
+import { client, orpc } from '@/lib/orpc';
 
 type UserDetailOutput = ContractOutputs['admin']['users']['getByUsername'];
+
+// ============================================================================
+// Edit form schema
+// ============================================================================
+
+const editUserInfoSchema = z.object({
+    username: z.string().min(1, 'Username is required'),
+    displayUsername: z.string(),
+    email: z.string().email('Invalid email').or(z.literal('')),
+    name: z.string(),
+    role: RoleSchema,
+});
+
+type EditUserInfoValues = z.infer<typeof editUserInfoSchema>;
 
 // ============================================================================
 // Helper components
@@ -110,11 +150,224 @@ function UserHero({ user, profile }: { user: UserDetailOutput['user']; profile: 
 // Cards
 // ============================================================================
 
-function UserInfoCard({ user }: { user: UserDetailOutput['user'] }) {
+function UserInfoCard({ user, username }: { user: UserDetailOutput['user']; username: string }) {
+    const [isEditing, setIsEditing] = useState(false);
+    const [showRoleConfirm, setShowRoleConfirm] = useState(false);
+    const [pendingValues, setPendingValues] = useState<EditUserInfoValues | null>(null);
+    const queryClient = useQueryClient();
+    const router = useRouter();
+
+    const form = useForm<EditUserInfoValues>({
+        resolver: zodResolver(editUserInfoSchema),
+        defaultValues: {
+            username: user.username,
+            displayUsername: user.displayUsername ?? '',
+            email: user.email ?? '',
+            name: user.name ?? '',
+            role: user.role,
+        },
+    });
+
+    const mutation = useMutation({
+        mutationFn: (values: EditUserInfoValues) =>
+            client.admin.users.update({
+                id: user.id,
+                username: values.username,
+                displayUsername: values.displayUsername || null,
+                email: values.email || null,
+                name: values.name || null,
+                role: values.role,
+            }),
+        onSuccess: (data) => {
+            if (data.username !== username) {
+                router.replace(`/users/${data.username}`);
+            } else {
+                queryClient.invalidateQueries({
+                    queryKey: orpc.admin.users.getByUsername.queryOptions({ input: { username } }).queryKey,
+                });
+            }
+            setIsEditing(false);
+        },
+    });
+
+    const handleEdit = () => {
+        form.reset({
+            username: user.username,
+            displayUsername: user.displayUsername ?? '',
+            email: user.email ?? '',
+            name: user.name ?? '',
+            role: user.role,
+        });
+        setIsEditing(true);
+    };
+
+    const handleCancel = () => {
+        form.reset();
+        mutation.reset();
+        setIsEditing(false);
+    };
+
+    const handleSubmit = (values: EditUserInfoValues) => {
+        if (values.role !== user.role) {
+            setPendingValues(values);
+            setShowRoleConfirm(true);
+        } else {
+            mutation.mutate(values);
+        }
+    };
+
+    const handleConfirmRoleChange = () => {
+        if (pendingValues) {
+            mutation.mutate(pendingValues);
+        }
+        setShowRoleConfirm(false);
+        setPendingValues(null);
+    };
+
+    const handleCancelRoleChange = () => {
+        setShowRoleConfirm(false);
+        setPendingValues(null);
+    };
+
+    if (isEditing) {
+        return (
+            <>
+                <Card>
+                    <CardHeader className="flex flex-row items-center justify-between">
+                        <CardTitle>User Info</CardTitle>
+                        <Button variant="ghost" size="sm" onClick={handleCancel}>
+                            Cancel
+                        </Button>
+                    </CardHeader>
+                    <CardContent>
+                        <Form {...form}>
+                            <form onSubmit={form.handleSubmit(handleSubmit)} className="flex flex-col gap-4">
+                                <div className="grid grid-cols-2 gap-4">
+                                    <FormField
+                                        control={form.control}
+                                        name="username"
+                                        render={({ field }) => (
+                                            <FormItem>
+                                                <FormLabel>Username</FormLabel>
+                                                <FormControl>
+                                                    <Input {...field} />
+                                                </FormControl>
+                                                <FormMessage />
+                                            </FormItem>
+                                        )}
+                                    />
+                                    <FormField
+                                        control={form.control}
+                                        name="displayUsername"
+                                        render={({ field }) => (
+                                            <FormItem>
+                                                <FormLabel>Display Username</FormLabel>
+                                                <FormControl>
+                                                    <Input {...field} />
+                                                </FormControl>
+                                                <FormMessage />
+                                            </FormItem>
+                                        )}
+                                    />
+                                </div>
+
+                                <div className="grid grid-cols-2 gap-4">
+                                    <FormField
+                                        control={form.control}
+                                        name="email"
+                                        render={({ field }) => (
+                                            <FormItem>
+                                                <FormLabel>Email</FormLabel>
+                                                <FormControl>
+                                                    <Input type="email" {...field} />
+                                                </FormControl>
+                                                <FormMessage />
+                                            </FormItem>
+                                        )}
+                                    />
+                                    <FormField
+                                        control={form.control}
+                                        name="name"
+                                        render={({ field }) => (
+                                            <FormItem>
+                                                <FormLabel>Name</FormLabel>
+                                                <FormControl>
+                                                    <Input {...field} />
+                                                </FormControl>
+                                                <FormMessage />
+                                            </FormItem>
+                                        )}
+                                    />
+                                </div>
+
+                                <FormField
+                                    control={form.control}
+                                    name="role"
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <FormLabel>Role</FormLabel>
+                                            <Select onValueChange={field.onChange} value={field.value}>
+                                                <FormControl>
+                                                    <SelectTrigger className="w-full">
+                                                        <SelectValue />
+                                                    </SelectTrigger>
+                                                </FormControl>
+                                                <SelectContent>
+                                                    {['USER', 'MODERATOR', 'ADMIN'].map((r) => (
+                                                        <SelectItem key={r} value={r}>
+                                                            {r.toLowerCase()}
+                                                        </SelectItem>
+                                                    ))}
+                                                </SelectContent>
+                                            </Select>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )}
+                                />
+
+                                {mutation.error && (
+                                    <p className="text-sm text-destructive">
+                                        {mutation.error.message || 'Failed to update user.'}
+                                    </p>
+                                )}
+
+                                <div className="flex justify-end">
+                                    <Button type="submit" disabled={mutation.isPending}>
+                                        {mutation.isPending ? 'Saving...' : 'Save'}
+                                    </Button>
+                                </div>
+                            </form>
+                        </Form>
+                    </CardContent>
+                </Card>
+
+                <AlertDialog open={showRoleConfirm} onOpenChange={setShowRoleConfirm}>
+                    <AlertDialogContent>
+                        <AlertDialogHeader>
+                            <AlertDialogTitle>Confirm role change</AlertDialogTitle>
+                            <AlertDialogDescription>
+                                Are you sure you want to change this user&apos;s role from{' '}
+                                <strong>{user.role.toLowerCase()}</strong> to{' '}
+                                <strong>{pendingValues?.role.toLowerCase()}</strong>?
+                            </AlertDialogDescription>
+                        </AlertDialogHeader>
+                        <AlertDialogFooter>
+                            <AlertDialogCancel onClick={handleCancelRoleChange}>Cancel</AlertDialogCancel>
+                            <AlertDialogAction onClick={handleConfirmRoleChange}>Confirm</AlertDialogAction>
+                        </AlertDialogFooter>
+                    </AlertDialogContent>
+                </AlertDialog>
+            </>
+        );
+    }
+
     return (
         <Card>
-            <CardHeader>
+            <CardHeader className="flex flex-row items-center justify-between">
                 <CardTitle>User Info</CardTitle>
+                <Button variant="ghost" size="icon" onClick={handleEdit}>
+                    <Pencil className="size-4" />
+                </Button>
             </CardHeader>
             <CardContent className="grid gap-4">
                 <div className="grid grid-cols-2 gap-4">
@@ -437,7 +690,7 @@ export default function UserDetailPage({ params }: { params: Promise<{ username:
                         <UserHero user={data.user} profile={data.profile} />
                         <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
                             <div className="flex flex-col gap-6">
-                                <UserInfoCard user={data.user} />
+                                <UserInfoCard user={data.user} username={username} />
                                 <AccountsCard accounts={data.accounts} />
                             </div>
                             <div>
