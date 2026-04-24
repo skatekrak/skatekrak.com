@@ -152,6 +152,10 @@ Use `import type { ... }` for type-only imports. Enforced by TypeScript's `isola
 - **Docker Compose** for local dev: `api`, `postgres`, `meilisearch` services.
     - PostgreSQL 17 on port 5433 (credentials: `krak`/`krak`, db: `krak`)
     - Meilisearch v1.13 on port 7700
+- **Secrets:** managed by fnox with age encryption. Each app has a `fnox.toml`.
+    - Run `mise run setup:fnox` to generate your age key (first-time only)
+    - Add `export FNOX_AGE_KEY=$(grep "AGE-SECRET-KEY" ~/.config/fnox/age.txt)` to `~/.zshrc`
+    - Secrets are decrypted at runtime by `fnox exec` in each app's `dev` script
 - No Traefik reverse proxy in local dev — apps run directly on their respective ports.
 - CI: GitHub Actions — `bun install --frozen-lockfile`, `oxlint`, `sherif`, `oxfmt --check`, `turbo build` on push to main.
 - Deployments: Vercel (web), Dokploy (api, manager).
@@ -197,3 +201,4 @@ src/
 - The Prisma client must be generated (`prisma generate`) before the API can build. This happens automatically in the Turborepo pipeline.
 - Always target the **PostgreSQL** database — there is no MongoDB in local dev or production anymore.
 - `packages/trpc` is an empty dead package. Do not import from it or add code to it.
+- Environment variables are managed by **fnox** (age-encrypted in `fnox.toml`), not `.env` files. Never create `.env` files manually. Use `fnox set KEY "value"` from the app directory to add new secrets.
