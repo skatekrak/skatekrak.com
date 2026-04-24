@@ -25,3 +25,4 @@ dist
 /apps/web/next-env.d.ts
 *.tsbuildinfo
 /apps/web/tsconfig.tsbuildinfo
+.mise.local.toml
