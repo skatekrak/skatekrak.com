@@ -161,6 +161,72 @@ export const getUserByUsername = os.admin.users.getByUsername
     });
 
 // ============================================================================
+// admin.users.update — Update core user fields (admin only)
+// ============================================================================
+
+export const updateUser = os.admin.users.update
+    .use(authed)
+    .use(admin)
+    .handler(async ({ context, input }) => {
+        const { id, ...fields } = input;
+
+        // Verify user exists
+        const existing = await context.prisma.user.findUnique({ where: { id } });
+        if (!existing) {
+            throw new ORPCError('NOT_FOUND', { message: `User '${id}' not found` });
+        }
+
+        // Uniqueness checks for fields that must be unique
+        if (fields.username !== undefined && fields.username !== existing.username) {
+            const taken = await context.prisma.user.findUnique({ where: { username: fields.username } });
+            if (taken) {
+                throw new ORPCError('CONFLICT', { message: 'Username already taken' });
+            }
+        }
+
+        if (
+            fields.displayUsername !== undefined &&
+            fields.displayUsername !== null &&
+            fields.displayUsername !== existing.displayUsername
+        ) {
+            const taken = await context.prisma.user.findUnique({ where: { displayUsername: fields.displayUsername } });
+            if (taken) {
+                throw new ORPCError('CONFLICT', { message: 'Display username already taken' });
+            }
+        }
+
+        if (fields.email !== undefined && fields.email !== null && fields.email !== existing.email) {
+            const taken = await context.prisma.user.findUnique({ where: { email: fields.email } });
+            if (taken) {
+                throw new ORPCError('CONFLICT', { message: 'Email already taken' });
+            }
+        }
+
+        // Build conditional update data
+        const data: Prisma.UserUpdateInput = {};
+        if (fields.username !== undefined) data.username = fields.username;
+        if (fields.displayUsername !== undefined) data.displayUsername = fields.displayUsername;
+        if (fields.email !== undefined) data.email = fields.email;
+        if (fields.name !== undefined) data.name = fields.name;
+        if (fields.role !== undefined) data.role = fields.role;
+
+        const user = await context.prisma.user.update({
+            where: { id },
+            data,
+        });
+
+        return {
+            id: user.id,
+            username: user.username,
+            displayUsername: user.displayUsername,
+            email: user.email,
+            name: user.name,
+            role: user.role,
+            updatedAt: user.updatedAt,
+        };
+    });
+
+// ============================================================================
 // admin.overview — Aggregate platform counts
 // ============================================================================
 
