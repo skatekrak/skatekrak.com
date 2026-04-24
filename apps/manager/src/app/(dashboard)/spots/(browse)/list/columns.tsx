@@ -48,6 +48,14 @@ export const columns: ColumnDef<AdminSpot>[] = [
         },
     },
     {
+        accessorKey: 'mediasStat',
+        header: ({ column }) => <DataTableColumnHeader column={column} title="Media" />,
+        cell: ({ row }) => {
+            const mediasStat = row.original.mediasStat;
+            return <span className="text-muted-foreground">{mediasStat?.all ?? 0}</span>;
+        },
+    },
+    {
         accessorKey: 'addedBy',
         header: ({ column }) => <DataTableColumnHeader column={column} title="Added by" />,
         enableSorting: false,

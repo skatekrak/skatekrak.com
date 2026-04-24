@@ -38,7 +38,7 @@ export default function SpotsListPage() {
 
     const perPage = 20;
 
-    const sortBy = (sorting[0]?.id as 'name' | 'createdAt' | 'updatedAt') ?? 'createdAt';
+    const sortBy = (sorting[0]?.id as 'name' | 'createdAt' | 'updatedAt' | 'mediasStat') ?? 'createdAt';
     const sortOrder = sorting[0]?.desc ? ('desc' as const) : ('asc' as const);
 
     const selectedTypes = types ?? [];

@@ -4,7 +4,7 @@ import type { Prisma, ClipProvider } from '@krak/prisma';
 
 import { os, authed, admin } from '../base';
 
-import type { Stat } from '../helpers/stats';
+import type { Stat } from '../../helpers/stats';
 
 // Types matching the raw Postgres JSON shapes for Prisma Json? columns.
 // These mirror the Zod schemas in @krak/contracts (AdminCloudinaryFileSchema).
@@ -234,10 +234,12 @@ export const listSpots = os.admin.spots.list
             where.status = { in: status };
         }
 
+        const orderBy = sortBy === 'mediasStat' ? { medias: { _count: sortOrder } } : { [sortBy]: sortOrder };
+
         const [spots, total] = await Promise.all([
             context.prisma.spot.findMany({
                 where,
-                orderBy: { [sortBy]: sortOrder },
+                orderBy,
                 skip,
                 take: perPage,
                 select: {
@@ -254,6 +256,7 @@ export const listSpots = os.admin.spots.list
                             },
                         },
                     },
+                    mediasStat: true,
                     createdAt: true,
                     updatedAt: true,
                 },
@@ -270,6 +273,7 @@ export const listSpots = os.admin.spots.list
                 type: spot.type,
                 status: spot.status,
                 addedBy: spot.addedBy ? { username: spot.addedBy.user.username } : null,
+                mediasStat: spot.mediasStat as Stat | null,
                 createdAt: spot.createdAt,
                 updatedAt: spot.updatedAt,
             })),

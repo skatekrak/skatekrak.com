@@ -180,6 +180,7 @@ export const AdminSpotSchema = z.object({
             username: z.string(),
         })
         .nullable(),
+    mediasStat: AdminStatSchema.nullable(),
     createdAt: z.coerce.date(),
     updatedAt: z.coerce.date(),
 });
@@ -187,7 +188,7 @@ export const AdminSpotSchema = z.object({
 export const adminListSpotsInput = z.object({
     page: z.number().int().min(1).default(1),
     perPage: z.number().int().min(1).max(100).default(20),
-    sortBy: z.enum(['name', 'createdAt', 'updatedAt']).default('createdAt'),
+    sortBy: z.enum(['name', 'createdAt', 'updatedAt', 'mediasStat']).default('createdAt'),
     sortOrder: z.enum(['asc', 'desc']).default('desc'),
     search: z.string().optional(),
     type: z.array(AdminSpotTypeSchema).optional(),
