@@ -46,6 +46,7 @@ FROM base
 RUN bun install --no-save sharp@0.34.5
 
 COPY --from=build /app/apps/api/dist/index.js ./index.js
+COPY --from=build /app/apps/api/dist/instrumentation.js ./instrumentation.js
 
 EXPOSE 3000
-CMD ["bun", "run", "index.js"]
+CMD ["bun", "--preload", "./instrumentation.js", "run", "index.js"]
