@@ -66,4 +66,12 @@ run = "psql -U krak -d krak -h localhost -p 5433 -p krak -f krak_dump.sql"
 
 [tasks.build]
 description = "Build all apps"
-run = "bun run build"
+run = """
+#!/usr/bin/env bash
+set -e
+# Load fnox secrets from all apps into the environment for Turbo build
+eval "$(fnox export --format env --config apps/web/fnox.toml)"
+eval "$(fnox export --format env --config apps/api/fnox.toml)"
+eval "$(fnox export --format env --config apps/manager/fnox.toml)"
+bun run build
+"""
