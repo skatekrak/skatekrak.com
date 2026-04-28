@@ -6,41 +6,25 @@ import { RPCHandler } from '@orpc/server/fetch';
 import { PrismaPg } from '@prisma/adapter-pg';
 import { endOfWeek, startOfWeek, sub } from 'date-fns';
 import { Elysia } from 'elysia';
+import pino from 'pino';
 
 import { createAuth } from '@krak/auth';
 import { PrismaClient } from '@krak/prisma';
 
 import { env } from './env';
 import { sendEmail } from './helpers/mail';
+import { otelLogStream } from './lib/otelLogStream';
 import { router } from './orpc/router';
 
 import type { AuthSession } from './orpc/base';
-import type { TransportTargetOptions } from 'pino';
 
-const pinoTargets: TransportTargetOptions[] = [{ target: 'pino/file', options: { destination: 1 } }];
+const streams: pino.StreamEntry[] = [{ stream: process.stdout }];
 
 if (env.OTEL_EXPORTER_OTLP_ENDPOINT) {
-    pinoTargets.push({
-        target: 'pino-opentelemetry-transport',
-        options: {
-            logRecordProcessorOptions: [
-                {
-                    recordProcessorType: 'batch',
-                    exporterOptions: {
-                        protocol: 'http',
-                        httpExporterOptions: {
-                            url: `${env.OTEL_EXPORTER_OTLP_ENDPOINT}/v1/logs`,
-                        },
-                    },
-                },
-            ],
-        },
-    });
+    streams.push({ stream: otelLogStream() });
 }
 
-const log = createPinoLogger({
-    transport: { targets: pinoTargets },
-});
+const log = createPinoLogger({ stream: pino.multistream(streams) });
 
 const adapter = new PrismaPg({ connectionString: env.DATABASE_URL });
 const prisma = new PrismaClient({ adapter });

@@ -17,6 +17,7 @@
         "@krak/prisma": "workspace:*",
         "@krak/types": "workspace:*",
         "@opentelemetry/api": "^1.9.1",
+        "@opentelemetry/api-logs": "^0.215.0",
         "@opentelemetry/exporter-logs-otlp-proto": "^0.215.0",
         "@opentelemetry/exporter-metrics-otlp-proto": "^0.215.0",
         "@opentelemetry/exporter-trace-otlp-proto": "^0.215.0",
@@ -41,7 +42,6 @@
         "mailgun.js": "^12.7.0",
         "meilisearch": "^0.55.0",
         "pino": "^10.3.1",
-        "pino-opentelemetry-transport": "^3.0.0",
         "sharp": "^0.34.5",
         "zod": "^4.3.6"
     },
