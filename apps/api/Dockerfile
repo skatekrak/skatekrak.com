@@ -49,4 +49,4 @@ COPY --from=build /app/apps/api/dist/index.js ./index.js
 COPY --from=build /app/apps/api/dist/instrumentation.js ./instrumentation.js
 
 EXPOSE 3000
-CMD ["bun", "--preload", "./instrumentation.js", "run", "index.js"]
+CMD ["bun", "-r", "./instrumentation.js", "run", "index.js"]
