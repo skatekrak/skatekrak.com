@@ -3,9 +3,9 @@
     "version": "1.0.0",
     "description": "Krak API",
     "scripts": {
-        "dev": "bun --watch run src/index.ts --preload src/instrumentation.ts",
+        "dev": "fnox exec -- bun --watch run src/index.ts --preload src/instrumentation.ts",
         "build": "bun build src/index.ts src/instrumentation.ts --target bun --outdir ./dist --external sharp",
-        "seed:meilisearch": "bun run src/scripts/seed-meilisearch.ts"
+        "seed:meilisearch": "fnox exec -- bun run src/scripts/seed-meilisearch.ts"
     },
     "dependencies": {
         "@aws-sdk/client-s3": "^3.1033.0",

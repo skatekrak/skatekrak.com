@@ -6,7 +6,7 @@
     "private": true,
     "packageManager": "bun@1.3.9",
     "scripts": {
-        "dev": "next dev",
+        "dev": "fnox exec -- next dev",
         "start:cmd:debug": "NODE_OPTIONS='--inspect' next dev",
         "build": "NEXT_PUBLIC_STAGE=production NODE_ENV=production next build",
         "start": "next start",

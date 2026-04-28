@@ -155,7 +155,7 @@ Use `import type { ... }` for type-only imports. Enforced by TypeScript's `isola
 - **Secrets:** managed by fnox with age encryption. Each app has a `fnox.toml`.
     - Run `mise run setup:fnox` to generate your age key (first-time only)
     - Add `export FNOX_AGE_KEY=$(grep "AGE-SECRET-KEY" ~/.config/fnox/age.txt)` to `~/.zshrc`
-    - Secrets are injected automatically by the `mise-env-fnox` plugin via per-app `.mise.toml` files (no `fnox exec` wrapper needed in scripts)
+    - Secrets are decrypted at runtime by `fnox exec` in each app's `dev` script
 - No Traefik reverse proxy in local dev — apps run directly on their respective ports.
 - CI: GitHub Actions — `bun install --frozen-lockfile`, `oxlint`, `sherif`, `oxfmt --check`, `turbo build` on push to main.
 - Deployments: Vercel (web), Dokploy (api, manager).
