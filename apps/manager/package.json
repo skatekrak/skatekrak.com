@@ -4,7 +4,7 @@
     "private": true,
     "scripts": {
         "dev": "fnox exec -- next dev --port 3002",
-        "build": "fnox exec -- next build",
+        "build": "next build",
         "start": "next start"
     },
     "dependencies": {
