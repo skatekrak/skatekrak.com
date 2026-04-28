@@ -4,11 +4,6 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 
 module.exports = withBundleAnalyzer({
     output: 'standalone',
-    serverExternalPackages: [
-        '@opentelemetry/sdk-node',
-        '@opentelemetry/instrumentation-http',
-        '@opentelemetry/instrumentation-undici',
-    ],
     allowedDevOrigins: ['*.skatekrak.com'],
     productionBrowserSourceMaps: true,
     compiler: {

@@ -9,7 +9,6 @@ import React, { useEffect, useState } from 'react';
 import { ImgproxyProvider } from '@krak/ui';
 
 import { useSession } from '@/lib/auth';
-import { initBrowserOtel } from '@/lib/otel-browser';
 import 'simplebar-react/dist/simplebar.min.css';
 import 'react-responsive-modal/styles.css';
 import 'maplibre-gl/dist/maplibre-gl.css';
@@ -31,12 +30,6 @@ const useUmamiIdentify = () => {
 const App: React.FC<AppProps> = ({ Component, pageProps }) => {
     const [queryClient] = useState(() => new QueryClient());
     useUmamiIdentify();
-
-    useEffect(() => {
-        if (process.env.NEXT_PUBLIC_OTEL_ENABLED === 'true') {
-            initBrowserOtel();
-        }
-    }, []);
 
     return (
         <NuqsAdapter>
