@@ -34,14 +34,17 @@ if (!env.OTEL_EXPORTER_OTLP_ENDPOINT) {
         instrumentations: [new HttpInstrumentation(), new UndiciInstrumentation(), new PrismaInstrumentation()],
     });
 
-    sdk.start();
-    console.log(`[otel] Telemetry enabled → ${endpoint}`);
+    try {
+        sdk.start();
+        console.log(`[otel] Telemetry enabled → ${endpoint}`);
+    } catch (err) {
+        console.error('[otel] Failed to start SDK, continuing without telemetry', err);
+    }
 
     // Graceful shutdown: flush pending telemetry before exit
     const shutdown = async () => {
         console.log('[otel] Shutting down...');
-        await sdk.shutdown();
-        process.exit(0);
+        await sdk.shutdown().catch((err) => console.error('[otel] Shutdown error', err));
     };
 
     process.on('SIGTERM', shutdown);
