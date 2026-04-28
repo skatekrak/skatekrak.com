@@ -2,9 +2,6 @@ export async function register() {
     // Only run on the server (not edge runtime)
     if (typeof window !== 'undefined') return;
 
-    // Skip during build — HttpInstrumentation patches break SSG prerendering
-    if (process.env.NEXT_PHASE === 'phase-production-build') return;
-
     const endpoint = process.env.OTEL_EXPORTER_OTLP_ENDPOINT;
     if (!endpoint) {
         console.log('[otel] OTEL_EXPORTER_OTLP_ENDPOINT not set — telemetry disabled');

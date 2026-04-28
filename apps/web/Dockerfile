@@ -53,7 +53,8 @@ ENV NEXT_PUBLIC_MEILI_API_KEY=$NEXT_PUBLIC_MEILI_API_KEY
 ENV NEXT_PUBLIC_IMGPROXY_URL=$NEXT_PUBLIC_IMGPROXY_URL
 ENV NEXT_PUBLIC_OTEL_ENABLED=$NEXT_PUBLIC_OTEL_ENABLED
 
-RUN bunx turbo build --filter=@krak/web
+# Unset runtime-only vars so register() in instrumentation.ts is a no-op during build
+RUN OTEL_EXPORTER_OTLP_ENDPOINT= bunx turbo build --filter=@krak/web
 
 # ---------------------------------------------------------------------------
 # Runtime stage — standalone Next.js server + Node.js
