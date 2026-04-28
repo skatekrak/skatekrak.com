@@ -3,8 +3,7 @@
     "version": "1.0.0",
     "description": "Krak API",
     "scripts": {
-        "dev": "fnox exec -- bun --preload src/instrumentation.ts --watch run src/index.ts",
-        "start": "fnox exec -- bun --preload ./dist/instrumentation.js run dist/index.js",
+        "dev": "fnox exec -- bun --watch run src/index.ts --preload src/instrumentation.ts",
         "build": "bun build src/index.ts src/instrumentation.ts --target bun --outdir ./dist --external sharp",
         "seed:meilisearch": "fnox exec -- bun run src/scripts/seed-meilisearch.ts"
     },
