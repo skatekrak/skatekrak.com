@@ -8,29 +8,8 @@ env:
     NEXT_PUBLIC_BUGSNAG_KEY: ${{ secrets.NEXT_PUBLIC_BUGSNAG_KEY }}
 
 jobs:
-    lint:
+    ci:
         runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v6
-            - uses: oven-sh/setup-bun@v2
-              with:
-                  bun-version: 1.3.10
-            - run: bun install --frozen-lockfile
-            - run: bun lint
-
-    format:
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v6
-            - uses: oven-sh/setup-bun@v2
-              with:
-                  bun-version: 1.3.10
-            - run: bun install --frozen-lockfile
-            - run: bun run format:check
-
-    build:
-        runs-on: ubuntu-latest
-        needs: [lint, format]
         env:
             NEXT_PUBLIC_CARRELAGE_URL: http://placeholder
             NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN: http://placeholder
@@ -50,11 +29,13 @@ jobs:
               with:
                   bun-version: 1.3.10
             - run: bun install --frozen-lockfile
+            - run: bun lint
+            - run: bun run format:check
             - run: bun run build
 
     deploy-api:
         runs-on: ubuntu-latest
-        needs: [build]
+        needs: [ci]
         steps:
             - name: Trigger Dokploy deployment for API
               run: |
@@ -62,7 +43,7 @@ jobs:
 
     deploy-web:
         runs-on: ubuntu-latest
-        needs: [build]
+        needs: [ci]
         steps:
             - name: Trigger Dokploy deployment for Web
               run: |
@@ -70,7 +51,7 @@ jobs:
 
     deploy-manager:
         runs-on: ubuntu-latest
-        needs: [build]
+        needs: [ci]
         steps:
             - name: Trigger Dokploy deployment for Manager
               run: |
