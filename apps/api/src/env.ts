@@ -24,6 +24,10 @@ export const env = createEnv({
         S3_BUCKET: z.string(),
         S3_ACCESS_KEY: z.string(),
         S3_SECRET_KEY: z.string(),
+        // OpenTelemetry (optional — OTel disabled when endpoint is unset)
+        OTEL_EXPORTER_OTLP_ENDPOINT: z.string().optional(),
+        OTEL_SERVICE_NAME: z.string().optional().default('krak-api'),
+        OTEL_ENVIRONMENT: z.string().optional().default('production'),
     },
     runtimeEnv: process.env,
     emptyStringAsUndefined: true,
