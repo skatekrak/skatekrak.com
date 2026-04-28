@@ -41,6 +41,11 @@ if (!env.OTEL_EXPORTER_OTLP_ENDPOINT) {
         console.error('[otel] Failed to start SDK, continuing without telemetry', err);
     }
 
+    // Connectivity check — fire-and-forget, doesn't block startup
+    fetch(`${endpoint}/v1/traces`, { method: 'POST', body: '{}' })
+        .then((res) => console.log(`[otel] Collector reachable (HTTP ${res.status})`))
+        .catch((err) => console.error(`[otel] Collector unreachable at ${endpoint} —`, err.message));
+
     // Graceful shutdown: flush pending telemetry before exit
     const shutdown = async () => {
         console.log('[otel] Shutting down...');
