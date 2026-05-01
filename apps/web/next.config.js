@@ -36,6 +36,16 @@ module.exports = withBundleAnalyzer({
                 destination: '/',
                 permanent: true,
             },
+            {
+                source: '/news',
+                destination: '/',
+                permanent: false,
+            },
+            {
+                source: '/video',
+                destination: '/',
+                permanent: false,
+            },
         ];
     },
 });
