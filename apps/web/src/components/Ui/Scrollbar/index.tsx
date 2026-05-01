@@ -1,3 +1,4 @@
+import 'simplebar-react/dist/simplebar.min.css';
 import SimpleBar, { Props as SimpleBarProps } from 'simplebar-react';
 
 type Props = {

@@ -1,13 +1,10 @@
 import { GetServerSideProps, NextPage } from 'next';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
-import { draw } from 'radash';
 
 import { getImgproxyUrl } from '@krak/utils';
 
 import Layout from '@/components/Layout';
-import cities from '@/data/cities/_cities';
-import { centerFromBounds } from '@/lib/map/helpers';
 import { serverClient } from '@/server/orpc/client';
 
 const DyamicMapContainer = dynamic(() => import('@/components/pages/map/MapContainer'), { ssr: false });
@@ -100,19 +97,6 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
             };
         } catch (err) {
             console.error(err);
-        }
-    } else if (query.id == null && (query.latitude == null || query.longitude == null)) {
-        // choose random city to land to
-        const randomCity = draw(cities);
-        if (randomCity != null) {
-            const viewport = centerFromBounds(randomCity.bounds);
-
-            return {
-                redirect: {
-                    destination: `/?latitude=${viewport.latitude}&longitude=${viewport.longitude}&zoom=12.6`,
-                    statusCode: 302,
-                },
-            };
         }
     }
 

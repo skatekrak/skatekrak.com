@@ -4,6 +4,8 @@ import React from 'react';
 const MyDocument = () => (
     <Html lang="en">
         <Head>
+            <link rel="preload" href="/fonts/roboto-regular-webfont.woff2" as="font" type="font/woff2" crossOrigin="" />
+            <link rel="preload" href="/fonts/roboto-bold-webfont.woff2" as="font" type="font/woff2" crossOrigin="" />
             <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png" />
             <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon_32.png" />
             <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon_16.png" />

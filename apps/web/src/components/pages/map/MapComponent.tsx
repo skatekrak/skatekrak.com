@@ -1,3 +1,4 @@
+import 'maplibre-gl/dist/maplibre-gl.css';
 import { intersects } from 'radash';
 import React, { useCallback, useMemo, memo } from 'react';
 import ReactMapGL, {

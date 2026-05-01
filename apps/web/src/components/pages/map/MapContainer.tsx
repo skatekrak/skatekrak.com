@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
-import { isEmpty, intersects } from 'radash';
+import { draw, isEmpty, intersects } from 'radash';
 import React, { useState, useEffect, useRef, useCallback, useMemo, ElementRef } from 'react';
 import { MapRef } from 'react-map-gl/maplibre';
 import { useShallow } from 'zustand/react/shallow';
@@ -11,10 +11,11 @@ import type { Spot } from '@krak/contracts';
 import CityPanel from '@/components/pages/map/cities/CityPanel';
 import MapCustomPanel from '@/components/pages/map/MapCustom/panel/MapCustomPanel';
 import { SpinnerCircle } from '@/components/Ui/Icons/Spinners';
+import cities from '@/data/cities/_cities';
 import useSession from '@/lib/hook/carrelage/use-session';
 import { useCityID, useCustomMapID, useMediaID, useSpotID, useSpotModal, useViewport } from '@/lib/hook/queryState';
 import { useSpotsGeoJSON } from '@/lib/hook/useSpotsGeoJSON';
-import { findSpotsBoundsCoordinate, spotToGeoJSON } from '@/lib/map/helpers';
+import { centerFromBounds, findSpotsBoundsCoordinate, spotToGeoJSON } from '@/lib/map/helpers';
 import { orpc } from '@/server/orpc/client';
 import { useMapStore } from '@/store/map';
 import { useSettingsStore } from '@/store/settings';
@@ -36,7 +37,7 @@ const MapContainer = () => {
     const [isCreateSpotOpen, toggleCreateSpot, setSpotOverview] = useMapStore(
         useShallow((state) => [state.isCreateSpotOpen, state.toggleCreateSpot, state.setSpotOverview]),
     );
-    const [viewport] = useViewport();
+    const [viewport, setViewport] = useViewport();
     const session = useSession();
     const router = useRouter();
 
@@ -46,6 +47,20 @@ const MapContainer = () => {
     const [spotId, setSpotID] = useSpotID();
     const [modalVisible, setModalVisible] = useSpotModal();
     const [, setMedia] = useMediaID();
+
+    const hasExplicitViewport =
+        router.query.latitude != null || router.query.longitude != null || router.query.id != null;
+
+    useEffect(() => {
+        if (!hasExplicitViewport) {
+            const randomCity = draw(cities);
+            if (randomCity != null) {
+                const center = centerFromBounds(randomCity.bounds);
+                setViewport({ latitude: center.latitude, longitude: center.longitude, zoom: 12.6 });
+            }
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     const [, setFirstLoad] = useState(() => (spotId ? true : false));
     const [mapLoaded, setMapLoaded] = useState(false);
