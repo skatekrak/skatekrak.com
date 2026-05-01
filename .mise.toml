@@ -58,6 +58,11 @@ description = "Start full dev environment"
 depends = ["dev:infra"]
 run = "turbo dev --parallel"
 
+[tasks."db:studio"]
+description = "Open Prisma Studio"
+dir = "packages/prisma"
+run = "DATABASE_URL='postgresql://krak:krak@localhost:5433/krak' bun run studio"
+
 [tasks.restore]
 description = "Restore db"
 run = "PGPASSWORD=krak psql -U krak -d krak -h localhost -p 5433 -f krak_dump.sql"
