@@ -1,6 +1,6 @@
 {
     "$schema": "https://turbo.build/schema.json",
-    "globalPassThroughEnv": ["FNOX_AGE_KEY_FILE"],
+    "globalPassThroughEnv": ["FNOX_AGE_KEY", "FNOX_AGE_KEY_FILE"],
     "tasks": {
         "build": {
             "dependsOn": ["^build"],
