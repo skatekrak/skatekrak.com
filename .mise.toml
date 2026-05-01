@@ -60,4 +60,4 @@ run = "turbo dev --parallel"
 
 [tasks.restore]
 description = "Restore db"
-run = "psql -U krak -d krak -h localhost -p 5433 -p krak -f krak_dump.sql"
+run = "PGPASSWORD=kral psql -U krak -d krak -h localhost -p 5433 -f krak_dump.sql"
