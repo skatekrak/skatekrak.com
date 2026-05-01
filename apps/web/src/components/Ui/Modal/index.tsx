@@ -1,4 +1,3 @@
-import 'react-responsive-modal/styles.css';
 import React, { useMemo } from 'react';
 import Modal, { ModalProps } from 'react-responsive-modal';
 
