@@ -23,7 +23,7 @@ module.exports = withBundleAnalyzer({
         return [
             {
                 source: '/join',
-                destination: 'https://buy.stripe.com/4gw02Tbao2Cna5O7ss',
+                destination: 'https://opencollective.com/opensb/projects/krakmap',
                 permanent: true,
             },
             {
