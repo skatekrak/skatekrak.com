@@ -1,10 +1,15 @@
 import { QueryClient, QueryClientProvider, HydrationBoundary } from '@tanstack/react-query';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { AppProps } from 'next/app';
+import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import Script from 'next/script';
 import { NuqsAdapter } from 'nuqs/adapters/next/pages';
 import React, { useEffect, useState } from 'react';
+
+const ReactQueryDevtools = dynamic(
+    () => import('@tanstack/react-query-devtools').then((m) => ({ default: m.ReactQueryDevtools })),
+    { ssr: false },
+);
 
 import { ImgproxyProvider } from '@krak/ui';
 

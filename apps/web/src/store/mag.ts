@@ -45,5 +45,6 @@ export const useMagStore = create<MagStore>()(
                 }),
             },
         ),
+        { enabled: process.env.NODE_ENV !== 'production' },
     ),
 );

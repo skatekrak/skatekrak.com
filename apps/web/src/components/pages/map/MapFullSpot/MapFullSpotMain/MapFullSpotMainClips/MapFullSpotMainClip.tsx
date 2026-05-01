@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import ReactPlayer from 'react-player';
+import ReactPlayer from 'react-player/lazy';
 import { useShallow } from 'zustand/react/shallow';
 
 import type { Clip } from '@krak/contracts';

@@ -41,5 +41,6 @@ export const useNewsStore = create<NewsStore>()(
                 }),
             },
         ),
+        { enabled: process.env.NODE_ENV !== 'production' },
     ),
 );

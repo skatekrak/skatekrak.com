@@ -1,6 +1,6 @@
 import { useQueryClient } from '@tanstack/react-query';
 import { Formik } from 'formik';
-import * as _ from 'radash';
+import { parallel, tryit } from 'radash';
 import { memo } from 'react';
 import * as Yup from 'yup';
 
@@ -46,7 +46,7 @@ const MapCreateSpot = () => {
     const [, setSpotID] = useSpotID();
 
     const onSubmit = async (values: MapCreateSpotFormValues) => {
-        const [errorCreating, spot] = await _.try(client.spots.create)({
+        const [errorCreating, spot] = await tryit(client.spots.create)({
             name: values.name,
             type: values.type!,
             ...values.location!,
@@ -63,7 +63,7 @@ const MapCreateSpot = () => {
             return;
         }
 
-        await _.try(_.parallel)(2, values.images, async (imageFile: File) => {
+        await tryit(parallel)(2, values.images, async (imageFile: File) => {
             return client.media.uploadToSpot({ spotId: spot.id, file: imageFile });
         });
 

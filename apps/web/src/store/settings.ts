@@ -15,29 +15,32 @@ export type SettingsState = {
 };
 
 export const useSettingsStore = create<SettingsState>()(
-    devtools((set) => ({
-        isMobile: false,
-        feedLayout: null,
+    devtools(
+        (set) => ({
+            isMobile: false,
+            feedLayout: null,
 
-        setDeviceSize: (size) => {
-            const isMobile = size < 1024;
+            setDeviceSize: (size) => {
+                const isMobile = size < 1024;
 
-            if (size < FeedLayout.OneColumn) {
+                if (size < FeedLayout.OneColumn) {
+                    return set({
+                        isMobile,
+                        feedLayout: FeedLayout.OneColumn,
+                    });
+                } else if (size < FeedLayout.TwoColumns) {
+                    return set({
+                        isMobile,
+                        feedLayout: FeedLayout.TwoColumns,
+                    });
+                }
+
                 return set({
                     isMobile,
-                    feedLayout: FeedLayout.OneColumn,
+                    feedLayout: FeedLayout.FourColumns,
                 });
-            } else if (size < FeedLayout.TwoColumns) {
-                return set({
-                    isMobile,
-                    feedLayout: FeedLayout.TwoColumns,
-                });
-            }
-
-            return set({
-                isMobile,
-                feedLayout: FeedLayout.FourColumns,
-            });
-        },
-    })),
+            },
+        }),
+        { enabled: process.env.NODE_ENV !== 'production' },
+    ),
 );

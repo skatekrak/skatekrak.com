@@ -21,7 +21,6 @@
         "@krak/types": "workspace:*",
         "@krak/ui": "workspace:*",
         "@krak/utils": "workspace:*",
-        "@next/bundle-analyzer": "^16.1.6",
         "@orpc/client": "^1.6.0",
         "@orpc/contract": "^1.6.0",
         "@orpc/tanstack-query": "^1.6.0",
@@ -56,6 +55,7 @@
     },
     "devDependencies": {
         "@babel/core": "^7.22.1",
+        "@next/bundle-analyzer": "^16.1.6",
         "@tailwindcss/postcss": "^4.2.2",
         "@types/cors": "^2.8.13",
         "@types/geojson": "^7946.0.16",

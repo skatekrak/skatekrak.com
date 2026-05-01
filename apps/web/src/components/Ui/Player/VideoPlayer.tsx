@@ -2,7 +2,7 @@
  * Npm import
  */
 import React, { CSSProperties } from 'react';
-import ReactPlayer, { ReactPlayerProps } from 'react-player';
+import ReactPlayer, { type ReactPlayerProps } from 'react-player/lazy';
 
 /*
  * Local import

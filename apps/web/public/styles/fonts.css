@@ -1,5 +1,6 @@
 @font-face {
     font-family: 'roboto-condensed-regular';
+    font-display: swap;
     src:
         url('/fonts/robotocondensed-regular-webfont.woff2') format('woff2'),
         url('/fonts/robotocondensed-regular-webfont.woff') format('woff');
@@ -7,6 +8,7 @@
 
 @font-face {
     font-family: 'roboto-condensed-bold';
+    font-display: swap;
     src:
         url('/fonts/robotocondensed-bold-webfont.woff2') format('woff2'),
         url('/fonts/robotocondensed-bold-webfont.woff') format('woff');
@@ -14,6 +16,7 @@
 
 @font-face {
     font-family: 'roboto-regular';
+    font-display: swap;
     src:
         url('/fonts/roboto-regular-webfont.woff2') format('woff2'),
         url('/fonts/roboto-regular-webfont.woff') format('woff');
@@ -21,6 +24,7 @@
 
 @font-face {
     font-family: 'roboto-bold';
+    font-display: swap;
     src:
         url('/fonts/roboto-bold-webfont.woff2') format('woff2'),
         url('/fonts/roboto-bold-webfont.woff') format('woff');
@@ -28,6 +32,7 @@
 
 @font-face {
     font-family: 'roboto-black';
+    font-display: swap;
     src:
         url('/fonts/roboto-black-webfont.woff2') format('woff2'),
         url('/fonts/roboto-black-webfont.woff') format('woff');
@@ -35,6 +40,7 @@
 
 @font-face {
     font-family: 'roboto-black-italic';
+    font-display: swap;
     src:
         url('/fonts/roboto-blackitalic-webfont.woff2') format('woff2'),
         url('/fonts/roboto-blackitalic-webfont.woff') format('woff');
@@ -42,6 +48,7 @@
 
 @font-face {
     font-family: 'dirty-brush';
+    font-display: swap;
     src:
         url('/fonts/dirty_brush-webfont.woff2') format('woff2'),
         url('/fonts/dirty_brush-webfont.woff') format('woff');
@@ -49,5 +56,6 @@
 
 @font-face {
     font-family: 'inkfree';
+    font-display: swap;
     src: url('/fonts/inkfree.woff') format('woff');
 }

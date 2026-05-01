@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import ReactPlayer from 'react-player';
+import ReactPlayer from 'react-player/lazy';
 
 import type { Media } from '@krak/contracts';
 import { useImgproxy } from '@krak/ui';

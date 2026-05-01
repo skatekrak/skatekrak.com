@@ -41,5 +41,6 @@ export const useVideosStore = create<VideosStore>()(
                 }),
             },
         ),
+        { enabled: process.env.NODE_ENV !== 'production' },
     ),
 );
