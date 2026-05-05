@@ -22,6 +22,19 @@ export const createAuth = (prisma: PrismaClient, options?: CreateAuthOptions) =>
         database: prismaAdapter(prisma, {
             provider: 'postgresql',
         }),
+        databaseHooks: {
+            user: {
+                create: {
+                    async after(user) {
+                        await prisma.profile.create({
+                            data: {
+                                userId: user.id,
+                            },
+                        });
+                    },
+                },
+            },
+        },
         emailAndPassword: {
             enabled: true,
             sendResetPassword: options?.sendResetPassword,
