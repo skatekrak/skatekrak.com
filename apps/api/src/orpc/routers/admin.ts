@@ -161,6 +161,53 @@ export const getUserByUsername = os.admin.users.getByUsername
     });
 
 // ============================================================================
+// admin.users.createProfile — Create a profile for a user that doesn't have one
+// ============================================================================
+
+export const createProfile = os.admin.users.createProfile
+    .use(authed)
+    .use(admin)
+    .handler(async ({ context, input }) => {
+        const user = await context.prisma.user.findUnique({
+            where: { id: input.userId },
+            include: { profile: true },
+        });
+
+        if (!user) {
+            throw new ORPCError('NOT_FOUND', { message: `User '${input.userId}' not found` });
+        }
+
+        if (user.profile) {
+            throw new ORPCError('CONFLICT', { message: 'User already has a profile' });
+        }
+
+        const profile = await context.prisma.profile.create({
+            data: { userId: user.id },
+        });
+
+        return {
+            id: profile.id,
+            description: profile.description,
+            location: profile.location,
+            stance: profile.stance,
+            snapchat: profile.snapchat,
+            instagram: profile.instagram,
+            website: profile.website,
+            sponsors: profile.sponsors,
+            profilePicture: profile.profilePicture as AdminCloudinaryFile | null,
+            banner: profile.banner as AdminCloudinaryFile | null,
+            followersStat: profile.followersStat as Stat | null,
+            followingStat: profile.followingStat as Stat | null,
+            spotsFollowingStat: profile.spotsFollowingStat as Stat | null,
+            mediasStat: profile.mediasStat as Stat | null,
+            clipsStat: profile.clipsStat as Stat | null,
+            tricksDoneStat: profile.tricksDoneStat as Stat | null,
+            createdAt: profile.createdAt,
+            updatedAt: profile.updatedAt,
+        };
+    });
+
+// ============================================================================
 // admin.users.update — Update core user fields (admin only)
 // ============================================================================
 

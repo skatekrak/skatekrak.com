@@ -490,15 +490,36 @@ function AccountsCard({ accounts }: { accounts: UserDetailOutput['accounts'] }) 
     );
 }
 
-function ProfileCard({ profile }: { profile: UserDetailOutput['profile'] }) {
+function ProfileCard({
+    profile,
+    userId,
+    onProfileCreated,
+}: {
+    profile: UserDetailOutput['profile'];
+    userId: string;
+    onProfileCreated: () => void;
+}) {
+    const createProfileMutation = useMutation({
+        mutationFn: () => client.admin.users.createProfile({ userId }),
+        onSuccess: () => onProfileCreated(),
+    });
+
     if (!profile) {
         return (
             <Card>
                 <CardHeader>
                     <CardTitle>Profile</CardTitle>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="grid gap-4">
                     <p className="text-muted-foreground text-sm">No profile created.</p>
+                    <Button onClick={() => createProfileMutation.mutate()} disabled={createProfileMutation.isPending}>
+                        {createProfileMutation.isPending ? 'Creating...' : 'Create Profile'}
+                    </Button>
+                    {createProfileMutation.error && (
+                        <p className="text-sm text-destructive">
+                            {createProfileMutation.error.message || 'Failed to create profile.'}
+                        </p>
+                    )}
                 </CardContent>
             </Card>
         );
@@ -659,6 +680,7 @@ function UserDetailSkeleton() {
 
 export default function UserDetailPage({ params }: { params: Promise<{ username: string }> }) {
     const { username } = use(params);
+    const queryClient = useQueryClient();
 
     const { data, isLoading, error } = useQuery(
         orpc.admin.users.getByUsername.queryOptions({
@@ -694,7 +716,17 @@ export default function UserDetailPage({ params }: { params: Promise<{ username:
                                 <AccountsCard accounts={data.accounts} />
                             </div>
                             <div>
-                                <ProfileCard profile={data.profile} />
+                                <ProfileCard
+                                    profile={data.profile}
+                                    userId={data.user.id}
+                                    onProfileCreated={() =>
+                                        queryClient.invalidateQueries({
+                                            queryKey: orpc.admin.users.getByUsername.queryOptions({
+                                                input: { username },
+                                            }).queryKey,
+                                        })
+                                    }
+                                />
                             </div>
                         </div>
                     </>

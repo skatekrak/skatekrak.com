@@ -6,6 +6,8 @@ import {
     listUsersOutput,
     getUserByUsernameInput,
     getUserByUsernameOutput,
+    createProfileInput,
+    createProfileOutput,
     updateUserInput,
     updateUserOutput,
     adminOverviewOutput,
@@ -99,6 +101,7 @@ export const contract = {
         users: {
             list: oc.input(listUsersInput).output(listUsersOutput),
             getByUsername: oc.input(getUserByUsernameInput).output(getUserByUsernameOutput),
+            createProfile: oc.input(createProfileInput).output(createProfileOutput),
             update: oc.input(updateUserInput).output(updateUserOutput),
         },
         spots: {

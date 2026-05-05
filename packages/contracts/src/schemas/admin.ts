@@ -133,6 +133,16 @@ export const getUserByUsernameOutput = z.object({
 });
 
 // ============================================================================
+// Create profile for user
+// ============================================================================
+
+export const createProfileInput = z.object({
+    userId: z.string(),
+});
+
+export const createProfileOutput = AdminProfileSchema;
+
+// ============================================================================
 // Update user
 // ============================================================================
 

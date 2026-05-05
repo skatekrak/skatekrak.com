@@ -2,6 +2,7 @@ import { os } from './base';
 import {
     listUsers,
     getUserByUsername,
+    createProfile,
     updateUser,
     overview,
     listSpots,
@@ -68,6 +69,7 @@ export const router = os.router({
         users: {
             list: listUsers,
             getByUsername: getUserByUsername,
+            createProfile,
             update: updateUser,
         },
         spots: {
