@@ -1,4 +1,4 @@
-import { v2 as cloudinary, type UploadApiOptions } from 'cloudinary';
+import crypto from 'crypto';
 
 import { env } from '../env';
 
@@ -24,11 +24,30 @@ export type CloudinaryUploadResult = {
 };
 
 // ============================================================================
-// Upload helper
+// Upload helper (direct API call — no SDK)
 // ============================================================================
 
 /**
- * Upload a file buffer to Cloudinary (signed upload).
+ * Sign a set of Cloudinary upload params with the API secret.
+ * See https://cloudinary.com/documentation/upload_images#generating_authentication_signatures
+ */
+function signParams(params: Record<string, string>, apiSecret: string): string {
+    const sorted = Object.keys(params)
+        .toSorted()
+        .filter((k) => params[k] !== undefined && params[k] !== '')
+        .map((k) => `${k}=${params[k]}`)
+        .join('&');
+    return crypto
+        .createHash('sha1')
+        .update(sorted + apiSecret)
+        .digest('hex');
+}
+
+/**
+ * Upload a file buffer to Cloudinary (signed upload via REST API).
+ *
+ * Bypasses the Cloudinary Node SDK entirely to avoid bundler compatibility
+ * issues with Bun. Uses the Upload API directly with fetch().
  *
  * Ported from carrelage's `helpers/cloudinary.js` — same folder structure,
  * format conversion (webp for images, mp4 for videos), and size limits.
@@ -51,57 +70,57 @@ export async function uploadToCloudinary(
         throw new Error(`Video exceeds maximum size of 100 MB`);
     }
 
-    const options: UploadApiOptions = {
+    const timestamp = String(Math.floor(Date.now() / 1000));
+
+    // Build the params that need signing
+    const paramsToSign: Record<string, string> = {
         folder,
-        resource_type: resourceType as 'image' | 'video',
-        width: DEFAULT_WIDTH,
-        crop: 'scale',
-        cloud_name: env.CLOUDINARY_CLOUD_NAME,
-        api_key: env.CLOUDINARY_API_KEY,
-        api_secret: env.CLOUDINARY_SECRET_KEY,
+        timestamp,
     };
 
     if (resourceType === 'image') {
-        options.format = 'webp';
-        options.quality = 'auto';
+        paramsToSign.format = 'webp';
+        paramsToSign.quality = 'auto';
+        paramsToSign.transformation = `c_scale,w_${DEFAULT_WIDTH}`;
     } else {
-        options.format = 'mp4';
-        options.video_codec = 'auto';
+        paramsToSign.format = 'mp4';
+        paramsToSign.video_codec = 'auto';
+        paramsToSign.transformation = `c_scale,w_${DEFAULT_WIDTH}`;
     }
 
-    // Log the config state for debugging (remove after fix is confirmed)
-    const configState = cloudinary.config();
-    console.log('[cloudinary] config state:', {
-        cloud_name: configState.cloud_name ? 'SET' : 'UNSET',
-        api_key: configState.api_key ? 'SET' : 'UNSET',
-        api_secret: configState.api_secret ? 'SET' : 'UNSET',
-    });
-    console.log('[cloudinary] per-call options:', {
-        cloud_name: options.cloud_name ? 'SET' : 'UNSET',
-        api_key: options.api_key ? 'SET' : 'UNSET',
-        api_secret: options.api_secret ? 'SET' : 'UNSET',
-        resource_type: options.resource_type,
-        folder: options.folder,
+    const signature = signParams(paramsToSign, env.CLOUDINARY_SECRET_KEY);
+
+    // Build the multipart form data
+    const formData = new FormData();
+    formData.append('file', new Blob([buffer], { type: mimeType }), 'upload');
+    formData.append('api_key', env.CLOUDINARY_API_KEY);
+    formData.append('signature', signature);
+
+    for (const [key, value] of Object.entries(paramsToSign)) {
+        formData.append(key, value);
+    }
+
+    const url = `https://api.cloudinary.com/v1_1/${env.CLOUDINARY_CLOUD_NAME}/${resourceType}/upload`;
+
+    const response = await fetch(url, {
+        method: 'POST',
+        body: formData,
     });
 
-    return new Promise<CloudinaryUploadResult>((resolve, reject) => {
-        cloudinary.uploader
-            .upload_stream(options, (error, result) => {
-                if (error) {
-                    console.error('[cloudinary] upload error:', JSON.stringify(error));
-                }
-                if (error || !result) {
-                    return reject(error ?? new Error('Cloudinary upload failed'));
-                }
-                resolve({
-                    publicId: result.public_id,
-                    version: String(result.version),
-                    url: result.secure_url,
-                    format: result.format,
-                    width: result.width,
-                    height: result.height,
-                });
-            })
-            .end(buffer);
-    });
+    const result = (await response.json()) as Record<string, unknown>;
+
+    if (!response.ok || result.error) {
+        const errorMessage =
+            (result.error as Record<string, string>)?.message ?? `Cloudinary upload failed (${response.status})`;
+        throw new Error(errorMessage);
+    }
+
+    return {
+        publicId: result.public_id as string,
+        version: String(result.version),
+        url: result.secure_url as string,
+        format: result.format as string,
+        width: result.width as number,
+        height: result.height as number,
+    };
 }
