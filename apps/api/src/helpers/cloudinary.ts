@@ -69,9 +69,27 @@ export async function uploadToCloudinary(
         options.video_codec = 'auto';
     }
 
+    // Log the config state for debugging (remove after fix is confirmed)
+    const configState = cloudinary.config();
+    console.log('[cloudinary] config state:', {
+        cloud_name: configState.cloud_name ? 'SET' : 'UNSET',
+        api_key: configState.api_key ? 'SET' : 'UNSET',
+        api_secret: configState.api_secret ? 'SET' : 'UNSET',
+    });
+    console.log('[cloudinary] per-call options:', {
+        cloud_name: options.cloud_name ? 'SET' : 'UNSET',
+        api_key: options.api_key ? 'SET' : 'UNSET',
+        api_secret: options.api_secret ? 'SET' : 'UNSET',
+        resource_type: options.resource_type,
+        folder: options.folder,
+    });
+
     return new Promise<CloudinaryUploadResult>((resolve, reject) => {
         cloudinary.uploader
             .upload_stream(options, (error, result) => {
+                if (error) {
+                    console.error('[cloudinary] upload error:', JSON.stringify(error));
+                }
                 if (error || !result) {
                     return reject(error ?? new Error('Cloudinary upload failed'));
                 }
