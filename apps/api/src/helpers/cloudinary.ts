@@ -84,8 +84,7 @@ export async function uploadToCloudinary(
         paramsToSign.transformation = `c_scale,w_${DEFAULT_WIDTH}`;
     } else {
         paramsToSign.format = 'mp4';
-        paramsToSign.video_codec = 'auto';
-        paramsToSign.transformation = `c_scale,w_${DEFAULT_WIDTH}`;
+        paramsToSign.transformation = `c_scale,w_${DEFAULT_WIDTH}/vc_auto`;
     }
 
     const signature = signParams(paramsToSign, env.CLOUDINARY_SECRET_KEY);
