@@ -3,16 +3,6 @@ import { v2 as cloudinary, type UploadApiOptions } from 'cloudinary';
 import { env } from '../env';
 
 // ============================================================================
-// Configuration (signed upload — api_key + api_secret)
-// ============================================================================
-
-cloudinary.config({
-    cloud_name: env.CLOUDINARY_CLOUD_NAME,
-    api_key: env.CLOUDINARY_API_KEY,
-    api_secret: env.CLOUDINARY_SECRET_KEY,
-});
-
-// ============================================================================
 // Constants (matching carrelage)
 // ============================================================================
 
@@ -66,6 +56,9 @@ export async function uploadToCloudinary(
         resource_type: resourceType as 'image' | 'video',
         width: DEFAULT_WIDTH,
         crop: 'scale',
+        cloud_name: env.CLOUDINARY_CLOUD_NAME,
+        api_key: env.CLOUDINARY_API_KEY,
+        api_secret: env.CLOUDINARY_SECRET_KEY,
     };
 
     if (resourceType === 'image') {
