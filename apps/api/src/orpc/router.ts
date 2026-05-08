@@ -9,6 +9,7 @@ import {
     updateSpotGeneralInfo,
     listMedia,
     updateMedia,
+    deleteMedia,
     listClips,
     listAdminMaps,
     createAdminMap,
@@ -80,6 +81,7 @@ export const router = os.router({
         media: {
             list: listMedia,
             update: updateMedia,
+            delete: deleteMedia,
         },
         clips: {
             list: listClips,

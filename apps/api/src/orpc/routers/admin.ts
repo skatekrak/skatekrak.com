@@ -546,6 +546,24 @@ export const updateMedia = os.admin.media.update
     });
 
 // ============================================================================
+// admin.media.delete — Delete a media entry (admin only)
+// ============================================================================
+
+export const deleteMedia = os.admin.media.delete
+    .use(authed)
+    .use(admin)
+    .handler(async ({ context, input }) => {
+        const existing = await context.prisma.media.findUnique({ where: { id: input.id } });
+        if (!existing) {
+            throw new ORPCError('NOT_FOUND', { message: `Media "${input.id}" not found` });
+        }
+
+        await context.prisma.media.delete({ where: { id: input.id } });
+
+        return { success: true };
+    });
+
+// ============================================================================
 // admin.clips.list — Paginated, sortable clip listing for admin dashboard
 // ============================================================================
 

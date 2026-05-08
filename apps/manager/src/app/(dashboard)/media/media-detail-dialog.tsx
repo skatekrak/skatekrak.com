@@ -3,7 +3,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { format, formatDistanceToNow } from 'date-fns';
-import { CalendarIcon, Image, MapPin, Pencil, User } from 'lucide-react';
+import { CalendarIcon, Image, MapPin, Pencil, Trash2, User } from 'lucide-react';
 import Link from 'next/link';
 import { useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -11,6 +11,14 @@ import { z } from 'zod';
 
 import type { ContractOutputs } from '@krak/contracts';
 import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
     Badge,
     Button,
     Calendar,
@@ -155,6 +163,19 @@ function MediaInfoView({
     onEdit: () => void;
     onClose: () => void;
 }) {
+    const queryClient = useQueryClient();
+    const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+
+    const deleteMutation = useMutation({
+        mutationFn: () => client.admin.media.delete({ id: media.id }),
+        onSuccess: () => {
+            queryClient.invalidateQueries({
+                queryKey: orpc.admin.media.list.queryOptions({ input: {} as never }).queryKey.slice(0, 2),
+            });
+            onClose();
+        },
+    });
+
     return (
         <div className="flex flex-col gap-4 p-6">
             <DialogHeader>
@@ -164,9 +185,48 @@ function MediaInfoView({
                     <Button variant="ghost" size="icon" onClick={onEdit} className="size-8">
                         <Pencil className="size-4" />
                     </Button>
+                    <Button
+                        variant="ghost"
+                        size="icon"
+                        onClick={() => setShowDeleteConfirm(true)}
+                        className="size-8 text-destructive hover:text-destructive"
+                    >
+                        <Trash2 className="size-4" />
+                    </Button>
                 </div>
                 <DialogDescription className="sr-only">Media detail for {media.caption || media.id}</DialogDescription>
             </DialogHeader>
+
+            <AlertDialog open={showDeleteConfirm} onOpenChange={setShowDeleteConfirm}>
+                <AlertDialogContent>
+                    <AlertDialogHeader>
+                        <AlertDialogTitle>Delete media</AlertDialogTitle>
+                        <AlertDialogDescription>
+                            Are you sure you want to delete this media? This action cannot be undone.
+                        </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    {deleteMutation.error && (
+                        <p className="text-sm text-destructive">
+                            {deleteMutation.error instanceof Error
+                                ? deleteMutation.error.message
+                                : 'Failed to delete media'}
+                        </p>
+                    )}
+                    <AlertDialogFooter>
+                        <AlertDialogCancel disabled={deleteMutation.isPending}>Cancel</AlertDialogCancel>
+                        <AlertDialogAction
+                            onClick={(e) => {
+                                e.preventDefault();
+                                deleteMutation.mutate();
+                            }}
+                            disabled={deleteMutation.isPending}
+                            className="bg-destructive text-white hover:bg-destructive/90"
+                        >
+                            {deleteMutation.isPending ? 'Deleting...' : 'Delete'}
+                        </AlertDialogAction>
+                    </AlertDialogFooter>
+                </AlertDialogContent>
+            </AlertDialog>
 
             <Separator />
 
