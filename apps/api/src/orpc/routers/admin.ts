@@ -442,13 +442,19 @@ export const listMedia = os.admin.media.list
     .use(authed)
     .use(admin)
     .handler(async ({ context, input }) => {
-        const { page, perPage, sortBy, sortOrder, type } = input;
+        const { page, perPage, sortBy, sortOrder, type, releaseStatus } = input;
         const skip = (page - 1) * perPage;
 
         const where: Prisma.MediaWhereInput = {};
 
         if (type) {
             where.type = type;
+        }
+
+        if (releaseStatus === 'planned') {
+            where.releaseDate = { gt: new Date() };
+        } else if (releaseStatus === 'released') {
+            where.OR = [{ releaseDate: null }, { releaseDate: { lte: new Date() } }];
         }
 
         const [media, total] = await Promise.all([
@@ -462,6 +468,7 @@ export const listMedia = os.admin.media.list
                     type: true,
                     caption: true,
                     image: true,
+                    releaseDate: true,
                     spot: {
                         select: {
                             id: true,
@@ -487,6 +494,7 @@ export const listMedia = os.admin.media.list
                 type: m.type,
                 caption: m.caption,
                 image: m.image as AdminCloudinaryFileMedia,
+                releaseDate: m.releaseDate,
                 spot: m.spot ? { id: m.spot.id, name: m.spot.name } : null,
                 addedBy: m.addedBy ? { username: m.addedBy.user.username } : null,
                 createdAt: m.createdAt,

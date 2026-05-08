@@ -88,6 +88,7 @@ export function MediaDetailDialog({
                   type: fullMedia.type.toUpperCase() as Media['type'],
                   caption: fullMedia.caption ?? null,
                   image: fullMedia.image ?? null,
+                  releaseDate: (fullMedia as { releaseDate?: Date | null }).releaseDate ?? null,
                   spot: fullMedia.spot ? { id: fullMedia.spot.id, name: fullMedia.spot.name } : null,
                   addedBy: fullMedia.addedBy ? { username: fullMedia.addedBy.username } : null,
                   createdAt: fullMedia.createdAt,

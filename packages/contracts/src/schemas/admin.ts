@@ -286,11 +286,14 @@ const AdminCloudinaryFileSchemaMedia = z
 
 const AdminMediaImageSchema = z.union([AdminS3FileSchema, AdminCloudinaryFileSchemaMedia]);
 
+export const MediaReleaseStatusSchema = z.enum(['released', 'planned']);
+
 export const AdminMediaSchema = z.object({
     id: z.string(),
     type: MediaTypeSchema,
     caption: z.string().nullable(),
     image: AdminMediaImageSchema,
+    releaseDate: z.coerce.date().nullable(),
     spot: z
         .object({
             id: z.string(),
@@ -311,6 +314,7 @@ export const adminListMediaInput = z.object({
     sortBy: z.enum(['createdAt']).default('createdAt'),
     sortOrder: z.enum(['asc', 'desc']).default('desc'),
     type: MediaTypeSchema.optional(),
+    releaseStatus: MediaReleaseStatusSchema.optional(),
 });
 
 export const adminListMediaOutput = z.object({

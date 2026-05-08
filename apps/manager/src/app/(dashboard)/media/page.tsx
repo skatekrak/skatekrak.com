@@ -1,8 +1,8 @@
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
-import { formatDistanceToNow } from 'date-fns';
-import { Film, Image } from 'lucide-react';
+import { format, formatDistanceToNow } from 'date-fns';
+import { Calendar, Film, Image } from 'lucide-react';
 import { parseAsInteger, parseAsString, parseAsStringLiteral, useQueryState } from 'nuqs';
 import { useCallback } from 'react';
 
@@ -19,6 +19,9 @@ import {
     SelectTrigger,
     SelectValue,
     Skeleton,
+    Tabs,
+    TabsList,
+    TabsTrigger,
 } from '@krak/ui';
 
 import { SiteHeader } from '@/components/site-header';
@@ -29,6 +32,7 @@ import { MediaDetailDialog } from './media-detail-dialog';
 type Media = ContractOutputs['admin']['media']['list']['media'][number];
 
 const mediaTypes = ['IMAGE', 'VIDEO'] as const;
+const releaseStatuses = ['released', 'planned'] as const;
 
 function scrollToTop() {
     requestAnimationFrame(() => {
@@ -41,6 +45,10 @@ function scrollToTop() {
 export default function MediaPage() {
     const [page, setPage] = useQueryState('page', parseAsInteger.withDefault(1));
     const [type, setType] = useQueryState('type', parseAsStringLiteral(mediaTypes));
+    const [releaseStatus, setReleaseStatus] = useQueryState(
+        'status',
+        parseAsStringLiteral(releaseStatuses).withDefault('released'),
+    );
     const [selectedMediaId, setSelectedMediaId] = useQueryState('media', parseAsString);
 
     const perPage = 24;
@@ -53,6 +61,7 @@ export default function MediaPage() {
                 sortBy: 'createdAt',
                 sortOrder: 'desc',
                 type: type ?? undefined,
+                releaseStatus,
             },
         }),
     );
@@ -72,12 +81,23 @@ export default function MediaPage() {
         handlePageChange(1);
     }
 
+    function handleTabChange(value: string) {
+        setReleaseStatus(value as (typeof releaseStatuses)[number]);
+        setPage(1);
+    }
+
     return (
         <>
             <SiteHeader title="Media" />
             <div className="flex flex-1 flex-col gap-6 px-6 pb-6 pt-4">
-                {/* Filters */}
-                <div className="flex items-center gap-3">
+                {/* Tabs + Filters */}
+                <div className="flex items-center gap-4">
+                    <Tabs value={releaseStatus} onValueChange={handleTabChange}>
+                        <TabsList>
+                            <TabsTrigger value="released">Media</TabsTrigger>
+                            <TabsTrigger value="planned">Planned</TabsTrigger>
+                        </TabsList>
+                    </Tabs>
                     <Select value={type ?? 'all'} onValueChange={handleTypeChange}>
                         <SelectTrigger className="w-40">
                             <SelectValue placeholder="Type" />
@@ -199,9 +219,16 @@ function MediaCard({ media, onClick }: { media: Media; onClick: () => void }) {
                         </>
                     )}
                 </div>
-                <span className="text-xs text-muted-foreground">
-                    {formatDistanceToNow(new Date(media.createdAt), { addSuffix: true })}
-                </span>
+                {media.releaseDate && new Date(media.releaseDate) > new Date() ? (
+                    <span className="flex items-center gap-1 text-xs text-amber-600">
+                        <Calendar className="size-3" />
+                        {format(new Date(media.releaseDate), 'MMM d, yyyy')}
+                    </span>
+                ) : (
+                    <span className="text-xs text-muted-foreground">
+                        {formatDistanceToNow(new Date(media.createdAt), { addSuffix: true })}
+                    </span>
+                )}
             </CardContent>
         </Card>
     );
