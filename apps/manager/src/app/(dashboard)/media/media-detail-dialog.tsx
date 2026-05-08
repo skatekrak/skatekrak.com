@@ -3,7 +3,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { format, formatDistanceToNow } from 'date-fns';
-import { Image, MapPin, Pencil, User } from 'lucide-react';
+import { CalendarIcon, Image, MapPin, Pencil, User } from 'lucide-react';
 import Link from 'next/link';
 import { useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -13,6 +13,8 @@ import type { ContractOutputs } from '@krak/contracts';
 import {
     Badge,
     Button,
+    Calendar,
+    cn,
     Dialog,
     DialogContent,
     DialogDescription,
@@ -26,6 +28,9 @@ import {
     FormMessage,
     Input,
     KrakImage,
+    Popover,
+    PopoverContent,
+    PopoverTrigger,
     Separator,
     Skeleton,
     Textarea,
@@ -41,7 +46,7 @@ type Media = ContractOutputs['admin']['media']['list']['media'][number];
 
 const editMediaSchema = z.object({
     caption: z.string(),
-    releaseDate: z.string(), // datetime-local string, parsed on submit
+    releaseDate: z.date().nullable(),
     spotId: z.string(),
 });
 
@@ -114,7 +119,6 @@ export function MediaDetailDialog({
                         {isEditing ? (
                             <MediaEditForm
                                 media={media}
-                                fullMedia={fullMedia}
                                 onCancel={() => setIsEditing(false)}
                                 onSaved={() => setIsEditing(false)}
                             />
@@ -227,7 +231,7 @@ function MediaEditForm({ media, onCancel, onSaved }: { media: Media; onCancel: (
         resolver: zodResolver(editMediaSchema),
         defaultValues: {
             caption: media.caption ?? '',
-            releaseDate: '', // releaseDate not in admin list schema
+            releaseDate: null,
             spotId: media.spot?.id ?? '',
         },
     });
@@ -237,7 +241,7 @@ function MediaEditForm({ media, onCancel, onSaved }: { media: Media; onCancel: (
             return client.admin.media.update({
                 id: media.id,
                 caption: values.caption || null,
-                releaseDate: values.releaseDate ? new Date(values.releaseDate) : null,
+                releaseDate: values.releaseDate,
                 spotId: values.spotId || null,
             });
         },
@@ -301,15 +305,36 @@ function MediaEditForm({ media, onCancel, onSaved }: { media: Media; onCancel: (
                             <FormItem>
                                 <FormLabel>Release Date</FormLabel>
                                 <div className="flex items-center gap-2">
-                                    <FormControl>
-                                        <Input type="datetime-local" {...field} />
-                                    </FormControl>
+                                    <Popover>
+                                        <PopoverTrigger asChild>
+                                            <FormControl>
+                                                <Button
+                                                    variant="outline"
+                                                    className={cn(
+                                                        'w-full justify-start text-left font-normal',
+                                                        !field.value && 'text-muted-foreground',
+                                                    )}
+                                                >
+                                                    <CalendarIcon className="size-4" />
+                                                    {field.value ? format(field.value, 'PPP') : 'Pick a date'}
+                                                </Button>
+                                            </FormControl>
+                                        </PopoverTrigger>
+                                        <PopoverContent className="w-auto p-0" align="start">
+                                            <Calendar
+                                                mode="single"
+                                                selected={field.value ?? undefined}
+                                                onSelect={(date) => field.onChange(date ?? null)}
+                                                captionLayout="dropdown"
+                                            />
+                                        </PopoverContent>
+                                    </Popover>
                                     {field.value && (
                                         <Button
                                             type="button"
                                             variant="ghost"
                                             size="sm"
-                                            onClick={() => form.setValue('releaseDate', '')}
+                                            onClick={() => form.setValue('releaseDate', null)}
                                         >
                                             Clear
                                         </Button>
