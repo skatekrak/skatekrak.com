@@ -2,6 +2,7 @@ import { ORPCError } from '@orpc/server';
 
 import type { Prisma, ClipProvider } from '@krak/prisma';
 
+import { extractHashtags } from '../../helpers/hashtags';
 import { os, authed, admin } from '../base';
 
 import type { Stat } from '../../helpers/stats';
@@ -493,6 +494,46 @@ export const listMedia = os.admin.media.list
             total,
             page,
             perPage,
+        };
+    });
+
+// ============================================================================
+// admin.media.update — Update media fields (caption, releaseDate, spotId)
+// ============================================================================
+
+export const updateMedia = os.admin.media.update
+    .use(authed)
+    .use(admin)
+    .handler(async ({ context, input }) => {
+        const { id, ...fields } = input;
+
+        const existing = await context.prisma.media.findUnique({ where: { id } });
+        if (!existing) {
+            throw new ORPCError('NOT_FOUND', { message: `Media ${id} not found` });
+        }
+
+        const data: Prisma.MediaUpdateInput = {};
+
+        if (fields.caption !== undefined) {
+            data.caption = fields.caption;
+            data.hashtags = extractHashtags(fields.caption);
+        }
+        if (fields.releaseDate !== undefined) data.releaseDate = fields.releaseDate;
+        if (fields.spotId !== undefined) {
+            data.spot = fields.spotId ? { connect: { id: fields.spotId } } : { disconnect: true };
+        }
+
+        const media = await context.prisma.media.update({
+            where: { id },
+            data,
+        });
+
+        return {
+            id: media.id,
+            caption: media.caption,
+            releaseDate: media.releaseDate,
+            spotId: media.spotId,
+            updatedAt: media.updatedAt,
         };
     });
 

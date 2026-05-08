@@ -5,6 +5,7 @@ import { type SpotGeoJSON, Status, Types } from '@krak/types';
 
 import { env } from '../../env';
 import { reverseGeocode } from '../../helpers/geocoding';
+import { addHashtagIfNeeded } from '../../helpers/hashtags';
 import { spotIndex } from '../../helpers/meilisearch';
 import { buildStat } from '../../helpers/stats';
 import { getVideoInformation } from '../../helpers/videos';
@@ -48,10 +49,6 @@ function spotsToGeoJSON(spots: SpotWithAddedBy[]): SpotGeoJSON[] {
             },
         } satisfies SpotGeoJSON;
     });
-}
-
-function addHashtagIfNeeded(tag: string) {
-    return tag[0] !== '#' ? `#${tag}` : tag;
 }
 
 // ============================================================================

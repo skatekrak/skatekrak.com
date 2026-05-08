@@ -4,6 +4,7 @@ import { createId } from '@paralleldrive/cuid2';
 import type { MediaType } from '@krak/prisma';
 
 import { uploadToCloudinary } from '../../helpers/cloudinary';
+import { extractHashtags, addHashtagIfNeeded } from '../../helpers/hashtags';
 import { uploadToS3 } from '../../helpers/s3';
 import { buildStat } from '../../helpers/stats';
 import { os, authed, loadProfile, loadSpot } from '../base';
@@ -155,18 +156,6 @@ export const listClipsBySpot = os.media.listClipsBySpot.handler(async ({ context
 // ============================================================================
 // Helpers
 // ============================================================================
-
-/** Extract hashtags from a caption string (port of carrelage's extractHashtags) */
-function extractHashtags(str: string | undefined): string[] {
-    if (!str) return [];
-    const result = str.match(/#[\w\d]+/g);
-    return result ? [...new Set(result)] : [];
-}
-
-/** Ensure a hashtag string starts with '#' (stored hashtags include the prefix) */
-function addHashtagIfNeeded(tag: string): string {
-    return tag[0] !== '#' ? `#${tag}` : tag;
-}
 
 // ============================================================================
 // Mutations

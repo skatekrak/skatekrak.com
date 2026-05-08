@@ -321,6 +321,25 @@ export const adminListMediaOutput = z.object({
 });
 
 // ============================================================================
+// Update media
+// ============================================================================
+
+export const adminUpdateMediaInput = z.object({
+    id: z.string(),
+    caption: z.string().nullable().optional(),
+    releaseDate: z.coerce.date().nullable().optional(),
+    spotId: z.string().nullable().optional(),
+});
+
+export const adminUpdateMediaOutput = z.object({
+    id: z.string(),
+    caption: z.string().nullable(),
+    releaseDate: z.coerce.date().nullable(),
+    spotId: z.string().nullable(),
+    updatedAt: z.coerce.date(),
+});
+
+// ============================================================================
 // List clips
 // ============================================================================
 

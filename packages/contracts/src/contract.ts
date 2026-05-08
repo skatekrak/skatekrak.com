@@ -17,6 +17,8 @@ import {
     updateSpotGeneralInfoOutput,
     adminListMediaInput,
     adminListMediaOutput,
+    adminUpdateMediaInput,
+    adminUpdateMediaOutput,
     adminListClipsInput,
     adminListClipsOutput,
     adminListMapsInput,
@@ -110,6 +112,7 @@ export const contract = {
         },
         media: {
             list: oc.input(adminListMediaInput).output(adminListMediaOutput),
+            update: oc.input(adminUpdateMediaInput).output(adminUpdateMediaOutput),
         },
         clips: {
             list: oc.input(adminListClipsInput).output(adminListClipsOutput),
