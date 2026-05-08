@@ -5,6 +5,7 @@ import { formatDistanceToNow } from 'date-fns';
 import { Film, Image } from 'lucide-react';
 import Link from 'next/link';
 import { parseAsInteger, parseAsStringLiteral, useQueryState } from 'nuqs';
+import { useCallback } from 'react';
 
 import type { ContractOutputs } from '@krak/contracts';
 import {
@@ -28,6 +29,14 @@ type Media = ContractOutputs['admin']['media']['list']['media'][number];
 
 const mediaTypes = ['IMAGE', 'VIDEO'] as const;
 
+function scrollToTop() {
+    requestAnimationFrame(() => {
+        window.scrollTo({ top: 0 });
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0;
+    });
+}
+
 export default function MediaPage() {
     const [page, setPage] = useQueryState('page', parseAsInteger.withDefault(1));
     const [type, setType] = useQueryState('type', parseAsStringLiteral(mediaTypes));
@@ -48,9 +57,17 @@ export default function MediaPage() {
 
     const totalPages = data ? Math.ceil(data.total / perPage) : 0;
 
+    const handlePageChange = useCallback(
+        (newPage: number) => {
+            setPage(newPage);
+            scrollToTop();
+        },
+        [setPage],
+    );
+
     function handleTypeChange(value: string) {
         setType(value === 'all' ? null : (value as (typeof mediaTypes)[number]));
-        setPage(1);
+        handlePageChange(1);
     }
 
     return (
@@ -89,14 +106,14 @@ export default function MediaPage() {
                     </div>
                 )}
 
-                {/* Pagination */}
+                {/* Bottom pagination */}
                 {data && totalPages > 1 && (
                     <DataTablePagination
                         page={page}
                         totalPages={totalPages}
                         total={data.total}
                         perPage={perPage}
-                        onPageChange={setPage}
+                        onPageChange={handlePageChange}
                     />
                 )}
             </div>
