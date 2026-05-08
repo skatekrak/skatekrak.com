@@ -46,7 +46,9 @@ import {
 
 import { client, orpc } from '@/lib/orpc';
 
-type Media = ContractOutputs['admin']['media']['list']['media'][number];
+import { hasDisplayableImage } from './media-card';
+
+import type { Media } from './types';
 
 // ============================================================================
 // Edit form schema
@@ -481,11 +483,4 @@ function MediaFullImage({ image, alt }: { image: Media['image']; alt: string }) 
             <Image className="size-12 text-muted-foreground" />
         </div>
     );
-}
-
-function hasDisplayableImage(image: Media['image']): boolean {
-    if (image == null) return false;
-    if ('key' in image && image.key) return true;
-    if ('url' in image && image.url) return true;
-    return false;
 }

@@ -61,7 +61,15 @@ function isAcceptedType(type: string) {
 // Dialog
 // ============================================================================
 
-export function AddMediaDialog({ open, onOpenChange }: { open: boolean; onOpenChange: (open: boolean) => void }) {
+export function AddMediaDialog({
+    open,
+    onOpenChange,
+    defaultSpotId,
+}: {
+    open: boolean;
+    onOpenChange: (open: boolean) => void;
+    defaultSpotId?: string;
+}) {
     const queryClient = useQueryClient();
     const [file, setFile] = useState<File | null>(null);
     const [preview, setPreview] = useState<string | null>(null);
@@ -71,7 +79,7 @@ export function AddMediaDialog({ open, onOpenChange }: { open: boolean; onOpenCh
         resolver: zodResolver(addMediaSchema),
         defaultValues: {
             caption: '',
-            spotId: '',
+            spotId: defaultSpotId ?? '',
             releaseDate: null,
         },
     });
@@ -165,9 +173,14 @@ export function AddMediaDialog({ open, onOpenChange }: { open: boolean; onOpenCh
                             name="spotId"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Spot ID (optional)</FormLabel>
+                                    <FormLabel>Spot ID {defaultSpotId ? '' : '(optional)'}</FormLabel>
                                     <FormControl>
-                                        <Input placeholder="Spot ID to link media to" {...field} />
+                                        <Input
+                                            placeholder="Spot ID to link media to"
+                                            {...field}
+                                            readOnly={!!defaultSpotId}
+                                            className={defaultSpotId ? 'bg-muted' : ''}
+                                        />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
