@@ -315,6 +315,7 @@ export const adminListMediaInput = z.object({
     sortOrder: z.enum(['asc', 'desc']).default('desc'),
     type: MediaTypeSchema.optional(),
     releaseStatus: MediaReleaseStatusSchema.optional(),
+    spotId: z.string().optional(),
 });
 
 export const adminListMediaOutput = z.object({

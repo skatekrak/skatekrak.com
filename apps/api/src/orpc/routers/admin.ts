@@ -443,10 +443,14 @@ export const listMedia = os.admin.media.list
     .use(authed)
     .use(admin)
     .handler(async ({ context, input }) => {
-        const { page, perPage, sortBy, sortOrder, type, releaseStatus } = input;
+        const { page, perPage, sortBy, sortOrder, type, releaseStatus, spotId } = input;
         const skip = (page - 1) * perPage;
 
         const where: Prisma.MediaWhereInput = {};
+
+        if (spotId) {
+            where.spotId = spotId;
+        }
 
         if (type) {
             where.type = type;
