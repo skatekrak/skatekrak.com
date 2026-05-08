@@ -114,7 +114,7 @@ export function MediaDetailDialog({
 
     return (
         <Dialog open={mediaId != null} onOpenChange={(open) => !open && handleClose()}>
-            <DialogContent className="max-w-2xl gap-0 overflow-hidden p-0">
+            <DialogContent className="max-h-[90vh] max-w-2xl gap-0 overflow-y-auto p-0">
                 {media && (
                     <>
                         {/* Media preview */}
