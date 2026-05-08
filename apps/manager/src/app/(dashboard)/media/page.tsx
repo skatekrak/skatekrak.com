@@ -2,13 +2,14 @@
 
 import { useQuery } from '@tanstack/react-query';
 import { format, formatDistanceToNow } from 'date-fns';
-import { Calendar, Film, Image } from 'lucide-react';
+import { Calendar, Film, Image, Plus } from 'lucide-react';
 import { parseAsInteger, parseAsString, parseAsStringLiteral, useQueryState } from 'nuqs';
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 
 import type { ContractOutputs } from '@krak/contracts';
 import {
     Badge,
+    Button,
     Card,
     CardContent,
     DataTablePagination,
@@ -27,6 +28,7 @@ import {
 import { SiteHeader } from '@/components/site-header';
 import { orpc } from '@/lib/orpc';
 
+import { AddMediaDialog } from './add-media-dialog';
 import { MediaDetailDialog } from './media-detail-dialog';
 
 type Media = ContractOutputs['admin']['media']['list']['media'][number];
@@ -50,6 +52,7 @@ export default function MediaPage() {
         parseAsStringLiteral(releaseStatuses).withDefault('released'),
     );
     const [selectedMediaId, setSelectedMediaId] = useQueryState('media', parseAsString);
+    const [showAddDialog, setShowAddDialog] = useState(false);
 
     const perPage = 24;
 
@@ -111,6 +114,12 @@ export default function MediaPage() {
                     {data && (
                         <span className="text-sm text-muted-foreground">{data.total.toLocaleString()} media total</span>
                     )}
+                    <div className="ml-auto">
+                        <Button onClick={() => setShowAddDialog(true)}>
+                            <Plus className="size-4" />
+                            Add media
+                        </Button>
+                    </div>
                 </div>
 
                 {/* Card grid */}
@@ -146,6 +155,9 @@ export default function MediaPage() {
                 mediaList={data?.media}
                 onClose={() => setSelectedMediaId(null)}
             />
+
+            {/* Add media modal */}
+            <AddMediaDialog open={showAddDialog} onOpenChange={setShowAddDialog} />
         </>
     );
 }

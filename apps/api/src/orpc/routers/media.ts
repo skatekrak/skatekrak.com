@@ -1,11 +1,7 @@
 import { ORPCError } from '@orpc/server';
-import { createId } from '@paralleldrive/cuid2';
 
-import type { MediaType } from '@krak/prisma';
-
-import { uploadToCloudinary } from '../../helpers/cloudinary';
 import { extractHashtags, addHashtagIfNeeded } from '../../helpers/hashtags';
-import { uploadToS3 } from '../../helpers/s3';
+import { processMediaFile } from '../../helpers/media-upload';
 import { buildStat } from '../../helpers/stats';
 import { os, authed, loadProfile, loadSpot } from '../base';
 import { formatPrismaMedia, formatPrismaClip } from '../formatters';
@@ -169,48 +165,15 @@ export const uploadToSpot = os.media.uploadToSpot
     .handler(async ({ context, input }) => {
         const { profile, spot } = context;
 
-        // 1. Read the file and determine its type
-        const file = input.file;
-        const mimeType = file.type || 'application/octet-stream';
-        const resourceType = mimeType.split('/')[0] as string;
+        // 1. Process and upload the file
+        const { mediaId, mediaType, imageField, videoField } = await processMediaFile(input.file).catch((err) => {
+            throw new ORPCError('BAD_REQUEST', { message: err instanceof Error ? err.message : 'Upload failed' });
+        });
 
-        if (resourceType !== 'image' && resourceType !== 'video') {
-            throw new ORPCError('BAD_REQUEST', { message: `Unsupported file type: ${mimeType}` });
-        }
-
-        const buffer = Buffer.from(await file.arrayBuffer());
-
-        const isVideo = resourceType === 'video';
-        const mediaType: MediaType = isVideo ? 'VIDEO' : 'IMAGE';
-
-        let imageField: Record<string, unknown>;
-        let videoField: Record<string, unknown> | undefined;
-        let mediaId: string | undefined;
-
-        if (isVideo) {
-            // Videos stay on Cloudinary
-            const cloudinaryFile = await uploadToCloudinary(buffer, mimeType, 'medias');
-            imageField = { publicId: cloudinaryFile.publicId, url: cloudinaryFile.url.replace('.mp4', '.webp') };
-            videoField = cloudinaryFile;
-        } else {
-            // Images go to S3 via sharp
-            const { default: sharp } = await import('sharp');
-            const webpBuffer = await sharp(buffer).webp().toBuffer();
-            const metadata = await sharp(buffer).metadata();
-            const width = metadata.width ?? 0;
-            const height = metadata.height ?? 0;
-
-            mediaId = createId();
-            const s3Key = `assets/medias/${mediaId}.webp`;
-            await uploadToS3(s3Key, webpBuffer, 'image/webp');
-
-            imageField = { provider: 's3', key: s3Key, width, height };
-        }
-
-        // 3. Extract hashtags from caption
+        // 2. Extract hashtags from caption
         const hashtags = extractHashtags(input.caption);
 
-        // 4. Create the media record and recompute stats atomically
+        // 3. Create the media record and recompute stats atomically
         const media = await context.prisma.$transaction(async (tx) => {
             const created = await tx.media.create({
                 data: {

@@ -8,6 +8,7 @@ import {
     listSpots,
     updateSpotGeneralInfo,
     listMedia,
+    createMedia,
     updateMedia,
     deleteMedia,
     listClips,
@@ -80,6 +81,7 @@ export const router = os.router({
         },
         media: {
             list: listMedia,
+            create: createMedia,
             update: updateMedia,
             delete: deleteMedia,
         },

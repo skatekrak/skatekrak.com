@@ -344,6 +344,17 @@ export const adminUpdateMediaOutput = z.object({
 });
 
 // ============================================================================
+// Create media (admin upload)
+// ============================================================================
+
+export const adminCreateMediaInput = z.object({
+    file: z.file(),
+    caption: z.string().optional(),
+    spotId: z.string().optional(),
+    releaseDate: z.coerce.date().optional(),
+});
+
+// ============================================================================
 // Delete media
 // ============================================================================
 

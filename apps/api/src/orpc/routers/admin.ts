@@ -3,6 +3,7 @@ import { ORPCError } from '@orpc/server';
 import type { Prisma, ClipProvider } from '@krak/prisma';
 
 import { extractHashtags } from '../../helpers/hashtags';
+import { processMediaFile } from '../../helpers/media-upload';
 import { os, authed, admin } from '../base';
 
 import type { Stat } from '../../helpers/stats';
@@ -542,6 +543,73 @@ export const updateMedia = os.admin.media.update
             releaseDate: media.releaseDate,
             spotId: media.spotId,
             updatedAt: media.updatedAt,
+        };
+    });
+
+// ============================================================================
+// admin.media.create — Upload and create a new media entry (admin only)
+// ============================================================================
+
+export const createMedia = os.admin.media.create
+    .use(authed)
+    .use(admin)
+    .handler(async ({ context, input }) => {
+        // Resolve the admin's profile (required for addedById)
+        const profile = await context.prisma.profile.findUnique({
+            where: { userId: context.session.user.id },
+        });
+        if (!profile) {
+            throw new ORPCError('BAD_REQUEST', { message: 'Admin profile not found. Create a profile first.' });
+        }
+
+        // Validate spot if provided
+        if (input.spotId) {
+            const spot = await context.prisma.spot.findUnique({ where: { id: input.spotId } });
+            if (!spot) {
+                throw new ORPCError('NOT_FOUND', { message: `Spot "${input.spotId}" not found` });
+            }
+        }
+
+        // Process and upload the file
+        const { mediaId, mediaType, imageField, videoField } = await processMediaFile(input.file).catch((err) => {
+            throw new ORPCError('BAD_REQUEST', { message: err instanceof Error ? err.message : 'Upload failed' });
+        });
+
+        const hashtags = extractHashtags(input.caption);
+
+        const media = await context.prisma.media.create({
+            data: {
+                ...(mediaId != null ? { id: mediaId } : {}),
+                type: mediaType,
+                caption: input.caption,
+                image: imageField,
+                video: videoField ?? undefined,
+                hashtags,
+                spotId: input.spotId ?? null,
+                addedById: profile.id,
+                releaseDate: input.releaseDate ?? null,
+            },
+            select: {
+                id: true,
+                type: true,
+                caption: true,
+                image: true,
+                releaseDate: true,
+                spot: { select: { id: true, name: true } },
+                addedBy: { select: { user: { select: { username: true } } } },
+                createdAt: true,
+            },
+        });
+
+        return {
+            id: media.id,
+            type: media.type,
+            caption: media.caption,
+            image: media.image as AdminCloudinaryFileMedia,
+            releaseDate: media.releaseDate,
+            spot: media.spot ? { id: media.spot.id, name: media.spot.name } : null,
+            addedBy: media.addedBy ? { username: media.addedBy.user.username } : null,
+            createdAt: media.createdAt,
         };
     });
 

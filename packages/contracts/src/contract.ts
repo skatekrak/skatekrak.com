@@ -19,6 +19,8 @@ import {
     adminListMediaOutput,
     adminUpdateMediaInput,
     adminUpdateMediaOutput,
+    AdminMediaSchema,
+    adminCreateMediaInput,
     adminDeleteMediaInput,
     adminListClipsInput,
     adminListClipsOutput,
@@ -113,6 +115,7 @@ export const contract = {
         },
         media: {
             list: oc.input(adminListMediaInput).output(adminListMediaOutput),
+            create: oc.input(adminCreateMediaInput).output(AdminMediaSchema),
             update: oc.input(adminUpdateMediaInput).output(adminUpdateMediaOutput),
             delete: oc.input(adminDeleteMediaInput).output(z.object({ success: z.boolean() })),
         },
