@@ -236,11 +236,7 @@ function MediaInfoView({
                 {media.spot && (
                     <div className="flex items-center gap-2">
                         <MapPin className="size-4 shrink-0 text-muted-foreground" />
-                        <Link
-                            href={`/spots/${media.spot.id}`}
-                            className="truncate text-foreground hover:underline"
-                            onClick={onClose}
-                        >
+                        <Link href={`/spots/${media.spot.id}`} className="truncate text-foreground hover:underline">
                             {media.spot.name}
                         </Link>
                     </div>
@@ -251,7 +247,6 @@ function MediaInfoView({
                         <Link
                             href={`/users/${media.addedBy.username}`}
                             className="truncate text-foreground hover:underline"
-                            onClick={onClose}
                         >
                             {media.addedBy.username}
                         </Link>
