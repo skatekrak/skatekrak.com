@@ -279,8 +279,8 @@ const AdminCloudinaryFileSchemaMedia = z
     .object({
         publicId: z.string().nullable(),
         url: z.string(),
-        width: z.number().nullable(),
-        height: z.number().nullable(),
+        width: z.number().nullable().optional(),
+        height: z.number().nullable().optional(),
     })
     .nullable();
 

@@ -48,7 +48,12 @@ export async function processMediaFile(file: File): Promise<MediaUploadResult> {
         return {
             mediaId: undefined,
             mediaType: 'VIDEO',
-            imageField: { publicId: cloudinaryFile.publicId, url: cloudinaryFile.url.replace('.mp4', '.webp') },
+            imageField: {
+                publicId: cloudinaryFile.publicId,
+                url: cloudinaryFile.url.replace('.mp4', '.webp'),
+                width: null,
+                height: null,
+            },
             videoField: cloudinaryFile,
         };
     }
