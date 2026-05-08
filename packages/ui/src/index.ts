@@ -117,6 +117,18 @@ export {
     SheetDescription,
 } from './components/ui/sheet';
 export {
+    Dialog,
+    DialogPortal,
+    DialogOverlay,
+    DialogClose,
+    DialogTrigger,
+    DialogContent,
+    DialogHeader,
+    DialogFooter,
+    DialogTitle,
+    DialogDescription,
+} from './components/ui/dialog';
+export {
     AlertDialog,
     AlertDialogPortal,
     AlertDialogOverlay,
