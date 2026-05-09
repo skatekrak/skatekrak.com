@@ -7,30 +7,32 @@ import {
     useRole,
     useDismiss,
     shift,
+    FloatingPortal,
 } from '@floating-ui/react';
+import classNames from 'classnames';
+import NextImage from 'next/image';
 import React, { Ref, useState } from 'react';
 
 import IconArrowHead from '@/components/Ui/Icons/ArrowHead';
 import Typography from '@/components/Ui/typography/Typography';
 
-import RoundedImage from '../RoundedImage';
-
 type Props = {
     ref?: Ref<HTMLDivElement>;
     onClick: () => void;
     selected: boolean;
+    isPanelOpen: boolean;
     src: string;
     tooltipText: string;
 };
 
 const QuickAccessDesktopPanelToggle: React.FC<Props> = React.forwardRef(
-    ({ onClick, src, tooltipText, selected }, ref) => {
-        const [open, setOpen] = useState(false);
+    ({ onClick, src, tooltipText, selected, isPanelOpen }, ref) => {
+        const [isHover, setIsHover] = useState(false);
 
         const { context, refs, floatingStyles } = useFloating({
             placement: 'left',
-            open,
-            onOpenChange: setOpen,
+            open: isHover,
+            onOpenChange: setIsHover,
             middleware: [offset({ mainAxis: 8, crossAxis: 0 }), shift()],
         });
 
@@ -50,21 +52,37 @@ const QuickAccessDesktopPanelToggle: React.FC<Props> = React.forwardRef(
                         className: 'relative flex py-1.5 px-3 text-onDark-highEmphasis cursor-pointer',
                     })}
                 >
-                    <RoundedImage selected={selected} src={src} alt={tooltipText} />
+                    <div
+                        className={classNames('relative size-11', {
+                            'after:absolute after:inset-y-0 after:-left-3 after:block after:w-0.5':
+                                selected || isPanelOpen,
+                            'after:bg-white/30': isPanelOpen && !selected,
+                            'after:bg-primary-80': selected,
+                        })}
+                    >
+                        <NextImage
+                            fill
+                            src={src}
+                            alt={tooltipText}
+                            className="block bg-tertiary-medium border border-solid border-tertiary-light rounded-full"
+                        />
+                    </div>
                 </button>
 
-                {open && (
-                    <div
-                        ref={refs.setFloating}
-                        style={floatingStyles}
-                        {...getFloatingProps()}
-                        className="flex items-center justify-between py-3 px-2 pl-4 text-right text-onDark-highEmphasis bg-tertiary-dark border border-solid border-tertiary-medium rounded shadow-onDarkHighSharp cursor-pointer z-[9999999999]"
-                    >
-                        <Typography as="h4" component="condensedHeading6">
-                            {tooltipText}
-                        </Typography>
-                        <IconArrowHead className="w-5 ml-2 mt-0.5 fill-onDark-highEmphasis" />
-                    </div>
+                {isHover && (
+                    <FloatingPortal>
+                        <div
+                            ref={refs.setFloating}
+                            style={floatingStyles}
+                            {...getFloatingProps()}
+                            className="z-1 flex items-center justify-between py-1 px-2 pl-4 text-right text-onDark-highEmphasis bg-tertiary-dark border border-solid border-tertiary-medium rounded shadow-onDarkHighSharp cursor-pointer"
+                        >
+                            <Typography as="h4" component="condensedHeading6">
+                                {tooltipText}
+                            </Typography>
+                            <IconArrowHead className="w-5 ml-2 mt-0.5 fill-onDark-highEmphasis" />
+                        </div>
+                    </FloatingPortal>
                 )}
             </div>
         );

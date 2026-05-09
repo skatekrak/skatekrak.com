@@ -1,4 +1,4 @@
-import { useFloating, useInteractions, useClick, useDismiss, offset, shift } from '@floating-ui/react';
+import { useFloating, useInteractions, useClick, useDismiss, offset, shift, FloatingPortal } from '@floating-ui/react';
 import React, { useState } from 'react';
 
 import ScrollBar from '@/components/Ui/Scrollbar';
@@ -30,18 +30,21 @@ const QuickAccessDesktopPanel = ({ isSelected, src, tooltipText, panelContent }:
                 {...getReferenceProps({ ref: refs.setReference })}
                 onClick={() => setIsOpen(!isOpen)}
                 selected={isSelected}
+                isPanelOpen={isOpen}
                 src={src}
                 tooltipText={tooltipText}
             />
             {isOpen && (
-                <div
-                    ref={refs.setFloating}
-                    style={floatingStyles}
-                    {...getFloatingProps()}
-                    className="w-[23rem] text-onLight-highEmphasis bg-tertiary-dark border border-solid border-tertiary-medium rounded shadow shadow-onLight-placeholder"
-                >
-                    <ScrollBar maxHeight="calc(100vh - 7rem)">{panelContent(() => setIsOpen(false))}</ScrollBar>
-                </div>
+                <FloatingPortal>
+                    <div
+                        ref={refs.setFloating}
+                        style={floatingStyles}
+                        {...getFloatingProps()}
+                        className="w-[24rem] text-onLight-highEmphasis bg-tertiary-dark border border-solid border-tertiary-medium rounded shadow shadow-onLight-placeholder z-1"
+                    >
+                        <ScrollBar maxHeight="calc(100vh - 7rem)">{panelContent(() => setIsOpen(false))}</ScrollBar>
+                    </div>
+                </FloatingPortal>
             )}
         </>
     );
