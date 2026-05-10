@@ -130,6 +130,8 @@ export {
 } from './components/ui/dialog';
 export { Calendar, CalendarDayButton } from './components/ui/calendar';
 export { Popover, PopoverTrigger, PopoverContent, PopoverAnchor } from './components/ui/popover';
+export { Toaster } from './components/ui/sonner';
+export { toast } from 'sonner';
 export {
     AlertDialog,
     AlertDialogPortal,

@@ -29,6 +29,7 @@ import {
     PopoverTrigger,
     Separator,
     Textarea,
+    toast,
 } from '@krak/ui';
 
 import { client, orpc } from '@/lib/orpc';
@@ -95,12 +96,6 @@ export function AddMediaDialog({
                 releaseDate: values.releaseDate ?? undefined,
             });
         },
-        onSuccess: () => {
-            queryClient.invalidateQueries({
-                queryKey: orpc.admin.media.list.queryOptions({ input: {} as never }).queryKey.slice(0, 2),
-            });
-            handleClose();
-        },
     });
 
     function handleClose() {
@@ -111,6 +106,18 @@ export function AddMediaDialog({
         form.reset();
         mutation.reset();
         onOpenChange(false);
+    }
+
+    function handleSubmit(values: AddMediaValues) {
+        mutation.mutate(values, {
+            onSuccess: () => {
+                queryClient.invalidateQueries({
+                    queryKey: orpc.admin.media.list.queryOptions({ input: {} as never }).queryKey.slice(0, 2),
+                });
+                toast.success('Media uploaded successfully');
+                handleClose();
+            },
+        });
     }
 
     function handleFile(newFile: File) {
@@ -150,10 +157,7 @@ export function AddMediaDialog({
 
                 {/* Form fields */}
                 <Form {...form}>
-                    <form
-                        onSubmit={form.handleSubmit((values) => mutation.mutate(values))}
-                        className="flex flex-col gap-4"
-                    >
+                    <form onSubmit={form.handleSubmit(handleSubmit)} className="flex flex-col gap-4">
                         <FormField
                             control={form.control}
                             name="caption"

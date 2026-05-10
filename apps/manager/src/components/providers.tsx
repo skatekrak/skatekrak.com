@@ -5,7 +5,7 @@ import { ThemeProvider } from 'next-themes';
 import { NuqsAdapter } from 'nuqs/adapters/next/app';
 import { useState, type ReactNode } from 'react';
 
-import { ImgproxyProvider } from '@krak/ui';
+import { ImgproxyProvider, Toaster } from '@krak/ui';
 
 import { env } from '@/env';
 
@@ -31,7 +31,10 @@ export function Providers({ children }: { children: ReactNode }) {
     return (
         <NuqsAdapter>
             <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-                <QueryClientProvider client={queryClient}>{content}</QueryClientProvider>
+                <QueryClientProvider client={queryClient}>
+                    {content}
+                    <Toaster richColors />
+                </QueryClientProvider>
             </ThemeProvider>
         </NuqsAdapter>
     );
