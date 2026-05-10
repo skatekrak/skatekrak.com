@@ -22,6 +22,11 @@ type MapCustomPanelProps = {
     spots: Spot[];
 };
 
+const getScrollParent = () => {
+    const wrappers = document.getElementsByClassName('simplebar-content-wrapper');
+    return wrappers[wrappers.length - 1] as HTMLElement;
+};
+
 const MapCustomPanel = ({ map, spots }: MapCustomPanelProps) => {
     const { id, name, about, categories } = map;
 
@@ -84,11 +89,6 @@ const MapCustomPanel = ({ map, spots }: MapCustomPanelProps) => {
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isLoading]);
-
-    const getScrollParent = () => {
-        const wrappers = document.getElementsByClassName('simplebar-content-wrapper');
-        return wrappers[wrappers.length - 1] as HTMLElement;
-    };
 
     return (
         <>
