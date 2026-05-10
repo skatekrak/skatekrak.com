@@ -59,10 +59,9 @@ export async function processMediaFile(file: File): Promise<MediaUploadResult> {
     }
 
     const { default: sharp } = await import('sharp');
-    const webpBuffer = await sharp(buffer).webp().toBuffer();
-    const metadata = await sharp(buffer).metadata();
-    const width = metadata.width ?? 0;
-    const height = metadata.height ?? 0;
+    const { data: webpBuffer, info } = await sharp(buffer).rotate().webp().toBuffer({ resolveWithObject: true });
+    const width = info.width ?? 0;
+    const height = info.height ?? 0;
 
     const mediaId = createId();
     const s3Key = `assets/medias/${mediaId}.webp`;

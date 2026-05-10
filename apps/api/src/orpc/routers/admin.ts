@@ -811,7 +811,7 @@ export const uploadMapImage = os.admin.maps.uploadImage
         const buffer = Buffer.from(await file.arrayBuffer());
 
         // Convert to PNG using sharp
-        const pngBuffer = await sharp(buffer).png().toBuffer();
+        const pngBuffer = await sharp(buffer).rotate().png().toBuffer();
 
         const key = `assets/maps/custom-maps/${input.id}.png`;
         await uploadToS3(key, pngBuffer, 'image/png');
