@@ -69,7 +69,7 @@ const MapCreateSpot = () => {
 
         toggleCreateSpot();
         setSpotID(spot.id);
-        queryClient.invalidateQueries({ queryKey: ['fetch-spots-on-map'] });
+        queryClient.invalidateQueries({ queryKey: ['fetch-spots-geojson'] });
     };
 
     return (

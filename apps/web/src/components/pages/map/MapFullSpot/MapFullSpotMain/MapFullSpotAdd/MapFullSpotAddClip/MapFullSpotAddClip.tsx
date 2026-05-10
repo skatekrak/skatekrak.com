@@ -39,20 +39,15 @@ const MapFullSpotAddClip = () => {
         }
 
         try {
-            const clip = await client.spots.addClipToSpot({
+            await client.spots.addClipToSpot({
                 spotId: spotOverview.spot.id,
                 videoURL: url,
             });
             queryClient.invalidateQueries({
                 queryKey: orpc.spots.getSpotOverview.key({ input: { id: spotOverview.spot.id } }),
             });
-            queryClient.setQueryData(['fetch-spot-clips', spotOverview.spot.id], (prevData: any) => {
-                if (prevData == null) return prevData;
-
-                return {
-                    pages: [[clip], ...prevData.pages],
-                    pageParams: prevData.pageParams,
-                };
+            queryClient.invalidateQueries({
+                queryKey: orpc.media.listClipsBySpot.key(),
             });
 
             selectFullSpotTab('clips');
