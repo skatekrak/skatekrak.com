@@ -1,9 +1,9 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
 import classNames from 'classnames';
-import NextImage from 'next/image';
 import React, { useEffect, useState } from 'react';
 
 import type { Spot } from '@krak/contracts';
+import { KrakImage } from '@krak/ui';
 
 import MapCustomMediaCarousel from '@/components/pages/map/MapCustom/MapCustomMediaCarousel';
 import Content from '@/components/pages/map/MapCustom/panel/Content';
@@ -129,11 +129,10 @@ const MapCustomPanel = ({ map, spots }: MapCustomPanelProps) => {
                                 </button>
                             ) : (
                                 <button className="flex items-center gap-3 text-base" onClick={() => setIsOpen(true)}>
-                                    <NextImage
+                                    <KrakImage
                                         className="rounded-full"
-                                        src={`/images/map/custom-maps/${id}.png`}
-                                        width={32}
-                                        height={32}
+                                        path={`assets/maps/custom-maps/${id}.png`}
+                                        options={{ width: 32, height: 32, resizingType: 'fill' }}
                                         alt="custom map profile picture"
                                     />
                                     <span className="font-bold text-onDark-highEmphasis">{name}</span>
@@ -146,13 +145,12 @@ const MapCustomPanel = ({ map, spots }: MapCustomPanelProps) => {
                             <>
                                 <div className="flex flex-col pt-4 px-6">
                                     <span className="font-medium capitalize">{categories[0]}</span>
-                                    <NextImage
+                                    <KrakImage
                                         className="mx-auto rounded-full"
-                                        src={`/images/map/custom-maps/${id}.png`}
-                                        width={120}
-                                        height={120}
+                                        path={`assets/maps/custom-maps/${id}.png`}
+                                        options={{ width: 120, height: 120, resizingType: 'fill' }}
                                         alt="custom map profile picture"
-                                        priority={true}
+                                        loading="eager"
                                     />
 
                                     <h2 className="mt-4 font-bold text-2xl text-center text-onDark-highEmphasis">
