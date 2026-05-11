@@ -1,5 +1,10 @@
 import { startOfMonth, subDays } from 'date-fns';
 
+import type { PrismaClient } from '@krak/prisma';
+
+/** Minimal Prisma client interface accepted by stat helpers (works with both PrismaClient and transaction clients). */
+type PrismaLike = Pick<PrismaClient, 'media' | 'spot' | 'profile'>;
+
 export type Stat = {
     createdAt: Date;
     className: string;
@@ -49,4 +54,41 @@ export function buildStat(list: { createdAt: Date }[] = []): Stat {
     }
 
     return stat;
+}
+
+/**
+ * Recompute `mediasStat` on a spot and/or a profile.
+ *
+ * Accepts a Prisma client or transaction client. Call this inside a `$transaction`
+ * to keep the recompute atomic with the surrounding write.
+ */
+export async function recomputeMediasStat(
+    prisma: PrismaLike,
+    { spotId, profileId }: { spotId?: string | null; profileId?: string | null },
+): Promise<void> {
+    if (spotId) {
+        const allSpotMedias = await prisma.media.findMany({
+            where: { spotId },
+            orderBy: { createdAt: 'desc' },
+            select: { createdAt: true },
+        });
+
+        await prisma.spot.update({
+            where: { id: spotId },
+            data: { mediasStat: buildStat(allSpotMedias) },
+        });
+    }
+
+    if (profileId) {
+        const allProfileMedias = await prisma.media.findMany({
+            where: { addedById: profileId },
+            orderBy: { createdAt: 'desc' },
+            select: { createdAt: true },
+        });
+
+        await prisma.profile.update({
+            where: { id: profileId },
+            data: { mediasStat: buildStat(allProfileMedias) },
+        });
+    }
 }

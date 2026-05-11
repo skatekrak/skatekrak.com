@@ -2,7 +2,7 @@ import { ORPCError } from '@orpc/server';
 
 import { extractHashtags, addHashtagIfNeeded } from '../../helpers/hashtags';
 import { processMediaFile } from '../../helpers/media-upload';
-import { buildStat } from '../../helpers/stats';
+import { recomputeMediasStat } from '../../helpers/stats';
 import { os, authed, loadProfile, loadSpot } from '../base';
 import { formatPrismaMedia, formatPrismaClip } from '../formatters';
 
@@ -189,29 +189,7 @@ export const uploadToSpot = os.media.uploadToSpot
                 include: mediaInclude,
             });
 
-            // Recompute mediasStat on the spot
-            const allSpotMedias = await tx.media.findMany({
-                where: { spotId: spot.id },
-                orderBy: { createdAt: 'desc' },
-                select: { createdAt: true },
-            });
-
-            await tx.spot.update({
-                where: { id: spot.id },
-                data: { mediasStat: buildStat(allSpotMedias) },
-            });
-
-            // Recompute mediasStat on the profile
-            const allProfileMedias = await tx.media.findMany({
-                where: { addedById: profile.id },
-                orderBy: { createdAt: 'desc' },
-                select: { createdAt: true },
-            });
-
-            await tx.profile.update({
-                where: { id: profile.id },
-                data: { mediasStat: buildStat(allProfileMedias) },
-            });
+            await recomputeMediasStat(tx, { spotId: spot.id, profileId: profile.id });
 
             return created;
         });
