@@ -48,6 +48,7 @@ const MapFullSpotAddClip = () => {
             });
             queryClient.invalidateQueries({
                 queryKey: orpc.media.listClipsBySpot.key(),
+                refetchType: 'all',
             });
 
             selectFullSpotTab('clips');
