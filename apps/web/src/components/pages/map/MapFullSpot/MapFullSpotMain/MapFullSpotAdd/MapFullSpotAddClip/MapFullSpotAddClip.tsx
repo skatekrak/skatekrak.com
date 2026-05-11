@@ -4,6 +4,7 @@ import { FocusEventHandler, useState } from 'react';
 import ButtonPrimary from '@/components/Ui/Button/ButtonPrimary';
 import VideoPlayer from '@/components/Ui/Player/VideoPlayer';
 import Typography from '@/components/Ui/typography/Typography';
+import Analytics from '@/lib/analytics';
 import { useFullSpotSelectedTab } from '@/lib/hook/queryState';
 import { client, orpc } from '@/server/orpc/client';
 import { useMapStore } from '@/store/map';
@@ -52,6 +53,7 @@ const MapFullSpotAddClip = () => {
             });
 
             selectFullSpotTab('clips');
+            Analytics.trackEvent('spot', 'add_clip');
         } catch (err) {
             console.error(err);
         }

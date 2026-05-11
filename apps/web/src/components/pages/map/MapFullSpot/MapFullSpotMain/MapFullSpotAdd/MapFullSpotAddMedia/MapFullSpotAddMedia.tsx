@@ -6,6 +6,7 @@ import * as Yup from 'yup';
 
 import ButtonPrimary from '@/components/Ui/Button/ButtonPrimary';
 import Typography from '@/components/Ui/typography/Typography';
+import Analytics from '@/lib/analytics';
 import { useFullSpotSelectedTab } from '@/lib/hook/queryState';
 import { client, orpc } from '@/server/orpc/client';
 import { useMapStore } from '@/store/map';
@@ -56,6 +57,7 @@ const MapFullSpotAddMedia = () => {
             });
 
             selectFullSpotTab('media');
+            Analytics.trackEvent('spot', 'add_media');
         } catch (err) {
             console.error(err);
         }
