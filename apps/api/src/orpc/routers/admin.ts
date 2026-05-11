@@ -4,9 +4,8 @@ import type { Prisma, ClipProvider } from '@krak/prisma';
 
 import { extractHashtags } from '../../helpers/hashtags';
 import { processMediaFile } from '../../helpers/media-upload';
+import { buildStat, type Stat } from '../../helpers/stats';
 import { os, authed, admin } from '../base';
-
-import type { Stat } from '../../helpers/stats';
 
 // Types matching the raw Postgres JSON shapes for Prisma Json? columns.
 // These mirror the Zod schemas in @krak/contracts (AdminCloudinaryFileSchema).
@@ -581,28 +580,58 @@ export const createMedia = os.admin.media.create
 
         const hashtags = extractHashtags(input.caption);
 
-        const media = await context.prisma.media.create({
-            data: {
-                ...(mediaId != null ? { id: mediaId } : {}),
-                type: mediaType,
-                caption: input.caption,
-                image: imageField,
-                video: videoField ?? undefined,
-                hashtags,
-                spotId: input.spotId ?? null,
-                addedById: profile.id,
-                releaseDate: input.releaseDate ?? null,
-            },
-            select: {
-                id: true,
-                type: true,
-                caption: true,
-                image: true,
-                releaseDate: true,
-                spot: { select: { id: true, name: true } },
-                addedBy: { select: { user: { select: { username: true } } } },
-                createdAt: true,
-            },
+        const media = await context.prisma.$transaction(async (tx) => {
+            const created = await tx.media.create({
+                data: {
+                    ...(mediaId != null ? { id: mediaId } : {}),
+                    type: mediaType,
+                    caption: input.caption,
+                    image: imageField,
+                    video: videoField ?? undefined,
+                    hashtags,
+                    spotId: input.spotId ?? null,
+                    addedById: profile.id,
+                    releaseDate: input.releaseDate ?? null,
+                },
+                select: {
+                    id: true,
+                    type: true,
+                    caption: true,
+                    image: true,
+                    releaseDate: true,
+                    spot: { select: { id: true, name: true } },
+                    addedBy: { select: { user: { select: { username: true } } } },
+                    createdAt: true,
+                },
+            });
+
+            // Recompute mediasStat on the spot
+            if (input.spotId) {
+                const allSpotMedias = await tx.media.findMany({
+                    where: { spotId: input.spotId },
+                    orderBy: { createdAt: 'desc' },
+                    select: { createdAt: true },
+                });
+
+                await tx.spot.update({
+                    where: { id: input.spotId },
+                    data: { mediasStat: buildStat(allSpotMedias) },
+                });
+            }
+
+            // Recompute mediasStat on the profile
+            const allProfileMedias = await tx.media.findMany({
+                where: { addedById: profile.id },
+                orderBy: { createdAt: 'desc' },
+                select: { createdAt: true },
+            });
+
+            await tx.profile.update({
+                where: { id: profile.id },
+                data: { mediasStat: buildStat(allProfileMedias) },
+            });
+
+            return created;
         });
 
         return {
@@ -630,7 +659,37 @@ export const deleteMedia = os.admin.media.delete
             throw new ORPCError('NOT_FOUND', { message: `Media "${input.id}" not found` });
         }
 
-        await context.prisma.media.delete({ where: { id: input.id } });
+        await context.prisma.$transaction(async (tx) => {
+            await tx.media.delete({ where: { id: input.id } });
+
+            // Recompute mediasStat on the spot
+            if (existing.spotId) {
+                const allSpotMedias = await tx.media.findMany({
+                    where: { spotId: existing.spotId },
+                    orderBy: { createdAt: 'desc' },
+                    select: { createdAt: true },
+                });
+
+                await tx.spot.update({
+                    where: { id: existing.spotId },
+                    data: { mediasStat: buildStat(allSpotMedias) },
+                });
+            }
+
+            // Recompute mediasStat on the profile
+            if (existing.addedById) {
+                const allProfileMedias = await tx.media.findMany({
+                    where: { addedById: existing.addedById },
+                    orderBy: { createdAt: 'desc' },
+                    select: { createdAt: true },
+                });
+
+                await tx.profile.update({
+                    where: { id: existing.addedById },
+                    data: { mediasStat: buildStat(allProfileMedias) },
+                });
+            }
+        });
 
         return { success: true };
     });
