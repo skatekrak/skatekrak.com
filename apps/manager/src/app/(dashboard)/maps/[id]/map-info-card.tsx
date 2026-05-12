@@ -97,7 +97,7 @@ function MapReadCard({ map, onEdit }: { map: MapData; onEdit: () => void }) {
                     <div className="flex flex-wrap gap-1">
                         {map.categories.map((cat) => (
                             <Badge key={cat} variant="secondary">
-                                {categoryLabels[cat] ?? cat}
+                                {categoryLabels[cat as keyof typeof categoryLabels] ?? cat}
                             </Badge>
                         ))}
                     </div>
