@@ -1,13 +1,15 @@
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
-import { Plus } from 'lucide-react';
-import { parseAsInteger, parseAsString, parseAsStringLiteral, useQueryState } from 'nuqs';
+import { Plus, X } from 'lucide-react';
+import { parseAsArrayOf, parseAsInteger, parseAsString, parseAsStringLiteral, useQueryState } from 'nuqs';
 import { use, useCallback, useState } from 'react';
 
 import {
+    Badge,
     Button,
     DataTablePagination,
+    Input,
     Select,
     SelectContent,
     SelectItem,
@@ -47,6 +49,32 @@ export default function SpotMediaPage({ params }: { params: Promise<{ id: string
     );
     const [selectedMediaId, setSelectedMediaId] = useQueryState('media', parseAsString);
     const [showAddDialog, setShowAddDialog] = useState(false);
+    const [hashtags, setHashtags] = useQueryState('hashtags', parseAsArrayOf(parseAsString).withDefault([]));
+    const [hashtagInput, setHashtagInput] = useState('');
+
+    function addHashtag(raw: string) {
+        const tag = raw.trim().replace(/^#?/, '#').toLowerCase();
+        if (tag.length <= 1) return;
+        if (hashtags.includes(tag)) {
+            setHashtagInput('');
+            return;
+        }
+        setHashtags([...hashtags, tag]);
+        setHashtagInput('');
+        handlePageChange(1);
+    }
+
+    function removeHashtag(tag: string) {
+        setHashtags(hashtags.filter((h) => h !== tag));
+        handlePageChange(1);
+    }
+
+    function handleHashtagKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            addHashtag(hashtagInput);
+        }
+    }
 
     const { data, isLoading } = useQuery(
         orpc.admin.media.list.queryOptions({
@@ -58,6 +86,7 @@ export default function SpotMediaPage({ params }: { params: Promise<{ id: string
                 type: type ?? undefined,
                 releaseStatus,
                 spotId,
+                hashtags: hashtags.length > 0 ? hashtags : undefined,
             },
         }),
     );
@@ -102,6 +131,23 @@ export default function SpotMediaPage({ params }: { params: Promise<{ id: string
                         <SelectItem value="VIDEO">Video</SelectItem>
                     </SelectContent>
                 </Select>
+                <div className="flex flex-wrap items-center gap-2">
+                    <Input
+                        placeholder="Filter by #hashtag"
+                        value={hashtagInput}
+                        onChange={(e) => setHashtagInput(e.target.value)}
+                        onKeyDown={handleHashtagKeyDown}
+                        className="w-48"
+                    />
+                    {hashtags.map((tag) => (
+                        <Badge key={tag} variant="secondary" className="gap-1">
+                            {tag}
+                            <button type="button" onClick={() => removeHashtag(tag)} className="hover:text-destructive">
+                                <X className="size-3" />
+                            </button>
+                        </Badge>
+                    ))}
+                </div>
                 {data && (
                     <span className="text-sm text-muted-foreground">{data.total.toLocaleString()} media total</span>
                 )}
