@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation';
 import { parseAsArrayOf, parseAsInteger, parseAsString, parseAsStringLiteral, useQueryState } from 'nuqs';
 import { useState } from 'react';
 
+import { mapCategories, mapCategoryLabels, type MapCategory } from '@krak/contracts';
 import {
     Button,
     DataTable,
@@ -23,38 +24,6 @@ import { SiteHeader } from '@/components/site-header';
 import { orpc } from '@/lib/orpc';
 
 import { columns } from './columns';
-
-const mapCategories = [
-    'maps',
-    'video',
-    'skater',
-    'filmer',
-    'photographer',
-    'magazine',
-    'skatepark',
-    'shop',
-    'years',
-    'greatest',
-    'members',
-    'artist',
-] as const;
-
-type MapCategory = (typeof mapCategories)[number];
-
-const categoryLabels: Record<string, string> = {
-    maps: 'Maps',
-    video: 'Video',
-    skater: 'Skaters',
-    filmer: 'Filmers',
-    photographer: 'Photographers',
-    magazine: 'Magazines',
-    skatepark: 'Skateparks',
-    shop: 'Shops',
-    years: 'Years',
-    greatest: 'Greatest',
-    members: 'Members',
-    artist: 'Artists',
-};
 
 export default function MapsPage() {
     const router = useRouter();
@@ -109,7 +78,7 @@ export default function MapsPage() {
 
     function categoryFilterLabel(): string {
         if (selectedCategories.length === 0) return 'All categories';
-        if (selectedCategories.length === 1) return categoryLabels[selectedCategories[0]] ?? selectedCategories[0];
+        if (selectedCategories.length === 1) return mapCategoryLabels[selectedCategories[0]] ?? selectedCategories[0];
         return `${selectedCategories.length} categories`;
     }
 
@@ -139,7 +108,7 @@ export default function MapsPage() {
                                     onCheckedChange={() => toggleCategory(cat)}
                                     onSelect={(e) => e.preventDefault()}
                                 >
-                                    {categoryLabels[cat]}
+                                    {mapCategoryLabels[cat]}
                                 </DropdownMenuCheckboxItem>
                             ))}
                         </DropdownMenuContent>

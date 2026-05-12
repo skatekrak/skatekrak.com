@@ -420,7 +420,51 @@ export const AdminMapCategorySchema = z.enum([
     'greatest',
     'members',
     'artist',
+    'signature_tricks',
+    'fictions',
+    'videogames',
+    'type_of_spots',
+    'other_sports',
+    'youtubers',
+    'accessories',
+    'cameras',
+    'contests',
+    'foundations',
 ]);
+
+export type MapCategory = z.infer<typeof AdminMapCategorySchema>;
+
+/** All category keys derived from the Zod enum */
+export const mapCategories = AdminMapCategorySchema.options;
+
+/** Human-readable labels keyed by category */
+export const mapCategoryLabels: Record<MapCategory, string> = {
+    maps: 'Maps',
+    video: 'Video',
+    skater: 'Skaters',
+    filmer: 'Filmers',
+    photographer: 'Photographers',
+    magazine: 'Magazines',
+    skatepark: 'Skateparks',
+    shop: 'Shops',
+    years: 'Years',
+    greatest: 'Greatest',
+    members: 'Members',
+    artist: 'Artists',
+    signature_tricks: 'Signature Tricks',
+    fictions: 'Fictions',
+    videogames: 'Videogames',
+    type_of_spots: 'Type of Spots',
+    other_sports: 'Other Sports',
+    youtubers: 'Youtubers',
+    accessories: 'Accessories',
+    cameras: 'Cameras',
+    contests: 'Contests',
+    foundations: 'Foundations',
+};
+
+/** Categories where spots are fetched by direct tag match (not via media) */
+export const directTagCategories: MapCategory[] = ['maps', 'skatepark', 'shop'];
 
 export const AdminMapSchema = z.object({
     id: z.string(),

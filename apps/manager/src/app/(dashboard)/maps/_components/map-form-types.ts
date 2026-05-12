@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-import { AdminMapCategorySchema } from '@krak/contracts';
+import { AdminMapCategorySchema, mapCategories, mapCategoryLabels, type MapCategory } from '@krak/contracts';
 
 import type { UseFormReturn } from 'react-hook-form';
 
@@ -28,31 +28,14 @@ export type MapFormValues = z.infer<typeof mapFormSchema>;
 export type MapFormControl = UseFormReturn<MapFormValues>['control'];
 
 // ============================================================================
-// Constants
+// Constants — re-exported from @krak/contracts
 // ============================================================================
 
-export type MapCategory = z.infer<typeof AdminMapCategorySchema>;
-
-export const mapCategories = AdminMapCategorySchema.options;
-
-export const categoryLabels: Record<string, string> = {
-    maps: 'Maps',
-    video: 'Video',
-    skater: 'Skaters',
-    filmer: 'Filmers',
-    photographer: 'Photographers',
-    magazine: 'Magazines',
-    skatepark: 'Skateparks',
-    shop: 'Shops',
-    years: 'Years',
-    greatest: 'Greatest',
-    members: 'Members',
-    artist: 'Artists',
-};
+export { mapCategories, mapCategoryLabels, mapCategoryLabels as categoryLabels, type MapCategory };
 
 /** Reverse lookup: display label → raw key (e.g. "Maps" → "maps") */
 const categoryLabelToKey: Record<string, MapCategory> = Object.fromEntries(
-    Object.entries(categoryLabels).map(([key, label]) => [label, key as MapCategory]),
+    Object.entries(mapCategoryLabels).map(([key, label]) => [label, key as MapCategory]),
 ) as Record<string, MapCategory>;
 
 /**

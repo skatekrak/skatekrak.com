@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useMemo } from 'react';
 
 import type { ContractOutputs } from '@krak/contracts';
+import { mapCategoryLabels } from '@krak/contracts';
 import {
     Badge,
     Button,
@@ -24,7 +25,7 @@ import { orpc } from '@/lib/orpc';
 
 type MapData = ContractOutputs['maps']['fetch'];
 
-const directTagCategories = ['Maps', 'Skateparks', 'Shops'];
+const directTagCategories = [mapCategoryLabels.maps, mapCategoryLabels.skatepark, mapCategoryLabels.shop];
 
 interface MapPreviewTabsProps {
     map: MapData;

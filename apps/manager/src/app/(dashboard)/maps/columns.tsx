@@ -3,26 +3,12 @@
 import { format } from 'date-fns';
 
 import type { ContractOutputs } from '@krak/contracts';
+import { mapCategoryLabels } from '@krak/contracts';
 import { Badge, DataTableColumnHeader, KrakImage } from '@krak/ui';
 
 import type { ColumnDef } from '@tanstack/react-table';
 
 export type AdminMap = ContractOutputs['admin']['maps']['list']['maps'][number];
-
-const categoryLabels: Record<string, string> = {
-    maps: 'Maps',
-    video: 'Video',
-    skater: 'Skaters',
-    filmer: 'Filmers',
-    photographer: 'Photographers',
-    magazine: 'Magazines',
-    skatepark: 'Skateparks',
-    shop: 'Shops',
-    years: 'Years',
-    greatest: 'Greatest',
-    members: 'Members',
-    artist: 'Artists',
-};
 
 export const columns: ColumnDef<AdminMap>[] = [
     {
@@ -68,7 +54,7 @@ export const columns: ColumnDef<AdminMap>[] = [
                 <div className="flex flex-wrap gap-1">
                     {categories.map((cat) => (
                         <Badge key={cat} variant="secondary">
-                            {categoryLabels[cat] ?? cat}
+                            {mapCategoryLabels[cat as keyof typeof mapCategoryLabels] ?? cat}
                         </Badge>
                     ))}
                 </div>

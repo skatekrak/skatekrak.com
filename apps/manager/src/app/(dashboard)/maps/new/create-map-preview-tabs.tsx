@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useEffect, useMemo, useState } from 'react';
 import { useWatch } from 'react-hook-form';
 
+import { directTagCategories } from '@krak/contracts';
 import {
     Badge,
     Button,
@@ -23,12 +24,6 @@ import {
 import { orpc } from '@/lib/orpc';
 
 import type { MapFormControl } from '../_components/map-form-types';
-
-// ============================================================================
-// Constants
-// ============================================================================
-
-const directTagCategories = ['maps', 'skatepark', 'shop'];
 
 // ============================================================================
 // CreateMapPreviewTabs — fetches spots & media by map ID

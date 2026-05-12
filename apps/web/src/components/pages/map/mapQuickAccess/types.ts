@@ -17,17 +17,4 @@ export type Category = {
     maps: QuickAccessMap[];
 };
 
-export enum CustomMapCategory {
-    maps = 'Maps',
-    video = 'Video',
-    skater = 'Skaters',
-    filmer = 'Filmers',
-    photographer = 'Photographers',
-    magazine = 'Magazines',
-    skatepark = 'Skateparks',
-    shop = 'Shops',
-    years = 'Years',
-    greatest = 'Greatest',
-    members = 'Members',
-    artist = 'Artists',
-}
+export { mapCategoryLabels, mapCategories, type MapCategory } from '@krak/contracts';

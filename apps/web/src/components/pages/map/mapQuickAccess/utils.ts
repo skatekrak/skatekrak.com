@@ -1,8 +1,11 @@
 import { unique } from 'radash';
 
-import { Category, CustomMapCategory, QuickAccessMap } from './types';
+import { mapCategoryLabels } from '@krak/contracts';
 
-const customMapCategoryValues = Object.values(CustomMapCategory) as string[];
+import { type Category, type QuickAccessMap } from './types';
+
+const labelValues = Object.values(mapCategoryLabels) as string[];
+const labelOrder = Object.values(mapCategoryLabels);
 
 export const generateCategories = (data: QuickAccessMap[]): Category[] => {
     const allCategories: string[] = unique(
@@ -11,11 +14,10 @@ export const generateCategories = (data: QuickAccessMap[]): Category[] => {
             .reduce((acc, value) => acc.concat(value.categories!), [] as string[]),
     );
 
-    // Filter to only known CustomMapCategory values and preserve ordering
-    const order = Object.keys(CustomMapCategory);
+    // Filter to only known category labels and preserve ordering
     const categories = allCategories
-        .filter((cat): cat is CustomMapCategory => customMapCategoryValues.includes(cat))
-        .toSorted((a, b) => order.indexOf(a) - order.indexOf(b));
+        .filter((cat) => labelValues.includes(cat))
+        .toSorted((a, b) => labelOrder.indexOf(a) - labelOrder.indexOf(b));
 
     return categories.map((category) => ({
         id: category,

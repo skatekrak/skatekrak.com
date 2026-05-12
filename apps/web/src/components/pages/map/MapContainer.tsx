@@ -7,6 +7,7 @@ import { MapRef } from 'react-map-gl/maplibre';
 import { useShallow } from 'zustand/react/shallow';
 
 import type { Spot } from '@krak/contracts';
+import { mapCategoryLabels } from '@krak/contracts';
 
 import CityPanel from '@/components/pages/map/cities/CityPanel';
 import MapCustomPanel from '@/components/pages/map/MapCustom/panel/MapCustomPanel';
@@ -26,7 +27,6 @@ import MapCreateSpot from './MapCreateSpot';
 import MapGradients from './MapGradients';
 import MapNavigation from './MapNavigation';
 import QuickAccessDesktop from './mapQuickAccess/desktop/quick-access-desktop';
-import { CustomMapCategory } from './mapQuickAccess/types';
 import MapZoomAlert from './MapZoomAlert';
 
 const DynamicMapComponent = dynamic(() => import('./MapComponent'), { ssr: false });
@@ -137,7 +137,7 @@ const MapContainer = () => {
         if (isEmpty(customMapInfo?.categories)) return true;
 
         return !intersects(
-            [CustomMapCategory.maps, CustomMapCategory.skatepark, CustomMapCategory.shop],
+            [mapCategoryLabels.maps, mapCategoryLabels.skatepark, mapCategoryLabels.shop],
             customMapInfo!.categories,
         );
     }, [customMapInfo]);

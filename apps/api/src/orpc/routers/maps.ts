@@ -1,28 +1,15 @@
 import { ORPCError } from '@orpc/server';
 
+import { mapCategoryLabels } from '@krak/contracts';
+
 import { os } from '../base';
 
 // ============================================================================
 // Category mapping
 // ============================================================================
 
-enum CustomMapCategory {
-    maps = 'Maps',
-    video = 'Video',
-    skater = 'Skaters',
-    filmer = 'Filmers',
-    photographer = 'Photographers',
-    magazine = 'Magazines',
-    skatepark = 'Skateparks',
-    shop = 'Shops',
-    years = 'Years',
-    greatest = 'Greatest',
-    members = 'Members',
-    artist = 'Artists',
-}
-
-function mapCategories(categories: string[]): string[] {
-    return categories.map((category) => CustomMapCategory[category as keyof typeof CustomMapCategory] ?? category);
+function mapCategoryKeysToLabels(categories: string[]): string[] {
+    return categories.map((category) => mapCategoryLabels[category as keyof typeof mapCategoryLabels] ?? category);
 }
 
 // ============================================================================
@@ -45,7 +32,7 @@ export const fetchMap = os.maps.fetch.handler(async ({ context, input }) => {
     return {
         id: map.id,
         name: map.name,
-        categories: mapCategories(map.categories),
+        categories: mapCategoryKeysToLabels(map.categories),
         subtitle: map.subtitle,
         edito: map.edito,
         about: map.about,
@@ -66,6 +53,6 @@ export const listMaps = os.maps.list.handler(async ({ context }) => {
         subtitle: map.subtitle,
         about: map.about,
         edito: map.edito,
-        categories: mapCategories(map.categories),
+        categories: mapCategoryKeysToLabels(map.categories),
     }));
 });
