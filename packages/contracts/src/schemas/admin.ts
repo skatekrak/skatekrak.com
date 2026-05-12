@@ -316,6 +316,7 @@ export const adminListMediaInput = z.object({
     type: MediaTypeSchema.optional(),
     releaseStatus: MediaReleaseStatusSchema.optional(),
     spotId: z.string().optional(),
+    hashtags: z.array(z.string()).optional(),
 });
 
 export const adminListMediaOutput = z.object({
