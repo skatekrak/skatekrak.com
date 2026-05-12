@@ -2,7 +2,7 @@ import { ORPCError } from '@orpc/server';
 
 import type { Prisma, ClipProvider } from '@krak/prisma';
 
-import { extractHashtags } from '../../helpers/hashtags';
+import { extractHashtags, addHashtagIfNeeded } from '../../helpers/hashtags';
 import { processMediaFile } from '../../helpers/media-upload';
 import { recomputeMediasStat, type Stat } from '../../helpers/stats';
 import { os, authed, admin } from '../base';
@@ -442,7 +442,7 @@ export const listMedia = os.admin.media.list
     .use(authed)
     .use(admin)
     .handler(async ({ context, input }) => {
-        const { page, perPage, sortBy, sortOrder, type, releaseStatus, spotId } = input;
+        const { page, perPage, sortBy, sortOrder, type, releaseStatus, spotId, hashtags } = input;
         const skip = (page - 1) * perPage;
 
         const where: Prisma.MediaWhereInput = {};
@@ -459,6 +459,10 @@ export const listMedia = os.admin.media.list
             where.releaseDate = { gt: new Date() };
         } else if (releaseStatus === 'released') {
             where.OR = [{ releaseDate: null }, { releaseDate: { lte: new Date() } }];
+        }
+
+        if (hashtags && hashtags.length > 0) {
+            where.hashtags = { hasEvery: hashtags.map(addHashtagIfNeeded) };
         }
 
         const [media, total] = await Promise.all([
