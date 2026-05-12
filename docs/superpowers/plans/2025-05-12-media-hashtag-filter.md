@@ -13,6 +13,7 @@
 ### Task 1: Add `hashtags` to the admin media list contract
 
 **Files:**
+
 - Modify: `packages/contracts/src/schemas/admin.ts:311-319`
 
 - [ ] **Step 1: Add hashtags field to adminListMediaInput**
@@ -49,6 +50,7 @@ git commit -m "feat(contracts): add hashtags filter to admin media list input"
 ### Task 2: Wire hashtag filter in the API handler
 
 **Files:**
+
 - Modify: `apps/api/src/orpc/routers/admin.ts:441-510`
 
 - [ ] **Step 1: Add hashtag filter to the listMedia handler**
@@ -92,6 +94,7 @@ git commit -m "feat(api): add hashtags hasEvery filter to admin media list"
 ### Task 3: Add hashtag filter UI to the main media page
 
 **Files:**
+
 - Modify: `apps/manager/src/app/(dashboard)/media/page.tsx`
 
 - [ ] **Step 1: Add nuqs state and imports**
@@ -221,6 +224,7 @@ git commit -m "feat(manager): add hashtag filter to main media page"
 ### Task 4: Add hashtag filter UI to the spot media page
 
 **Files:**
+
 - Modify: `apps/manager/src/app/(dashboard)/spots/[id]/media/page.tsx`
 
 - [ ] **Step 1: Add nuqs state and imports**

@@ -42,15 +42,13 @@ Import `addHashtagIfNeeded` from `../../helpers/hashtags`.
 New query parameter on both media pages:
 
 ```ts
-const [hashtags, setHashtags] = useQueryState(
-    'hashtags',
-    parseAsArrayOf(parseAsString).withDefault([]),
-);
+const [hashtags, setHashtags] = useQueryState('hashtags', parseAsArrayOf(parseAsString).withDefault([]));
 ```
 
 #### Filter input
 
 A text input placed next to the existing Type filter dropdown:
+
 - User types a hashtag and presses Enter.
 - The tag is added to the `hashtags` array (auto-prefixed with `#` if missing).
 - Duplicates are ignored.
@@ -74,17 +72,17 @@ orpc.admin.media.list.queryOptions({
         spotId,
         hashtags: hashtags.length > 0 ? hashtags : undefined,
     },
-})
+});
 ```
 
 ### 4. Affected files
 
-| File | Change |
-|------|--------|
-| `packages/contracts/src/schemas/admin.ts` | Add `hashtags` to `adminListMediaInput` |
-| `apps/api/src/orpc/routers/admin.ts` | Add `hasEvery` filter in `listMedia` handler |
-| `apps/manager/src/app/(dashboard)/media/page.tsx` | Add hashtag input, nuqs state, pass to query |
-| `apps/manager/src/app/(dashboard)/spots/[id]/media/page.tsx` | Same changes as main media page |
+| File                                                         | Change                                       |
+| ------------------------------------------------------------ | -------------------------------------------- |
+| `packages/contracts/src/schemas/admin.ts`                    | Add `hashtags` to `adminListMediaInput`      |
+| `apps/api/src/orpc/routers/admin.ts`                         | Add `hasEvery` filter in `listMedia` handler |
+| `apps/manager/src/app/(dashboard)/media/page.tsx`            | Add hashtag input, nuqs state, pass to query |
+| `apps/manager/src/app/(dashboard)/spots/[id]/media/page.tsx` | Same changes as main media page              |
 
 ## Out of scope
 
