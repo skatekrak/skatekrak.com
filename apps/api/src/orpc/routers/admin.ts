@@ -4,7 +4,7 @@ import type { Prisma, ClipProvider } from '@krak/prisma';
 
 import { extractHashtags, addHashtagIfNeeded } from '../../helpers/hashtags';
 import { processMediaFile } from '../../helpers/media-upload';
-import { recomputeMediasStat, type Stat } from '../../helpers/stats';
+import { buildStat, recomputeMediasStat, type Stat } from '../../helpers/stats';
 import { os, authed, admin } from '../base';
 
 // Types matching the raw Postgres JSON shapes for Prisma Json? columns.
@@ -102,6 +102,17 @@ export const getUserByUsername = os.admin.users.getByUsername
             throw new ORPCError('NOT_FOUND', { message: `User '${input.username}' not found` });
         }
 
+        // Compute spots created stat live from the database
+        let spotsCreatedStat: Stat | null = null;
+        if (user.profile) {
+            const spotsCreated = await context.prisma.spot.findMany({
+                where: { addedById: user.profile.id },
+                orderBy: { createdAt: 'desc' },
+                select: { createdAt: true },
+            });
+            spotsCreatedStat = buildStat(spotsCreated);
+        }
+
         return {
             user: {
                 id: user.id,
@@ -137,7 +148,7 @@ export const getUserByUsername = os.admin.users.getByUsername
                       banner: user.profile.banner as AdminCloudinaryFile | null,
                       followersStat: user.profile.followersStat as Stat | null,
                       followingStat: user.profile.followingStat as Stat | null,
-                      spotsFollowingStat: user.profile.spotsFollowingStat as Stat | null,
+                      spotsCreatedStat,
                       mediasStat: user.profile.mediasStat as Stat | null,
                       clipsStat: user.profile.clipsStat as Stat | null,
                       tricksDoneStat: user.profile.tricksDoneStat as Stat | null,
@@ -199,7 +210,7 @@ export const createProfile = os.admin.users.createProfile
             banner: profile.banner as AdminCloudinaryFile | null,
             followersStat: profile.followersStat as Stat | null,
             followingStat: profile.followingStat as Stat | null,
-            spotsFollowingStat: profile.spotsFollowingStat as Stat | null,
+            spotsCreatedStat: null,
             mediasStat: profile.mediasStat as Stat | null,
             clipsStat: profile.clipsStat as Stat | null,
             tricksDoneStat: profile.tricksDoneStat as Stat | null,

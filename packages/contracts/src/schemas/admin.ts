@@ -100,7 +100,7 @@ export const AdminProfileSchema = z.object({
     banner: AdminCloudinaryFileSchema.nullable(),
     followersStat: AdminStatSchema.nullable(),
     followingStat: AdminStatSchema.nullable(),
-    spotsFollowingStat: AdminStatSchema.nullable(),
+    spotsCreatedStat: AdminStatSchema.nullable(),
     mediasStat: AdminStatSchema.nullable(),
     clipsStat: AdminStatSchema.nullable(),
     tricksDoneStat: AdminStatSchema.nullable(),

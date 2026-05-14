@@ -136,7 +136,7 @@ function UserHero({ user, profile }: { user: UserDetailOutput['user']; profile: 
                 <div className="ml-auto flex gap-2">
                     <StatCell label="Followers" value={profile.followersStat?.all} />
                     <StatCell label="Following" value={profile.followingStat?.all} />
-                    <StatCell label="Spots" value={profile.spotsFollowingStat?.all} />
+                    <StatCell label="Spots" value={profile.spotsCreatedStat?.all} />
                     <StatCell label="Medias" value={profile.mediasStat?.all} />
                     <StatCell label="Clips" value={profile.clipsStat?.all} />
                     <StatCell label="Tricks" value={profile.tricksDoneStat?.all} />
