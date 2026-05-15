@@ -18,13 +18,16 @@ const BackgroundLoader: React.FC<Props> = ({ src, placeholder, children, ...prop
         const img = document.createElement('img');
         imageRef.current = img;
 
+        const handleLoad = () => setLoaded(true);
+        const handleError = () => setError(true);
+
         img.src = src;
-        img.onload = () => setLoaded(true);
-        img.onerror = () => setError(true);
+        img.addEventListener('load', handleLoad);
+        img.addEventListener('error', handleError);
 
         return () => {
-            img.onload = null;
-            img.onerror = null;
+            img.removeEventListener('load', handleLoad);
+            img.removeEventListener('error', handleError);
             imageRef.current = null;
         };
     }, [src]);
