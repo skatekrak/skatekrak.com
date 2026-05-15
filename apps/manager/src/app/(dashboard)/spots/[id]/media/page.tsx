@@ -161,13 +161,13 @@ export default function SpotMediaPage({ params }: { params: Promise<{ id: string
 
             {/* Card grid */}
             {isLoading ? (
-                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
                     {Array.from({ length: PER_PAGE }).map((_, i) => (
                         <MediaCardSkeleton key={i} />
                     ))}
                 </div>
             ) : (
-                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
                     {data?.media.map((m) => (
                         <MediaCard key={m.id} media={m} onClick={() => setSelectedMediaId(m.id)} />
                     ))}
