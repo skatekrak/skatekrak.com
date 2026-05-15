@@ -13,7 +13,7 @@ const MapCreateSpotMediaItem = ({ file, onRemove }: MapCreateSpotMediaItemProps)
         return () => {
             URL.revokeObjectURL(imageURL);
         };
-    }, []);
+    }, [imageURL]);
 
     return (
         <div className="relative pt-[100%] rounded bg-tertiary-light overflow-hidden" key={imageURL}>

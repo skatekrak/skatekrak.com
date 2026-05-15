@@ -9,10 +9,13 @@ const MapFullSpotAddMediaInput = () => {
     const [file, , helpers] = useField<File | null>('file');
     const [type, setType] = useState('');
 
-    const onDrop = useCallback((acceptedFiles: File[]) => {
-        helpers.setValue(acceptedFiles[0]);
-        setType(acceptedFiles[0].type);
-    }, []);
+    const onDrop = useCallback(
+        (acceptedFiles: File[]) => {
+            helpers.setValue(acceptedFiles[0]);
+            setType(acceptedFiles[0].type);
+        },
+        [helpers],
+    );
 
     const { getRootProps, getInputProps } = useDropzone({
         onDrop,
