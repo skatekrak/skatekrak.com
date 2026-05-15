@@ -409,28 +409,31 @@ export const adminListClipsOutput = z.object({
 // ============================================================================
 
 export const AdminMapCategorySchema = z.enum([
-    'maps',
-    'video',
     'skater',
     'filmer',
     'photographer',
+    'video',
     'magazine',
-    'skatepark',
-    'shop',
     'years',
+    'contests',
     'greatest',
-    'members',
-    'artist',
     'signature_tricks',
     'fictions',
     'videogames',
-    'type_of_spots',
-    'other_sports',
     'youtubers',
-    'accessories',
-    'cameras',
-    'contests',
+    'artist',
+    'members',
+    'skatepark',
+    'shop',
     'foundations',
+    'type_of_spots',
+    'bmx',
+    'other_sports',
+    'cameras',
+    'accessories',
+    'brands',
+    'thrasher',
+    'maps',
 ]);
 
 export type MapCategory = z.infer<typeof AdminMapCategorySchema>;
@@ -462,10 +465,13 @@ export const mapCategoryLabels: Record<MapCategory, string> = {
     cameras: 'Cameras',
     contests: 'Contests',
     foundations: 'Foundations',
+    bmx: 'BMX',
+    thrasher: 'Thrasher',
+    brands: 'Brands',
 };
 
 /** Categories where spots are fetched by direct tag match (not via media) */
-export const directTagCategories: MapCategory[] = ['maps', 'skatepark', 'shop'];
+export const directTagCategories: MapCategory[] = ['maps', 'skatepark', 'shop', 'youtubers', 'bmx'];
 
 export const AdminMapSchema = z.object({
     id: z.string(),
