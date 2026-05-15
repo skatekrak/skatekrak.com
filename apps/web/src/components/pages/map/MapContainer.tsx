@@ -62,7 +62,7 @@ const MapContainer = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    const [, setFirstLoad] = useState(() => (spotId ? true : false));
+    const [, setFirstLoad] = useState(() => Boolean(spotId));
     const [mapLoaded, setMapLoaded] = useState(false);
 
     const { data: customMapInfo } = useQuery(orpc.maps.fetch.queryOptions({ input: { id: id ?? '' }, enabled: !!id }));
