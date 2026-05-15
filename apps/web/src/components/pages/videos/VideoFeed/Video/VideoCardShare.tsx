@@ -7,9 +7,9 @@ type Props = {
     video: IContent;
 };
 
-const VideoCardShare: React.FC<Props> = ({ video }) => {
-    const getVideoPopupUrl = (v: IContent): string => `${window.location.origin}/video?id=${v.id}`;
+const getVideoPopupUrl = (v: IContent): string => `${window.location.origin}/video?id=${v.id}`;
 
+const VideoCardShare: React.FC<Props> = ({ video }) => {
     return (
         <div className="video-card-share">
             <SocialShare

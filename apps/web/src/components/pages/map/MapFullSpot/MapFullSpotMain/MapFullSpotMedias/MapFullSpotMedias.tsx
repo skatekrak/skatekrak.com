@@ -17,15 +17,16 @@ export type MapFullSpotMediasProps = {
     spot: Spot;
 };
 
+const generateShareURL = (spotId: string, mediaId: string) =>
+    `${window.location.origin}?modal=1&spot=${spotId}&media=${mediaId}`;
+
 const MapFullSpotMedias: React.FC<MapFullSpotMediasProps> = ({ spot }) => {
     const isMobile = useSettingsStore((state) => state.isMobile);
 
     const { isFetching, data, hasNextPage, fetchNextPage } = useInfiniteQuery(
         orpc.media.listBySpot.infiniteOptions({
             input: (pageParam: Date | undefined) => ({ spotId: spot.id, limit: 20, cursor: pageParam }),
-            initialPageParam: undefined as Date | undefined,
             getNextPageParam: (lastPage) => {
-                if (lastPage.length < 20) return undefined;
                 const lastElement = lastPage[lastPage.length - 1];
                 return lastElement?.createdAt ?? undefined;
             },
@@ -34,9 +35,6 @@ const MapFullSpotMedias: React.FC<MapFullSpotMediasProps> = ({ spot }) => {
         }),
     );
     const medias = flatten(data?.pages ?? []);
-
-    const generateShareURL = (spotId: string, mediaId: string) =>
-        `${window.location.origin}?modal=1&spot=${spotId}&media=${mediaId}`;
 
     return (
         <ScrollBar maxHeight="100%">
