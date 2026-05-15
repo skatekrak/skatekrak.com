@@ -59,8 +59,8 @@ jobs:
                   file: apps/api/Dockerfile
                   push: true
                   tags: |
-                      krak-api:latest
-                      krak-api:${{ github.sha }}
+                      ${{ secrets.REGISTRY_URL }}/krak-api:latest
+                      ${{ secrets.REGISTRY_URL }}/krak-api:${{ github.sha }}
                   cache-from: type=gha,scope=build-api
                   cache-to: type=gha,mode=max,scope=build-api
 
@@ -109,8 +109,8 @@ jobs:
                   file: apps/web/Dockerfile
                   push: true
                   tags: |
-                      krak-web:latest
-                      krak-web:${{ github.sha }}
+                      ${{ secrets.REGISTRY_URL }}/krak-web:latest
+                      ${{ secrets.REGISTRY_URL }}/krak-web:${{ github.sha }}
                   build-args: |
                       NEXT_PUBLIC_CARRELAGE_URL=${{ steps.fnox.outputs.NEXT_PUBLIC_CARRELAGE_URL }}
                       NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN=${{ steps.fnox.outputs.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN }}
@@ -160,8 +160,8 @@ jobs:
                   file: apps/manager/Dockerfile
                   push: true
                   tags: |
-                      krak-manager:latest
-                      krak-manager:${{ github.sha }}
+                      ${{ secrets.REGISTRY_URL }}/krak-manager:latest
+                      ${{ secrets.REGISTRY_URL }}/krak-manager:${{ github.sha }}
                   build-args: |
                       NEXT_PUBLIC_KRAK_API_URL=${{ steps.fnox.outputs.NEXT_PUBLIC_KRAK_API_URL }}
                       NEXT_PUBLIC_IMGPROXY_URL=${{ steps.fnox.outputs.NEXT_PUBLIC_IMGPROXY_URL }}
