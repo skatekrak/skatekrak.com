@@ -4,6 +4,10 @@ on:
     push:
         branches: [main]
 
+concurrency:
+    group: deploy-${{ github.ref }}
+    cancel-in-progress: false
+
 env:
     NEXT_PUBLIC_BUGSNAG_KEY: ${{ secrets.NEXT_PUBLIC_BUGSNAG_KEY }}
 
@@ -31,11 +35,142 @@ jobs:
             - run: bun install --frozen-lockfile
             - run: bun lint
             - run: bun run format:check
-            - run: bun run build
+
+    build-api:
+        runs-on: ubuntu-latest
+        needs: [ci]
+        steps:
+            - uses: actions/checkout@v6
+
+            - name: Set up Docker Buildx
+              uses: docker/setup-buildx-action@v3
+
+            - name: Login to registry
+              uses: docker/login-action@v3
+              with:
+                  registry: ${{ secrets.REGISTRY_URL }}
+                  username: ${{ secrets.REGISTRY_USERNAME }}
+                  password: ${{ secrets.REGISTRY_PASSWORD }}
+
+            - name: Build and push API image
+              uses: docker/build-push-action@v6
+              with:
+                  context: .
+                  file: apps/api/Dockerfile
+                  push: true
+                  tags: |
+                      ${{ secrets.REGISTRY_URL }}/krak-api:latest
+                      ${{ secrets.REGISTRY_URL }}/krak-api:${{ github.sha }}
+                  cache-from: type=gha,scope=build-api
+                  cache-to: type=gha,mode=max,scope=build-api
+
+    build-web:
+        runs-on: ubuntu-latest
+        needs: [ci]
+        env:
+            FNOX_AGE_KEY: ${{ secrets.FNOX_AGE_KEY }}
+        steps:
+            - uses: actions/checkout@v6
+
+            - name: Install mise & fnox
+              uses: jdx/mise-action@v2
+              with:
+                  install_args: fnox
+
+            - name: Set up Docker Buildx
+              uses: docker/setup-buildx-action@v3
+
+            - name: Export fnox secrets
+              id: fnox
+              working-directory: apps/web
+              run: |
+                  eval "$(fnox export --format env)"
+                  echo "::add-mask::$NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN"
+                  echo "::add-mask::$NEXT_PUBLIC_MEILI_API_KEY"
+                  echo "NEXT_PUBLIC_CARRELAGE_URL=$NEXT_PUBLIC_CARRELAGE_URL" >> $GITHUB_OUTPUT
+                  echo "NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN=$NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN" >> $GITHUB_OUTPUT
+                  echo "NEXT_PUBLIC_KRAK_API_URL=$NEXT_PUBLIC_KRAK_API_URL" >> $GITHUB_OUTPUT
+                  echo "NEXT_PUBLIC_STAGE=$NEXT_PUBLIC_STAGE" >> $GITHUB_OUTPUT
+                  echo "NEXT_PUBLIC_MEILI_HOST=$NEXT_PUBLIC_MEILI_HOST" >> $GITHUB_OUTPUT
+                  echo "NEXT_PUBLIC_MEILI_API_KEY=$NEXT_PUBLIC_MEILI_API_KEY" >> $GITHUB_OUTPUT
+                  echo "NEXT_PUBLIC_IMGPROXY_URL=$NEXT_PUBLIC_IMGPROXY_URL" >> $GITHUB_OUTPUT
+
+            - name: Login to registry
+              uses: docker/login-action@v3
+              with:
+                  registry: ${{ secrets.REGISTRY_URL }}
+                  username: ${{ secrets.REGISTRY_USERNAME }}
+                  password: ${{ secrets.REGISTRY_PASSWORD }}
+
+            - name: Build and push Web image
+              uses: docker/build-push-action@v6
+              with:
+                  context: .
+                  file: apps/web/Dockerfile
+                  push: true
+                  tags: |
+                      ${{ secrets.REGISTRY_URL }}/krak-web:latest
+                      ${{ secrets.REGISTRY_URL }}/krak-web:${{ github.sha }}
+                  build-args: |
+                      NEXT_PUBLIC_CARRELAGE_URL=${{ steps.fnox.outputs.NEXT_PUBLIC_CARRELAGE_URL }}
+                      NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN=${{ steps.fnox.outputs.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN }}
+                      NEXT_PUBLIC_KRAK_API_URL=${{ steps.fnox.outputs.NEXT_PUBLIC_KRAK_API_URL }}
+                      NEXT_PUBLIC_STAGE=${{ steps.fnox.outputs.NEXT_PUBLIC_STAGE }}
+                      NEXT_PUBLIC_MEILI_HOST=${{ steps.fnox.outputs.NEXT_PUBLIC_MEILI_HOST }}
+                      NEXT_PUBLIC_MEILI_API_KEY=${{ steps.fnox.outputs.NEXT_PUBLIC_MEILI_API_KEY }}
+                      NEXT_PUBLIC_IMGPROXY_URL=${{ steps.fnox.outputs.NEXT_PUBLIC_IMGPROXY_URL }}
+                  cache-from: type=gha,scope=build-web
+                  cache-to: type=gha,mode=max,scope=build-web
+
+    build-manager:
+        runs-on: ubuntu-latest
+        needs: [ci]
+        env:
+            FNOX_AGE_KEY: ${{ secrets.FNOX_AGE_KEY }}
+        steps:
+            - uses: actions/checkout@v6
+
+            - name: Install mise & fnox
+              uses: jdx/mise-action@v2
+              with:
+                  install_args: fnox
+
+            - name: Set up Docker Buildx
+              uses: docker/setup-buildx-action@v3
+
+            - name: Export fnox secrets
+              id: fnox
+              working-directory: apps/manager
+              run: |
+                  eval "$(fnox export --format env)"
+                  echo "NEXT_PUBLIC_KRAK_API_URL=$NEXT_PUBLIC_KRAK_API_URL" >> $GITHUB_OUTPUT
+                  echo "NEXT_PUBLIC_IMGPROXY_URL=$NEXT_PUBLIC_IMGPROXY_URL" >> $GITHUB_OUTPUT
+
+            - name: Login to registry
+              uses: docker/login-action@v3
+              with:
+                  registry: ${{ secrets.REGISTRY_URL }}
+                  username: ${{ secrets.REGISTRY_USERNAME }}
+                  password: ${{ secrets.REGISTRY_PASSWORD }}
+
+            - name: Build and push Manager image
+              uses: docker/build-push-action@v6
+              with:
+                  context: .
+                  file: apps/manager/Dockerfile
+                  push: true
+                  tags: |
+                      ${{ secrets.REGISTRY_URL }}/krak-manager:latest
+                      ${{ secrets.REGISTRY_URL }}/krak-manager:${{ github.sha }}
+                  build-args: |
+                      NEXT_PUBLIC_KRAK_API_URL=${{ steps.fnox.outputs.NEXT_PUBLIC_KRAK_API_URL }}
+                      NEXT_PUBLIC_IMGPROXY_URL=${{ steps.fnox.outputs.NEXT_PUBLIC_IMGPROXY_URL }}
+                  cache-from: type=gha,scope=build-manager
+                  cache-to: type=gha,mode=max,scope=build-manager
 
     deploy-api:
         runs-on: ubuntu-latest
-        needs: [ci]
+        needs: [build-api]
         steps:
             - name: Trigger Dokploy deployment for API
               run: |
@@ -43,7 +178,7 @@ jobs:
 
     deploy-web:
         runs-on: ubuntu-latest
-        needs: [ci]
+        needs: [build-web]
         steps:
             - name: Trigger Dokploy deployment for Web
               run: |
@@ -51,7 +186,7 @@ jobs:
 
     deploy-manager:
         runs-on: ubuntu-latest
-        needs: [ci]
+        needs: [build-manager]
         steps:
             - name: Trigger Dokploy deployment for Manager
               run: |
