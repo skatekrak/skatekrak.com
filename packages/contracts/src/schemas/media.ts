@@ -48,6 +48,8 @@ export const listBySpotInput = z.object({
     spotId: z.string(),
     cursor: z.date().optional(),
     limit: z.number().min(1).max(100).default(20),
+    hashtag: z.string().optional(),
+    excludeHashtag: z.string().optional(),
 });
 
 export const getSpotMediasAroundInput = z.object({

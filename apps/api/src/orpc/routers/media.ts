@@ -46,7 +46,13 @@ export const listBySpot = os.media.listBySpot.handler(async ({ context, input })
             spotId: input.spotId,
             createdAt: { lt: input.cursor ?? new Date() },
             OR: [{ image: { not: { equals: null } } }, { video: { not: { equals: null } } }],
-            AND: [{ OR: [{ releaseDate: null }, { releaseDate: { lt: new Date() } }] }],
+            AND: [
+                { OR: [{ releaseDate: null }, { releaseDate: { lt: new Date() } }] },
+                ...(input.hashtag ? [{ hashtags: { has: addHashtagIfNeeded(input.hashtag) } }] : []),
+                ...(input.excludeHashtag
+                    ? [{ NOT: { hashtags: { has: addHashtagIfNeeded(input.excludeHashtag) } } }]
+                    : []),
+            ],
         },
         orderBy: { createdAt: 'desc' },
         take: input.limit,
