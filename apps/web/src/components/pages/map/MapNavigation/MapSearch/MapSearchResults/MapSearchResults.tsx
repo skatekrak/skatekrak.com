@@ -3,7 +3,6 @@ import { useMap } from 'react-map-gl/maplibre';
 
 import Scrollbar from '@/components/Ui/Scrollbar';
 import { useSpotID } from '@/lib/hook/queryState';
-import { Place } from '@/lib/placeApi';
 
 import MapSearchResultLoading from './MapSearchResultLoading';
 import MapSearchResultNoContent from './MapSearchResultNoContent';
@@ -11,6 +10,7 @@ import MapSearchResultPlace from './MapSearchResultPlace';
 import MapSearchResultSpot from './MapSearchResultSpot';
 
 import type { SpotHit } from '@/lib/meilisearch';
+import type { Place } from '@/shared/google/google.d';
 
 type MapSearchResultsProps = {
     loading: boolean;

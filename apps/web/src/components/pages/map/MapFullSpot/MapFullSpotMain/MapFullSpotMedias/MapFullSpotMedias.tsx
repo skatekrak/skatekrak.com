@@ -26,7 +26,9 @@ const MapFullSpotMedias: React.FC<MapFullSpotMediasProps> = ({ spot }) => {
     const { isFetching, data, hasNextPage, fetchNextPage } = useInfiniteQuery(
         orpc.media.listBySpot.infiniteOptions({
             input: (pageParam: Date | undefined) => ({ spotId: spot.id, limit: 20, cursor: pageParam }),
+            initialPageParam: undefined,
             getNextPageParam: (lastPage) => {
+                if (lastPage.length < 20) return undefined;
                 const lastElement = lastPage[lastPage.length - 1];
                 return lastElement?.createdAt ?? undefined;
             },

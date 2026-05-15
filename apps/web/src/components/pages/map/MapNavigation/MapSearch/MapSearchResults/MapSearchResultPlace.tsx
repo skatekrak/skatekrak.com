@@ -1,8 +1,7 @@
-import React from 'react';
-
 import PlaceIcon from '@/components/pages/map/marker/icons/Place';
 import Typography from '@/components/Ui/typography/Typography';
-import { Place } from '@/lib/placeApi';
+
+import type { Place } from '@/shared/google/google.d';
 
 type Props = {
     place: Place;
