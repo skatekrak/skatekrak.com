@@ -20,7 +20,7 @@ const generatePages = (videos: string[], pageSize: number) => {
 const CityPanel = () => {
     const [id, setCityID] = useCityID();
 
-    const city: City | undefined = cities.find((city) => city.id === id);
+    const city: City | undefined = cities.find((c) => c.id === id);
 
     const [isLoading, setIsLoading] = useState(false);
 

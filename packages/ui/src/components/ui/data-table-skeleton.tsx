@@ -19,9 +19,9 @@ export function DataTableSkeleton({ columnCount, rowCount = 5 }: DataTableSkelet
                 </TableRow>
             </TableHeader>
             <TableBody>
-                {Array.from({ length: rowCount }).map((_, rowIndex) => (
+                {Array.from({ length: rowCount }).map((_row, rowIndex) => (
                     <TableRow key={rowIndex}>
-                        {Array.from({ length: columnCount }).map((_, colIndex) => (
+                        {Array.from({ length: columnCount }).map((_col, colIndex) => (
                             <TableCell key={colIndex}>
                                 <Skeleton className="h-4 w-full" />
                             </TableCell>

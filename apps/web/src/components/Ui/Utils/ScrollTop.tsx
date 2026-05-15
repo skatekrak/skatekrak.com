@@ -53,9 +53,9 @@ const ScrollTop = ({ elementId }: ScrollTopProps) => {
         }
 
         return () => {
-            const scrollContainer = ScrollHelper.getScrollContainer();
-            if (scrollContainer) {
-                scrollContainer.removeEventListener('scroll', handleScroll);
+            const cleanupScrollContainer = ScrollHelper.getScrollContainer();
+            if (cleanupScrollContainer) {
+                cleanupScrollContainer.removeEventListener('scroll', handleScroll);
             }
         };
     }, [isMobile, elementId, handleScroll]);

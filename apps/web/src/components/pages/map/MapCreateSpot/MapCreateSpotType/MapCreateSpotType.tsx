@@ -19,8 +19,8 @@ const MapCreateSpotType = () => {
 
     const handleTypeBarClick = () => setIsSelectTypeOpen(!isSelectTypeOpen);
 
-    const onTypeClick = (type: Types) => {
-        helpers.setValue(type);
+    const onTypeClick = (selectedType: Types) => {
+        helpers.setValue(selectedType);
         setIsSelectTypeOpen(false);
     };
 
