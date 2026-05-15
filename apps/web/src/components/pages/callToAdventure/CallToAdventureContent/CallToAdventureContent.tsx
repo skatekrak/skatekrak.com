@@ -99,6 +99,7 @@ const CallToAdventureContent = () => {
                         frameBorder="0"
                         allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
                         loading="lazy"
+                        sandbox="allow-scripts"
                     ></iframe>
                     <br />
                     <br />
@@ -869,6 +870,7 @@ const CallToAdventureContent = () => {
                         frameBorder="0"
                         allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
                         loading="lazy"
+                        sandbox="allow-scripts"
                     ></iframe>
                 </Typography>
             </div>
