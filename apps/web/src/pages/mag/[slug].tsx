@@ -70,7 +70,7 @@ export const getStaticProps: GetStaticProps<ArticlePageProps, MapPostParams> = a
 const ArticlePage: NextPage<ArticlePageProps> = ({ post }) => {
     return (
         <Layout head={<MagArticleHead post={post} />}>
-            <div id="mag-article-container" className="w-full pt-8 pb-8 laptop-s:pt-16">
+            <div id="mag-article-container" className="w-full pt-12 pb-16 laptop-s:pt-20">
                 <LayoutFeed mainView={<Article post={post} />} />
             </div>
         </Layout>
