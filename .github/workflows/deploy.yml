@@ -84,7 +84,7 @@ jobs:
               id: fnox
               working-directory: apps/web
               run: |
-                  eval "$(fnox export --format env)"
+                  eval "$(fnox export --format env --profile production)"
                   echo "::add-mask::$NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN"
                   echo "::add-mask::$NEXT_PUBLIC_MEILI_API_KEY"
                   echo "NEXT_PUBLIC_CARRELAGE_URL=$NEXT_PUBLIC_CARRELAGE_URL" >> $GITHUB_OUTPUT
@@ -142,7 +142,7 @@ jobs:
               id: fnox
               working-directory: apps/manager
               run: |
-                  eval "$(fnox export --format env)"
+                  eval "$(fnox export --format env --profile production)"
                   echo "NEXT_PUBLIC_KRAK_API_URL=$NEXT_PUBLIC_KRAK_API_URL" >> $GITHUB_OUTPUT
                   echo "NEXT_PUBLIC_IMGPROXY_URL=$NEXT_PUBLIC_IMGPROXY_URL" >> $GITHUB_OUTPUT
 
