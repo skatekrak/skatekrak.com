@@ -457,7 +457,7 @@ export const mapCategoryLabels: Record<MapCategory, string> = {
     videogames: 'Videogames',
     type_of_spots: 'Type of Spots',
     other_sports: 'Other Sports',
-    youtubers: 'Youtubers',
+    youtubers: 'Youtube',
     accessories: 'Accessories',
     cameras: 'Cameras',
     contests: 'Contests',
