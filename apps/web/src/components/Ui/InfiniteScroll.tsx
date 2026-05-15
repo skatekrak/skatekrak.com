@@ -3,9 +3,27 @@ import React, { useEffect, useRef, useCallback } from 'react';
 type InfiniteScrollProps = {
     loadMore: () => void;
     hasMore: boolean;
+    isLoading?: boolean;
     threshold?: number;
     getScrollParent?: () => HTMLElement | null;
     children: React.ReactNode;
+};
+
+/**
+ * Find the closest scrollable ancestor of an element by walking up the DOM
+ * and checking for overflow styles that enable scrolling.
+ */
+const findScrollableAncestor = (element: HTMLElement): HTMLElement | null => {
+    let current = element.parentElement;
+    while (current) {
+        const style = getComputedStyle(current);
+        const overflowY = style.overflowY;
+        if (overflowY === 'auto' || overflowY === 'scroll') {
+            return current;
+        }
+        current = current.parentElement;
+    }
+    return null;
 };
 
 /**
@@ -15,20 +33,26 @@ type InfiniteScrollProps = {
 const InfiniteScroll: React.FC<InfiniteScrollProps> = ({
     loadMore,
     hasMore,
+    isLoading = false,
     threshold = 250,
     getScrollParent,
     children,
 }) => {
     const sentinelRef = useRef<HTMLDivElement>(null);
     const loadMoreRef = useRef(loadMore);
+    const isLoadingRef = useRef(isLoading);
 
     // Keep the callback ref up to date without re-creating the observer
     useEffect(() => {
         loadMoreRef.current = loadMore;
     }, [loadMore]);
 
+    useEffect(() => {
+        isLoadingRef.current = isLoading;
+    }, [isLoading]);
+
     const handleIntersect = useCallback((entries: IntersectionObserverEntry[]) => {
-        if (entries[0]?.isIntersecting) {
+        if (entries[0]?.isIntersecting && !isLoadingRef.current) {
             loadMoreRef.current();
         }
     }, []);
@@ -39,7 +63,7 @@ const InfiniteScroll: React.FC<InfiniteScrollProps> = ({
         const sentinel = sentinelRef.current;
         if (!sentinel) return;
 
-        const root = getScrollParent?.() ?? null;
+        const root = getScrollParent?.() ?? findScrollableAncestor(sentinel);
 
         const observer = new IntersectionObserver(handleIntersect, {
             root,

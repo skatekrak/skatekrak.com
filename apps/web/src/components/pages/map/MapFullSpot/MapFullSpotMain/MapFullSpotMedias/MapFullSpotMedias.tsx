@@ -35,11 +35,6 @@ const MapFullSpotMedias: React.FC<MapFullSpotMediasProps> = ({ spot }) => {
     );
     const medias = flatten(data?.pages ?? []);
 
-    const getScrollParent = () => {
-        const wrappers = document.getElementsByClassName('simplebar-content-wrapper');
-        return wrappers[wrappers.length - 1] as HTMLElement;
-    };
-
     const generateShareURL = (spotId: string, mediaId: string) =>
         `${window.location.origin}?modal=1&spot=${spotId}&media=${mediaId}`;
 
@@ -51,8 +46,8 @@ const MapFullSpotMedias: React.FC<MapFullSpotMediasProps> = ({ spot }) => {
                         fetchNextPage();
                     }
                 }}
-                hasMore={hasNextPage && !isFetching}
-                getScrollParent={getScrollParent}
+                hasMore={hasNextPage}
+                isLoading={isFetching}
             >
                 <div className="block p-6 [&_.icon-loading-krak]:mx-auto [&_.icon-loading-krak]:mt-16 [&_.icon-loading-krak]:mb-8 tablet:p-12">
                     <KrakMasonry breakpointCols={isMobile ? 1 : 2}>

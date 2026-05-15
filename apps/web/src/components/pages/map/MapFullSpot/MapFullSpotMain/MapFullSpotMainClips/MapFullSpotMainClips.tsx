@@ -31,11 +31,6 @@ const MapFullSpotMainClips = ({ spot }: MapFullSpotMainClipsProps) => {
     );
     const clips = flatten(data?.pages ?? []);
 
-    const getScrollParent = () => {
-        const wrappers = document.getElementsByClassName('simplebar-content-wrapper');
-        return wrappers[wrappers.length - 1] as HTMLElement;
-    };
-
     return (
         <ScrollBar id="clip-scroll" maxHeight="100%">
             <InfiniteScroll
@@ -44,8 +39,8 @@ const MapFullSpotMainClips = ({ spot }: MapFullSpotMainClipsProps) => {
                         fetchNextPage();
                     }
                 }}
-                hasMore={!isFetching && hasNextPage}
-                getScrollParent={getScrollParent}
+                hasMore={hasNextPage}
+                isLoading={isFetching}
             >
                 <div className="flex flex-col h-full">
                     <div className="flex flex-col grow p-6 tablet:p-12 laptop-l:p-20">

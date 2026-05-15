@@ -17,11 +17,6 @@ const generatePages = (videos: string[], pageSize: number) => {
     return pages;
 };
 
-const getScrollParent = () => {
-    const wrappers = document.getElementsByClassName('simplebar-content-wrapper');
-    return wrappers[wrappers.length - 1] as HTMLElement;
-};
-
 const CityPanel = () => {
     const [id, setCityID] = useCityID();
 
@@ -92,7 +87,6 @@ const CityPanel = () => {
                         if (hasNextPage) loadMore();
                     }}
                     hasMore={hasNextPage}
-                    getScrollParent={getScrollParent}
                 >
                     <div className="grow flex flex-col gap-4 mobile:gap-8 px-4 mobile:px-6 pb-8">
                         {isLoading ? (

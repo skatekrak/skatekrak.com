@@ -22,11 +22,6 @@ type MapCustomPanelProps = {
     spots: Spot[];
 };
 
-const getScrollParent = () => {
-    const wrappers = document.getElementsByClassName('simplebar-content-wrapper');
-    return wrappers[wrappers.length - 1] as HTMLElement;
-};
-
 const MapCustomPanel = ({ map, spots }: MapCustomPanelProps) => {
     const { id, name, about, categories } = map;
 
@@ -59,11 +54,12 @@ const MapCustomPanel = ({ map, spots }: MapCustomPanelProps) => {
 
     const [mediaId] = useMediaID();
 
-    const { isLoading, isFetchingNextPage, data, hasNextPage, fetchNextPage } = useInfiniteQuery(
+    const { isLoading, isFetching, isFetchingNextPage, data, hasNextPage, fetchNextPage } = useInfiniteQuery(
         orpc.media.list.infiniteOptions({
             input: (pageParam: Date | undefined) => ({ hashtag: id, limit: 20, cursor: pageParam }),
             initialPageParam: undefined as Date | undefined,
             getNextPageParam: (lastPage) => {
+                if (lastPage.length < 20) return undefined;
                 const lastElement = lastPage[lastPage.length - 1];
                 return lastElement?.createdAt ?? undefined;
             },
@@ -102,7 +98,7 @@ const MapCustomPanel = ({ map, spots }: MapCustomPanelProps) => {
                 <ScrollBar maxHeight="100%">
                     <InfiniteScroll
                         hasMore={hasNextPage}
-                        getScrollParent={getScrollParent}
+                        isLoading={isFetching}
                         loadMore={() => {
                             if (hasNextPage) {
                                 fetchNextPage();
