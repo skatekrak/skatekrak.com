@@ -14,15 +14,15 @@ import Typography from '@/components/Ui/typography/Typography';
  * Code
  */
 type Props = {
-    onClick?: (fct: any) => void;
     loading?: boolean;
     loadingWithtext?: boolean;
     className?: string;
-    type?: 'reset' | 'submit' | 'button';
-    disabled?: boolean;
     icon?: React.ReactNode;
     fullWidth?: boolean;
-};
+} & Pick<
+    React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>,
+    'onClick' | 'type' | 'disabled'
+>;
 
 const ButtonPrimary: React.FC<Props & { children: React.ReactNode }> = ({
     onClick,
