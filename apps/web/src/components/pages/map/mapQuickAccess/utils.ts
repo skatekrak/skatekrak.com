@@ -1,4 +1,4 @@
-import { unique } from 'radash';
+import { alphabetical, unique } from 'radash';
 
 import { mapCategoryLabels } from '@krak/contracts';
 
@@ -25,3 +25,5 @@ export const generateCategories = (data: QuickAccessMap[]): Category[] => {
         maps: data.filter((map) => map.categories?.some((cat) => cat === category)),
     }));
 };
+
+export const sortMaps = (maps: QuickAccessMap[]) => alphabetical(maps, (map) => map.name);

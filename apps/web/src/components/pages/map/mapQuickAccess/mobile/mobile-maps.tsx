@@ -8,7 +8,7 @@ import { orpc } from '@/server/orpc/client';
 
 import Map from '../Map';
 import { Category as TCategory } from '../types';
-import { generateCategories } from '../utils';
+import { generateCategories, sortMaps } from '../utils';
 
 type Props = {
     closeSheet: () => void;
@@ -55,7 +55,7 @@ const Category = ({ category, onMapClick }: CategoryProps) => {
             </button>
             {isOpen && (
                 <div className="flex flex-col gap-2 p-2">
-                    {category.maps.map((map) => (
+                    {sortMaps(category.maps).map((map) => (
                         <Map
                             key={map.id}
                             map={map}

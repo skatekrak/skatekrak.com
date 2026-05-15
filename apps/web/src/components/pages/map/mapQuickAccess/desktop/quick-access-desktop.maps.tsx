@@ -1,20 +1,16 @@
 import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
-import { alphabetical } from 'radash';
-import React from 'react';
 
 import Typography from '@/components/Ui/typography/Typography';
 import { orpc } from '@/server/orpc/client';
 
 import Map from '../Map';
-import { QuickAccessMap, Category as TCategory } from '../types';
-import { generateCategories } from '../utils';
+import { Category as TCategory } from '../types';
+import { generateCategories, sortMaps } from '../utils';
 import QuickAccessDesktopPanel from './quick-access-desktop.panel';
 
 const isCategorySelected = (category: TCategory, mapId: string | string[]) =>
     category.maps.some((map) => map.id === mapId);
-
-const sortMaps = (maps: QuickAccessMap[]) => alphabetical(maps, (map) => map.name);
 
 const QuickAccessDesktopMaps = () => {
     const router = useRouter();
