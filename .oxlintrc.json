@@ -9,7 +9,7 @@
         "typescript/no-explicit-any": "warn",
         "react/react-in-jsx-scope": "off",
         "import/no-unassigned-import": "off",
-        "nextjs/no-img-element": "warn",
+        "nextjs/no-img-element": "off",
         "react-hooks/exhaustive-deps": "warn"
     },
     "settings": {
