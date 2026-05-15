@@ -7,7 +7,7 @@ import React, { useEffect } from 'react';
 /*
  * Local import
  */
-import ScrollHelper from '@/lib/ScrollHelper';
+import { getScrollContainer } from '@/lib/ScrollHelper';
 import { useSettingsStore } from '@/store/settings';
 
 /*
@@ -23,7 +23,7 @@ function BannerTop({ offsetScroll, link, text }: BannerTopProps) {
     const isMobile = useSettingsStore((state) => state.isMobile);
 
     function handleScroll() {
-        const scrollContainer = ScrollHelper.getScrollContainer();
+        const scrollContainer = getScrollContainer();
         if (scrollContainer) {
             let showFrom = 0;
 
@@ -44,7 +44,7 @@ function BannerTop({ offsetScroll, link, text }: BannerTopProps) {
     }
 
     useEffect(() => {
-        const scrollContainer = ScrollHelper.getScrollContainer();
+        const scrollContainer = getScrollContainer();
         if (scrollContainer) {
             scrollContainer.addEventListener('scroll', handleScroll);
         }
@@ -55,7 +55,7 @@ function BannerTop({ offsetScroll, link, text }: BannerTopProps) {
         }
 
         return () => {
-            const cleanupScrollContainer = ScrollHelper.getScrollContainer();
+            const cleanupScrollContainer = getScrollContainer();
             if (cleanupScrollContainer) {
                 cleanupScrollContainer.removeEventListener('scroll', handleScroll);
             }

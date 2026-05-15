@@ -5,7 +5,7 @@ import { Language } from 'rss-feed';
 import LanguageFilter from '@/components/Ui/Feed/Sidebar/LanguageFilter';
 import SourceOption from '@/components/Ui/Feed/Sidebar/SourceOption';
 import { SpinnerCircle } from '@/components/Ui/Icons/Spinners';
-import Analytics from '@/lib/analytics';
+import { trackEvent } from '@/lib/analytics';
 import useNewsContent from '@/lib/hook/news/contents';
 import useNewsLanguages from '@/lib/hook/news/languages';
 import useNewsSources from '@/lib/hook/news/sources';
@@ -31,7 +31,7 @@ const Sources = ({ navIsOpen, handleOpenSourcesMenu }: NewsSourcesProps) => {
 
     const onSelectAllClick = () => {
         if (sources != null && sources.length > 0) {
-            Analytics.trackEvent('Click', 'Filter_Select_All', { value: 1 });
+            trackEvent('Click', 'Filter_Select_All', { value: 1 });
         }
         resetNews();
     };

@@ -15,7 +15,7 @@ import { Status, Types } from '@krak/types';
 
 import SpotMarker from '@/components/pages/map/marker/SpotMarker';
 import IconLayer from '@/components/Ui/Icons/IconLayer';
-import Analytics from '@/lib/analytics';
+import { trackEvent } from '@/lib/analytics';
 import { useMapStyle, useSpotID, useSpotModal, useViewport } from '@/lib/hook/queryState';
 import { useMapStore } from '@/store/map';
 
@@ -76,7 +76,7 @@ const MapComponent = ({ mapRef, spots, children, onLoad }: MapComponentProps) =>
         setModalVisible(true);
         toggleLegend(false);
         toggleSearchResult(false);
-        Analytics.trackEvent('spot', 'open_modal');
+        trackEvent('spot', 'open_modal');
     };
 
     const onPopupClose = useCallback(() => {

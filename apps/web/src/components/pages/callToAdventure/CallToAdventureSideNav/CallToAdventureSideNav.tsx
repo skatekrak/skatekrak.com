@@ -1,7 +1,7 @@
 import classnames from 'classnames';
 import React, { ElementRef, useEffect, useRef, useState } from 'react';
 
-import ScrollHelper from '@/lib/ScrollHelper';
+import { getScrollContainer } from '@/lib/ScrollHelper';
 
 import { ctaSections } from '../constants';
 import CallToAdventureSubNav from './CallToAdventureSubNav';
@@ -14,7 +14,7 @@ const CallToAdventureSideNav = ({ bodyContentRef }: Props) => {
     const sideNavRef = useRef<ElementRef<'div'> | null>(null);
 
     useEffect(() => {
-        const scrollContainer = ScrollHelper.getScrollContainer();
+        const scrollContainer = getScrollContainer();
         if (scrollContainer) {
             scrollContainer.addEventListener('scroll', () => handleScroll());
         }

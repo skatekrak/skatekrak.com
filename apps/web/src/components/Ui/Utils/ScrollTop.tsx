@@ -3,7 +3,7 @@
  */
 import { useCallback, useEffect } from 'react';
 
-import ScrollHelper from '@/lib/ScrollHelper';
+import { getScrollContainer } from '@/lib/ScrollHelper';
 import { useSettingsStore } from '@/store/settings';
 
 type ScrollTopProps = { elementId: string };
@@ -12,7 +12,7 @@ const ScrollTop = ({ elementId }: ScrollTopProps) => {
     const isMobile = useSettingsStore((state) => state.isMobile);
 
     const handleScroll = useCallback(() => {
-        const scrollContainer = ScrollHelper.getScrollContainer();
+        const scrollContainer = getScrollContainer();
         if (scrollContainer) {
             const element = document.getElementById(elementId);
             if (element == null) return;
@@ -30,7 +30,7 @@ const ScrollTop = ({ elementId }: ScrollTopProps) => {
     }, [elementId]);
 
     const handleTopClick = () => {
-        const scrollContainer = ScrollHelper.getScrollContainer();
+        const scrollContainer = getScrollContainer();
         const element = document.getElementById(elementId);
 
         if (scrollContainer && element) {
@@ -47,13 +47,13 @@ const ScrollTop = ({ elementId }: ScrollTopProps) => {
     };
 
     useEffect(() => {
-        const scrollContainer = ScrollHelper.getScrollContainer();
+        const scrollContainer = getScrollContainer();
         if (scrollContainer) {
             scrollContainer.addEventListener('scroll', handleScroll);
         }
 
         return () => {
-            const cleanupScrollContainer = ScrollHelper.getScrollContainer();
+            const cleanupScrollContainer = getScrollContainer();
             if (cleanupScrollContainer) {
                 cleanupScrollContainer.removeEventListener('scroll', handleScroll);
             }

@@ -7,7 +7,7 @@ import { KrakLoading } from '@/components/Ui/Icons/Spinners';
 import InfiniteScroll from '@/components/Ui/InfiniteScroll';
 import { flatten } from '@/lib/helpers';
 import useVideos from '@/lib/hook/videos/videos';
-import ScrollHelper from '@/lib/ScrollHelper';
+import { getScrollContainer } from '@/lib/ScrollHelper';
 import { useVideosStore } from '@/store/videos';
 
 type VideoFeedProps = {
@@ -30,7 +30,7 @@ const VideoFeed = ({ sidebarNavIsOpen }: VideoFeedProps) => {
                     }
                 }}
                 hasMore={!isFetching && hasNextPage}
-                getScrollParent={ScrollHelper.getScrollContainer}
+                getScrollParent={getScrollContainer}
             >
                 <div className={classNames('row', { hide: sidebarNavIsOpen })}>
                     {displayedVideos.map((video, index) => (

@@ -7,12 +7,8 @@ declare global {
     }
 }
 
-class Analytics {
-    public static trackEvent(category?: string, action?: string, value?: any) {
-        if (category && action && typeof window !== 'undefined' && window.umami) {
-            window.umami.track(category, { action, value });
-        }
+export function trackEvent(category?: string, action?: string, value?: unknown) {
+    if (category && action && typeof window !== 'undefined' && window.umami) {
+        window.umami.track(category, { action, value });
     }
 }
-
-export default Analytics;

@@ -29,36 +29,23 @@ var CHAR_S_INDEX = {
 };
 
 /**
- * @constructor
- */
-class XmlEntities {}
-
-/**
  * @param {String} str
  * @returns {String}
  */
-XmlEntities.prototype.encode = function (str) {
+function encode(str) {
     if (!str || !str.length) {
         return '';
     }
     return str.replace(/<|>|"|'|&/g, function (s) {
         return CHAR_S_INDEX[s];
     });
-};
+}
 
 /**
  * @param {String} str
  * @returns {String}
  */
-XmlEntities.encode = function (str) {
-    return new XmlEntities().encode(str);
-};
-
-/**
- * @param {String} str
- * @returns {String}
- */
-XmlEntities.prototype.decode = function (str) {
+function decode(str) {
     if (!str || !str.length) {
         return '';
     }
@@ -73,21 +60,13 @@ XmlEntities.prototype.decode = function (str) {
         }
         return ALPHA_INDEX[s] || s;
     });
-};
+}
 
 /**
  * @param {String} str
  * @returns {String}
  */
-XmlEntities.decode = function (str) {
-    return new XmlEntities().decode(str);
-};
-
-/**
- * @param {String} str
- * @returns {String}
- */
-XmlEntities.prototype.encodeNonUTF = function (str) {
+function encodeNonUTF(str) {
     if (!str || !str.length) {
         return '';
     }
@@ -110,21 +89,13 @@ XmlEntities.prototype.encodeNonUTF = function (str) {
         i++;
     }
     return result;
-};
+}
 
 /**
  * @param {String} str
  * @returns {String}
  */
-XmlEntities.encodeNonUTF = function (str) {
-    return new XmlEntities().encodeNonUTF(str);
-};
-
-/**
- * @param {String} str
- * @returns {String}
- */
-XmlEntities.prototype.encodeNonASCII = function (str) {
+function encodeNonASCII(str) {
     if (!str || !str.length) {
         return '';
     }
@@ -141,15 +112,7 @@ XmlEntities.prototype.encodeNonASCII = function (str) {
         i++;
     }
     return result;
-};
+}
 
-/**
- * @param {String} str
- * @returns {String}
- */
-XmlEntities.encodeNonASCII = function (str) {
-    return new XmlEntities().encodeNonASCII(str);
-};
-
-module.exports = XmlEntities;
+module.exports = { encode, decode, encodeNonUTF, encodeNonASCII };
 /* tslint:enable */

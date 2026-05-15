@@ -7,7 +7,7 @@ import { KrakLoading } from '@/components/Ui/Icons/Spinners';
 import InfiniteScroll from '@/components/Ui/InfiniteScroll';
 import { flatten } from '@/lib/helpers';
 import usePosts from '@/lib/hook/mag/posts';
-import ScrollHelper from '@/lib/ScrollHelper';
+import { getScrollContainer } from '@/lib/ScrollHelper';
 import { useMagStore } from '@/store/mag';
 
 type Props = {
@@ -34,7 +34,7 @@ const Feed = ({ sidebarNavIsOpen }: Props) => {
                     }
                 }}
                 hasMore={hasNextPage}
-                getScrollParent={ScrollHelper.getScrollContainer}
+                getScrollParent={getScrollContainer}
             >
                 <div className={classNames('row', { hide: sidebarNavIsOpen })}>
                     {posts.map((post) => (

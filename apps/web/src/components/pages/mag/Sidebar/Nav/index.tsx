@@ -3,7 +3,7 @@ import { unique, flat } from 'radash';
 import React, { useMemo } from 'react';
 
 import SourceOption from '@/components/Ui/Feed/Sidebar/SourceOption';
-import Analytics from '@/lib/analytics';
+import { trackEvent } from '@/lib/analytics';
 import usePosts from '@/lib/hook/mag/posts';
 import { useMagStore } from '@/store/mag';
 
@@ -41,7 +41,7 @@ const Nav = ({ sidebarNavIsOpen, handleOpenSidebarNav }: NavProps) => {
 
     const onSelectAllClick = () => {
         if (categories.length > 0) {
-            Analytics.trackEvent('Click', 'Filter_Select_All');
+            trackEvent('Click', 'Filter_Select_All');
         }
         resetCategories();
     };

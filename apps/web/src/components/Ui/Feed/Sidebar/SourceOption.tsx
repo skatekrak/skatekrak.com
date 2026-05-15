@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import React from 'react';
 
 import { SpinnerCircle } from '@/components/Ui/Icons/Spinners';
-import Analytics from '@/lib/analytics';
+import { trackEvent } from '@/lib/analytics';
 
 type SourceOptionProps = {
     id: string;
@@ -16,9 +16,9 @@ type SourceOptionProps = {
 const SourceOption = ({ id, title, iconUrl, loading, isActive, toggle }: SourceOptionProps) => {
     const handleSourceOptionClick = () => {
         if (isActive) {
-            Analytics.trackEvent('Click', 'Filter_Unselect', { name: title, value: 1 });
+            trackEvent('Click', 'Filter_Unselect', { name: title, value: 1 });
         } else {
-            Analytics.trackEvent('Click', 'Filter_Select', { name: title, value: 1 });
+            trackEvent('Click', 'Filter_Select', { name: title, value: 1 });
         }
         toggle(id);
     };

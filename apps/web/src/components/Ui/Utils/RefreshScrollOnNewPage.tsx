@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import React, { useEffect, useRef } from 'react';
 
-import ScrollHelper from '@/lib/ScrollHelper';
+import { getScrollContainer } from '@/lib/ScrollHelper';
 
 type Props = {
     children?: React.ReactNode;
@@ -13,7 +13,7 @@ const RefreshScrollOnNewPage: React.FC<Props> = ({ children }) => {
 
     useEffect(() => {
         if (router.asPath !== prevPathRef.current) {
-            ScrollHelper.getScrollContainer().scrollTop = 0;
+            getScrollContainer().scrollTop = 0;
             prevPathRef.current = router.asPath;
         }
     }, [router.asPath]);
