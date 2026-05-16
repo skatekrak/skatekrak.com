@@ -3,8 +3,8 @@
     "devDependencies": {
         "@types/bun": "^1.1.1",
         "@types/node": "^25.3.0",
-        "oxfmt": "^0.45.0",
-        "oxlint": "^1.59.0",
+        "oxfmt": "^0.50.0",
+        "oxlint": "^1.65.0",
         "turbo": "^2.0.4"
     },
     "engines": {

@@ -15,6 +15,7 @@ import { ImgproxyProvider } from '@krak/ui';
 
 import { useSession } from '@/lib/auth';
 import 'react-responsive-modal/styles.css';
+
 import '../../public/styles/tailwind.css';
 import '../../public/styles/fonts.css';
 import '../../public/styles/flexbox-grid.css';
