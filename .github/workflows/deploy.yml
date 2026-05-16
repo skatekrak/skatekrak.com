@@ -8,33 +8,10 @@ concurrency:
     group: deploy-${{ github.ref }}
     cancel-in-progress: false
 
-env:
-    NEXT_PUBLIC_BUGSNAG_KEY: ${{ secrets.NEXT_PUBLIC_BUGSNAG_KEY }}
-
 jobs:
     ci:
-        runs-on: ubuntu-latest
-        env:
-            NEXT_PUBLIC_CARRELAGE_URL: http://placeholder
-            NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN: http://placeholder
-            NEXT_PUBLIC_KRAK_API_URL: http://placeholder
-            NEXT_PUBLIC_STAGE: http://placeholder
-            NEXT_PUBLIC_MEILI_HOST: http://placeholder
-            NEXT_PUBLIC_MEILI_API_KEY: http://placeholder
-            NEXT_PUBLIC_IMGPROXY_URL: http://placeholder
-            NEXT_PUBLIC_UMAMI_SCRIPT_URL: http://placeholder
-            NEXT_PUBLIC_UMAMI_WEBSITE_ID: http://placeholder
-            NEXT_PUBLIC_WEBSITE_URL: http://placeholder
-            NEXT_PUBLIC_RSS_BACKEND_URL: http://placeholder
-            NEXT_PUBLIC_KRAKMAG_URL: http://placeholder
-        steps:
-            - uses: actions/checkout@v6
-            - uses: oven-sh/setup-bun@v2
-              with:
-                  bun-version: 1.3.10
-            - run: bun install --frozen-lockfile
-            - run: bun lint
-            - run: bun run format:check
+        uses: ./.github/workflows/ci.yml
+        secrets: inherit
 
     build-api:
         runs-on: ubuntu-latest
