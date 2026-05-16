@@ -1,0 +1,43 @@
+{
+    "$schema": "https://unpkg.com/knip@6/schema.json",
+    "workspaces": {
+        ".": {
+            "entry": ["package.json", "turbo.json", "lefthook.yml", ".github/workflows/*.{yml,yaml}"]
+        },
+        "apps/api": {
+            "entry": ["src/index.ts", "src/instrumentation.ts", "src/scripts/**/*.ts"],
+            "project": ["src/**/*.ts"]
+        },
+        "apps/manager": {
+            "entry": ["src/env.ts", "src/app/**/*.{ts,tsx}"],
+            "project": ["src/**/*.{ts,tsx}", "*.{ts,mjs}"]
+        },
+        "apps/web": {
+            "entry": ["src/pages/**/*.{ts,tsx}"],
+            "project": ["src/**/*.{ts,tsx}", "*.{js,mjs}"]
+        },
+        "packages/auth": {
+            "project": ["src/**/*.ts"]
+        },
+        "packages/contracts": {
+            "project": ["src/**/*.ts"]
+        },
+        "packages/prisma": {
+            "entry": ["scripts/**/*.ts"],
+            "project": ["src/**/*.ts", "scripts/**/*.ts"]
+        },
+        "packages/trpc": {
+            "entry": ["package.json"]
+        },
+        "packages/types": {
+            "project": ["src/**/*.ts"]
+        },
+        "packages/ui": {
+            "entry": ["src/components/**/*.tsx", "src/hooks/**/*.tsx", "src/lib/**/*.ts", "components.json"],
+            "project": ["src/**/*.{ts,tsx}"]
+        },
+        "packages/utils": {
+            "project": ["src/**/*.ts"]
+        }
+    }
+}
