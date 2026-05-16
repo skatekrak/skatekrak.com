@@ -1,6 +1,6 @@
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import classNames from 'classnames';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import type { Spot, Media } from '@krak/contracts';
 import { KrakImage } from '@krak/ui';
@@ -99,6 +99,14 @@ const MapFullSpotMedias: React.FC<MapFullSpotMediasProps> = ({ spot }) => {
 
     const hasMapMedia = mapMedias.length > 0 || mapMediaQuery.hasNextPage;
     const hasOtherMedia = otherMedias.length > 0 || otherMediaQuery.hasNextPage;
+
+    useEffect(() => {
+        if (customMapId && hasMapMedia) {
+            setActiveTab('map');
+        } else {
+            setActiveTab('all');
+        }
+    }, [customMapId, hasMapMedia]);
 
     return (
         <ScrollBar maxHeight="100%">
