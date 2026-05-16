@@ -12,7 +12,7 @@ import SpotIcon from '@/components/Ui/Utils/SpotIcon';
 import { useMediaID, useSpotID, useSpotModal } from '@/lib/hook/queryState';
 import { getMediaImageUrl } from '@/lib/media';
 
-type CarouselProps = {
+export type CarouselProps = {
     media: Media;
     prevMedia: Media | null;
     nextMedia: Media | null;
