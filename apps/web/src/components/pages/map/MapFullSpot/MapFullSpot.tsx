@@ -34,6 +34,7 @@ const MapFullSpot: React.FC<MapFullSpotProps> = ({ open, onClose, container }) =
             container={container}
             onClose={onClose}
             closable
+            closeOnEsc={!mediaId}
             closeIcon={undefined}
             customClassNames={{ customRoot: '!z-[1100]' }}
         >

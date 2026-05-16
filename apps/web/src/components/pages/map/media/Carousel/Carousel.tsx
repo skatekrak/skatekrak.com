@@ -51,24 +51,28 @@ export const CarouselNav = ({ media, prevMedia, nextMedia }: CarouselProps) => {
         }
     };
 
+    const goBackToSpot = () => {
+        setMedia(null);
+        setSpotID(media.spot?.id ?? null);
+        setModalVisible(true);
+    };
+
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
             if (e.key === 'ArrowLeft') {
                 onPrevious();
             } else if (e.key === 'ArrowRight') {
                 onNext();
+            } else if (e.key === 'Escape') {
+                e.preventDefault();
+                e.stopImmediatePropagation();
+                goBackToSpot();
             }
         };
 
-        window.addEventListener('keydown', handleKeyDown);
-        return () => window.removeEventListener('keydown', handleKeyDown);
+        document.addEventListener('keydown', handleKeyDown, true);
+        return () => document.removeEventListener('keydown', handleKeyDown, true);
     }, [prevMedia, nextMedia]);
-
-    const goBackToSpot = () => {
-        setMedia(null);
-        setSpotID(media.spot?.id ?? null);
-        setModalVisible(true);
-    };
 
     return (
         <div className="grow flex items-center justify-between p-3 transition-all duration-150 tablet:absolute tablet:top-6 tablet:left-6 tablet:flex-col tablet:items-start tablet:justify-start tablet:p-0 tablet:opacity-0 group-hover:opacity-100">
