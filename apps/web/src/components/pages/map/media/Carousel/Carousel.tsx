@@ -1,5 +1,5 @@
 import classnames from 'classnames';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import type { Media } from '@krak/contracts';
 import { useImgproxy } from '@krak/ui';
@@ -50,6 +50,19 @@ export const CarouselNav = ({ media, prevMedia, nextMedia }: CarouselProps) => {
             setMedia(nextMedia.id);
         }
     };
+
+    useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (e.key === 'ArrowLeft') {
+                onPrevious();
+            } else if (e.key === 'ArrowRight') {
+                onNext();
+            }
+        };
+
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, [prevMedia, nextMedia]);
 
     const goBackToSpot = () => {
         setMedia(null);
