@@ -1,4 +1,5 @@
 import { parseAsFloat, parseAsBoolean, parseAsString, useQueryState, useQueryStates, parseAsStringLiteral } from 'nuqs';
+import { useCallback } from 'react';
 
 export const useViewport = () => {
     return useQueryStates(
@@ -32,7 +33,17 @@ export const useSpotID = () => {
 };
 
 export const useSpotModal = () => {
-    return useQueryState('modal', parseAsBoolean.withDefault(false));
+    const [modalVisible, setModalVisible] = useQueryState('modal', parseAsBoolean.withDefault(false));
+
+    const setModal = useCallback(
+        (value: boolean | null) => {
+            const history = value ? 'push' : 'replace';
+            return setModalVisible(value, { history });
+        },
+        [setModalVisible],
+    );
+
+    return [modalVisible, setModal] as const;
 };
 
 export const useMediaID = () => {
