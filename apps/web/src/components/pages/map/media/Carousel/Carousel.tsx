@@ -1,5 +1,5 @@
 import classnames from 'classnames';
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 import type { Media } from '@krak/contracts';
 import { useImgproxy } from '@krak/ui';
@@ -9,37 +9,32 @@ import IconInfo from '@/components/Ui/Icons/IconInfo';
 import VideoPlayer from '@/components/Ui/Player/VideoPlayer';
 import Typography from '@/components/Ui/typography/Typography';
 import SpotIcon from '@/components/Ui/Utils/SpotIcon';
-import { useMediaID } from '@/lib/hook/queryState';
+import { useMediaID, useSpotID, useSpotModal } from '@/lib/hook/queryState';
 import { getMediaImageUrl } from '@/lib/media';
 
-type CarouselMediaProps = {
+type CarouselProps = {
     media: Media;
     prevMedia: Media | null;
     nextMedia: Media | null;
 };
 
-export type CarouselProps = CarouselMediaProps & {
-    additionalActions?: React.ReactNode;
-};
-
-const Carousel = ({ media, nextMedia, prevMedia, additionalActions }: CarouselProps) => {
+const Carousel = ({ media, nextMedia, prevMedia }: CarouselProps) => {
     return (
         <div className="group relative grow flex flex-col bg-[#141414] overflow-hidden [&_.video-player-container]:h-full">
             <CarouselContent media={media} />
-            <div className="grow flex items-center justify-between p-3 transition-all duration-150 tablet:absolute tablet:top-6 tablet:left-6 tablet:flex-col tablet:items-start tablet:justify-start tablet:p-0 tablet:opacity-0 group-hover:opacity-100">
-                {additionalActions && <div className="tablet:mb-4">{additionalActions}</div>}
-                <CarouselNav media={media} nextMedia={nextMedia} prevMedia={prevMedia} />
-            </div>
+            <CarouselNav media={media} nextMedia={nextMedia} prevMedia={prevMedia} />
         </div>
     );
 };
 
 export default Carousel;
 
-export const CarouselNav = ({ media, prevMedia, nextMedia }: CarouselMediaProps) => {
+export const CarouselNav = ({ media, prevMedia, nextMedia }: CarouselProps) => {
     const isFirst = prevMedia == null;
     const isLast = nextMedia == null;
     const [, setMedia] = useMediaID();
+    const [, setSpotID] = useSpotID();
+    const [, setModalVisible] = useSpotModal();
 
     /** Description */
     const [isDescOpen, setIsDescOpen] = useState(false);
@@ -56,11 +51,30 @@ export const CarouselNav = ({ media, prevMedia, nextMedia }: CarouselMediaProps)
         }
     };
 
+    const goBackToSpot = () => {
+        setMedia(null);
+        setSpotID(media.spot?.id ?? null);
+        setModalVisible(true);
+    };
+
     return (
-        <div>
-            <nav className="inline-flex rounded bg-tertiary-dark border-[1.5px] border-tertiary-medium shadow-onDarkHighSharp overflow-hidden">
+        <div className="grow flex items-center justify-between p-3 transition-all duration-150 tablet:absolute tablet:top-6 tablet:left-6 tablet:flex-col tablet:items-start tablet:justify-start tablet:p-0 tablet:opacity-0 group-hover:opacity-100">
+            <nav
+                className="
+                inline-flex rounded bg-tertiary-dark border-[1.5px] border-tertiary-medium shadow-onDarkHighSharp overflow-hidden
+                [&>button]:flex [&>button]:py-2 [&>button]:px-3 
+            "
+            >
                 <button
-                    className={classnames('flex py-2 px-3 [&_svg]:w-6', {
+                    className="items-center text-onDark-mediumEmphasis underline text-sm [&_svg]:w-[1.125rem] [&_svg]:mr-1 [&_svg]:mt-px [&_svg]:fill-onDark-mediumEmphasis [&_svg]:rotate-180 hover:text-onDark-highEmphasis hover:[&_svg]:fill-onDark-highEmphasis"
+                    onClick={goBackToSpot}
+                >
+                    <IconArrowHead />
+                    <span>{media.spot?.name}</span>
+                </button>
+                <div className="my-2 w-px bg-onDark-divider" />
+                <button
+                    className={classnames('[&_svg]:w-6', {
                         '[&_svg]:fill-onDark-highEmphasis': isDescOpen,
                         '[&_svg]:fill-onDark-mediumEmphasis hover:[&_svg]:fill-onDark-highEmphasis': !isDescOpen,
                     })}
@@ -70,7 +84,7 @@ export const CarouselNav = ({ media, prevMedia, nextMedia }: CarouselMediaProps)
                 </button>
                 <div className="my-2 w-px bg-onDark-divider" />
                 <button
-                    className={classnames('flex py-2 px-3 [&_svg]:w-6 [&_svg]:rotate-180', {
+                    className={classnames('[&_svg]:w-6 [&_svg]:rotate-180', {
                         'cursor-default [&_svg]:fill-onDark-lowEmphasis': isFirst,
                         '[&_svg]:fill-onDark-mediumEmphasis hover:[&_svg]:fill-onDark-highEmphasis': !isFirst,
                     })}
@@ -81,7 +95,7 @@ export const CarouselNav = ({ media, prevMedia, nextMedia }: CarouselMediaProps)
                 </button>
                 <div className="my-2 w-px bg-onDark-divider" />
                 <button
-                    className={classnames('flex py-2 px-3 [&_svg]:w-6', {
+                    className={classnames('[&_svg]:w-6', {
                         'cursor-default [&_svg]:fill-onDark-lowEmphasis': isLast,
                         '[&_svg]:fill-onDark-mediumEmphasis hover:[&_svg]:fill-onDark-highEmphasis': !isLast,
                     })}
@@ -99,7 +113,10 @@ export const CarouselNav = ({ media, prevMedia, nextMedia }: CarouselMediaProps)
                     <Typography component="body1">{media.addedBy.username}</Typography>
                     <div className="h-px my-4 mt-4 mb-5 bg-onDark-divider" />
                     {media.spot != null && (
-                        <button className="flex items-center text-onDark-mediumEmphasis underline text-sm [&_svg]:w-5 [&_svg]:mr-1">
+                        <button
+                            onClick={goBackToSpot}
+                            className="flex items-center text-onDark-mediumEmphasis underline text-sm [&_svg]:w-5 [&_svg]:mr-1"
+                        >
                             <SpotIcon spot={media.spot} />
                             {media.spot.name && <Typography component="body2">{media.spot.name}</Typography>}
                         </button>
