@@ -127,7 +127,7 @@ const MapFullSpotMedias: React.FC<MapFullSpotMediasProps> = ({ spot }) => {
                             )}
                             {hasOtherMedia && (
                                 <MediaTab isActive={activeTab === 'all'} onClick={() => setActiveTab('all')}>
-                                    All Media
+                                    Other Media
                                 </MediaTab>
                             )}
                         </div>
