@@ -13,7 +13,13 @@ type Props = {
 const CarouselModal = ({ open, onClose, isLoading, carouselProps }: Props) => {
     return (
         <Modal open={open} onClose={onClose} closable closeIcon={undefined} styles={modalThemeStyles}>
-            <div className="relative flex flex-col min-h-screen h-screen w-screen overflow-hidden laptop-s:min-h-0 laptop-s:h-auto laptop-s:aspect-video laptop-s:w-[88vw] laptop-s:max-w-[80rem]">
+            <div
+                className="
+                relative flex flex-col min-h-screen h-screen w-screen overflow-hidden
+                laptop-s:min-h-0 laptop-s:h-auto laptop-s:aspect-video laptop-s:w-[88vw] laptop-s:max-w-7xl
+                laptop-l:w-[75vw] laptop-l:max-w-360
+            "
+            >
                 {isLoading ? <KrakLoading /> : <Carousel {...carouselProps} />}
             </div>
         </Modal>

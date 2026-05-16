@@ -119,7 +119,7 @@ const MapFullSpotMedias: React.FC<MapFullSpotMediasProps> = ({ spot }) => {
                 hasMore={currentQuery.hasNextPage}
                 isLoading={currentQuery.isFetching}
             >
-                <div className="block p-6 [&_.icon-loading-krak]:mx-auto [&_.icon-loading-krak]:mt-16 [&_.icon-loading-krak]:mb-8 tablet:p-12 tablet:pt-8">
+                <div className="block p-3 [&_.icon-loading-krak]:mx-auto [&_.icon-loading-krak]:mt-16 [&_.icon-loading-krak]:mb-8 tablet:p-8 tablet:pt-8">
                     {customMapId && (
                         <div className="flex gap-6 max-tablet:justify-center mb-8">
                             {hasMapMedia && (

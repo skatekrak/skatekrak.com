@@ -42,8 +42,9 @@ const MapFullSpot: React.FC<MapFullSpotProps> = ({ open, onClose, container }) =
                 <div
                     className={classnames(
                         'relative flex flex-col min-h-screen overflow-hidden',
-                        'tablet:grid tablet:grid-cols-[minmax(16rem,1fr)_3fr] tablet:[grid-template-areas:"fullSpotNav_fullSpotMain"] tablet:min-h-0 tablet:h-[40rem]',
-                        'laptop:min-h-0 laptop:h-auto laptop:aspect-video laptop:w-[88vw] laptop:max-w-[80rem]',
+                        'tablet:grid tablet:grid-cols-[minmax(16rem,1fr)_3fr] tablet:[grid-template-areas:"fullSpotNav_fullSpotMain"] tablet:min-h-0 tablet:h-160',
+                        'laptop:min-h-0 laptop:h-auto laptop:aspect-video laptop:w-[88vw]',
+                        'laptop-l:w-[75vw] laptop-l:max-w-360',
                         mediaId ? 'h-screen' : 'h-auto',
                     )}
                 >
