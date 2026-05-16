@@ -1,13 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
 import { Source } from 'rss-feed';
 
-import rssClient from '@/lib/clients/rss';
+import { fetchJson } from '@/lib/fetchJson';
 
 const fetchSources = async () => {
-    const { data } = await rssClient.get<Source[]>('/sources', {
-        params: {
-            types: ['youtube', 'vimeo'],
-        },
+    const data = await fetchJson<Source[]>(`${process.env.NEXT_PUBLIC_RSS_BACKEND_URL}/sources`, {
+        types: ['youtube', 'vimeo'],
     });
 
     return data;

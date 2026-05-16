@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
+
+import { fetchJson } from '@/lib/fetchJson';
 
 import { Place } from '../google';
 
@@ -7,8 +8,7 @@ export const fetchPlaces = async (query: string) => {
     if (query === '') {
         return [];
     }
-    const res = await axios.get<Place[]>('https://skatekrak.com/api/place-search', { params: { input: query } });
-    return res.data;
+    return fetchJson<Place[]>('https://skatekrak.com/api/place-search', { input: query });
 };
 
 const usePlaceSearch = (query: string) => {

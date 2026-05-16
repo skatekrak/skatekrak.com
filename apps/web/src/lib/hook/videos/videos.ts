@@ -1,7 +1,7 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
-import axios from 'axios';
 import { Pagination, IContent } from 'rss-feed';
 
+import { fetchJson } from '@/lib/fetchJson';
 import { removeEmptyStringAndNull } from '@/lib/helpers';
 
 export type FetchVideoParams = {
@@ -11,14 +11,12 @@ export type FetchVideoParams = {
 
 const fetchVideos = async (params: FetchVideoParams, page: number) => {
     let data: IContent[] = [];
-    const res = await axios.get<Pagination<IContent>>(`${process.env.NEXT_PUBLIC_RSS_BACKEND_URL}/contents`, {
-        params: {
-            ...removeEmptyStringAndNull(params),
-            sourceTypes: ['youtube', 'vimeo'],
-            page,
-        },
+    const res = await fetchJson<Pagination<IContent>>(`${process.env.NEXT_PUBLIC_RSS_BACKEND_URL}/contents`, {
+        ...removeEmptyStringAndNull(params),
+        sourceTypes: ['youtube', 'vimeo'],
+        page,
     });
-    data = res.data.items;
+    data = res.items;
 
     return data;
 };

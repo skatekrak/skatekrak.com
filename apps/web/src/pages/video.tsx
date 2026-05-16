@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { NextPage, NextPageContext } from 'next';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
@@ -9,6 +8,7 @@ import Layout from '@/components/Layout';
 import Sidebar from '@/components/pages/videos/Sidebar';
 import VideoFeed from '@/components/pages/videos/VideoFeed';
 import LayoutFeed from '@/components/Ui/Feed/LayoutFeed';
+import { fetchJson } from '@/lib/fetchJson';
 
 const VideoModal = dynamic(() => import('@/components/pages/videos/VideoFeed/Video/VideoModal'), { ssr: false });
 
@@ -73,8 +73,8 @@ const Videos: NextPage<Props> = ({ video, gotId }) => {
 Videos.getInitialProps = async ({ query }: NextPageContext) => {
     if (query.id) {
         try {
-            const res = await axios.get(`${process.env.NEXT_PUBLIC_RSS_BACKEND_URL}/contents/${query.id}`);
-            return { video: res.data, gotId: true };
+            const video = await fetchJson<IContent>(`${process.env.NEXT_PUBLIC_RSS_BACKEND_URL}/contents/${query.id}`);
+            return { video, gotId: true };
         } catch {
             return { gotId: true };
         }

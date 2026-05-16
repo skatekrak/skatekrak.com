@@ -1,12 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
 import { Source } from 'rss-feed';
 
+import { fetchJson } from '@/lib/fetchJson';
+
 const fetchNewsSources = async () => {
-    const { data } = await axios.get<Source[]>(`${process.env.NEXT_PUBLIC_RSS_BACKEND_URL}/sources`, {
-        params: {
-            types: ['rss'],
-        },
+    const data = await fetchJson<Source[]>(`${process.env.NEXT_PUBLIC_RSS_BACKEND_URL}/sources`, {
+        types: ['rss'],
     });
     return data;
 };

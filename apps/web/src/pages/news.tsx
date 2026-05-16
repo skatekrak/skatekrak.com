@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { NextPage } from 'next';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
@@ -8,6 +7,7 @@ import Layout from '@/components/Layout';
 import Articles from '@/components/pages/news/Articles';
 import Sidebar from '@/components/pages/news/Sidebar';
 import LayoutFeed from '@/components/Ui/Feed/LayoutFeed';
+import { fetchJson } from '@/lib/fetchJson';
 import Content from '@/models/Content';
 
 const DynamicArticleModal = dynamic(() => import('@/components/pages/news/Articles/Article/ArticleModal'), {
@@ -59,7 +59,7 @@ const NewsHead = ({ content }: { content: Content }) => {
 };
 
 type Props = {
-    contentData?: any;
+    contentData?: unknown;
     gotId: boolean;
 };
 
@@ -90,8 +90,8 @@ const News: NextPage<Props> = ({ contentData, gotId }) => {
 News.getInitialProps = async ({ query }) => {
     if (query.id) {
         try {
-            const res = await axios.get(`${process.env.NEXT_PUBLIC_RSS_BACKEND_URL}/contents/${query.id}`);
-            return { contentData: res.data, gotId: true };
+            const contentData = await fetchJson(`${process.env.NEXT_PUBLIC_RSS_BACKEND_URL}/contents/${query.id}`);
+            return { contentData, gotId: true };
         } catch {
             return { gotId: true };
         }

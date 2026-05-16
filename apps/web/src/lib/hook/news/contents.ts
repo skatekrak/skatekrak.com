@@ -1,7 +1,7 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
-import axios from 'axios';
 import { IContent, Pagination } from 'rss-feed';
 
+import { fetchJson } from '@/lib/fetchJson';
 import { removeEmptyStringAndNull } from '@/lib/helpers';
 import Content from '@/models/Content';
 
@@ -10,12 +10,10 @@ export type FetchNewsParams = {
 };
 
 const fetchContents = async (params: FetchNewsParams, page: number): Promise<Content[]> => {
-    const { data } = await axios.get<Pagination<IContent>>(`${process.env.NEXT_PUBLIC_RSS_BACKEND_URL}/contents`, {
-        params: {
-            sourceTypes: ['rss'],
-            ...removeEmptyStringAndNull(params),
-            page,
-        },
+    const data = await fetchJson<Pagination<IContent>>(`${process.env.NEXT_PUBLIC_RSS_BACKEND_URL}/contents`, {
+        sourceTypes: ['rss'],
+        ...removeEmptyStringAndNull(params),
+        page,
     });
 
     return data.items.map((content) => new Content(content));
