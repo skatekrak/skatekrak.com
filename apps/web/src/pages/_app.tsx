@@ -4,7 +4,7 @@ import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import Script from 'next/script';
 import { NuqsAdapter } from 'nuqs/adapters/next/pages';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 const ReactQueryDevtools = dynamic(
     () => import('@tanstack/react-query-devtools').then((m) => ({ default: m.ReactQueryDevtools })),
@@ -13,26 +13,14 @@ const ReactQueryDevtools = dynamic(
 
 import { ImgproxyProvider } from '@krak/ui';
 
-import { useSession } from '@/lib/auth';
 import 'react-responsive-modal/styles.css';
 
 import '../../public/styles/tailwind.css';
 import '../../public/styles/fonts.css';
 import '../../public/styles/flexbox-grid.css';
 
-const useUmamiIdentify = () => {
-    const { data: sessionData } = useSession();
-
-    useEffect(() => {
-        if (sessionData?.user && window.umami) {
-            window.umami.identify({ userId: sessionData.user.id, username: sessionData.user.username });
-        }
-    }, [sessionData?.user]);
-};
-
 const App: React.FC<AppProps> = ({ Component, pageProps }) => {
     const [queryClient] = useState(() => new QueryClient());
-    useUmamiIdentify();
 
     return (
         <NuqsAdapter>
