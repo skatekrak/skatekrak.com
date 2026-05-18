@@ -1,16 +1,28 @@
 'use client';
 
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { Check, Pencil, X } from 'lucide-react';
+import { Check, ChevronDown, GitMerge, Pencil, X } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { use, useRef, useState } from 'react';
 
 import type { ContractOutputs } from '@krak/contracts';
-import { Badge, Button, cn, Input, Skeleton } from '@krak/ui';
+import {
+    Badge,
+    Button,
+    cn,
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuTrigger,
+    Input,
+    Skeleton,
+} from '@krak/ui';
 
 import { SiteHeader } from '@/components/site-header';
 import { client, orpc } from '@/lib/orpc';
+
+import { MergeSpotDialog } from './_components/merge-spot-dialog';
 
 type SpotOverview = ContractOutputs['spots']['getSpotOverview'];
 type Spot = SpotOverview['spot'];
@@ -36,6 +48,30 @@ function TypeBadge({ type }: { type: string }) {
 function StatusBadge({ status }: { status: string }) {
     const variant = status === 'rip' ? 'destructive' : status === 'wip' ? 'secondary' : 'outline';
     return <Badge variant={variant}>{status}</Badge>;
+}
+
+function SpotActions({ spot }: { spot: Spot }) {
+    const [mergeDialogOpen, setMergeDialogOpen] = useState(false);
+
+    return (
+        <>
+            <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                    <Button variant="outline" size="sm" className="gap-2">
+                        Actions
+                        <ChevronDown className="size-4" />
+                    </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                    <DropdownMenuItem onSelect={() => setMergeDialogOpen(true)}>
+                        <GitMerge className="size-4" />
+                        Merge to
+                    </DropdownMenuItem>
+                </DropdownMenuContent>
+            </DropdownMenu>
+            <MergeSpotDialog spot={spot} open={mergeDialogOpen} onOpenChange={setMergeDialogOpen} />
+        </>
+    );
 }
 
 function SpotHero({ spot }: { spot: Spot }) {
@@ -134,11 +170,13 @@ function SpotHero({ spot }: { spot: Spot }) {
                     {spot.indoor && <Badge variant="outline">indoor</Badge>}
                 </div>
             </div>
-            <div className="ml-auto flex gap-2">
-                <StatCell label="Media" value={spot.mediasStat?.all} />
-                <StatCell label="Clips" value={spot.clipsStat?.all} />
-                <StatCell label="Tricks" value={spot.tricksDoneStat?.all} />
-                <StatCell label="Comments" value={spot.commentsStat?.all} />
+            <div className="ml-auto flex items-center gap-4">
+                <div className="flex gap-2">
+                    <StatCell label="Media" value={spot.mediasStat?.all} />
+                    <StatCell label="Clips" value={spot.clipsStat?.all} />
+                    <StatCell label="Tricks" value={spot.tricksDoneStat?.all} />
+                    <StatCell label="Comments" value={spot.commentsStat?.all} />
+                </div>
             </div>
         </div>
     );
@@ -193,7 +231,7 @@ export default function SpotDetailLayout({
 
     return (
         <>
-            <SiteHeader title={title} />
+            <SiteHeader title={title} rightActions={data ? <SpotActions spot={data.spot} /> : null} />
             <div className="flex flex-1 flex-col gap-6 px-6 pb-6 pt-4">
                 {isLoading ? <SpotHeroSkeleton /> : data ? <SpotHero spot={data.spot} /> : null}
                 <div className="inline-flex h-9 w-fit items-center justify-center rounded-lg bg-muted p-1 text-muted-foreground">
