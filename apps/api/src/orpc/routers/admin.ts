@@ -7,6 +7,7 @@ import { processMediaFile } from '../../helpers/media-upload';
 import { spotIndex } from '../../helpers/meilisearch';
 import { buildStat, recomputeMediasStat, type Stat } from '../../helpers/stats';
 import { os, authed, admin } from '../base';
+import { mergeSpotRecords } from './admin.merge';
 
 // Types matching the raw Postgres JSON shapes for Prisma Json? columns.
 // These mirror the Zod schemas in @krak/contracts (AdminCloudinaryFileSchema).
@@ -463,103 +464,7 @@ export const mergeSpots = os.admin.spots.merge
             throw new ORPCError('BAD_REQUEST', { message: 'Source and target spots must be different' });
         }
 
-        await context.prisma.$transaction(async (tx) => {
-            const [sourceSpot, targetSpot] = await Promise.all([
-                tx.spot.findUnique({ where: { id: sourceSpotId }, select: { id: true } }),
-                tx.spot.findUnique({ where: { id: targetSpotId }, select: { id: true } }),
-            ]);
-
-            if (!sourceSpot) {
-                throw new ORPCError('NOT_FOUND', { message: `Source spot '${sourceSpotId}' not found` });
-            }
-
-            if (!targetSpot) {
-                throw new ORPCError('NOT_FOUND', { message: `Target spot '${targetSpotId}' not found` });
-            }
-
-            await tx.media.updateMany({
-                where: { spotId: sourceSpotId },
-                data: { spotId: targetSpotId },
-            });
-
-            await tx.clip.updateMany({
-                where: { spotId: sourceSpotId },
-                data: { spotId: targetSpotId },
-            });
-
-            await tx.comment.updateMany({
-                where: { spotId: sourceSpotId },
-                data: { spotId: targetSpotId },
-            });
-
-            await tx.spotEdit.updateMany({
-                where: {
-                    spotId: { in: [sourceSpotId, targetSpotId] },
-                    mergeIntoId: { in: [sourceSpotId, targetSpotId] },
-                },
-                data: { mergeIntoId: null },
-            });
-
-            await tx.spotEdit.updateMany({
-                where: { spotId: sourceSpotId },
-                data: { spotId: targetSpotId },
-            });
-
-            await tx.spotEdit.updateMany({
-                where: { mergeIntoId: sourceSpotId },
-                data: { mergeIntoId: targetSpotId },
-            });
-
-            const targetFollowers = await tx.profileSpotFollow.findMany({
-                where: { spotId: targetSpotId },
-                select: { profileId: true },
-            });
-            const targetFollowerIds = targetFollowers.map((follow) => follow.profileId);
-
-            if (targetFollowerIds.length > 0) {
-                await tx.profileSpotFollow.deleteMany({
-                    where: {
-                        spotId: sourceSpotId,
-                        profileId: { in: targetFollowerIds },
-                    },
-                });
-            }
-
-            await tx.profileSpotFollow.updateMany({
-                where: { spotId: sourceSpotId },
-                data: { spotId: targetSpotId },
-            });
-
-            const [allTargetMedias, allTargetClips, allTargetComments] = await Promise.all([
-                tx.media.findMany({
-                    where: { spotId: targetSpotId },
-                    orderBy: { createdAt: 'desc' },
-                    select: { createdAt: true, trickDone: true },
-                }),
-                tx.clip.findMany({
-                    where: { spotId: targetSpotId },
-                    orderBy: { createdAt: 'desc' },
-                    select: { createdAt: true },
-                }),
-                tx.comment.findMany({
-                    where: { spotId: targetSpotId },
-                    orderBy: { createdAt: 'desc' },
-                    select: { createdAt: true },
-                }),
-            ]);
-
-            await tx.spot.update({
-                where: { id: targetSpotId },
-                data: {
-                    mediasStat: buildStat(allTargetMedias),
-                    clipsStat: buildStat(allTargetClips),
-                    commentsStat: buildStat(allTargetComments),
-                    tricksDoneStat: buildStat(allTargetMedias.filter((media) => media.trickDone != null)),
-                },
-            });
-
-            await tx.spot.delete({ where: { id: sourceSpotId } });
-        });
+        await context.prisma.$transaction((tx) => mergeSpotRecords(tx, { sourceSpotId, targetSpotId }));
 
         spotIndex.deleteDocument(sourceSpotId).catch((err) => {
             console.error('Failed to delete merged spot from Meilisearch:', err);
