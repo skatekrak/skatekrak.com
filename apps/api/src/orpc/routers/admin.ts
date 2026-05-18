@@ -7,6 +7,7 @@ import { processMediaFile } from '../../helpers/media-upload';
 import { spotIndex } from '../../helpers/meilisearch';
 import { buildStat, recomputeMediasStat, type Stat } from '../../helpers/stats';
 import { os, authed, admin } from '../base';
+import { deleteSpotRecord } from './admin.delete-spot';
 import { mergeSpotRecords } from './admin.merge';
 
 // Types matching the raw Postgres JSON shapes for Prisma Json? columns.
@@ -471,6 +472,23 @@ export const mergeSpots = os.admin.spots.merge
         });
 
         return { success: true, sourceSpotId, targetSpotId };
+    });
+
+// ============================================================================
+// admin.spots.delete — Delete a spot and let relation onDelete rules clean up
+// ============================================================================
+
+export const deleteSpot = os.admin.spots.delete
+    .use(authed)
+    .use(admin)
+    .handler(async ({ context, input }) => {
+        await context.prisma.$transaction((tx) => deleteSpotRecord(tx, { spotId: input.id }));
+
+        spotIndex.deleteDocument(input.id).catch((err) => {
+            console.error('Failed to delete spot from Meilisearch:', err);
+        });
+
+        return { success: true };
     });
 
 // ============================================================================

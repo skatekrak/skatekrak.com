@@ -17,6 +17,7 @@ import {
     updateSpotGeneralInfoOutput,
     mergeSpotsInput,
     mergeSpotsOutput,
+    deleteSpotInput,
     adminListMediaInput,
     adminListMediaOutput,
     adminUpdateMediaInput,
@@ -115,6 +116,7 @@ export const contract = {
             list: oc.input(adminListSpotsInput).output(adminListSpotsOutput),
             updateGeneralInfo: oc.input(updateSpotGeneralInfoInput).output(updateSpotGeneralInfoOutput),
             merge: oc.input(mergeSpotsInput).output(mergeSpotsOutput),
+            delete: oc.input(deleteSpotInput).output(z.object({ success: z.boolean() })),
         },
         media: {
             list: oc.input(adminListMediaInput).output(adminListMediaOutput),
