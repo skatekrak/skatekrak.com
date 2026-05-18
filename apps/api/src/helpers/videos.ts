@@ -11,6 +11,12 @@ import type { z } from 'zod';
 
 export type VideoInformation = z.infer<typeof VideoInformationSchema>;
 
+type ParsedVideoURL = {
+    provider: VideoProvider;
+    id: string;
+    type: 'video' | 'playlist';
+};
+
 // ============================================================================
 // URL parsing
 // ============================================================================
@@ -18,7 +24,17 @@ export type VideoInformation = z.infer<typeof VideoInformationSchema>;
 /**
  * Extract the provider and video ID from a YouTube or Vimeo URL.
  */
-export function parseVideoURL(url: string): { provider: VideoProvider; id: string } {
+export function parseVideoURL(url: string): ParsedVideoURL {
+    const parsedURL = new URL(url);
+
+    if (parsedURL.hostname.includes('youtu') && parsedURL.pathname === '/playlist') {
+        const playlistId = parsedURL.searchParams.get('list');
+
+        if (playlistId) {
+            return { provider: VideoProvider.YOUTUBE, id: playlistId, type: 'playlist' };
+        }
+    }
+
     const match = url.match(
         /(http:|https:|)\/\/(player.|www.)?(vimeo\.com|youtu(be\.com|\.be|be\.googleapis\.com))\/(video\/|embed\/|watch\?v=|v\/)?([A-Za-z0-9._%-]*)(&\S+)?/,
     );
@@ -36,10 +52,10 @@ export function parseVideoURL(url: string): { provider: VideoProvider; id: strin
 
     if (id) {
         if (host.includes('youtu')) {
-            return { provider: VideoProvider.YOUTUBE, id };
+            return { provider: VideoProvider.YOUTUBE, id, type: 'video' };
         }
         if (host.includes('vimeo')) {
-            return { provider: VideoProvider.VIMEO, id };
+            return { provider: VideoProvider.VIMEO, id, type: 'video' };
         }
     }
 
@@ -90,6 +106,42 @@ async function fetchYouTubeInfo(videoId: string): Promise<VideoInformation> {
     };
 }
 
+async function fetchYouTubePlaylistInfo(playlistId: string): Promise<VideoInformation> {
+    const params = new URLSearchParams({
+        id: playlistId,
+        key: env.GOOGLE_KEY,
+        part: 'snippet',
+        maxResults: '50',
+    });
+
+    const response = await fetch(`https://www.googleapis.com/youtube/v3/playlists?${params}`);
+    if (!response.ok) {
+        throw new Error(`YouTube API error: ${response.status}`);
+    }
+
+    const body = (await response.json()) as {
+        items: Array<{
+            snippet: {
+                title: string;
+                description: string;
+                thumbnails: Record<string, { url: string }>;
+            };
+        }>;
+    };
+
+    const item = body.items[0];
+    if (!item) {
+        throw new Error('YouTube playlist not found');
+    }
+
+    return {
+        title: item.snippet.title,
+        description: item.snippet.description,
+        thumbnailURL: pickYouTubeThumbnail(item.snippet.thumbnails),
+        provider: VideoProvider.YOUTUBE,
+    };
+}
+
 async function fetchVimeoInfo(videoId: string): Promise<VideoInformation> {
     const response = await fetch(`https://api.vimeo.com/videos/${videoId}`, {
         headers: { Authorization: `Bearer ${env.VIMEO_AUTH}` },
@@ -121,10 +173,14 @@ async function fetchVimeoInfo(videoId: string): Promise<VideoInformation> {
  * Parse a video URL and fetch its metadata from YouTube or Vimeo.
  */
 export async function getVideoInformation(videoURL: string): Promise<VideoInformation> {
-    const { provider, id } = parseVideoURL(videoURL);
+    const { provider, id, type } = parseVideoURL(videoURL);
 
     switch (provider) {
         case VideoProvider.YOUTUBE:
+            if (type === 'playlist') {
+                return fetchYouTubePlaylistInfo(id);
+            }
+
             return fetchYouTubeInfo(id);
         case VideoProvider.VIMEO:
             return fetchVimeoInfo(id);
