@@ -261,6 +261,21 @@ export const updateSpotGeneralInfoOutput = z.object({
 });
 
 // ============================================================================
+// Merge spots
+// ============================================================================
+
+export const mergeSpotsInput = z.object({
+    sourceSpotId: z.string().min(1),
+    targetSpotId: z.string().min(1),
+});
+
+export const mergeSpotsOutput = z.object({
+    success: z.boolean(),
+    sourceSpotId: z.string(),
+    targetSpotId: z.string(),
+});
+
+// ============================================================================
 // List media
 // ============================================================================
 

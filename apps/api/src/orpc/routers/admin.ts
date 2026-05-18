@@ -4,6 +4,7 @@ import type { Prisma, ClipProvider } from '@krak/prisma';
 
 import { extractHashtags, addHashtagIfNeeded } from '../../helpers/hashtags';
 import { processMediaFile } from '../../helpers/media-upload';
+import { spotIndex } from '../../helpers/meilisearch';
 import { buildStat, recomputeMediasStat, type Stat } from '../../helpers/stats';
 import { os, authed, admin } from '../base';
 
@@ -315,16 +316,19 @@ export const overview = os.admin.overview
 
         const spotsByType = spotsByTypeRaw.map((row) => ({
             type: row.type,
+            // oxlint-disable-next-line no-underscore-dangle
             count: row._count.type,
         }));
 
         const mediaByType = mediaByTypeRaw.map((row) => ({
             type: row.type,
+            // oxlint-disable-next-line no-underscore-dangle
             count: row._count.type,
         }));
 
         const clipsByProvider = clipsByProviderRaw.map((row) => ({
             provider: row.provider,
+            // oxlint-disable-next-line no-underscore-dangle
             count: row._count.provider,
         }));
 
@@ -443,6 +447,125 @@ export const updateSpotGeneralInfo = os.admin.spots.updateGeneralInfo
             tags: spot.tags,
             updatedAt: spot.updatedAt,
         };
+    });
+
+// ============================================================================
+// admin.spots.merge — Move all source spot relations into target, then delete source
+// ============================================================================
+
+export const mergeSpots = os.admin.spots.merge
+    .use(authed)
+    .use(admin)
+    .handler(async ({ context, input }) => {
+        const { sourceSpotId, targetSpotId } = input;
+
+        if (sourceSpotId === targetSpotId) {
+            throw new ORPCError('BAD_REQUEST', { message: 'Source and target spots must be different' });
+        }
+
+        await context.prisma.$transaction(async (tx) => {
+            const [sourceSpot, targetSpot] = await Promise.all([
+                tx.spot.findUnique({ where: { id: sourceSpotId }, select: { id: true } }),
+                tx.spot.findUnique({ where: { id: targetSpotId }, select: { id: true } }),
+            ]);
+
+            if (!sourceSpot) {
+                throw new ORPCError('NOT_FOUND', { message: `Source spot '${sourceSpotId}' not found` });
+            }
+
+            if (!targetSpot) {
+                throw new ORPCError('NOT_FOUND', { message: `Target spot '${targetSpotId}' not found` });
+            }
+
+            await tx.media.updateMany({
+                where: { spotId: sourceSpotId },
+                data: { spotId: targetSpotId },
+            });
+
+            await tx.clip.updateMany({
+                where: { spotId: sourceSpotId },
+                data: { spotId: targetSpotId },
+            });
+
+            await tx.comment.updateMany({
+                where: { spotId: sourceSpotId },
+                data: { spotId: targetSpotId },
+            });
+
+            await tx.spotEdit.updateMany({
+                where: {
+                    spotId: { in: [sourceSpotId, targetSpotId] },
+                    mergeIntoId: { in: [sourceSpotId, targetSpotId] },
+                },
+                data: { mergeIntoId: null },
+            });
+
+            await tx.spotEdit.updateMany({
+                where: { spotId: sourceSpotId },
+                data: { spotId: targetSpotId },
+            });
+
+            await tx.spotEdit.updateMany({
+                where: { mergeIntoId: sourceSpotId },
+                data: { mergeIntoId: targetSpotId },
+            });
+
+            const targetFollowers = await tx.profileSpotFollow.findMany({
+                where: { spotId: targetSpotId },
+                select: { profileId: true },
+            });
+            const targetFollowerIds = targetFollowers.map((follow) => follow.profileId);
+
+            if (targetFollowerIds.length > 0) {
+                await tx.profileSpotFollow.deleteMany({
+                    where: {
+                        spotId: sourceSpotId,
+                        profileId: { in: targetFollowerIds },
+                    },
+                });
+            }
+
+            await tx.profileSpotFollow.updateMany({
+                where: { spotId: sourceSpotId },
+                data: { spotId: targetSpotId },
+            });
+
+            const [allTargetMedias, allTargetClips, allTargetComments] = await Promise.all([
+                tx.media.findMany({
+                    where: { spotId: targetSpotId },
+                    orderBy: { createdAt: 'desc' },
+                    select: { createdAt: true, trickDone: true },
+                }),
+                tx.clip.findMany({
+                    where: { spotId: targetSpotId },
+                    orderBy: { createdAt: 'desc' },
+                    select: { createdAt: true },
+                }),
+                tx.comment.findMany({
+                    where: { spotId: targetSpotId },
+                    orderBy: { createdAt: 'desc' },
+                    select: { createdAt: true },
+                }),
+            ]);
+
+            await tx.spot.update({
+                where: { id: targetSpotId },
+                data: {
+                    mediasStat: buildStat(allTargetMedias),
+                    clipsStat: buildStat(allTargetClips),
+                    commentsStat: buildStat(allTargetComments),
+                    tricksDoneStat: buildStat(allTargetMedias.filter((media) => media.trickDone != null)),
+                },
+            });
+
+            await tx.spot.delete({ where: { id: sourceSpotId } });
+        });
+
+        spotIndex.deleteDocument(sourceSpotId).catch((err) => {
+            console.error('Failed to delete merged spot from Meilisearch:', err);
+        });
+
+        return { success: true, sourceSpotId, targetSpotId };
     });
 
 // ============================================================================

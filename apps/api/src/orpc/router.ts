@@ -7,6 +7,7 @@ import {
     overview,
     listSpots,
     updateSpotGeneralInfo,
+    mergeSpots,
     listMedia,
     createMedia,
     updateMedia,
@@ -78,6 +79,7 @@ export const router = os.router({
         spots: {
             list: listSpots,
             updateGeneralInfo: updateSpotGeneralInfo,
+            merge: mergeSpots,
         },
         media: {
             list: listMedia,
