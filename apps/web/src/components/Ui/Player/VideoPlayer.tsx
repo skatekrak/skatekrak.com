@@ -1,8 +1,8 @@
 /*
  * Npm import
  */
-import React, { CSSProperties } from 'react';
-import ReactPlayer, { type ReactPlayerProps } from 'react-player/lazy';
+import React, { type CSSProperties, type ComponentProps } from 'react';
+import ReactPlayer from 'react-player';
 
 /*
  * Local import
@@ -13,15 +13,15 @@ import ReactPlayer, { type ReactPlayerProps } from 'react-player/lazy';
  */
 
 export type VideoPlayerProps = {
-    // ref: React.LegacyRef<ReactPlayer>;
+    url?: ComponentProps<typeof ReactPlayer>['src'];
     videoSize?: {
         width: number;
         height: number;
     };
     style?: CSSProperties;
-} & Partial<ReactPlayerProps>;
+} & Omit<Partial<ComponentProps<typeof ReactPlayer>>, 'src'>;
 
-const VideoPlayer = React.forwardRef<ReactPlayer, VideoPlayerProps>(({ url, videoSize, style, ...props }, ref) => (
+const VideoPlayer = React.forwardRef<HTMLVideoElement, VideoPlayerProps>(({ url, videoSize, style, ...props }, ref) => (
     <div
         className="video-player-container"
         style={{ ...(videoSize ? { paddingTop: (videoSize.height / videoSize.width) * 100 + '%' } : {}), ...style }}
@@ -31,8 +31,8 @@ const VideoPlayer = React.forwardRef<ReactPlayer, VideoPlayerProps>(({ url, vide
                 ref={ref}
                 height="100%"
                 width="100%"
-                url={url}
-                config={{ youtube: { playerVars: { disablekb: 0, fs: 1 } } }}
+                src={url}
+                config={{ youtube: { disablekb: 0, fs: 1 } }}
                 {...props}
             />
         </div>

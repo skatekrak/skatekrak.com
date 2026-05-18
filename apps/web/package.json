@@ -42,7 +42,7 @@
         "react-dropzone": "^15.0.0",
         "react-map-gl": "^8.1.1",
         "react-masonry-css": "^1.0.16",
-        "react-player": "2.16.1",
+        "react-player": "3.4.0",
         "react-responsive-modal": "^7.1.0",
         "react-share": "^5.2.2",
         "simplebar-react": "^3.2.4",

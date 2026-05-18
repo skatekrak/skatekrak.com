@@ -1,5 +1,4 @@
-import React, { useEffect, useRef } from 'react';
-import ReactPlayer from 'react-player/lazy';
+import React, { useEffect, useState } from 'react';
 
 import type { Media } from '@krak/contracts';
 import { useImgproxy } from '@krak/ui';
@@ -15,7 +14,7 @@ export type MapMediaVideoPlayerProps = {
 
 const MapMediaVideoPlayer: React.FC<MapMediaVideoPlayerProps> = ({ media, isPlaying }) => {
     const setVideoPlaying = useMapStore((state) => state.setVideoPlaying);
-    const playerRef = useRef<ReactPlayer>(null);
+    const [previewKey, setPreviewKey] = useState(0);
     const imgproxy = useImgproxy();
 
     const onReady = () => {
@@ -23,14 +22,14 @@ const MapMediaVideoPlayer: React.FC<MapMediaVideoPlayerProps> = ({ media, isPlay
     };
 
     useEffect(() => {
-        if (!isPlaying && playerRef.current) {
-            playerRef.current.showPreview();
+        if (!isPlaying) {
+            setPreviewKey((key) => key + 1);
         }
     }, [isPlaying]);
 
     return (
         <VideoPlayer
-            ref={playerRef}
+            key={previewKey}
             playing={isPlaying}
             onReady={onReady}
             url={media.video!.url}

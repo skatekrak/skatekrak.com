@@ -1,5 +1,4 @@
-import React, { useEffect, useRef } from 'react';
-import ReactPlayer from 'react-player/lazy';
+import React, { useEffect, useState } from 'react';
 import { useShallow } from 'zustand/react/shallow';
 
 import type { Clip } from '@krak/contracts';
@@ -17,15 +16,15 @@ const MapFullSpotMainClip = ({ clip }: MapFullSpotMainClipProps) => {
         useShallow((state) => [state.videoPlayingId, state.setVideoPlaying]),
     );
     const isPlaying = videoPlayingId === clip.id;
-    const playerRef = useRef<ReactPlayer>(null);
+    const [previewKey, setPreviewKey] = useState(0);
 
     const onReady = () => {
         setVideoPlaying(clip.id);
     };
 
     useEffect(() => {
-        if (!isPlaying && playerRef.current) {
-            playerRef.current.showPreview();
+        if (!isPlaying) {
+            setPreviewKey((key) => key + 1);
         }
     }, [isPlaying]);
 
@@ -34,7 +33,7 @@ const MapFullSpotMainClip = ({ clip }: MapFullSpotMainClipProps) => {
             <Typography className="mb-4" component="heading6">
                 {clip.title}
             </Typography>
-            <VideoPlayer ref={playerRef} playing={isPlaying} onReady={onReady} url={clip.videoURL} light controls />
+            <VideoPlayer key={previewKey} playing={isPlaying} onReady={onReady} url={clip.videoURL} light controls />
         </div>
     );
 };
