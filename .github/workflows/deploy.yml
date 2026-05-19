@@ -71,6 +71,8 @@ jobs:
                   echo "NEXT_PUBLIC_MEILI_HOST=$NEXT_PUBLIC_MEILI_HOST" >> $GITHUB_OUTPUT
                   echo "NEXT_PUBLIC_MEILI_API_KEY=$NEXT_PUBLIC_MEILI_API_KEY" >> $GITHUB_OUTPUT
                   echo "NEXT_PUBLIC_IMGPROXY_URL=$NEXT_PUBLIC_IMGPROXY_URL" >> $GITHUB_OUTPUT
+                  echo "NEXT_PUBLIC_UMAMI_SCRIPT_URL=$NEXT_PUBLIC_UMAMI_SCRIPT_URL" >> $GITHUB_OUTPUT
+                  echo "NEXT_PUBLIC_UMAMI_WEBSITE_ID=$NEXT_PUBLIC_UMAMI_WEBSITE_ID" >> $GITHUB_OUTPUT
 
             - name: Login to registry
               uses: docker/login-action@v3
@@ -96,6 +98,8 @@ jobs:
                       NEXT_PUBLIC_MEILI_HOST=${{ steps.fnox.outputs.NEXT_PUBLIC_MEILI_HOST }}
                       NEXT_PUBLIC_MEILI_API_KEY=${{ steps.fnox.outputs.NEXT_PUBLIC_MEILI_API_KEY }}
                       NEXT_PUBLIC_IMGPROXY_URL=${{ steps.fnox.outputs.NEXT_PUBLIC_IMGPROXY_URL }}
+                      NEXT_PUBLIC_UMAMI_SCRIPT_URL=${{ steps.fnox.outputs.NEXT_PUBLIC_UMAMI_SCRIPT_URL }}
+                      NEXT_PUBLIC_UMAMI_WEBSITE_ID=${{ steps.fnox.outputs.NEXT_PUBLIC_UMAMI_WEBSITE_ID }}
                   cache-from: type=gha,scope=build-web
                   cache-to: type=gha,mode=max,scope=build-web
 
