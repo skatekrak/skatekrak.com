@@ -490,7 +490,7 @@ export const mapCategoryLabels: Record<MapCategory, string> = {
     accessories: 'Accessories',
     brands: 'Brands',
     thrasher: 'Thrasher',
-    maps: 'Maps',
+    maps: 'Misc.',
 };
 
 /** Categories where spots are fetched by direct tag match (not via media) */
