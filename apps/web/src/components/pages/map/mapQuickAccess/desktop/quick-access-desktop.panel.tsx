@@ -7,12 +7,13 @@ import ToggleButton from './quick-access-desktop.panel-toggle';
 
 type Props = {
     isSelected: boolean;
-    src: string;
+    src?: string;
+    imagePath?: string;
     tooltipText: string;
     panelContent: (closePanel: () => void) => React.ReactElement;
 };
 
-const QuickAccessDesktopPanel = ({ isSelected, src, tooltipText, panelContent }: Props) => {
+const QuickAccessDesktopPanel = ({ isSelected, src, imagePath, tooltipText, panelContent }: Props) => {
     const [isOpen, setIsOpen] = useState(false);
 
     const { refs, context, floatingStyles } = useFloating({
@@ -32,6 +33,7 @@ const QuickAccessDesktopPanel = ({ isSelected, src, tooltipText, panelContent }:
                 selected={isSelected}
                 isPanelOpen={isOpen}
                 src={src}
+                imagePath={imagePath}
                 tooltipText={tooltipText}
             />
             {isOpen && (

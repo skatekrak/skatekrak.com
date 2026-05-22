@@ -13,6 +13,8 @@ import classNames from 'classnames';
 import NextImage from 'next/image';
 import React, { Ref, useState } from 'react';
 
+import { KrakImage } from '@krak/ui';
+
 import IconArrowHead from '@/components/Ui/Icons/ArrowHead';
 import Typography from '@/components/Ui/typography/Typography';
 
@@ -21,12 +23,13 @@ type Props = {
     onClick: () => void;
     selected: boolean;
     isPanelOpen: boolean;
-    src: string;
+    src?: string;
+    imagePath?: string;
     tooltipText: string;
 };
 
 const QuickAccessDesktopPanelToggle: React.FC<Props> = React.forwardRef(
-    ({ onClick, src, tooltipText, selected, isPanelOpen }, ref) => {
+    ({ onClick, src, imagePath, tooltipText, selected, isPanelOpen }, ref) => {
         const [isHover, setIsHover] = useState(false);
 
         const { context, refs, floatingStyles } = useFloating({
@@ -60,12 +63,21 @@ const QuickAccessDesktopPanelToggle: React.FC<Props> = React.forwardRef(
                             'after:bg-primary-80': selected,
                         })}
                     >
-                        <NextImage
-                            fill
-                            src={src}
-                            alt={tooltipText}
-                            className="block bg-tertiary-medium border border-solid border-tertiary-light rounded-full"
-                        />
+                        {imagePath != null ? (
+                            <KrakImage
+                                path={imagePath}
+                                options={{ width: 44, height: 44, resizingType: 'fill' }}
+                                alt={tooltipText}
+                                className="block size-11 bg-tertiary-medium border border-solid border-tertiary-light rounded-full"
+                            />
+                        ) : (
+                            <NextImage
+                                fill
+                                src={src ?? ''}
+                                alt={tooltipText}
+                                className="block bg-tertiary-medium border border-solid border-tertiary-light rounded-full"
+                            />
+                        )}
                     </div>
                 </button>
 
