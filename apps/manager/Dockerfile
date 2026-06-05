@@ -21,6 +21,7 @@ COPY apps/api/package.json apps/api/
 COPY apps/web/package.json apps/web/
 COPY packages/auth/package.json packages/auth/
 COPY packages/contracts/package.json packages/contracts/
+COPY packages/jobs/package.json packages/jobs/
 COPY packages/prisma/package.json packages/prisma/
 COPY packages/types/package.json packages/types/
 COPY packages/trpc/package.json packages/trpc/
