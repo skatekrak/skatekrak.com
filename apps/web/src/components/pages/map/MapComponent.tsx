@@ -3,6 +3,7 @@ import { intersects } from 'radash';
 import React, { useCallback, useMemo, memo } from 'react';
 import ReactMapGL, {
     GeolocateControl,
+    MapLayerMouseEvent,
     MapRef,
     NavigationControl,
     Source,
@@ -89,6 +90,28 @@ const MapComponent = ({ mapRef, spots, children, onLoad }: MapComponentProps) =>
         }
     }, [setSpotOverview, spotId, selectedSpotOverview, setSpotId]);
 
+    const spotLayerIds = useMemo(
+        () => [
+            'spot-small-point',
+            ...Object.values(Types).map((type) => `spot-layer-${type}`),
+            ...Object.values(Status).map((status) => `spot-layer-${status}`),
+        ],
+        [],
+    );
+
+    const onMapClick = useCallback(
+        (event: MapLayerMouseEvent) => {
+            const map = mapRef.current?.getMap();
+            if (!map || spotId == null) return;
+
+            const features = map.queryRenderedFeatures(event.point, { layers: spotLayerIds });
+            if (features.length === 0) {
+                onPopupClose();
+            }
+        },
+        [mapRef, spotId, spotLayerIds, onPopupClose],
+    );
+
     const onViewportChange = async (viewState: ViewStateChangeEvent) => {
         await setViewport(viewState.viewState);
     };
@@ -142,6 +165,7 @@ const MapComponent = ({ mapRef, spots, children, onLoad }: MapComponentProps) =>
                 projection={{ type: 'mercator' }}
                 onMove={onViewportChange}
                 onLoad={onLoad}
+                onClick={onMapClick}
             >
                 <Source id="spots" type="geojson" data={spotSourceData}>
                     <SmallLayer />
