@@ -91,11 +91,7 @@ const MapComponent = ({ mapRef, spots, children, onLoad }: MapComponentProps) =>
     }, [setSpotOverview, spotId, selectedSpotOverview, setSpotId]);
 
     const spotLayerIds = useMemo(
-        () => [
-            'spot-small-point',
-            ...Object.values(Types).map((type) => `spot-layer-${type}`),
-            ...Object.values(Status).map((status) => `spot-layer-${status}`),
-        ],
+        () => ['spot-small-point', ...Object.values(Types).map((type) => `spot-layer-${type}`)],
         [],
     );
 
