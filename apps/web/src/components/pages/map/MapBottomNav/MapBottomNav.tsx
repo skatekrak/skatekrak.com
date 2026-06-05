@@ -5,6 +5,7 @@ import KrakAppIcon from '@/components/Ui/Icons/Logos/KrakAppIcon';
 import Typography from '@/components/Ui/typography/Typography';
 
 import MobileCities from '../mapQuickAccess/mobile/mobile-cities';
+import MobileFamous from '../mapQuickAccess/mobile/mobile-famous';
 import MobileMaps from '../mapQuickAccess/mobile/mobile-maps';
 import MapBottomNavSheet from './MapBottomNavSheet';
 
@@ -34,6 +35,8 @@ const MapBottomNav: React.FC<Props> = ({ isMobile }) => {
                             <Typography component="condensedButton">Cities</Typography>
                         </TriggerButton>
                     </MapBottomNavSheet>
+                    {/* Famous */}
+                    <MobileFamous />
                     {/* Maps */}
                     <MapBottomNavSheet
                         displayCloseButton={false}
