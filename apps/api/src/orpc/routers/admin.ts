@@ -4,7 +4,7 @@ import type { Prisma, ClipProvider } from '@krak/prisma';
 
 import { extractHashtags, addHashtagIfNeeded } from '../../helpers/hashtags';
 import { processMediaFile } from '../../helpers/media-upload';
-import { spotIndex } from '../../helpers/meilisearch';
+import { spotIndex, mapIndex, buildMapDocument } from '../../helpers/meilisearch';
 import { buildStat, recomputeMediasStat, type Stat } from '../../helpers/stats';
 import { os, authed, admin } from '../base';
 import { deleteSpotRecord } from './admin.delete-spot';
@@ -840,6 +840,11 @@ export const createAdminMap = os.admin.maps.create
             },
         });
 
+        // Index the new map in Meilisearch (fire-and-forget, don't block the response)
+        mapIndex.addDocuments([buildMapDocument(map)], { primaryKey: 'id' }).catch((err) => {
+            console.error('Failed to index map in Meilisearch:', err);
+        });
+
         return map;
     });
 
@@ -861,6 +866,11 @@ export const updateAdminMap = os.admin.maps.update
         const map = await context.prisma.map.update({
             where: { id },
             data,
+        });
+
+        // Keep the Meilisearch document in sync (fire-and-forget)
+        mapIndex.addDocuments([buildMapDocument(map)], { primaryKey: 'id' }).catch((err) => {
+            console.error('Failed to update map in Meilisearch:', err);
         });
 
         return map;
@@ -903,6 +913,11 @@ export const deleteAdminMap = os.admin.maps.delete
         }
 
         await context.prisma.map.delete({ where: { id: input.id } });
+
+        // Remove the Meilisearch document (fire-and-forget)
+        mapIndex.deleteDocument(input.id).catch((err) => {
+            console.error('Failed to delete map from Meilisearch:', err);
+        });
 
         return { success: true };
     });

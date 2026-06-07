@@ -9,12 +9,11 @@ const client = new Meilisearch({
     apiKey: env.MEILI_ADMIN_KEY,
 });
 
-export const spotIndex = client.index('prod_SPOTS');
 export const mapIndex = client.index('prod_MAPS');
 
 /**
- * Builds the Meilisearch document for a Map. Used both for the
- * one-off seed job and the incremental sync in the admin router.
+ * Builds the Meilisearch document for a Map. Must stay in sync with the
+ * incremental indexing done in the API's admin router.
  */
 export function buildMapDocument(map: Map) {
     return {

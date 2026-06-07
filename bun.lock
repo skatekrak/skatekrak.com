@@ -181,6 +181,7 @@
         "@krak/prisma": "workspace:*",
         "@prisma/adapter-pg": "^7.4.1",
         "@t3-oss/env-core": "^0.11.1",
+        "meilisearch": "^0.55.0",
         "zod": "^4.3.6",
       },
       "devDependencies": {
