@@ -298,6 +298,7 @@ function MapEditCard({ map, onCancel, onSaved }: { map: MapData; onCancel: () =>
                         <MapFormFields
                             form={form}
                             idReadOnly
+                            reorderable
                             existingImageUrl={existingImageUrl}
                             onImageChange={(file) => {
                                 imageFileRef.current = file;

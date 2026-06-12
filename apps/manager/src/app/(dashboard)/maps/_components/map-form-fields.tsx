@@ -1,6 +1,6 @@
 'use client';
 
-import { ImageIcon, Plus, Trash2, X } from 'lucide-react';
+import { ImageIcon, Plus, X } from 'lucide-react';
 import { useRef, useState } from 'react';
 import { useFieldArray, useWatch } from 'react-hook-form';
 
@@ -19,6 +19,7 @@ import {
 } from '@krak/ui';
 
 import { categoryLabels, mapCategories, type MapCategory, type MapFormValues } from './map-form-types';
+import { SortableFieldList } from './sortable-field-list';
 
 import type { UseFormReturn } from 'react-hook-form';
 
@@ -34,13 +35,15 @@ interface MapFormFieldsProps {
     existingImageUrl?: string;
     /** Called when a new image file is selected or cleared */
     onImageChange?: (file: File | null) => void;
+    /** When true, videos and soundtrack lists can be reordered via drag-and-drop */
+    reorderable?: boolean;
 }
 
 // ============================================================================
 // MapFormFields — shared form fields for create & edit
 // ============================================================================
 
-export function MapFormFields({ form, idReadOnly, existingImageUrl, onImageChange }: MapFormFieldsProps) {
+export function MapFormFields({ form, idReadOnly, existingImageUrl, onImageChange, reorderable }: MapFormFieldsProps) {
     const videosField = useFieldArray({ control: form.control, name: 'videos' });
     const soundtrackField = useFieldArray({ control: form.control, name: 'soundtrack' });
     const watchedCategories = useWatch({ control: form.control, name: 'categories' });
@@ -258,25 +261,15 @@ export function MapFormFields({ form, idReadOnly, existingImageUrl, onImageChang
                         Add
                     </Button>
                 </div>
-                {videosField.fields.map((arrayField, index) => (
-                    <div key={arrayField.id} className="flex items-center gap-2">
-                        <FormField
-                            control={form.control}
-                            name={`videos.${index}.value`}
-                            render={({ field }) => (
-                                <FormItem className="flex-1">
-                                    <FormControl>
-                                        <Input placeholder="https://..." {...field} />
-                                    </FormControl>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
-                        <Button type="button" variant="ghost" size="icon" onClick={() => videosField.remove(index)}>
-                            <Trash2 className="size-4" />
-                        </Button>
-                    </div>
-                ))}
+                <SortableFieldList
+                    form={form}
+                    name="videos"
+                    fields={videosField.fields}
+                    placeholder="https://..."
+                    onMove={videosField.move}
+                    onRemove={videosField.remove}
+                    reorderable={reorderable}
+                />
             </div>
 
             {/* Soundtrack dynamic list */}
@@ -293,25 +286,15 @@ export function MapFormFields({ form, idReadOnly, existingImageUrl, onImageChang
                         Add
                     </Button>
                 </div>
-                {soundtrackField.fields.map((arrayField, index) => (
-                    <div key={arrayField.id} className="flex items-center gap-2">
-                        <FormField
-                            control={form.control}
-                            name={`soundtrack.${index}.value`}
-                            render={({ field }) => (
-                                <FormItem className="flex-1">
-                                    <FormControl>
-                                        <Input placeholder="Track name" {...field} />
-                                    </FormControl>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
-                        <Button type="button" variant="ghost" size="icon" onClick={() => soundtrackField.remove(index)}>
-                            <Trash2 className="size-4" />
-                        </Button>
-                    </div>
-                ))}
+                <SortableFieldList
+                    form={form}
+                    name="soundtrack"
+                    fields={soundtrackField.fields}
+                    placeholder="Track name"
+                    onMove={soundtrackField.move}
+                    onRemove={soundtrackField.remove}
+                    reorderable={reorderable}
+                />
             </div>
         </>
     );
