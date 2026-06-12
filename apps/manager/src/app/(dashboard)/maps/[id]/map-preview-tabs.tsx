@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useMemo } from 'react';
 
 import type { ContractOutputs } from '@krak/contracts';
-import { mapCategoryLabels } from '@krak/contracts';
+import { directTagCategoryLabels } from '@krak/contracts';
 import {
     Badge,
     Button,
@@ -25,8 +25,6 @@ import { orpc } from '@/lib/orpc';
 
 type MapData = ContractOutputs['maps']['fetch'];
 
-const directTagCategories = [mapCategoryLabels.maps, mapCategoryLabels.skatepark, mapCategoryLabels.shop];
-
 interface MapPreviewTabsProps {
     map: MapData;
 }
@@ -34,7 +32,7 @@ interface MapPreviewTabsProps {
 export function MapPreviewTabs({ map }: MapPreviewTabsProps) {
     const tagsFromMedia = useMemo(() => {
         if (map.categories.length === 0) return true;
-        return !map.categories.some((cat) => directTagCategories.includes(cat));
+        return !map.categories.some((cat) => directTagCategoryLabels.includes(cat));
     }, [map.categories]);
 
     const { data: spots, isLoading: spotsLoading } = useQuery(

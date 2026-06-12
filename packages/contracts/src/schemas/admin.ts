@@ -508,6 +508,13 @@ export const directTagCategories: MapCategory[] = [
     'type_of_spots',
 ];
 
+/**
+ * Same as {@link directTagCategories} but expressed as display labels.
+ * Use this when comparing against category values returned by `maps.fetch`/`maps.list`,
+ * which map keys to labels via `mapCategoryKeysToLabels`.
+ */
+export const directTagCategoryLabels: string[] = directTagCategories.map((category) => mapCategoryLabels[category]);
+
 export const AdminMapSchema = z.object({
     id: z.string(),
     name: z.string(),

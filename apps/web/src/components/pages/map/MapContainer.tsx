@@ -7,7 +7,7 @@ import { MapRef } from 'react-map-gl/maplibre';
 import { useShallow } from 'zustand/react/shallow';
 
 import type { Spot } from '@krak/contracts';
-import { mapCategoryLabels } from '@krak/contracts';
+import { directTagCategoryLabels } from '@krak/contracts';
 
 import CityPanel from '@/components/pages/map/cities/CityPanel';
 import MapCustomPanel from '@/components/pages/map/MapCustom/panel/MapCustomPanel';
@@ -136,10 +136,7 @@ const MapContainer = () => {
         if (isEmpty(customMapInfo)) return undefined;
         if (isEmpty(customMapInfo?.categories)) return true;
 
-        return !intersects(
-            [mapCategoryLabels.maps, mapCategoryLabels.skatepark, mapCategoryLabels.shop],
-            customMapInfo!.categories,
-        );
+        return !intersects(directTagCategoryLabels, customMapInfo!.categories);
     }, [customMapInfo]);
 
     const { data: spotsByTags, isFetching: spotsTagsLoading } = useQuery(
