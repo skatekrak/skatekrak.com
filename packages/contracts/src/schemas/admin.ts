@@ -226,6 +226,7 @@ export const adminListSpotsInput = z.object({
     search: z.string().optional(),
     type: z.array(AdminSpotTypeSchema).optional(),
     status: z.array(AdminSpotStatusSchema).optional(),
+    tags: z.array(z.string()).optional(),
 });
 
 export const adminListSpotsOutput = z.object({

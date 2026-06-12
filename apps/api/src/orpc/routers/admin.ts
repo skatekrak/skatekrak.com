@@ -345,7 +345,7 @@ export const listSpots = os.admin.spots.list
     .use(authed)
     .use(admin)
     .handler(async ({ context, input }) => {
-        const { page, perPage, sortBy, sortOrder, search, type, status } = input;
+        const { page, perPage, sortBy, sortOrder, search, type, status, tags } = input;
         const skip = (page - 1) * perPage;
 
         const where: Prisma.SpotWhereInput = {};
@@ -363,6 +363,10 @@ export const listSpots = os.admin.spots.list
 
         if (status && status.length > 0) {
             where.status = { in: status };
+        }
+
+        if (tags && tags.length > 0) {
+            where.tags = { hasEvery: tags };
         }
 
         const orderBy = sortBy === 'mediasStat' ? { medias: { _count: sortOrder } } : { [sortBy]: sortOrder };

@@ -2,12 +2,13 @@
 
 import { useQuery } from '@tanstack/react-query';
 import { getCoreRowModel, useReactTable, type SortingState } from '@tanstack/react-table';
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown, X } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { parseAsArrayOf, parseAsInteger, parseAsString, parseAsStringLiteral, useQueryState } from 'nuqs';
 import { useState } from 'react';
 
 import {
+    Badge,
     Button,
     DataTable,
     DataTablePagination,
@@ -34,6 +35,8 @@ export default function SpotsListPage() {
     const [search, setSearch] = useQueryState('search', parseAsString.withDefault('').withOptions({ throttleMs: 300 }));
     const [types, setTypes] = useQueryState('type', parseAsArrayOf(parseAsStringLiteral(spotTypes)));
     const [statuses, setStatuses] = useQueryState('status', parseAsArrayOf(parseAsStringLiteral(spotStatuses)));
+    const [tags, setTags] = useQueryState('tags', parseAsArrayOf(parseAsString).withDefault([]));
+    const [tagInput, setTagInput] = useState('');
     const [sorting, setSorting] = useState<SortingState>([{ id: 'createdAt', desc: true }]);
 
     const perPage = 20;
@@ -54,6 +57,7 @@ export default function SpotsListPage() {
                 search: search || undefined,
                 type: selectedTypes.length > 0 ? selectedTypes : undefined,
                 status: selectedStatuses.length > 0 ? selectedStatuses : undefined,
+                tags: tags.length > 0 ? tags : undefined,
             },
         }),
     );
@@ -88,6 +92,30 @@ export default function SpotsListPage() {
             : [...selectedStatuses, value];
         setStatuses(next.length > 0 ? next : null);
         setPage(1);
+    }
+
+    function addTag(raw: string) {
+        const tag = raw.trim();
+        if (tag.length === 0) return;
+        if (tags.includes(tag)) {
+            setTagInput('');
+            return;
+        }
+        setTags([...tags, tag]);
+        setTagInput('');
+        setPage(1);
+    }
+
+    function removeTag(tag: string) {
+        setTags(tags.filter((t) => t !== tag));
+        setPage(1);
+    }
+
+    function handleTagKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            addTag(tagInput);
+        }
     }
 
     function typeFilterLabel(): string {
@@ -152,6 +180,23 @@ export default function SpotsListPage() {
                         ))}
                     </DropdownMenuContent>
                 </DropdownMenu>
+                <div className="flex flex-wrap items-center gap-2">
+                    <Input
+                        placeholder="Filter by tag"
+                        value={tagInput}
+                        onChange={(e) => setTagInput(e.target.value)}
+                        onKeyDown={handleTagKeyDown}
+                        className="w-48"
+                    />
+                    {tags.map((tag) => (
+                        <Badge key={tag} variant="secondary" className="gap-1">
+                            {tag}
+                            <button type="button" onClick={() => removeTag(tag)} className="hover:text-destructive">
+                                <X className="size-3" />
+                            </button>
+                        </Badge>
+                    ))}
+                </div>
             </div>
 
             <DataTable
