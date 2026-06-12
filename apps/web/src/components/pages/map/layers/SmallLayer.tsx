@@ -18,13 +18,12 @@ const SmallLayer = () => {
 
     useEffect(() => {
         const onMapLayerClick = (event: MapLayerMouseEvent) => {
-            if (event.features != null && event.features.length > 0) {
+            const feature = event.features?.[0];
+            if (feature != null && feature.geometry.type === 'Point') {
+                const [lng, lat] = feature.geometry.coordinates;
                 map?.flyTo({
                     zoom: ZOOM_DISPLAY_DOTS + 1,
-                    center: {
-                        lat: event.lngLat.lat,
-                        lng: event.lngLat.lng,
-                    },
+                    center: { lng, lat },
                 });
             }
         };
