@@ -3,8 +3,8 @@ import { Layer, MapLayerMouseEvent, useMap } from 'react-map-gl/maplibre';
 
 import { Status, Types } from '@krak/types';
 
+import { mapColors } from '@/components/pages/map/layers/colors';
 import { useMapStore } from '@/store/map';
-import { mapColors } from '@/styles/colors';
 
 import { ZOOM_DISPLAY_DOTS } from '../Map.constant';
 

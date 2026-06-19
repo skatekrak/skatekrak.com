@@ -14,29 +14,3 @@ export const mapColors = {
     rip: { default: '#FFFFFF', mid: '#CDCDCD', dark: '#8C8C8C' },
     wip: { default: '#FF791A', dark: '#93501F' },
 } as const;
-
-export const primaryColors = {
-    100: '#BF2722',
-    80: '#FF3D38',
-    50: '#FF8380',
-    20: '#FFCDCC',
-} as const;
-
-export const secondaryColors = {
-    100: '#006ACC',
-    80: '#56AEFF',
-    50: '#80C2FF',
-    20: '#CCE7FF',
-} as const;
-
-export const tertiaryColors = {
-    white: '#FFFFFF',
-    dark: '#1F1F1F',
-    medium: '#333333',
-    light: '#4D4D4D',
-} as const;
-
-export const systemColors = {
-    error: '#F64C4C',
-    success: '#26D971',
-} as const;
