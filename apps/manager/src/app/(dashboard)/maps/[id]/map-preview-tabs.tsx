@@ -2,10 +2,9 @@
 
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import Link from 'next/link';
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 
 import type { ContractOutputs } from '@krak/contracts';
-import { directTagCategoryLabels } from '@krak/contracts';
 import {
     Badge,
     Button,
@@ -35,16 +34,10 @@ const MEDIA_PER_PAGE = 24;
 export function MapPreviewTabs({ map }: MapPreviewTabsProps) {
     const [selectedMediaId, setSelectedMediaId] = useState<string | null>(null);
 
-    const tagsFromMedia = useMemo(() => {
-        if (map.categories.length === 0) return true;
-        return !map.categories.some((cat) => directTagCategoryLabels.includes(cat));
-    }, [map.categories]);
-
     const { data: spots, isLoading: spotsLoading } = useQuery(
         orpc.spots.listByTags.queryOptions({
             input: {
                 tags: [map.id],
-                tagsFromMedia,
             },
         }),
     );

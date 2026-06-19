@@ -78,7 +78,6 @@ export const getSpotsGeoJSONInput = z.object({
 
 export const listByTagsInput = z.object({
     tags: z.array(z.string()).min(1, 'You must give at least one tag'),
-    tagsFromMedia: z.boolean().default(false),
     limit: z.number().default(2000),
 });
 

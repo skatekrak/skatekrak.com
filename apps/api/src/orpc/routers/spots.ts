@@ -255,31 +255,13 @@ export const getSpotsGeoJSON = os.spots.getSpotsGeoJSON.handler(async ({ context
 });
 
 export const listByTags = os.spots.listByTags.handler(async ({ context, input }) => {
-    if (input.tagsFromMedia) {
-        const medias = await context.prisma.media.findMany({
-            where: {
-                hashtags: { hasSome: input.tags.map(addHashtagIfNeeded) },
-                spotId: { not: null },
-            },
-            select: { spotId: true },
-            distinct: ['spotId'],
-            take: input.limit,
-        });
-
-        const spotIds = medias.map((m) => m.spotId).filter((id): id is string => id != null);
-
-        if (spotIds.length === 0) return [];
-
-        const spots = await context.prisma.spot.findMany({
-            where: { id: { in: spotIds } },
-            include: addedByInclude,
-        });
-
-        return spots.map(formatPrismaSpot);
-    }
-
     const spots = await context.prisma.spot.findMany({
-        where: { tags: { hasSome: input.tags } },
+        where: {
+            OR: [
+                { tags: { hasSome: input.tags } },
+                { medias: { some: { hashtags: { hasSome: input.tags.map(addHashtagIfNeeded) } } } },
+            ],
+        },
         include: addedByInclude,
         take: input.limit,
     });

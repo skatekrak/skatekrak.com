@@ -1,13 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
-import { draw, isEmpty, intersects } from 'radash';
+import { draw, isEmpty } from 'radash';
 import React, { useState, useEffect, useRef, useCallback, useMemo, ElementRef } from 'react';
 import { MapRef } from 'react-map-gl/maplibre';
 import { useShallow } from 'zustand/react/shallow';
 
 import type { Spot } from '@krak/contracts';
-import { directTagCategoryLabels } from '@krak/contracts';
 
 import CityPanel from '@/components/pages/map/cities/CityPanel';
 import MapCustomPanel from '@/components/pages/map/MapCustom/panel/MapCustomPanel';
@@ -132,20 +131,12 @@ const MapContainer = () => {
         isFetching: spotsGeoJSONLoading,
     } = useSpotsGeoJSON(mapRef?.current ?? undefined, enableSpotQuery);
 
-    const shouldFetchWithMedia = useMemo(() => {
-        if (isEmpty(customMapInfo)) return undefined;
-        if (isEmpty(customMapInfo?.categories)) return true;
-
-        return !intersects(directTagCategoryLabels, customMapInfo!.categories);
-    }, [customMapInfo]);
-
     const { data: spotsByTags, isFetching: spotsTagsLoading } = useQuery(
         orpc.spots.listByTags.queryOptions({
             input: {
                 tags: isEmpty(id) ? [] : [id!],
-                tagsFromMedia: shouldFetchWithMedia ?? false,
             },
-            enabled: !isEmpty(id) && shouldFetchWithMedia !== undefined,
+            enabled: !isEmpty(id) && !isEmpty(customMapInfo),
         }),
     );
 
