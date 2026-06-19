@@ -1675,8 +1675,6 @@
 .simplebar-track.simplebar-vertical {
     width: 0.5rem;
 }
-.simplebar-scrollbar:before {
-    left: 0;
-    right: 0;
-    background: #333333;
+.simplebar-track .simplebar-scrollbar::before {
+    background: #6b6b6b;
 }
