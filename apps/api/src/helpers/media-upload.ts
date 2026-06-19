@@ -1,7 +1,8 @@
 import { createId } from '@paralleldrive/cuid2';
 
-import { uploadToCloudinary } from './cloudinary';
+import { env } from '../env';
 import { uploadToS3 } from './s3';
+import { processVideo } from './video';
 
 // ============================================================================
 // Types
@@ -26,7 +27,7 @@ export type MediaUploadResult = {
  * Validates, processes, and uploads a media file.
  *
  * - Images are converted to WebP via sharp and uploaded to S3.
- * - Videos are uploaded to Cloudinary as-is.
+ * - Videos are transcoded to H.264 MP4 (+ WebP poster) and uploaded to S3.
  *
  * Returns the fields needed to create a Prisma `Media` record.
  *
@@ -44,17 +45,29 @@ export async function processMediaFile(file: File): Promise<MediaUploadResult> {
     const isVideo = resourceType === 'video';
 
     if (isVideo) {
-        const cloudinaryFile = await uploadToCloudinary(buffer, mimeType, 'medias');
+        const { mp4Buffer, width, height, thumbBuffer, thumbWidth, thumbHeight } = await processVideo(buffer);
+
+        const mediaId = createId();
+        const mp4Key = `assets/medias/${mediaId}.mp4`;
+        const thumbKey = `assets/medias/${mediaId}.webp`;
+        await Promise.all([
+            uploadToS3(mp4Key, mp4Buffer, 'video/mp4'),
+            uploadToS3(thumbKey, thumbBuffer, 'image/webp'),
+        ]);
+
         return {
             mediaId: undefined,
             mediaType: 'VIDEO',
-            imageField: {
-                publicId: cloudinaryFile.publicId,
-                url: cloudinaryFile.url.replace('.mp4', '.webp'),
-                width: null,
-                height: null,
+            // ponytail: keeps CloudinaryFileSchema output shape so the frontend is unchanged.
+            imageField: { provider: 's3', key: thumbKey, width: thumbWidth, height: thumbHeight },
+            videoField: {
+                publicId: mp4Key,
+                version: '',
+                url: `${env.DO_CDN_ENDPOINT.replace(/\/$/, '')}/${mp4Key}`,
+                format: 'mp4',
+                width,
+                height,
             },
-            videoField: cloudinaryFile,
         };
     }
 

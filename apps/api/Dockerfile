@@ -42,6 +42,11 @@ RUN bun run build:api
 # ---------------------------------------------------------------------------
 FROM base
 
+# ffmpeg (video transcode) from Debian repos — call `ffmpeg` on PATH.
+RUN apt-get update -qq && \
+  apt-get install --no-install-recommends -y ffmpeg && \
+  rm -rf /var/lib/apt/lists/*
+
 # Install sharp and all its dependencies (native bindings + transitive deps)
 # in a standalone node_modules for the runtime image
 RUN bun install --no-save sharp@0.34.5
