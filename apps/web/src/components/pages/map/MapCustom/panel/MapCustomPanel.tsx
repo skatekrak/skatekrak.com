@@ -14,7 +14,6 @@ import ScrollBar from '@/components/Ui/Scrollbar';
 import { useCustomMapID, useCityID, useMediaID, useSpotID, useSpotModal } from '@/lib/hook/queryState';
 import { CustomMap } from '@/lib/map/types';
 import { orpc } from '@/server/orpc/client';
-import { useSettingsStore } from '@/store/settings';
 
 export type MapCustomPanelTabs = 'media' | 'video' | 'spots' | 'soundtrack';
 
@@ -30,8 +29,6 @@ const MapCustomPanel = ({ map, spots }: MapCustomPanelProps) => {
 
     const [showReadMore, setShowReadMore] = useState(false);
     const [isReadMoreOpen, setIsReadMoreOpen] = useState(false);
-
-    const isMobile = useSettingsStore((state) => state.isMobile);
 
     useEffect(() => {
         const aboutElement = document.getElementById('map-custom-panel-about');
@@ -124,7 +121,7 @@ const MapCustomPanel = ({ map, spots }: MapCustomPanelProps) => {
                                     className="-mr-2 py-1 px-2 hover:text-onDark-highEmphasis"
                                     onClick={() => setIsOpen(false)}
                                 >
-                                    {!isMobile ? 'Reduce details' : 'Show on the map'}
+                                    Hide panel
                                 </button>
                             ) : (
                                 <button className="flex items-center gap-3 text-base" onClick={() => setIsOpen(true)}>
