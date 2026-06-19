@@ -1,4 +1,4 @@
-import { parseAsFloat, parseAsBoolean, parseAsString, useQueryState, useQueryStates, parseAsStringLiteral } from 'nuqs';
+import { parseAsFloat, parseAsBoolean, parseAsString, useQueryState, useQueryStates } from 'nuqs';
 import { useCallback } from 'react';
 
 export const useViewport = () => {
@@ -12,12 +12,6 @@ export const useViewport = () => {
             throttleMs: 400,
         },
     );
-};
-
-const mapStyles = ['dark-v11', 'satellite-streets-v12'] as const;
-
-export const useMapStyle = () => {
-    return useQueryState('style', parseAsStringLiteral(mapStyles).withDefault('dark-v11'));
 };
 
 export const useCustomMapID = () => {

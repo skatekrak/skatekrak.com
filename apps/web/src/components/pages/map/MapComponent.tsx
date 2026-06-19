@@ -1,6 +1,6 @@
 import 'maplibre-gl/dist/maplibre-gl.css';
 import { intersects } from 'radash';
-import React, { useCallback, useMemo, memo } from 'react';
+import React, { useCallback, useEffect, useMemo, useState, memo } from 'react';
 import ReactMapGL, {
     GeolocateControl,
     MapLayerMouseEvent,
@@ -17,8 +17,9 @@ import { Status, Types } from '@krak/types';
 import SpotMarker from '@/components/pages/map/marker/SpotMarker';
 import IconLayer from '@/components/Ui/Icons/IconLayer';
 import { trackEvent } from '@/lib/analytics';
-import { useMapStyle, useSpotID, useSpotModal, useViewport } from '@/lib/hook/queryState';
+import { useSpotID, useSpotModal, useViewport } from '@/lib/hook/queryState';
 import { useMapStore } from '@/store/map';
+import { useSettingsStore } from '@/store/settings';
 
 import SmallLayer from './layers/SmallLayer';
 import SpotPinLayer from './layers/SpotPinLayer';
@@ -112,10 +113,25 @@ const MapComponent = ({ mapRef, spots, children, onLoad }: MapComponentProps) =>
         await setViewport(viewState.viewState);
     };
 
-    const [mapStyle, setMapStyle] = useMapStyle();
+    const isMobile = useSettingsStore((state) => state.isMobile);
+
+    const mapStyles = ['dark-v11', 'satellite-streets-v12', 'light-v11'] as const;
+
+    const [mapStyle, setMapStyle] = useState<(typeof mapStyles)[number]>('dark-v11');
+
+    useEffect(() => {
+        if (isMobile) {
+            setMapStyle('light-v11');
+        } else {
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            setMapStyle(prefersDark ? 'dark-v11' : 'light-v11');
+        }
+    }, []);
 
     const onSwitchMapStyle = () => {
-        setMapStyle(mapStyle === 'dark-v11' ? 'satellite-streets-v12' : 'dark-v11');
+        const currentIndex = mapStyles.indexOf(mapStyle as (typeof mapStyles)[number]);
+        const nextIndex = (currentIndex + 1) % mapStyles.length;
+        setMapStyle(mapStyles[nextIndex]);
     };
 
     return (
