@@ -496,25 +496,6 @@ export const mapCategoryLabels: Record<MapCategory, string> = {
     maps: 'Misc.',
 };
 
-/** Categories where spots are fetched by direct tag match (not via media) */
-export const directTagCategories: MapCategory[] = [
-    'maps',
-    'skatepark',
-    'shop',
-    'youtubers',
-    'bmx',
-    'thrasher',
-    'berrics',
-    'type_of_spots',
-];
-
-/**
- * Same as {@link directTagCategories} but expressed as display labels.
- * Use this when comparing against category values returned by `maps.fetch`/`maps.list`,
- * which map keys to labels via `mapCategoryKeysToLabels`.
- */
-export const directTagCategoryLabels: string[] = directTagCategories.map((category) => mapCategoryLabels[category]);
-
 export const AdminMapSchema = z.object({
     id: z.string(),
     name: z.string(),

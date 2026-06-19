@@ -2,10 +2,9 @@
 
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import Link from 'next/link';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useWatch } from 'react-hook-form';
 
-import { directTagCategories } from '@krak/contracts';
 import {
     Badge,
     Button,
@@ -31,7 +30,6 @@ import type { MapFormControl } from '../_components/map-form-types';
 
 export function CreateMapPreviewTabs({ control }: { control: MapFormControl }) {
     const mapId = useWatch({ control, name: 'id' });
-    const categories = useWatch({ control, name: 'categories' });
 
     // Debounce the map ID to avoid firing queries on every keystroke
     const [debouncedId, setDebouncedId] = useState(mapId);
@@ -42,16 +40,10 @@ export function CreateMapPreviewTabs({ control }: { control: MapFormControl }) {
 
     const hasId = debouncedId.length > 0;
 
-    const tagsFromMedia = useMemo(() => {
-        if (categories.length === 0) return true;
-        return !categories.some((cat) => directTagCategories.includes(cat));
-    }, [categories]);
-
     const { data: spots, isLoading: spotsLoading } = useQuery({
         ...orpc.spots.listByTags.queryOptions({
             input: {
                 tags: [debouncedId],
-                tagsFromMedia,
             },
         }),
         enabled: hasId,
