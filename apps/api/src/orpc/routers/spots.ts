@@ -263,12 +263,12 @@ export const listByTags = os.spots.listByTags.handler(async ({ context, input })
             ],
         },
         include: addedByInclude,
-        // ponytail: mediasStat is a JSON column; Prisma can't orderBy nested JSON keys, so sort by the raw extracted int desc
-        orderBy: { mediasStat: { path: ['all'], sort: 'desc' } },
         take: input.limit,
     });
 
-    return spots.map(formatPrismaSpot);
+    return spots
+        .map(formatPrismaSpot)
+        .toSorted((a, b) => (b.mediasStat?.all ?? 0) - (a.mediasStat?.all ?? 0));
 });
 
 export const getVideoInfo = os.spots.getVideoInformation.handler(async ({ input }) => {
