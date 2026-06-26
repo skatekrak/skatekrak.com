@@ -266,9 +266,7 @@ export const listByTags = os.spots.listByTags.handler(async ({ context, input })
         take: input.limit,
     });
 
-    return spots
-        .map(formatPrismaSpot)
-        .toSorted((a, b) => (b.mediasStat?.all ?? 0) - (a.mediasStat?.all ?? 0));
+    return spots.map(formatPrismaSpot).toSorted((a, b) => (b.mediasStat?.all ?? 0) - (a.mediasStat?.all ?? 0));
 });
 
 export const getVideoInfo = os.spots.getVideoInformation.handler(async ({ input }) => {
