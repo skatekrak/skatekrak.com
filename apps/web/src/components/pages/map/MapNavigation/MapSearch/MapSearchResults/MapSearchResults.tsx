@@ -5,21 +5,20 @@ import Scrollbar from '@/components/Ui/Scrollbar';
 import { useSpotID } from '@/lib/hook/queryState';
 
 import MapSearchResultLoading from './MapSearchResultLoading';
+import MapSearchResultMap from './MapSearchResultMap';
 import MapSearchResultNoContent from './MapSearchResultNoContent';
-import MapSearchResultPlace from './MapSearchResultPlace';
 import MapSearchResultSpot from './MapSearchResultSpot';
 
-import type { SpotHit } from '@/lib/meilisearch';
-import type { Place } from '@/shared/google/google.d';
+import type { SearchResultItem } from '@/lib/hook/useMapSearch';
+import type { MapHit, SpotHit } from '@/lib/meilisearch';
 
 type MapSearchResultsProps = {
     loading: boolean;
-    places: Place[];
-    spots: SpotHit[];
+    results: SearchResultItem[];
     onClick: () => void;
 };
 
-const MapSearchResults: React.FC<MapSearchResultsProps> = ({ spots, loading, places, onClick }) => {
+const MapSearchResults: React.FC<MapSearchResultsProps> = ({ results, loading, onClick }) => {
     const { current: map } = useMap();
     const [, selectSpot] = useSpotID();
 
@@ -35,14 +34,8 @@ const MapSearchResults: React.FC<MapSearchResultsProps> = ({ spots, loading, pla
         onClick();
     };
 
-    const onPlaceClick = (place: Place) => {
-        map?.flyTo({
-            center: {
-                lat: place.geometry.location.lat,
-                lon: place.geometry.location.lng,
-            },
-            duration: 1000,
-        });
+    const onMapClick = (customMap: MapHit) => {
+        console.log('Map clicked:', customMap.id);
         onClick();
     };
 
@@ -53,16 +46,25 @@ const MapSearchResults: React.FC<MapSearchResultsProps> = ({ spots, loading, pla
                     <MapSearchResultLoading />
                 ) : (
                     <>
-                        {spots.length === 0 && places.length === 0 ? (
+                        {results.length === 0 ? (
                             <MapSearchResultNoContent />
                         ) : (
                             <>
-                                {places.map((place) => (
-                                    <MapSearchResultPlace key={place.id} place={place} onPlaceClick={onPlaceClick} />
-                                ))}
-                                {spots.map((spot) => (
-                                    <MapSearchResultSpot key={spot.objectID} spot={spot} onSpotClick={onSpotClick} />
-                                ))}
+                                {results.map((item) =>
+                                    item.kind === 'spot' ? (
+                                        <MapSearchResultSpot
+                                            key={item.data.objectID}
+                                            spot={item.data}
+                                            onSpotClick={onSpotClick}
+                                        />
+                                    ) : (
+                                        <MapSearchResultMap
+                                            key={item.data.id}
+                                            map={item.data}
+                                            onMapClick={onMapClick}
+                                        />
+                                    ),
+                                )}
                             </>
                         )}
                     </>
