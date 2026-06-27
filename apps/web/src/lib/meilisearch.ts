@@ -32,8 +32,22 @@ export type SpotSearchResult = {
     };
 };
 
+export type MapSearchResult = {
+    id: string;
+    name: string;
+    subtitle: string;
+    edito: string;
+    about: string;
+    categories: string[];
+    staging: boolean;
+    videos: string[];
+    soundtrack: string[];
+};
+
 export type SpotHit = Hit<SpotSearchResult>;
+export type MapHit = Hit<MapSearchResult>;
 
 export const spotIndex = client.index('prod_SPOTS');
+export const mapIndex = client.index('prod_MAPS');
 
 export default client;
