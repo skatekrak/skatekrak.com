@@ -1,20 +1,12 @@
-import { useQuery } from '@tanstack/react-query';
-import AwesomeDebouncePromise from 'awesome-debounce-promise';
 import React, { useState } from 'react';
-import useConstant from 'use-constant';
 import { useShallow } from 'zustand/react/shallow';
 
 import IconClear from '@/components/Ui/Icons/IconClear';
 import SearchIcon from '@/components/Ui/Icons/Search';
-import { SpotHit, spotIndex, SpotSearchResult } from '@/lib/meilisearch';
+import { useCombinedSearch } from '@/lib/hook/useMapSearch';
 import { useMapStore } from '@/store/map';
 
 import MapSearchResults from './MapSearchResults/MapSearchResults';
-
-const fetchSpots = async (query: string): Promise<SpotHit[]> => {
-    const res = await spotIndex.search<SpotSearchResult>(query, { hitsPerPage: 20 });
-    return res.hits;
-};
 
 const MapNavigation = () => {
     const [searchValue, setSearchValue] = useState('');
@@ -22,17 +14,7 @@ const MapNavigation = () => {
         useShallow((state) => [state.searchResultIsOpen, state.toggleSearchResult]),
     );
 
-    const debouncedSpotsSearch = useConstant(() => AwesomeDebouncePromise((query: string) => fetchSpots(query), 200));
-    const { isLoading, data: spots } = useQuery({
-        queryKey: ['search-spots', searchValue],
-        queryFn: () => {
-            if (!searchValue) {
-                return null;
-            }
-            return debouncedSpotsSearch(searchValue);
-        },
-        refetchOnWindowFocus: false,
-    });
+    const { results, isLoading } = useCombinedSearch(searchValue);
 
     const handleSearchChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
         setSearchValue(evt.target.value);
@@ -67,8 +49,7 @@ const MapNavigation = () => {
             </div>
             {searchValue !== '' && searchResultOpen && (
                 <MapSearchResults
-                    places={[]}
-                    spots={spots ?? []}
+                    results={results}
                     loading={isLoading}
                     onClick={() => updateSearchResultVisibility(false)}
                 />
