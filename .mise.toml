@@ -66,3 +66,12 @@ run = "DATABASE_URL='postgresql://krak:krak@localhost:5433/krak' bun run studio"
 [tasks.restore]
 description = "Restore db"
 run = "PGPASSWORD=krak psql -U krak -d krak -h localhost -p 5433 -f krak_dump.sql"
+
+[tasks.clean]
+description = "Remove all node_modules, build outputs, .next, .turbo, dist"
+run = """
+#!/usr/bin/env bash
+set -e
+find . \\( -name node_modules -o -name .next -o -name .turbo -o -name dist -o -name build \\) -type d -prune -print -exec rm -rf {} +
+echo "Clean complete."
+"""
