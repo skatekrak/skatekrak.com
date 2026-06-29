@@ -53,6 +53,7 @@ const MapCustomPanel = ({ map, spots }: MapCustomPanelProps) => {
     };
 
     const [mediaId] = useMediaID();
+    const [spotModalVisible] = useSpotModal();
 
     const { isLoading, isFetching, isFetchingNextPage, data, hasNextPage, fetchNextPage } = useInfiniteQuery(
         orpc.media.list.infiniteOptions({
@@ -88,7 +89,7 @@ const MapCustomPanel = ({ map, spots }: MapCustomPanelProps) => {
 
     return (
         <>
-            {mediaId && <MapCustomMediaCarousel initialMediaId={mediaId} hashtag={id} />}
+            {mediaId && !spotModalVisible && <MapCustomMediaCarousel initialMediaId={mediaId} hashtag={id} />}
             <div
                 className={classNames(
                     'absolute inset-0 laptop-s:right-auto laptop-s:w-lg flex flex-col text-onDark-mediumEmphasis text-base bg-tertiary-dark border-r border-solid border-tertiary-medium shadow-2xl z-1010 overflow-y-auto',
