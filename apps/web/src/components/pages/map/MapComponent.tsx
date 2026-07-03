@@ -1,6 +1,6 @@
 import 'maplibre-gl/dist/maplibre-gl.css';
 import { intersects } from 'radash';
-import React, { useCallback, useEffect, useMemo, useState, memo } from 'react';
+import React, { useCallback, useEffect, useMemo, memo } from 'react';
 import ReactMapGL, {
     GeolocateControl,
     MapLayerMouseEvent,
@@ -18,7 +18,7 @@ import SpotMarker from '@/components/pages/map/marker/SpotMarker';
 import IconLayer from '@/components/Ui/Icons/IconLayer';
 import { trackEvent } from '@/lib/analytics';
 import { useSpotID, useSpotModal, useViewport } from '@/lib/hook/queryState';
-import { useMapStore } from '@/store/map';
+import { mapStyles, useMapStore } from '@/store/map';
 import { useSettingsStore } from '@/store/settings';
 
 import SmallLayer from './layers/SmallLayer';
@@ -38,14 +38,17 @@ type MapComponentProps = {
 };
 
 const MapComponent = ({ mapRef, spots, children, onLoad }: MapComponentProps) => {
-    const [selectedSpotOverview, setSpotOverview, toggleLegend, toggleSearchResult] = useMapStore(
-        useShallow((state) => [
-            state.spotOverview,
-            state.setSpotOverview,
-            state.toggleLegend,
-            state.toggleSearchResult,
-        ]),
-    );
+    const [selectedSpotOverview, setSpotOverview, toggleLegend, toggleSearchResult, mapStyle, setMapStyle] =
+        useMapStore(
+            useShallow((state) => [
+                state.spotOverview,
+                state.setSpotOverview,
+                state.toggleLegend,
+                state.toggleSearchResult,
+                state.mapStyle,
+                state.setMapStyle,
+            ]),
+        );
     const [viewport, setViewport] = useViewport();
     const [spotId, setSpotId] = useSpotID();
     const [, setModalVisible] = useSpotModal();
@@ -115,10 +118,6 @@ const MapComponent = ({ mapRef, spots, children, onLoad }: MapComponentProps) =>
 
     const isMobile = useSettingsStore((state) => state.isMobile);
 
-    const mapStyles = ['dark-v11', 'satellite-streets-v12', 'light-v11'] as const;
-
-    const [mapStyle, setMapStyle] = useState<(typeof mapStyles)[number]>('dark-v11');
-
     useEffect(() => {
         if (isMobile) {
             setMapStyle('light-v11');
@@ -126,10 +125,10 @@ const MapComponent = ({ mapRef, spots, children, onLoad }: MapComponentProps) =>
             const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
             setMapStyle(prefersDark ? 'dark-v11' : 'light-v11');
         }
-    }, []);
+    }, [setMapStyle, isMobile]);
 
     const onSwitchMapStyle = () => {
-        const currentIndex = mapStyles.indexOf(mapStyle as (typeof mapStyles)[number]);
+        const currentIndex = mapStyles.indexOf(mapStyle);
         const nextIndex = (currentIndex + 1) % mapStyles.length;
         setMapStyle(mapStyles[nextIndex]);
     };

@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import React, { memo } from 'react';
 import { Popup } from 'react-map-gl/maplibre';
 
@@ -7,6 +8,7 @@ import { getImgproxyUrl } from '@krak/utils';
 
 import IconClips from '@/components/Ui/Icons/IconClips';
 import IconMedia from '@/components/Ui/Icons/IconMedia';
+import { useMapStore } from '@/store/map';
 
 import MapSpotOverviewPlaceholder from './MapSpotOverviewPlaceholder';
 
@@ -37,10 +39,15 @@ function getOverviewImageUrl(
 
 const MapSpotOverview: React.FC<MapSpotOverviewProps> = ({ spotOverview, onPopupClick, onPopupClose }) => {
     const imgproxy = useImgproxy();
+    const mapStyle = useMapStore((state) => state.mapStyle);
+
+    const isLightStyle = mapStyle === 'light-v11';
 
     return (
         <Popup
-            className="map-spot-overview"
+            className={classNames('map-spot-overview', {
+                'map-spot-overview--light': isLightStyle,
+            })}
             longitude={spotOverview.spot.location.longitude}
             latitude={spotOverview.spot.location.latitude}
             onClose={onPopupClose}
@@ -48,7 +55,14 @@ const MapSpotOverview: React.FC<MapSpotOverviewProps> = ({ spotOverview, onPopup
             closeOnClick={false}
         >
             <button className="relative text-left" onClick={onPopupClick}>
-                <h4 className="max-w-[275px] font-black text-2xl text-white">{spotOverview.spot.name}</h4>
+                <h4
+                    className={classNames('max-w-[275px] font-black text-2xl', {
+                        'text-black': isLightStyle,
+                        'text-white': !isLightStyle,
+                    })}
+                >
+                    {spotOverview.spot.name}
+                </h4>
                 <div className="relative w-[275px] mt-2 overflow-hidden bg-tertiary-medium rounded-sm aspect-video shadow-onDarkHighSharp">
                     {spotOverview.mostLikedMedia?.image ? (
                         <div

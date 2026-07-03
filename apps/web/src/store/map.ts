@@ -21,6 +21,9 @@ export type FullSpotTab =
     | 'instagram'
     | 'contributors';
 
+export const mapStyles = ['dark-v11', 'satellite-streets-v12', 'light-v11'] as const;
+export type MapStyle = (typeof mapStyles)[number];
+
 type MapStore = {
     spotOverview: SpotOverview | null;
     legendOpen: boolean;
@@ -28,6 +31,7 @@ type MapStore = {
     videoPlayingId: string | null;
     isCreateSpotOpen: boolean;
     filters: (Types | Status)[];
+    mapStyle: MapStyle;
 
     setSpotOverview: (spotOverview: SpotOverview | null) => void;
     toggleLegend: (value: boolean) => void;
@@ -35,6 +39,7 @@ type MapStore = {
     toggleSearchResult: (value: boolean) => void;
     toggleCreateSpot: () => void;
     toggleFilter: (filter: Types | Status) => void;
+    setMapStyle: (style: MapStyle) => void;
 };
 
 export const useMapStore = create<MapStore>()(
@@ -46,6 +51,7 @@ export const useMapStore = create<MapStore>()(
             videoPlayingId: null,
             isCreateSpotOpen: false,
             filters: [],
+            mapStyle: 'dark-v11',
 
             setSpotOverview: (spotOverview) => set({ spotOverview }),
             toggleLegend: (value) => set({ legendOpen: value }),
@@ -59,6 +65,7 @@ export const useMapStore = create<MapStore>()(
                         : [...state.filters, filter];
                     return { filters };
                 }),
+            setMapStyle: (mapStyle) => set({ mapStyle }),
         }),
         { enabled: process.env.NODE_ENV !== 'production' },
     ),
