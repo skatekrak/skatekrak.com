@@ -137,6 +137,7 @@ const MapContainer = () => {
                 tags: isEmpty(id) ? [] : [id!],
             },
             enabled: !isEmpty(id) && !isEmpty(customMapInfo),
+            refetchOnWindowFocus: false,
         }),
     );
 
