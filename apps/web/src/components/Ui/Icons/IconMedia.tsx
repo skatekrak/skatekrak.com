@@ -1,7 +1,11 @@
-import React from 'react';
+import classNames from 'classnames';
 
-const IconMedia = () => (
-    <svg className="krak-icon icon-media" viewBox="0 0 24 24">
+type Props = {
+    className?: string;
+};
+
+const IconMedia = ({ className }: Props) => (
+    <svg className={classNames('krak-icon icon-media', className)} viewBox="0 0 24 24">
         <path
             fillRule="evenodd"
             clipRule="evenodd"

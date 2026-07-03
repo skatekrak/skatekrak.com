@@ -1,7 +1,11 @@
-import React from 'react';
+import classNames from 'classnames';
 
-const IconClips = () => (
-    <svg className="krak-icon icon-clips" viewBox="0 0 24 24">
+type Props = {
+    className?: string;
+};
+
+const IconClips = ({ className }: Props) => (
+    <svg className={classNames('krak-icon icon-clips', className)} viewBox="0 0 24 24">
         <path d="M14.648 11.5814L11.011 9.06596C10.6793 8.8366 10.2265 9.07397 10.2265 9.4772L10.2265 14.5081C10.2265 14.9113 10.6793 15.1487 11.011 14.9193L14.648 12.4039C14.9355 12.2051 14.9355 11.7802 14.648 11.5814Z" />
         <path
             fillRule="evenodd"

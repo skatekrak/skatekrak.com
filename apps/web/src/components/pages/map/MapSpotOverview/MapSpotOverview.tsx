@@ -1,4 +1,3 @@
-import classNames from 'classnames';
 import React, { memo } from 'react';
 import { Popup } from 'react-map-gl/maplibre';
 
@@ -8,6 +7,8 @@ import { getImgproxyUrl } from '@krak/utils';
 
 import IconClips from '@/components/Ui/Icons/IconClips';
 import IconMedia from '@/components/Ui/Icons/IconMedia';
+
+import MapSpotOverviewPlaceholder from './MapSpotOverviewPlaceholder';
 
 import type { InferContractRouterOutputs } from '@orpc/contract';
 
@@ -46,18 +47,12 @@ const MapSpotOverview: React.FC<MapSpotOverviewProps> = ({ spotOverview, onPopup
             closeButton={false}
             closeOnClick={false}
         >
-            <button className="map-spot-overview-container" onClick={onPopupClick}>
-                <h4
-                    className={classNames('map-spot-overview-name', {
-                        'map-spot-overview-name-center': !spotOverview.mostLikedMedia,
-                    })}
-                >
-                    {spotOverview.spot.name}
-                </h4>
-                {spotOverview.mostLikedMedia?.image && (
-                    <div className="map-spot-overview-cover-container">
+            <button className="relative text-left" onClick={onPopupClick}>
+                <h4 className="max-w-[275px] font-black text-2xl text-white">{spotOverview.spot.name}</h4>
+                <div className="relative w-[275px] mt-2 overflow-hidden bg-tertiary-medium rounded-sm aspect-video shadow-onDarkHighSharp">
+                    {spotOverview.mostLikedMedia?.image ? (
                         <div
-                            className="map-spot-overview-cover"
+                            className="absolute inset-0 bg-center bg-cover"
                             style={{
                                 backgroundImage: `url("${getOverviewImageUrl(
                                     spotOverview.mostLikedMedia.image,
@@ -65,20 +60,24 @@ const MapSpotOverview: React.FC<MapSpotOverviewProps> = ({ spotOverview, onPopup
                                 )}")`,
                             }}
                         />
+                    ) : (
+                        <div className="absolute inset-0 flex flex-col items-center justify-center mb-10">
+                            <MapSpotOverviewPlaceholder className="w-2/3 [&>path]:fill-onDark-lowEmphasis" />
+                        </div>
+                    )}
+                </div>
+                <div className="absolute right-0 bottom-0 left-0 flex items-center gap-4 py-2 px-4 z-1 bg-tertiary-dark/75">
+                    <div className="flex items-center">
+                        <IconMedia className="w-6 h-6 mr-1 fill-onDark-highEmphasis rounded-full" />
+                        <p className="font-bold text-onDark-highEmphasis text-base">
+                            {spotOverview.spot.mediasStat.all}
+                        </p>
                     </div>
-                )}
-                <div
-                    className={classNames('map-spot-overview-overlay', {
-                        'map-spot-overview-overlay--relative': !spotOverview.mostLikedMedia,
-                    })}
-                >
-                    <div className="map-spot-overview-overlay-amount-container">
-                        <IconMedia />
-                        <p className="map-spot-overview-overlay-amount-number">{spotOverview.spot.mediasStat.all}</p>
-                    </div>
-                    <div className="map-spot-overview-overlay-amount-container">
-                        <IconClips />
-                        <p className="map-spot-overview-overlay-amount-number">{spotOverview.spot.clipsStat.all}</p>
+                    <div className="flex items-center">
+                        <IconClips className="w-6 h-6 mr-1 fill-onDark-highEmphasis rounded-full" />
+                        <p className="font-bold text-onDark-highEmphasis text-base">
+                            {spotOverview.spot.clipsStat.all}
+                        </p>
                     </div>
                 </div>
             </button>

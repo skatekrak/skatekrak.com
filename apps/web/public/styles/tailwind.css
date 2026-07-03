@@ -1315,49 +1315,6 @@
         @apply -mt-6 z-9;
     }
 
-    .map-spot-overview-container {
-        @apply relative text-left;
-    }
-
-    .map-spot-overview-name {
-        @apply max-w-[275px] font-roboto-black text-2xl text-white;
-        text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.3);
-    }
-
-    .map-spot-overview-name-center {
-        @apply text-center;
-    }
-
-    .map-spot-overview-cover {
-        @apply absolute inset-0 w-full h-full bg-center bg-cover;
-    }
-
-    .map-spot-overview-cover-container {
-        @apply relative h-0 w-[275px] mt-2 overflow-hidden bg-tertiary-medium rounded-sm;
-        padding-top: 56.25%;
-        box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.4);
-    }
-
-    .map-spot-overview-overlay {
-        @apply absolute right-0 bottom-0 left-0 flex items-center py-2 px-4 z-1;
-        background-color: rgba(31, 31, 31, 0.75);
-    }
-
-    .map-spot-overview-overlay--relative {
-        @apply relative bg-tertiary-dark;
-    }
-
-    .map-spot-overview-overlay-amount-container {
-        @apply flex items-center mr-4 last:mr-0;
-        & .krak-icon {
-            @apply w-6 h-6 mr-1 fill-[#EBEBEB] rounded-full;
-        }
-    }
-
-    .map-spot-overview-overlay-amount-number {
-        @apply font-roboto-bold text-base text-[#EBEBEB];
-    }
-
     .hide {
         display: none !important;
     }
