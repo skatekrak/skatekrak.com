@@ -145,6 +145,13 @@ export function AddMediaDialog({
                     queryClient.invalidateQueries({
                         queryKey: orpc.admin.media.list.queryOptions({ input: {} as never }).queryKey.slice(0, 2),
                     });
+
+                    if (values.spotId) {
+                        queryClient.invalidateQueries({
+                            queryKey: orpc.spots.getSpotOverview.queryOptions({ input: { id: values.spotId } })
+                                .queryKey,
+                        });
+                    }
                 }
 
                 if (result.failed.length === 0) {

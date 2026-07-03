@@ -174,6 +174,11 @@ function MediaInfoView({
             queryClient.invalidateQueries({
                 queryKey: orpc.admin.media.list.queryOptions({ input: {} as never }).queryKey.slice(0, 2),
             });
+            if (media.spot?.id) {
+                queryClient.invalidateQueries({
+                    queryKey: orpc.spots.getSpotOverview.queryOptions({ input: { id: media.spot.id } }).queryKey,
+                });
+            }
             onClose();
         },
     });
