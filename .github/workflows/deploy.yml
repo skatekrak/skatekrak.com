@@ -17,20 +17,20 @@ jobs:
         runs-on: ubuntu-latest
         needs: [ci]
         steps:
-            - uses: actions/checkout@v6
+            - uses: actions/checkout@v7
 
             - name: Set up Docker Buildx
-              uses: docker/setup-buildx-action@v3
+              uses: docker/setup-buildx-action@v4
 
             - name: Login to registry
-              uses: docker/login-action@v3
+              uses: docker/login-action@v4
               with:
                   registry: ${{ secrets.REGISTRY_URL }}
                   username: ${{ secrets.REGISTRY_USERNAME }}
                   password: ${{ secrets.REGISTRY_PASSWORD }}
 
             - name: Build and push API image
-              uses: docker/build-push-action@v6
+              uses: docker/build-push-action@v7
               with:
                   context: .
                   file: apps/api/Dockerfile
@@ -47,15 +47,15 @@ jobs:
         env:
             FNOX_AGE_KEY: ${{ secrets.FNOX_AGE_KEY }}
         steps:
-            - uses: actions/checkout@v6
+            - uses: actions/checkout@v7
 
             - name: Install mise & fnox
-              uses: jdx/mise-action@v2
+              uses: jdx/mise-action@v4
               with:
                   install_args: fnox
 
             - name: Set up Docker Buildx
-              uses: docker/setup-buildx-action@v3
+              uses: docker/setup-buildx-action@v4
 
             - name: Export fnox secrets
               id: fnox
@@ -75,14 +75,14 @@ jobs:
                   echo "NEXT_PUBLIC_UMAMI_WEBSITE_ID=$NEXT_PUBLIC_UMAMI_WEBSITE_ID" >> $GITHUB_OUTPUT
 
             - name: Login to registry
-              uses: docker/login-action@v3
+              uses: docker/login-action@v4
               with:
                   registry: ${{ secrets.REGISTRY_URL }}
                   username: ${{ secrets.REGISTRY_USERNAME }}
                   password: ${{ secrets.REGISTRY_PASSWORD }}
 
             - name: Build and push Web image
-              uses: docker/build-push-action@v6
+              uses: docker/build-push-action@v7
               with:
                   context: .
                   file: apps/web/Dockerfile
@@ -109,15 +109,15 @@ jobs:
         env:
             FNOX_AGE_KEY: ${{ secrets.FNOX_AGE_KEY }}
         steps:
-            - uses: actions/checkout@v6
+            - uses: actions/checkout@v7
 
             - name: Install mise & fnox
-              uses: jdx/mise-action@v2
+              uses: jdx/mise-action@v4
               with:
                   install_args: fnox
 
             - name: Set up Docker Buildx
-              uses: docker/setup-buildx-action@v3
+              uses: docker/setup-buildx-action@v4
 
             - name: Export fnox secrets
               id: fnox
@@ -128,14 +128,14 @@ jobs:
                   echo "NEXT_PUBLIC_IMGPROXY_URL=$NEXT_PUBLIC_IMGPROXY_URL" >> $GITHUB_OUTPUT
 
             - name: Login to registry
-              uses: docker/login-action@v3
+              uses: docker/login-action@v4
               with:
                   registry: ${{ secrets.REGISTRY_URL }}
                   username: ${{ secrets.REGISTRY_USERNAME }}
                   password: ${{ secrets.REGISTRY_PASSWORD }}
 
             - name: Build and push Manager image
-              uses: docker/build-push-action@v6
+              uses: docker/build-push-action@v7
               with:
                   context: .
                   file: apps/manager/Dockerfile
