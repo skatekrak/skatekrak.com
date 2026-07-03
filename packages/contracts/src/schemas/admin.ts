@@ -458,6 +458,7 @@ export const AdminMapCategorySchema = z.enum([
     'other_sports',
     'thrasher',
     'berrics',
+    'countries',
     'maps',
 ]);
 
@@ -493,6 +494,7 @@ export const mapCategoryLabels: Record<MapCategory, string> = {
     other_sports: 'Other Sports',
     thrasher: 'Thrasher',
     berrics: 'The Berrics',
+    countries: 'Countries',
     maps: 'Misc.',
 };
 
