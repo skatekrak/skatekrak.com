@@ -1,6 +1,6 @@
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import classNames from 'classnames';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 
 import type { Spot, Media } from '@krak/contracts';
 import { KrakImage } from '@krak/ui';
@@ -11,7 +11,7 @@ import InfiniteScroll from '@/components/Ui/InfiniteScroll';
 import KrakMasonry from '@/components/Ui/Masonry';
 import ScrollBar from '@/components/Ui/Scrollbar';
 import { flatten } from '@/lib/helpers';
-import { useCustomMapID } from '@/lib/hook/queryState';
+import { useCustomMapID, useMediaTab } from '@/lib/hook/queryState';
 import { orpc } from '@/server/orpc/client';
 import { useSettingsStore } from '@/store/settings';
 
@@ -22,7 +22,6 @@ export type MapFullSpotMediasProps = {
 
 const generateShareURL = (spotId: string, mediaId: string) =>
     `${window.location.origin}?modal=1&spot=${spotId}&media=${mediaId}`;
-type TabType = 'map' | 'all';
 
 type MediaTabProps = {
     isActive: boolean;
@@ -46,7 +45,7 @@ const MediaTab: React.FC<MediaTabProps> = ({ isActive, onClick, children }) => (
 const MapFullSpotMedias: React.FC<MapFullSpotMediasProps> = ({ spot }) => {
     const isMobile = useSettingsStore((state) => state.isMobile);
     const [customMapId] = useCustomMapID();
-    const [activeTab, setActiveTab] = useState<TabType>(customMapId ? 'map' : 'all');
+    const [activeTab, setActiveTab] = useMediaTab(customMapId ? 'map' : 'all');
 
     const { data: customMapInfo } = useQuery(
         orpc.maps.fetch.queryOptions({
@@ -106,7 +105,7 @@ const MapFullSpotMedias: React.FC<MapFullSpotMediasProps> = ({ spot }) => {
         } else {
             setActiveTab('all');
         }
-    }, [customMapId, hasMapMedia]);
+    }, [customMapId, hasMapMedia, setActiveTab]);
 
     return (
         <ScrollBar maxHeight="100%">

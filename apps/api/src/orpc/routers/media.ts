@@ -64,11 +64,17 @@ export const listBySpot = os.media.listBySpot.handler(async ({ context, input })
 
 /** Get the previous and next media around a given media for a spot (carousel navigation) */
 export const getSpotMediasAround = os.media.getSpotMediasAround.handler(async ({ context, input }) => {
+    const hashtagFilter = [
+        ...(input.hashtag ? [{ hashtags: { has: addHashtagIfNeeded(input.hashtag) } }] : []),
+        ...(input.excludeHashtag ? [{ NOT: { hashtags: { has: addHashtagIfNeeded(input.excludeHashtag) } } }] : []),
+    ];
+
     const [prevMedias, nextMedias] = await Promise.all([
         context.prisma.media.findMany({
             where: {
                 spotId: input.spotId,
                 createdAt: { gt: input.mediaCreatedAt },
+                AND: hashtagFilter,
             },
             orderBy: { createdAt: 'asc' },
             take: 1,
@@ -78,6 +84,7 @@ export const getSpotMediasAround = os.media.getSpotMediasAround.handler(async ({
             where: {
                 spotId: input.spotId,
                 createdAt: { lt: input.mediaCreatedAt },
+                AND: hashtagFilter,
             },
             orderBy: { createdAt: 'desc' },
             take: 1,

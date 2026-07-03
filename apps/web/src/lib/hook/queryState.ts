@@ -1,5 +1,7 @@
-import { parseAsFloat, parseAsBoolean, parseAsString, useQueryState, useQueryStates } from 'nuqs';
+import { parseAsFloat, parseAsBoolean, parseAsString, parseAsStringLiteral, useQueryState, useQueryStates } from 'nuqs';
 import { useCallback } from 'react';
+
+export type MediaTabType = 'map' | 'all';
 
 export const useViewport = () => {
     return useQueryStates(
@@ -46,4 +48,11 @@ export const useMediaID = () => {
 
 export const useFullSpotSelectedTab = () => {
     return useQueryState('tab', parseAsString.withDefault('media'));
+};
+
+export const useMediaTab = (defaultTab: MediaTabType = 'all') => {
+    return useQueryState(
+        'mediaTab',
+        parseAsStringLiteral(['map', 'all'] satisfies MediaTabType[]).withDefault(defaultTab),
+    );
 };

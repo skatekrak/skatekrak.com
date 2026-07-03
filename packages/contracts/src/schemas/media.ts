@@ -55,6 +55,8 @@ export const listBySpotInput = z.object({
 export const getSpotMediasAroundInput = z.object({
     spotId: z.string(),
     mediaCreatedAt: z.date(),
+    hashtag: z.string().optional(),
+    excludeHashtag: z.string().optional(),
 });
 
 export const listMediaInput = z.object({

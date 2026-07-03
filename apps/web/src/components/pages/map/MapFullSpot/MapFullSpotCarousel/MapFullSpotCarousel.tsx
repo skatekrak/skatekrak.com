@@ -4,6 +4,7 @@ import React from 'react';
 import type { Spot, Media } from '@krak/contracts';
 
 import { KrakLoading } from '@/components/Ui/Icons/Spinners';
+import { useCustomMapID, useMediaTab } from '@/lib/hook/queryState';
 import { orpc } from '@/server/orpc/client';
 
 import Carousel from '../../media/Carousel';
@@ -33,11 +34,16 @@ const MapFullSpotCarousel = ({ initialMediaId, spot }: Props) => {
 };
 
 const MapFullSpotCarouselContent = ({ spot, media }: { spot: Spot; media: Media }) => {
+    const [customMapId] = useCustomMapID();
+    const [activeTab] = useMediaTab(customMapId ? 'map' : 'all');
+
     const { data } = useQuery(
         orpc.media.getSpotMediasAround.queryOptions({
             input: {
                 spotId: spot.id,
                 mediaCreatedAt: media.createdAt,
+                hashtag: customMapId && activeTab === 'map' ? customMapId : undefined,
+                excludeHashtag: customMapId && activeTab === 'all' ? customMapId : undefined,
             },
         }),
     );
