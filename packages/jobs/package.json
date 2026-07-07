@@ -7,6 +7,7 @@
     "scripts": {
         "job": "fnox exec -- bun run src/index.ts",
         "job:add-missing-profiles": "fnox exec -- bun run src/jobs/add-missing-profiles.ts",
+        "job:add-missing-spots": "fnox exec -- bun run src/jobs/add-missing-spots.ts",
         "job:seed-maps": "fnox exec -- bun run src/jobs/seed-maps.ts"
     },
     "dependencies": {
@@ -14,6 +15,7 @@
         "@prisma/adapter-pg": "^7.4.1",
         "@t3-oss/env-core": "^0.11.1",
         "meilisearch": "^0.55.0",
+        "mongodb": "^6.8.1",
         "zod": "^4.3.6"
     },
     "devDependencies": {
