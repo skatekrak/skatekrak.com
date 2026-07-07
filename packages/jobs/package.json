@@ -8,6 +8,7 @@
         "job": "fnox exec -- bun run src/index.ts",
         "job:add-missing-profiles": "fnox exec -- bun run src/jobs/add-missing-profiles.ts",
         "job:add-missing-spots": "fnox exec -- bun run src/jobs/add-missing-spots.ts",
+        "job:refill-spots": "fnox exec -- bun run src/jobs/refill-spots.ts",
         "job:seed-maps": "fnox exec -- bun run src/jobs/seed-maps.ts"
     },
     "dependencies": {
