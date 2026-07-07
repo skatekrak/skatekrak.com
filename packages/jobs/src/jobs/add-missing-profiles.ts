@@ -1,5 +1,7 @@
 import { runJob } from '../lib/runJob';
 
+const dryRun = process.argv.includes('--dry-run');
+
 /**
  * Creates a Profile for every User that does not have one yet.
  * Profile <-> User is a 1:1 relation (Profile.userId is unique), so we
@@ -13,6 +15,11 @@ runJob('add-missing-profiles', async ({ prisma }) => {
     });
 
     console.log(`Found ${usersWithoutProfile.length} user(s) without a profile.`);
+
+    if (dryRun) {
+        console.log('Dry run: no profiles created.');
+        return;
+    }
 
     if (usersWithoutProfile.length === 0) {
         return;
