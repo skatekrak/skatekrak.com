@@ -17,31 +17,16 @@ runJob('seed-maps', async ({ prisma }) => {
     }
 
     const documents = maps.map(buildMapDocument);
+    console.log(`Indexing ${documents.length} map(s) into Meilisearch...`);
 
-    const totalBatches = Math.ceil(documents.length / BATCH_SIZE);
-    console.log(`Indexing ${documents.length} map(s) into Meilisearch in ${totalBatches} batch(es)...`);
+    const enqueued = await Promise.all(mapIndex.addDocumentsInBatches(documents, BATCH_SIZE, { primaryKey: 'id' }));
+    const results = await client.tasks.waitForTasks(enqueued);
 
-    const taskUids: number[] = [];
-
-    for (let i = 0; i < documents.length; i += BATCH_SIZE) {
-        const batch = documents.slice(i, i + BATCH_SIZE);
-        const batchNumber = Math.floor(i / BATCH_SIZE) + 1;
-
-        const task = await mapIndex.addDocuments(batch, { primaryKey: 'id' });
-        taskUids.push(task.taskUid);
-        console.log(
-            `  Batch ${batchNumber}/${totalBatches}: enqueued ${batch.length} documents (taskUid: ${task.taskUid})`,
+    const failed = results.filter((r) => r.status === 'failed');
+    if (failed.length)
+        console.error(
+            `${failed.length} batch(es) failed:`,
+            failed.map((r) => r.error),
         );
-    }
-
-    console.log('Waiting for Meilisearch to process all tasks...');
-
-    for (const taskUid of taskUids) {
-        const result = await client.tasks.waitForTask(taskUid);
-        if (result.status === 'failed') {
-            console.error(`  Task ${taskUid} failed:`, result.error);
-        } else {
-            console.log(`  Task ${taskUid}: ${result.status}`);
-        }
-    }
+    else console.log(`Done: ${results.length} batch(es) succeeded.`);
 });
