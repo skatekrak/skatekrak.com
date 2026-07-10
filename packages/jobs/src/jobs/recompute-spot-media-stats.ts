@@ -2,7 +2,7 @@ import type { PrismaClient } from '@krak/prisma';
 
 import { runJob } from '../lib/runJob';
 
-const batchSize = 500;
+const batchSize = 100;
 
 type Stat = {
     createdAt: string;
@@ -57,7 +57,7 @@ async function updateSpotStats(
 
         if (spots.length === 0) break;
 
-        await prisma.$transaction(
+        await Promise.all(
             spots.map((spot) => {
                 const mediasStat = {
                     ...emptyStat(now),
