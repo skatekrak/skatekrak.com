@@ -1,48 +1,54 @@
 import { useQuery } from '@tanstack/react-query';
 
-import {
-    spotIndex,
-    mapIndex,
-    type SpotSearchResult,
-    type MapSearchResult,
-    type SpotHit,
-    type MapHit,
-} from '@/lib/meilisearch';
+import meilisearchClient, { SPOT_INDEX_UID, MAP_INDEX_UID, type SpotHit, type MapHit } from '@/lib/meilisearch';
 
 import useDebounce from './useDebounce';
 
+import type { SearchResponse } from 'meilisearch';
+
 export type SearchResultItem = { kind: 'spot'; data: SpotHit } | { kind: 'map'; data: MapHit };
+
+type MultiSearchResult = {
+    results: SearchResponse[];
+};
 
 export function useCombinedSearch(query: string, hitsPerPage = 10) {
     const debouncedQuery = useDebounce(query, 200);
 
-    const spotQuery = useQuery({
-        queryKey: ['search-spots', debouncedQuery],
-        queryFn: () =>
-            spotIndex.search<SpotSearchResult>(debouncedQuery, {
-                hitsPerPage,
-                showRankingScore: true,
-            }),
+    const searchQuery = useQuery({
+        queryKey: ['search-combined', debouncedQuery, hitsPerPage],
+        queryFn: async () => {
+            const response = (await meilisearchClient.multiSearch({
+                queries: [
+                    {
+                        indexUid: SPOT_INDEX_UID,
+                        q: debouncedQuery,
+                        hitsPerPage,
+                        showRankingScore: true,
+                    },
+                    {
+                        indexUid: MAP_INDEX_UID,
+                        q: debouncedQuery,
+                        hitsPerPage,
+                        showRankingScore: true,
+                    },
+                ],
+            })) as MultiSearchResult;
+
+            const [spotsResult, mapsResult] = response.results;
+
+            const results: SearchResultItem[] = [
+                ...(spotsResult.hits as SpotHit[]).map((spot): SearchResultItem => ({ kind: 'spot', data: spot })),
+                ...(mapsResult.hits as MapHit[]).map((map): SearchResultItem => ({ kind: 'map', data: map })),
+            ];
+
+            return results.toSorted((a, b) => (b.data._rankingScore ?? 0) - (a.data._rankingScore ?? 0));
+        },
         enabled: debouncedQuery.length > 0,
     });
-
-    const mapQuery = useQuery({
-        queryKey: ['search-maps', debouncedQuery],
-        queryFn: () =>
-            mapIndex.search<MapSearchResult>(debouncedQuery, {
-                hitsPerPage,
-                showRankingScore: true,
-            }),
-        enabled: debouncedQuery.length > 0,
-    });
-
-    const results: SearchResultItem[] = [
-        ...(spotQuery.data?.hits ?? []).map((spot) => ({ kind: 'spot' as const, data: spot })),
-        ...(mapQuery.data?.hits ?? []).map((map) => ({ kind: 'map' as const, data: map })),
-    ].toSorted((a, b) => (b.data._rankingScore ?? 0) - (a.data._rankingScore ?? 0));
 
     return {
-        results,
-        isLoading: spotQuery.isLoading || mapQuery.isLoading,
+        results: searchQuery.data ?? [],
+        isLoading: searchQuery.isLoading,
     };
 }
