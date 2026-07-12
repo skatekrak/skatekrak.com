@@ -1,3 +1,4 @@
+import { mapCategoryLabels } from '@krak/contracts';
 import { KrakImage } from '@krak/ui';
 
 import Typography from '@/components/Ui/typography/Typography';
@@ -38,7 +39,7 @@ export default function MapSearchResultMap({ map, onMapClick }: Props) {
                         component="body2"
                         // truncateLines={1}
                     >
-                        {map.categories[0]}
+                        {mapCategoryLabels[map.categories[0] as keyof typeof mapCategoryLabels] ?? map.categories[0]}
                     </Typography>
                 )}
             </button>
