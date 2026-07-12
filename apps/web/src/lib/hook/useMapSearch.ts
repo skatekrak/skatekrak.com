@@ -37,7 +37,7 @@ export function useCombinedSearch(query: string, hitsPerPage = 10) {
     });
 
     return {
-        results: searchQuery.data ?? [],
-        isLoading: searchQuery.isLoading,
+        results: query === debouncedQuery ? (searchQuery.data ?? []) : [],
+        isLoading: query !== debouncedQuery || searchQuery.isLoading,
     };
 }
