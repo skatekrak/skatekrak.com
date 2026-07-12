@@ -12,7 +12,7 @@ services:
             - 5433:5432
 
     meilisearch:
-        image: getmeili/meilisearch:v1.13
+        image: getmeili/meilisearch:v1.49
         environment:
             MEILI_MASTER_KEY: masterKey
             MEILI_ENV: development
