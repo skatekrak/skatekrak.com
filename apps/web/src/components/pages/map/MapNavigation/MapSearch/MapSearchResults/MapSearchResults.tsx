@@ -2,7 +2,7 @@ import React from 'react';
 import { useMap } from 'react-map-gl/maplibre';
 
 import Scrollbar from '@/components/Ui/Scrollbar';
-import { useSpotID } from '@/lib/hook/queryState';
+import { useCustomMapID, useSpotID } from '@/lib/hook/queryState';
 
 import MapSearchResultLoading from './MapSearchResultLoading';
 import MapSearchResultMap from './MapSearchResultMap';
@@ -21,6 +21,7 @@ type MapSearchResultsProps = {
 const MapSearchResults: React.FC<MapSearchResultsProps> = ({ results, loading, onClick }) => {
     const { current: map } = useMap();
     const [, selectSpot] = useSpotID();
+    const [, setCustomMapID] = useCustomMapID();
 
     const onSpotClick = (spot: SpotHit) => {
         map?.flyTo({
@@ -35,8 +36,7 @@ const MapSearchResults: React.FC<MapSearchResultsProps> = ({ results, loading, o
     };
 
     const onMapClick = (customMap: MapHit) => {
-        console.log('Map clicked:', customMap.id);
-        onClick();
+        setCustomMapID(customMap.id);
     };
 
     return (
