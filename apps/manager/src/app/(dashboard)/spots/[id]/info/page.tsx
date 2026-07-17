@@ -19,12 +19,6 @@ import {
     CardContent,
     CardHeader,
     CardTitle,
-    Dialog,
-    DialogContent,
-    DialogDescription,
-    DialogFooter,
-    DialogHeader,
-    DialogTitle,
     Form,
     FormControl,
     FormField,
@@ -44,6 +38,8 @@ import {
 } from '@krak/ui';
 
 import { client, orpc } from '@/lib/orpc';
+
+import { EditSpotLocationDialog } from '../_components/edit-spot-location-dialog';
 
 type SpotOverview = ContractOutputs['spots']['getSpotOverview'];
 type Spot = SpotOverview['spot'];
@@ -96,29 +92,6 @@ function StatusBadge({ status }: { status: string }) {
 
 function MapPreviewCard({ spot }: { spot: Spot }) {
     const [longitude, latitude] = spot.geo;
-    const [isEditing, setIsEditing] = useState(false);
-    const [position, setPosition] = useState<[number, number]>([longitude, latitude]);
-    const queryClient = useQueryClient();
-    const mutation = useMutation({
-        mutationFn: () =>
-            client.admin.spots.updateLocation({
-                id: spot.id,
-                longitude: position[0],
-                latitude: position[1],
-            }),
-        onSuccess: () => {
-            queryClient.invalidateQueries({
-                queryKey: orpc.spots.getSpotOverview.queryOptions({ input: { id: spot.id } }).queryKey,
-            });
-            setIsEditing(false);
-        },
-    });
-
-    const openEditor = () => {
-        setPosition([longitude, latitude]);
-        mutation.reset();
-        setIsEditing(true);
-    };
 
     return (
         <Card>
@@ -127,10 +100,7 @@ function MapPreviewCard({ spot }: { spot: Spot }) {
             </CardHeader>
             <CardContent className="flex flex-col gap-4">
                 <div className="relative h-64 overflow-hidden rounded-lg border">
-                    <Button className="absolute top-2 left-2 z-10" size="sm" variant="secondary" onClick={openEditor}>
-                        <Pencil className="size-4" />
-                        Edit
-                    </Button>
+                    <EditSpotLocationDialog spot={spot} />
                     <Map
                         initialViewState={{ longitude, latitude, zoom: 15 }}
                         mapStyle="https://basemaps.cartocdn.com/gl/positron-gl-style/style.json"
@@ -142,51 +112,6 @@ function MapPreviewCard({ spot }: { spot: Spot }) {
                         </Marker>
                     </Map>
                 </div>
-
-                <Dialog open={isEditing} onOpenChange={(open) => !mutation.isPending && setIsEditing(open)}>
-                    <DialogContent className="max-w-3xl">
-                        <DialogHeader>
-                            <DialogTitle>Edit location</DialogTitle>
-                            <DialogDescription>
-                                Drag the pin or click the map to set the spot location.
-                            </DialogDescription>
-                        </DialogHeader>
-                        <div className="h-[60vh] min-h-80 overflow-hidden rounded-lg border">
-                            <Map
-                                initialViewState={{ longitude, latitude, zoom: 15 }}
-                                mapStyle="https://basemaps.cartocdn.com/gl/positron-gl-style/style.json"
-                                onClick={(event) => setPosition([event.lngLat.lng, event.lngLat.lat])}
-                            >
-                                <NavigationControl position="top-right" showCompass={false} />
-                                <Marker
-                                    longitude={position[0]}
-                                    latitude={position[1]}
-                                    anchor="bottom"
-                                    draggable
-                                    onDragEnd={(event) => setPosition([event.lngLat.lng, event.lngLat.lat])}
-                                >
-                                    <MapPin className="size-10 fill-primary text-primary-foreground drop-shadow-md" />
-                                </Marker>
-                            </Map>
-                        </div>
-                        <p className="text-sm text-muted-foreground">
-                            {position[1].toFixed(5)}, {position[0].toFixed(5)}
-                        </p>
-                        {mutation.error && (
-                            <p className="text-sm text-destructive">
-                                {mutation.error.message || 'Failed to update location.'}
-                            </p>
-                        )}
-                        <DialogFooter>
-                            <Button variant="outline" onClick={() => setIsEditing(false)} disabled={mutation.isPending}>
-                                Cancel
-                            </Button>
-                            <Button onClick={() => mutation.mutate()} disabled={mutation.isPending}>
-                                {mutation.isPending ? 'Saving...' : 'Save location'}
-                            </Button>
-                        </DialogFooter>
-                    </DialogContent>
-                </Dialog>
 
                 <div className="grid grid-cols-2 gap-4">
                     <Field label="Street">
