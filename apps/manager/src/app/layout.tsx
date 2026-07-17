@@ -1,4 +1,5 @@
 import { Inter } from 'next/font/google';
+import 'maplibre-gl/dist/maplibre-gl.css';
 
 import { Providers } from '@/components/providers';
 

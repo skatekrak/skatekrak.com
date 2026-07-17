@@ -7,6 +7,7 @@ import { format } from 'date-fns';
 import { ExternalLink, Ghost, Globe, MapPin, Pencil, Phone } from 'lucide-react';
 import { use, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import Map, { Marker, NavigationControl } from 'react-map-gl/maplibre';
 import { z } from 'zod';
 
 import type { ContractOutputs } from '@krak/contracts';
@@ -84,21 +85,29 @@ function StatusBadge({ status }: { status: string }) {
 }
 
 // ============================================================================
-// Map Preview Card (placeholder)
+// Map Preview Card
 // ============================================================================
 
 function MapPreviewCard({ spot }: { spot: Spot }) {
+    const [longitude, latitude] = spot.geo;
+
     return (
         <Card>
             <CardHeader>
                 <CardTitle>Location</CardTitle>
             </CardHeader>
             <CardContent className="flex flex-col gap-4">
-                <div className="flex h-64 items-center justify-center rounded-lg border border-dashed">
-                    <div className="flex flex-col items-center gap-2 text-muted-foreground">
-                        <MapPin className="size-10" />
-                        <p className="text-sm font-medium">Map preview coming soon</p>
-                    </div>
+                <div className="h-64 overflow-hidden rounded-lg border">
+                    <Map
+                        initialViewState={{ longitude, latitude, zoom: 15 }}
+                        mapStyle="https://basemaps.cartocdn.com/gl/positron-gl-style/style.json"
+                        attributionControl={false}
+                    >
+                        <NavigationControl position="top-right" showCompass={false} />
+                        <Marker longitude={longitude} latitude={latitude} anchor="bottom">
+                            <MapPin className="size-9 fill-primary text-primary-foreground drop-shadow-md" />
+                        </Marker>
+                    </Map>
                 </div>
 
                 <div className="grid grid-cols-2 gap-4">
