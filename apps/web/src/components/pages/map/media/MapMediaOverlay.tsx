@@ -7,6 +7,8 @@ import Typography from '@/components/Ui/typography/Typography';
 import SpotIcon from '@/components/Ui/Utils/SpotIcon';
 import { useSpotID } from '@/lib/hook/queryState';
 
+import MediaCaption from './MediaCaption';
+
 type Props = {
     media: Media;
     isFromCustomMapFeed: boolean;
@@ -59,7 +61,7 @@ const MapMediaOverlay = ({ media, isFromCustomMapFeed }: Props) => {
             <MapMediaOverlaySpotOrUsername media={media} isFromCustomMapFeed={isFromCustomMapFeed} />
             {media.caption != null && (
                 <Typography className="mt-1 line-clamp-3" component="body2">
-                    {media.caption}
+                    <MediaCaption caption={media.caption} />
                 </Typography>
             )}
         </div>

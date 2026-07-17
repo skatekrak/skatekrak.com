@@ -12,6 +12,8 @@ import SpotIcon from '@/components/Ui/Utils/SpotIcon';
 import { useMediaID, useSpotID, useSpotModal } from '@/lib/hook/queryState';
 import { getMediaImageUrl } from '@/lib/media';
 
+import MediaCaption from '../MediaCaption';
+
 export type CarouselProps = {
     media: Media;
     prevMedia: Media | null;
@@ -140,7 +142,7 @@ export const CarouselNav = ({ media, prevMedia, nextMedia }: CarouselProps) => {
                     )}
                     {media.caption && (
                         <Typography component="body1" className="leading-[1.8] mt-3">
-                            {media.caption}
+                            <MediaCaption caption={media.caption} />
                         </Typography>
                     )}
                 </div>
