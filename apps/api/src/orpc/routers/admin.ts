@@ -31,6 +31,15 @@ type AdminCloudinaryFileMedia = {
     height: number | null;
 } | null;
 
+type PlacesAutocompleteResponse = {
+    suggestions?: Array<{ placePrediction?: { placeId?: string; text?: { text?: string } } }>;
+};
+
+type PlaceDetailsResponse = {
+    formattedAddress?: string;
+    location?: { latitude?: number; longitude?: number };
+};
+
 // ============================================================================
 // admin.users.list — Paginated, sortable user listing for admin dashboard
 // ============================================================================
@@ -475,6 +484,69 @@ export const updateSpotLocation = os.admin.spots.updateLocation
         });
 
         return { id: spot.id, latitude: spot.latitude, longitude: spot.longitude };
+    });
+
+export const searchSpotAddresses = os.admin.spots.searchAddresses
+    .use(authed)
+    .use(admin)
+    .handler(async ({ input }) => {
+        const response = await fetch('https://places.googleapis.com/v1/places:autocomplete', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Goog-Api-Key': env.GOOGLE_KEY,
+                'X-Goog-FieldMask': 'suggestions.placePrediction.placeId,suggestions.placePrediction.text.text',
+            },
+            body: JSON.stringify({ input: input.query, sessionToken: input.sessionToken }),
+        });
+
+        if (!response.ok) {
+            console.error('Google Places autocomplete failed:', response.status, await response.text());
+            throw new ORPCError('INTERNAL_SERVER_ERROR', { message: 'Address search failed' });
+        }
+
+        const data = (await response.json()) as PlacesAutocompleteResponse;
+        return (data.suggestions ?? []).flatMap(({ placePrediction }) =>
+            placePrediction?.placeId && placePrediction.text?.text
+                ? [{ id: placePrediction.placeId, label: placePrediction.text.text }]
+                : [],
+        );
+    });
+
+export const resolveSpotAddress = os.admin.spots.resolveAddress
+    .use(authed)
+    .use(admin)
+    .handler(async ({ input }) => {
+        const params = new URLSearchParams({ sessionToken: input.sessionToken });
+        const response = await fetch(
+            `https://places.googleapis.com/v1/places/${encodeURIComponent(input.placeId)}?${params}`,
+            {
+                headers: {
+                    'X-Goog-Api-Key': env.GOOGLE_KEY,
+                    'X-Goog-FieldMask': 'formattedAddress,location',
+                },
+            },
+        );
+
+        if (!response.ok) {
+            console.error('Google Places details failed:', response.status, await response.text());
+            throw new ORPCError('INTERNAL_SERVER_ERROR', { message: 'Address lookup failed' });
+        }
+
+        const place = (await response.json()) as PlaceDetailsResponse;
+        if (
+            !place.formattedAddress ||
+            place.location?.latitude === undefined ||
+            place.location.longitude === undefined
+        ) {
+            throw new ORPCError('INTERNAL_SERVER_ERROR', { message: 'Google returned an incomplete address' });
+        }
+
+        return {
+            address: place.formattedAddress,
+            latitude: place.location.latitude,
+            longitude: place.location.longitude,
+        };
     });
 
 // ============================================================================

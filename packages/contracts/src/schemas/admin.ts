@@ -273,6 +273,29 @@ export const updateSpotLocationOutput = z.object({
     longitude: z.number(),
 });
 
+export const searchSpotAddressesInput = z.object({
+    query: z.string().trim().min(3).max(200),
+    sessionToken: z.string().uuid(),
+});
+
+export const searchSpotAddressesOutput = z.array(
+    z.object({
+        id: z.string(),
+        label: z.string(),
+    }),
+);
+
+export const resolveSpotAddressInput = z.object({
+    placeId: z.string().min(1),
+    sessionToken: z.string().uuid(),
+});
+
+export const resolveSpotAddressOutput = z.object({
+    address: z.string(),
+    latitude: z.number(),
+    longitude: z.number(),
+});
+
 // ============================================================================
 // Merge spots
 // ============================================================================
