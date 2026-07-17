@@ -2,6 +2,8 @@ import { ORPCError } from '@orpc/server';
 
 import type { Prisma, ClipProvider } from '@krak/prisma';
 
+import { env } from '../../env';
+import { reverseGeocode } from '../../helpers/geocoding';
 import { extractHashtags, addHashtagIfNeeded } from '../../helpers/hashtags';
 import { processMediaFile } from '../../helpers/media-upload';
 import { spotIndex, mapIndex, buildMapDocument } from '../../helpers/meilisearch';
@@ -453,6 +455,26 @@ export const updateSpotGeneralInfo = os.admin.spots.updateGeneralInfo
             tags: spot.tags,
             updatedAt: spot.updatedAt,
         };
+    });
+
+export const updateSpotLocation = os.admin.spots.updateLocation
+    .use(authed)
+    .use(admin)
+    .handler(async ({ context, input }) => {
+        const location = await reverseGeocode(input.latitude, input.longitude, env.GOOGLE_KEY);
+        const spot = await context.prisma.spot.update({
+            where: { id: input.id },
+            data: {
+                latitude: input.latitude,
+                longitude: input.longitude,
+                streetNumber: location?.streetNumber ?? null,
+                streetName: location?.streetName ?? null,
+                city: location?.city ?? null,
+                country: location?.country ?? null,
+            },
+        });
+
+        return { id: spot.id, latitude: spot.latitude, longitude: spot.longitude };
     });
 
 // ============================================================================

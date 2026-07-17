@@ -15,6 +15,8 @@ import {
     adminListSpotsOutput,
     updateSpotGeneralInfoInput,
     updateSpotGeneralInfoOutput,
+    updateSpotLocationInput,
+    updateSpotLocationOutput,
     mergeSpotsInput,
     mergeSpotsOutput,
     deleteSpotInput,
@@ -115,6 +117,7 @@ export const contract = {
         spots: {
             list: oc.input(adminListSpotsInput).output(adminListSpotsOutput),
             updateGeneralInfo: oc.input(updateSpotGeneralInfoInput).output(updateSpotGeneralInfoOutput),
+            updateLocation: oc.input(updateSpotLocationInput).output(updateSpotLocationOutput),
             merge: oc.input(mergeSpotsInput).output(mergeSpotsOutput),
             delete: oc.input(deleteSpotInput).output(z.object({ success: z.boolean() })),
         },
