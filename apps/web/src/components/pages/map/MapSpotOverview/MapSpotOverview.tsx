@@ -3,8 +3,7 @@ import React, { memo } from 'react';
 import { Popup } from 'react-map-gl/maplibre';
 
 import type { contract } from '@krak/contracts';
-import { useImgproxy } from '@krak/ui';
-import { getImgproxyUrl } from '@krak/utils';
+import { KrakImage } from '@krak/ui';
 
 import IconClips from '@/components/Ui/Icons/IconClips';
 import IconMedia from '@/components/Ui/Icons/IconMedia';
@@ -22,24 +21,10 @@ type MapSpotOverviewProps = {
     onPopupClose: () => void;
 };
 
-function getOverviewImageUrl(
-    image: { provider?: string; key?: string; publicId?: string; [key: string]: unknown },
-    imgproxyBaseUrl: string | undefined,
-): string {
-    if (image.provider === 's3' && image.key && imgproxyBaseUrl) {
-        return getImgproxyUrl(imgproxyBaseUrl, image.key, {
-            width: 275,
-            height: 183,
-            resizingType: 'fill',
-        });
-    }
-    // Legacy Cloudinary
-    return `https://res.cloudinary.com/krak/image/upload/w_275,ar_1.5,c_fill,dpr_auto/${image.publicId}.jpg`;
-}
-
 const MapSpotOverview: React.FC<MapSpotOverviewProps> = ({ spotOverview, onPopupClick, onPopupClose }) => {
-    const imgproxy = useImgproxy();
     const mapStyle = useMapStore((state) => state.mapStyle);
+    const media = spotOverview.medias[0];
+    const image = media?.image;
 
     const isLightStyle = mapStyle === 'light-v11';
 
@@ -63,16 +48,23 @@ const MapSpotOverview: React.FC<MapSpotOverviewProps> = ({ spotOverview, onPopup
                 >
                     {spotOverview.spot.name}
                 </h4>
-                <div className="relative w-[275px] mt-2 overflow-hidden bg-tertiary-medium rounded-sm aspect-video shadow-onDarkHighSharp">
-                    {spotOverview.mostLikedMedia?.image ? (
-                        <div
-                            className="absolute inset-0 bg-center bg-cover"
-                            style={{
-                                backgroundImage: `url("${getOverviewImageUrl(
-                                    spotOverview.mostLikedMedia.image,
-                                    imgproxy?.baseUrl,
-                                )}")`,
-                            }}
+                <div
+                    key={spotOverview.spot.id}
+                    className="relative w-[275px] mt-2 overflow-hidden bg-tertiary-medium rounded-sm aspect-video shadow-onDarkHighSharp"
+                >
+                    {image && 'key' in image ? (
+                        <KrakImage
+                            path={image.key}
+                            options={{ width: 275, height: 183, resizingType: 'fill' }}
+                            alt={spotOverview.spot.name}
+                            className="absolute inset-0 size-full object-cover"
+                        />
+                    ) : media?.type === 'video' && media.video ? (
+                        <img
+                            src={`https://res.cloudinary.com/krak/video/upload/w_275,ar_1.5,c_fill,dpr_auto/${media.video.publicId}.jpg`}
+                            alt={spotOverview.spot.name}
+                            loading="lazy"
+                            className="absolute inset-0 size-full object-cover"
                         />
                     ) : (
                         <div className="absolute inset-0 flex flex-col items-center justify-center mb-10">

@@ -76,7 +76,6 @@ const SpotOverviewSchema = z.object({
     spot: SpotSchema,
     medias: z.array(MediaSchema),
     clips: z.array(ClipSchema),
-    mostLikedMedia: MediaSchema.optional(),
 });
 
 // ============================================================================

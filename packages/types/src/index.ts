@@ -184,7 +184,6 @@ export interface SpotOverview {
     spot: Spot;
     medias: Media[];
     clips: Clip[];
-    mostLikedMedia?: Media;
     // TODO: complete SpotOverview interface
 }
 

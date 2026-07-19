@@ -75,7 +75,7 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
         try {
             const overview = await serverClient.spots.getSpotOverview({ id: query.spot });
 
-            const image = overview.mostLikedMedia?.image ?? null;
+            const image = overview.medias[0]?.image ?? null;
             let imageUrl: string | null = null;
             if (image != null) {
                 if ('key' in image) {

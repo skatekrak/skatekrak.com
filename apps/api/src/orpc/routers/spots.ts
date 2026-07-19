@@ -1,6 +1,6 @@
 import { ORPCError } from '@orpc/server';
 
-import type { Media as PrismaMedia, ClipProvider, SpotType, SpotStatus, Obstacle } from '@krak/prisma';
+import type { ClipProvider, SpotType, SpotStatus, Obstacle } from '@krak/prisma';
 import { type SpotGeoJSON, Status, Types } from '@krak/types';
 
 import { env } from '../../env';
@@ -10,14 +10,7 @@ import { spotIndex } from '../../helpers/meilisearch';
 import { buildStat } from '../../helpers/stats';
 import { getVideoInformation } from '../../helpers/videos';
 import { os, authed, loadProfile, loadSpot } from '../base';
-import {
-    type SpotWithAddedBy,
-    type MediaWithRelations,
-    formatPrismaSpot,
-    formatPrismaMedia,
-    formatPrismaClip,
-    formatStat,
-} from '../formatters';
+import { type SpotWithAddedBy, formatPrismaSpot, formatPrismaMedia, formatPrismaClip, formatStat } from '../formatters';
 
 // ============================================================================
 // Shared Prisma include for addedBy with user relation
@@ -187,22 +180,7 @@ export const getSpotOverview = os.spots.getSpotOverview.handler(async ({ context
         throw new ORPCError('NOT_FOUND', { message: 'Spot not found' });
     }
 
-    const [mostLikedRaw, medias, clips] = await Promise.all([
-        context.prisma.$queryRaw<PrismaMedia[]>`
-            SELECT m.*, json_build_object(
-                'id', p.id,
-                'userId', p."userId",
-                'profilePicture', p."profilePicture",
-                'user', json_build_object('username', u.username)
-            ) as "addedBy"
-            FROM media m
-            JOIN profiles p ON p.id = m."addedById"
-            JOIN users u ON u.id = p."userId"
-            WHERE m."spotId" = ${input.id}
-              AND m.type = 'IMAGE'
-            ORDER BY (m."likesStat"->>'all')::int DESC NULLS LAST
-            LIMIT 1
-        `,
+    const [medias, clips] = await Promise.all([
         context.prisma.media.findMany({
             where: {
                 spotId: input.id,
@@ -225,14 +203,10 @@ export const getSpotOverview = os.spots.getSpotOverview.handler(async ({ context
         }),
     ]);
 
-    const mostLikedMedia =
-        mostLikedRaw.length > 0 ? formatPrismaMedia(mostLikedRaw[0] as unknown as MediaWithRelations) : undefined;
-
     return {
         spot: formatPrismaSpot(spot),
         medias: medias.map(formatPrismaMedia),
         clips: clips.map(formatPrismaClip),
-        mostLikedMedia,
     };
 });
 
