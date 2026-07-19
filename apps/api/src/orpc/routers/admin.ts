@@ -694,9 +694,18 @@ export const updateMedia = os.admin.media.update
             data.spot = fields.spotId ? { connect: { id: fields.spotId } } : { disconnect: true };
         }
 
-        const media = await context.prisma.media.update({
-            where: { id },
-            data,
+        const media = await context.prisma.$transaction(async (tx) => {
+            const updated = await tx.media.update({
+                where: { id },
+                data,
+            });
+
+            if (fields.spotId !== undefined && fields.spotId !== existing.spotId) {
+                await recomputeMediasStat(tx, { spotId: existing.spotId });
+                await recomputeMediasStat(tx, { spotId: updated.spotId });
+            }
+
+            return updated;
         });
 
         return {
