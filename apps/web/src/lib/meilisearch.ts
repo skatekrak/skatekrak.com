@@ -32,8 +32,25 @@ export type SpotSearchResult = {
     };
 };
 
-export type SpotHit = Hit<SpotSearchResult>;
+export type MapSearchResult = {
+    id: string;
+    name: string;
+    subtitle: string;
+    edito: string;
+    about: string;
+    categories: string[];
+    staging: boolean;
+    videos: string[];
+    soundtrack: string[];
+};
 
-export const spotIndex = client.index('prod_SPOTS');
+export type SpotHit = Hit<SpotSearchResult>;
+export type MapHit = Hit<MapSearchResult>;
+
+export const SPOT_INDEX_UID = 'prod_SPOTS';
+export const MAP_INDEX_UID = 'prod_MAPS';
+
+export const spotIndex = client.index(SPOT_INDEX_UID);
+export const mapIndex = client.index(MAP_INDEX_UID);
 
 export default client;
