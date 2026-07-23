@@ -16,9 +16,21 @@ type MapSearchResultsProps = {
     loading: boolean;
     results: SearchResultItem[];
     onClick: () => void;
+    floatingRef: (node: HTMLElement | null) => void;
+    floatingStyles: React.CSSProperties;
+    floatingProps: Record<string, unknown>;
+    maxHeight: string;
 };
 
-const MapSearchResults: React.FC<MapSearchResultsProps> = ({ results, loading, onClick }) => {
+const MapSearchResults: React.FC<MapSearchResultsProps> = ({
+    results,
+    loading,
+    onClick,
+    floatingRef,
+    floatingStyles,
+    floatingProps,
+    maxHeight,
+}) => {
     const { current: map } = useMap();
     const [, selectSpot] = useSpotID();
     const [, setCustomMapID] = useCustomMapID();
@@ -40,8 +52,13 @@ const MapSearchResults: React.FC<MapSearchResultsProps> = ({ results, loading, o
     };
 
     return (
-        <div className="absolute top-15 left-0 right-0 text-onDark-highEmphasis bg-tertiary-dark border border-tertiary-medium rounded shadow-onDarkHighSharp">
-            <Scrollbar maxHeight="22.25rem">
+        <div
+            ref={floatingRef}
+            style={floatingStyles}
+            {...floatingProps}
+            className="w-full text-onDark-highEmphasis bg-tertiary-dark border border-tertiary-medium rounded shadow-onDarkHighSharp"
+        >
+            <Scrollbar maxHeight={maxHeight}>
                 {loading ? (
                     <MapSearchResultLoading />
                 ) : (
