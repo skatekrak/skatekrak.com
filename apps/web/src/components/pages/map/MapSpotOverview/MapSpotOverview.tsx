@@ -1,6 +1,6 @@
 import classNames from 'classnames';
-import React, { memo } from 'react';
-import { Popup } from 'react-map-gl/maplibre';
+import React, { memo, useCallback } from 'react';
+import { Popup, useMap } from 'react-map-gl/maplibre';
 
 import type { contract } from '@krak/contracts';
 import { KrakImage } from '@krak/ui';
@@ -22,11 +22,36 @@ type MapSpotOverviewProps = {
 };
 
 const MapSpotOverview: React.FC<MapSpotOverviewProps> = ({ spotOverview, onPopupClick, onPopupClose }) => {
+    const { current: map } = useMap();
     const mapStyle = useMapStore((state) => state.mapStyle);
     const media = spotOverview.medias[0];
     const image = media?.image;
 
     const isLightStyle = mapStyle === 'light-v11';
+
+    const handleWheel = useCallback(
+        (e: React.WheelEvent) => {
+            if (!map) return;
+            e.preventDefault();
+
+            // Match map's native scroll speed (MapLibre uses ~1/450)
+            const zoomDelta = -e.deltaY / 450;
+
+            // Get mouse position relative to map canvas
+            const canvas = map.getCanvas();
+            const rect = canvas.getBoundingClientRect();
+            const point: [number, number] = [e.clientX - rect.left, e.clientY - rect.top];
+
+            // Convert screen point to geographic coordinates and zoom around that point
+            const lngLat = map.unproject(point);
+
+            map.zoomTo(map.getZoom() + zoomDelta, {
+                duration: 0,
+                around: lngLat,
+            });
+        },
+        [map],
+    );
 
     return (
         <Popup
@@ -39,7 +64,7 @@ const MapSpotOverview: React.FC<MapSpotOverviewProps> = ({ spotOverview, onPopup
             closeButton={false}
             closeOnClick={false}
         >
-            <button className="relative text-left" onClick={onPopupClick}>
+            <button className="relative text-left" onClick={onPopupClick} onWheel={handleWheel}>
                 <h4
                     className={classNames('max-w-[275px] font-black text-2xl', {
                         'text-black': isLightStyle,
