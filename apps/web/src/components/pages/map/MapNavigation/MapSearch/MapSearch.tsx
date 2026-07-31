@@ -1,4 +1,4 @@
-import { useFloating, offset, flip, shift, useDismiss, useInteractions, size } from '@floating-ui/react';
+import { useFloating, offset, flip, shift, useDismiss, useInteractions, size, autoUpdate } from '@floating-ui/react';
 import React, { useState } from 'react';
 import { useShallow } from 'zustand/react/shallow';
 
@@ -23,6 +23,7 @@ const MapNavigation = () => {
         open: searchResultOpen,
         onOpenChange: toggleSearchResult,
         placement: 'bottom-start',
+        whileElementsMounted: autoUpdate,
         middleware: [
             offset(8),
             flip(),

@@ -6,7 +6,7 @@ import useDebounce from './useDebounce';
 
 export type SearchResultItem = { kind: 'spot'; data: SpotHit } | { kind: 'map'; data: MapHit };
 
-export function useCombinedSearch(query: string, hitsPerPage = 10) {
+export function useCombinedSearch(query: string, hitsPerPage = 20) {
     const debouncedQuery = useDebounce(query, 200);
 
     const searchQuery = useQuery({
