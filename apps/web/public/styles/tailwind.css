@@ -1627,6 +1627,7 @@
     padding: 0.5rem;
     background: none;
     box-shadow: none;
+    pointer-events: none;
 }
 .map-spot-overview--light.maplibregl-popup-anchor-top .maplibregl-popup-tip,
 .map-spot-overview--light.maplibregl-popup-anchor-top-left .maplibregl-popup-tip,

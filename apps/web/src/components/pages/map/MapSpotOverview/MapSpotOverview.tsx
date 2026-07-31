@@ -64,7 +64,7 @@ const MapSpotOverview: React.FC<MapSpotOverviewProps> = ({ spotOverview, onPopup
             closeButton={false}
             closeOnClick={false}
         >
-            <button className="relative text-left" onClick={onPopupClick} onWheel={handleWheel}>
+            <button className="relative text-left pointer-events-auto" onClick={onPopupClick} onWheel={handleWheel}>
                 <h4
                     className={classNames('max-w-[275px] font-black text-2xl', {
                         'text-black': isLightStyle,
