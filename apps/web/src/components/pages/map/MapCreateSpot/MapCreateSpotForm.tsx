@@ -29,6 +29,15 @@ const MapCreateSpotForm = () => {
     const { current: map } = useMap();
 
     useEffect(() => {
+        const { mapStyle: previousStyle, setMapStyle } = useMapStore.getState();
+        setMapStyle('satellite-streets-v12');
+
+        return () => {
+            setMapStyle(previousStyle);
+        };
+    }, []);
+
+    useEffect(() => {
         const onClick = (event: MapLayerMouseEvent) => {
             event.preventDefault();
             setFieldValue('location', { latitude: event.lngLat.lat, longitude: event.lngLat.lng });
@@ -94,7 +103,7 @@ const MapCreateSpotForm = () => {
                 )}
             >
                 <div className="relative p-4 bg-tertiary-dark pointer-events-auto [&_button]:absolute [&_button]:left-4 [&_button]:top-[calc(50%-1.25rem)] [&_button_svg]:w-6 [&_button_svg]:fill-onDark-highEmphasis [&_button_svg]:rotate-180 [&_.ui-Typography]:text-center mobile:shadow-onDarkHighSharp">
-                    <button className="flex p-2 z-[1]" onClick={() => toggleCreateSpot()}>
+                    <button className="flex p-2 z-1" onClick={() => toggleCreateSpot()}>
                         <Arrow />
                     </button>
                     <Typography component="heading6">Create a spot</Typography>
@@ -130,7 +139,7 @@ const MapCreateSpotForm = () => {
                         <MapCreateSpotMedia />
                     </ScrollBar>
                 </div>
-                <div className="p-4 px-6 bg-tertiary-dark shadow-onDarkHighSharp pointer-events-auto z-[1] [&_button]:w-full">
+                <div className="p-4 px-6 bg-tertiary-dark shadow-onDarkHighSharp pointer-events-auto z-1 [&_button]:w-full">
                     <ButtonPrimary loading={isSubmitting} disabled={!isValid || isSubmitting || !dirty}>
                         Create
                     </ButtonPrimary>
