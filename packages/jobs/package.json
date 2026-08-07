@@ -8,6 +8,7 @@
         "job": "fnox exec -- bun run src/index.ts",
         "job:add-missing-profiles": "fnox exec -- bun run src/jobs/add-missing-profiles.ts",
         "job:add-missing-spots": "fnox exec -- bun run src/jobs/add-missing-spots.ts",
+        "job:check-missing-media-images": "fnox exec -- bun run src/jobs/check-missing-media-images.ts",
         "job:link-missing-spot-media": "fnox exec -- bun run src/jobs/link-missing-spot-media.ts",
         "job:reconcile-media-s3": "fnox exec -- bun run src/jobs/reconcile-media-s3.ts",
         "job:recompute-spot-media-stats": "fnox exec -- bun run src/jobs/recompute-spot-media-stats.ts",
