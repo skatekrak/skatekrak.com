@@ -3,11 +3,10 @@ import { useMap } from 'react-map-gl/maplibre';
 
 import type { Media } from '@krak/contracts';
 
+import LinkifiedText from '@/components/Ui/LinkifiedText';
 import Typography from '@/components/Ui/typography/Typography';
 import SpotIcon from '@/components/Ui/Utils/SpotIcon';
 import { useSpotID } from '@/lib/hook/queryState';
-
-import MediaCaption from './MediaCaption';
 
 type Props = {
     media: Media;
@@ -61,7 +60,7 @@ const MapMediaOverlay = ({ media, isFromCustomMapFeed }: Props) => {
             <MapMediaOverlaySpotOrUsername media={media} isFromCustomMapFeed={isFromCustomMapFeed} />
             {media.caption != null && (
                 <Typography className="mt-1 line-clamp-3" component="body2">
-                    <MediaCaption caption={media.caption} />
+                    <LinkifiedText>{media.caption}</LinkifiedText>
                 </Typography>
             )}
         </div>

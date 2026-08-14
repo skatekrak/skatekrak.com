@@ -12,6 +12,7 @@ import IconStreet from '@/components/pages/map/marker/icons/Street';
 import IconWip from '@/components/pages/map/marker/icons/Wip';
 import IconClips from '@/components/Ui/Icons/IconClips';
 import IconMedia from '@/components/Ui/Icons/IconMedia';
+import LinkifiedText from '@/components/Ui/LinkifiedText';
 import Typography from '@/components/Ui/typography/Typography';
 import { useFullSpotSelectedTab } from '@/lib/hook/queryState';
 import { useMapStore } from '@/store/map';
@@ -86,6 +87,14 @@ const MapFullSpotNav = () => {
                             <span>{spotOverview.spot.location.city}</span> | {spotOverview.spot.location.country}
                         </Typography>
                         <SpotAddress spot={spotOverview.spot} />
+                        {spotOverview.spot.description && (
+                            <Typography
+                                className="mt-4 whitespace-pre-line text-onDark-mediumEmphasis"
+                                component="body2"
+                            >
+                                <LinkifiedText>{spotOverview.spot.description}</LinkifiedText>
+                            </Typography>
+                        )}
                         <div className="flex items-center mt-4 [&_.map-icon]:w-12 [&_.map-icon]:mr-6">
                             <SpotIcon type={spotOverview.spot.type} status={spotOverview.spot.status} />
                             <MapFullSpotAddTrigger />

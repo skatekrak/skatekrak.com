@@ -6,13 +6,12 @@ import { useImgproxy } from '@krak/ui';
 
 import IconArrowHead from '@/components/Ui/Icons/ArrowHead';
 import IconInfo from '@/components/Ui/Icons/IconInfo';
+import LinkifiedText from '@/components/Ui/LinkifiedText';
 import VideoPlayer from '@/components/Ui/Player/VideoPlayer';
 import Typography from '@/components/Ui/typography/Typography';
 import SpotIcon from '@/components/Ui/Utils/SpotIcon';
 import { useMediaID, useSpotID, useSpotModal } from '@/lib/hook/queryState';
 import { getMediaImageUrl } from '@/lib/media';
-
-import MediaCaption from '../MediaCaption';
 
 export type CarouselProps = {
     media: Media;
@@ -142,7 +141,7 @@ export const CarouselNav = ({ media, prevMedia, nextMedia }: CarouselProps) => {
                     )}
                     {media.caption && (
                         <Typography component="body1" className="leading-[1.8] mt-3">
-                            <MediaCaption caption={media.caption} />
+                            <LinkifiedText>{media.caption}</LinkifiedText>
                         </Typography>
                     )}
                 </div>
