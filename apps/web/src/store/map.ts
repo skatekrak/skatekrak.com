@@ -30,6 +30,7 @@ type MapStore = {
     searchResultIsOpen: boolean;
     videoPlayingId: string | null;
     isCreateSpotOpen: boolean;
+    isSidePanelOpen: boolean;
     filters: (Types | Status)[];
     mapStyle: MapStyle;
 
@@ -38,6 +39,7 @@ type MapStore = {
     setVideoPlaying: (videoId: string | null) => void;
     toggleSearchResult: (value: boolean) => void;
     toggleCreateSpot: () => void;
+    toggleSidePanel: (value: boolean) => void;
     toggleFilter: (filter: Types | Status) => void;
     setMapStyle: (style: MapStyle) => void;
 };
@@ -50,6 +52,7 @@ export const useMapStore = create<MapStore>()(
             searchResultIsOpen: false,
             videoPlayingId: null,
             isCreateSpotOpen: false,
+            isSidePanelOpen: true,
             filters: [],
             mapStyle: 'dark',
 
@@ -58,6 +61,7 @@ export const useMapStore = create<MapStore>()(
             setVideoPlaying: (videoPlayingId) => set({ videoPlayingId }),
             toggleSearchResult: (value) => set({ searchResultIsOpen: value, legendOpen: false }),
             toggleCreateSpot: () => set((state) => ({ isCreateSpotOpen: !state.isCreateSpotOpen })),
+            toggleSidePanel: (value) => set({ isSidePanelOpen: value }),
             toggleFilter: (filter) =>
                 set((state) => {
                     const filters = state.filters.includes(filter)
