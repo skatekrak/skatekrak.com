@@ -1,4 +1,4 @@
-import { QueryClient, QueryClientProvider, HydrationBoundary } from '@tanstack/react-query';
+import { HydrationBoundary, QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { AppProps } from 'next/app';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
@@ -11,13 +11,14 @@ const ReactQueryDevtools = dynamic(
     { ssr: false },
 );
 
-import { ImgproxyProvider } from '@krak/ui';
-
+import { LucideProvider } from 'lucide-react';
 import 'react-responsive-modal/styles.css';
 
-import '../../public/styles/tailwind.css';
-import '../../public/styles/fonts.css';
+import { ImgproxyProvider } from '@krak/ui';
+
 import '../../public/styles/flexbox-grid.css';
+import '../../public/styles/fonts.css';
+import '../../public/styles/tailwind.css';
 
 const App: React.FC<AppProps> = ({ Component, pageProps }) => {
     const [queryClient] = useState(() => new QueryClient());
@@ -31,7 +32,9 @@ const App: React.FC<AppProps> = ({ Component, pageProps }) => {
                             <meta charSet="utf-8" />
                             <meta name="viewport" content="width=device-width, initial-scale=1" />
                         </Head>
-                        <Component {...pageProps} />
+                        <LucideProvider strokeWidth={1.5}>
+                            <Component {...pageProps} />
+                        </LucideProvider>
                         {process.env.NEXT_PUBLIC_STAGE === 'development' && (
                             <ReactQueryDevtools initialIsOpen={false} />
                         )}
