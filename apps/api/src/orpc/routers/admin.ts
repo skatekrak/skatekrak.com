@@ -454,6 +454,10 @@ export const updateSpotGeneralInfo = os.admin.spots.updateGeneralInfo
             data,
         });
 
+        spotIndex.updateDocuments([{ objectID: spot.id, name: spot.name }]).catch((err) => {
+            console.error('Failed to update spot in Meilisearch:', err);
+        });
+
         return {
             id: spot.id,
             name: spot.name,
