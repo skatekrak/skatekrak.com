@@ -48,7 +48,7 @@ const MapFullSpotAddMedia = () => {
             queryClient.invalidateQueries({
                 queryKey: orpc.spots.getSpotOverview.key({ input: { id: spotOverview.spot.id } }),
             });
-            queryClient.invalidateQueries({
+            await queryClient.invalidateQueries({
                 queryKey: orpc.media.listBySpot.key(),
                 refetchType: 'all',
             });
