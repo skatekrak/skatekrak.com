@@ -24,7 +24,7 @@ type MapSpotOverviewProps = {
 const MapSpotOverview: React.FC<MapSpotOverviewProps> = ({ spotOverview, onPopupClick, onPopupClose }) => {
     const { current: map } = useMap();
     const mapStyle = useMapStore((state) => state.mapStyle);
-    const media = spotOverview.medias[0];
+    const media = spotOverview.mediaThumbnail;
     const image = media?.image;
 
     const isLightStyle = mapStyle === 'light-v11';

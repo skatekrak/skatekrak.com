@@ -74,6 +74,7 @@ import {
 
 const SpotOverviewSchema = z.object({
     spot: SpotSchema,
+    mediaThumbnail: MediaSchema.nullable(),
     medias: z.array(MediaSchema),
     clips: z.array(ClipSchema),
 });

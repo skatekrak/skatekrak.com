@@ -180,7 +180,20 @@ export const getSpotOverview = os.spots.getSpotOverview.handler(async ({ context
         throw new ORPCError('NOT_FOUND', { message: 'Spot not found' });
     }
 
-    const [medias, clips] = await Promise.all([
+    const [mediaThumbnail, medias, clips] = await Promise.all([
+        context.prisma.media.findFirst({
+            where: {
+                spotId: input.id,
+                createdAt: { lt: now },
+                OR: [{ image: { not: { equals: null } } }, { video: { not: { equals: null } } }],
+                AND: [{ OR: [{ releaseDate: null }, { releaseDate: { lt: now } }] }],
+            },
+            orderBy: [{ type: 'asc' }, { createdAt: 'desc' }],
+            include: {
+                addedBy: { include: { user: { select: { username: true } } } },
+                spot: { include: addedByInclude },
+            },
+        }),
         context.prisma.media.findMany({
             where: {
                 spotId: input.id,
@@ -205,6 +218,7 @@ export const getSpotOverview = os.spots.getSpotOverview.handler(async ({ context
 
     return {
         spot: formatPrismaSpot(spot),
+        mediaThumbnail: mediaThumbnail ? formatPrismaMedia(mediaThumbnail) : null,
         medias: medias.map(formatPrismaMedia),
         clips: clips.map(formatPrismaClip),
     };
