@@ -19,6 +19,7 @@ const MapCreateSpotMediaItem = ({ file, onRemove }: MapCreateSpotMediaItemProps)
         <div className="relative pt-[100%] rounded bg-tertiary-light overflow-hidden" key={imageURL}>
             <div className="absolute top-0 right-0 bottom-0 left-0">
                 <button
+                    type="button"
                     className="absolute top-2 right-2 flex bg-tertiary-light rounded-full z-[1] [&_svg]:w-8 [&_svg]:fill-onDark-mediumEmphasis hover:[&_svg]:fill-onDark-highEmphasis"
                     onClick={() => onRemove(file)}
                 >

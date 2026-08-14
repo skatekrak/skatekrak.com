@@ -46,6 +46,7 @@ const MapFullSpotAddMediaInput = () => {
             <div className="relative max-w-full pt-[100%] my-8 rounded bg-tertiary-light overflow-hidden laptop-s:m-0 laptop-s:pt-0">
                 <div className="absolute w-full top-0 bottom-0 left-0 hover:[&_svg]:fill-onDark-highEmphasis [&_svg]:m-auto [&_svg]:w-6 [&_svg]:fill-onDark-mediumEmphasis">
                     <button
+                        type="button"
                         className="absolute top-2 right-2 flex bg-tertiary-light rounded-full z-[1] [&_svg]:w-8 [&_svg]:fill-onDark-mediumEmphasis hover:[&_svg]:fill-onDark-highEmphasis"
                         onClick={removeMedia}
                     >
@@ -72,7 +73,10 @@ const MapFullSpotAddMediaInput = () => {
             className="relative max-w-full pt-[100%] my-8 rounded bg-tertiary-light overflow-hidden laptop-s:m-0 laptop-s:pt-0"
             {...getRootProps()}
         >
-            <button className="absolute w-full top-0 bottom-0 left-0 hover:[&_svg]:fill-onDark-highEmphasis [&_svg]:m-auto [&_svg]:w-6 [&_svg]:fill-onDark-mediumEmphasis">
+            <button
+                type="button"
+                className="absolute w-full top-0 bottom-0 left-0 hover:[&_svg]:fill-onDark-highEmphasis [&_svg]:m-auto [&_svg]:w-6 [&_svg]:fill-onDark-mediumEmphasis"
+            >
                 <IconPlus />
                 <input type="file" accept=".jpg,.jpeg,.png" style={{ display: 'none' }} {...getInputProps()} />
             </button>
