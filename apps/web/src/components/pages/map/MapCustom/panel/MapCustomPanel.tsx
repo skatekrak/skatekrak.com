@@ -6,16 +6,22 @@ import type { Spot } from '@krak/contracts';
 import { KrakImage } from '@krak/ui';
 
 import MapCustomMediaCarousel from '@/components/pages/map/MapCustom/MapCustomMediaCarousel';
-import Content from '@/components/pages/map/MapCustom/panel/Content';
+import {
+    MediaTabContent,
+    SoundtrackTabContent,
+    SpotsTabContent,
+    VideoTabContent,
+} from '@/components/pages/map/MapCustom/panel/Content';
 import IconArrow from '@/components/Ui/Icons/Arrow';
 import { KrakLoading } from '@/components/Ui/Icons/Spinners';
 import InfiniteScroll from '@/components/Ui/InfiniteScroll';
 import ScrollBar from '@/components/Ui/Scrollbar';
-import { useCustomMapID, useCityID, useMediaID, useSpotID, useSpotModal } from '@/lib/hook/queryState';
+import { Tabs } from '@/components/Ui/Tabs';
+import { useCityID, useCustomMapID, useMediaID, useSpotID, useSpotModal } from '@/lib/hook/queryState';
 import { CustomMap } from '@/lib/map/types';
 import { orpc } from '@/server/orpc/client';
 
-export type MapCustomPanelTabs = 'media' | 'video' | 'spots' | 'soundtrack';
+type MapCustomPanelTabs = 'media' | 'video' | 'spots' | 'soundtrack';
 
 type MapCustomPanelProps = {
     map: CustomMap;
@@ -181,49 +187,31 @@ const MapCustomPanel = ({ map, spots }: MapCustomPanelProps) => {
                                         <KrakLoading />
                                     </div>
                                 ) : (
-                                    <>
-                                        {/** Tabs */}
-                                        <div className="flex gap-x-6 gap-y-4 justify-center flex-wrap my-8 px-6">
-                                            {medias && medias.length > 0 && (
-                                                <Tab
-                                                    title="media"
-                                                    onClick={() => setOpenTab('media')}
-                                                    isActive={openTab === 'media'}
-                                                />
-                                            )}
-                                            {map.videos && map.videos?.length > 0 && (
-                                                <Tab
-                                                    title="video"
-                                                    onClick={() => setOpenTab('video')}
-                                                    isActive={openTab === 'video'}
-                                                />
-                                            )}
-                                            {spots.length > 0 && (
-                                                <Tab
-                                                    title="spots"
-                                                    onClick={() => setOpenTab('spots')}
-                                                    isActive={openTab === 'spots'}
-                                                />
-                                            )}
+                                    <Tabs value={openTab} onValueChange={setOpenTab}>
+                                        <Tabs.List className="my-8 px-6">
+                                            {medias.length > 0 && <Tabs.Tab value="media">media</Tabs.Tab>}
+                                            {map.videos?.length > 0 && <Tabs.Tab value="video">video</Tabs.Tab>}
+                                            {spots.length > 0 && <Tabs.Tab value="spots">spots</Tabs.Tab>}
                                             {map.soundtrack.length > 0 && (
-                                                <Tab
-                                                    title="soundtrack"
-                                                    onClick={() => setOpenTab('soundtrack')}
-                                                    isActive={openTab === 'soundtrack'}
-                                                />
+                                                <Tabs.Tab value="soundtrack">soundtrack</Tabs.Tab>
                                             )}
-                                        </div>
-                                        <div className="grow flex flex-col gap-6 px-6 pb-8">
-                                            <Content
-                                                activeTab={openTab}
-                                                spots={spots}
-                                                medias={medias ?? []}
-                                                videos={map.videos}
-                                                soundtrack={map.soundtrack}
-                                            />
+                                        </Tabs.List>
+                                        <div className="grow px-6 pb-8">
+                                            <Tabs.Content value="media" className="flex flex-col gap-6">
+                                                <MediaTabContent medias={medias} />
+                                            </Tabs.Content>
+                                            <Tabs.Content value="video" className="flex flex-col gap-6">
+                                                <VideoTabContent videos={map.videos} />
+                                            </Tabs.Content>
+                                            <Tabs.Content value="spots">
+                                                <SpotsTabContent spots={spots} />
+                                            </Tabs.Content>
+                                            <Tabs.Content value="soundtrack">
+                                                <SoundtrackTabContent soundtrack={map.soundtrack} />
+                                            </Tabs.Content>
                                             {isFetchingNextPage && <KrakLoading />}
                                         </div>
-                                    </>
+                                    </Tabs>
                                 )}
                             </>
                         )}
@@ -235,24 +223,3 @@ const MapCustomPanel = ({ map, spots }: MapCustomPanelProps) => {
 };
 
 export default MapCustomPanel;
-
-export const Tab = ({
-    title,
-    isActive,
-    className,
-    ...props
-}: React.ButtonHTMLAttributes<HTMLButtonElement> & { title: string; isActive: boolean }) => (
-    <button
-        className={classNames(
-            'relative pt-1 pb-3 px-4 text-lg font-bold hover:text-onDark-highEmphasis',
-            {
-                'text-onDark-highEmphasis': isActive,
-            },
-            className,
-        )}
-        {...props}
-    >
-        {title}
-        {isActive && <div className="absolute -bottom-0.5 inset-x-2 h-0.5 bg-primary-100" />}
-    </button>
-);
