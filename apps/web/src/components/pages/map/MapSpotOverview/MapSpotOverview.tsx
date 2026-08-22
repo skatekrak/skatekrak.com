@@ -27,7 +27,7 @@ const MapSpotOverview: React.FC<MapSpotOverviewProps> = ({ spotOverview, onPopup
     const media = spotOverview.mediaThumbnail;
     const image = media?.image;
 
-    const isLightStyle = mapStyle === 'light-v11';
+    const isLightStyle = mapStyle === 'light';
 
     const handleWheel = useCallback(
         (e: React.WheelEvent) => {

@@ -1,7 +1,11 @@
 import 'maplibre-gl/dist/maplibre-gl.css';
+import { layers, namedFlavor } from '@protomaps/basemaps';
+import maplibregl, { type StyleSpecification } from 'maplibre-gl';
+import { Protocol } from 'pmtiles';
 import { intersects } from 'radash';
 import React, { useCallback, useEffect, useMemo, memo } from 'react';
 import ReactMapGL, {
+    AttributionControl,
     GeolocateControl,
     MapLayerMouseEvent,
     MapRef,
@@ -28,7 +32,10 @@ import MapSpotOverview from './MapSpotOverview';
 
 import type { FeatureCollection, Geometry } from 'geojson';
 
-const MAPBOX_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN;
+const pmtilesUrl = 'https://krakmaps.ams3.cdn.digitaloceanspaces.com/20260822.pmtiles';
+const mapboxToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN;
+
+maplibregl.addProtocol('pmtiles', new Protocol().tile);
 
 type MapComponentProps = {
     mapRef: React.RefObject<MapRef | null>;
@@ -118,12 +125,33 @@ const MapComponent = ({ mapRef, spots, children, onLoad }: MapComponentProps) =>
 
     const isMobile = useSettingsStore((state) => state.isMobile);
 
+    const basemapStyle = useMemo<string | StyleSpecification>(() => {
+        if (mapStyle === 'satellite-streets-v12') {
+            return 'https://api.mapbox.com/styles/v1/mapbox/satellite-streets-v12';
+        }
+
+        return {
+            version: 8,
+            glyphs: 'https://protomaps.github.io/basemaps-assets/fonts/{fontstack}/{range}.pbf',
+            sprite: `https://protomaps.github.io/basemaps-assets/sprites/v4/${mapStyle}`,
+            sources: {
+                protomaps: {
+                    type: 'vector',
+                    url: `pmtiles://${pmtilesUrl}`,
+                    attribution:
+                        '<a href="https://github.com/protomaps/basemaps">Protomaps</a> © <a href="https://openstreetmap.org/copyright">OpenStreetMap</a>',
+                },
+            },
+            layers: layers('protomaps', namedFlavor(mapStyle), { lang: 'en' }),
+        };
+    }, [mapStyle]);
+
     useEffect(() => {
         if (isMobile) {
-            setMapStyle('light-v11');
+            setMapStyle('light');
         } else {
             const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            setMapStyle(prefersDark ? 'dark-v11' : 'light-v11');
+            setMapStyle(prefersDark ? 'dark' : 'light');
         }
     }, [setMapStyle, isMobile]);
 
@@ -143,33 +171,26 @@ const MapComponent = ({ mapRef, spots, children, onLoad }: MapComponentProps) =>
                 maxZoom={MAX_ZOOM_LEVEL}
                 attributionControl={false}
                 maplibreLogo={false}
-                // Mapbox style JSON contains proprietary properties (name, owner, etc.)
-                // that MapLibre's strict validator flags as unknown — disable validation
                 validateStyle={false}
-                mapStyle={`https://api.mapbox.com/styles/v1/mapbox/${mapStyle}`}
+                mapStyle={basemapStyle}
                 transformRequest={(url: string) => {
-                    // Resolve mapbox:// protocol URIs that MapLibre doesn't understand
                     if (url.startsWith('mapbox://fonts/')) {
                         const path = url.replace('mapbox://fonts/', '');
-                        return { url: `https://api.mapbox.com/fonts/v1/${path}?access_token=${MAPBOX_TOKEN}` };
+                        return { url: `https://api.mapbox.com/fonts/v1/${path}?access_token=${mapboxToken}` };
                     }
                     if (url.startsWith('mapbox://sprites/')) {
                         const path = url.replace('mapbox://sprites/', '');
-                        return { url: `https://api.mapbox.com/styles/v1/${path}/sprite?access_token=${MAPBOX_TOKEN}` };
+                        return { url: `https://api.mapbox.com/styles/v1/${path}/sprite?access_token=${mapboxToken}` };
                     }
                     if (url.startsWith('mapbox://')) {
                         const path = url.replace('mapbox://', '');
-                        return { url: `https://api.mapbox.com/v4/${path}.json?secure&access_token=${MAPBOX_TOKEN}` };
+                        return { url: `https://api.mapbox.com/v4/${path}.json?secure&access_token=${mapboxToken}` };
                     }
-                    // Append token to any other Mapbox API requests
-                    if (url.includes('api.mapbox.com') || url.includes('tiles.mapbox.com')) {
-                        if (!url.includes('access_token=')) {
-                            return {
-                                url: url.includes('?')
-                                    ? `${url}&access_token=${MAPBOX_TOKEN}`
-                                    : `${url}?access_token=${MAPBOX_TOKEN}`,
-                            };
-                        }
+                    if (
+                        (url.includes('api.mapbox.com') || url.includes('tiles.mapbox.com')) &&
+                        !url.includes('access_token=')
+                    ) {
+                        return { url: `${url}${url.includes('?') ? '&' : '?'}access_token=${mapboxToken}` };
                     }
                     return { url };
                 }}
@@ -208,6 +229,7 @@ const MapComponent = ({ mapRef, spots, children, onLoad }: MapComponentProps) =>
                 >
                     <IconLayer className="w-5 h-5" />
                 </button>
+                <AttributionControl compact position="bottom-left" />
                 <NavigationControl position="bottom-right" />
                 <GeolocateControl position="bottom-right" showAccuracyCircle={false} />
             </ReactMapGL>

@@ -21,7 +21,7 @@ export type FullSpotTab =
     | 'instagram'
     | 'contributors';
 
-export const mapStyles = ['dark-v11', 'satellite-streets-v12', 'light-v11'] as const;
+export const mapStyles = ['dark', 'satellite-streets-v12', 'light'] as const;
 export type MapStyle = (typeof mapStyles)[number];
 
 type MapStore = {
@@ -51,7 +51,7 @@ export const useMapStore = create<MapStore>()(
             videoPlayingId: null,
             isCreateSpotOpen: false,
             filters: [],
-            mapStyle: 'dark-v11',
+            mapStyle: 'dark',
 
             setSpotOverview: (spotOverview) => set({ spotOverview }),
             toggleLegend: (value) => set({ legendOpen: value }),
