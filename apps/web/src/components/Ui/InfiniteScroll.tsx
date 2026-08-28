@@ -18,7 +18,7 @@ const findScrollableAncestor = (element: HTMLElement): HTMLElement | null => {
     while (current) {
         const style = getComputedStyle(current);
         const overflowY = style.overflowY;
-        if (overflowY === 'auto' || overflowY === 'scroll') {
+        if (current.classList.contains('simplebar-content-wrapper') || overflowY === 'auto' || overflowY === 'scroll') {
             return current;
         }
         current = current.parentElement;
