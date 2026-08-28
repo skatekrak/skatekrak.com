@@ -17,8 +17,10 @@ const MapFullSpotMainClip = ({ clip }: MapFullSpotMainClipProps) => {
     );
     const isPlaying = videoPlayingId === clip.id;
     const [previewKey, setPreviewKey] = useState(0);
+    const [paused, setPaused] = useState(false);
 
     const onReady = () => {
+        setPaused(false);
         setVideoPlaying(clip.id);
     };
 
@@ -33,7 +35,16 @@ const MapFullSpotMainClip = ({ clip }: MapFullSpotMainClipProps) => {
             <Typography className="mb-4" component="heading6">
                 {clip.title}
             </Typography>
-            <VideoPlayer key={previewKey} playing={isPlaying} onReady={onReady} url={clip.videoURL} light controls />
+            <VideoPlayer
+                key={previewKey}
+                playing={isPlaying && !paused}
+                onReady={onReady}
+                onPlay={() => setPaused(false)}
+                onPause={() => setPaused(true)}
+                url={clip.videoURL}
+                light
+                controls
+            />
         </div>
     );
 };
