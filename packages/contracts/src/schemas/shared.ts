@@ -16,6 +16,17 @@ export const VideoProviderSchema = z.nativeEnum(VideoProvider);
 // Shared object schemas
 // ============================================================================
 
+export const MapBoundsSchema = z.object({
+    northEast: z.object({
+        latitude: z.number().finite().min(-90).max(90),
+        longitude: z.number().finite(),
+    }),
+    southWest: z.object({
+        latitude: z.number().finite().min(-90).max(90),
+        longitude: z.number().finite(),
+    }),
+});
+
 export const StatSchema = z.object({
     createdAt: z.coerce.date(),
     className: z.string(),

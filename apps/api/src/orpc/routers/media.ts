@@ -1,6 +1,7 @@
 import { ORPCError } from '@orpc/server';
 
 import { extractHashtags, addHashtagIfNeeded } from '../../helpers/hashtags';
+import { getSpotBoundsWhere } from '../../helpers/map-bounds';
 import { processMediaFile } from '../../helpers/media-upload';
 import { recomputeMediasStat } from '../../helpers/stats';
 import { os, authed, loadProfile, loadSpot } from '../base';
@@ -100,16 +101,25 @@ export const getSpotMediasAround = os.media.getSpotMediasAround.handler(async ({
 
 /** General media listing with optional hashtag filter (cursor-paginated) */
 export const list = os.media.list.handler(async ({ context, input }) => {
+    const cursorFilter = input.cursor
+        ? input.cursorId
+            ? {
+                  OR: [{ createdAt: { lt: input.cursor } }, { createdAt: input.cursor, id: { lt: input.cursorId } }],
+              }
+            : { createdAt: { lt: input.cursor } }
+        : { createdAt: { lt: new Date() } };
+
     const medias = await context.prisma.media.findMany({
         where: {
-            createdAt: { lt: input.cursor ?? new Date() },
             OR: [{ image: { not: { equals: null } } }, { video: { not: { equals: null } } }],
             AND: [
+                cursorFilter,
                 { OR: [{ releaseDate: null }, { releaseDate: { lt: new Date() } }] },
                 ...(input.hashtag ? [{ hashtags: { has: addHashtagIfNeeded(input.hashtag) } }] : []),
+                ...(input.bounds ? [{ spot: { is: getSpotBoundsWhere(input.bounds) } }] : []),
             ],
         },
-        orderBy: { createdAt: 'desc' },
+        orderBy: [{ createdAt: 'desc' }, { id: 'desc' }],
         take: input.limit,
         include: mediaInclude,
     });

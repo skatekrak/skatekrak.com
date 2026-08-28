@@ -7,8 +7,25 @@ import MapMedia from '@/components/pages/map/media/MapMedia';
 import VideoPlayer from '@/components/Ui/Player/VideoPlayer';
 import { useSpotID } from '@/lib/hook/queryState';
 
-export const MediaTabContent = ({ medias }: { medias: Media[] }) =>
-    medias.map((media) => <MapMedia key={media.id} media={media} isFromCustomMapFeed />);
+export const MediaTabContent = ({ medias }: { medias: Media[] }) => {
+    const [, selectSpot] = useSpotID();
+    const { current: currentMap } = useMap();
+
+    return medias.map((media) => (
+        <MapMedia
+            key={media.id}
+            media={media}
+            isFromCustomMapFeed
+            onSpotClick={(spot) => {
+                currentMap?.flyTo({
+                    center: { lat: spot.location.latitude, lon: spot.location.longitude },
+                    duration: 1000,
+                });
+                selectSpot(spot.id);
+            }}
+        />
+    ));
+};
 
 export const VideoTabContent = ({ videos }: { videos: string[] }) =>
     videos.map((video) => <VideoPlayer key={video} url={video} controls />);

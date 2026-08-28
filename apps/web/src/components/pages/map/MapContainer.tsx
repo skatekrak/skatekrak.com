@@ -140,6 +140,7 @@ const MapContainer = () => {
 
     const {
         data: spots,
+        bounds: feedBounds,
         refetch,
         isFetching: spotsGeoJSONLoading,
     } = useSpotsGeoJSON(mapRef?.current ?? undefined, enableSpotQuery);
@@ -188,9 +189,17 @@ const MapContainer = () => {
 
     const isLoading = spotsGeoJSONLoading || spotsTagsLoading;
 
+    const onFeedSpotClick = useCallback(
+        (spot: Spot) => {
+            centerToSpot(spot);
+            setSpotID(spot.id);
+        },
+        [centerToSpot, setSpotID],
+    );
+
     return (
-        <div className="grow flex">
-            {isSidePanelOpen && <MapSidePanel />}
+        <div className="min-h-0 grow flex overflow-hidden">
+            {isSidePanelOpen && <MapSidePanel bounds={feedBounds} onSpotClick={onFeedSpotClick} />}
             <div ref={fullSpotContainerRef} className="relative grow flex bg-tertiary-dark overflow-hidden">
                 <DynamicMapComponent
                     mapRef={mapRef}

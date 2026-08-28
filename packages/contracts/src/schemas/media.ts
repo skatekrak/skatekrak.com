@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-import { AddedBySchema, CloudinaryFileSchema, MediaImageSchema, VideoProviderSchema } from './shared';
+import { AddedBySchema, CloudinaryFileSchema, MapBoundsSchema, MediaImageSchema, VideoProviderSchema } from './shared';
 import { SpotSchema } from './spots';
 
 // ============================================================================
@@ -62,7 +62,9 @@ export const getSpotMediasAroundInput = z.object({
 export const listMediaInput = z.object({
     hashtag: z.string().optional(),
     cursor: z.date().optional(),
+    cursorId: z.string().optional(),
     limit: z.number().min(1).max(100).default(20),
+    bounds: MapBoundsSchema.optional(),
 });
 
 export const getHashtagMediasAroundInput = z.object({
