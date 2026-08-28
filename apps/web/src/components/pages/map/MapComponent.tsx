@@ -138,8 +138,6 @@ const MapComponent = ({ mapRef, spots, children, onLoad }: MapComponentProps) =>
                 protomaps: {
                     type: 'vector',
                     url: `pmtiles://${pmtilesUrl}`,
-                    attribution:
-                        '<a href="https://github.com/protomaps/basemaps">Protomaps</a> © <a href="https://openstreetmap.org/copyright">OpenStreetMap</a>',
                 },
             },
             layers: layers('protomaps', namedFlavor(mapStyle), { lang: 'en' }),
