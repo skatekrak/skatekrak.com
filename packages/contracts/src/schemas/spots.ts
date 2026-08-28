@@ -8,6 +8,7 @@ import {
     SpotStatusSchema,
     ObstacleSchema,
     VideoProviderSchema,
+    MapBoundsSchema,
 } from './shared';
 
 // ============================================================================
@@ -71,9 +72,11 @@ export const getSpotOverviewInput = z.object({
     id: z.string(),
 });
 
-export const getSpotsGeoJSONInput = z.object({
-    northEast: z.object({ latitude: z.number(), longitude: z.number() }),
-    southWest: z.object({ latitude: z.number(), longitude: z.number() }),
+export const getSpotsGeoJSONInput = MapBoundsSchema;
+
+export const listSpotsInBoundsInput = MapBoundsSchema.extend({
+    offset: z.number().int().min(0).default(0),
+    limit: z.number().int().min(1).max(100).default(50),
 });
 
 export const listByTagsInput = z.object({

@@ -6,6 +6,7 @@ import { type SpotGeoJSON, Status, Types } from '@krak/types';
 import { env } from '../../env';
 import { reverseGeocode } from '../../helpers/geocoding';
 import { addHashtagIfNeeded } from '../../helpers/hashtags';
+import { getSpotBoundsWhere } from '../../helpers/map-bounds';
 import { spotIndex } from '../../helpers/meilisearch';
 import { buildStat } from '../../helpers/stats';
 import { getVideoInformation } from '../../helpers/videos';
@@ -226,20 +227,23 @@ export const getSpotOverview = os.spots.getSpotOverview.handler(async ({ context
 
 export const getSpotsGeoJSON = os.spots.getSpotsGeoJSON.handler(async ({ context, input }) => {
     const spots = await context.prisma.spot.findMany({
-        where: {
-            longitude: {
-                gte: input.southWest.longitude,
-                lte: input.northEast.longitude,
-            },
-            latitude: {
-                gte: input.southWest.latitude,
-                lte: input.northEast.latitude,
-            },
-        },
+        where: getSpotBoundsWhere(input),
         include: addedByInclude,
     });
 
     return spotsToGeoJSON(spots);
+});
+
+export const listInBounds = os.spots.listInBounds.handler(async ({ context, input }) => {
+    const spots = await context.prisma.spot.findMany({
+        where: getSpotBoundsWhere(input),
+        orderBy: [{ medias: { _count: 'desc' } }, { id: 'asc' }],
+        skip: input.offset,
+        take: input.limit,
+        include: addedByInclude,
+    });
+
+    return spots.map(formatPrismaSpot);
 });
 
 export const listByTags = os.spots.listByTags.handler(async ({ context, input }) => {

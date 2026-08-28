@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { draw, isEmpty } from 'radash';
-import React, { useState, useEffect, useRef, useCallback, useMemo, ElementRef } from 'react';
+import { ElementRef, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { MapRef } from 'react-map-gl/maplibre';
 import { useShallow } from 'zustand/react/shallow';
 
@@ -26,6 +26,7 @@ import MapCreateSpot from './MapCreateSpot';
 import MapGradients from './MapGradients';
 import MapNavigation from './MapNavigation';
 import QuickAccessDesktop from './mapQuickAccess/desktop/quick-access-desktop';
+import MapSidePanel from './MapSidePanel';
 import MapZoomAlert from './MapZoomAlert';
 
 const DynamicMapComponent = dynamic(() => import('./MapComponent'), { ssr: false });
@@ -33,8 +34,14 @@ const MapFullSpot = dynamic(() => import('./MapFullSpot'), { ssr: false });
 
 const MapContainer = () => {
     const isMobile = useSettingsStore((state) => state.isMobile);
-    const [isCreateSpotOpen, toggleCreateSpot, setSpotOverview] = useMapStore(
-        useShallow((state) => [state.isCreateSpotOpen, state.toggleCreateSpot, state.setSpotOverview]),
+    const [isCreateSpotOpen, isSidePanelOpen, toggleCreateSpot, toggleSidePanel, setSpotOverview] = useMapStore(
+        useShallow((state) => [
+            state.isCreateSpotOpen,
+            state.isSidePanelOpen,
+            state.toggleCreateSpot,
+            state.toggleSidePanel,
+            state.setSpotOverview,
+        ]),
     );
     const [viewport, setViewport] = useViewport();
     const session = useSession();
@@ -60,6 +67,12 @@ const MapContainer = () => {
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
+    useEffect(() => {
+        if ((id != null || city != null || isCreateSpotOpen) && isSidePanelOpen) {
+            toggleSidePanel(false);
+        }
+    }, [id, city, isSidePanelOpen, toggleSidePanel, isCreateSpotOpen]);
 
     const [, setFirstLoad] = useState(() => Boolean(spotId));
     const [mapLoaded, setMapLoaded] = useState(false);
@@ -127,6 +140,7 @@ const MapContainer = () => {
 
     const {
         data: spots,
+        bounds: feedBounds,
         refetch,
         isFetching: spotsGeoJSONLoading,
     } = useSpotsGeoJSON(mapRef?.current ?? undefined, enableSpotQuery);
@@ -175,45 +189,56 @@ const MapContainer = () => {
 
     const isLoading = spotsGeoJSONLoading || spotsTagsLoading;
 
+    const onFeedSpotClick = useCallback(
+        (spot: Spot) => {
+            centerToSpot(spot);
+            setSpotID(spot.id);
+        },
+        [centerToSpot, setSpotID],
+    );
+
     return (
-        <div ref={fullSpotContainerRef} className="relative grow flex bg-tertiary-dark overflow-hidden">
-            <DynamicMapComponent
-                mapRef={mapRef}
-                spots={displayedSpots}
-                onLoad={() => {
-                    setMapLoaded(true);
-                    refetch();
-                }}
-            >
-                {isCreateSpotOpen ? (
-                    <MapCreateSpot />
-                ) : (
-                    <>
-                        {id !== undefined && customMapInfo !== undefined ? (
-                            <MapCustomPanel map={customMapInfo} spots={spotsByTags ?? []} />
-                        ) : city ? (
-                            <CityPanel />
-                        ) : (
-                            <MapNavigation handleCreateSpotClick={onToggleSpotCreation} />
-                        )}
-                        {!isMobile && <QuickAccessDesktop />}
-                        {viewport.zoom <= ZOOM_DISPLAY_WARNING && id == null && <MapZoomAlert />}
-                        {isLoading && (
-                            <div className="absolute bottom-24 left-6 tablet:left-8 tablet:bottom-28 flex items-center gap-2 text-gray-400 text-sm">
-                                <SpinnerCircle className="stroke-gray-400 w-3.5" />
-                                <span>loading spots</span>
-                            </div>
-                        )}
-                        <MapBottomNav isMobile={isMobile ?? false} />
-                        <MapFullSpot
-                            open={modalVisible}
-                            onClose={onFullSpotClose}
-                            container={!isMobile ? fullSpotContainerRef.current : null}
-                        />
-                    </>
-                )}
-            </DynamicMapComponent>
-            <MapGradients />
+        <div className="min-h-0 grow flex overflow-hidden">
+            {isSidePanelOpen && <MapSidePanel bounds={feedBounds} onSpotClick={onFeedSpotClick} />}
+            <div ref={fullSpotContainerRef} className="relative grow flex bg-tertiary-dark overflow-hidden">
+                <DynamicMapComponent
+                    mapRef={mapRef}
+                    spots={displayedSpots}
+                    onLoad={() => {
+                        setMapLoaded(true);
+                        refetch();
+                    }}
+                >
+                    {isCreateSpotOpen ? (
+                        <MapCreateSpot />
+                    ) : (
+                        <>
+                            {id !== undefined && customMapInfo !== undefined ? (
+                                <MapCustomPanel map={customMapInfo} spots={spotsByTags ?? []} />
+                            ) : city ? (
+                                <CityPanel />
+                            ) : (
+                                <MapNavigation handleCreateSpotClick={onToggleSpotCreation} />
+                            )}
+                            {!isMobile && <QuickAccessDesktop />}
+                            {viewport.zoom <= ZOOM_DISPLAY_WARNING && id == null && <MapZoomAlert />}
+                            {isLoading && (
+                                <div className="absolute bottom-24 left-6 tablet:left-8 tablet:bottom-28 flex items-center gap-2 text-gray-400 text-sm">
+                                    <SpinnerCircle className="stroke-gray-400 w-3.5" />
+                                    <span>loading spots</span>
+                                </div>
+                            )}
+                            <MapBottomNav isMobile={isMobile ?? false} />
+                            <MapFullSpot
+                                open={modalVisible}
+                                onClose={onFullSpotClose}
+                                container={!isMobile ? fullSpotContainerRef.current : null}
+                            />
+                        </>
+                    )}
+                </DynamicMapComponent>
+                <MapGradients />
+            </div>
         </div>
     );
 };

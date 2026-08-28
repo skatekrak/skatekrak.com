@@ -15,9 +15,11 @@ export type MapMediaVideoPlayerProps = {
 const MapMediaVideoPlayer: React.FC<MapMediaVideoPlayerProps> = ({ media, isPlaying }) => {
     const setVideoPlaying = useMapStore((state) => state.setVideoPlaying);
     const [previewKey, setPreviewKey] = useState(0);
+    const [paused, setPaused] = useState(false);
     const imgproxy = useImgproxy();
 
     const onReady = () => {
+        setPaused(false);
         setVideoPlaying(media.id);
     };
 
@@ -30,8 +32,10 @@ const MapMediaVideoPlayer: React.FC<MapMediaVideoPlayerProps> = ({ media, isPlay
     return (
         <VideoPlayer
             key={previewKey}
-            playing={isPlaying}
+            playing={isPlaying && !paused}
             onReady={onReady}
+            onPlay={() => setPaused(false)}
+            onPause={() => setPaused(true)}
             url={media.video!.url}
             light={media.image && imgproxy ? getMediaImageUrl(media.image, imgproxy.baseUrl) : undefined}
             videoSize={{

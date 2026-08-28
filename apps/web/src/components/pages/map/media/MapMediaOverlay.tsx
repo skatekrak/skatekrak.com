@@ -1,5 +1,4 @@
 import React from 'react';
-import { useMap } from 'react-map-gl/maplibre';
 
 import type { Media } from '@krak/contracts';
 
@@ -11,10 +10,10 @@ import { useSpotID } from '@/lib/hook/queryState';
 type Props = {
     media: Media;
     isFromCustomMapFeed: boolean;
+    onSpotClick?: (spot: NonNullable<Media['spot']>) => void;
 };
 
-const MapMediaOverlaySpotOrUsername = ({ media, isFromCustomMapFeed }: Props) => {
-    const { current: map } = useMap();
+const MapMediaOverlaySpotOrUsername = ({ media, isFromCustomMapFeed, onSpotClick }: Props) => {
     const [, selectSpot] = useSpotID();
 
     if (isFromCustomMapFeed) {
@@ -24,16 +23,11 @@ const MapMediaOverlaySpotOrUsername = ({ media, isFromCustomMapFeed }: Props) =>
                 <button
                     className="text-onDark-highEmphasis bg-transparent flex flex-row items-center hover:underline [&_svg]:w-7"
                     onClick={() => {
-                        if (spot.location.latitude && spot.location.longitude) {
-                            map?.flyTo({
-                                center: {
-                                    lat: spot.location.latitude,
-                                    lon: spot.location.longitude,
-                                },
-                                duration: 1000,
-                            });
+                        if (onSpotClick) {
+                            onSpotClick(spot);
+                        } else {
+                            selectSpot(spot.id);
                         }
-                        selectSpot(spot.id);
                     }}
                 >
                     <SpotIcon spot={spot} />
@@ -54,10 +48,14 @@ const MapMediaOverlaySpotOrUsername = ({ media, isFromCustomMapFeed }: Props) =>
     );
 };
 
-const MapMediaOverlay = ({ media, isFromCustomMapFeed }: Props) => {
+const MapMediaOverlay = ({ media, isFromCustomMapFeed, onSpotClick }: Props) => {
     return (
         <div className="hidden group-hover:block absolute bottom-0 left-0 right-0 px-4 py-2 bg-[rgba(31,31,31,0.6)] z-[1] [&_.media-overlay-spot_span]:inline [&_.media-overlay-spot_button]:underline [&_.media-overlay-spot_button]:text-onDark-highEmphasis [&_.media-overlay-spot_button]:bg-transparent">
-            <MapMediaOverlaySpotOrUsername media={media} isFromCustomMapFeed={isFromCustomMapFeed} />
+            <MapMediaOverlaySpotOrUsername
+                media={media}
+                isFromCustomMapFeed={isFromCustomMapFeed}
+                onSpotClick={onSpotClick}
+            />
             {media.caption != null && (
                 <Typography className="mt-1 line-clamp-3" component="body2">
                     <LinkifiedText>{media.caption}</LinkifiedText>

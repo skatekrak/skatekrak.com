@@ -53,6 +53,7 @@ module.exports = {
                     dark: '#1F1F1F',
                     medium: '#333333',
                     light: '#4D4D4D',
+                    lighter: '#737373',
                 },
                 onLight: {
                     highEmphasis: 'rgba(31, 31, 31, 0.9)',

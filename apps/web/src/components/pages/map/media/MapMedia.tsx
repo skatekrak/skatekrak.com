@@ -16,9 +16,17 @@ export type MapMediaProps = {
     shareURL?: string;
     media: Media;
     isFromCustomMapFeed?: boolean;
+    onSpotClick?: (spot: NonNullable<Media['spot']>) => void;
+    showFullscreen?: boolean;
 };
 
-const MapMedia = ({ shareURL, media, isFromCustomMapFeed = false }: MapMediaProps) => {
+const MapMedia = ({
+    shareURL,
+    media,
+    isFromCustomMapFeed = false,
+    onSpotClick,
+    showFullscreen = true,
+}: MapMediaProps) => {
     const [videoPlayingId, setVideoPlaying] = useMapStore(
         useShallow((state) => [state.videoPlayingId, state.setVideoPlaying]),
     );
@@ -40,12 +48,16 @@ const MapMedia = ({ shareURL, media, isFromCustomMapFeed = false }: MapMediaProp
         >
             {shareURL && <MapMediaShare url={shareURL} media={media} />}
 
-            <button
-                className="absolute top-2.5 right-2.5 hidden group-hover:flex p-1 text-onDark-highEmphasis bg-tertiary-medium rounded z-10 [&_svg]:w-6 [&_svg]:fill-onDark-mediumEmphasis hover:[&_svg]:fill-onDark-highEmphasis"
-                onClick={() => openCarousel(media.id)}
-            >
-                <IconFullScreen />
-            </button>
+            {showFullscreen && (
+                <button
+                    type="button"
+                    aria-label="Open media fullscreen"
+                    className="absolute top-2.5 right-2.5 hidden group-hover:flex p-1 text-onDark-highEmphasis bg-tertiary-medium rounded z-10 [&_svg]:w-6 [&_svg]:fill-onDark-mediumEmphasis hover:[&_svg]:fill-onDark-highEmphasis"
+                    onClick={() => openCarousel(media.id)}
+                >
+                    <IconFullScreen />
+                </button>
+            )}
             {media.type === 'video' && <MapMediaVideoPlayer media={media} isPlaying={isPlaying} />}
             {media.type === 'image' && media.image && (
                 <img
@@ -55,7 +67,7 @@ const MapMedia = ({ shareURL, media, isFromCustomMapFeed = false }: MapMediaProp
                 />
             )}
             {(media.type === 'image' || (media.type === 'video' && !isPlaying)) && (
-                <MapMediaOverlay media={media} isFromCustomMapFeed={isFromCustomMapFeed} />
+                <MapMediaOverlay media={media} isFromCustomMapFeed={isFromCustomMapFeed} onSpotClick={onSpotClick} />
             )}
         </div>
     );
