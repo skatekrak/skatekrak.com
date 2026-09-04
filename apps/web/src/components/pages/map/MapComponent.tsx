@@ -3,7 +3,7 @@ import { layers, namedFlavor } from '@protomaps/basemaps';
 import maplibregl, { type StyleSpecification } from 'maplibre-gl';
 import { Protocol } from 'pmtiles';
 import { intersects } from 'radash';
-import React, { useCallback, useEffect, useMemo, memo } from 'react';
+import React, { useCallback, useEffect, useMemo, useState, memo } from 'react';
 import ReactMapGL, {
     AttributionControl,
     GeolocateControl,
@@ -124,6 +124,7 @@ const MapComponent = ({ mapRef, spots, children, onLoad }: MapComponentProps) =>
     };
 
     const isMobile = useSettingsStore((state) => state.isMobile);
+    const [mapStyleReady, setMapStyleReady] = useState(false);
 
     const basemapStyle = useMemo<string | StyleSpecification>(() => {
         if (mapStyle === 'satellite-streets-v12') {
@@ -145,12 +146,13 @@ const MapComponent = ({ mapRef, spots, children, onLoad }: MapComponentProps) =>
     }, [mapStyle]);
 
     useEffect(() => {
-        if (isMobile) {
+        if (window.innerWidth < 1024) {
             setMapStyle('light');
         } else {
             const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
             setMapStyle(prefersDark ? 'dark' : 'light');
         }
+        setMapStyleReady(true);
     }, [setMapStyle, isMobile]);
 
     const onSwitchMapStyle = () => {
@@ -158,6 +160,8 @@ const MapComponent = ({ mapRef, spots, children, onLoad }: MapComponentProps) =>
         const nextIndex = (currentIndex + 1) % mapStyles.length;
         setMapStyle(mapStyles[nextIndex]);
     };
+
+    if (!mapStyleReady) return null;
 
     return (
         <div className="absolute top-0 right-0 bottom-0 left-0">
