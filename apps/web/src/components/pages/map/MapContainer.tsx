@@ -215,7 +215,7 @@ const MapContainer = () => {
 
     return (
         <div className="min-h-0 grow flex overflow-hidden">
-            {isSidePanelOpen && <MapSidePanel bounds={feedBounds} onSpotClick={onFeedSpotClick} />}
+            {!isMobile && isSidePanelOpen && <MapSidePanel bounds={feedBounds} onSpotClick={onFeedSpotClick} />}
             <div ref={fullSpotContainerRef} className="relative grow flex bg-tertiary-dark overflow-hidden">
                 <DynamicMapComponent
                     mapRef={mapRef}
