@@ -63,6 +63,16 @@ description = "Open Prisma Studio"
 dir = "packages/prisma"
 run = "DATABASE_URL='postgresql://krak:krak@localhost:5433/krak' bun run studio"
 
+[tasks.migrate]
+description = "Apply migrations to the local database"
+dir = "packages/prisma"
+run = "DATABASE_URL='postgresql://krak:krak@localhost:5433/krak' bun run migrate:dev"
+
+[tasks."migrate:prod"]
+description = "Apply pending migrations to the production database"
+dir = "packages/prisma"
+run = "fnox exec --config ../jobs/fnox.toml --profile production -- bun run migrate:deploy"
+
 [tasks.restore]
 description = "Restore db"
 run = "PGPASSWORD=krak psql -U krak -d krak -h localhost -p 5433 -f krak_dump.sql"
