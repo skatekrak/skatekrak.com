@@ -37,7 +37,13 @@ type ListProps = {
 };
 
 const List = ({ children, className }: ListProps) => (
-    <div role="tablist" className={classNames('flex gap-x-6 gap-y-4 justify-center flex-wrap', className)}>
+    <div
+        role="tablist"
+        className={classNames(
+            'flex gap-x-6 gap-y-4 justify-center flex-wrap border-b-8 border-solid border-b-tertiary-dark',
+            className,
+        )}
+    >
         {children}
     </div>
 );
@@ -71,7 +77,7 @@ const Tab = ({ value, children, className, onClick, ...props }: TabProps) => {
             {...props}
         >
             {children}
-            {isActive && <div className="absolute -bottom-0.5 inset-x-2 h-0.5 bg-primary-100" />}
+            {isActive && <div className="absolute bottom-0 inset-x-2 h-0.5 bg-primary-100" />}
         </button>
     );
 };
