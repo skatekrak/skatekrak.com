@@ -1,10 +1,8 @@
 import React from 'react';
-import { useMap } from 'react-map-gl/maplibre';
 import { useShallow } from 'zustand/react/shallow';
 
 import Typography from '@/components/Ui/typography/Typography';
 import { useCityID, useCustomMapID, useSpotID, useSpotModal } from '@/lib/hook/queryState';
-import { centerFromBounds } from '@/lib/map/helpers';
 import { City } from '@/lib/map/types';
 import { useMapStore } from '@/store/map';
 
@@ -17,7 +15,6 @@ const CityComponent: React.FC<CityProps> = ({ city, onCityClick }) => {
     const [toggleLegend, toggleSearchResult] = useMapStore(
         useShallow((state) => [state.toggleLegend, state.toggleSearchResult]),
     );
-    const { current: map } = useMap();
     const [, setSpotID] = useSpotID();
     const [, setModalVisible] = useSpotModal();
     const [, setCustomMapID] = useCustomMapID();
@@ -32,17 +29,6 @@ const CityComponent: React.FC<CityProps> = ({ city, onCityClick }) => {
         setModalVisible(null);
         setCustomMapID(null);
         setCityID(city.id);
-
-        const cityCenter = centerFromBounds(city.bounds);
-        map?.flyTo({
-            center: {
-                lat: cityCenter.latitude,
-                lng: cityCenter.longitude,
-            },
-            padding: 0,
-            duration: 1500,
-            zoom: 11.7,
-        });
     };
     return (
         <button

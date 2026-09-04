@@ -171,6 +171,21 @@ const MapContainer = () => {
         }
     }, [spotsByTags, id, isMobile]);
 
+    useEffect(() => {
+        if (!mapLoaded || id != null || city == null) return;
+
+        const selectedCity = cities.find((item) => item.id === city);
+        if (selectedCity == null) return;
+
+        const center = centerFromBounds(selectedCity.bounds);
+        mapRef.current?.flyTo({
+            center: { lat: center.latitude, lng: center.longitude },
+            padding: 0,
+            duration: 1500,
+            zoom: 11.7,
+        });
+    }, [city, id, mapLoaded]);
+
     const displayedSpots = useMemo(() => {
         // It's a custom map, we can return the spots if not loading
         if (id != null) {
