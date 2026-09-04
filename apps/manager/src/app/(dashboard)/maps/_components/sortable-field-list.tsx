@@ -21,19 +21,16 @@ import { GripVertical, Trash2 } from 'lucide-react';
 
 import { Button, FormControl, FormField, FormItem, FormMessage, Input, cn } from '@krak/ui';
 
-import type { MapFormValues } from './map-form-types';
-import type { FieldArrayWithId, UseFormReturn } from 'react-hook-form';
+import type { FieldArrayPath, FieldPath, FieldValues, UseFormReturn } from 'react-hook-form';
 
 // ============================================================================
 // Props
 // ============================================================================
 
-type ReorderableArrayName = 'videos' | 'soundtrack';
-
-interface SortableFieldListProps {
-    form: UseFormReturn<MapFormValues>;
-    name: ReorderableArrayName;
-    fields: FieldArrayWithId<MapFormValues, ReorderableArrayName, 'id'>[];
+interface SortableFieldListProps<TFieldValues extends FieldValues> {
+    form: UseFormReturn<TFieldValues>;
+    name: FieldArrayPath<TFieldValues>;
+    fields: { id: string }[];
     placeholder: string;
     onMove: (from: number, to: number) => void;
     onRemove: (index: number) => void;
@@ -45,7 +42,7 @@ interface SortableFieldListProps {
 // SortableFieldList — drag-and-drop reorderable list of text inputs
 // ============================================================================
 
-export function SortableFieldList({
+export function SortableFieldList<TFieldValues extends FieldValues>({
     form,
     name,
     fields,
@@ -53,7 +50,7 @@ export function SortableFieldList({
     onMove,
     onRemove,
     reorderable = false,
-}: SortableFieldListProps) {
+}: SortableFieldListProps<TFieldValues>) {
     const sensors = useSensors(
         useSensor(PointerSensor, { activationConstraint: { distance: 4 } }),
         useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates }),
@@ -114,19 +111,26 @@ export function SortableFieldList({
 // SortableFieldRow — a single draggable row
 // ============================================================================
 
-interface FieldRowBaseProps {
-    form: UseFormReturn<MapFormValues>;
-    name: ReorderableArrayName;
+interface FieldRowBaseProps<TFieldValues extends FieldValues> {
+    form: UseFormReturn<TFieldValues>;
+    name: FieldArrayPath<TFieldValues>;
     index: number;
     placeholder: string;
     onRemove: (index: number) => void;
 }
 
-interface SortableFieldRowProps extends FieldRowBaseProps {
+interface SortableFieldRowProps<TFieldValues extends FieldValues> extends FieldRowBaseProps<TFieldValues> {
     id: string;
 }
 
-function SortableFieldRow({ id, form, name, index, placeholder, onRemove }: SortableFieldRowProps) {
+function SortableFieldRow<TFieldValues extends FieldValues>({
+    id,
+    form,
+    name,
+    index,
+    placeholder,
+    onRemove,
+}: SortableFieldRowProps<TFieldValues>) {
     const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id });
 
     const style = {
@@ -157,11 +161,17 @@ function SortableFieldRow({ id, form, name, index, placeholder, onRemove }: Sort
 // FieldRow — a single non-draggable row (used when reordering is disabled)
 // ============================================================================
 
-interface FieldRowProps extends FieldRowBaseProps {
+interface FieldRowProps<TFieldValues extends FieldValues> extends FieldRowBaseProps<TFieldValues> {
     reorderable: false;
 }
 
-function FieldRow({ form, name, index, placeholder, onRemove }: FieldRowProps) {
+function FieldRow<TFieldValues extends FieldValues>({
+    form,
+    name,
+    index,
+    placeholder,
+    onRemove,
+}: FieldRowProps<TFieldValues>) {
     return (
         <div className="flex items-center gap-2">
             <FieldInput form={form} name={name} index={index} placeholder={placeholder} />
@@ -176,21 +186,21 @@ function FieldRow({ form, name, index, placeholder, onRemove }: FieldRowProps) {
 // FieldInput — the form-bound text input shared by both row variants
 // ============================================================================
 
-function FieldInput({
+function FieldInput<TFieldValues extends FieldValues>({
     form,
     name,
     index,
     placeholder,
 }: {
-    form: UseFormReturn<MapFormValues>;
-    name: ReorderableArrayName;
+    form: UseFormReturn<TFieldValues>;
+    name: FieldArrayPath<TFieldValues>;
     index: number;
     placeholder: string;
 }) {
     return (
         <FormField
             control={form.control}
-            name={`${name}.${index}.value`}
+            name={`${name}.${index}.value` as FieldPath<TFieldValues>}
             render={({ field }) => (
                 <FormItem className="flex-1">
                     <FormControl>

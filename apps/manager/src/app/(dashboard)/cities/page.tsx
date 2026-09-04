@@ -4,7 +4,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { Plus, Trash2 } from 'lucide-react';
 import { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { useFieldArray, useForm } from 'react-hook-form';
+import { z } from 'zod';
 
 import { createCityInput, type City } from '@krak/contracts';
 import {
@@ -34,9 +35,13 @@ import {
 import { SiteHeader } from '@/components/site-header';
 import { client, orpc } from '@/lib/orpc';
 
-import type { z } from 'zod';
+import { SortableFieldList } from '../maps/_components/sortable-field-list';
 
-type CityFormValues = z.infer<typeof createCityInput>;
+const cityFormSchema = createCityInput.omit({ videos: true }).extend({
+    videos: z.array(z.object({ value: z.string() })),
+});
+
+type CityFormValues = z.infer<typeof cityFormSchema>;
 
 const emptyCity: CityFormValues = {
     id: '',
@@ -58,11 +63,12 @@ export default function CitiesPage() {
     const queryClient = useQueryClient();
     const [selectedId, setSelectedId] = useState<string | null>(null);
     const { data: cities = [], isLoading } = useQuery(orpc.admin.cities.list.queryOptions({}));
-    const form = useForm<CityFormValues>({ resolver: zodResolver(createCityInput), defaultValues: emptyCity });
+    const form = useForm<CityFormValues>({ resolver: zodResolver(cityFormSchema), defaultValues: emptyCity });
+    const videosField = useFieldArray({ control: form.control, name: 'videos' });
 
     function selectCity(city: City) {
         setSelectedId(city.id);
-        form.reset(city);
+        form.reset({ ...city, videos: city.videos.map((value) => ({ value })) });
     }
 
     function newCity() {
@@ -71,12 +77,16 @@ export default function CitiesPage() {
     }
 
     const saveMutation = useMutation({
-        mutationFn: (values: CityFormValues) =>
-            selectedId ? client.admin.cities.update({ ...values, id: selectedId }) : client.admin.cities.create(values),
+        mutationFn: (values: CityFormValues) => {
+            const input = { ...values, videos: values.videos.map(({ value }) => value).filter(Boolean) };
+            return selectedId
+                ? client.admin.cities.update({ ...input, id: selectedId })
+                : client.admin.cities.create(input);
+        },
         onSuccess: (city) => {
             queryClient.invalidateQueries({ queryKey: orpc.admin.cities.list.queryOptions({}).queryKey });
             setSelectedId(city.id);
-            form.reset(city);
+            form.reset({ ...city, videos: city.videos.map((value) => ({ value })) });
         },
         onError: (error) => {
             if (error.message.includes('already exists')) {
@@ -335,31 +345,29 @@ export default function CitiesPage() {
                                             </FormItem>
                                         )}
                                     />
-                                    <FormField
-                                        control={form.control}
-                                        name="videos"
-                                        render={({ field }) => (
-                                            <FormItem>
-                                                <FormLabel>Videos</FormLabel>
-                                                <FormControl>
-                                                    <Textarea
-                                                        rows={10}
-                                                        placeholder="One URL per line"
-                                                        value={field.value.join('\n')}
-                                                        onChange={(event) =>
-                                                            field.onChange(
-                                                                event.target.value
-                                                                    .split('\n')
-                                                                    .map((value) => value.trim())
-                                                                    .filter(Boolean),
-                                                            )
-                                                        }
-                                                    />
-                                                </FormControl>
-                                                <FormMessage />
-                                            </FormItem>
-                                        )}
-                                    />
+                                    <div className="flex flex-col gap-2">
+                                        <div className="flex items-center justify-between">
+                                            <span className="text-sm font-medium">Videos</span>
+                                            <Button
+                                                type="button"
+                                                variant="ghost"
+                                                size="sm"
+                                                onClick={() => videosField.append({ value: '' })}
+                                            >
+                                                <Plus className="mr-1 size-4" />
+                                                Add
+                                            </Button>
+                                        </div>
+                                        <SortableFieldList
+                                            form={form}
+                                            name="videos"
+                                            fields={videosField.fields}
+                                            placeholder="https://..."
+                                            onMove={videosField.move}
+                                            onRemove={videosField.remove}
+                                            reorderable
+                                        />
+                                    </div>
 
                                     {(saveMutation.error || deleteMutation.error) && (
                                         <p className="text-sm text-destructive">
