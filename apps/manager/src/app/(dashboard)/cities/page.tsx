@@ -21,6 +21,7 @@ import {
     FormLabel,
     FormMessage,
     Input,
+    Switch,
     Table,
     TableBody,
     TableCell,
@@ -50,12 +51,13 @@ const emptyCity: CityFormValues = {
     ],
     videos: [],
     position: 0,
+    hidden: false,
 };
 
 export default function CitiesPage() {
     const queryClient = useQueryClient();
     const [selectedId, setSelectedId] = useState<string | null>(null);
-    const { data: cities = [], isLoading } = useQuery(orpc.cities.list.queryOptions({}));
+    const { data: cities = [], isLoading } = useQuery(orpc.admin.cities.list.queryOptions({}));
     const form = useForm<CityFormValues>({ resolver: zodResolver(createCityInput), defaultValues: emptyCity });
 
     function selectCity(city: City) {
@@ -72,7 +74,7 @@ export default function CitiesPage() {
         mutationFn: (values: CityFormValues) =>
             selectedId ? client.admin.cities.update({ ...values, id: selectedId }) : client.admin.cities.create(values),
         onSuccess: (city) => {
-            queryClient.invalidateQueries({ queryKey: orpc.cities.list.queryOptions({}).queryKey });
+            queryClient.invalidateQueries({ queryKey: orpc.admin.cities.list.queryOptions({}).queryKey });
             setSelectedId(city.id);
             form.reset(city);
         },
@@ -86,7 +88,7 @@ export default function CitiesPage() {
     const deleteMutation = useMutation({
         mutationFn: (id: string) => client.admin.cities.delete({ id }),
         onSuccess: (_, id) => {
-            queryClient.invalidateQueries({ queryKey: orpc.cities.list.queryOptions({}).queryKey });
+            queryClient.invalidateQueries({ queryKey: orpc.admin.cities.list.queryOptions({}).queryKey });
             if (selectedId === id) newCity();
         },
     });
@@ -259,6 +261,19 @@ export default function CitiesPage() {
                                                     <Input {...field} />
                                                 </FormControl>
                                                 <FormMessage />
+                                            </FormItem>
+                                        )}
+                                    />
+
+                                    <FormField
+                                        control={form.control}
+                                        name="hidden"
+                                        render={({ field }) => (
+                                            <FormItem className="flex flex-row items-center gap-3">
+                                                <FormLabel>Hidden from public website</FormLabel>
+                                                <FormControl>
+                                                    <Switch checked={field.value} onCheckedChange={field.onChange} />
+                                                </FormControl>
                                             </FormItem>
                                         )}
                                     />

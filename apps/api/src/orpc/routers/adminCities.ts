@@ -12,6 +12,14 @@ function serializeCity<T extends { bounds: number[] }>(city: T) {
     };
 }
 
+export const listAdminCities = os.admin.cities.list
+    .use(authed)
+    .use(admin)
+    .handler(async ({ context }) => {
+        const cities = await context.prisma.city.findMany({ orderBy: [{ position: 'asc' }, { name: 'asc' }] });
+        return cities.map(serializeCity);
+    });
+
 export const createAdminCity = os.admin.cities.create
     .use(authed)
     .use(admin)

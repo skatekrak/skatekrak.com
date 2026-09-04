@@ -23,7 +23,7 @@ import {
     uploadMapImage,
     deleteAdminMap,
 } from './routers/admin';
-import { createAdminCity, deleteAdminCity, updateAdminCity } from './routers/adminCities';
+import { createAdminCity, deleteAdminCity, listAdminCities, updateAdminCity } from './routers/adminCities';
 import { listCities } from './routers/cities';
 import { fetchMap, listMaps } from './routers/maps';
 import {
@@ -113,6 +113,7 @@ export const router = os.router({
             delete: deleteAdminMap,
         },
         cities: {
+            list: listAdminCities,
             create: createAdminCity,
             update: updateAdminCity,
             delete: deleteAdminCity,

@@ -9,6 +9,7 @@ const cityFields = {
     bounds: z.tuple([z.tuple([z.number(), z.number()]), z.tuple([z.number(), z.number()])]),
     videos: z.array(z.url()),
     position: z.number().int().min(0),
+    hidden: z.boolean(),
 };
 
 export const CitySchema = z.object({

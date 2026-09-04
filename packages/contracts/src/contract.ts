@@ -150,6 +150,7 @@ export const contract = {
             delete: oc.input(deleteMapInput).output(z.object({ success: z.boolean() })),
         },
         cities: {
+            list: oc.output(z.array(CitySchema)),
             create: oc.input(createCityInput).output(CitySchema),
             update: oc.input(updateCityInput).output(CitySchema),
             delete: oc.input(deleteCityInput).output(z.object({ success: z.boolean() })),

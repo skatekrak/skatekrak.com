@@ -1,7 +1,10 @@
 import { os } from '../base';
 
 export const listCities = os.cities.list.handler(async ({ context }) => {
-    const cities = await context.prisma.city.findMany({ orderBy: [{ position: 'asc' }, { name: 'asc' }] });
+    const cities = await context.prisma.city.findMany({
+        where: { hidden: false },
+        orderBy: [{ position: 'asc' }, { name: 'asc' }],
+    });
 
     return cities.map((city) => ({
         ...city,

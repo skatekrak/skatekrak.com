@@ -486,6 +486,7 @@ model City {
   bounds    Float[]
   videos    String[]
   position  Int      @default(0)
+  hidden    Boolean  @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
