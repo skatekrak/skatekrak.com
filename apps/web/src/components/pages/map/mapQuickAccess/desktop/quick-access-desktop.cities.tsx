@@ -1,6 +1,7 @@
+import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 
-import cities from '@/data/cities/_cities';
+import { orpc } from '@/server/orpc/client';
 
 import City from '../City';
 import QuickAccessDesktopPanel from './quick-access-desktop.panel';
@@ -12,6 +13,8 @@ const category = {
 };
 
 const QuickAccessDesktopCities = () => {
+    const { data: cities = [] } = useQuery(orpc.cities.list.queryOptions({}));
+
     return (
         <QuickAccessDesktopPanel
             isSelected={false}

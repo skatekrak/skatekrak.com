@@ -11,7 +11,6 @@ import type { Spot } from '@krak/contracts';
 import CityPanel from '@/components/pages/map/cities/CityPanel';
 import MapCustomPanel from '@/components/pages/map/MapCustom/panel/MapCustomPanel';
 import { SpinnerCircle } from '@/components/Ui/Icons/Spinners';
-import cities from '@/data/cities/_cities';
 import useSession from '@/lib/hook/carrelage/use-session';
 import { useCityID, useCustomMapID, useMediaID, useSpotID, useSpotModal, useViewport } from '@/lib/hook/queryState';
 import { useSpotsGeoJSON } from '@/lib/hook/useSpotsGeoJSON';
@@ -46,6 +45,8 @@ const MapContainer = () => {
     const [viewport, setViewport] = useViewport();
     const session = useSession();
     const router = useRouter();
+    const { data: cities = [] } = useQuery(orpc.cities.list.queryOptions({}));
+    const initialViewportSet = useRef(false);
 
     /** Spot ID in the query */
     const [id] = useCustomMapID();
@@ -58,15 +59,15 @@ const MapContainer = () => {
         router.query.latitude != null || router.query.longitude != null || router.query.id != null;
 
     useEffect(() => {
-        if (!hasExplicitViewport) {
-            const randomCity = draw(cities);
-            if (randomCity != null) {
-                const center = centerFromBounds(randomCity.bounds);
-                setViewport({ latitude: center.latitude, longitude: center.longitude, zoom: 12.6 });
-            }
+        if (initialViewportSet.current || hasExplicitViewport || cities.length === 0) return;
+
+        initialViewportSet.current = true;
+        const randomCity = draw(cities);
+        if (randomCity != null) {
+            const center = centerFromBounds(randomCity.bounds);
+            setViewport({ latitude: center.latitude, longitude: center.longitude, zoom: 12.6 });
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [cities, hasExplicitViewport, setViewport]);
 
     useEffect(() => {
         if ((id != null || city != null || isCreateSpotOpen) && isSidePanelOpen) {
@@ -184,7 +185,7 @@ const MapContainer = () => {
             duration: 1500,
             zoom: 11.7,
         });
-    }, [city, id, mapLoaded]);
+    }, [cities, city, id, mapLoaded]);
 
     const displayedSpots = useMemo(() => {
         // It's a custom map, we can return the spots if not loading

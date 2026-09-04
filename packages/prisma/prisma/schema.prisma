@@ -473,6 +473,26 @@ model Map {
 }
 
 // ============================================================================
+// City (Curated Map Destinations)
+// ============================================================================
+
+model City {
+  id        String   @id // human-readable slug used by URLs and image assets
+  name      String
+  smallName String?
+  subtitle  String   @default("")
+  edito     String   @default("")
+  about     String   @default("")
+  bounds    Float[]
+  videos    String[]
+  position  Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("cities")
+}
+
+// ============================================================================
 // Like
 // ============================================================================
 

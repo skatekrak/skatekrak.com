@@ -1,9 +1,10 @@
 import React from 'react';
 import { useShallow } from 'zustand/react/shallow';
 
+import type { City } from '@krak/contracts';
+
 import Typography from '@/components/Ui/typography/Typography';
 import { useCityID, useCustomMapID, useSpotID, useSpotModal } from '@/lib/hook/queryState';
-import { City } from '@/lib/map/types';
 import { useMapStore } from '@/store/map';
 
 type CityProps = {

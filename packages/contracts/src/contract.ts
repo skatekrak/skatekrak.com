@@ -41,6 +41,7 @@ import {
     uploadMapImageOutput,
     deleteMapInput,
 } from './schemas/admin';
+import { CitySchema, createCityInput, deleteCityInput, updateCityInput } from './schemas/cities';
 import { MapSchema, MapListItemSchema, fetchMapInput } from './schemas/maps';
 import { MediaSchema, ClipSchema, MediasAroundSchema } from './schemas/media';
 import {
@@ -100,6 +101,9 @@ export const contract = {
         fetch: oc.input(fetchMapInput).output(MapSchema),
         list: oc.output(z.array(MapListItemSchema)),
     },
+    cities: {
+        list: oc.output(z.array(CitySchema)),
+    },
     media: {
         getById: oc.input(getMediaByIdInput).output(MediaSchema),
         listBySpot: oc.input(listBySpotInput).output(z.array(MediaSchema)),
@@ -144,6 +148,11 @@ export const contract = {
             update: oc.input(updateMapInput).output(MapSchema),
             uploadImage: oc.input(uploadMapImageInput).output(uploadMapImageOutput),
             delete: oc.input(deleteMapInput).output(z.object({ success: z.boolean() })),
+        },
+        cities: {
+            create: oc.input(createCityInput).output(CitySchema),
+            update: oc.input(updateCityInput).output(CitySchema),
+            delete: oc.input(deleteCityInput).output(z.object({ success: z.boolean() })),
         },
     },
 };

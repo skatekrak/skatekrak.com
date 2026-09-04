@@ -1,19 +1,20 @@
+import { useQuery } from '@tanstack/react-query';
 import NextImage from 'next/image';
 import React, { useState } from 'react';
 
 import InfiniteScroll from '@/components/Ui/InfiniteScroll';
 import VideoPlayer from '@/components/Ui/Player/VideoPlayer';
 import ScrollBar from '@/components/Ui/Scrollbar';
-import cities from '@/data/cities/_cities';
 import { useCityID } from '@/lib/hook/queryState';
-import { City } from '@/lib/map/types';
+import { orpc } from '@/server/orpc/client';
 
 const pageSize = 3;
 
 const CityPanel = () => {
     const [id, setCityID] = useCityID();
+    const { data: cities = [] } = useQuery(orpc.cities.list.queryOptions({}));
 
-    const city: City | undefined = cities.find((c) => c.id === id);
+    const city = cities.find((c) => c.id === id);
 
     const [pagination, setPagination] = useState({ cityId: id, count: pageSize });
 
