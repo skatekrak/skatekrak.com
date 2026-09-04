@@ -1,9 +1,9 @@
-import 'maplibre-gl/dist/maplibre-gl.css';
 import { layers, namedFlavor } from '@protomaps/basemaps';
 import maplibregl, { type StyleSpecification } from 'maplibre-gl';
+import 'maplibre-gl/dist/maplibre-gl.css';
 import { Protocol } from 'pmtiles';
 import { intersects } from 'radash';
-import React, { useCallback, useEffect, useMemo, useState, memo } from 'react';
+import React, { memo, useCallback, useEffect, useMemo, useState } from 'react';
 import ReactMapGL, {
     AttributionControl,
     GeolocateControl,
@@ -15,8 +15,7 @@ import ReactMapGL, {
 } from 'react-map-gl/maplibre';
 import { useShallow } from 'zustand/react/shallow';
 
-import { SpotGeoJSON } from '@krak/types';
-import { Status, Types } from '@krak/types';
+import { SpotGeoJSON, Status, Types } from '@krak/types';
 
 import SpotMarker from '@/components/pages/map/marker/SpotMarker';
 import IconLayer from '@/components/Ui/Icons/IconLayer';
@@ -27,7 +26,7 @@ import { useSettingsStore } from '@/store/settings';
 
 import SmallLayer from './layers/SmallLayer';
 import SpotPinLayer from './layers/SpotPinLayer';
-import { MAX_ZOOM_LEVEL, ZOOM_DISPLAY_DOTS, MIN_ZOOM_LEVEL } from './Map.constant';
+import { MAX_ZOOM_LEVEL, MIN_ZOOM_LEVEL, ZOOM_DISPLAY_DOTS } from './Map.constant';
 import MapSpotOverview from './MapSpotOverview';
 
 import type { FeatureCollection, Geometry } from 'geojson';
@@ -141,7 +140,9 @@ const MapComponent = ({ mapRef, spots, children, onLoad }: MapComponentProps) =>
                     url: `pmtiles://${pmtilesUrl}`,
                 },
             },
-            layers: layers('protomaps', namedFlavor(mapStyle), { lang: 'en' }),
+            layers: layers('protomaps', namedFlavor(mapStyle), { lang: 'en' }).filter(
+                (layer) => !layer.id.includes('poi'),
+            ),
         };
     }, [mapStyle]);
 
