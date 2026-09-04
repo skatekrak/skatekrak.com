@@ -3,6 +3,7 @@ import { useState } from 'react';
 
 import type { Spot } from '@krak/contracts';
 
+import ScrollBar from '@/components/Ui/Scrollbar';
 import { Tabs } from '@/components/Ui/Tabs';
 import Typography from '@/components/Ui/typography/Typography';
 import { useMapStore } from '@/store/map';
@@ -43,13 +44,17 @@ const MapSidePanel = ({ bounds, onSpotClick }: MapSidePanelProps) => {
                     <Tabs.Tab value="media">Media</Tabs.Tab>
                     <Tabs.Tab value="spots">Spots</Tabs.Tab>
                 </Tabs.List>
-                <div key={openTab} className="min-h-0 grow overflow-y-auto px-8 pb-8">
-                    <Tabs.Content value="media">
-                        <MapSidePanelMedia bounds={bounds} onSpotClick={onSpotClick} />
-                    </Tabs.Content>
-                    <Tabs.Content value="spots">
-                        <MapSidePanelSpots bounds={bounds} onSpotClick={onSpotClick} />
-                    </Tabs.Content>
+                <div key={openTab} className="min-h-0 grow">
+                    <ScrollBar maxHeight="100%">
+                        <div className="px-8 pb-8">
+                            <Tabs.Content value="media">
+                                <MapSidePanelMedia bounds={bounds} onSpotClick={onSpotClick} />
+                            </Tabs.Content>
+                            <Tabs.Content value="spots">
+                                <MapSidePanelSpots bounds={bounds} onSpotClick={onSpotClick} />
+                            </Tabs.Content>
+                        </div>
+                    </ScrollBar>
                 </div>
             </Tabs>
         </div>
