@@ -31,7 +31,7 @@ import MapSpotOverview from './MapSpotOverview';
 
 import type { FeatureCollection, Geometry } from 'geojson';
 
-const pmtilesUrl = 'https://krakmaps.ams3.cdn.digitaloceanspaces.com/20260822.pmtiles';
+const pmtilesUrl = 'https://krakmaps.ams3.digitaloceanspaces.com/20260822.pmtiles';
 const mapboxToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN;
 
 maplibregl.addProtocol('pmtiles', new Protocol().tile);
