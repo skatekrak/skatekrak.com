@@ -234,10 +234,10 @@ const MapContainer = () => {
                                 <CityPanel />
                             ) : (
                                 <>
-                                    <MapNavigation handleCreateSpotClick={onToggleSpotCreation} />
                                     {!isMobile && isSidePanelOpen && (
                                         <MapSidePanel bounds={feedBounds} onSpotClick={onFeedSpotClick} />
                                     )}
+                                    <MapNavigation handleCreateSpotClick={onToggleSpotCreation} />
                                 </>
                             )}
                             {!isMobile && <QuickAccessDesktop />}

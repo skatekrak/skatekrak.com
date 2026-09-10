@@ -1,1 +1,1 @@
-export { MapOverlayPanel } from './MapOverlayPanel';
+export { MapOverlayPanel, mapPanelOffset } from './MapOverlayPanel';

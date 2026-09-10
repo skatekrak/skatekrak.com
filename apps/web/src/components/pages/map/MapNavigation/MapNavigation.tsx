@@ -1,6 +1,9 @@
 import { PanelLeftOpen } from 'lucide-react';
 import React from 'react';
 
+import { cn } from '@krak/ui';
+
+import { mapPanelOffset } from '@/components/pages/map/MapOverlayPanel';
 import { useMapStore } from '@/store/map';
 import { useSettingsStore } from '@/store/settings';
 
@@ -15,9 +18,15 @@ const MapNavigation = ({ handleCreateSpotClick }: Props) => {
     const toggleSidePanel = useMapStore((state) => state.toggleSidePanel);
     const isSidePanelOpen = useMapStore((state) => state.isSidePanelOpen);
     const isMobile = useSettingsStore((state) => state.isMobile);
+    const offsetForPanel = !isMobile && isSidePanelOpen;
 
     return (
-        <div className="absolute top-4 left-4 right-4 z-1010 tablet:right-auto tablet:min-w-lg laptop:top-6 laptop:left-6">
+        <div
+            className={cn(
+                'absolute top-4 left-4 right-4 z-1010 tablet:right-auto tablet:min-w-lg laptop-s:top-6 laptop-s:left-6',
+                offsetForPanel && mapPanelOffset,
+            )}
+        >
             <div className="flex items-center gap-3">
                 {!isMobile && !isSidePanelOpen && (
                     <button
