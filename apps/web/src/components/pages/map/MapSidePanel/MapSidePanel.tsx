@@ -3,6 +3,7 @@ import { useState } from 'react';
 
 import type { Spot } from '@krak/contracts';
 
+import { MapOverlayPanel } from '@/components/pages/map/MapOverlayPanel';
 import ScrollBar from '@/components/Ui/Scrollbar';
 import { Tabs } from '@/components/Ui/Tabs';
 import Typography from '@/components/Ui/typography/Typography';
@@ -25,8 +26,8 @@ const MapSidePanel = ({ bounds, onSpotClick }: MapSidePanelProps) => {
     const [openTab, setOpenTab] = useState<MapSidePanelTab>('media');
 
     return (
-        <div className="h-full min-h-0 w-lg max-w-full flex flex-col overflow-hidden bg-tertiary-dark border-r border-solid border-tertiary-medium">
-            <div className="shrink-0 flex flex-col px-8 py-6">
+        <MapOverlayPanel>
+            <MapOverlayPanel.Header className="flex-col items-stretch px-8 py-6 border-b-0">
                 <div className="flex items-center justify-between">
                     <Typography component="condensedHeading4" className="mb-2 text-onDark-highEmphasis">
                         Explore
@@ -38,26 +39,28 @@ const MapSidePanel = ({ bounds, onSpotClick }: MapSidePanelProps) => {
                 <Typography component="body1" className="text-onDark-mediumEmphasis">
                     Discover spots or media from the map
                 </Typography>
-            </div>
-            <Tabs value={openTab} onValueChange={setOpenTab} className="min-h-0 grow flex flex-col">
-                <Tabs.List className="shrink-0 px-8">
-                    <Tabs.Tab value="media">Media</Tabs.Tab>
-                    <Tabs.Tab value="spots">Spots</Tabs.Tab>
-                </Tabs.List>
-                <div key={openTab} className="min-h-0 grow">
-                    <ScrollBar maxHeight="100%">
-                        <div className="px-8 pb-8">
-                            <Tabs.Content value="media">
-                                <MapSidePanelMedia bounds={bounds} onSpotClick={onSpotClick} />
-                            </Tabs.Content>
-                            <Tabs.Content value="spots">
-                                <MapSidePanelSpots bounds={bounds} onSpotClick={onSpotClick} />
-                            </Tabs.Content>
-                        </div>
-                    </ScrollBar>
-                </div>
-            </Tabs>
-        </div>
+            </MapOverlayPanel.Header>
+            <MapOverlayPanel.Body>
+                <Tabs value={openTab} onValueChange={setOpenTab} className="min-h-0 grow flex flex-col">
+                    <Tabs.List className="shrink-0 px-8">
+                        <Tabs.Tab value="media">Media</Tabs.Tab>
+                        <Tabs.Tab value="spots">Spots</Tabs.Tab>
+                    </Tabs.List>
+                    <div key={openTab} className="min-h-0 grow">
+                        <ScrollBar maxHeight="100%">
+                            <div className="px-8 pb-8">
+                                <Tabs.Content value="media">
+                                    <MapSidePanelMedia bounds={bounds} onSpotClick={onSpotClick} />
+                                </Tabs.Content>
+                                <Tabs.Content value="spots">
+                                    <MapSidePanelSpots bounds={bounds} onSpotClick={onSpotClick} />
+                                </Tabs.Content>
+                            </div>
+                        </ScrollBar>
+                    </div>
+                </Tabs>
+            </MapOverlayPanel.Body>
+        </MapOverlayPanel>
     );
 };
 

@@ -215,7 +215,6 @@ const MapContainer = () => {
 
     return (
         <div className="min-h-0 grow flex overflow-hidden">
-            {!isMobile && isSidePanelOpen && <MapSidePanel bounds={feedBounds} onSpotClick={onFeedSpotClick} />}
             <div ref={fullSpotContainerRef} className="relative grow flex bg-tertiary-dark overflow-hidden">
                 <DynamicMapComponent
                     mapRef={mapRef}
@@ -229,12 +228,17 @@ const MapContainer = () => {
                         <MapCreateSpot />
                     ) : (
                         <>
-                            {id !== undefined && customMapInfo !== undefined ? (
+                            {id != null && customMapInfo != null ? (
                                 <MapCustomPanel map={customMapInfo} spots={spotsByTags ?? []} />
                             ) : city ? (
                                 <CityPanel />
                             ) : (
-                                <MapNavigation handleCreateSpotClick={onToggleSpotCreation} />
+                                <>
+                                    <MapNavigation handleCreateSpotClick={onToggleSpotCreation} />
+                                    {!isMobile && isSidePanelOpen && (
+                                        <MapSidePanel bounds={feedBounds} onSpotClick={onFeedSpotClick} />
+                                    )}
+                                </>
                             )}
                             {!isMobile && <QuickAccessDesktop />}
                             {viewport.zoom <= ZOOM_DISPLAY_WARNING && id == null && <MapZoomAlert />}
