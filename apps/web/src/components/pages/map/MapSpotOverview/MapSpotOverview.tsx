@@ -8,7 +8,7 @@ import IconClips from '@/components/Ui/Icons/IconClips';
 import IconMedia from '@/components/Ui/Icons/IconMedia';
 import { useMapStore } from '@/store/map';
 
-import { MapSpotImage } from '../_components/MapSpotImage';
+import { MapSpotCover } from '../_components';
 
 import type { InferContractRouterOutputs } from '@orpc/contract';
 
@@ -71,7 +71,7 @@ const MapSpotOverview: React.FC<MapSpotOverviewProps> = ({ spotOverview, onPopup
                 >
                     {spotOverview.spot.name}
                 </h4>
-                <MapSpotImage
+                <MapSpotCover
                     media={media}
                     alt={spotOverview.spot.name}
                     className="w-[275px] mt-2 rounded-sm shadow-onDarkHighSharp"

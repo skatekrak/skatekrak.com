@@ -2,8 +2,8 @@ import { useMap } from 'react-map-gl/maplibre';
 
 import type { Media, Spot } from '@krak/contracts';
 
+import { MapMedia } from '@/components/pages/map/_components';
 import MapSearchResultSpot from '@/components/pages/map/MapNavigation/MapSearch/MapSearchResults/MapSearchResultSpot';
-import MapMedia from '@/components/pages/map/media/MapMedia';
 import VideoPlayer from '@/components/Ui/Player/VideoPlayer';
 import { useSpotID } from '@/lib/hook/queryState';
 

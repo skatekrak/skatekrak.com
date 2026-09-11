@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react';
 import type { Spot } from '@krak/contracts';
 import { KrakImage } from '@krak/ui';
 
+import { MapOverlayPanel } from '@/components/pages/map/_components';
 import MapCustomMediaCarousel from '@/components/pages/map/MapCustom/MapCustomMediaCarousel';
 import {
     MediaTabContent,
@@ -12,7 +13,6 @@ import {
     SpotsTabContent,
     VideoTabContent,
 } from '@/components/pages/map/MapCustom/panel/Content';
-import { MapOverlayPanel } from '@/components/pages/map/MapOverlayPanel';
 import IconArrow from '@/components/Ui/Icons/Arrow';
 import { KrakLoading } from '@/components/Ui/Icons/Spinners';
 import InfiniteScroll from '@/components/Ui/InfiniteScroll';

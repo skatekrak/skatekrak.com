@@ -39,8 +39,6 @@ export const MapExplorePanelSpots = ({ bounds, onSpotClick }: MapExplorePanelSpo
         return <p className="py-12 text-center text-onDark-mediumEmphasis">No spots in this area.</p>;
     }
 
-    console.log(spots);
-
     return (
         <InfiniteScroll hasMore={hasNextPage} isLoading={isFetchingNextPage} loadMore={() => fetchNextPage()}>
             <div className="flex flex-col gap-6 pt-4">

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import type { Media } from '@krak/contracts';
 import { useImgproxy } from '@krak/ui';
@@ -12,7 +12,7 @@ export type MapMediaVideoPlayerProps = {
     isPlaying: boolean;
 };
 
-const MapMediaVideoPlayer: React.FC<MapMediaVideoPlayerProps> = ({ media, isPlaying }) => {
+export const MapMediaVideoPlayer = ({ media, isPlaying }: MapMediaVideoPlayerProps) => {
     const setVideoPlaying = useMapStore((state) => state.setVideoPlaying);
     const [previewKey, setPreviewKey] = useState(0);
     const [paused, setPaused] = useState(false);
@@ -47,5 +47,3 @@ const MapMediaVideoPlayer: React.FC<MapMediaVideoPlayerProps> = ({ media, isPlay
         />
     );
 };
-
-export default MapMediaVideoPlayer;

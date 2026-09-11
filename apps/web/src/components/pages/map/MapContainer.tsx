@@ -8,6 +8,7 @@ import { useShallow } from 'zustand/react/shallow';
 
 import type { Spot } from '@krak/contracts';
 
+import { MapZoomAlert } from '@/components/pages/map/_components';
 import CityPanel from '@/components/pages/map/cities/CityPanel';
 import MapCustomPanel from '@/components/pages/map/MapCustom/panel/MapCustomPanel';
 import { SpinnerCircle } from '@/components/Ui/Icons/Spinners';
@@ -26,7 +27,6 @@ import MapExplorePanel from './MapExplorePanel';
 import MapGradients from './MapGradients';
 import MapNavigation from './MapNavigation';
 import QuickAccessDesktop from './mapQuickAccess/desktop/quick-access-desktop';
-import MapZoomAlert from './MapZoomAlert';
 
 const DynamicMapComponent = dynamic(() => import('./MapComponent'), { ssr: false });
 const MapFullSpot = dynamic(() => import('./MapFullSpot'), { ssr: false });

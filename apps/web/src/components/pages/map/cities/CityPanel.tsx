@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import NextImage from 'next/image';
 import { useState } from 'react';
 
-import { MapOverlayPanel } from '@/components/pages/map/MapOverlayPanel';
+import { MapOverlayPanel } from '@/components/pages/map/_components';
 import InfiniteScroll from '@/components/Ui/InfiniteScroll';
 import VideoPlayer from '@/components/Ui/Player/VideoPlayer';
 import ScrollBar from '@/components/Ui/Scrollbar';

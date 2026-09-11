@@ -1,5 +1,3 @@
-import React from 'react';
-
 import type { Media } from '@krak/contracts';
 
 import LinkifiedText from '@/components/Ui/LinkifiedText';
@@ -48,7 +46,7 @@ const MapMediaOverlaySpotOrUsername = ({ media, isFromCustomMapFeed, onSpotClick
     );
 };
 
-const MapMediaOverlay = ({ media, isFromCustomMapFeed, onSpotClick }: Props) => {
+export const MapMediaOverlay = ({ media, isFromCustomMapFeed, onSpotClick }: Props) => {
     return (
         <div className="hidden group-hover:block absolute bottom-0 left-0 right-0 px-4 py-2 bg-[rgba(31,31,31,0.6)] z-[1] [&_.media-overlay-spot_span]:inline [&_.media-overlay-spot_button]:underline [&_.media-overlay-spot_button]:text-onDark-highEmphasis [&_.media-overlay-spot_button]:bg-transparent">
             <MapMediaOverlaySpotOrUsername
@@ -64,5 +62,3 @@ const MapMediaOverlay = ({ media, isFromCustomMapFeed, onSpotClick }: Props) => 
         </div>
     );
 };
-
-export default MapMediaOverlay;

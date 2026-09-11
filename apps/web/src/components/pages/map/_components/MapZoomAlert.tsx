@@ -1,9 +1,7 @@
-import React from 'react';
-
 import Emoji from '@/components/Ui/Icons/Emoji';
 import Typography from '@/components/Ui/typography/Typography';
 
-const MapZoomAlert = () => {
+export const MapZoomAlert = () => {
     return (
         <div className="absolute top-40 left-6 right-6 flex flex-col p-4 bg-tertiary-dark border border-tertiary-medium rounded shadow-onDarkHighSharp pointer-events-none mobile:w-[21rem] mobile:bottom-[15vh] mobile:left-[calc(50%-10.5rem)] mobile:top-auto mobile:right-auto laptop-s:bottom-[10vh]">
             <div className="absolute -top-3 left-4 z-10 [&_span]:text-[1.375rem]">
@@ -20,5 +18,3 @@ const MapZoomAlert = () => {
         </div>
     );
 };
-
-export default MapZoomAlert;

@@ -2,10 +2,10 @@ import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import classNames from 'classnames';
 import React, { useEffect } from 'react';
 
-import type { Spot, Media } from '@krak/contracts';
+import type { Media, Spot } from '@krak/contracts';
 import { KrakImage } from '@krak/ui';
 
-import MapMedia from '@/components/pages/map/media/MapMedia';
+import { MapMedia } from '@/components/pages/map/_components';
 import { KrakLoading } from '@/components/Ui/Icons/Spinners';
 import InfiniteScroll from '@/components/Ui/InfiniteScroll';
 import KrakMasonry from '@/components/Ui/Masonry';

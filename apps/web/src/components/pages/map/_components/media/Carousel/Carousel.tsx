@@ -19,7 +19,7 @@ export type CarouselProps = {
     nextMedia: Media | null;
 };
 
-const Carousel = ({ media, nextMedia, prevMedia }: CarouselProps) => {
+export const Carousel = ({ media, nextMedia, prevMedia }: CarouselProps) => {
     return (
         <div className="group relative grow flex flex-col bg-[#141414] overflow-hidden [&_.video-player-container]:h-full">
             <CarouselContent media={media} />
@@ -28,9 +28,7 @@ const Carousel = ({ media, nextMedia, prevMedia }: CarouselProps) => {
     );
 };
 
-export default Carousel;
-
-export const CarouselNav = ({ media, prevMedia, nextMedia }: CarouselProps) => {
+const CarouselNav = ({ media, prevMedia, nextMedia }: CarouselProps) => {
     const isFirst = prevMedia == null;
     const isLast = nextMedia == null;
     const [, setMedia] = useMediaID();

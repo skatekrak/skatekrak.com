@@ -2,7 +2,7 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 
 import type { Media, Spot } from '@krak/contracts';
 
-import MapMedia from '@/components/pages/map/media/MapMedia';
+import { MapMedia } from '@/components/pages/map/_components';
 import { KrakLoading } from '@/components/Ui/Icons/Spinners';
 import InfiniteScroll from '@/components/Ui/InfiniteScroll';
 import { orpc } from '@/server/orpc/client';

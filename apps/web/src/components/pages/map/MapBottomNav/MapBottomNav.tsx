@@ -3,8 +3,7 @@ import React, { ButtonHTMLAttributes } from 'react';
 
 import { cn } from '@krak/ui';
 
-import Legend from '@/components/pages/map/Legend';
-import { mapPanelOffset } from '@/components/pages/map/MapOverlayPanel';
+import { mapPanelOffset } from '@/components/pages/map/_components';
 import KrakAppIcon from '@/components/Ui/Icons/Logos/KrakAppIcon';
 import Typography from '@/components/Ui/typography/Typography';
 import { useMapStore } from '@/store/map';
@@ -12,6 +11,7 @@ import { useMapStore } from '@/store/map';
 import MobileCities from '../mapQuickAccess/mobile/mobile-cities';
 import MobileFamous from '../mapQuickAccess/mobile/mobile-famous';
 import MobileMaps from '../mapQuickAccess/mobile/mobile-maps';
+import Legend from './Legend';
 import MapBottomNavSheet from './MapBottomNavSheet';
 
 type Props = {

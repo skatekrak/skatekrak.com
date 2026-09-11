@@ -3,7 +3,7 @@ import { useCallback, useState } from 'react';
 
 import type { Spot } from '@krak/contracts';
 
-import { MapOverlayPanel } from '@/components/pages/map/MapOverlayPanel';
+import { MapOverlayPanel } from '@/components/pages/map/_components';
 import ScrollBar from '@/components/Ui/Scrollbar';
 import { Tabs } from '@/components/Ui/Tabs';
 import Typography from '@/components/Ui/typography/Typography';

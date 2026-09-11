@@ -4,7 +4,7 @@ import type { Media, Spot } from '@krak/contracts';
 import { Status, Types } from '@krak/types';
 import { cn } from '@krak/ui';
 
-import { MapSpotImage } from '@/components/pages/map/_components/MapSpotImage';
+import { MapSpotCover } from '@/components/pages/map/_components';
 import HistoryBadge from '@/components/pages/map/marker/badges/History';
 import IconicBadge from '@/components/pages/map/marker/badges/Iconic';
 import MinuteBadge from '@/components/pages/map/marker/badges/Minute';
@@ -41,7 +41,7 @@ export default function MapSearchResultSpot<T extends Spot | SpotHit>({
                 className="flex flex-col w-full border border-solid border-onDark-divider hover:border-onDark-placeholder rounded-lg"
                 onClick={handleSpotClick}
             >
-                <MapSpotImage media={media} alt={spot.name} className="w-full" />
+                <MapSpotCover media={media} alt={spot.name} className="w-full" />
                 <MapSearchResultSpotBase spot={spot} display={display} />
             </button>
         );

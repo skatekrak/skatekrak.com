@@ -3,7 +3,7 @@ import React from 'react';
 
 import { cn } from '@krak/ui';
 
-import { mapPanelOffset } from '@/components/pages/map/MapOverlayPanel';
+import { mapPanelOffset } from '@/components/pages/map/_components';
 import { useMapStore } from '@/store/map';
 import { useSettingsStore } from '@/store/settings';
 

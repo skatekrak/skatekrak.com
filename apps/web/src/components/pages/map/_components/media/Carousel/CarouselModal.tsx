@@ -1,7 +1,8 @@
-import Carousel, { CarouselProps } from '@/components/pages/map/media/Carousel/Carousel';
 import { KrakLoading } from '@/components/Ui/Icons/Spinners';
 import Modal from '@/components/Ui/Modal';
 import { modalThemeStyles } from '@/components/Ui/Modal/styles';
+
+import { Carousel, CarouselProps } from './Carousel';
 
 type Props = {
     open: boolean;
@@ -10,7 +11,7 @@ type Props = {
     carouselProps: CarouselProps;
 };
 
-const CarouselModal = ({ open, onClose, isLoading, carouselProps }: Props) => {
+export const CarouselModal = ({ open, onClose, isLoading, carouselProps }: Props) => {
     return (
         <Modal open={open} onClose={onClose} closable closeIcon={undefined} styles={modalThemeStyles}>
             <div
@@ -25,5 +26,3 @@ const CarouselModal = ({ open, onClose, isLoading, carouselProps }: Props) => {
         </Modal>
     );
 };
-
-export default CarouselModal;

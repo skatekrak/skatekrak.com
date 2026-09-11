@@ -4,15 +4,15 @@ import type { Media } from '@krak/contracts';
 import { useImgproxy } from '@krak/ui';
 
 import IconFullScreen from '@/components/Ui/Icons/IconFullScreen';
+import SocialShare from '@/components/Ui/share/SocialShare';
 import { useMediaID } from '@/lib/hook/queryState';
 import { getMediaImageUrl } from '@/lib/media';
 import { useMapStore } from '@/store/map';
 
-import MapMediaOverlay from './MapMediaOverlay';
-import MapMediaShare from './MapMediaShare';
-import MapMediaVideoPlayer from './MapMediaVideoPlayer';
+import { MapMediaOverlay } from './MapMediaOverlay';
+import { MapMediaVideoPlayer } from './MapMediaVideoPlayer';
 
-export type MapMediaProps = {
+type MapMediaProps = {
     shareURL?: string;
     media: Media;
     isFromCustomMapFeed?: boolean;
@@ -20,7 +20,7 @@ export type MapMediaProps = {
     showFullscreen?: boolean;
 };
 
-const MapMedia = ({
+export const MapMedia = ({
     shareURL,
     media,
     isFromCustomMapFeed = false,
@@ -46,7 +46,15 @@ const MapMedia = ({
             key={media.id}
             className="group relative flex min-h-14 bg-onDark-divider overflow-hidden rounded [&_.video-player-container]:w-full [&_.video-player]:rounded-none [&_.video-player_.react-player\_\_preview]:rounded-none [&_img]:w-full [&_img]:h-full"
         >
-            {shareURL && <MapMediaShare url={shareURL} media={media} />}
+            {shareURL && (
+                <div className="absolute top-2 left-3 hidden group-hover:flex z-10">
+                    <SocialShare
+                        url={shareURL}
+                        facebookQuote={`${media.caption} shared via skatekrak.com`}
+                        twitterTitle={media.caption ?? ''}
+                    />
+                </div>
+            )}
 
             {showFullscreen && (
                 <button
@@ -72,5 +80,3 @@ const MapMedia = ({
         </div>
     );
 };
-
-export default MapMedia;
