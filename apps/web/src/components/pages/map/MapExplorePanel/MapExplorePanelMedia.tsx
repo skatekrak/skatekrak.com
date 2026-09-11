@@ -9,7 +9,7 @@ import { orpc } from '@/server/orpc/client';
 
 import type { MapBounds } from '@/lib/hook/useSpotsGeoJSON';
 
-const pageSize = 50;
+const pageSize = 20;
 
 type MediaCursor = Pick<Media, 'createdAt' | 'id'>;
 
