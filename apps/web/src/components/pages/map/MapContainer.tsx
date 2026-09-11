@@ -205,14 +205,6 @@ const MapContainer = () => {
 
     const isLoading = spotsGeoJSONLoading || spotsTagsLoading;
 
-    const onFeedSpotClick = useCallback(
-        (spot: Spot) => {
-            centerToSpot(spot);
-            setSpotID(spot.id);
-        },
-        [centerToSpot, setSpotID],
-    );
-
     return (
         <div className="min-h-0 grow flex overflow-hidden">
             <div ref={fullSpotContainerRef} className="relative grow flex bg-tertiary-dark overflow-hidden">
@@ -234,9 +226,7 @@ const MapContainer = () => {
                                 <CityPanel />
                             ) : (
                                 <>
-                                    {!isMobile && isSidePanelOpen && (
-                                        <MapExplorePanel bounds={feedBounds} onSpotClick={onFeedSpotClick} />
-                                    )}
+                                    {!isMobile && isSidePanelOpen && <MapExplorePanel bounds={feedBounds} />}
                                     <MapNavigation handleCreateSpotClick={onToggleSpotCreation} />
                                 </>
                             )}

@@ -1,5 +1,5 @@
 import { PanelLeftClose } from 'lucide-react';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 
 import type { Spot } from '@krak/contracts';
 
@@ -7,6 +7,7 @@ import { MapOverlayPanel } from '@/components/pages/map/MapOverlayPanel';
 import ScrollBar from '@/components/Ui/Scrollbar';
 import { Tabs } from '@/components/Ui/Tabs';
 import Typography from '@/components/Ui/typography/Typography';
+import { useSpotID } from '@/lib/hook/queryState';
 import { useMapStore } from '@/store/map';
 
 import { MapExplorePanelMedia } from './MapExplorePanelMedia';
@@ -18,12 +19,19 @@ type MapExplorePanelTab = 'media' | 'spots';
 
 type MapExplorePanelProps = {
     bounds?: MapBounds;
-    onSpotClick: (spot: Spot) => void;
 };
 
-const MapExplorePanel = ({ bounds, onSpotClick }: MapExplorePanelProps) => {
+const MapExplorePanel = ({ bounds }: MapExplorePanelProps) => {
     const toggleSidePanel = useMapStore((state) => state.toggleSidePanel);
+    const [_, setSpotID] = useSpotID();
     const [openTab, setOpenTab] = useState<MapExplorePanelTab>('media');
+
+    const onSpotClick = useCallback(
+        (spot: Spot) => {
+            setSpotID(spot.id);
+        },
+        [setSpotID],
+    );
 
     return (
         <MapOverlayPanel>
