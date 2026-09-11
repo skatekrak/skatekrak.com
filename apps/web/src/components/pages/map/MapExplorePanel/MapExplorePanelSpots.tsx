@@ -39,11 +39,13 @@ export const MapExplorePanelSpots = ({ bounds, onSpotClick }: MapExplorePanelSpo
         return <p className="py-12 text-center text-onDark-mediumEmphasis">No spots in this area.</p>;
     }
 
+    console.log(spots);
+
     return (
         <InfiniteScroll hasMore={hasNextPage} isLoading={isFetchingNextPage} loadMore={() => fetchNextPage()}>
-            <div className="flex flex-col pt-4">
+            <div className="flex flex-col gap-6 pt-4">
                 {spots.map((spot) => (
-                    <MapSearchResultSpot key={spot.id} spot={spot} onSpotClick={onSpotClick} />
+                    <MapSearchResultSpot key={spot.id} spot={spot} onSpotClick={onSpotClick} display="card" />
                 ))}
                 {isFetchingNextPage && <KrakLoading className="mx-auto mt-4" />}
             </div>
