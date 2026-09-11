@@ -22,10 +22,10 @@ import { useSettingsStore } from '@/store/settings';
 import { ZOOM_DISPLAY_WARNING } from './Map.constant';
 import MapBottomNav from './MapBottomNav/MapBottomNav';
 import MapCreateSpot from './MapCreateSpot';
+import MapExplorePanel from './MapExplorePanel';
 import MapGradients from './MapGradients';
 import MapNavigation from './MapNavigation';
 import QuickAccessDesktop from './mapQuickAccess/desktop/quick-access-desktop';
-import MapSidePanel from './MapSidePanel';
 import MapZoomAlert from './MapZoomAlert';
 
 const DynamicMapComponent = dynamic(() => import('./MapComponent'), { ssr: false });
@@ -235,7 +235,7 @@ const MapContainer = () => {
                             ) : (
                                 <>
                                     {!isMobile && isSidePanelOpen && (
-                                        <MapSidePanel bounds={feedBounds} onSpotClick={onFeedSpotClick} />
+                                        <MapExplorePanel bounds={feedBounds} onSpotClick={onFeedSpotClick} />
                                     )}
                                     <MapNavigation handleCreateSpotClick={onToggleSpotCreation} />
                                 </>

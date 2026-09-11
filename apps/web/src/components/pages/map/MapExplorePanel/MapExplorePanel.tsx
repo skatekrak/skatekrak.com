@@ -9,21 +9,21 @@ import { Tabs } from '@/components/Ui/Tabs';
 import Typography from '@/components/Ui/typography/Typography';
 import { useMapStore } from '@/store/map';
 
-import { MapSidePanelMedia } from './MapSidePanelMedia';
-import { MapSidePanelSpots } from './MapSidePanelSpots';
+import { MapExplorePanelMedia } from './MapExplorePanelMedia';
+import { MapExplorePanelSpots } from './MapExplorePanelSpots';
 
 import type { MapBounds } from '@/lib/hook/useSpotsGeoJSON';
 
-type MapSidePanelTab = 'media' | 'spots';
+type MapExplorePanelTab = 'media' | 'spots';
 
-type MapSidePanelProps = {
+type MapExplorePanelProps = {
     bounds?: MapBounds;
     onSpotClick: (spot: Spot) => void;
 };
 
-const MapSidePanel = ({ bounds, onSpotClick }: MapSidePanelProps) => {
+const MapExplorePanel = ({ bounds, onSpotClick }: MapExplorePanelProps) => {
     const toggleSidePanel = useMapStore((state) => state.toggleSidePanel);
-    const [openTab, setOpenTab] = useState<MapSidePanelTab>('media');
+    const [openTab, setOpenTab] = useState<MapExplorePanelTab>('media');
 
     return (
         <MapOverlayPanel>
@@ -50,10 +50,10 @@ const MapSidePanel = ({ bounds, onSpotClick }: MapSidePanelProps) => {
                         <ScrollBar maxHeight="100%">
                             <div className="px-8 pb-8">
                                 <Tabs.Content value="media">
-                                    <MapSidePanelMedia bounds={bounds} onSpotClick={onSpotClick} />
+                                    <MapExplorePanelMedia bounds={bounds} onSpotClick={onSpotClick} />
                                 </Tabs.Content>
                                 <Tabs.Content value="spots">
-                                    <MapSidePanelSpots bounds={bounds} onSpotClick={onSpotClick} />
+                                    <MapExplorePanelSpots bounds={bounds} onSpotClick={onSpotClick} />
                                 </Tabs.Content>
                             </div>
                         </ScrollBar>
@@ -64,4 +64,4 @@ const MapSidePanel = ({ bounds, onSpotClick }: MapSidePanelProps) => {
     );
 };
 
-export default MapSidePanel;
+export default MapExplorePanel;

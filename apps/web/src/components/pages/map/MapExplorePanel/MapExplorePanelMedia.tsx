@@ -13,12 +13,12 @@ const pageSize = 50;
 
 type MediaCursor = Pick<Media, 'createdAt' | 'id'>;
 
-type MapSidePanelMediaProps = {
+type MapExplorePanelMediaProps = {
     bounds?: MapBounds;
     onSpotClick: (spot: Spot) => void;
 };
 
-export const MapSidePanelMedia = ({ bounds, onSpotClick }: MapSidePanelMediaProps) => {
+export const MapExplorePanelMedia = ({ bounds, onSpotClick }: MapExplorePanelMediaProps) => {
     const { data, isLoading, isFetchingNextPage, hasNextPage, fetchNextPage } = useInfiniteQuery({
         ...orpc.media.list.infiniteOptions({
             input: (cursor: MediaCursor | undefined) => ({
