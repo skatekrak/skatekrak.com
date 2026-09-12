@@ -1,5 +1,7 @@
 import type { Media } from '@krak/contracts';
-import { cn, KrakImage } from '@krak/ui';
+import { cn, useImgproxy } from '@krak/ui';
+
+import { getMediaImageUrl } from '@/lib/media';
 
 type MapSpotOverviewImageProps = {
     media?: Pick<Media, 'type' | 'image' | 'video'> | null;
@@ -9,17 +11,14 @@ type MapSpotOverviewImageProps = {
 };
 
 export const MapSpotCover = ({ media, alt, className, placeholderContainerClassName }: MapSpotOverviewImageProps) => {
+    const imgproxy = useImgproxy();
     const image = media?.image;
+    const imageUrl = image ? getMediaImageUrl(image, imgproxy?.baseUrl ?? '', coverImageOptions) : '';
 
     return (
         <div className={cn('relative overflow-hidden bg-tertiary-medium aspect-video', className)}>
-            {image && 'key' in image ? (
-                <KrakImage
-                    path={image.key}
-                    options={{ width: 275, height: 183, resizingType: 'fill' }}
-                    alt={alt}
-                    className="absolute inset-0 size-full object-cover"
-                />
+            {imageUrl ? (
+                <img src={imageUrl} alt={alt} loading="lazy" className="absolute inset-0 size-full object-cover" />
             ) : media?.type === 'video' && media.video ? (
                 <img
                     src={`https://res.cloudinary.com/krak/video/upload/w_275,ar_1.5,c_fill,dpr_auto/${media.video.publicId}.jpg`}
@@ -40,6 +39,8 @@ export const MapSpotCover = ({ media, alt, className, placeholderContainerClassN
         </div>
     );
 };
+
+const coverImageOptions = { width: 275, height: 183, resizingType: 'fill' as const };
 
 const MapSpotCoverPlaceholder = () => (
     <svg className="w-2/3 [&>path]:fill-onDark-lowEmphasis" viewBox="0 0 274 124" xmlns="http://www.w3.org/2000/svg">
