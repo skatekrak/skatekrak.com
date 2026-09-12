@@ -1,10 +1,12 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
+import { ArrowDownWideNarrow } from 'lucide-react';
 
 import type { Spot } from '@krak/contracts';
 
 import MapSearchResultSpot from '@/components/pages/map/MapNavigation/MapSearch/MapSearchResults/MapSearchResultSpot';
 import { KrakLoading } from '@/components/Ui/Icons/Spinners';
 import InfiniteScroll from '@/components/Ui/InfiniteScroll';
+import Typography from '@/components/Ui/typography/Typography';
 import { orpc } from '@/server/orpc/client';
 
 import type { MapBounds } from '@/lib/hook/useSpotsGeoJSON';
@@ -41,6 +43,12 @@ export const MapExplorePanelSpots = ({ bounds, onSpotClick }: MapExplorePanelSpo
 
     return (
         <InfiniteScroll hasMore={hasNextPage} isLoading={isFetchingNextPage} loadMore={() => fetchNextPage()}>
+            <div className="flex items-center gap-2 pt-6">
+                <ArrowDownWideNarrow className="size-5 text-onDark-mediumEmphasis" />
+                <Typography component="body1" className="text-onDark-mediumEmphasis">
+                    most content
+                </Typography>
+            </div>
             <div className="flex flex-col gap-6 pt-4">
                 {spots.map((spot) => (
                     <MapSearchResultSpot key={spot.id} spot={spot} onSpotClick={onSpotClick} display="card" />

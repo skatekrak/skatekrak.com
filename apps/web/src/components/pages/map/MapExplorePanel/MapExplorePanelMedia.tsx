@@ -1,10 +1,12 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
+import { ArrowDownWideNarrow } from 'lucide-react';
 
 import type { Media, Spot } from '@krak/contracts';
 
 import { MapMedia } from '@/components/pages/map/_components';
 import { KrakLoading } from '@/components/Ui/Icons/Spinners';
 import InfiniteScroll from '@/components/Ui/InfiniteScroll';
+import Typography from '@/components/Ui/typography/Typography';
 import { orpc } from '@/server/orpc/client';
 
 import type { MapBounds } from '@/lib/hook/useSpotsGeoJSON';
@@ -51,7 +53,13 @@ export const MapExplorePanelMedia = ({ bounds, onSpotClick }: MapExplorePanelMed
 
     return (
         <InfiniteScroll hasMore={hasNextPage} isLoading={isFetchingNextPage} loadMore={() => fetchNextPage()}>
-            <div className="flex flex-col gap-6 pt-6">
+            <div className="flex items-center gap-2 pt-6">
+                <ArrowDownWideNarrow className="size-5 text-onDark-mediumEmphasis" />
+                <Typography component="body1" className="text-onDark-mediumEmphasis">
+                    lastly added
+                </Typography>
+            </div>
+            <div className="flex flex-col gap-6 pt-4">
                 {medias.map((media) => (
                     <MapMedia
                         key={media.id}
