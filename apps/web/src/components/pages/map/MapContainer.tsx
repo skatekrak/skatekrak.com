@@ -8,7 +8,7 @@ import { useShallow } from 'zustand/react/shallow';
 
 import type { Spot } from '@krak/contracts';
 
-import { MapZoomAlert } from '@/components/pages/map/_components';
+import { MapZoomAlert, mapOverlayPanelWidthPx } from '@/components/pages/map/_components';
 import CityPanel from '@/components/pages/map/cities/CityPanel';
 import MapCustomPanel from '@/components/pages/map/MapCustom/panel/MapCustomPanel';
 import { SpinnerCircle } from '@/components/Ui/Icons/Spinners';
@@ -144,7 +144,9 @@ const MapContainer = () => {
         bounds: feedBounds,
         refetch,
         isFetching: spotsGeoJSONLoading,
-    } = useSpotsGeoJSON(mapRef?.current ?? undefined, enableSpotQuery);
+    } = useSpotsGeoJSON(mapRef?.current ?? undefined, enableSpotQuery, {
+        left: !isMobile && isSidePanelOpen ? mapOverlayPanelWidthPx : 0,
+    });
 
     const { data: spotsByTags, isFetching: spotsTagsLoading } = useQuery(
         orpc.spots.listByTags.queryOptions({

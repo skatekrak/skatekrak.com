@@ -5,6 +5,9 @@ import type { ReactNode } from 'react';
 /** Offset map chrome to the right of an open overlay panel, keeping the usual screen inset. */
 export const mapPanelOffset = 'laptop-s:left-[calc(var(--container-lg)+1.5rem)]';
 
+/** Pixel width of MapOverlayPanel at laptop-s+ (`w-lg` / `--container-lg` = 32rem). */
+export const mapOverlayPanelWidthPx = 512;
+
 type MapOverlayPanelProps = {
     children: ReactNode;
     collapsed?: boolean;
