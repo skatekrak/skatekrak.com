@@ -4,6 +4,7 @@ import React from 'react';
 import { cn } from '@krak/ui';
 
 import { mapPanelOffset } from '@/components/pages/map/_components';
+import Tooltip from '@/components/Ui/Tooltip';
 import { useMapStore } from '@/store/map';
 import { useSettingsStore } from '@/store/settings';
 
@@ -29,13 +30,15 @@ const MapNavigation = ({ handleCreateSpotClick }: Props) => {
         >
             <div className="flex items-center gap-3">
                 {!isMobile && !isSidePanelOpen && (
-                    <button
-                        type="button"
-                        onClick={() => toggleSidePanel(true)}
-                        className="p-2 bg-tertiary-dark border-[1.5px] border-tertiary-medium hover:border-tertiary-light shadow-onDarkHighSharp rounded transition-all duration-100"
-                    >
-                        <PanelLeftOpen className="text-tertiary-white opacity-70" />
-                    </button>
+                    <Tooltip tooltipText="Explore" placement="right">
+                        <button
+                            type="button"
+                            onClick={() => toggleSidePanel(true)}
+                            className="p-2 bg-tertiary-dark border-[1.5px] border-tertiary-medium hover:border-tertiary-light shadow-onDarkHighSharp rounded transition-all duration-100"
+                        >
+                            <PanelLeftOpen className="text-tertiary-white opacity-70" />
+                        </button>
+                    </Tooltip>
                 )}
                 <MapSearch />
                 <MapCreateSpotButton onClick={handleCreateSpotClick} />
