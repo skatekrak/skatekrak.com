@@ -235,15 +235,31 @@ export const getSpotsGeoJSON = os.spots.getSpotsGeoJSON.handler(async ({ context
 });
 
 export const listInBounds = os.spots.listInBounds.handler(async ({ context, input }) => {
+    const now = new Date();
     const spots = await context.prisma.spot.findMany({
         where: getSpotBoundsWhere(input),
         orderBy: [{ medias: { _count: 'desc' } }, { id: 'asc' }],
         skip: input.offset,
         take: input.limit,
-        include: addedByInclude,
+        include: {
+            ...addedByInclude,
+            medias: {
+                where: {
+                    createdAt: { lt: now },
+                    OR: [{ image: { not: { equals: null } } }, { video: { not: { equals: null } } }],
+                    AND: [{ OR: [{ releaseDate: null }, { releaseDate: { lt: now } }] }],
+                },
+                orderBy: [{ type: 'asc' }, { createdAt: 'desc' }],
+                take: 1,
+                include: addedByInclude,
+            },
+        },
     });
 
-    return spots.map(formatPrismaSpot);
+    return spots.map((spot) => ({
+        spot: formatPrismaSpot(spot),
+        mediaThumbnail: spot.medias[0] ? formatPrismaMedia(spot.medias[0]) : null,
+    }));
 });
 
 export const listByTags = os.spots.listByTags.handler(async ({ context, input }) => {
