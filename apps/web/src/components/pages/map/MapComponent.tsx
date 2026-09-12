@@ -33,6 +33,20 @@ import type { FeatureCollection, Geometry } from 'geojson';
 
 const pmtilesUrl = 'https://krakmaps.ams3.digitaloceanspaces.com/20260822.pmtiles';
 const mapboxToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN;
+const mapboxSatelliteStyleUrl = 'https://api.mapbox.com/styles/v1/mapbox/satellite-streets-v12';
+
+const isPoiLayer = (layer: { id: string }) => layer.id.includes('poi');
+
+const stripPoiLayersFromMap = (map: maplibregl.Map) => {
+    if (useMapStore.getState().mapStyle !== 'satellite-streets-v12') return;
+
+    const poiLayerIds = (map.getStyle()?.layers ?? []).filter(isPoiLayer).map((layer) => layer.id);
+    for (const layerId of poiLayerIds) {
+        if (map.getLayer(layerId)) {
+            map.removeLayer(layerId);
+        }
+    }
+};
 
 maplibregl.addProtocol('pmtiles', new Protocol().tile);
 
@@ -127,7 +141,7 @@ const MapComponent = ({ mapRef, spots, children, onLoad }: MapComponentProps) =>
 
     const basemapStyle = useMemo<string | StyleSpecification>(() => {
         if (mapStyle === 'satellite-streets-v12') {
-            return 'https://api.mapbox.com/styles/v1/mapbox/satellite-streets-v12';
+            return mapboxSatelliteStyleUrl;
         }
 
         return {
@@ -140,11 +154,18 @@ const MapComponent = ({ mapRef, spots, children, onLoad }: MapComponentProps) =>
                     url: `pmtiles://${pmtilesUrl}`,
                 },
             },
-            layers: layers('protomaps', namedFlavor(mapStyle), { lang: 'en' }).filter(
-                (layer) => !layer.id.includes('poi'),
-            ),
+            layers: layers('protomaps', namedFlavor(mapStyle), { lang: 'en' }).filter((layer) => !isPoiLayer(layer)),
         };
     }, [mapStyle]);
+
+    const handleMapLoad = useCallback(() => {
+        const map = mapRef.current?.getMap();
+        if (map) {
+            stripPoiLayersFromMap(map);
+            map.on('style.load', () => stripPoiLayersFromMap(map));
+        }
+        onLoad?.();
+    }, [mapRef, onLoad]);
 
     useEffect(() => {
         if (window.innerWidth < 1024) {
@@ -199,7 +220,7 @@ const MapComponent = ({ mapRef, spots, children, onLoad }: MapComponentProps) =>
                 }}
                 projection={{ type: 'mercator' }}
                 onMove={onViewportChange}
-                onLoad={onLoad}
+                onLoad={handleMapLoad}
                 onClick={onMapClick}
             >
                 <Source id="spots" type="geojson" data={spotSourceData}>
