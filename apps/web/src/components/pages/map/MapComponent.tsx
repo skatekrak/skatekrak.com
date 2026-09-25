@@ -171,8 +171,7 @@ const MapComponent = ({ mapRef, spots, children, onLoad }: MapComponentProps) =>
         if (window.innerWidth < 1024) {
             setMapStyle('light');
         } else {
-            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            setMapStyle(prefersDark ? 'dark' : 'light');
+            setMapStyle('dark');
         }
         setMapStyleReady(true);
     }, [setMapStyle, isMobile]);
