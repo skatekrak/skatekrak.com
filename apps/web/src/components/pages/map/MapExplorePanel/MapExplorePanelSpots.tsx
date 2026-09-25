@@ -11,7 +11,7 @@ import { orpc } from '@/server/orpc/client';
 
 import type { MapBounds } from '@/lib/hook/useSpotsGeoJSON';
 
-const pageSize = 50;
+const pageSize = 20;
 
 type MapExplorePanelSpotsProps = {
     bounds?: MapBounds;
@@ -50,8 +50,14 @@ export const MapExplorePanelSpots = ({ bounds, onSpotClick }: MapExplorePanelSpo
                 </Typography>
             </div>
             <div className="flex flex-col gap-6 pt-4">
-                {spots.map((spot) => (
-                    <MapSearchResultSpot key={spot.id} spot={spot} onSpotClick={onSpotClick} display="card" />
+                {spots.map(({ spot, mediaThumbnail }) => (
+                    <MapSearchResultSpot
+                        key={spot.id}
+                        spot={spot}
+                        media={mediaThumbnail}
+                        onSpotClick={onSpotClick}
+                        display="card"
+                    />
                 ))}
                 {isFetchingNextPage && <KrakLoading className="mx-auto mt-4" />}
             </div>
