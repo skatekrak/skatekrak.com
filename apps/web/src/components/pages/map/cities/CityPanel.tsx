@@ -88,7 +88,7 @@ const CityPanel = () => {
                         onValueChange={(tab) => setTabs({ cityId: id, tab })}
                         className="flex flex-col"
                     >
-                        <Tabs.List className="sticky top-0 z-10 shrink-0 px-6 bg-tertiary-dark">
+                        <Tabs.List className="sticky top-0 z-10 shrink-0 pt-2 px-6 bg-tertiary-dark">
                             <Tabs.Tab value="video">Video</Tabs.Tab>
                             <Tabs.Tab value="media">Media</Tabs.Tab>
                             <Tabs.Tab value="spots">Spots</Tabs.Tab>
