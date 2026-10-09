@@ -64,6 +64,20 @@ const SpotAddress = ({ spot }: { spot: Spot }) => {
     );
 };
 
+/**
+ * Directions from the user's current location to the spot pin.
+ * Coordinates are used so the route lands on the spot even when the street is missing.
+ */
+const googleMapsDirectionsUrl = (spot: Spot): string => {
+    const { latitude, longitude } = spot.location;
+    const params = new URLSearchParams({
+        api: '1',
+        destination: `${latitude},${longitude}`,
+    });
+
+    return `https://www.google.com/maps/dir/?${params.toString()}`;
+};
+
 const MapFullSpotNav = () => {
     const spotOverview = useMapStore((state) => state.spotOverview);
     const [selectedTab, selectFullSpotTab] = useFullSpotSelectedTab();
@@ -80,13 +94,21 @@ const MapFullSpotNav = () => {
                         <Typography className="mb-4 max-w-[80%]" as="h1" component="heading5">
                             {spotOverview.spot.name}
                         </Typography>
-                        <Typography
-                            className="mb-1 font-roboto uppercase [&_span]:font-roboto-bold"
-                            component="caption"
+                        <a
+                            className="block w-fit hover:underline"
+                            href={googleMapsDirectionsUrl(spotOverview.spot)}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label={`Directions to ${spotOverview.spot.name}`}
                         >
-                            <span>{spotOverview.spot.location.city}</span> | {spotOverview.spot.location.country}
-                        </Typography>
-                        <SpotAddress spot={spotOverview.spot} />
+                            <Typography
+                                className="mb-1 font-roboto uppercase [&_span]:font-roboto-bold"
+                                component="caption"
+                            >
+                                <span>{spotOverview.spot.location.city}</span> | {spotOverview.spot.location.country}
+                            </Typography>
+                            <SpotAddress spot={spotOverview.spot} />
+                        </a>
                         {spotOverview.spot.description && (
                             <Typography
                                 className="mt-4 whitespace-pre-line text-onDark-mediumEmphasis"
