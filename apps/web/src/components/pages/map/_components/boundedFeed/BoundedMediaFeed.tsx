@@ -3,7 +3,7 @@ import { ArrowDownWideNarrow } from 'lucide-react';
 
 import type { Media, Spot } from '@krak/contracts';
 
-import { MapMedia } from '@/components/pages/map/_components';
+import { MapMedia } from '@/components/pages/map/_components/media';
 import { KrakLoading } from '@/components/Ui/Icons/Spinners';
 import InfiniteScroll from '@/components/Ui/InfiniteScroll';
 import Typography from '@/components/Ui/typography/Typography';
@@ -15,12 +15,12 @@ const pageSize = 20;
 
 type MediaCursor = Pick<Media, 'createdAt' | 'id'>;
 
-type MapExplorePanelMediaProps = {
+type BoundedMediaFeedProps = {
     bounds?: MapBounds;
     onSpotClick: (spot: Spot) => void;
 };
 
-export const MapExplorePanelMedia = ({ bounds, onSpotClick }: MapExplorePanelMediaProps) => {
+export const BoundedMediaFeed = ({ bounds, onSpotClick }: BoundedMediaFeedProps) => {
     const { data, isLoading, isFetchingNextPage, hasNextPage, fetchNextPage } = useInfiniteQuery({
         ...orpc.media.list.infiniteOptions({
             input: (cursor: MediaCursor | undefined) => ({

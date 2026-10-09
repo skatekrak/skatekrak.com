@@ -3,15 +3,12 @@ import { useCallback, useState } from 'react';
 
 import type { Spot } from '@krak/contracts';
 
-import { MapOverlayPanel } from '@/components/pages/map/_components';
+import { BoundedMediaFeed, BoundedSpotFeed, MapOverlayPanel } from '@/components/pages/map/_components';
 import ScrollBar from '@/components/Ui/Scrollbar';
 import { Tabs } from '@/components/Ui/Tabs';
 import Typography from '@/components/Ui/typography/Typography';
 import { useSpotID } from '@/lib/hook/queryState';
 import { useMapStore } from '@/store/map';
-
-import { MapExplorePanelMedia } from './MapExplorePanelMedia';
-import { MapExplorePanelSpots } from './MapExplorePanelSpots';
 
 import type { MapBounds } from '@/lib/hook/useSpotsGeoJSON';
 
@@ -58,10 +55,10 @@ const MapExplorePanel = ({ bounds }: MapExplorePanelProps) => {
                         <ScrollBar maxHeight="100%">
                             <div className="px-8 pb-8">
                                 <Tabs.Content value="media">
-                                    <MapExplorePanelMedia bounds={bounds} onSpotClick={onSpotClick} />
+                                    <BoundedMediaFeed bounds={bounds} onSpotClick={onSpotClick} />
                                 </Tabs.Content>
                                 <Tabs.Content value="spots">
-                                    <MapExplorePanelSpots bounds={bounds} onSpotClick={onSpotClick} />
+                                    <BoundedSpotFeed bounds={bounds} onSpotClick={onSpotClick} />
                                 </Tabs.Content>
                             </div>
                         </ScrollBar>

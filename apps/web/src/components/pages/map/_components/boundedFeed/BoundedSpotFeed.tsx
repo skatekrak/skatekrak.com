@@ -13,12 +13,12 @@ import type { MapBounds } from '@/lib/hook/useSpotsGeoJSON';
 
 const pageSize = 50;
 
-type MapExplorePanelSpotsProps = {
+type BoundedSpotFeedProps = {
     bounds?: MapBounds;
     onSpotClick: (spot: Spot) => void;
 };
 
-export const MapExplorePanelSpots = ({ bounds, onSpotClick }: MapExplorePanelSpotsProps) => {
+export const BoundedSpotFeed = ({ bounds, onSpotClick }: BoundedSpotFeedProps) => {
     const { data, isLoading, isFetchingNextPage, hasNextPage, fetchNextPage } = useInfiniteQuery({
         ...orpc.spots.listInBounds.infiniteOptions({
             input: (offset: number) => ({ ...bounds!, offset, limit: pageSize }),
