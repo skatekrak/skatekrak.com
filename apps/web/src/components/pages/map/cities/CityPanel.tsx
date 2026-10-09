@@ -1,15 +1,13 @@
 import { useQuery } from '@tanstack/react-query';
 import NextImage from 'next/image';
-import { useCallback, useMemo, useState } from 'react';
-
-import type { Spot } from '@krak/contracts';
+import { useMemo, useState } from 'react';
 
 import { BoundedMediaFeed, BoundedSpotFeed, MapOverlayPanel } from '@/components/pages/map/_components';
 import InfiniteScroll from '@/components/Ui/InfiniteScroll';
 import VideoPlayer from '@/components/Ui/Player/VideoPlayer';
 import ScrollBar from '@/components/Ui/Scrollbar';
 import { Tabs } from '@/components/Ui/Tabs';
-import { useCityID, useSpotID } from '@/lib/hook/queryState';
+import { useCityID } from '@/lib/hook/queryState';
 import { orpc } from '@/server/orpc/client';
 
 import type { MapBounds } from '@/lib/hook/useSpotsGeoJSON';
@@ -35,7 +33,7 @@ const toMapBounds = (bounds: [[number, number], [number, number]]): MapBounds =>
 
 const CityPanel = () => {
     const [id, setCityID] = useCityID();
-    const [, setSpotID] = useSpotID();
+
     const { data: cities = [] } = useQuery(orpc.cities.list.queryOptions({}));
 
     const city = cities.find((c) => c.id === id);
@@ -45,13 +43,6 @@ const CityPanel = () => {
 
     const bounds = useMemo(() => (city ? toMapBounds(city.bounds) : undefined), [city]);
     const openTab = tabs.cityId === id ? tabs.tab : 'video';
-
-    const onSpotClick = useCallback(
-        (spot: Spot) => {
-            setSpotID(spot.id);
-        },
-        [setSpotID],
-    );
 
     if (!city || id == null) return null;
 
@@ -115,10 +106,10 @@ const CityPanel = () => {
                                 </InfiniteScroll>
                             </Tabs.Content>
                             <Tabs.Content value="media">
-                                <BoundedMediaFeed bounds={bounds} onSpotClick={onSpotClick} />
+                                <BoundedMediaFeed bounds={bounds} />
                             </Tabs.Content>
                             <Tabs.Content value="spots">
-                                <BoundedSpotFeed bounds={bounds} onSpotClick={onSpotClick} />
+                                <BoundedSpotFeed bounds={bounds} />
                             </Tabs.Content>
                         </div>
                     </Tabs>

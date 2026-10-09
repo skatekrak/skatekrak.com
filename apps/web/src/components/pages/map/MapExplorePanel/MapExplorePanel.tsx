@@ -1,13 +1,10 @@
 import { PanelLeftClose } from 'lucide-react';
-import { useCallback, useState } from 'react';
-
-import type { Spot } from '@krak/contracts';
+import { useState } from 'react';
 
 import { BoundedMediaFeed, BoundedSpotFeed, MapOverlayPanel } from '@/components/pages/map/_components';
 import ScrollBar from '@/components/Ui/Scrollbar';
 import { Tabs } from '@/components/Ui/Tabs';
 import Typography from '@/components/Ui/typography/Typography';
-import { useSpotID } from '@/lib/hook/queryState';
 import { useMapStore } from '@/store/map';
 
 import type { MapBounds } from '@/lib/hook/useSpotsGeoJSON';
@@ -20,15 +17,8 @@ type MapExplorePanelProps = {
 
 const MapExplorePanel = ({ bounds }: MapExplorePanelProps) => {
     const toggleSidePanel = useMapStore((state) => state.toggleSidePanel);
-    const [_, setSpotID] = useSpotID();
-    const [openTab, setOpenTab] = useState<MapExplorePanelTab>('media');
 
-    const onSpotClick = useCallback(
-        (spot: Spot) => {
-            setSpotID(spot.id);
-        },
-        [setSpotID],
-    );
+    const [openTab, setOpenTab] = useState<MapExplorePanelTab>('media');
 
     return (
         <MapOverlayPanel>
@@ -55,10 +45,10 @@ const MapExplorePanel = ({ bounds }: MapExplorePanelProps) => {
                         <ScrollBar maxHeight="100%">
                             <div className="px-8 pb-8">
                                 <Tabs.Content value="media">
-                                    <BoundedMediaFeed bounds={bounds} onSpotClick={onSpotClick} />
+                                    <BoundedMediaFeed bounds={bounds} />
                                 </Tabs.Content>
                                 <Tabs.Content value="spots">
-                                    <BoundedSpotFeed bounds={bounds} onSpotClick={onSpotClick} />
+                                    <BoundedSpotFeed bounds={bounds} />
                                 </Tabs.Content>
                             </div>
                         </ScrollBar>

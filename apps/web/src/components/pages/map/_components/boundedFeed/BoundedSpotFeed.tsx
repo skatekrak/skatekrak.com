@@ -1,5 +1,6 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { ArrowDownWideNarrow } from 'lucide-react';
+import { useCallback } from 'react';
 
 import type { Spot } from '@krak/contracts';
 
@@ -7,6 +8,7 @@ import MapSearchResultSpot from '@/components/pages/map/MapNavigation/MapSearch/
 import { KrakLoading } from '@/components/Ui/Icons/Spinners';
 import InfiniteScroll from '@/components/Ui/InfiniteScroll';
 import Typography from '@/components/Ui/typography/Typography';
+import { useSpotID } from '@/lib/hook/queryState';
 import { orpc } from '@/server/orpc/client';
 
 import type { MapBounds } from '@/lib/hook/useSpotsGeoJSON';
@@ -15,10 +17,11 @@ const pageSize = 50;
 
 type BoundedSpotFeedProps = {
     bounds?: MapBounds;
-    onSpotClick: (spot: Spot) => void;
 };
 
-export const BoundedSpotFeed = ({ bounds, onSpotClick }: BoundedSpotFeedProps) => {
+export const BoundedSpotFeed = ({ bounds }: BoundedSpotFeedProps) => {
+    const [_, setSpotID] = useSpotID();
+
     const { data, isLoading, isFetchingNextPage, hasNextPage, fetchNextPage } = useInfiniteQuery({
         ...orpc.spots.listInBounds.infiniteOptions({
             input: (offset: number) => ({ ...bounds!, offset, limit: pageSize }),
@@ -27,6 +30,14 @@ export const BoundedSpotFeed = ({ bounds, onSpotClick }: BoundedSpotFeedProps) =
         }),
         enabled: bounds != null,
     });
+
+    const onSpotClick = useCallback(
+        (spot: Spot) => {
+            setSpotID(spot.id);
+        },
+        [setSpotID],
+    );
+
     const spots = data?.pages.flat() ?? [];
 
     if (bounds == null) {

@@ -1,5 +1,6 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { ArrowDownWideNarrow } from 'lucide-react';
+import { useCallback } from 'react';
 
 import type { Media, Spot } from '@krak/contracts';
 
@@ -7,6 +8,7 @@ import { MapMedia } from '@/components/pages/map/_components/media';
 import { KrakLoading } from '@/components/Ui/Icons/Spinners';
 import InfiniteScroll from '@/components/Ui/InfiniteScroll';
 import Typography from '@/components/Ui/typography/Typography';
+import { useSpotID } from '@/lib/hook/queryState';
 import { orpc } from '@/server/orpc/client';
 
 import type { MapBounds } from '@/lib/hook/useSpotsGeoJSON';
@@ -17,10 +19,11 @@ type MediaCursor = Pick<Media, 'createdAt' | 'id'>;
 
 type BoundedMediaFeedProps = {
     bounds?: MapBounds;
-    onSpotClick: (spot: Spot) => void;
 };
 
-export const BoundedMediaFeed = ({ bounds, onSpotClick }: BoundedMediaFeedProps) => {
+export const BoundedMediaFeed = ({ bounds }: BoundedMediaFeedProps) => {
+    const [, setSpotID] = useSpotID();
+
     const { data, isLoading, isFetchingNextPage, hasNextPage, fetchNextPage } = useInfiniteQuery({
         ...orpc.media.list.infiniteOptions({
             input: (cursor: MediaCursor | undefined) => ({
@@ -37,7 +40,15 @@ export const BoundedMediaFeed = ({ bounds, onSpotClick }: BoundedMediaFeedProps)
         }),
         enabled: bounds != null,
     });
+
     const medias = data?.pages.flat() ?? [];
+
+    const onSpotClick = useCallback(
+        (spot: Spot) => {
+            setSpotID(spot.id);
+        },
+        [setSpotID],
+    );
 
     if (bounds == null) {
         return <p className="py-12 text-center text-onDark-mediumEmphasis">Zoom in to explore media.</p>;
