@@ -73,6 +73,10 @@ description = "Apply pending migrations to the production database"
 dir = "packages/prisma"
 run = "fnox exec --config ../jobs/fnox.toml --profile production -- bun run migrate:deploy"
 
+[tasks.export]
+description = "Export the local database to krak_dump.sql"
+run = "PGPASSWORD=krak pg_dump -U krak -d krak -h localhost -p 5433 -f krak_dump.sql"
+
 [tasks.restore]
 description = "Restore db"
 run = "PGPASSWORD=krak psql -U krak -d krak -h localhost -p 5433 -f krak_dump.sql"
