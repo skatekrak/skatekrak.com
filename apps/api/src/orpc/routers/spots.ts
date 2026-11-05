@@ -1,6 +1,6 @@
 import { ORPCError } from '@orpc/server';
 
-import type { ClipProvider, SpotType, SpotStatus, Obstacle } from '@krak/prisma';
+import { Prisma, type ClipProvider, type SpotType, type SpotStatus, type Obstacle } from '@krak/prisma';
 import { type SpotGeoJSON, Status, Types } from '@krak/types';
 
 import { env } from '../../env';
@@ -12,6 +12,8 @@ import { buildStat } from '../../helpers/stats';
 import { getVideoInformation } from '../../helpers/videos';
 import { os, authed, loadProfile, loadSpot } from '../base';
 import { type SpotWithAddedBy, formatPrismaSpot, formatPrismaMedia, formatPrismaClip, formatStat } from '../formatters';
+
+export { listInBounds } from './spots.list-in-bounds';
 
 // ============================================================================
 // Shared Prisma include for addedBy with user relation
@@ -186,7 +188,7 @@ export const getSpotOverview = os.spots.getSpotOverview.handler(async ({ context
             where: {
                 spotId: input.id,
                 createdAt: { lt: now },
-                OR: [{ image: { not: { equals: null } } }, { video: { not: { equals: null } } }],
+                OR: [{ image: { not: Prisma.AnyNull } }, { video: { not: Prisma.AnyNull } }],
                 AND: [{ OR: [{ releaseDate: null }, { releaseDate: { lt: now } }] }],
             },
             orderBy: [{ type: 'asc' }, { createdAt: 'desc' }],
@@ -199,7 +201,7 @@ export const getSpotOverview = os.spots.getSpotOverview.handler(async ({ context
             where: {
                 spotId: input.id,
                 createdAt: { lt: now },
-                OR: [{ image: { not: { equals: null } } }, { video: { not: { equals: null } } }],
+                OR: [{ image: { not: Prisma.AnyNull } }, { video: { not: Prisma.AnyNull } }],
                 AND: [{ OR: [{ releaseDate: null }, { releaseDate: { lt: now } }] }],
             },
             orderBy: { createdAt: 'desc' },
@@ -232,18 +234,6 @@ export const getSpotsGeoJSON = os.spots.getSpotsGeoJSON.handler(async ({ context
     });
 
     return spotsToGeoJSON(spots);
-});
-
-export const listInBounds = os.spots.listInBounds.handler(async ({ context, input }) => {
-    const spots = await context.prisma.spot.findMany({
-        where: getSpotBoundsWhere(input),
-        orderBy: [{ medias: { _count: 'desc' } }, { id: 'asc' }],
-        skip: input.offset,
-        take: input.limit,
-        include: addedByInclude,
-    });
-
-    return spots.map(formatPrismaSpot);
 });
 
 export const listByTags = os.spots.listByTags.handler(async ({ context, input }) => {

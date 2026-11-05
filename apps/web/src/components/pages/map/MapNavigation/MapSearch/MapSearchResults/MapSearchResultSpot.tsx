@@ -38,7 +38,7 @@ export default function MapSearchResultSpot<T extends Spot | SpotHit>({
     if (display === 'card') {
         return (
             <button
-                className="flex flex-col w-full border border-solid border-onDark-divider hover:border-onDark-placeholder rounded-lg"
+                className="flex flex-col w-full overflow-hidden border border-solid border-onDark-divider hover:border-onDark-placeholder rounded-lg"
                 onClick={handleSpotClick}
             >
                 <MapSpotCover media={media} alt={spot.name} className="w-full" />

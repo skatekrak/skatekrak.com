@@ -81,6 +81,11 @@ const SpotOverviewSchema = z.object({
     clips: z.array(ClipSchema),
 });
 
+const SpotWithCoverSchema = z.object({
+    spot: SpotSchema,
+    mediaThumbnail: MediaSchema.nullable(),
+});
+
 // ============================================================================
 // Contract definition
 // ============================================================================
@@ -91,7 +96,7 @@ export const contract = {
         getSpot: oc.input(getSpotInput).output(SpotSchema),
         getSpotOverview: oc.input(getSpotOverviewInput).output(SpotOverviewSchema),
         getSpotsGeoJSON: oc.input(getSpotsGeoJSONInput).output(z.array(SpotGeoJSONSchema)),
-        listInBounds: oc.input(listSpotsInBoundsInput).output(z.array(SpotSchema)),
+        listInBounds: oc.input(listSpotsInBoundsInput).output(z.array(SpotWithCoverSchema)),
         listByTags: oc.input(listByTagsInput).output(z.array(SpotSchema)),
         addClipToSpot: oc.input(addClipToSpotInput).output(ClipSchema),
         reverseGeocode: oc.input(reverseGeocodeInput).output(ReverseGeocodeResultSchema),
