@@ -4,8 +4,9 @@
 // ============================================================================
 
 generator client {
-  provider = "prisma-client-js"
-  output   = "../node_modules/.prisma/client"
+  provider        = "prisma-client-js"
+  output          = "../node_modules/.prisma/client"
+  previewFeatures = ["relationJoins"]
 }
 
 datasource db {
@@ -386,6 +387,7 @@ model Media {
   comments Comment[]
   likes    Like[]
 
+  @@index([spotId, type, createdAt(sort: Desc)])
   @@map("media")
 }
 

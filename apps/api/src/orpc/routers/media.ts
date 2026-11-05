@@ -1,5 +1,7 @@
 import { ORPCError } from '@orpc/server';
 
+import { Prisma } from '@krak/prisma';
+
 import { extractHashtags, addHashtagIfNeeded } from '../../helpers/hashtags';
 import { getSpotBoundsWhere } from '../../helpers/map-bounds';
 import { processMediaFile } from '../../helpers/media-upload';
@@ -46,7 +48,7 @@ export const listBySpot = os.media.listBySpot.handler(async ({ context, input })
         where: {
             spotId: input.spotId,
             createdAt: { lt: input.cursor ?? new Date() },
-            OR: [{ image: { not: { equals: null } } }, { video: { not: { equals: null } } }],
+            OR: [{ image: { not: Prisma.AnyNull } }, { video: { not: Prisma.AnyNull } }],
             AND: [
                 { OR: [{ releaseDate: null }, { releaseDate: { lt: new Date() } }] },
                 ...(input.hashtag ? [{ hashtags: { has: addHashtagIfNeeded(input.hashtag) } }] : []),
@@ -111,7 +113,7 @@ export const list = os.media.list.handler(async ({ context, input }) => {
 
     const medias = await context.prisma.media.findMany({
         where: {
-            OR: [{ image: { not: { equals: null } } }, { video: { not: { equals: null } } }],
+            OR: [{ image: { not: Prisma.AnyNull } }, { video: { not: Prisma.AnyNull } }],
             AND: [
                 cursorFilter,
                 { OR: [{ releaseDate: null }, { releaseDate: { lt: new Date() } }] },
