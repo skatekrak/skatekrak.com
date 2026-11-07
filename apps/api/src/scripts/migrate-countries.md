@@ -4,6 +4,8 @@ Deploy the Prisma migration before deploying the API and frontends. Countries ar
 
 The old maps have no ISO code or selected zone, so those values must be supplied explicitly. Bounds are two opposite corners, each in `[longitude, latitude]` order. Create a JSON array using the **existing map IDs**:
 
+The bundled catalog at `apps/manager/public/data/countries.json` supplies precomputed bounds by country code. For dateline-crossing countries, eastern longitudes can exceed 180° to keep the opening view continuous; the `20261107020000_country_antimeridian_bounds` migration must be deployed first.
+
 ```json
 [
     {

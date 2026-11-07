@@ -36,11 +36,13 @@ import {
     Textarea,
 } from '@krak/ui';
 
-import { MapZonePicker } from '@/components/MapZonePicker';
 import { SiteHeader } from '@/components/site-header';
+import { countrySlug, type CatalogCountry } from '@/data/countries';
 import { client, orpc } from '@/lib/orpc';
 
 import { SortableFieldList } from '../maps/_components/sortable-field-list';
+import { CountryCatalogPicker } from './CountryCatalogPicker';
+import { CountryLocationPreview } from './CountryLocationPreview';
 
 const countryFormSchema = createCountryInput.omit({ videos: true, soundtrack: true }).extend({
     videos: z.array(z.object({ value: createCountryInput.shape.videos.element })),
@@ -129,6 +131,16 @@ export default function CountriesPage() {
         resetEditor(country);
     }
 
+    function selectCatalogCountry(country: CatalogCountry) {
+        const id = form.getValues('id');
+        if (!selectedId && (!id || id === countrySlug(form.getValues('name')))) {
+            form.setValue('id', countrySlug(country.name), { shouldDirty: true, shouldValidate: true });
+        }
+        form.setValue('name', country.name, { shouldDirty: true, shouldValidate: true });
+        form.setValue('code', country.code, { shouldDirty: true, shouldValidate: true });
+        form.setValue('bounds', country.bounds, { shouldDirty: true, shouldValidate: true });
+    }
+
     return (
         <>
             <SiteHeader title="Countries" />
@@ -191,6 +203,28 @@ export default function CountriesPage() {
                                     onSubmit={form.handleSubmit((values) => saveMutation.mutate(values))}
                                 >
                                     <fieldset className="flex min-w-0 flex-col gap-4" disabled={busy}>
+                                        <FormField
+                                            control={form.control}
+                                            name="code"
+                                            render={({ field }) => (
+                                                <FormItem>
+                                                    <FormLabel>Country</FormLabel>
+                                                    <FormControl>
+                                                        <CountryCatalogPicker
+                                                            value={field.value}
+                                                            onSelect={selectCatalogCountry}
+                                                            disabled={busy}
+                                                        />
+                                                    </FormControl>
+                                                    <p className="text-sm text-muted-foreground">
+                                                        Search the bundled country catalog to fill the English name,
+                                                        code and opening view. Existing URL IDs and editorial content
+                                                        are kept.
+                                                    </p>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )}
+                                        />
                                         <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
                                             {(['id', 'code', 'name'] as const).map((name) => (
                                                 <FormField
@@ -203,26 +237,19 @@ export default function CountriesPage() {
                                                                 {name === 'id'
                                                                     ? 'ID (slug)'
                                                                     : name === 'code'
-                                                                      ? 'Country code (ISO)'
+                                                                      ? 'Country code'
                                                                       : 'Name'}
                                                             </FormLabel>
                                                             <FormControl>
                                                                 <Input
                                                                     {...field}
-                                                                    readOnly={name === 'id' && selectedId != null}
+                                                                    readOnly={name !== 'id' || selectedId != null}
                                                                     placeholder={
                                                                         name === 'id'
                                                                             ? 'france'
                                                                             : name === 'code'
                                                                               ? 'FR'
                                                                               : 'France'
-                                                                    }
-                                                                    onChange={(event) =>
-                                                                        field.onChange(
-                                                                            name === 'code'
-                                                                                ? event.target.value.toUpperCase()
-                                                                                : event.target.value,
-                                                                        )
                                                                     }
                                                                 />
                                                             </FormControl>
@@ -254,20 +281,15 @@ export default function CountriesPage() {
                                             name="bounds"
                                             render={({ field }) => (
                                                 <FormItem>
-                                                    <FormLabel>Zone</FormLabel>
-                                                    <FormControl>
-                                                        <MapZonePicker
-                                                            key={selectedId ?? 'new'}
-                                                            bounds={field.value}
-                                                            onChange={field.onChange}
-                                                            disabled={busy}
-                                                        />
-                                                    </FormControl>
+                                                    <FormLabel>Opening map view</FormLabel>
+                                                    <CountryLocationPreview
+                                                        bounds={field.value}
+                                                        code={form.watch('code')}
+                                                        disabled={busy}
+                                                    />
                                                     <p className="text-sm text-muted-foreground">
-                                                        Click to position the zone, then drag its corner handles to
-                                                        resize it. With a keyboard, press Enter on the map to position
-                                                        the zone and use arrow keys on a corner to resize it. The public
-                                                        map fits this area to the screen.
+                                                        Bounds are precomputed from country outlines. Panning this
+                                                        preview does not change the saved view.
                                                     </p>
                                                     <FormMessage />
                                                 </FormItem>
@@ -330,6 +352,40 @@ export default function CountriesPage() {
                                             );
                                         })}
                                     </fieldset>
+                                    <p className="text-sm text-muted-foreground">
+                                        Country data:{' '}
+                                        <a
+                                            className="underline"
+                                            href="https://github.com/mledoze/countries"
+                                            target="_blank"
+                                            rel="noreferrer"
+                                        >
+                                            mledoze/countries
+                                        </a>{' '}
+                                        ·{' '}
+                                        <a
+                                            className="underline"
+                                            href="/data/countries.LICENSE.txt"
+                                            target="_blank"
+                                            rel="noreferrer"
+                                        >
+                                            ODbL 1.0
+                                        </a>{' '}
+                                        ·{' '}
+                                        <a className="underline" href="/data/countries.json" download>
+                                            Download catalog
+                                        </a>
+                                        .{' '}
+                                        <a
+                                            className="underline"
+                                            href="/data/countries.README.md"
+                                            target="_blank"
+                                            rel="noreferrer"
+                                        >
+                                            Sources and bounds notes
+                                        </a>
+                                        .
+                                    </p>
                                     {saveMutation.error && (
                                         <p role="alert" className="text-sm text-destructive">
                                             {saveMutation.error.message}

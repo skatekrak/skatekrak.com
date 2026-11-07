@@ -11,11 +11,12 @@ const countryFields = {
     bounds: z
         .tuple([
             z.tuple([z.number().min(-180).max(180), z.number().min(-85.051129).max(85.051129)]),
-            z.tuple([z.number().min(-180).max(180), z.number().min(-85.051129).max(85.051129)]),
+            // Longitudes beyond 180 keep dateline-crossing countries in one continuous map view.
+            z.tuple([z.number().min(-180).max(540), z.number().min(-85.051129).max(85.051129)]),
         ])
         .refine(
-            ([[west, south], [east, north]]) => west !== east && south !== north,
-            'Select a zone with a width and height on the map',
+            ([[west, south], [east, north]]) => west !== east && south !== north && Math.abs(east - west) <= 360,
+            'Choose a country with a valid map view',
         ),
     hidden: z.boolean(),
 };

@@ -30,7 +30,18 @@ describe('country validation', () => {
                 ],
             }).success,
         ).toBe(true);
-        expect(createCountryInput.safeParse({ ...country, bounds: [...country.bounds].toReversed() }).success).toBe(true);
+        expect(createCountryInput.safeParse({ ...country, bounds: [...country.bounds].toReversed() }).success).toBe(
+            true,
+        );
+        expect(
+            createCountryInput.safeParse({
+                ...country,
+                bounds: [
+                    [178, -20],
+                    [182, -12],
+                ],
+            }).success,
+        ).toBe(true);
     });
 
     test('rejects invalid identity, missing or degenerate zones, and unsafe video URLs', () => {
@@ -41,6 +52,18 @@ describe('country validation', () => {
             { name: ' ' },
             { bounds: undefined },
             { bounds: [] },
+            {
+                bounds: [
+                    [181, 0],
+                    [182, 10],
+                ],
+            },
+            {
+                bounds: [
+                    [-180, 0],
+                    [181, 10],
+                ],
+            },
             {
                 bounds: [
                     [0, 0],
@@ -62,7 +85,7 @@ describe('country validation', () => {
             {
                 bounds: [
                     [0, 0],
-                    [181, 10],
+                    [541, 10],
                 ],
             },
             {
@@ -100,7 +123,7 @@ describe('country validation', () => {
                 id: country.id,
                 bounds: [
                     [0, 0],
-                    [181, 10],
+                    [541, 10],
                 ],
             }).success,
         ).toBe(false);
