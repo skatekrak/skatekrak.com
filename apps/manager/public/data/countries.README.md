@@ -2,7 +2,13 @@
 
 This is a trimmed, derived snapshot of [mledoze/countries](https://github.com/mledoze/countries), pinned to commit `fa4f62182d19ff4f8b325cde6387c9cd9d80955a`. Country metadata and the derived catalog are available under the [Open Database License 1.0](./countries.LICENSE.txt). Credit: mledoze and the countries dataset contributors. The source repository credits its GeoJSON outlines to [TM World Borders](https://thematicmapping.org/downloads/world_borders.php).
 
-Download the complete derived database: [countries.json](./countries.json). The checked-in JSON is imported directly by the manager; builds and page loads never fetch upstream data. It contains only English common names, two-letter country codes, representative latitude/longitude, and precomputed opening bounds. It does not include flags or country polygons. It includes territories and the upstream Kosovo code `XK`, which is not an officially assigned ISO 3166-1 code.
+Download the complete derived database: [countries.json](./countries.json). The checked-in JSON is imported directly by the manager; builds and page loads never fetch upstream data. It contains canonical slugs, English common names, two-letter country codes, representative latitude/longitude, and precomputed opening bounds. It does not inline flag SVGs or country polygons. It includes territories and the upstream Kosovo code `XK`, which is not an officially assigned ISO 3166-1 code.
+
+## Flag logos
+
+The same pinned archive supplies 250 SVG flags. They are separate static assets in both apps at `/images/countries/<slug>.svg`, for example `/images/countries/france.svg`; only displayed flags are downloaded, not all flag artwork in the JavaScript bundle. The catalog stores a canonical `slug`, not an image URL. A small generated code-to-slug lookup lets legacy/custom country URL IDs keep their existing links and still show the correct flag.
+
+Flags are **not covered by ODbL**. See the separate [flag notice](../images/countries/FLAGS-NOTICE.md) and upstream's [copyright-on-emblems reference](https://en.wikipedia.org/wiki/Wikipedia:Copyright_on_emblems). Existing uploaded country images are not deleted, but country logos now use the bundled flags, so the manager no longer offers a logo upload. Maps and cities are unchanged.
 
 ## Bounds
 
@@ -20,4 +26,4 @@ From `apps/manager`, run:
 bun run bundle:countries
 ```
 
-Then format changed files with the repository formatter and run `bun test`. To upgrade the data, explicitly change the pinned commit in `scripts/bundle-countries.ts`, review the upstream metadata/outlines and license, and update this notice. Neither builds nor deployments update the snapshot automatically. Existing country records are not rewritten when the catalog is regenerated or when their editor is opened; a manager must select an entry and save to apply new metadata/bounds.
+This regenerates the metadata, both apps' flag assets/notices, and `packages/utils/src/countryFlagSlugs.ts`. Then format changed files with the repository formatter and run `bun test`. To upgrade the data, explicitly change the pinned commit in `scripts/bundle-countries.ts`, review the upstream metadata/outlines, flag artwork and licenses, and update this notice. Neither builds nor deployments update the snapshot automatically. Existing country records are not rewritten when the catalog is regenerated or when their editor is opened; a manager must select an entry and save to apply new metadata/bounds. If a future revision renames/removes countries, review obsolete generated SVGs explicitly rather than deleting broad asset directories.

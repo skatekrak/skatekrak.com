@@ -11,3 +11,6 @@ node_modules
 backup
 scripts
 *.md
+!apps/manager/public/data/countries.README.md
+!apps/manager/public/images/countries/FLAGS-NOTICE.md
+!apps/web/public/images/countries/FLAGS-NOTICE.md

@@ -25,6 +25,8 @@ import {
     CardDescription,
     CardHeader,
     CardTitle,
+    Dialog,
+    DialogTrigger,
     Form,
     FormControl,
     FormField,
@@ -35,14 +37,16 @@ import {
     Switch,
     Textarea,
 } from '@krak/ui';
+import { getCountryFlagPath } from '@krak/utils';
 
 import { SiteHeader } from '@/components/site-header';
-import { countrySlug, type CatalogCountry } from '@/data/countries';
 import { client, orpc } from '@/lib/orpc';
 
 import { SortableFieldList } from '../maps/_components/sortable-field-list';
-import { CountryCatalogPicker } from './CountryCatalogPicker';
 import { CountryLocationPreview } from './CountryLocationPreview';
+import { CreateCountryDialog } from './CreateCountryDialog';
+
+import type { CatalogCountry } from '@/data/countries';
 
 const countryFormSchema = createCountryInput.omit({ videos: true, soundtrack: true }).extend({
     videos: z.array(z.object({ value: createCountryInput.shape.videos.element })),
@@ -50,7 +54,7 @@ const countryFormSchema = createCountryInput.omit({ videos: true, soundtrack: tr
 });
 type CountryFormValues = z.infer<typeof countryFormSchema>;
 
-const emptyCountry: CountryFormValues = {
+const emptyCountry = {
     id: '',
     code: '',
     name: '',
@@ -64,13 +68,14 @@ const emptyCountry: CountryFormValues = {
         [0, 0],
     ],
     hidden: true,
-};
+} satisfies CountryFormValues;
 
 export default function CountriesPage() {
     const queryClient = useQueryClient();
     const countriesQuery = orpc.admin.countries.list.queryOptions({});
     const { data: countries = [], isPending, error, refetch } = useQuery(countriesQuery);
     const [selectedId, setSelectedId] = useState<string | null>(null);
+    const [creatingCountry, setCreatingCountry] = useState(false);
     const form = useForm<CountryFormValues>({ resolver: zodResolver(countryFormSchema), defaultValues: emptyCountry });
     const videos = useFieldArray({ control: form.control, name: 'videos' });
     const soundtrack = useFieldArray({ control: form.control, name: 'soundtrack' });
@@ -88,7 +93,6 @@ export default function CountriesPage() {
         );
         saveMutation.reset();
         deleteMutation.reset();
-        imageMutation.reset();
     }
 
     const saveMutation = useMutation({
@@ -98,9 +102,7 @@ export default function CountriesPage() {
                 videos: values.videos.map(({ value }) => value),
                 soundtrack: values.soundtrack.map(({ value }) => value),
             };
-            return selectedId
-                ? client.admin.countries.update({ ...input, id: selectedId })
-                : client.admin.countries.create(input);
+            return client.admin.countries.update(input);
         },
         onSuccess: (country) => {
             queryClient.invalidateQueries({ queryKey: countriesQuery.queryKey });
@@ -113,6 +115,25 @@ export default function CountriesPage() {
         },
     });
 
+    const createMutation = useMutation({
+        mutationFn: (country: CatalogCountry) =>
+            client.admin.countries.create({
+                ...emptyCountry,
+                id: country.slug,
+                code: country.code,
+                name: country.name,
+                bounds: country.bounds,
+            }),
+        onSuccess: (country) => {
+            queryClient.setQueryData(countriesQuery.queryKey, (previous = []) =>
+                [...previous, country].toSorted((a, b) => a.name.localeCompare(b.name)),
+            );
+            queryClient.invalidateQueries({ queryKey: countriesQuery.queryKey });
+            resetEditor(country);
+            setCreatingCountry(false);
+        },
+    });
+
     const deleteMutation = useMutation({
         mutationFn: (id: string) => client.admin.countries.delete({ id }),
         onSuccess: () => {
@@ -121,24 +142,11 @@ export default function CountriesPage() {
         },
     });
 
-    const imageMutation = useMutation({
-        mutationFn: ({ id, file }: { id: string; file: File }) => client.admin.countries.uploadImage({ id, file }),
-    });
-    const busy = saveMutation.isPending || deleteMutation.isPending || imageMutation.isPending;
+    const busy = saveMutation.isPending || deleteMutation.isPending || createMutation.isPending;
 
     function selectCountry(country?: Country) {
         if (form.formState.isDirty && !window.confirm('Discard your unsaved country changes?')) return;
         resetEditor(country);
-    }
-
-    function selectCatalogCountry(country: CatalogCountry) {
-        const id = form.getValues('id');
-        if (!selectedId && (!id || id === countrySlug(form.getValues('name')))) {
-            form.setValue('id', countrySlug(country.name), { shouldDirty: true, shouldValidate: true });
-        }
-        form.setValue('name', country.name, { shouldDirty: true, shouldValidate: true });
-        form.setValue('code', country.code, { shouldDirty: true, shouldValidate: true });
-        form.setValue('bounds', country.bounds, { shouldDirty: true, shouldValidate: true });
     }
 
     return (
@@ -146,10 +154,37 @@ export default function CountriesPage() {
             <SiteHeader title="Countries" />
             <div className="flex flex-1 flex-col gap-6 px-6 pb-6 pt-4">
                 <div className="flex justify-end">
-                    <Button type="button" onClick={() => selectCountry()} disabled={busy}>
-                        <Plus data-icon="inline-start" />
-                        New country
-                    </Button>
+                    <Dialog
+                        open={creatingCountry}
+                        onOpenChange={(open) => {
+                            if (createMutation.isPending) return;
+                            if (open) createMutation.reset();
+                            setCreatingCountry(open);
+                        }}
+                    >
+                        <DialogTrigger asChild>
+                            <Button type="button" disabled={busy || isPending || !!error}>
+                                <Plus data-icon="inline-start" />
+                                New country
+                            </Button>
+                        </DialogTrigger>
+                        {creatingCountry && (
+                            <CreateCountryDialog
+                                countries={countries}
+                                onCreate={(country) => {
+                                    if (
+                                        form.formState.isDirty &&
+                                        !window.confirm('Discard your unsaved country changes?')
+                                    )
+                                        return;
+                                    createMutation.mutate(country);
+                                }}
+                                onClose={() => setCreatingCountry(false)}
+                                isPending={createMutation.isPending}
+                                error={createMutation.error}
+                            />
+                        )}
+                    </Dialog>
                 </div>
                 <div className="grid grid-cols-1 gap-6 xl:grid-cols-4">
                     <Card>
@@ -181,6 +216,14 @@ export default function CountriesPage() {
                                     disabled={busy}
                                     onClick={() => selectCountry(country)}
                                 >
+                                    <img
+                                        src={getCountryFlagPath(country.id, country.code)}
+                                        alt=""
+                                        width={24}
+                                        height={16}
+                                        className="h-4 w-6 shrink-0 object-contain"
+                                        loading="lazy"
+                                    />
                                     <span className="min-w-0 flex-1 break-words">
                                         {country.name} ({country.code})
                                     </span>
@@ -191,42 +234,93 @@ export default function CountriesPage() {
                     </Card>
                     <Card className="min-w-0 xl:col-span-3">
                         <CardHeader>
-                            <CardTitle>{selectedId ? 'Edit country' : 'New country'}</CardTitle>
-                            <CardDescription>
-                                Set the destination view and editorial content. Countries have no spot feed.
-                            </CardDescription>
+                            <div className="flex items-start justify-between gap-4">
+                                <div className="flex min-w-0 flex-col gap-1.5">
+                                    <CardTitle>{selectedId ? 'Edit country' : 'Select a country'}</CardTitle>
+                                    <CardDescription>
+                                        Set the destination view and editorial content. Countries have no spot feed.
+                                    </CardDescription>
+                                </div>
+                                {form.watch('code') && (
+                                    <img
+                                        src={getCountryFlagPath(form.watch('id'), form.watch('code'))}
+                                        alt={`${form.watch('name')} flag`}
+                                        width={48}
+                                        height={48}
+                                        className="size-12 shrink-0 object-contain"
+                                    />
+                                )}
+                            </div>
                         </CardHeader>
                         <CardContent>
-                            <Form {...form}>
-                                <form
-                                    className="flex flex-col gap-6"
-                                    onSubmit={form.handleSubmit((values) => saveMutation.mutate(values))}
-                                >
-                                    <fieldset className="flex min-w-0 flex-col gap-4" disabled={busy}>
-                                        <FormField
-                                            control={form.control}
-                                            name="code"
-                                            render={({ field }) => (
-                                                <FormItem>
-                                                    <FormLabel>Country</FormLabel>
-                                                    <FormControl>
-                                                        <CountryCatalogPicker
-                                                            value={field.value}
-                                                            onSelect={selectCatalogCountry}
+                            {selectedId ? (
+                                <Form {...form}>
+                                    <form
+                                        className="flex flex-col gap-6"
+                                        onSubmit={form.handleSubmit((values) => saveMutation.mutate(values))}
+                                    >
+                                        <fieldset className="flex min-w-0 flex-col gap-4" disabled={busy}>
+                                            <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+                                                {(['id', 'code', 'name'] as const).map((name) => (
+                                                    <FormField
+                                                        key={name}
+                                                        control={form.control}
+                                                        name={name}
+                                                        render={({ field }) => (
+                                                            <FormItem>
+                                                                <FormLabel>
+                                                                    {name === 'id'
+                                                                        ? 'ID (slug)'
+                                                                        : name === 'code'
+                                                                          ? 'ISO code'
+                                                                          : 'Name'}
+                                                                </FormLabel>
+                                                                <FormControl>
+                                                                    <Input {...field} disabled />
+                                                                </FormControl>
+                                                                <FormMessage />
+                                                            </FormItem>
+                                                        )}
+                                                    />
+                                                ))}
+                                            </div>
+                                            <FormField
+                                                control={form.control}
+                                                name="hidden"
+                                                render={({ field }) => (
+                                                    <FormItem className="flex items-center gap-3">
+                                                        <FormControl>
+                                                            <Switch
+                                                                checked={field.value}
+                                                                onCheckedChange={field.onChange}
+                                                                disabled={busy}
+                                                            />
+                                                        </FormControl>
+                                                        <FormLabel>Hidden from public website</FormLabel>
+                                                        <FormMessage />
+                                                    </FormItem>
+                                                )}
+                                            />
+                                            <FormField
+                                                control={form.control}
+                                                name="bounds"
+                                                render={({ field }) => (
+                                                    <FormItem>
+                                                        <FormLabel>Opening map view</FormLabel>
+                                                        <CountryLocationPreview
+                                                            bounds={field.value}
+                                                            code={form.watch('code')}
                                                             disabled={busy}
                                                         />
-                                                    </FormControl>
-                                                    <p className="text-sm text-muted-foreground">
-                                                        Search the bundled country catalog to fill the English name,
-                                                        code and opening view. Existing URL IDs and editorial content
-                                                        are kept.
-                                                    </p>
-                                                    <FormMessage />
-                                                </FormItem>
-                                            )}
-                                        />
-                                        <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-                                            {(['id', 'code', 'name'] as const).map((name) => (
+                                                        <p className="text-sm text-muted-foreground">
+                                                            Bounds are precomputed from country outlines. Panning this
+                                                            preview does not change the saved view.
+                                                        </p>
+                                                        <FormMessage />
+                                                    </FormItem>
+                                                )}
+                                            />
+                                            {(['subtitle', 'edito', 'about'] as const).map((name) => (
                                                 <FormField
                                                     key={name}
                                                     control={form.control}
@@ -234,235 +328,112 @@ export default function CountriesPage() {
                                                     render={({ field }) => (
                                                         <FormItem>
                                                             <FormLabel>
-                                                                {name === 'id'
-                                                                    ? 'ID (slug)'
-                                                                    : name === 'code'
-                                                                      ? 'Country code'
-                                                                      : 'Name'}
+                                                                {name === 'subtitle'
+                                                                    ? 'Subtitle'
+                                                                    : name === 'edito'
+                                                                      ? 'Editorial'
+                                                                      : 'About'}
                                                             </FormLabel>
                                                             <FormControl>
-                                                                <Input
-                                                                    {...field}
-                                                                    readOnly={name !== 'id' || selectedId != null}
-                                                                    placeholder={
-                                                                        name === 'id'
-                                                                            ? 'france'
-                                                                            : name === 'code'
-                                                                              ? 'FR'
-                                                                              : 'France'
-                                                                    }
-                                                                />
+                                                                {name === 'subtitle' ? (
+                                                                    <Input {...field} />
+                                                                ) : (
+                                                                    <Textarea
+                                                                        rows={name === 'edito' ? 3 : 5}
+                                                                        {...field}
+                                                                    />
+                                                                )}
                                                             </FormControl>
                                                             <FormMessage />
                                                         </FormItem>
                                                     )}
                                                 />
                                             ))}
-                                        </div>
-                                        <FormField
-                                            control={form.control}
-                                            name="hidden"
-                                            render={({ field }) => (
-                                                <FormItem className="flex items-center gap-3">
-                                                    <FormControl>
-                                                        <Switch
-                                                            checked={field.value}
-                                                            onCheckedChange={field.onChange}
-                                                            disabled={busy}
+                                            {(['videos', 'soundtrack'] as const).map((name) => {
+                                                const list = name === 'videos' ? videos : soundtrack;
+                                                return (
+                                                    <fieldset key={name} className="flex min-w-0 flex-col gap-2">
+                                                        <legend className="mb-2 text-sm font-medium">
+                                                            {name === 'videos' ? 'Videos' : 'Soundtrack'}
+                                                        </legend>
+                                                        <SortableFieldList
+                                                            form={form}
+                                                            name={name}
+                                                            fields={list.fields}
+                                                            placeholder={
+                                                                name === 'videos' ? 'https://...' : 'Artist - Track'
+                                                            }
+                                                            onMove={list.move}
+                                                            onRemove={list.remove}
+                                                            reorderable
                                                         />
-                                                    </FormControl>
-                                                    <FormLabel>Hidden from public website</FormLabel>
-                                                    <FormMessage />
-                                                </FormItem>
-                                            )}
-                                        />
-                                        <FormField
-                                            control={form.control}
-                                            name="bounds"
-                                            render={({ field }) => (
-                                                <FormItem>
-                                                    <FormLabel>Opening map view</FormLabel>
-                                                    <CountryLocationPreview
-                                                        bounds={field.value}
-                                                        code={form.watch('code')}
-                                                        disabled={busy}
-                                                    />
-                                                    <p className="text-sm text-muted-foreground">
-                                                        Bounds are precomputed from country outlines. Panning this
-                                                        preview does not change the saved view.
-                                                    </p>
-                                                    <FormMessage />
-                                                </FormItem>
-                                            )}
-                                        />
-                                        {(['subtitle', 'edito', 'about'] as const).map((name) => (
-                                            <FormField
-                                                key={name}
-                                                control={form.control}
-                                                name={name}
-                                                render={({ field }) => (
-                                                    <FormItem>
-                                                        <FormLabel>
-                                                            {name === 'subtitle'
-                                                                ? 'Subtitle'
-                                                                : name === 'edito'
-                                                                  ? 'Editorial'
-                                                                  : 'About'}
-                                                        </FormLabel>
-                                                        <FormControl>
-                                                            {name === 'subtitle' ? (
-                                                                <Input {...field} />
-                                                            ) : (
-                                                                <Textarea rows={name === 'edito' ? 3 : 5} {...field} />
-                                                            )}
-                                                        </FormControl>
-                                                        <FormMessage />
-                                                    </FormItem>
-                                                )}
-                                            />
-                                        ))}
-                                        {(['videos', 'soundtrack'] as const).map((name) => {
-                                            const list = name === 'videos' ? videos : soundtrack;
-                                            return (
-                                                <fieldset key={name} className="flex min-w-0 flex-col gap-2">
-                                                    <legend className="mb-2 text-sm font-medium">
-                                                        {name === 'videos' ? 'Videos' : 'Soundtrack'}
-                                                    </legend>
-                                                    <SortableFieldList
-                                                        form={form}
-                                                        name={name}
-                                                        fields={list.fields}
-                                                        placeholder={
-                                                            name === 'videos' ? 'https://...' : 'Artist - Track'
-                                                        }
-                                                        onMove={list.move}
-                                                        onRemove={list.remove}
-                                                        reorderable
-                                                    />
-                                                    <Button
-                                                        type="button"
-                                                        variant="outline"
-                                                        className="self-start"
-                                                        onClick={() => list.append({ value: '' })}
-                                                    >
-                                                        <Plus data-icon="inline-start" />
-                                                        Add {name === 'videos' ? 'video' : 'track'}
-                                                    </Button>
-                                                </fieldset>
-                                            );
-                                        })}
-                                    </fieldset>
-                                    <p className="text-sm text-muted-foreground">
-                                        Country data:{' '}
-                                        <a
-                                            className="underline"
-                                            href="https://github.com/mledoze/countries"
-                                            target="_blank"
-                                            rel="noreferrer"
-                                        >
-                                            mledoze/countries
-                                        </a>{' '}
-                                        ·{' '}
-                                        <a
-                                            className="underline"
-                                            href="/data/countries.LICENSE.txt"
-                                            target="_blank"
-                                            rel="noreferrer"
-                                        >
-                                            ODbL 1.0
-                                        </a>{' '}
-                                        ·{' '}
-                                        <a className="underline" href="/data/countries.json" download>
-                                            Download catalog
-                                        </a>
-                                        .{' '}
-                                        <a
-                                            className="underline"
-                                            href="/data/countries.README.md"
-                                            target="_blank"
-                                            rel="noreferrer"
-                                        >
-                                            Sources and bounds notes
-                                        </a>
-                                        .
-                                    </p>
-                                    {saveMutation.error && (
-                                        <p role="alert" className="text-sm text-destructive">
-                                            {saveMutation.error.message}
-                                        </p>
-                                    )}
-                                    {deleteMutation.error && (
-                                        <p role="alert" className="text-sm text-destructive">
-                                            {deleteMutation.error.message}
-                                        </p>
-                                    )}
-                                    {saveMutation.isSuccess && !form.formState.isDirty && (
-                                        <p role="status" className="text-sm text-muted-foreground">
-                                            Country saved.
-                                        </p>
-                                    )}
-                                    <div className="flex flex-wrap items-center gap-3">
-                                        <Button type="submit" disabled={busy}>
-                                            {saveMutation.isPending ? 'Saving...' : 'Save country'}
-                                        </Button>
-                                        {selectedId && (
-                                            <AlertDialog>
-                                                <AlertDialogTrigger asChild>
-                                                    <Button type="button" variant="destructive" disabled={busy}>
-                                                        Delete country
-                                                    </Button>
-                                                </AlertDialogTrigger>
-                                                <AlertDialogContent>
-                                                    <AlertDialogHeader>
-                                                        <AlertDialogTitle>
-                                                            Delete {form.getValues('name')}?
-                                                        </AlertDialogTitle>
-                                                        <AlertDialogDescription>
-                                                            This permanently deletes the country and its editorial
-                                                            content. This cannot be undone.
-                                                        </AlertDialogDescription>
-                                                    </AlertDialogHeader>
-                                                    <AlertDialogFooter>
-                                                        <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                                        <AlertDialogAction
-                                                            onClick={() => deleteMutation.mutate(selectedId)}
+                                                        <Button
+                                                            type="button"
+                                                            variant="outline"
+                                                            className="self-start"
+                                                            onClick={() => list.append({ value: '' })}
                                                         >
-                                                            Delete country
-                                                        </AlertDialogAction>
-                                                    </AlertDialogFooter>
-                                                </AlertDialogContent>
-                                            </AlertDialog>
+                                                            <Plus data-icon="inline-start" />
+                                                            Add {name === 'videos' ? 'video' : 'track'}
+                                                        </Button>
+                                                    </fieldset>
+                                                );
+                                            })}
+                                        </fieldset>
+                                        {saveMutation.error && (
+                                            <p role="alert" className="text-sm text-destructive">
+                                                {saveMutation.error.message}
+                                            </p>
                                         )}
-                                    </div>
-                                </form>
-                            </Form>
-                            {selectedId && (
-                                <div className="mt-6 flex flex-col gap-2">
-                                    <label htmlFor="country-image" className="text-sm font-medium">
-                                        Country image
-                                    </label>
-                                    <Input
-                                        id="country-image"
-                                        type="file"
-                                        accept="image/*"
-                                        disabled={busy}
-                                        onChange={(event) => {
-                                            const file = event.target.files?.[0];
-                                            if (file) imageMutation.mutate({ id: selectedId, file });
-                                            event.target.value = '';
-                                        }}
-                                    />
-                                    <p className="text-sm text-muted-foreground">
-                                        Up to 10 MB. Existing map images are kept until replaced.
-                                    </p>
-                                    {imageMutation.isPending && <p role="status">Uploading image...</p>}
-                                    {imageMutation.isSuccess && <p role="status">Image uploaded.</p>}
-                                    {imageMutation.error && (
-                                        <p role="alert" className="text-sm text-destructive">
-                                            {imageMutation.error.message}
-                                        </p>
-                                    )}
-                                </div>
+                                        {deleteMutation.error && (
+                                            <p role="alert" className="text-sm text-destructive">
+                                                {deleteMutation.error.message}
+                                            </p>
+                                        )}
+                                        {saveMutation.isSuccess && !form.formState.isDirty && (
+                                            <p role="status" className="text-sm text-muted-foreground">
+                                                Country saved.
+                                            </p>
+                                        )}
+                                        <div className="flex flex-wrap items-center gap-3">
+                                            <Button type="submit" disabled={busy}>
+                                                {saveMutation.isPending ? 'Saving...' : 'Save country'}
+                                            </Button>
+                                            {selectedId && (
+                                                <AlertDialog>
+                                                    <AlertDialogTrigger asChild>
+                                                        <Button type="button" variant="destructive" disabled={busy}>
+                                                            Delete country
+                                                        </Button>
+                                                    </AlertDialogTrigger>
+                                                    <AlertDialogContent>
+                                                        <AlertDialogHeader>
+                                                            <AlertDialogTitle>
+                                                                Delete {form.getValues('name')}?
+                                                            </AlertDialogTitle>
+                                                            <AlertDialogDescription>
+                                                                This permanently deletes the country and its editorial
+                                                                content. This cannot be undone.
+                                                            </AlertDialogDescription>
+                                                        </AlertDialogHeader>
+                                                        <AlertDialogFooter>
+                                                            <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                                            <AlertDialogAction
+                                                                onClick={() => deleteMutation.mutate(selectedId)}
+                                                            >
+                                                                Delete country
+                                                            </AlertDialogAction>
+                                                        </AlertDialogFooter>
+                                                    </AlertDialogContent>
+                                                </AlertDialog>
+                                            )}
+                                        </div>
+                                    </form>
+                                </Form>
+                            ) : (
+                                <p className="text-sm text-muted-foreground">
+                                    Select a country from the list or use New country to create a destination.
+                                </p>
                             )}
                         </CardContent>
                     </Card>

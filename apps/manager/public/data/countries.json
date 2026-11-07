@@ -15,6 +15,7 @@
     "countries": [
         {
             "code": "AF",
+            "slug": "afghanistan",
             "name": "Afghanistan",
             "latitude": 33,
             "longitude": 65,
@@ -25,6 +26,7 @@
         },
         {
             "code": "AX",
+            "slug": "aland-islands",
             "name": "Åland Islands",
             "latitude": 60.116667,
             "longitude": 19.9,
@@ -35,6 +37,7 @@
         },
         {
             "code": "AL",
+            "slug": "albania",
             "name": "Albania",
             "latitude": 41,
             "longitude": 20,
@@ -45,6 +48,7 @@
         },
         {
             "code": "DZ",
+            "slug": "algeria",
             "name": "Algeria",
             "latitude": 28,
             "longitude": 3,
@@ -55,6 +59,7 @@
         },
         {
             "code": "AS",
+            "slug": "american-samoa",
             "name": "American Samoa",
             "latitude": -14.33333333,
             "longitude": -170,
@@ -65,6 +70,7 @@
         },
         {
             "code": "AD",
+            "slug": "andorra",
             "name": "Andorra",
             "latitude": 42.5,
             "longitude": 1.5,
@@ -75,6 +81,7 @@
         },
         {
             "code": "AO",
+            "slug": "angola",
             "name": "Angola",
             "latitude": -12.5,
             "longitude": 18.5,
@@ -85,6 +92,7 @@
         },
         {
             "code": "AI",
+            "slug": "anguilla",
             "name": "Anguilla",
             "latitude": 18.25,
             "longitude": -63.16666666,
@@ -95,6 +103,7 @@
         },
         {
             "code": "AQ",
+            "slug": "antarctica",
             "name": "Antarctica",
             "latitude": -90,
             "longitude": 0,
@@ -105,6 +114,7 @@
         },
         {
             "code": "AG",
+            "slug": "antigua-and-barbuda",
             "name": "Antigua and Barbuda",
             "latitude": 17.05,
             "longitude": -61.8,
@@ -115,6 +125,7 @@
         },
         {
             "code": "AR",
+            "slug": "argentina",
             "name": "Argentina",
             "latitude": -34,
             "longitude": -64,
@@ -125,6 +136,7 @@
         },
         {
             "code": "AM",
+            "slug": "armenia",
             "name": "Armenia",
             "latitude": 40,
             "longitude": 45,
@@ -135,6 +147,7 @@
         },
         {
             "code": "AW",
+            "slug": "aruba",
             "name": "Aruba",
             "latitude": 12.5,
             "longitude": -69.96666666,
@@ -145,6 +158,7 @@
         },
         {
             "code": "AU",
+            "slug": "australia",
             "name": "Australia",
             "latitude": -27,
             "longitude": 133,
@@ -155,6 +169,7 @@
         },
         {
             "code": "AT",
+            "slug": "austria",
             "name": "Austria",
             "latitude": 47.33333333,
             "longitude": 13.33333333,
@@ -165,6 +180,7 @@
         },
         {
             "code": "AZ",
+            "slug": "azerbaijan",
             "name": "Azerbaijan",
             "latitude": 40.5,
             "longitude": 47.5,
@@ -175,6 +191,7 @@
         },
         {
             "code": "BS",
+            "slug": "bahamas",
             "name": "Bahamas",
             "latitude": 24.25,
             "longitude": -76,
@@ -185,6 +202,7 @@
         },
         {
             "code": "BH",
+            "slug": "bahrain",
             "name": "Bahrain",
             "latitude": 26,
             "longitude": 50.55,
@@ -195,6 +213,7 @@
         },
         {
             "code": "BD",
+            "slug": "bangladesh",
             "name": "Bangladesh",
             "latitude": 24,
             "longitude": 90,
@@ -205,6 +224,7 @@
         },
         {
             "code": "BB",
+            "slug": "barbados",
             "name": "Barbados",
             "latitude": 13.16666666,
             "longitude": -59.53333333,
@@ -215,6 +235,7 @@
         },
         {
             "code": "BY",
+            "slug": "belarus",
             "name": "Belarus",
             "latitude": 53,
             "longitude": 28,
@@ -225,6 +246,7 @@
         },
         {
             "code": "BE",
+            "slug": "belgium",
             "name": "Belgium",
             "latitude": 50.83333333,
             "longitude": 4,
@@ -235,6 +257,7 @@
         },
         {
             "code": "BZ",
+            "slug": "belize",
             "name": "Belize",
             "latitude": 17.25,
             "longitude": -88.75,
@@ -245,6 +268,7 @@
         },
         {
             "code": "BJ",
+            "slug": "benin",
             "name": "Benin",
             "latitude": 9.5,
             "longitude": 2.25,
@@ -255,6 +279,7 @@
         },
         {
             "code": "BM",
+            "slug": "bermuda",
             "name": "Bermuda",
             "latitude": 32.33333333,
             "longitude": -64.75,
@@ -265,6 +290,7 @@
         },
         {
             "code": "BT",
+            "slug": "bhutan",
             "name": "Bhutan",
             "latitude": 27.5,
             "longitude": 90.5,
@@ -275,6 +301,7 @@
         },
         {
             "code": "BO",
+            "slug": "bolivia",
             "name": "Bolivia",
             "latitude": -17,
             "longitude": -65,
@@ -285,6 +312,7 @@
         },
         {
             "code": "BA",
+            "slug": "bosnia-and-herzegovina",
             "name": "Bosnia and Herzegovina",
             "latitude": 44,
             "longitude": 18,
@@ -295,6 +323,7 @@
         },
         {
             "code": "BW",
+            "slug": "botswana",
             "name": "Botswana",
             "latitude": -22,
             "longitude": 24,
@@ -305,6 +334,7 @@
         },
         {
             "code": "BV",
+            "slug": "bouvet-island",
             "name": "Bouvet Island",
             "latitude": -54.43333333,
             "longitude": 3.4,
@@ -315,6 +345,7 @@
         },
         {
             "code": "BR",
+            "slug": "brazil",
             "name": "Brazil",
             "latitude": -10,
             "longitude": -55,
@@ -325,6 +356,7 @@
         },
         {
             "code": "IO",
+            "slug": "british-indian-ocean-territory",
             "name": "British Indian Ocean Territory",
             "latitude": -6,
             "longitude": 71.5,
@@ -335,6 +367,7 @@
         },
         {
             "code": "VG",
+            "slug": "british-virgin-islands",
             "name": "British Virgin Islands",
             "latitude": 18.431383,
             "longitude": -64.62305,
@@ -345,6 +378,7 @@
         },
         {
             "code": "BN",
+            "slug": "brunei",
             "name": "Brunei",
             "latitude": 4.5,
             "longitude": 114.66666666,
@@ -355,6 +389,7 @@
         },
         {
             "code": "BG",
+            "slug": "bulgaria",
             "name": "Bulgaria",
             "latitude": 43,
             "longitude": 25,
@@ -365,6 +400,7 @@
         },
         {
             "code": "BF",
+            "slug": "burkina-faso",
             "name": "Burkina Faso",
             "latitude": 13,
             "longitude": -2,
@@ -375,6 +411,7 @@
         },
         {
             "code": "BI",
+            "slug": "burundi",
             "name": "Burundi",
             "latitude": -3.5,
             "longitude": 30,
@@ -385,6 +422,7 @@
         },
         {
             "code": "KH",
+            "slug": "cambodia",
             "name": "Cambodia",
             "latitude": 13,
             "longitude": 105,
@@ -395,6 +433,7 @@
         },
         {
             "code": "CM",
+            "slug": "cameroon",
             "name": "Cameroon",
             "latitude": 6,
             "longitude": 12,
@@ -405,6 +444,7 @@
         },
         {
             "code": "CA",
+            "slug": "canada",
             "name": "Canada",
             "latitude": 60,
             "longitude": -95,
@@ -415,6 +455,7 @@
         },
         {
             "code": "CV",
+            "slug": "cape-verde",
             "name": "Cape Verde",
             "latitude": 16,
             "longitude": -24,
@@ -425,6 +466,7 @@
         },
         {
             "code": "BQ",
+            "slug": "caribbean-netherlands",
             "name": "Caribbean Netherlands",
             "latitude": 12.18,
             "longitude": -68.25,
@@ -435,6 +477,7 @@
         },
         {
             "code": "KY",
+            "slug": "cayman-islands",
             "name": "Cayman Islands",
             "latitude": 19.5,
             "longitude": -80.5,
@@ -445,6 +488,7 @@
         },
         {
             "code": "CF",
+            "slug": "central-african-republic",
             "name": "Central African Republic",
             "latitude": 7,
             "longitude": 21,
@@ -455,6 +499,7 @@
         },
         {
             "code": "TD",
+            "slug": "chad",
             "name": "Chad",
             "latitude": 15,
             "longitude": 19,
@@ -465,6 +510,7 @@
         },
         {
             "code": "CL",
+            "slug": "chile",
             "name": "Chile",
             "latitude": -30,
             "longitude": -71,
@@ -475,6 +521,7 @@
         },
         {
             "code": "CN",
+            "slug": "china",
             "name": "China",
             "latitude": 35,
             "longitude": 105,
@@ -485,6 +532,7 @@
         },
         {
             "code": "CX",
+            "slug": "christmas-island",
             "name": "Christmas Island",
             "latitude": -10.5,
             "longitude": 105.66666666,
@@ -495,6 +543,7 @@
         },
         {
             "code": "CC",
+            "slug": "cocos-keeling-islands",
             "name": "Cocos (Keeling) Islands",
             "latitude": -12.5,
             "longitude": 96.83333333,
@@ -505,6 +554,7 @@
         },
         {
             "code": "CO",
+            "slug": "colombia",
             "name": "Colombia",
             "latitude": 4,
             "longitude": -72,
@@ -515,6 +565,7 @@
         },
         {
             "code": "KM",
+            "slug": "comoros",
             "name": "Comoros",
             "latitude": -12.16666666,
             "longitude": 44.25,
@@ -525,6 +576,7 @@
         },
         {
             "code": "CG",
+            "slug": "congo",
             "name": "Congo",
             "latitude": -1,
             "longitude": 15,
@@ -535,6 +587,7 @@
         },
         {
             "code": "CK",
+            "slug": "cook-islands",
             "name": "Cook Islands",
             "latitude": -21.23333333,
             "longitude": -159.76666666,
@@ -545,6 +598,7 @@
         },
         {
             "code": "CR",
+            "slug": "costa-rica",
             "name": "Costa Rica",
             "latitude": 10,
             "longitude": -84,
@@ -555,6 +609,7 @@
         },
         {
             "code": "HR",
+            "slug": "croatia",
             "name": "Croatia",
             "latitude": 45.16666666,
             "longitude": 15.5,
@@ -565,6 +620,7 @@
         },
         {
             "code": "CU",
+            "slug": "cuba",
             "name": "Cuba",
             "latitude": 21.5,
             "longitude": -80,
@@ -575,6 +631,7 @@
         },
         {
             "code": "CW",
+            "slug": "curacao",
             "name": "Curaçao",
             "latitude": 12.116667,
             "longitude": -68.933333,
@@ -585,6 +642,7 @@
         },
         {
             "code": "CY",
+            "slug": "cyprus",
             "name": "Cyprus",
             "latitude": 35,
             "longitude": 33,
@@ -595,6 +653,7 @@
         },
         {
             "code": "CZ",
+            "slug": "czechia",
             "name": "Czechia",
             "latitude": 49.75,
             "longitude": 15.5,
@@ -605,6 +664,7 @@
         },
         {
             "code": "DK",
+            "slug": "denmark",
             "name": "Denmark",
             "latitude": 56,
             "longitude": 10,
@@ -615,6 +675,7 @@
         },
         {
             "code": "DJ",
+            "slug": "djibouti",
             "name": "Djibouti",
             "latitude": 11.5,
             "longitude": 43,
@@ -625,6 +686,7 @@
         },
         {
             "code": "DM",
+            "slug": "dominica",
             "name": "Dominica",
             "latitude": 15.41666666,
             "longitude": -61.33333333,
@@ -635,6 +697,7 @@
         },
         {
             "code": "DO",
+            "slug": "dominican-republic",
             "name": "Dominican Republic",
             "latitude": 19,
             "longitude": -70.66666666,
@@ -645,6 +708,7 @@
         },
         {
             "code": "CD",
+            "slug": "dr-congo",
             "name": "DR Congo",
             "latitude": 0,
             "longitude": 25,
@@ -655,6 +719,7 @@
         },
         {
             "code": "EC",
+            "slug": "ecuador",
             "name": "Ecuador",
             "latitude": -2,
             "longitude": -77.5,
@@ -665,6 +730,7 @@
         },
         {
             "code": "EG",
+            "slug": "egypt",
             "name": "Egypt",
             "latitude": 27,
             "longitude": 30,
@@ -675,6 +741,7 @@
         },
         {
             "code": "SV",
+            "slug": "el-salvador",
             "name": "El Salvador",
             "latitude": 13.83333333,
             "longitude": -88.91666666,
@@ -685,6 +752,7 @@
         },
         {
             "code": "GQ",
+            "slug": "equatorial-guinea",
             "name": "Equatorial Guinea",
             "latitude": 2,
             "longitude": 10,
@@ -695,6 +763,7 @@
         },
         {
             "code": "ER",
+            "slug": "eritrea",
             "name": "Eritrea",
             "latitude": 15,
             "longitude": 39,
@@ -705,6 +774,7 @@
         },
         {
             "code": "EE",
+            "slug": "estonia",
             "name": "Estonia",
             "latitude": 59,
             "longitude": 26,
@@ -715,6 +785,7 @@
         },
         {
             "code": "SZ",
+            "slug": "eswatini",
             "name": "Eswatini",
             "latitude": -26.5,
             "longitude": 31.5,
@@ -725,6 +796,7 @@
         },
         {
             "code": "ET",
+            "slug": "ethiopia",
             "name": "Ethiopia",
             "latitude": 8,
             "longitude": 38,
@@ -735,6 +807,7 @@
         },
         {
             "code": "FK",
+            "slug": "falkland-islands",
             "name": "Falkland Islands",
             "latitude": -51.75,
             "longitude": -59,
@@ -745,6 +818,7 @@
         },
         {
             "code": "FO",
+            "slug": "faroe-islands",
             "name": "Faroe Islands",
             "latitude": 62,
             "longitude": -7,
@@ -755,6 +829,7 @@
         },
         {
             "code": "FJ",
+            "slug": "fiji",
             "name": "Fiji",
             "latitude": -18,
             "longitude": 175,
@@ -765,6 +840,7 @@
         },
         {
             "code": "FI",
+            "slug": "finland",
             "name": "Finland",
             "latitude": 64,
             "longitude": 26,
@@ -775,6 +851,7 @@
         },
         {
             "code": "FR",
+            "slug": "france",
             "name": "France",
             "latitude": 46,
             "longitude": 2,
@@ -785,6 +862,7 @@
         },
         {
             "code": "GF",
+            "slug": "french-guiana",
             "name": "French Guiana",
             "latitude": 4,
             "longitude": -53,
@@ -795,6 +873,7 @@
         },
         {
             "code": "PF",
+            "slug": "french-polynesia",
             "name": "French Polynesia",
             "latitude": -15,
             "longitude": -140,
@@ -805,6 +884,7 @@
         },
         {
             "code": "TF",
+            "slug": "french-southern-and-antarctic-lands",
             "name": "French Southern and Antarctic Lands",
             "latitude": -49.25,
             "longitude": 69.167,
@@ -815,6 +895,7 @@
         },
         {
             "code": "GA",
+            "slug": "gabon",
             "name": "Gabon",
             "latitude": -1,
             "longitude": 11.75,
@@ -825,6 +906,7 @@
         },
         {
             "code": "GM",
+            "slug": "gambia",
             "name": "Gambia",
             "latitude": 13.46666666,
             "longitude": -16.56666666,
@@ -835,6 +917,7 @@
         },
         {
             "code": "GE",
+            "slug": "georgia",
             "name": "Georgia",
             "latitude": 42,
             "longitude": 43.5,
@@ -845,6 +928,7 @@
         },
         {
             "code": "DE",
+            "slug": "germany",
             "name": "Germany",
             "latitude": 51,
             "longitude": 9,
@@ -855,6 +939,7 @@
         },
         {
             "code": "GH",
+            "slug": "ghana",
             "name": "Ghana",
             "latitude": 8,
             "longitude": -2,
@@ -865,6 +950,7 @@
         },
         {
             "code": "GI",
+            "slug": "gibraltar",
             "name": "Gibraltar",
             "latitude": 36.13333333,
             "longitude": -5.35,
@@ -875,6 +961,7 @@
         },
         {
             "code": "GR",
+            "slug": "greece",
             "name": "Greece",
             "latitude": 39,
             "longitude": 22,
@@ -885,6 +972,7 @@
         },
         {
             "code": "GL",
+            "slug": "greenland",
             "name": "Greenland",
             "latitude": 72,
             "longitude": -40,
@@ -895,6 +983,7 @@
         },
         {
             "code": "GD",
+            "slug": "grenada",
             "name": "Grenada",
             "latitude": 12.11666666,
             "longitude": -61.66666666,
@@ -905,6 +994,7 @@
         },
         {
             "code": "GP",
+            "slug": "guadeloupe",
             "name": "Guadeloupe",
             "latitude": 16.25,
             "longitude": -61.583333,
@@ -915,6 +1005,7 @@
         },
         {
             "code": "GU",
+            "slug": "guam",
             "name": "Guam",
             "latitude": 13.46666666,
             "longitude": 144.78333333,
@@ -925,6 +1016,7 @@
         },
         {
             "code": "GT",
+            "slug": "guatemala",
             "name": "Guatemala",
             "latitude": 15.5,
             "longitude": -90.25,
@@ -935,6 +1027,7 @@
         },
         {
             "code": "GG",
+            "slug": "guernsey",
             "name": "Guernsey",
             "latitude": 49.46666666,
             "longitude": -2.58333333,
@@ -945,6 +1038,7 @@
         },
         {
             "code": "GN",
+            "slug": "guinea",
             "name": "Guinea",
             "latitude": 11,
             "longitude": -10,
@@ -955,6 +1049,7 @@
         },
         {
             "code": "GW",
+            "slug": "guinea-bissau",
             "name": "Guinea-Bissau",
             "latitude": 12,
             "longitude": -15,
@@ -965,6 +1060,7 @@
         },
         {
             "code": "GY",
+            "slug": "guyana",
             "name": "Guyana",
             "latitude": 5,
             "longitude": -59,
@@ -975,6 +1071,7 @@
         },
         {
             "code": "HT",
+            "slug": "haiti",
             "name": "Haiti",
             "latitude": 19,
             "longitude": -72.41666666,
@@ -985,6 +1082,7 @@
         },
         {
             "code": "HM",
+            "slug": "heard-island-and-mcdonald-islands",
             "name": "Heard Island and McDonald Islands",
             "latitude": -53.1,
             "longitude": 72.51666666,
@@ -995,6 +1093,7 @@
         },
         {
             "code": "HN",
+            "slug": "honduras",
             "name": "Honduras",
             "latitude": 15,
             "longitude": -86.5,
@@ -1005,6 +1104,7 @@
         },
         {
             "code": "HK",
+            "slug": "hong-kong",
             "name": "Hong Kong",
             "latitude": 22.267,
             "longitude": 114.188,
@@ -1015,6 +1115,7 @@
         },
         {
             "code": "HU",
+            "slug": "hungary",
             "name": "Hungary",
             "latitude": 47,
             "longitude": 20,
@@ -1025,6 +1126,7 @@
         },
         {
             "code": "IS",
+            "slug": "iceland",
             "name": "Iceland",
             "latitude": 65,
             "longitude": -18,
@@ -1035,6 +1137,7 @@
         },
         {
             "code": "IN",
+            "slug": "india",
             "name": "India",
             "latitude": 20,
             "longitude": 77,
@@ -1045,6 +1148,7 @@
         },
         {
             "code": "ID",
+            "slug": "indonesia",
             "name": "Indonesia",
             "latitude": -5,
             "longitude": 120,
@@ -1055,6 +1159,7 @@
         },
         {
             "code": "IR",
+            "slug": "iran",
             "name": "Iran",
             "latitude": 32,
             "longitude": 53,
@@ -1065,6 +1170,7 @@
         },
         {
             "code": "IQ",
+            "slug": "iraq",
             "name": "Iraq",
             "latitude": 33,
             "longitude": 44,
@@ -1075,6 +1181,7 @@
         },
         {
             "code": "IE",
+            "slug": "ireland",
             "name": "Ireland",
             "latitude": 53,
             "longitude": -8,
@@ -1085,6 +1192,7 @@
         },
         {
             "code": "IM",
+            "slug": "isle-of-man",
             "name": "Isle of Man",
             "latitude": 54.25,
             "longitude": -4.5,
@@ -1095,6 +1203,7 @@
         },
         {
             "code": "IL",
+            "slug": "israel",
             "name": "Israel",
             "latitude": 31.47,
             "longitude": 35.13,
@@ -1105,6 +1214,7 @@
         },
         {
             "code": "IT",
+            "slug": "italy",
             "name": "Italy",
             "latitude": 42.83333333,
             "longitude": 12.83333333,
@@ -1115,6 +1225,7 @@
         },
         {
             "code": "CI",
+            "slug": "ivory-coast",
             "name": "Ivory Coast",
             "latitude": 8,
             "longitude": -5,
@@ -1125,6 +1236,7 @@
         },
         {
             "code": "JM",
+            "slug": "jamaica",
             "name": "Jamaica",
             "latitude": 18.25,
             "longitude": -77.5,
@@ -1135,6 +1247,7 @@
         },
         {
             "code": "JP",
+            "slug": "japan",
             "name": "Japan",
             "latitude": 36,
             "longitude": 138,
@@ -1145,6 +1258,7 @@
         },
         {
             "code": "JE",
+            "slug": "jersey",
             "name": "Jersey",
             "latitude": 49.25,
             "longitude": -2.16666666,
@@ -1155,6 +1269,7 @@
         },
         {
             "code": "JO",
+            "slug": "jordan",
             "name": "Jordan",
             "latitude": 31,
             "longitude": 36,
@@ -1165,6 +1280,7 @@
         },
         {
             "code": "KZ",
+            "slug": "kazakhstan",
             "name": "Kazakhstan",
             "latitude": 48,
             "longitude": 68,
@@ -1175,6 +1291,7 @@
         },
         {
             "code": "KE",
+            "slug": "kenya",
             "name": "Kenya",
             "latitude": 1,
             "longitude": 38,
@@ -1185,6 +1302,7 @@
         },
         {
             "code": "KI",
+            "slug": "kiribati",
             "name": "Kiribati",
             "latitude": 1.41666666,
             "longitude": 173,
@@ -1195,6 +1313,7 @@
         },
         {
             "code": "XK",
+            "slug": "kosovo",
             "name": "Kosovo",
             "latitude": 42.666667,
             "longitude": 21.166667,
@@ -1205,6 +1324,7 @@
         },
         {
             "code": "KW",
+            "slug": "kuwait",
             "name": "Kuwait",
             "latitude": 29.5,
             "longitude": 45.75,
@@ -1215,6 +1335,7 @@
         },
         {
             "code": "KG",
+            "slug": "kyrgyzstan",
             "name": "Kyrgyzstan",
             "latitude": 41,
             "longitude": 75,
@@ -1225,6 +1346,7 @@
         },
         {
             "code": "LA",
+            "slug": "laos",
             "name": "Laos",
             "latitude": 18,
             "longitude": 105,
@@ -1235,6 +1357,7 @@
         },
         {
             "code": "LV",
+            "slug": "latvia",
             "name": "Latvia",
             "latitude": 57,
             "longitude": 25,
@@ -1245,6 +1368,7 @@
         },
         {
             "code": "LB",
+            "slug": "lebanon",
             "name": "Lebanon",
             "latitude": 33.83333333,
             "longitude": 35.83333333,
@@ -1255,6 +1379,7 @@
         },
         {
             "code": "LS",
+            "slug": "lesotho",
             "name": "Lesotho",
             "latitude": -29.5,
             "longitude": 28.5,
@@ -1265,6 +1390,7 @@
         },
         {
             "code": "LR",
+            "slug": "liberia",
             "name": "Liberia",
             "latitude": 6.5,
             "longitude": -9.5,
@@ -1275,6 +1401,7 @@
         },
         {
             "code": "LY",
+            "slug": "libya",
             "name": "Libya",
             "latitude": 25,
             "longitude": 17,
@@ -1285,6 +1412,7 @@
         },
         {
             "code": "LI",
+            "slug": "liechtenstein",
             "name": "Liechtenstein",
             "latitude": 47.26666666,
             "longitude": 9.53333333,
@@ -1295,6 +1423,7 @@
         },
         {
             "code": "LT",
+            "slug": "lithuania",
             "name": "Lithuania",
             "latitude": 56,
             "longitude": 24,
@@ -1305,6 +1434,7 @@
         },
         {
             "code": "LU",
+            "slug": "luxembourg",
             "name": "Luxembourg",
             "latitude": 49.75,
             "longitude": 6.16666666,
@@ -1315,6 +1445,7 @@
         },
         {
             "code": "MO",
+            "slug": "macau",
             "name": "Macau",
             "latitude": 22.16666666,
             "longitude": 113.55,
@@ -1325,6 +1456,7 @@
         },
         {
             "code": "MG",
+            "slug": "madagascar",
             "name": "Madagascar",
             "latitude": -20,
             "longitude": 47,
@@ -1335,6 +1467,7 @@
         },
         {
             "code": "MW",
+            "slug": "malawi",
             "name": "Malawi",
             "latitude": -13.5,
             "longitude": 34,
@@ -1345,6 +1478,7 @@
         },
         {
             "code": "MY",
+            "slug": "malaysia",
             "name": "Malaysia",
             "latitude": 2.5,
             "longitude": 112.5,
@@ -1355,6 +1489,7 @@
         },
         {
             "code": "MV",
+            "slug": "maldives",
             "name": "Maldives",
             "latitude": 3.25,
             "longitude": 73,
@@ -1365,6 +1500,7 @@
         },
         {
             "code": "ML",
+            "slug": "mali",
             "name": "Mali",
             "latitude": 17,
             "longitude": -4,
@@ -1375,6 +1511,7 @@
         },
         {
             "code": "MT",
+            "slug": "malta",
             "name": "Malta",
             "latitude": 35.83333333,
             "longitude": 14.58333333,
@@ -1385,6 +1522,7 @@
         },
         {
             "code": "MH",
+            "slug": "marshall-islands",
             "name": "Marshall Islands",
             "latitude": 9,
             "longitude": 168,
@@ -1395,6 +1533,7 @@
         },
         {
             "code": "MQ",
+            "slug": "martinique",
             "name": "Martinique",
             "latitude": 14.666667,
             "longitude": -61,
@@ -1405,6 +1544,7 @@
         },
         {
             "code": "MR",
+            "slug": "mauritania",
             "name": "Mauritania",
             "latitude": 20,
             "longitude": -12,
@@ -1415,6 +1555,7 @@
         },
         {
             "code": "MU",
+            "slug": "mauritius",
             "name": "Mauritius",
             "latitude": -20.28333333,
             "longitude": 57.55,
@@ -1425,6 +1566,7 @@
         },
         {
             "code": "YT",
+            "slug": "mayotte",
             "name": "Mayotte",
             "latitude": -12.83333333,
             "longitude": 45.16666666,
@@ -1435,6 +1577,7 @@
         },
         {
             "code": "MX",
+            "slug": "mexico",
             "name": "Mexico",
             "latitude": 23,
             "longitude": -102,
@@ -1445,6 +1588,7 @@
         },
         {
             "code": "FM",
+            "slug": "micronesia",
             "name": "Micronesia",
             "latitude": 6.91666666,
             "longitude": 158.25,
@@ -1455,6 +1599,7 @@
         },
         {
             "code": "MD",
+            "slug": "moldova",
             "name": "Moldova",
             "latitude": 47,
             "longitude": 29,
@@ -1465,6 +1610,7 @@
         },
         {
             "code": "MC",
+            "slug": "monaco",
             "name": "Monaco",
             "latitude": 43.73333333,
             "longitude": 7.4,
@@ -1475,6 +1621,7 @@
         },
         {
             "code": "MN",
+            "slug": "mongolia",
             "name": "Mongolia",
             "latitude": 46,
             "longitude": 105,
@@ -1485,6 +1632,7 @@
         },
         {
             "code": "ME",
+            "slug": "montenegro",
             "name": "Montenegro",
             "latitude": 42.5,
             "longitude": 19.3,
@@ -1495,6 +1643,7 @@
         },
         {
             "code": "MS",
+            "slug": "montserrat",
             "name": "Montserrat",
             "latitude": 16.75,
             "longitude": -62.2,
@@ -1505,6 +1654,7 @@
         },
         {
             "code": "MA",
+            "slug": "morocco",
             "name": "Morocco",
             "latitude": 32,
             "longitude": -5,
@@ -1515,6 +1665,7 @@
         },
         {
             "code": "MZ",
+            "slug": "mozambique",
             "name": "Mozambique",
             "latitude": -18.25,
             "longitude": 35,
@@ -1525,6 +1676,7 @@
         },
         {
             "code": "MM",
+            "slug": "myanmar",
             "name": "Myanmar",
             "latitude": 22,
             "longitude": 98,
@@ -1535,6 +1687,7 @@
         },
         {
             "code": "NA",
+            "slug": "namibia",
             "name": "Namibia",
             "latitude": -22,
             "longitude": 17,
@@ -1545,6 +1698,7 @@
         },
         {
             "code": "NR",
+            "slug": "nauru",
             "name": "Nauru",
             "latitude": -0.53333333,
             "longitude": 166.91666666,
@@ -1555,6 +1709,7 @@
         },
         {
             "code": "NP",
+            "slug": "nepal",
             "name": "Nepal",
             "latitude": 28,
             "longitude": 84,
@@ -1565,6 +1720,7 @@
         },
         {
             "code": "NL",
+            "slug": "netherlands",
             "name": "Netherlands",
             "latitude": 52.5,
             "longitude": 5.75,
@@ -1575,6 +1731,7 @@
         },
         {
             "code": "NC",
+            "slug": "new-caledonia",
             "name": "New Caledonia",
             "latitude": -21.5,
             "longitude": 165.5,
@@ -1585,6 +1742,7 @@
         },
         {
             "code": "NZ",
+            "slug": "new-zealand",
             "name": "New Zealand",
             "latitude": -41,
             "longitude": 174,
@@ -1595,6 +1753,7 @@
         },
         {
             "code": "NI",
+            "slug": "nicaragua",
             "name": "Nicaragua",
             "latitude": 13,
             "longitude": -85,
@@ -1605,6 +1764,7 @@
         },
         {
             "code": "NE",
+            "slug": "niger",
             "name": "Niger",
             "latitude": 16,
             "longitude": 8,
@@ -1615,6 +1775,7 @@
         },
         {
             "code": "NG",
+            "slug": "nigeria",
             "name": "Nigeria",
             "latitude": 10,
             "longitude": 8,
@@ -1625,6 +1786,7 @@
         },
         {
             "code": "NU",
+            "slug": "niue",
             "name": "Niue",
             "latitude": -19.03333333,
             "longitude": -169.86666666,
@@ -1635,6 +1797,7 @@
         },
         {
             "code": "NF",
+            "slug": "norfolk-island",
             "name": "Norfolk Island",
             "latitude": -29.03333333,
             "longitude": 167.95,
@@ -1645,6 +1808,7 @@
         },
         {
             "code": "KP",
+            "slug": "north-korea",
             "name": "North Korea",
             "latitude": 40,
             "longitude": 127,
@@ -1655,6 +1819,7 @@
         },
         {
             "code": "MK",
+            "slug": "north-macedonia",
             "name": "North Macedonia",
             "latitude": 41.83333333,
             "longitude": 22,
@@ -1665,6 +1830,7 @@
         },
         {
             "code": "MP",
+            "slug": "northern-mariana-islands",
             "name": "Northern Mariana Islands",
             "latitude": 15.2,
             "longitude": 145.75,
@@ -1675,6 +1841,7 @@
         },
         {
             "code": "NO",
+            "slug": "norway",
             "name": "Norway",
             "latitude": 62,
             "longitude": 10,
@@ -1685,6 +1852,7 @@
         },
         {
             "code": "OM",
+            "slug": "oman",
             "name": "Oman",
             "latitude": 21,
             "longitude": 57,
@@ -1695,6 +1863,7 @@
         },
         {
             "code": "PK",
+            "slug": "pakistan",
             "name": "Pakistan",
             "latitude": 30,
             "longitude": 70,
@@ -1705,6 +1874,7 @@
         },
         {
             "code": "PW",
+            "slug": "palau",
             "name": "Palau",
             "latitude": 7.5,
             "longitude": 134.5,
@@ -1715,6 +1885,7 @@
         },
         {
             "code": "PS",
+            "slug": "palestine",
             "name": "Palestine",
             "latitude": 31.9,
             "longitude": 35.2,
@@ -1725,6 +1896,7 @@
         },
         {
             "code": "PA",
+            "slug": "panama",
             "name": "Panama",
             "latitude": 9,
             "longitude": -80,
@@ -1735,6 +1907,7 @@
         },
         {
             "code": "PG",
+            "slug": "papua-new-guinea",
             "name": "Papua New Guinea",
             "latitude": -6,
             "longitude": 147,
@@ -1745,6 +1918,7 @@
         },
         {
             "code": "PY",
+            "slug": "paraguay",
             "name": "Paraguay",
             "latitude": -23,
             "longitude": -58,
@@ -1755,6 +1929,7 @@
         },
         {
             "code": "PE",
+            "slug": "peru",
             "name": "Peru",
             "latitude": -10,
             "longitude": -76,
@@ -1765,6 +1940,7 @@
         },
         {
             "code": "PH",
+            "slug": "philippines",
             "name": "Philippines",
             "latitude": 13,
             "longitude": 122,
@@ -1775,6 +1951,7 @@
         },
         {
             "code": "PN",
+            "slug": "pitcairn-islands",
             "name": "Pitcairn Islands",
             "latitude": -25.06666666,
             "longitude": -130.1,
@@ -1785,6 +1962,7 @@
         },
         {
             "code": "PL",
+            "slug": "poland",
             "name": "Poland",
             "latitude": 52,
             "longitude": 20,
@@ -1795,6 +1973,7 @@
         },
         {
             "code": "PT",
+            "slug": "portugal",
             "name": "Portugal",
             "latitude": 39.5,
             "longitude": -8,
@@ -1805,6 +1984,7 @@
         },
         {
             "code": "PR",
+            "slug": "puerto-rico",
             "name": "Puerto Rico",
             "latitude": 18.25,
             "longitude": -66.5,
@@ -1815,6 +1995,7 @@
         },
         {
             "code": "QA",
+            "slug": "qatar",
             "name": "Qatar",
             "latitude": 25.5,
             "longitude": 51.25,
@@ -1825,6 +2006,7 @@
         },
         {
             "code": "RE",
+            "slug": "reunion",
             "name": "Réunion",
             "latitude": -21.15,
             "longitude": 55.5,
@@ -1835,6 +2017,7 @@
         },
         {
             "code": "RO",
+            "slug": "romania",
             "name": "Romania",
             "latitude": 46,
             "longitude": 25,
@@ -1845,6 +2028,7 @@
         },
         {
             "code": "RU",
+            "slug": "russia",
             "name": "Russia",
             "latitude": 60,
             "longitude": 100,
@@ -1855,6 +2039,7 @@
         },
         {
             "code": "RW",
+            "slug": "rwanda",
             "name": "Rwanda",
             "latitude": -2,
             "longitude": 30,
@@ -1865,6 +2050,7 @@
         },
         {
             "code": "BL",
+            "slug": "saint-barthelemy",
             "name": "Saint Barthélemy",
             "latitude": 18.5,
             "longitude": -63.41666666,
@@ -1875,6 +2061,7 @@
         },
         {
             "code": "SH",
+            "slug": "saint-helena-ascension-and-tristan-da-cunha",
             "name": "Saint Helena, Ascension and Tristan da Cunha",
             "latitude": -15.95,
             "longitude": -5.72,
@@ -1885,6 +2072,7 @@
         },
         {
             "code": "KN",
+            "slug": "saint-kitts-and-nevis",
             "name": "Saint Kitts and Nevis",
             "latitude": 17.33333333,
             "longitude": -62.75,
@@ -1895,6 +2083,7 @@
         },
         {
             "code": "LC",
+            "slug": "saint-lucia",
             "name": "Saint Lucia",
             "latitude": 13.88333333,
             "longitude": -60.96666666,
@@ -1905,6 +2094,7 @@
         },
         {
             "code": "MF",
+            "slug": "saint-martin",
             "name": "Saint Martin",
             "latitude": 18.08333333,
             "longitude": -63.95,
@@ -1915,6 +2105,7 @@
         },
         {
             "code": "PM",
+            "slug": "saint-pierre-and-miquelon",
             "name": "Saint Pierre and Miquelon",
             "latitude": 46.83333333,
             "longitude": -56.33333333,
@@ -1925,6 +2116,7 @@
         },
         {
             "code": "VC",
+            "slug": "saint-vincent-and-the-grenadines",
             "name": "Saint Vincent and the Grenadines",
             "latitude": 13.25,
             "longitude": -61.2,
@@ -1935,6 +2127,7 @@
         },
         {
             "code": "WS",
+            "slug": "samoa",
             "name": "Samoa",
             "latitude": -13.58333333,
             "longitude": -172.33333333,
@@ -1945,6 +2138,7 @@
         },
         {
             "code": "SM",
+            "slug": "san-marino",
             "name": "San Marino",
             "latitude": 43.76666666,
             "longitude": 12.41666666,
@@ -1955,6 +2149,7 @@
         },
         {
             "code": "ST",
+            "slug": "sao-tome-and-principe",
             "name": "São Tomé and Príncipe",
             "latitude": 1,
             "longitude": 7,
@@ -1965,6 +2160,7 @@
         },
         {
             "code": "SA",
+            "slug": "saudi-arabia",
             "name": "Saudi Arabia",
             "latitude": 25,
             "longitude": 45,
@@ -1975,6 +2171,7 @@
         },
         {
             "code": "SN",
+            "slug": "senegal",
             "name": "Senegal",
             "latitude": 14,
             "longitude": -14,
@@ -1985,6 +2182,7 @@
         },
         {
             "code": "RS",
+            "slug": "serbia",
             "name": "Serbia",
             "latitude": 44,
             "longitude": 21,
@@ -1995,6 +2193,7 @@
         },
         {
             "code": "SC",
+            "slug": "seychelles",
             "name": "Seychelles",
             "latitude": -4.58333333,
             "longitude": 55.66666666,
@@ -2005,6 +2204,7 @@
         },
         {
             "code": "SL",
+            "slug": "sierra-leone",
             "name": "Sierra Leone",
             "latitude": 8.5,
             "longitude": -11.5,
@@ -2015,6 +2215,7 @@
         },
         {
             "code": "SG",
+            "slug": "singapore",
             "name": "Singapore",
             "latitude": 1.36666666,
             "longitude": 103.8,
@@ -2025,6 +2226,7 @@
         },
         {
             "code": "SX",
+            "slug": "sint-maarten",
             "name": "Sint Maarten",
             "latitude": 18.033333,
             "longitude": -63.05,
@@ -2035,6 +2237,7 @@
         },
         {
             "code": "SK",
+            "slug": "slovakia",
             "name": "Slovakia",
             "latitude": 48.66666666,
             "longitude": 19.5,
@@ -2045,6 +2248,7 @@
         },
         {
             "code": "SI",
+            "slug": "slovenia",
             "name": "Slovenia",
             "latitude": 46.11666666,
             "longitude": 14.81666666,
@@ -2055,6 +2259,7 @@
         },
         {
             "code": "SB",
+            "slug": "solomon-islands",
             "name": "Solomon Islands",
             "latitude": -8,
             "longitude": 159,
@@ -2065,6 +2270,7 @@
         },
         {
             "code": "SO",
+            "slug": "somalia",
             "name": "Somalia",
             "latitude": 10,
             "longitude": 49,
@@ -2075,6 +2281,7 @@
         },
         {
             "code": "ZA",
+            "slug": "south-africa",
             "name": "South Africa",
             "latitude": -29,
             "longitude": 24,
@@ -2085,6 +2292,7 @@
         },
         {
             "code": "GS",
+            "slug": "south-georgia",
             "name": "South Georgia",
             "latitude": -54.5,
             "longitude": -37,
@@ -2095,6 +2303,7 @@
         },
         {
             "code": "KR",
+            "slug": "south-korea",
             "name": "South Korea",
             "latitude": 37,
             "longitude": 127.5,
@@ -2105,6 +2314,7 @@
         },
         {
             "code": "SS",
+            "slug": "south-sudan",
             "name": "South Sudan",
             "latitude": 7,
             "longitude": 30,
@@ -2115,6 +2325,7 @@
         },
         {
             "code": "ES",
+            "slug": "spain",
             "name": "Spain",
             "latitude": 40,
             "longitude": -4,
@@ -2125,6 +2336,7 @@
         },
         {
             "code": "LK",
+            "slug": "sri-lanka",
             "name": "Sri Lanka",
             "latitude": 7,
             "longitude": 81,
@@ -2135,6 +2347,7 @@
         },
         {
             "code": "SD",
+            "slug": "sudan",
             "name": "Sudan",
             "latitude": 15,
             "longitude": 30,
@@ -2145,6 +2358,7 @@
         },
         {
             "code": "SR",
+            "slug": "suriname",
             "name": "Suriname",
             "latitude": 4,
             "longitude": -56,
@@ -2155,6 +2369,7 @@
         },
         {
             "code": "SJ",
+            "slug": "svalbard-and-jan-mayen",
             "name": "Svalbard and Jan Mayen",
             "latitude": 78,
             "longitude": 20,
@@ -2165,6 +2380,7 @@
         },
         {
             "code": "SE",
+            "slug": "sweden",
             "name": "Sweden",
             "latitude": 62,
             "longitude": 15,
@@ -2175,6 +2391,7 @@
         },
         {
             "code": "CH",
+            "slug": "switzerland",
             "name": "Switzerland",
             "latitude": 47,
             "longitude": 8,
@@ -2185,6 +2402,7 @@
         },
         {
             "code": "SY",
+            "slug": "syria",
             "name": "Syria",
             "latitude": 35,
             "longitude": 38,
@@ -2195,6 +2413,7 @@
         },
         {
             "code": "TW",
+            "slug": "taiwan",
             "name": "Taiwan",
             "latitude": 23.5,
             "longitude": 121,
@@ -2205,6 +2424,7 @@
         },
         {
             "code": "TJ",
+            "slug": "tajikistan",
             "name": "Tajikistan",
             "latitude": 39,
             "longitude": 71,
@@ -2215,6 +2435,7 @@
         },
         {
             "code": "TZ",
+            "slug": "tanzania",
             "name": "Tanzania",
             "latitude": -6,
             "longitude": 35,
@@ -2225,6 +2446,7 @@
         },
         {
             "code": "TH",
+            "slug": "thailand",
             "name": "Thailand",
             "latitude": 15,
             "longitude": 100,
@@ -2235,6 +2457,7 @@
         },
         {
             "code": "TL",
+            "slug": "timor-leste",
             "name": "Timor-Leste",
             "latitude": -8.83333333,
             "longitude": 125.91666666,
@@ -2245,6 +2468,7 @@
         },
         {
             "code": "TG",
+            "slug": "togo",
             "name": "Togo",
             "latitude": 8,
             "longitude": 1.16666666,
@@ -2255,6 +2479,7 @@
         },
         {
             "code": "TK",
+            "slug": "tokelau",
             "name": "Tokelau",
             "latitude": -9,
             "longitude": -172,
@@ -2265,6 +2490,7 @@
         },
         {
             "code": "TO",
+            "slug": "tonga",
             "name": "Tonga",
             "latitude": -20,
             "longitude": -175,
@@ -2275,6 +2501,7 @@
         },
         {
             "code": "TT",
+            "slug": "trinidad-and-tobago",
             "name": "Trinidad and Tobago",
             "latitude": 11,
             "longitude": -61,
@@ -2285,6 +2512,7 @@
         },
         {
             "code": "TN",
+            "slug": "tunisia",
             "name": "Tunisia",
             "latitude": 34,
             "longitude": 9,
@@ -2295,6 +2523,7 @@
         },
         {
             "code": "TR",
+            "slug": "turkiye",
             "name": "Türkiye",
             "latitude": 39,
             "longitude": 35,
@@ -2305,6 +2534,7 @@
         },
         {
             "code": "TM",
+            "slug": "turkmenistan",
             "name": "Turkmenistan",
             "latitude": 40,
             "longitude": 60,
@@ -2315,6 +2545,7 @@
         },
         {
             "code": "TC",
+            "slug": "turks-and-caicos-islands",
             "name": "Turks and Caicos Islands",
             "latitude": 21.75,
             "longitude": -71.58333333,
@@ -2325,6 +2556,7 @@
         },
         {
             "code": "TV",
+            "slug": "tuvalu",
             "name": "Tuvalu",
             "latitude": -8,
             "longitude": 178,
@@ -2335,6 +2567,7 @@
         },
         {
             "code": "UG",
+            "slug": "uganda",
             "name": "Uganda",
             "latitude": 1,
             "longitude": 32,
@@ -2345,6 +2578,7 @@
         },
         {
             "code": "UA",
+            "slug": "ukraine",
             "name": "Ukraine",
             "latitude": 49,
             "longitude": 32,
@@ -2355,6 +2589,7 @@
         },
         {
             "code": "AE",
+            "slug": "united-arab-emirates",
             "name": "United Arab Emirates",
             "latitude": 24,
             "longitude": 54,
@@ -2365,6 +2600,7 @@
         },
         {
             "code": "GB",
+            "slug": "united-kingdom",
             "name": "United Kingdom",
             "latitude": 54,
             "longitude": -2,
@@ -2375,6 +2611,7 @@
         },
         {
             "code": "US",
+            "slug": "united-states",
             "name": "United States",
             "latitude": 38,
             "longitude": -97,
@@ -2385,6 +2622,7 @@
         },
         {
             "code": "UM",
+            "slug": "united-states-minor-outlying-islands",
             "name": "United States Minor Outlying Islands",
             "latitude": 19.3,
             "longitude": 166.633333,
@@ -2395,6 +2633,7 @@
         },
         {
             "code": "VI",
+            "slug": "united-states-virgin-islands",
             "name": "United States Virgin Islands",
             "latitude": 18.35,
             "longitude": -64.933333,
@@ -2405,6 +2644,7 @@
         },
         {
             "code": "UY",
+            "slug": "uruguay",
             "name": "Uruguay",
             "latitude": -33,
             "longitude": -56,
@@ -2415,6 +2655,7 @@
         },
         {
             "code": "UZ",
+            "slug": "uzbekistan",
             "name": "Uzbekistan",
             "latitude": 41,
             "longitude": 64,
@@ -2425,6 +2666,7 @@
         },
         {
             "code": "VU",
+            "slug": "vanuatu",
             "name": "Vanuatu",
             "latitude": -16,
             "longitude": 167,
@@ -2435,6 +2677,7 @@
         },
         {
             "code": "VA",
+            "slug": "vatican-city",
             "name": "Vatican City",
             "latitude": 41.9,
             "longitude": 12.45,
@@ -2445,6 +2688,7 @@
         },
         {
             "code": "VE",
+            "slug": "venezuela",
             "name": "Venezuela",
             "latitude": 8,
             "longitude": -66,
@@ -2455,6 +2699,7 @@
         },
         {
             "code": "VN",
+            "slug": "vietnam",
             "name": "Vietnam",
             "latitude": 16.16666666,
             "longitude": 107.83333333,
@@ -2465,6 +2710,7 @@
         },
         {
             "code": "WF",
+            "slug": "wallis-and-futuna",
             "name": "Wallis and Futuna",
             "latitude": -13.3,
             "longitude": -176.2,
@@ -2475,6 +2721,7 @@
         },
         {
             "code": "EH",
+            "slug": "western-sahara",
             "name": "Western Sahara",
             "latitude": 24.5,
             "longitude": -13,
@@ -2485,6 +2732,7 @@
         },
         {
             "code": "YE",
+            "slug": "yemen",
             "name": "Yemen",
             "latitude": 15,
             "longitude": 48,
@@ -2495,6 +2743,7 @@
         },
         {
             "code": "ZM",
+            "slug": "zambia",
             "name": "Zambia",
             "latitude": -15,
             "longitude": 30,
@@ -2505,6 +2754,7 @@
         },
         {
             "code": "ZW",
+            "slug": "zimbabwe",
             "name": "Zimbabwe",
             "latitude": -20,
             "longitude": 30,

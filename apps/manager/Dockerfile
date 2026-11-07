@@ -55,6 +55,7 @@ ENV NODE_ENV=production
 COPY --from=build /app/apps/manager/.next/standalone ./
 # Static assets (JS/CSS bundles, images, etc.)
 COPY --from=build /app/apps/manager/.next/static ./apps/manager/.next/static
+COPY --from=build /app/apps/manager/public ./apps/manager/public
 
 # Bind to 0.0.0.0 so the container is reachable from outside
 ENV HOSTNAME=0.0.0.0
