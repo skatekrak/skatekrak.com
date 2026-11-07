@@ -34,10 +34,11 @@ import {
     FormLabel,
     FormMessage,
     Input,
+    Label,
     Switch,
     Textarea,
 } from '@krak/ui';
-import { getCountryFlagPath } from '@krak/utils';
+import { countrySlug, getCountryFlagPath } from '@krak/utils';
 
 import { SiteHeader } from '@/components/site-header';
 import { client, orpc } from '@/lib/orpc';
@@ -74,6 +75,9 @@ export default function CountriesPage() {
     const queryClient = useQueryClient();
     const countriesQuery = orpc.admin.countries.list.queryOptions({});
     const { data: countries = [], isPending, error, refetch } = useQuery(countriesQuery);
+    const [search, setSearch] = useState('');
+    const query = countrySlug(search);
+    const matchingCountries = countries.filter(({ name, code }) => countrySlug(`${name} ${code}`).includes(query));
     const [selectedId, setSelectedId] = useState<string | null>(null);
     const [creatingCountry, setCreatingCountry] = useState(false);
     const form = useForm<CountryFormValues>({ resolver: zodResolver(countryFormSchema), defaultValues: emptyCountry });
@@ -151,9 +155,9 @@ export default function CountriesPage() {
 
     return (
         <>
-            <SiteHeader title="Countries" />
-            <div className="flex flex-1 flex-col gap-6 px-6 pb-6 pt-4">
-                <div className="flex justify-end">
+            <SiteHeader
+                title="Countries"
+                rightActions={
                     <Dialog
                         open={creatingCountry}
                         onOpenChange={(open) => {
@@ -185,14 +189,26 @@ export default function CountriesPage() {
                             />
                         )}
                     </Dialog>
-                </div>
-                <div className="grid grid-cols-1 gap-6 xl:grid-cols-4">
-                    <Card>
-                        <CardHeader>
+                }
+            />
+            <div className="flex flex-1 flex-col gap-6 px-6 pb-6 pt-4">
+                <div className="grid grid-cols-1 gap-6 xl:min-h-96 xl:grid-cols-3">
+                    <Card className="flex min-h-0 flex-col xl:[contain:size]">
+                        <CardHeader className="shrink-0">
                             <CardTitle>Countries</CardTitle>
                             <CardDescription>{countries.length} destinations</CardDescription>
+                            <div className="flex flex-col gap-2 pt-2">
+                                <Label htmlFor="country-search">Search countries</Label>
+                                <Input
+                                    id="country-search"
+                                    type="search"
+                                    placeholder="Name or ISO code..."
+                                    value={search}
+                                    onChange={(event) => setSearch(event.target.value)}
+                                />
+                            </div>
                         </CardHeader>
-                        <CardContent className="flex flex-col gap-2">
+                        <CardContent className="flex max-h-96 min-h-0 flex-1 flex-col gap-2 overflow-y-auto xl:max-h-none">
                             {isPending && <p role="status">Loading countries...</p>}
                             {error && (
                                 <div role="alert">
@@ -202,17 +218,19 @@ export default function CountriesPage() {
                                     </Button>
                                 </div>
                             )}
-                            {!isPending && !error && countries.length === 0 && (
-                                <p className="text-sm text-muted-foreground">
-                                    No countries yet. Create your first destination.
+                            {!isPending && !error && matchingCountries.length === 0 && (
+                                <p role="status" className="text-sm text-muted-foreground">
+                                    {countries.length
+                                        ? 'No countries match your search.'
+                                        : 'No countries yet. Create your first destination.'}
                                 </p>
                             )}
-                            {countries.map((country) => (
+                            {matchingCountries.map((country) => (
                                 <Button
                                     key={country.id}
                                     type="button"
                                     variant={selectedId === country.id ? 'secondary' : 'ghost'}
-                                    className="h-auto justify-start whitespace-normal text-left"
+                                    className="h-auto shrink-0 justify-start whitespace-normal text-left"
                                     disabled={busy}
                                     onClick={() => selectCountry(country)}
                                 >
@@ -232,7 +250,7 @@ export default function CountriesPage() {
                             ))}
                         </CardContent>
                     </Card>
-                    <Card className="min-w-0 xl:col-span-3">
+                    <Card className="min-w-0 xl:col-span-2">
                         <CardHeader>
                             <div className="flex items-start justify-between gap-4">
                                 <div className="flex min-w-0 flex-col gap-1.5">
