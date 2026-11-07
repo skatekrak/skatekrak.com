@@ -937,6 +937,10 @@ export const createAdminMap = os.admin.maps.create
             throw new ORPCError('CONFLICT', { message: `A map with ID "${id}" already exists` });
         }
 
+        if (await context.prisma.country.findUnique({ where: { id } })) {
+            throw new ORPCError('CONFLICT', { message: `A country with ID "${id}" already exists` });
+        }
+
         const map = await context.prisma.map.create({
             data: {
                 id,

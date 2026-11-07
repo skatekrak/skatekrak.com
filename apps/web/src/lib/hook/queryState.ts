@@ -24,6 +24,10 @@ export const useCityID = () => {
     return useQueryState('city');
 };
 
+export const useCountryID = () => {
+    return useQueryState('country');
+};
+
 export const useSpotID = () => {
     return useQueryState('spot');
 };

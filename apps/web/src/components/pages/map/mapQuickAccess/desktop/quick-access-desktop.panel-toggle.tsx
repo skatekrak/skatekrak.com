@@ -13,17 +13,19 @@ type Props = {
     isPanelOpen: boolean;
     src?: string;
     imagePath?: string;
+    icon?: React.ReactNode;
     tooltipText: string;
 };
 
 const QuickAccessDesktopPanelToggle: React.FC<Props> = React.forwardRef(
-    ({ onClick, src, imagePath, tooltipText, selected, isPanelOpen }, ref) => {
+    ({ onClick, src, imagePath, icon, tooltipText, selected, isPanelOpen }, ref) => {
         return (
             <div ref={ref}>
                 <Tooltip tooltipText={tooltipText}>
                     <button
                         type="button"
                         onClick={onClick}
+                        aria-label={tooltipText}
                         className="relative flex py-1.5 px-3 text-onDark-highEmphasis cursor-pointer"
                     >
                         <div
@@ -34,7 +36,9 @@ const QuickAccessDesktopPanelToggle: React.FC<Props> = React.forwardRef(
                                 'after:bg-primary-80': selected,
                             })}
                         >
-                            {imagePath != null ? (
+                            {icon ? (
+                                <span className="flex size-11 items-center justify-center">{icon}</span>
+                            ) : imagePath != null ? (
                                 <KrakImage
                                     path={imagePath}
                                     options={{ width: 44, height: 44, resizingType: 'fill' }}

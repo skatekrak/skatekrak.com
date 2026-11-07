@@ -150,7 +150,13 @@ function SortableFieldRow<TFieldValues extends FieldValues>({
                 <GripVertical className="size-4" />
             </button>
             <FieldInput form={form} name={name} index={index} placeholder={placeholder} />
-            <Button type="button" variant="ghost" size="icon" onClick={() => onRemove(index)}>
+            <Button
+                type="button"
+                variant="ghost"
+                size="icon"
+                aria-label={`Remove ${name} item ${index + 1}`}
+                onClick={() => onRemove(index)}
+            >
                 <Trash2 className="size-4" />
             </Button>
         </div>
@@ -175,7 +181,13 @@ function FieldRow<TFieldValues extends FieldValues>({
     return (
         <div className="flex items-center gap-2">
             <FieldInput form={form} name={name} index={index} placeholder={placeholder} />
-            <Button type="button" variant="ghost" size="icon" onClick={() => onRemove(index)}>
+            <Button
+                type="button"
+                variant="ghost"
+                size="icon"
+                aria-label={`Remove ${name} item ${index + 1}`}
+                onClick={() => onRemove(index)}
+            >
                 <Trash2 className="size-4" />
             </Button>
         </div>
@@ -204,7 +216,7 @@ function FieldInput<TFieldValues extends FieldValues>({
             render={({ field }) => (
                 <FormItem className="flex-1">
                     <FormControl>
-                        <Input placeholder={placeholder} {...field} />
+                        <Input aria-label={`${name} item ${index + 1}`} placeholder={placeholder} {...field} />
                     </FormControl>
                     <FormMessage />
                 </FormItem>

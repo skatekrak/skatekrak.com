@@ -24,7 +24,15 @@ import {
     deleteAdminMap,
 } from './routers/admin';
 import { createAdminCity, deleteAdminCity, listAdminCities, updateAdminCity } from './routers/adminCities';
+import {
+    createAdminCountry,
+    deleteAdminCountry,
+    listAdminCountries,
+    updateAdminCountry,
+    uploadCountryImage,
+} from './routers/adminCountries';
 import { listCities } from './routers/cities';
+import { fetchCountry, listCountries } from './routers/countries';
 import { fetchMap, listMaps } from './routers/maps';
 import {
     getById,
@@ -66,6 +74,10 @@ export const router = os.router({
     },
     cities: {
         list: listCities,
+    },
+    countries: {
+        list: listCountries,
+        fetch: fetchCountry,
     },
     media: {
         getById,
@@ -117,6 +129,13 @@ export const router = os.router({
             create: createAdminCity,
             update: updateAdminCity,
             delete: deleteAdminCity,
+        },
+        countries: {
+            list: listAdminCountries,
+            create: createAdminCountry,
+            update: updateAdminCountry,
+            delete: deleteAdminCountry,
+            uploadImage: uploadCountryImage,
         },
     },
 });

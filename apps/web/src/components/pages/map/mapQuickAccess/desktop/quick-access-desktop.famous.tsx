@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import { useShallow } from 'zustand/react/shallow';
 
-import { useCityID, useCustomMapID, useMediaID, useSpotID, useSpotModal } from '@/lib/hook/queryState';
+import { useCityID, useCountryID, useCustomMapID, useMediaID, useSpotID, useSpotModal } from '@/lib/hook/queryState';
 import { orpc } from '@/server/orpc/client';
 import { useMapStore } from '@/store/map';
 
@@ -17,6 +17,7 @@ const QuickAccessDesktopFamous = () => {
     );
     const [, setCustomMapID] = useCustomMapID();
     const [, setCityID] = useCityID();
+    const [, setCountryID] = useCountryID();
     const [, setModalVisible] = useSpotModal();
     const [, setSpotID] = useSpotID();
     const [, setMediaID] = useMediaID();
@@ -39,6 +40,7 @@ const QuickAccessDesktopFamous = () => {
 
         setCustomMapID(famousMap.id);
         setCityID(null);
+        setCountryID(null);
         setSpotID(null);
         setModalVisible(null);
         setMediaID(null);

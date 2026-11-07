@@ -3,7 +3,7 @@ import React from 'react';
 import { useShallow } from 'zustand/react/shallow';
 
 import Typography from '@/components/Ui/typography/Typography';
-import { useCityID, useCustomMapID, useMediaID, useSpotID, useSpotModal } from '@/lib/hook/queryState';
+import { useCityID, useCountryID, useCustomMapID, useMediaID, useSpotID, useSpotModal } from '@/lib/hook/queryState';
 import { orpc } from '@/server/orpc/client';
 import { useMapStore } from '@/store/map';
 
@@ -15,6 +15,7 @@ const MobileFamous: React.FC = () => {
     );
     const [, setCustomMapID] = useCustomMapID();
     const [, setCityID] = useCityID();
+    const [, setCountryID] = useCountryID();
     const [, setModalVisible] = useSpotModal();
     const [, setSpotID] = useSpotID();
     const [, setMediaID] = useMediaID();
@@ -37,6 +38,7 @@ const MobileFamous: React.FC = () => {
 
         setCustomMapID(famousMap.id);
         setCityID(null);
+        setCountryID(null);
         setSpotID(null);
         setModalVisible(null);
         setMediaID(null);

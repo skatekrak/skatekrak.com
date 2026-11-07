@@ -42,6 +42,7 @@ import {
     deleteMapInput,
 } from './schemas/admin';
 import { CitySchema, createCityInput, deleteCityInput, updateCityInput } from './schemas/cities';
+import { CountrySchema, countryIdInput, createCountryInput, updateCountryInput } from './schemas/countries';
 import { MapSchema, MapListItemSchema, fetchMapInput } from './schemas/maps';
 import { MediaSchema, ClipSchema, MediasAroundSchema } from './schemas/media';
 import {
@@ -109,6 +110,10 @@ export const contract = {
     cities: {
         list: oc.output(z.array(CitySchema)),
     },
+    countries: {
+        list: oc.output(z.array(CountrySchema)),
+        fetch: oc.input(countryIdInput).output(CountrySchema),
+    },
     media: {
         getById: oc.input(getMediaByIdInput).output(MediaSchema),
         listBySpot: oc.input(listBySpotInput).output(z.array(MediaSchema)),
@@ -159,6 +164,13 @@ export const contract = {
             create: oc.input(createCityInput).output(CitySchema),
             update: oc.input(updateCityInput).output(CitySchema),
             delete: oc.input(deleteCityInput).output(z.object({ success: z.boolean() })),
+        },
+        countries: {
+            list: oc.output(z.array(CountrySchema)),
+            create: oc.input(createCountryInput).output(CountrySchema),
+            update: oc.input(updateCountryInput).output(CountrySchema),
+            delete: oc.input(countryIdInput).output(z.object({ success: z.boolean() })),
+            uploadImage: oc.input(uploadMapImageInput).output(uploadMapImageOutput),
         },
     },
 };

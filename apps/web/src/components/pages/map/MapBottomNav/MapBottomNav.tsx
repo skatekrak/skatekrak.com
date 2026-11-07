@@ -4,6 +4,7 @@ import React, { ButtonHTMLAttributes } from 'react';
 import { cn } from '@krak/ui';
 
 import { mapPanelOffset } from '@/components/pages/map/_components';
+import CountriesList from '@/components/pages/map/countries/CountriesList';
 import KrakAppIcon from '@/components/Ui/Icons/Logos/KrakAppIcon';
 import Typography from '@/components/Ui/typography/Typography';
 import { useMapStore } from '@/store/map';
@@ -47,6 +48,15 @@ const MapBottomNav: React.FC<Props> = ({ isMobile }) => {
                         >
                             <TriggerButton>
                                 <Typography component="condensedButton">Cities</Typography>
+                            </TriggerButton>
+                        </MapBottomNavSheet>
+                        <MapBottomNavSheet
+                            title="Countries"
+                            maxWidth="24rem"
+                            render={({ close }) => <CountriesList onSelect={close} />}
+                        >
+                            <TriggerButton>
+                                <Typography component="condensedButton">Countries</Typography>
                             </TriggerButton>
                         </MapBottomNavSheet>
                         {/* Maps */}

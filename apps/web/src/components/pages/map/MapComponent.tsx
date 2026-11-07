@@ -53,11 +53,12 @@ maplibregl.addProtocol('pmtiles', new Protocol().tile);
 type MapComponentProps = {
     mapRef: React.RefObject<MapRef | null>;
     onLoad?: () => void;
+    minZoom?: number;
     spots: SpotGeoJSON[];
     children?: React.ReactNode;
 };
 
-const MapComponent = ({ mapRef, spots, children, onLoad }: MapComponentProps) => {
+const MapComponent = ({ mapRef, spots, children, onLoad, minZoom = MIN_ZOOM_LEVEL }: MapComponentProps) => {
     const [selectedSpotOverview, setSpotOverview, toggleLegend, toggleSearchResult, mapStyle, setMapStyle] =
         useMapStore(
             useShallow((state) => [
@@ -190,7 +191,7 @@ const MapComponent = ({ mapRef, spots, children, onLoad }: MapComponentProps) =>
                 ref={mapRef}
                 {...viewport}
                 style={{ width: '100%', height: '100%' }}
-                minZoom={MIN_ZOOM_LEVEL}
+                minZoom={minZoom}
                 maxZoom={MAX_ZOOM_LEVEL}
                 attributionControl={false}
                 maplibreLogo={false}

@@ -37,6 +37,11 @@ module.exports = withBundleAnalyzer({
                 permanent: false,
             },
             {
+                source: '/country/:countryId',
+                destination: '/?country=:countryId',
+                permanent: false,
+            },
+            {
                 source: '/map',
                 destination: '/',
                 permanent: true,

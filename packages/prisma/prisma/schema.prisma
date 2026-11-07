@@ -496,6 +496,27 @@ model City {
 }
 
 // ============================================================================
+// Country (Editorial Map Destinations)
+// ============================================================================
+
+model Country {
+  id         String   @id // human-readable slug, also used by legacy map links and image assets
+  code       String   @unique // ISO 3166-1 alpha-2
+  name       String
+  subtitle   String   @default("")
+  edito      String   @default("")
+  about      String   @default("")
+  videos     String[]
+  soundtrack String[]
+  bounds     Float[]
+  hidden     Boolean  @default(false)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@map("countries")
+}
+
+// ============================================================================
 // Like
 // ============================================================================
 

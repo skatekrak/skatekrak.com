@@ -1,6 +1,6 @@
 'use client';
 
-import { Building2, Image, LayoutDashboard, Map, MapPin, Users } from 'lucide-react';
+import { Building2, Globe, Image, LayoutDashboard, Map, MapPin, Users } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import * as React from 'react';
@@ -54,6 +54,11 @@ const managementItems = [
         title: 'Cities',
         href: '/cities',
         icon: Building2,
+    },
+    {
+        title: 'Countries',
+        href: '/countries',
+        icon: Globe,
     },
 ];
 

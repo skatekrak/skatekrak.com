@@ -9,11 +9,12 @@ type Props = {
     isSelected: boolean;
     src?: string;
     imagePath?: string;
+    icon?: React.ReactNode;
     tooltipText: string;
     panelContent: (closePanel: () => void) => React.ReactElement;
 };
 
-const QuickAccessDesktopPanel = ({ isSelected, src, imagePath, tooltipText, panelContent }: Props) => {
+const QuickAccessDesktopPanel = ({ isSelected, src, imagePath, icon, tooltipText, panelContent }: Props) => {
     const [isOpen, setIsOpen] = useState(false);
 
     const { refs, context, floatingStyles } = useFloating({
@@ -34,6 +35,7 @@ const QuickAccessDesktopPanel = ({ isSelected, src, imagePath, tooltipText, pane
                 isPanelOpen={isOpen}
                 src={src}
                 imagePath={imagePath}
+                icon={icon}
                 tooltipText={tooltipText}
             />
             {isOpen && (

@@ -8,6 +8,7 @@ export * from './schemas/shared';
 export * from './schemas/spots';
 export * from './schemas/maps';
 export * from './schemas/cities';
+export * from './schemas/countries';
 export * from './schemas/media';
 export * from './schemas/profiles';
 export * from './schemas/admin';

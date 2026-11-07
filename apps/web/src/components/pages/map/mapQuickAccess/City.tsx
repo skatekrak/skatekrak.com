@@ -4,7 +4,7 @@ import { useShallow } from 'zustand/react/shallow';
 import type { City } from '@krak/contracts';
 
 import Typography from '@/components/Ui/typography/Typography';
-import { useCityID, useCustomMapID, useSpotID, useSpotModal } from '@/lib/hook/queryState';
+import { useCityID, useCountryID, useCustomMapID, useSpotID, useSpotModal } from '@/lib/hook/queryState';
 import { useMapStore } from '@/store/map';
 
 type CityProps = {
@@ -20,6 +20,7 @@ const CityComponent: React.FC<CityProps> = ({ city, onCityClick }) => {
     const [, setModalVisible] = useSpotModal();
     const [, setCustomMapID] = useCustomMapID();
     const [, setCityID] = useCityID();
+    const [, setCountryID] = useCountryID();
 
     const onClick = (e: React.SyntheticEvent) => {
         e.preventDefault();
@@ -29,6 +30,7 @@ const CityComponent: React.FC<CityProps> = ({ city, onCityClick }) => {
         setSpotID(null);
         setModalVisible(null);
         setCustomMapID(null);
+        setCountryID(null);
         setCityID(city.id);
     };
     return (

@@ -23,7 +23,6 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { GripVertical, Plus } from 'lucide-react';
 import { useState } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
-import Map, { Layer, Marker, NavigationControl, Source } from 'react-map-gl/maplibre';
 import { z } from 'zod';
 
 import { createCityInput, type City } from '@krak/contracts';
@@ -52,6 +51,7 @@ import {
     cn,
 } from '@krak/ui';
 
+import { MapZonePicker } from '@/components/MapZonePicker';
 import { SiteHeader } from '@/components/site-header';
 import { client, orpc } from '@/lib/orpc';
 
@@ -78,99 +78,6 @@ const emptyCity: CityFormValues = {
     position: 0,
     hidden: false,
 };
-
-type Bounds = CityFormValues['bounds'];
-
-function CityBoundsMap({ bounds, onChange }: { bounds: Bounds; onChange: (bounds: Bounds) => void }) {
-    const [[longitude1, latitude1], [longitude2, latitude2]] = bounds;
-    const empty = longitude1 === longitude2 && latitude1 === latitude2;
-    const corners: [number, number][] = [
-        [longitude1, latitude1],
-        [longitude2, latitude1],
-        [longitude2, latitude2],
-        [longitude1, latitude2],
-    ];
-    const zone = {
-        type: 'Feature' as const,
-        properties: {},
-        geometry: { type: 'Polygon' as const, coordinates: [[...corners, corners[0]]] },
-    };
-
-    function moveCorner(index: number, longitude: number, latitude: number) {
-        if (index === 0) onChange([[longitude, latitude], bounds[1]]);
-        if (index === 1)
-            onChange([
-                [longitude1, latitude],
-                [longitude, latitude2],
-            ]);
-        if (index === 2) onChange([bounds[0], [longitude, latitude]]);
-        if (index === 3)
-            onChange([
-                [longitude, latitude1],
-                [longitude2, latitude],
-            ]);
-    }
-
-    return (
-        <div className="h-[32rem] overflow-hidden rounded-lg border">
-            <Map
-                initialViewState={
-                    empty
-                        ? { longitude: 0, latitude: 20, zoom: 1.5 }
-                        : {
-                              bounds: [
-                                  [Math.min(longitude1, longitude2), Math.min(latitude1, latitude2)],
-                                  [Math.max(longitude1, longitude2), Math.max(latitude1, latitude2)],
-                              ],
-                              fitBoundsOptions: { padding: 48 },
-                          }
-                }
-                mapStyle="https://basemaps.cartocdn.com/gl/positron-gl-style/style.json"
-                onClick={(event) => {
-                    const latitudeRadius = Math.abs(latitude2 - latitude1) / 2 || 0.05;
-                    const longitudeRadius =
-                        Math.abs(longitude2 - longitude1) / 2 ||
-                        latitudeRadius / Math.max(Math.cos((event.lngLat.lat * Math.PI) / 180), 0.2);
-                    onChange([
-                        [event.lngLat.lng - longitudeRadius, event.lngLat.lat - latitudeRadius],
-                        [event.lngLat.lng + longitudeRadius, event.lngLat.lat + latitudeRadius],
-                    ]);
-                }}
-            >
-                <NavigationControl position="top-right" showCompass={false} />
-                {!empty && (
-                    <Source id="city-zone" type="geojson" data={zone}>
-                        <Layer
-                            id="city-zone-fill"
-                            type="fill"
-                            paint={{ 'fill-color': '#2563eb', 'fill-opacity': 0.2 }}
-                        />
-                        <Layer
-                            id="city-zone-outline"
-                            type="line"
-                            paint={{ 'line-color': '#1d4ed8', 'line-width': 2 }}
-                        />
-                    </Source>
-                )}
-                {!empty &&
-                    corners.map(([longitude, latitude], index) => (
-                        <Marker
-                            key={index}
-                            longitude={longitude}
-                            latitude={latitude}
-                            draggable
-                            onDragEnd={(event) => moveCorner(index, event.lngLat.lng, event.lngLat.lat)}
-                        >
-                            <div
-                                className="size-4 cursor-move rounded-sm border-2 border-white bg-blue-600 shadow"
-                                aria-label={`Drag zone corner ${index + 1}`}
-                            />
-                        </Marker>
-                    ))}
-            </Map>
-        </div>
-    );
-}
 
 function SortableCityRow({
     city,
@@ -459,7 +366,7 @@ export default function CitiesPage() {
                                             <FormItem>
                                                 <FormLabel>Zone</FormLabel>
                                                 <FormControl>
-                                                    <CityBoundsMap
+                                                    <MapZonePicker
                                                         key={selectedId ?? 'new'}
                                                         bounds={field.value}
                                                         onChange={field.onChange}
@@ -467,7 +374,8 @@ export default function CitiesPage() {
                                                 </FormControl>
                                                 <p className="text-sm text-muted-foreground">
                                                     Click to position the zone, then drag its corner handles to resize
-                                                    it.
+                                                    it. With a keyboard, press Enter on the map to position the zone and
+                                                    use arrow keys on a corner to resize it.
                                                 </p>
                                                 <FormMessage />
                                             </FormItem>
