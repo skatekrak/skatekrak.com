@@ -45,6 +45,7 @@ async function countExistingMedia(prisma: PrismaClient, mediaIds: string[]) {
 }
 
 runJob('link-missing-spot-media', async ({ prisma }) => {
+    if (!env.MONGODB_URL) throw new Error('MONGODB_URL is required for this job.');
     const mongo = new MongoClient(env.MONGODB_URL);
 
     try {

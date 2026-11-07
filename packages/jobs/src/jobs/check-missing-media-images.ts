@@ -6,6 +6,7 @@ import { env } from '../env';
 import { runJob } from '../lib/runJob';
 
 runJob('check-missing-media-images', async ({ prisma }) => {
+    if (!env.MONGODB_URL) throw new Error('MONGODB_URL is required for this job.');
     const medias = await prisma.media.findMany({
         where: {
             type: 'IMAGE',

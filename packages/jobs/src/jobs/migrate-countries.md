@@ -12,7 +12,7 @@ bun run job:migrate-countries
 bun run job:migrate-countries --apply
 ```
 
-The job uses this package's fnox configuration. It reads PostgreSQL maps whose `categories` array contains `countries`, including staging maps. It does not read the historical JSON or MongoDB.
+The job uses this package's fnox configuration. It reads PostgreSQL maps whose `categories` array contains `countries`, including staging maps. It does not read the historical JSON or MongoDB, and does not require `MONGODB_URL`.
 
 ISO codes and opening bounds come from the checked-in catalog at `apps/manager/public/data/countries.json`; there are no upstream downloads. Exact catalog slugs, English names and two-letter codes are matched against each map's ID and name, ignoring case, accents and punctuation. Unknown or contradictory matches stop the entire migration. For legacy names that do not match, use the [explicit metadata migration](../../../../apps/api/src/scripts/migrate-countries.md) instead; the job does not guess.
 
