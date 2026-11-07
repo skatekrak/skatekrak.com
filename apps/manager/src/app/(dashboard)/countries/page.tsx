@@ -192,8 +192,8 @@ export default function CountriesPage() {
                 }
             />
             <div className="flex flex-1 flex-col gap-6 px-6 pb-6 pt-4">
-                <div className="grid grid-cols-1 gap-6 xl:min-h-96 xl:grid-cols-3">
-                    <Card className="flex min-h-0 flex-col xl:[contain:size]">
+                <div className="grid grid-cols-1 gap-6 xl:grid-cols-3">
+                    <Card className="flex min-h-0 flex-col xl:sticky xl:top-4 xl:h-[calc(100dvh-6.5rem)] xl:self-start">
                         <CardHeader className="shrink-0">
                             <CardTitle>Countries</CardTitle>
                             <CardDescription>{countries.length} destinations</CardDescription>
