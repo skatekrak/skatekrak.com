@@ -37,6 +37,7 @@ import {
     Label,
     Switch,
     Textarea,
+    toast,
 } from '@krak/ui';
 import { countrySlug, getCountryFlagPath } from '@krak/utils';
 
@@ -116,7 +117,9 @@ export default function CountriesPage() {
                 videos: country.videos.map((value) => ({ value })),
                 soundtrack: country.soundtrack.map((value) => ({ value })),
             });
+            toast.success('Country saved.');
         },
+        onError: (err) => toast.error('Could not save country.', { description: err.message }),
     });
 
     const createMutation = useMutation({
@@ -135,7 +138,9 @@ export default function CountriesPage() {
             queryClient.invalidateQueries({ queryKey: countriesQuery.queryKey });
             resetEditor(country);
             setCreatingCountry(false);
+            toast.success('Country created.');
         },
+        onError: (err) => toast.error('Could not create country.', { description: err.message }),
     });
 
     const deleteMutation = useMutation({
@@ -143,7 +148,9 @@ export default function CountriesPage() {
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: countriesQuery.queryKey });
             resetEditor();
+            toast.success('Country deleted.');
         },
+        onError: (err) => toast.error('Could not delete country.', { description: err.message }),
     });
 
     const busy = saveMutation.isPending || deleteMutation.isPending || createMutation.isPending;
@@ -406,11 +413,6 @@ export default function CountriesPage() {
                                         {deleteMutation.error && (
                                             <p role="alert" className="text-sm text-destructive">
                                                 {deleteMutation.error.message}
-                                            </p>
-                                        )}
-                                        {saveMutation.isSuccess && !form.formState.isDirty && (
-                                            <p role="status" className="text-sm text-muted-foreground">
-                                                Country saved.
                                             </p>
                                         )}
                                         <div className="flex flex-wrap items-center gap-3">
