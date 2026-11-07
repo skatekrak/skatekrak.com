@@ -1,5 +1,7 @@
 # Move existing country maps to countries
 
+For automatic selection of all maps in the `countries` category using the bundled catalog, use the [jobs-package migration](../../../../packages/jobs/src/jobs/migrate-countries.md). The script below remains available for explicit metadata or unmatched legacy names.
+
 Deploy the Prisma migration before deploying the API and frontends. Countries are managed at `/countries` in the manager and opened on the web with `/country/<slug>` (redirecting to `/?country=<slug>`). Legacy `/?id=<slug>` and `/map/<slug>` links also resolve to published countries.
 
 The old maps have no ISO code or selected zone, so those values must be supplied explicitly. Bounds are two opposite corners, each in `[longitude, latitude]` order. Create a JSON array using the **existing map IDs**:

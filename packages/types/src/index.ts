@@ -1,3 +1,5 @@
+import type * as GeoJSON from 'geojson';
+
 export interface Stat {
     createdAt: Date;
     className: string;

@@ -188,7 +188,9 @@
       "version": "0.0.1",
       "dependencies": {
         "@aws-sdk/client-s3": "^3.1033.0",
+        "@krak/contracts": "workspace:*",
         "@krak/prisma": "workspace:*",
+        "@krak/utils": "workspace:*",
         "@prisma/adapter-pg": "^7.4.1",
         "@t3-oss/env-core": "^0.11.1",
         "meilisearch": "^0.55.0",

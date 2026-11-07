@@ -11,6 +11,7 @@
         "job:check-missing-media-images": "fnox exec -- bun run src/jobs/check-missing-media-images.ts",
         "job:link-missing-spot-media": "fnox exec -- bun run src/jobs/link-missing-spot-media.ts",
         "job:migrate-cloudinary-videos": "fnox exec -- bun run src/jobs/migrate-cloudinary-videos.ts",
+        "job:migrate-countries": "fnox exec -- bun run src/jobs/migrate-countries.ts",
         "job:reconcile-media-s3": "fnox exec -- bun run src/jobs/reconcile-media-s3.ts",
         "job:recompute-spot-media-stats": "fnox exec -- bun run src/jobs/recompute-spot-media-stats.ts",
         "job:refill-spots": "fnox exec -- bun run src/jobs/refill-spots.ts",
@@ -18,7 +19,9 @@
     },
     "dependencies": {
         "@aws-sdk/client-s3": "^3.1033.0",
+        "@krak/contracts": "workspace:*",
         "@krak/prisma": "workspace:*",
+        "@krak/utils": "workspace:*",
         "@prisma/adapter-pg": "^7.4.1",
         "@t3-oss/env-core": "^0.11.1",
         "meilisearch": "^0.55.0",
