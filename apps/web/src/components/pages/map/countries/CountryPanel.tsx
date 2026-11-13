@@ -20,6 +20,9 @@ type Props = {
 export default function CountryPanel({ country, loading, error, onRetry, onClose }: Props) {
     const [open, setOpen] = useState(true);
     const [tab, setTab] = useState<'about' | 'videos' | 'soundtrack'>('about');
+    const hasAbout = Boolean(country?.edito || country?.about);
+    // Fall through to the first visible tab when there is no editorial content
+    const activeTab = hasAbout || tab !== 'about' ? tab : country?.videos.length ? 'videos' : 'soundtrack';
 
     return (
         <MapOverlayPanel collapsed={!open}>
@@ -69,9 +72,9 @@ export default function CountryPanel({ country, loading, error, onRetry, onClose
                                         <p className="whitespace-pre-wrap break-words text-sm">{country.subtitle}</p>
                                     )}
                                 </div>
-                                <Tabs value={tab} onValueChange={setTab}>
+                                <Tabs value={activeTab} onValueChange={setTab}>
                                     <Tabs.List className="px-4">
-                                        <Tabs.Tab value="about">About</Tabs.Tab>
+                                        {hasAbout && <Tabs.Tab value="about">About</Tabs.Tab>}
                                         {country.videos.length > 0 && <Tabs.Tab value="videos">Videos</Tabs.Tab>}
                                         {country.soundtrack.length > 0 && (
                                             <Tabs.Tab value="soundtrack">Soundtrack</Tabs.Tab>
@@ -86,7 +89,6 @@ export default function CountryPanel({ country, loading, error, onRetry, onClose
                                                 <p className="font-medium text-onDark-highEmphasis">{country.edito}</p>
                                             )}
                                             {country.about && <p>{country.about}</p>}
-                                            {!country.edito && !country.about && <p>No editorial content yet.</p>}
                                         </Tabs.Content>
                                         <Tabs.Content value="videos" className="flex flex-col gap-6">
                                             <VideoTabContent videos={country.videos} />
