@@ -108,10 +108,6 @@ const MapContainer = () => {
         }),
     );
 
-    useEffect(() => {
-        if (countrySelected) setSpotOverview(null);
-    }, [countrySelected, setSpotOverview]);
-
     // Full spot
     const fullSpotContainerRef = useRef<ElementRef<'div'> | null>(null);
 
@@ -141,13 +137,13 @@ const MapContainer = () => {
     const { data: overview } = useQuery(
         orpc.spots.getSpotOverview.queryOptions({
             input: { id: spotId! },
-            enabled: spotId != null && !countrySelected,
+            enabled: spotId != null,
             retry: false,
         }),
     );
 
     useEffect(() => {
-        if (overview != null && mapLoaded && !countrySelected) {
+        if (overview != null && mapLoaded) {
             setSpotOverview(overview);
             setFirstLoad((value) => {
                 if (value) {
@@ -157,14 +153,15 @@ const MapContainer = () => {
                 return value;
             });
         }
-    }, [overview, centerToSpot, mapLoaded, setSpotOverview, countrySelected]);
+    }, [overview, centerToSpot, mapLoaded, setSpotOverview]);
 
     const enableSpotQuery = useMemo(() => {
-        if (!mapLoaded || countrySelected) {
+        if (!mapLoaded) {
             return false;
         }
 
-        if (!isEmpty(id)) {
+        // Legacy ?id=country-slug links are a country, not a custom map.
+        if (!isEmpty(id) && selectedCountry?.id !== id) {
             return false;
         }
 
@@ -173,7 +170,7 @@ const MapContainer = () => {
         }
 
         return true;
-    }, [id, viewport?.zoom, mapLoaded, countrySelected]);
+    }, [id, viewport?.zoom, mapLoaded, selectedCountry]);
 
     const {
         data: spots,
@@ -258,9 +255,8 @@ const MapContainer = () => {
     }, [cities, city, id, mapLoaded, countrySelected]);
 
     const displayedSpots = useMemo(() => {
-        if (countrySelected) return [];
         // It's a custom map, we can return the spots if not loading
-        if (id != null) {
+        if (id != null && selectedCountry?.id !== id) {
             if (customMapInfo) {
                 return (spotsByTags ?? []).map((spot) => spotToGeoJSON(spot));
             }
@@ -272,7 +268,7 @@ const MapContainer = () => {
         }
 
         return spots;
-    }, [spots, id, viewport.zoom, customMapInfo, spotsByTags, countrySelected]);
+    }, [spots, id, viewport.zoom, customMapInfo, spotsByTags, selectedCountry]);
 
     const isLoading = spotsGeoJSONLoading || spotsTagsLoading;
 
@@ -316,10 +312,8 @@ const MapContainer = () => {
                                 </>
                             )}
                             {!isMobile && <QuickAccessDesktop />}
-                            {viewport.zoom <= ZOOM_DISPLAY_WARNING && id == null && !countrySelected && (
-                                <MapZoomAlert />
-                            )}
-                            {isLoading && !countrySelected && (
+                            {viewport.zoom <= ZOOM_DISPLAY_WARNING && id == null && <MapZoomAlert />}
+                            {isLoading && (
                                 <div className="absolute bottom-24 left-6 tablet:left-8 tablet:bottom-28 flex items-center gap-2 text-gray-400 text-sm">
                                     <SpinnerCircle className="stroke-gray-400 w-3.5" />
                                     <span>loading spots</span>
@@ -327,7 +321,7 @@ const MapContainer = () => {
                             )}
                             <MapBottomNav isMobile={isMobile ?? false} />
                             <MapFullSpot
-                                open={!countrySelected && modalVisible}
+                                open={modalVisible}
                                 onClose={onFullSpotClose}
                                 container={!isMobile ? fullSpotContainerRef.current : null}
                             />
