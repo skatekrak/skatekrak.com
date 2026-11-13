@@ -77,6 +77,17 @@ run = "fnox exec --config ../jobs/fnox.toml --profile production -- bun run migr
 description = "Export the local database to krak_dump.sql"
 run = "PGPASSWORD=krak pg_dump -U krak -d krak -h localhost -p 5433 -f krak_dump.sql"
 
+[tasks."export:prod"]
+description = "Export the production database to krak_prod_dump.sql"
+run = """
+#!/usr/bin/env bash
+set -euo pipefail
+# pg_dump rejects Prisma's ?schema= URL param, so strip it
+fnox exec --config packages/jobs/fnox.toml --profile production -- \\
+    bash -c 'pg_dump --no-owner --no-acl -d "$(echo "$DATABASE_URL" | sed -E "s/[?&]schema=[^&]*//")" -f krak_prod_dump.sql'
+echo "Exported to krak_dump.sql"
+"""
+
 [tasks.restore]
 description = "Restore db"
 run = "PGPASSWORD=krak psql -U krak -d krak -h localhost -p 5433 -f krak_dump.sql"

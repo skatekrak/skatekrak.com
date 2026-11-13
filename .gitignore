@@ -21,6 +21,7 @@ node_modules/
 dist
 
 /krak_dump.sql
+/krak_prod_dump.sql
 /apps/manager/next-env.d.ts
 /apps/web/next-env.d.ts
 *.tsbuildinfo
