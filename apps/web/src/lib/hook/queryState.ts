@@ -16,16 +16,18 @@ export const useViewport = () => {
     );
 };
 
+const destinationHistory = { history: 'push' } as const;
+
 export const useCustomMapID = () => {
-    return useQueryState('id');
+    return useQueryState('id', destinationHistory);
 };
 
 export const useCityID = () => {
-    return useQueryState('city');
+    return useQueryState('city', destinationHistory);
 };
 
 export const useCountryID = () => {
-    return useQueryState('country');
+    return useQueryState('country', destinationHistory);
 };
 
 export const useSpotID = () => {
