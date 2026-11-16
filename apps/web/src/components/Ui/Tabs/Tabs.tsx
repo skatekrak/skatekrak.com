@@ -1,4 +1,3 @@
-import classNames from 'classnames';
 import React, { createContext, useContext } from 'react';
 
 import { cn } from '@krak/ui';
@@ -39,7 +38,7 @@ type ListProps = {
 const List = ({ children, className }: ListProps) => (
     <div
         role="tablist"
-        className={classNames(
+        className={cn(
             'flex gap-x-6 gap-y-4 justify-center flex-wrap border-b-8 border-solid border-b-tertiary-dark',
             className,
         )}

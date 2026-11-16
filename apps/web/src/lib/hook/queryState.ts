@@ -1,5 +1,8 @@
-import { parseAsFloat, parseAsBoolean, parseAsString, parseAsStringLiteral, useQueryState, useQueryStates } from 'nuqs';
+import { parseAsBoolean, parseAsFloat, parseAsString, parseAsStringLiteral, useQueryState, useQueryStates } from 'nuqs';
 import { useCallback } from 'react';
+
+import { cityPanelTabs } from '@/components/pages/map/cities/CityPanel';
+import { customMapPanelTabs } from '@/components/pages/map/MapCustom/panel/MapCustomPanel';
 
 export type MediaTabType = 'map' | 'all';
 
@@ -16,16 +19,34 @@ export const useViewport = () => {
     );
 };
 
+const destinationHistory = { history: 'push' } as const;
+
 export const useCustomMapID = () => {
-    return useQueryState('id');
+    return useQueryState('id', destinationHistory);
 };
 
 export const useCityID = () => {
-    return useQueryState('city');
+    return useQueryState('city', destinationHistory);
 };
 
 export const useCountryID = () => {
-    return useQueryState('country');
+    return useQueryState('country', destinationHistory);
+};
+
+/** Kept on the current history entry so back from a map returns to the same city tab. */
+export const useCityPanelTab = () => {
+    return useQueryState(
+        'panel',
+        parseAsStringLiteral(cityPanelTabs).withDefault('video').withOptions({ history: 'replace' }),
+    );
+};
+
+/** Kept on the current history entry so back returns to the same custom map tab. */
+export const useCustomMapPanelTab = () => {
+    return useQueryState(
+        'mapPanel',
+        parseAsStringLiteral(customMapPanelTabs).withDefault('media').withOptions({ history: 'replace' }),
+    );
 };
 
 export const useSpotID = () => {
