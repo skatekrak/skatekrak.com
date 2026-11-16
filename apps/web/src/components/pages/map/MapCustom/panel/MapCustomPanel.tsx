@@ -1,6 +1,6 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
 import classNames from 'classnames';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 
 import type { Spot } from '@krak/contracts';
 import { KrakImage } from '@krak/ui';
@@ -18,11 +18,27 @@ import { KrakLoading } from '@/components/Ui/Icons/Spinners';
 import InfiniteScroll from '@/components/Ui/InfiniteScroll';
 import ScrollBar from '@/components/Ui/Scrollbar';
 import { Tabs } from '@/components/Ui/Tabs';
-import { useCityID, useCustomMapID, useMediaID, useSpotID, useSpotModal } from '@/lib/hook/queryState';
+import {
+    useCityID,
+    useCustomMapID,
+    useCustomMapPanelTab,
+    useMediaID,
+    useSpotID,
+    useSpotModal,
+} from '@/lib/hook/queryState';
 import { CustomMap } from '@/lib/map/types';
 import { orpc } from '@/server/orpc/client';
 
-type MapCustomPanelTabs = 'media' | 'video' | 'spots' | 'soundtrack';
+export const customMapPanelTabs = ['media', 'video', 'spots', 'soundtrack'] as const;
+
+const customMapPanelTabsToLabels: Record<CustomMapPanelTab, string> = {
+    media: 'media',
+    video: 'video',
+    spots: 'spots',
+    soundtrack: 'soundtrack',
+};
+
+export type CustomMapPanelTab = (typeof customMapPanelTabs)[number];
 
 type MapCustomPanelProps = {
     map: CustomMap;
@@ -44,7 +60,7 @@ const MapCustomPanel = ({ map, spots }: MapCustomPanelProps) => {
         }
     }, [id]);
 
-    const [openTab, setOpenTab] = useState<MapCustomPanelTabs>('media');
+    const [openTab, setOpenTab] = useCustomMapPanelTab();
 
     const [, setCustomMapID] = useCustomMapID();
     const [, setCityID] = useCityID();
@@ -78,21 +94,22 @@ const MapCustomPanel = ({ map, spots }: MapCustomPanelProps) => {
         }),
     );
     const medias = data?.pages.flatMap((page) => page) ?? [];
+    const visibleTabs = useMemo(
+        () =>
+            customMapPanelTabs.filter((tab) => {
+                if (tab === 'media') return medias.length > 0;
+                if (tab === 'video') return (map.videos?.length ?? 0) > 0;
+                if (tab === 'spots') return spots.length > 0;
+                return map.soundtrack.length > 0;
+            }),
+        [map.soundtrack.length, map.videos?.length, medias.length, spots.length],
+    );
+    const selectedTab = visibleTabs.includes(openTab) ? openTab : (visibleTabs[0] ?? openTab);
 
     useEffect(() => {
-        if (!isLoading) {
-            if (medias && medias.length > 0) {
-                setOpenTab('media');
-            } else {
-                if (map.videos && map.videos.length > 0) {
-                    setOpenTab('video');
-                } else {
-                    setOpenTab('spots');
-                }
-            }
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [isLoading]);
+        if (isLoading || visibleTabs.includes(openTab) || visibleTabs[0] == null) return;
+        setOpenTab(visibleTabs[0]);
+    }, [isLoading, openTab, setOpenTab, visibleTabs]);
 
     return (
         <>
@@ -178,14 +195,13 @@ const MapCustomPanel = ({ map, spots }: MapCustomPanelProps) => {
                                             <KrakLoading />
                                         </div>
                                     ) : (
-                                        <Tabs value={openTab} onValueChange={setOpenTab}>
+                                        <Tabs value={selectedTab} onValueChange={setOpenTab}>
                                             <Tabs.List className="my-8 px-6">
-                                                {medias.length > 0 && <Tabs.Tab value="media">media</Tabs.Tab>}
-                                                {map.videos?.length > 0 && <Tabs.Tab value="video">video</Tabs.Tab>}
-                                                {spots.length > 0 && <Tabs.Tab value="spots">spots</Tabs.Tab>}
-                                                {map.soundtrack.length > 0 && (
-                                                    <Tabs.Tab value="soundtrack">soundtrack</Tabs.Tab>
-                                                )}
+                                                {visibleTabs.map((tab) => (
+                                                    <Tabs.Tab key={tab} value={tab}>
+                                                        {customMapPanelTabsToLabels[tab]}
+                                                    </Tabs.Tab>
+                                                ))}
                                             </Tabs.List>
                                             <div className="grow px-6 pb-8">
                                                 <Tabs.Content value="media" className="flex flex-col gap-6">
