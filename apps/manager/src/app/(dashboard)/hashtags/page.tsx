@@ -5,18 +5,7 @@ import { getCoreRowModel, useReactTable, type ColumnDef } from '@tanstack/react-
 import { parseAsInteger, parseAsString, parseAsStringLiteral, useQueryState } from 'nuqs';
 
 import type { ContractOutputs } from '@krak/contracts';
-import {
-    DataTable,
-    DataTablePagination,
-    Input,
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-    Sheet,
-    SheetContent,
-} from '@krak/ui';
+import { Button, DataTable, DataTablePagination, Input, Sheet, SheetContent } from '@krak/ui';
 
 import { SiteHeader } from '@/components/site-header';
 import { orpc } from '@/lib/orpc';
@@ -41,6 +30,11 @@ const columns: ColumnDef<AdminHashtag>[] = [
 
 const perPage = 50;
 const mapFilters = ['linked', 'unlinked'] as const;
+const mapFilterOptions = [
+    { value: null, label: 'All' },
+    { value: 'linked', label: 'With map' },
+    { value: 'unlinked', label: 'Without map' },
+] as const;
 
 export default function HashtagsPage() {
     const [page, setPage] = useQueryState('page', parseAsInteger.withDefault(1));
@@ -69,22 +63,23 @@ export default function HashtagsPage() {
                         }}
                         className="max-w-sm"
                     />
-                    <Select
-                        value={mapFilter ?? 'all'}
-                        onValueChange={(value) => {
-                            setMapFilter(value === 'all' ? null : (value as (typeof mapFilters)[number]));
-                            setPage(1);
-                        }}
-                    >
-                        <SelectTrigger className="w-40">
-                            <SelectValue placeholder="Map" />
-                        </SelectTrigger>
-                        <SelectContent>
-                            <SelectItem value="all">All hashtags</SelectItem>
-                            <SelectItem value="linked">Linked to a map</SelectItem>
-                            <SelectItem value="unlinked">No map</SelectItem>
-                        </SelectContent>
-                    </Select>
+                    <div role="group" aria-label="Map filter" className="flex">
+                        {mapFilterOptions.map(({ value, label }) => (
+                            <Button
+                                key={label}
+                                size="sm"
+                                variant={mapFilter === value ? 'default' : 'outline'}
+                                aria-pressed={mapFilter === value}
+                                className="rounded-none first:rounded-l-md last:rounded-r-md [&:not(:first-child)]:-ml-px"
+                                onClick={() => {
+                                    setMapFilter(value);
+                                    setPage(1);
+                                }}
+                            >
+                                {label}
+                            </Button>
+                        ))}
+                    </div>
                 </div>
                 <DataTable
                     columns={columns}
