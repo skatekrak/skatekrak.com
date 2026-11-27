@@ -13,17 +13,15 @@ export const listAdminHashtags = os.admin.hashtags.list
         const rows = await context.prisma.$queryRaw<
             { tag: string; mediaCount: number; mapName: string | null; total: number }[]
         >`
-            SELECT h.tag, h."mediaCount", h.total, maps.name AS "mapName"
-            FROM (
-                SELECT tag, count(*)::int AS "mediaCount", (count(*) OVER ())::int AS total
-                FROM media, unnest(hashtags) AS tag
-                WHERE ${search} = '' OR strpos(lower(tag), ${search}) > 0
-                GROUP BY tag
-                ORDER BY "mediaCount" DESC, tag
-                LIMIT ${input.perPage} OFFSET ${(input.page - 1) * input.perPage}
-            ) h
-            LEFT JOIN maps ON maps.id = substr(h.tag, 2)
-            ORDER BY h."mediaCount" DESC, h.tag
+            SELECT tag, count(*)::int AS "mediaCount", (count(*) OVER ())::int AS total, maps.name AS "mapName"
+            FROM media
+            CROSS JOIN unnest(hashtags) AS tag
+            LEFT JOIN maps ON maps.id = substr(tag, 2)
+            WHERE (${search} = '' OR strpos(lower(tag), ${search}) > 0)
+                AND (${input.hasMap ?? null}::boolean IS NULL OR (maps.id IS NOT NULL) = ${input.hasMap ?? null}::boolean)
+            GROUP BY tag, maps.name
+            ORDER BY "mediaCount" DESC, tag
+            LIMIT ${input.perPage} OFFSET ${(input.page - 1) * input.perPage}
         `;
         // shortcut: total rides on the page rows, so a page past the end reports 0; fine since the UI resets to page 1 on search
         return { hashtags: rows.map(({ total: _, ...row }) => row), total: rows[0]?.total ?? 0 };

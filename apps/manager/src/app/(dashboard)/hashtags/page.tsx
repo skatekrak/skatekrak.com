@@ -2,10 +2,21 @@
 
 import { useQuery } from '@tanstack/react-query';
 import { getCoreRowModel, useReactTable, type ColumnDef } from '@tanstack/react-table';
-import { parseAsInteger, parseAsString, useQueryState } from 'nuqs';
+import { parseAsInteger, parseAsString, parseAsStringLiteral, useQueryState } from 'nuqs';
 
 import type { ContractOutputs } from '@krak/contracts';
-import { DataTable, DataTablePagination, Input, Sheet, SheetContent } from '@krak/ui';
+import {
+    DataTable,
+    DataTablePagination,
+    Input,
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+    Sheet,
+    SheetContent,
+} from '@krak/ui';
 
 import { SiteHeader } from '@/components/site-header';
 import { orpc } from '@/lib/orpc';
@@ -29,14 +40,17 @@ const columns: ColumnDef<AdminHashtag>[] = [
 ];
 
 const perPage = 50;
+const mapFilters = ['linked', 'unlinked'] as const;
 
 export default function HashtagsPage() {
     const [page, setPage] = useQueryState('page', parseAsInteger.withDefault(1));
     const [search, setSearch] = useQueryState('search', parseAsString.withDefault('').withOptions({ throttleMs: 300 }));
+    const [mapFilter, setMapFilter] = useQueryState('map', parseAsStringLiteral(mapFilters));
     const [selected, setSelected] = useQueryState('tag');
 
+    const hasMap = mapFilter ? mapFilter === 'linked' : undefined;
     const { data, isLoading } = useQuery(
-        orpc.admin.hashtags.list.queryOptions({ input: { search: search || undefined, page, perPage } }),
+        orpc.admin.hashtags.list.queryOptions({ input: { search: search || undefined, hasMap, page, perPage } }),
     );
 
     const table = useReactTable({ data: data?.hashtags ?? [], columns, getCoreRowModel: getCoreRowModel() });
@@ -45,15 +59,33 @@ export default function HashtagsPage() {
         <>
             <SiteHeader title="Hashtags" />
             <div className="flex flex-1 flex-col gap-6 px-6 pb-6 pt-4">
-                <Input
-                    placeholder="Search hashtags..."
-                    value={search}
-                    onChange={(e) => {
-                        setSearch(e.target.value || null);
-                        setPage(1);
-                    }}
-                    className="max-w-sm"
-                />
+                <div className="flex items-center gap-3">
+                    <Input
+                        placeholder="Search hashtags..."
+                        value={search}
+                        onChange={(e) => {
+                            setSearch(e.target.value || null);
+                            setPage(1);
+                        }}
+                        className="max-w-sm"
+                    />
+                    <Select
+                        value={mapFilter ?? 'all'}
+                        onValueChange={(value) => {
+                            setMapFilter(value === 'all' ? null : (value as (typeof mapFilters)[number]));
+                            setPage(1);
+                        }}
+                    >
+                        <SelectTrigger className="w-40">
+                            <SelectValue placeholder="Map" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectItem value="all">All hashtags</SelectItem>
+                            <SelectItem value="linked">Linked to a map</SelectItem>
+                            <SelectItem value="unlinked">No map</SelectItem>
+                        </SelectContent>
+                    </Select>
+                </div>
                 <DataTable
                     columns={columns}
                     table={table}

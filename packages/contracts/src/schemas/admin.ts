@@ -621,6 +621,8 @@ export const deleteMapInput = z.object({
 
 export const adminListHashtagsInput = z.object({
     search: z.string().optional(),
+    /** Only tags with (true) or without (false) a Map whose id is the tag without '#' */
+    hasMap: z.boolean().optional(),
     page: z.number().int().min(1).default(1),
     perPage: z.number().int().min(1).max(100).default(50),
 });
