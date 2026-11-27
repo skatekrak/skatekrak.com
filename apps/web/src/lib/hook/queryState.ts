@@ -3,7 +3,7 @@ import { useCallback } from 'react';
 
 export type MediaTabType = 'map' | 'all';
 
-export const cityPanelTabs = ['video', 'media', 'spots', 'skaters', 'lens-masters'] as const;
+export const cityPanelTabs = ['video', 'media', 'spots'] as const; // 'skaters', 'lens-masters' hidden until backend is ready
 export type CityPanelTab = (typeof cityPanelTabs)[number];
 
 export const customMapPanelTabs = ['media', 'video', 'spots', 'soundtrack'] as const;

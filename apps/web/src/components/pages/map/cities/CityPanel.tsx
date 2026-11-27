@@ -2,13 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import NextImage from 'next/image';
 import { useMemo, useState } from 'react';
 
-import {
-    BoundedLensMastersFeed,
-    BoundedMediaFeed,
-    BoundedSkatersFeed,
-    BoundedSpotFeed,
-    MapOverlayPanel,
-} from '@/components/pages/map/_components';
+import { BoundedMediaFeed, BoundedSpotFeed, MapOverlayPanel } from '@/components/pages/map/_components';
 import InfiniteScroll from '@/components/Ui/InfiniteScroll';
 import VideoPlayer from '@/components/Ui/Player/VideoPlayer';
 import ScrollBar from '@/components/Ui/Scrollbar';
@@ -24,8 +18,6 @@ const cityPanelTabsToLabels: Record<CityPanelTab, string> = {
     video: 'Video',
     spots: 'Spots',
     media: 'Media',
-    skaters: 'Skaters',
-    'lens-masters': 'Lens masters',
 };
 
 const toMapBounds = (bounds: [[number, number], [number, number]]): MapBounds => {
@@ -119,12 +111,6 @@ const CityPanel = () => {
                             </Tabs.Content>
                             <Tabs.Content value="spots">
                                 <BoundedSpotFeed bounds={bounds} />
-                            </Tabs.Content>
-                            <Tabs.Content value="skaters">
-                                <BoundedSkatersFeed bounds={bounds} />
-                            </Tabs.Content>
-                            <Tabs.Content value="lens-masters">
-                                <BoundedLensMastersFeed bounds={bounds} />
                             </Tabs.Content>
                         </div>
                     </Tabs>
