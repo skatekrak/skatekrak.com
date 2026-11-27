@@ -614,3 +614,41 @@ export const uploadMapImageOutput = z.object({
 export const deleteMapInput = z.object({
     id: z.string().min(1),
 });
+
+// ============================================================================
+// Hashtags
+// ============================================================================
+
+export const adminListHashtagsInput = z.object({
+    search: z.string().optional(),
+    limit: z.number().int().min(1).max(200).default(50),
+});
+
+export const adminListHashtagsOutput = z.array(z.object({ tag: z.string(), mediaCount: z.number() }));
+
+export const adminGetHashtagInput = z.object({ tag: z.string().min(1) });
+
+export const adminGetHashtagOutput = z.object({
+    tag: z.string(),
+    mediaCount: z.number(),
+    spotCount: z.number(),
+    map: z.object({ id: z.string(), name: z.string() }).nullable(),
+    firstUsedAt: z.coerce.date().nullable(),
+    lastUsedAt: z.coerce.date().nullable(),
+    /** Last 12 months, oldest first, zero-filled */
+    monthly: z.array(z.object({ month: z.string(), count: z.number() })),
+    topSpots: z.array(
+        z.object({
+            id: z.string(),
+            name: z.string(),
+            city: z.string().nullable(),
+            country: z.string().nullable(),
+            mediaCount: z.number(),
+            /** Listed via Spot.tags rather than (only) media hashtags */
+            taggedDirectly: z.boolean(),
+        }),
+    ),
+    topContributors: z.array(z.object({ username: z.string(), mediaCount: z.number() })),
+    /** Case variants and tags containing this one */
+    similar: adminListHashtagsOutput,
+});
