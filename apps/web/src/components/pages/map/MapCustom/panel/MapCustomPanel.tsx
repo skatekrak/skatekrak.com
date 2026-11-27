@@ -19,6 +19,8 @@ import InfiniteScroll from '@/components/Ui/InfiniteScroll';
 import ScrollBar from '@/components/Ui/Scrollbar';
 import { Tabs } from '@/components/Ui/Tabs';
 import {
+    type CustomMapPanelTab,
+    customMapPanelTabs,
     useCityID,
     useCustomMapID,
     useCustomMapPanelTab,
@@ -29,16 +31,12 @@ import {
 import { CustomMap } from '@/lib/map/types';
 import { orpc } from '@/server/orpc/client';
 
-export const customMapPanelTabs = ['media', 'video', 'spots', 'soundtrack'] as const;
-
 const customMapPanelTabsToLabels: Record<CustomMapPanelTab, string> = {
     media: 'media',
     video: 'video',
     spots: 'spots',
     soundtrack: 'soundtrack',
 };
-
-export type CustomMapPanelTab = (typeof customMapPanelTabs)[number];
 
 type MapCustomPanelProps = {
     map: CustomMap;

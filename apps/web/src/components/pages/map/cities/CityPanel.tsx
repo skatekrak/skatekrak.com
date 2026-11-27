@@ -13,14 +13,12 @@ import InfiniteScroll from '@/components/Ui/InfiniteScroll';
 import VideoPlayer from '@/components/Ui/Player/VideoPlayer';
 import ScrollBar from '@/components/Ui/Scrollbar';
 import { Tabs } from '@/components/Ui/Tabs';
-import { useCityID, useCityPanelTab } from '@/lib/hook/queryState';
+import { type CityPanelTab, cityPanelTabs, useCityID, useCityPanelTab } from '@/lib/hook/queryState';
 import { orpc } from '@/server/orpc/client';
 
 import type { MapBounds } from '@/lib/hook/useSpotsGeoJSON';
 
 const pageSize = 3;
-
-export const cityPanelTabs = ['video', 'media', 'spots', 'skaters', 'lens-masters'] as const;
 
 const cityPanelTabsToLabels: Record<CityPanelTab, string> = {
     video: 'Video',
@@ -30,7 +28,6 @@ const cityPanelTabsToLabels: Record<CityPanelTab, string> = {
     'lens-masters': 'Lens masters',
 };
 
-export type CityPanelTab = (typeof cityPanelTabs)[number];
 const toMapBounds = (bounds: [[number, number], [number, number]]): MapBounds => {
     const [[longitude1, latitude1], [longitude2, latitude2]] = bounds;
 
