@@ -14,9 +14,13 @@ import { QuickAccessMap } from './types';
 type MapProps = {
     map: QuickAccessMap;
     onClick: () => void;
+    category?: {
+        name: string;
+        icon: React.ReactNode;
+    };
 };
 
-const Map: React.FC<MapProps> = ({ map, onClick }) => {
+const Map: React.FC<MapProps> = ({ map, onClick, category }) => {
     const router = useRouter();
     const [toggleLegend, toggleSearchResult] = useMapStore(
         useShallow((state) => [state.toggleLegend, state.toggleSearchResult]),
@@ -69,10 +73,20 @@ const Map: React.FC<MapProps> = ({ map, onClick }) => {
                 <Typography
                     component="condensedSubtitle1"
                     truncateLines={1}
-                    className="mx-4 text-left text-onDark-mediumEmphasis whitespace-normal"
+                    className="mx-4 min-w-0 grow text-left text-onDark-mediumEmphasis whitespace-normal"
                 >
                     {map.name}
                 </Typography>
+                {category && (
+                    <div className="flex shrink-0 items-center gap-2 text-onDark-mediumEmphasis">
+                        <Typography component="body2" as="span" className="whitespace-nowrap">
+                            {category.name}
+                        </Typography>
+                        <span className="flex size-4 items-center justify-center [&>svg]:size-full">
+                            {category.icon}
+                        </span>
+                    </div>
+                )}
             </div>
         </button>
     );

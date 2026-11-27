@@ -2,19 +2,31 @@ import { useQuery } from '@tanstack/react-query';
 import NextImage from 'next/image';
 import { useMemo, useState } from 'react';
 
-import { BoundedMediaFeed, BoundedSpotFeed, MapOverlayPanel } from '@/components/pages/map/_components';
+import {
+    BoundedLensMastersFeed,
+    BoundedMediaFeed,
+    BoundedSkatersFeed,
+    BoundedSpotFeed,
+    MapOverlayPanel,
+} from '@/components/pages/map/_components';
 import InfiniteScroll from '@/components/Ui/InfiniteScroll';
 import VideoPlayer from '@/components/Ui/Player/VideoPlayer';
 import ScrollBar from '@/components/Ui/Scrollbar';
 import { Tabs } from '@/components/Ui/Tabs';
-import { useCityID } from '@/lib/hook/queryState';
+import { type CityPanelTab, cityPanelTabs, useCityID, useCityPanelTab } from '@/lib/hook/queryState';
 import { orpc } from '@/server/orpc/client';
 
 import type { MapBounds } from '@/lib/hook/useSpotsGeoJSON';
 
 const pageSize = 3;
 
-type CityPanelTab = 'video' | 'media' | 'spots';
+const cityPanelTabsToLabels: Record<CityPanelTab, string> = {
+    video: 'Video',
+    spots: 'Spots',
+    media: 'Media',
+    skaters: 'Skaters',
+    'lens-masters': 'Lens masters',
+};
 
 const toMapBounds = (bounds: [[number, number], [number, number]]): MapBounds => {
     const [[longitude1, latitude1], [longitude2, latitude2]] = bounds;
@@ -39,10 +51,9 @@ const CityPanel = () => {
     const city = cities.find((c) => c.id === id);
 
     const [pagination, setPagination] = useState({ cityId: id, count: pageSize });
-    const [tabs, setTabs] = useState<{ cityId: string | null; tab: CityPanelTab }>({ cityId: id, tab: 'video' });
+    const [openTab, setOpenTab] = useCityPanelTab();
 
     const bounds = useMemo(() => (city ? toMapBounds(city.bounds) : undefined), [city]);
-    const openTab = tabs.cityId === id ? tabs.tab : 'video';
 
     if (!city || id == null) return null;
 
@@ -74,15 +85,13 @@ const CityPanel = () => {
                             </p>
                         )}
                     </div>
-                    <Tabs
-                        value={openTab}
-                        onValueChange={(tab) => setTabs({ cityId: id, tab })}
-                        className="flex flex-col"
-                    >
-                        <Tabs.List className="sticky top-0 z-10 shrink-0 pt-2 px-6 bg-tertiary-dark">
-                            <Tabs.Tab value="video">Video</Tabs.Tab>
-                            <Tabs.Tab value="media">Media</Tabs.Tab>
-                            <Tabs.Tab value="spots">Spots</Tabs.Tab>
+                    <Tabs value={openTab} onValueChange={setOpenTab} className="flex flex-col">
+                        <Tabs.List className="sticky top-0 z-10 shrink-0 gap-x-2 gap-y-2 pt-2 px-6 bg-tertiary-dark [&>button]:px-2 [&>button]:text-base md:[&>button]:text-lg lg:[&>button]:grow">
+                            {cityPanelTabs.map((tab) => (
+                                <Tabs.Tab key={tab} value={tab}>
+                                    {cityPanelTabsToLabels[tab]}
+                                </Tabs.Tab>
+                            ))}
                         </Tabs.List>
                         <div className="px-4 mobile:px-6 pb-8">
                             <Tabs.Content value="video">
@@ -110,6 +119,12 @@ const CityPanel = () => {
                             </Tabs.Content>
                             <Tabs.Content value="spots">
                                 <BoundedSpotFeed bounds={bounds} />
+                            </Tabs.Content>
+                            <Tabs.Content value="skaters">
+                                <BoundedSkatersFeed bounds={bounds} />
+                            </Tabs.Content>
+                            <Tabs.Content value="lens-masters">
+                                <BoundedLensMastersFeed bounds={bounds} />
                             </Tabs.Content>
                         </div>
                     </Tabs>

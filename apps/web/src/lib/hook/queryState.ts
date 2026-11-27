@@ -1,7 +1,13 @@
-import { parseAsFloat, parseAsBoolean, parseAsString, parseAsStringLiteral, useQueryState, useQueryStates } from 'nuqs';
+import { parseAsBoolean, parseAsFloat, parseAsString, parseAsStringLiteral, useQueryState, useQueryStates } from 'nuqs';
 import { useCallback } from 'react';
 
 export type MediaTabType = 'map' | 'all';
+
+export const cityPanelTabs = ['video', 'media', 'spots', 'skaters', 'lens-masters'] as const;
+export type CityPanelTab = (typeof cityPanelTabs)[number];
+
+export const customMapPanelTabs = ['media', 'video', 'spots', 'soundtrack'] as const;
+export type CustomMapPanelTab = (typeof customMapPanelTabs)[number];
 
 export const useViewport = () => {
     return useQueryStates(
@@ -16,16 +22,40 @@ export const useViewport = () => {
     );
 };
 
+const destinationHistory = { history: 'push' } as const;
+
+/** Changing the map also clears its panel tab, so a new map opens on the default tab. */
 export const useCustomMapID = () => {
-    return useQueryState('id');
+    const [{ id }, set] = useQueryStates({ id: parseAsString, mapPanel: parseAsString }, destinationHistory);
+    const setCustomMapID = useCallback((value: string | null) => set({ id: value, mapPanel: null }), [set]);
+    return [id, setCustomMapID] as const;
 };
 
+/** Changing the city also clears its panel tab, so a new city opens on the default tab. */
 export const useCityID = () => {
-    return useQueryState('city');
+    const [{ city }, set] = useQueryStates({ city: parseAsString, panel: parseAsString }, destinationHistory);
+    const setCityID = useCallback((value: string | null) => set({ city: value, panel: null }), [set]);
+    return [city, setCityID] as const;
 };
 
 export const useCountryID = () => {
-    return useQueryState('country');
+    return useQueryState('country', destinationHistory);
+};
+
+/** Kept on the current history entry so back from a map returns to the same city tab. */
+export const useCityPanelTab = () => {
+    return useQueryState(
+        'panel',
+        parseAsStringLiteral(cityPanelTabs).withDefault('video').withOptions({ history: 'replace' }),
+    );
+};
+
+/** Kept on the current history entry so back returns to the same custom map tab. */
+export const useCustomMapPanelTab = () => {
+    return useQueryState(
+        'mapPanel',
+        parseAsStringLiteral(customMapPanelTabs).withDefault('media').withOptions({ history: 'replace' }),
+    );
 };
 
 export const useSpotID = () => {
