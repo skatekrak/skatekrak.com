@@ -2,17 +2,17 @@
 
 import { useQuery } from '@tanstack/react-query';
 import { getCoreRowModel, useReactTable, type ColumnDef } from '@tanstack/react-table';
-import { parseAsString, useQueryState } from 'nuqs';
+import { parseAsInteger, parseAsString, useQueryState } from 'nuqs';
 
 import type { ContractOutputs } from '@krak/contracts';
-import { DataTable, Input, Sheet, SheetContent } from '@krak/ui';
+import { DataTable, DataTablePagination, Input, Sheet, SheetContent } from '@krak/ui';
 
 import { SiteHeader } from '@/components/site-header';
 import { orpc } from '@/lib/orpc';
 
 import { HashtagDetail } from './_components/hashtag-detail';
 
-type AdminHashtag = ContractOutputs['admin']['hashtags']['list'][number];
+type AdminHashtag = ContractOutputs['admin']['hashtags']['list']['hashtags'][number];
 
 const columns: ColumnDef<AdminHashtag>[] = [
     {
@@ -21,17 +21,25 @@ const columns: ColumnDef<AdminHashtag>[] = [
         cell: ({ row }) => <span className="font-medium">{row.original.tag}</span>,
     },
     { accessorKey: 'mediaCount', header: 'Media' },
+    {
+        accessorKey: 'mapName',
+        header: 'Map',
+        cell: ({ row }) => row.original.mapName ?? <span className="text-muted-foreground">—</span>,
+    },
 ];
 
+const perPage = 50;
+
 export default function HashtagsPage() {
+    const [page, setPage] = useQueryState('page', parseAsInteger.withDefault(1));
     const [search, setSearch] = useQueryState('search', parseAsString.withDefault('').withOptions({ throttleMs: 300 }));
     const [selected, setSelected] = useQueryState('tag');
 
     const { data, isLoading } = useQuery(
-        orpc.admin.hashtags.list.queryOptions({ input: { search: search || undefined, limit: 100 } }),
+        orpc.admin.hashtags.list.queryOptions({ input: { search: search || undefined, page, perPage } }),
     );
 
-    const table = useReactTable({ data: data ?? [], columns, getCoreRowModel: getCoreRowModel() });
+    const table = useReactTable({ data: data?.hashtags ?? [], columns, getCoreRowModel: getCoreRowModel() });
 
     return (
         <>
@@ -40,7 +48,10 @@ export default function HashtagsPage() {
                 <Input
                     placeholder="Search hashtags..."
                     value={search}
-                    onChange={(e) => setSearch(e.target.value || null)}
+                    onChange={(e) => {
+                        setSearch(e.target.value || null);
+                        setPage(1);
+                    }}
                     className="max-w-sm"
                 />
                 <DataTable
@@ -49,7 +60,17 @@ export default function HashtagsPage() {
                     loading={isLoading}
                     skeletonRows={20}
                     onRowClick={(row) => setSelected(row.original.tag)}
-                />
+                >
+                    {data && (
+                        <DataTablePagination
+                            page={page}
+                            totalPages={Math.ceil(data.total / perPage)}
+                            total={data.total}
+                            perPage={perPage}
+                            onPageChange={setPage}
+                        />
+                    )}
+                </DataTable>
             </div>
             <Sheet open={!!selected} onOpenChange={(open) => !open && setSelected(null)}>
                 <SheetContent className="flex flex-col sm:max-w-md">

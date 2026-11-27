@@ -10,14 +10,23 @@ export const listAdminHashtags = os.admin.hashtags.list
     .handler(async ({ context, input }) => {
         // shortcut: full scan of media on each call (no index can serve unnest+GROUP BY), fine under ~100k rows; move to a cron-refreshed materialized view past that
         const search = input.search?.trim().replace(/^#/, '').toLowerCase() ?? '';
-        return context.prisma.$queryRaw<{ tag: string; mediaCount: number }[]>`
-            SELECT tag, count(*)::int AS "mediaCount"
-            FROM media, unnest(hashtags) AS tag
-            WHERE ${search} = '' OR strpos(lower(tag), ${search}) > 0
-            GROUP BY tag
-            ORDER BY "mediaCount" DESC, tag
-            LIMIT ${input.limit}
+        const rows = await context.prisma.$queryRaw<
+            { tag: string; mediaCount: number; mapName: string | null; total: number }[]
+        >`
+            SELECT h.tag, h."mediaCount", h.total, maps.name AS "mapName"
+            FROM (
+                SELECT tag, count(*)::int AS "mediaCount", (count(*) OVER ())::int AS total
+                FROM media, unnest(hashtags) AS tag
+                WHERE ${search} = '' OR strpos(lower(tag), ${search}) > 0
+                GROUP BY tag
+                ORDER BY "mediaCount" DESC, tag
+                LIMIT ${input.perPage} OFFSET ${(input.page - 1) * input.perPage}
+            ) h
+            LEFT JOIN maps ON maps.id = substr(h.tag, 2)
+            ORDER BY h."mediaCount" DESC, h.tag
         `;
+        // shortcut: total rides on the page rows, so a page past the end reports 0; fine since the UI resets to page 1 on search
+        return { hashtags: rows.map(({ total: _, ...row }) => row), total: rows[0]?.total ?? 0 };
     });
 
 /** Overview of one hashtag; array lookups hit the GIN indexes (media_hashtags_idx, spots_tags_idx) */

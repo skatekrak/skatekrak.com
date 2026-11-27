@@ -621,10 +621,17 @@ export const deleteMapInput = z.object({
 
 export const adminListHashtagsInput = z.object({
     search: z.string().optional(),
-    limit: z.number().int().min(1).max(200).default(50),
+    page: z.number().int().min(1).default(1),
+    perPage: z.number().int().min(1).max(100).default(50),
 });
 
-export const adminListHashtagsOutput = z.array(z.object({ tag: z.string(), mediaCount: z.number() }));
+const hashtagCountSchema = z.object({ tag: z.string(), mediaCount: z.number() });
+
+export const adminListHashtagsOutput = z.object({
+    /** mapName: the Map whose id is the tag without '#', if any */
+    hashtags: z.array(hashtagCountSchema.extend({ mapName: z.string().nullable() })),
+    total: z.number(),
+});
 
 export const adminGetHashtagInput = z.object({ tag: z.string().min(1) });
 
@@ -650,5 +657,5 @@ export const adminGetHashtagOutput = z.object({
     ),
     topContributors: z.array(z.object({ username: z.string(), mediaCount: z.number() })),
     /** Case variants and tags containing this one */
-    similar: adminListHashtagsOutput,
+    similar: z.array(hashtagCountSchema),
 });
