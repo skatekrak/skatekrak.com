@@ -322,6 +322,7 @@ model Spot {
   followedBy     ProfileSpotFollow[]
   mergeEditsFrom SpotEdit[]          @relation("mergeTarget")
 
+  @@index([tags], type: Gin)
   @@map("spots")
 }
 
@@ -388,6 +389,7 @@ model Media {
   likes    Like[]
 
   @@index([spotId, type, createdAt(sort: Desc)])
+  @@index([hashtags], type: Gin)
   @@map("media")
 }
 

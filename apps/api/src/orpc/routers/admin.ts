@@ -377,7 +377,13 @@ export const listSpots = os.admin.spots.list
         }
 
         if (tags && tags.length > 0) {
-            where.tags = { hasEvery: tags };
+            // A spot carries a tag directly or through one of its media's hashtags (matches public spots.listByTags)
+            where.AND = tags.map((tag) => ({
+                OR: [
+                    { tags: { has: tag.replace(/^#/, '') } },
+                    { medias: { some: { hashtags: { has: addHashtagIfNeeded(tag) } } } },
+                ],
+            }));
         }
 
         const orderBy = sortBy === 'mediasStat' ? { medias: { _count: sortOrder } } : { [sortBy]: sortOrder };

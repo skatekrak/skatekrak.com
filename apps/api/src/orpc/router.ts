@@ -31,6 +31,7 @@ import {
     updateAdminCountry,
     uploadCountryImage,
 } from './routers/adminCountries';
+import { getAdminHashtag, listAdminHashtags } from './routers/adminHashtags';
 import { listCities } from './routers/cities';
 import { fetchCountry, listCountries } from './routers/countries';
 import { fetchMap, listMaps } from './routers/maps';
@@ -136,6 +137,10 @@ export const router = os.router({
             update: updateAdminCountry,
             delete: deleteAdminCountry,
             uploadImage: uploadCountryImage,
+        },
+        hashtags: {
+            list: listAdminHashtags,
+            get: getAdminHashtag,
         },
     },
 });

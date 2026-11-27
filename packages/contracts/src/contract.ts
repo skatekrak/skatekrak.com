@@ -39,6 +39,10 @@ import {
     updateMapInput,
     uploadMapImageInput,
     uploadMapImageOutput,
+    adminListHashtagsInput,
+    adminListHashtagsOutput,
+    adminGetHashtagInput,
+    adminGetHashtagOutput,
     deleteMapInput,
 } from './schemas/admin';
 import { CitySchema, createCityInput, deleteCityInput, updateCityInput } from './schemas/cities';
@@ -171,6 +175,10 @@ export const contract = {
             update: oc.input(updateCountryInput).output(CountrySchema),
             delete: oc.input(countryIdInput).output(z.object({ success: z.boolean() })),
             uploadImage: oc.input(uploadMapImageInput).output(uploadMapImageOutput),
+        },
+        hashtags: {
+            list: oc.input(adminListHashtagsInput).output(adminListHashtagsOutput),
+            get: oc.input(adminGetHashtagInput).output(adminGetHashtagOutput),
         },
     },
 };
